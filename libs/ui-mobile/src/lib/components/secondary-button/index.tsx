@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SvgProps } from 'react-native-svg';
-import { Button, ButtonProps, useTheme, Theme } from '@rneui/themed';
+import { Button, useTheme, Theme } from '@rneui/themed';
 import { Colors } from '../../constants';
 import { firstLetterCapitalize } from '../../utils';
 
@@ -14,11 +14,10 @@ type Props = {
 };
 
 type State = {
-  pressed: boolean;
   onPress: () => void;
 };
 
-export const SecondaryButton: FC<ButtonProps & Props & State> = (props: ButtonProps & Props & State) => {
+export const SecondaryButton: FC<Props & State> = (props: Props & State) => {
   const { theme } = useTheme();
 
   return (
@@ -26,7 +25,7 @@ export const SecondaryButton: FC<ButtonProps & Props & State> = (props: ButtonPr
       <Button
         style={styles(props)(theme).buttonContainer}
         buttonStyle={styles(props)(theme).button}
-        raised={!props.pressed}
+        raised
         onPress={props.onPress}
         disabled={props.disabled}
       >
@@ -74,7 +73,7 @@ const styles = (props: Props & State) => (theme: Theme) =>
       lineHeight: 29,
       fontSize: 16,
       textTransform: props.uppercase ? 'uppercase' : 'none',
-      color: props.pressed ? Colors.text.lightGreenTransparent : Colors.text.lightGreenTransparent,
+      color: Colors.text.lightGreenTransparent,
     },
     iconOneContainer: {
       marginRight: 15,
