@@ -53,7 +53,7 @@ export const DateTimePicker = (props: Props) => {
       <TextInput
         label={props.label}
         labelColor={Colors.text.lightGrey}
-        icon={() => <Lock fill={theme.linearGradient.start} />}
+        icon={() => <Lock style={{ color: theme.linearGradient.start }} />}
         value={date.format(props.format)}
         placeholder={props.placeholder}
         onFocus={handleOnFocus}

@@ -24,7 +24,6 @@ exports[`PdfViewer -  minimal props -  renders as before 1`] = `
       cacheEnabled={true}
       fraudulentWebsiteWarningEnabled={true}
       hasOnFileDownload={false}
-      hasOnOpenWindowEvent={false}
       injectedJavaScriptBeforeContentLoadedForMainFrameOnly={true}
       injectedJavaScriptForMainFrameOnly={true}
       javaScriptEnabled={true}
