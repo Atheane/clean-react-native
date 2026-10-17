@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react-native';
 import { ThemeProvider } from '@rneui/themed';
 import { Love } from '../assets';
-import { SecondaryButton } from '../components/secondary-button';
+import { SecondaryButton } from '../components/buttons/secondary-button';
 import { theme } from '../theme';
 
 describe('SecondaryButton - ', () => {

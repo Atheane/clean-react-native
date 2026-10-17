@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react-native';
 import { ThemeProvider } from '@rneui/themed';
-import { SelectNumber } from '../components/select-number';
+import { SelectNumber } from '../components/inputs/select-number';
 import { theme } from '../theme';
 import { Love } from '../assets';
 

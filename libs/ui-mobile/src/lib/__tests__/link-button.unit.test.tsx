@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react-native';
 import { ThemeProvider } from '@rneui/themed';
-import { LinkButton } from '../components/link-button';
+import { LinkButton } from '../components/buttons/link-button';
 import { LinkButtonColors } from '../types';
 import { theme } from '../theme';
 import { Love } from '../assets';

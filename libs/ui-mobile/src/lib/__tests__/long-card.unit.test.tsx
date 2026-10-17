@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react-native';
 import { ThemeProvider } from '@rneui/themed';
 import { Love } from '../assets';
-import { LongCard } from '../components/long-card';
+import { LongCard } from '../components/cards/long-card';
 import { theme } from '../theme';
 
 describe('LongCard - ', () => {

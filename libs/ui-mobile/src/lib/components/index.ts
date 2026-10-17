@@ -1,65 +1,65 @@
 // Banners
-import { Banner } from './banner';
+import { Banner } from './banners/banner';
 // Backgrounds
-import { BottomBackground } from './bottom-background';
-import { ScrollBackground } from './scroll-background';
-import { TopBackground } from './top-background';
-import { TopDownBackground } from './top-down-background';
-import { ViewBackground } from './view-background';
+import { BottomBackground } from './backgrounds/bottom-background';
+import { ScrollBackground } from './backgrounds/scroll-background';
+import { TopBackground } from './backgrounds/top-background';
+import { TopDownBackground } from './backgrounds/top-down-background';
+import { ViewBackground } from './backgrounds/view-background';
 // Buttons
-import { PrimaryButton } from './primary-button';
-import { SecondaryButton } from './secondary-button';
-import { SubmitButton } from './submit-button';
-import { LinkButton } from './link-button';
-import { SwitchButton } from './switch-button';
-import { GreenBackButton } from './green-back-button';
+import { PrimaryButton } from './buttons/primary-button';
+import { SecondaryButton } from './buttons/secondary-button';
+import { SubmitButton } from './buttons/submit-button';
+import { LinkButton } from './buttons/link-button';
+import { SwitchButton } from './buttons/switch-button';
+import { GreenBackButton } from './buttons/green-back-button';
 // Cards
-import { EventCard } from './event-card';
-import { LongCard } from './long-card';
-import { CardScroller } from './card-scroller';
-import { TransactionsCard } from './transactions-card';
-import { TouchCardKpi } from './touch-card-kpi';
-import { TouchCardText } from './touch-card-text';
+import { EventCard } from './cards/event-card';
+import { LongCard } from './cards/long-card';
+import { CardScroller } from './cards/card-scroller';
+import { TransactionsCard } from './cards/transactions-card';
+import { TouchCardKpi } from './cards/touch-card-kpi';
+import { TouchCardText } from './cards/touch-card-text';
 // Checkboxes
-import { MultipleOptionsCheckBox } from './multiple-options-checkBox';
+import { MultipleOptionsCheckBox } from './checkboxes/multiple-options-checkBox';
 // Dropdowns
-import { Dropdown } from './dropdown';
-import { CountryPicker } from './country-picker';
-import { DateTimePicker } from './datetime-picker';
+import { Dropdown } from './dropdowns/dropdown';
+import { CountryPicker } from './dropdowns/country-picker';
+import { DateTimePicker } from './dropdowns/datetime-picker';
 // Forms
-import { ILoginFormData, FormLogin } from './form-login';
-import { IResetPasswordFormData, FormResetPassword } from './form-reset-password';
-import { ISignupStep1FormData, FormSignupStep1 } from './form-signup-step1';
-import { ISignupStep2FormData, FormSignupStep2 } from './form-signup-step2';
-import { ISignupStep3FormData, FormSignupStep3 } from './form-signup-step3';
-import { ISignupStep4FormData, FormSignupStep4 } from './form-signup-step4';
-import { ISignupStep5FormData, FormSignupStep5 } from './form-signup-step5';
-import { FlyForm } from './fly-form';
-import { FoodForm } from './food-form';
-import { HouseForm } from './house-form';
-import { TransportForm } from './transport-form';
+import { ILoginFormData, FormLogin } from './forms/form-login';
+import { IResetPasswordFormData, FormResetPassword } from './forms/form-reset-password';
+import { ISignupStep1FormData, FormSignupStep1 } from './forms/form-signup-step1';
+import { ISignupStep2FormData, FormSignupStep2 } from './forms/form-signup-step2';
+import { ISignupStep3FormData, FormSignupStep3 } from './forms/form-signup-step3';
+import { ISignupStep4FormData, FormSignupStep4 } from './forms/form-signup-step4';
+import { ISignupStep5FormData, FormSignupStep5 } from './forms/form-signup-step5';
+import { FlyForm } from './forms/fly-form';
+import { FoodForm } from './forms/food-form';
+import { HouseForm } from './forms/house-form';
+import { TransportForm } from './forms/transport-form';
 // Inputs
-import { TextInput } from './text-input';
-import { EmailInput } from './email-input';
-import { PasswordInput } from './password-input';
-import { SelectNumber } from './select-number';
-import { PhoneSecurityPinInput } from './phone-security-pin-input';
-import { PhoneValidationCodeInput } from './phone-validation-code-input';
-import { Slider } from './slider';
+import { TextInput } from './inputs/text-input';
+import { EmailInput } from './inputs/email-input';
+import { PasswordInput } from './inputs/password-input';
+import { SelectNumber } from './inputs/select-number';
+import { PhoneSecurityPinInput } from './inputs/phone-security-pin-input';
+import { PhoneValidationCodeInput } from './inputs/phone-validation-code-input';
+import { Slider } from './inputs/slider';
 // Lists
-import { TransactionsCardsList } from './transactions-cards-list';
-import { WhiteBalanceList } from './white-balance-list';
+import { TransactionsCardsList } from './lists/transactions-cards-list';
+import { WhiteBalanceList } from './lists/white-balance-list';
 // Others
-import { PdfViewer } from './pdf-viewer';
-import { CopyValueClipboard } from './copy-value-clipboard';
-import { TransactionItem } from './transaction-item';
-import { GraphCO2 } from './graph-co2';
+import { PdfViewer } from './others/pdf-viewer';
+import { CopyValueClipboard } from './others/copy-value-clipboard';
+import { TransactionItem } from './others/transaction-item';
+import { GraphCO2 } from './others/graph-co2';
 // Searchboxes
-import { SearchModal } from './search-modal';
+import { SearchModal } from './searchboxes/search-modal';
 // Texts
-import { ErrorMessage } from './error-message';
-import { WhiteBalance } from './white-balance';
-import { NoCO2 } from './no-co2';
+import { ErrorMessage } from './texts/error-message';
+import { WhiteBalance } from './texts/white-balance';
+import { NoCO2 } from './texts/no-co2';
 
 export {
   // Banners

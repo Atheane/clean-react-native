@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react-native';
 import { ThemeProvider } from '@rneui/themed';
-import { SearchModal } from '../components/search-modal';
+import { SearchModal } from '../components/searchboxes/search-modal';
 import { theme } from '../theme';
 import { Love } from '../assets';
 

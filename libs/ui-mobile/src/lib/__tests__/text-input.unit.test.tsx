@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react-native';
 import { ThemeProvider } from '@rneui/themed';
-import { TextInput } from '../components/text-input';
+import { TextInput } from '../components/inputs/text-input';
 import { theme } from '../theme';
 import { Colors } from '../constants';
 import { Love } from '../assets';

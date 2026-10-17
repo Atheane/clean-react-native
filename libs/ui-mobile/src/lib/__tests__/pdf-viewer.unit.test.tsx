@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react-native';
 import { ThemeProvider } from '@rneui/themed';
-import { PdfViewer } from '../components/pdf-viewer';
+import { PdfViewer } from '../components/others/pdf-viewer';
 import { theme } from '../theme';
 
 describe('PdfViewer - ', () => {

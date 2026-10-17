@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react-native';
 import { ThemeProvider } from '@rneui/themed';
-import { GreenBackButton } from '../components/green-back-button';
+import { GreenBackButton } from '../components/buttons/green-back-button';
 import { theme } from '../theme';
 
 describe('GreenBackButton - ', () => {

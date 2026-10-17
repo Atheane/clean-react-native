@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react-native';
 import { ThemeProvider } from '@rneui/themed';
 import { Love } from '../assets';
-import { PrimaryButton } from '../components/primary-button';
+import { PrimaryButton } from '../components/buttons/primary-button';
 import { theme } from '../theme';
 
 describe('PrimaryButton - ', () => {
