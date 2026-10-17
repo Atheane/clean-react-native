@@ -1,0 +1,74 @@
+{
+  "root": true,
+  "plugins": [
+    "@nx",
+    "react",
+    "@typescript-eslint",
+    "prettier",
+    "jest"
+  ],
+  "ignorePatterns": [
+    "**/*"
+  ],
+  "rules": {
+    "no-console": 1,
+    "prettier/prettier": 2,
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-namespace": "off",
+    "jest/expect-expect": "off",
+    "jest/no-disabled-tests": "warn",
+    "jest/no-mocks-import": "off",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error",
+    "react/react-in-jsx-scope": 0
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.ts",
+        "*.tsx",
+        "*.js",
+        "*.jsx"
+      ],
+      "rules": {
+        "@nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "*",
+                "onlyDependOnLibsWithTags": [
+                  "*"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
+      "extends": [
+        "plugin:@nx/typescript"
+      ],
+      "rules": {}
+    },
+    {
+      "files": [
+        "*.js",
+        "*.jsx"
+      ],
+      "extends": [
+        "plugin:@nx/javascript"
+      ],
+      "rules": {}
+    }
+  ]
+}

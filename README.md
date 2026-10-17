@@ -1,92 +1,159 @@
-# clean-rn
+# clean-rn monorepo
 
+## Prerequisites
+node v18.14.2, npm
 
+npx installed
+```
+npm install -g npx
+```
+nx can be installed locally
 
 ## Getting started
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+This repository is a monorepo, managed by nx https://nx.dev/
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/BankApp/clean-rn.git
-git branch -M main
-git push -uf origin main
+npm install
 ```
 
-## Integrate with your tools
+Create an expo application
 
-- [ ] [Set up project integrations](https://gitlab.com/BankApp/clean-rn/-/settings/integrations)
+```
+npx nx g @nx/expo:app <your-app-name>
+```
 
-## Collaborate with your team
+Start the app
+```
+npx nx start <your-app-name>
+```
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+Install Expo Go on your iPhone or Android
+Flash the QR code
 
-## Test and Deploy
+This monorepo already contains two application, `bank-app` is bank mobile application, and `storybook` is the application showing bank mobile application components in a isolated application. It also contains an ui library `ui-mobile`. You can simply import any component in your application this way (example with PrimaryButto component and Love svg asset):
 
-Use the built-in continuous integration in GitLab.
+```
+import { PrimaryButton, Love } from '@clean-rn/ui-mobile';
+```
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+To start storybook:
+```
+npx nx start storybook
+```
 
-***
+## Tests
 
-# Editing this README
+To run tests for the whole monnorepo
+```
+npm run test
+```
+It will run tests on all affected app and lib in monorepo.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+To run tests just for your lib or app (example with ui-mobile lib)
+```
+npx nx test ui-mobile
+```
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+## Commits, commitzen and pre-commit hook, linter and formatter
 
-## Name
-Choose a self-explaining name for your project.
+```
+git commit
+```
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+It will launch commitzen cli to help you shape clean commits.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+There is a pre-commit hook that will check if code is correctly linted.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+If you are on vscode IDE, you can simply install vscode extensions:
+dbaeumer.vscode-eslint
+esbenp.prettier-vscode
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+and define the following settings in .vscode > settings.json
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+```
+{
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": false,
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+}
+```
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+It will save prettier formatting on saving and show eslint rules warn and errors in editor.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+## Push
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+```
+git push origin your_branch
+```
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+This will launch pre-push husk hook and block push if tests fails or if test coverage requirements are not met.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+## Add a component
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+New ui compoennts should be added in ui-mobile lib, in components folder.
+Please also make sure to add a snapshot test in __tests__ folder. You can check whether coverage is 100% met with libs > ui-mobile > coverage > lcov-report > index.html file opened in your OS file manager (coverage folder is not committed, and can be launched byt running once `npm run test``)
 
-## License
-For open source projects, say how it is licensed.
+Each new ui component should be showed cased in storybook app. Simply add a file in storybook > src > app > stories, with the following pattern : ComponentName.stories.tsx
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+In story file, import component from “@clean-rn/ui-mobile” to display it in storybook app
+
+For now, you have to add manually this line of code in Storybook > app > .storybook > storybook.requires.ts
+
+```jsx
+const getStories = () => {
+  return {
+...
+    './stories/ComponentName.stories.tsx': require('../stories/ComponentName.stories'),
+...
+  };
+};
+```
+
+I will add a script to do it with a nx command
+
+Now simply start storybook app to display new component in storybook
+
+```bash
+npx nx start storybook
+```
+
+## Deployment with expo
+
+1. Install eas-cli
+
+```
+npm install -g eas-cli
+```
+
+2. Then create a expo account (https://expo.dev/) and login in eas-cli
+
+```
+npx eas login
+```
+
+3. Enter email and password as invited by cli.
+
+4. Register env variables as secrets on https://expo.dev/accounts/CleanRN/projects/<your-app-name>/secrets
+
+5. Build
+
+```
+nx build <your-app-name>
+```
+
+cli will guide you on Android and ios
+
+On free expo tier, you may have 1 or 2h of delay. You will find .aab on expo platform (url will be display by eas-cli).

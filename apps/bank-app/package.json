@@ -1,0 +1,26 @@
+{
+  "name": "bank-app",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-native": "*",
+    "@testing-library/react-native": "*",
+    "metro-config": "*",
+    "react-native": "*",
+    "expo": "*",
+    "react-native-svg": "*",
+    "react-native-web": "*",
+    "@nx/expo": "*",
+    "@expo/metro-config": "*",
+    "react": "*",
+    "expo-linear-gradient": "*",
+    "@rneui/themed": "*",
+    "@expo-google-fonts/roboto": "*",
+    "@expo-google-fonts/martel-sans": "*",
+    "expo-localization": "*"
+  },
+  "scripts": {
+    "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp package-lock.json apps/bank-app",
+    "eas-build-post-install": "cd ../../ && node tools/scripts/eas-build-post-install.mjs . apps/bank-app"
+  }
+}
