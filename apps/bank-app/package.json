@@ -12,7 +12,11 @@
     "react-native-web": "*",
     "@nx/expo": "*",
     "@expo/metro-config": "*",
-    "react": "*"
+    "react": "*",
+    "expo-linear-gradient": "*",
+    "@rneui/themed": "*",
+    "@expo-google-fonts/roboto": "*",
+    "@expo-google-fonts/martel-sans": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp package-lock.json apps/bank-app",
