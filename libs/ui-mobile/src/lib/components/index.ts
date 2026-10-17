@@ -18,9 +18,11 @@ import { EmailInput } from './email-input';
 import { ErrorMessage } from './error-message';
 import { PasswordInput } from './password-input';
 import { SubmitButton } from './submit-button';
+import { MultipleOptionsCheckBox } from './multiple-options-checkBox';
 import { LoginFormData, FormLogin } from './form-login';
 import { FormResetPassword, ResetPasswordFormData } from './form-reset-password';
 import { SignupStep1FormData, FormSignupStep1 } from './form-signup-step1';
+import { SignupStep2FormData, FormSignupStep2 } from './form-signup-step2';
 export {
   PrimaryButton,
   SecondaryButton,
@@ -48,4 +50,7 @@ export {
   ResetPasswordFormData,
   SignupStep1FormData,
   FormSignupStep1,
+  MultipleOptionsCheckBox,
+  SignupStep2FormData,
+  FormSignupStep2,
 };

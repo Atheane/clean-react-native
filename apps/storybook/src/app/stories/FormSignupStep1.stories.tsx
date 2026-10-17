@@ -47,19 +47,22 @@ export const Dynamic: FormSignupStep1Story = (args) => {
 
   const { t } = useTranslation();
 
-  const onSubmit = useCallback((formData: SignupStep1FormData) => {
-    if (formData.password !== formData.confirmPassword) {
-      setErrorPasswordMismatch(
-        new AuthError.InvalidPassword({
-          cause: firstLetterCapitalize(t('screens.signupstep1.error.auth')),
-        }),
-      );
-      return;
-    } else {
-      setErrorPasswordMismatch(null);
-    }
-    Logger.getInstance().debug(formData);
-  }, []);
+  const onSubmit = useCallback(
+    (formData: SignupStep1FormData) => {
+      if (formData.password !== formData.confirmPassword) {
+        setErrorPasswordMismatch(
+          new AuthError.InvalidPassword({
+            cause: firstLetterCapitalize(t('screens.signupstep1.error.auth')),
+          }),
+        );
+        return;
+      } else {
+        setErrorPasswordMismatch(null);
+      }
+      Logger.getInstance().debug(formData);
+    },
+    [t],
+  );
 
   return (
     <FormSignupStep1

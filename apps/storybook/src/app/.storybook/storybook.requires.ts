@@ -69,6 +69,9 @@ const getStories = () => {
     './stories/FormLogin.stories.tsx': require('../stories/FormLogin.stories'),
     './stories/FormResetPassword.stories.tsx': require('../stories/FormResetPassword.stories'),
     './stories/SubmitButton.stories.tsx': require('../stories/SubmitButton.stories'),
+    './stories/FormSignupStep1.stories.tsx': require('../stories/FormSignupStep1.stories'),
+    './stories/FormSignupStep2.stories.tsx': require('../stories/FormSignupStep2.stories'),
+    './stories/MultipleOptionsCheckBox.stories.tsx': require('../stories/MultipleOptionsCheckBox.stories'),
   };
 };
 

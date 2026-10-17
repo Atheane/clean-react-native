@@ -1,7 +1,7 @@
 <svg id="radio_select_On" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23">
-  <g id="Ellipse_1102" data-name="Ellipse 1102" fill="#fff" stroke="#bacb46" stroke-width="3">
+  <g id="Ellipse_1102" data-name="Ellipse 1102" fill="#fff" stroke="currentColor" stroke-width="3">
     <circle cx="11.5" cy="11.5" r="11.5" stroke="none"/>
     <circle cx="11.5" cy="11.5" r="10" fill="none"/>
   </g>
-  <circle id="Ellipse_1103" data-name="Ellipse 1103" cx="4.5" cy="4.5" r="4.5" transform="translate(7 7)" fill="#bfd23a"/>
+  <circle id="Ellipse_1103" data-name="Ellipse 1103" cx="4.5" cy="4.5" r="4.5" transform="translate(7 7)" fill="currentColor"/>
 </svg>
