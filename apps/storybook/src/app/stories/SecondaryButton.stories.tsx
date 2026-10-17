@@ -27,7 +27,11 @@ export const Static: SecondaryButtonStory = (args) => <SecondaryButton {...args}
 export const Icon: SecondaryButtonStory = (args) => (
   <SecondaryButton
     iconOne={() => (
-      <Logout width={27} height={27} style={{ color: Colors.icon.lightGreen } as StyleProp<ViewStyle>} />
+      <Logout
+        width={27}
+        height={27}
+        style={{ color: Colors.icon.lightGreenTransparent } as StyleProp<ViewStyle>}
+      />
     )}
     {...args}
   />

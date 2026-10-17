@@ -1,7 +1,6 @@
+import { StyleProp, ViewStyle } from 'react-native';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
-
-import { SearchModal, FlyFrom } from '@clean-rn/ui-mobile';
-
+import { SearchModal, FlyFrom, Colors } from '@clean-rn/ui-mobile';
 import { airports, IAirport } from '@clean-rn/carbon/domain';
 
 import { WithSwitch, ValidationStatus } from '../wrappers';
@@ -17,7 +16,7 @@ const SearchModalMeta: ComponentMeta<typeof SearchModal> = {
     onSelect: { action: 'onSelect' },
   },
   args: {
-    icon: FlyFrom,
+    icon: () => <FlyFrom style={{ color: Colors.icon.lightGreenTransparent } as StyleProp<ViewStyle>} />,
     label: 'Aéroport de départ',
     placeholder: 'Rechercher',
     data,

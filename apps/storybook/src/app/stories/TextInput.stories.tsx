@@ -1,6 +1,6 @@
+import { StyleProp, ViewStyle } from 'react-native';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
-
-import { TextInput, LoveGreen, Colors } from '@clean-rn/ui-mobile';
+import { TextInput, Love, Colors } from '@clean-rn/ui-mobile';
 
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
@@ -21,7 +21,13 @@ const TextInputMeta: ComponentMeta<typeof TextInput> = {
   args: {
     label: 'Firstname',
     lowerCase: false,
-    icon: () => <LoveGreen width={27} height={27} />,
+    icon: () => (
+      <Love
+        width={27}
+        height={27}
+        style={{ color: Colors.icon.lightGreenTransparent } as StyleProp<ViewStyle>}
+      />
+    ),
   },
   decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
 };

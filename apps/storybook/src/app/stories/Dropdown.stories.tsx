@@ -1,7 +1,8 @@
+import { StyleProp, ViewStyle } from 'react-native';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { sort } from 'fast-sort';
 
-import { Flame, Department, Dropdown } from '@clean-rn/ui-mobile';
+import { Flame, Department, Dropdown, Colors } from '@clean-rn/ui-mobile';
 import { IHeatingType } from '@clean-rn/carbon/domain';
 
 import { departmentsFR, IDepartment } from '@clean-rn/carbon/domain';
@@ -21,7 +22,7 @@ const translations = {
 };
 
 const DropdownMeta: ComponentMeta<typeof Dropdown> = {
-  title: 'Pending/Shared/Dropdown',
+  title: 'Validated/Shared/Dropdown',
   component: Dropdown,
   argTypes: {
     onSelect: { action: 'onSelect' },
@@ -33,9 +34,9 @@ const DropdownMeta: ComponentMeta<typeof Dropdown> = {
       key,
       value: translations[value],
     })),
-    icon: Flame,
+    icon: () => <Flame style={{ color: Colors.icon.lightGreenTransparent } as StyleProp<ViewStyle>} />,
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.PENDING)],
+  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
 };
 
 export default DropdownMeta;
@@ -56,6 +57,6 @@ export const Departments: DropdownStory = (args) => (
     label={'State departments'}
     placeholder={'State department'}
     data={sortedDeps}
-    icon={Department}
+    icon={() => <Department style={{ color: Colors.icon.lightGreenTransparent } as StyleProp<ViewStyle>} />}
   />
 );

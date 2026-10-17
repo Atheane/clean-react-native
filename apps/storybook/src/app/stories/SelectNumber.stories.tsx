@@ -1,6 +1,6 @@
+import { StyleProp, ViewStyle } from 'react-native';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
-
-import { SelectNumber, Surface } from '@clean-rn/ui-mobile';
+import { Colors, SelectNumber, Surface } from '@clean-rn/ui-mobile';
 
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
@@ -12,7 +12,7 @@ const SelectNumberMeta: ComponentMeta<typeof SelectNumber> = {
   },
   args: {
     label: 'Surface',
-    icon: Surface,
+    icon: () => <Surface style={{ color: Colors.icon.lightGreenTransparent } as StyleProp<ViewStyle>} />,
   },
   decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
 };

@@ -1,4 +1,6 @@
 import { useTranslation } from 'react-i18next';
+import { StyleProp, ViewStyle } from 'react-native';
+
 import { ICountry } from '@clean-rn/auth/domain';
 
 import { Location } from '../../assets';
@@ -52,7 +54,7 @@ export const CountryPicker = (props: IProps & IState) => {
       {...props}
       labelColor={Colors.text.lightGrey}
       data={sortedData}
-      icon={Location}
+      icon={() => <Location style={{ color: Colors.icon.lightGreenTransparent } as StyleProp<ViewStyle>} />}
       placeholder={t('countryPicker.placeholder')}
       onSelect={handleOnSelect}
       defaultValue={getFlagAndName(defaultValue)}
