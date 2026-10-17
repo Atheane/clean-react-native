@@ -1,7 +1,6 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Button } from '@rneui/themed';
-import { SvgProps } from 'react-native-svg';
 
 import { Colors, FontNames } from '../../constants';
 import { RightArrowBlue, RightArrowGreen, RightArrowPink, RightArrowWhite } from '../../assets';
@@ -11,7 +10,6 @@ type IProps = {
   colorOption: LinkButtonColors;
   title?: string;
   arrow?: boolean;
-  iconOne?: React.FC<SvgProps>;
   pressed: boolean;
   onPress: () => void;
 };
@@ -29,7 +27,6 @@ export const LinkButton: FC<IProps> = (props: IProps) => {
           </View>
         )}
         {props.title && <Text style={styles(props).title}>{props.title}</Text>}
-        {props.iconOne && <props.iconOne />}
       </View>
     </Button>
   );
@@ -39,8 +36,6 @@ const getColor = (option: LinkButtonColors) => (isPressed: boolean) => {
   switch (option) {
     case LinkButtonColors.PINK:
       return isPressed ? Colors.link.pinkTransparent : Colors.link.pink;
-    case LinkButtonColors.GREEN:
-      return isPressed ? Colors.link.lightGreenTransparent : Colors.link.lightGreen;
     case LinkButtonColors.BLUE:
       return isPressed ? Colors.link.darkBlueTransparent : Colors.link.darkBlue;
     case LinkButtonColors.WHITE:
