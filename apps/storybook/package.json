@@ -29,7 +29,8 @@
     "fast-sort": "*",
     "react-native-select-dropdown": "*",
     "expo-constants": "*",
-    "@bank/carbon-weight": "*"
+    "@bank/carbon-weight": "*",
+    "react-native-numeric-input": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",

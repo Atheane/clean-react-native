@@ -29,6 +29,7 @@
     "react-dom": "18.2.0",
     "react-native": "0.72.3",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
+    "react-native-numeric-input": "^1.9.1",
     "react-native-select-dropdown": "^3.3.4",
     "react-native-svg": "13.9.0",
     "react-native-svg-transformer": "1.0.0",

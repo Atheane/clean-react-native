@@ -7,6 +7,7 @@ import { PdfViewer } from './pdf-viewer';
 import { TextInput } from './text-input';
 import { Dropdown } from './dropdown';
 import { SearchModal } from './search-modal';
+import { SelectNumber } from './select-number';
 export {
   PrimaryButton,
   SecondaryButton,
@@ -17,4 +18,5 @@ export {
   TextInput,
   Dropdown,
   SearchModal,
+  SelectNumber,
 };

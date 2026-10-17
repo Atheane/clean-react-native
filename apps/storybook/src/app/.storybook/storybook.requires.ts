@@ -56,6 +56,7 @@ const getStories = () => {
     './stories/TextInput.stories.tsx': require('../stories/TextInput.stories'),
     './stories/Dropdown.stories.tsx': require('../stories/Dropdown.stories'),
     './stories/SearchModal.stories.tsx': require('../stories/SearchModal.stories'),
+    './stories/SelectNumber.stories.tsx': require('../stories/SelectNumber.stories'),
   };
 };
 
