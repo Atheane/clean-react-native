@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { StyleSheet, Pressable, Text, View, TouchableOpacity } from 'react-native';
 import { Colors } from '../../constants';
 import { Delete } from '../../assets';

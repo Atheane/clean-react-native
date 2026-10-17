@@ -9,13 +9,13 @@ import { Logger } from '@clean-rn/ddd';
 import { FlyEmissions } from '@clean-rn/carbon/domain';
 
 import { FlyFrom, FlyTo, PlaneEmpty } from '../../assets';
-import { Colors } from '../../constants';
 
 import { SearchModal } from '../search-modal';
 import { SecondaryButton } from '../secondary-button';
 import { SelectNumber } from '../select-number';
 import { SwitchButton } from '../switch-button';
 import { CardScroller } from '../card-scroller';
+import { Colors } from '../../constants';
 
 enum FLY_TYPE {
   SIMPLE = 'simple',
@@ -59,28 +59,28 @@ export const FlyForm = (props: IProps) => {
     (item: IData, property: keyof FlightI) => {
       props.onChangeField(property, item.key);
     },
-    [props],
+    [props.onChangeField],
   );
 
   const handleOnChangeFlightNumber = useCallback(
     (value: number) => {
       props.onChangeField('nbPassengers', value);
     },
-    [props],
+    [props.onChangeField],
   );
 
   const handleOnToggleWays = useCallback(
     ({ key }: { key: string }) => {
       props.onChangeField('roundTrip', FlyTypeComparator[key as FLY_TYPE]);
     },
-    [props],
+    [props.onChangeField],
   );
 
   const handleOnToggleSeat = useCallback(
     ({ key }: { key: string }) => {
       props.onChangeField('seatType', SeatE[key as SeatE]);
     },
-    [props],
+    [props.onChangeField],
   );
 
   const mapFlightToCards = (flights: FlightI[]) => {
@@ -133,7 +133,7 @@ export const FlyForm = (props: IProps) => {
           label={t('screens.carbonFly.dropdown.arrival')}
           placeholder={t('screens.carbonFly.dropdown.arrival')}
           data={props.airports}
-          icon={() => <FlyTo style={{ color: Colors.icon.lightGreenTransparent }} />}
+          icon={FlyTo}
           onSelect={(data: IData) => handleOnChangeField(data, 'toIATA')}
         />
       </View>

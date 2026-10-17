@@ -28,7 +28,6 @@ export interface SignupStep3FormData {
 export const FormSignupStep3 = (props: IProps) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
-  const [code, setCode] = useState('');
   return (
     <View style={styles.container}>
       <View style={styles.input}>
@@ -37,7 +36,6 @@ export const FormSignupStep3 = (props: IProps) => {
           name="code"
           rules={{ required: true }}
           render={({ field: { onChange, value } }) => {
-            setCode(value);
             return <PhoneValidationCodeInput value={value} onChange={onChange} onFocus={props.onFocus} />;
           }}
         />
@@ -56,7 +54,6 @@ export const FormSignupStep3 = (props: IProps) => {
           uppercase={false}
           onSubmit={props.onSubmit}
           loading={props.loading}
-          disabled={!code || code?.length < 6}
         />
       </View>
     </View>

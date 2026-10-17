@@ -23,7 +23,7 @@ export const MultipleOptionsCheckBox = (props: IProps) => {
       setCurrentOption(option);
       props.onChange(option);
     },
-    [props],
+    [props.onChange],
   );
 
   return (
