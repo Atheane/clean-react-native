@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from 'react';
 import { View, StyleSheet, Text, Dimensions } from 'react-native';
 import { useTheme } from '@rneui/themed';
