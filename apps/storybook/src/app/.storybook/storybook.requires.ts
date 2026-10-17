@@ -51,6 +51,7 @@ const getStories = () => {
     './stories/SecondaryButton.stories.tsx': require('../stories/SecondaryButton.stories'),
     './stories/LinkButton.stories.tsx': require('../stories/LinkButton.stories'),
     './stories/LongCard.stories.tsx': require('../stories/LongCard.stories'),
+    './stories/GreenBackButton.stories.tsx': require('../stories/GreenBackButton.stories'),
   };
 };
 
