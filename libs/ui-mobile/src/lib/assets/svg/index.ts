@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import Love from './love.svg';
+import LoveWhite from './love-white.svg';
+import LoveGreen from './love-green.svg';
 import Validate from './validate.svg';
 import Logout from './logout.svg';
 import DropDownChevron from './dropdown-chevron.svg';
@@ -10,4 +11,15 @@ import Pill from './pill.svg';
 import Search from './search.svg';
 import Close from './close.svg';
 
-export { Love, Validate, Logout, DropDownChevron, Location, RightChevron, Pill, Search, Close };
+export {
+  LoveWhite,
+  LoveGreen,
+  Validate,
+  Logout,
+  DropDownChevron,
+  Location,
+  RightChevron,
+  Pill,
+  Search,
+  Close,
+};

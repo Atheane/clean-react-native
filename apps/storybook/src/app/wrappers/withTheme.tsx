@@ -1,8 +1,9 @@
 import React from 'react';
+import { Story } from '@storybook/react-native';
 import { ThemeProvider } from '@rneui/themed';
 import { theme } from '@clean-rn/ui-mobile';
 
-export const withTheme = (Story: React.ComponentType) => {
+export const withTheme = (Story: Story) => {
   return (
     <ThemeProvider theme={theme}>
       <Story />

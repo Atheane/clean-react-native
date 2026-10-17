@@ -1,18 +1,19 @@
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { ThemeProvider } from '@rneui/themed';
-import { SecondaryButton, Love, theme } from '@clean-rn/ui-mobile';
+import { PrimaryButton, LoveWhite, Validate, theme } from '@clean-rn/ui-mobile';
 
 export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <SafeAreaView style={styles.container}>
-        <SecondaryButton
+        <PrimaryButton
           title="Hello"
-          fixedSize
+          large
           onPress={() => {
             console.log('Pressed');
           }}
-          iconOne={Love}
+          iconOne={LoveWhite}
+          iconTwo={Validate}
         />
       </SafeAreaView>
     </ThemeProvider>

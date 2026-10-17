@@ -1,7 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
-import { Love, Validate, PrimaryButton } from '@clean-rn/ui-mobile';
-
-// import { withSwitch, ValidationStatus } from '../wrappers';
+import { LoveWhite, Validate, PrimaryButton } from '@clean-rn/ui-mobile';
+import { withSwitch, ValidationStatus } from '../wrappers';
 
 const PrimaryButtonMeta: ComponentMeta<typeof PrimaryButton> = {
   title: 'Validated/Shared/PrimaryButton',
@@ -13,12 +12,10 @@ const PrimaryButtonMeta: ComponentMeta<typeof PrimaryButton> = {
   },
   args: {
     title: "S'inscrire",
-    fixedSize: false,
+    large: false,
     uppercase: true,
   },
-  decorators: [
-    // (Story) => withSwitch(Story, ValidationStatus.VALIDATED)
-  ],
+  decorators: [(Story) => withSwitch(Story, ValidationStatus.VALIDATED)],
 };
 
 export default PrimaryButtonMeta;
@@ -26,7 +23,7 @@ export default PrimaryButtonMeta;
 type PrimaryButtonStory = ComponentStory<typeof PrimaryButton>;
 
 export const Static: PrimaryButtonStory = (args) => <PrimaryButton {...args} />;
-export const OneIcon: PrimaryButtonStory = (args) => <PrimaryButton iconOne={Love} {...args} />;
+export const OneIcon: PrimaryButtonStory = (args) => <PrimaryButton iconOne={LoveWhite} {...args} />;
 export const TwoIcons: PrimaryButtonStory = (args) => {
-  return <PrimaryButton iconOne={Love} iconTwo={Validate} {...args} />;
+  return <PrimaryButton iconOne={LoveWhite} iconTwo={Validate} {...args} />;
 };

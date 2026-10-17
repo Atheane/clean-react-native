@@ -1,7 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { SecondaryButton, Logout } from '@clean-rn/ui-mobile';
 
-// import { withSwitch, ValidationStatus } from '../wrappers';
+import { withSwitch, ValidationStatus } from '../wrappers';
 
 const SecondaryButtonMeta: ComponentMeta<typeof SecondaryButton> = {
   title: 'Validated/Shared/SecondaryButton',
@@ -12,10 +12,10 @@ const SecondaryButtonMeta: ComponentMeta<typeof SecondaryButton> = {
   },
   args: {
     title: 'Se connecter',
-    fixedSize: false,
+    large: false,
     uppercase: true,
   },
-  // decorators: [(Story) => withSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => withSwitch(Story, ValidationStatus.VALIDATED)],
 };
 
 export default SecondaryButtonMeta;

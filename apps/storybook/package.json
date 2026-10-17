@@ -21,7 +21,8 @@
     "@rneui/themed": "*",
     "@expo-google-fonts/roboto": "*",
     "@expo-google-fonts/martel-sans": "*",
-    "expo-localization": "*"
+    "expo-localization": "*",
+    "react-native-keyboard-aware-scroll-view": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",

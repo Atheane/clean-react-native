@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react-native';
 import { ThemeProvider } from '@rneui/themed';
-import { Love } from '../assets';
+import { LoveWhite } from '../assets';
 import { SecondaryButton } from '../components/secondary-button';
 import { theme } from '../theme';
 
@@ -15,11 +15,11 @@ describe('PrimaryButton - ', () => {
       expect(tree).toMatchSnapshot();
     });
   });
-  describe('fixedSize - ', () => {
+  describe('large - ', () => {
     it('true - renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
-          <SecondaryButton title="test-title" onPress={() => console.log('pressed')} fixedSize />
+          <SecondaryButton title="test-title" onPress={() => console.log('pressed')} large />
         </ThemeProvider>,
       );
       expect(tree).toMatchSnapshot();
@@ -39,7 +39,7 @@ describe('PrimaryButton - ', () => {
     it('true - renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
-          <SecondaryButton title="test-title" onPress={() => console.log('pressed')} iconOne={Love} />
+          <SecondaryButton title="test-title" onPress={() => console.log('pressed')} iconOne={LoveWhite} />
         </ThemeProvider>,
       );
       expect(tree).toMatchSnapshot();

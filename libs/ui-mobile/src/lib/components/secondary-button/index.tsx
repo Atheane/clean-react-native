@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { Button, useTheme, Theme } from '@rneui/themed';
 import { Colors } from '../../constants';
@@ -7,7 +7,7 @@ import { firstLetterCapitalize } from '../../utils';
 
 type IProps = {
   title: string;
-  fixedSize?: boolean;
+  large?: boolean;
   uppercase?: boolean;
   iconOne?: React.FC<SvgProps>;
   loading?: boolean;
@@ -45,9 +45,9 @@ export const SecondaryButton: FC<IProps> = (props: IProps) => {
 
 const styles = (props: IProps) => (theme: Theme) =>
   StyleSheet.create({
-    container: props.fixedSize
+    container: props.large
       ? {
-          width: 309,
+          width: Dimensions.get('window').width * 0.8,
           height: 55,
         }
       : {

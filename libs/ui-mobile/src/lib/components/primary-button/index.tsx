@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Button, useTheme, Theme } from '@rneui/themed';
@@ -8,7 +8,7 @@ import { firstLetterCapitalize } from '../../utils';
 
 type IProps = {
   title: string;
-  fixedSize?: boolean;
+  large?: boolean;
   uppercase?: boolean;
   iconOne?: React.FunctionComponent<SvgProps>;
   iconTwo?: React.FunctionComponent<SvgProps>;
@@ -56,15 +56,16 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
 
 const styles = (props: IProps) => (theme: Theme) =>
   StyleSheet.create({
-    container: props.fixedSize
+    container: props.large
       ? {
-          width: 309,
+          width: Dimensions.get('window').width * 0.8,
           height: 55,
         }
       : {
           flexDirection: 'row',
         },
     buttonContainer: {
+      backgroundColor: Colors.background.white,
       shadowColor: theme.shadow.color, // iOS
       shadowOffset: theme.shadow.offset, // iOS
       shadowOpacity: theme.shadow.opacity, // iOS
@@ -92,8 +93,7 @@ const styles = (props: IProps) => (theme: Theme) =>
       marginRight: 15,
     },
     iconTwoContainer: {
-      position: 'relative',
-      left: props.fixedSize ? 90 : 40,
+      marginLeft: 15,
     },
     icon: {
       width: 22,
