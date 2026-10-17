@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
 import { EmailInput, useEdit } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus, WithCenterView } from '../wrappers';
 
 const EmailInputMeta: ComponentMeta<typeof EmailInput> = {
   title: 'Inputs/EmailInput',
@@ -20,7 +20,7 @@ const EmailInputMeta: ComponentMeta<typeof EmailInput> = {
     email: 'thisisaveryveryveryverylongemail@gmail.com',
     filled: true,
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
 export default EmailInputMeta;

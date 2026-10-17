@@ -18,6 +18,8 @@ import { EventCard } from './event-card';
 import { LongCard } from './long-card';
 import { CardScroller } from './card-scroller';
 import { TransactionsCard } from './transactions-card';
+import { TouchCardKpi } from './touch-card-kpi';
+import { TouchCardText } from './touch-card-text';
 // Checkboxes
 import { MultipleOptionsCheckBox } from './multiple-options-checkBox';
 // Dropdowns
@@ -33,6 +35,9 @@ import { ISignupStep3FormData, FormSignupStep3 } from './form-signup-step3';
 import { ISignupStep4FormData, FormSignupStep4 } from './form-signup-step4';
 import { ISignupStep5FormData, FormSignupStep5 } from './form-signup-step5';
 import { FlyForm } from './fly-form';
+import { FoodForm } from './food-form';
+import { HouseForm } from './house-form';
+import { TransportForm } from './transport-form';
 // Inputs
 import { TextInput } from './text-input';
 import { EmailInput } from './email-input';
@@ -40,6 +45,7 @@ import { PasswordInput } from './password-input';
 import { SelectNumber } from './select-number';
 import { PhoneSecurityPinInput } from './phone-security-pin-input';
 import { PhoneValidationCodeInput } from './phone-validation-code-input';
+import { Slider } from './slider';
 // Lists
 import { TransactionsCardsList } from './transactions-cards-list';
 import { WhiteBalanceList } from './white-balance-list';
@@ -47,11 +53,13 @@ import { WhiteBalanceList } from './white-balance-list';
 import { PdfViewer } from './pdf-viewer';
 import { CopyValueClipboard } from './copy-value-clipboard';
 import { TransactionItem } from './transaction-item';
+import { GraphCO2 } from './graph-co2';
 // Searchboxes
 import { SearchModal } from './search-modal';
 // Texts
 import { ErrorMessage } from './error-message';
 import { WhiteBalance } from './white-balance';
+import { NoCO2 } from './no-co2';
 
 export {
   // Banners
@@ -74,6 +82,8 @@ export {
   LongCard,
   CardScroller,
   TransactionsCard,
+  TouchCardKpi,
+  TouchCardText,
   // Checkboxes
   MultipleOptionsCheckBox,
   // Dropdowns
@@ -96,6 +106,9 @@ export {
   FormSignupStep4,
   FormSignupStep5,
   FlyForm,
+  FoodForm,
+  HouseForm,
+  TransportForm,
   // Inputs
   TextInput,
   EmailInput,
@@ -103,6 +116,7 @@ export {
   SelectNumber,
   PhoneSecurityPinInput,
   PhoneValidationCodeInput,
+  Slider,
   // Lists
   TransactionsCardsList,
   WhiteBalanceList,
@@ -110,9 +124,11 @@ export {
   PdfViewer,
   CopyValueClipboard,
   TransactionItem,
+  GraphCO2,
   // Searchboxes
   SearchModal,
   // Texts
   ErrorMessage,
   WhiteBalance,
+  NoCO2,
 };

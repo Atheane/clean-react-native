@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { ITransactionType, Amount, TransactionCategory } from '@clean-rn/account/domain';
 import { TransactionsCard } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus, WithCenterView } from '../wrappers';
 
 const TransactionsCardMeta: ComponentMeta<typeof TransactionsCard> = {
   title: 'Cards/TransactionsCard',
@@ -38,7 +38,7 @@ const TransactionsCardMeta: ComponentMeta<typeof TransactionsCard> = {
     ],
     date: 'Mardi 22 septembre 2022',
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.PENDING)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
 export default TransactionsCardMeta;

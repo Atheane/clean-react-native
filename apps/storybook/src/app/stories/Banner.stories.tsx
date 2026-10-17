@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { AccountError } from '@clean-rn/account/domain';
 import { Banner, BannerColors } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus } from '../wrappers';
 
 const BannerMeta: ComponentMeta<typeof Banner> = {
   title: 'Banners/Banner',
@@ -16,7 +16,7 @@ const BannerMeta: ComponentMeta<typeof Banner> = {
     color: BannerColors.PINK,
     rightIcon: true,
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };
 
 export default BannerMeta;

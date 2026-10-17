@@ -1,7 +1,7 @@
 import { StyleProp, ViewStyle } from 'react-native';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { Love, Validate, PrimaryButton, Colors } from '@clean-rn/ui-mobile';
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus, WithCenterView } from '../wrappers';
 
 const PrimaryButtonMeta: ComponentMeta<typeof PrimaryButton> = {
   title: 'Buttons/PrimaryButton',
@@ -16,7 +16,7 @@ const PrimaryButtonMeta: ComponentMeta<typeof PrimaryButton> = {
     large: false,
     uppercase: true,
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
 export default PrimaryButtonMeta;

@@ -1,19 +1,21 @@
 import { WithTheme } from './withTheme';
-import { WithSwitch, ValidationStatus } from './withSwitch';
+import { WithStatus, ValidationStatus } from './withStatus';
 import { WithFont } from './withFont';
 import { WithTranslations } from './withTranslations';
 import { WithScroll } from './withScroll';
 import { WithKeyboardAwareScroll } from './withKeyboardAwareScroll';
 import { WithBackground } from './withBackground';
-import { WithSwitchBelow } from './withSwitchBelow';
+import { WithStatusBelow } from './withStatusBelow';
+import { WithCenterView } from './withCenterView';
 export {
   WithTheme,
-  WithSwitch,
+  WithStatus,
   ValidationStatus,
   WithFont,
   WithTranslations,
   WithScroll,
   WithKeyboardAwareScroll,
   WithBackground,
-  WithSwitchBelow,
+  WithStatusBelow,
+  WithCenterView,
 };

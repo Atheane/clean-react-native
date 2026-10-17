@@ -1,7 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
 import { CopyValueClipboard, Iban as IbanIcon, Bic as BicIcon } from '@clean-rn/ui-mobile';
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus, WithCenterView } from '../wrappers';
 
 const CopyValueClipboardMeta: ComponentMeta<typeof CopyValueClipboard> = {
   title: 'Others/CopyValueClipboard',
@@ -11,7 +11,7 @@ const CopyValueClipboardMeta: ComponentMeta<typeof CopyValueClipboard> = {
     value: 'FR7616798000010000215323243',
     icon: IbanIcon,
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
 export default CopyValueClipboardMeta;

@@ -1,7 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { DateTimePicker } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus, WithCenterView } from '../wrappers';
 
 const DateTimePickerMeta: ComponentMeta<typeof DateTimePicker> = {
   title: 'Dropdowns/DateTimePicker',
@@ -14,7 +14,7 @@ const DateTimePickerMeta: ComponentMeta<typeof DateTimePicker> = {
     format: 'DD/MM/YYYY',
     placeholder: 'Date de naissance',
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
 export default DateTimePickerMeta;

@@ -1,7 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { GreenBackButton } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus } from '../wrappers';
 
 const GreenBackButtonMeta: ComponentMeta<typeof GreenBackButton> = {
   title: 'Buttons/GreenBackButton',
@@ -9,7 +9,7 @@ const GreenBackButtonMeta: ComponentMeta<typeof GreenBackButton> = {
   argTypes: {
     onPress: { action: 'onPress' },
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };
 
 export default GreenBackButtonMeta;

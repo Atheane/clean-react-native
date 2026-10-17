@@ -3,11 +3,9 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { sort } from 'fast-sort';
 
 import { Flame, Department, Dropdown, Colors } from '@clean-rn/ui-mobile';
-import { IHeatingType } from '@clean-rn/carbon/domain';
+import { IHeatingType, departmentsFR, IDepartment } from '@clean-rn/carbon/domain';
 
-import { departmentsFR, IDepartment } from '@clean-rn/carbon/domain';
-
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus, WithCenterView } from '../wrappers';
 
 const translations = {
   electricity: 'Electricity',
@@ -36,7 +34,7 @@ const DropdownMeta: ComponentMeta<typeof Dropdown> = {
     })),
     icon: () => <Flame style={{ color: Colors.icon.lightGreenTransparent } as StyleProp<ViewStyle>} />,
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
 export default DropdownMeta;

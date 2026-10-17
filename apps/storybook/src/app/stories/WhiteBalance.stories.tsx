@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { IAccountType, Bic, Iban } from '@clean-rn/account/domain';
 import { WhiteBalance } from '@clean-rn/ui-mobile';
 
-import { ValidationStatus, WithBackground, WithSwitchBelow } from '../wrappers';
+import { ValidationStatus, WithBackground, WithStatusBelow, WithCenterView } from '../wrappers';
 
 const WhiteBalanceMeta: ComponentMeta<typeof WhiteBalance> = {
   title: 'Texts/WhiteBalance',
@@ -21,8 +21,9 @@ const WhiteBalanceMeta: ComponentMeta<typeof WhiteBalance> = {
     },
   },
   decorators: [
-    (Story) => WithSwitchBelow(Story, ValidationStatus.PENDING),
+    (Story) => WithStatusBelow(Story, ValidationStatus.PENDING),
     (Story) => WithBackground(Story, 480),
+    WithCenterView,
   ],
 };
 

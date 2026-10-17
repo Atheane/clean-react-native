@@ -1,7 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { PasswordInput, useSecure } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus, WithCenterView } from '../wrappers';
 
 const PasswordInputMeta: ComponentMeta<typeof PasswordInput> = {
   title: 'Inputs/PasswordInput',
@@ -15,7 +15,7 @@ const PasswordInputMeta: ComponentMeta<typeof PasswordInput> = {
   args: {
     secured: true,
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
 export default PasswordInputMeta;

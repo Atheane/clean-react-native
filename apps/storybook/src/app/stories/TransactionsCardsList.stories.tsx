@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { ITransactionType, Amount, TransactionCategory } from '@clean-rn/account/domain';
 import { TransactionsCardsList } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus, WithCenterView } from '../wrappers';
 
 const TransactionsCardsListMeta: ComponentMeta<typeof TransactionsCardsList> = {
   title: 'Lists/TransactionsCardsList',
@@ -61,7 +61,7 @@ const TransactionsCardsListMeta: ComponentMeta<typeof TransactionsCardsList> = {
       },
     ],
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
 export default TransactionsCardsListMeta;

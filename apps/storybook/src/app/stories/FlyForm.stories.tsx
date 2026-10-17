@@ -7,7 +7,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { airports } from '@clean-rn/carbon/domain';
 import { FlyForm, useFlyFormData } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus } from '../wrappers';
 
 const formattedAirports = airports
   .map((airport) => ({
@@ -26,7 +26,7 @@ const FlyFormMeta: ComponentMeta<typeof FlyForm> = {
   args: {
     airports: formattedAirports,
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.NOT_VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.NOT_VALIDATED)],
 };
 
 export default FlyFormMeta;

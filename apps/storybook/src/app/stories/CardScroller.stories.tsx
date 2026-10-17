@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
 import { CardScroller, Meeting, Tree } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus, WithCenterView } from '../wrappers';
 
 const CardScrollerMeta: ComponentMeta<typeof CardScroller> = {
   title: 'Cards/CardScroller',
@@ -20,7 +20,7 @@ const CardScrollerMeta: ComponentMeta<typeof CardScroller> = {
     ],
     height: 200,
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
 export default CardScrollerMeta;

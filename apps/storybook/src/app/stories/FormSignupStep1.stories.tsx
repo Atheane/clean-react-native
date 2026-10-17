@@ -11,7 +11,7 @@ import {
   useSecure,
   firstLetterCapitalize,
 } from '@clean-rn/ui-mobile';
-import { WithSwitch, ValidationStatus, WithKeyboardAwareScroll } from '../wrappers';
+import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../wrappers';
 
 const FormSignupStep1Meta: ComponentMeta<typeof FormSignupStep1> = {
   title: 'Forms/FormSignupStep1',
@@ -25,7 +25,7 @@ const FormSignupStep1Meta: ComponentMeta<typeof FormSignupStep1> = {
     securedPassword: true,
     securedConfirmPassword: true,
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED), WithKeyboardAwareScroll],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithKeyboardAwareScroll],
 };
 
 export default FormSignupStep1Meta;

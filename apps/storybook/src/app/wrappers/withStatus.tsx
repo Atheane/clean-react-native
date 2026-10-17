@@ -8,13 +8,9 @@ export enum ValidationStatus {
   PENDING = 'PENDING',
 }
 
-export const WithSwitchBelow = (Story: Story, validationStatus: ValidationStatus) => {
+export const WithStatus = (Story: Story, validationStatus: ValidationStatus) => {
   return (
     <View style={styles(validationStatus).mainContainer}>
-      <View style={styles(validationStatus).storyContainer}>
-        <Story />
-      </View>
-      <Divider />
       {validationStatus === ValidationStatus.VALIDATED && (
         <View style={styles(validationStatus).switchContainer}>
           <Icon name="checkcircleo" type="ant-design" color="#52c41a" />
@@ -33,6 +29,10 @@ export const WithSwitchBelow = (Story: Story, validationStatus: ValidationStatus
           <Text style={styles(validationStatus).title}> Story validation is pending </Text>
         </View>
       )}
+      <Divider />
+      <View style={styles(validationStatus).storyContainer}>
+        <Story />
+      </View>
     </View>
   );
 };
@@ -58,7 +58,7 @@ const styles = (validationStatus: ValidationStatus) => {
       height: '100%',
     },
     switchContainer: {
-      bottom: -200,
+      marginTop: 20,
       justifyContent: 'center',
       flexDirection: 'row',
       flex: 1,
@@ -72,6 +72,7 @@ const styles = (validationStatus: ValidationStatus) => {
     },
     storyContainer: {
       flex: 5,
+      width: '100%',
     },
   });
 };

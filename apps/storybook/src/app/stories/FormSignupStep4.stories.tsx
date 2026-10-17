@@ -8,7 +8,7 @@ import { Logger } from '@clean-rn/ddd';
 import { FormSignupStep4, ISignupStep4FormData } from '@clean-rn/ui-mobile';
 
 import { COUNTRIES_AVAILABLE } from '@clean-rn/auth/domain';
-import { WithSwitch, ValidationStatus, WithScroll } from '../wrappers';
+import { WithStatus, ValidationStatus, WithScroll } from '../wrappers';
 
 const locales = getLocales();
 const defaultCountry = locales[0]?.regionCode || undefined;
@@ -27,7 +27,7 @@ const FormSignupStep4Meta: ComponentMeta<typeof FormSignupStep4> = {
   args: {
     defaultCountry,
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED), WithScroll],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithScroll],
 };
 
 export default FormSignupStep4Meta;

@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
 import { Logger } from '@clean-rn/ddd';
 import { FormSignupStep3, ISignupStep3FormData } from '@clean-rn/ui-mobile';
-import { WithSwitch, ValidationStatus, WithKeyboardAwareScroll } from '../wrappers';
+import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../wrappers';
 
 const FormSignupStep3Meta: ComponentMeta<typeof FormSignupStep3> = {
   title: 'Forms/FormSignupStep3',
@@ -13,7 +13,7 @@ const FormSignupStep3Meta: ComponentMeta<typeof FormSignupStep3> = {
     onSubmit: { action: 'onSubmit' },
   },
   args: {},
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED), WithKeyboardAwareScroll],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithKeyboardAwareScroll],
 };
 
 export default FormSignupStep3Meta;

@@ -239,7 +239,8 @@
       "share": "Partager",
       "reward": "Etre récompensé par la prime CO2",
       "method": "En savoir plus sur la méthode de calcul",
-      "compute": "Calculer"
+      "compute": "Calculer",
+      "consumption": "Consommation"
     },
     "carbonHouse": {
       "title": "Mon logement",
@@ -255,7 +256,8 @@
         "wood": "Bois",
         "heatPump": "Pompe à chaleur",
         "thermalSolar": "Solaire thermique",
-        "propane": "Propane"
+        "propane": "Propane",
+        "unit": " L"
       },
       "slider": {
         "consumption": "consommation",
@@ -273,11 +275,13 @@
         "electric": "Electrique",
         "gasoil": "Diesel (inclus Hybride)",
         "GNV": "GNV (Gas Naturel)",
-        "LPG": "GPL"
+        "LPG": "GPL",
+        "unit": " L/100 KM"
       },
       "slider": {
         "mpg": "consommation",
-        "distanceByYear": "Kilométrage annuel"
+        "distanceByYear": "Kilométrage annuel",
+        "unit": " km"
       }
     },
     "carbonFood": {

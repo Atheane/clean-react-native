@@ -1,7 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { MultipleOptionsCheckBox } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus, WithCenterView } from '../wrappers';
 
 const YesNoCheckBoxMeta: ComponentMeta<typeof MultipleOptionsCheckBox> = {
   title: 'Checkboxes/MultipleOptionsCheckBox',
@@ -15,7 +15,7 @@ const YesNoCheckBoxMeta: ComponentMeta<typeof MultipleOptionsCheckBox> = {
     optionsTitle: ['No', 'Yes'],
     optionsValues: ['0', '1'],
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
 export default YesNoCheckBoxMeta;

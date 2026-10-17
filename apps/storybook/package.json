@@ -40,7 +40,8 @@
     "react-hook-form": "*",
     "bic": "*",
     "iban": "*",
-    "expo-clipboard": "*"
+    "expo-clipboard": "*",
+    "@react-native-community/slider": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",

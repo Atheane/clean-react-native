@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { IAccountType, Bic, Iban } from '@clean-rn/account/domain';
 import { WhiteBalanceList } from '@clean-rn/ui-mobile';
 
-import { ValidationStatus, WithBackground, WithSwitchBelow } from '../wrappers';
+import { ValidationStatus, WithBackground, WithStatusBelow } from '../wrappers';
 
 const WhiteBalanceListMeta: ComponentMeta<typeof WhiteBalanceList> = {
   title: 'Lists/WhiteBalanceList',
@@ -37,7 +37,7 @@ const WhiteBalanceListMeta: ComponentMeta<typeof WhiteBalanceList> = {
     ],
   },
   decorators: [
-    (Story) => WithSwitchBelow(Story, ValidationStatus.PENDING),
+    (Story) => WithStatusBelow(Story, ValidationStatus.PENDING),
     (Story) => WithBackground(Story, 250),
   ],
 };

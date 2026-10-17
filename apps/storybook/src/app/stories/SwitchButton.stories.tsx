@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
 import { SwitchButton } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus, WithCenterView } from '../wrappers';
 
 const SwitchButtonMeta: ComponentMeta<typeof SwitchButton> = {
   title: 'Buttons/SwitchButton',
@@ -17,7 +17,7 @@ const SwitchButtonMeta: ComponentMeta<typeof SwitchButton> = {
       { key: 'opt2', value: 'Option 2' },
     ],
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.PENDING)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
 export default SwitchButtonMeta;

@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
 import { Colors, Love, TransactionItem } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus, WithCenterView } from '../wrappers';
 
 const TransactionItemMeta: ComponentMeta<typeof TransactionItem> = {
   title: 'Others/TransactionItem',
@@ -19,7 +19,7 @@ const TransactionItemMeta: ComponentMeta<typeof TransactionItem> = {
     label: 'Virement Marie Dupond',
     amount: 131,
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
 export default TransactionItemMeta;

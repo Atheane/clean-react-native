@@ -1,7 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { PhoneSecurityPinInput } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus, WithCenterView } from '../wrappers';
 
 const PhoneSecurityPinInputMeta: ComponentMeta<typeof PhoneSecurityPinInput> = {
   title: 'Inputs/PhoneSecurityPinInput',
@@ -10,7 +10,7 @@ const PhoneSecurityPinInputMeta: ComponentMeta<typeof PhoneSecurityPinInput> = {
     onChange: { action: 'onChange' },
   },
   args: {},
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
 export default PhoneSecurityPinInputMeta;

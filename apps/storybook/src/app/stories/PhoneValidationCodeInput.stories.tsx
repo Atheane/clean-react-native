@@ -1,7 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { PhoneValidationCodeInput } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus } from '../wrappers';
 
 const PhoneValidationCodeInputMeta: ComponentMeta<typeof PhoneValidationCodeInput> = {
   title: 'Inputs/PhoneValidationCodeInput',
@@ -11,7 +11,7 @@ const PhoneValidationCodeInputMeta: ComponentMeta<typeof PhoneValidationCodeInpu
     onFocus: { action: 'onFocus' },
   },
   args: {},
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };
 
 export default PhoneValidationCodeInputMeta;

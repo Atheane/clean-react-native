@@ -1,7 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { SubmitButton } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus, WithCenterView } from '../wrappers';
 
 const SubmitButtonMeta: ComponentMeta<typeof SubmitButton> = {
   title: 'Buttons/SubmitButton',
@@ -13,7 +13,7 @@ const SubmitButtonMeta: ComponentMeta<typeof SubmitButton> = {
     title: 'Valider',
     uppercase: false,
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
 export default SubmitButtonMeta;

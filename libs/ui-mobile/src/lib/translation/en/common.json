@@ -240,7 +240,8 @@
       "share": "Share",
       "reward": "Be rewarded with the CO2 bonus",
       "method": "Learn more about the calculation method",
-      "compute": "Calculate"
+      "compute": "Calculate",
+      "consumption": "Consumption"
     },
     "carbonHouse": {
       "title": "My housing",
@@ -274,11 +275,13 @@
         "electric": "Electric",
         "gasoil": "Diesel (including Hybrid)",
         "GNV": "NGV (Natural Gas)",
-        "LPG": "LPG"
+        "LPG": "LPG",
+        "unit": " L/100 km"
       },
       "slider": {
         "mpg": "consumption",
-        "distanceByYear": "Annual mileage"
+        "distanceByYear": "Annual mileage",
+        "unit": " km"
       }
     },
     "carbonFood": {

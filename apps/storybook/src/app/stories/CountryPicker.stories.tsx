@@ -4,7 +4,7 @@ import countryFlagEmoji from 'country-flag-emoji';
 import { CountryPicker } from '@clean-rn/ui-mobile';
 import { ICountry } from '@clean-rn/auth/domain';
 
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus, WithCenterView } from '../wrappers';
 
 const countries = Object.values(countryFlagEmoji.data as ICountry[])
   .sort((a: ICountry, b: ICountry) => {
@@ -34,7 +34,7 @@ const CountryPickerMeta: ComponentMeta<typeof CountryPicker> = {
     data: countryFlagEmoji.data,
     sortBy: 'name',
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
 export default CountryPickerMeta;

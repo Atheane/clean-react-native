@@ -6,6 +6,7 @@ import { useHouseFormData } from './useHouseFormData';
 import { useSecure } from './useSecure';
 import { useTogglePress } from './useTogglePress';
 import { useTransportFormData } from './useTransportFormData';
+import { useChange } from './useChange';
 
 export {
   useCleanErrorOnFocus,
@@ -16,4 +17,5 @@ export {
   useSecure,
   useTransportFormData,
   useTogglePress,
+  useChange,
 };

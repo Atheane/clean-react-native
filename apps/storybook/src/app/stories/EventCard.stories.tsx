@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
 import { EventCard, Tree } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus, WithCenterView } from '../wrappers';
 
 const EventCardMeta: ComponentMeta<typeof EventCard> = {
   title: 'Cards/EventCard',
@@ -14,7 +14,7 @@ const EventCardMeta: ComponentMeta<typeof EventCard> = {
     icon: Tree,
     text: 'Concours Weflo RSE lorem ipsum delatus',
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
 export default EventCardMeta;

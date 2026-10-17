@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
 import { ErrorMessage } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus } from '../wrappers';
 import { AuthError } from '@clean-rn/auth/domain';
 
 const ErrorMessageMeta: ComponentMeta<typeof ErrorMessage> = {
@@ -11,7 +11,7 @@ const ErrorMessageMeta: ComponentMeta<typeof ErrorMessage> = {
   args: {
     error: new AuthError.Invalid6Digits(),
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };
 
 export default ErrorMessageMeta;

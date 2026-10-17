@@ -1,7 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { LinkButton, LinkButtonColors, useTogglePress } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus } from '../wrappers';
 
 const LinkButtonMeta: ComponentMeta<typeof LinkButton> = {
   title: 'Buttons/LinkButton',
@@ -19,7 +19,7 @@ const LinkButtonMeta: ComponentMeta<typeof LinkButton> = {
     arrow: true,
     colorOption: LinkButtonColors.GREEN,
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };
 
 export default LinkButtonMeta;

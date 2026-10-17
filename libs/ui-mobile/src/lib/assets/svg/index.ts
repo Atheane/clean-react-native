@@ -58,6 +58,7 @@ import UncheckBox from './uncheckbox.svg';
 import Shield from './shield.svg';
 import Delete from './delete.svg';
 import Right from './right.svg';
+import Gasoline from './gasoline.svg';
 
 export {
   Love,
@@ -118,4 +119,5 @@ export {
   Shield,
   Delete,
   Right,
+  Gasoline,
 };

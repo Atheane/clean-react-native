@@ -2,7 +2,7 @@ import { StyleProp, ViewStyle } from 'react-native';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { SecondaryButton, Logout, Colors } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus, WithCenterView } from '../wrappers';
 
 const SecondaryButtonMeta: ComponentMeta<typeof SecondaryButton> = {
   title: 'Buttons/SecondaryButton',
@@ -16,7 +16,7 @@ const SecondaryButtonMeta: ComponentMeta<typeof SecondaryButton> = {
     large: false,
     uppercase: true,
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
 export default SecondaryButtonMeta;

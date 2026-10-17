@@ -2,7 +2,7 @@ import { StyleProp, ViewStyle } from 'react-native';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { TextInput, Love, Colors } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus } from '../wrappers';
+import { WithStatus, ValidationStatus, WithCenterView } from '../wrappers';
 
 const TextInputMeta: ComponentMeta<typeof TextInput> = {
   title: 'Inputs/TextInput',
@@ -29,7 +29,7 @@ const TextInputMeta: ComponentMeta<typeof TextInput> = {
       />
     ),
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
 export default TextInputMeta;
