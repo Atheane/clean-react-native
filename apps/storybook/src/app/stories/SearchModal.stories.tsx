@@ -10,7 +10,7 @@ const data = airports.map((item: IAirport) => {
 });
 
 const SearchModalMeta: ComponentMeta<typeof SearchModal> = {
-  title: 'Validated/Shared/SearchModal',
+  title: 'SearchBoxes/SearchModal',
   component: SearchModal,
   argTypes: {
     onSelect: { action: 'onSelect' },

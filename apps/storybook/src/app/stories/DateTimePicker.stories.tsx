@@ -4,7 +4,7 @@ import { DateTimePicker } from '@clean-rn/ui-mobile';
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
 const DateTimePickerMeta: ComponentMeta<typeof DateTimePicker> = {
-  title: 'Validated/Auth/DateTimePicker',
+  title: 'Dropdowns/DateTimePicker',
   component: DateTimePicker,
   argTypes: {
     onChange: { action: 'onChange' },

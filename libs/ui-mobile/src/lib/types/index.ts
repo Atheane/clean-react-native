@@ -4,3 +4,8 @@ export enum LinkButtonColors {
   GREEN,
   BLUE,
 }
+
+export enum BannerColors {
+  PINK,
+  PURPLE,
+}

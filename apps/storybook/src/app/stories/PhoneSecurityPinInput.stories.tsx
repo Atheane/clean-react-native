@@ -4,7 +4,7 @@ import { PhoneSecurityPinInput } from '@clean-rn/ui-mobile';
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
 const PhoneSecurityPinInputMeta: ComponentMeta<typeof PhoneSecurityPinInput> = {
-  title: 'Validated/Auth/PhoneSecurityPinInput',
+  title: 'Inputs/PhoneSecurityPinInput',
   component: PhoneSecurityPinInput,
   argTypes: {
     onChange: { action: 'onChange' },

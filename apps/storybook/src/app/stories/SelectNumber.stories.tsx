@@ -5,7 +5,7 @@ import { Colors, SelectNumber, Surface } from '@clean-rn/ui-mobile';
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
 const SelectNumberMeta: ComponentMeta<typeof SelectNumber> = {
-  title: 'Validated/Shared/SelectNumber',
+  title: 'Inputs/SelectNumber',
   component: SelectNumber,
   argTypes: {
     onChange: { action: 'onChange' },

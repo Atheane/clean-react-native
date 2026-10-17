@@ -5,7 +5,7 @@ import { EventCard, Tree } from '@clean-rn/ui-mobile';
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
 const EventCardMeta: ComponentMeta<typeof EventCard> = {
-  title: 'Validated/Account/EventCard',
+  title: 'Cards/EventCard',
   component: EventCard,
   argTypes: {
     onDelete: { action: 'onDelete' },

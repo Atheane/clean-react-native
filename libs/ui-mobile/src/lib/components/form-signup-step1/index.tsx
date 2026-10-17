@@ -4,7 +4,7 @@ import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
 import { IDomainError, IInfraError } from '@clean-rn/ddd';
-import { AuthErrorCodes, AuthErrorMessage, Email } from '@clean-rn/auth/domain';
+import { IAuthErrorCodes, IAuthErrorMessage, Email } from '@clean-rn/auth/domain';
 
 import { firstLetterCapitalize } from '../../utils';
 
@@ -20,17 +20,17 @@ type IProps = {
   securedConfirmPassword: boolean;
   onToggleSecurityPassword: (event: GestureResponderEvent) => void;
   onToggleSecurityConfirmPassword: (event: GestureResponderEvent) => void;
-  control: Control<SignupStep1FormData>;
-  errors: FieldErrors<SignupStep1FormData>;
-  error: IDomainError<AuthErrorCodes, AuthErrorMessage> | IInfraError | null;
+  control: Control<ISignupStep1FormData>;
+  errors: FieldErrors<ISignupStep1FormData>;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | IInfraError | null;
   onFocus: () => void;
 };
 
-export interface SignupStep1FormData {
+export type ISignupStep1FormData = {
   email: string;
   password: string;
   confirmPassword: string;
-}
+};
 
 export const FormSignupStep1 = (props: IProps) => {
   const { t } = useTranslation();

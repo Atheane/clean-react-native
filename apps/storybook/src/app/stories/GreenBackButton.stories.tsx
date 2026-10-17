@@ -4,7 +4,7 @@ import { GreenBackButton } from '@clean-rn/ui-mobile';
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
 const GreenBackButtonMeta: ComponentMeta<typeof GreenBackButton> = {
-  title: 'Validated/Shared/GreenBackButton',
+  title: 'Buttons/GreenBackButton',
   component: GreenBackButton,
   argTypes: {
     onPress: { action: 'onPress' },

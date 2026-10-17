@@ -4,7 +4,7 @@ import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
 import { IDomainError, IInfraError } from '@clean-rn/ddd';
-import { ICountry, COUNTRIES_AVAILABLE, AuthErrorCodes, AuthErrorMessage } from '@clean-rn/auth/domain';
+import { ICountry, COUNTRIES_AVAILABLE, IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
 
 import { firstLetterCapitalize } from '../../utils';
 import { House } from '../../assets';
@@ -20,20 +20,20 @@ import { MultipleOptionsCheckBox } from '../multiple-options-checkBox';
 type IProps = {
   defaultCountry?: string;
   loading: boolean;
-  control: Control<SignupStep5FormData>;
-  errors: FieldErrors<SignupStep5FormData>;
-  error: IDomainError<AuthErrorCodes, AuthErrorMessage> | IInfraError | null;
+  control: Control<ISignupStep5FormData>;
+  errors: FieldErrors<ISignupStep5FormData>;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | IInfraError | null;
   onSubmit: () => void;
   onFocus: () => void;
 };
 
-export interface SignupStep5FormData {
+export type ISignupStep5FormData = {
   country: string;
   street: string;
   city: string;
   zip: string;
   specifiedUSPerson: string;
-}
+};
 
 export const FormSignupStep5 = (props: IProps) => {
   const { t } = useTranslation();

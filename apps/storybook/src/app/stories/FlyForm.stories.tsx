@@ -17,7 +17,7 @@ const formattedAirports = airports
   .slice(0, 50);
 
 const FlyFormMeta: ComponentMeta<typeof FlyForm> = {
-  title: 'NotValidated/Carbon/FlyForm',
+  title: 'Forms/FlyForm',
   component: FlyForm,
   argTypes: {
     onChangeField: { action: 'onChangeField' },

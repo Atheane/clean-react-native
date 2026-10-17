@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { IDomainError } from '@clean-rn/ddd';
 
-export enum AuthErrorMessage {
+export enum IAuthErrorMessage {
   INVALID_EMAIL = 'Invalid email',
   INVALID_PASSWORD = 'Invalid password',
   INVALID_PHONE = 'Invalid phone',
@@ -19,7 +19,7 @@ export enum AuthErrorMessage {
   USER_UNAUTHORIZED = 'User unauthorized',
 }
 
-export enum AuthErrorCodes {
+export enum IAuthErrorCodes {
   INVALID_EMAIL = 'AUTH_DOMAIN_0',
   INVALID_PASSWORD = 'AUTH_DOMAIN_1',
   INVALID_PHONE = 'AUTH_DOMAIN_2',
@@ -38,191 +38,191 @@ export enum AuthErrorCodes {
 }
 
 export namespace AuthError {
-  export class InvalidEmail extends Error implements IDomainError<AuthErrorCodes, AuthErrorMessage> {
-    code: AuthErrorCodes;
-    message: AuthErrorMessage;
+  export class InvalidEmail extends Error implements IDomainError<IAuthErrorCodes, IAuthErrorMessage> {
+    code: IAuthErrorCodes;
+    message: IAuthErrorMessage;
     cause?: unknown;
 
     constructor(cause?: unknown) {
       super();
-      this.message = AuthErrorMessage.INVALID_EMAIL;
-      this.code = AuthErrorCodes.INVALID_EMAIL;
+      this.message = IAuthErrorMessage.INVALID_EMAIL;
+      this.code = IAuthErrorCodes.INVALID_EMAIL;
       this.cause = cause;
     }
   }
-  export class InvalidPassword extends Error implements IDomainError<AuthErrorCodes, AuthErrorMessage> {
-    code: AuthErrorCodes;
-    message: AuthErrorMessage;
+  export class InvalidPassword extends Error implements IDomainError<IAuthErrorCodes, IAuthErrorMessage> {
+    code: IAuthErrorCodes;
+    message: IAuthErrorMessage;
     cause?: unknown;
 
     constructor(cause?: unknown) {
       super();
-      this.message = AuthErrorMessage.INVALID_PASSWORD;
-      this.code = AuthErrorCodes.INVALID_PASSWORD;
+      this.message = IAuthErrorMessage.INVALID_PASSWORD;
+      this.code = IAuthErrorCodes.INVALID_PASSWORD;
       this.cause = cause;
     }
   }
-  export class InvalidPhone extends Error implements IDomainError<AuthErrorCodes, AuthErrorMessage> {
-    code: AuthErrorCodes;
-    message: AuthErrorMessage;
+  export class InvalidPhone extends Error implements IDomainError<IAuthErrorCodes, IAuthErrorMessage> {
+    code: IAuthErrorCodes;
+    message: IAuthErrorMessage;
     cause?: unknown;
     constructor(cause?: unknown) {
       super();
-      this.message = AuthErrorMessage.INVALID_PHONE;
-      this.code = AuthErrorCodes.INVALID_PHONE;
+      this.message = IAuthErrorMessage.INVALID_PHONE;
+      this.code = IAuthErrorCodes.INVALID_PHONE;
       this.cause = cause;
     }
   }
-  export class InvalidCountry extends Error implements IDomainError<AuthErrorCodes, AuthErrorMessage> {
-    code: AuthErrorCodes;
-    message: AuthErrorMessage;
+  export class InvalidCountry extends Error implements IDomainError<IAuthErrorCodes, IAuthErrorMessage> {
+    code: IAuthErrorCodes;
+    message: IAuthErrorMessage;
     cause?: unknown;
     constructor(cause?: unknown) {
       super();
-      this.message = AuthErrorMessage.INVALID_COUNTRY;
-      this.code = AuthErrorCodes.INVALID_COUNTRY;
+      this.message = IAuthErrorMessage.INVALID_COUNTRY;
+      this.code = IAuthErrorCodes.INVALID_COUNTRY;
       this.cause = cause;
     }
   }
-  export class UnavailableCountry extends Error implements IDomainError<AuthErrorCodes, AuthErrorMessage> {
-    code: AuthErrorCodes;
-    message: AuthErrorMessage;
+  export class UnavailableCountry extends Error implements IDomainError<IAuthErrorCodes, IAuthErrorMessage> {
+    code: IAuthErrorCodes;
+    message: IAuthErrorMessage;
     cause?: unknown;
     constructor(cause?: unknown) {
       super();
-      this.message = AuthErrorMessage.UNAVAILABLE_COUNTRY;
-      this.code = AuthErrorCodes.UNAVAILABLE_COUNTRY;
+      this.message = IAuthErrorMessage.UNAVAILABLE_COUNTRY;
+      this.code = IAuthErrorCodes.UNAVAILABLE_COUNTRY;
       this.cause = cause;
     }
   }
-  export class InvalidBirthday extends Error implements IDomainError<AuthErrorCodes, AuthErrorMessage> {
-    code: AuthErrorCodes;
-    message: AuthErrorMessage;
+  export class InvalidBirthday extends Error implements IDomainError<IAuthErrorCodes, IAuthErrorMessage> {
+    code: IAuthErrorCodes;
+    message: IAuthErrorMessage;
     cause?: unknown;
     constructor(cause?: unknown) {
       super();
-      this.message = AuthErrorMessage.INVALID_BIRTHDAY;
-      this.code = AuthErrorCodes.INVALID_BIRTHDAY;
+      this.message = IAuthErrorMessage.INVALID_BIRTHDAY;
+      this.code = IAuthErrorCodes.INVALID_BIRTHDAY;
       this.cause = cause;
     }
   }
-  export class Invalid6Digits extends Error implements IDomainError<AuthErrorCodes, AuthErrorMessage> {
-    code: AuthErrorCodes;
-    message: AuthErrorMessage;
+  export class Invalid6Digits extends Error implements IDomainError<IAuthErrorCodes, IAuthErrorMessage> {
+    code: IAuthErrorCodes;
+    message: IAuthErrorMessage;
     cause?: unknown;
     constructor(cause?: unknown) {
       super();
-      this.message = AuthErrorMessage.INVALID_6_DIGITS;
-      this.code = AuthErrorCodes.INVALID_6_DIGITS;
+      this.message = IAuthErrorMessage.INVALID_6_DIGITS;
+      this.code = IAuthErrorCodes.INVALID_6_DIGITS;
       this.cause = cause;
     }
   }
   export class LoginFailureInvalidCredentials
     extends Error
-    implements IDomainError<AuthErrorCodes, AuthErrorMessage>
+    implements IDomainError<IAuthErrorCodes, IAuthErrorMessage>
   {
-    code: AuthErrorCodes;
-    message: AuthErrorMessage;
+    code: IAuthErrorCodes;
+    message: IAuthErrorMessage;
     cause?: unknown;
     constructor(cause?: unknown) {
       super();
-      this.message = AuthErrorMessage.LOGIN_FAILURE_INVALID_CREDENTIALS;
-      this.code = AuthErrorCodes.LOGIN_FAILURE_INVALID_CREDENTIALS;
+      this.message = IAuthErrorMessage.LOGIN_FAILURE_INVALID_CREDENTIALS;
+      this.code = IAuthErrorCodes.LOGIN_FAILURE_INVALID_CREDENTIALS;
       this.cause = cause;
     }
   }
   export class LoginFailureOneEmailByPhone
     extends Error
-    implements IDomainError<AuthErrorCodes, AuthErrorMessage>
+    implements IDomainError<IAuthErrorCodes, IAuthErrorMessage>
   {
-    code: AuthErrorCodes;
-    message: AuthErrorMessage;
+    code: IAuthErrorCodes;
+    message: IAuthErrorMessage;
     cause?: unknown;
     constructor(cause?: unknown) {
       super();
-      this.message = AuthErrorMessage.LOGIN_FAILURE_ONE_EMAIL_BY_PHONE;
-      this.code = AuthErrorCodes.LOGIN_FAILURE_ONE_EMAIL_BY_PHONE;
+      this.message = IAuthErrorMessage.LOGIN_FAILURE_ONE_EMAIL_BY_PHONE;
+      this.code = IAuthErrorCodes.LOGIN_FAILURE_ONE_EMAIL_BY_PHONE;
       this.cause = cause;
     }
   }
   export class SignupFailureEmailExists
     extends Error
-    implements IDomainError<AuthErrorCodes, AuthErrorMessage>
+    implements IDomainError<IAuthErrorCodes, IAuthErrorMessage>
   {
-    code: AuthErrorCodes;
-    message: AuthErrorMessage;
+    code: IAuthErrorCodes;
+    message: IAuthErrorMessage;
     cause?: unknown;
     constructor(cause?: unknown) {
       super();
-      this.message = AuthErrorMessage.SIGNUP_FAILURE_EMAIL_EXISTS;
-      this.code = AuthErrorCodes.SIGNUP_FAILURE_EMAIL_EXISTS;
+      this.message = IAuthErrorMessage.SIGNUP_FAILURE_EMAIL_EXISTS;
+      this.code = IAuthErrorCodes.SIGNUP_FAILURE_EMAIL_EXISTS;
       this.cause = cause;
     }
   }
   export class SignupFailurePhoneExists
     extends Error
-    implements IDomainError<AuthErrorCodes, AuthErrorMessage>
+    implements IDomainError<IAuthErrorCodes, IAuthErrorMessage>
   {
-    code: AuthErrorCodes;
-    message: AuthErrorMessage;
+    code: IAuthErrorCodes;
+    message: IAuthErrorMessage;
     cause?: unknown;
     constructor(cause?: unknown) {
       super();
-      this.message = AuthErrorMessage.SIGNUP_FAILURE_PHONE_EXISTS;
-      this.code = AuthErrorCodes.SIGNUP_FAILURE_PHONE_EXISTS;
+      this.message = IAuthErrorMessage.SIGNUP_FAILURE_PHONE_EXISTS;
+      this.code = IAuthErrorCodes.SIGNUP_FAILURE_PHONE_EXISTS;
       this.cause = cause;
     }
   }
   export class SignupFailureSendPhoneValidation
     extends Error
-    implements IDomainError<AuthErrorCodes, AuthErrorMessage>
+    implements IDomainError<IAuthErrorCodes, IAuthErrorMessage>
   {
-    code: AuthErrorCodes;
-    message: AuthErrorMessage;
+    code: IAuthErrorCodes;
+    message: IAuthErrorMessage;
     cause?: unknown;
     constructor(cause?: unknown) {
       super();
-      this.message = AuthErrorMessage.SIGNUP_FAILURE_SEND_PHONE_VALIDATION;
-      this.code = AuthErrorCodes.SIGNUP_FAILURE_SEND_PHONE_VALIDATION;
+      this.message = IAuthErrorMessage.SIGNUP_FAILURE_SEND_PHONE_VALIDATION;
+      this.code = IAuthErrorCodes.SIGNUP_FAILURE_SEND_PHONE_VALIDATION;
       this.cause = cause;
     }
   }
   export class SignupFailureInvalidPhoneCode
     extends Error
-    implements IDomainError<AuthErrorCodes, AuthErrorMessage>
+    implements IDomainError<IAuthErrorCodes, IAuthErrorMessage>
   {
-    code: AuthErrorCodes;
-    message: AuthErrorMessage;
+    code: IAuthErrorCodes;
+    message: IAuthErrorMessage;
     cause?: unknown;
     constructor(cause?: unknown) {
       super();
-      this.message = AuthErrorMessage.SIGNUP_FAILURE_SEND_PHONE_VALIDATION;
-      this.code = AuthErrorCodes.SIGNUP_FAILURE_SEND_PHONE_VALIDATION;
+      this.message = IAuthErrorMessage.SIGNUP_FAILURE_SEND_PHONE_VALIDATION;
+      this.code = IAuthErrorCodes.SIGNUP_FAILURE_SEND_PHONE_VALIDATION;
       this.cause = cause;
     }
   }
   export class SignupFailureSecurityPinMismatch
     extends Error
-    implements IDomainError<AuthErrorCodes, AuthErrorMessage>
+    implements IDomainError<IAuthErrorCodes, IAuthErrorMessage>
   {
-    code: AuthErrorCodes;
-    message: AuthErrorMessage;
+    code: IAuthErrorCodes;
+    message: IAuthErrorMessage;
     cause?: unknown;
     constructor(cause?: unknown) {
       super();
-      this.message = AuthErrorMessage.SIGNUP_FAILURE_SECURITY_PIN_MISMATCH;
-      this.code = AuthErrorCodes.SIGNUP_FAILURE_SECURITY_PIN_MISMATCH;
+      this.message = IAuthErrorMessage.SIGNUP_FAILURE_SECURITY_PIN_MISMATCH;
+      this.code = IAuthErrorCodes.SIGNUP_FAILURE_SECURITY_PIN_MISMATCH;
       this.cause = cause;
     }
   }
-  export class UserUnauthorized extends Error implements IDomainError<AuthErrorCodes, AuthErrorMessage> {
-    code: AuthErrorCodes;
-    message: AuthErrorMessage;
+  export class UserUnauthorized extends Error implements IDomainError<IAuthErrorCodes, IAuthErrorMessage> {
+    code: IAuthErrorCodes;
+    message: IAuthErrorMessage;
     cause?: unknown;
     constructor(cause?: unknown) {
       super();
-      this.message = AuthErrorMessage.USER_UNAUTHORIZED;
-      this.code = AuthErrorCodes.USER_UNAUTHORIZED;
+      this.message = IAuthErrorMessage.USER_UNAUTHORIZED;
+      this.code = IAuthErrorCodes.USER_UNAUTHORIZED;
       this.cause = cause;
     }
   }

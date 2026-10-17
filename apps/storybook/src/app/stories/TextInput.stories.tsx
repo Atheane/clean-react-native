@@ -5,7 +5,7 @@ import { TextInput, Love, Colors } from '@clean-rn/ui-mobile';
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
 const TextInputMeta: ComponentMeta<typeof TextInput> = {
-  title: 'Validated/Shared/TextInput',
+  title: 'Inputs/TextInput',
   component: TextInput,
   argTypes: {
     onChange: {

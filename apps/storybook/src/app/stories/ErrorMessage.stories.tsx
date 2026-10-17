@@ -6,7 +6,7 @@ import { WithSwitch, ValidationStatus } from '../wrappers';
 import { AuthError } from '@clean-rn/auth/domain';
 
 const ErrorMessageMeta: ComponentMeta<typeof ErrorMessage> = {
-  title: 'Validated/Auth/ErrorMessage',
+  title: 'Texts/ErrorMessage',
   component: ErrorMessage,
   args: {
     error: new AuthError.Invalid6Digits(),

@@ -6,7 +6,7 @@ import { Dayjs } from 'dayjs';
 import countryFlagEmoji from 'country-flag-emoji';
 
 import { IDomainError, IInfraError } from '@clean-rn/ddd';
-import { AuthErrorCodes, AuthErrorMessage, BirthDay } from '@clean-rn/auth/domain';
+import { IAuthErrorCodes, IAuthErrorMessage, BirthDay } from '@clean-rn/auth/domain';
 import { firstLetterCapitalize } from '../../utils';
 
 import { CountryPicker } from '../country-picker';
@@ -16,18 +16,18 @@ import { DateTimePicker } from '../datetime-picker';
 
 type IProps = {
   defaultCountry?: string;
-  control: Control<SignupStep4FormData>;
-  errors: FieldErrors<SignupStep4FormData>;
-  error: IDomainError<AuthErrorCodes, AuthErrorMessage> | IInfraError | null;
+  control: Control<ISignupStep4FormData>;
+  errors: FieldErrors<ISignupStep4FormData>;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | IInfraError | null;
   onSubmit: () => void;
   onFocus: () => void;
 };
 
-export interface SignupStep4FormData {
+export type ISignupStep4FormData = {
   birthday: Dayjs;
   birthCountry: string;
   nationality: string;
-}
+};
 
 export const FormSignupStep4 = (props: IProps) => {
   const { t } = useTranslation();

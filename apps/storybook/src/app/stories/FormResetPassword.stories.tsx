@@ -3,12 +3,12 @@ import { useForm } from 'react-hook-form';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
 import { Logger } from '@clean-rn/ddd';
-import { FormResetPassword, ResetPasswordFormData, useEdit } from '@clean-rn/ui-mobile';
+import { FormResetPassword, IResetPasswordFormData, useEdit } from '@clean-rn/ui-mobile';
 
 import { WithSwitch, ValidationStatus, WithKeyboardAwareScroll } from '../wrappers';
 
 const FormResetPasswordMeta: ComponentMeta<typeof FormResetPassword> = {
-  title: 'Validated/Auth/FormResetPassword',
+  title: 'Forms/FormResetPassword',
   component: FormResetPassword,
   argTypes: {
     onEdit: { action: 'onEdit' },
@@ -36,7 +36,7 @@ export const Dynamic: FormResetpasswordStory = (args) => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<ResetPasswordFormData>();
+  } = useForm<IResetPasswordFormData>();
 
   return (
     <FormResetPassword

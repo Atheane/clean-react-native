@@ -133,7 +133,7 @@ export const FlyForm = (props: IProps) => {
           label={t('screens.carbonFly.dropdown.arrival')}
           placeholder={t('screens.carbonFly.dropdown.arrival')}
           data={props.airports}
-          icon={FlyTo}
+          icon={() => <FlyTo style={{ color: Colors.icon.lightGreenTransparent }} />}
           onSelect={(data: IData) => handleOnChangeField(data, 'toIATA')}
         />
       </View>

@@ -4,7 +4,7 @@ import { Love, Validate, PrimaryButton, Colors } from '@clean-rn/ui-mobile';
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
 const PrimaryButtonMeta: ComponentMeta<typeof PrimaryButton> = {
-  title: 'Validated/Shared/PrimaryButton',
+  title: 'Buttons/PrimaryButton',
   component: PrimaryButton,
   argTypes: {
     onPress: { action: 'pressed the button' },

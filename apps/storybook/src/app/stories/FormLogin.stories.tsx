@@ -2,13 +2,13 @@ import React, { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
-import { FormLogin, LoginFormData, useTogglePress, useEdit, useSecure } from '@clean-rn/ui-mobile';
+import { FormLogin, ILoginFormData, useTogglePress, useEdit, useSecure } from '@clean-rn/ui-mobile';
 
 import { WithSwitch, ValidationStatus, WithKeyboardAwareScroll } from '../wrappers';
 import { Logger } from '@clean-rn/ddd';
 
 const FormLoginMeta: ComponentMeta<typeof FormLogin> = {
-  title: 'Validated/Auth/FormLogin',
+  title: 'Forms/FormLogin',
   component: FormLogin,
   argTypes: {
     onEdit: { action: 'onEdit' },
@@ -41,7 +41,7 @@ export const Dynamic: FormLoginStory = (args) => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormData>();
+  } = useForm<ILoginFormData>();
 
   return (
     <FormLogin

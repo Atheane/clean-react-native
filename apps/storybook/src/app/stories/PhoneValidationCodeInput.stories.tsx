@@ -4,7 +4,7 @@ import { PhoneValidationCodeInput } from '@clean-rn/ui-mobile';
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
 const PhoneValidationCodeInputMeta: ComponentMeta<typeof PhoneValidationCodeInput> = {
-  title: 'Validated/Auth/PhoneValidationCodeInput',
+  title: 'Inputs/PhoneValidationCodeInput',
   component: PhoneValidationCodeInput,
   argTypes: {
     onChange: { action: 'onChange' },

@@ -5,7 +5,7 @@ import { EmailInput, useEdit } from '@clean-rn/ui-mobile';
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
 const EmailInputMeta: ComponentMeta<typeof EmailInput> = {
-  title: 'Validated/Auth/EmailInput',
+  title: 'Inputs/EmailInput',
   component: EmailInput,
   argTypes: {
     onEdit: { action: 'onEdit' },

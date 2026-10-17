@@ -4,7 +4,7 @@ import { LinkButton, LinkButtonColors, useTogglePress } from '@clean-rn/ui-mobil
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
 const LinkButtonMeta: ComponentMeta<typeof LinkButton> = {
-  title: 'Validated/Shared/LinkButton',
+  title: 'Buttons/LinkButton',
   component: LinkButton,
   argTypes: {
     onPress: { action: 'onPress' },

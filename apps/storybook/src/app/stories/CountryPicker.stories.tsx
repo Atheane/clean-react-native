@@ -19,7 +19,7 @@ const countries = Object.values(countryFlagEmoji.data as ICountry[])
   .map((country: ICountry) => country.code);
 
 const CountryPickerMeta: ComponentMeta<typeof CountryPicker> = {
-  title: 'Validated/Auth/CountryPicker',
+  title: 'Dropdowns/CountryPicker',
   component: CountryPicker,
   argTypes: {
     onChange: { action: 'onChange' },

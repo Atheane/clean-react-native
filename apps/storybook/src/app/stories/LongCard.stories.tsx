@@ -4,7 +4,7 @@ import { LongCard, ExportPdfGradient } from '@clean-rn/ui-mobile';
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
 const LongCardMeta: ComponentMeta<typeof LongCard> = {
-  title: 'Validated/Shared/LongCard',
+  title: 'Cards/LongCard',
   component: LongCard,
   argTypes: {
     onPress: { action: 'onPress' },

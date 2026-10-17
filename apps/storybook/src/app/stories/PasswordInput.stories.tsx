@@ -4,7 +4,7 @@ import { PasswordInput, useSecure } from '@clean-rn/ui-mobile';
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
 const PasswordInputMeta: ComponentMeta<typeof PasswordInput> = {
-  title: 'Validated/Auth/PasswordInput',
+  title: 'Inputs/PasswordInput',
   component: PasswordInput,
   argTypes: {
     onToggleSecurity: { action: 'onToggleSecurity' },

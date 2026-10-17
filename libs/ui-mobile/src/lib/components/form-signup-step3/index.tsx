@@ -4,7 +4,7 @@ import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
 import { IDomainError, IInfraError } from '@clean-rn/ddd';
-import { AuthErrorCodes, AuthErrorMessage } from '@clean-rn/auth/domain';
+import { IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
 import { firstLetterCapitalize } from '../../utils';
 
 import { SubmitButton } from '../submit-button';
@@ -14,15 +14,15 @@ import { PhoneValidationCodeInput } from '../phone-validation-code-input';
 type IProps = {
   loading: boolean;
   onSubmit: () => void;
-  control: Control<SignupStep3FormData>;
-  errors: FieldErrors<SignupStep3FormData>;
-  error: IDomainError<AuthErrorCodes, AuthErrorMessage> | IInfraError | null;
+  control: Control<ISignupStep3FormData>;
+  errors: FieldErrors<ISignupStep3FormData>;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | IInfraError | null;
   onFocus: () => void;
 };
 
-export interface SignupStep3FormData {
+export type ISignupStep3FormData = {
   code: string;
-}
+};
 
 export const FormSignupStep3 = (props: IProps) => {
   const { t } = useTranslation();

@@ -4,7 +4,7 @@ import { SubmitButton } from '@clean-rn/ui-mobile';
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
 const SubmitButtonMeta: ComponentMeta<typeof SubmitButton> = {
-  title: 'Validated/Auth/SubmitButton',
+  title: 'Buttons/SubmitButton',
   component: SubmitButton,
   argTypes: {
     onSubmit: { action: 'onSubmit' },

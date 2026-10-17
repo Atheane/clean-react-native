@@ -4,7 +4,7 @@ import { MultipleOptionsCheckBox } from '@clean-rn/ui-mobile';
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
 const YesNoCheckBoxMeta: ComponentMeta<typeof MultipleOptionsCheckBox> = {
-  title: 'Validated/Auth/MultipleOptionsCheckBox',
+  title: 'Checkboxes/MultipleOptionsCheckBox',
   component: MultipleOptionsCheckBox,
   argTypes: {
     onChange: { action: 'onChange' },

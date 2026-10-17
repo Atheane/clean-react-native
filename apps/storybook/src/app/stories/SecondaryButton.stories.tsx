@@ -5,7 +5,7 @@ import { SecondaryButton, Logout, Colors } from '@clean-rn/ui-mobile';
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
 const SecondaryButtonMeta: ComponentMeta<typeof SecondaryButton> = {
-  title: 'Validated/Shared/SecondaryButton',
+  title: 'Buttons/SecondaryButton',
   component: SecondaryButton,
   argTypes: {
     onPress: { action: 'pressed the button' },

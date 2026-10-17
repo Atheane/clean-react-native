@@ -7,14 +7,14 @@ import { Logger } from '@clean-rn/ddd';
 import { AuthError } from '@clean-rn/auth/domain';
 import {
   FormSignupStep1,
-  SignupStep1FormData,
+  ISignupStep1FormData,
   useSecure,
   firstLetterCapitalize,
 } from '@clean-rn/ui-mobile';
 import { WithSwitch, ValidationStatus, WithKeyboardAwareScroll } from '../wrappers';
 
 const FormSignupStep1Meta: ComponentMeta<typeof FormSignupStep1> = {
-  title: 'Validated/Auth/FormSignupStep1',
+  title: 'Forms/FormSignupStep1',
   component: FormSignupStep1,
   argTypes: {
     onToggleSecurityPassword: { action: 'onToggleSecurityPassword' },
@@ -41,14 +41,14 @@ export const Dynamic: FormSignupStep1Story = (args) => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignupStep1FormData>();
+  } = useForm<ISignupStep1FormData>();
 
   const [errorPasswordMismatch, setErrorPasswordMismatch] = useState<AuthError.InvalidPassword | null>(null);
 
   const { t } = useTranslation();
 
   const onSubmit = useCallback(
-    (formData: SignupStep1FormData) => {
+    (formData: ISignupStep1FormData) => {
       if (formData.password !== formData.confirmPassword) {
         setErrorPasswordMismatch(
           new AuthError.InvalidPassword({

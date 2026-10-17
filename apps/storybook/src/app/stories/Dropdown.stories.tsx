@@ -22,7 +22,7 @@ const translations = {
 };
 
 const DropdownMeta: ComponentMeta<typeof Dropdown> = {
-  title: 'Validated/Shared/Dropdown',
+  title: 'Dropdowns/Dropdown',
   component: Dropdown,
   argTypes: {
     onSelect: { action: 'onSelect' },

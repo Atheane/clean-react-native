@@ -5,14 +5,14 @@ import { getLocales } from 'expo-localization';
 
 import { Logger } from '@clean-rn/ddd';
 import { COUNTRIES_AVAILABLE } from '@clean-rn/auth/domain';
-import { FormSignupStep5, SignupStep5FormData } from '@clean-rn/ui-mobile';
+import { FormSignupStep5, ISignupStep5FormData } from '@clean-rn/ui-mobile';
 import { WithSwitch, ValidationStatus, WithKeyboardAwareScroll } from '../wrappers';
 
 const locales = getLocales();
 const defaultCountry = locales[0]?.regionCode || undefined;
 
 const FormSignupStep5Meta: ComponentMeta<typeof FormSignupStep5> = {
-  title: 'Validated/Auth/FormSignupStep5',
+  title: 'Forms/FormSignupStep5',
   component: FormSignupStep5,
   argTypes: {
     onSubmit: { action: 'onSubmit' },
@@ -37,13 +37,13 @@ export const Dynamic: FormSignupStep5Story = (args) => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignupStep5FormData>({
+  } = useForm<ISignupStep5FormData>({
     defaultValues: {
       country: defaultCountry,
     },
   });
 
-  const onSubmit = useCallback((formData: SignupStep5FormData) => {
+  const onSubmit = useCallback((formData: ISignupStep5FormData) => {
     Logger.getInstance().debug(formData);
   }, []);
 

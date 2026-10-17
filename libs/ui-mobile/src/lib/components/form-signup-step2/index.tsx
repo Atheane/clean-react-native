@@ -14,8 +14,8 @@ import {
   ICountry,
   IGender,
   COUNTRIES_AVAILABLE,
-  AuthErrorCodes,
-  AuthErrorMessage,
+  IAuthErrorCodes,
+  IAuthErrorMessage,
 } from '@clean-rn/auth/domain';
 import { Person, Phone as PhoneIcon } from '../../assets';
 import { Colors } from '../../constants';
@@ -30,19 +30,19 @@ type IProps = {
   defaultCountry?: string;
   loading: boolean;
   onSubmit: () => void;
-  control: Control<SignupStep2FormData>;
-  errors: FieldErrors<SignupStep2FormData>;
-  error: IDomainError<AuthErrorCodes, AuthErrorMessage> | IInfraError | null;
+  control: Control<ISignupStep2FormData>;
+  errors: FieldErrors<ISignupStep2FormData>;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | IInfraError | null;
   onFocus: () => void;
 };
 
-export interface SignupStep2FormData {
+export type ISignupStep2FormData = {
   title: IGender;
   firstName: string;
   lastName: string;
   phone: string;
   countryCode: string;
-}
+};
 
 export const FormSignupStep2 = (props: IProps) => {
   const { t } = useTranslation();

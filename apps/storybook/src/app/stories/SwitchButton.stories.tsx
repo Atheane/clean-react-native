@@ -5,7 +5,7 @@ import { SwitchButton } from '@clean-rn/ui-mobile';
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
 const SwitchButtonMeta: ComponentMeta<typeof SwitchButton> = {
-  title: 'Pending/Shared/SwitchButton',
+  title: 'Buttons/SwitchButton',
   component: SwitchButton,
   argTypes: {
     onToggle: { action: 'onToggle' },

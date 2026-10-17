@@ -4,7 +4,7 @@ import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
 import { IDomainError, IInfraError } from '@clean-rn/ddd';
-import { AuthErrorCodes, AuthErrorMessage, Email } from '@clean-rn/auth/domain';
+import { IAuthErrorCodes, IAuthErrorMessage, Email } from '@clean-rn/auth/domain';
 
 import { firstLetterCapitalize } from '../../utils';
 
@@ -20,14 +20,14 @@ type IProps = {
   filled: boolean;
   onEdit: () => void;
   onFocus: () => void;
-  control: Control<ResetPasswordFormData>;
-  errors: FieldErrors<ResetPasswordFormData>;
-  error: IDomainError<AuthErrorCodes, AuthErrorMessage> | IInfraError | null;
+  control: Control<IResetPasswordFormData>;
+  errors: FieldErrors<IResetPasswordFormData>;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | IInfraError | null;
 };
 
-export interface ResetPasswordFormData {
+export type IResetPasswordFormData = {
   email: string;
-}
+};
 
 export const FormResetPassword = (props: IProps) => {
   const { t } = useTranslation();
@@ -77,7 +77,6 @@ export const FormResetPassword = (props: IProps) => {
           <SubmitButton
             title={t('screens.resetPassword.submitButton')}
             uppercase
-            submitted={false}
             onSubmit={props.onSubmit}
             loading={props.loading}
           />

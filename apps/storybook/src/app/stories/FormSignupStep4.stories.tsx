@@ -5,7 +5,7 @@ import { getLocales } from 'expo-localization';
 
 import { Logger } from '@clean-rn/ddd';
 
-import { FormSignupStep4, SignupStep4FormData } from '@clean-rn/ui-mobile';
+import { FormSignupStep4, ISignupStep4FormData } from '@clean-rn/ui-mobile';
 
 import { COUNTRIES_AVAILABLE } from '@clean-rn/auth/domain';
 import { WithSwitch, ValidationStatus, WithScroll } from '../wrappers';
@@ -14,7 +14,7 @@ const locales = getLocales();
 const defaultCountry = locales[0]?.regionCode || undefined;
 
 const FormSignupStep4Meta: ComponentMeta<typeof FormSignupStep4> = {
-  title: 'Validated/Auth/FormSignupStep4',
+  title: 'Forms/FormSignupStep4',
   component: FormSignupStep4,
   argTypes: {
     onSubmit: { action: 'onSubmit' },
@@ -39,7 +39,7 @@ export const Dynamic: FormSignupStep4Story = (args) => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignupStep4FormData>({
+  } = useForm<ISignupStep4FormData>({
     defaultValues: {
       birthCountry: defaultCountry,
       nationality: defaultCountry,
@@ -47,7 +47,7 @@ export const Dynamic: FormSignupStep4Story = (args) => {
     },
   });
 
-  const onSubmit = useCallback((formData: SignupStep4FormData) => {
+  const onSubmit = useCallback((formData: ISignupStep4FormData) => {
     Logger.getInstance().debug(formData);
   }, []);
 

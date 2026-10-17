@@ -47,36 +47,50 @@ try {
 
 const getStories = () => {
   return {
+    // Banners
+    './stories/Banner.stories.tsx': require('../stories/Banner.stories'),
+    // Backgrounds
+    './stories/ViewBackground.stories.tsx': require('../stories/ViewBackground.stories'),
+    './stories/ScrollBackground.stories.tsx': require('../stories/ScrollBackground.stories'),
+    // Buttons
     './stories/PrimaryButton.stories.tsx': require('../stories/PrimaryButton.stories'),
     './stories/SecondaryButton.stories.tsx': require('../stories/SecondaryButton.stories'),
+    './stories/SubmitButton.stories.tsx': require('../stories/SubmitButton.stories'),
     './stories/LinkButton.stories.tsx': require('../stories/LinkButton.stories'),
-    './stories/LongCard.stories.tsx': require('../stories/LongCard.stories'),
-    './stories/GreenBackButton.stories.tsx': require('../stories/GreenBackButton.stories'),
-    './stories/PdfViewer.stories.tsx': require('../stories/PdfViewer.stories'),
-    './stories/TextInput.stories.tsx': require('../stories/TextInput.stories'),
-    './stories/Dropdown.stories.tsx': require('../stories/Dropdown.stories'),
-    './stories/SearchModal.stories.tsx': require('../stories/SearchModal.stories'),
-    './stories/SelectNumber.stories.tsx': require('../stories/SelectNumber.stories'),
     './stories/SwitchButton.stories.tsx': require('../stories/SwitchButton.stories'),
+    './stories/GreenBackButton.stories.tsx': require('../stories/GreenBackButton.stories'),
+    // Cards
     './stories/EventCard.stories.tsx': require('../stories/EventCard.stories'),
+    './stories/LongCard.stories.tsx': require('../stories/LongCard.stories'),
     './stories/CardScroller.stories.tsx': require('../stories/CardScroller.stories'),
-    './stories/FlyForm.stories.tsx': require('../stories/FlyForm.stories'),
+    // Checkboxes
+    './stories/MultipleOptionsCheckBox.stories.tsx': require('../stories/MultipleOptionsCheckBox.stories'),
+    // Dropdowns
+    './stories/Dropdown.stories.tsx': require('../stories/Dropdown.stories'),
     './stories/CountryPicker.stories.tsx': require('../stories/CountryPicker.stories'),
     './stories/DateTimePicker.stories.tsx': require('../stories/DateTimePicker.stories'),
-    './stories/EmailInput.stories.tsx': require('../stories/EmailInput.stories'),
-    './stories/ErrorMessage.stories.tsx': require('../stories/ErrorMessage.stories'),
-    './stories/PasswordInput.stories.tsx': require('../stories/PasswordInput.stories'),
+    // Forms
     './stories/FormLogin.stories.tsx': require('../stories/FormLogin.stories'),
     './stories/FormResetPassword.stories.tsx': require('../stories/FormResetPassword.stories'),
-    './stories/SubmitButton.stories.tsx': require('../stories/SubmitButton.stories'),
     './stories/FormSignupStep1.stories.tsx': require('../stories/FormSignupStep1.stories'),
     './stories/FormSignupStep2.stories.tsx': require('../stories/FormSignupStep2.stories'),
-    './stories/MultipleOptionsCheckBox.stories.tsx': require('../stories/MultipleOptionsCheckBox.stories'),
-    './stories/PhoneValidationCodeInput.stories.tsx': require('../stories/PhoneValidationCodeInput.stories'),
     './stories/FormSignupStep3.stories.tsx': require('../stories/FormSignupStep3.stories'),
     './stories/FormSignupStep4.stories.tsx': require('../stories/FormSignupStep4.stories'),
     './stories/FormSignupStep5.stories.tsx': require('../stories/FormSignupStep5.stories'),
+    './stories/FlyForm.stories.tsx': require('../stories/FlyForm.stories'),
+    // Inputs
+    './stories/TextInput.stories.tsx': require('../stories/TextInput.stories'),
+    './stories/EmailInput.stories.tsx': require('../stories/EmailInput.stories'),
+    './stories/PasswordInput.stories.tsx': require('../stories/PasswordInput.stories'),
+    './stories/SelectNumber.stories.tsx': require('../stories/SelectNumber.stories'),
     './stories/PhoneSecurityPinInput.stories.tsx': require('../stories/PhoneSecurityPinInput.stories'),
+    './stories/PhoneValidationCodeInput.stories.tsx': require('../stories/PhoneValidationCodeInput.stories'),
+    // Others
+    './stories/PdfViewer.stories.tsx': require('../stories/PdfViewer.stories'),
+    // Searchboxes
+    './stories/SearchModal.stories.tsx': require('../stories/SearchModal.stories'),
+    // Texts
+    './stories/ErrorMessage.stories.tsx': require('../stories/ErrorMessage.stories'),
   };
 };
 

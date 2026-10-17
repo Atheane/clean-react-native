@@ -64,6 +64,7 @@ export const Colors = {
     grey: 'rgba(105, 113, 124, 1)',
     lightGrey: 'rgba(131, 131, 131, 1)',
     white: 'rgba(255, 255, 255, 1)',
+    transparent: 'transparent',
   },
   input: {
     pink: 'rgba(203, 40, 125, 1)',

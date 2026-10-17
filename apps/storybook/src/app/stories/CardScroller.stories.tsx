@@ -5,7 +5,7 @@ import { CardScroller, Meeting, Tree } from '@clean-rn/ui-mobile';
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
 const CardScrollerMeta: ComponentMeta<typeof CardScroller> = {
-  title: 'Validated/Account/CardScroller',
+  title: 'Cards/CardScroller',
   component: CardScroller,
   args: {
     data: [

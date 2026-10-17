@@ -4,7 +4,7 @@ import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
 import { IDomainError, IInfraError } from '@clean-rn/ddd';
-import { AuthErrorCodes, AuthErrorMessage, Email } from '@clean-rn/auth/domain';
+import { IAuthErrorCodes, IAuthErrorMessage, Email } from '@clean-rn/auth/domain';
 
 import { LinkButtonColors } from '../../types';
 import { firstLetterCapitalize } from '../../utils';
@@ -25,15 +25,15 @@ type IProps = {
   secured: boolean;
   onToggleSecurity: (event: GestureResponderEvent) => void;
   onPress: () => void;
-  control: Control<LoginFormData>;
-  errors: FieldErrors<LoginFormData>;
-  error: IDomainError<AuthErrorCodes, AuthErrorMessage> | IInfraError | null;
+  control: Control<ILoginFormData>;
+  errors: FieldErrors<ILoginFormData>;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | IInfraError | null;
 };
 
-export interface LoginFormData {
+export type ILoginFormData = {
   email: string;
   password: string;
-}
+};
 
 export const FormLogin = (props: IProps) => {
   const { t } = useTranslation();
@@ -114,7 +114,6 @@ export const FormLogin = (props: IProps) => {
 
       <View style={styles.formSubmit}>
         <SubmitButton
-          submitted={false}
           title={t('screens.login.submitButton')}
           uppercase={false}
           onSubmit={props.onSubmit}

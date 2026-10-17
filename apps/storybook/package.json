@@ -37,7 +37,9 @@
     "google-libphonenumber": "*",
     "country-flag-emoji": "*",
     "@react-native-community/datetimepicker": "*",
-    "react-hook-form": "*"
+    "react-hook-form": "*",
+    "bic": "*",
+    "iban": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",

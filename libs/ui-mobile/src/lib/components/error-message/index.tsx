@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { IDomainError, IInfraError } from '@clean-rn/ddd';
 import { firstLetterCapitalize } from '../../utils';
 
-import { AuthErrorCodes, AuthErrorMessage } from '@clean-rn/auth/domain';
+import { IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
 
 type IProps = {
-  error: IDomainError<AuthErrorCodes, AuthErrorMessage> | IInfraError | null;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | IInfraError | null;
 };
 export const ErrorMessage = (props: IProps) => {
   const { t } = useTranslation();
@@ -17,7 +17,7 @@ export const ErrorMessage = (props: IProps) => {
     <View>
       {props.error &&
         props.error.code &&
-        Object.values(AuthErrorCodes).includes(props.error.code as AuthErrorCodes) && (
+        Object.values(IAuthErrorCodes).includes(props.error.code as IAuthErrorCodes) && (
           <View>
             <Text style={theme.errors}>
               {firstLetterCapitalize(t(`errors.domainError.auth.${props.error.code}`))}
@@ -26,7 +26,7 @@ export const ErrorMessage = (props: IProps) => {
         )}
       {props.error &&
         props.error.code &&
-        !Object.values(AuthErrorCodes).includes(props.error.code as AuthErrorCodes) && (
+        !Object.values(IAuthErrorCodes).includes(props.error.code as IAuthErrorCodes) && (
           <View>
             <Text style={theme.errors}>{firstLetterCapitalize(t('errors.domainError.other'))}</Text>
             {props.error.code && <Text style={theme.errors}>{'\n\n Code erreur : ' + props.error.code}</Text>}
