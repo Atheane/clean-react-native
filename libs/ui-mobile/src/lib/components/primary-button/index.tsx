@@ -31,7 +31,7 @@ export const PrimaryButton: FC<ButtonProps & Props & State> = (props: ButtonProp
         style={styles(props)(theme).buttonContainer}
         buttonStyle={styles(props)(theme).button}
         raised={!props.pressed}
-        loading={props?.loading ? props.loading : false}
+        loading={props?.loading ?? false}
         linearGradientProps={{
           colors: [theme.linearGradient.start, theme.linearGradient.end],
           start: [0, 1],
