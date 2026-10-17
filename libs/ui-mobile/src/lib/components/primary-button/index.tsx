@@ -10,8 +10,8 @@ type Props = {
   title: string;
   fixedSize?: boolean;
   uppercase?: boolean;
-  iconOne?: React.FC<SvgProps>;
-  iconTwo?: React.FC<SvgProps>;
+  iconOne?: React.FunctionComponent<SvgProps>;
+  iconTwo?: React.FunctionComponent<SvgProps>;
 };
 
 type State = {

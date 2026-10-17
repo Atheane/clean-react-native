@@ -1,8 +1,8 @@
-import { getLocales } from 'expo-localization';
+import { getLocales, Locale } from 'expo-localization';
 
-const locales = getLocales();
+const locales: Locale[] = getLocales();
 
-const options = {
+const options: Intl.DateTimeFormatOptions = {
   weekday: 'long',
   year: 'numeric',
   month: 'long',
@@ -10,7 +10,10 @@ const options = {
 };
 
 export const toLocalDateString = (date: Date) => {
-  return date.toLocaleDateString(locales[0], options);
+  if (locales && locales.length > 0 && locales[0].regionCode) {
+    return date.toLocaleDateString(locales[0].regionCode, options);
+  }
+  return  null;
 };
 
 export const todayYear = () => new Date().getFullYear();
