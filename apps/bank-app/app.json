@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "BankApp",
-    "slug": "bank-app",
+    "name": "CleanRN BankApp Dev",
+    "slug": "clean-rn-bank-app-dev",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,14 +17,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.clean-rn.bank-appdev"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.CleanRN.bank-appdev"
+      "package": "com.clean-rn.bank-appdev"
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -44,7 +45,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "5a9f9e3a-cf08-4deb-90dd-a1d3b0dcdfb3"
+        "projectId": "a7e1acaf-2f79-4e7a-8582-8cd0e216a793"
       }
     }
   }

@@ -10,13 +10,33 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": [
+      "es2020",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@clean-rn/ui-mobile": ["libs/ui-mobile/src/index.ts"]
+      "@clean-rn/account/domain": [
+        "libs/account/domain/src/index.ts"
+      ],
+      "@clean-rn/auth/domain": [
+        "libs/auth/domain/src/index.ts"
+      ],
+      "@clean-rn/carbon/domain": [
+        "libs/carbon/domain/src/index.ts"
+      ],
+      "@clean-rn/ddd": [
+        "libs/ddd/src/index.ts"
+      ],
+      "@clean-rn/ui-mobile": [
+        "libs/ui-mobile/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Storybook",
-    "slug": "storybook",
+    "name": "CleanRN Storybook Dev",
+    "slug": "clean-rn-storybook-dev",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,15 +13,19 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.example.storybookdev"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.example.storybookdev"
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -32,9 +36,17 @@
         "@config-plugins/detox",
         {
           "skipProguard": false,
-          "subdomains": ["10.0.2.2", "localhost"]
+          "subdomains": [
+            "10.0.2.2",
+            "localhost"
+          ]
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "81d27718-8c2e-42f6-911b-8d4af2c80097"
+      }
+    }
   }
 }

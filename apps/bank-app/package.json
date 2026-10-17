@@ -17,10 +17,31 @@
     "@rneui/themed": "*",
     "@expo-google-fonts/roboto": "*",
     "@expo-google-fonts/martel-sans": "*",
-    "expo-localization": "*"
+    "expo-localization": "*",
+    "expo-font": "*",
+    "react-native-select-dropdown": "*",
+    "react-i18next": "*",
+    "react-native-keyboard-aware-scroll-view": "*",
+    "@bank/carbon-weight": "*",
+    "expo-constants": "*",
+    "react-native-webview": "*",
+    "react-native-numeric-input": "*",
+    "dayjs": "*",
+    "google-libphonenumber": "*",
+    "country-flag-emoji": "*",
+    "i18next": "*",
+    "expo-splash-screen": "~0.20.5",
+    "expo-status-bar": "~1.6.0",
+    "@babel/core": "*",
+    "@react-native-community/datetimepicker": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp package-lock.json apps/bank-app",
-    "eas-build-post-install": "cd ../../ && node tools/scripts/eas-build-post-install.mjs . apps/bank-app"
+    "eas-build-post-install": "cd ../../ && node tools/scripts/eas-build-post-install.mjs . apps/bank-app",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0"
   }
 }

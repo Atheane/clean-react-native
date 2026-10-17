@@ -7,7 +7,7 @@
     "typecheck": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": ["tsc -p tsconfig.app.json --noEmit"],
+        "commands": ["bash -c tsc"],
         "cwd": "apps/bank-app",
         "forwardAllArgs": false
       }

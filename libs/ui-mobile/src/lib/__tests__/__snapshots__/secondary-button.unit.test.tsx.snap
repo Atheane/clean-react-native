@@ -1,132 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PrimaryButton -  fixedSize -  true - renders as before 1`] = `
-<View
-  style={
-    {
-      "height": 55,
-      "width": 309,
-    }
-  }
->
-  <View
-    style={
-      [
-        {
-          "overflow": "hidden",
-        },
-        {
-          "borderRadius": 28,
-        },
-        undefined,
-        {
-          "backgroundColor": "#fff",
-          "overflow": "visible",
-          "shadowColor": "rgba(0,0,0, .4)",
-          "shadowOffset": {
-            "height": 1,
-            "width": 1,
-          },
-          "shadowOpacity": 1,
-          "shadowRadius": 1,
-        },
-      ]
-    }
-    testID="RNE_BUTTON_WRAPPER"
-  >
-    <View
-      accessibilityRole="button"
-      accessibilityState={
-        {
-          "busy": false,
-          "checked": undefined,
-          "disabled": false,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "elevation": 1,
-          "opacity": 1,
-          "shadowColor": "#707070",
-          "shadowOffset": {
-            "height": 15,
-            "width": 5,
-          },
-          "shadowOpacity": 0.34,
-          "shadowRadius": 20,
-        }
-      }
-    >
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "backgroundColor": "rgba(255, 255, 255, 1)",
-            "borderColor": "#2089dc",
-            "borderRadius": 28,
-            "borderWidth": 0,
-            "flexDirection": "row",
-            "justifyContent": "center",
-            "padding": 8,
-            "paddingBottom": 11,
-            "paddingHorizontal": 10,
-            "paddingLeft": 26,
-            "paddingRight": 24,
-            "paddingTop": 12,
-          }
-        }
-      >
-        <View
-          style={
-            {
-              "alignItems": "center",
-              "flexDirection": "row",
-              "justifyContent": "space-around",
-            }
-          }
-        >
-          <View>
-            <Text
-              style={
-                {
-                  "color": "rgba(162, 179, 2, 0.6)",
-                  "fontSize": 16,
-                  "lineHeight": 29,
-                  "textTransform": "none",
-                }
-              }
-            >
-              Test-title
-            </Text>
-          </View>
-        </View>
-      </View>
-    </View>
-  </View>
-</View>
-`;
-
-exports[`PrimaryButton -  iconOne -  true - renders as before 1`] = `
+exports[`SecondaryButton -  iconOne -  true - renders as before 1`] = `
 <View
   style={
     {
@@ -237,17 +111,14 @@ exports[`PrimaryButton -  iconOne -  true - renders as before 1`] = `
               }
             }
           >
-            <SvgMock
-              fill="rgba(162, 179, 2, 1)"
-              height={28}
-              width={27}
-            />
+            <SvgMock />
           </View>
           <View>
             <Text
               style={
                 {
                   "color": "rgba(162, 179, 2, 0.6)",
+                  "fontFamily": "Roboto_700Bold",
                   "fontSize": 16,
                   "lineHeight": 29,
                   "textTransform": "none",
@@ -264,7 +135,134 @@ exports[`PrimaryButton -  iconOne -  true - renders as before 1`] = `
 </View>
 `;
 
-exports[`PrimaryButton -  minimal props -  renders as before 1`] = `
+exports[`SecondaryButton -  large -  true - renders as before 1`] = `
+<View
+  style={
+    {
+      "height": 55,
+      "width": 600,
+    }
+  }
+>
+  <View
+    style={
+      [
+        {
+          "overflow": "hidden",
+        },
+        {
+          "borderRadius": 28,
+        },
+        undefined,
+        {
+          "backgroundColor": "#fff",
+          "overflow": "visible",
+          "shadowColor": "rgba(0,0,0, .4)",
+          "shadowOffset": {
+            "height": 1,
+            "width": 1,
+          },
+          "shadowOpacity": 1,
+          "shadowRadius": 1,
+        },
+      ]
+    }
+    testID="RNE_BUTTON_WRAPPER"
+  >
+    <View
+      accessibilityRole="button"
+      accessibilityState={
+        {
+          "busy": false,
+          "checked": undefined,
+          "disabled": false,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "elevation": 1,
+          "opacity": 1,
+          "shadowColor": "#707070",
+          "shadowOffset": {
+            "height": 15,
+            "width": 5,
+          },
+          "shadowOpacity": 0.34,
+          "shadowRadius": 20,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderColor": "#2089dc",
+            "borderRadius": 28,
+            "borderWidth": 0,
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "padding": 8,
+            "paddingBottom": 11,
+            "paddingHorizontal": 10,
+            "paddingLeft": 26,
+            "paddingRight": 24,
+            "paddingTop": 12,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "space-around",
+            }
+          }
+        >
+          <View>
+            <Text
+              style={
+                {
+                  "color": "rgba(162, 179, 2, 0.6)",
+                  "fontFamily": "Roboto_700Bold",
+                  "fontSize": 16,
+                  "lineHeight": 29,
+                  "textTransform": "none",
+                }
+              }
+            >
+              Test-title
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`SecondaryButton -  minimal props -  renders as before 1`] = `
 <View
   style={
     {
@@ -373,6 +371,7 @@ exports[`PrimaryButton -  minimal props -  renders as before 1`] = `
               style={
                 {
                   "color": "rgba(162, 179, 2, 0.6)",
+                  "fontFamily": "Roboto_700Bold",
                   "fontSize": 16,
                   "lineHeight": 29,
                   "textTransform": "none",
@@ -389,7 +388,7 @@ exports[`PrimaryButton -  minimal props -  renders as before 1`] = `
 </View>
 `;
 
-exports[`PrimaryButton -  uppercase -  true - renders as before 1`] = `
+exports[`SecondaryButton -  uppercase -  true - renders as before 1`] = `
 <View
   style={
     {
@@ -498,6 +497,7 @@ exports[`PrimaryButton -  uppercase -  true - renders as before 1`] = `
               style={
                 {
                   "color": "rgba(162, 179, 2, 0.6)",
+                  "fontFamily": "Roboto_700Bold",
                   "fontSize": 16,
                   "lineHeight": 29,
                   "textTransform": "uppercase",
