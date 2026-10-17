@@ -1,2 +1,3 @@
 import { withTheme } from './withTheme';
-export { withTheme };
+import { withSwitch, ValidationStatus } from './withSwitch';
+export { withTheme, withSwitch, ValidationStatus };

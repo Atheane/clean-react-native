@@ -1,23 +1,21 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { Button, useTheme, Theme } from '@rneui/themed';
 import { Colors } from '../../constants';
 import { firstLetterCapitalize } from '../../utils';
 
-type Props = {
+type IProps = {
   title: string;
   fixedSize?: boolean;
   uppercase?: boolean;
   iconOne?: React.FC<SvgProps>;
+  loading?: boolean;
+  onPress: () => void;
   disabled?: boolean;
 };
 
-type State = {
-  onPress: () => void;
-};
-
-export const SecondaryButton: FC<Props & State> = (props: Props & State) => {
+export const SecondaryButton: FC<IProps> = (props: IProps) => {
   const { theme } = useTheme();
 
   return (
@@ -25,14 +23,15 @@ export const SecondaryButton: FC<Props & State> = (props: Props & State) => {
       <Button
         style={styles(props)(theme).buttonContainer}
         buttonStyle={styles(props)(theme).button}
-        raised
+        loading={props?.loading ?? false}
         onPress={props.onPress}
         disabled={props.disabled}
+        raised
       >
         <View style={styles(props)(theme).contentContainer}>
           {props.iconOne && (
-            <View style={styles(props)(theme).iconOneContainer}>
-              <props.iconOne {...styles(props)(theme).iconOne} />
+            <View style={styles(props)(theme).iconContainer}>
+              <props.iconOne {...styles(props)(theme).icon} />
             </View>
           )}
           <View>
@@ -44,7 +43,7 @@ export const SecondaryButton: FC<Props & State> = (props: Props & State) => {
   );
 };
 
-const styles = (props: Props & State) => (theme: Theme) =>
+const styles = (props: IProps) => (theme: Theme) =>
   StyleSheet.create({
     container: props.fixedSize
       ? {
@@ -55,10 +54,10 @@ const styles = (props: Props & State) => (theme: Theme) =>
           flexDirection: 'row',
         },
     buttonContainer: {
-      shadowColor: theme.shadow.color, // IOS
-      shadowOffset: theme.shadow.offset, // IOS
-      shadowOpacity: theme.shadow.opacity,
-      shadowRadius: theme.shadow.radius,
+      shadowColor: theme.shadow.color, // iOS
+      shadowOffset: theme.shadow.offset, // iOS
+      shadowOpacity: theme.shadow.opacity, // iOS
+      shadowRadius: theme.shadow.radius, // iOS
       elevation: 1, // android,
     },
     button: {
@@ -75,10 +74,10 @@ const styles = (props: Props & State) => (theme: Theme) =>
       textTransform: props.uppercase ? 'uppercase' : 'none',
       color: Colors.text.lightGreenTransparent,
     },
-    iconOneContainer: {
+    iconContainer: {
       marginRight: 15,
     },
-    iconOne: {
+    icon: {
       width: 27,
       height: 28,
       fill: Colors.icon.lightGreen,

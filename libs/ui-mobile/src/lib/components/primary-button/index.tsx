@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -6,21 +6,18 @@ import { Button, useTheme, Theme } from '@rneui/themed';
 import { Colors } from '../../constants';
 import { firstLetterCapitalize } from '../../utils';
 
-type Props = {
+type IProps = {
   title: string;
   fixedSize?: boolean;
   uppercase?: boolean;
   iconOne?: React.FunctionComponent<SvgProps>;
   iconTwo?: React.FunctionComponent<SvgProps>;
-};
-
-type State = {
   loading?: boolean;
   disabled?: boolean;
   onPress: () => void;
 };
 
-export const PrimaryButton: FC<Props & State> = (props: Props & State) => {
+export const PrimaryButton: FC<IProps> = (props: IProps) => {
   const { theme } = useTheme();
 
   return (
@@ -37,7 +34,7 @@ export const PrimaryButton: FC<Props & State> = (props: Props & State) => {
         }}
         onPress={props.onPress}
         disabled={props.disabled}
-        raised={true}
+        raised
       >
         <View style={styles(props)(theme).contentContainer}>
           {props.iconOne && (
@@ -57,7 +54,7 @@ export const PrimaryButton: FC<Props & State> = (props: Props & State) => {
   );
 };
 
-const styles = (props: Props & State) => (theme: Theme) =>
+const styles = (props: IProps) => (theme: Theme) =>
   StyleSheet.create({
     container: props.fixedSize
       ? {
@@ -68,10 +65,10 @@ const styles = (props: Props & State) => (theme: Theme) =>
           flexDirection: 'row',
         },
     buttonContainer: {
-      shadowColor: theme.shadow.color, // IOS
-      shadowOffset: theme.shadow.offset, // IOS
-      shadowOpacity: theme.shadow.opacity,
-      shadowRadius: theme.shadow.radius,
+      shadowColor: theme.shadow.color, // iOS
+      shadowOffset: theme.shadow.offset, // iOS
+      shadowOpacity: theme.shadow.opacity, // iOS
+      shadowRadius: theme.shadow.radius, // iOS
       elevation: 1, // android,
     },
     button: {
