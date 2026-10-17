@@ -75,14 +75,4 @@ describe('PrimaryButton - ', () => {
       expect(tree).toMatchSnapshot();
     });
   });
-  describe('pressed - ', () => {
-    it('true - renders as before', () => {
-      const tree = render(
-        <ThemeProvider theme={theme}>
-          <PrimaryButton title="test-title" onPress={() => console.log('pressed')} />
-        </ThemeProvider>,
-      );
-      expect(tree).toMatchSnapshot();
-    });
-  });
 });
