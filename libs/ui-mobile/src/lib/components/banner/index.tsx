@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Header } from '@rneui/themed';
 
 import { RightChevron, Warning } from '../../assets';
-import { Colors, FontNames, Fonts } from '../../constants';
+import { Colors, FontNames } from '../../constants';
 import { LinkButtonColors, BannerColors } from '../../types';
 import { LinkButton } from '../link-button';
 
@@ -91,7 +91,7 @@ const styles = (props: IProps) =>
     title: {
       color: Colors.text.white,
       fontSize: 18,
-      fontName: FontNames.MartelSans_700Bold,
+      fontFamily: FontNames.MartelSans_700Bold,
       fontWeight: '700',
     },
     leftIcon: { marginLeft: 8 },

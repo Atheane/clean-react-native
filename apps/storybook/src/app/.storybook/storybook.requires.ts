@@ -63,6 +63,7 @@ const getStories = () => {
     './stories/EventCard.stories.tsx': require('../stories/EventCard.stories'),
     './stories/LongCard.stories.tsx': require('../stories/LongCard.stories'),
     './stories/CardScroller.stories.tsx': require('../stories/CardScroller.stories'),
+    './stories/TransactionsCard.stories.tsx': require('../stories/TransactionsCard.stories'),
     // Checkboxes
     './stories/MultipleOptionsCheckBox.stories.tsx': require('../stories/MultipleOptionsCheckBox.stories'),
     // Dropdowns
@@ -85,12 +86,18 @@ const getStories = () => {
     './stories/SelectNumber.stories.tsx': require('../stories/SelectNumber.stories'),
     './stories/PhoneSecurityPinInput.stories.tsx': require('../stories/PhoneSecurityPinInput.stories'),
     './stories/PhoneValidationCodeInput.stories.tsx': require('../stories/PhoneValidationCodeInput.stories'),
+    // Lists
+    './stories/TransactionsCardsList.stories.tsx': require('../stories/TransactionsCardsList.stories'),
+    './stories/WhiteBalanceList.stories.tsx': require('../stories/WhiteBalanceList.stories'),
     // Others
     './stories/PdfViewer.stories.tsx': require('../stories/PdfViewer.stories'),
+    './stories/CopyValueClipboard.stories.tsx': require('../stories/CopyValueClipboard.stories'),
+    './stories/TransactionItem.stories.tsx': require('../stories/TransactionItem.stories'),
     // Searchboxes
     './stories/SearchModal.stories.tsx': require('../stories/SearchModal.stories'),
     // Texts
     './stories/ErrorMessage.stories.tsx': require('../stories/ErrorMessage.stories'),
+    './stories/WhiteBalance.stories.tsx': require('../stories/WhiteBalance.stories'),
   };
 };
 

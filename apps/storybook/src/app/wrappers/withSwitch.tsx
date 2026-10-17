@@ -72,6 +72,7 @@ const styles = (validationStatus: ValidationStatus) => {
     },
     storyContainer: {
       flex: 5,
+      width: '100%',
     },
   });
 };

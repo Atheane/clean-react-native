@@ -39,7 +39,8 @@
     "@react-native-community/datetimepicker": "*",
     "react-hook-form": "*",
     "bic": "*",
-    "iban": "*"
+    "iban": "*",
+    "expo-clipboard": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",

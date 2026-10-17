@@ -4,6 +4,8 @@ import { WithFont } from './withFont';
 import { WithTranslations } from './withTranslations';
 import { WithScroll } from './withScroll';
 import { WithKeyboardAwareScroll } from './withKeyboardAwareScroll';
+import { WithBackground } from './withBackground';
+import { WithSwitchBelow } from './withSwitchBelow';
 export {
   WithTheme,
   WithSwitch,
@@ -12,4 +14,6 @@ export {
   WithTranslations,
   WithScroll,
   WithKeyboardAwareScroll,
+  WithBackground,
+  WithSwitchBelow,
 };
