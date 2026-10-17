@@ -5,7 +5,7 @@
   "scripts": {
     "prepare": "husky install",
     "commit": "cz",
-    "test": "npx nx affected:test"
+    "test": "npx nx affected:test --detectOpenHandles --runInBand --coverage"
   },
   "private": true,
   "config": {
