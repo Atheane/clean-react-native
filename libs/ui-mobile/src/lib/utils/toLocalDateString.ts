@@ -13,7 +13,7 @@ export const toLocalDateString = (date: Date) => {
   if (locales && locales.length > 0 && locales[0].regionCode) {
     return date.toLocaleDateString(locales[0].regionCode, options);
   }
-  return  null;
+  return null;
 };
 
 export const todayYear = () => new Date().getFullYear();

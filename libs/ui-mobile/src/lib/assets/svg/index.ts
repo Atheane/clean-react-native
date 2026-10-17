@@ -1,4 +1,4 @@
-import { SvgProps } from "react-native-svg";
+import { SvgProps } from 'react-native-svg';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const Love = require('./love.svg') as React.FunctionComponent<SvgProps>;
