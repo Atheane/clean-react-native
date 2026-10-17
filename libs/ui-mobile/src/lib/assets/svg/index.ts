@@ -37,6 +37,19 @@ import Fuel from './fuel.svg';
 import Cart from './cart.svg';
 import ExportPdfGradient from './export-pdf-gradient.svg';
 import Ibanv2 from './ibanv2.svg';
+import Carbon from './carbon.svg';
+import Car from './car.svg';
+import House from './house.svg';
+import Food from './food.svg';
+import Plane from './plane.svg';
+import PlaneEmpty from './plane_empty.svg';
+import Flame from './flame.svg';
+import Department from './department.svg';
+import Surface from './surface.svg';
+import CO2 from './co2.svg';
+import Fuel from './fuel.svg';
+import FlyFrom from './flyFrom.svg';
+import FlyTo from './flyTo.svg';
 
 export {
   LoveWhite,
@@ -76,4 +89,17 @@ export {
   Cart,
   ExportPdfGradient,
   Ibanv2,
+  Carbon,
+  Car,
+  House,
+  Food,
+  Plane,
+  PlaneEmpty,
+  Flame,
+  Department,
+  Surface,
+  CO2,
+  Fuel,
+  FlyFrom,
+  FlyTo,
 };
