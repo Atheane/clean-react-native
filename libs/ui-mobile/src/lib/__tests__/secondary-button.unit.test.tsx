@@ -4,7 +4,7 @@ import { LoveWhite } from '../assets';
 import { SecondaryButton } from '../components/secondary-button';
 import { theme } from '../theme';
 
-describe('PrimaryButton - ', () => {
+describe('SecondaryButton - ', () => {
   describe('minimal props - ', () => {
     it('renders as before', () => {
       const tree = render(

@@ -8,7 +8,7 @@ export enum ValidationStatus {
   PENDING = 'PENDING',
 }
 
-export const withSwitch = (Story: Story, validationStatus: ValidationStatus) => {
+export const WithSwitch = (Story: Story, validationStatus: ValidationStatus) => {
   return (
     <View style={styles(validationStatus).mainContainer}>
       {validationStatus === ValidationStatus.VALIDATED && (

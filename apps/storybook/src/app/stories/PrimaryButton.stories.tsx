@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { LoveWhite, Validate, PrimaryButton } from '@clean-rn/ui-mobile';
-import { withSwitch, ValidationStatus } from '../wrappers';
+import { WithSwitch, ValidationStatus } from '../wrappers';
 
 const PrimaryButtonMeta: ComponentMeta<typeof PrimaryButton> = {
   title: 'Validated/Shared/PrimaryButton',
@@ -15,7 +15,7 @@ const PrimaryButtonMeta: ComponentMeta<typeof PrimaryButton> = {
     large: false,
     uppercase: true,
   },
-  decorators: [(Story) => withSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
 };
 
 export default PrimaryButtonMeta;

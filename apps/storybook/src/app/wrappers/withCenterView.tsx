@@ -1,7 +1,7 @@
 import { Story } from '@storybook/react-native';
 import { StyleSheet, View } from 'react-native';
 
-export const withCenterView = (Story: Story) => {
+export const WithCenterView = (Story: Story) => {
   return (
     <View style={styles.main}>
       <Story />

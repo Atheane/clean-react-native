@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PrimaryButton -  iconOne -  true - renders as before 1`] = `
+exports[`SecondaryButton -  iconOne -  true - renders as before 1`] = `
 <View
   style={
     {
@@ -112,7 +112,6 @@ exports[`PrimaryButton -  iconOne -  true - renders as before 1`] = `
             }
           >
             <SvgMock
-              fill="rgba(162, 179, 2, 1)"
               height={28}
               width={27}
             />
@@ -122,6 +121,7 @@ exports[`PrimaryButton -  iconOne -  true - renders as before 1`] = `
               style={
                 {
                   "color": "rgba(162, 179, 2, 0.6)",
+                  "fontFamily": "Roboto_700Bold",
                   "fontSize": 16,
                   "lineHeight": 29,
                   "textTransform": "none",
@@ -138,7 +138,7 @@ exports[`PrimaryButton -  iconOne -  true - renders as before 1`] = `
 </View>
 `;
 
-exports[`PrimaryButton -  large -  true - renders as before 1`] = `
+exports[`SecondaryButton -  large -  true - renders as before 1`] = `
 <View
   style={
     {
@@ -248,6 +248,7 @@ exports[`PrimaryButton -  large -  true - renders as before 1`] = `
               style={
                 {
                   "color": "rgba(162, 179, 2, 0.6)",
+                  "fontFamily": "Roboto_700Bold",
                   "fontSize": 16,
                   "lineHeight": 29,
                   "textTransform": "none",
@@ -264,7 +265,7 @@ exports[`PrimaryButton -  large -  true - renders as before 1`] = `
 </View>
 `;
 
-exports[`PrimaryButton -  minimal props -  renders as before 1`] = `
+exports[`SecondaryButton -  minimal props -  renders as before 1`] = `
 <View
   style={
     {
@@ -373,6 +374,7 @@ exports[`PrimaryButton -  minimal props -  renders as before 1`] = `
               style={
                 {
                   "color": "rgba(162, 179, 2, 0.6)",
+                  "fontFamily": "Roboto_700Bold",
                   "fontSize": 16,
                   "lineHeight": 29,
                   "textTransform": "none",
@@ -389,7 +391,7 @@ exports[`PrimaryButton -  minimal props -  renders as before 1`] = `
 </View>
 `;
 
-exports[`PrimaryButton -  uppercase -  true - renders as before 1`] = `
+exports[`SecondaryButton -  uppercase -  true - renders as before 1`] = `
 <View
   style={
     {
@@ -498,6 +500,7 @@ exports[`PrimaryButton -  uppercase -  true - renders as before 1`] = `
               style={
                 {
                   "color": "rgba(162, 179, 2, 0.6)",
+                  "fontFamily": "Roboto_700Bold",
                   "fontSize": 16,
                   "lineHeight": 29,
                   "textTransform": "uppercase",

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Button, useTheme, Theme } from '@rneui/themed';
-import { Colors } from '../../constants';
+import { Colors, FontNames } from '../../constants';
 import { firstLetterCapitalize } from '../../utils';
 
 type IProps = {
@@ -71,6 +71,7 @@ const styles = (props: IProps) => (theme: Theme) =>
       shadowOpacity: theme.shadow.opacity, // iOS
       shadowRadius: theme.shadow.radius, // iOS
       elevation: 1, // android,
+      borderRadius: 50,
     },
     button: {
       paddingTop: 15,
@@ -88,6 +89,7 @@ const styles = (props: IProps) => (theme: Theme) =>
       fontSize: 18,
       textTransform: props.uppercase ? 'uppercase' : 'none',
       color: Colors.text.white,
+      fontFamily: FontNames.Roboto_700Bold,
     },
     iconOneContainer: {
       marginRight: 15,
@@ -98,6 +100,5 @@ const styles = (props: IProps) => (theme: Theme) =>
     icon: {
       width: 22,
       height: 23,
-      fill: Colors.text.white,
     },
   });

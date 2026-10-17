@@ -1,9 +1,11 @@
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet, Text } from 'react-native';
+import { useFonts } from 'expo-font';
 import { ThemeProvider } from '@rneui/themed';
-import { PrimaryButton, LoveWhite, Validate, theme } from '@clean-rn/ui-mobile';
+import { PrimaryButton, LoveWhite, Validate, theme, Fonts } from '@clean-rn/ui-mobile';
 
 export const App = () => {
-  return (
+  const [fontsLoaded] = useFonts(Fonts);
+  return fontsLoaded ? (
     <ThemeProvider theme={theme}>
       <SafeAreaView style={styles.container}>
         <PrimaryButton
@@ -17,6 +19,10 @@ export const App = () => {
         />
       </SafeAreaView>
     </ThemeProvider>
+  ) : (
+    <SafeAreaView>
+      <Text>Loading Font...</Text>
+    </SafeAreaView>
   );
 };
 

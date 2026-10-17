@@ -1,4 +1,4 @@
-import { withTheme } from '../wrappers';
+import { WithTheme, WithFont } from '../wrappers';
 export const parameters = {
   controls: {
     matchers: {
@@ -8,4 +8,4 @@ export const parameters = {
   },
 };
 
-export const decorators = [withTheme];
+export const decorators = [WithTheme, WithFont];

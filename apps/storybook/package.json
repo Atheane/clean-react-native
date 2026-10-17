@@ -22,7 +22,8 @@
     "@expo-google-fonts/roboto": "*",
     "@expo-google-fonts/martel-sans": "*",
     "expo-localization": "*",
-    "react-native-keyboard-aware-scroll-view": "*"
+    "react-native-keyboard-aware-scroll-view": "*",
+    "expo-font": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",

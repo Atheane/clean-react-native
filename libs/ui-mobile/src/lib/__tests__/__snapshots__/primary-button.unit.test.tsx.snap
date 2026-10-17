@@ -55,6 +55,7 @@ exports[`PrimaryButton -  disabled -  true - renders as before 1`] = `
       style={
         {
           "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderRadius": 50,
           "elevation": 1,
           "opacity": 1,
           "shadowColor": "#707070",
@@ -117,6 +118,7 @@ exports[`PrimaryButton -  disabled -  true - renders as before 1`] = `
             style={
               {
                 "color": "rgba(255, 255, 255, 1)",
+                "fontFamily": "Roboto_700Bold",
                 "fontSize": 18,
                 "lineHeight": 24,
                 "textTransform": "none",
@@ -197,6 +199,7 @@ exports[`PrimaryButton -  iconOne -  true - renders as before 1`] = `
       style={
         {
           "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderRadius": 50,
           "elevation": 1,
           "opacity": 1,
           "shadowColor": "#707070",
@@ -263,7 +266,6 @@ exports[`PrimaryButton -  iconOne -  true - renders as before 1`] = `
             }
           >
             <SvgMock
-              fill="rgba(255, 255, 255, 1)"
               height={23}
               width={22}
             />
@@ -272,6 +274,7 @@ exports[`PrimaryButton -  iconOne -  true - renders as before 1`] = `
             style={
               {
                 "color": "rgba(255, 255, 255, 1)",
+                "fontFamily": "Roboto_700Bold",
                 "fontSize": 18,
                 "lineHeight": 24,
                 "textTransform": "none",
@@ -352,6 +355,7 @@ exports[`PrimaryButton -  iconTwo -  true - renders as before 1`] = `
       style={
         {
           "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderRadius": 50,
           "elevation": 1,
           "opacity": 1,
           "shadowColor": "#707070",
@@ -414,6 +418,7 @@ exports[`PrimaryButton -  iconTwo -  true - renders as before 1`] = `
             style={
               {
                 "color": "rgba(255, 255, 255, 1)",
+                "fontFamily": "Roboto_700Bold",
                 "fontSize": 18,
                 "lineHeight": 24,
                 "textTransform": "none",
@@ -430,7 +435,6 @@ exports[`PrimaryButton -  iconTwo -  true - renders as before 1`] = `
             }
           >
             <SvgMock
-              fill="rgba(255, 255, 255, 1)"
               height={23}
               width={22}
             />
@@ -508,6 +512,7 @@ exports[`PrimaryButton -  large -  true - renders as before 1`] = `
       style={
         {
           "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderRadius": 50,
           "elevation": 1,
           "opacity": 1,
           "shadowColor": "#707070",
@@ -570,6 +575,7 @@ exports[`PrimaryButton -  large -  true - renders as before 1`] = `
             style={
               {
                 "color": "rgba(255, 255, 255, 1)",
+                "fontFamily": "Roboto_700Bold",
                 "fontSize": 18,
                 "lineHeight": 24,
                 "textTransform": "none",
@@ -650,6 +656,7 @@ exports[`PrimaryButton -  loading -  true - renders as before 1`] = `
       style={
         {
           "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderRadius": 50,
           "elevation": 1,
           "opacity": 1,
           "shadowColor": "#707070",
@@ -779,6 +786,7 @@ exports[`PrimaryButton -  minimal props -  renders as before 1`] = `
       style={
         {
           "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderRadius": 50,
           "elevation": 1,
           "opacity": 1,
           "shadowColor": "#707070",
@@ -841,6 +849,7 @@ exports[`PrimaryButton -  minimal props -  renders as before 1`] = `
             style={
               {
                 "color": "rgba(255, 255, 255, 1)",
+                "fontFamily": "Roboto_700Bold",
                 "fontSize": 18,
                 "lineHeight": 24,
                 "textTransform": "none",
@@ -921,6 +930,7 @@ exports[`PrimaryButton -  uppercase -  true - renders as before 1`] = `
       style={
         {
           "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderRadius": 50,
           "elevation": 1,
           "opacity": 1,
           "shadowColor": "#707070",
@@ -983,6 +993,7 @@ exports[`PrimaryButton -  uppercase -  true - renders as before 1`] = `
             style={
               {
                 "color": "rgba(255, 255, 255, 1)",
+                "fontFamily": "Roboto_700Bold",
                 "fontSize": 18,
                 "lineHeight": 24,
                 "textTransform": "uppercase",

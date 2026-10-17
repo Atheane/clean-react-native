@@ -3,7 +3,7 @@ import { Story } from '@storybook/react-native';
 import { ThemeProvider } from '@rneui/themed';
 import { theme } from '@clean-rn/ui-mobile';
 
-export const withTheme = (Story: Story) => {
+export const WithTheme = (Story: Story) => {
   return (
     <ThemeProvider theme={theme}>
       <Story />

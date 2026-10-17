@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { Button, useTheme, Theme } from '@rneui/themed';
-import { Colors } from '../../constants';
+import { Colors, FontNames } from '../../constants';
 import { firstLetterCapitalize } from '../../utils';
 
 type IProps = {
@@ -73,6 +73,7 @@ const styles = (props: IProps) => (theme: Theme) =>
       fontSize: 16,
       textTransform: props.uppercase ? 'uppercase' : 'none',
       color: Colors.text.lightGreenTransparent,
+      fontFamily: FontNames.Roboto_700Bold,
     },
     iconContainer: {
       marginRight: 15,
@@ -80,6 +81,5 @@ const styles = (props: IProps) => (theme: Theme) =>
     icon: {
       width: 27,
       height: 28,
-      fill: Colors.icon.lightGreen,
     },
   });
