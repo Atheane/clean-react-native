@@ -6,7 +6,6 @@ export const App = () => {
     <SafeAreaView style={styles.container}>
       <PrimaryButton
         title="Hello"
-        pressed={false}
         fixedSize
         onPress={() => {
           console.log('Pressed');

@@ -14,7 +14,6 @@ const PrimaryButtonMeta: ComponentMeta<typeof PrimaryButton> = {
   args: {
     title: "S'inscrire",
     fixedSize: false,
-    pressed: false,
     uppercase: true,
   },
   decorators: [

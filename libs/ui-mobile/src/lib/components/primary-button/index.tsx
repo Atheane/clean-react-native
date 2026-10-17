@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Button, ButtonProps, useTheme, Theme } from '@rneui/themed';
+import { Button, useTheme, Theme } from '@rneui/themed';
 import { Colors } from '../../constants';
 import { firstLetterCapitalize } from '../../utils';
 
@@ -16,12 +16,11 @@ type Props = {
 
 type State = {
   loading?: boolean;
-  pressed: boolean;
   disabled?: boolean;
   onPress: () => void;
 };
 
-export const PrimaryButton: FC<ButtonProps & Props & State> = (props: ButtonProps & Props & State) => {
+export const PrimaryButton: FC<Props & State> = (props: Props & State) => {
   const { theme } = useTheme();
 
   return (
@@ -30,7 +29,6 @@ export const PrimaryButton: FC<ButtonProps & Props & State> = (props: ButtonProp
         ViewComponent={LinearGradient}
         style={styles(props)(theme).buttonContainer}
         buttonStyle={styles(props)(theme).button}
-        raised={!props.pressed}
         loading={props?.loading ?? false}
         linearGradientProps={{
           colors: [theme.linearGradient.start, theme.linearGradient.end],
@@ -39,6 +37,7 @@ export const PrimaryButton: FC<ButtonProps & Props & State> = (props: ButtonProp
         }}
         onPress={props.onPress}
         disabled={props.disabled}
+        raised={true}
       >
         <View style={styles(props)(theme).contentContainer}>
           {props.iconOne && (
@@ -90,7 +89,7 @@ const styles = (props: Props & State) => (theme: Theme) =>
       lineHeight: 24,
       fontSize: 18,
       textTransform: props.uppercase ? 'uppercase' : 'none',
-      color: props.pressed ? Colors.text.whiteTransparent : Colors.text.white,
+      color: Colors.text.white,
     },
     iconOneContainer: {
       marginRight: 15,
@@ -102,6 +101,6 @@ const styles = (props: Props & State) => (theme: Theme) =>
     icon: {
       width: 22,
       height: 23,
-      fill: props.pressed ? Colors.text.whiteTransparent : Colors.text.white,
+      fill: Colors.text.white,
     },
   });

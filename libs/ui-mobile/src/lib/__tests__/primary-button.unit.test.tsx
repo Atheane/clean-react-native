@@ -9,7 +9,7 @@ describe('PrimaryButton - ', () => {
     it('renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
-          <PrimaryButton title="test-title" pressed={false} onPress={() => console.log('pressed')} />
+          <PrimaryButton title="test-title" onPress={() => console.log('pressed')} />
         </ThemeProvider>,
       );
       expect(tree).toMatchSnapshot();
@@ -19,12 +19,7 @@ describe('PrimaryButton - ', () => {
     it('true - renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
-          <PrimaryButton
-            title="test-title"
-            pressed={false}
-            onPress={() => console.log('pressed')}
-            fixedSize
-          />
+          <PrimaryButton title="test-title" onPress={() => console.log('pressed')} fixedSize />
         </ThemeProvider>,
       );
       expect(tree).toMatchSnapshot();
@@ -34,12 +29,7 @@ describe('PrimaryButton - ', () => {
     it('true - renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
-          <PrimaryButton
-            title="test-title"
-            pressed={false}
-            onPress={() => console.log('pressed')}
-            uppercase
-          />
+          <PrimaryButton title="test-title" onPress={() => console.log('pressed')} uppercase />
         </ThemeProvider>,
       );
       expect(tree).toMatchSnapshot();
@@ -49,12 +39,7 @@ describe('PrimaryButton - ', () => {
     it('true - renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
-          <PrimaryButton
-            title="test-title"
-            pressed={false}
-            onPress={() => console.log('pressed')}
-            iconOne={Love}
-          />
+          <PrimaryButton title="test-title" onPress={() => console.log('pressed')} iconOne={Love} />
         </ThemeProvider>,
       );
       expect(tree).toMatchSnapshot();
@@ -64,12 +49,7 @@ describe('PrimaryButton - ', () => {
     it('true - renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
-          <PrimaryButton
-            title="test-title"
-            pressed={false}
-            onPress={() => console.log('pressed')}
-            iconTwo={Love}
-          />
+          <PrimaryButton title="test-title" onPress={() => console.log('pressed')} iconTwo={Love} />
         </ThemeProvider>,
       );
       expect(tree).toMatchSnapshot();
@@ -79,7 +59,7 @@ describe('PrimaryButton - ', () => {
     it('true - renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
-          <PrimaryButton title="test-title" pressed={false} onPress={() => console.log('pressed')} loading />
+          <PrimaryButton title="test-title" onPress={() => console.log('pressed')} loading />
         </ThemeProvider>,
       );
       expect(tree).toMatchSnapshot();
@@ -89,7 +69,7 @@ describe('PrimaryButton - ', () => {
     it('true - renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
-          <PrimaryButton title="test-title" pressed={false} onPress={() => console.log('pressed')} disabled />
+          <PrimaryButton title="test-title" onPress={() => console.log('pressed')} disabled />
         </ThemeProvider>,
       );
       expect(tree).toMatchSnapshot();
@@ -99,7 +79,7 @@ describe('PrimaryButton - ', () => {
     it('true - renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
-          <PrimaryButton title="test-title" pressed onPress={() => console.log('pressed')} />
+          <PrimaryButton title="test-title" onPress={() => console.log('pressed')} />
         </ThemeProvider>,
       );
       expect(tree).toMatchSnapshot();
