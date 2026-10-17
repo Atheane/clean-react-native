@@ -7,7 +7,11 @@ describe('GreenBackButton - ', () => {
   it('renders as before', () => {
     const tree = render(
       <ThemeProvider theme={theme}>
-        <GreenBackButton onPress={() => console.log('pressed')} />
+        <GreenBackButton
+          onPress={() => {
+            return null;
+          }}
+        />
       </ThemeProvider>,
     );
     expect(tree).toMatchSnapshot();

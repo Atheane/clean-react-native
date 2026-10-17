@@ -1,5 +1,6 @@
+import { StyleProp, ViewStyle } from 'react-native';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
-import { LoveWhite, Validate, PrimaryButton } from '@clean-rn/ui-mobile';
+import { Love, Validate, PrimaryButton, Colors } from '@clean-rn/ui-mobile';
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
 const PrimaryButtonMeta: ComponentMeta<typeof PrimaryButton> = {
@@ -23,7 +24,24 @@ export default PrimaryButtonMeta;
 type PrimaryButtonStory = ComponentStory<typeof PrimaryButton>;
 
 export const Static: PrimaryButtonStory = (args) => <PrimaryButton {...args} />;
-export const OneIcon: PrimaryButtonStory = (args) => <PrimaryButton iconOne={LoveWhite} {...args} />;
+export const OneIcon: PrimaryButtonStory = (args) => (
+  <PrimaryButton
+    iconOne={() => (
+      <Love width={23} height={23} style={{ color: Colors.icon.white } as StyleProp<ViewStyle>} />
+    )}
+    {...args}
+  />
+);
 export const TwoIcons: PrimaryButtonStory = (args) => {
-  return <PrimaryButton iconOne={LoveWhite} iconTwo={Validate} {...args} />;
+  return (
+    <PrimaryButton
+      iconOne={() => (
+        <Love width={23} height={23} style={{ color: Colors.icon.white } as StyleProp<ViewStyle>} />
+      )}
+      iconTwo={() => (
+        <Validate width={23} height={23} style={{ color: Colors.icon.white } as StyleProp<ViewStyle>} />
+      )}
+      {...args}
+    />
+  );
 };

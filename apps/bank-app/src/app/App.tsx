@@ -1,7 +1,7 @@
-import { SafeAreaView, StyleSheet, Text } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, StyleProp, ViewStyle } from 'react-native';
 import { useFonts } from 'expo-font';
 import { ThemeProvider } from '@rneui/themed';
-import { PrimaryButton, LoveWhite, Validate, theme, Fonts } from '@clean-rn/ui-mobile';
+import { PrimaryButton, Love, Validate, theme, Fonts, Colors } from '@clean-rn/ui-mobile';
 
 export const App = () => {
   const [fontsLoaded] = useFonts(Fonts);
@@ -14,8 +14,12 @@ export const App = () => {
           onPress={() => {
             console.log('Pressed');
           }}
-          iconOne={LoveWhite}
-          iconTwo={Validate}
+          iconOne={() => (
+            <Love width={23} height={23} style={{ color: Colors.icon.white } as StyleProp<ViewStyle>} />
+          )}
+          iconTwo={() => (
+            <Validate width={23} height={23} style={{ color: Colors.icon.white } as StyleProp<ViewStyle>} />
+          )}
         />
       </SafeAreaView>
     </ThemeProvider>

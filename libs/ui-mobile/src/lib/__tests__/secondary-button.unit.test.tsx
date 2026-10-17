@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react-native';
 import { ThemeProvider } from '@rneui/themed';
-import { LoveWhite } from '../assets';
+import { Love } from '../assets';
 import { SecondaryButton } from '../components/secondary-button';
 import { theme } from '../theme';
 
@@ -9,7 +9,12 @@ describe('SecondaryButton - ', () => {
     it('renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
-          <SecondaryButton title="test-title" onPress={() => console.log('pressed')} />
+          <SecondaryButton
+            title="test-title"
+            onPress={() => {
+              return null;
+            }}
+          />
         </ThemeProvider>,
       );
       expect(tree).toMatchSnapshot();
@@ -19,7 +24,13 @@ describe('SecondaryButton - ', () => {
     it('true - renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
-          <SecondaryButton title="test-title" onPress={() => console.log('pressed')} large />
+          <SecondaryButton
+            title="test-title"
+            onPress={() => {
+              return null;
+            }}
+            large
+          />
         </ThemeProvider>,
       );
       expect(tree).toMatchSnapshot();
@@ -29,7 +40,13 @@ describe('SecondaryButton - ', () => {
     it('true - renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
-          <SecondaryButton title="test-title" onPress={() => console.log('pressed')} uppercase />
+          <SecondaryButton
+            title="test-title"
+            onPress={() => {
+              return null;
+            }}
+            uppercase
+          />
         </ThemeProvider>,
       );
       expect(tree).toMatchSnapshot();
@@ -39,7 +56,13 @@ describe('SecondaryButton - ', () => {
     it('true - renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
-          <SecondaryButton title="test-title" onPress={() => console.log('pressed')} iconOne={LoveWhite} />
+          <SecondaryButton
+            title="test-title"
+            onPress={() => {
+              return null;
+            }}
+            iconOne={Love}
+          />
         </ThemeProvider>,
       );
       expect(tree).toMatchSnapshot();

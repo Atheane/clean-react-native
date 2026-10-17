@@ -111,10 +111,7 @@ exports[`SecondaryButton -  iconOne -  true - renders as before 1`] = `
               }
             }
           >
-            <SvgMock
-              height={28}
-              width={27}
-            />
+            <SvgMock />
           </View>
           <View>
             <Text

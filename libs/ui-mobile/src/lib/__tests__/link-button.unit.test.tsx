@@ -3,7 +3,7 @@ import { ThemeProvider } from '@rneui/themed';
 import { LinkButton } from '../components/link-button';
 import { LinkButtonColors } from '../types';
 import { theme } from '../theme';
-import { LoveGreen } from '../assets';
+import { Love } from '../assets';
 
 describe('LinkButton - ', () => {
   describe('pink & pressed & arrow -', () => {
@@ -12,7 +12,9 @@ describe('LinkButton - ', () => {
         <ThemeProvider theme={theme}>
           <LinkButton
             title="test-title"
-            onPress={() => console.log('pressed')}
+            onPress={() => {
+              return null;
+            }}
             colorOption={LinkButtonColors.PINK}
             pressed
             arrow
@@ -28,7 +30,9 @@ describe('LinkButton - ', () => {
         <ThemeProvider theme={theme}>
           <LinkButton
             title="test-title"
-            onPress={() => console.log('pressed')}
+            onPress={() => {
+              return null;
+            }}
             colorOption={LinkButtonColors.PINK}
             pressed={false}
           />
@@ -43,7 +47,9 @@ describe('LinkButton - ', () => {
         <ThemeProvider theme={theme}>
           <LinkButton
             title="test-title"
-            onPress={() => console.log('pressed')}
+            onPress={() => {
+              return null;
+            }}
             colorOption={LinkButtonColors.BLUE}
             pressed
             arrow
@@ -59,7 +65,9 @@ describe('LinkButton - ', () => {
         <ThemeProvider theme={theme}>
           <LinkButton
             title="test-title"
-            onPress={() => console.log('pressed')}
+            onPress={() => {
+              return null;
+            }}
             colorOption={LinkButtonColors.BLUE}
             pressed={false}
           />
@@ -74,7 +82,9 @@ describe('LinkButton - ', () => {
         <ThemeProvider theme={theme}>
           <LinkButton
             title="test-title"
-            onPress={() => console.log('pressed')}
+            onPress={() => {
+              return null;
+            }}
             colorOption={LinkButtonColors.GREEN}
             pressed
             arrow
@@ -90,7 +100,9 @@ describe('LinkButton - ', () => {
         <ThemeProvider theme={theme}>
           <LinkButton
             title="test-title"
-            onPress={() => console.log('pressed')}
+            onPress={() => {
+              return null;
+            }}
             colorOption={LinkButtonColors.GREEN}
             pressed={false}
           />
@@ -105,7 +117,9 @@ describe('LinkButton - ', () => {
         <ThemeProvider theme={theme}>
           <LinkButton
             title="test-title"
-            onPress={() => console.log('pressed')}
+            onPress={() => {
+              return null;
+            }}
             colorOption={LinkButtonColors.WHITE}
             pressed
             arrow
@@ -121,7 +135,9 @@ describe('LinkButton - ', () => {
         <ThemeProvider theme={theme}>
           <LinkButton
             title="test-title"
-            onPress={() => console.log('pressed')}
+            onPress={() => {
+              return null;
+            }}
             colorOption={LinkButtonColors.WHITE}
             pressed={false}
           />
@@ -135,10 +151,12 @@ describe('LinkButton - ', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
           <LinkButton
-            onPress={() => console.log('pressed')}
+            onPress={() => {
+              return null;
+            }}
             colorOption={LinkButtonColors.PINK}
             pressed={false}
-            iconOne={LoveGreen}
+            iconOne={Love}
           />
         </ThemeProvider>,
       );

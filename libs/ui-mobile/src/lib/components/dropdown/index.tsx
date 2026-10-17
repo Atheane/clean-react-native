@@ -50,7 +50,7 @@ export const Dropdown = (props: IProps) => {
           rowTextStyle={styles.rowText}
           renderDropdownIcon={() => (
             <View style={styles.dropdownIcon}>
-              <DropDownChevron fill={theme.linearGradient.start} />
+              <DropDownChevron style={{ color: theme.linearGradient.start }} />
             </View>
           )}
           defaultButtonText={props.defaultValue ?? props.placeholder}

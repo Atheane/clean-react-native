@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import LoveWhite from './love-white.svg';
-import LoveGreen from './love-green.svg';
+import Love from './love.svg';
 import Validate from './validate.svg';
 import Logout from './logout.svg';
 import DropDownChevron from './dropdown-chevron.svg';
@@ -10,10 +9,7 @@ import RightChevron from './right-chevron.svg';
 import Pill from './pill.svg';
 import Search from './search.svg';
 import Close from './close.svg';
-import RightArrowWhite from './right-arrow-white.svg';
-import RightArrowGreen from './right-arrow-green.svg';
-import RightArrowPink from './right-arrow-pink.svg';
-import RightArrowBlue from './right-arrow-blue.svg';
+import RightArrow from './right-arrow.svg';
 import Home from './home.svg';
 import TopBlueBg from './top-blue-bg.svg';
 import TopRightFlowersBg from './top-right-flowers-bg.svg';
@@ -61,10 +57,10 @@ import CheckBox from './checkbox.svg';
 import UncheckBox from './uncheckbox.svg';
 import Shield from './shield.svg';
 import Delete from './delete.svg';
+import Right from './right.svg';
 
 export {
-  LoveWhite,
-  LoveGreen,
+  Love,
   Validate,
   Logout,
   DropDownChevron,
@@ -73,10 +69,7 @@ export {
   Pill,
   Search,
   Close,
-  RightArrowWhite,
-  RightArrowGreen,
-  RightArrowPink,
-  RightArrowBlue,
+  RightArrow,
   Home,
   TopBlueBg,
   TopRightFlowersBg,
@@ -124,4 +117,5 @@ export {
   UncheckBox,
   Shield,
   Delete,
+  Right,
 };

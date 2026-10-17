@@ -4,7 +4,7 @@ import { SvgProps } from 'react-native-svg';
 import { Button } from '@rneui/themed';
 
 import { Colors, FontNames } from '../../constants';
-import { RightArrowBlue, RightArrowGreen, RightArrowPink, RightArrowWhite } from '../../assets';
+import { RightArrow } from '../../assets';
 import { LinkButtonColors } from '../../types';
 
 type IProps = {
@@ -22,10 +22,11 @@ export const LinkButton: FC<IProps> = (props: IProps) => {
       <View style={styles(props).contentContainer}>
         {props.arrow && (
           <View style={styles(props).iconContainer}>
-            {props.colorOption === LinkButtonColors.PINK && <RightArrowPink {...styles(props).icon} />}
-            {props.colorOption === LinkButtonColors.BLUE && <RightArrowBlue {...styles(props).icon} />}
-            {props.colorOption === LinkButtonColors.GREEN && <RightArrowGreen {...styles(props).icon} />}
-            {props.colorOption === LinkButtonColors.WHITE && <RightArrowWhite {...styles(props).icon} />}
+            <RightArrow
+              width={27}
+              height={16}
+              style={{ color: getColor(props.colorOption)(props.pressed) }}
+            />
           </View>
         )}
         {props.title && <Text style={styles(props).title}>{props.title}</Text>}
@@ -52,10 +53,6 @@ const styles = (props: IProps) =>
   StyleSheet.create({
     contentContainer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' },
     iconContainer: { marginRight: 10 },
-    icon: {
-      width: 27,
-      height: 16,
-    },
     title: {
       textAlign: 'left',
       fontFamily: FontNames.Roboto_400Regular,

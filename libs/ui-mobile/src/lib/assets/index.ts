@@ -1,6 +1,5 @@
 import {
-  LoveGreen,
-  LoveWhite,
+  Love,
   Validate,
   Logout,
   DropDownChevron,
@@ -9,10 +8,7 @@ import {
   Pill,
   Search,
   Close,
-  RightArrowWhite,
-  RightArrowGreen,
-  RightArrowPink,
-  RightArrowBlue,
+  RightArrow,
   Home,
   TopBlueBg,
   TopRightFlowersBg,
@@ -60,11 +56,11 @@ import {
   UncheckBox,
   Shield,
   Delete,
+  Right,
 } from './svg';
 import { Back, Oups } from './images';
 export {
-  LoveGreen,
-  LoveWhite,
+  Love,
   Validate,
   Logout,
   Back,
@@ -74,10 +70,7 @@ export {
   Pill,
   Search,
   Close,
-  RightArrowWhite,
-  RightArrowGreen,
-  RightArrowPink,
-  RightArrowBlue,
+  RightArrow,
   Home,
   TopBlueBg,
   TopRightFlowersBg,
@@ -126,4 +119,5 @@ export {
   UncheckBox,
   Shield,
   Delete,
+  Right,
 };

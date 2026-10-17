@@ -2,7 +2,7 @@ import { render } from '@testing-library/react-native';
 import { ThemeProvider } from '@rneui/themed';
 import { Dropdown } from '../components/dropdown';
 import { theme } from '../theme';
-import { LoveGreen } from '../assets';
+import { Love } from '../assets';
 import { Colors } from '../constants';
 
 const fakeData = [
@@ -18,13 +18,7 @@ describe('Dropdown - ', () => {
     it('renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
-          <Dropdown
-            label="label"
-            placeholder="placeholder"
-            data={fakeData}
-            icon={LoveGreen}
-            onSelect={onSelect}
-          />
+          <Dropdown label="label" placeholder="placeholder" data={fakeData} icon={Love} onSelect={onSelect} />
         </ThemeProvider>,
       );
       expect(tree).toMatchSnapshot();
@@ -39,7 +33,7 @@ describe('Dropdown - ', () => {
             label="label"
             placeholder="placeholder"
             data={fakeData}
-            icon={LoveGreen}
+            icon={Love}
             labelColor={Colors.text.grey}
             onSelect={onSelect}
           />
@@ -57,7 +51,7 @@ describe('Dropdown - ', () => {
             label="label"
             placeholder="placeholder"
             data={fakeData}
-            icon={LoveGreen}
+            icon={Love}
             defaultValue={'one'}
             onSelect={onSelect}
           />

@@ -2,7 +2,7 @@ import { render } from '@testing-library/react-native';
 import { ThemeProvider } from '@rneui/themed';
 import { SearchModal } from '../components/search-modal';
 import { theme } from '../theme';
-import { LoveGreen } from '../assets';
+import { Love } from '../assets';
 
 describe('SearchModal - ', () => {
   describe('minimal props - ', () => {
@@ -10,11 +10,13 @@ describe('SearchModal - ', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
           <SearchModal
-            icon={LoveGreen}
+            icon={Love}
             label="string"
             placeholder="string"
             data={[{ key: 'string', value: 'string' }]}
-            onSelect={console.log}
+            onSelect={() => {
+              return null;
+            }}
           />
         </ThemeProvider>,
       );

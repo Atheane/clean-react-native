@@ -31,7 +31,7 @@ export const SecondaryButton: FC<IProps> = (props: IProps) => {
         <View style={styles(props)(theme).contentContainer}>
           {props.iconOne && (
             <View style={styles(props)(theme).iconContainer}>
-              <props.iconOne {...styles(props)(theme).icon} />
+              <props.iconOne />
             </View>
           )}
           <View>
@@ -77,9 +77,5 @@ const styles = (props: IProps) => (theme: Theme) =>
     },
     iconContainer: {
       marginRight: 15,
-    },
-    icon: {
-      width: 27,
-      height: 28,
     },
   });

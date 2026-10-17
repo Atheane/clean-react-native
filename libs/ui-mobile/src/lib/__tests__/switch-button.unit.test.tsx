@@ -15,7 +15,12 @@ describe('SwitchButton - ', () => {
     it('renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
-          <SwitchButton options={fakeData} onToggle={console.log} />
+          <SwitchButton
+            options={fakeData}
+            onToggle={() => {
+              return null;
+            }}
+          />
         </ThemeProvider>,
       );
       expect(tree).toMatchSnapshot();
@@ -25,7 +30,13 @@ describe('SwitchButton - ', () => {
     it('renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
-          <SwitchButton options={fakeData} onToggle={console.log} label="Label" />
+          <SwitchButton
+            options={fakeData}
+            onToggle={() => {
+              return null;
+            }}
+            label="Label"
+          />
         </ThemeProvider>,
       );
       expect(tree).toMatchSnapshot();

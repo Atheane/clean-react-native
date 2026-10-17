@@ -10,8 +10,8 @@ type IProps = {
   title: string;
   large?: boolean;
   uppercase?: boolean;
-  iconOne?: React.FunctionComponent<SvgProps>;
-  iconTwo?: React.FunctionComponent<SvgProps>;
+  iconOne?: React.FC<SvgProps>;
+  iconTwo?: React.FC<SvgProps>;
   loading?: boolean;
   disabled?: boolean;
   onPress: () => void;
@@ -39,13 +39,13 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
         <View style={styles(props)(theme).contentContainer}>
           {props.iconOne && (
             <View style={styles(props)(theme).iconOneContainer}>
-              <props.iconOne {...styles(props)(theme).icon} />
+              <props.iconOne />
             </View>
           )}
           <Text style={styles(props)(theme).content}>{firstLetterCapitalize(props.title)}</Text>
           {props.iconTwo && (
             <View style={styles(props)(theme).iconTwoContainer}>
-              <props.iconTwo {...styles(props)(theme).icon} />
+              <props.iconTwo />
             </View>
           )}
         </View>
@@ -96,9 +96,5 @@ const styles = (props: IProps) => (theme: Theme) =>
     },
     iconTwoContainer: {
       marginLeft: 15,
-    },
-    icon: {
-      width: 22,
-      height: 23,
     },
   });

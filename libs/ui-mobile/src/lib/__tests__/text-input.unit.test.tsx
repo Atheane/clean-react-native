@@ -3,7 +3,7 @@ import { ThemeProvider } from '@rneui/themed';
 import { TextInput } from '../components/text-input';
 import { theme } from '../theme';
 import { Colors } from '../constants';
-import { LoveGreen } from '../assets';
+import { Love } from '../assets';
 
 describe('TextInput - ', () => {
   describe('minimal props - ', () => {
@@ -50,7 +50,7 @@ describe('TextInput - ', () => {
     it('renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
-          <TextInput placeholder="placeolder" icon={LoveGreen} />
+          <TextInput placeholder="placeolder" icon={Love} />
         </ThemeProvider>,
       );
       expect(tree).toMatchSnapshot();
@@ -60,7 +60,7 @@ describe('TextInput - ', () => {
     it('renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
-          <TextInput placeholder="placeolder" lowerCase icon={LoveGreen} />
+          <TextInput placeholder="placeolder" lowerCase icon={Love} />
         </ThemeProvider>,
       );
       expect(tree).toMatchSnapshot();

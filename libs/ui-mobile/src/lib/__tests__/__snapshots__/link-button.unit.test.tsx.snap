@@ -84,6 +84,11 @@ exports[`LinkButton -  blue & pressed & arrow - renders as before 1`] = `
         >
           <SvgMock
             height={16}
+            style={
+              {
+                "color": "rgba(64, 80, 152, 0.6)",
+              }
+            }
             width={27}
           />
         </View>
@@ -284,6 +289,11 @@ exports[`LinkButton -  green & pressed & arrow - renders as before 1`] = `
         >
           <SvgMock
             height={16}
+            style={
+              {
+                "color": "rgba(162, 179, 2, 0.6)",
+              }
+            }
             width={27}
           />
         </View>
@@ -566,6 +576,11 @@ exports[`LinkButton -  pink & pressed & arrow - renders as before 1`] = `
         >
           <SvgMock
             height={16}
+            style={
+              {
+                "color": "rgba(203, 40, 125, 0.6)",
+              }
+            }
             width={27}
           />
         </View>
@@ -766,6 +781,11 @@ exports[`LinkButton -  white & pressed & arrow - renders as before 1`] = `
         >
           <SvgMock
             height={16}
+            style={
+              {
+                "color": "rgba(255, 255, 255, 0.6)",
+              }
+            }
             width={27}
           />
         </View>

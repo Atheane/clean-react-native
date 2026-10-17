@@ -92,7 +92,11 @@ exports[`Dropdown -  defaultValue -  renders as before 1`] = `
         }
       >
         <SvgMock
-          fill="rgba(207, 206, 41, 1)"
+          style={
+            {
+              "color": "rgba(207, 206, 41, 1)",
+            }
+          }
         />
       </View>
       <Text
@@ -208,7 +212,11 @@ exports[`Dropdown -  labelColor -  renders as before 1`] = `
         }
       >
         <SvgMock
-          fill="rgba(207, 206, 41, 1)"
+          style={
+            {
+              "color": "rgba(207, 206, 41, 1)",
+            }
+          }
         />
       </View>
       <Text
@@ -324,7 +332,11 @@ exports[`Dropdown -  minimal props -  renders as before 1`] = `
         }
       >
         <SvgMock
-          fill="rgba(207, 206, 41, 1)"
+          style={
+            {
+              "color": "rgba(207, 206, 41, 1)",
+            }
+          }
         />
       </View>
       <Text
