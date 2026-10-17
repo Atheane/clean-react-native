@@ -27,9 +27,7 @@ export default PrimaryButtonMeta;
 type PrimaryButtonStory = ComponentStory<typeof PrimaryButton>;
 
 export const Static: PrimaryButtonStory = (args) => <PrimaryButton {...args} />;
-export const OneIcon: PrimaryButtonStory = (args) => (
-  <PrimaryButton iconOne={Love} {...args} />
-);
+export const OneIcon: PrimaryButtonStory = (args) => <PrimaryButton iconOne={Love} {...args} />;
 export const TwoIcons: PrimaryButtonStory = (args) => {
   return <PrimaryButton iconOne={Love} iconTwo={Validate} {...args} />;
 };

@@ -21,9 +21,7 @@ type State = {
   onPress: () => void;
 };
 
-export const PrimaryButton: FC<ButtonProps & Props & State> = (
-  props: ButtonProps & Props & State
-) => {
+export const PrimaryButton: FC<ButtonProps & Props & State> = (props: ButtonProps & Props & State) => {
   const { theme } = useTheme();
 
   return (
@@ -48,9 +46,7 @@ export const PrimaryButton: FC<ButtonProps & Props & State> = (
               <props.iconOne {...styles(props)(theme).icon} />
             </View>
           )}
-          <Text style={styles(props)(theme).content}>
-            {firstLetterCapitalize(props.title)}
-          </Text>
+          <Text style={styles(props)(theme).content}>{firstLetterCapitalize(props.title)}</Text>
           {props.iconTwo && (
             <View style={styles(props)(theme).iconTwoContainer}>
               <props.iconTwo {...styles(props)(theme).icon} />

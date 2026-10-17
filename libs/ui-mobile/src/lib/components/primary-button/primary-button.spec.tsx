@@ -5,7 +5,7 @@ import { PrimaryButton } from '.';
 
 describe('PrimaryButton', () => {
   it('should render successfully', () => {
-    const { root } = render(< PrimaryButton />);
+    const { root } = render(<PrimaryButton />);
     expect(root).toBeTruthy();
   });
 });
