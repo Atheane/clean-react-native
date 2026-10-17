@@ -5,6 +5,7 @@ type IProps = {
   title: string;
   uppercase: boolean;
   loading?: boolean;
+  disabled?: boolean;
   onSubmit: () => void;
 };
 
@@ -16,5 +17,6 @@ export const SubmitButton = (props: IProps) => (
     uppercase={props.uppercase}
     loading={props.loading}
     onPress={props.onSubmit}
+    disabled={props.disabled}
   />
 );

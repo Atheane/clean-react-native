@@ -72,6 +72,8 @@ const getStories = () => {
     './stories/FormSignupStep1.stories.tsx': require('../stories/FormSignupStep1.stories'),
     './stories/FormSignupStep2.stories.tsx': require('../stories/FormSignupStep2.stories'),
     './stories/MultipleOptionsCheckBox.stories.tsx': require('../stories/MultipleOptionsCheckBox.stories'),
+    './stories/PhoneValidationCodeInput.stories.tsx': require('../stories/PhoneValidationCodeInput.stories'),
+    './stories/FormSignupStep3.stories.tsx': require('../stories/FormSignupStep3.stories'),
   };
 };
 
