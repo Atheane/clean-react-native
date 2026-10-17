@@ -1,5 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { Love, Validate, PrimaryButton } from '@bank/ui-mobile';
+import { withTheme } from './wrappers';
 
 // import { withSwitch, ValidationStatus } from '../wrappers';
 
@@ -17,7 +18,10 @@ const PrimaryButtonMeta: ComponentMeta<typeof PrimaryButton> = {
     pressed: false,
     uppercase: true,
   },
-  // decorators: [(Story) => withSwitch(Story, ValidationStatus.VALIDATED)],
+  decorators: [
+    withTheme,
+    // (Story) => withSwitch(Story, ValidationStatus.VALIDATED)
+  ],
 };
 
 export default PrimaryButtonMeta;
@@ -25,7 +29,9 @@ export default PrimaryButtonMeta;
 type PrimaryButtonStory = ComponentStory<typeof PrimaryButton>;
 
 export const Static: PrimaryButtonStory = (args) => <PrimaryButton {...args} />;
-export const OneIcon: PrimaryButtonStory = (args) => <PrimaryButton iconOne={Love} {...args} />;
+export const OneIcon: PrimaryButtonStory = (args) => (
+  <PrimaryButton iconOne={Love} {...args} />
+);
 export const TwoIcons: PrimaryButtonStory = (args) => {
   return <PrimaryButton iconOne={Love} iconTwo={Validate} {...args} />;
 };

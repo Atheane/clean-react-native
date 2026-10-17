@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 
-import { PrimaryButton } from './primary-button';
+import { PrimaryButton } from '.';
 
 describe('PrimaryButton', () => {
   it('should render successfully', () => {
