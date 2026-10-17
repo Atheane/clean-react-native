@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Undefined",
-    "slug": "undefined",
+    "name": "Storybook",
+    "slug": "storybook",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

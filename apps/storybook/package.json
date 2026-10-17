@@ -1,0 +1,26 @@
+{
+  "name": "storybook",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-native": "*",
+    "@testing-library/react-native": "*",
+    "metro-config": "*",
+    "react-native": "*",
+    "expo": "*",
+    "react-native-svg": "*",
+    "react-native-web": "*",
+    "@storybook/react-native": "*",
+    "@storybook/addon-ondevice-controls": "*",
+    "@storybook/addon-ondevice-actions": "*",
+    "@storybook/addon-actions": "*",
+    "@nx/expo": "*",
+    "@expo/metro-config": "*",
+    "react": "*"
+  },
+  "scripts": {
+    "prestart": "sb-rn-get-stories",
+    "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/storybook && cp package-lock.json apps/storybook",
+    "eas-build-post-install": "cd ../../ && node tools/scripts/eas-build-post-install.mjs . apps/storybook"
+  }
+}
