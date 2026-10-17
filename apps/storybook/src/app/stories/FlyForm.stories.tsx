@@ -17,7 +17,7 @@ const formattedAirports = airports
   .slice(0, 50);
 
 const FlyFormMeta: ComponentMeta<typeof FlyForm> = {
-  title: 'Pending/Carbon/FlyForm',
+  title: 'NotValidated/Carbon/FlyForm',
   component: FlyForm,
   argTypes: {
     onChangeField: { action: 'onChangeField' },
@@ -26,7 +26,7 @@ const FlyFormMeta: ComponentMeta<typeof FlyForm> = {
   args: {
     airports: formattedAirports,
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.PENDING)],
+  decorators: [(Story) => WithSwitch(Story, ValidationStatus.NOT_VALIDATED)],
 };
 
 export default FlyFormMeta;

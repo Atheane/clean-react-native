@@ -5,7 +5,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { Logger } from '@clean-rn/ddd';
 import { FormResetPassword, ResetPasswordFormData, useEdit } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus, WithScroll } from '../wrappers';
+import { WithSwitch, ValidationStatus, WithKeyboardAwareScroll } from '../wrappers';
 
 const FormResetPasswordMeta: ComponentMeta<typeof FormResetPassword> = {
   title: 'Validated/Auth/FormResetPassword',
@@ -18,7 +18,7 @@ const FormResetPasswordMeta: ComponentMeta<typeof FormResetPassword> = {
     email: 'jean-luc.baradat@gmail.com',
     filled: true,
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED), WithScroll],
+  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED), WithKeyboardAwareScroll],
 };
 
 export default FormResetPasswordMeta;

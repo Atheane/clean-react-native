@@ -56,7 +56,7 @@ export const FormSignupStep3 = (props: IProps) => {
           uppercase={false}
           onSubmit={props.onSubmit}
           loading={props.loading}
-          disabled={code.length < 6}
+          disabled={!code || code?.length < 6}
         />
       </View>
     </View>

@@ -24,6 +24,7 @@ import { FormResetPassword, ResetPasswordFormData } from './form-reset-password'
 import { SignupStep1FormData, FormSignupStep1 } from './form-signup-step1';
 import { SignupStep2FormData, FormSignupStep2 } from './form-signup-step2';
 import { SignupStep3FormData, FormSignupStep3 } from './form-signup-step3';
+import { SignupStep4FormData, FormSignupStep4 } from './form-signup-step4';
 import { PhoneValidationCodeInput } from './phone-validation-code-input';
 export {
   PrimaryButton,
@@ -58,4 +59,6 @@ export {
   SignupStep3FormData,
   FormSignupStep3,
   PhoneValidationCodeInput,
+  SignupStep4FormData,
+  FormSignupStep4,
 };

@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
 import { FormLogin, LoginFormData, useTogglePress, useEdit, useSecure } from '@clean-rn/ui-mobile';
 
-import { WithSwitch, ValidationStatus, WithScroll } from '../wrappers';
+import { WithSwitch, ValidationStatus, WithKeyboardAwareScroll } from '../wrappers';
 import { Logger } from '@clean-rn/ddd';
 
 const FormLoginMeta: ComponentMeta<typeof FormLogin> = {
@@ -21,7 +21,7 @@ const FormLoginMeta: ComponentMeta<typeof FormLogin> = {
     filled: true,
     secured: true,
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED), WithScroll],
+  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED), WithKeyboardAwareScroll],
 };
 
 export default FormLoginMeta;
