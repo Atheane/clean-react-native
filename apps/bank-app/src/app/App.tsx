@@ -1,5 +1,5 @@
 import { SafeAreaView, StyleSheet } from 'react-native';
-import { PrimaryButton, Love } from '@bank/ui-mobile';
+import { PrimaryButton, Love } from '@clean-rn/ui-mobile';
 
 export const App = () => {
   return (

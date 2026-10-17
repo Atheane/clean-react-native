@@ -1,4 +1,4 @@
-# bank monorepo
+# clean-rn monorepo
 
 ## Prerequisites
 node v18.14.2, npm
@@ -34,7 +34,7 @@ Flash the QR code
 This monorepo already contains two application, `bank-app` is bank mobile application, and `storybook` is the application showing bank mobile application components in a isolated application. It also contains an ui library `ui-mobile`. You can simply import any component in your application this way (example with PrimaryButto component and Love svg asset):
 
 ```
-import { PrimaryButton, Love } from '@bank/ui-mobile';
+import { PrimaryButton, Love } from '@clean-rn/ui-mobile';
 ```
 
 To start storybook:
@@ -108,7 +108,7 @@ Please also make sure to add a snapshot test in __tests__ folder. You can check 
 
 Each new ui component should be showed cased in storybook app. Simply add a file in storybook > src > app > stories, with the following pattern : ComponentName.stories.tsx
 
-In story file, import component from “@bank/ui-mobile” to display it in storybook app
+In story file, import component from “@clean-rn/ui-mobile” to display it in storybook app
 
 For now, you have to add manually this line of code in Storybook > app > .storybook > storybook.requires.ts
 

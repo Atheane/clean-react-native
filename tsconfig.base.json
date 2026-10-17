@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@bank/ui-mobile": ["libs/ui-mobile/src/index.ts"]
+      "@clean-rn/ui-mobile": ["libs/ui-mobile/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

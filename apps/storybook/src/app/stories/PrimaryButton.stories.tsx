@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
-import { Love, Validate, PrimaryButton } from '@bank/ui-mobile';
+import { Love, Validate, PrimaryButton } from '@clean-rn/ui-mobile';
 
 // import { withSwitch, ValidationStatus } from '../wrappers';
 
