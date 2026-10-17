@@ -55,6 +55,7 @@ const getStories = () => {
     './stories/PdfViewer.stories.tsx': require('../stories/PdfViewer.stories'),
     './stories/TextInput.stories.tsx': require('../stories/TextInput.stories'),
     './stories/Dropdown.stories.tsx': require('../stories/Dropdown.stories'),
+    './stories/SearchModal.stories.tsx': require('../stories/SearchModal.stories'),
   };
 };
 

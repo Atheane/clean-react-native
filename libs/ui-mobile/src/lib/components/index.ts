@@ -6,6 +6,7 @@ import { GreenBackButton } from './green-back-button';
 import { PdfViewer } from './pdf-viewer';
 import { TextInput } from './text-input';
 import { Dropdown } from './dropdown';
+import { SearchModal } from './search-modal';
 export {
   PrimaryButton,
   SecondaryButton,
@@ -15,4 +16,5 @@ export {
   PdfViewer,
   TextInput,
   Dropdown,
+  SearchModal,
 };

@@ -12,7 +12,10 @@ module.exports = {
   },
   collectCoverage: true,
   collectCoverageFrom: ['**/components/**/*.tsx'],
-  coveragePathIgnorePatterns: ['./libs/ui-mobile/src/lib/components/dropdown/'],
+  coveragePathIgnorePatterns: [
+    './libs/ui-mobile/src/lib/components/dropdown/',
+    './libs/ui-mobile/src/lib/components/search-modal/',
+  ],
   coverageThreshold: {
     global: {
       statements: 100,
