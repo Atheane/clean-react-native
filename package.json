@@ -5,7 +5,7 @@
   "scripts": {
     "prepare": "husky install",
     "commit": "cz",
-    "test": "npx nx affected --target=test --parallel --code-coverage"
+    "test": "npx nx run-many --all --target=test --parallel"
   },
   "private": true,
   "config": {
