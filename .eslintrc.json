@@ -1,33 +1,20 @@
 {
   "root": true,
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@nx", "react", "@typescript-eslint", "prettier", "jest"],
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "plugin:jest/recommended"
+  "plugins": [
+    "@nx"
   ],
-  "ignorePatterns": ["**/*"],
-  "rules": {
-    "no-console": 1,
-    "prettier/prettier": 2,
-    "@typescript-eslint/no-empty-function": "off",
-    "@typescript-eslint/no-namespace": "off",
-    "jest/expect-expect": "off",
-    "jest/no-disabled-tests": "warn",
-    "jest/no-mocks-import": "off",
-    "jest/no-focused-tests": "error",
-    "jest/no-identical-title": "error",
-    "jest/prefer-to-have-length": "warn",
-    "jest/valid-expect": "error",
-    "react/react-in-jsx-scope": 0
-  },
+  "ignorePatterns": [
+    "**/*"
+  ],
+  "rules": {},
   "overrides": [
     {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "files": [
+        "*.ts",
+        "*.tsx",
+        "*.js",
+        "*.jsx"
+      ],
       "rules": {
         "@nx/enforce-module-boundaries": [
           "error",
@@ -37,7 +24,9 @@
             "depConstraints": [
               {
                 "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
+                "onlyDependOnLibsWithTags": [
+                  "*"
+                ]
               }
             ]
           }
@@ -45,13 +34,23 @@
       }
     },
     {
-      "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nx/typescript"],
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
+      "extends": [
+        "plugin:@nx/typescript"
+      ],
       "rules": {}
     },
     {
-      "files": ["*.js", "*.jsx"],
-      "extends": ["plugin:@nx/javascript"],
+      "files": [
+        "*.js",
+        "*.jsx"
+      ],
+      "extends": [
+        "plugin:@nx/javascript"
+      ],
       "rules": {}
     }
   ]
