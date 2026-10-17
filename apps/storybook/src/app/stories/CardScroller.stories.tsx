@@ -5,7 +5,7 @@ import { CardScroller, Meeting, Tree } from '@clean-rn/ui-mobile';
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
 const CardScrollerMeta: ComponentMeta<typeof CardScroller> = {
-  title: 'Pending/Account/CardScroller',
+  title: 'Validated/Account/CardScroller',
   component: CardScroller,
   args: {
     data: [
@@ -20,7 +20,7 @@ const CardScrollerMeta: ComponentMeta<typeof CardScroller> = {
     ],
     height: 200,
   },
-  decorators: [(Story) => WithSwitch(Story, ValidationStatus.PENDING)],
+  decorators: [(Story) => WithSwitch(Story, ValidationStatus.VALIDATED)],
 };
 
 export default CardScrollerMeta;

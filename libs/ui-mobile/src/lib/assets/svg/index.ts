@@ -49,6 +49,18 @@ import Surface from './surface.svg';
 import CO2 from './co2.svg';
 import FlyFrom from './flyFrom.svg';
 import FlyTo from './flyTo.svg';
+import Lock from './lock.svg';
+import Eye from './remove_red_eye_48px.svg';
+import Blind from './icon_eye-invisible.svg';
+import Mail from './mail.svg';
+import Edit from './edit.svg';
+import Phone from './phone.svg';
+import Person from './person.svg';
+import Security from './security.svg';
+import CheckBox from './checkbox.svg';
+import UncheckBox from './uncheckbox.svg';
+import Shield from './shield.svg';
+import Delete from './delete.svg';
 
 export {
   LoveWhite,
@@ -100,4 +112,16 @@ export {
   Fuel,
   FlyFrom,
   FlyTo,
+  Lock,
+  Eye,
+  Blind,
+  Mail,
+  Edit,
+  Phone,
+  Person,
+  Security,
+  CheckBox,
+  UncheckBox,
+  Shield,
+  Delete,
 };

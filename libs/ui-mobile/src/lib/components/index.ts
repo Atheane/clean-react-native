@@ -12,6 +12,8 @@ import { SwitchButton } from './switch-button';
 import { FlyForm } from './fly-form';
 import { CardScroller } from './card-scroller';
 import { EventCard } from './event-card';
+import { CountryPicker } from './country-picker';
+import { DateTimePicker } from './datetime-picker';
 export {
   PrimaryButton,
   SecondaryButton,
@@ -27,4 +29,6 @@ export {
   FlyForm,
   CardScroller,
   EventCard,
+  CountryPicker,
+  DateTimePicker,
 };

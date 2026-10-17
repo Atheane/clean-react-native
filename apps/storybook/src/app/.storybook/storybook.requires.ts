@@ -61,6 +61,8 @@ const getStories = () => {
     './stories/EventCard.stories.tsx': require('../stories/EventCard.stories'),
     './stories/CardScroller.stories.tsx': require('../stories/CardScroller.stories'),
     './stories/FlyForm.stories.tsx': require('../stories/FlyForm.stories'),
+    './stories/CountryPicker.stories.tsx': require('../stories/CountryPicker.stories'),
+    './stories/DateTimePicker.stories.tsx': require('../stories/DateTimePicker.stories'),
   };
 };
 
