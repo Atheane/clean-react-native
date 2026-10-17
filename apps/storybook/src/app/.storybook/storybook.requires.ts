@@ -54,6 +54,7 @@ const getStories = () => {
     './stories/GreenBackButton.stories.tsx': require('../stories/GreenBackButton.stories'),
     './stories/PdfViewer.stories.tsx': require('../stories/PdfViewer.stories'),
     './stories/TextInput.stories.tsx': require('../stories/TextInput.stories'),
+    './stories/Dropdown.stories.tsx': require('../stories/Dropdown.stories'),
   };
 };
 

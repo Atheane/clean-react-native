@@ -2,33 +2,21 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { sort } from 'fast-sort';
 
 import { Flame, Department, Dropdown } from '@clean-rn/ui-mobile';
-// import { IHeatingType } from '@carbon/domain/types';
+import { IHeatingType } from '@clean-rn/carbon/domain';
 
-// import departments from '@carbon/domain/constants/departments/fr.json';
+import { departmentsFR, IDepartment } from '@clean-rn/carbon/domain';
 
 import { WithSwitch, ValidationStatus } from '../wrappers';
 
-export enum IHeatingType {
-  ELECTRICTY = 'electricity',
-  CHARCOAL = 'charcoal',
-  TOWN_GAS = 'town_gas',
-  DOMESTIC_FUEL = 'domestic_fuel',
-  URBAN_HEATING_NETWORK = 'urban_heating_network',
-  WOOD = 'wood',
-  HEAT_PUMP = 'heat_pump',
-  TERMAL_SOLAR = 'termal_solar',
-  PROPANE = 'propane',
-}
-
 const translations = {
-  electricity: 'Electricité',
-  charcoal: 'Charbon',
-  town_gas: 'Gaz de ville',
-  domestic_fuel: 'Fioul domestique',
-  urban_heating_network: 'Réseau de chaleur urbain',
-  wood: 'Bois',
-  heat_pump: 'Pompe à chaleur',
-  termal_solar: 'Solaire thermique',
+  electricity: 'Electricity',
+  charcoal: 'Coal',
+  town_gas: 'Town gas',
+  domestic_fuel: 'Domestic fuel',
+  urban_heating_network: 'Urban heating network',
+  wood: 'Wood',
+  heat_pump: 'Heating pump',
+  termal_solar: 'Termal solar',
   propane: 'Propane',
 };
 
@@ -39,8 +27,8 @@ const DropdownMeta: ComponentMeta<typeof Dropdown> = {
     onSelect: { action: 'onSelect' },
   },
   args: {
-    label: 'Type de chauffage',
-    placeholder: 'Type de chauffage',
+    label: 'Heating type',
+    placeholder: 'Heating type',
     data: Object.entries(IHeatingType).map(([key, value]) => ({
       key,
       value: translations[value],
@@ -54,12 +42,12 @@ export default DropdownMeta;
 
 type DropdownStory = ComponentStory<typeof Dropdown>;
 
-// const sortedDeps = sort(departments)
-//   .asc((dep) => dep.NCC)
-//   .map((dep) => ({
-//     key: dep.DEP,
-//     value: dep.NCC,
-//   }));
+const sortedDeps = sort(departmentsFR)
+  .asc((dep: IDepartment) => dep.NCC)
+  .map((dep: IDepartment) => ({
+    key: dep.DEP,
+    value: dep.NCC,
+  }));
 
 export const HeatingTypes: DropdownStory = (args) => <Dropdown {...args} />;
 export const Departments: DropdownStory = (args) => (
@@ -67,7 +55,7 @@ export const Departments: DropdownStory = (args) => (
     {...args}
     label={'State departments'}
     placeholder={'State department'}
-    data={[]}
+    data={sortedDeps}
     icon={Department}
   />
 );

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from 'react';
 import { View, StyleSheet, Text, Dimensions } from 'react-native';
 import { useTheme } from '@rneui/themed';
@@ -28,18 +27,16 @@ export const Dropdown = (props: IProps) => {
   const { theme } = useTheme();
 
   const handleOnSelect = (value: string, index: number) => {
-    if (props.onSelect) props.onSelect(props.data[index]);
+    props.onSelect(props.data[index]);
   };
 
   return (
     <View>
-      {props.label && (
-        <Text style={[styles.inputLabel, { color: props.labelColor ?? Colors.input.pink }]}>
-          {props.label.toLocaleUpperCase()}
-        </Text>
-      )}
-      {!props.label && <Text style={styles.inputLabel}>{props.label.toLocaleUpperCase()}</Text>}
-      <View style={styles.selectContainer}>
+      <Text style={[styles.inputLabel, { color: props.labelColor ?? Colors.input.pink }]}>
+        {props.label.toLocaleUpperCase()}
+      </Text>
+
+      <View testID="select-dropdown" style={styles.selectContainer}>
         <View style={styles.leftIconContainer}>
           <props.icon />
         </View>
