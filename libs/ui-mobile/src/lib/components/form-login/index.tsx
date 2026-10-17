@@ -15,11 +15,8 @@ import { PasswordInput } from '../password-input';
 import { SubmitButton } from '../submit-button';
 import { ErrorMessage } from '../error-message';
 
-type Props = {
+type IProps = {
   email?: string;
-};
-
-type State = {
   loading: boolean;
   onSubmit: () => void;
   filled: boolean;
@@ -32,12 +29,13 @@ type State = {
   errors: FieldErrors<LoginFormData>;
   error: IDomainError<AuthErrorCodes, AuthErrorMessage> | IInfraError | null;
 };
+
 export interface LoginFormData {
   email: string;
   password: string;
 }
 
-export const FormLogin = (props: Props & State) => {
+export const FormLogin = (props: IProps) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
   return (

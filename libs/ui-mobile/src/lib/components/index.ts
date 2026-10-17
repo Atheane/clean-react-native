@@ -19,6 +19,8 @@ import { ErrorMessage } from './error-message';
 import { PasswordInput } from './password-input';
 import { SubmitButton } from './submit-button';
 import { LoginFormData, FormLogin } from './form-login';
+import { FormResetPassword, ResetPasswordFormData } from './form-reset-password';
+import { SignupStep1FormData, FormSignupStep1 } from './form-signup-step1';
 export {
   PrimaryButton,
   SecondaryButton,
@@ -42,4 +44,8 @@ export {
   SubmitButton,
   LoginFormData,
   FormLogin,
+  FormResetPassword,
+  ResetPasswordFormData,
+  SignupStep1FormData,
+  FormSignupStep1,
 };

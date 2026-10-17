@@ -67,6 +67,8 @@ const getStories = () => {
     './stories/ErrorMessage.stories.tsx': require('../stories/ErrorMessage.stories'),
     './stories/PasswordInput.stories.tsx': require('../stories/PasswordInput.stories'),
     './stories/FormLogin.stories.tsx': require('../stories/FormLogin.stories'),
+    './stories/FormResetPassword.stories.tsx': require('../stories/FormResetPassword.stories'),
+    './stories/SubmitButton.stories.tsx': require('../stories/SubmitButton.stories'),
   };
 };
 

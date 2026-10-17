@@ -1,0 +1,103 @@
+import { View, Text, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { Controller, Control, FieldErrors } from 'react-hook-form';
+import { useTheme } from '@rneui/themed';
+
+import { IDomainError, IInfraError } from '@clean-rn/ddd';
+import { AuthErrorCodes, AuthErrorMessage, Email } from '@clean-rn/auth/domain';
+
+import { firstLetterCapitalize } from '../../utils';
+
+import { EmailInput } from '../email-input';
+import { SubmitButton } from '../submit-button';
+import { ErrorMessage } from '../error-message';
+
+type IProps = {
+  email?: string;
+  success: boolean;
+  loading: boolean;
+  onSubmit: () => void;
+  filled: boolean;
+  onEdit: () => void;
+  onFocus: () => void;
+  control: Control<ResetPasswordFormData>;
+  errors: FieldErrors<ResetPasswordFormData>;
+  error: IDomainError<AuthErrorCodes, AuthErrorMessage> | IInfraError | null;
+};
+
+export interface ResetPasswordFormData {
+  email: string;
+}
+
+export const FormResetPassword = (props: IProps) => {
+  const { t } = useTranslation();
+  const { theme } = useTheme();
+  return (
+    <View>
+      <View style={styles.formInputs}>
+        <View>
+          {props.filled && props.email ? (
+            <EmailInput
+              email={props.email}
+              filled={props.filled}
+              onEdit={props.onEdit}
+              onFocus={props.onFocus}
+            />
+          ) : (
+            <View>
+              <Controller
+                control={props.control}
+                name="email"
+                rules={{ required: true, pattern: Email.pattern }}
+                render={({ field: { onChange, value } }) => (
+                  <EmailInput value={value} filled={false} onChange={onChange} onFocus={props.onFocus} />
+                )}
+              />
+              {props.errors?.email && props.errors.email.type === 'required' && (
+                <View style={styles.container}>
+                  <Text style={theme.errors}>{firstLetterCapitalize(t('errors.email.required'))}</Text>
+                </View>
+              )}
+              {props.errors?.email && props.errors.email.type !== 'required' && (
+                <View style={styles.container}>
+                  <Text style={theme.errors}>{firstLetterCapitalize(t('errors.email.invalid'))}</Text>
+                </View>
+              )}
+            </View>
+          )}
+        </View>
+        <View style={styles.container}>
+          <ErrorMessage error={props.error} />
+        </View>
+      </View>
+      <View style={styles.formSubmit}>
+        {props.success ? (
+          <Text style={theme.instructionText}>{t('screens.resetPassword.success')}</Text>
+        ) : (
+          <SubmitButton
+            title={t('screens.resetPassword.submitButton')}
+            uppercase
+            submitted={false}
+            onSubmit={props.onSubmit}
+            loading={props.loading}
+          />
+        )}
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  formInputs: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  formSubmit: {
+    flex: 2,
+    alignItems: 'center',
+  },
+  container: {
+    paddingTop: 8,
+  },
+});

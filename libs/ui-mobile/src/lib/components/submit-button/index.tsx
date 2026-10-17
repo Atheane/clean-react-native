@@ -4,7 +4,6 @@ import { PrimaryButton } from '../primary-button';
 type IProps = {
   title: string;
   uppercase: boolean;
-  submitted: boolean;
   loading?: boolean;
   onSubmit: () => void;
 };
