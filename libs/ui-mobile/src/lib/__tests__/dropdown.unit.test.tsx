@@ -30,40 +30,40 @@ describe('Dropdown - ', () => {
       expect(tree).toMatchSnapshot();
     });
   });
-});
-describe('labelColor - ', () => {
-  it('renders as before', () => {
-    const onSelect = jest.fn();
-    const tree = render(
-      <ThemeProvider theme={theme}>
-        <Dropdown
-          label="label"
-          placeholder="placeholder"
-          data={fakeData}
-          icon={LoveGreen}
-          labelColor={Colors.text.grey}
-          onSelect={onSelect}
-        />
-      </ThemeProvider>,
-    );
-    expect(tree).toMatchSnapshot();
+  describe('labelColor - ', () => {
+    it('renders as before', () => {
+      const onSelect = jest.fn();
+      const tree = render(
+        <ThemeProvider theme={theme}>
+          <Dropdown
+            label="label"
+            placeholder="placeholder"
+            data={fakeData}
+            icon={LoveGreen}
+            labelColor={Colors.text.grey}
+            onSelect={onSelect}
+          />
+        </ThemeProvider>,
+      );
+      expect(tree).toMatchSnapshot();
+    });
   });
-});
-describe('defaultValue - ', () => {
-  it('renders as before', () => {
-    const onSelect = jest.fn();
-    const tree = render(
-      <ThemeProvider theme={theme}>
-        <Dropdown
-          label="label"
-          placeholder="placeholder"
-          data={fakeData}
-          icon={LoveGreen}
-          defaultValue={'one'}
-          onSelect={onSelect}
-        />
-      </ThemeProvider>,
-    );
-    expect(tree).toMatchSnapshot();
+  describe('defaultValue - ', () => {
+    it('renders as before', () => {
+      const onSelect = jest.fn();
+      const tree = render(
+        <ThemeProvider theme={theme}>
+          <Dropdown
+            label="label"
+            placeholder="placeholder"
+            data={fakeData}
+            icon={LoveGreen}
+            defaultValue={'one'}
+            onSelect={onSelect}
+          />
+        </ThemeProvider>,
+      );
+      expect(tree).toMatchSnapshot();
+    });
   });
 });

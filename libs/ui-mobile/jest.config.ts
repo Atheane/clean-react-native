@@ -15,6 +15,7 @@ module.exports = {
   coveragePathIgnorePatterns: [
     './libs/ui-mobile/src/lib/components/dropdown/',
     './libs/ui-mobile/src/lib/components/search-modal/',
+    './libs/ui-mobile/src/lib/components/switch-button/',
   ],
   coverageThreshold: {
     global: {

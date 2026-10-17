@@ -8,6 +8,7 @@ import { TextInput } from './text-input';
 import { Dropdown } from './dropdown';
 import { SearchModal } from './search-modal';
 import { SelectNumber } from './select-number';
+import { SwitchButton } from './switch-button';
 export {
   PrimaryButton,
   SecondaryButton,
@@ -19,4 +20,5 @@ export {
   Dropdown,
   SearchModal,
   SelectNumber,
+  SwitchButton,
 };
