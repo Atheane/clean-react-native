@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { PhoneNumberUtil } from 'google-libphonenumber';
+//@ts-ignore
 import countryFlagEmoji from 'country-flag-emoji';
-import { AuthError } from '@auth/domain/errors';
-import { COUNTRIES_AVAILABLE } from '@auth/domain/constants';
+import { AuthError } from '../errors';
+import { COUNTRIES_AVAILABLE } from '../constants';
 
 export class Country {
   private readonly emoji: string;
@@ -22,6 +24,7 @@ export class Country {
   }
 
   public validateAvailability(): boolean {
+    //@ts-ignore
     if (!COUNTRIES_AVAILABLE[this.countryCode]) {
       throw new AuthError.UnavailableCountry('Country not available');
     }

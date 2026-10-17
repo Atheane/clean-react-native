@@ -1,4 +1,4 @@
-import { Country } from '@auth/domain/valueObjects';
+import { Country } from '../valueObjects';
 export interface ICountry {
   name: string;
   emoji: string;

@@ -1,5 +1,5 @@
-import { AccountError } from '@account/domain/errors';
-import { ITransactionType } from '@account/domain/types';
+import { AccountError } from '../errors';
+import { ITransactionType } from '../types';
 
 export class Amount {
   private readonly rawAmount: number;

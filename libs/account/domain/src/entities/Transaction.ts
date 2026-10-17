@@ -1,4 +1,4 @@
-import { Amount, TransactionCategory } from '@account/domain/valueObjects';
+import { Amount, TransactionCategory } from '../valueObjects';
 import { ITransactionType } from '../types';
 
 export interface ITransaction {

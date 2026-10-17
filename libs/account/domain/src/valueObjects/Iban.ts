@@ -1,4 +1,4 @@
-import { AccountError } from '@account/domain/errors';
+import { AccountError } from '../errors';
 import IBAN from 'iban';
 
 export class Iban {

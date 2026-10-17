@@ -1,4 +1,4 @@
-import { AuthError } from '@auth/domain/errors';
+import { AuthError } from '../errors';
 
 export class Email {
   private readonly email: string;

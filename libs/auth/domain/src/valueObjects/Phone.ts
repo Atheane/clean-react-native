@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { PhoneNumberUtil, PhoneNumberFormat } from 'google-libphonenumber';
-import { AuthError } from '@auth/domain/errors';
+import { AuthError } from '../errors';
 
 export class Phone {
   private readonly phoneUtil: PhoneNumberUtil;

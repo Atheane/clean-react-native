@@ -27,6 +27,7 @@ export class FoodEmissions {
       if (!props[key]) {
         return false;
       }
+      return true;
     });
     return true;
   }

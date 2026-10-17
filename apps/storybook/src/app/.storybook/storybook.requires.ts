@@ -58,6 +58,9 @@ const getStories = () => {
     './stories/SearchModal.stories.tsx': require('../stories/SearchModal.stories'),
     './stories/SelectNumber.stories.tsx': require('../stories/SelectNumber.stories'),
     './stories/SwitchButton.stories.tsx': require('../stories/SwitchButton.stories'),
+    './stories/EventCard.stories.tsx': require('../stories/EventCard.stories'),
+    './stories/CardScroller.stories.tsx': require('../stories/CardScroller.stories'),
+    './stories/FlyForm.stories.tsx': require('../stories/FlyForm.stories'),
   };
 };
 

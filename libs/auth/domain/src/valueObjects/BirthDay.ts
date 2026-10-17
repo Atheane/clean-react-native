@@ -1,5 +1,5 @@
 import dayjs, { Dayjs } from 'dayjs';
-import { AuthError } from '@auth/domain/errors';
+import { AuthError } from '../errors';
 
 export class BirthDay {
   private readonly birthday: Dayjs;

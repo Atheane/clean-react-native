@@ -30,7 +30,10 @@
     "react-native-select-dropdown": "*",
     "expo-constants": "*",
     "@bank/carbon-weight": "*",
-    "react-native-numeric-input": "*"
+    "react-native-numeric-input": "*",
+    "react-i18next": "*",
+    "dayjs": "*",
+    "i18next": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",

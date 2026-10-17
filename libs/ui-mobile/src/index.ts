@@ -1,3 +1,4 @@
+import i18n from './lib/i18n';
 export * from './lib/assets';
 export * from './lib/constants';
 export * from './lib/theme';
@@ -5,3 +6,5 @@ export * from './lib/components';
 export * from './lib/utils';
 export * from './lib/hooks';
 export * from './lib/types';
+export { i18n };
+export * from './lib/translation';

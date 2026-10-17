@@ -1,5 +1,5 @@
-import { AccountError } from '@account/domain/errors';
-import { ITransactionCategory, ITransactionType } from '@account/domain/types';
+import { AccountError } from '../errors';
+import { ITransactionCategory, ITransactionType } from '../types';
 
 export class TransactionCategory {
   private readonly mcc?: number;
