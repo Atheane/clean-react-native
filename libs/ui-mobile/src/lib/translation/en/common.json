@@ -1,0 +1,328 @@
+{
+  "errors": {
+    "email": {
+      "required": "email required",
+      "invalid": "invalid email"
+    },
+    "password": {
+      "required": "password required",
+      "invalid": "invalid password",
+      "minLength": "must contain at least 6 characters"
+    },
+    "domainError": {
+      "auth": {
+        "AUTH_DOMAIN_0": "invalid email",
+        "AUTH_DOMAIN_1": "passwords do not match",
+        "AUTH_DOMAIN_2": "provide a valid mobile phone number",
+        "AUTH_DOMAIN_3": "invalid country",
+        "AUTH_DOMAIN_4": "this country is not available",
+        "AUTH_DOMAIN_5": "at least 18 years old",
+        "AUTH_DOMAIN_6": "code should have 6 digits",
+        "AUTH_DOMAIN_7": "username or password error, please try again",
+        "AUTH_DOMAIN_8": "error your phone is already paired with a user",
+        "AUTH_DOMAIN_9": "this email is already registered",
+        "AUTH_DOMAIN_10": "this phone is already registered",
+        "AUTH_DOMAIN_11": "incorrect code",
+        "AUTH_DOMAIN_12": "incorrect code",
+        "AUTH_DOMAIN_13": "security codes do not match",
+        "AUTH_DOMAIN_14": "please authenticate"
+      },
+      "other": "error, please contact the administrator"
+    },
+    "unknownError": "error, please contact the administrator"
+  },
+  "countryPicker": {
+    "placeholder": "Select a country"
+  },
+  "linkButton": {
+    "login": "Login",
+    "legal": "TOS",
+    "cgu": "KycProvider TOS"
+  },
+  "submitButton": "validate",
+  "screens": {
+    "cgu": "TOS",
+    "cguKycProvider": "KycProvider TOS",
+    "login": {
+      "title": "Login",
+      "email": {
+        "placeholder": "E-mail address",
+        "label": "e-mail address"
+      },
+      "password": {
+        "placeholder": "******",
+        "label": "password"
+      },
+      "forgottenPassword": "Forgot your password?",
+      "submitButton": "validate",
+      "validate": "Validate"
+    },
+    "resetPassword": {
+      "title": "Forgot your password?",
+      "email": {
+        "placeholder": "votre@email.com",
+        "label": "e-mail",
+        "required": "e-mail required",
+        "invalid": "invalid e-mail"
+      },
+      "success": "If this email exists, a message has been sent to you",
+      "submitButton": "reset",
+      "error": "error, please contact the administrator"
+    },
+    "signupstep1": {
+      "title": "Sign up",
+      "email": {
+        "placeholder": "your@email.com",
+        "label": "e-mail"
+      },
+      "confirmPassword": "Password confirmation"
+    },
+    "signupstep2": {
+      "title": "Sign up",
+      "gender": {
+        "label": "gender",
+        "man": "Man",
+        "woman": "Woman",
+        "neutral": "Neutre"
+      },
+      "firstName": {
+        "label": "First name",
+        "placeholder": "First name",
+        "required": "First name required"
+      },
+      "lastName": {
+        "label": "Last name",
+        "placeholder": "Last name",
+        "required": "Last name required"
+      },
+      "countryCode": {
+        "required": "country code required"
+      },
+      "phone": {
+        "label": "phone number",
+        "placeholder": "phone number",
+        "required": "phone number required",
+        "invalid": "indiquer un numéro de téléphone mobile valide"
+      },
+      "country": {
+        "notavailable": "ce pays n'est pas disponible"
+      }
+    },
+    "signupstep3": {
+      "title": "Security",
+      "instruction": "Enter the verification code that was just sent to you by SMS",
+      "submitButton": "validate",
+      "required": "6-digit code required",
+      "error": {
+        "auth": "incorrect code",
+        "other": "error, please contact the administrator"
+      }
+    },
+    "signupstep4": {
+      "title": "Complete my profile",
+      "birthday": {
+        "label": "Date of birth",
+        "placeholder": "DD/MM/YYYY",
+        "required": "date of birth required",
+        "validate": "invalid date of birth, 18 years minimum"
+      },
+      "birthCountry": {
+        "label": "country of birth",
+        "placeholder": "Country of birth",
+        "required": "country of birth required"
+      },
+      "nationality": {
+        "label": "Nationality",
+        "placeholder": "Nationality",
+        "required": "Nationality required"
+      }
+    },
+    "signupstep5": {
+      "title": "Complete my profile",
+      "street": {
+        "label": "address",
+        "placeholder": "Street name",
+        "required": "address required"
+      },
+      "city": {
+        "label": "city",
+        "placeholder": "City",
+        "required": "city required"
+      },
+      "zip": {
+        "label": "postal code",
+        "placeholder": "Postal code",
+        "required": "postal code required"
+      },
+      "country": {
+        "label": "Country",
+        "placeholder": "Country",
+        "required": "country required"
+      },
+      "usperson": {
+        "label": "I am a “US person”",
+        "subtitle": "(US Resident)",
+        "yes": "Yes",
+        "no": "No",
+        "required": "please indicate if you are a US person"
+      }
+    },
+    "signupstep6": {
+      "title": "Security",
+      "instruction": "Set up a security code to access your CO2 Account. It will also be required for certain sensitive actions.",
+      "button": "I understand"
+    },
+    "signupstep7": {
+      "title": "Create your security code"
+    },
+    "signupstep8": {
+      "title": "Confirm your security code"
+    },
+    "signupstep9": {
+      "title": "Congratulations",
+      "congrats": "Congratulations! You can now access your CO2 Account app.",
+      "button": "Let's go!"
+    },
+    "home": {
+      "title": "Home",
+      "tab": "Home",
+      "help": "Help",
+      "balance": {
+        "main": "My CO2 Account:",
+        "restoflash": "My Restau Flash Account:",
+        "weflo": "My Weflo Account:",
+        "noaccounts": "No accounts"
+      },
+      "banner": {
+        "validationIdentity": "Identity validation"
+      }
+    },
+    "account": {
+      "balance": "Account balance",
+      "oups": "Top up your CO2 Account to use the climate currency on a daily basis!",
+      "iban": "Display my CO2 IBAN"
+    },
+    "accountStatements": {
+      "title": "Export",
+      "bold": "Export my account statement",
+      "normal": "Download my account statement in PDF",
+      "cards": {
+        "currentMonth": "Current month",
+        "threeLastMonths": "Last 3 months",
+        "all": "All my statements",
+        "iban": "Download IBAN"
+      }
+    },
+    "accountStatementsCurrentMonth": {
+      "title": "Current month"
+    },
+    "accountStatementsThreeLastMonths": {
+      "title": "Last 3 months"
+    },
+    "accountStatementsAll": {
+      "title": "All my statements"
+    },
+    "exportPdfIban": {
+      "title": "Download the IBAN"
+    },
+    "transfer": {
+      "title": "Transfer",
+      "tab": "Transfer"
+    },
+    "carbon": {
+      "title": "My carbon footprint",
+      "tab": "CO2 Assessment",
+      "instruction": "Press on a category to start",
+      "zeroCarbon": "0 tC02",
+      "average": "French Average",
+      "ton": "ton",
+      "tons": "tons",
+      "share": "Share",
+      "reward": "Be rewarded with the CO2 bonus",
+      "method": "Learn more about the calculation method",
+      "compute": "Calculate"
+    },
+    "carbonHouse": {
+      "title": "My housing",
+      "noCO2": "The consumption of this type of heating does not emit CO2 in the calculation methodology.",
+      "dropdown": {
+        "heater": "Type of heating",
+        "region": "Department",
+        "electric": "Electricity",
+        "coal": "Coal",
+        "gas": "Town gas",
+        "fuelOil": "Domestic fuel oil",
+        "urban": "Urban heat network",
+        "wood": "Wood",
+        "heatPump": "Heat pump",
+        "thermalSolar": "Thermal solar",
+        "propane": "Propane"
+      },
+      "slider": {
+        "consumption": "consumption",
+        "builtYear": "Year of housing"
+      },
+      "surface": "Surface"
+    },
+    "carbonTransport": {
+      "title": "My transportation",
+      "noCO2": "The consumption of this type of vehicle does not emit CO2 in the calculation methodology",
+      "dropdown": {
+        "title": "Fuel",
+        "fuel": "Gasoline (including Hybrid)",
+        "E85": "E85 (Superethanol)",
+        "electric": "Electric",
+        "gasoil": "Diesel (including Hybrid)",
+        "GNV": "NGV (Natural Gas)",
+        "LPG": "LPG"
+      },
+      "slider": {
+        "mpg": "consumption",
+        "distanceByYear": "Annual mileage"
+      }
+    },
+    "carbonFood": {
+      "title": "My diet",
+      "slider": {
+        "alcohol": "Wine / Beer",
+        "bread": "Bread",
+        "cheese": "Cheese / Dairy / Egg",
+        "fish": "Fish / Crustacean",
+        "harvestExotic": "Exotic veggies / Fruit",
+        "harvestLocal": "Seasonal veggies / Fruit",
+        "meatRed": "Red meat",
+        "meatWhite": "White meat / Poultry",
+        "rice": "Pasta / Rice",
+        "soft": "Fruit juice / Soda / Water",
+        "unit": " times / week"
+      }
+    },
+    "warningFood": {
+      "title": "Warning",
+      "text": "For your information, the estimation of the carbon footprint of the diet is inherently approximate. Indeed, how do you count the number of pineapples imported by plane and frozen asparagus you ate this year? We included waste...",
+      "next": "Next"
+    },
+    "carbonFly": {
+      "title": "My air transportation",
+      "dropdown": {
+        "destination": "Departure from",
+        "arrival": "Arrival at"
+      },
+      "slider": "Number of trips",
+      "swipeButton": {
+        "type": "Journey",
+        "simple": "One way",
+        "round": "Round trip",
+        "class": "Class",
+        "economy": "Economy",
+        "business": "Business"
+      },
+      "secondaryButton": "Add",
+      "flight": "trip"
+    },
+    "profile": {
+      "title": "Profile",
+      "tab": "Profile"
+    }
+  }
+}

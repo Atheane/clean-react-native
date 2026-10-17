@@ -9,6 +9,7 @@ import { Logger } from '@clean-rn/ddd';
 import { FlyEmissions } from '@clean-rn/carbon/domain';
 
 import { FlyFrom, FlyTo, PlaneEmpty } from '../../assets';
+import { Colors } from '../../constants';
 
 import { SearchModal } from '../search-modal';
 import { SecondaryButton } from '../secondary-button';
@@ -54,21 +55,33 @@ export const FlyForm = (props: IProps) => {
     }
   }, [props.flight]);
 
-  const handleOnChangeField = useCallback((item: IData, property: keyof FlightI) => {
-    props.onChangeField(property, item.key);
-  }, []);
+  const handleOnChangeField = useCallback(
+    (item: IData, property: keyof FlightI) => {
+      props.onChangeField(property, item.key);
+    },
+    [props],
+  );
 
-  const handleOnChangeFlightNumber = useCallback((value: number) => {
-    props.onChangeField('nbPassengers', value);
-  }, []);
+  const handleOnChangeFlightNumber = useCallback(
+    (value: number) => {
+      props.onChangeField('nbPassengers', value);
+    },
+    [props],
+  );
 
-  const handleOnToggleWays = useCallback(({ key }: { key: string }) => {
-    props.onChangeField('roundTrip', FlyTypeComparator[key as FLY_TYPE]);
-  }, []);
+  const handleOnToggleWays = useCallback(
+    ({ key }: { key: string }) => {
+      props.onChangeField('roundTrip', FlyTypeComparator[key as FLY_TYPE]);
+    },
+    [props],
+  );
 
-  const handleOnToggleSeat = useCallback(({ key }: { key: string }) => {
-    props.onChangeField('seatType', SeatE[key as SeatE]);
-  }, []);
+  const handleOnToggleSeat = useCallback(
+    ({ key }: { key: string }) => {
+      props.onChangeField('seatType', SeatE[key as SeatE]);
+    },
+    [props],
+  );
 
   const mapFlightToCards = (flights: FlightI[]) => {
     if (!flights || flights.length === 0) {
@@ -111,7 +124,7 @@ export const FlyForm = (props: IProps) => {
           label={t('screens.carbonFly.dropdown.destination')}
           placeholder={t('screens.carbonFly.dropdown.destination')}
           data={props.airports}
-          icon={FlyFrom}
+          icon={() => <FlyFrom style={{ color: Colors.icon.lightGreenTransparent }} />}
           onSelect={(data: IData) => handleOnChangeField(data, 'fromIATA')}
         />
       </View>
@@ -120,7 +133,7 @@ export const FlyForm = (props: IProps) => {
           label={t('screens.carbonFly.dropdown.arrival')}
           placeholder={t('screens.carbonFly.dropdown.arrival')}
           data={props.airports}
-          icon={FlyTo}
+          icon={() => <FlyTo style={{ color: Colors.icon.lightGreenTransparent }} />}
           onSelect={(data: IData) => handleOnChangeField(data, 'toIATA')}
         />
       </View>

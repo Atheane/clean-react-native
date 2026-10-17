@@ -14,6 +14,11 @@ import { CardScroller } from './card-scroller';
 import { EventCard } from './event-card';
 import { CountryPicker } from './country-picker';
 import { DateTimePicker } from './datetime-picker';
+import { EmailInput } from './email-input';
+import { ErrorMessage } from './error-message';
+import { PasswordInput } from './password-input';
+import { SubmitButton } from './submit-button';
+import { LoginFormData, FormLogin } from './form-login';
 export {
   PrimaryButton,
   SecondaryButton,
@@ -31,4 +36,10 @@ export {
   EventCard,
   CountryPicker,
   DateTimePicker,
+  EmailInput,
+  ErrorMessage,
+  PasswordInput,
+  SubmitButton,
+  LoginFormData,
+  FormLogin,
 };

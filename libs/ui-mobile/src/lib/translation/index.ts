@@ -1,2 +1,3 @@
 import fr from './fr';
-export default { fr };
+import en from './en';
+export { fr, en };

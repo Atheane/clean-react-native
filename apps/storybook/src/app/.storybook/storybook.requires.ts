@@ -63,6 +63,10 @@ const getStories = () => {
     './stories/FlyForm.stories.tsx': require('../stories/FlyForm.stories'),
     './stories/CountryPicker.stories.tsx': require('../stories/CountryPicker.stories'),
     './stories/DateTimePicker.stories.tsx': require('../stories/DateTimePicker.stories'),
+    './stories/EmailInput.stories.tsx': require('../stories/EmailInput.stories'),
+    './stories/ErrorMessage.stories.tsx': require('../stories/ErrorMessage.stories'),
+    './stories/PasswordInput.stories.tsx': require('../stories/PasswordInput.stories'),
+    './stories/FormLogin.stories.tsx': require('../stories/FormLogin.stories'),
   };
 };
 

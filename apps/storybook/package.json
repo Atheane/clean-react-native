@@ -36,7 +36,8 @@
     "i18next": "*",
     "google-libphonenumber": "*",
     "country-flag-emoji": "*",
-    "@react-native-community/datetimepicker": "*"
+    "@react-native-community/datetimepicker": "*",
+    "react-hook-form": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",
