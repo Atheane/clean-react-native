@@ -1,6 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { Love, Validate, PrimaryButton } from '@bank/ui-mobile';
-import { withTheme } from './wrappers';
 
 // import { withSwitch, ValidationStatus } from '../wrappers';
 
@@ -19,7 +18,6 @@ const PrimaryButtonMeta: ComponentMeta<typeof PrimaryButton> = {
     uppercase: true,
   },
   decorators: [
-    withTheme,
     // (Story) => withSwitch(Story, ValidationStatus.VALIDATED)
   ],
 };

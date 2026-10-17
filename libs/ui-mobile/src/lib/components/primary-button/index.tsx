@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Button, ButtonProps } from '@rneui/themed';
+import { Button, ButtonProps, useTheme, Theme } from '@rneui/themed';
 import { Colors } from '../../constants';
-// import { firstLetterCapitalize } from '@shared/presentation/utils';
+import { firstLetterCapitalize } from '../../utils';
 
 type Props = {
   title: string;
@@ -21,35 +21,39 @@ type State = {
   onPress: () => void;
 };
 
-export const PrimaryButton: FC<ButtonProps & Props & State> = (props: ButtonProps & Props & State) => {
+export const PrimaryButton: FC<ButtonProps & Props & State> = (
+  props: ButtonProps & Props & State
+) => {
+  const { theme } = useTheme();
 
   return (
-    <View style={styles(props).container}>
+    <View style={styles(props)(theme).container}>
       <Button
         ViewComponent={LinearGradient}
-        style={styles(props).buttonContainer}
-        buttonStyle={styles(props).button}
+        style={styles(props)(theme).buttonContainer}
+        buttonStyle={styles(props)(theme).button}
         raised={!props.pressed}
         loading={props?.loading ? props.loading : false}
         linearGradientProps={{
-          colors: [Colors.background.lightGreen, Colors.background.darkGreen],
+          colors: [theme.linearGradient.start, theme.linearGradient.end],
           start: [0, 1],
           end: [1, 0],
         }}
         onPress={props.onPress}
         disabled={props.disabled}
       >
-        <View style={styles(props).contentContainer}>
+        <View style={styles(props)(theme).contentContainer}>
           {props.iconOne && (
-            <View style={styles(props).iconOneContainer}>
-              <props.iconOne {...styles(props).icon} />
+            <View style={styles(props)(theme).iconOneContainer}>
+              <props.iconOne {...styles(props)(theme).icon} />
             </View>
           )}
-          <Text style={styles(props).content}>{props.title}</Text>
-          {/* <Text style={styles(props).content}>{firstLetterCapitalize(props.title)}</Text> */}
+          <Text style={styles(props)(theme).content}>
+            {firstLetterCapitalize(props.title)}
+          </Text>
           {props.iconTwo && (
-            <View style={styles(props).iconTwoContainer}>
-              <props.iconTwo {...styles(props).icon} />
+            <View style={styles(props)(theme).iconTwoContainer}>
+              <props.iconTwo {...styles(props)(theme).icon} />
             </View>
           )}
         </View>
@@ -58,7 +62,7 @@ export const PrimaryButton: FC<ButtonProps & Props & State> = (props: ButtonProp
   );
 };
 
-const styles = (props: Props & State) =>
+const styles = (props: Props & State) => (theme: Theme) =>
   StyleSheet.create({
     container: props.fixedSize
       ? {
@@ -69,11 +73,10 @@ const styles = (props: Props & State) =>
           flexDirection: 'row',
         },
     buttonContainer: {
-      color: Colors.shadow.bold,
-      opacity: 0.34,
-      offset: { width: 5, height: 15 },
-      radius: 20,
-      width: 260,
+      shadowColor: theme.shadow.color, // IOS
+      shadowOffset: theme.shadow.offset, // IOS
+      shadowOpacity: theme.shadow.opacity,
+      shadowRadius: theme.shadow.radius,
       elevation: 1, // android,
     },
     button: {
@@ -82,7 +85,11 @@ const styles = (props: Props & State) =>
       paddingBottom: 16,
       paddingLeft: 26,
     },
-    contentContainer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' },
+    contentContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+    },
     content: {
       lineHeight: 24,
       fontSize: 18,
