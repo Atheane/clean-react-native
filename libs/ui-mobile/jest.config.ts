@@ -11,8 +11,9 @@ module.exports = {
     '\\.svg$': '@nx/expo/plugins/jest/svg-mock',
   },
   collectCoverage: true,
+  collectCoverageFrom: ['**/components/**/*.tsx'],
   coverageThreshold: {
-    '**/components/**/*.tsx': {
+    './libs/ui-mobile/src/lib/components/': {
       statements: 100,
       branches: 100,
       lines: 100,
