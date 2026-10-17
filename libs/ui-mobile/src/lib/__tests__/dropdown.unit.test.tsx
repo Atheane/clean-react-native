@@ -1,4 +1,4 @@
-import { render, fireEvent, act } from '@testing-library/react-native';
+import { render } from '@testing-library/react-native';
 import { ThemeProvider } from '@rneui/themed';
 import { Dropdown } from '../components/dropdown';
 import { theme } from '../theme';
@@ -15,7 +15,7 @@ const fakeData = [
 describe('Dropdown - ', () => {
   describe('minimal props - ', () => {
     const onSelect = jest.fn();
-    it('renders as before', async () => {
+    it('renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
           <Dropdown

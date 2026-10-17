@@ -36,7 +36,7 @@ export const Dropdown = (props: IProps) => {
         {props.label.toLocaleUpperCase()}
       </Text>
 
-      <View testID="select-dropdown" style={styles.selectContainer}>
+      <View style={styles.selectContainer}>
         <View style={styles.leftIconContainer}>
           <props.icon />
         </View>

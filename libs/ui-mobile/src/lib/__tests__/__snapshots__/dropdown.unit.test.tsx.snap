@@ -26,7 +26,6 @@ exports[`Dropdown -  minimal props -  renders as before 1`] = `
         "flexDirection": "row",
       }
     }
-    testID="select-dropdown"
   >
     <View
       style={
@@ -143,7 +142,6 @@ exports[`defaultValue -  renders as before 1`] = `
         "flexDirection": "row",
       }
     }
-    testID="select-dropdown"
   >
     <View
       style={
@@ -260,7 +258,6 @@ exports[`labelColor -  renders as before 1`] = `
         "flexDirection": "row",
       }
     }
-    testID="select-dropdown"
   >
     <View
       style={
