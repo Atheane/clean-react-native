@@ -9,6 +9,10 @@ import {
   Pill,
   Search,
   Close,
+  RightArrowWhite,
+  RightArrowGreen,
+  RightArrowPink,
+  RightArrowBlue,
 } from './svg';
 import { Back } from './images';
 export {
@@ -23,4 +27,8 @@ export {
   Pill,
   Search,
   Close,
+  RightArrowWhite,
+  RightArrowGreen,
+  RightArrowPink,
+  RightArrowBlue,
 };

@@ -49,6 +49,7 @@ const getStories = () => {
   return {
     './stories/PrimaryButton.stories.tsx': require('../stories/PrimaryButton.stories'),
     './stories/SecondaryButton.stories.tsx': require('../stories/SecondaryButton.stories'),
+    './stories/LinkButton.stories.tsx': require('../stories/LinkButton.stories'),
   };
 };
 

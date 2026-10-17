@@ -10,6 +10,10 @@ import RightChevron from './right-chevron.svg';
 import Pill from './pill.svg';
 import Search from './search.svg';
 import Close from './close.svg';
+import RightArrowWhite from './right-arrow-white.svg';
+import RightArrowGreen from './right-arrow-green.svg';
+import RightArrowPink from './right-arrow-pink.svg';
+import RightArrowBlue from './right-arrow-blue.svg';
 
 export {
   LoveWhite,
@@ -22,4 +26,8 @@ export {
   Pill,
   Search,
   Close,
+  RightArrowWhite,
+  RightArrowGreen,
+  RightArrowPink,
+  RightArrowBlue,
 };
