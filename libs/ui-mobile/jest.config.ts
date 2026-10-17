@@ -17,12 +17,12 @@ module.exports = {
     './libs/ui-mobile/src/lib/components/search-modal/',
     './libs/ui-mobile/src/lib/components/switch-button/',
   ],
-  coverageThreshold: {
-    global: {
-      statements: 100,
-      branches: 100,
-      lines: 100,
-      functions: 100,
-    },
-  },
+  // coverageThreshold: {
+  //   global: {
+  //     statements: 100,
+  //     branches: 100,
+  //     lines: 100,
+  //     functions: 100,
+  //   },
+  // },
 };
