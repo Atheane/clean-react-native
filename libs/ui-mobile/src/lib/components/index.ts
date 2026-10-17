@@ -25,7 +25,9 @@ import { SignupStep1FormData, FormSignupStep1 } from './form-signup-step1';
 import { SignupStep2FormData, FormSignupStep2 } from './form-signup-step2';
 import { SignupStep3FormData, FormSignupStep3 } from './form-signup-step3';
 import { SignupStep4FormData, FormSignupStep4 } from './form-signup-step4';
+import { SignupStep5FormData, FormSignupStep5 } from './form-signup-step5';
 import { PhoneValidationCodeInput } from './phone-validation-code-input';
+import { PhoneSecurityPinInput } from './phone-security-pin-input';
 export {
   PrimaryButton,
   SecondaryButton,
@@ -61,4 +63,7 @@ export {
   PhoneValidationCodeInput,
   SignupStep4FormData,
   FormSignupStep4,
+  SignupStep5FormData,
+  FormSignupStep5,
+  PhoneSecurityPinInput,
 };

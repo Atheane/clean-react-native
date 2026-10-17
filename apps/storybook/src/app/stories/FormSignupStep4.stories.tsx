@@ -43,6 +43,7 @@ export const Dynamic: FormSignupStep4Story = (args) => {
     defaultValues: {
       birthCountry: defaultCountry,
       nationality: defaultCountry,
+      birthday: new Date('1980-01-01'),
     },
   });
 

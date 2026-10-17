@@ -75,6 +75,8 @@ const getStories = () => {
     './stories/PhoneValidationCodeInput.stories.tsx': require('../stories/PhoneValidationCodeInput.stories'),
     './stories/FormSignupStep3.stories.tsx': require('../stories/FormSignupStep3.stories'),
     './stories/FormSignupStep4.stories.tsx': require('../stories/FormSignupStep4.stories'),
+    './stories/FormSignupStep5.stories.tsx': require('../stories/FormSignupStep5.stories'),
+    './stories/PhoneSecurityPinInput.stories.tsx': require('../stories/PhoneSecurityPinInput.stories'),
   };
 };
 

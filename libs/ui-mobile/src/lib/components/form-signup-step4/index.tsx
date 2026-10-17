@@ -131,12 +131,7 @@ export const FormSignupStep4 = (props: IProps) => {
         <ErrorMessage error={props.error} />
       </View>
       <View style={styles.formSubmit}>
-        <SubmitButton
-          disabled={false}
-          title={t('submitButton')}
-          uppercase={false}
-          onSubmit={props.onSubmit}
-        />
+        <SubmitButton title={t('submitButton')} uppercase={false} onSubmit={props.onSubmit} />
       </View>
     </View>
   );
