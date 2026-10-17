@@ -18,7 +18,18 @@
     "@expo-google-fonts/roboto": "*",
     "@expo-google-fonts/martel-sans": "*",
     "expo-localization": "*",
-    "expo-font": "*"
+    "expo-font": "*",
+    "react-native-select-dropdown": "*",
+    "react-i18next": "*",
+    "react-native-keyboard-aware-scroll-view": "*",
+    "@bank/carbon-weight": "*",
+    "expo-constants": "*",
+    "react-native-webview": "*",
+    "react-native-numeric-input": "*",
+    "dayjs": "*",
+    "google-libphonenumber": "*",
+    "country-flag-emoji": "*",
+    "i18next": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp package-lock.json apps/bank-app",

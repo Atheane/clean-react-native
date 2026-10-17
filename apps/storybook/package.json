@@ -33,7 +33,9 @@
     "react-native-numeric-input": "*",
     "react-i18next": "*",
     "dayjs": "*",
-    "i18next": "*"
+    "i18next": "*",
+    "google-libphonenumber": "*",
+    "country-flag-emoji": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",
