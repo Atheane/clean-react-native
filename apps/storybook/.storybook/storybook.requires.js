@@ -46,7 +46,9 @@ try {
 } catch {}
 
 const getStories = () => {
-  return {};
+  return {
+    './stories/PrimaryButton.stories.tsx': require('../stories/PrimaryButton.stories.tsx'),
+  };
 };
 
 configure(getStories, module, false);

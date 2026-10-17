@@ -16,7 +16,11 @@
     "@storybook/addon-actions": "*",
     "@nx/expo": "*",
     "@expo/metro-config": "*",
-    "react": "*"
+    "react": "*",
+    "expo-linear-gradient": "*",
+    "@rneui/themed": "*",
+    "@expo-google-fonts/roboto": "*",
+    "@expo-google-fonts/martel-sans": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",
