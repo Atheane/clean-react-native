@@ -27,17 +27,15 @@ export const Dropdown = (props: IProps) => {
   const { theme } = useTheme();
 
   const handleOnSelect = (value: string, index: number) => {
-    if (props.onSelect) props.onSelect(props.data[index]);
+    props.onSelect(props.data[index]);
   };
 
   return (
     <View>
-      {props.label && (
-        <Text style={[styles.inputLabel, { color: props.labelColor ?? Colors.input.pink }]}>
-          {props.label.toLocaleUpperCase()}
-        </Text>
-      )}
-      {!props.label && <Text style={styles.inputLabel}>{props.label.toLocaleUpperCase()}</Text>}
+      <Text style={[styles.inputLabel, { color: props.labelColor ?? Colors.input.pink }]}>
+        {props.label.toLocaleUpperCase()}
+      </Text>
+
       <View style={styles.selectContainer}>
         <View style={styles.leftIconContainer}>
           <props.icon />
