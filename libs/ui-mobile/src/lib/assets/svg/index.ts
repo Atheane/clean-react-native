@@ -47,7 +47,6 @@ import Flame from './flame.svg';
 import Department from './department.svg';
 import Surface from './surface.svg';
 import CO2 from './co2.svg';
-import Fuel from './fuel.svg';
 import FlyFrom from './flyFrom.svg';
 import FlyTo from './flyTo.svg';
 
@@ -85,7 +84,6 @@ export {
   Copy,
   Restaurant,
   TransferTransaction,
-  Fuel,
   Cart,
   ExportPdfGradient,
   Ibanv2,
