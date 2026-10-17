@@ -3,6 +3,7 @@ import { ThemeProvider } from '@rneui/themed';
 import { LinkButton } from '../components/link-button';
 import { LinkButtonColors } from '../types';
 import { theme } from '../theme';
+import { LoveGreen } from '../assets';
 
 describe('LinkButton - ', () => {
   describe('pink & pressed & arrow -', () => {
@@ -123,6 +124,21 @@ describe('LinkButton - ', () => {
             onPress={() => console.log('pressed')}
             colorOption={LinkButtonColors.WHITE}
             pressed={false}
+          />
+        </ThemeProvider>,
+      );
+      expect(tree).toMatchSnapshot();
+    });
+  });
+  describe('green & unpressed & iconOne -', () => {
+    it('renders as before', () => {
+      const tree = render(
+        <ThemeProvider theme={theme}>
+          <LinkButton
+            onPress={() => console.log('pressed')}
+            colorOption={LinkButtonColors.PINK}
+            pressed={false}
+            iconOne={LoveGreen}
           />
         </ThemeProvider>,
       );

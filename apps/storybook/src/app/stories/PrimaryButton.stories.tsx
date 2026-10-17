@@ -11,7 +11,7 @@ const PrimaryButtonMeta: ComponentMeta<typeof PrimaryButton> = {
     iconTwo: { table: { disable: true } },
   },
   args: {
-    title: "S'inscrire",
+    title: 'Sign up',
     large: false,
     uppercase: true,
   },

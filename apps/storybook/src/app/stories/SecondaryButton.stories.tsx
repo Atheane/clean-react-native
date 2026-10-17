@@ -11,7 +11,7 @@ const SecondaryButtonMeta: ComponentMeta<typeof SecondaryButton> = {
     iconOne: { table: { disable: true } },
   },
   args: {
-    title: 'Se connecter',
+    title: 'Log in',
     large: false,
     uppercase: true,
   },

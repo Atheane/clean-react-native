@@ -14,7 +14,7 @@ const LinkButtonMeta: ComponentMeta<typeof LinkButton> = {
     },
   },
   args: {
-    title: 'Mot de passe oublié ?',
+    title: 'Forgotten password?',
     pressed: false,
     arrow: true,
     colorOption: LinkButtonColors.GREEN,

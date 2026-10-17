@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { SvgProps } from 'react-native-svg';
 import { Button } from '@rneui/themed';
 
 import { Colors, FontNames } from '../../constants';
@@ -10,6 +11,7 @@ type IProps = {
   colorOption: LinkButtonColors;
   title?: string;
   arrow?: boolean;
+  iconOne?: React.FC<SvgProps>;
   pressed: boolean;
   onPress: () => void;
 };
@@ -27,6 +29,7 @@ export const LinkButton: FC<IProps> = (props: IProps) => {
           </View>
         )}
         {props.title && <Text style={styles(props).title}>{props.title}</Text>}
+        {props.iconOne && <props.iconOne />}
       </View>
     </Button>
   );

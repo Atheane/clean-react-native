@@ -50,6 +50,7 @@ const getStories = () => {
     './stories/PrimaryButton.stories.tsx': require('../stories/PrimaryButton.stories'),
     './stories/SecondaryButton.stories.tsx': require('../stories/SecondaryButton.stories'),
     './stories/LinkButton.stories.tsx': require('../stories/LinkButton.stories'),
+    './stories/LongCard.stories.tsx': require('../stories/LongCard.stories'),
   };
 };
 
