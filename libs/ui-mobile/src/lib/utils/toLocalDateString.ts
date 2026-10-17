@@ -1,4 +1,5 @@
 import { getLocales } from 'expo-localization';
+
 const locales = getLocales();
 
 const options = {
