@@ -13,7 +13,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -21,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.CleanRN.bank-appdev"
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -32,9 +35,17 @@
         "@config-plugins/detox",
         {
           "skipProguard": false,
-          "subdomains": ["10.0.2.2", "localhost"]
+          "subdomains": [
+            "10.0.2.2",
+            "localhost"
+          ]
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "5a9f9e3a-cf08-4deb-90dd-a1d3b0dcdfb3"
+      }
+    }
   }
 }
