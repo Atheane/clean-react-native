@@ -29,10 +29,17 @@
     "dayjs": "*",
     "google-libphonenumber": "*",
     "country-flag-emoji": "*",
-    "i18next": "*"
+    "i18next": "*",
+    "expo-splash-screen": "~0.20.5",
+    "expo-status-bar": "~1.6.0"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp package-lock.json apps/bank-app",
-    "eas-build-post-install": "cd ../../ && node tools/scripts/eas-build-post-install.mjs . apps/bank-app"
+    "eas-build-post-install": "cd ../../ && node tools/scripts/eas-build-post-install.mjs . apps/bank-app",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0"
   }
 }
