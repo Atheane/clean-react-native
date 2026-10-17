@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BackButton -  renders as before 1`] = `
+exports[`GreenBackButton -  renders as before 1`] = `
 <View
   style={
     [

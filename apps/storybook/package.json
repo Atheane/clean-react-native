@@ -24,7 +24,8 @@
     "expo-localization": "*",
     "react-native-keyboard-aware-scroll-view": "*",
     "expo-font": "*",
-    "@rneui/base": "*"
+    "@rneui/base": "*",
+    "react-native-webview": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",

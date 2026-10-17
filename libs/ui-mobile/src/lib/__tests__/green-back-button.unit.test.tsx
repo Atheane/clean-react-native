@@ -3,7 +3,7 @@ import { ThemeProvider } from '@rneui/themed';
 import { GreenBackButton } from '../components/green-back-button';
 import { theme } from '../theme';
 
-describe('BackButton - ', () => {
+describe('GreenBackButton - ', () => {
   it('renders as before', () => {
     const tree = render(
       <ThemeProvider theme={theme}>
