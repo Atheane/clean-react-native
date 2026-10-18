@@ -70,7 +70,7 @@ export const SignupIdentityPasswordPhone = () => {
       dispatch(registerPassword({ password: formData.password, user }));
       dispatch(fetchCheckPhone({ phone: new Phone(formData.phone, formData.countryCode) }));
     },
-    [dispatch],
+    [dispatch, email],
   );
 
   // navigation

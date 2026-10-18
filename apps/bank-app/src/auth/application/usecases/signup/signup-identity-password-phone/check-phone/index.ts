@@ -3,7 +3,7 @@ import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
 
 import { ICheckPhoneQuery, ISuccess, AuthError, ISendPhoneValidationCommand } from '@clean-rn/auth/domain';
 
-import { ISignupTypes, signupFailed, phoneChecked } from '../../../commands/signup';
+import { ISignupTypes, signupFailed, phoneChecked } from '../../../../commands/signup';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 

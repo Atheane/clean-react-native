@@ -3,7 +3,7 @@ import { put, StrictEffect, takeEvery } from 'redux-saga/effects';
 
 import { IRegisterPasswordCommand, User } from '@clean-rn/auth/domain';
 
-import { ISignupTypes, passwordRegistered } from '../../../commands/signup';
+import { ISignupTypes, passwordRegistered } from '../../../../commands/signup';
 
 export function* registerPasswordSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(ISignupTypes.REGISTER_PASSWORD, registerPasswordGenerator);
