@@ -1,10 +1,9 @@
 import { useCallback } from 'react';
-import { View, StyleSheet, SafeAreaView } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import {
   Colors,
@@ -17,6 +16,7 @@ import {
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IAuthStackPages } from '../../../shared/presentation/types';
+import { ScreenWrapper } from '../../../shared/presentation/hoc';
 
 import { registerAddress } from '../../application/commands/signup';
 
@@ -71,8 +71,8 @@ export const SignupAddress = () => {
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+    <ScreenWrapper>
+      <>
         <FormSignupAddress
           loading={pending}
           control={control}
@@ -105,8 +105,8 @@ export const SignupAddress = () => {
             onPress={onPressCguKycProvider}
           />
         </View>
-      </KeyboardAwareScrollView>
-    </SafeAreaView>
+      </>
+    </ScreenWrapper>
   );
 };
 

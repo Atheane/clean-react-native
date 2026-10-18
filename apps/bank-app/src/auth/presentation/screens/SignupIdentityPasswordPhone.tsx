@@ -1,16 +1,14 @@
 import { useCallback } from 'react';
-import { StyleSheet, View, SafeAreaView } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { getLocales } from 'expo-localization';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { IGender, Phone } from '@clean-rn/auth/domain';
 import {
   useCleanErrorOnFocus,
-  Colors,
   FormSignupIdentityPasswordPhone,
   LinkButton,
   LinkButtonColors,
@@ -20,6 +18,7 @@ import {
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IAuthStackPages } from '../../../shared/presentation/types';
+import { ScreenWrapper } from '../../../shared/presentation/hoc';
 
 import { registerIdentity, fetchCheckPhone, registerPassword } from '../../application/commands/signup';
 
@@ -88,8 +87,8 @@ export const SignupIdentityPasswordPhone = () => {
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+    <ScreenWrapper>
+      <>
         <FormSignupIdentityPasswordPhone
           defaultCountry={defaultCountry}
           loading={pending}
@@ -124,16 +123,12 @@ export const SignupIdentityPasswordPhone = () => {
             onPress={onPressCguKycProvider}
           />
         </View>
-      </KeyboardAwareScrollView>
-    </SafeAreaView>
+      </>
+    </ScreenWrapper>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.bank.primary.white,
-  },
   cgu: {
     marginTop: 36,
     flexDirection: 'row',

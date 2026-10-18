@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useNavigationState } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { PdfViewer } from '@clean-rn/ui-mobile';
 
 import {
   Login,
@@ -12,7 +13,6 @@ import {
   SignupBirth,
   SignupAddress,
   SignupCongrats,
-  Webview,
 } from '../screens';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { IAuthStackPages, IAuthStackProps } from '../../../shared/presentation/types';
@@ -26,9 +26,9 @@ export const AuthStack = () => {
   const { t } = useTranslation();
   const { initRouteName } = useSelector((state: IRootState) => state.initialization);
   const navigationStack = useNavigationState((state) => state?.routes ?? []);
-  const ScreenLegal = () => <Webview url={pdfUrls.legal} />;
-  const ScreenCgu = () => <Webview url={pdfUrls.cgu} />;
-  const ScreenCguKycProvider = () => <Webview url={pdfUrls.cguKycProvider} />;
+  const ScreenLegal = () => <PdfViewer url={pdfUrls.legal} />;
+  const ScreenCgu = () => <PdfViewer url={pdfUrls.cgu} />;
+  const ScreenCguKycProvider = () => <PdfViewer url={pdfUrls.cguKycProvider} />;
 
   return (
     <Stack.Navigator initialRouteName={initRouteName}>

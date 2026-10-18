@@ -1,10 +1,9 @@
 import { useCallback } from 'react';
-import { View, StyleSheet, SafeAreaView } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import dayjs from 'dayjs';
 
 import {
@@ -18,6 +17,7 @@ import {
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IAuthStackPages } from '../../../shared/presentation/types';
+import { ScreenWrapper } from '../../../shared/presentation/hoc';
 
 import { registerBirth } from '../../application/commands/signup';
 
@@ -66,43 +66,41 @@ export const SignupBirth = () => {
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.form}>
-          <FormSignupBirth
-            control={control}
-            errors={errors}
-            error={domainError}
-            onSubmit={handleSubmit(onSubmit)}
-            onFocus={onFocus}
-            defaultCountry={user?.properties.phone?.countryCode}
+    <ScreenWrapper>
+      <View style={styles.form}>
+        <FormSignupBirth
+          control={control}
+          errors={errors}
+          error={domainError}
+          onSubmit={handleSubmit(onSubmit)}
+          onFocus={onFocus}
+          defaultCountry={user?.properties.phone?.countryCode}
+        />
+        <View style={styles.cgu}>
+          <LinkButton
+            title={t('screens.legal')}
+            arrow={false}
+            colorOption={LinkButtonColors.BLUE}
+            pressed={false}
+            onPress={onPressLegal}
           />
-          <View style={styles.cgu}>
-            <LinkButton
-              title={t('screens.legal')}
-              arrow={false}
-              colorOption={LinkButtonColors.BLUE}
-              pressed={false}
-              onPress={onPressLegal}
-            />
-            <LinkButton
-              title={t('screens.cgu')}
-              arrow={false}
-              colorOption={LinkButtonColors.BLUE}
-              pressed={false}
-              onPress={onPressCgu}
-            />
-            <LinkButton
-              title={t('screens.cgu-kyc-provider')}
-              arrow={false}
-              colorOption={LinkButtonColors.BLUE}
-              pressed={false}
-              onPress={onPressCguKycProvider}
-            />
-          </View>
+          <LinkButton
+            title={t('screens.cgu')}
+            arrow={false}
+            colorOption={LinkButtonColors.BLUE}
+            pressed={false}
+            onPress={onPressCgu}
+          />
+          <LinkButton
+            title={t('screens.cgu-kyc-provider')}
+            arrow={false}
+            colorOption={LinkButtonColors.BLUE}
+            pressed={false}
+            onPress={onPressCguKycProvider}
+          />
         </View>
-      </KeyboardAwareScrollView>
-    </SafeAreaView>
+      </View>
+    </ScreenWrapper>
   );
 };
 

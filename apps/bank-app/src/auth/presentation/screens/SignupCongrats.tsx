@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { StyleSheet, View, Text, Image, SafeAreaView } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { PrimaryButton, FontNames, Colors, ErrorMessage } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { ScreenWrapper } from '../../../shared/presentation/hoc';
 
 import { Congrats } from '../../presentation/assets/images';
 import { fetchLogin } from '../../../auth/application/commands/login';
@@ -34,28 +34,28 @@ export const SignupCongrats = () => {
   }, [dispatch, user]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.subContainer}>
-          <View style={styles.image}>
-            <Image style={{ width: 250, height: 250 }} source={Congrats} />
-          </View>
-
-          <View style={styles.textContainer}>
-            <Text style={styles.text}>{t('screens.signup-congrats.congrats')}</Text>
-          </View>
-          <View style={styles.submit}>
-            <PrimaryButton
-              long
-              title={t('screens.signup-congrats.button')}
-              uppercase
-              onPress={onPress}
-              loading={pending}
-            />
-          </View>
+    <ScreenWrapper>
+      <View style={styles.subContainer}>
+        <View style={styles.image}>
+          <Image style={{ width: 250, height: 250 }} source={Congrats} />
         </View>
-      </KeyboardAwareScrollView>
-    </SafeAreaView>
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>{t('screens.signup-congrats.congrats')}</Text>
+        </View>
+        <View style={styles.errorContainer}>
+          <ErrorMessage error={error} />
+        </View>
+        <View style={styles.submit}>
+          <PrimaryButton
+            long
+            title={t('screens.signup-congrats.button')}
+            uppercase
+            onPress={onPress}
+            loading={pending}
+          />
+        </View>
+      </View>
+    </ScreenWrapper>
   );
 };
 

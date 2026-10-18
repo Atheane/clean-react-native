@@ -1,13 +1,14 @@
 import { useCallback } from 'react';
-import { StyleSheet, SafeAreaView, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { Colors, FormResetPassword, IResetPasswordFormData } from '@clean-rn/ui-mobile';
+import { Email } from '@clean-rn/auth/domain';
+
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
-import { Email } from '@clean-rn/auth/domain';
+import { ScreenWrapper } from '../../../shared/presentation/hoc';
 import { fetchResetPassword } from '../../application/commands/reset-password';
 
 export const ResetPassword = () => {
@@ -37,20 +38,18 @@ export const ResetPassword = () => {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.form}>
-          <FormResetPassword
-            loading={pending}
-            control={control}
-            errors={errors}
-            email={email?.value}
-            onSubmit={handleSubmit(onSubmit)}
-            success={success}
-          />
-        </View>
-      </KeyboardAwareScrollView>
-    </SafeAreaView>
+    <ScreenWrapper>
+      <View style={styles.form}>
+        <FormResetPassword
+          loading={pending}
+          control={control}
+          errors={errors}
+          email={email?.value}
+          onSubmit={handleSubmit(onSubmit)}
+          success={success}
+        />
+      </View>
+    </ScreenWrapper>
   );
 };
 

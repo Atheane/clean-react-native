@@ -1,10 +1,9 @@
 import { useCallback } from 'react';
-import { StyleSheet, View, Text, SafeAreaView } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import {
   LinkButton,
@@ -21,6 +20,7 @@ import { PhoneOtp } from '@clean-rn/auth/domain';
 import { fetchValidatePhone } from '../../../auth/application/commands/signup';
 import { IAuthStackPages } from '../../../shared/presentation/types';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { ScreenWrapper } from '../../../shared/presentation/hoc';
 
 export const SignupValidatePhone = () => {
   const { t } = useTranslation();
@@ -69,51 +69,49 @@ export const SignupValidatePhone = () => {
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.container}>
-          <View style={styles.subContainer}>
-            <Security />
-            <View style={styles.textContainer}>
-              <Text style={styles.instructionText}>{t('screens.signup-validate-phone.instruction')}</Text>
-            </View>
-          </View>
-          <View style={styles.formContainer}>
-            <FormSignupValidatePhone
-              loading={pending}
-              control={control}
-              errors={errors}
-              onSubmit={handleSubmit(onSubmit)}
-              error={domainError}
-              onFocus={onFocus}
-            />
-          </View>
-          <View style={styles.cgu}>
-            <LinkButton
-              title={t('screens.legal')}
-              arrow={false}
-              colorOption={LinkButtonColors.BLUE}
-              pressed={false}
-              onPress={onPressLegal}
-            />
-            <LinkButton
-              title={t('screens.cgu')}
-              arrow={false}
-              colorOption={LinkButtonColors.BLUE}
-              pressed={false}
-              onPress={onPressCgu}
-            />
-            <LinkButton
-              title={t('screens.cgu-kyc-provider')}
-              arrow={false}
-              colorOption={LinkButtonColors.BLUE}
-              pressed={false}
-              onPress={onPressCguKycProvider}
-            />
+    <ScreenWrapper>
+      <>
+        <View style={styles.subContainer}>
+          <Security />
+          <View style={styles.textContainer}>
+            <Text style={styles.instructionText}>{t('screens.signup-validate-phone.instruction')}</Text>
           </View>
         </View>
-      </KeyboardAwareScrollView>
-    </SafeAreaView>
+        <View style={styles.formContainer}>
+          <FormSignupValidatePhone
+            loading={pending}
+            control={control}
+            errors={errors}
+            onSubmit={handleSubmit(onSubmit)}
+            error={domainError}
+            onFocus={onFocus}
+          />
+        </View>
+        <View style={styles.cgu}>
+          <LinkButton
+            title={t('screens.legal')}
+            arrow={false}
+            colorOption={LinkButtonColors.BLUE}
+            pressed={false}
+            onPress={onPressLegal}
+          />
+          <LinkButton
+            title={t('screens.cgu')}
+            arrow={false}
+            colorOption={LinkButtonColors.BLUE}
+            pressed={false}
+            onPress={onPressCgu}
+          />
+          <LinkButton
+            title={t('screens.cgu-kyc-provider')}
+            arrow={false}
+            colorOption={LinkButtonColors.BLUE}
+            pressed={false}
+            onPress={onPressCguKycProvider}
+          />
+        </View>
+      </>
+    </ScreenWrapper>
   );
 };
 

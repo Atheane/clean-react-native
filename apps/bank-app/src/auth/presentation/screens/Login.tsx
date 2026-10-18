@@ -1,16 +1,16 @@
 import { useCallback } from 'react';
-import { StyleSheet, View, Image, SafeAreaView } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import { useSecure, useCleanErrorOnFocus, FormLogin, ILoginFormData, Colors } from '@clean-rn/ui-mobile';
+import { useSecure, useCleanErrorOnFocus, FormLogin, ILoginFormData } from '@clean-rn/ui-mobile';
 
 import { Email, Password } from '@clean-rn/auth/domain';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IAuthStackPages } from '../../../shared/presentation/types';
+import { ScreenWrapper } from '../../../shared/presentation/hoc';
 
 import { Welcome } from '../assets/images';
 import { fetchLogin } from '../../application/commands/login';
@@ -53,8 +53,8 @@ export const Login = () => {
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+    <ScreenWrapper>
+      <>
         <View style={styles.image}>
           <Image style={{ width: 146, height: 146 }} source={Welcome} />
         </View>
@@ -71,16 +71,12 @@ export const Login = () => {
           error={domainError}
           onFocus={onFocus}
         />
-      </KeyboardAwareScrollView>
-    </SafeAreaView>
+      </>
+    </ScreenWrapper>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.bank.primary.white,
-  },
   image: {
     alignItems: 'center',
     justifyContent: 'center',

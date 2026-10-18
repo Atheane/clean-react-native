@@ -10,7 +10,8 @@ import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
 const sagaMiddleware = createSagaMiddleware({
   onError: (error, errorInfos) => {
-    Logger.getInstance().error(error, errorInfos);
+    Logger.getInstance().error(error);
+    Logger.getInstance().error(errorInfos);
     Sentry.captureException(new Error(error.message, errorInfos as ErrorOptions)); //errorInfos contains information on which sagaStack the error comes from
   },
 });

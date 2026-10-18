@@ -6,7 +6,6 @@ import { SignupValidatePhone } from './SignupValidatePhone';
 import { SignupBirth } from './SignupBirth';
 import { SignupAddress } from './SignupAddress';
 import { SignupCongrats } from './SignupCongrats';
-import { Webview } from './Webview';
 
 export {
   Login,
@@ -17,5 +16,4 @@ export {
   SignupBirth,
   SignupAddress,
   SignupCongrats,
-  Webview,
 };
