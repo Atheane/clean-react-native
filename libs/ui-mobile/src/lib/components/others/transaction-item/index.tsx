@@ -61,19 +61,19 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontFamily: FontNames.MartelSans_400Regular,
     textAlign: 'left',
-    color: Colors.text.darkGrey,
+    color: Colors.bank.primary.darkGrey,
   },
   amountContainer: {},
   amount: {
     fontFamily: FontNames.MartelSans_700Bold,
     textAlign: 'right',
-    color: Colors.text.lightGrey,
+    color: Colors.bank.primary.grey,
     fontWeight: 'bold',
   },
   amountPositive: {
-    color: Colors.text.lightGreen,
+    color: Colors.bank.primary.lightGreen,
   },
   amountNegative: {
-    color: Colors.text.lightGrey,
+    color: Colors.bank.primary.grey,
   },
 });

@@ -13,7 +13,7 @@ const TransactionItemMeta: ComponentMeta<typeof TransactionItem> = {
       <Love
         width={23}
         height={23}
-        style={{ color: Colors.icon.lightGreenTransparent } as StyleProp<ViewStyle>}
+        style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
       />
     ),
     label: 'Virement Marie Dupond',

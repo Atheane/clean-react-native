@@ -25,7 +25,7 @@ const TextInputMeta: ComponentMeta<typeof TextInput> = {
       <Love
         width={27}
         height={27}
-        style={{ color: Colors.icon.lightGreenTransparent } as StyleProp<ViewStyle>}
+        style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
       />
     ),
   },
@@ -37,4 +37,6 @@ export default TextInputMeta;
 type TextInputStory = ComponentStory<typeof TextInput>;
 
 export const Static: TextInputStory = (args) => <TextInput {...args} />;
-export const GreyLabel: TextInputStory = (args) => <TextInput {...args} labelColor={Colors.text.grey} />;
+export const GreyLabel: TextInputStory = (args) => (
+  <TextInput {...args} labelColor={Colors.bank.primary.grey} />
+);

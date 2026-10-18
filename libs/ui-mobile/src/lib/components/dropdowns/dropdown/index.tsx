@@ -29,7 +29,7 @@ export const Dropdown = (props: IProps) => {
 
   return (
     <View>
-      <Text style={[styles.inputLabel, { color: props.labelColor ?? Colors.input.pink }]}>
+      <Text style={[styles.inputLabel, { color: props.labelColor ?? Colors.bank.secondary.pink }]}>
         {props.label.toLocaleUpperCase()}
       </Text>
 
@@ -47,7 +47,7 @@ export const Dropdown = (props: IProps) => {
           rowTextStyle={styles.rowText}
           renderDropdownIcon={() => (
             <View style={styles.dropdownIcon}>
-              <DropDownChevron style={{ color: Colors.icon.lightGreen }} />
+              <DropDownChevron style={{ color: Colors.bank.primary.lightGreen }} />
             </View>
           )}
           defaultButtonText={props.defaultValue ?? props.placeholder}
@@ -62,13 +62,13 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   inputText: {
-    color: Colors.input.pink,
+    color: Colors.bank.secondary.pink,
     fontFamily: FontNames.Roboto_400Regular,
     fontSize: 14,
     textAlign: 'center',
   },
   inputLabel: {
-    color: Colors.input.pink,
+    color: Colors.bank.secondary.pink,
     fontFamily: FontNames.Roboto_700Bold,
     fontSize: 18,
     lineHeight: 24,
@@ -92,10 +92,5 @@ const styles = StyleSheet.create({
   },
   dropdownIcon: {
     marginRight: 16,
-  },
-  placeholderText: {
-    fontFamily: FontNames.Roboto_400Regular,
-    fontSize: 14,
-    color: Colors.text.grey,
   },
 });

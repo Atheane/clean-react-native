@@ -25,7 +25,7 @@ export const PasswordInput = (props: InputProps & State) => {
           inputContainerStyle={styles.inputContainerStyle}
           inputStyle={styles.inputStyle}
           secureTextEntry={props.secured}
-          leftIcon={<Lock style={{ color: Colors.background.lightGreen }} />}
+          leftIcon={<Lock style={{ color: Colors.bank.background.lightGreen }} />}
           leftIconContainerStyle={styles.leftIconContainer}
           onFocus={props.onFocus}
           onChangeText={props.onChange}
@@ -34,9 +34,9 @@ export const PasswordInput = (props: InputProps & State) => {
           rightIcon={
             <View style={styles.eyeContainer} onTouchStart={props.onToggleSecurity}>
               {props.secured ? (
-                <Eye {...styles.eyeIcon} style={{ color: Colors.icon.pink }} />
+                <Eye {...styles.eyeIcon} style={{ color: Colors.bank.secondary.pink }} />
               ) : (
-                <Blind {...styles.blindIcon} style={{ color: Colors.icon.pink }} />
+                <Blind {...styles.blindIcon} style={{ color: Colors.bank.secondary.pink }} />
               )}
             </View>
           }
@@ -49,11 +49,11 @@ export const PasswordInput = (props: InputProps & State) => {
 const styles = StyleSheet.create({
   inputContainer: {
     width: Dimensions.get('window').width * 0.8,
-    backgroundColor: Colors.input.darkWhite,
+    backgroundColor: Colors.bank.primary.lightGrey,
     borderRadius: 8,
   },
   inputStyle: {
-    color: Colors.input.pink,
+    color: Colors.bank.secondary.pink,
     fontFamily: FontNames.Roboto_400Regular,
     fontSize: 14,
     textDecorationLine: 'none',
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontFamily: FontNames.Roboto_700Bold,
     fontSize: 16,
-    color: Colors.text.lightGrey,
+    color: Colors.bank.primary.grey,
     lineHeight: 21,
     textAlign: 'left',
     marginBottom: 8,
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   eyeContainer: {
     justifyContent: 'center',
     height: 30,
-    borderLeftColor: Colors.input.pink,
+    borderLeftColor: Colors.bank.secondary.pink,
     borderLeftWidth: 1,
     paddingLeft: 20,
     paddingRight: 10,

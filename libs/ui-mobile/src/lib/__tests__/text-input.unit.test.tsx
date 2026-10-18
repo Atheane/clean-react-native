@@ -30,7 +30,7 @@ describe('TextInput - ', () => {
     it('renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
-          <TextInput placeholder="placeolder" label={'test'} labelColor={Colors.text.grey} />
+          <TextInput placeholder="placeolder" label={'test'} labelColor={Colors.bank.primary.grey} />
         </ThemeProvider>,
       );
       expect(tree).toMatchSnapshot();

@@ -23,7 +23,7 @@ export const TextInput = (props: IProps) => {
   return (
     <View>
       {props.label && (
-        <Text style={[styles.inputLabelStyle, { color: props.labelColor ?? Colors.input.pink }]}>
+        <Text style={[styles.inputLabelStyle, { color: props.labelColor ?? Colors.bank.secondary.pink }]}>
           {props.label}
         </Text>
       )}
@@ -73,11 +73,11 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: Dimensions.get('window').width * 0.8,
-    backgroundColor: Colors.input.darkWhite,
+    backgroundColor: Colors.bank.primary.lightGrey,
     borderRadius: 8,
   },
   inputStyle: {
-    color: Colors.input.pink,
+    color: Colors.bank.secondary.pink,
     fontFamily: FontNames.Roboto_400Regular,
     fontSize: 14,
     textDecorationLine: 'none',
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontFamily: FontNames.Roboto_700Bold,
     fontSize: 16,
-    color: Colors.text.lightGrey,
+    color: Colors.bank.primary.grey,
     lineHeight: 21,
     textAlign: 'left',
     marginBottom: 8,

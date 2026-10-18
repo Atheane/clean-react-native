@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     left: 6,
     fontSize: 16,
     fontFamily: FontNames.MartelSans_400Regular,
-    color: Colors.text.grey,
+    color: Colors.bank.primary.darkGrey,
     lineHeight: 22,
   },
 });

@@ -27,7 +27,7 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
         buttonStyle={styles.button}
         loading={props?.loading ?? false}
         linearGradientProps={{
-          colors: [Colors.background.lightGreen, Colors.background.darkGreen],
+          colors: [Colors.bank.greenGradient.lightGreen, Colors.bank.greenGradient.darkGreen],
           start: [0, 1],
           end: [1, 0],
         }}
@@ -64,12 +64,11 @@ const styles = StyleSheet.create({
     height: 55,
   },
   buttonContainer: {
-    backgroundColor: Colors.background.white,
     shadowColor: Colors.shadow.bold, // iOS
-    shadowOffset: { width: 5, height: 15 }, // iOS
-    shadowOpacity: 0.34, // iOS
+    shadowOffset: { width: 0, height: 15 }, // iOS
+    shadowOpacity: 0.6, // iOS
     shadowRadius: 20, // iOS
-    elevation: 10, // android,
+    elevation: 50, // android,
     borderRadius: 50,
   },
   button: {
@@ -91,7 +90,7 @@ const styles = StyleSheet.create({
   content: {
     lineHeight: 24,
     fontSize: 18,
-    color: Colors.text.white,
+    color: Colors.bank.primary.white,
     fontFamily: FontNames.Roboto_700Bold,
   },
   iconOneContainer: {

@@ -37,8 +37,8 @@ export const MultipleOptionsCheckBox = (props: IProps) => {
                 onPress={() => handleOnPress(option)}
                 title={props.optionsTitle[index]}
                 titleProps={{ style: { ...styles.text, marginLeft: 8 } }}
-                checkedIcon={<CheckedIcon style={{ color: Colors.icon.lightGreenTransparent }} />}
-                uncheckedIcon={<UncheckIcon style={{ color: Colors.icon.lightGreenTransparent }} />}
+                checkedIcon={<CheckedIcon style={{ color: Colors.bank.primary.lightGreen }} />}
+                uncheckedIcon={<UncheckIcon style={{ color: Colors.bank.primary.lightGreen }} />}
               />
             </View>
           );
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontFamily: FontNames.Roboto_700Bold,
     fontSize: 16,
-    color: Colors.text.lightGrey,
+    color: Colors.bank.primary.grey,
     lineHeight: 21,
     textAlign: 'left',
     marginBottom: 8,
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 14,
     lineHeight: 19,
-    color: Colors.text.grey,
+    color: Colors.bank.primary.grey,
     fontFamily: FontNames.Roboto_400Regular,
   },
   checkboxContainer: {

@@ -34,7 +34,7 @@ const CARD_RATIO = 174 / 112;
 const styles = (props: IProps) =>
   StyleSheet.create({
     container: {
-      backgroundColor: Colors.background.white,
+      backgroundColor: Colors.bank.primary.white,
       width: Dimensions.get('window').width * 0.46,
       height: (Dimensions.get('window').width * 0.46) / CARD_RATIO,
       borderRadius: 20,
@@ -48,7 +48,7 @@ const styles = (props: IProps) =>
       elevation: 10,
     },
     subContainer: {
-      backgroundColor: Colors.background.white,
+      backgroundColor: Colors.bank.primary.white,
       width: Dimensions.get('window').width * 0.46,
       height: (Dimensions.get('window').width * 0.46) / CARD_RATIO,
       borderRadius: 20,
@@ -67,21 +67,21 @@ const styles = (props: IProps) =>
     pctText: {
       fontFamily: FontNames.Roboto_700Bold,
       fontSize: 36,
-      color: Colors.text.darkBlue,
+      color: Colors.bank.primary.darkBlue,
       lineHeight: 48,
       marginLeft: 8,
     },
     subtitleText: {
       fontFamily: FontNames.Roboto_700Bold,
       fontSize: 12,
-      color: Colors.text.grey,
+      color: Colors.bank.primary.darkGrey,
       marginVertical: -6,
       marginLeft: 8,
     },
     legendText: {
       fontFamily: FontNames.Roboto_400Regular,
       fontSize: 11,
-      color: Colors.text.lightGrey,
+      color: Colors.bank.primary.grey,
       lineHeight: 15,
       marginTop: 16,
       marginLeft: 8,

@@ -15,10 +15,18 @@ export const App: () => JSX.Element = () => {
             console.log('Pressed');
           }}
           iconOne={() => (
-            <Love width={23} height={23} style={{ color: Colors.icon.white } as StyleProp<ViewStyle>} />
+            <Love
+              width={23}
+              height={23}
+              style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>}
+            />
           )}
           iconTwo={() => (
-            <Validate width={23} height={23} style={{ color: Colors.icon.white } as StyleProp<ViewStyle>} />
+            <Validate
+              width={23}
+              height={23}
+              style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>}
+            />
           )}
         />
       </SafeAreaView>

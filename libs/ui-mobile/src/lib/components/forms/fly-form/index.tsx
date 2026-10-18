@@ -124,7 +124,7 @@ export const FlyForm = (props: IProps) => {
           label={t('screens.carbonFly.dropdown.destination')}
           placeholder={t('screens.carbonFly.dropdown.destination')}
           data={props.airports}
-          icon={() => <FlyFrom style={{ color: Colors.icon.lightGreenTransparent }} />}
+          icon={() => <FlyFrom style={{ color: Colors.bank.primary.lightGreen }} />}
           onSelect={(data: IData) => handleOnChangeField(data, 'fromIATA')}
         />
       </View>
@@ -133,7 +133,7 @@ export const FlyForm = (props: IProps) => {
           label={t('screens.carbonFly.dropdown.arrival')}
           placeholder={t('screens.carbonFly.dropdown.arrival')}
           data={props.airports}
-          icon={() => <FlyTo style={{ color: Colors.icon.lightGreenTransparent }} />}
+          icon={() => <FlyTo style={{ color: Colors.bank.primary.lightGreen }} />}
           onSelect={(data: IData) => handleOnChangeField(data, 'toIATA')}
         />
       </View>

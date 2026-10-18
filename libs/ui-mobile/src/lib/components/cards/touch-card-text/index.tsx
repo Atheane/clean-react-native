@@ -22,7 +22,7 @@ const CARD_RATIO = 174 / 112;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.background.white,
+    backgroundColor: Colors.bank.primary.white,
     width: Dimensions.get('window').width * 0.45,
     height: (Dimensions.get('window').width * 0.45) / CARD_RATIO,
     borderRadius: 20,
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   subContainer: {
-    backgroundColor: Colors.background.white,
+    backgroundColor: Colors.bank.primary.white,
     width: Dimensions.get('window').width * 0.45,
     height: (Dimensions.get('window').width * 0.45) / CARD_RATIO,
     borderRadius: 20,
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontFamily: FontNames.MartelSans_400Regular,
     fontSize: 16,
-    color: Colors.text.darkBlue,
+    color: Colors.bank.primary.darkBlue,
     lineHeight: 22,
     textAlign: 'center',
   },

@@ -24,8 +24,8 @@ export const SelectNumber = (props: IProps) => {
           valueType="integer"
           rounded={true}
           borderColor={Colors.border.transparent}
-          rightButtonBackgroundColor={Colors.icon.lightGreenTransparent}
-          leftButtonBackgroundColor={Colors.icon.lightGreenTransparent}
+          rightButtonBackgroundColor={Colors.bank.primary.lightGreen}
+          leftButtonBackgroundColor={Colors.bank.primary.lightGreen}
           value={props.value}
           onChange={props.onChange}
         />
@@ -47,8 +47,8 @@ export const SelectNumber = (props: IProps) => {
           valueType="integer"
           rounded={true}
           borderColor={Colors.border.transparent}
-          rightButtonBackgroundColor={Colors.icon.lightGreenTransparent}
-          leftButtonBackgroundColor={Colors.icon.lightGreenTransparent}
+          rightButtonBackgroundColor={Colors.bank.primary.lightGreen}
+          leftButtonBackgroundColor={Colors.bank.primary.lightGreen}
           value={props.value}
           onChange={props.onChange}
         />
@@ -59,7 +59,7 @@ export const SelectNumber = (props: IProps) => {
 
 const styles = StyleSheet.create({
   inputLabel: {
-    color: Colors.input.pink,
+    color: Colors.bank.secondary.pink,
     fontFamily: FontNames.Roboto_700Bold,
     fontSize: 18,
     lineHeight: 24,

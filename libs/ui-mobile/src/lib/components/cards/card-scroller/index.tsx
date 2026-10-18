@@ -81,7 +81,7 @@ const styles = (props: IProps) =>
       marginBottom: 16,
     },
     bulletShadow: {
-      backgroundColor: Colors.background.white,
+      backgroundColor: Colors.bank.primary.white,
       width: 20,
       height: 20,
       borderRadius: 50,
@@ -96,7 +96,7 @@ const styles = (props: IProps) =>
       elevation: 10,
     },
     bulletGreen: {
-      backgroundColor: Colors.background.lightGreen,
+      backgroundColor: Colors.bank.primary.lightGreen,
       width: 13,
       height: 13,
       borderRadius: 50,

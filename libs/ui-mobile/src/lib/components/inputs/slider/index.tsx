@@ -26,10 +26,10 @@ export const Slider = (props: IProps) => {
           maximumValue={props.maxValue}
           value={props.value}
           step={props.step ?? 1}
-          thumbTintColor={Colors.input.pink}
+          thumbTintColor={Colors.bank.secondary.pink}
           onValueChange={props.onChange}
-          minimumTrackTintColor={Colors.input.pink}
-          maximumTrackTintColor={Colors.input.veryLightGrey}
+          minimumTrackTintColor={Colors.bank.secondary.pink}
+          maximumTrackTintColor={Colors.bank.primary.lightGrey}
         />
       </View>
     </View>
@@ -43,10 +43,10 @@ export const Slider = (props: IProps) => {
         maximumValue={props.maxValue}
         value={props.value}
         step={props.step ?? 1}
-        thumbTintColor={Colors.input.pink}
+        thumbTintColor={Colors.bank.secondary.pink}
         onValueChange={props.onChange}
-        minimumTrackTintColor={Colors.input.pink}
-        maximumTrackTintColor={Colors.input.veryLightGrey}
+        minimumTrackTintColor={Colors.bank.secondary.pink}
+        maximumTrackTintColor={Colors.bank.primary.lightGrey}
       />
     </View>
   );
@@ -68,21 +68,21 @@ const styles = (props: IProps) =>
       marginLeft: 12,
     },
     labelShort: {
-      color: Colors.text.darkBlue,
+      color: Colors.bank.primary.darkBlue,
       fontFamily: FontNames.Roboto_400Regular,
       fontSize: 18,
       width: '60%',
       paddingTop: 20,
     },
     label: {
-      color: Colors.input.pink,
+      color: Colors.bank.secondary.pink,
       fontFamily: FontNames.Roboto_700Bold,
       fontSize: 18,
       lineHeight: 24,
     },
     textShort: {
       textAlign: 'center',
-      color: Colors.text.darkBlue,
+      color: Colors.bank.primary.darkBlue,
       fontFamily: FontNames.Roboto_400Regular,
       fontSize: 15,
       lineHeight: 20,
@@ -90,7 +90,7 @@ const styles = (props: IProps) =>
     },
     text: {
       textAlign: 'center',
-      color: Colors.text.darkBlue,
+      color: Colors.bank.primary.darkBlue,
       fontFamily: FontNames.Roboto_400Regular,
       fontSize: 18,
       lineHeight: 24,

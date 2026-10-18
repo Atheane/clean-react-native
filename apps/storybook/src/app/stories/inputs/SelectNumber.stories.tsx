@@ -12,7 +12,7 @@ const SelectNumberMeta: ComponentMeta<typeof SelectNumber> = {
   },
   args: {
     label: 'Surface',
-    icon: () => <Surface style={{ color: Colors.icon.lightGreenTransparent } as StyleProp<ViewStyle>} />,
+    icon: () => <Surface style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };

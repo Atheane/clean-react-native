@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   date: {
     fontSize: 13,
     fontWeight: 'bold',
-    color: Colors.text.darkBlue,
+    color: Colors.bank.primary.darkBlue,
     textAlign: 'left',
     fontFamily: FontNames.MartelSans_700Bold,
   },

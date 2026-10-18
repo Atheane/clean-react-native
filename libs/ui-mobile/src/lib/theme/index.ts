@@ -1,12 +1,12 @@
 import '@rneui/themed';
-import { StyleProp, TextStyle } from 'react-native';
+import { Dimensions, StyleProp, TextStyle } from 'react-native';
 import { createTheme } from '@rneui/themed';
 import { FontNames, Colors } from '../constants';
 
 export const DefaultTheme = {
   dark: false,
   colors: {
-    ...Colors.default,
+    ...Colors.bank,
   },
 };
 
@@ -60,8 +60,8 @@ export const theme = createTheme({
     width: 260,
   },
   linearGradient: {
-    start: Colors.background.lightGreen,
-    end: Colors.background.darkGreen,
+    start: Colors.bank.greenGradient.lightGreen,
+    end: Colors.bank.greenGradient.darkGreen,
   },
   label: {
     textTransform: 'uppercase',
@@ -72,7 +72,7 @@ export const theme = createTheme({
     marginBottom: 25,
   },
   errors: {
-    color: Colors.secondary.salmon,
+    color: Colors.bank.secondary.salmon,
     fontFamily: FontNames.Roboto_700Bold,
     fontSize: 12,
     textAlign: 'center',
@@ -83,17 +83,17 @@ export const theme = createTheme({
     lineHeight: 30,
     textAlign: 'center',
     fontFamily: FontNames.Roboto_400Regular,
-    color: Colors.text.grey,
+    color: Colors.bank.primary.darkGrey,
   },
   input: {
     text: {
-      color: Colors.input.pink,
+      color: Colors.bank.secondary.pink,
       fontFamily: FontNames.Roboto_400Regular,
       fontSize: 14,
     },
     container: {
-      width: 309,
-      backgroundColor: Colors.input.darkWhite,
+      width: Dimensions.get('window').width * 0.8,
+      backgroundColor: Colors.bank.primary.lightGrey,
       borderRadius: 8,
     },
     leftIconContainer: {
@@ -103,7 +103,7 @@ export const theme = createTheme({
       textTransform: 'uppercase',
       fontFamily: FontNames.Roboto_700Bold,
       fontSize: 16,
-      color: Colors.text.lightGrey,
+      color: Colors.bank.primary.grey,
       lineHeight: 21,
       textAlign: 'left',
       marginBottom: 8,

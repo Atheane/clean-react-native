@@ -35,7 +35,7 @@ export const LongCard = (props: IProps) => {
 const styles = StyleSheet.create({
   container: {
     marginVertical: 8,
-    backgroundColor: Colors.background.white,
+    backgroundColor: Colors.bank.primary.white,
     width: Dimensions.get('window').width * 0.85,
     height: 85,
     borderRadius: 20,
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontFamily: FontNames.Roboto_400Regular,
-    color: Colors.text.lightBlue,
+    color: Colors.bank.secondary.cyan,
     lineHeight: 21,
     paddingLeft: 16,
   },

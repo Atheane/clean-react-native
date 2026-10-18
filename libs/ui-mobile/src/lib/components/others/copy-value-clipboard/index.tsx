@@ -36,8 +36,8 @@ export const CopyValueClipboard = (props: IProps) => {
             visible={openTooltip}
             withPointer={false}
             popover={<Text style={styles.tooltipText}>{props.value}</Text>}
-            backgroundColor={Colors.background.transparent}
-            highlightColor={Colors.background.lightGreen}
+            backgroundColor={Colors.bank.background.transparent}
+            highlightColor={Colors.bank.primary.lightGreen}
             containerStyle={styles.tooltipContainer}
           />
           <TouchableOpacity onPress={handleCopyValue}>
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   text: {
-    color: Colors.text.lightGrey,
+    color: Colors.bank.primary.grey,
     fontSize: 16,
     textAlign: 'left',
     fontFamily: FontNames.Roboto_700Bold,
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     width: 200,
   },
   tooltipText: {
-    color: Colors.text.lightGreen,
+    color: Colors.bank.primary.lightGreen,
     textAlign: 'left',
   },
 });

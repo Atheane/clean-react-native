@@ -74,7 +74,7 @@ export const PhoneValidationCodeInput = (props: Props) => {
 
 const styles = StyleSheet.create({
   inputText: {
-    color: Colors.input.pink,
+    color: Colors.bank.secondary.pink,
     fontFamily: FontNames.Roboto_400Regular,
     fontSize: 32,
     textAlign: 'center',
@@ -83,20 +83,20 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: 43,
     height: 56,
-    backgroundColor: Colors.input.darkWhite,
+    backgroundColor: Colors.bank.primary.lightGrey,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: Colors.input.lightGrey,
+    borderColor: Colors.border.lightGrey,
     padding: Platform.OS === 'ios' ? 8 : 5,
     marginHorizontal: 7,
   },
   inputContainerFocused: {
     width: 43,
     height: 56,
-    backgroundColor: Colors.input.darkWhite,
+    backgroundColor: Colors.bank.primary.lightGrey,
     borderRadius: 4,
     borderWidth: 2,
-    borderColor: Colors.input.pink,
+    borderColor: Colors.bank.secondary.pink,
   },
   inputsContainer: {
     width: '50%',

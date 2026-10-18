@@ -32,7 +32,9 @@ export const Banner = (props: IProps) => {
             <LinkButton
               pressed={false}
               onPress={props.onPressRightIcon}
-              iconOne={() => <RightChevron width={16} height={26} style={{ color: Colors.icon.white }} />}
+              iconOne={() => (
+                <RightChevron width={16} height={26} style={{ color: Colors.bank.primary.white }} />
+              )}
               colorOption={LinkButtonColors.WHITE}
             />
           ) : (
@@ -41,7 +43,9 @@ export const Banner = (props: IProps) => {
               onPress={() => {
                 return null;
               }}
-              iconOne={() => <RightChevron width={16} height={26} style={{ color: Colors.icon.white }} />}
+              iconOne={() => (
+                <RightChevron width={16} height={26} style={{ color: Colors.bank.primary.white }} />
+              )}
               colorOption={LinkButtonColors.WHITE}
             />
           )}
@@ -68,7 +72,9 @@ export const Banner = (props: IProps) => {
             onPress={() => {
               return null;
             }}
-            iconOne={() => <RightChevron width={16} height={26} style={{ color: Colors.icon.transparent }} />}
+            iconOne={() => (
+              <RightChevron width={16} height={26} style={{ color: Colors.bank.background.transparent }} />
+            )}
             colorOption={LinkButtonColors.WHITE}
           />
         </View>
@@ -82,14 +88,14 @@ const styles = (props: IProps) =>
   StyleSheet.create({
     container: {
       backgroundColor:
-        props.color === BannerColors.PINK ? Colors.background.red : Colors.background.lightPurple,
+        props.color === BannerColors.PINK ? Colors.bank.secondary.salmon : Colors.bank.primary.lightPurple,
       alignItems: 'center',
     },
     textContainer: {
       alignItems: 'center',
     },
     title: {
-      color: Colors.text.white,
+      color: Colors.bank.primary.white,
       fontSize: 18,
       fontFamily: FontNames.MartelSans_700Bold,
       fontWeight: '700',

@@ -55,7 +55,7 @@ export const ErrorMessage = (props: IProps) => {
 
 const styles = StyleSheet.create({
   errors: {
-    color: Colors.text.salmon,
+    color: Colors.bank.secondary.salmon,
     fontFamily: FontNames.Roboto_700Bold,
     fontSize: 12,
     textAlign: 'center',

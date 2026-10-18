@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   noAccounts: {
-    color: Colors.text.white,
+    color: Colors.bank.primary.white,
     fontSize: 15,
     fontWeight: 'bold',
     fontFamily: FontNames.MartelSans_700Bold,

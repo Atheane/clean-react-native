@@ -91,7 +91,7 @@ export const TransportForm = (props: IProps) => {
       <Dropdown
         label={t('screens.carbonTransport.dropdown.title')}
         placeholder={t('screens.carbonTransport.dropdown.title')}
-        icon={() => <Gasoline style={{ color: Colors.icon.lightGreen }} />}
+        icon={() => <Gasoline style={{ color: Colors.bank.primary.lightGreen }} />}
         data={dataFuel}
         onSelect={handleOnChange}
       />

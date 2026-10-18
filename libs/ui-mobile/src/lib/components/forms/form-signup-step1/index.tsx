@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     paddingTop: 16,
   },
   errors: {
-    color: Colors.text.salmon,
+    color: Colors.bank.secondary.salmon,
     fontFamily: FontNames.Roboto_700Bold,
     fontSize: 12,
     textAlign: 'center',

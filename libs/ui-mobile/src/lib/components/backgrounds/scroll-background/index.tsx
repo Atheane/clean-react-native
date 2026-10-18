@@ -30,7 +30,7 @@ export const ScrollBackground = (props: IProps) => {
       contentContainerStyle={styles(HEIGHT).container}
       // @ts-ignore
       ref={scrollRef}
-      endFillColor={Colors.background.lightGreen}
+      endFillColor={Colors.bank.background.lightGreen}
       showsVerticalScrollIndicator={false}
     >
       <View style={styles(HEIGHT).background}>

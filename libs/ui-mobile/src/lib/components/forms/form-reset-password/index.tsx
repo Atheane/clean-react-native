@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     paddingTop: 8,
   },
   errors: {
-    color: Colors.text.salmon,
+    color: Colors.bank.secondary.salmon,
     fontFamily: FontNames.Roboto_700Bold,
     fontSize: 12,
     textAlign: 'center',
@@ -110,6 +110,6 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     textAlign: 'center',
     fontFamily: FontNames.Roboto_400Regular,
-    color: Colors.text.grey,
+    color: Colors.bank.primary.darkGrey,
   },
 });

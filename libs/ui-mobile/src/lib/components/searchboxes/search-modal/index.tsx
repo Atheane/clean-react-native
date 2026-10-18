@@ -92,7 +92,7 @@ export const SearchModal = (props: IProps) => {
         clearButtonMode="always"
         value={selectedItem ? renderLabel(selectedItem) : ''}
         onFocus={handleOnPress}
-        labelColor={Colors.input.pink}
+        labelColor={Colors.bank.secondary.pink}
       />
       {Platform.OS === 'android' && selectedItem && (
         <TouchableOpacity onPress={handleClearInput} style={styles.closeIcon}>
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   itemText: {
-    color: Colors.text.grey,
+    color: Colors.bank.primary.darkGrey,
   },
   closeIcon: {
     position: 'absolute',

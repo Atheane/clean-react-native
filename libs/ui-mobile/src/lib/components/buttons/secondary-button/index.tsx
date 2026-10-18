@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     height: 55,
   },
   buttonContainer: {
-    backgroundColor: Colors.background.white,
+    backgroundColor: Colors.bank.primary.white,
     shadowColor: Colors.shadow.bold, // iOS
     shadowOffset: { width: 5, height: 15 }, // iOS
     shadowOpacity: 0.34, // iOS
@@ -66,13 +66,13 @@ const styles = StyleSheet.create({
     paddingRight: 24,
     paddingBottom: 11,
     paddingLeft: 26,
-    backgroundColor: Colors.background.white,
+    backgroundColor: Colors.bank.primary.white,
   },
   contentContainer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' },
   content: {
     lineHeight: 29,
     fontSize: 16,
-    color: Colors.text.lightGreenTransparent,
+    color: Colors.bank.primary.lightGreen,
     fontFamily: FontNames.Roboto_700Bold,
   },
   iconContainer: {

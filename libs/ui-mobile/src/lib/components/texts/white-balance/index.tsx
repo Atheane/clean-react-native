@@ -42,7 +42,7 @@ export const WhiteBalance = (props: IProps) => {
         </View>
         {props.onPress && (
           <LinkButton
-            iconOne={() => <RightChevron style={{ color: Colors.text.white }} />}
+            iconOne={() => <RightChevron style={{ color: Colors.bank.primary.white }} />}
             colorOption={LinkButtonColors.WHITE}
             pressed={false}
             onPress={props.onPress}
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.9,
   },
   title: {
-    color: Colors.text.white,
+    color: Colors.bank.primary.white,
     fontSize: 15,
     fontWeight: 'bold',
     fontFamily: FontNames.MartelSans_700Bold,
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   balance: {
-    color: Colors.text.white,
+    color: Colors.bank.primary.white,
     fontSize: 38,
     fontWeight: 'bold',
     fontFamily: FontNames.MartelSans_700Bold,

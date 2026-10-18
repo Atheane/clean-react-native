@@ -48,9 +48,9 @@ export const FormSignupStep5 = (props: IProps) => {
           render={({ field: { onChange, value } }) => (
             <TextInput
               label={t('screens.signupstep5.street.label')}
-              labelColor={Colors.text.lightGrey}
+              labelColor={Colors.bank.primary.grey}
               value={value}
-              icon={() => <House style={{ color: Colors.icon.lightGreenTransparent }} />}
+              icon={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
               placeholder={t('screens.signupstep5.street.placeholder')}
               onChange={onChange}
             />
@@ -72,9 +72,9 @@ export const FormSignupStep5 = (props: IProps) => {
           render={({ field: { onChange, value } }) => (
             <TextInput
               label={t('screens.signupstep5.city.label')}
-              labelColor={Colors.text.lightGrey}
+              labelColor={Colors.bank.primary.grey}
               value={value}
-              icon={() => <House style={{ color: Colors.icon.lightGreenTransparent }} />}
+              icon={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
               placeholder={t('screens.signupstep5.city.placeholder')}
               onChange={onChange}
             />
@@ -96,9 +96,9 @@ export const FormSignupStep5 = (props: IProps) => {
           render={({ field: { onChange, value } }) => (
             <TextInput
               label={t('screens.signupstep5.zip.label')}
-              labelColor={Colors.text.lightGrey}
+              labelColor={Colors.bank.primary.grey}
               value={value}
-              icon={() => <House style={{ color: Colors.icon.lightGreenTransparent }} />}
+              icon={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
               placeholder={t('screens.signupstep5.zip.placeholder')}
               onChange={onChange}
             />
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   },
   input: { flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 30 },
   errors: {
-    color: Colors.text.salmon,
+    color: Colors.bank.secondary.salmon,
     fontFamily: FontNames.Roboto_700Bold,
     fontSize: 12,
     textAlign: 'center',

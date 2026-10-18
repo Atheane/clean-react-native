@@ -131,7 +131,7 @@ export const HouseForm = (props: IProps) => {
           <View style={styles.selectNumberContainer}>
             <SelectNumber
               label={t('screens.carbonHouse.surface')}
-              icon={() => <Surface style={{ color: Colors.icon.lightGreenTransparent }} />}
+              icon={() => <Surface style={{ color: Colors.bank.primary.lightGreen }} />}
               value={surface}
               onChange={handleOnChangeSurface}
             />
@@ -159,7 +159,7 @@ export const HouseForm = (props: IProps) => {
       <Dropdown
         label={t('screens.carbonHouse.dropdown.heater')}
         placeholder={t('screens.carbonHouse.dropdown.heater')}
-        icon={() => <Flame style={{ color: Colors.icon.lightGreenTransparent }} />}
+        icon={() => <Flame style={{ color: Colors.bank.primary.lightGreen }} />}
         data={dataHeating}
         onSelect={handleOnChange}
       />

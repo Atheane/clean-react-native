@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: FontNames.Roboto_700Bold,
     fontSize: 40,
-    color: Colors.text.white,
+    color: Colors.bank.primary.white,
   },
   imageContainer: {
     position: 'relative',

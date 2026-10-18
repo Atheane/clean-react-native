@@ -27,7 +27,7 @@ export const SwitchButton: FC<IProps> = (props: IProps) => {
       <View style={styles.container}>
         <LinearGradient
           // Button Linear Gradient
-          colors={[Colors.background.lightGreen, Colors.background.darkGreen]}
+          colors={[Colors.bank.greenGradient.lightGreen, Colors.bank.greenGradient.darkGreen]}
           start={[0, 1]}
           end={[1, 0]}
           style={styles.container}
@@ -35,11 +35,16 @@ export const SwitchButton: FC<IProps> = (props: IProps) => {
           <Button
             buttonStyle={[
               styles.button,
-              { backgroundColor: toggle ? Colors.background.white : Colors.background.transparent },
+              { backgroundColor: toggle ? Colors.bank.primary.white : Colors.bank.background.transparent },
             ]}
             onPress={() => handleOnPress(0)}
           >
-            <Text style={[styles.text, { color: toggle ? Colors.text.darkGrey : Colors.text.darkWhite }]}>
+            <Text
+              style={[
+                styles.text,
+                { color: toggle ? Colors.bank.primary.darkGrey : Colors.bank.primary.lightGrey },
+              ]}
+            >
               {props.options[0].value}
             </Text>
           </Button>
@@ -47,11 +52,16 @@ export const SwitchButton: FC<IProps> = (props: IProps) => {
           <Button
             buttonStyle={[
               styles.button,
-              { backgroundColor: toggle ? Colors.background.transparent : Colors.background.white },
+              { backgroundColor: toggle ? Colors.bank.background.transparent : Colors.bank.primary.white },
             ]}
             onPress={() => handleOnPress(1)}
           >
-            <Text style={[styles.text, { color: toggle ? Colors.text.darkWhite : Colors.text.darkGrey }]}>
+            <Text
+              style={[
+                styles.text,
+                { color: toggle ? Colors.bank.primary.lightGrey : Colors.bank.primary.darkGrey },
+              ]}
+            >
               {props.options[1].value}
             </Text>
           </Button>
@@ -76,7 +86,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   inputLabel: {
-    color: Colors.input.pink,
+    color: Colors.bank.secondary.pink,
     fontFamily: FontNames.Roboto_700Bold,
     fontSize: 18,
     lineHeight: 24,

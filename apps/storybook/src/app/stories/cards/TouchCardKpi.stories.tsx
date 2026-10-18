@@ -11,7 +11,7 @@ const TouchCardKpiMeta: ComponentMeta<typeof TouchCardKpi> = {
     onPress: { action: 'onPress' },
   },
   args: {
-    icon: () => <House style={{ color: Colors.icon.darkBlue } as StyleProp<ViewStyle>} />,
+    icon: () => <House style={{ color: Colors.bank.primary.darkBlue } as StyleProp<ViewStyle>} />,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };

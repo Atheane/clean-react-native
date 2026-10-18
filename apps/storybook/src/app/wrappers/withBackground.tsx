@@ -14,6 +14,6 @@ export const WithBackground = (Story: Story) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background.lightGreen,
+    backgroundColor: Colors.bank.background.lightGreen,
   },
 });

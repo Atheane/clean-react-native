@@ -23,6 +23,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'left',
     lineHeight: 19,
-    color: Colors.text.darkBlue,
+    color: Colors.bank.primary.darkBlue,
   },
 });

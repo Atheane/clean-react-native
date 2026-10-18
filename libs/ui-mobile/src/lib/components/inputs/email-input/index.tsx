@@ -45,7 +45,7 @@ export const EmailInput = (props: Props & State) => {
         autoCapitalize="none"
         inputContainerStyle={styles.inputContainerStyle}
         inputStyle={styles.inputStyle}
-        leftIcon={<Mail style={{ color: Colors.text.lightGreenTransparent }} />}
+        leftIcon={<Mail style={{ color: Colors.bank.primary.lightGreen }} />}
         leftIconContainerStyle={styles.leftIconContainer}
         value={props.email?.trim()}
         rightIcon={
@@ -58,8 +58,8 @@ export const EmailInput = (props: Props & State) => {
   ) : (
     <TextInput
       label={t('screens.login.email.label')}
-      labelColor={Colors.text.lightGrey}
-      icon={() => <Mail style={{ color: Colors.text.lightGreenTransparent }} />}
+      labelColor={Colors.bank.primary.grey}
+      icon={() => <Mail style={{ color: Colors.bank.primary.lightGreen }} />}
       value={props.value}
       lowerCase
       onChange={handleOnChange}
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   inputStyle: {
-    color: Colors.input.pink,
+    color: Colors.bank.secondary.pink,
     fontFamily: FontNames.Roboto_400Regular,
     fontSize: 14,
   },

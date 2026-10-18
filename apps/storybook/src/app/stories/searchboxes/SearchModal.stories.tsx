@@ -16,7 +16,7 @@ const SearchModalMeta: ComponentMeta<typeof SearchModal> = {
     onSelect: { action: 'onSelect' },
   },
   args: {
-    icon: () => <FlyFrom style={{ color: Colors.icon.lightGreenTransparent } as StyleProp<ViewStyle>} />,
+    icon: () => <FlyFrom style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />,
     label: 'Aéroport de départ',
     placeholder: 'Rechercher',
     data,

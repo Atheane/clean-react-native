@@ -92,9 +92,9 @@ export const FormSignupStep2 = (props: IProps) => {
             render={({ field: { onChange, value } }) => (
               <TextInput
                 label={t('screens.signupstep2.firstName.label')}
-                labelColor={Colors.text.lightGrey}
+                labelColor={Colors.bank.primary.grey}
                 placeholder={firstLetterCapitalize(t('screens.signupstep2.firstName.placeholder'))}
-                icon={() => <Person style={{ color: Colors.icon.lightGreenTransparent }} />}
+                icon={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
                 value={value}
                 onChange={onChange}
               />
@@ -116,9 +116,9 @@ export const FormSignupStep2 = (props: IProps) => {
             render={({ field: { onChange, value } }) => (
               <TextInput
                 label={t('screens.signupstep2.lastName.label')}
-                labelColor={Colors.text.lightGrey}
+                labelColor={Colors.bank.primary.grey}
                 placeholder={firstLetterCapitalize(t('screens.signupstep2.lastName.placeholder'))}
-                icon={() => <Person style={{ color: Colors.icon.lightGreenTransparent }} />}
+                icon={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
                 value={value}
                 onChange={onChange}
               />
@@ -137,7 +137,7 @@ export const FormSignupStep2 = (props: IProps) => {
           <View style={styles.inputContainer}>
             <View style={styles.subContainer}>
               <View style={styles.iconContainer}>
-                <PhoneIcon style={{ color: Colors.icon.lightGreenTransparent }} />
+                <PhoneIcon style={{ color: Colors.bank.primary.lightGreen }} />
               </View>
               <View style={styles.selectContainer}>
                 <Controller
@@ -238,13 +238,13 @@ export const FormSignupStep2 = (props: IProps) => {
 
 const styles = StyleSheet.create({
   inputText: {
-    color: Colors.input.pink,
+    color: Colors.bank.secondary.pink,
     fontFamily: FontNames.Roboto_400Regular,
     fontSize: 14,
   },
   inputContainer: {
     width: Dimensions.get('window').width * 0.8,
-    backgroundColor: Colors.input.darkWhite,
+    backgroundColor: Colors.bank.primary.lightGrey,
     borderRadius: 8,
     marginTop: 11,
     marginBottom: -16, // override of default input bottomMargin
@@ -254,13 +254,13 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontFamily: FontNames.Roboto_700Bold,
     fontSize: 16,
-    color: Colors.text.lightGrey,
+    color: Colors.bank.primary.grey,
     lineHeight: 21,
     textAlign: 'left',
     marginBottom: 8,
   },
   errors: {
-    color: Colors.text.salmon,
+    color: Colors.bank.secondary.salmon,
     fontFamily: FontNames.Roboto_700Bold,
     fontSize: 12,
     textAlign: 'center',

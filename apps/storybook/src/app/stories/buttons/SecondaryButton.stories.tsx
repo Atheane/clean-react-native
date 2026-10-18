@@ -30,7 +30,7 @@ export const Icon: SecondaryButtonStory = (args) => (
       <Logout
         width={27}
         height={27}
-        style={{ color: Colors.icon.lightGreenTransparent } as StyleProp<ViewStyle>}
+        style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
       />
     )}
     {...args}
