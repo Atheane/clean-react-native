@@ -44,7 +44,7 @@ export class AuthApi implements IAuthGateway, IUserRepository {
     //map cmd to dto
     const params = {
       email: cmd.email.value,
-      password: cmd.password,
+      password: cmd.password.value,
     };
     const response = await fetch(
       `${this.connection.baseUrl}/auth/login`,
