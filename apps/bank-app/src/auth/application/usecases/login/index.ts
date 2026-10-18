@@ -8,6 +8,7 @@ import { AuthApi } from '@clean-rn/auth/infrastructure';
 import { loginSuccess, loginFailure, ILoginTypes } from '../../commands/login';
 
 import { IStoreKey } from '../../../../shared/application/types';
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
 function* loginApiSaga({
   payload,
@@ -24,7 +25,8 @@ function* loginApiSaga({
     yield cancel();
   }
 
-  const api = AuthApi.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+  const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+  const api = AuthApi.getInstance(httpConnection);
 
   let auth;
   try {

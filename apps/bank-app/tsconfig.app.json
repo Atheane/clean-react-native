@@ -6,5 +6,5 @@
   },
   "files": ["../../node_modules/@nx/expo/typings/svg.d.ts"],
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.spec.tsx", "test-setup.ts"],
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "../../libs/auth/infrastructure/src/index.ts"]
 }

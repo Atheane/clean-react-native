@@ -1,3 +1,4 @@
+import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
 import {
   IAuthGateway,
   //   IUserRepository,
@@ -6,50 +7,23 @@ import {
   IResetPasswordCommand,
 } from '@clean-rn/auth/domain';
 
-enum IHttpVerb {
-  GET = 'GET',
-  POST = 'POST',
-  PUT = 'PUT',
-  DELETE = 'DELETE',
-}
-
 export class AuthApi implements IAuthGateway {
   private static instance: AuthApi | null = null;
-  private baseUrl: string;
+  private connection: HttpConnection;
 
-  private constructor(baseUrl: string) {
-    this.baseUrl = baseUrl;
+  // Make the constructor private to prevent direct instantiation
+  private constructor(httpConnection: HttpConnection) {
+    this.connection = httpConnection;
     this.login = this.login.bind(this);
     this.resetPassword = this.resetPassword.bind(this);
   }
 
-  public static getInstance(baseUrl: string): AuthApi {
+  // Public method to provide access to the singleton instance
+  public static getInstance(httpConnection: HttpConnection): AuthApi {
     if (!this.instance) {
-      this.instance = new AuthApi(baseUrl);
+      this.instance = new AuthApi(httpConnection);
     }
     return this.instance;
-  }
-
-  private getDefaultHeaders(): HeadersInit {
-    return {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    };
-  }
-
-  private options(httpVerb: IHttpVerb, params: any): RequestInit {
-    return {
-      method: httpVerb,
-      headers: this.getDefaultHeaders(),
-      body: JSON.stringify(params),
-    };
-  }
-
-  private async handleError(response: Response): Promise<void> {
-    if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err.message || err.statusText);
-    }
   }
 
   async login(cmd: ILoginCommand): Promise<IAuth> {
@@ -58,8 +32,11 @@ export class AuthApi implements IAuthGateway {
       email: cmd.email.value,
       password: cmd.password,
     };
-    const response = await fetch(`${this.baseUrl}/auth/login`, this.options(IHttpVerb.POST, params));
-    await this.handleError(response);
+    const response = await fetch(
+      `${this.connection.baseUrl}/auth/login`,
+      this.connection.options(IHttpVerb.POST, params),
+    );
+    await this.connection.handleError(response);
     return response.json();
   }
 
@@ -69,10 +46,10 @@ export class AuthApi implements IAuthGateway {
       email: cmd.email.value,
     };
     const response = await fetch(
-      `${this.baseUrl}/app/user/resetPassword`,
-      this.options(IHttpVerb.PUT, params),
+      `${this.connection.baseUrl}/app/user/resetPassword`,
+      this.connection.options(IHttpVerb.PUT, params),
     );
-    await this.handleError(response);
+    await this.connection.handleError(response);
     return response.json();
   }
 }

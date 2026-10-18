@@ -1,7 +1,9 @@
 import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
 import Constants from 'expo-constants';
 
-import { Email } from '@clean-rn/auth/domain';
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
+
+import { IResetPasswordCommand } from '@clean-rn/auth/domain';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { IResetPasswordTypes, resetPasswordSuccess } from '../../commands/reset-password';
@@ -10,11 +12,11 @@ function* resetPasswordApiSaga({
   payload,
 }: {
   type: string;
-  payload: { email: Email };
+  payload: IResetPasswordCommand;
 }): Generator<StrictEffect, any, any> {
   // api call
-  const api = AuthApi.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
-  // api call
+  const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+  const api = AuthApi.getInstance(httpConnection);
   const response = yield call([api, api.resetPassword], { email: payload.email });
   const success = response.success;
 
