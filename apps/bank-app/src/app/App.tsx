@@ -2,7 +2,7 @@ import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import { I18nextProvider } from 'react-i18next';
 import { useFonts } from 'expo-font';
 import { ThemeProvider } from '@rneui/themed';
-import { Navigation } from './shared/presentation/navigation';
+import { NavigationUI } from './shared/presentation/navigation';
 import { Fonts, theme, i18n } from '@clean-rn/ui-mobile';
 
 export const App: () => JSX.Element = () => {
@@ -11,7 +11,7 @@ export const App: () => JSX.Element = () => {
     <ThemeProvider theme={theme}>
       <I18nextProvider i18n={i18n}>
         <SafeAreaView style={styles.container}>
-          <Navigation />
+          <NavigationUI />
         </SafeAreaView>
       </I18nextProvider>
     </ThemeProvider>

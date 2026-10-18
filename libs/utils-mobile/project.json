@@ -1,7 +1,7 @@
 {
-  "name": "services-mobile",
+  "name": "utils-mobile",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/services-mobile/src",
+  "sourceRoot": "libs/utils-mobile/src",
   "projectType": "library",
   "tags": [],
   "targets": {
@@ -12,7 +12,7 @@
       ],
       "options": {
         "lintFilePatterns": [
-          "libs/services-mobile/**/*.{ts,tsx,js,jsx}"
+          "libs/utils-mobile/**/*.{ts,tsx,js,jsx}"
         ]
       }
     },
@@ -22,7 +22,7 @@
         "{workspaceRoot}/coverage/{projectRoot}"
       ],
       "options": {
-        "jestConfig": "libs/services-mobile/jest.config.ts",
+        "jestConfig": "libs/utils-mobile/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {

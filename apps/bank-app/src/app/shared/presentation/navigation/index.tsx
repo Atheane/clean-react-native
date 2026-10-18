@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
-import { NavigationService } from './navigationService';
+import { Navigation } from '../../application/adapters/navigation';
 import { RootStack } from './root';
 import { LinkingConfiguration } from './LinkingConfiguration';
 
-const Navigation = () => {
+const NavigationUI = () => {
   return (
-    <NavigationContainer ref={NavigationService.getInstance()} linking={LinkingConfiguration}>
+    <NavigationContainer ref={Navigation.getInstance()} linking={LinkingConfiguration}>
       <RootStack />
     </NavigationContainer>
   );
 };
 
-export { Navigation, LinkingConfiguration };
+export { NavigationUI, LinkingConfiguration };

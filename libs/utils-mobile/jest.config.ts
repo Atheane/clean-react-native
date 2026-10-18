@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'services-mobile',
+  displayName: 'utils-mobile',
   resolver: '@nx/jest/plugins/resolver',
   preset: 'jest-expo',
   transformIgnorePatterns: [

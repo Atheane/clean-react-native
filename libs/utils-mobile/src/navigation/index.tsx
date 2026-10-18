@@ -1,11 +1,11 @@
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native';
 
-export interface INavigationService<T extends object> {
+export interface INavigation<T extends object> {
   navigate(routeName: string): void;
   goBack(): void;
 }
 
-export interface INavigationServiceStatic<T extends object> {
-  new (): INavigationService<T>;
+export interface INavigationStatic<T extends object> {
+  new (): INavigation<T>;
   getInstance(): NavigationContainerRefWithCurrent<T>;
 }
