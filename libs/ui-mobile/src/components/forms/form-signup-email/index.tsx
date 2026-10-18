@@ -17,7 +17,7 @@ type IProps = {
   onSubmit: () => void;
   control: Control<ISignupEmailFormData>;
   errors: FieldErrors<ISignupEmailFormData>;
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | Error | null;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | null;
   onFocus: () => void;
 };
 
@@ -42,28 +42,28 @@ export const FormSignupEmail = (props: IProps) => {
             )}
           />
           {props.errors?.email && props.errors.email.type === 'required' && (
-            <View style={styles.container}>
+            <View style={styles.errorContainer}>
               <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.email.required'))}</Text>
             </View>
           )}
           {props.errors?.email && props.errors.email.type === 'pattern' && (
-            <View style={styles.container}>
+            <View style={styles.errorContainer}>
               <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.email.invalid'))}</Text>
               <Text style={theme.bank.text.errors}>{props.errors.email.ref?.value}</Text>
             </View>
           )}
         </View>
-        <View style={styles.errorContainer}>
+        <View style={styles.domainErrorContainer}>
           <ErrorMessage error={props.error} />
         </View>
       </View>
       <View style={styles.textContainer}>
-        <Text style={[theme.bank.text.darkBlue, styles.text]}>{t('screens.signup-email.text')}</Text>
+        <Text style={[theme.bank.text.darkBlue, styles.text]}>{t('signup-email.text')}</Text>
       </View>
 
       <View style={[theme.bank.container.centeredItem, styles.formSubmit]}>
         <SubmitButton
-          title={t('submitButton')}
+          title={t('submit-button')}
           uppercase={false}
           onSubmit={props.onSubmit}
           loading={props.loading}
@@ -84,11 +84,11 @@ const styles = StyleSheet.create({
   formSubmit: {
     marginTop: 36,
   },
-  container: {
-    marginTop: 16,
-  },
   errorContainer: {
-    marginBottom: 32,
+    marginTop: 24,
+  },
+  domainErrorContainer: {
+    marginBottom: 16,
   },
   textContainer: {
     width: '80%',

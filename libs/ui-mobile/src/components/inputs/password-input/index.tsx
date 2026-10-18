@@ -19,7 +19,7 @@ export const PasswordInput = (props: InputProps & State) => {
   return (
     <View>
       <Text style={[theme.bank.text.label, { color: Colors.bank.primary.grey }]}>
-        {props.label ? props.label : t('screens.login.password.label')}
+        {props.label ? props.label : t('password-input.label')}
       </Text>
       <View style={theme.bank.container.input}>
         <Input
@@ -31,7 +31,7 @@ export const PasswordInput = (props: InputProps & State) => {
           onFocus={props.onFocus}
           onChangeText={props.onChange}
           value={props.value}
-          placeholder={t('screens.login.password.placeholder')}
+          placeholder={t('password-input.placeholder')}
           rightIcon={
             <View style={styles.eyeContainer} onTouchStart={props.onToggleSecurity}>
               {props.secured ? (

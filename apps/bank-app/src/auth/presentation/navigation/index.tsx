@@ -37,7 +37,7 @@ export const AuthStack = () => {
       />
       <Stack.Screen
         options={{
-          headerTitle: t('screens.resetPassword.title'),
+          headerTitle: t('screens.reset-password.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
         name={IAuthStackPages.RESET_PASSWORD}
@@ -45,7 +45,7 @@ export const AuthStack = () => {
       />
       <Stack.Screen
         options={{
-          headerTitle: t(`screens.signup-email.title`),
+          headerTitle: navigationStack.length > 1 ? t(`screens.signup-email.title`) : undefined,
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
         name={IAuthStackPages.SIGNUP_EMAIL}
@@ -53,7 +53,7 @@ export const AuthStack = () => {
       />
       <Stack.Screen
         options={{
-          headerTitle: t(`screens.signup-identity-password-phone.title`),
+          headerTitle: t(`screens.signup-identity.title`),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
         name={IAuthStackPages.SIGNUP_IDENTITY_PASSWORD_PHONE}

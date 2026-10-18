@@ -36,7 +36,7 @@ type IProps = {
   onToggleSecurityPassword: (event: GestureResponderEvent) => void;
   control: Control<ISignupIdentityPasswordPhoneFormData>;
   errors: FieldErrors<ISignupIdentityPasswordPhoneFormData>;
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | Error | null;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | null;
   onFocus: () => void;
 };
 
@@ -78,11 +78,11 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
             name="title"
             render={({ field: { onChange } }) => (
               <MultipleOptionsCheckBox
-                label={t('screens.signup-identity.gender.label')}
+                label={t('signup-identity.gender.label')}
                 optionsTitle={[
-                  t('screens.signup-identity.gender.man'),
-                  t('screens.signup-identity.gender.woman'),
-                  t('screens.signup-identity.gender.neutral'),
+                  t('signup-identity.gender.man'),
+                  t('signup-identity.gender.woman'),
+                  t('signup-identity.gender.neutral'),
                 ]}
                 optionsValues={[IGender.MAN, IGender.WOMAN, IGender.NEUTRAL]}
                 onChange={onChange}
@@ -97,9 +97,9 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
             rules={{ required: true }}
             render={({ field: { onChange, value } }) => (
               <TextInput
-                label={t('screens.signup-identity.firstName.label')}
+                label={t('signup-identity.first-name.label')}
                 labelColor={Colors.bank.primary.grey}
-                placeholder={firstLetterCapitalize(t('screens.signup-identity.firstName.placeholder'))}
+                placeholder={firstLetterCapitalize(t('signup-identity.first-name.placeholder'))}
                 icon={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
                 value={value}
                 onChange={onChange}
@@ -107,9 +107,9 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
             )}
           />
           {props.errors?.firstName && props.errors.firstName.type === 'required' && (
-            <View style={styles.container}>
+            <View style={styles.errorContainer}>
               <Text style={theme.bank.text.errors}>
-                {firstLetterCapitalize(t('screens.signup-identity.firstName.required'))}
+                {firstLetterCapitalize(t('errors.first-name.required'))}
               </Text>
             </View>
           )}
@@ -121,9 +121,9 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
             rules={{ required: true }}
             render={({ field: { onChange, value } }) => (
               <TextInput
-                label={t('screens.signup-identity.lastName.label')}
+                label={t('signup-identity.last-name.label')}
                 labelColor={Colors.bank.primary.grey}
-                placeholder={firstLetterCapitalize(t('screens.signup-identity.lastName.placeholder'))}
+                placeholder={firstLetterCapitalize(t('signup-identity.last-name.placeholder'))}
                 icon={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
                 value={value}
                 onChange={onChange}
@@ -131,9 +131,9 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
             )}
           />
           {props.errors?.lastName && props.errors.lastName.type === 'required' && (
-            <View style={styles.container}>
+            <View style={styles.errorContainer}>
               <Text style={theme.bank.text.errors}>
-                {firstLetterCapitalize(t('screens.signup-identity.lastName.required'))}
+                {firstLetterCapitalize(t('errors.last-name.required'))}
               </Text>
             </View>
           )}
@@ -154,23 +154,23 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
             )}
           />
           {props.errors?.password && props.errors.password.type === 'required' && (
-            <View style={styles.container}>
+            <View style={styles.errorContainer}>
               <Text style={theme.bank.text.errors}>
                 {firstLetterCapitalize(t('errors.password.required'))}
               </Text>
             </View>
           )}
           {props.errors?.password && props.errors.password.type === 'minLength' && (
-            <View style={styles.container}>
+            <View style={styles.errorContainer}>
               <Text style={theme.bank.text.errors}>
-                {firstLetterCapitalize(t('errors.password.minLength'))}
+                {firstLetterCapitalize(t('errors.password.min-length'))}
               </Text>
             </View>
           )}
         </View>
         <View style={styles.input}>
           <Text style={[theme.bank.text.label, { marginBottom: 0, color: Colors.bank.primary.grey }]}>
-            {t('screens.signup-phone.phone.label')}
+            {t('signup-phone.phone.label')}
           </Text>
           <View style={[theme.bank.container.input, { marginBottom: 0 }]}>
             <View style={styles.subContainer}>
@@ -227,8 +227,8 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
                     inputStyle={theme.bank.text.input}
                     onChangeText={onChange}
                     value={value}
+                    placeholder={t('signup-phone.phone.placeholder')}
                     onFocus={props.onFocus}
-                    placeholder={firstLetterCapitalize(t('screens.signup-phone.phone.placeholder'))}
                     keyboardType={'phone-pad'}
                   />
                 )}
@@ -236,28 +236,30 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
             </View>
           </View>
           {props.errors?.countryCode && props.errors.countryCode.type === 'required' && (
-            <Text style={theme.bank.text.errors}>
-              {firstLetterCapitalize(t('screens.signup-identity.countryCode.required'))}
-            </Text>
+            <View style={styles.errorPhoneContainer}>
+              <Text style={theme.bank.text.errors}>
+                {firstLetterCapitalize(t('errors.country-code.required'))}
+              </Text>
+            </View>
           )}
           {props.errors?.phone && props.errors.phone.type === 'required' && (
-            <Text style={theme.bank.text.errors}>
-              {firstLetterCapitalize(t('screens.signup-phone.phone.required'))}
-            </Text>
+            <View style={styles.errorPhoneContainer}>
+              <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.phone.required'))}</Text>
+            </View>
           )}
           {props.errors?.phone && props.errors.phone.type === 'validate' && (
-            <Text style={theme.bank.text.errors}>
-              {firstLetterCapitalize(t('screens.signup-phone.phone.invalid'))}
-            </Text>
+            <View style={styles.errorPhoneContainer}>
+              <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.phone.invalid'))}</Text>
+            </View>
           )}
-          <View style={styles.container}>
+          <View style={styles.domainErrorContainer}>
             <ErrorMessage error={props.error} />
           </View>
         </View>
 
         <View style={[theme.bank.container.centeredItem, styles.formSubmit]}>
           <SubmitButton
-            title={t('submitButton')}
+            title={t('submit-button')}
             uppercase={false}
             onSubmit={props.onSubmit}
             loading={props.loading}
@@ -275,7 +277,13 @@ const styles = StyleSheet.create({
   formSubmit: {
     marginTop: 36,
   },
-  container: {
+  errorContainer: {
+    marginTop: 24,
+  },
+  errorPhoneContainer: {
+    marginTop: 10,
+  },
+  domainErrorContainer: {
     marginTop: 16,
   },
   iconContainer: {

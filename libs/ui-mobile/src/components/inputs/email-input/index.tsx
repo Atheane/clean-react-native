@@ -44,14 +44,14 @@ export const EmailInput = (props: Props & State) => {
     />
   ) : (
     <TextInput
-      label={t('screens.login.email.label')}
+      label={t('email-input.label')}
       labelColor={Colors.bank.primary.grey}
       icon={() => <Mail style={{ color: Colors.bank.primary.lightGreen }} />}
       value={props.value}
       lowerCase
       onChange={handleOnChange}
       onFocus={props.onFocus}
-      placeholder={t('screens.login.email.placeholder')}
+      placeholder={t('email-input.placeholder')}
     />
   );
 };

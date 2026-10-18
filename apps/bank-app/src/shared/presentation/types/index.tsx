@@ -49,6 +49,10 @@ export enum IAuthStackPages {
   CGU = 'CGU',
 }
 
+export enum IHomeStackPages {
+  HOME = 'Home',
+}
+
 export type IAuthStackProps = {
   [IAuthStackPages.LOGIN]: object;
   [IAuthStackPages.RESET_PASSWORD]: object;
@@ -62,6 +66,10 @@ export type IAuthStackProps = {
   [IAuthStackPages.CGU]: object;
 };
 
+export type IHomeStackProps = {
+  [IHomeStackPages.HOME]: object;
+};
+
 export type IRoutes =
   | IAuthStackPages.LOGIN
   | IAuthStackPages.RESET_PASSWORD
@@ -72,9 +80,9 @@ export type IRoutes =
   | IAuthStackPages.SIGNUP_ADDRESS
   | IAuthStackPages.SIGNUP_CONGRATS
   | IAuthStackPages.LEGAL
-  | IAuthStackPages.CGU;
+  | IAuthStackPages.CGU
+  | IHomeStackPages.HOME;
 // | HOME_STACK_PAGES.MENU
-// | HOME_STACK_PAGES.HOME
 // | HOME_STACK_PAGES.HELP
 // | HOME_STACK_PAGES.ACCOUNT
 // | HOME_STACK_PAGES.RESTO_FLASH

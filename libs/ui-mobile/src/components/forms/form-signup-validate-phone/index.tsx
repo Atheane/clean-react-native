@@ -4,7 +4,7 @@ import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
 import { IDomainError } from '@clean-rn/ddd';
-import { IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
+import { IAuthErrorCodes, IAuthErrorMessage, PhoneOtp } from '@clean-rn/auth/domain';
 
 import { firstLetterCapitalize } from '../../../utils';
 
@@ -17,7 +17,7 @@ type IProps = {
   onSubmit: () => void;
   control: Control<ISignupValidatePhoneFormData>;
   errors: FieldErrors<ISignupValidatePhoneFormData>;
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | Error | null;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | null;
   onFocus: () => void;
 };
 
@@ -35,7 +35,7 @@ export const FormSignupValidatePhone = (props: IProps) => {
         <Controller
           control={props.control}
           name="code"
-          rules={{ required: true }}
+          rules={{ required: true, pattern: PhoneOtp.pattern, minLength: 6 }}
           render={({ field: { onChange, value } }) => {
             return <PhoneValidationCodeInput value={value} onChange={onChange} onFocus={props.onFocus} />;
           }}
@@ -43,17 +43,28 @@ export const FormSignupValidatePhone = (props: IProps) => {
       </View>
       {props.errors?.code && props.errors.code.type === 'required' && (
         <View style={styles.errorContainer}>
+          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.phone-otp.required'))}</Text>
+        </View>
+      )}
+      {props.errors?.code && props.errors.code.type === 'pattern' && (
+        <View style={styles.errorContainer}>
+          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.phone-otp.invalid'))}</Text>
+          <Text style={theme.bank.text.errors}>{props.errors.code.ref?.value}</Text>
+        </View>
+      )}
+      {props.errors?.code && props.errors.code.type === 'minLength' && (
+        <View style={styles.errorContainer}>
           <Text style={theme.bank.text.errors}>
-            {firstLetterCapitalize(t('screens.signup-validate-phone.required'))}
+            {firstLetterCapitalize(t('errors.phone-otp.min-length'))}
           </Text>
         </View>
       )}
-      <View style={styles.errorContainer}>
+      <View style={styles.domainErrorContainer}>
         <ErrorMessage error={props.error} />
       </View>
       <View style={[styles.formSubmit, theme.bank.container.centeredItem]}>
         <SubmitButton
-          title={t('screens.signup-validate-phone.submitButton')}
+          title={t('signup-validate-phone.submit-button')}
           uppercase={false}
           onSubmit={props.onSubmit}
           loading={props.loading}
@@ -71,6 +82,9 @@ const styles = StyleSheet.create({
     marginTop: 100,
   },
   errorContainer: {
+    marginTop: 24,
+  },
+  domainErrorContainer: {
     marginTop: 16,
   },
 });

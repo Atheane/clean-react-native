@@ -10,31 +10,27 @@ export enum IAuthErrorMessage {
   INVALID_BIRTHDAY = 'Invalid birthday',
   INVALID_6_DIGITS = 'Invalid 6 digits',
   LOGIN_FAILURE_INVALID_CREDENTIALS = 'Login Failure, invalid credentials',
-  LOGIN_FAILURE_ONE_EMAIL_BY_PHONE = 'Login Failure, only one email by phone',
   SIGNUP_FAILURE_EMAIL_EXISTS = 'Signup failure, email already exists',
   SIGNUP_FAILURE_PHONE_EXISTS = 'Signup failure, phone already exists',
-  SIGNUP_FAILURE_SEND_PHONE_VALIDATION = 'Signup failure, no phone validation code sent',
-  SIGNUP_FAILURE_INVALID_PHONE_CODE = 'Signup failure, invalid phone code',
-  SIGNUP_FAILURE_SECURITY_PIN_MISMATCH = 'Signup failure, security pin mismatch',
+  SIGNUP_FAILURE_INCORRECT_PHONE_CODE = 'Signup failure, incorrect phone code',
   USER_UNAUTHORIZED = 'User unauthorized',
+  USER_UNAUTHENTICATED = 'USser unauthenticated',
 }
 
 export enum IAuthErrorCodes {
-  INVALID_EMAIL = 'AUTH_DOMAIN_0',
-  INVALID_PASSWORD = 'AUTH_DOMAIN_1',
-  INVALID_PHONE = 'AUTH_DOMAIN_2',
-  INVALID_COUNTRY = 'AUTH_DOMAIN_3',
-  UNAVAILABLE_COUNTRY = 'AUTH_DOMAIN_4',
-  INVALID_BIRTHDAY = 'AUTH_DOMAIN_5',
-  INVALID_6_DIGITS = 'AUTH_DOMAIN_6',
-  LOGIN_FAILURE_INVALID_CREDENTIALS = 'AUTH_DOMAIN_7',
-  LOGIN_FAILURE_ONE_EMAIL_BY_PHONE = 'AUTH_DOMAIN_8',
-  SIGNUP_FAILURE_EMAIL_EXISTS = 'AUTH_DOMAIN_9',
-  SIGNUP_FAILURE_PHONE_EXISTS = 'AUTH_DOMAIN_10',
-  SIGNUP_FAILURE_SEND_PHONE_VALIDATION = 'AUTH_DOMAIN_11',
-  SIGNUP_FAILURE_INVALID_PHONE_CODE = 'AUTH_DOMAIN_12',
-  SIGNUP_FAILURE_SECURITY_PIN_MISMATCH = 'AUTH_DOMAIN_13',
-  USER_UNAUTHORIZED = 'AUTH_DOMAIN_14',
+  INVALID_EMAIL = 'INVALID_EMAIL',
+  INVALID_PASSWORD = 'INVALID_PASSWORD',
+  INVALID_PHONE = 'INVALID_PHONE',
+  INVALID_COUNTRY = 'INVALID_COUNTRY',
+  UNAVAILABLE_COUNTRY = 'UNAVAILABLE_COUNTRY',
+  INVALID_BIRTHDAY = 'INVALID_BIRTHDAY',
+  INVALID_6_DIGITS = 'INVALID_6_DIGITS',
+  LOGIN_FAILURE_INVALID_CREDENTIALS = 'LOGIN_FAILURE_INVALID_CREDENTIALS',
+  SIGNUP_FAILURE_EMAIL_EXISTS = '40133439',
+  SIGNUP_FAILURE_PHONE_EXISTS = '60067008',
+  SIGNUP_FAILURE_INCORRECT_PHONE_CODE = 'SIGNUP_FAILURE_INCORRECT_PHONE_CODE',
+  USER_UNAUTHORIZED = 'USER_UNAUTHORIZED',
+  USER_UNAUTHENTICATED = 'USER_UNAUTHENTICATED',
 }
 
 export namespace AuthError {
@@ -131,20 +127,6 @@ export namespace AuthError {
       this.cause = cause;
     }
   }
-  export class LoginFailureOneEmailByPhone
-    extends Error
-    implements IDomainError<IAuthErrorCodes, IAuthErrorMessage>
-  {
-    code: IAuthErrorCodes;
-    message: IAuthErrorMessage;
-    cause?: unknown;
-    constructor(cause?: unknown) {
-      super();
-      this.message = IAuthErrorMessage.LOGIN_FAILURE_ONE_EMAIL_BY_PHONE;
-      this.code = IAuthErrorCodes.LOGIN_FAILURE_ONE_EMAIL_BY_PHONE;
-      this.cause = cause;
-    }
-  }
   export class SignupFailureEmailExists
     extends Error
     implements IDomainError<IAuthErrorCodes, IAuthErrorMessage>
@@ -173,7 +155,7 @@ export namespace AuthError {
       this.cause = cause;
     }
   }
-  export class SignupFailureSendPhoneValidation
+  export class SignupFailureIncorrectPhoneCode
     extends Error
     implements IDomainError<IAuthErrorCodes, IAuthErrorMessage>
   {
@@ -182,36 +164,8 @@ export namespace AuthError {
     cause?: unknown;
     constructor(cause?: unknown) {
       super();
-      this.message = IAuthErrorMessage.SIGNUP_FAILURE_SEND_PHONE_VALIDATION;
-      this.code = IAuthErrorCodes.SIGNUP_FAILURE_SEND_PHONE_VALIDATION;
-      this.cause = cause;
-    }
-  }
-  export class SignupFailureInvalidPhoneCode
-    extends Error
-    implements IDomainError<IAuthErrorCodes, IAuthErrorMessage>
-  {
-    code: IAuthErrorCodes;
-    message: IAuthErrorMessage;
-    cause?: unknown;
-    constructor(cause?: unknown) {
-      super();
-      this.message = IAuthErrorMessage.SIGNUP_FAILURE_SEND_PHONE_VALIDATION;
-      this.code = IAuthErrorCodes.SIGNUP_FAILURE_SEND_PHONE_VALIDATION;
-      this.cause = cause;
-    }
-  }
-  export class SignupFailureSecurityPinMismatch
-    extends Error
-    implements IDomainError<IAuthErrorCodes, IAuthErrorMessage>
-  {
-    code: IAuthErrorCodes;
-    message: IAuthErrorMessage;
-    cause?: unknown;
-    constructor(cause?: unknown) {
-      super();
-      this.message = IAuthErrorMessage.SIGNUP_FAILURE_SECURITY_PIN_MISMATCH;
-      this.code = IAuthErrorCodes.SIGNUP_FAILURE_SECURITY_PIN_MISMATCH;
+      this.message = IAuthErrorMessage.SIGNUP_FAILURE_INCORRECT_PHONE_CODE;
+      this.code = IAuthErrorCodes.SIGNUP_FAILURE_INCORRECT_PHONE_CODE;
       this.cause = cause;
     }
   }
@@ -223,6 +177,17 @@ export namespace AuthError {
       super();
       this.message = IAuthErrorMessage.USER_UNAUTHORIZED;
       this.code = IAuthErrorCodes.USER_UNAUTHORIZED;
+      this.cause = cause;
+    }
+  }
+  export class UserUnauthenticated extends Error implements IDomainError<IAuthErrorCodes, IAuthErrorMessage> {
+    code: IAuthErrorCodes;
+    message: IAuthErrorMessage;
+    cause?: unknown;
+    constructor(cause?: unknown) {
+      super();
+      this.message = IAuthErrorMessage.USER_UNAUTHENTICATED;
+      this.code = IAuthErrorCodes.USER_UNAUTHENTICATED;
       this.cause = cause;
     }
   }

@@ -25,7 +25,7 @@ type IProps = {
   onPress: () => void;
   control: Control<ILoginFormData>;
   errors: FieldErrors<ILoginFormData>;
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | Error | null;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | null;
 };
 
 export type ILoginFormData = {
@@ -96,25 +96,27 @@ export const FormLogin = (props: IProps) => {
           {props.errors?.password && props.errors.password.type === 'minLength' && (
             <View style={styles.errorContainer}>
               <Text style={theme.bank.text.errors}>
-                {firstLetterCapitalize(t('errors.password.minLength'))}
+                {firstLetterCapitalize(t('errors.password.min-length'))}
               </Text>
             </View>
           )}
         </View>
         <View style={styles.linkButton}>
           <LinkButton
-            title={t('screens.login.forgottenPassword')}
+            title={t('login.forgotten-password')}
             colorOption={LinkButtonColors.PINK}
             pressed={false}
             onPress={props.onPress}
           />
         </View>
+      </View>
+      <View style={styles.domainErrorContainer}>
         <ErrorMessage error={props.error} />
       </View>
 
       <View style={styles.submitButtonContainer}>
         <SubmitButton
-          title={t('screens.login.submitButton')}
+          title={t('login.submit-button')}
           uppercase={false}
           onSubmit={props.onSubmit}
           loading={props.loading}
@@ -132,6 +134,9 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   errorContainer: {
+    marginTop: 24,
+  },
+  domainErrorContainer: {
     marginTop: 16,
   },
   linkButton: {

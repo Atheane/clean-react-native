@@ -99,14 +99,14 @@ export const SignupIdentityPasswordPhone = () => {
         />
         <View style={styles.cgu}>
           <LinkButton
-            title={t('linkButton.legal')}
+            title={t('link-button.legal')}
             arrow={false}
             colorOption={LinkButtonColors.BLUE}
             pressed={false}
             onPress={onPressLegal}
           />
           <LinkButton
-            title={t('linkButton.cgu')}
+            title={t('link-button.cgu')}
             arrow={false}
             colorOption={LinkButtonColors.BLUE}
             pressed={false}

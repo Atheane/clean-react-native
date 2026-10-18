@@ -21,7 +21,7 @@ type IProps = {
   loading: boolean;
   control: Control<ISignupAddressFormData>;
   errors: FieldErrors<ISignupAddressFormData>;
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | Error | null;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | null;
   onSubmit: () => void;
   onFocus: () => void;
 };
@@ -49,11 +49,11 @@ export const FormSignupAddress = (props: IProps) => {
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
-              label={t('screens.signup-address.street.label')}
+              label={t('signup-address.street.label')}
               labelColor={Colors.bank.primary.grey}
               value={value}
               icon={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
-              placeholder={t('screens.signup-address.street.placeholder')}
+              placeholder={t('signup-address.street.placeholder')}
               onChange={onChange}
             />
           )}
@@ -61,9 +61,7 @@ export const FormSignupAddress = (props: IProps) => {
       </View>
       {props.errors?.street && props.errors.street.type === 'required' && (
         <View style={styles.errorContainer}>
-          <Text style={theme.bank.text.errors}>
-            {firstLetterCapitalize(t('screens.signup-address.street.required'))}
-          </Text>
+          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.street.required'))}</Text>
         </View>
       )}
       <View style={styles.inputContainer}>
@@ -75,11 +73,11 @@ export const FormSignupAddress = (props: IProps) => {
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
-              label={t('screens.signup-address.city.label')}
+              label={t('signup-address.city.label')}
               labelColor={Colors.bank.primary.grey}
               value={value}
               icon={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
-              placeholder={t('screens.signup-address.city.placeholder')}
+              placeholder={t('signup-address.city.placeholder')}
               onChange={onChange}
             />
           )}
@@ -87,9 +85,7 @@ export const FormSignupAddress = (props: IProps) => {
       </View>
       {props.errors?.city && props.errors.city.type === 'required' && (
         <View style={styles.errorContainer}>
-          <Text style={theme.bank.text.errors}>
-            {firstLetterCapitalize(t('screens.signup-address.city.required'))}
-          </Text>
+          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.city.required'))}</Text>
         </View>
       )}
       <View style={styles.inputContainer}>
@@ -101,11 +97,11 @@ export const FormSignupAddress = (props: IProps) => {
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
-              label={t('screens.signup-address.zip.label')}
+              label={t('signup-address.zip.label')}
               labelColor={Colors.bank.primary.grey}
               value={value}
               icon={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
-              placeholder={t('screens.signup-address.zip.placeholder')}
+              placeholder={t('signup-address.zip.placeholder')}
               onChange={onChange}
               numeric
             />
@@ -114,9 +110,7 @@ export const FormSignupAddress = (props: IProps) => {
       </View>
       {props.errors?.zip && props.errors.zip.type === 'required' && (
         <View style={styles.errorContainer}>
-          <Text style={theme.bank.text.errors}>
-            {firstLetterCapitalize(t('screens.signup-address.zip.required'))}
-          </Text>
+          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.zip.required'))}</Text>
         </View>
       )}
       <View style={styles.inputContainer}>
@@ -128,7 +122,7 @@ export const FormSignupAddress = (props: IProps) => {
           }}
           render={({ field: { onChange, value } }) => (
             <CountryPicker
-              label={t('screens.signup-address.country.label')}
+              label={t('signup-address.country.label')}
               value={value}
               onChange={onChange}
               defaultValue={props.defaultCountry}
@@ -139,9 +133,7 @@ export const FormSignupAddress = (props: IProps) => {
         />
         {props.errors?.country && props.errors.country.type === 'required' && (
           <View style={styles.errorContainer}>
-            <Text style={theme.bank.text.errors}>
-              {firstLetterCapitalize(t('screens.signup-address.country.required'))}
-            </Text>
+            <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.country.required'))}</Text>
           </View>
         )}
       </View>
@@ -151,25 +143,22 @@ export const FormSignupAddress = (props: IProps) => {
           name="specifiedUSPerson"
           render={({ field: { onChange } }) => (
             <MultipleOptionsCheckBox
-              label={t('screens.signup-address.usperson.label')}
-              subtitle={t('screens.signup-address.usperson.subtitle')}
-              optionsTitle={[
-                t('screens.signup-address.usperson.no'),
-                t('screens.signup-address.usperson.yes'),
-              ]}
+              label={t('signup-address.usperson.label')}
+              subtitle={t('signup-address.usperson.subtitle')}
+              optionsTitle={[t('signup-address.usperson.no'), t('signup-address.usperson.yes')]}
               optionsValues={['0', '1']}
               onChange={onChange}
             />
           )}
         />
       </View>
-      <View style={styles.errorContainer}>
+      <View style={styles.domainErrorContainer}>
         <ErrorMessage error={props.error} />
       </View>
       <View style={styles.submitButtonContainer}>
         <SubmitButton
           disabled={false}
-          title={t('submitButton')}
+          title={t('submit-button')}
           uppercase={false}
           onSubmit={props.onSubmit}
           loading={props.loading}
@@ -188,6 +177,9 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   errorContainer: {
+    marginTop: 24,
+  },
+  domainErrorContainer: {
     marginTop: 16,
   },
 });

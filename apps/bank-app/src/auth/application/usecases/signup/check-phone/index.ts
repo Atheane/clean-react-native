@@ -30,14 +30,7 @@ export function* checkPhoneGenerator(
     yield put(signupFailed(new AuthError.SignupFailurePhoneExists()));
     yield cancel();
   }
-  const phoneOtpSent: ISuccess = yield call(
-    [api, api.sendPhoneValidation],
-    payload as ISendPhoneValidationCommand,
-  );
-  if (!phoneOtpSent.success) {
-    yield put(signupFailed(new AuthError.SignupFailureSendPhoneValidation()));
-    yield cancel();
-  }
+  yield call([api, api.sendPhoneValidation], payload as ISendPhoneValidationCommand);
   // domain event
   yield put(phoneChecked());
   // navigation

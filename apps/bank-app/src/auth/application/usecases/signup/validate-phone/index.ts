@@ -27,7 +27,7 @@ export function* validatePhoneGenerator(
   // api call
   const otpIsValid: ISuccess = yield call([api, api.checkPhoneValidation], payload);
   if (!otpIsValid.success) {
-    yield put(signupFailed(new AuthError.SignupFailureInvalidPhoneCode()));
+    yield put(signupFailed(new AuthError.SignupFailureIncorrectPhoneCode()));
     yield cancel();
   }
 

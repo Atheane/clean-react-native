@@ -129,7 +129,7 @@ export class AuthApi implements IAuthGateway, IUserRepository {
       title = 'Mlle'; // KycProvider do not have title for neutral gender. As a reminder, we use Mlle as incorrectly encoded value for neutral gender
     }
     const params = {
-      email: cmd.email,
+      email: cmd.email.value,
       title,
       firstname: cmd.identity.firstName,
       lastname: cmd.identity.lastName,
@@ -139,13 +139,11 @@ export class AuthApi implements IAuthGateway, IUserRepository {
       birthCountry: cmd.birth.birthCountry.value,
       nationality: cmd.birth.nationality.value,
       address: {
-        str: cmd.address.str,
-        city: cmd.address.city,
-        zip: cmd.address.zip,
+        ...cmd.address,
         country: cmd.address.country.value,
       },
       phoneValidationCode: phoneOtp.value,
-      specifiedUSPerson: cmd.USPerson,
+      specifiedUSPerson: cmd.USPerson ? 1 : 0,
     };
 
     const response = await fetch(

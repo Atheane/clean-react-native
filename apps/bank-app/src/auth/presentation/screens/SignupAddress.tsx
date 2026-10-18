@@ -36,7 +36,7 @@ export const SignupAddress = () => {
   } = useForm<ISignupAddressFormData>({
     defaultValues: {
       specifiedUSPerson: '0',
-      country: user?.properties.phone?.value,
+      country: user?.properties.phone?.countryCode,
     },
   });
 
@@ -74,20 +74,20 @@ export const SignupAddress = () => {
           control={control}
           errors={errors}
           error={domainError}
-          defaultCountry={user?.properties.phone?.value}
+          defaultCountry={user?.properties.phone?.countryCode}
           onSubmit={handleSubmit(onSubmit)}
           onFocus={onFocus}
         />
         <View style={styles.cgu}>
           <LinkButton
-            title={t('linkButton.legal')}
+            title={t('link-button.legal')}
             arrow={false}
             colorOption={LinkButtonColors.BLUE}
             pressed={false}
             onPress={onPressLegal}
           />
           <LinkButton
-            title={t('linkButton.cgu')}
+            title={t('link-button.cgu')}
             arrow={false}
             colorOption={LinkButtonColors.BLUE}
             pressed={false}

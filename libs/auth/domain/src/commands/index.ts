@@ -1,11 +1,11 @@
 import { Dayjs } from 'dayjs';
 import { IGender } from '../types';
-import { Email, Phone, PhoneOtp } from '../valueObjects';
+import { Email, Phone, PhoneOtp, Password } from '../valueObjects';
 import { User } from '../entities';
 
 export type ILoginCommand = {
   email: Email;
-  password: string;
+  password: Password;
 };
 
 export type IResetPasswordCommand = {

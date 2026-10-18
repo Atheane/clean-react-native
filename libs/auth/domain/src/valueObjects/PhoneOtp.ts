@@ -3,7 +3,8 @@ import { AuthError } from '../errors';
 export class PhoneOtp {
   private readonly otp: string;
 
-  static pattern = /^[0-9]{6}$/i;
+  // at least 6 numbers, and superieur to 100000
+  static pattern = /^(?!0{6})[1-9][0-9]{5,}$/i;
 
   constructor(otp: string) {
     if (!this.validate(otp)) {

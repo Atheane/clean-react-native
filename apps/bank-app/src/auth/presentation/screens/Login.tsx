@@ -7,7 +7,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import { useSecure, useCleanErrorOnFocus, FormLogin, ILoginFormData, Colors } from '@clean-rn/ui-mobile';
 
-import { Email } from '@clean-rn/auth/domain';
+import { Email, Password } from '@clean-rn/auth/domain';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IAuthStackPages } from '../../../shared/presentation/types';
@@ -35,6 +35,7 @@ export const Login = () => {
       const payload = {
         ...formData,
         email: email ? email : new Email(formData.email),
+        password: new Password(formData.password),
       };
       dispatch(fetchLogin(payload));
     },

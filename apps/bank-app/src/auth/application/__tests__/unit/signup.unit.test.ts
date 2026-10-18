@@ -317,21 +317,6 @@ describe('Signup - usecase', () => {
       .cancel();
   });
 
-  it('should call signupFailed action if send phone validation code fails', () => {
-    testSaga(checkPhoneGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_CHECK_PHONE,
-      payload: mockQueryPhone,
-    })
-      .next()
-      .call([api, api.searchPhone], mockQueryPhone)
-      .next(mockSuccessFalse)
-      .call([api, api.sendPhoneValidation], mockQueryPhone)
-      .next(mockSuccessFalse)
-      .put(signupFailed(new AuthError.SignupFailureSendPhoneValidation()))
-      .next()
-      .cancel();
-  });
-
   it('should call phoneValidated', () => {
     const userPrev = User.Create(new Email('test@example.com'));
 
@@ -411,7 +396,7 @@ describe('Signup - usecase', () => {
       .next()
       .call([api, api.checkPhoneValidation], mockQueryPhoneOtp)
       .next(mockSuccessFalse)
-      .put(signupFailed(new AuthError.SignupFailureInvalidPhoneCode()))
+      .put(signupFailed(new AuthError.SignupFailureIncorrectPhoneCode()))
       .next()
       .cancel();
   });

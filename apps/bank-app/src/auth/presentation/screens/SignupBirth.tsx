@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import dayjs from 'dayjs';
 
 import {
   LinkButton,
@@ -35,6 +36,7 @@ export const SignupBirth = () => {
     formState: { errors },
   } = useForm<ISignupBirthFormData>({
     defaultValues: {
+      birthday: dayjs('1980-01-01'),
       birthCountry: user?.properties.phone?.countryCode,
       nationality: user?.properties.phone?.countryCode,
     },
@@ -73,14 +75,14 @@ export const SignupBirth = () => {
           />
           <View style={styles.cgu}>
             <LinkButton
-              title={t('linkButton.legal')}
+              title={t('link-button.legal')}
               arrow={false}
               colorOption={LinkButtonColors.BLUE}
               pressed={false}
               onPress={onPressLegal}
             />
             <LinkButton
-              title={t('linkButton.cgu')}
+              title={t('link-button.cgu')}
               arrow={false}
               colorOption={LinkButtonColors.BLUE}
               pressed={false}

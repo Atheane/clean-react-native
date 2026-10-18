@@ -1,177 +1,194 @@
 {
   "banners": {
-    "updateApplication": "New version available",
-    "identityValidation": "Validate identity"
+    "update-application": "New version available",
+    "identity-validation": "Validate identity"
   },
   "errors": {
     "email": {
-      "required": "email required",
+      "required": "e-mail required",
       "invalid": "invalid email"
     },
     "password": {
       "required": "password required",
       "invalid": "invalid password",
-      "minLength": "must contain at least 6 characters"
+      "min-length": "must contain at least 6 characters"
     },
-    "domainError": {
+    "phone": {
+      "required": "phone number required",
+      "invalid": "provide a valid mobile phone number"
+    },
+    "phone-otp": {
+      "required": "6-digits code required",
+      "invalid": "code invalide",
+      "min-length": "should contain at least 6 numbers"
+    },
+    "birthday": {
+      "invalid": "invalid date of birth, 18 years minimum"
+    },
+    "first-name": {
+      "required": "First name required"
+    },
+    "last-name": {
+      "required": "Last name required"
+    },
+    "birth-country": {
+      "required": "country of birth required"
+    },
+    "nationality": {
+      "required": "nationality required"
+    },
+    "street": {
+      "required": "street required"
+    },
+    "city": {
+      "required": "city required"
+    },
+    "zip": {
+      "required": "postal code required"
+    },
+    "country": {
+      "required": "country code required",
+      "invalid": "invalid country",
+      "unvailable": "this country is not available"
+    },
+    "domain-error": {
       "auth": {
-        "AUTH_DOMAIN_0": "invalid email",
-        "AUTH_DOMAIN_1": "passwords do not match",
-        "AUTH_DOMAIN_2": "provide a valid mobile phone number",
-        "AUTH_DOMAIN_3": "invalid country",
-        "AUTH_DOMAIN_4": "this country is not available",
-        "AUTH_DOMAIN_5": "at least 18 years old",
-        "AUTH_DOMAIN_6": "code should have 6 digits",
-        "AUTH_DOMAIN_7": "username or password error, please try again",
-        "AUTH_DOMAIN_8": "error your phone is already paired with a user",
-        "AUTH_DOMAIN_9": "this email is already registered",
-        "AUTH_DOMAIN_10": "this phone is already registered",
-        "AUTH_DOMAIN_11": "incorrect code",
-        "AUTH_DOMAIN_12": "incorrect code",
-        "AUTH_DOMAIN_13": "security codes do not match",
-        "AUTH_DOMAIN_14": "please authenticate"
+        "LOGIN_FAILURE_INVALID_CREDENTIALS": "username or password error, please try again",
+        "SIGNUP_FAILURE_INVALID_PHONE_CODE": "invalid code",
+        "40133439": "this email is already registered",
+        "60067008": "this phone is already registered",
+        "USER_UNAUTHENTICATED": "please authenticate",
+        "USER_UNAUTHORIZED": "utilisateur non authorisé"
       },
       "other": "error, please contact the administrator"
     },
-    "unknownError": "error, please contact the administrator"
+    "unknown-error": "error, please contact the administrator"
   },
-  "countryPicker": {
+  "country-picker": {
     "placeholder": "Select a country"
   },
-  "linkButton": {
+  "link-button": {
     "login": "Login",
     "legal": "TOS",
     "cgu": "KycProvider TOS"
   },
-  "submitButton": "validate",
+  "submit-button": "validate",
+  "email-input": {
+    "placeholder": "E-mail address",
+    "label": "e-mail address"
+  },
+  "password-input": {
+    "placeholder": "******",
+    "label": "password"
+  },
+  "login": {
+    "forgotten-password": "Forgot your password?",
+    "submit-button": "validate",
+    "validate": "Validate"
+  },
+  "reset-password": {
+    "email": {
+      "placeholder": "votre@email.com",
+      "label": "e-mail"
+    },
+    "success": "If this email exists, a message has been sent to you",
+    "submit-button": "reset"
+  },
+  "signup-email": {
+    "email": {
+      "placeholder": "your@email.com",
+      "label": "e-mail"
+    },
+    "text":"Let's check together if your email address is linked to an existing account."
+  },
+  "signup-identity": {
+    "title": "Sign up",
+    "gender": {
+      "label": "gender",
+      "man": "Man",
+      "woman": "Woman",
+      "neutral": "Neutre"
+    },
+    "first-name": {
+      "label": "First name",
+      "placeholder": "First name"
+    },
+    "last-name": {
+      "label": "Last name",
+      "placeholder": "Last name"
+    }
+  },
+  "signup-phone": {
+    "phone": {
+      "label": "phone number",
+      "placeholder": "phone number"
+    }
+  },
+  "signup-validate-phone": {
+    "submit-button": "validate"
+  },
+  "signup-birth": {
+    "birthday": {
+      "label": "Date of birth",
+      "placeholder": "DD/MM/YYYY"
+    },
+    "birth-country": {
+      "label": "country of birth",
+      "placeholder": "Country of birth"
+    },
+    "nationality": {
+      "label": "Nationality",
+      "placeholder": "Nationality"
+    }
+  },
+  "signup-address": {
+    "street": {
+      "label": "address",
+      "placeholder": "Street name"
+    },
+    "city": {
+      "label": "city",
+      "placeholder": "City"
+    },
+    "zip": {
+      "label": "postal code",
+      "placeholder": "Postal code"
+    },
+    "country": {
+      "label": "Country",
+      "placeholder": "Country"
+    },
+    "usperson": {
+      "label": "I am a “US person”",
+      "subtitle": "(US Resident)",
+      "yes": "Yes",
+      "no": "No"
+    }
+  },
   "screens": {
     "cgu": "TOS",
     "cguKycProvider": "KycProvider TOS",
     "login": {
-      "title": "Login",
-      "email": {
-        "placeholder": "E-mail address",
-        "label": "e-mail address"
-      },
-      "password": {
-        "placeholder": "******",
-        "label": "password"
-      },
-      "forgottenPassword": "Forgot your password?",
-      "submitButton": "validate",
-      "validate": "Validate"
+      "title": "Login"
     },
-    "resetPassword": {
-      "title": "Forgot your password?",
-      "email": {
-        "placeholder": "votre@email.com",
-        "label": "e-mail",
-        "required": "e-mail required",
-        "invalid": "invalid e-mail"
-      },
-      "success": "If this email exists, a message has been sent to you",
-      "submitButton": "reset",
-      "error": "error, please contact the administrator"
+    "reset-password": {
+      "title": "Forgot your password?"
     },
     "signup-email": {
-      "title": "Sign up",
-      "email": {
-        "placeholder": "your@email.com",
-        "label": "e-mail"
-      },
-      "text":"Let's check together if your email address is linked to an existing account."
+      "title": "Sign up"
     },
     "signup-identity": {
-      "title": "Sign up",
-      "gender": {
-        "label": "gender",
-        "man": "Man",
-        "woman": "Woman",
-        "neutral": "Neutre"
-      },
-      "firstName": {
-        "label": "First name",
-        "placeholder": "First name",
-        "required": "First name required"
-      },
-      "lastName": {
-        "label": "Last name",
-        "placeholder": "Last name",
-        "required": "Last name required"
-      },
-      "countryCode": {
-        "required": "country code required"
-      }
-    },
-    "signup-phone": {
-      "phone": {
-        "label": "phone number",
-        "placeholder": "phone number",
-        "required": "phone number required",
-        "invalid": "enter a valid mobile phone number"
-      },
-      "country": {
-        "notavailable": "this country is not available"
-      }
+      "title": "Sign up"
     },
     "signup-validate-phone": {
       "title": "Security",
       "instruction": "Enter the verification code that was just sent to you by SMS",
-      "submitButton": "validate",
-      "required": "6-digit code required",
-      "error": {
-        "auth": "incorrect code",
-        "other": "error, please contact the administrator"
-      }
     },
     "signup-birth": {
-      "title": "Complete my profile",
-      "birthday": {
-        "label": "Date of birth",
-        "placeholder": "DD/MM/YYYY",
-        "required": "date of birth required",
-        "validate": "invalid date of birth, 18 years minimum"
-      },
-      "birthCountry": {
-        "label": "country of birth",
-        "placeholder": "Country of birth",
-        "required": "country of birth required"
-      },
-      "nationality": {
-        "label": "Nationality",
-        "placeholder": "Nationality",
-        "required": "Nationality required"
-      }
+      "title": "Complete my profile"
     },
     "signup-address": {
-      "title": "Complete my profile",
-      "street": {
-        "label": "address",
-        "placeholder": "Street name",
-        "required": "address required"
-      },
-      "city": {
-        "label": "city",
-        "placeholder": "City",
-        "required": "city required"
-      },
-      "zip": {
-        "label": "postal code",
-        "placeholder": "Postal code",
-        "required": "postal code required"
-      },
-      "country": {
-        "label": "Country",
-        "placeholder": "Country",
-        "required": "country required"
-      },
-      "usperson": {
-        "label": "I am a “US person”",
-        "subtitle": "(US Resident)",
-        "yes": "Yes",
-        "no": "No",
-        "required": "please indicate if you are a US person"
-      }
+      "title": "Complete my profile"
     },
     "signup-congrats": {
       "title": "Congratulations",

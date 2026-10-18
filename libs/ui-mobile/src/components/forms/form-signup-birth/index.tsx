@@ -4,6 +4,7 @@ import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { Dayjs } from 'dayjs';
 import { useTheme } from '@rneui/themed';
 import countryFlagEmoji from 'country-flag-emoji';
+import dayjs from 'dayjs';
 
 import { IDomainError } from '@clean-rn/ddd';
 import { IAuthErrorCodes, IAuthErrorMessage, BirthDay } from '@clean-rn/auth/domain';
@@ -39,7 +40,6 @@ export const FormSignupBirth = (props: IProps) => {
           control={props.control}
           name="birthday"
           rules={{
-            required: true,
             validate: (value) => {
               try {
                 new BirthDay(value);
@@ -51,10 +51,10 @@ export const FormSignupBirth = (props: IProps) => {
           }}
           render={({ field: { onChange, value } }) => (
             <DateTimePicker
-              label={t('screens.signup-birth.birthday.label')}
-              value={value}
+              label={t('signup-birth.birthday.label')}
+              value={value || dayjs('1980-01-01')}
               format={'DD/MM/YYYY'}
-              placeholder={t('screens.signup-birth.birthday.placeholder')}
+              placeholder={t('signup-birth.birthday.placeholder')}
               onChange={onChange}
             />
           )}
@@ -62,16 +62,12 @@ export const FormSignupBirth = (props: IProps) => {
       </View>
       {props.errors?.birthday && props.errors.birthday.type === 'required' && (
         <View style={styles.errorContainer}>
-          <Text style={theme.bank.text.errors}>
-            {firstLetterCapitalize(t('screens.signup-birth.birthday.required'))}
-          </Text>
+          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.birthday.required'))}</Text>
         </View>
       )}
       {props.errors?.birthday && props.errors.birthday.type === 'validate' && (
         <View style={styles.errorContainer}>
-          <Text style={theme.bank.text.errors}>
-            {firstLetterCapitalize(t('screens.signup-birth.birthday.validate'))}
-          </Text>
+          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.birthday.invalid'))}</Text>
         </View>
       )}
       <View style={styles.inputContainer}>
@@ -83,7 +79,7 @@ export const FormSignupBirth = (props: IProps) => {
           }}
           render={({ field: { onChange, value } }) => (
             <CountryPicker
-              label={t('screens.signup-birth.birthCountry.label')}
+              label={t('signup-birth.birth-country.label')}
               value={value}
               onChange={onChange}
               defaultValue={props.defaultCountry}
@@ -102,7 +98,7 @@ export const FormSignupBirth = (props: IProps) => {
           }}
           render={({ field: { onChange, value } }) => (
             <CountryPicker
-              label={t('screens.signup-birth.nationality.label')}
+              label={t('signup-birth.nationality.label')}
               value={value}
               onChange={onChange}
               defaultValue={props.defaultCountry}
@@ -113,7 +109,7 @@ export const FormSignupBirth = (props: IProps) => {
         />
       </View>
       <View style={styles.submitButtonContainer}>
-        <SubmitButton title={t('submitButton')} uppercase={false} onSubmit={props.onSubmit} />
+        <SubmitButton title={t('submit-button')} uppercase={false} onSubmit={props.onSubmit} />
       </View>
     </View>
   );
