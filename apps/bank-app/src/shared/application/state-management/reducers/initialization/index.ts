@@ -25,6 +25,7 @@ export const initializationReducer = (state = initialState, action: IInitializat
       newState = {
         ...state,
         email: action.payload.email,
+        pending: false,
       };
       return newState;
     case IInitializationTypes.INITIALIZE_APPLICATION_FAILED:
@@ -32,6 +33,7 @@ export const initializationReducer = (state = initialState, action: IInitializat
       newState = {
         ...state,
         error: action.payload.error,
+        pending: false,
       };
       return newState;
     default:

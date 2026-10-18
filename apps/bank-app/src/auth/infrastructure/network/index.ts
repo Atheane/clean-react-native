@@ -1,19 +1,30 @@
+import { Logger } from '@clean-rn/logger';
 import { IAuth, ILoginParam } from '@clean-rn/auth/domain';
+
 import Constants from 'expo-constants';
 
 const login = async (param: ILoginParam): Promise<IAuth> => {
-  const response = await fetch(`${Constants.expoConfig?.extra?.BASE_URL_API}/auth/login`, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email: param.email.value,
-      password: param.password,
-    }),
-  });
-  return response.json();
+  try {
+    const response = await fetch(`${Constants.expoConfig?.extra?.BASE_URL_API}/auth/login`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: param.email.value,
+        password: param.password,
+      }),
+    });
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err.message || err.statusText);
+    }
+    return response.json();
+  } catch (error: unknown) {
+    Logger.getInstance().error(error);
+    throw error;
+  }
 };
 
 // putResetPassword(body: IPutResetPasswordBody): Promise<AxiosResponse<{ success: boolean }>> {

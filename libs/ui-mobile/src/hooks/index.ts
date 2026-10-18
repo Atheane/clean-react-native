@@ -7,7 +7,6 @@ import { useSecure } from './useSecure';
 import { useTogglePress } from './useTogglePress';
 import { useTransportFormData } from './useTransportFormData';
 import { useChange } from './useChange';
-import { useAsyncStorage } from './useAsyncStorage';
 
 export {
   useCleanErrorOnFocus,
@@ -19,5 +18,4 @@ export {
   useTransportFormData,
   useTogglePress,
   useChange,
-  useAsyncStorage,
 };

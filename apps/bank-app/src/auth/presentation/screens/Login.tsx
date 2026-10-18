@@ -6,13 +6,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import * as Sentry from '@sentry/react-native';
 
 import { Logger } from '@clean-rn/logger';
-import {
-  useSecure,
-  useCleanErrorOnFocus,
-  FormLogin,
-  ILoginFormData,
-  useAsyncStorage,
-} from '@clean-rn/ui-mobile';
+import { useSecure, useCleanErrorOnFocus, FormLogin, ILoginFormData } from '@clean-rn/ui-mobile';
 
 import { Email } from '@clean-rn/auth/domain';
 
@@ -22,14 +16,13 @@ import { navigationRef } from '../../../shared/presentation/navigation/navigatio
 
 import { Welcome } from '../assets/images';
 import { fetchLoginRequest } from '../../application/commands/login';
-import { IStoreKey } from '../../../shared/application/types';
 
 export const Login = () => {
   // retrieve email, if any
-  const { storedValue } = useAsyncStorage(IStoreKey.USER_EMAIL);
+  const { email } = useSelector((state: RootState) => state.initialization);
 
   // internal state
-  const [filled, setFilled] = useState<boolean>(!!storedValue);
+  const [filled, setFilled] = useState<boolean>(!!email);
   const onEdit = useCallback(() => {
     setFilled(false);
   }, []);
@@ -50,7 +43,7 @@ export const Login = () => {
       try {
         const payload = {
           ...formData,
-          email: filled && storedValue ? new Email(storedValue) : new Email(formData.email),
+          email: filled && email ? email : new Email(formData.email),
         };
         dispatch(fetchLoginRequest(payload));
       } catch (e: unknown) {
@@ -58,7 +51,7 @@ export const Login = () => {
         Logger.getInstance().error(e);
       }
     },
-    [dispatch, storedValue, filled],
+    [dispatch, email, filled],
   );
 
   // navigate to forgot_password
@@ -80,7 +73,7 @@ export const Login = () => {
           loading={pending}
           control={control}
           errors={errors}
-          email={storedValue ? new Email(storedValue).value : undefined}
+          email={email?.value}
           filled={filled}
           onEdit={onEdit}
           secured={secured}

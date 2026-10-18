@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
-import { IDomainError, IInfraError } from '@clean-rn/ddd';
+import { IDomainError } from '@clean-rn/ddd';
 import { IAuthErrorCodes, IAuthErrorMessage, Email } from '@clean-rn/auth/domain';
 
 import { LinkButtonColors } from '../../../types';
@@ -27,7 +27,7 @@ type IProps = {
   onPress: () => void;
   control: Control<ILoginFormData>;
   errors: FieldErrors<ILoginFormData>;
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | IInfraError | null;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | Error | null;
 };
 
 export type ILoginFormData = {
@@ -38,6 +38,7 @@ export type ILoginFormData = {
 export const FormLogin = (props: IProps) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
+
   return (
     <View style={theme.bank.container.centeredItem}>
       <View>

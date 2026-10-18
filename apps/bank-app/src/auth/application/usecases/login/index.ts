@@ -46,20 +46,12 @@ function* loginApiSaga({
 
     yield call(storeItem, IStoreKey.JWT_ACCESS_TOKEN, auth.accessToken);
     yield call(storeItem, IStoreKey.USER_EMAIL, payload.email.value);
-
-    // yield put(fetchAccountsRequest());
-  } catch (e: any) {
-    let error;
-    if (e?.response?.data) {
-      error = new ServerError(e.response.data);
-    } else {
-      error = e;
-    }
-    Logger.getInstance().error(error);
-    Sentry.captureException(error);
+  } catch (e: unknown) {
+    Logger.getInstance().error(e);
+    Sentry.captureException(e);
     yield put(
       loginFailure({
-        error,
+        error: e as Error,
       }),
     );
   }

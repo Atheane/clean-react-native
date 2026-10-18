@@ -5,6 +5,7 @@ import * as Sentry from '@sentry/react-native';
 import { Logger } from '@clean-rn/logger';
 
 import { getItemFromStore } from '@clean-rn/shared/infrastructure';
+import { Email } from '@clean-rn/auth/domain';
 
 import {
   initializeApplicationSucceded,
@@ -12,32 +13,17 @@ import {
   IInitializationTypes,
 } from '../../commands/initialization';
 import { IStoreKey } from '../../../../shared/application/types';
-import { navigate } from '../../../presentation/navigation/navigationRef';
-import { IAuthStackPages } from '../../../presentation/types';
 
 function* initialization(): Generator<StrictEffect, any, any> {
   try {
-    const email = yield call(getItemFromStore, IStoreKey.USER_EMAIL);
-    console.log('initialization email', email);
-
-    if (!email) {
-      yield put(
-        initializeApplicationFailed({
-          error: new Error('Email not found'),
-        }),
-      );
-      yield call(navigate, { route: IAuthStackPages.SIGNUP_STEP1 });
-    }
+    const emailString = yield call(getItemFromStore, IStoreKey.USER_EMAIL);
 
     // dispatch action to the store
     yield put(
       initializeApplicationSucceded({
-        email,
+        email: new Email(emailString),
       }),
     );
-
-    yield call(navigate, { route: IAuthStackPages.LOGIN });
-    // yield put(fetchAccountsRequest());
   } catch (error: unknown) {
     Logger.getInstance().error(error);
     Sentry.captureException(error);
