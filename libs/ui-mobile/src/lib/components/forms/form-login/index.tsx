@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet, GestureResponderEvent } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
-import { useTheme } from '@rneui/themed';
 
 import { IDomainError, IInfraError } from '@clean-rn/ddd';
 import { IAuthErrorCodes, IAuthErrorMessage, Email } from '@clean-rn/auth/domain';
 
+import { Colors, FontNames } from '../../../constants';
 import { LinkButtonColors } from '../../../types';
 import { firstLetterCapitalize } from '../../../utils';
 
@@ -37,7 +37,6 @@ export type ILoginFormData = {
 
 export const FormLogin = (props: IProps) => {
   const { t } = useTranslation();
-  const { theme } = useTheme();
   return (
     <View>
       <View style={styles.formInputs}>
@@ -61,13 +60,13 @@ export const FormLogin = (props: IProps) => {
               />
               {props.errors?.email && props.errors.email.type === 'required' && (
                 <View style={styles.container}>
-                  <Text style={theme.errors}>{firstLetterCapitalize(t('errors.email.required'))}</Text>
+                  <Text style={styles.errors}>{firstLetterCapitalize(t('errors.email.required'))}</Text>
                 </View>
               )}
               {props.errors?.email && props.errors.email.type !== 'required' && (
                 <View style={styles.container}>
-                  <Text style={theme.errors}>{firstLetterCapitalize(t('errors.email.invalid'))}</Text>
-                  <Text style={theme.errors}>{props.errors.email.ref?.value}</Text>
+                  <Text style={styles.errors}>{firstLetterCapitalize(t('errors.email.invalid'))}</Text>
+                  <Text style={styles.errors}>{props.errors.email.ref?.value}</Text>
                 </View>
               )}
             </View>
@@ -90,12 +89,12 @@ export const FormLogin = (props: IProps) => {
           />
           {props.errors?.password && props.errors.password.type === 'required' && (
             <View style={styles.container}>
-              <Text style={theme.errors}>{firstLetterCapitalize(t('errors.password.required'))}</Text>
+              <Text style={styles.errors}>{firstLetterCapitalize(t('errors.password.required'))}</Text>
             </View>
           )}
           {props.errors?.password && props.errors.password.type === 'minLength' && (
             <View style={styles.container}>
-              <Text style={theme.errors}>{firstLetterCapitalize(t('errors.password.minLength'))}</Text>
+              <Text style={styles.errors}>{firstLetterCapitalize(t('errors.password.minLength'))}</Text>
             </View>
           )}
         </View>
@@ -125,6 +124,12 @@ export const FormLogin = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
+  errors: {
+    color: Colors.text.salmon,
+    fontFamily: FontNames.Roboto_700Bold,
+    fontSize: 12,
+    textAlign: 'center',
+  },
   formInputs: {
     alignItems: 'center',
     justifyContent: 'center',

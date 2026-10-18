@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
-import { useTheme } from '@rneui/themed';
 
 import { IDomainError, IInfraError } from '@clean-rn/ddd';
 import { IAuthErrorCodes, IAuthErrorMessage, Email } from '@clean-rn/auth/domain';
 
+import { FontNames, Colors } from '../../../constants';
 import { firstLetterCapitalize } from '../../../utils';
 
 import { SubmitButton } from '../../buttons/submit-button';
@@ -31,7 +31,6 @@ export type IResetPasswordFormData = {
 
 export const FormResetPassword = (props: IProps) => {
   const { t } = useTranslation();
-  const { theme } = useTheme();
   return (
     <View>
       <View style={styles.formInputs}>
@@ -55,12 +54,12 @@ export const FormResetPassword = (props: IProps) => {
               />
               {props.errors?.email && props.errors.email.type === 'required' && (
                 <View style={styles.container}>
-                  <Text style={theme.errors}>{firstLetterCapitalize(t('errors.email.required'))}</Text>
+                  <Text style={styles.errors}>{firstLetterCapitalize(t('errors.email.required'))}</Text>
                 </View>
               )}
               {props.errors?.email && props.errors.email.type !== 'required' && (
                 <View style={styles.container}>
-                  <Text style={theme.errors}>{firstLetterCapitalize(t('errors.email.invalid'))}</Text>
+                  <Text style={styles.errors}>{firstLetterCapitalize(t('errors.email.invalid'))}</Text>
                 </View>
               )}
             </View>
@@ -72,7 +71,7 @@ export const FormResetPassword = (props: IProps) => {
       </View>
       <View style={styles.formSubmit}>
         {props.success ? (
-          <Text style={theme.instructionText}>{t('screens.resetPassword.success')}</Text>
+          <Text style={styles.instructionText}>{t('screens.resetPassword.success')}</Text>
         ) : (
           <SubmitButton
             title={t('screens.resetPassword.submitButton')}
@@ -98,5 +97,19 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingTop: 8,
+  },
+  errors: {
+    color: Colors.text.salmon,
+    fontFamily: FontNames.Roboto_700Bold,
+    fontSize: 12,
+    textAlign: 'center',
+  },
+  instructionText: {
+    width: '80%',
+    fontSize: 16,
+    lineHeight: 30,
+    textAlign: 'center',
+    fontFamily: FontNames.Roboto_400Regular,
+    color: Colors.text.grey,
   },
 });

@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { View, StyleSheet, Text, Dimensions } from 'react-native';
-import { useTheme } from '@rneui/themed';
 import SelectDropdown from 'react-native-select-dropdown';
 import { SvgProps } from 'react-native-svg';
 
@@ -24,8 +23,6 @@ type IProps = {
 };
 
 export const Dropdown = (props: IProps) => {
-  const { theme } = useTheme();
-
   const handleOnSelect = (value: string, index: number) => {
     props.onSelect(props.data[index]);
   };
@@ -46,11 +43,11 @@ export const Dropdown = (props: IProps) => {
           buttonTextAfterSelection={(item: IData) => item.value}
           buttonStyle={styles.buttonContainer}
           rowTextForSelection={(item: IData) => item.value}
-          buttonTextStyle={[theme.input.text, styles.inputText]}
+          buttonTextStyle={styles.inputText}
           rowTextStyle={styles.rowText}
           renderDropdownIcon={() => (
             <View style={styles.dropdownIcon}>
-              <DropDownChevron style={{ color: theme.linearGradient.start }} />
+              <DropDownChevron style={{ color: Colors.icon.lightGreen }} />
             </View>
           )}
           defaultButtonText={props.defaultValue ?? props.placeholder}
@@ -65,6 +62,9 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   inputText: {
+    color: Colors.input.pink,
+    fontFamily: FontNames.Roboto_400Regular,
+    fontSize: 14,
     textAlign: 'center',
   },
   inputLabel: {

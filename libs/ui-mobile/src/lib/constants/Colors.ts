@@ -56,6 +56,7 @@ export const Colors = {
     lightGrey: 'rgba(131, 131, 131, 1)',
     darkGrey: 'rgba(68, 74, 82, 1)',
     darkWhite: '#F0F0F0',
+    salmon: 'rgba(227, 96, 112, 1)',
   },
   icon: {
     lightGreen: 'rgba(162, 179, 2, 1)',

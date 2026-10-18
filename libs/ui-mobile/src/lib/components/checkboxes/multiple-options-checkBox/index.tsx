@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, useTheme, CheckBox } from '@rneui/themed';
+import { Text, CheckBox } from '@rneui/themed';
 
 import { CheckBox as CheckedIcon, UncheckBox as UncheckIcon } from '../../../assets';
 import { Colors, FontNames } from '../../../constants';
@@ -14,8 +14,6 @@ type IProps = {
 };
 
 export const MultipleOptionsCheckBox = (props: IProps) => {
-  const { theme } = useTheme();
-
   const [currentOption, setCurrentOption] = useState<string>(props.optionsValues[0]);
 
   const handleOnPress = useCallback(
@@ -28,17 +26,17 @@ export const MultipleOptionsCheckBox = (props: IProps) => {
 
   return (
     <View>
-      {props.label && <Text style={theme.input.label}>{props.label}</Text>}
-      {props.subtitle && <Text style={styles(props).text}>{props.subtitle}</Text>}
-      <View style={styles(props).checkboxContainer}>
+      {props.label && <Text style={styles.label}>{props.label}</Text>}
+      {props.subtitle && <Text style={styles.text}>{props.subtitle}</Text>}
+      <View style={styles.checkboxContainer}>
         {props.optionsValues.map((option: string, index: number) => {
           return (
-            <View key={index} style={styles(props).item}>
+            <View key={index} style={[styles.item, { marginRight: props.optionsTitle.length < 3 ? 50 : 0 }]}>
               <CheckBox
                 checked={currentOption === option}
                 onPress={() => handleOnPress(option)}
                 title={props.optionsTitle[index]}
-                titleProps={{ style: { ...styles(props).text, marginLeft: 8 } }}
+                titleProps={{ style: { ...styles.text, marginLeft: 8 } }}
                 checkedIcon={<CheckedIcon style={{ color: Colors.icon.lightGreenTransparent }} />}
                 uncheckedIcon={<UncheckIcon style={{ color: Colors.icon.lightGreenTransparent }} />}
               />
@@ -50,21 +48,28 @@ export const MultipleOptionsCheckBox = (props: IProps) => {
   );
 };
 
-const styles = (props: IProps) =>
-  StyleSheet.create({
-    text: {
-      fontSize: 14,
-      lineHeight: 19,
-      color: Colors.text.grey,
-      fontFamily: FontNames.Roboto_400Regular,
-    },
-    checkboxContainer: {
-      flexDirection: 'row',
-      width: 309,
-    },
-    item: {
-      marginLeft: -20,
-      marginRight: props.optionsTitle.length < 3 ? 50 : 0,
-      justifyContent: 'space-between',
-    },
-  });
+const styles = StyleSheet.create({
+  label: {
+    textTransform: 'uppercase',
+    fontFamily: FontNames.Roboto_700Bold,
+    fontSize: 16,
+    color: Colors.text.lightGrey,
+    lineHeight: 21,
+    textAlign: 'left',
+    marginBottom: 8,
+  },
+  text: {
+    fontSize: 14,
+    lineHeight: 19,
+    color: Colors.text.grey,
+    fontFamily: FontNames.Roboto_400Regular,
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    width: 309,
+  },
+  item: {
+    marginLeft: -20,
+    justifyContent: 'space-between',
+  },
+});

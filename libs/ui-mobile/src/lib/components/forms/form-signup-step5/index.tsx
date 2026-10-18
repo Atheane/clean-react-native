@@ -1,13 +1,12 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
-import { useTheme } from '@rneui/themed';
 
 import { IDomainError, IInfraError } from '@clean-rn/ddd';
 import { ICountry, COUNTRIES_AVAILABLE, IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
 
 import { House } from '../../../assets';
-import { Colors } from '../../../constants';
+import { Colors, FontNames } from '../../../constants';
 import { firstLetterCapitalize } from '../../../utils';
 
 import { SubmitButton } from '../../buttons/submit-button';
@@ -36,7 +35,6 @@ export type ISignupStep5FormData = {
 
 export const FormSignupStep5 = (props: IProps) => {
   const { t } = useTranslation();
-  const { theme } = useTheme();
 
   return (
     <View style={styles.container}>
@@ -61,7 +59,7 @@ export const FormSignupStep5 = (props: IProps) => {
       </View>
       {props.errors?.street && props.errors.street.type === 'required' && (
         <View style={styles.errorContainer}>
-          <Text style={theme.errors}>{firstLetterCapitalize(t('screens.signupstep5.street.required'))}</Text>
+          <Text style={styles.errors}>{firstLetterCapitalize(t('screens.signupstep5.street.required'))}</Text>
         </View>
       )}
       <View style={styles.input}>
@@ -85,7 +83,7 @@ export const FormSignupStep5 = (props: IProps) => {
       </View>
       {props.errors?.city && props.errors.city.type === 'required' && (
         <View style={styles.errorContainer}>
-          <Text style={theme.errors}>{firstLetterCapitalize(t('screens.signupstep5.city.required'))}</Text>
+          <Text style={styles.errors}>{firstLetterCapitalize(t('screens.signupstep5.city.required'))}</Text>
         </View>
       )}
       <View style={styles.input}>
@@ -109,7 +107,7 @@ export const FormSignupStep5 = (props: IProps) => {
       </View>
       {props.errors?.zip && props.errors.zip.type === 'required' && (
         <View style={styles.errorContainer}>
-          <Text style={theme.errors}>{firstLetterCapitalize(t('screens.signupstep5.zip.required'))}</Text>
+          <Text style={styles.errors}>{firstLetterCapitalize(t('screens.signupstep5.zip.required'))}</Text>
         </View>
       )}
       <View style={styles.input}>
@@ -132,7 +130,7 @@ export const FormSignupStep5 = (props: IProps) => {
         />
         {props.errors?.country && props.errors.country.type === 'required' && (
           <View style={styles.errorContainer}>
-            <Text style={theme.errors}>
+            <Text style={styles.errors}>
               {firstLetterCapitalize(t('screens.signupstep5.country.required'))}
             </Text>
           </View>
@@ -174,6 +172,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   input: { flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 30 },
+  errors: {
+    color: Colors.text.salmon,
+    fontFamily: FontNames.Roboto_700Bold,
+    fontSize: 12,
+    textAlign: 'center',
+  },
   formSubmit: {
     alignItems: 'center',
     justifyContent: 'center',

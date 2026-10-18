@@ -1,12 +1,12 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
-import { useTheme } from '@rneui/themed';
 import { Dayjs } from 'dayjs';
 import countryFlagEmoji from 'country-flag-emoji';
 
 import { IDomainError, IInfraError } from '@clean-rn/ddd';
 import { IAuthErrorCodes, IAuthErrorMessage, BirthDay } from '@clean-rn/auth/domain';
+import { Colors, FontNames } from '../../../constants';
 import { firstLetterCapitalize } from '../../../utils';
 
 import { SubmitButton } from '../../buttons/submit-button';
@@ -31,7 +31,6 @@ export type ISignupStep4FormData = {
 
 export const FormSignupStep4 = (props: IProps) => {
   const { t } = useTranslation();
-  const { theme } = useTheme();
 
   return (
     <View style={styles.container}>
@@ -63,14 +62,14 @@ export const FormSignupStep4 = (props: IProps) => {
       </View>
       {props.errors?.birthday && props.errors.birthday.type === 'required' && (
         <View style={styles.errorContainer}>
-          <Text style={theme.errors}>
+          <Text style={styles.errors}>
             {firstLetterCapitalize(t('screens.signupstep4.birthday.required'))}
           </Text>
         </View>
       )}
       {props.errors?.birthday && props.errors.birthday.type === 'validate' && (
         <View style={styles.errorContainer}>
-          <Text style={theme.errors}>
+          <Text style={styles.errors}>
             {firstLetterCapitalize(t('screens.signupstep4.birthday.validate'))}
           </Text>
         </View>
@@ -96,7 +95,7 @@ export const FormSignupStep4 = (props: IProps) => {
       </View>
       {props.errors?.birthCountry && props.errors.birthCountry.type === 'required' && (
         <View style={styles.errorContainer}>
-          <Text style={theme.errors}>
+          <Text style={styles.errors}>
             {firstLetterCapitalize(t('screens.signupstep4.birthCountry.required'))}
           </Text>
         </View>
@@ -122,7 +121,7 @@ export const FormSignupStep4 = (props: IProps) => {
       </View>
       {props.errors?.nationality && props.errors.nationality.type === 'required' && (
         <View style={styles.errorContainer}>
-          <Text style={theme.errors}>
+          <Text style={styles.errors}>
             {firstLetterCapitalize(t('screens.signupstep4.nationality.required'))}
           </Text>
         </View>
@@ -154,5 +153,11 @@ const styles = StyleSheet.create({
     marginTop: 50,
     flexDirection: 'row',
     justifyContent: 'center',
+  },
+  errors: {
+    color: Colors.text.salmon,
+    fontFamily: FontNames.Roboto_700Bold,
+    fontSize: 12,
+    textAlign: 'center',
   },
 });
