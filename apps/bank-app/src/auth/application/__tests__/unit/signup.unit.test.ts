@@ -146,7 +146,7 @@ describe('Signup - usecase', () => {
       .next()
       .call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, mockQueryEmail.email.value)
       .next(mockQueryEmail.email.value)
-      .put(initializeApplication())
+      .put(initializeApplication(true))
       .next()
       .call(navigate, { route: IAuthStackPages.LOGIN })
       .next()

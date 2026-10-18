@@ -18,6 +18,7 @@ describe('Initialization - integration', () => {
       pending: false,
       email: null,
       initRouteName: undefined,
+      isFirstConnection: false,
     };
     sagaTester = new SagaTester({
       initialState,
@@ -34,6 +35,7 @@ describe('Initialization - integration', () => {
       pending: true,
       email: null,
       initRouteName: undefined,
+      isFirstConnection: false,
     });
   });
 
@@ -46,6 +48,20 @@ describe('Initialization - integration', () => {
       pending: true,
       email: null,
       initRouteName: undefined,
+      isFirstConnection: false,
+    });
+  });
+
+  it('Should store correct state in case if INITIALIZE_APPLICATION at first connection on the device', () => {
+    sagaTester.start(initializationSaga);
+
+    sagaTester.dispatch(initializeApplication(true));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: true,
+      email: null,
+      initRouteName: undefined,
+      isFirstConnection: true,
     });
   });
 
@@ -64,6 +80,7 @@ describe('Initialization - integration', () => {
       pending: false,
       email: new Email('test@example.com'),
       initRouteName: IAuthStackPages.LOGIN,
+      isFirstConnection: false,
     });
   });
 });

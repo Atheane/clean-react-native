@@ -21,7 +21,9 @@ describe('Initialization - usecase', () => {
   });
 
   it('Should call initializationSuccess', async () => {
-    testSaga(initialization)
+    testSaga(initialization, {
+      type: IInitializationTypes.INITIALIZE_APPLICATION,
+    })
       .next()
       .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
       .next(new Email('test@example.com').value)
