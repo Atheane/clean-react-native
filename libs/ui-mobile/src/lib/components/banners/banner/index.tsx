@@ -8,7 +8,7 @@ import { LinkButton } from '../../buttons/link-button';
 
 type IProps = {
   title: string;
-  color: BannerColors;
+  colorBanner: BannerColors;
   onPressRightIcon?: () => void;
   rightIcon?: boolean;
 };
@@ -56,7 +56,7 @@ export const Banner = (props: IProps) => {
         theme.bank.container.centeredItem,
         {
           backgroundColor:
-            props.color === BannerColors.PINK
+            props.colorBanner === BannerColors.PINK
               ? Colors.bank.secondary.salmon
               : Colors.bank.primary.lightPurple,
         },
@@ -90,7 +90,7 @@ export const Banner = (props: IProps) => {
         theme.bank.container.centeredItem,
         {
           backgroundColor:
-            props.color === BannerColors.PINK
+            props.colorBanner === BannerColors.PINK
               ? Colors.bank.secondary.salmon
               : Colors.bank.primary.lightPurple,
         },
