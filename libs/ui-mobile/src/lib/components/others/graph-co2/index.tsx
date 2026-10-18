@@ -4,22 +4,9 @@ import { getLocales } from 'expo-localization';
 
 import { useTheme } from '@rneui/themed';
 
-import {
-  HeaderBad,
-  HeaderChampion,
-  HeaderCop21,
-  HeaderFrance,
-  BilanBadFR,
-  BilanBadEN,
-  BilanChampionFR,
-  BilanChampionEN,
-  BilanCop21FR,
-  BilanCop21EN,
-  BilanFranceFR,
-  BilanFranceEN,
-} from '../../../assets';
-
 type IProps = {
+  headers: { [key: string]: ImageSourcePropType };
+  bilans: { [key: string]: { [key: string]: ImageSourcePropType } };
   emissions: number;
 };
 
@@ -35,34 +22,6 @@ const THRESHOLDS = {
   [ICategories.CHAMPION]: 1340,
   [ICategories.COP21]: 730,
 } as { [key: string]: number };
-
-const Headers = {
-  [ICategories.BAD]: HeaderBad as ImageSourcePropType,
-  [ICategories.FRANCE]: HeaderFrance as ImageSourcePropType,
-  [ICategories.CHAMPION]: HeaderChampion as ImageSourcePropType,
-  [ICategories.COP21]: HeaderCop21 as ImageSourcePropType,
-} as { [key: string]: ImageSourcePropType };
-
-const Bilans = {
-  FR: {
-    [ICategories.BAD]: BilanBadFR as ImageSourcePropType,
-    [ICategories.FRANCE]: BilanFranceFR as ImageSourcePropType,
-    [ICategories.CHAMPION]: BilanChampionFR as ImageSourcePropType,
-    [ICategories.COP21]: BilanCop21FR as ImageSourcePropType,
-  } as { [key: string]: ImageSourcePropType },
-  GB: {
-    [ICategories.BAD]: BilanBadEN as ImageSourcePropType,
-    [ICategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
-    [ICategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
-    [ICategories.COP21]: BilanCop21EN as ImageSourcePropType,
-  } as { [key: string]: ImageSourcePropType },
-  US: {
-    [ICategories.BAD]: BilanBadEN as ImageSourcePropType,
-    [ICategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
-    [ICategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
-    [ICategories.COP21]: BilanCop21EN as ImageSourcePropType,
-  } as { [key: string]: ImageSourcePropType },
-};
 
 const locales = getLocales();
 const country = locales[0]?.regionCode || undefined;
@@ -94,13 +53,13 @@ export const GraphCO2 = (props: IProps) => {
           <View style={[styles.textContainer, theme.bank.container.centeredItem]}>
             <Text style={theme.bank.text.whiteGraphTitle}>{toCO2(props.emissions)}</Text>
           </View>
-          <Image source={Headers[category]} resizeMode="contain" style={styles.headerImage} />
+          <Image source={props.headers[category]} resizeMode="contain" style={styles.headerImage} />
         </View>
       )}
-      {country && category && Bilans[country as keyof typeof Bilans] && (
+      {country && category && props.bilans[country as keyof typeof props.bilans] && (
         <View style={[styles.imageContainer, theme.bank.shadow.card, theme.bank.container.centeredItem]}>
           <Image
-            source={Bilans[country as keyof typeof Bilans][category]}
+            source={props.bilans[country as keyof typeof props.bilans][category]}
             resizeMode="contain"
             style={styles.bodyImage}
           />

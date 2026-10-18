@@ -11,7 +11,7 @@ import {
   useSecure,
   firstLetterCapitalize,
 } from '@clean-rn/ui-mobile';
-import { WithStatus, ValidationStatus, WithExtraBottomSpace, WithKeyboardAwareScroll } from '../../wrappers';
+import { WithStatus, ValidationStatus, WithKeyboardAwareScroll, WithExtraBottomSpace } from '../../wrappers';
 
 const FormSignupStep1Meta: ComponentMeta<typeof FormSignupStep1> = {
   title: 'Forms/FormSignupStep1',

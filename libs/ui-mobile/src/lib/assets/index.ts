@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import {
   Love,
   Validate,
@@ -60,29 +62,10 @@ import {
   Right,
   Gasoline,
 } from './svg';
-import {
-  Back,
-  Oups,
-  Thumb,
-  HeaderBad,
-  HeaderChampion,
-  HeaderCop21,
-  HeaderFrance,
-  BilanBadFR,
-  BilanBadEN,
-  BilanChampionFR,
-  BilanChampionEN,
-  BilanCop21FR,
-  BilanCop21EN,
-  BilanFranceFR,
-  BilanFranceEN,
-  WarningFoodCO2,
-} from './images';
 export {
   Love,
   Validate,
   Logout,
-  Back,
   DropDownChevron,
   Location,
   RightChevron,
@@ -114,7 +97,6 @@ export {
   Cart,
   ExportPdfGradient,
   Ibanv2,
-  Oups,
   Carbon,
   Car,
   House,
@@ -140,19 +122,5 @@ export {
   Shield,
   Delete,
   Right,
-  Thumb,
-  HeaderBad,
-  HeaderChampion,
-  HeaderCop21,
-  HeaderFrance,
-  BilanBadFR,
-  BilanBadEN,
-  BilanChampionFR,
-  BilanChampionEN,
-  BilanCop21FR,
-  BilanCop21EN,
-  BilanFranceFR,
-  BilanFranceEN,
-  WarningFoodCO2,
   Gasoline,
 };

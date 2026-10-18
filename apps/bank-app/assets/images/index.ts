@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import Back from './back.png';
 import Oups from './oups.png';
 import Thumb from './thumb.png';
 import HeaderBad from './header-bad.png';
@@ -17,7 +16,6 @@ import BilanFranceFR from './bilan-france-fr.png';
 import BilanFranceEN from './bilan-france-en.png';
 import WarningFoodCO2 from './warning.png';
 export {
-  Back,
   Oups,
   Thumb,
   HeaderBad,

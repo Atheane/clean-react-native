@@ -8,7 +8,7 @@ export default {
     orientation: 'portrait',
     icon: './assets/icon.png',
     splash: {
-      image: './assets/splash.png',
+      image: './assets/images/splash.png',
       resizeMode: 'contain',
       backgroundColor: '#ffffff',
     },
@@ -22,13 +22,13 @@ export default {
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: './assets/adaptive-icon.png',
+        foregroundImage: './assets/images/adaptive-icon.png',
         backgroundColor: '#FFFFFF',
       },
       package: 'com.clean-rn.bank-appdev',
     },
     web: {
-      favicon: './assets/favicon.png',
+      favicon: './assets/images/favicon.png',
       bundler: 'metro',
     },
     plugins: [
