@@ -1,4 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import { useTranslation } from 'react-i18next';
+
 import { LinkButton, LinkButtonColors, useTogglePress } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus } from '../../wrappers';
@@ -14,7 +16,6 @@ const LinkButtonMeta: ComponentMeta<typeof LinkButton> = {
     },
   },
   args: {
-    title: 'Forgotten password?',
     pressed: false,
     arrow: true,
     colorOption: LinkButtonColors.GREEN,
@@ -24,8 +25,15 @@ const LinkButtonMeta: ComponentMeta<typeof LinkButton> = {
 
 export default LinkButtonMeta;
 
-export const Static: ComponentStory<typeof LinkButton> = (args) => <LinkButton {...args} />;
+export const Static: ComponentStory<typeof LinkButton> = (args) => {
+  const { t } = useTranslation();
+  return <LinkButton {...args} title={t('screens.login.forgottenPassword')} />;
+};
 export const Dynamic: ComponentStory<typeof LinkButton> = (args) => {
+  const { t } = useTranslation();
+
   const { pressed, onPress } = useTogglePress(false);
-  return <LinkButton {...args} pressed={pressed} onPress={onPress} />;
+  return (
+    <LinkButton {...args} title={t('screens.login.forgottenPassword')} pressed={pressed} onPress={onPress} />
+  );
 };

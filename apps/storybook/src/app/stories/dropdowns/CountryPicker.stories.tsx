@@ -1,5 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import countryFlagEmoji from 'country-flag-emoji';
+import { useTranslation } from 'react-i18next';
+import { getLocales } from 'expo-localization';
 
 import { CountryPicker } from '@clean-rn/ui-mobile';
 import { ICountry } from '@clean-rn/auth/domain';
@@ -39,4 +41,10 @@ const CountryPickerMeta: ComponentMeta<typeof CountryPicker> = {
 
 export default CountryPickerMeta;
 
-export const Dynamic: ComponentStory<typeof CountryPicker> = (args) => <CountryPicker {...args} />;
+export const Dynamic: ComponentStory<typeof CountryPicker> = (args) => {
+  const { t } = useTranslation();
+  const { regionCode } = getLocales()[0] as { regionCode: string };
+  return (
+    <CountryPicker {...args} label={t('screens.signupstep4.birthCountry.label')} defaultValue={regionCode} />
+  );
+};

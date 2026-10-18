@@ -1,4 +1,5 @@
 import { StyleProp, ViewStyle } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { Love, Validate, PrimaryButton, Colors } from '@clean-rn/ui-mobile';
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
@@ -12,7 +13,6 @@ const PrimaryButtonMeta: ComponentMeta<typeof PrimaryButton> = {
     iconTwo: { table: { disable: true } },
   },
   args: {
-    title: 'Sign up',
     long: false,
     uppercase: true,
   },
@@ -23,18 +23,30 @@ export default PrimaryButtonMeta;
 
 type PrimaryButtonStory = ComponentStory<typeof PrimaryButton>;
 
-export const Static: PrimaryButtonStory = (args) => <PrimaryButton {...args} />;
-export const OneIcon: PrimaryButtonStory = (args) => (
-  <PrimaryButton
-    iconOne={() => (
-      <Love width={23} height={23} style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
-    )}
-    {...args}
-  />
-);
-export const TwoIcons: PrimaryButtonStory = (args) => {
+export const Static: PrimaryButtonStory = (args) => {
+  const { t } = useTranslation();
+  return <PrimaryButton {...args} title={t('screens.login.title')} />;
+};
+export const OneIcon: PrimaryButtonStory = (args) => {
+  const { t } = useTranslation();
+
   return (
     <PrimaryButton
+      {...args}
+      title={t('screens.login.title')}
+      iconOne={() => (
+        <Love width={23} height={23} style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+      )}
+    />
+  );
+};
+export const TwoIcons: PrimaryButtonStory = (args) => {
+  const { t } = useTranslation();
+
+  return (
+    <PrimaryButton
+      {...args}
+      title={t('screens.login.title')}
       iconOne={() => (
         <Love width={23} height={23} style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
       )}
@@ -45,7 +57,6 @@ export const TwoIcons: PrimaryButtonStory = (args) => {
           style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>}
         />
       )}
-      {...args}
     />
   );
 };

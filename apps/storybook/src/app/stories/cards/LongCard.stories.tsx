@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { LongCard, ExportPdfGradient } from '@clean-rn/ui-mobile';
 
@@ -20,4 +21,8 @@ export default LongCardMeta;
 
 type LongCardStory = ComponentStory<typeof LongCard>;
 
-export const Static: LongCardStory = (args) => <LongCard {...args} />;
+export const Static: LongCardStory = (args) => {
+  const { t } = useTranslation();
+
+  return <LongCard {...args} text={t('screens.accountStatementsCurrentMonth.title')} />;
+};

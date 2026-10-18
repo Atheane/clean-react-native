@@ -1,4 +1,8 @@
 {
+  "banners": {
+    "updateApplication": "New version available",
+    "identityValidation": "Validate identity"
+  },
   "errors": {
     "email": {
       "required": "email required",
@@ -200,7 +204,8 @@
     "account": {
       "balance": "Account balance",
       "oups": "Top up your CO2 Account to use the climate currency on a daily basis!",
-      "iban": "Display my CO2 IBAN"
+      "iban": "Display my CO2 IBAN",
+      "transfer": "Transfer"
     },
     "accountStatements": {
       "title": "Export",
@@ -257,7 +262,8 @@
         "wood": "Wood",
         "heatPump": "Heat pump",
         "thermalSolar": "Thermal solar",
-        "propane": "Propane"
+        "propane": "Propane",
+        "stateDepartment": "State department"
       },
       "slider": {
         "consumption": "consumption",
@@ -313,6 +319,7 @@
         "arrival": "Arrival at"
       },
       "slider": "Number of trips",
+      "search": "Search",
       "swipeButton": {
         "type": "Journey",
         "simple": "One way",

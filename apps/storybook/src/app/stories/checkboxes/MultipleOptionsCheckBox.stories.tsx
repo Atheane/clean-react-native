@@ -1,5 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { MultipleOptionsCheckBox } from '@clean-rn/ui-mobile';
+import { useTranslation } from 'react-i18next';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
@@ -9,26 +10,40 @@ const YesNoCheckBoxMeta: ComponentMeta<typeof MultipleOptionsCheckBox> = {
   argTypes: {
     onChange: { action: 'onChange' },
   },
-  args: {
-    label: 'I am a "person us"',
-    subtitle: '(American resident)',
-    optionsTitle: ['No', 'Yes'],
-    optionsValues: ['0', '1'],
-  },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
 export default YesNoCheckBoxMeta;
 
-export const YesNo: ComponentStory<typeof MultipleOptionsCheckBox> = (args) => (
-  <MultipleOptionsCheckBox {...args} />
-);
-export const ThreeTileOptions: ComponentStory<typeof MultipleOptionsCheckBox> = (args) => (
-  <MultipleOptionsCheckBox
-    optionsTitle={['Man', 'Woman', 'Neutral']}
-    optionsValues={['M', 'Mrs', 'Miss']}
-    subtitle={undefined}
-    label={'Gender'}
-    onChange={args.onChange}
-  />
-);
+export const YesNo: ComponentStory<typeof MultipleOptionsCheckBox> = (args) => {
+  const { t } = useTranslation();
+  return (
+    <MultipleOptionsCheckBox
+      {...args}
+      label={t('screens.signupstep5.usperson.label')}
+      subtitle={t('screens.signupstep5.usperson.subtitle')}
+      optionsTitle={[t('screens.signupstep5.usperson.yes'), t('screens.signupstep5.usperson.no')]}
+      optionsValues={[t('screens.signupstep5.usperson.yes'), t('screens.signupstep5.usperson.no')]}
+    />
+  );
+};
+export const ThreeTileOptions: ComponentStory<typeof MultipleOptionsCheckBox> = (args) => {
+  const { t } = useTranslation();
+
+  return (
+    <MultipleOptionsCheckBox
+      {...args}
+      label={t('screens.signupstep2.gender.label')}
+      optionsTitle={[
+        t('screens.signupstep2.gender.man'),
+        t('screens.signupstep2.gender.woman'),
+        t('screens.signupstep2.gender.neutral'),
+      ]}
+      optionsValues={[
+        t('screens.signupstep2.gender.man'),
+        t('screens.signupstep2.gender.woman'),
+        t('screens.signupstep2.gender.neutral'),
+      ]}
+    />
+  );
+};

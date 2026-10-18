@@ -1,4 +1,6 @@
 import { StyleProp, ViewStyle } from 'react-native';
+import { useTranslation } from 'react-i18next';
+
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { SecondaryButton, Logout, Colors } from '@clean-rn/ui-mobile';
 
@@ -12,7 +14,6 @@ const SecondaryButtonMeta: ComponentMeta<typeof SecondaryButton> = {
     iconOne: { table: { disable: true } },
   },
   args: {
-    title: 'Log in',
     long: false,
     uppercase: true,
   },
@@ -23,16 +24,24 @@ export default SecondaryButtonMeta;
 
 type SecondaryButtonStory = ComponentStory<typeof SecondaryButton>;
 
-export const Static: SecondaryButtonStory = (args) => <SecondaryButton {...args} />;
-export const Icon: SecondaryButtonStory = (args) => (
-  <SecondaryButton
-    iconOne={() => (
-      <Logout
-        width={27}
-        height={27}
-        style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
-      />
-    )}
-    {...args}
-  />
-);
+export const Static: SecondaryButtonStory = (args) => {
+  const { t } = useTranslation();
+  return <SecondaryButton {...args} title={t('screens.login.title')} />;
+};
+export const Icon: SecondaryButtonStory = (args) => {
+  const { t } = useTranslation();
+
+  return (
+    <SecondaryButton
+      {...args}
+      iconOne={() => (
+        <Logout
+          width={27}
+          height={27}
+          style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
+        />
+      )}
+      title={t('screens.login.title')}
+    />
+  );
+};

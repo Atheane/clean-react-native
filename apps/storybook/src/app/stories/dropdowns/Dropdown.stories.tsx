@@ -1,4 +1,5 @@
 import { StyleProp, ViewStyle } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { sort } from 'fast-sort';
 
@@ -48,13 +49,27 @@ const sortedDeps = sort(departmentsFR)
     value: dep.NCC,
   }));
 
-export const HeatingTypes: DropdownStory = (args) => <Dropdown {...args} />;
-export const Departments: DropdownStory = (args) => (
-  <Dropdown
-    {...args}
-    label={'State departments'}
-    placeholder={'State department'}
-    data={sortedDeps}
-    icon={() => <Department style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />}
-  />
-);
+export const HeatingTypes: DropdownStory = (args) => {
+  const { t } = useTranslation();
+  return (
+    <Dropdown
+      {...args}
+      label={t('screens.carbonHouse.dropdown.heater')}
+      placeholder={t('screens.carbonHouse.dropdown.heater')}
+      data={sortedDeps}
+    />
+  );
+};
+export const Departments: DropdownStory = (args) => {
+  const { t } = useTranslation();
+
+  return (
+    <Dropdown
+      {...args}
+      label={t('screens.carbonHouse.dropdown.stateDepartment')}
+      placeholder={t('screens.carbonHouse.dropdown.stateDepartment')}
+      data={sortedDeps}
+      icon={() => <Department style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />}
+    />
+  );
+};

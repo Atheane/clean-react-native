@@ -42,9 +42,7 @@ export const WhiteBalance = (props: IProps) => {
           <Text style={[theme.bank.text.white, styles.balance]}>
             {props.account.authorizedBalance.toString().replace('.', ',')}
           </Text>
-          <View style={styles.greenEuroContainer}>
-            <GreenEuro />
-          </View>
+          <GreenEuro />
         </View>
         <View style={styles.linkContainer}>
           {props.onPress && (
@@ -64,9 +62,6 @@ export const WhiteBalance = (props: IProps) => {
 const styles = StyleSheet.create({
   widgetContainer: {
     width: Dimensions.get('window').width * 0.9,
-  },
-  greenEuroContainer: {
-    marginBottom: 8,
   },
   linkContainer: {
     marginBottom: 24,

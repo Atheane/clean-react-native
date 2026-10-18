@@ -12,7 +12,7 @@ const EventCardMeta: ComponentMeta<typeof EventCard> = {
   },
   args: {
     icon: Tree,
-    text: 'Concours Weflo RSE lorem ipsum delatus',
+    text: 'Lorem ipsum delatus',
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };

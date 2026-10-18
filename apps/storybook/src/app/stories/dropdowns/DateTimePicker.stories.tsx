@@ -1,4 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import { useTranslation } from 'react-i18next';
+
 import { DateTimePicker } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
@@ -10,13 +12,22 @@ const DateTimePickerMeta: ComponentMeta<typeof DateTimePicker> = {
     onChange: { action: 'onChange' },
   },
   args: {
-    label: 'Date de naissance',
+    label: 'test',
     format: 'DD/MM/YYYY',
-    placeholder: 'Date de naissance',
+    placeholder: 'placeholder',
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
 export default DateTimePickerMeta;
 
-export const Dynamic: ComponentStory<typeof DateTimePicker> = (args) => <DateTimePicker {...args} />;
+export const Dynamic: ComponentStory<typeof DateTimePicker> = (args) => {
+  const { t } = useTranslation();
+  return (
+    <DateTimePicker
+      {...args}
+      label={t('screens.signupstep4.birthday.label')}
+      placeholder={t('screens.signupstep4.birthday.placeholder')}
+    />
+  );
+};

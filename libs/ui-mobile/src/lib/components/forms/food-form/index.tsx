@@ -51,7 +51,7 @@ export const FoodForm = (props: IProps) => {
       setSlider(newForm);
       props.onChangeForm(newForm);
     },
-    [slider, props.onChangeForm],
+    [slider, props],
   );
 
   const SliderList = () => {

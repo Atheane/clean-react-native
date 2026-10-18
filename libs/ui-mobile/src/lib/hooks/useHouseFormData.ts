@@ -44,7 +44,7 @@ export const useHouseFormData = () => {
     } catch (e: unknown) {
       Logger.getInstance().debug(e);
     }
-  }, [formData?.heater]);
+  }, [formData]);
 
   return { disabled, formData, resetFormData, handleFormData };
 };

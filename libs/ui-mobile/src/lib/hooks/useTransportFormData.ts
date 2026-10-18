@@ -39,7 +39,7 @@ export const useTransportFormData = () => {
     } catch (e: unknown) {
       Logger.getInstance().debug(e);
     }
-  }, [formData?.fuel]);
+  }, [formData]);
 
   return { disabled, formData, resetFormData, handleFormData };
 };

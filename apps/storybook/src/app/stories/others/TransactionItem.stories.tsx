@@ -1,4 +1,6 @@
 import { StyleProp, ViewStyle } from 'react-native';
+import { useTranslation } from 'react-i18next';
+
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
 import { Colors, Love, TransactionItem } from '@clean-rn/ui-mobile';
@@ -16,7 +18,6 @@ const TransactionItemMeta: ComponentMeta<typeof TransactionItem> = {
         style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
       />
     ),
-    label: 'Virement Marie Dupond',
     amount: 131,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
@@ -26,5 +27,12 @@ export default TransactionItemMeta;
 
 type TransactionItemStory = ComponentStory<typeof TransactionItem>;
 
-export const PositiveAmount: TransactionItemStory = (args) => <TransactionItem {...args} />;
-export const NegativeAmount: TransactionItemStory = (args) => <TransactionItem {...args} amount={-49} />;
+export const PositiveAmount: TransactionItemStory = (args) => {
+  const { t } = useTranslation();
+  return <TransactionItem {...args} label={t('screens.account.transfer') + ' Marie Dupond'} />;
+};
+export const NegativeAmount: TransactionItemStory = (args) => {
+  const { t } = useTranslation();
+
+  return <TransactionItem {...args} amount={-49} label={t('screens.account.transfer') + ' Marie Dupond'} />;
+};

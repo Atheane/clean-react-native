@@ -1,4 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import { useTranslation } from 'react-i18next';
 
 import { AccountError } from '@clean-rn/account/domain';
 import { Banner, BannerColors } from '@clean-rn/ui-mobile';
@@ -12,7 +13,6 @@ const BannerMeta: ComponentMeta<typeof Banner> = {
     onPressRightIcon: { action: 'onPressRightIcon' },
   },
   args: {
-    title: 'Mise à jour à faire',
     colorBanner: BannerColors.PINK,
     rightIcon: true,
   },
@@ -23,11 +23,15 @@ export default BannerMeta;
 
 type BannerStory = ComponentStory<typeof Banner>;
 
-export const UpdateNeeded: BannerStory = (args) => <Banner {...args} />;
+export const UpdateNeeded: BannerStory = (args) => {
+  const { t } = useTranslation();
+  return <Banner {...args} title={t('banners.updateApplication')} />;
+};
 export const ErrorMessage: BannerStory = (args) => {
   const error = new AccountError.InvalidIban('Invalid IBAN');
   return <Banner {...args} title={error.message} rightIcon={false} />;
 };
 export const IdentityValidation: BannerStory = (args) => {
-  return <Banner {...args} title="Validation d'identité" colorBanner={BannerColors.PURPLE} />;
+  const { t } = useTranslation();
+  return <Banner {...args} title={t('banners.identityValidation')} colorBanner={BannerColors.PURPLE} />;
 };

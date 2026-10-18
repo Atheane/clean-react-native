@@ -1,4 +1,6 @@
 import { StyleProp, ViewStyle } from 'react-native';
+import { useTranslation } from 'react-i18next';
+
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { TextInput, Love, Colors } from '@clean-rn/ui-mobile';
 
@@ -36,7 +38,19 @@ export default TextInputMeta;
 
 type TextInputStory = ComponentStory<typeof TextInput>;
 
-export const Static: TextInputStory = (args) => <TextInput {...args} />;
-export const GreyLabel: TextInputStory = (args) => (
-  <TextInput {...args} labelColor={Colors.bank.primary.grey} />
-);
+export const Static: TextInputStory = (args) => {
+  const { t } = useTranslation();
+
+  return <TextInput {...args} label={t('screens.signupstep2.firstName.label')} />;
+};
+export const GreyLabel: TextInputStory = (args) => {
+  const { t } = useTranslation();
+
+  return (
+    <TextInput
+      {...args}
+      label={t('screens.signupstep2.firstName.label')}
+      labelColor={Colors.bank.primary.grey}
+    />
+  );
+};

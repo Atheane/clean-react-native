@@ -1,4 +1,8 @@
 {
+  "banners": {
+    "updateApplication": "Mise à jour disponible",
+    "identityValidation": "Validation de l'identité"
+  },
   "errors": {
     "email": {
       "required": "email requis",
@@ -199,7 +203,8 @@
     "account": {
       "balance": "Solde de mon compte",
       "oups": "Créditez votre Bank App pour utiliser la monnaie climatique au quotidien !",
-      "iban": "Afficher mon IBAN CO2"
+      "iban": "Afficher mon IBAN CO2",
+      "transfer": "Virement"
     },
     "accountStatements": {
       "title": "Export",
@@ -257,7 +262,8 @@
         "heatPump": "Pompe à chaleur",
         "thermalSolar": "Solaire thermique",
         "propane": "Propane",
-        "unit": " L"
+        "unit": " L",
+        "stateDepartment": "Département"
       },
       "slider": {
         "consumption": "consommation",
@@ -312,6 +318,7 @@
         "destination": "Départ de",
         "arrival": "Arrivée à"
       },
+      "search": "Rechercher",
       "slider": "Nombre de trajets",
       "swipeButton": {
         "type": "Trajet",

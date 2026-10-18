@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { SubmitButton } from '@clean-rn/ui-mobile';
 
@@ -18,4 +19,7 @@ const SubmitButtonMeta: ComponentMeta<typeof SubmitButton> = {
 
 export default SubmitButtonMeta;
 
-export const Static: ComponentStory<typeof SubmitButton> = (args) => <SubmitButton {...args} />;
+export const Static: ComponentStory<typeof SubmitButton> = (args) => {
+  const { t } = useTranslation();
+  return <SubmitButton {...args} title={t('screens.login.submitButton')} />;
+};
