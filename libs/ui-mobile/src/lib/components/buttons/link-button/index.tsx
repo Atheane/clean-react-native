@@ -39,13 +39,13 @@ export const LinkButton: FC<IProps> = (props: IProps) => {
 const getColor = (option: LinkButtonColors) => (isPressed: boolean) => {
   switch (option) {
     case LinkButtonColors.PINK:
-      return isPressed ? Colors.link.pinkTransparent : Colors.link.pink;
+      return isPressed ? Colors.bank.pinkTransparent : Colors.bank.secondary.pink;
     case LinkButtonColors.BLUE:
-      return isPressed ? Colors.link.darkBlueTransparent : Colors.link.darkBlue;
+      return isPressed ? Colors.bank.primary.lightPurple : Colors.bank.primary.darkBlue;
     case LinkButtonColors.WHITE:
-      return isPressed ? Colors.link.whiteTransparent : Colors.link.white;
+      return isPressed ? Colors.bank.primary.lightGrey : Colors.bank.primary.white;
     default:
-      return isPressed ? Colors.link.lightGreenTransparent : Colors.link.lightGreen;
+      return isPressed ? Colors.bank.primary.lightGreen : Colors.bank.primary.darkGreen;
   }
 };
 

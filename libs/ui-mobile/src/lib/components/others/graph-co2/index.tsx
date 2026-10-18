@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     top: -80,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: Colors.shadow.bold,
+    shadowColor: Colors.bank.shadow,
     shadowOffset: {
       width: 5,
       height: 5,

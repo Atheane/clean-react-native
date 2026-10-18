@@ -23,7 +23,7 @@ export const SelectNumber = (props: IProps) => {
           minValue={0}
           valueType="integer"
           rounded={true}
-          borderColor={Colors.border.transparent}
+          borderColor={Colors.bank.transparent}
           rightButtonBackgroundColor={Colors.bank.primary.lightGreen}
           leftButtonBackgroundColor={Colors.bank.primary.lightGreen}
           value={props.value}
@@ -46,7 +46,7 @@ export const SelectNumber = (props: IProps) => {
           minValue={0}
           valueType="integer"
           rounded={true}
-          borderColor={Colors.border.transparent}
+          borderColor={Colors.bank.transparent}
           rightButtonBackgroundColor={Colors.bank.primary.lightGreen}
           leftButtonBackgroundColor={Colors.bank.primary.lightGreen}
           value={props.value}

@@ -53,11 +53,10 @@ export const theme = createTheme({
     },
   },
   shadow: {
-    color: Colors.shadow.bold,
+    color: Colors.bank.shadow,
     opacity: 0.34,
     offset: { width: 5, height: 15 },
     radius: 20,
-    width: 260,
   },
   linearGradient: {
     start: Colors.bank.greenGradient.lightGreen,

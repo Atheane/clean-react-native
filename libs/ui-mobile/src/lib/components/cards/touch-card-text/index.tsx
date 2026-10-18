@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.45,
     height: (Dimensions.get('window').width * 0.45) / CARD_RATIO,
     borderRadius: 20,
-    shadowColor: Colors.shadow.bold,
+    shadowColor: Colors.bank.shadow,
     shadowOffset: {
       width: 5,
       height: 5,

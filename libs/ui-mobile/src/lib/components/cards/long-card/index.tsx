@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.85,
     height: 85,
     borderRadius: 20,
-    shadowColor: Colors.shadow.bold,
+    shadowColor: Colors.bank.shadow,
     shadowOffset: {
       width: 5,
       height: 5,

@@ -72,9 +72,7 @@ export const Banner = (props: IProps) => {
             onPress={() => {
               return null;
             }}
-            iconOne={() => (
-              <RightChevron width={16} height={26} style={{ color: Colors.bank.background.transparent }} />
-            )}
+            iconOne={() => <RightChevron width={16} height={26} style={{ color: Colors.bank.transparent }} />}
             colorOption={LinkButtonColors.WHITE}
           />
         </View>

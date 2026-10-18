@@ -86,7 +86,7 @@ const styles = (props: IProps) =>
       height: 20,
       borderRadius: 50,
       marginHorizontal: 4,
-      shadowColor: Colors.shadow.bold,
+      shadowColor: Colors.bank.shadow,
       shadowOffset: {
         width: 0,
         height: 5,

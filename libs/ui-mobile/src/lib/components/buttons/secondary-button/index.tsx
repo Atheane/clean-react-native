@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     backgroundColor: Colors.bank.primary.white,
-    shadowColor: Colors.shadow.bold, // iOS
+    shadowColor: Colors.bank.shadow, // iOS
     shadowOffset: { width: 5, height: 15 }, // iOS
     shadowOpacity: 0.34, // iOS
     shadowRadius: 20, // iOS

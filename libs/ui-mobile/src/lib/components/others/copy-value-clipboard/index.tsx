@@ -36,7 +36,7 @@ export const CopyValueClipboard = (props: IProps) => {
             visible={openTooltip}
             withPointer={false}
             popover={<Text style={styles.tooltipText}>{props.value}</Text>}
-            backgroundColor={Colors.bank.background.transparent}
+            backgroundColor={Colors.bank.transparent}
             highlightColor={Colors.bank.primary.lightGreen}
             containerStyle={styles.tooltipContainer}
           />

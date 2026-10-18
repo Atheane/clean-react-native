@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.bank.primary.lightGrey,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: Colors.border.lightGrey,
+    borderColor: Colors.bank.primary.grey,
     padding: Platform.OS === 'ios' ? 8 : 5,
     marginHorizontal: 7,
   },

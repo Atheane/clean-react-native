@@ -38,7 +38,7 @@ const styles = (props: IProps) =>
       width: Dimensions.get('window').width * 0.46,
       height: (Dimensions.get('window').width * 0.46) / CARD_RATIO,
       borderRadius: 20,
-      shadowColor: Colors.shadow.bold,
+      shadowColor: Colors.bank.shadow,
       shadowOffset: {
         width: 5,
         height: 5,

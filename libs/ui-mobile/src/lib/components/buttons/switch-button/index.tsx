@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Button } from '@rneui/themed';
 
@@ -35,7 +35,7 @@ export const SwitchButton: FC<IProps> = (props: IProps) => {
           <Button
             buttonStyle={[
               styles.button,
-              { backgroundColor: toggle ? Colors.bank.primary.white : Colors.bank.background.transparent },
+              { backgroundColor: toggle ? Colors.bank.primary.white : Colors.bank.transparent },
             ]}
             onPress={() => handleOnPress(0)}
           >
@@ -52,7 +52,7 @@ export const SwitchButton: FC<IProps> = (props: IProps) => {
           <Button
             buttonStyle={[
               styles.button,
-              { backgroundColor: toggle ? Colors.bank.background.transparent : Colors.bank.primary.white },
+              { backgroundColor: toggle ? Colors.bank.transparent : Colors.bank.primary.white },
             ]}
             onPress={() => handleOnPress(1)}
           >
@@ -73,9 +73,9 @@ export const SwitchButton: FC<IProps> = (props: IProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 309,
+    width: Dimensions.get('window').width * 0.8,
     height: 55,
-    shadowColor: Colors.shadow.bold, // iOS
+    shadowColor: Colors.bank.shadow, // iOS
     shadowOffset: { width: 5, height: 15 }, // iOS
     shadowOpacity: 0.34, // iOS
     shadowRadius: 20, // iOS

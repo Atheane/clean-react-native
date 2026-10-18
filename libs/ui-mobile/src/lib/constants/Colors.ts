@@ -31,29 +31,8 @@ export const Colors = {
       lightGreen: '#CFCE29',
       transparent: 'transparent',
     },
-    border: {
-      lightGrey: '#E0E0E0',
-    },
-  },
-  shadow: {
-    bold: '#707070',
-    light: 'rgba(0,0,0, 0.11)',
-  },
-  link: {
-    pink: 'rgba(203, 40, 125, 1)',
-    pinkTransparent: 'rgba(203, 40, 125, 0.6)',
-    lightGreen: 'rgba(162, 179, 2, 1)',
-    lightGreenTransparent: 'rgba(162, 179, 2, 0.6)',
-    darkBlue: 'rgba(64, 80, 152, 1)',
-    darkBlueTransparent: 'rgba(64, 80, 152, 0.6)',
-    white: 'rgba(255, 255, 255, 1)',
-    whiteTransparent: 'rgba(255, 255, 255, 0.6)',
-  },
-  border: {
-    lightGrey: 'rgba(131, 131, 131, 1)',
-    veryLightGrey: 'rgba(131, 131, 131, 0.2)',
-    pink: 'rgba(203, 40, 125, 1)',
-    whiteTransparent: 'rgba(255, 255, 255, 0.6)',
+    shadow: '#707070',
     transparent: 'transparent',
+    pinkTransparent: 'rgba(203, 40, 125, 0.6)',
   },
 };

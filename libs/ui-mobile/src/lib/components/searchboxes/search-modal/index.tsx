@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '90%',
     paddingVertical: 10,
-    borderBottomColor: Colors.border.veryLightGrey,
+    borderBottomColor: Colors.bank.primary.lightGrey,
     borderBottomWidth: 1,
   },
   itemText: {

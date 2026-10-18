@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     margin: 16,
     borderRadius: 10,
     borderWidth: 0,
-    shadowColor: Colors.shadow.bold,
+    shadowColor: Colors.bank.shadow,
     shadowOffset: {
       width: 5,
       height: 5,
