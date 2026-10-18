@@ -16,7 +16,7 @@ import { AuthApi } from '@clean-rn/auth/infrastructure';
 describe('Login - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
   const api = AuthApi.getInstance(httpConnection);
-  const genObject = loginSaga(api);
+  const genObject = loginSaga(httpConnection);
 
   const mockData = {
     email: new Email('test@example.com'),
@@ -37,12 +37,12 @@ describe('Login - usecase', () => {
   };
 
   it('Should wait for FETCH_LOGIN action and call loginApiSaga, should be done on next iteration', () => {
-    expect(genObject.next().value).toEqual(takeEvery(ILoginTypes.FETCH_LOGIN, loginApiSaga, api));
+    expect(genObject.next().value).toEqual(takeEvery(ILoginTypes.FETCH_LOGIN, loginApiSaga, httpConnection));
     expect(genObject.next().done).toBeTruthy();
   });
 
   it('Should call loginSuccess', async () => {
-    testSaga(loginApiSaga, api, {
+    testSaga(loginApiSaga, httpConnection, {
       type: ILoginTypes.FETCH_LOGIN,
       payload: mockData,
     })
@@ -58,7 +58,7 @@ describe('Login - usecase', () => {
   });
 
   it('Should call loginFailure action if 400', () => {
-    testSaga(loginApiSaga, api, {
+    testSaga(loginApiSaga, httpConnection, {
       type: ILoginTypes.FETCH_LOGIN,
       payload: mockData,
     })
@@ -72,7 +72,7 @@ describe('Login - usecase', () => {
   });
 
   it('Should call loginFailure if login with different email that the one stored on the phone', () => {
-    testSaga(loginApiSaga, api, {
+    testSaga(loginApiSaga, httpConnection, {
       type: ILoginTypes.FETCH_LOGIN,
       payload: mockData,
     })

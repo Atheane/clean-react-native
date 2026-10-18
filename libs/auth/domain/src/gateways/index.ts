@@ -1,3 +1,4 @@
+import { ISuccess } from '@clean-rn/ddd';
 import { Email } from '../valueObjects';
 
 export type IAuth = {
@@ -16,7 +17,7 @@ export type IResetPasswordCommand = {
 
 export interface IAuthGateway {
   login: (cmd: ILoginCommand) => Promise<IAuth>;
-  resetPassword: (cmd: IResetPasswordCommand) => Promise<{ success: boolean }>;
+  resetPassword: (cmd: IResetPasswordCommand) => Promise<ISuccess>;
   //   sendPhoneValidation: (
   //     params: IPostSendPhoneValidationParams,
   //   ) => Promise<AxiosResponse<{ success: boolean }>>;

@@ -11,7 +11,10 @@ import { resetPasswordApiSaga, resetPasswordSaga } from '../../usecases/reset-pa
 import { IResetPasswordTypes, resetPasswordSuccess } from '../../commands/reset-password';
 
 describe('ResetPassword - usecase', () => {
-  const genObject = resetPasswordSaga();
+  const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+  const api = AuthApi.getInstance(httpConnection);
+
+  const genObject = resetPasswordSaga(httpConnection);
 
   const mockData = {
     email: new Email('test@example.com'),
@@ -21,18 +24,15 @@ describe('ResetPassword - usecase', () => {
     success: true,
   };
 
-  const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
-  const api = AuthApi.getInstance(httpConnection);
-
   it('should wait for FETCH_RESET_PASSWORD action and call resetPasswordApiSaga, should be done on next iteration', () => {
     expect(genObject.next().value).toEqual(
-      takeEvery(IResetPasswordTypes.FETCH_RESET_PASSWORD, resetPasswordApiSaga),
+      takeEvery(IResetPasswordTypes.FETCH_RESET_PASSWORD, resetPasswordApiSaga, httpConnection),
     );
     expect(genObject.next().done).toBeTruthy();
   });
 
   it('should call resetPasswordSuccess actions', () => {
-    testSaga(resetPasswordApiSaga, {
+    testSaga(resetPasswordApiSaga, httpConnection, {
       type: IResetPasswordTypes.FETCH_RESET_PASSWORD,
       payload: mockData,
     })

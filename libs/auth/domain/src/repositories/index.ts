@@ -1,8 +1,12 @@
-import { IUser } from '../entities';
-import { Email, Phone } from '../valueObjects';
+import { ISuccess } from '@clean-rn/ddd';
+import { Email } from '../valueObjects';
+
+export type ICheckEmailQuery = {
+  email: Email;
+};
 
 export interface IUserRepository {
-  createUser(user: IUser): Promise<IUser>; //user as an aggregate Entity class, with IUserProperties
-  getUserByEmail(email: Email): Promise<IUser>;
-  getUserByPhone(phone: Phone): Promise<IUser>;
+  // createUser(user: IUser): Promise<IUser>; //user as an aggregate Entity class, with IUserProperties
+  searchEmail(query: ICheckEmailQuery): Promise<ISuccess>;
+  // SearchPhone(phone: Phone): Promise<ISuccess>;
 }

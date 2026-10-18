@@ -1,13 +1,15 @@
+import { ISuccess } from '@clean-rn/ddd';
 import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
+import { ICheckEmailQuery } from '@clean-rn/auth/domain';
 import {
   IAuthGateway,
-  //   IUserRepository,
+  IUserRepository,
   IAuth,
   ILoginCommand,
   IResetPasswordCommand,
 } from '@clean-rn/auth/domain';
 
-export class AuthApi implements IAuthGateway {
+export class AuthApi implements IAuthGateway, IUserRepository {
   private static instance: AuthApi | null = null;
   private connection: HttpConnection;
 
@@ -27,7 +29,7 @@ export class AuthApi implements IAuthGateway {
   }
 
   async login(cmd: ILoginCommand): Promise<IAuth> {
-    //todo mapper cmd to dto
+    //map cmd to dto
     const params = {
       email: cmd.email.value,
       password: cmd.password,
@@ -40,14 +42,27 @@ export class AuthApi implements IAuthGateway {
     return response.json();
   }
 
-  async resetPassword(cmd: IResetPasswordCommand): Promise<{ success: boolean }> {
-    //todo mapper cmd to dto
+  async resetPassword(cmd: IResetPasswordCommand): Promise<ISuccess> {
+    //map cmd to dto
     const params = {
       email: cmd.email.value,
     };
     const response = await fetch(
       `${this.connection.baseUrl}/app/user/resetPassword`,
       this.connection.options(IHttpVerb.PUT, params),
+    );
+    await this.connection.handleError(response);
+    return response.json();
+  }
+
+  async searchEmail(query: ICheckEmailQuery): Promise<ISuccess> {
+    //map query to dto
+    const params = {
+      email: query.email.value,
+    };
+    const response = await fetch(
+      `${this.connection.baseUrl}/app/user/search`,
+      this.connection.options(IHttpVerb.GET, params),
     );
     await this.connection.handleError(response);
     return response.json();

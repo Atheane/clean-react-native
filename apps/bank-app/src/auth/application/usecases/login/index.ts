@@ -1,6 +1,5 @@
 import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Constants from 'expo-constants';
 
 import { AuthError, ILoginCommand } from '@clean-rn/auth/domain';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
@@ -11,7 +10,7 @@ import { IStoreKey } from '../../../../shared/application/types';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
 function* loginApiSaga(
-  api: AuthApi,
+  httpConnection: HttpConnection,
   {
     payload,
   }: {
@@ -27,8 +26,7 @@ function* loginApiSaga(
     yield put(loginFailure(new AuthError.LoginFailureOneEmailByPhone('Phone already registered')));
     yield cancel();
   }
-
-  const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+  const api = AuthApi.getInstance(httpConnection);
   let auth;
   try {
     // api call
@@ -46,8 +44,8 @@ function* loginApiSaga(
   yield call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, auth.accessToken);
 }
 
-function* loginSaga(api: AuthApi): Generator<StrictEffect, any, any> {
-  yield takeEvery(ILoginTypes.FETCH_LOGIN, loginApiSaga, api);
+function* loginSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
+  yield takeEvery(ILoginTypes.FETCH_LOGIN, loginApiSaga, httpConnection);
 }
 
 export { loginSaga, loginApiSaga };
