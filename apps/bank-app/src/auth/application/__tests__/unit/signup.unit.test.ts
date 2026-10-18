@@ -52,7 +52,6 @@ import {
   signupFailed,
   userSignedUp,
 } from '../../commands/signup';
-import { selectEmail, selectPhoneOtp, selectUser } from '../../../application/state-management';
 import { IStoreKey } from '../../../../shared/application/types';
 import { loadStorage } from '../../../../shared/application/commands/initialization';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
@@ -116,6 +115,67 @@ describe('Signup - usecase', () => {
     expect(genObject.next().done).toBeTruthy();
   });
 
+  it('should wait for REGISTER_IDENTITY action and call registerIdentityGenerator, should be done on next iteration', () => {
+    const genObject = registerIdentitySaga();
+
+    expect(genObject.next().value).toEqual(
+      takeEvery(ISignupTypes.REGISTER_IDENTITY, registerIdentityGenerator),
+    );
+    expect(genObject.next().done).toBeTruthy();
+  });
+
+  it('should wait for REGISTER_PASSWORD action and call registerPasswordGenerator, should be done on next iteration', () => {
+    const genObject = registerPasswordSaga();
+
+    expect(genObject.next().value).toEqual(
+      takeEvery(ISignupTypes.REGISTER_PASSWORD, registerPasswordGenerator),
+    );
+    expect(genObject.next().done).toBeTruthy();
+  });
+
+  it('should wait for FETCH_CHECK_PHONE_EXISTS action and call registerPhoneGenerator, should be done on next iteration', () => {
+    const genObject = checkPhoneSaga(httpConnection);
+
+    expect(genObject.next().value).toEqual(
+      takeEvery(ISignupTypes.FETCH_CHECK_PHONE, checkPhoneGenerator, httpConnection),
+    );
+    expect(genObject.next().done).toBeTruthy();
+  });
+
+  it('should wait for FETCH_VALIDATE_PHONE action and call validatePhoneGenerator, should be done on next iteration', () => {
+    const genObject = validatePhoneSaga(httpConnection);
+
+    expect(genObject.next().value).toEqual(
+      takeEvery(ISignupTypes.FETCH_VALIDATE_PHONE, validatePhoneGenerator, httpConnection),
+    );
+    expect(genObject.next().done).toBeTruthy();
+  });
+
+  it('should wait for REGISTER_BIRTH action and call registerBirthGenerator, should be done on next iteration', () => {
+    const genObject = registerBirthSaga();
+
+    expect(genObject.next().value).toEqual(takeEvery(ISignupTypes.REGISTER_BIRTH, registerBirthGenerator));
+    expect(genObject.next().done).toBeTruthy();
+  });
+
+  it('should wait for REGISTER_ADDRESS action and call registerAddressGenerator, should be done on next iteration', () => {
+    const genObject = registerAddressSaga();
+
+    expect(genObject.next().value).toEqual(
+      takeEvery(ISignupTypes.REGISTER_ADDRESS, registerAddressGenerator),
+    );
+    expect(genObject.next().done).toBeTruthy();
+  });
+
+  it('should wait for FETCH_SIGNUP_USER action and call signupUserGenerator, should be done on next iteration', () => {
+    const genObject = signupUserSaga(httpConnection);
+
+    expect(genObject.next().value).toEqual(
+      takeEvery(ISignupTypes.FETCH_SIGNUP_USER, signupUserGenerator, httpConnection),
+    );
+    expect(genObject.next().done).toBeTruthy();
+  });
+
   it('should call checkEmailSuccess actions if email does not exists', () => {
     const mockQueryEmail = {
       email: new Email('test@example.com'),
@@ -154,97 +214,30 @@ describe('Signup - usecase', () => {
       .cancel();
   });
 
-  it('should wait for REGISTER_IDENTITY action and call registerIdentityGenerator, should be done on next iteration', () => {
-    const genObject = registerIdentitySaga();
-
-    expect(genObject.next().value).toEqual(
-      takeEvery(ISignupTypes.REGISTER_IDENTITY, registerIdentityGenerator),
-    );
-    expect(genObject.next().done).toBeTruthy();
-  });
-
-  it('should call registerIdentity actions if user exists', () => {
-    const userPrev = User.Create(new Email('test@example.com'));
+  it('should call registerIdentity actions', () => {
     const user = User.Create(new Email('test@example.com'));
     user.registerIdentity(mockIdentity);
 
     testSaga(registerIdentityGenerator, {
       type: ISignupTypes.REGISTER_IDENTITY,
-      payload: mockIdentity,
+      payload: { user, ...mockIdentity },
     })
       .next()
-      .select(selectUser)
-      .next(userPrev)
       .put(identityRegistered(user))
       .next();
   });
 
-  it('should call registerIdentity actions if no prospect', () => {
-    const user = User.Create(new Email('test@example.com'));
-    user.registerIdentity(mockIdentity);
-
-    testSaga(registerIdentityGenerator, {
-      type: ISignupTypes.REGISTER_IDENTITY,
-      payload: mockIdentity,
-    })
-      .next()
-      .select(selectUser)
-      .next(null)
-      .select(selectEmail)
-      .next(new Email('test@example.com'))
-      .put(identityRegistered(user))
-      .next(user);
-  });
-
-  it('should wait for REGISTER_PASSWORD action and call registerPasswordGenerator, should be done on next iteration', () => {
-    const genObject = registerPasswordSaga();
-
-    expect(genObject.next().value).toEqual(
-      takeEvery(ISignupTypes.REGISTER_PASSWORD, registerPasswordGenerator),
-    );
-    expect(genObject.next().done).toBeTruthy();
-  });
-
-  it('should call registerPassword actions if prospect exists', () => {
-    const userPrev = User.Create(new Email('test@example.com'));
+  it('should call registerPassword actions', () => {
     const user = User.Create(new Email('test@example.com'));
     user.registerPassword(mockPassword.password);
 
     testSaga(registerPasswordGenerator, {
       type: ISignupTypes.REGISTER_PASSWORD,
-      payload: mockPassword,
+      payload: { user, ...mockPassword },
     })
       .next()
-      .select(selectUser)
-      .next(userPrev)
       .put(passwordRegistered(user))
       .next();
-  });
-
-  it('should call registerPassword actions if no prospect', () => {
-    const user = User.Create(new Email('test@example.com'));
-    user.registerPassword(mockPassword.password);
-
-    testSaga(registerPasswordGenerator, {
-      type: ISignupTypes.REGISTER_PASSWORD,
-      payload: mockPassword,
-    })
-      .next()
-      .select(selectUser)
-      .next(null)
-      .select(selectEmail)
-      .next(new Email('test@example.com'))
-      .put(passwordRegistered(user))
-      .next();
-  });
-
-  it('should wait for FETCH_CHECK_PHONE_EXISTS action and call registerPhoneGenerator, should be done on next iteration', () => {
-    const genObject = checkPhoneSaga(httpConnection);
-
-    expect(genObject.next().value).toEqual(
-      takeEvery(ISignupTypes.FETCH_CHECK_PHONE, checkPhoneGenerator, httpConnection),
-    );
-    expect(genObject.next().done).toBeTruthy();
   });
 
   it('should call phoneChecked', () => {
@@ -289,56 +282,28 @@ describe('Signup - usecase', () => {
       .cancel();
   });
 
-  it('should wait for FETCH_VALIDATE_PHONE action and call validatePhoneGenerator, should be done on next iteration', () => {
-    const genObject = validatePhoneSaga(httpConnection);
-
-    expect(genObject.next().value).toEqual(
-      takeEvery(ISignupTypes.FETCH_VALIDATE_PHONE, validatePhoneGenerator, httpConnection),
-    );
-    expect(genObject.next().done).toBeTruthy();
-  });
-
-  it('should call phoneValidated if propect exists', () => {
-    const userPrev = User.Create(new Email('test@example.com'));
+  it('should call phoneValidated', () => {
     const user = User.Create(new Email('test@example.com'));
     user.validatePhone(mockQueryPhoneOtp);
 
     testSaga(validatePhoneGenerator, httpConnection, {
       type: ISignupTypes.FETCH_VALIDATE_PHONE,
-      payload: mockQueryPhoneOtp,
+      payload: { user, ...mockQueryPhoneOtp },
     })
       .next()
       .call([api, api.checkPhoneValidation], mockQueryPhoneOtp)
       .next(mockSuccessTrue)
-      .select(selectUser)
-      .next(userPrev)
-      .put(phoneValidated(user))
-      .next();
-  });
-
-  it('should call phoneValidated if prospect does not exist', () => {
-    const user = User.Create(new Email('test@example.com'));
-    user.validatePhone(mockQueryPhoneOtp);
-
-    testSaga(validatePhoneGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_VALIDATE_PHONE,
-      payload: mockQueryPhoneOtp,
-    })
-      .next()
-      .call([api, api.checkPhoneValidation], mockQueryPhoneOtp)
-      .next(mockSuccessTrue)
-      .select(selectUser)
-      .next(null)
-      .select(selectEmail)
-      .next(new Email('test@example.com'))
       .put(phoneValidated(user))
       .next();
   });
 
   it('should call signupFailed action if otp incorrect', () => {
+    const user = User.Create(new Email('test@example.com'));
+    user.validatePhone(mockQueryPhoneOtp);
+
     testSaga(validatePhoneGenerator, httpConnection, {
       type: ISignupTypes.SIGNUP_FAILED,
-      payload: mockQueryPhoneOtp,
+      payload: { user, ...mockQueryPhoneOtp },
     })
       .next()
       .call([api, api.checkPhoneValidation], mockQueryPhoneOtp)
@@ -348,69 +313,41 @@ describe('Signup - usecase', () => {
       .cancel();
   });
 
-  it('should wait for REGISTER_BIRTH action and call registerBirthGenerator, should be done on next iteration', () => {
-    const genObject = registerBirthSaga();
-
-    expect(genObject.next().value).toEqual(takeEvery(ISignupTypes.REGISTER_BIRTH, registerBirthGenerator));
-    expect(genObject.next().done).toBeTruthy();
-  });
-
   it('should call registerBirth actions if user exists', () => {
-    const userPrev = User.Create(new Email('test@example.com'));
-
     const user = User.Create(new Email('test@example.com'));
     user.registerBirth(mockBirth);
 
     testSaga(registerBirthGenerator, {
       type: ISignupTypes.REGISTER_BIRTH,
-      payload: mockBirth,
+      payload: { user, ...mockBirth },
     })
       .next()
-      .select(selectUser)
-      .next(userPrev)
       .put(birthRegistered(user))
       .next();
   });
 
-  it('should call registerBirth actions if no user', () => {
+  it('should call registerBirth actions', () => {
     const user = User.Create(new Email('test@example.com'));
     user.registerBirth(mockBirth);
 
     testSaga(registerBirthGenerator, {
       type: ISignupTypes.REGISTER_BIRTH,
-      payload: mockBirth,
+      payload: { user, ...mockBirth },
     })
       .next()
-      .select(selectUser)
-      .next(null)
-      .select(selectEmail)
-      .next(new Email('test@example.com'))
       .put(birthRegistered(user))
       .next();
-  });
-
-  it('should wait for REGISTER_ADDRESS action and call registerAddressGenerator, should be done on next iteration', () => {
-    const genObject = registerAddressSaga();
-
-    expect(genObject.next().value).toEqual(
-      takeEvery(ISignupTypes.REGISTER_ADDRESS, registerAddressGenerator),
-    );
-    expect(genObject.next().done).toBeTruthy();
   });
 
   it('should call registerAddress actions if user exists', () => {
-    const userPrev = User.Create(new Email('test@example.com'));
-
     const user = User.Create(new Email('test@example.com'));
     user.registerAddress(mockAddress);
 
     testSaga(registerAddressGenerator, {
       type: ISignupTypes.REGISTER_ADDRESS,
-      payload: mockAddress,
+      payload: { user, ...mockAddress },
     })
       .next()
-      .select(selectUser)
-      .next(userPrev)
       .put(addressRegistered(user))
       .next();
   });
@@ -421,24 +358,11 @@ describe('Signup - usecase', () => {
 
     testSaga(registerAddressGenerator, {
       type: ISignupTypes.REGISTER_ADDRESS,
-      payload: mockAddress,
+      payload: { user, ...mockAddress },
     })
       .next()
-      .select(selectUser)
-      .next(null)
-      .select(selectEmail)
-      .next(new Email('test@example.com'))
       .put(addressRegistered(user))
       .next();
-  });
-
-  it('should wait for FETCH_SIGNUP_USER action and call signupUserGenerator, should be done on next iteration', () => {
-    const genObject = signupUserSaga(httpConnection);
-
-    expect(genObject.next().value).toEqual(
-      takeEvery(ISignupTypes.FETCH_SIGNUP_USER, signupUserGenerator, httpConnection),
-    );
-    expect(genObject.next().done).toBeTruthy();
   });
 
   it('should call userSignedUp actions if user exists', () => {

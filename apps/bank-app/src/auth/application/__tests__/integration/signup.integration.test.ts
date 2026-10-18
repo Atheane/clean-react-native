@@ -43,6 +43,10 @@ import {
   phoneValidated,
   userSignedUp,
   fetchSignupUser,
+  registerIdentity,
+  registerPassword,
+  registerBirth,
+  registerAddress,
 } from '../../commands/signup';
 import { ISignupState, signupReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
@@ -91,6 +95,8 @@ describe('CheckEmail - integration', () => {
     phone: new Phone('0616804613', 'FR'),
   };
 
+  let initialState: ISignupState;
+
   beforeAll(() => {
     Constants.expoConfig = {
       name: 'CleanRN BankApp Test',
@@ -104,7 +110,7 @@ describe('CheckEmail - integration', () => {
   });
 
   beforeEach(() => {
-    const initialState: ISignupState = {
+    initialState = {
       pending: false,
       email: null,
       phone: null,
@@ -150,6 +156,109 @@ describe('CheckEmail - integration', () => {
     });
   });
 
+  it('Should store correct state in case if REGISTER_IDENTITY', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailExistsSaga, httpConnection);
+
+    sagaTester.dispatch(registerIdentity(mockIdentity));
+    expect(sagaTester.getState()).toEqual({
+      ...initialState,
+    });
+  });
+
+  it('Should store correct state in case if REGISTER_PASSWORD', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailExistsSaga, httpConnection);
+
+    sagaTester.dispatch(registerPassword(mockPassword));
+    expect(sagaTester.getState()).toEqual({
+      ...initialState,
+    });
+  });
+
+  it('Should store correct state in case if REGISTER_BIRTH', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailExistsSaga, httpConnection);
+
+    sagaTester.dispatch(registerBirth(mockBirth));
+    expect(sagaTester.getState()).toEqual({
+      ...initialState,
+    });
+  });
+
+  it('Should store correct state in case if REGISTER_ADDRESS', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailExistsSaga, httpConnection);
+
+    sagaTester.dispatch(registerAddress(mockAddress));
+    expect(sagaTester.getState()).toEqual({
+      ...initialState,
+    });
+  });
+
+  it('Should store correct state if FETCH_CHECK_PHONE_EXISTS', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, fetchCheckPhone, httpConnection);
+    sagaTester.dispatch(fetchCheckPhone({ phone: new Phone('0616804613', 'FR') }));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: true,
+      email: null,
+      phone: new Phone('0616804613', 'FR'),
+      phoneOtp: null,
+      user: null,
+      error: null,
+    });
+  });
+
+  it('Should store correct state if FETCH_VALIDATE_PHONE', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, fetchValidatePhone, httpConnection);
+    sagaTester.dispatch(
+      fetchValidatePhone({ phone: new Phone('0616804613', 'FR'), phoneOtp: new PhoneOtp('123456') }),
+    );
+
+    expect(sagaTester.getState()).toEqual({
+      pending: true,
+      email: null,
+      phone: null,
+      phoneOtp: new PhoneOtp('123456'),
+      user: null,
+      error: null,
+    });
+  });
+
+  it('Should store correct state in case if FETCH_SIGNUP_USER', () => {
+    const user = User.Create(new Email('test@example.com'));
+    user.registerIdentity(mockIdentity);
+    user.registerPassword(mockPassword.password);
+    user.validatePhone(mockQueryPhoneOtp);
+    user.registerBirth(mockBirth);
+    user.registerAddress(mockAddress);
+
+    const initialState: ISignupState = {
+      pending: true,
+      email: new Email('test@example.com'),
+      phone: new Phone('0616804613', 'FR'),
+      phoneOtp: new PhoneOtp('123456'),
+      user,
+      error: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: signupReducer,
+    });
+
+    sagaTester.start(wrapSagaHidingNotFoundError, signupUserSaga, httpConnection);
+    sagaTester.dispatch(
+      fetchSignupUser({ ...user.properties, phoneOtp: new PhoneOtp('123456') } as ISignupUserCommand),
+    );
+
+    expect(sagaTester.getState()).toEqual({
+      pending: true,
+      email: new Email('test@example.com'),
+      phone: new Phone('0616804613', 'FR'),
+      phoneOtp: new PhoneOtp('123456'),
+      user,
+      error: null,
+    });
+  });
+
   it('Should store correct state if EMAIL_CHECKED', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, checkEmailExistsSaga, httpConnection);
     sagaTester.dispatch(fetchCheckEmailExists({ email: new Email('test@example.com') }));
@@ -180,20 +289,6 @@ describe('CheckEmail - integration', () => {
     });
   });
 
-  it('Should store correct state if FETCH_CHECK_PHONE_EXISTS', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, fetchCheckPhone, httpConnection);
-    sagaTester.dispatch(fetchCheckPhone({ phone: new Phone('0616804613', 'FR') }));
-
-    expect(sagaTester.getState()).toEqual({
-      pending: true,
-      email: null,
-      phone: new Phone('0616804613', 'FR'),
-      phoneOtp: null,
-      user: null,
-      error: null,
-    });
-  });
-
   it('Should store correct state if PHONE_CHECKED', () => {
     const initialState: ISignupState = {
       pending: false,
@@ -218,22 +313,6 @@ describe('CheckEmail - integration', () => {
       email: null,
       phone: new Phone('0616804613', 'FR'),
       phoneOtp: null,
-      user: null,
-      error: null,
-    });
-  });
-
-  it('Should store correct state if FETCH_VALIDATE_PHONE', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, fetchValidatePhone, httpConnection);
-    sagaTester.dispatch(
-      fetchValidatePhone({ phone: new Phone('0616804613', 'FR'), phoneOtp: new PhoneOtp('123456') }),
-    );
-
-    expect(sagaTester.getState()).toEqual({
-      pending: true,
-      email: null,
-      phone: null,
-      phoneOtp: new PhoneOtp('123456'),
       user: null,
       error: null,
     });
@@ -396,43 +475,6 @@ describe('CheckEmail - integration', () => {
     });
   });
 
-  it('Should store correct state in case if FETCH_SIGNUP_USER', () => {
-    const user = User.Create(new Email('test@example.com'));
-    user.registerIdentity(mockIdentity);
-    user.registerPassword(mockPassword.password);
-    user.validatePhone(mockQueryPhoneOtp);
-    user.registerBirth(mockBirth);
-    user.registerAddress(mockAddress);
-
-    const initialState: ISignupState = {
-      pending: true,
-      email: new Email('test@example.com'),
-      phone: new Phone('0616804613', 'FR'),
-      phoneOtp: new PhoneOtp('123456'),
-      user,
-      error: null,
-    };
-
-    sagaTester = new SagaTester({
-      initialState,
-      reducers: signupReducer,
-    });
-
-    sagaTester.start(wrapSagaHidingNotFoundError, signupUserSaga, httpConnection);
-    sagaTester.dispatch(
-      fetchSignupUser({ ...user.properties, phoneOtp: new PhoneOtp('123456') } as ISignupUserCommand),
-    );
-
-    expect(sagaTester.getState()).toEqual({
-      pending: true,
-      email: new Email('test@example.com'),
-      phone: new Phone('0616804613', 'FR'),
-      phoneOtp: new PhoneOtp('123456'),
-      user,
-      error: null,
-    });
-  });
-
   it('Should store correct state in case if USER_SIGNED_UP', () => {
     const user = User.Create(new Email('test@example.com'));
     user.registerIdentity(mockIdentity);
@@ -458,7 +500,7 @@ describe('CheckEmail - integration', () => {
     sagaTester.start(signupUserSaga, httpConnection);
 
     const uid = '123';
-    user.signup({ id: uid, ...(user.properties as IUserProperties) });
+    user.signup({ id: uid, properties: user.properties as IUserProperties });
 
     sagaTester.dispatch(userSignedUp(user));
 
