@@ -4,6 +4,8 @@ import { IAuthStackPages } from '../../../shared/presentation/types';
 export const navigationRef: NavigationContainerRef<Record<string, any>> | undefined =
   createNavigationContainerRef();
 
+let initRoute = IAuthStackPages.SIGNUP_EMAIL;
+
 export function navigate({ route, params }: { route: IAuthStackPages; params?: Record<string, any> }) {
   if (navigationRef && navigationRef.isReady()) {
     if (params) {
@@ -11,5 +13,11 @@ export function navigate({ route, params }: { route: IAuthStackPages; params?: R
     } else {
       navigationRef.navigate(route);
     }
+  } else {
+    initRoute = route;
   }
+}
+
+export function goToInitRoute() {
+  navigate({ route: initRoute });
 }

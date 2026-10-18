@@ -1,11 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
-
+import { NavigationActions } from 'react-navigation';
 import { ICheckEmailQuery, ISuccess, AuthError } from '@clean-rn/auth/domain';
 
-import { ISignupTypes, emailChecked, signupFailed } from '../../../commands/signup';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
+
+import { initializeApplication } from '../../../../../shared/application/commands/initialization';
+import { navigate } from '../../../../../shared/presentation/navigation/navigationRef';
+import { IAuthStackPages } from '../../../../../shared/presentation/types';
+
+import { ISignupTypes, emailChecked, signupFailed } from '../../../commands/signup';
 
 export function* checkEmailExistsSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(ISignupTypes.FETCH_CHECK_EMAIL_EXISTS, checkEmailExistsGenerator, httpConnection);
@@ -25,6 +30,9 @@ export function* checkEmailExistsGenerator(
   const emailExists: ISuccess = yield call([api, api.searchEmail], payload);
   if (emailExists.success) {
     yield put(signupFailed(new AuthError.SignupFailureEmailExists()));
+    yield put(initializeApplication());
+
+    yield call(navigate, { route: IAuthStackPages.LOGIN });
     yield cancel();
   }
   // domain event
