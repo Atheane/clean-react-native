@@ -1,6 +1,6 @@
 import { Login } from './Login';
 import { ResetPassword } from './ResetPassword';
-// import { SignupStep1 } from './SignupStep1';
+import { SignupEmail } from './SignupEmail';
 // import { SignupStep2 } from './SignupStep2';
 // import { SignupStep3 } from './SignupStep3';
 // import { SignupStep4 } from './SignupStep4';
@@ -16,7 +16,7 @@ import { ResetPassword } from './ResetPassword';
 export {
   Login,
   ResetPassword,
-  // SignupStep1,
+  SignupEmail,
   // SignupStep2,
   // SignupStep3,
   // SignupStep4,

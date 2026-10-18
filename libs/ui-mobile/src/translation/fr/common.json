@@ -78,7 +78,8 @@
       "email": {
         "placeholder": "votre@email.com",
         "label": "email"
-      }
+      },
+      "text":"Vérifions ensemble si votre adresse mail est rattachée à un compte existant."
     },
     "signup-identity": {
       "title": "Inscription",

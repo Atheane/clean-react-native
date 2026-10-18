@@ -6,7 +6,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import * as Sentry from '@sentry/react-native';
 
 import { Logger } from '@clean-rn/logger';
-import { useSecure, useCleanErrorOnFocus, FormLogin, ILoginFormData } from '@clean-rn/ui-mobile';
+import { useSecure, useCleanErrorOnFocus, FormLogin, ILoginFormData, Colors } from '@clean-rn/ui-mobile';
 
 import { Email } from '@clean-rn/auth/domain';
 
@@ -83,7 +83,7 @@ export const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.bank.primary.white,
   },
   image: {
     alignItems: 'center',

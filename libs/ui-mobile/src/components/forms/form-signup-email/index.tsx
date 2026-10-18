@@ -57,6 +57,9 @@ export const FormSignupEmail = (props: IProps) => {
           <ErrorMessage error={props.error} />
         </View>
       </View>
+      <View style={styles.textContainer}>
+        <Text style={[theme.bank.text.darkBlue, styles.text]}>{t('screens.signup-email.text')}</Text>
+      </View>
 
       <View style={[theme.bank.container.centeredItem, styles.formSubmit]}>
         <SubmitButton
@@ -72,15 +75,22 @@ export const FormSignupEmail = (props: IProps) => {
 
 const styles = StyleSheet.create({
   form: {
-    flex: 4,
+    flex: 1,
+    alignItems: 'center',
   },
   inputEmail: {
-    marginTop: 30,
+    marginVertical: 30,
   },
   formSubmit: {
     marginTop: 36,
   },
   container: {
     paddingTop: 16,
+  },
+  textContainer: {
+    width: '80%',
+  },
+  text: {
+    textAlign: 'justify',
   },
 });

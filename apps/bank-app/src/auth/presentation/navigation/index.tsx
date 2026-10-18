@@ -8,7 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   Login,
   ResetPassword,
-  // SignupStep1,
+  SignupEmail,
   // SignupStep2,
   // SignupStep3,
   // SignupStep4,
@@ -17,8 +17,8 @@ import {
   // SignupStep7,
   // SignupStep8,
   // SignupStep9,
-  // LegalScreen,
-  // CguScreen,
+  LegalScreen,
+  CguScreen,
 } from '../screens';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { IAuthStackPages, IAuthStackProps } from '../../../shared/presentation/types';
@@ -53,15 +53,11 @@ export const AuthStack = (props: Props) => {
       />
       <Stack.Screen
         options={{
-          headerTitle: t(`screens.signupstep1.title`),
+          headerTitle: t(`screens.signup-email.title`),
           ...headersOptions(),
         }}
-        name={IAuthStackPages.SIGNUP_STEP1}
-        component={() => (
-          <View>
-            <Text>SignupStep1</Text>
-          </View>
-        )}
+        name={IAuthStackPages.SIGNUP_EMAIL}
+        component={SignupEmail}
       />
       {/* <Stack.Screen
         options={{
