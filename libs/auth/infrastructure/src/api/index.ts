@@ -1,7 +1,5 @@
 import { IAuth, IAuthGateway, ILoginParam } from '@clean-rn/auth/domain';
 
-import { AxiosSingleton } from '@clean-rn/shared/infrastructure';
-
 export class AuthApi implements IAuthGateway {
   private readonly baseURL: string;
   constructor(baseURL: string) {
@@ -9,11 +7,18 @@ export class AuthApi implements IAuthGateway {
   }
 
   async login(param: ILoginParam): Promise<IAuth> {
-    const response = await AxiosSingleton.getInstance(this.baseURL).post<IAuth>('/auth/login', {
-      email: param.email.value,
-      password: param.password,
+    const response = await fetch('/auth/login', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: param.email.value,
+        password: param.password,
+      }),
     });
-    return response.data;
+    return response.json();
   }
 
   // putResetPassword(body: IPutResetPasswordBody): Promise<AxiosResponse<{ success: boolean }>> {

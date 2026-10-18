@@ -49,8 +49,7 @@
     "react-native-svg": "*",
     "react-native-web": "*",
     "react-native-webview": "*",
-    "@react-navigation/native": "*",
-    "axios": "*"
+    "@react-navigation/native": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",
