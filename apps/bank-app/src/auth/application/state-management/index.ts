@@ -4,3 +4,5 @@ export * from './reset-password/reducer';
 export * from './reset-password/state';
 export * from './check-email/reducer';
 export * from './check-email/state';
+export * from './signup/reducer';
+export * from './signup/state';

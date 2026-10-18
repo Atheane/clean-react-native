@@ -1,4 +1,6 @@
+import { IGender } from '../types';
 import { Email } from '../valueObjects';
+import { Dayjs } from 'dayjs';
 
 export type ILoginCommand = {
   email: Email;
@@ -9,9 +11,11 @@ export type IResetPasswordCommand = {
   email: Email;
 };
 
-export type IRegisterNameCommand = {
+export type IRegisterIdentityCommand = {
+  gender: IGender;
   firstName: string;
   lastName: string;
+  nationality: string;
 };
 
 export type IRegisterPasswordCommand = {
@@ -19,7 +23,7 @@ export type IRegisterPasswordCommand = {
 };
 
 export type IRegisterBirthCommand = {
-  birthday: string;
+  birthday: Dayjs;
   birthCountry: string;
 };
 

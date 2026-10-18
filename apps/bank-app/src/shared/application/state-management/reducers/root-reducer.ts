@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux';
 import { initializationReducer } from './initialization';
-import { loginReducer, resetPasswordReducer } from '../../../../auth/application/state-management';
+import {
+  checkEmailReducer,
+  loginReducer,
+  resetPasswordReducer,
+} from '../../../../auth/application/state-management';
 
 // import {
 //   signupStep1Reducer,
@@ -24,6 +28,9 @@ export const rootReducer = combineReducers({
   auth: combineReducers({
     login: loginReducer,
     resetPassword: resetPasswordReducer,
+    signup: combineReducers({
+      checkEmail: checkEmailReducer,
+    }),
     //   signupStep1: signupStep1Reducer,
     //   signupStep2: signupStep2Reducer,
     //   signupStep3: signupStep3Reducer,

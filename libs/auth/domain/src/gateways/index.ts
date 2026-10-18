@@ -7,7 +7,7 @@ export interface IAuthGateway {
   login: (cmd: ILoginCommand) => Promise<IAuth>;
   resetPassword: (cmd: IResetPasswordCommand) => Promise<ISuccess>;
   searchEmail(query: ICheckEmailQuery): Promise<ISuccess>;
-  searchPhone(phone: Phone): Promise<ISuccess>;
+  // searchPhone(phone: Phone): Promise<ISuccess>;
   //   sendPhoneValidation: (
   //     params: IPostSendPhoneValidationParams,
   //   ) => Promise<AxiosResponse<{ success: boolean }>>;

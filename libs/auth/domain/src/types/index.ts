@@ -1,8 +1,20 @@
-import { Country } from '../valueObjects';
+import { BirthDay, Country } from '../valueObjects';
 
 export type IAuth = {
   accessToken: string;
   refreshToken: string;
+};
+
+export type IIdentity = {
+  gender: IGender;
+  firstName: string;
+  lastName: string;
+  nationality: Country;
+};
+
+export type IBirth = {
+  birthday: BirthDay;
+  birthCountry: Country;
 };
 
 export type ICountry = {

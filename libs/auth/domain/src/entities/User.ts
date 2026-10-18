@@ -1,48 +1,54 @@
 import { Entity } from '@clean-rn/ddd';
-import { IAddress, IGender } from '../types';
+import { IAddress, IIdentity, IBirth } from '../types';
 import { Email, Phone, BirthDay, Country, Password } from '../valueObjects';
-import { Dayjs } from 'dayjs';
+import { IRegisterBirthCommand, IRegisterIdentityCommand } from '../commands';
 
 export interface IUserProperties {
   uid: number;
-  // identity:
-  gender: IGender;
-  firstName: string;
-  lastName: string;
-  nationality: Country;
-  // birth:
-  birthday: BirthDay;
-  birthCountry: Country;
-  password: Password;
-  address: IAddress;
-  // contact
   email: Email;
   phone: Phone;
+  password: Password;
+  identity: IIdentity;
+  birth: IBirth;
+  address: IAddress;
 }
 
 export class User extends Entity<IUserProperties> {
-  private constructor({ id, properties }: { id: string } & { properties: Partial<IUserProperties> }) {
+  private constructor({ id, properties }: { id?: string } & { properties: Partial<IUserProperties> }) {
     super({ id, properties });
   }
 
-  static Signup(props: IUserProperties): User {
-    return new User({ id: props.uid.toString(), properties: props });
+  static Create(email: Email): User {
+    return new User({ properties: { email } });
   }
 
-  registerIdentity(gender: IGender, firstName: string, lastName: string, nationality: Country): void {
-    this.properties.gender = gender;
-    this.properties.firstName = firstName;
-    this.properties.lastName = lastName;
-    this.properties.nationality = nationality;
+  static Signup(props: IUserProperties): User {
+    const user = new User({ properties: props });
+    user.id = props.uid.toString();
+    return user;
+  }
+
+  registerIdentity(cmd: IRegisterIdentityCommand): void {
+    const { gender, firstName, lastName, nationality } = cmd;
+    this.properties.identity = {
+      gender,
+      firstName,
+      lastName,
+      nationality: new Country(nationality),
+    };
   }
 
   registerPassword(passwordString: string): void {
-    this.properties.password = new Password(passwordString);
+    const password = new Password(passwordString);
+    this.properties.password = password;
   }
 
-  registerBirth(dateString: Dayjs, countryStr: string): void {
-    this.properties.birthday = new BirthDay(dateString);
-    this.properties.birthCountry = new Country(countryStr);
+  registerBirth(cmd: IRegisterBirthCommand): void {
+    const { birthday, birthCountry } = cmd;
+    this.properties.birth = {
+      birthday: new BirthDay(birthday),
+      birthCountry: new Country(birthCountry),
+    };
   }
 
   registerAddress(str: string, city: string, zip: string, countryString: string): void {

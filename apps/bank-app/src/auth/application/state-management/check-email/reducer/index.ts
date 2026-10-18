@@ -6,6 +6,7 @@ import { ICheckEmailState } from '../state';
 const initialState: ICheckEmailState = {
   pending: false,
   success: null,
+  email: null,
 };
 
 export const checkEmailReducer = (state = initialState, action: ICheckEmailActions) => {
@@ -17,7 +18,7 @@ export const checkEmailReducer = (state = initialState, action: ICheckEmailActio
       newState = {
         ...state,
         pending: true,
-        success: null,
+        email: action.payload.email,
       };
       return newState;
     case ICheckEmailTypes.CHECK_EMAIL_SUCCESS:

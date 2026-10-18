@@ -8,7 +8,7 @@ export class Entity<T> {
   public id: string;
   public properties: Partial<T>;
 
-  protected constructor({ id, properties }: { id: string } & { properties: Partial<T> }) {
+  protected constructor({ id, properties }: { id?: string } & { properties: Partial<T> }) {
     this.id = id ?? short().new();
     this.initProperties();
     this.properties = properties;
