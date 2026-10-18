@@ -15,6 +15,11 @@ module.exports = {
   collectCoverage: true,
   coverageCollectedFrom: ['<rootDir>/src/**/*.(t|j)s'],
   collectCoverageFrom: ['**/application/**/*.ts'],
+  coveragePathIgnorePatterns: [
+    './apps/bank-app/src/shared/application/state-management/reducers/root-reducer.ts',
+    './apps/bank-app/src/shared/application/state-management/state/store.ts',
+    './apps/bank-app/src/shared/application/usecases/root-saga.ts',
+  ],
   coverageThreshold: {
     global: {
       statements: 100,

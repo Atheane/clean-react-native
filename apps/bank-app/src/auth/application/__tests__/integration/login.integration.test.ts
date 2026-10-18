@@ -1,5 +1,6 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import SagaTester from 'redux-saga-tester';
+import Constants from 'expo-constants';
 
 import { AuthError, Email } from '@clean-rn/auth/domain';
 
@@ -22,7 +23,7 @@ describe('Login - integration', () => {
   };
 
   beforeAll(async () => {
-    HttpConnection.getInstance('https://sandbox.example.com');
+    HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
   });
 
   beforeEach(() => {

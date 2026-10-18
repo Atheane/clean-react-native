@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Email } from '@clean-rn/auth/domain';
 
-import { initializeApplicationSucceded, IInitializationTypes } from '../../commands/initialization';
+import { initializeApplicationSuccess, IInitializationTypes } from '../../commands/initialization';
 import { IStoreKey } from '../../../../shared/application/types';
 
 function* initialization(): Generator<StrictEffect, any, any> {
@@ -12,7 +12,7 @@ function* initialization(): Generator<StrictEffect, any, any> {
   const emailString = yield call(AsyncStorage.getItem, IStoreKey.USER_EMAIL);
 
   // dispatch action to the store
-  yield put(initializeApplicationSucceded(emailString ? new Email(emailString) : null));
+  yield put(initializeApplicationSuccess(emailString ? new Email(emailString) : null));
 }
 
 function* initializationSaga(): Generator<StrictEffect, any, any> {

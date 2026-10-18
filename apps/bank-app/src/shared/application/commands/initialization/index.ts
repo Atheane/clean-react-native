@@ -10,7 +10,7 @@ export const initializeApplication = (): IInitialization => ({
   type: IInitializationTypes.INITIALIZE_APPLICATION,
 });
 
-export const initializeApplicationSucceded = (payload: Email | null): IInitializationSucceded => ({
+export const initializeApplicationSuccess = (payload: Email | null): IInitializationSucceded => ({
   type: IInitializationTypes.INITIALIZE_APPLICATION_SUCCEDED,
   payload,
 });
