@@ -2,13 +2,7 @@
 /* eslint-disable no-console */
 
 import Constants from 'expo-constants';
-
-export interface ILogger {
-  debug(primaryMessage: string, ...supportingDetails: any[]): void;
-  info(primaryMessage: string, ...supportingDetails: any[]): void;
-  warn(primaryMessage: string, ...supportingDetails: any[]): void;
-  error(primaryMessage: string, ...supportingDetails: any[]): void;
-}
+import { ILogger } from '../../src/expo/types';
 
 export class Logger implements ILogger {
   private static instance: Logger | undefined;
