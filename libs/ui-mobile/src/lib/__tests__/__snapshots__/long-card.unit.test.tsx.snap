@@ -53,7 +53,8 @@ exports[`LongCard -  minimal props -  renders as before 1`] = `
     style={
       {
         "position": "absolute",
-        "right": 24,
+        "right": 12,
+        "top": 0,
       }
     }
   >
@@ -124,11 +125,16 @@ exports[`LongCard -  minimal props -  renders as before 1`] = `
         >
           <View
             style={
-              {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "justifyContent": "space-around",
-              }
+              [
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "justifyContent": "space-around",
+                },
+                {
+                  "marginTop": 16,
+                },
+              ]
             }
           >
             <SvgMock />

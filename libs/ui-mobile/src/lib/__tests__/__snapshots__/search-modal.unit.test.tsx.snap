@@ -1,19 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchModal -  minimal props -  renders as before 1`] = `
-<View
-  style={{}}
->
+<View>
   <View>
     <Text
       style={
         [
           {
-            "color": "#838383",
             "fontFamily": "Roboto_700Bold",
             "fontSize": 16,
             "lineHeight": 21,
-            "marginBottom": 8,
             "textAlign": "left",
             "textTransform": "uppercase",
           },
@@ -29,7 +25,10 @@ exports[`SearchModal -  minimal props -  renders as before 1`] = `
       style={
         {
           "backgroundColor": "#F0F0F0",
+          "borderBottomWidth": 0,
           "borderRadius": 8,
+          "marginBottom": -16,
+          "marginTop": 11,
           "width": 600,
         }
       }
@@ -91,6 +90,7 @@ exports[`SearchModal -  minimal props -  renders as before 1`] = `
                 "fontFamily": "Roboto_400Regular",
                 "fontSize": 14,
                 "minHeight": 40,
+                "textAlign": "left",
               }
             }
             testID="RNE__Input__text-input"

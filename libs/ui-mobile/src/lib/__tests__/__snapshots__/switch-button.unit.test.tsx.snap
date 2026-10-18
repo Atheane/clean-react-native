@@ -2,26 +2,38 @@
 
 exports[`SwitchButton -  label -  renders as before 1`] = `
 <View>
-  <Text
+  <View
     style={
       {
-        "color": "#CB287D",
-        "fontFamily": "Roboto_700Bold",
-        "fontSize": 18,
-        "lineHeight": 24,
         "marginBottom": 16,
-        "textAlign": "left",
-        "textTransform": "uppercase",
       }
     }
   >
-    LABEL
-  </Text>
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Roboto_700Bold",
+            "fontSize": 16,
+            "lineHeight": 21,
+            "textAlign": "left",
+            "textTransform": "uppercase",
+          },
+          {
+            "color": "#CB287D",
+          },
+        ]
+      }
+    >
+      LABEL
+    </Text>
+  </View>
   <View
     style={
       [
         {
           "borderRadius": 28,
+          "height": 107.49185667752442,
           "width": 600,
         },
         {
@@ -66,6 +78,7 @@ exports[`SwitchButton -  label -  renders as before 1`] = `
         [
           {
             "borderRadius": 28,
+            "height": 107.49185667752442,
             "width": 600,
           },
           {
@@ -271,6 +284,7 @@ exports[`SwitchButton -  minimal props -  renders as before 1`] = `
       [
         {
           "borderRadius": 28,
+          "height": 107.49185667752442,
           "width": 600,
         },
         {
@@ -315,6 +329,7 @@ exports[`SwitchButton -  minimal props -  renders as before 1`] = `
         [
           {
             "borderRadius": 28,
+            "height": 107.49185667752442,
             "width": 600,
           },
           {

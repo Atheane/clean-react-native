@@ -6,7 +6,10 @@ exports[`TextInput -  icon -  renders as before 1`] = `
     style={
       {
         "backgroundColor": "#F0F0F0",
+        "borderBottomWidth": 0,
         "borderRadius": 8,
+        "marginBottom": -16,
+        "marginTop": 11,
         "width": 600,
       }
     }
@@ -66,6 +69,7 @@ exports[`TextInput -  icon -  renders as before 1`] = `
               "fontFamily": "Roboto_400Regular",
               "fontSize": 14,
               "minHeight": 40,
+              "textAlign": "left",
             }
           }
           testID="RNE__Input__text-input"
@@ -92,11 +96,9 @@ exports[`TextInput -  label -  renders as before 1`] = `
     style={
       [
         {
-          "color": "#838383",
           "fontFamily": "Roboto_700Bold",
           "fontSize": 16,
           "lineHeight": 21,
-          "marginBottom": 8,
           "textAlign": "left",
           "textTransform": "uppercase",
         },
@@ -112,7 +114,10 @@ exports[`TextInput -  label -  renders as before 1`] = `
     style={
       {
         "backgroundColor": "#F0F0F0",
+        "borderBottomWidth": 0,
         "borderRadius": 8,
+        "marginBottom": -16,
+        "marginTop": 11,
         "width": 600,
       }
     }
@@ -157,6 +162,7 @@ exports[`TextInput -  label -  renders as before 1`] = `
               "fontFamily": "Roboto_400Regular",
               "fontSize": 14,
               "minHeight": 40,
+              "textAlign": "left",
             }
           }
           testID="RNE__Input__text-input"
@@ -183,11 +189,9 @@ exports[`TextInput -  labelColor -  renders as before 1`] = `
     style={
       [
         {
-          "color": "#838383",
           "fontFamily": "Roboto_700Bold",
           "fontSize": 16,
           "lineHeight": 21,
-          "marginBottom": 8,
           "textAlign": "left",
           "textTransform": "uppercase",
         },
@@ -203,7 +207,10 @@ exports[`TextInput -  labelColor -  renders as before 1`] = `
     style={
       {
         "backgroundColor": "#F0F0F0",
+        "borderBottomWidth": 0,
         "borderRadius": 8,
+        "marginBottom": -16,
+        "marginTop": 11,
         "width": 600,
       }
     }
@@ -248,6 +255,7 @@ exports[`TextInput -  labelColor -  renders as before 1`] = `
               "fontFamily": "Roboto_400Regular",
               "fontSize": 14,
               "minHeight": 40,
+              "textAlign": "left",
             }
           }
           testID="RNE__Input__text-input"
@@ -274,7 +282,10 @@ exports[`TextInput -  lowerCase & icon -  renders as before 1`] = `
     style={
       {
         "backgroundColor": "#F0F0F0",
+        "borderBottomWidth": 0,
         "borderRadius": 8,
+        "marginBottom": -16,
+        "marginTop": 11,
         "width": 600,
       }
     }
@@ -334,6 +345,7 @@ exports[`TextInput -  lowerCase & icon -  renders as before 1`] = `
               "fontFamily": "Roboto_400Regular",
               "fontSize": 14,
               "minHeight": 40,
+              "textAlign": "left",
             }
           }
           testID="RNE__Input__text-input"
@@ -360,7 +372,10 @@ exports[`TextInput -  lowerCase -  renders as before 1`] = `
     style={
       {
         "backgroundColor": "#F0F0F0",
+        "borderBottomWidth": 0,
         "borderRadius": 8,
+        "marginBottom": -16,
+        "marginTop": 11,
         "width": 600,
       }
     }
@@ -405,6 +420,7 @@ exports[`TextInput -  lowerCase -  renders as before 1`] = `
               "fontFamily": "Roboto_400Regular",
               "fontSize": 14,
               "minHeight": 40,
+              "textAlign": "left",
             }
           }
           testID="RNE__Input__text-input"
@@ -431,7 +447,10 @@ exports[`TextInput -  minimal props -  renders as before 1`] = `
     style={
       {
         "backgroundColor": "#F0F0F0",
+        "borderBottomWidth": 0,
         "borderRadius": 8,
+        "marginBottom": -16,
+        "marginTop": 11,
         "width": 600,
       }
     }
@@ -476,6 +495,7 @@ exports[`TextInput -  minimal props -  renders as before 1`] = `
               "fontFamily": "Roboto_400Regular",
               "fontSize": 14,
               "minHeight": 40,
+              "textAlign": "left",
             }
           }
           testID="RNE__Input__text-input"

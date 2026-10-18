@@ -68,11 +68,16 @@ exports[`LinkButton -  blue & pressed & arrow - renders as before 1`] = `
     >
       <View
         style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "justifyContent": "space-around",
-          }
+          [
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "space-around",
+            },
+            {
+              "marginTop": 16,
+            },
+          ]
         }
       >
         <View
@@ -183,11 +188,16 @@ exports[`LinkButton -  blue & unpressed & noarrow - renders as before 1`] = `
     >
       <View
         style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "justifyContent": "space-around",
-          }
+          [
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "space-around",
+            },
+            {
+              "marginTop": 16,
+            },
+          ]
         }
       >
         <Text
@@ -281,11 +291,16 @@ exports[`LinkButton -  green & pressed & arrow - renders as before 1`] = `
     >
       <View
         style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "justifyContent": "space-around",
-          }
+          [
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "space-around",
+            },
+            {
+              "marginTop": 16,
+            },
+          ]
         }
       >
         <View
@@ -396,11 +411,16 @@ exports[`LinkButton -  green & unpressed & iconOne - renders as before 1`] = `
     >
       <View
         style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "justifyContent": "space-around",
-          }
+          [
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "space-around",
+            },
+            {
+              "marginTop": 16,
+            },
+          ]
         }
       >
         <SvgMock />
@@ -478,11 +498,16 @@ exports[`LinkButton -  green & unpressed & noarrow - renders as before 1`] = `
     >
       <View
         style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "justifyContent": "space-around",
-          }
+          [
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "space-around",
+            },
+            {
+              "marginTop": 16,
+            },
+          ]
         }
       >
         <Text
@@ -576,11 +601,16 @@ exports[`LinkButton -  pink & pressed & arrow - renders as before 1`] = `
     >
       <View
         style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "justifyContent": "space-around",
-          }
+          [
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "space-around",
+            },
+            {
+              "marginTop": 16,
+            },
+          ]
         }
       >
         <View
@@ -691,11 +721,16 @@ exports[`LinkButton -  pink & unpressed & noarrow - renders as before 1`] = `
     >
       <View
         style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "justifyContent": "space-around",
-          }
+          [
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "space-around",
+            },
+            {
+              "marginTop": 16,
+            },
+          ]
         }
       >
         <Text
@@ -789,11 +824,16 @@ exports[`LinkButton -  white & pressed & arrow - renders as before 1`] = `
     >
       <View
         style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "justifyContent": "space-around",
-          }
+          [
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "space-around",
+            },
+            {
+              "marginTop": 16,
+            },
+          ]
         }
       >
         <View
@@ -904,11 +944,16 @@ exports[`LinkButton -  white & unpressed & noarrow - renders as before 1`] = `
     >
       <View
         style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "justifyContent": "space-around",
-          }
+          [
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "space-around",
+            },
+            {
+              "marginTop": 16,
+            },
+          ]
         }
       >
         <Text
