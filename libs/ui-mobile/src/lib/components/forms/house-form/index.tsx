@@ -128,7 +128,7 @@ export const HouseForm = (props: IProps) => {
               onSelect={handleOnChangeRegion}
             />
           )}
-          <View style={styles.selectNumberContainer}>
+          <View style={styles.container}>
             <SelectNumber
               label={t('screens.carbonHouse.surface')}
               icon={() => <Surface style={{ color: Colors.bank.primary.lightGreen }} />}
@@ -136,7 +136,7 @@ export const HouseForm = (props: IProps) => {
               onChange={handleOnChangeSurface}
             />
           </View>
-          <View style={styles.sliderContainer}>
+          <View style={styles.container}>
             <Slider
               label={t('screens.carbonHouse.slider.builtYear')}
               minValue={1900}
@@ -163,19 +163,13 @@ export const HouseForm = (props: IProps) => {
         data={dataHeating}
         onSelect={handleOnChange}
       />
-      <View style={styles.formContainer}>{ConditionalForm()}</View>
+      <View style={styles.container}>{ConditionalForm()}</View>
     </KeyboardAwareScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  formContainer: {
-    marginTop: 36,
-  },
-  sliderContainer: {
-    marginTop: 36,
-  },
-  selectNumberContainer: {
+  container: {
     marginTop: 36,
   },
 });

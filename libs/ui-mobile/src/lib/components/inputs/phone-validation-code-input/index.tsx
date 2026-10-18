@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { View, StyleSheet, Pressable, TextInput, Text, SafeAreaView, Platform } from 'react-native';
-
+import { useTheme } from '@rneui/themed';
 import { Colors, FontNames } from '../../../constants';
 
 const CODE_LENGTH = 6;
@@ -12,6 +12,7 @@ type Props = {
 };
 
 export const PhoneValidationCodeInput = (props: Props) => {
+  const { theme } = useTheme();
   const [code, setCode] = useState('');
   const codeDigitsArray = ['', '', '', '', '', ''];
   const [containerIsFocused, setContainerIsFocused] = useState(false);

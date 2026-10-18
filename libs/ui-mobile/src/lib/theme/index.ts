@@ -37,8 +37,7 @@ declare module '@rneui/themed' {
         banner: StyleProp<TextStyle>;
         link: StyleProp<TextStyle>;
         button: StyleProp<TextStyle>;
-        pinkLabel: StyleProp<TextStyle>;
-        greyLabel: StyleProp<TextStyle>;
+        label: StyleProp<TextStyle>;
         kpi: StyleProp<TextStyle>;
         subtitle: StyleProp<TextStyle>;
         legend: StyleProp<TextStyle>;
@@ -166,23 +165,12 @@ export const theme = createTheme({
         fontFamily: FontNames.Roboto_700Bold,
         textTransform: 'none',
       },
-      pinkLabel: {
+      label: {
         textTransform: 'uppercase',
-        color: Colors.bank.secondary.pink,
-        fontFamily: FontNames.Roboto_700Bold,
-        fontSize: 18,
-        lineHeight: 24,
-        textAlign: 'left',
-        marginBottom: 16,
-      },
-      greyLabel: {
-        textTransform: 'uppercase',
-        color: Colors.bank.primary.grey,
         fontFamily: FontNames.Roboto_700Bold,
         fontSize: 16,
         lineHeight: 21,
         textAlign: 'left',
-        marginBottom: 16,
       },
       kpi: {
         fontFamily: FontNames.Roboto_700Bold,
@@ -234,7 +222,7 @@ export const theme = createTheme({
         color: Colors.bank.secondary.pink,
         fontFamily: FontNames.Roboto_400Regular,
         fontSize: 14,
-        textAlign: 'center',
+        textAlign: 'left',
       },
       errors: {
         color: Colors.bank.secondary.salmon,

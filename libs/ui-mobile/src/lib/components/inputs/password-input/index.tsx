@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, GestureResponderEvent, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { Input, InputProps } from '@rneui/themed';
+import { Input, InputProps, useTheme } from '@rneui/themed';
 
 import { Lock, Eye, Blind } from '../../../assets';
 import { Colors, FontNames } from '../../../constants';
@@ -14,16 +14,17 @@ type State = {
 };
 
 export const PasswordInput = (props: InputProps & State) => {
+  const { theme } = useTheme();
   const { t } = useTranslation();
   return (
     <View>
-      <Text style={styles.inputLabelStyle}>
+      <Text style={[theme.bank.text.label, { color: Colors.bank.primary.grey }]}>
         {props.label ? props.label : t('screens.login.password.label')}
       </Text>
-      <View style={styles.inputContainer}>
+      <View style={theme.bank.container.input}>
         <Input
           inputContainerStyle={styles.inputContainerStyle}
-          inputStyle={styles.inputStyle}
+          inputStyle={theme.bank.text.input}
           secureTextEntry={props.secured}
           leftIcon={<Lock style={{ color: Colors.bank.background.lightGreen }} />}
           leftIconContainerStyle={styles.leftIconContainer}
@@ -47,31 +48,10 @@ export const PasswordInput = (props: InputProps & State) => {
 };
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    width: Dimensions.get('window').width * 0.8,
-    backgroundColor: Colors.bank.primary.lightGrey,
-    borderRadius: 8,
-  },
-  inputStyle: {
-    color: Colors.bank.secondary.pink,
-    fontFamily: FontNames.Roboto_400Regular,
-    fontSize: 14,
-    textDecorationLine: 'none',
-    textDecorationColor: 'transparent',
-  },
   inputContainerStyle: {
     marginTop: 10,
     marginBottom: -15, // override of default input bottomMargin
     borderBottomWidth: 0,
-  },
-  inputLabelStyle: {
-    textTransform: 'uppercase',
-    fontFamily: FontNames.Roboto_700Bold,
-    fontSize: 16,
-    color: Colors.bank.primary.grey,
-    lineHeight: 21,
-    textAlign: 'left',
-    marginBottom: 8,
   },
   leftIconContainer: {
     marginHorizontal: 10,

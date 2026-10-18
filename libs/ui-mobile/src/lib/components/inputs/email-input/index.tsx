@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { Input } from '@rneui/themed';
+import { Input, useTheme } from '@rneui/themed';
 
 import { Mail, Edit } from '../../../assets';
-import { Colors, FontNames } from '../../../constants';
+import { Colors } from '../../../constants';
 
 import { TextInput } from '../../inputs/text-input';
 
@@ -22,39 +22,31 @@ type State = {
 };
 
 export const EmailInput = (props: Props & State) => {
+  const { theme } = useTheme();
   const { t } = useTranslation();
 
-  const handleOnChange = useCallback((text: string) => {
-    const cleanEmail = text.trim();
-    if (props.onChange) props.onChange(cleanEmail);
-  }, []);
+  const handleOnChange = useCallback(
+    (text: string) => {
+      const cleanEmail = text.trim();
+      if (props.onChange) props.onChange(cleanEmail);
+    },
+    [props.onChange],
+  );
 
   return props.filled ? (
-    <View
-      style={
-        props.filled
-          ? {
-              backgroundColor: 'transparent',
-              flexDirection: 'row',
-              width: 335,
-            }
-          : styles.inputContainerStyle
+    <Input
+      autoCapitalize="none"
+      inputContainerStyle={[theme.bank.container.input, styles.inputContainer]}
+      inputStyle={[theme.bank.text.input, styles.input]}
+      leftIcon={<Mail style={{ color: Colors.bank.primary.lightGreen }} />}
+      leftIconContainerStyle={styles.leftIconContainer}
+      value={props.email?.trim()}
+      rightIcon={
+        <View style={styles.editIcon} onTouchStart={props.onEdit}>
+          <Edit />
+        </View>
       }
-    >
-      <Input
-        autoCapitalize="none"
-        inputContainerStyle={styles.inputContainerStyle}
-        inputStyle={styles.inputStyle}
-        leftIcon={<Mail style={{ color: Colors.bank.primary.lightGreen }} />}
-        leftIconContainerStyle={styles.leftIconContainer}
-        value={props.email?.trim()}
-        rightIcon={
-          <View style={styles.editIcon} onTouchStart={props.onEdit}>
-            <Edit />
-          </View>
-        }
-      />
-    </View>
+    />
   ) : (
     <TextInput
       label={t('screens.login.email.label')}
@@ -70,18 +62,14 @@ export const EmailInput = (props: Props & State) => {
 };
 
 const styles = StyleSheet.create({
-  inputContainerStyle: {
-    width: Dimensions.get('window').width * 0.8,
-    borderRadius: 8,
-    borderBottomWidth: 0,
+  inputContainer: {
+    backgroundColor: 'transparent',
+  },
+  input: {
+    textAlign: 'left',
   },
   editIcon: {
     marginLeft: 12,
-  },
-  inputStyle: {
-    color: Colors.bank.secondary.pink,
-    fontFamily: FontNames.Roboto_400Regular,
-    fontSize: 14,
   },
   leftIconContainer: {
     marginHorizontal: 10,
