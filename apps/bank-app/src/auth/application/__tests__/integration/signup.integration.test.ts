@@ -15,7 +15,6 @@ import {
   PhoneOtp,
   User,
   IUserProperties,
-  ISignupUserCommand,
 } from '@clean-rn/auth/domain';
 
 import {
@@ -159,7 +158,7 @@ describe('CheckEmail - integration', () => {
   it('Should store correct state in case if REGISTER_IDENTITY', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, checkEmailExistsSaga, httpConnection);
 
-    sagaTester.dispatch(registerIdentity(mockIdentity));
+    sagaTester.dispatch(registerIdentity({ ...mockIdentity, email: new Email('test@example.com') }));
     expect(sagaTester.getState()).toEqual({
       ...initialState,
     });
@@ -245,9 +244,7 @@ describe('CheckEmail - integration', () => {
     });
 
     sagaTester.start(wrapSagaHidingNotFoundError, signupUserSaga, httpConnection);
-    sagaTester.dispatch(
-      fetchSignupUser({ ...user.properties, phoneOtp: new PhoneOtp('123456') } as ISignupUserCommand),
-    );
+    sagaTester.dispatch(fetchSignupUser({ user, phoneOtp: mockQueryPhoneOtp.phoneOtp }));
 
     expect(sagaTester.getState()).toEqual({
       pending: true,

@@ -4,7 +4,7 @@ import { put, select, StrictEffect, takeEvery } from 'redux-saga/effects';
 import { IRegisterAddressCommand, User } from '@clean-rn/auth/domain';
 
 import { ISignupTypes, addressRegistered, fetchSignupUser } from '../../../commands/signup';
-import { selectUser, selectEmail } from '../../../state-management/selectors';
+import { selectUser, selectEmail, selectPhoneOtp } from '../../../state-management/selectors';
 
 export function* registerAddressSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(ISignupTypes.REGISTER_ADDRESS, registerAddressGenerator);
@@ -26,5 +26,7 @@ export function* registerAddressGenerator({
 
   // domain event
   yield put(addressRegistered(user));
-  yield put(fetchSignupUser(user));
+
+  const phoneOtp = yield select(selectPhoneOtp);
+  yield put(fetchSignupUser({ user, phoneOtp }));
 }

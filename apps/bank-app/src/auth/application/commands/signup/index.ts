@@ -7,10 +7,10 @@ import {
   IRegisterBirthCommand,
   IRegisterIdentityCommand,
   IRegisterPasswordCommand,
-  ISignupUserCommand,
   IValidatePhoneQuery,
   Email,
   User,
+  ISignupUserCommand,
 } from '@clean-rn/auth/domain';
 import {
   ISignupActions,

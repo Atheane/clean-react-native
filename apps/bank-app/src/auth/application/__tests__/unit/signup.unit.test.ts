@@ -17,7 +17,6 @@ import {
   PhoneOtp,
   User,
   IUserProperties,
-  ISignupUserCommand,
 } from '@clean-rn/auth/domain';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
@@ -40,7 +39,7 @@ import {
   signupUserSaga,
   signupUserGenerator,
 } from '../../usecases/signup';
-import { selectUser, selectEmail } from '../../state-management/selectors';
+import { selectUser, selectEmail, selectPhoneOtp } from '../../state-management/selectors';
 
 import {
   ISignupTypes,
@@ -53,6 +52,7 @@ import {
   phoneValidated,
   signupFailed,
   userSignedUp,
+  fetchSignupUser,
 } from '../../commands/signup';
 import { IStoreKey } from '../../../../shared/application/types';
 import { loadStorage } from '../../../../shared/application/commands/initialization';
@@ -416,43 +416,109 @@ describe('Signup - usecase', () => {
       .cancel();
   });
 
-  it('should call registerBirth actions if user exists', () => {
+  it('should call registerBirth actions', () => {
+    const userPrev = User.Create(new Email('test@example.com'));
     const user = User.Create(new Email('test@example.com'));
     user.registerBirth(mockBirth);
 
     testSaga(registerBirthGenerator, {
       type: ISignupTypes.REGISTER_BIRTH,
-      payload: { user, ...mockBirth },
+      payload: mockBirth,
     })
       .next()
+      .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
+        expect(yieldedValue.type).toEqual('SELECT');
+        expect(yieldedValue).toEqual(
+          expect.objectContaining({
+            type: 'SELECT',
+            payload: expect.objectContaining({
+              selector: selectUser,
+            }),
+          }),
+        );
+      })
+      .next(userPrev)
       .put(birthRegistered(user))
+      .next()
+      .call(navigate, { route: IAuthStackPages.SIGNUP_ADDRESS })
       .next();
   });
 
-  it('should call registerBirth actions', () => {
+  it('should call registerBirth actions if no user in store', () => {
     const user = User.Create(new Email('test@example.com'));
     user.registerBirth(mockBirth);
 
     testSaga(registerBirthGenerator, {
       type: ISignupTypes.REGISTER_BIRTH,
-      payload: { user, ...mockBirth },
+      payload: mockBirth,
     })
       .next()
+      .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
+        expect(yieldedValue.type).toEqual('SELECT');
+        expect(yieldedValue).toEqual(
+          expect.objectContaining({
+            type: 'SELECT',
+            payload: expect.objectContaining({
+              selector: selectUser,
+            }),
+          }),
+        );
+      })
+      .next(null)
+      .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
+        expect(yieldedValue.type).toEqual('SELECT');
+        expect(yieldedValue).toEqual(
+          expect.objectContaining({
+            type: 'SELECT',
+            payload: expect.objectContaining({
+              selector: selectEmail,
+            }),
+          }),
+        );
+      })
+      .next(new Email('test@example.com'))
       .put(birthRegistered(user))
       .next();
   });
 
   it('should call registerAddress actions if user exists', () => {
+    const userPrev = User.Create(new Email('test@example.com'));
     const user = User.Create(new Email('test@example.com'));
     user.registerAddress(mockAddress);
 
     testSaga(registerAddressGenerator, {
       type: ISignupTypes.REGISTER_ADDRESS,
-      payload: { user, ...mockAddress },
+      payload: mockAddress,
     })
       .next()
+      .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
+        expect(yieldedValue.type).toEqual('SELECT');
+        expect(yieldedValue).toEqual(
+          expect.objectContaining({
+            type: 'SELECT',
+            payload: expect.objectContaining({
+              selector: selectUser,
+            }),
+          }),
+        );
+      })
+      .next(userPrev)
       .put(addressRegistered(user))
-      .next();
+      .next()
+      .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
+        expect(yieldedValue.type).toEqual('SELECT');
+        expect(yieldedValue).toEqual(
+          expect.objectContaining({
+            type: 'SELECT',
+            payload: expect.objectContaining({
+              selector: selectPhoneOtp,
+            }),
+          }),
+        );
+      })
+      .next(mockQueryPhoneOtp.phoneOtp)
+      .put(fetchSignupUser({ user, phoneOtp: mockQueryPhoneOtp.phoneOtp }))
+      .next(mockQueryPhoneOtp.phoneOtp);
   });
 
   it('should call registerAddress actions if no user', () => {
@@ -464,32 +530,73 @@ describe('Signup - usecase', () => {
       payload: { user, ...mockAddress },
     })
       .next()
+      .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
+        expect(yieldedValue.type).toEqual('SELECT');
+        expect(yieldedValue).toEqual(
+          expect.objectContaining({
+            type: 'SELECT',
+            payload: expect.objectContaining({
+              selector: selectUser,
+            }),
+          }),
+        );
+      })
+      .next(null)
+      .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
+        expect(yieldedValue.type).toEqual('SELECT');
+        expect(yieldedValue).toEqual(
+          expect.objectContaining({
+            type: 'SELECT',
+            payload: expect.objectContaining({
+              selector: selectEmail,
+            }),
+          }),
+        );
+      })
+      .next(new Email('test@example.com'))
       .put(addressRegistered(user))
-      .next();
+      .next()
+      .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
+        expect(yieldedValue.type).toEqual('SELECT');
+        expect(yieldedValue).toEqual(
+          expect.objectContaining({
+            type: 'SELECT',
+            payload: expect.objectContaining({
+              selector: selectPhoneOtp,
+            }),
+          }),
+        );
+      })
+      .next(mockQueryPhoneOtp.phoneOtp)
+      .put(fetchSignupUser({ user, phoneOtp: mockQueryPhoneOtp.phoneOtp }))
+      .next(mockQueryPhoneOtp.phoneOtp);
   });
 
   it('should call userSignedUp actions if user exists', () => {
-    const user = User.Create(new Email('test@example.com'));
-    user.registerIdentity(mockIdentity);
-    user.registerPassword(mockPassword.password);
-    user.validatePhone(mockQueryPhoneOtp);
-    user.registerBirth(mockBirth);
-    user.registerAddress(mockAddress);
+    const userPrev = User.Create(new Email('test@example.com'));
+    userPrev.registerIdentity(mockIdentity);
+    userPrev.registerPassword(mockPassword.password);
+    userPrev.validatePhone(mockQueryPhoneOtp);
+    userPrev.registerBirth(mockBirth);
+    userPrev.registerAddress(mockAddress);
 
+    const user = userPrev;
     const uid = '123';
     user.signup({ id: uid, properties: user.properties as IUserProperties });
 
     testSaga(signupUserGenerator, httpConnection, {
       type: ISignupTypes.FETCH_SIGNUP_USER,
       payload: {
-        ...user.properties,
+        user: userPrev,
         phoneOtp: mockQueryPhoneOtp.phoneOtp,
-      } as ISignupUserCommand,
+      },
     })
       .next()
-      .call([api, api.createUser], { ...user.properties, phoneOtp: mockQueryPhoneOtp.phoneOtp })
+      .call([api, api.createUser], { ...userPrev.properties, phoneOtp: mockQueryPhoneOtp.phoneOtp })
       .next({ uid })
       .put(userSignedUp(user))
-      .next(user);
+      .next(user)
+      .call(navigate, { route: IAuthStackPages.SIGNUP_CONGRATS })
+      .next();
   });
 });

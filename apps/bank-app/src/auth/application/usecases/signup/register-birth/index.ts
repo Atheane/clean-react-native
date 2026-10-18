@@ -28,5 +28,5 @@ export function* registerBirthGenerator({
 
   // domain event
   yield put(birthRegistered(user));
-  yield call(navigate, { route: IAuthStackPages.SIGNUP_BIRTH });
+  yield call(navigate, { route: IAuthStackPages.SIGNUP_ADDRESS });
 }

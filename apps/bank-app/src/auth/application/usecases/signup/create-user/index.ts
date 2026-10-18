@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { call, select, put, StrictEffect, takeEvery } from 'redux-saga/effects';
+import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
 
-import { ISignupUserCommand, User } from '@clean-rn/auth/domain';
+import { ISignupUserCommand, IUserProperties, PhoneOtp } from '@clean-rn/auth/domain';
 
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { navigate } from '../../../../../shared/presentation/navigation/navigationRef';
 import { IAuthStackPages } from '../../../../../shared/presentation/types';
-import { selectUser, selectEmail } from '../../../state-management/selectors';
 import { ISignupTypes, userSignedUp } from '../../../commands/signup';
 
 export function* signupUserSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
@@ -24,16 +23,14 @@ export function* signupUserGenerator(
     payload: ISignupUserCommand;
   },
 ): Generator<StrictEffect, any, any> {
+  const { user, phoneOtp } = payload;
+
   const api = AuthApi.getInstance(httpConnection);
-  const { uid } = yield call([api, api.createUser], payload);
+  const { uid } = yield call([api, api.createUser], { ...user.properties, phoneOtp } as IUserProperties & {
+    phoneOtp: PhoneOtp;
+  });
 
-  let user = yield select(selectUser);
-  if (!user) {
-    const email = yield select(selectEmail);
-    user = User.Create(email);
-  }
-
-  user.signup({ id: uid, properties: user.properties });
+  user.signup({ id: uid, properties: user.properties as IUserProperties });
   // domain event
   yield put(userSignedUp(user));
   yield call(navigate, { route: IAuthStackPages.SIGNUP_CONGRATS });
