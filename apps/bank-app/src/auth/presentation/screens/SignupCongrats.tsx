@@ -36,24 +36,23 @@ export const SignupCongrats = () => {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.image}>
-          <Image style={{ width: 250, height: 250 }} source={Congrats} />
-        </View>
+        <View style={styles.subContainer}>
+          <View style={styles.image}>
+            <Image style={{ width: 250, height: 250 }} source={Congrats} />
+          </View>
 
-        <View style={styles.textContainer}>
-          <Text style={styles.text}>{t('screens.signup-congrats.congrats')}</Text>
-        </View>
-        <View style={styles.submit}>
-          <PrimaryButton
-            long
-            title={t('screens.signup-congrats.button')}
-            uppercase
-            onPress={onPress}
-            loading={pending}
-          />
-        </View>
-        <View style={styles.errorContainer}>
-          <ErrorMessage error={error} />
+          <View style={styles.textContainer}>
+            <Text style={styles.text}>{t('screens.signup-congrats.congrats')}</Text>
+          </View>
+          <View style={styles.submit}>
+            <PrimaryButton
+              long
+              title={t('screens.signup-congrats.button')}
+              uppercase
+              onPress={onPress}
+              loading={pending}
+            />
+          </View>
         </View>
       </KeyboardAwareScrollView>
     </SafeAreaView>
@@ -65,14 +64,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.bank.primary.white,
   },
-  image: {
+  subContainer: {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  image: {
+    marginTop: 80,
+    alignItems: 'center',
+  },
   textContainer: {
     marginTop: 24,
-    alignItems: 'center',
-    width: 290,
+    width: '80%',
   },
   text: {
     width: 290,

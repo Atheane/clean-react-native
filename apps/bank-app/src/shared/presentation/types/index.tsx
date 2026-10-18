@@ -29,6 +29,7 @@ export type AuthStackParamList = {
   SignupCongrats: undefined;
   Legal: undefined;
   Cgu: undefined;
+  CguKycProvider: undefined;
 };
 
 export enum ISharedStackPages {
@@ -46,7 +47,8 @@ export enum IAuthStackPages {
   SIGNUP_ADDRESS = 'SignupAddress',
   SIGNUP_CONGRATS = 'SignupCongrats',
   LEGAL = 'Legal',
-  CGU = 'CGU',
+  CGU = 'Cgu',
+  CGU_KYC_PROVIDER = 'CguKycProvider',
 }
 
 export enum IHomeStackPages {
@@ -64,6 +66,7 @@ export type IAuthStackProps = {
   [IAuthStackPages.SIGNUP_CONGRATS]: object;
   [IAuthStackPages.LEGAL]: object;
   [IAuthStackPages.CGU]: object;
+  [IAuthStackPages.CGU_KYC_PROVIDER]: object;
 };
 
 export type IHomeStackProps = {
@@ -81,6 +84,7 @@ export type IRoutes =
   | IAuthStackPages.SIGNUP_CONGRATS
   | IAuthStackPages.LEGAL
   | IAuthStackPages.CGU
+  | IAuthStackPages.CGU_KYC_PROVIDER
   | IHomeStackPages.HOME;
 // | HOME_STACK_PAGES.MENU
 // | HOME_STACK_PAGES.HELP

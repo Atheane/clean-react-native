@@ -12,13 +12,13 @@ import {
   SignupBirth,
   SignupAddress,
   SignupCongrats,
-  LegalScreen,
-  CguScreen,
+  Webview,
 } from '../screens';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { IAuthStackPages, IAuthStackProps } from '../../../shared/presentation/types';
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { pdfUrls } from '../constants';
 
 const Stack = createNativeStackNavigator<IAuthStackProps>();
 
@@ -26,6 +26,10 @@ export const AuthStack = () => {
   const { t } = useTranslation();
   const { initRouteName } = useSelector((state: IRootState) => state.initialization);
   const navigationStack = useNavigationState((state) => state?.routes ?? []);
+  const ScreenLegal = () => <Webview url={pdfUrls.legal} />;
+  const ScreenCgu = () => <Webview url={pdfUrls.cgu} />;
+  const ScreenCguKycProvider = () => <Webview url={pdfUrls.cguKycProvider} />;
+
   return (
     <Stack.Navigator initialRouteName={initRouteName}>
       <Stack.Screen
@@ -46,7 +50,7 @@ export const AuthStack = () => {
       />
       <Stack.Screen
         options={{
-          headerTitle: navigationStack.length > 1 ? t(`screens.signup-email.title`) : undefined,
+          headerTitle: navigationStack.length > 1 ? t(`screens.signup-email.title`) : '',
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
         name={IAuthStackPages.SIGNUP_EMAIL}
@@ -94,19 +98,27 @@ export const AuthStack = () => {
       />
       <Stack.Screen
         options={{
-          headerTitle: t(`screens.cgu`),
+          headerTitle: t(`screens.legal`),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
         name={IAuthStackPages.LEGAL}
-        component={LegalScreen}
+        component={ScreenLegal}
       />
       <Stack.Screen
         options={{
-          headerTitle: t(`screens.cguKycProvider`),
+          headerTitle: t(`screens.cgu`),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
         name={IAuthStackPages.CGU}
-        component={CguScreen}
+        component={ScreenCgu}
+      />
+      <Stack.Screen
+        options={{
+          headerTitle: t(`screens.cgu-kyc-provider`),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+        name={IAuthStackPages.CGU_KYC_PROVIDER}
+        component={ScreenCguKycProvider}
       />
       {/*
 

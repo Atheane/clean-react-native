@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { StyleSheet, SafeAreaView, View, Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -55,13 +56,19 @@ export const SignupEmail = () => {
   );
 
   // navigation
+  const navigation = useNavigation();
+
   const onPressLegal = useCallback(() => {
-    navigate({ route: IAuthStackPages.LEGAL });
-  }, []);
+    navigation.navigate(IAuthStackPages.LEGAL as never);
+  }, [navigation]);
 
   const onPressCgu = useCallback(() => {
-    navigate({ route: IAuthStackPages.CGU });
-  }, []);
+    navigation.navigate(IAuthStackPages.CGU as never);
+  }, [navigation]);
+
+  const onPressCguKycProvider = useCallback(() => {
+    navigation.navigate(IAuthStackPages.CGU_KYC_PROVIDER as never);
+  }, [navigation]);
 
   // clean serverError onFocus
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
@@ -84,18 +91,25 @@ export const SignupEmail = () => {
           />
           <View style={styles.cgu}>
             <LinkButton
-              title={t('link-button.legal')}
+              title={t('screens.legal')}
               arrow={false}
               colorOption={LinkButtonColors.BLUE}
               pressed={false}
               onPress={onPressLegal}
             />
             <LinkButton
-              title={t('link-button.cgu')}
+              title={t('screens.cgu')}
               arrow={false}
               colorOption={LinkButtonColors.BLUE}
               pressed={false}
               onPress={onPressCgu}
+            />
+            <LinkButton
+              title={t('screens.cgu-kyc-provider')}
+              arrow={false}
+              colorOption={LinkButtonColors.BLUE}
+              pressed={false}
+              onPress={onPressCguKycProvider}
             />
           </View>
         </View>

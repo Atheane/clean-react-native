@@ -6,8 +6,7 @@ import { SignupValidatePhone } from './SignupValidatePhone';
 import { SignupBirth } from './SignupBirth';
 import { SignupAddress } from './SignupAddress';
 import { SignupCongrats } from './SignupCongrats';
-import { LegalScreen } from './LegalScreen';
-import { CguScreen } from './CguScreen';
+import { Webview } from './Webview';
 
 export {
   Login,
@@ -18,6 +17,5 @@ export {
   SignupBirth,
   SignupAddress,
   SignupCongrats,
-  LegalScreen,
-  CguScreen,
+  Webview,
 };

@@ -67,11 +67,6 @@
   "country-picker": {
     "placeholder": "Sélectionner un pays"
   },
-  "link-button": {
-    "login": "Se connecter",
-    "legal": "CGU",
-    "cgu": "CGU KycProvider"
-  },
   "email-input": {
     "label": "email",
     "placeholder": "votre@email.com"
@@ -160,8 +155,9 @@
     }
   },
   "screens": {
+    "legal": "Mentions légales",
     "cgu": "CGU",
-    "cguKycProvider": "CGU KycProvider",
+    "cgu-kyc-provider": "CGU KycProvider",
     "login": {
       "title": "Connexion"
     },

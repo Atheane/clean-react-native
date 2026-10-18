@@ -62,6 +62,10 @@ export const SignupValidatePhone = () => {
     navigation.navigate(IAuthStackPages.CGU as never);
   }, [navigation]);
 
+  const onPressCguKycProvider = useCallback(() => {
+    navigation.navigate(IAuthStackPages.CGU_KYC_PROVIDER as never);
+  }, [navigation]);
+
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
   return (
@@ -86,18 +90,25 @@ export const SignupValidatePhone = () => {
           </View>
           <View style={styles.cgu}>
             <LinkButton
-              title={t('link-button.legal')}
+              title={t('screens.legal')}
               arrow={false}
               colorOption={LinkButtonColors.BLUE}
               pressed={false}
               onPress={onPressLegal}
             />
             <LinkButton
-              title={t('link-button.cgu')}
+              title={t('screens.cgu')}
               arrow={false}
               colorOption={LinkButtonColors.BLUE}
               pressed={false}
               onPress={onPressCgu}
+            />
+            <LinkButton
+              title={t('screens.cgu-kyc-provider')}
+              arrow={false}
+              colorOption={LinkButtonColors.BLUE}
+              pressed={false}
+              onPress={onPressCguKycProvider}
             />
           </View>
         </View>

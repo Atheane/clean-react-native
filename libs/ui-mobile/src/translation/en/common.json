@@ -166,8 +166,9 @@
     }
   },
   "screens": {
+    "legal": "Legal mentions",
     "cgu": "TOS",
-    "cguKycProvider": "KycProvider TOS",
+    "cgu-kyc-provider": "KycProvider TOS",
     "login": {
       "title": "Login"
     },
