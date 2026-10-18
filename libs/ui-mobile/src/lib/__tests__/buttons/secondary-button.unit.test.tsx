@@ -1,8 +1,8 @@
 import { render } from '@testing-library/react-native';
 import { ThemeProvider } from '@rneui/themed';
-import { Love } from '../assets';
-import { SecondaryButton } from '../components/buttons/secondary-button';
-import { theme } from '../theme';
+import { Love } from '../../assets';
+import { SecondaryButton } from '../../components/buttons/secondary-button';
+import { theme } from '../../theme';
 
 describe('SecondaryButton - ', () => {
   describe('minimal props - ', () => {
@@ -29,7 +29,7 @@ describe('SecondaryButton - ', () => {
             onPress={() => {
               return null;
             }}
-            large
+            long
           />
         </ThemeProvider>,
       );

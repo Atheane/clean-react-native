@@ -1,8 +1,8 @@
 import { render } from '@testing-library/react-native';
 import { ThemeProvider } from '@rneui/themed';
-import { SelectNumber } from '../components/inputs/select-number';
-import { theme } from '../theme';
-import { Love } from '../assets';
+import { SelectNumber } from '../../components/inputs/select-number';
+import { theme } from '../../theme';
+import { Love } from '../../assets';
 
 describe('SelectNumber - ', () => {
   describe('minimal props - ', () => {

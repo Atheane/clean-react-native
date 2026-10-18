@@ -1,9 +1,9 @@
 import { render } from '@testing-library/react-native';
 import { ThemeProvider } from '@rneui/themed';
-import { Dropdown } from '../components/dropdowns/dropdown';
-import { theme } from '../theme';
-import { Love } from '../assets';
-import { Colors } from '../constants';
+import { Dropdown } from '../../components/dropdowns/dropdown';
+import { theme } from '../../theme';
+import { Love } from '../../assets';
+import { Colors } from '../../constants';
 
 const fakeData = [
   {

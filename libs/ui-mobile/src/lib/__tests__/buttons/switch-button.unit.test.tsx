@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react-native';
 import { ThemeProvider } from '@rneui/themed';
-import { SwitchButton } from '../components/buttons/switch-button';
-import { theme } from '../theme';
+import { SwitchButton } from '../../components/buttons/switch-button';
+import { theme } from '../../theme';
 
 type IData = { key: string; value: string };
 
