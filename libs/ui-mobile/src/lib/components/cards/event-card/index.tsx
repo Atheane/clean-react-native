@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   },
   deleteCross: {
     position: 'absolute',
-    top: -2,
+    top: -20,
     right: -10,
   },
   text: {

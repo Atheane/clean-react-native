@@ -101,5 +101,5 @@ export const Banner = (props: IProps) => {
 
 const styles = StyleSheet.create({
   leftIcon: { marginLeft: 8 },
-  rightIcon: { marginTop: -8 },
+  rightIcon: { marginTop: -24 },
 });
