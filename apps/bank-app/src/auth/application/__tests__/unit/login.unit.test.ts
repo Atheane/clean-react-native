@@ -1,20 +1,23 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
-import nock from 'nock';
-import * as path from 'path';
+import Constants from 'expo-constants';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AuthError, Email } from '@clean-rn/auth/domain';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { loginSaga, loginApiSaga } from '../../usecases/login';
 import { ILoginTypes, loginSuccess, loginFailure } from '../../commands/login';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { IStoreKey } from '../../../../shared/application/types';
+import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 describe('Login - usecase', () => {
-  const genObject = loginSaga();
+  const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+  const api = AuthApi.getInstance(httpConnection);
+  const genObject = loginSaga(api);
+
   const mockData = {
     email: new Email('test@example.com'),
     password: '123123',
@@ -33,64 +36,43 @@ describe('Login - usecase', () => {
     path: '/auth/login',
   };
 
-  const httpConnection = HttpConnection.getInstance('https://sandbox.example.com');
-  const api = AuthApi.getInstance(httpConnection);
-
-  beforeAll(async () => {
-    nock.disableNetConnect();
-    nock.back.fixtures = path.resolve(`${__dirname}/fixtures`);
-    nock.back.setMode('record');
-  });
-
-  afterAll(() => {
-    nock.cleanAll();
-  });
-
   it('Should wait for FETCH_LOGIN action and call loginApiSaga, should be done on next iteration', () => {
-    expect(genObject.next().value).toEqual(takeEvery(ILoginTypes.FETCH_LOGIN, loginApiSaga));
+    expect(genObject.next().value).toEqual(takeEvery(ILoginTypes.FETCH_LOGIN, loginApiSaga, api));
     expect(genObject.next().done).toBeTruthy();
   });
 
   it('Should call loginSuccess', async () => {
-    nock.back('login-response-ok.json', (nockDone) => {
-      testSaga(loginApiSaga, {
-        type: ILoginTypes.FETCH_LOGIN,
-        payload: mockData,
-      })
-        .next()
-        .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
-        .next(new Email('test@example.com').value)
-        .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
-        .next(mockResponse)
-        .put(loginSuccess(mockResponse))
-        .next()
-        .call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, mockResponse.accessToken)
-        .next();
-
-      nockDone();
-    });
+    testSaga(loginApiSaga, api, {
+      type: ILoginTypes.FETCH_LOGIN,
+      payload: mockData,
+    })
+      .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next(new Email('test@example.com').value)
+      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .next(mockResponse)
+      .put(loginSuccess(mockResponse))
+      .next()
+      .call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, mockResponse.accessToken)
+      .next();
   });
 
   it('Should call loginFailure action if 400', () => {
-    nock.back('login-response-400.json', (nockDone) => {
-      testSaga(loginApiSaga, {
-        type: ILoginTypes.FETCH_LOGIN,
-        payload: mockData,
-      })
-        .next()
-        .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
-        .next(new Email('test@example.com').value)
-        .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
-        .throw(new ServerError(mockError400))
-        .put(loginFailure(new AuthError.LoginFailureInvalidCredentials(new ServerError(mockError400))))
-        .next();
-
-      nockDone();
-    });
+    testSaga(loginApiSaga, api, {
+      type: ILoginTypes.FETCH_LOGIN,
+      payload: mockData,
+    })
+      .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next(new Email('test@example.com').value)
+      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .throw(new ServerError(mockError400))
+      .put(loginFailure(new AuthError.LoginFailureInvalidCredentials(new ServerError(mockError400))))
+      .next();
   });
 
   it('Should call loginFailure if login with different email that the one stored on the phone', () => {
-    testSaga(loginApiSaga, {
+    testSaga(loginApiSaga, api, {
       type: ILoginTypes.FETCH_LOGIN,
       payload: mockData,
     })

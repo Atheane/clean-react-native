@@ -10,12 +10,15 @@ import { loginSuccess, loginFailure, ILoginTypes } from '../../commands/login';
 import { IStoreKey } from '../../../../shared/application/types';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
-function* loginApiSaga({
-  payload,
-}: {
-  type: string;
-  payload: ILoginCommand;
-}): Generator<StrictEffect, any, any> {
+function* loginApiSaga(
+  api: AuthApi,
+  {
+    payload,
+  }: {
+    type: string;
+    payload: ILoginCommand;
+  },
+): Generator<StrictEffect, any, any> {
   // get email from async storage
   const email = yield call(AsyncStorage.getItem, IStoreKey.USER_EMAIL);
 
@@ -26,8 +29,6 @@ function* loginApiSaga({
   }
 
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
-  const api = AuthApi.getInstance(httpConnection);
-
   let auth;
   try {
     // api call
@@ -45,8 +46,8 @@ function* loginApiSaga({
   yield call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, auth.accessToken);
 }
 
-function* loginSaga(): Generator<StrictEffect, any, any> {
-  yield takeEvery(ILoginTypes.FETCH_LOGIN, loginApiSaga);
+function* loginSaga(api: AuthApi): Generator<StrictEffect, any, any> {
+  yield takeEvery(ILoginTypes.FETCH_LOGIN, loginApiSaga, api);
 }
 
 export { loginSaga, loginApiSaga };

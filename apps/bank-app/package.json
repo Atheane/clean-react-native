@@ -53,7 +53,8 @@
     "@react-navigation/native-stack": "*",
     "redux-saga-test-plan": "*",
     "nock": "*",
-    "@types/jest": "*"
+    "@types/jest": "*",
+    "redux-saga-tester": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp package-lock.json apps/bank-app",

@@ -1,4 +1,6 @@
 import { all } from 'redux-saga/effects';
+import Constants from 'expo-constants';
+
 import { initializationSaga } from './initialization';
 import {
   loginSaga,
@@ -12,6 +14,8 @@ import {
   // signupStep7Saga,
   // signupStep8Saga,
 } from '../../../auth/application/usecases';
+import { AuthApi } from '@clean-rn/auth/infrastructure';
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
 // import { getAccountsSaga, getTransactionsSaga } from '@account/usecases';
 // import { accountApi } from '@account/infrastructure/services';
@@ -26,7 +30,7 @@ import {
 export function* rootSaga() {
   yield all([
     initializationSaga(),
-    loginSaga(),
+    loginSaga(AuthApi.getInstance(HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API))),
     resetPasswordSaga(),
     // navigatePasswordToLoginSaga(),
     // signupStep1Saga(authApi),
