@@ -1,2 +1,2 @@
-import { IUser } from './IUser';
-export { IUser };
+import { User, IUserProperties } from './User';
+export { User, IUserProperties };

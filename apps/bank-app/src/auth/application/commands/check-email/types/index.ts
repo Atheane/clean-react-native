@@ -1,5 +1,4 @@
-import { ISuccess } from '@clean-rn/ddd';
-import { Email, ICheckEmailQuery } from '@clean-rn/auth/domain';
+import { Email, ICheckEmailQuery, ISuccess } from '@clean-rn/auth/domain';
 
 export interface ICheckEmailState {
   pending: boolean;

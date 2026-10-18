@@ -1,4 +1,4 @@
-import { IResetPasswordCommand } from '@clean-rn/auth/domain';
+import { IResetPasswordCommand, ISuccess } from '@clean-rn/auth/domain';
 import {
   IFetchResetPassword,
   IFetchResetPasswordSucceded,
@@ -6,7 +6,6 @@ import {
   IResetPasswordTypes,
   IInitResetPassword,
 } from './types';
-import { ISuccess } from '@clean-rn/ddd';
 
 export const fetchResetPassword = (payload: IResetPasswordCommand): IFetchResetPassword => ({
   type: IResetPasswordTypes.FETCH_RESET_PASSWORD,

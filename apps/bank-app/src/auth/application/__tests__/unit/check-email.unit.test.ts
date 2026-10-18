@@ -4,12 +4,11 @@ import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
-import { Email } from '@clean-rn/auth/domain';
+import { Email, ISuccess } from '@clean-rn/auth/domain';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { checkEmailApiSaga, checkEmailSaga } from '../../usecases/check-email';
 import { ICheckEmailTypes, checkEmailSuccess } from '../../commands/check-email';
-import { ISuccess } from '@clean-rn/ddd';
 
 describe('CheckEmail - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);

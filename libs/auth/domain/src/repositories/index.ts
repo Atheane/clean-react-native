@@ -1,12 +1,5 @@
-import { ISuccess } from '@clean-rn/ddd';
-import { Email } from '../valueObjects';
-
-export type ICheckEmailQuery = {
-  email: Email;
-};
+import { IUserProperties, User } from '../entities';
 
 export interface IUserRepository {
-  // createUser(user: IUser): Promise<IUser>; //user as an aggregate Entity class, with IUserProperties
-  searchEmail(query: ICheckEmailQuery): Promise<ISuccess>;
-  // SearchPhone(phone: Phone): Promise<ISuccess>;
+  createUser(user: IUserProperties): Promise<User>; //user as an aggregate Entity class, with IUserProperties
 }

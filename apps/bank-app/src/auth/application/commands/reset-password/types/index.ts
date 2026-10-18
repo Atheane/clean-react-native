@@ -1,5 +1,4 @@
-import { ISuccess } from '@clean-rn/ddd';
-import { IResetPasswordCommand } from '@clean-rn/auth/domain';
+import { IResetPasswordCommand, ISuccess } from '@clean-rn/auth/domain';
 
 export enum IResetPasswordTypes {
   FETCH_RESET_PASSWORD = 'FETCH_RESET_PASSWORD',

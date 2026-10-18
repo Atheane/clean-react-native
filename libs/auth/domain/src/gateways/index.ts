@@ -1,23 +1,13 @@
-import { ISuccess } from '@clean-rn/ddd';
-import { Email } from '../valueObjects';
-
-export type IAuth = {
-  accessToken: string;
-  refreshToken: string;
-};
-
-export type ILoginCommand = {
-  email: Email;
-  password: string;
-};
-
-export type IResetPasswordCommand = {
-  email: Email;
-};
+import { Phone } from '../valueObjects';
+import { ILoginCommand, IResetPasswordCommand } from '../commands';
+import { ICheckEmailQuery } from '../queries';
+import { IAuth, ISuccess } from '../types';
 
 export interface IAuthGateway {
   login: (cmd: ILoginCommand) => Promise<IAuth>;
   resetPassword: (cmd: IResetPasswordCommand) => Promise<ISuccess>;
+  searchEmail(query: ICheckEmailQuery): Promise<ISuccess>;
+  searchPhone(phone: Phone): Promise<ISuccess>;
   //   sendPhoneValidation: (
   //     params: IPostSendPhoneValidationParams,
   //   ) => Promise<AxiosResponse<{ success: boolean }>>;

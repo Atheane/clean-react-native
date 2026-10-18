@@ -1,15 +1,14 @@
-import { ISuccess } from '@clean-rn/ddd';
 import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
-import { ICheckEmailQuery } from '@clean-rn/auth/domain';
 import {
   IAuthGateway,
-  IUserRepository,
   IAuth,
   ILoginCommand,
   IResetPasswordCommand,
+  ICheckEmailQuery,
+  ISuccess,
 } from '@clean-rn/auth/domain';
 
-export class AuthApi implements IAuthGateway, IUserRepository {
+export class AuthApi implements IAuthGateway {
   private static instance: AuthApi | null = null;
   private connection: HttpConnection;
 

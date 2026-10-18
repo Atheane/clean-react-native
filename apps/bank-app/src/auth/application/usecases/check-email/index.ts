@@ -1,11 +1,10 @@
 import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
 
-import { ICheckEmailQuery } from '@clean-rn/auth/domain';
+import { ICheckEmailQuery, ISuccess } from '@clean-rn/auth/domain';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { checkEmailSuccess, ICheckEmailTypes } from '../../commands/check-email';
 
-import { ISuccess } from '@clean-rn/ddd';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
 function* checkEmailApiSaga(
