@@ -3,12 +3,12 @@ import {
   ISignupActions,
   ISignupTypes,
   IFetchCheckEmail,
-  ICheckEmailSuccess,
   IIdentityRegistered,
   IRegisterPassword,
   IRegisterAddress,
   IRegisterBirth,
   ICreateUser,
+  IEmailChecked,
 } from './types';
 
 export const fetchCheckEmail = (payload: Email): IFetchCheckEmail => ({
@@ -16,8 +16,8 @@ export const fetchCheckEmail = (payload: Email): IFetchCheckEmail => ({
   payload,
 });
 
-export const checkEmailSuccess = (payload: ISuccess): ICheckEmailSuccess => ({
-  type: ISignupTypes.CHECK_EMAIL_SUCCESS,
+export const emailChecked = (payload: ISuccess): IEmailChecked => ({
+  type: ISignupTypes.EMAIL_CHECKED,
   payload,
 });
 

@@ -12,7 +12,7 @@ import {
   registerIdentityGenerator,
   registerIdentitySaga,
 } from '../../usecases/signup';
-import { ISignupTypes, checkEmailSuccess, identityRegistered } from '../../commands/signup';
+import { ISignupTypes, emailChecked, identityRegistered } from '../../commands/signup';
 import { selectEmail } from '../../../application/state-management';
 
 describe('Signup - usecase', () => {
@@ -44,7 +44,7 @@ describe('Signup - usecase', () => {
       .call([api, api.searchEmail], query)
       .next(mockResponse)
       .put(
-        checkEmailSuccess({
+        emailChecked({
           success: mockResponse.success,
         }),
       )

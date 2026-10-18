@@ -2,7 +2,7 @@ import { Email, Prospect, User, ISuccess } from '@clean-rn/auth/domain';
 
 export enum ISignupTypes {
   FETCH_CHECK_EMAIL = 'FETCH_CHECK_EMAIL',
-  CHECK_EMAIL_SUCCESS = 'CHECK_EMAIL_SUCCESS',
+  EMAIL_CHECKED = 'EMAIL_CHECKED',
   REGISTER_IDENTITY = 'REGISTER_IDENTITY',
   IDENTITY_REGISTERED = 'IDENTITY_REGISTERED',
   REGISTER_PASSWORD = 'REGISTER_PASSWORD',
@@ -16,8 +16,8 @@ export type IFetchCheckEmail = {
   payload: Email;
 };
 
-export type ICheckEmailSuccess = {
-  type: typeof ISignupTypes.CHECK_EMAIL_SUCCESS;
+export type IEmailChecked = {
+  type: typeof ISignupTypes.EMAIL_CHECKED;
   payload: ISuccess;
 };
 
@@ -52,7 +52,7 @@ export type ICreateUser = {
 
 export type ISignupActions =
   | IFetchCheckEmail
-  | ICheckEmailSuccess
+  | IEmailChecked
   | IRegisterIdentity
   | IIdentityRegistered
   | IRegisterPassword

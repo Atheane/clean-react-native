@@ -2,7 +2,7 @@ import { call, put, StrictEffect, select, takeEvery } from 'redux-saga/effects';
 
 import { ICheckEmailQuery, IRegisterIdentityCommand, ISuccess, Prospect } from '@clean-rn/auth/domain';
 
-import { ISignupTypes, checkEmailSuccess, identityRegistered } from '../../commands/signup';
+import { ISignupTypes, emailChecked, identityRegistered } from '../../commands/signup';
 import { selectEmail } from '../../state-management';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
@@ -20,7 +20,7 @@ function* checkEmailGenerator(
   // api call
   const emailExists: ISuccess = yield call([api, api.searchEmail], payload);
   //attachBearerToken to httpConnection
-  yield put(checkEmailSuccess(emailExists));
+  yield put(emailChecked(emailExists));
 }
 
 function* registerIdentityGenerator({

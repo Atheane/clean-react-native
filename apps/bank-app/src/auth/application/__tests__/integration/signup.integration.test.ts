@@ -5,7 +5,7 @@ import Constants from 'expo-constants';
 import { Email, IGender, IRegisterIdentityCommand, Prospect } from '@clean-rn/auth/domain';
 
 import { checkEmailSaga, registerIdentitySaga } from '../../usecases/signup';
-import { ISignupTypes, checkEmailSuccess, fetchCheckEmail, identityRegistered } from '../../commands/signup';
+import { ISignupTypes, emailChecked, fetchCheckEmail, identityRegistered } from '../../commands/signup';
 import { ISignupState, signupReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
 
@@ -85,7 +85,7 @@ describe('CheckEmail - integration', () => {
   it('Should store correct state if CHECK_EMAIL_SUCCESS', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
     sagaTester.dispatch(fetchCheckEmail(new Email('test@example.com')));
-    sagaTester.dispatch(checkEmailSuccess(mockResponse));
+    sagaTester.dispatch(emailChecked(mockResponse));
 
     expect(sagaTester.getState()).toEqual({
       pending: false,

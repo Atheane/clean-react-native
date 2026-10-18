@@ -22,7 +22,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
         email: action.payload,
       };
       return newState;
-    case ISignupTypes.CHECK_EMAIL_SUCCESS:
+    case ISignupTypes.EMAIL_CHECKED:
       logger.debug(action.type);
       newState = {
         ...state,
