@@ -7,7 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import {
   Login,
-  // ResetPassword,
+  ResetPassword,
   // SignupStep1,
   // SignupStep2,
   // SignupStep3,
@@ -22,6 +22,7 @@ import {
 } from '../screens';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { IAuthStackPages, IAuthStackProps } from '../../../shared/presentation/types';
+import { navigate } from '../../../shared/presentation/navigation/navigationRef';
 
 const Stack = createNativeStackNavigator<IAuthStackProps>();
 
@@ -31,13 +32,6 @@ type Props = {
 
 export const AuthStack = (props: Props) => {
   const { t } = useTranslation();
-
-  // const dispatch = useDispatch();
-
-  // const onPressBackButton = (action: () => NavigationActions) =>
-  //   useCallback(() => {
-  //     dispatch(action());
-  //   }, [dispatch]);
 
   return (
     <Stack.Navigator initialRouteName={props.initRoute}>
@@ -50,16 +44,12 @@ export const AuthStack = (props: Props) => {
         component={Login}
       />
       <Stack.Screen
-        // options={{
-        //   headerTitle: t('screens.resetPassword.title'),
-        //   ...headersOptions(onPressBackButton(navigateBack)),
-        // }}
+        options={{
+          headerTitle: t('screens.resetPassword.title'),
+          ...headersOptions(() => navigate({ route: IAuthStackPages.LOGIN })),
+        }}
         name={IAuthStackPages.RESET_PASSWORD}
-        component={() => (
-          <View>
-            <Text>RESET PASSWORD</Text>
-          </View>
-        )}
+        component={ResetPassword}
       />
       <Stack.Screen
         options={{

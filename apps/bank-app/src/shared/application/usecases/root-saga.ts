@@ -2,7 +2,7 @@ import { all } from 'redux-saga/effects';
 import { initializationSaga } from './initialization';
 import {
   loginSaga,
-  // resetPasswordSaga,
+  resetPasswordSaga,
   // navigatePasswordToLoginSaga,
   // signupStep1Saga,
   // signupStep2Saga,
@@ -27,7 +27,7 @@ export function* rootSaga() {
   yield all([
     initializationSaga(),
     loginSaga(),
-    // resetPasswordSaga(authApi),
+    resetPasswordSaga(),
     // navigatePasswordToLoginSaga(),
     // signupStep1Saga(authApi),
     // signupStep2Saga(authApi),

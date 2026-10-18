@@ -1,7 +1,7 @@
 import { Logger } from '@clean-rn/logger';
 
 import { ILoginTypes, ILoginActions } from '../../../commands/login/types';
-import { ILoginState } from '../../state/login';
+import { ILoginState } from '../state';
 
 const initialState: ILoginState = {
   pending: false,

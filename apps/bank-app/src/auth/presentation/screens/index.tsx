@@ -1,5 +1,5 @@
 import { Login } from './Login';
-// import { ResetPassword } from './ResetPassword';
+import { ResetPassword } from './ResetPassword';
 // import { SignupStep1 } from './SignupStep1';
 // import { SignupStep2 } from './SignupStep2';
 // import { SignupStep3 } from './SignupStep3';
@@ -15,7 +15,7 @@ import { Login } from './Login';
 // import { ModalScreen } from './ModalScreen';
 export {
   Login,
-  // ResetPassword,
+  ResetPassword,
   // SignupStep1,
   // SignupStep2,
   // SignupStep3,

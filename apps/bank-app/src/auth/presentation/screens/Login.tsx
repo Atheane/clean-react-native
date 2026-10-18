@@ -15,7 +15,7 @@ import { IAuthStackPages } from '../../../shared/presentation/types';
 import { navigationRef } from '../../../shared/presentation/navigation/navigationRef';
 
 import { Welcome } from '../assets/images';
-import { fetchLoginRequest } from '../../application/commands/login';
+import { fetchLogin } from '../../application/commands/login';
 
 export const Login = () => {
   // retrieve email, if any
@@ -45,7 +45,7 @@ export const Login = () => {
           ...formData,
           email: filled && email ? email : new Email(formData.email),
         };
-        dispatch(fetchLoginRequest(payload));
+        dispatch(fetchLogin(payload));
       } catch (e: unknown) {
         Sentry.captureException(e);
         Logger.getInstance().error(e);

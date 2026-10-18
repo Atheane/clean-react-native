@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
-import { IDomainError, IInfraError } from '@clean-rn/ddd';
+import { IDomainError } from '@clean-rn/ddd';
 import { IAuthErrorCodes, IAuthErrorMessage, Email } from '@clean-rn/auth/domain';
 
 import { firstLetterCapitalize } from '../../../utils';
@@ -22,7 +22,7 @@ type IProps = {
   onFocus: () => void;
   control: Control<IResetPasswordFormData>;
   errors: FieldErrors<IResetPasswordFormData>;
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | IInfraError | null;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | Error | null;
 };
 
 export type IResetPasswordFormData = {

@@ -1,34 +1,23 @@
-import {
-  ILoginTypes,
-  ILoginFailure,
-  ILoginFailurePayload,
-  IFetchLoginRequest,
-  IFetchLoginRequestPayload,
-  IFetchLoginSuccess,
-  IFetchLoginSuccessPayload,
-} from './types';
+import { IDomainError } from '@clean-rn/ddd';
+import { IAuth, Email, IAuthErrorMessage, IAuthErrorCodes } from '@clean-rn/auth/domain';
 
-export const fetchLoginRequest = (payload: IFetchLoginRequestPayload): IFetchLoginRequest => ({
-  type: ILoginTypes.FETCH_LOGIN_REQUEST,
+import { ILoginTypes, IFetchLogin, ILoginSucceded, ILoginFailed, ILoginActions } from './types';
+
+export const fetchLogin = (payload: { email: Email; password: string }): IFetchLogin => ({
+  type: ILoginTypes.FETCH_LOGIN,
   payload,
 });
 
-export const fetchLoginSuccess = (payload: IFetchLoginSuccessPayload): IFetchLoginSuccess => ({
-  type: ILoginTypes.FETCH_LOGIN_SUCCESS,
+export const loginSuccess = (payload: { auth: IAuth }): ILoginSucceded => ({
+  type: ILoginTypes.LOGIN_SUCCEDED,
   payload,
 });
 
-export const loginFailure = (payload: ILoginFailurePayload): ILoginFailure => ({
-  type: ILoginTypes.LOGIN_FAILURE,
+export const loginFailure = (payload: {
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | Error;
+}): ILoginFailed => ({
+  type: ILoginTypes.LOGIN_FAILED,
   payload,
 });
 
-export {
-  ILoginTypes,
-  ILoginFailure,
-  ILoginFailurePayload,
-  IFetchLoginRequest,
-  IFetchLoginRequestPayload,
-  IFetchLoginSuccess,
-  IFetchLoginSuccessPayload,
-};
+export { ILoginTypes, ILoginActions };
