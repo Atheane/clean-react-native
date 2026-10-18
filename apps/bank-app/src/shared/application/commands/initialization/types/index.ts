@@ -1,4 +1,5 @@
 import { Email } from '@clean-rn/auth/domain';
+import { IAuthStackPages } from '../../../../../shared/presentation/types';
 
 export enum IInitializationTypes {
   INITIALIZE_APPLICATION = 'INITIALIZE_APPLICATION',
@@ -11,7 +12,10 @@ export type IInitialization = {
 
 export type IInitializationSucceded = {
   type: typeof IInitializationTypes.APPLICATION_INITIALIZED;
-  payload: Email | null;
+  payload: {
+    email?: Email;
+    initRouteName?: IAuthStackPages;
+  };
 };
 
 export type IInitializationActions = IInitialization | IInitializationSucceded;

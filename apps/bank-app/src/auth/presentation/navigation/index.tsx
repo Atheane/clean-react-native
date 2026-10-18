@@ -1,7 +1,7 @@
 // import { useCallback } from 'react';
 // import { useDispatch } from 'react-redux';
-import { Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -23,18 +23,16 @@ import {
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { IAuthStackPages, IAuthStackProps } from '../../../shared/presentation/types';
 import { navigate } from '../../../shared/presentation/navigation/navigationRef';
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 const Stack = createNativeStackNavigator<IAuthStackProps>();
 
-type Props = {
-  initRoute: IAuthStackPages;
-};
-
-export const AuthStack = (props: Props) => {
+export const AuthStack = () => {
   const { t } = useTranslation();
-
+  const { initRouteName } = useSelector((state: IRootState) => state.initialization);
+  console.log('initRouteName', initRouteName);
   return (
-    <Stack.Navigator initialRouteName={props.initRoute}>
+    <Stack.Navigator initialRouteName={initRouteName}>
       <Stack.Screen
         options={{
           headerTitle: t(`screens.login.title`),

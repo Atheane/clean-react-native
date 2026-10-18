@@ -12,7 +12,7 @@ import { Email } from '@clean-rn/auth/domain';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IAuthStackPages } from '../../../shared/presentation/types';
-import { navigationRef } from '../../../shared/presentation/navigation/navigationRef';
+import { navigate } from '../../../shared/presentation/navigation/navigationRef';
 
 import { Welcome } from '../assets/images';
 import { fetchLogin } from '../../application/commands/login';
@@ -50,7 +50,7 @@ export const Login = () => {
 
   // navigate to forgot_password
   const onPress = useCallback(() => {
-    navigationRef.navigate(IAuthStackPages.RESET_PASSWORD as never);
+    navigate({ route: IAuthStackPages.RESET_PASSWORD });
   }, []);
 
   // clean serverError onFocus

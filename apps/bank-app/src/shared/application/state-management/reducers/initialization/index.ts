@@ -6,6 +6,7 @@ import { IInitializationState } from '../../state/initialization';
 const initialState: IInitializationState = {
   pending: null,
   email: null,
+  initRouteName: undefined,
 };
 
 export const initializationReducer = (state = initialState, action: IInitializationActions) => {
@@ -23,8 +24,9 @@ export const initializationReducer = (state = initialState, action: IInitializat
       logger.debug(action.type);
       newState = {
         ...state,
-        email: action.payload,
         pending: false,
+        email: action.payload.email ?? null,
+        initRouteName: action.payload.initRouteName,
       };
       return newState;
     default:
