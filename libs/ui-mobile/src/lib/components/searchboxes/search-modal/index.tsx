@@ -10,6 +10,7 @@ import {
   Platform,
 } from 'react-native';
 import { SvgProps } from 'react-native-svg';
+import { useTheme } from '@rneui/themed';
 
 import { Close } from '../../../assets';
 import { Colors } from '../../../constants';
@@ -30,6 +31,7 @@ type IProps = {
 };
 
 export const SearchModal = (props: IProps) => {
+  const { theme } = useTheme();
   const [visible, setVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState<IData[]>([]);
@@ -83,7 +85,7 @@ export const SearchModal = (props: IProps) => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View>
       <TextInput
         placeholder={props.placeholder}
         label={props.label}
@@ -116,17 +118,19 @@ export const SearchModal = (props: IProps) => {
               <Close />
             </TouchableOpacity>
           )}
-          <FlatList
-            data={filteredData}
-            keyExtractor={(item: IData) => item.key}
-            renderItem={({ item }: { item: IData }) => (
-              <View key={item.key} style={styles.itemContainer}>
-                <TouchableOpacity onPress={() => handleSelect(item)}>
-                  <Text style={styles.itemText}>{renderLabel(item)}</Text>
-                </TouchableOpacity>
-              </View>
-            )}
-          />
+          <View style={styles.listContainer}>
+            <FlatList
+              data={filteredData}
+              keyExtractor={(item: IData) => item.key}
+              renderItem={({ item }: { item: IData }) => (
+                <View key={item.key} style={styles.itemContainer}>
+                  <TouchableOpacity onPress={() => handleSelect(item)}>
+                    <Text style={theme.bank.text.grey}>{renderLabel(item)}</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+            />
+          </View>
         </SafeAreaView>
       </Modal>
     </View>
@@ -134,7 +138,9 @@ export const SearchModal = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  listContainer: {
+    marginTop: 24,
+  },
   modalContainer: {
     flex: 1,
     marginTop: 50,
@@ -146,9 +152,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderBottomColor: Colors.bank.primary.lightGrey,
     borderBottomWidth: 1,
-  },
-  itemText: {
-    color: Colors.bank.primary.darkGrey,
   },
   closeIcon: {
     position: 'absolute',

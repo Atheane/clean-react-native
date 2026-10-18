@@ -22,3 +22,4 @@ export default SelectNumberMeta;
 type SelectNumberStory = ComponentStory<typeof SelectNumber>;
 
 export const Static: SelectNumberStory = (args) => <SelectNumber {...args} />;
+export const NoIcon: SelectNumberStory = (args) => <SelectNumber {...args} icon={undefined} />;

@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import NumericInput from 'react-native-numeric-input';
 import { SvgProps } from 'react-native-svg';
+import { useTheme } from '@rneui/themed';
 
 import { Colors, FontNames } from '../../../constants';
 
@@ -14,9 +15,12 @@ type IProps = {
 };
 
 export const SelectNumber = (props: IProps) => {
+  const { theme } = useTheme();
   return props.horizontal ? (
     <View style={styles.selectContainer}>
-      <Text style={styles.inputLabel}>{props.label.toLocaleUpperCase()}</Text>
+      <Text style={[theme.bank.text.label, { color: Colors.bank.secondary.pink }]}>
+        {props.label.toLocaleUpperCase()}
+      </Text>
       <View style={styles.inputContainer}>
         <NumericInput
           step={1}
@@ -33,7 +37,9 @@ export const SelectNumber = (props: IProps) => {
     </View>
   ) : (
     <View>
-      <Text style={styles.inputLabel}>{props.label.toLocaleUpperCase()}</Text>
+      <Text style={[theme.bank.text.label, { color: Colors.bank.secondary.pink }]}>
+        {props.label.toLocaleUpperCase()}
+      </Text>
       <View style={styles.selectContainer}>
         {props.icon && (
           <View style={styles.leftIconContainer}>
@@ -68,6 +74,7 @@ const styles = StyleSheet.create({
   selectContainer: {
     flexDirection: 'row',
     width: Dimensions.get('window').width * 0.8,
+    marginVertical: 16,
   },
   leftIconContainer: {
     marginLeft: 8,
@@ -75,6 +82,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   inputContainer: {
-    marginHorizontal: 16,
+    margin: 16,
   },
 });

@@ -28,12 +28,21 @@ export const MultipleOptionsCheckBox = (props: IProps) => {
 
   return (
     <View>
-      {props.label && <Text style={theme.bank.text.greyLabel}>{props.label}</Text>}
+      {props.label && (
+        <Text style={[theme.bank.text.label, { color: Colors.bank.primary.grey }]}>{props.label}</Text>
+      )}
       {props.subtitle && <Text style={theme.bank.text.grey}>{props.subtitle}</Text>}
       <View style={styles.checkboxContainer}>
         {props.optionsValues.map((option: string, index: number) => {
           return (
-            <View key={index} style={[styles.item, { marginRight: props.optionsTitle.length < 3 ? 50 : 0 }]}>
+            <View
+              key={index}
+              style={[
+                theme.bank.container.justifiedItems,
+                styles.item,
+                { marginRight: props.optionsTitle.length < 3 ? 50 : 0 },
+              ]}
+            >
               <CheckBox
                 checked={currentOption === option}
                 onPress={() => handleOnPress(option)}
@@ -57,6 +66,5 @@ const styles = StyleSheet.create({
   },
   item: {
     marginLeft: -20,
-    justifyContent: 'space-between',
   },
 });

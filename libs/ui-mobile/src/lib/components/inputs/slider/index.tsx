@@ -1,6 +1,7 @@
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import RNSlider from '@react-native-community/slider';
 
+import { useTheme } from '@rneui/themed';
 import { Colors, FontNames } from '../../../constants';
 
 type IProps = {
@@ -15,13 +16,14 @@ type IProps = {
 };
 
 export const Slider = (props: IProps) => {
+  const { theme } = useTheme();
   return props.short ? (
-    <View style={styles(props).container}>
-      <Text style={styles(props).labelShort}>{props.label}</Text>
-      <View style={styles(props).sliderUnitContainer}>
-        <Text style={styles(props).textShort}>{`${props.value}${props.unit ?? ''}`}</Text>
+    <View style={theme.bank.container.centeredItems}>
+      <Text style={[theme.bank.text.darkBlue, styles.labelShortContainer]}>{props.label}</Text>
+      <View style={styles.sliderUnitContainer}>
+        <Text style={theme.bank.text.boldDarkBlue}>{`${props.value}${props.unit ?? ''}`}</Text>
         <RNSlider
-          style={styles(props).sliderContainer}
+          style={styles.sliderContainer}
           minimumValue={props.minValue}
           maximumValue={props.maxValue}
           value={props.value}
@@ -35,10 +37,17 @@ export const Slider = (props: IProps) => {
     </View>
   ) : (
     <View>
-      <Text style={styles(props).label}>{props.label.toLocaleUpperCase()}</Text>
-      <Text style={styles(props).text}>{`${props.value}${props.unit ?? ''}`}</Text>
+      <Text style={[theme.bank.text.label, { color: Colors.bank.secondary.pink }]}>
+        {props.label.toLocaleUpperCase()}
+      </Text>
+      <Text style={[theme.bank.text.darkBlue, styles.text]}>{`${props.value}${props.unit ?? ''}`}</Text>
       <RNSlider
-        style={styles(props).sliderContainer}
+        style={[
+          {
+            width: props.short ? Dimensions.get('window').width * 0.35 : Dimensions.get('window').width * 0.8,
+          },
+          styles.sliderContainer,
+        ]}
         minimumValue={props.minValue}
         maximumValue={props.maxValue}
         value={props.value}
@@ -52,48 +61,19 @@ export const Slider = (props: IProps) => {
   );
 };
 
-const styles = (props: IProps) =>
-  StyleSheet.create({
-    container: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      marginTop: 4,
-    },
-    sliderContainer: {
-      width: props.short ? Dimensions.get('window').width * 0.35 : Dimensions.get('window').width * 0.8,
-      marginTop: 4,
-    },
-    sliderUnitContainer: {
-      marginLeft: 12,
-    },
-    labelShort: {
-      color: Colors.bank.primary.darkBlue,
-      fontFamily: FontNames.Roboto_400Regular,
-      fontSize: 18,
-      width: '60%',
-      paddingTop: 20,
-    },
-    label: {
-      color: Colors.bank.secondary.pink,
-      fontFamily: FontNames.Roboto_700Bold,
-      fontSize: 18,
-      lineHeight: 24,
-    },
-    textShort: {
-      textAlign: 'center',
-      color: Colors.bank.primary.darkBlue,
-      fontFamily: FontNames.Roboto_400Regular,
-      fontSize: 15,
-      lineHeight: 20,
-      paddingTop: 16,
-    },
-    text: {
-      textAlign: 'center',
-      color: Colors.bank.primary.darkBlue,
-      fontFamily: FontNames.Roboto_400Regular,
-      fontSize: 18,
-      lineHeight: 24,
-      paddingTop: 16,
-    },
-  });
+const styles = StyleSheet.create({
+  sliderContainer: {
+    marginTop: 4,
+  },
+  sliderUnitContainer: {
+    marginLeft: 12,
+  },
+  labelShortContainer: {
+    width: '60%',
+    paddingTop: 20,
+  },
+  text: {
+    textAlign: 'center',
+    paddingTop: 16,
+  },
+});

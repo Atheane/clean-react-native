@@ -21,6 +21,8 @@ declare module '@rneui/themed' {
         };
         centeredItem: StyleProp<ViewStyle>;
         centeredItems: StyleProp<ViewStyle>;
+        justifiedItems: StyleProp<ViewStyle>;
+        leftItems: StyleProp<ViewStyle>;
         card: {
           short: StyleProp<ViewStyle>;
           long: StyleProp<ViewStyle>;
@@ -44,10 +46,13 @@ declare module '@rneui/themed' {
         darkBlue: StyleProp<TextStyle>;
         boldDarkBlue: StyleProp<TextStyle>;
         grey: StyleProp<TextStyle>;
+        boldGrey: StyleProp<TextStyle>;
         cyan: StyleProp<TextStyle>;
         input: StyleProp<TextStyle>;
+        inputNumber: StyleProp<TextStyle>;
         errors: StyleProp<TextStyle>;
         white: StyleProp<TextStyle>;
+        whiteGraphTitle: StyleProp<TextStyle>;
       };
     };
   }
@@ -79,6 +84,12 @@ export const theme = createTheme({
       },
       centeredItem: { alignItems: 'center', justifyContent: 'center' },
       centeredItems: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' },
+      justifiedItems: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+      leftItems: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+      },
       card: {
         short: {
           width: Dimensions.get('window').width * 0.5,
@@ -207,10 +218,15 @@ export const theme = createTheme({
         fontFamily: FontNames.MartelSans_700Bold,
       },
       grey: {
-        fontSize: 14,
-        lineHeight: 19,
+        fontSize: 13,
+        fontFamily: FontNames.MartelSans_400Regular,
+        textAlign: 'left',
+        color: Colors.bank.primary.darkGrey,
+      },
+      boldGrey: {
+        fontFamily: FontNames.MartelSans_700Bold,
         color: Colors.bank.primary.grey,
-        fontFamily: FontNames.Roboto_400Regular,
+        fontWeight: 'bold',
       },
       cyan: {
         fontSize: 16,
@@ -224,10 +240,17 @@ export const theme = createTheme({
         fontSize: 14,
         textAlign: 'left',
       },
+      inputNumber: {
+        color: Colors.bank.secondary.pink,
+        fontFamily: FontNames.Roboto_400Regular,
+        fontSize: 32,
+        textAlign: 'center',
+        justifyContent: 'center',
+      },
       errors: {
         color: Colors.bank.secondary.salmon,
-        fontFamily: FontNames.Roboto_700Bold,
-        fontSize: 12,
+        fontFamily: FontNames.MartelSans_400Regular,
+        fontSize: 14,
         textAlign: 'center',
       },
       white: {
@@ -235,6 +258,11 @@ export const theme = createTheme({
         fontSize: 15,
         fontWeight: 'bold',
         fontFamily: FontNames.MartelSans_700Bold,
+      },
+      whiteGraphTitle: {
+        fontFamily: FontNames.Roboto_700Bold,
+        fontSize: 40,
+        color: Colors.bank.primary.white,
       },
     },
   },
