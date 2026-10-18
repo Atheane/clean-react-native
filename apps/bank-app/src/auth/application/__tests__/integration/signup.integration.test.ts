@@ -1,22 +1,30 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import SagaTester from 'redux-saga-tester';
 import Constants from 'expo-constants';
+import dayjs from 'dayjs';
 
 import {
   Email,
   IGender,
+  IRegisterBirthCommand,
   IRegisterIdentityCommand,
   IRegisterPasswordCommand,
   Prospect,
 } from '@clean-rn/auth/domain';
 
-import { checkEmailSaga, registerIdentitySaga } from '../../usecases/signup';
+import {
+  checkEmailSaga,
+  registerIdentitySaga,
+  registerPasswordSaga,
+  registerBirthSaga,
+} from '../../usecases/signup';
 import {
   ISignupTypes,
   emailChecked,
   fetchCheckEmail,
   identityRegistered,
   passwordRegistered,
+  birthRegistered,
 } from '../../commands/signup';
 import { ISignupState, signupReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
@@ -49,6 +57,11 @@ describe('CheckEmail - integration', () => {
 
   const mockPassword: IRegisterPasswordCommand = {
     password: 'azekpoakz',
+  };
+
+  const mockBirth: IRegisterBirthCommand = {
+    birthday: dayjs('1980-01-01'),
+    birthCountry: 'FR',
   };
 
   beforeAll(() => {
@@ -149,14 +162,14 @@ describe('CheckEmail - integration', () => {
   });
 
   it('Should store correct state in case if PASSWORD_REGISTERED', () => {
-    const prospectIdentity = Prospect.Create(new Email('test@example.com'));
-    prospectIdentity.registerIdentity(mockIdentity);
+    const prospect = Prospect.Create(new Email('test@example.com'));
+    prospect.registerIdentity(mockIdentity);
 
     const initialState: ISignupState = {
       pending: false,
       success: false,
       email: new Email('test@example.com'),
-      prospect: prospectIdentity,
+      prospect,
       user: null,
     };
 
@@ -165,17 +178,46 @@ describe('CheckEmail - integration', () => {
       reducers: signupReducer,
     });
 
-    sagaTester.start(registerIdentitySaga);
-
-    sagaTester.dispatch(identityRegistered(prospectIdentity));
-    prospectIdentity.registerPassword(mockPassword.password);
-    sagaTester.dispatch(passwordRegistered(prospectIdentity));
+    sagaTester.start(registerPasswordSaga);
+    prospect.registerPassword(mockPassword.password);
+    sagaTester.dispatch(passwordRegistered(prospect));
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
       success: false,
       email: new Email('test@example.com'),
-      prospect: prospectIdentity,
+      prospect,
+      user: null,
+    });
+  });
+
+  it('Should store correct state in case if BIRTH_REGISTERED', () => {
+    const prospect = Prospect.Create(new Email('test@example.com'));
+    prospect.registerIdentity(mockIdentity);
+    prospect.registerPassword(mockPassword.password);
+
+    const initialState: ISignupState = {
+      pending: false,
+      success: false,
+      email: new Email('test@example.com'),
+      prospect,
+      user: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: signupReducer,
+    });
+
+    sagaTester.start(registerBirthSaga);
+    prospect.registerBirth(mockBirth);
+    sagaTester.dispatch(birthRegistered(prospect));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      success: false,
+      email: new Email('test@example.com'),
+      prospect,
       user: null,
     });
   });

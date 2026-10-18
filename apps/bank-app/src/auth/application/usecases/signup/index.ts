@@ -6,9 +6,16 @@ import {
   ISuccess,
   Prospect,
   IRegisterPasswordCommand,
+  IRegisterBirthCommand,
 } from '@clean-rn/auth/domain';
 
-import { ISignupTypes, emailChecked, identityRegistered, passwordRegistered } from '../../commands/signup';
+import {
+  ISignupTypes,
+  birthRegistered,
+  emailChecked,
+  identityRegistered,
+  passwordRegistered,
+} from '../../commands/signup';
 import { selectEmail, selectProspect } from '../../state-management';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
@@ -52,9 +59,23 @@ function* registerPasswordGenerator({
   // retrieve prospect with identity registered from redux store
   const prospect = yield select(selectProspect);
   // add password property to prospect instance
-  prospect.registerPassword(payload);
+  prospect.registerPassword(payload.password);
   // save prospect with identity & password registered in redux store
   yield put(passwordRegistered(prospect));
+}
+
+function* registerBirthGenerator({
+  payload,
+}: {
+  type: string;
+  payload: IRegisterBirthCommand;
+}): Generator<StrictEffect, any, any> {
+  // retrieve prospect with identity registered from redux store
+  const prospect = yield select(selectProspect);
+  // add password property to prospect instance
+  prospect.registerBirth(payload);
+  // save prospect with identity & password registered in redux store
+  yield put(birthRegistered(prospect));
 }
 
 function* checkEmailSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
@@ -69,11 +90,17 @@ function* registerPasswordSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(ISignupTypes.REGISTER_PASSWORD, registerPasswordGenerator);
 }
 
+function* registerBirthSaga(): Generator<StrictEffect, any, any> {
+  yield takeEvery(ISignupTypes.REGISTER_BIRTH, registerBirthGenerator);
+}
+
 export {
   checkEmailSaga,
   registerIdentitySaga,
   registerPasswordSaga,
+  registerBirthSaga,
   checkEmailGenerator,
   registerIdentityGenerator,
   registerPasswordGenerator,
+  registerBirthGenerator,
 };

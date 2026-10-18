@@ -1,6 +1,7 @@
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
+import dayjs from 'dayjs';
 
 import {
   Email,
@@ -9,6 +10,7 @@ import {
   Prospect,
   ISuccess,
   IRegisterPasswordCommand,
+  IRegisterBirthCommand,
 } from '@clean-rn/auth/domain';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
@@ -20,8 +22,16 @@ import {
   registerIdentitySaga,
   registerPasswordGenerator,
   registerPasswordSaga,
+  registerBirthGenerator,
+  registerBirthSaga,
 } from '../../usecases/signup';
-import { ISignupTypes, emailChecked, identityRegistered, passwordRegistered } from '../../commands/signup';
+import {
+  ISignupTypes,
+  birthRegistered,
+  emailChecked,
+  identityRegistered,
+  passwordRegistered,
+} from '../../commands/signup';
 import { selectEmail, selectProspect } from '../../../application/state-management';
 
 describe('Signup - usecase', () => {
@@ -37,6 +47,11 @@ describe('Signup - usecase', () => {
 
   const mockPassword: IRegisterPasswordCommand = {
     password: 'azekpoakz',
+  };
+
+  const mockBirth: IRegisterBirthCommand = {
+    birthday: dayjs('1980-01-01'),
+    birthCountry: 'FR',
   };
 
   it('should wait for FETCH_CHECK_EMAIL action and call checkEmailApiSaga, should be done on next iteration', () => {
@@ -95,7 +110,7 @@ describe('Signup - usecase', () => {
       .next();
   });
 
-  it('should wait for REGISTER_PASSWORD action and call registerIdentityGenerator, should be done on next iteration', () => {
+  it('should wait for REGISTER_PASSWORD action and call registerPasswordGenerator, should be done on next iteration', () => {
     const genObject = registerPasswordSaga();
 
     expect(genObject.next().value).toEqual(
@@ -105,6 +120,9 @@ describe('Signup - usecase', () => {
   });
 
   it('should call registerPassword actions', () => {
+    const prospectPreviousState = Prospect.Create(new Email('test@example.com'));
+    prospectPreviousState.registerIdentity(mockIdentity);
+
     const prospect = Prospect.Create(new Email('test@example.com'));
     prospect.registerIdentity(mockIdentity);
     prospect.registerPassword(mockPassword.password);
@@ -115,8 +133,36 @@ describe('Signup - usecase', () => {
     })
       .next()
       .select(selectProspect)
-      .next(prospect)
+      .next(prospectPreviousState)
       .put(passwordRegistered(prospect))
+      .next();
+  });
+
+  it('should wait for REGISTER_BIRTH action and call registerBirthGenerator, should be done on next iteration', () => {
+    const genObject = registerBirthSaga();
+
+    expect(genObject.next().value).toEqual(takeEvery(ISignupTypes.REGISTER_BIRTH, registerBirthGenerator));
+    expect(genObject.next().done).toBeTruthy();
+  });
+
+  it('should call registerBirth actions', () => {
+    const prospectPreviousState = Prospect.Create(new Email('test@example.com'));
+    prospectPreviousState.registerIdentity(mockIdentity);
+    prospectPreviousState.registerPassword(mockPassword.password);
+
+    const prospect = Prospect.Create(new Email('test@example.com'));
+    prospect.registerIdentity(mockIdentity);
+    prospect.registerPassword(mockPassword.password);
+    prospect.registerBirth(mockBirth);
+
+    testSaga(registerBirthGenerator, {
+      type: ISignupTypes.REGISTER_BIRTH,
+      payload: mockBirth,
+    })
+      .next()
+      .select(selectProspect)
+      .next(prospectPreviousState)
+      .put(birthRegistered(prospect))
       .next();
   });
 });

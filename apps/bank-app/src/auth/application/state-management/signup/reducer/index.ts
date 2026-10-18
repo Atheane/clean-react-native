@@ -44,7 +44,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
         prospect: action.payload,
       };
       return newState;
-    case ISignupTypes.REGISTER_BIRTH:
+    case ISignupTypes.BIRTH_REGISTERED:
       logger.debug(action.type);
       newState = {
         ...state,

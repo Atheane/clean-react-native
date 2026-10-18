@@ -5,7 +5,7 @@ import {
   IFetchCheckEmail,
   IIdentityRegistered,
   IRegisterAddress,
-  IRegisterBirth,
+  IBirthRegistered,
   ICreateUser,
   IEmailChecked,
   IPasswordRegistered,
@@ -31,13 +31,13 @@ export const passwordRegistered = (payload: Prospect): IPasswordRegistered => ({
   payload,
 });
 
-export const registerAddress = (payload: Prospect): IRegisterAddress => ({
-  type: ISignupTypes.REGISTER_ADDRESS,
+export const birthRegistered = (payload: Prospect): IBirthRegistered => ({
+  type: ISignupTypes.BIRTH_REGISTERED,
   payload,
 });
 
-export const registerBirth = (payload: Prospect): IRegisterBirth => ({
-  type: ISignupTypes.REGISTER_BIRTH,
+export const registerAddress = (payload: Prospect): IRegisterAddress => ({
+  type: ISignupTypes.REGISTER_ADDRESS,
   payload,
 });
 
