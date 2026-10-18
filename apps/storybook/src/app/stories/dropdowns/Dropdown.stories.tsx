@@ -32,7 +32,7 @@ const DropdownMeta: ComponentMeta<typeof Dropdown> = {
       key,
       value: translations[value],
     })),
-    icon: () => <Flame style={{ color: Colors.icon.lightGreenTransparent } as StyleProp<ViewStyle>} />,
+    icon: () => <Flame style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
@@ -55,6 +55,6 @@ export const Departments: DropdownStory = (args) => (
     label={'State departments'}
     placeholder={'State department'}
     data={sortedDeps}
-    icon={() => <Department style={{ color: Colors.icon.lightGreenTransparent } as StyleProp<ViewStyle>} />}
+    icon={() => <Department style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />}
   />
 );

@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Text, useTheme, CheckBox } from '@rneui/themed';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { CheckBox, useTheme } from '@rneui/themed';
 
 import { CheckBox as CheckedIcon, UncheckBox as UncheckIcon } from '../../../assets';
-import { Colors, FontNames } from '../../../constants';
+import { Colors } from '../../../constants';
 
 type IProps = {
   label?: string;
@@ -14,8 +14,6 @@ type IProps = {
 };
 
 export const MultipleOptionsCheckBox = (props: IProps) => {
-  const { theme } = useTheme();
-
   const [currentOption, setCurrentOption] = useState<string>(props.optionsValues[0]);
 
   const handleOnPress = useCallback(
@@ -23,24 +21,35 @@ export const MultipleOptionsCheckBox = (props: IProps) => {
       setCurrentOption(option);
       props.onChange(option);
     },
-    [props.onChange],
+    [props],
   );
+
+  const { theme } = useTheme();
 
   return (
     <View>
-      {props.label && <Text style={theme.input.label}>{props.label}</Text>}
-      {props.subtitle && <Text style={styles(props).text}>{props.subtitle}</Text>}
-      <View style={styles(props).checkboxContainer}>
+      {props.label && (
+        <Text style={[theme.bank.text.label, { color: Colors.bank.primary.grey }]}>{props.label}</Text>
+      )}
+      {props.subtitle && <Text style={theme.bank.text.grey}>{props.subtitle}</Text>}
+      <View style={styles.checkboxContainer}>
         {props.optionsValues.map((option: string, index: number) => {
           return (
-            <View key={index} style={styles(props).item}>
+            <View
+              key={index}
+              style={[
+                theme.bank.container.justifiedItems,
+                styles.item,
+                { marginRight: props.optionsTitle.length < 3 ? 50 : 0 },
+              ]}
+            >
               <CheckBox
                 checked={currentOption === option}
                 onPress={() => handleOnPress(option)}
                 title={props.optionsTitle[index]}
-                titleProps={{ style: { ...styles(props).text, marginLeft: 8 } }}
-                checkedIcon={<CheckedIcon style={{ color: Colors.icon.lightGreenTransparent }} />}
-                uncheckedIcon={<UncheckIcon style={{ color: Colors.icon.lightGreenTransparent }} />}
+                titleProps={{ style: [theme.bank.text.grey, { marginLeft: 8 }] }}
+                checkedIcon={<CheckedIcon style={{ color: Colors.bank.primary.lightGreen }} />}
+                uncheckedIcon={<UncheckIcon style={{ color: Colors.bank.primary.lightGreen }} />}
               />
             </View>
           );
@@ -50,21 +59,12 @@ export const MultipleOptionsCheckBox = (props: IProps) => {
   );
 };
 
-const styles = (props: IProps) =>
-  StyleSheet.create({
-    text: {
-      fontSize: 14,
-      lineHeight: 19,
-      color: Colors.text.grey,
-      fontFamily: FontNames.Roboto_400Regular,
-    },
-    checkboxContainer: {
-      flexDirection: 'row',
-      width: 309,
-    },
-    item: {
-      marginLeft: -20,
-      marginRight: props.optionsTitle.length < 3 ? 50 : 0,
-      justifyContent: 'space-between',
-    },
-  });
+const styles = StyleSheet.create({
+  checkboxContainer: {
+    flexDirection: 'row',
+    width: Dimensions.get('window').width * 0.8,
+  },
+  item: {
+    marginLeft: -20,
+  },
+});

@@ -13,7 +13,7 @@ const BannerMeta: ComponentMeta<typeof Banner> = {
   },
   args: {
     title: 'Mise à jour à faire',
-    color: BannerColors.PINK,
+    colorBanner: BannerColors.PINK,
     rightIcon: true,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
@@ -29,5 +29,5 @@ export const ErrorMessage: BannerStory = (args) => {
   return <Banner {...args} title={error.message} rightIcon={false} />;
 };
 export const IdentityValidation: BannerStory = (args) => {
-  return <Banner {...args} title="Validation d'identité" color={BannerColors.PURPLE} />;
+  return <Banner {...args} title="Validation d'identité" colorBanner={BannerColors.PURPLE} />;
 };

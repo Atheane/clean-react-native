@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, View, Dimensions, Text, Image, ImageSourcePropType } from 'react-native';
 import { getLocales } from 'expo-localization';
 
+import { useTheme } from '@rneui/themed';
+
 import {
   HeaderBad,
   HeaderChampion,
@@ -16,7 +18,6 @@ import {
   BilanFranceFR,
   BilanFranceEN,
 } from '../../../assets';
-import { Colors, FontNames } from '../../../constants';
 
 type IProps = {
   emissions: number;
@@ -71,6 +72,7 @@ const toCO2 = (value: number) => {
 };
 
 export const GraphCO2 = (props: IProps) => {
+  const { theme } = useTheme();
   const [category, setCategory] = useState<ICategories>(ICategories.COP21);
 
   useEffect(() => {
@@ -86,17 +88,17 @@ export const GraphCO2 = (props: IProps) => {
   }, [props.emissions]);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, theme.bank.container.centeredItem]}>
       {category && (
         <View>
-          <View style={styles.textContainer}>
-            <Text style={styles.text}>{toCO2(props.emissions)}</Text>
+          <View style={[styles.textContainer, theme.bank.container.centeredItem]}>
+            <Text style={theme.bank.text.whiteGraphTitle}>{toCO2(props.emissions)}</Text>
           </View>
           <Image source={Headers[category]} resizeMode="contain" style={styles.headerImage} />
         </View>
       )}
       {country && category && Bilans[country as keyof typeof Bilans] && (
-        <View style={styles.imageContainer}>
+        <View style={[styles.imageContainer, theme.bank.shadow.card, theme.bank.container.centeredItem]}>
           <Image
             source={Bilans[country as keyof typeof Bilans][category]}
             resizeMode="contain"
@@ -112,33 +114,15 @@ const styles = StyleSheet.create({
   container: {
     top: 20,
     height: Dimensions.get('window').height * 0.6,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   textContainer: {
     position: 'relative',
-    justifyContent: 'center',
-    alignItems: 'center',
     top: 120,
     zIndex: 1,
-  },
-  text: {
-    fontFamily: FontNames.Roboto_700Bold,
-    fontSize: 40,
-    color: Colors.text.white,
   },
   imageContainer: {
     position: 'relative',
     top: -80,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: Colors.shadow.bold,
-    shadowOffset: {
-      width: 5,
-      height: 5,
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
   },
   headerImage: {
     width: Dimensions.get('window').width * 0.9,

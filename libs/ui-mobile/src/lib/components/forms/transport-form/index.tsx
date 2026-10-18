@@ -33,7 +33,7 @@ export const TransportForm = (props: IProps) => {
       setDistanceByYear(20000);
       props.onChangeForm(FuelE[key as keyof typeof FuelE]);
     },
-    [props.onChangeForm],
+    [props],
   );
 
   // slider consumption
@@ -43,7 +43,7 @@ export const TransportForm = (props: IProps) => {
       setMpg(value);
       props.onChangeField('mpg', value);
     },
-    [props.onChangeField],
+    [props],
   );
 
   // slider mileage / year
@@ -53,7 +53,7 @@ export const TransportForm = (props: IProps) => {
       setDistanceByYear(value);
       props.onChangeField('distanceByYear', value);
     },
-    [props.onChangeField],
+    [props],
   );
 
   const ConditionalForm = () => {
@@ -68,7 +68,7 @@ export const TransportForm = (props: IProps) => {
             onChange={handleSliderConsumption}
             unit={' L/100km'}
           />
-          <View style={styles.sliderContainer}>
+          <View style={styles.container}>
             <Slider
               label={t('screens.carbonTransport.slider.distanceByYear')}
               minValue={0}
@@ -91,20 +91,17 @@ export const TransportForm = (props: IProps) => {
       <Dropdown
         label={t('screens.carbonTransport.dropdown.title')}
         placeholder={t('screens.carbonTransport.dropdown.title')}
-        icon={() => <Gasoline style={{ color: Colors.icon.lightGreen }} />}
+        icon={() => <Gasoline style={{ color: Colors.bank.primary.lightGreen }} />}
         data={dataFuel}
         onSelect={handleOnChange}
       />
-      {fuel && <View style={styles.formContainer}>{ConditionalForm()}</View>}
+      {fuel && <View style={styles.container}>{ConditionalForm()}</View>}
     </KeyboardAwareScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  formContainer: {
-    marginTop: 50,
-  },
-  sliderContainer: {
-    marginTop: 36,
+  container: {
+    marginTop: 24,
   },
 });

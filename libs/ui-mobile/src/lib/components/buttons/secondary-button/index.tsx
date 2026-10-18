@@ -1,14 +1,14 @@
 import { FC } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { SvgProps } from 'react-native-svg';
-import { Button, useTheme, Theme } from '@rneui/themed';
+import { Button, useTheme } from '@rneui/themed';
 
-import { Colors, FontNames } from '../../../constants';
+import { Colors } from '../../../constants';
 import { firstLetterCapitalize } from '../../../utils';
 
 type IProps = {
   title: string;
-  large?: boolean;
+  long?: boolean;
   uppercase?: boolean;
   iconOne?: React.FC<SvgProps>;
   loading?: boolean;
@@ -20,23 +20,36 @@ export const SecondaryButton: FC<IProps> = (props: IProps) => {
   const { theme } = useTheme();
 
   return (
-    <View style={styles(props)(theme).container}>
+    <View
+      style={[
+        props.long ? theme.bank.container.button.long : theme.bank.container.button.short,
+        theme.bank.shadow.button,
+      ]}
+    >
       <Button
-        style={styles(props)(theme).buttonContainer}
-        buttonStyle={styles(props)(theme).button}
+        buttonStyle={styles.button}
+        containerStyle={props.long ? theme.bank.container.button.long : theme.bank.container.button.short}
         loading={props?.loading ?? false}
         onPress={props.onPress}
         disabled={props.disabled}
         raised
       >
-        <View style={styles(props)(theme).contentContainer}>
+        <View style={theme.bank.container.centeredItems}>
           {props.iconOne && (
-            <View style={styles(props)(theme).iconContainer}>
+            <View style={styles.iconContainer}>
               <props.iconOne />
             </View>
           )}
           <View>
-            <Text style={styles(props)(theme).content}>{firstLetterCapitalize(props.title)}</Text>
+            <Text
+              style={[
+                theme.bank.text.button,
+                styles.content,
+                props.uppercase && { textTransform: 'uppercase' },
+              ]}
+            >
+              {firstLetterCapitalize(props.title)}
+            </Text>
           </View>
         </View>
       </Button>
@@ -44,39 +57,19 @@ export const SecondaryButton: FC<IProps> = (props: IProps) => {
   );
 };
 
-const styles = (props: IProps) => (theme: Theme) =>
-  StyleSheet.create({
-    container: props.large
-      ? {
-          width: Dimensions.get('window').width * 0.8,
-          height: 55,
-        }
-      : {
-          flexDirection: 'row',
-        },
-    buttonContainer: {
-      shadowColor: theme.shadow.color, // iOS
-      shadowOffset: theme.shadow.offset, // iOS
-      shadowOpacity: theme.shadow.opacity, // iOS
-      shadowRadius: theme.shadow.radius, // iOS
-      elevation: 1, // android,
-    },
-    button: {
-      paddingTop: 12,
-      paddingRight: 24,
-      paddingBottom: 11,
-      paddingLeft: 26,
-      backgroundColor: Colors.background.white,
-    },
-    contentContainer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' },
-    content: {
-      lineHeight: 29,
-      fontSize: 16,
-      textTransform: props.uppercase ? 'uppercase' : 'none',
-      color: Colors.text.lightGreenTransparent,
-      fontFamily: FontNames.Roboto_700Bold,
-    },
-    iconContainer: {
-      marginRight: 15,
-    },
-  });
+const styles = StyleSheet.create({
+  button: {
+    paddingTop: 12,
+    paddingRight: 24,
+    paddingBottom: 11,
+    paddingLeft: 26,
+    backgroundColor: Colors.bank.primary.white,
+    borderRadius: 28,
+  },
+  content: {
+    color: Colors.bank.primary.lightGreen,
+  },
+  iconContainer: {
+    marginRight: 15,
+  },
+});

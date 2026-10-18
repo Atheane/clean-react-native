@@ -2,8 +2,8 @@
 import { useState, useCallback, useEffect } from 'react';
 import { ScrollView, Dimensions, StyleSheet, View } from 'react-native';
 import { SvgProps } from 'react-native-svg';
+import { useTheme } from '@rneui/themed';
 
-import { Colors } from '../../../constants';
 import { EventCard } from '../event-card';
 
 type IProps = {
@@ -33,7 +33,7 @@ export const CardScroller = (props: IProps & IState) => {
 
   useEffect(() => {
     setData(props.data);
-  }, []);
+  }, [props.data]);
 
   const handleOnDelete = (uid: string) => {
     const removeIndex = data.map((item) => item.uid).indexOf(uid);
@@ -42,70 +42,46 @@ export const CardScroller = (props: IProps & IState) => {
     if (props.onDelete) props.onDelete(uid);
   };
 
+  const { theme } = useTheme();
+
   const bullets = props.data.map((_, index) =>
     index === slideIndex ? (
-      <View key={index} style={styles(props).bulletShadow}>
-        <View key={index} style={styles(props).bulletGreen} />
+      <View key={index} style={theme.bank.shadow.bullet}>
+        <View key={index} style={theme.bank.container.bulletGreen} />
       </View>
     ) : (
-      <View key={index} style={styles(props).bulletShadow} />
+      <View key={index} style={theme.bank.shadow.bullet} />
     ),
   );
 
   return (
-    <View style={styles(props).container}>
+    <View
+      style={{
+        height: props.height ?? 'auto',
+      }}
+    >
       <ScrollView
         horizontal
         onScroll={handleOnScroll}
         scrollEventThrottle={1}
         showsHorizontalScrollIndicator={false}
       >
-        <View style={styles(props).cardsContainer}>
+        <View style={[theme.bank.container.centeredItems]}>
           {props.data.map((card: { uid: string; icon: React.FC<SvgProps>; text: string }) => {
             return <EventCard key={card.uid} {...card} onDelete={handleOnDelete} />;
           })}
         </View>
       </ScrollView>
-      <View style={styles(props).bullets}>{bullets}</View>
+      <View style={[styles.containerBullets]}>{bullets}</View>
     </View>
   );
 };
 
-const styles = (props: IProps) =>
-  StyleSheet.create({
-    container: {
-      height: props.height ?? 'auto',
-    },
-    cardsContainer: {
-      flexDirection: 'row',
-      marginBottom: 16,
-    },
-    bulletShadow: {
-      backgroundColor: Colors.background.white,
-      width: 20,
-      height: 20,
-      borderRadius: 50,
-      marginHorizontal: 4,
-      shadowColor: Colors.shadow.bold,
-      shadowOffset: {
-        width: 0,
-        height: 5,
-      },
-      shadowOpacity: 0.34,
-      shadowRadius: 6.27,
-      elevation: 10,
-    },
-    bulletGreen: {
-      backgroundColor: Colors.background.lightGreen,
-      width: 13,
-      height: 13,
-      borderRadius: 50,
-      margin: 3.5,
-    },
-    bullets: {
-      position: 'relative',
-      top: 20,
-      flexDirection: 'row',
-      justifyContent: 'center',
-    },
-  });
+const styles = StyleSheet.create({
+  containerBullets: {
+    position: 'relative',
+    top: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+});

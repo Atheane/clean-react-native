@@ -8,7 +8,7 @@ exports[`GreenBackButton -  renders as before 1`] = `
         "overflow": "hidden",
       },
       {
-        "borderRadius": 28,
+        "borderRadius": 2,
       },
       undefined,
       false,
@@ -57,7 +57,7 @@ exports[`GreenBackButton -  renders as before 1`] = `
           "alignItems": "center",
           "backgroundColor": "transparent",
           "borderColor": "#2089dc",
-          "borderRadius": 28,
+          "borderRadius": 2,
           "borderWidth": 0,
           "flexDirection": "row",
           "justifyContent": "center",
@@ -66,9 +66,13 @@ exports[`GreenBackButton -  renders as before 1`] = `
         }
       }
     >
-      <Image
+      <SvgMock
         height={26}
-        source={1}
+        style={
+          {
+            "color": "#A5C641",
+          }
+        }
         width={16}
       />
     </View>

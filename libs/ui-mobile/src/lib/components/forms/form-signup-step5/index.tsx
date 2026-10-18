@@ -35,12 +35,12 @@ export type ISignupStep5FormData = {
 };
 
 export const FormSignupStep5 = (props: IProps) => {
-  const { t } = useTranslation();
   const { theme } = useTheme();
+  const { t } = useTranslation();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.input}>
+    <View style={[styles.container, theme.bank.container.centeredItem]}>
+      <View style={styles.inputContainer}>
         <Controller
           control={props.control}
           name="street"
@@ -50,9 +50,9 @@ export const FormSignupStep5 = (props: IProps) => {
           render={({ field: { onChange, value } }) => (
             <TextInput
               label={t('screens.signupstep5.street.label')}
-              labelColor={Colors.text.lightGrey}
+              labelColor={Colors.bank.primary.grey}
               value={value}
-              icon={() => <House style={{ color: Colors.icon.lightGreenTransparent }} />}
+              icon={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
               placeholder={t('screens.signupstep5.street.placeholder')}
               onChange={onChange}
             />
@@ -61,10 +61,12 @@ export const FormSignupStep5 = (props: IProps) => {
       </View>
       {props.errors?.street && props.errors.street.type === 'required' && (
         <View style={styles.errorContainer}>
-          <Text style={theme.errors}>{firstLetterCapitalize(t('screens.signupstep5.street.required'))}</Text>
+          <Text style={theme.bank.text.errors}>
+            {firstLetterCapitalize(t('screens.signupstep5.street.required'))}
+          </Text>
         </View>
       )}
-      <View style={styles.input}>
+      <View style={styles.inputContainer}>
         <Controller
           control={props.control}
           name="city"
@@ -74,9 +76,9 @@ export const FormSignupStep5 = (props: IProps) => {
           render={({ field: { onChange, value } }) => (
             <TextInput
               label={t('screens.signupstep5.city.label')}
-              labelColor={Colors.text.lightGrey}
+              labelColor={Colors.bank.primary.grey}
               value={value}
-              icon={() => <House style={{ color: Colors.icon.lightGreenTransparent }} />}
+              icon={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
               placeholder={t('screens.signupstep5.city.placeholder')}
               onChange={onChange}
             />
@@ -85,10 +87,12 @@ export const FormSignupStep5 = (props: IProps) => {
       </View>
       {props.errors?.city && props.errors.city.type === 'required' && (
         <View style={styles.errorContainer}>
-          <Text style={theme.errors}>{firstLetterCapitalize(t('screens.signupstep5.city.required'))}</Text>
+          <Text style={theme.bank.text.errors}>
+            {firstLetterCapitalize(t('screens.signupstep5.city.required'))}
+          </Text>
         </View>
       )}
-      <View style={styles.input}>
+      <View style={styles.inputContainer}>
         <Controller
           control={props.control}
           name="zip"
@@ -98,9 +102,9 @@ export const FormSignupStep5 = (props: IProps) => {
           render={({ field: { onChange, value } }) => (
             <TextInput
               label={t('screens.signupstep5.zip.label')}
-              labelColor={Colors.text.lightGrey}
+              labelColor={Colors.bank.primary.grey}
               value={value}
-              icon={() => <House style={{ color: Colors.icon.lightGreenTransparent }} />}
+              icon={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
               placeholder={t('screens.signupstep5.zip.placeholder')}
               onChange={onChange}
             />
@@ -109,10 +113,12 @@ export const FormSignupStep5 = (props: IProps) => {
       </View>
       {props.errors?.zip && props.errors.zip.type === 'required' && (
         <View style={styles.errorContainer}>
-          <Text style={theme.errors}>{firstLetterCapitalize(t('screens.signupstep5.zip.required'))}</Text>
+          <Text style={theme.bank.text.errors}>
+            {firstLetterCapitalize(t('screens.signupstep5.zip.required'))}
+          </Text>
         </View>
       )}
-      <View style={styles.input}>
+      <View style={styles.inputContainer}>
         <Controller
           control={props.control}
           name="country"
@@ -132,13 +138,13 @@ export const FormSignupStep5 = (props: IProps) => {
         />
         {props.errors?.country && props.errors.country.type === 'required' && (
           <View style={styles.errorContainer}>
-            <Text style={theme.errors}>
+            <Text style={theme.bank.text.errors}>
               {firstLetterCapitalize(t('screens.signupstep5.country.required'))}
             </Text>
           </View>
         )}
       </View>
-      <View style={styles.input}>
+      <View style={styles.inputContainer}>
         <Controller
           control={props.control}
           name="specifiedUSPerson"
@@ -156,7 +162,7 @@ export const FormSignupStep5 = (props: IProps) => {
       <View style={styles.errorContainer}>
         <ErrorMessage error={props.error} />
       </View>
-      <View style={styles.formSubmit}>
+      <View style={styles.submitButtonContainer}>
         <SubmitButton
           disabled={false}
           title={t('submitButton')}
@@ -173,13 +179,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  input: { flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 30 },
-  formSubmit: {
-    alignItems: 'center',
-    justifyContent: 'center',
+  inputContainer: { marginTop: 30 },
+  submitButtonContainer: {
     paddingTop: 20,
   },
   errorContainer: {
-    marginVertical: 10,
+    marginTop: 16,
   },
 });

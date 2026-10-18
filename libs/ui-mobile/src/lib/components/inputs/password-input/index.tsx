@@ -18,14 +18,16 @@ export const PasswordInput = (props: InputProps & State) => {
   const { t } = useTranslation();
   return (
     <View>
-      <Text style={theme.input.label}>{props.label ? props.label : t('screens.login.password.label')}</Text>
-      <View style={theme.input.container}>
+      <Text style={[theme.bank.text.label, { color: Colors.bank.primary.grey }]}>
+        {props.label ? props.label : t('screens.login.password.label')}
+      </Text>
+      <View style={theme.bank.container.input}>
         <Input
-          inputContainerStyle={theme.input.subContainer}
-          inputStyle={theme.input.text}
+          inputContainerStyle={styles.inputContainerStyle}
+          inputStyle={theme.bank.text.input}
           secureTextEntry={props.secured}
-          leftIcon={<Lock style={{ color: theme.linearGradient.start }} />}
-          leftIconContainerStyle={theme.input.leftIconContainer}
+          leftIcon={<Lock style={{ color: Colors.bank.background.lightGreen }} />}
+          leftIconContainerStyle={styles.leftIconContainer}
           onFocus={props.onFocus}
           onChangeText={props.onChange}
           value={props.value ? props.value.toLowerCase() : props.value}
@@ -33,9 +35,9 @@ export const PasswordInput = (props: InputProps & State) => {
           rightIcon={
             <View style={styles.eyeContainer} onTouchStart={props.onToggleSecurity}>
               {props.secured ? (
-                <Eye {...styles.eyeIcon} style={{ color: Colors.icon.pink }} />
+                <Eye {...styles.eyeIcon} style={{ color: Colors.bank.secondary.pink }} />
               ) : (
-                <Blind {...styles.blindIcon} style={{ color: Colors.icon.pink }} />
+                <Blind {...styles.blindIcon} style={{ color: Colors.bank.secondary.pink }} />
               )}
             </View>
           }
@@ -46,10 +48,19 @@ export const PasswordInput = (props: InputProps & State) => {
 };
 
 const styles = StyleSheet.create({
+  inputContainerStyle: {
+    marginTop: 10,
+    marginBottom: -15, // override of default input bottomMargin
+    borderBottomWidth: 0,
+  },
+  leftIconContainer: {
+    marginHorizontal: 10,
+    borderBottomWidth: 0,
+  },
   eyeContainer: {
     justifyContent: 'center',
     height: 30,
-    borderLeftColor: Colors.input.pink,
+    borderLeftColor: Colors.bank.secondary.pink,
     borderLeftWidth: 1,
     paddingLeft: 20,
     paddingRight: 10,

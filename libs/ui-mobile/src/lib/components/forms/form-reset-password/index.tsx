@@ -30,11 +30,11 @@ export type IResetPasswordFormData = {
 };
 
 export const FormResetPassword = (props: IProps) => {
-  const { t } = useTranslation();
   const { theme } = useTheme();
+  const { t } = useTranslation();
   return (
     <View>
-      <View style={styles.formInputs}>
+      <View style={theme.bank.container.centeredItem}>
         <View>
           {props.filled && props.email ? (
             <EmailInput
@@ -54,25 +54,29 @@ export const FormResetPassword = (props: IProps) => {
                 )}
               />
               {props.errors?.email && props.errors.email.type === 'required' && (
-                <View style={styles.container}>
-                  <Text style={theme.errors}>{firstLetterCapitalize(t('errors.email.required'))}</Text>
+                <View style={styles.errorMessageContainer}>
+                  <Text style={theme.bank.text.errors}>
+                    {firstLetterCapitalize(t('errors.email.required'))}
+                  </Text>
                 </View>
               )}
               {props.errors?.email && props.errors.email.type !== 'required' && (
-                <View style={styles.container}>
-                  <Text style={theme.errors}>{firstLetterCapitalize(t('errors.email.invalid'))}</Text>
+                <View style={styles.errorMessageContainer}>
+                  <Text style={theme.bank.text.errors}>
+                    {firstLetterCapitalize(t('errors.email.invalid'))}
+                  </Text>
                 </View>
               )}
             </View>
           )}
         </View>
-        <View style={styles.container}>
+        <View style={styles.errorMessageContainer}>
           <ErrorMessage error={props.error} />
         </View>
       </View>
-      <View style={styles.formSubmit}>
+      <View style={[theme.bank.container.centeredItem, styles.submitButtonContainer]}>
         {props.success ? (
-          <Text style={theme.instructionText}>{t('screens.resetPassword.success')}</Text>
+          <Text style={theme.bank.text.darkBlue}>{t('screens.resetPassword.success')}</Text>
         ) : (
           <SubmitButton
             title={t('screens.resetPassword.submitButton')}
@@ -87,16 +91,10 @@ export const FormResetPassword = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
-  formInputs: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  errorMessageContainer: {
+    marginTop: 16,
   },
-  formSubmit: {
-    flex: 2,
-    alignItems: 'center',
-  },
-  container: {
-    paddingTop: 8,
+  submitButtonContainer: {
+    marginTop: 64,
   },
 });

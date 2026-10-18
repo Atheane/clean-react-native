@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { Input, useTheme } from '@rneui/themed';
 
@@ -21,23 +21,22 @@ type IProps = {
 
 export const TextInput = (props: IProps) => {
   const { theme } = useTheme();
-
   return (
     <View>
       {props.label && (
-        <Text style={[theme.input.label, { color: props.labelColor ?? Colors.input.pink }]}>
+        <Text style={[theme.bank.text.label, { color: props.labelColor ?? Colors.bank.secondary.pink }]}>
           {props.label}
         </Text>
       )}
-      <View style={theme.input.container}>
+      <View style={theme.bank.container.input}>
         {props.lowerCase ? (
           <Input
             autoCapitalize="none"
             autoCorrect={false}
-            inputContainerStyle={theme.input.subContainer}
-            inputStyle={theme.input.text}
+            inputContainerStyle={styles.inputContainer}
+            inputStyle={theme.bank.text.input}
             leftIcon={props.icon ? <props.icon /> : undefined}
-            leftIconContainerStyle={theme.input.leftIconContainer}
+            leftIconContainerStyle={styles.leftIconContainer}
             onChangeText={props.onChange}
             placeholder={props.placeholder}
             value={props.value}
@@ -50,10 +49,10 @@ export const TextInput = (props: IProps) => {
         ) : (
           <Input
             autoCorrect={false}
-            inputContainerStyle={theme.input.subContainer}
-            inputStyle={theme.input.text}
+            inputContainerStyle={styles.inputContainer}
+            inputStyle={theme.bank.text.input}
             leftIcon={props.icon ? <props.icon /> : undefined}
-            leftIconContainerStyle={theme.input.leftIconContainer}
+            leftIconContainerStyle={styles.leftIconContainer}
             onChangeText={props.onChange}
             placeholder={props.placeholder}
             value={props.value}
@@ -68,3 +67,18 @@ export const TextInput = (props: IProps) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  editIcon: {
+    marginLeft: 12,
+  },
+  inputContainer: {
+    marginTop: 10,
+    marginBottom: -15, // override of default input bottomMargin
+    borderBottomWidth: 0,
+  },
+  leftIconContainer: {
+    marginHorizontal: 10,
+    borderBottomWidth: 0,
+  },
+});

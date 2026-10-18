@@ -3,7 +3,7 @@ import { useFonts } from 'expo-font';
 import { ThemeProvider } from '@rneui/themed';
 import { PrimaryButton, Love, Validate, theme, Fonts, Colors } from '@clean-rn/ui-mobile';
 
-export const App = () => {
+export const App: () => JSX.Element = () => {
   const [fontsLoaded] = useFonts(Fonts);
   return fontsLoaded ? (
     <ThemeProvider theme={theme}>
@@ -15,10 +15,18 @@ export const App = () => {
             console.log('Pressed');
           }}
           iconOne={() => (
-            <Love width={23} height={23} style={{ color: Colors.icon.white } as StyleProp<ViewStyle>} />
+            <Love
+              width={23}
+              height={23}
+              style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>}
+            />
           )}
           iconTwo={() => (
-            <Validate width={23} height={23} style={{ color: Colors.icon.white } as StyleProp<ViewStyle>} />
+            <Validate
+              width={23}
+              height={23}
+              style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>}
+            />
           )}
         />
       </SafeAreaView>

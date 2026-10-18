@@ -36,12 +36,12 @@ export type ILoginFormData = {
 };
 
 export const FormLogin = (props: IProps) => {
-  const { t } = useTranslation();
   const { theme } = useTheme();
+  const { t } = useTranslation();
   return (
-    <View>
-      <View style={styles.formInputs}>
-        <View style={styles.inputEmail}>
+    <View style={theme.bank.container.centeredItem}>
+      <View>
+        <View style={styles.inputContainer}>
           {props.filled && props.email ? (
             <EmailInput
               email={props.email}
@@ -60,20 +60,24 @@ export const FormLogin = (props: IProps) => {
                 )}
               />
               {props.errors?.email && props.errors.email.type === 'required' && (
-                <View style={styles.container}>
-                  <Text style={theme.errors}>{firstLetterCapitalize(t('errors.email.required'))}</Text>
+                <View style={styles.errorContainer}>
+                  <Text style={theme.bank.text.errors}>
+                    {firstLetterCapitalize(t('errors.email.required'))}
+                  </Text>
                 </View>
               )}
               {props.errors?.email && props.errors.email.type !== 'required' && (
-                <View style={styles.container}>
-                  <Text style={theme.errors}>{firstLetterCapitalize(t('errors.email.invalid'))}</Text>
-                  <Text style={theme.errors}>{props.errors.email.ref?.value}</Text>
+                <View style={styles.errorContainer}>
+                  <Text style={theme.bank.text.errors}>
+                    {firstLetterCapitalize(t('errors.email.invalid'))}
+                  </Text>
+                  <Text style={theme.bank.text.errors}>{props.errors.email.ref?.value}</Text>
                 </View>
               )}
             </View>
           )}
         </View>
-        <View style={styles.inputPassword}>
+        <View style={[styles.inputContainer, theme.bank.container.centeredItem]}>
           <Controller
             control={props.control}
             name="password"
@@ -89,13 +93,17 @@ export const FormLogin = (props: IProps) => {
             )}
           />
           {props.errors?.password && props.errors.password.type === 'required' && (
-            <View style={styles.container}>
-              <Text style={theme.errors}>{firstLetterCapitalize(t('errors.password.required'))}</Text>
+            <View style={styles.errorContainer}>
+              <Text style={theme.bank.text.errors}>
+                {firstLetterCapitalize(t('errors.password.required'))}
+              </Text>
             </View>
           )}
           {props.errors?.password && props.errors.password.type === 'minLength' && (
-            <View style={styles.container}>
-              <Text style={theme.errors}>{firstLetterCapitalize(t('errors.password.minLength'))}</Text>
+            <View style={styles.errorContainer}>
+              <Text style={theme.bank.text.errors}>
+                {firstLetterCapitalize(t('errors.password.minLength'))}
+              </Text>
             </View>
           )}
         </View>
@@ -107,12 +115,10 @@ export const FormLogin = (props: IProps) => {
             onPress={props.onPress}
           />
         </View>
-        <View style={styles.container}>
-          <ErrorMessage error={props.error} />
-        </View>
+        <ErrorMessage error={props.error} />
       </View>
 
-      <View style={styles.formSubmit}>
+      <View style={styles.submitButtonContainer}>
         <SubmitButton
           title={t('screens.login.submitButton')}
           uppercase={false}
@@ -125,25 +131,19 @@ export const FormLogin = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
-  formInputs: {
-    alignItems: 'center',
-    justifyContent: 'center',
+  container: {
+    marginTop: 8,
   },
-  inputEmail: {
+  inputContainer: {
     marginTop: 30,
   },
-  inputPassword: {
-    marginTop: 30,
+  errorContainer: {
+    marginTop: 16,
   },
   linkButton: {
     marginTop: 10,
   },
-  formSubmit: {
+  submitButtonContainer: {
     marginTop: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  container: {
-    paddingTop: 8,
   },
 });

@@ -5,19 +5,25 @@ exports[`SelectNumber -  horizontal -  renders as before 1`] = `
   style={
     {
       "flexDirection": "row",
+      "marginVertical": 16,
       "width": 600,
     }
   }
 >
   <Text
     style={
-      {
-        "color": "rgba(203, 40, 125, 1)",
-        "fontFamily": "Roboto_700Bold",
-        "fontSize": 18,
-        "lineHeight": 24,
-        "marginBottom": 16,
-      }
+      [
+        {
+          "fontFamily": "Roboto_700Bold",
+          "fontSize": 16,
+          "lineHeight": 21,
+          "textAlign": "left",
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#CB287D",
+        },
+      ]
     }
   >
     LABEL
@@ -25,7 +31,7 @@ exports[`SelectNumber -  horizontal -  renders as before 1`] = `
   <View
     style={
       {
-        "marginHorizontal": 16,
+        "margin": 16,
       }
     }
   >
@@ -81,7 +87,7 @@ exports[`SelectNumber -  horizontal -  renders as before 1`] = `
         style={
           {
             "alignItems": "center",
-            "backgroundColor": "rgba(162, 179, 2, 0.6)",
+            "backgroundColor": "#BFD23A",
             "borderBottomLeftRadius": 15.84,
             "borderTopLeftRadius": 15.84,
             "borderWidth": 0,
@@ -199,7 +205,7 @@ exports[`SelectNumber -  horizontal -  renders as before 1`] = `
         style={
           {
             "alignItems": "center",
-            "backgroundColor": "rgba(162, 179, 2, 0.6)",
+            "backgroundColor": "#BFD23A",
             "borderBottomRightRadius": 15.84,
             "borderTopRightRadius": 15.84,
             "borderWidth": 0,
@@ -252,13 +258,18 @@ exports[`SelectNumber -  icon -  renders as before 1`] = `
 <View>
   <Text
     style={
-      {
-        "color": "rgba(203, 40, 125, 1)",
-        "fontFamily": "Roboto_700Bold",
-        "fontSize": 18,
-        "lineHeight": 24,
-        "marginBottom": 16,
-      }
+      [
+        {
+          "fontFamily": "Roboto_700Bold",
+          "fontSize": 16,
+          "lineHeight": 21,
+          "textAlign": "left",
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#CB287D",
+        },
+      ]
     }
   >
     LABEL
@@ -267,6 +278,7 @@ exports[`SelectNumber -  icon -  renders as before 1`] = `
     style={
       {
         "flexDirection": "row",
+        "marginVertical": 16,
         "width": 600,
       }
     }
@@ -334,7 +346,7 @@ exports[`SelectNumber -  icon -  renders as before 1`] = `
         style={
           {
             "alignItems": "center",
-            "backgroundColor": "rgba(162, 179, 2, 0.6)",
+            "backgroundColor": "#BFD23A",
             "borderBottomLeftRadius": 15.84,
             "borderTopLeftRadius": 15.84,
             "borderWidth": 0,
@@ -452,7 +464,7 @@ exports[`SelectNumber -  icon -  renders as before 1`] = `
         style={
           {
             "alignItems": "center",
-            "backgroundColor": "rgba(162, 179, 2, 0.6)",
+            "backgroundColor": "#BFD23A",
             "borderBottomRightRadius": 15.84,
             "borderTopRightRadius": 15.84,
             "borderWidth": 0,
@@ -505,13 +517,18 @@ exports[`SelectNumber -  minimal props -  renders as before 1`] = `
 <View>
   <Text
     style={
-      {
-        "color": "rgba(203, 40, 125, 1)",
-        "fontFamily": "Roboto_700Bold",
-        "fontSize": 18,
-        "lineHeight": 24,
-        "marginBottom": 16,
-      }
+      [
+        {
+          "fontFamily": "Roboto_700Bold",
+          "fontSize": 16,
+          "lineHeight": 21,
+          "textAlign": "left",
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#CB287D",
+        },
+      ]
     }
   >
     LABEL
@@ -520,6 +537,7 @@ exports[`SelectNumber -  minimal props -  renders as before 1`] = `
     style={
       {
         "flexDirection": "row",
+        "marginVertical": 16,
         "width": 600,
       }
     }
@@ -576,7 +594,7 @@ exports[`SelectNumber -  minimal props -  renders as before 1`] = `
         style={
           {
             "alignItems": "center",
-            "backgroundColor": "rgba(162, 179, 2, 0.6)",
+            "backgroundColor": "#BFD23A",
             "borderBottomLeftRadius": 15.84,
             "borderTopLeftRadius": 15.84,
             "borderWidth": 0,
@@ -666,7 +684,7 @@ exports[`SelectNumber -  minimal props -  renders as before 1`] = `
         style={
           {
             "alignItems": "center",
-            "backgroundColor": "rgba(162, 179, 2, 0.6)",
+            "backgroundColor": "#BFD23A",
             "borderBottomRightRadius": 15.84,
             "borderTopRightRadius": 15.84,
             "borderWidth": 0,

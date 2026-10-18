@@ -1,7 +1,6 @@
 import { FC } from 'react';
-import { Dimensions, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-
-import { Colors, FontNames } from '../../../constants';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { useTheme } from '@rneui/themed';
 
 type IProps = {
   text: string;
@@ -9,45 +8,18 @@ type IProps = {
 };
 
 export const TouchCardText: FC<IProps> = (props: IProps) => {
+  const { theme } = useTheme();
   return (
-    <TouchableOpacity onPress={props.onPress} style={styles.container}>
-      <View style={styles.subContainer}>
-        <Text style={styles.text}>{props.text}</Text>
-      </View>
+    <TouchableOpacity onPress={props.onPress} style={[theme.bank.shadow.card, theme.bank.container.card.kpi]}>
+      <Text style={[styles.textContainer, theme.bank.text.darkBlue]}>{props.text}</Text>
     </TouchableOpacity>
   );
 };
 
-const CARD_RATIO = 174 / 112;
-
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: Colors.background.white,
-    width: Dimensions.get('window').width * 0.45,
-    height: (Dimensions.get('window').width * 0.45) / CARD_RATIO,
-    borderRadius: 20,
-    shadowColor: Colors.shadow.bold,
-    shadowOffset: {
-      width: 5,
-      height: 5,
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 10,
-  },
-  subContainer: {
-    backgroundColor: Colors.background.white,
-    width: Dimensions.get('window').width * 0.45,
-    height: (Dimensions.get('window').width * 0.45) / CARD_RATIO,
-    borderRadius: 20,
-  },
-  text: {
+  textContainer: {
     padding: 16,
     marginTop: 8,
-    fontFamily: FontNames.MartelSans_400Regular,
-    fontSize: 16,
-    color: Colors.text.darkBlue,
-    lineHeight: 22,
-    textAlign: 'center',
+    textAlign: 'left',
   },
 });

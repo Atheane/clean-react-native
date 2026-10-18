@@ -34,7 +34,7 @@ describe('Dropdown - ', () => {
             placeholder="placeholder"
             data={fakeData}
             icon={Love}
-            labelColor={Colors.text.grey}
+            labelColor={Colors.bank.primary.grey}
             onSelect={onSelect}
           />
         </ThemeProvider>,

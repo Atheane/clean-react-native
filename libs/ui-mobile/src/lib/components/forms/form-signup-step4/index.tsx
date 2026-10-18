@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
-import { useTheme } from '@rneui/themed';
 import { Dayjs } from 'dayjs';
+import { useTheme } from '@rneui/themed';
 import countryFlagEmoji from 'country-flag-emoji';
 
 import { IDomainError, IInfraError } from '@clean-rn/ddd';
@@ -12,7 +12,6 @@ import { firstLetterCapitalize } from '../../../utils';
 import { SubmitButton } from '../../buttons/submit-button';
 import { CountryPicker } from '../../dropdowns/country-picker';
 import { DateTimePicker } from '../../dropdowns/datetime-picker';
-import { ErrorMessage } from '../../texts/error-message';
 
 type IProps = {
   defaultCountry?: string;
@@ -30,12 +29,12 @@ export type ISignupStep4FormData = {
 };
 
 export const FormSignupStep4 = (props: IProps) => {
-  const { t } = useTranslation();
   const { theme } = useTheme();
+  const { t } = useTranslation();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.input}>
+    <View style={[styles.container, theme.bank.container.centeredItem]}>
+      <View style={[styles.inputContainer, { marginBottom: 16 }]}>
         <Controller
           control={props.control}
           name="birthday"
@@ -63,19 +62,19 @@ export const FormSignupStep4 = (props: IProps) => {
       </View>
       {props.errors?.birthday && props.errors.birthday.type === 'required' && (
         <View style={styles.errorContainer}>
-          <Text style={theme.errors}>
+          <Text style={theme.bank.text.errors}>
             {firstLetterCapitalize(t('screens.signupstep4.birthday.required'))}
           </Text>
         </View>
       )}
       {props.errors?.birthday && props.errors.birthday.type === 'validate' && (
         <View style={styles.errorContainer}>
-          <Text style={theme.errors}>
+          <Text style={theme.bank.text.errors}>
             {firstLetterCapitalize(t('screens.signupstep4.birthday.validate'))}
           </Text>
         </View>
       )}
-      <View style={styles.input}>
+      <View style={styles.inputContainer}>
         <Controller
           control={props.control}
           name="birthCountry"
@@ -94,14 +93,7 @@ export const FormSignupStep4 = (props: IProps) => {
           )}
         />
       </View>
-      {props.errors?.birthCountry && props.errors.birthCountry.type === 'required' && (
-        <View style={styles.errorContainer}>
-          <Text style={theme.errors}>
-            {firstLetterCapitalize(t('screens.signupstep4.birthCountry.required'))}
-          </Text>
-        </View>
-      )}
-      <View style={styles.input}>
+      <View style={styles.inputContainer}>
         <Controller
           control={props.control}
           name="nationality"
@@ -120,17 +112,7 @@ export const FormSignupStep4 = (props: IProps) => {
           )}
         />
       </View>
-      {props.errors?.nationality && props.errors.nationality.type === 'required' && (
-        <View style={styles.errorContainer}>
-          <Text style={theme.errors}>
-            {firstLetterCapitalize(t('screens.signupstep4.nationality.required'))}
-          </Text>
-        </View>
-      )}
-      <View style={styles.errorContainer}>
-        <ErrorMessage error={props.error} />
-      </View>
-      <View style={styles.formSubmit}>
+      <View style={styles.submitButtonContainer}>
         <SubmitButton title={t('submitButton')} uppercase={false} onSubmit={props.onSubmit} />
       </View>
     </View>
@@ -141,18 +123,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  input: { flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 30 },
-  formSubmit: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 20,
+  inputContainer: { marginTop: 30 },
+  datePickerContainer: { marginBottom: 16 },
+  submitButtonContainer: {
+    marginTop: 50,
   },
   errorContainer: {
-    marginVertical: 10,
-  },
-  cgu: {
-    marginTop: 50,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    marginTop: 16,
   },
 });

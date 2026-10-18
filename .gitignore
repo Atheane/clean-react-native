@@ -64,3 +64,6 @@ apps/storybook-e2e/artifacts
 .vscode/
 **/coverage/
 tsconfig.tsbuildinfo
+
+build*
+.env*

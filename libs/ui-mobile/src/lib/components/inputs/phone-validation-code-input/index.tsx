@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { View, StyleSheet, Pressable, TextInput, Text, SafeAreaView, Platform } from 'react-native';
-
-import { Colors, FontNames } from '../../../constants';
+import { useTheme } from '@rneui/themed';
+import { Colors } from '../../../constants';
 
 const CODE_LENGTH = 6;
 
@@ -12,6 +12,7 @@ type Props = {
 };
 
 export const PhoneValidationCodeInput = (props: Props) => {
+  const { theme } = useTheme();
   const [code, setCode] = useState('');
   const codeDigitsArray = ['', '', '', '', '', ''];
   const [containerIsFocused, setContainerIsFocused] = useState(false);
@@ -43,14 +44,17 @@ export const PhoneValidationCodeInput = (props: Props) => {
         : styles.inputContainer;
     return (
       <View key={idx} style={containerStyle}>
-        <Text style={styles.inputText}>{digit}</Text>
+        <Text style={theme.bank.text.inputNumber}>{digit}</Text>
       </View>
     );
   };
 
   return (
     <SafeAreaView>
-      <Pressable style={styles.inputsContainer} onPress={handleOnPress}>
+      <Pressable
+        style={[styles.inputsContainer, theme.bank.container.justifiedItems]}
+        onPress={handleOnPress}
+      >
         {codeDigitsArray.map(toDigitInput)}
       </Pressable>
       <TextInput
@@ -73,35 +77,26 @@ export const PhoneValidationCodeInput = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
-  inputText: {
-    color: Colors.input.pink,
-    fontFamily: FontNames.Roboto_400Regular,
-    fontSize: 32,
-    textAlign: 'center',
-    justifyContent: 'center',
-  },
   inputContainer: {
     width: 43,
     height: 56,
-    backgroundColor: Colors.input.darkWhite,
+    backgroundColor: Colors.bank.primary.lightGrey,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: Colors.input.lightGrey,
+    borderColor: Colors.bank.primary.grey,
     padding: Platform.OS === 'ios' ? 8 : 5,
     marginHorizontal: 7,
   },
   inputContainerFocused: {
     width: 43,
     height: 56,
-    backgroundColor: Colors.input.darkWhite,
+    backgroundColor: Colors.bank.primary.lightGrey,
     borderRadius: 4,
     borderWidth: 2,
-    borderColor: Colors.input.pink,
+    borderColor: Colors.bank.secondary.pink,
   },
   inputsContainer: {
     width: '50%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   hiddenCodeInput: {
     height: 1, // not 0, 0 won't work on Android

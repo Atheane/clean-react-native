@@ -22,45 +22,36 @@ type State = {
 };
 
 export const EmailInput = (props: Props & State) => {
-  const { t } = useTranslation();
   const { theme } = useTheme();
+  const { t } = useTranslation();
 
-  const handleOnChange = useCallback((text: string) => {
-    const cleanEmail = text.trim();
-    if (props.onChange) props.onChange(cleanEmail);
-  }, []);
+  const handleOnChange = useCallback(
+    (text: string) => {
+      const cleanEmail = text.trim();
+      if (props.onChange) props.onChange(cleanEmail);
+    },
+    [props],
+  );
 
   return props.filled ? (
-    <View
-      style={
-        props.filled
-          ? {
-              backgroundColor: 'transparent',
-              flexDirection: 'row',
-              width: 335,
-            }
-          : theme.input.container
+    <Input
+      autoCapitalize="none"
+      inputContainerStyle={[theme.bank.container.input, styles.inputContainer]}
+      inputStyle={[theme.bank.text.input, styles.input]}
+      leftIcon={<Mail style={{ color: Colors.bank.primary.lightGreen }} />}
+      leftIconContainerStyle={styles.leftIconContainer}
+      value={props.email?.trim()}
+      rightIcon={
+        <View style={styles.editIcon} onTouchStart={props.onEdit}>
+          <Edit />
+        </View>
       }
-    >
-      <Input
-        autoCapitalize="none"
-        inputContainerStyle={theme.input.subContainer}
-        inputStyle={theme.input.text}
-        leftIcon={<Mail style={{ color: Colors.text.lightGreenTransparent }} />}
-        leftIconContainerStyle={theme.input.leftIconContainer}
-        value={props.email?.trim()}
-        rightIcon={
-          <View style={styles.editIcon} onTouchStart={props.onEdit}>
-            <Edit />
-          </View>
-        }
-      />
-    </View>
+    />
   ) : (
     <TextInput
       label={t('screens.login.email.label')}
-      labelColor={Colors.text.lightGrey}
-      icon={() => <Mail style={{ color: Colors.text.lightGreenTransparent }} />}
+      labelColor={Colors.bank.primary.grey}
+      icon={() => <Mail style={{ color: Colors.bank.primary.lightGreen }} />}
       value={props.value}
       lowerCase
       onChange={handleOnChange}
@@ -71,7 +62,17 @@ export const EmailInput = (props: Props & State) => {
 };
 
 const styles = StyleSheet.create({
+  inputContainer: {
+    backgroundColor: 'transparent',
+  },
+  input: {
+    textAlign: 'left',
+  },
   editIcon: {
     marginLeft: 12,
+  },
+  leftIconContainer: {
+    marginHorizontal: 10,
+    borderBottomWidth: 0,
   },
 });

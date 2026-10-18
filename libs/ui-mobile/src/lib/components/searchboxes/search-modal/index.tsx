@@ -10,6 +10,7 @@ import {
   Platform,
 } from 'react-native';
 import { SvgProps } from 'react-native-svg';
+import { useTheme } from '@rneui/themed';
 
 import { Close } from '../../../assets';
 import { Colors } from '../../../constants';
@@ -30,6 +31,7 @@ type IProps = {
 };
 
 export const SearchModal = (props: IProps) => {
+  const { theme } = useTheme();
   const [visible, setVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState<IData[]>([]);
@@ -47,24 +49,30 @@ export const SearchModal = (props: IProps) => {
     return false;
   };
 
-  const handleSearchQuery = useCallback((query: string) => {
-    if (query === '') {
-      clearSearch();
-      return;
-    }
-    setSearchQuery(query);
-    const formattedQuery = query.toLocaleLowerCase();
-    const filteredData = props.data.filter((item: IData) => contains(item, formattedQuery));
-    setFilteredData(filteredData);
-  }, []);
+  const handleSearchQuery = useCallback(
+    (query: string) => {
+      if (query === '') {
+        clearSearch();
+        return;
+      }
+      setSearchQuery(query);
+      const formattedQuery = query.toLocaleLowerCase();
+      const filteredData = props.data.filter((item: IData) => contains(item, formattedQuery));
+      setFilteredData(filteredData);
+    },
+    [props.data],
+  );
 
   const [selectedItem, setSelectedItem] = useState<IData>();
 
-  const handleSelect = useCallback((item: IData) => {
-    setSelectedItem(item);
-    props.onSelect(item);
-    setVisible(false);
-  }, []);
+  const handleSelect = useCallback(
+    (item: IData) => {
+      setSelectedItem(item);
+      props.onSelect(item);
+      setVisible(false);
+    },
+    [props],
+  );
 
   const renderLabel = (item: IData) => `${item.key} - ${item.value}`.slice(0, 29) + '...';
 
@@ -83,7 +91,7 @@ export const SearchModal = (props: IProps) => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View>
       <TextInput
         placeholder={props.placeholder}
         label={props.label}
@@ -92,7 +100,7 @@ export const SearchModal = (props: IProps) => {
         clearButtonMode="always"
         value={selectedItem ? renderLabel(selectedItem) : ''}
         onFocus={handleOnPress}
-        labelColor={Colors.input.pink}
+        labelColor={Colors.bank.secondary.pink}
       />
       {Platform.OS === 'android' && selectedItem && (
         <TouchableOpacity onPress={handleClearInput} style={styles.closeIcon}>
@@ -116,17 +124,19 @@ export const SearchModal = (props: IProps) => {
               <Close />
             </TouchableOpacity>
           )}
-          <FlatList
-            data={filteredData}
-            keyExtractor={(item: IData) => item.key}
-            renderItem={({ item }: { item: IData }) => (
-              <View key={item.key} style={styles.itemContainer}>
-                <TouchableOpacity onPress={() => handleSelect(item)}>
-                  <Text style={styles.itemText}>{renderLabel(item)}</Text>
-                </TouchableOpacity>
-              </View>
-            )}
-          />
+          <View style={styles.listContainer}>
+            <FlatList
+              data={filteredData}
+              keyExtractor={(item: IData) => item.key}
+              renderItem={({ item }: { item: IData }) => (
+                <View key={item.key} style={styles.itemContainer}>
+                  <TouchableOpacity onPress={() => handleSelect(item)}>
+                    <Text style={theme.bank.text.grey}>{renderLabel(item)}</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+            />
+          </View>
         </SafeAreaView>
       </Modal>
     </View>
@@ -134,7 +144,9 @@ export const SearchModal = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  listContainer: {
+    marginTop: 24,
+  },
   modalContainer: {
     flex: 1,
     marginTop: 50,
@@ -144,11 +156,8 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '90%',
     paddingVertical: 10,
-    borderBottomColor: Colors.border.veryLightGrey,
+    borderBottomColor: Colors.bank.primary.lightGrey,
     borderBottomWidth: 1,
-  },
-  itemText: {
-    color: Colors.text.grey,
   },
   closeIcon: {
     position: 'absolute',

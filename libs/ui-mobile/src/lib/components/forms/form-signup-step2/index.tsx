@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
-import { useTheme, Input } from '@rneui/themed';
+import { Input, useTheme } from '@rneui/themed';
 import SelectDropdown from 'react-native-select-dropdown';
 import { PhoneNumberUtil } from 'google-libphonenumber';
 
@@ -45,8 +45,8 @@ export type ISignupStep2FormData = {
 };
 
 export const FormSignupStep2 = (props: IProps) => {
-  const { t } = useTranslation();
   const { theme } = useTheme();
+  const { t } = useTranslation();
 
   const [countryCode, setCountryCode] = useState<string>();
 
@@ -65,8 +65,8 @@ export const FormSignupStep2 = (props: IProps) => {
   );
 
   return (
-    <View style={styles.form}>
-      <View style={styles.formInputs}>
+    <View>
+      <View style={theme.bank.container.centeredItem}>
         <View style={styles.input}>
           <Controller
             control={props.control}
@@ -93,9 +93,9 @@ export const FormSignupStep2 = (props: IProps) => {
             render={({ field: { onChange, value } }) => (
               <TextInput
                 label={t('screens.signupstep2.firstName.label')}
-                labelColor={Colors.text.lightGrey}
+                labelColor={Colors.bank.primary.grey}
                 placeholder={firstLetterCapitalize(t('screens.signupstep2.firstName.placeholder'))}
-                icon={() => <Person style={{ color: Colors.icon.lightGreenTransparent }} />}
+                icon={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
                 value={value}
                 onChange={onChange}
               />
@@ -103,7 +103,7 @@ export const FormSignupStep2 = (props: IProps) => {
           />
           {props.errors?.firstName && props.errors.firstName.type === 'required' && (
             <View style={styles.container}>
-              <Text style={theme.errors}>
+              <Text style={theme.bank.text.errors}>
                 {firstLetterCapitalize(t('screens.signupstep2.firstName.required'))}
               </Text>
             </View>
@@ -117,9 +117,9 @@ export const FormSignupStep2 = (props: IProps) => {
             render={({ field: { onChange, value } }) => (
               <TextInput
                 label={t('screens.signupstep2.lastName.label')}
-                labelColor={Colors.text.lightGrey}
+                labelColor={Colors.bank.primary.grey}
                 placeholder={firstLetterCapitalize(t('screens.signupstep2.lastName.placeholder'))}
-                icon={() => <Person style={{ color: Colors.icon.lightGreenTransparent }} />}
+                icon={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
                 value={value}
                 onChange={onChange}
               />
@@ -127,20 +127,22 @@ export const FormSignupStep2 = (props: IProps) => {
           />
           {props.errors?.lastName && props.errors.lastName.type === 'required' && (
             <View style={styles.container}>
-              <Text style={theme.errors}>
+              <Text style={theme.bank.text.errors}>
                 {firstLetterCapitalize(t('screens.signupstep2.lastName.required'))}
               </Text>
             </View>
           )}
         </View>
         <View style={styles.input}>
-          <Text style={theme.input.label}>{t('screens.signupstep2.phone.label')}</Text>
-          <View style={theme.input.container}>
+          <Text style={[theme.bank.text.label, { marginBottom: 0, color: Colors.bank.primary.grey }]}>
+            {t('screens.signupstep2.phone.label')}
+          </Text>
+          <View style={[theme.bank.container.input, { marginBottom: 0 }]}>
             <View style={styles.subContainer}>
               <View style={styles.iconContainer}>
-                <PhoneIcon style={{ color: Colors.icon.lightGreenTransparent }} />
+                <PhoneIcon style={{ color: Colors.bank.primary.lightGreen }} />
               </View>
-              <View style={styles.selectContainer}>
+              <View style={[styles.selectContainer, theme.bank.container.centeredItem]}>
                 <Controller
                   control={props.control}
                   name="countryCode"
@@ -162,7 +164,7 @@ export const FormSignupStep2 = (props: IProps) => {
                         onChange(countryCode);
                       }}
                       buttonStyle={styles.selectButton}
-                      buttonTextStyle={theme.input.text}
+                      buttonTextStyle={theme.bank.text.input}
                       searchPlaceHolder=""
                       defaultValue={countryCode ? new Country(countryCode).valueFlagAndExtension : undefined}
                     />
@@ -186,8 +188,8 @@ export const FormSignupStep2 = (props: IProps) => {
                 }}
                 render={({ field: { onChange, value } }) => (
                   <Input
-                    inputContainerStyle={styles.inputContainer}
-                    inputStyle={theme.input.text}
+                    inputContainerStyle={[theme.bank.container.input, { width: '50%' }]}
+                    inputStyle={theme.bank.text.input}
                     onChangeText={onChange}
                     value={value}
                     onFocus={props.onFocus}
@@ -199,32 +201,26 @@ export const FormSignupStep2 = (props: IProps) => {
             </View>
           </View>
           {props.errors?.countryCode && props.errors.countryCode.type === 'required' && (
-            <View style={styles.container}>
-              <Text style={theme.errors}>
-                {firstLetterCapitalize(t('screens.signupstep2.countryCode.required'))}
-              </Text>
-            </View>
+            <Text style={theme.bank.text.errors}>
+              {firstLetterCapitalize(t('screens.signupstep2.countryCode.required'))}
+            </Text>
           )}
           {props.errors?.phone && props.errors.phone.type === 'required' && (
-            <View style={styles.container}>
-              <Text style={theme.errors}>
-                {firstLetterCapitalize(t('screens.signupstep2.phone.required'))}
-              </Text>
-            </View>
+            <Text style={theme.bank.text.errors}>
+              {firstLetterCapitalize(t('screens.signupstep2.phone.required'))}
+            </Text>
           )}
           {props.errors?.phone && props.errors.phone.type === 'validate' && (
-            <View style={styles.container}>
-              <Text style={theme.errors}>
-                {firstLetterCapitalize(t('screens.signupstep2.phone.invalid'))}
-              </Text>
-            </View>
+            <Text style={theme.bank.text.errors}>
+              {firstLetterCapitalize(t('screens.signupstep2.phone.invalid'))}
+            </Text>
           )}
           <View style={styles.container}>
             <ErrorMessage error={props.error} />
           </View>
         </View>
 
-        <View style={styles.formSubmit}>
+        <View style={[theme.bank.container.centeredItem, styles.formSubmit]}>
           <SubmitButton
             title={t('submitButton')}
             uppercase={false}
@@ -238,25 +234,14 @@ export const FormSignupStep2 = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
-  form: {
-    flex: 4,
-  },
-  formInputs: {
-    flex: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   input: {
     marginTop: 30,
   },
   formSubmit: {
-    flex: 1,
     marginTop: 36,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   container: {
-    paddingTop: 16,
+    marginTop: 16,
   },
   iconContainer: {
     marginLeft: 20,
@@ -267,17 +252,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   selectContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
     marginRight: -30,
   },
   selectButton: {
     width: 100,
     alignItems: 'center',
-  },
-  inputContainer: {
-    borderBottomColor: 'transparent',
-    marginTop: 11,
-    marginBottom: -16, // override of default input bottomMargin
   },
 });

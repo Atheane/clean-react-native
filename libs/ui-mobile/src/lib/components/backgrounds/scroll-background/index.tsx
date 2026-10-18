@@ -27,32 +27,23 @@ export const ScrollBackground = (props: IProps) => {
 
   return (
     <ScrollView
-      contentContainerStyle={styles(HEIGHT).container}
       // @ts-ignore
       ref={scrollRef}
-      endFillColor={Colors.background.lightGreen}
+      endFillColor={Colors.bank.background.lightGreen}
       showsVerticalScrollIndicator={false}
     >
-      <View style={styles(HEIGHT).background}>
+      <View style={{ height: HEIGHT }}>
         <props.background />
       </View>
-      <View style={styles(HEIGHT).content}>{props.children}</View>
+      <View style={styles.content}>{props.children}</View>
     </ScrollView>
   );
 };
 
-const styles = (height: number) =>
-  StyleSheet.create({
-    container: {
-      flexGrow: 1,
-    },
-    background: {
-      height: height,
-    },
-    content: {
-      flexGrow: 1,
-      position: 'absolute',
-      top: 0,
-      left: 0,
-    },
-  });
+const styles = StyleSheet.create({
+  content: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
+});

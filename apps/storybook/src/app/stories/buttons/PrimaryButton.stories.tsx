@@ -13,7 +13,7 @@ const PrimaryButtonMeta: ComponentMeta<typeof PrimaryButton> = {
   },
   args: {
     title: 'Sign up',
-    large: false,
+    long: false,
     uppercase: true,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
@@ -27,7 +27,7 @@ export const Static: PrimaryButtonStory = (args) => <PrimaryButton {...args} />;
 export const OneIcon: PrimaryButtonStory = (args) => (
   <PrimaryButton
     iconOne={() => (
-      <Love width={23} height={23} style={{ color: Colors.icon.white } as StyleProp<ViewStyle>} />
+      <Love width={23} height={23} style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
     )}
     {...args}
   />
@@ -36,10 +36,14 @@ export const TwoIcons: PrimaryButtonStory = (args) => {
   return (
     <PrimaryButton
       iconOne={() => (
-        <Love width={23} height={23} style={{ color: Colors.icon.white } as StyleProp<ViewStyle>} />
+        <Love width={23} height={23} style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
       )}
       iconTwo={() => (
-        <Validate width={23} height={23} style={{ color: Colors.icon.white } as StyleProp<ViewStyle>} />
+        <Validate
+          width={23}
+          height={23}
+          style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>}
+        />
       )}
       {...args}
     />

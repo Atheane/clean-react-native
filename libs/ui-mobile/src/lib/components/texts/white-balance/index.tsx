@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { IAccount, IAccountType } from '@clean-rn/account/domain';
+import { useTheme } from '@rneui/themed';
 
 import { RightChevron, GreenEuro } from '../../../assets';
 import { Colors, FontNames } from '../../../constants';
@@ -17,6 +18,7 @@ type IProps = {
 };
 
 export const WhiteBalance = (props: IProps) => {
+  const { theme } = useTheme();
   const { t } = useTranslation();
 
   const title = (accountType: IAccountType) => {
@@ -35,47 +37,49 @@ export const WhiteBalance = (props: IProps) => {
   return (
     <View>
       <Text style={styles.title}>{props.title ?? title(props.account.accountType)}</Text>
-      <View style={styles.widget}>
-        <View style={styles.balanceContainer}>
-          <Text style={styles.balance}>{props.account.authorizedBalance.toString().replace('.', ',')}</Text>
-          <GreenEuro />
+      <View style={[styles.widgetContainer, theme.bank.container.justifiedItems]}>
+        <View style={theme.bank.container.centeredItems}>
+          <Text style={[theme.bank.text.white, styles.balance]}>
+            {props.account.authorizedBalance.toString().replace('.', ',')}
+          </Text>
+          <View style={styles.greenEuroContainer}>
+            <GreenEuro />
+          </View>
         </View>
-        {props.onPress && (
-          <LinkButton
-            iconOne={() => <RightChevron style={{ color: Colors.text.white }} />}
-            colorOption={LinkButtonColors.WHITE}
-            pressed={false}
-            onPress={props.onPress}
-          />
-        )}
+        <View style={styles.linkContainer}>
+          {props.onPress && (
+            <LinkButton
+              iconOne={() => <RightChevron style={{ color: Colors.bank.primary.white }} />}
+              colorOption={LinkButtonColors.WHITE}
+              pressed={false}
+              onPress={props.onPress}
+            />
+          )}
+        </View>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  widget: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+  widgetContainer: {
     width: Dimensions.get('window').width * 0.9,
   },
+  greenEuroContainer: {
+    marginBottom: 8,
+  },
+  linkContainer: {
+    marginBottom: 24,
+  },
   title: {
-    color: Colors.text.white,
+    color: Colors.bank.primary.white,
     fontSize: 15,
     fontWeight: 'bold',
     fontFamily: FontNames.MartelSans_700Bold,
     marginTop: 0,
   },
-  balanceContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
   balance: {
-    color: Colors.text.white,
     fontSize: 38,
-    fontWeight: 'bold',
-    fontFamily: FontNames.MartelSans_700Bold,
     marginTop: -6,
   },
 });

@@ -3,40 +3,46 @@
 exports[`LongCard -  minimal props -  renders as before 1`] = `
 <View
   style={
-    {
-      "alignItems": "center",
-      "backgroundColor": "rgba(255, 255, 255, 1)",
-      "borderRadius": 20,
-      "elevation": 10,
-      "flexDirection": "row",
-      "height": 85,
-      "marginVertical": 8,
-      "shadowColor": "#707070",
-      "shadowOffset": {
-        "height": 5,
-        "width": 5,
+    [
+      {
+        "alignItems": "center",
+        "backgroundColor": "#FFFFFF",
+        "flexDirection": "row",
+        "marginVertical": 8,
       },
-      "shadowOpacity": 0.34,
-      "shadowRadius": 6.27,
-      "width": 637.5,
-    }
+      {
+        "elevation": 10,
+        "shadowColor": "#707070",
+        "shadowOffset": {
+          "height": 5,
+          "width": 5,
+        },
+        "shadowOpacity": 0.34,
+        "shadowRadius": 6.27,
+      },
+      {
+        "borderRadius": 20,
+        "borderWidth": 0,
+        "minHeight": 161.16573033707866,
+        "width": 675,
+      },
+    ]
   }
 >
   <View
     style={
       {
-        "marginLeft": 16,
+        "marginLeft": 30,
       }
     }
   >
     <Text
       style={
         {
-          "color": "rgba(10, 125, 192, 1)",
+          "color": "#71C9F6",
           "fontFamily": "Roboto_400Regular",
           "fontSize": 16,
           "lineHeight": 21,
-          "paddingLeft": 16,
         }
       }
     >
@@ -47,7 +53,8 @@ exports[`LongCard -  minimal props -  renders as before 1`] = `
     style={
       {
         "position": "absolute",
-        "right": 24,
+        "right": 12,
+        "top": 0,
       }
     }
   >
@@ -58,7 +65,7 @@ exports[`LongCard -  minimal props -  renders as before 1`] = `
             "overflow": "hidden",
           },
           {
-            "borderRadius": 28,
+            "borderRadius": 2,
           },
           undefined,
           false,
@@ -107,7 +114,7 @@ exports[`LongCard -  minimal props -  renders as before 1`] = `
               "alignItems": "center",
               "backgroundColor": "transparent",
               "borderColor": "#2089dc",
-              "borderRadius": 28,
+              "borderRadius": 2,
               "borderWidth": 0,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -118,11 +125,16 @@ exports[`LongCard -  minimal props -  renders as before 1`] = `
         >
           <View
             style={
-              {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "justifyContent": "space-around",
-              }
+              [
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "justifyContent": "space-around",
+                },
+                {
+                  "marginTop": 16,
+                },
+              ]
             }
           >
             <SvgMock />

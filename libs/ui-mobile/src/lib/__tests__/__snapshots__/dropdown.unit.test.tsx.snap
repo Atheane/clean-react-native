@@ -2,40 +2,54 @@
 
 exports[`Dropdown -  defaultValue -  renders as before 1`] = `
 <View>
-  <Text
-    style={
-      [
-        {
-          "color": "rgba(203, 40, 125, 1)",
-          "fontFamily": "Roboto_700Bold",
-          "fontSize": 18,
-          "lineHeight": 24,
-          "marginBottom": 16,
-        },
-        {
-          "color": "rgba(203, 40, 125, 1)",
-        },
-      ]
-    }
-  >
-    LABEL
-  </Text>
   <View
     style={
       {
+        "marginBottom": 16,
+      }
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Roboto_700Bold",
+            "fontSize": 16,
+            "lineHeight": 21,
+            "textAlign": "left",
+            "textTransform": "uppercase",
+          },
+          {
+            "color": "#CB287D",
+          },
+        ]
+      }
+    >
+      LABEL
+    </Text>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
         "flexDirection": "row",
+        "justifyContent": "space-around",
       }
     }
   >
     <View
       style={
-        {
-          "alignItems": "center",
-          "justifyContent": "center",
-          "marginLeft": 4,
-          "marginRight": 16,
-          "width": 30,
-        }
+        [
+          {
+            "marginLeft": 4,
+            "marginRight": 16,
+            "width": 30,
+          },
+          {
+            "alignItems": "center",
+            "justifyContent": "center",
+          },
+        ]
       }
     >
       <SvgMock />
@@ -94,7 +108,7 @@ exports[`Dropdown -  defaultValue -  renders as before 1`] = `
         <SvgMock
           style={
             {
-              "color": "rgba(207, 206, 41, 1)",
+              "color": "#BFD23A",
             }
           }
         />
@@ -104,12 +118,12 @@ exports[`Dropdown -  defaultValue -  renders as before 1`] = `
         numberOfLines={1}
         style={
           {
-            "color": "rgba(203, 40, 125, 1)",
+            "color": "#CB287D",
             "flex": 1,
             "fontFamily": "Roboto_400Regular",
             "fontSize": 14,
             "marginHorizontal": 8,
-            "textAlign": "center",
+            "textAlign": "left",
           }
         }
       >
@@ -122,40 +136,54 @@ exports[`Dropdown -  defaultValue -  renders as before 1`] = `
 
 exports[`Dropdown -  labelColor -  renders as before 1`] = `
 <View>
-  <Text
-    style={
-      [
-        {
-          "color": "rgba(203, 40, 125, 1)",
-          "fontFamily": "Roboto_700Bold",
-          "fontSize": 18,
-          "lineHeight": 24,
-          "marginBottom": 16,
-        },
-        {
-          "color": "rgba(105, 113, 124, 1)",
-        },
-      ]
-    }
-  >
-    LABEL
-  </Text>
   <View
     style={
       {
+        "marginBottom": 16,
+      }
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Roboto_700Bold",
+            "fontSize": 16,
+            "lineHeight": 21,
+            "textAlign": "left",
+            "textTransform": "uppercase",
+          },
+          {
+            "color": "#838383",
+          },
+        ]
+      }
+    >
+      LABEL
+    </Text>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
         "flexDirection": "row",
+        "justifyContent": "space-around",
       }
     }
   >
     <View
       style={
-        {
-          "alignItems": "center",
-          "justifyContent": "center",
-          "marginLeft": 4,
-          "marginRight": 16,
-          "width": 30,
-        }
+        [
+          {
+            "marginLeft": 4,
+            "marginRight": 16,
+            "width": 30,
+          },
+          {
+            "alignItems": "center",
+            "justifyContent": "center",
+          },
+        ]
       }
     >
       <SvgMock />
@@ -214,7 +242,7 @@ exports[`Dropdown -  labelColor -  renders as before 1`] = `
         <SvgMock
           style={
             {
-              "color": "rgba(207, 206, 41, 1)",
+              "color": "#BFD23A",
             }
           }
         />
@@ -224,12 +252,12 @@ exports[`Dropdown -  labelColor -  renders as before 1`] = `
         numberOfLines={1}
         style={
           {
-            "color": "rgba(203, 40, 125, 1)",
+            "color": "#CB287D",
             "flex": 1,
             "fontFamily": "Roboto_400Regular",
             "fontSize": 14,
             "marginHorizontal": 8,
-            "textAlign": "center",
+            "textAlign": "left",
           }
         }
       >
@@ -242,40 +270,54 @@ exports[`Dropdown -  labelColor -  renders as before 1`] = `
 
 exports[`Dropdown -  minimal props -  renders as before 1`] = `
 <View>
-  <Text
-    style={
-      [
-        {
-          "color": "rgba(203, 40, 125, 1)",
-          "fontFamily": "Roboto_700Bold",
-          "fontSize": 18,
-          "lineHeight": 24,
-          "marginBottom": 16,
-        },
-        {
-          "color": "rgba(203, 40, 125, 1)",
-        },
-      ]
-    }
-  >
-    LABEL
-  </Text>
   <View
     style={
       {
+        "marginBottom": 16,
+      }
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Roboto_700Bold",
+            "fontSize": 16,
+            "lineHeight": 21,
+            "textAlign": "left",
+            "textTransform": "uppercase",
+          },
+          {
+            "color": "#CB287D",
+          },
+        ]
+      }
+    >
+      LABEL
+    </Text>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
         "flexDirection": "row",
+        "justifyContent": "space-around",
       }
     }
   >
     <View
       style={
-        {
-          "alignItems": "center",
-          "justifyContent": "center",
-          "marginLeft": 4,
-          "marginRight": 16,
-          "width": 30,
-        }
+        [
+          {
+            "marginLeft": 4,
+            "marginRight": 16,
+            "width": 30,
+          },
+          {
+            "alignItems": "center",
+            "justifyContent": "center",
+          },
+        ]
       }
     >
       <SvgMock />
@@ -334,7 +376,7 @@ exports[`Dropdown -  minimal props -  renders as before 1`] = `
         <SvgMock
           style={
             {
-              "color": "rgba(207, 206, 41, 1)",
+              "color": "#BFD23A",
             }
           }
         />
@@ -344,12 +386,12 @@ exports[`Dropdown -  minimal props -  renders as before 1`] = `
         numberOfLines={1}
         style={
           {
-            "color": "rgba(203, 40, 125, 1)",
+            "color": "#CB287D",
             "flex": 1,
             "fontFamily": "Roboto_400Regular",
             "fontSize": 14,
             "marginHorizontal": 8,
-            "textAlign": "center",
+            "textAlign": "left",
           }
         }
       >

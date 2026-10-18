@@ -15,11 +15,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  content: {
-    alignContent: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   bottom: {
     position: 'relative',
     top: Dimensions.get('window').height * 0.7,

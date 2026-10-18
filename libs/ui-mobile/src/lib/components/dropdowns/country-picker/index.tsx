@@ -53,9 +53,9 @@ export const CountryPicker = (props: IProps & IState) => {
   return (
     <Dropdown
       {...props}
-      labelColor={Colors.text.lightGrey}
+      labelColor={Colors.bank.primary.grey}
       data={sortedData}
-      icon={() => <Location style={{ color: Colors.icon.lightGreenTransparent } as StyleProp<ViewStyle>} />}
+      icon={() => <Location style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />}
       placeholder={t('countryPicker.placeholder')}
       onSelect={handleOnSelect}
       defaultValue={getFlagAndName(defaultValue)}

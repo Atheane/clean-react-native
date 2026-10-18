@@ -41,7 +41,7 @@ export const HouseForm = (props: IProps) => {
       setConsumption(5000);
       props.onChangeForm(HeaterE[key as keyof typeof HeaterE]);
     },
-    [props.onChangeForm],
+    [props],
   );
 
   // slider consumption
@@ -51,7 +51,7 @@ export const HouseForm = (props: IProps) => {
       setConsumption(value);
       props.onChangeField('consumption', value);
     },
-    [props.onChangeField],
+    [props],
   );
 
   // gas
@@ -68,7 +68,7 @@ export const HouseForm = (props: IProps) => {
       setRegion(parseInt(value));
       props.onChangeField('region', parseInt(value));
     },
-    [props.onChangeField],
+    [props],
   );
 
   const [surface, setSurface] = useState<number>(60);
@@ -77,7 +77,7 @@ export const HouseForm = (props: IProps) => {
       setSurface(value);
       props.onChangeField('surface', value);
     },
-    [props.onChangeField],
+    [props],
   );
 
   const [builtYear, setBuiltYear] = useState<number>(1980);
@@ -87,7 +87,7 @@ export const HouseForm = (props: IProps) => {
 
       props.onChangeField('built', value <= OLD_BUILDING_YEAR ? HouseYearE.old : HouseYearE.recent);
     },
-    [props.onChangeField],
+    [props],
   );
 
   const ConditionalForm = () => {
@@ -122,21 +122,21 @@ export const HouseForm = (props: IProps) => {
             <Dropdown
               label={t('screens.carbonHouse.dropdown.region')}
               placeholder={t('screens.carbonHouse.dropdown.region')}
-              icon={Department}
+              icon={() => <Department style={{ color: Colors.bank.primary.lightGreen }} />}
               data={sortedDeps}
               value={region.toString()}
               onSelect={handleOnChangeRegion}
             />
           )}
-          <View style={styles.selectNumberContainer}>
+          <View style={styles.container}>
             <SelectNumber
               label={t('screens.carbonHouse.surface')}
-              icon={() => <Surface style={{ color: Colors.icon.lightGreenTransparent }} />}
+              icon={() => <Surface style={{ color: Colors.bank.primary.lightGreen }} />}
               value={surface}
               onChange={handleOnChangeSurface}
             />
           </View>
-          <View style={styles.sliderContainer}>
+          <View style={styles.container}>
             <Slider
               label={t('screens.carbonHouse.slider.builtYear')}
               minValue={1900}
@@ -159,23 +159,17 @@ export const HouseForm = (props: IProps) => {
       <Dropdown
         label={t('screens.carbonHouse.dropdown.heater')}
         placeholder={t('screens.carbonHouse.dropdown.heater')}
-        icon={() => <Flame style={{ color: Colors.icon.lightGreenTransparent }} />}
+        icon={() => <Flame style={{ color: Colors.bank.primary.lightGreen }} />}
         data={dataHeating}
         onSelect={handleOnChange}
       />
-      <View style={styles.formContainer}>{ConditionalForm()}</View>
+      <View style={styles.container}>{ConditionalForm()}</View>
     </KeyboardAwareScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  formContainer: {
-    marginTop: 36,
-  },
-  sliderContainer: {
-    marginTop: 36,
-  },
-  selectNumberContainer: {
-    marginTop: 36,
+  container: {
+    marginTop: 24,
   },
 });

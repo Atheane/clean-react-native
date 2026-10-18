@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { View, StyleSheet, Text, Dimensions } from 'react-native';
-import { useTheme } from '@rneui/themed';
 import SelectDropdown from 'react-native-select-dropdown';
 import { SvgProps } from 'react-native-svg';
+import { useTheme } from '@rneui/themed';
 
 import { DropDownChevron } from '../../../assets';
-import { Colors, FontNames } from '../../../constants';
+import { Colors } from '../../../constants';
 
 type IData = {
   key: any;
@@ -24,20 +24,21 @@ type IProps = {
 };
 
 export const Dropdown = (props: IProps) => {
-  const { theme } = useTheme();
-
   const handleOnSelect = (value: string, index: number) => {
     props.onSelect(props.data[index]);
   };
 
+  const { theme } = useTheme();
+
   return (
     <View>
-      <Text style={[styles.inputLabel, { color: props.labelColor ?? Colors.input.pink }]}>
-        {props.label.toLocaleUpperCase()}
-      </Text>
-
-      <View style={styles.selectContainer}>
-        <View style={styles.leftIconContainer}>
+      <View style={styles.labelContainer}>
+        <Text style={[theme.bank.text.label, { color: props.labelColor ?? Colors.bank.secondary.pink }]}>
+          {props.label.toLocaleUpperCase()}
+        </Text>
+      </View>
+      <View style={theme.bank.container.centeredItems}>
+        <View style={[styles.leftIconContainer, theme.bank.container.centeredItem]}>
           <props.icon />
         </View>
         <SelectDropdown
@@ -46,11 +47,11 @@ export const Dropdown = (props: IProps) => {
           buttonTextAfterSelection={(item: IData) => item.value}
           buttonStyle={styles.buttonContainer}
           rowTextForSelection={(item: IData) => item.value}
-          buttonTextStyle={[theme.input.text, styles.inputText]}
+          buttonTextStyle={theme.bank.text.input}
           rowTextStyle={styles.rowText}
           renderDropdownIcon={() => (
             <View style={styles.dropdownIcon}>
-              <DropDownChevron style={{ color: theme.linearGradient.start }} />
+              <DropDownChevron style={{ color: Colors.bank.primary.lightGreen }} />
             </View>
           )}
           defaultButtonText={props.defaultValue ?? props.placeholder}
@@ -61,28 +62,16 @@ export const Dropdown = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
-  rowText: {
-    textTransform: 'uppercase',
-  },
-  inputText: {
-    textAlign: 'center',
-  },
-  inputLabel: {
-    color: Colors.input.pink,
-    fontFamily: FontNames.Roboto_700Bold,
-    fontSize: 18,
-    lineHeight: 24,
+  labelContainer: {
     marginBottom: 16,
   },
-  selectContainer: {
-    flexDirection: 'row',
+  rowText: {
+    textTransform: 'uppercase',
   },
   leftIconContainer: {
     width: 30,
     marginLeft: 4,
     marginRight: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   buttonContainer: {
     borderRadius: 8,
@@ -92,10 +81,5 @@ const styles = StyleSheet.create({
   },
   dropdownIcon: {
     marginRight: 16,
-  },
-  placeholderText: {
-    fontFamily: FontNames.Roboto_400Regular,
-    fontSize: 14,
-    color: Colors.text.grey,
   },
 });

@@ -1,10 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Divider } from '@rneui/base';
+import { useTheme } from '@rneui/themed';
 
 import { IAccount } from '@clean-rn/account/domain';
-
-import { Colors, FontNames } from '../../../constants';
 
 import { WhiteBalance } from '../../texts/white-balance';
 
@@ -14,7 +13,9 @@ type IProps = {
 };
 
 export const WhiteBalanceList = (props: IProps) => {
+  const { theme } = useTheme();
   const { t } = useTranslation();
+
   return (
     <View>
       {props.data.length > 0 ? (
@@ -27,7 +28,7 @@ export const WhiteBalanceList = (props: IProps) => {
           </View>
         ))
       ) : (
-        <Text style={styles.noAccounts}>{t('screens.home.balance.noaccounts')}</Text>
+        <Text style={theme.bank.text.white}>{t('screens.home.balance.noaccounts')}</Text>
       )}
     </View>
   );
@@ -36,12 +37,6 @@ export const WhiteBalanceList = (props: IProps) => {
 const styles = StyleSheet.create({
   widgetContainer: {
     marginTop: 8,
-  },
-  noAccounts: {
-    color: Colors.text.white,
-    fontSize: 15,
-    fontWeight: 'bold',
-    fontFamily: FontNames.MartelSans_700Bold,
   },
   divider: {
     width: '90%',

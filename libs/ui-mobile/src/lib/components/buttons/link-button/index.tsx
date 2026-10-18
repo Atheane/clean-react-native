@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SvgProps } from 'react-native-svg';
-import { Button } from '@rneui/themed';
+import { Button, useTheme } from '@rneui/themed';
 
 import { RightArrow } from '../../../assets';
-import { Colors, FontNames } from '../../../constants';
+import { Colors } from '../../../constants';
 import { LinkButtonColors } from '../../../types';
 
 type IProps = {
@@ -17,11 +17,12 @@ type IProps = {
 };
 
 export const LinkButton: FC<IProps> = (props: IProps) => {
+  const { theme } = useTheme();
   return (
     <Button type={'clear'} {...props} onPress={props.onPress}>
-      <View style={styles(props).contentContainer}>
+      <View style={[theme.bank.container.centeredItems, styles.container]}>
         {props.arrow && (
-          <View style={styles(props).iconContainer}>
+          <View style={styles.iconContainer}>
             <RightArrow
               width={27}
               height={16}
@@ -29,7 +30,18 @@ export const LinkButton: FC<IProps> = (props: IProps) => {
             />
           </View>
         )}
-        {props.title && <Text style={styles(props).title}>{props.title}</Text>}
+        {props.title && (
+          <Text
+            style={[
+              theme.bank.text.link,
+              {
+                color: getColor(props.colorOption)(props.pressed),
+              },
+            ]}
+          >
+            {props.title}
+          </Text>
+        )}
         {props.iconOne && <props.iconOne />}
       </View>
     </Button>
@@ -39,25 +51,17 @@ export const LinkButton: FC<IProps> = (props: IProps) => {
 const getColor = (option: LinkButtonColors) => (isPressed: boolean) => {
   switch (option) {
     case LinkButtonColors.PINK:
-      return isPressed ? Colors.link.pinkTransparent : Colors.link.pink;
+      return isPressed ? Colors.bank.pinkTransparent : Colors.bank.secondary.pink;
     case LinkButtonColors.BLUE:
-      return isPressed ? Colors.link.darkBlueTransparent : Colors.link.darkBlue;
+      return isPressed ? Colors.bank.primary.lightPurple : Colors.bank.primary.darkBlue;
     case LinkButtonColors.WHITE:
-      return isPressed ? Colors.link.whiteTransparent : Colors.link.white;
+      return isPressed ? Colors.bank.primary.lightGrey : Colors.bank.primary.white;
     default:
-      return isPressed ? Colors.link.lightGreenTransparent : Colors.link.lightGreen;
+      return isPressed ? Colors.bank.primary.lightGreen : Colors.bank.primary.darkGreen;
   }
 };
 
-const styles = (props: IProps) =>
-  StyleSheet.create({
-    contentContainer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' },
-    iconContainer: { marginRight: 10 },
-    title: {
-      textAlign: 'left',
-      fontFamily: FontNames.Roboto_400Regular,
-      fontSize: 14,
-      lineHeight: 19,
-      color: getColor(props.colorOption)(props.pressed),
-    },
-  });
+const styles = StyleSheet.create({
+  container: { marginTop: 16 },
+  iconContainer: { marginRight: 10 },
+});

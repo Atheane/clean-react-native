@@ -102,10 +102,10 @@
         "label": "phone number",
         "placeholder": "phone number",
         "required": "phone number required",
-        "invalid": "indiquer un numéro de téléphone mobile valide"
+        "invalid": "enter a valid mobile phone number"
       },
       "country": {
-        "notavailable": "ce pays n'est pas disponible"
+        "notavailable": "this country is not available"
       }
     },
     "signupstep3": {
@@ -297,7 +297,8 @@
         "meatWhite": "White meat / Poultry",
         "rice": "Pasta / Rice",
         "soft": "Fruit juice / Soda / Water",
-        "unit": " times / week"
+        "unit": " time / week",
+        "units": " times / week" 
       }
     },
     "warningFood": {

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Pressable } from 'react-native';
 import dayjs, { Dayjs } from 'dayjs';
 import DateTimePickerNative, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import { useTheme } from '@rneui/themed';
 
 import { Lock } from '../../../assets';
 import { Colors } from '../../../constants';
@@ -18,8 +17,6 @@ type Props = {
 };
 
 export const DateTimePicker = (props: Props) => {
-  const { theme } = useTheme();
-
   const [containerIsFocused, setContainerIsFocused] = useState(false);
   const [date, setDate] = useState<Dayjs>(dayjs('1980-01-01'));
   const handleOnFocus = () => {
@@ -50,10 +47,11 @@ export const DateTimePicker = (props: Props) => {
           display={'spinner'}
         />
       )}
+
       <TextInput
         label={props.label}
-        labelColor={Colors.text.lightGrey}
-        icon={() => <Lock style={{ color: theme.linearGradient.start }} />}
+        labelColor={Colors.bank.primary.grey}
+        icon={() => <Lock style={{ color: Colors.bank.primary.lightGreen }} />}
         value={date.format(props.format)}
         placeholder={props.placeholder}
         onFocus={handleOnFocus}
