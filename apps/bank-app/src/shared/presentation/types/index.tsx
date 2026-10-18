@@ -20,8 +20,8 @@ export type RootTabParamList = {
 
 export type AuthStackParamList = {
   Login: undefined;
-  // ResetPassword: undefined;
-  // SignupStep1: undefined;
+  ResetPassword: undefined;
+  SignupStep1: undefined;
   // SignupStep2: undefined;
   // SignupStep3: undefined;
   // SignupStep4: undefined;
@@ -42,7 +42,7 @@ export enum ISharedStackPages {
 export enum IAuthStackPages {
   LOGIN = 'Login',
   RESET_PASSWORD = 'ResetPassword',
-  // SIGNUP_STEP1 = 'SignupStep1',
+  SIGNUP_STEP1 = 'SignupStep1',
   // SIGNUP_STEP2 = 'SignupStep2',
   // SIGNUP_STEP3 = 'SignupStep3',
   // SIGNUP_STEP4 = 'SignupStep4',
@@ -58,7 +58,7 @@ export enum IAuthStackPages {
 export type IAuthStackProps = {
   [IAuthStackPages.LOGIN]: object;
   [IAuthStackPages.RESET_PASSWORD]: object;
-  // [IAuthStackPages.SIGNUP_STEP1]: object;
+  [IAuthStackPages.SIGNUP_STEP1]: object;
   // [IAuthStackPages.SIGNUP_STEP2]: object;
   // [IAuthStackPages.SIGNUP_STEP3]: object;
   // [IAuthStackPages.SIGNUP_STEP4]: object;
@@ -71,8 +71,7 @@ export type IAuthStackProps = {
   // [IAuthStackPages.CGU]: object;
 };
 
-export type IRoutes = IAuthStackPages.LOGIN | IAuthStackPages.RESET_PASSWORD;
-// | IAuthStackPages.SIGNUP_STEP1
+export type IRoutes = IAuthStackPages.LOGIN | IAuthStackPages.RESET_PASSWORD | IAuthStackPages.SIGNUP_STEP1;
 // | IAuthStackPages.SIGNUP_STEP2
 // | IAuthStackPages.SIGNUP_STEP3
 // | IAuthStackPages.SIGNUP_STEP4

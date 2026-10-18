@@ -1,5 +1,6 @@
 // import { useCallback } from 'react';
 // import { useDispatch } from 'react-redux';
+import { Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -48,13 +49,17 @@ export const AuthStack = (props: Props) => {
         name={IAuthStackPages.LOGIN}
         component={Login}
       />
-      {/* <Stack.Screen
-        options={{
-          headerTitle: t('screens.resetPassword.title'),
-          ...headersOptions(onPressBackButton(navigateBack)),
-        }}
+      <Stack.Screen
+        // options={{
+        //   headerTitle: t('screens.resetPassword.title'),
+        //   ...headersOptions(onPressBackButton(navigateBack)),
+        // }}
         name={IAuthStackPages.RESET_PASSWORD}
-        component={ResetPassword}
+        component={() => (
+          <View>
+            <Text>RESET PASSWORD</Text>
+          </View>
+        )}
       />
       <Stack.Screen
         options={{
@@ -62,9 +67,13 @@ export const AuthStack = (props: Props) => {
           ...headersOptions(),
         }}
         name={IAuthStackPages.SIGNUP_STEP1}
-        component={SignupStep1}
+        component={() => (
+          <View>
+            <Text>SignupStep1</Text>
+          </View>
+        )}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         options={{
           headerTitle: t(`screens.signupstep2.title`),
           ...headersOptions(onPressBackButton(navigateBack)),

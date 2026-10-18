@@ -4,13 +4,9 @@ import * as Sentry from '@sentry/react-native';
 import { Logger } from '@clean-rn/logger';
 import { StorageError } from './errors';
 
-export async function getItemFromStore(key: string): Promise<string> {
+export async function getItemFromStore(key: string): Promise<string | null> {
   try {
-    const value = await AsyncStorage.getItem(key);
-    if (value) {
-      return value;
-    }
-    throw new StorageError.GetError('No value found');
+    return AsyncStorage.getItem(key);
   } catch (e) {
     const storageError = new StorageError.GetError(e);
     Sentry.captureException(storageError);

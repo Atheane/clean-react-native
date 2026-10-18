@@ -7,11 +7,12 @@ import { ThemeProvider } from '@rneui/themed';
 
 import { Fonts, theme, i18n } from '@clean-rn/ui-mobile';
 
-import { store } from '../application/state-management/store';
+import { store } from '../application/state-management/state/store';
 import { NavigationUI } from './navigation';
 
 const App: () => JSX.Element = () => {
   const [fontsLoaded] = useFonts(Fonts);
+
   return fontsLoaded ? (
     <ThemeProvider theme={theme}>
       <I18nextProvider i18n={i18n}>

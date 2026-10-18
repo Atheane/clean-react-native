@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
-import { loginReducer } from '../../../auth/application/state-management';
+import { initializationReducer } from './initialization';
+import { loginReducer } from '../../../../auth/application/state-management';
 // import { resetPasswordReducer } from '@auth/infrastructure/redux';
 
 // import {
@@ -20,6 +21,7 @@ import { loginReducer } from '../../../auth/application/state-management';
 // } from '@carbon/infrastructure/redux';
 
 export const rootReducer = combineReducers({
+  initialization: initializationReducer,
   auth: combineReducers({
     login: loginReducer,
     //   resetPassword: resetPasswordReducer,

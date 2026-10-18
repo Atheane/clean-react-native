@@ -16,7 +16,7 @@ import {
 
 import { Email } from '@clean-rn/auth/domain';
 
-import { RootState } from '../../../shared/application/state-management/root-reducer';
+import { RootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IAuthStackPages } from '../../../shared/presentation/types';
 import { navigationRef } from '../../../shared/presentation/navigation/navigationRef';
 

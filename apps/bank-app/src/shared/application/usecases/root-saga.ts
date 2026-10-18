@@ -1,5 +1,5 @@
 import { all } from 'redux-saga/effects';
-import Constants from 'expo-constants';
+import { initializationSaga } from './initialization';
 import {
   loginSaga,
   // resetPasswordSaga,
@@ -12,7 +12,6 @@ import {
   // signupStep7Saga,
   // signupStep8Saga,
 } from '../../../auth/application/usecases';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 // import { getAccountsSaga, getTransactionsSaga } from '@account/usecases';
 // import { accountApi } from '@account/infrastructure/services';
@@ -24,10 +23,10 @@ import { AuthApi } from '@clean-rn/auth/infrastructure';
 //   flyEmissionsSaga,
 // } from '@carbon/usecases';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function* rootSaga() {
   yield all([
-    loginSaga(new AuthApi(Constants.expoConfig?.extra?.BASE_URL as string)),
+    initializationSaga(),
+    loginSaga(),
     // resetPasswordSaga(authApi),
     // navigatePasswordToLoginSaga(),
     // signupStep1Saga(authApi),
