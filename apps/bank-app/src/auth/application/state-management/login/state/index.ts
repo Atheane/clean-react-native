@@ -11,5 +11,4 @@ export interface ILoginState {
         refreshToken: null;
       };
   error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | Error | null;
-  bearerToken: string | null;
 }

@@ -10,7 +10,6 @@ const initialState: ILoginState = {
     refreshToken: null,
   },
   error: null,
-  bearerToken: null,
 };
 
 export const loginReducer = (state = initialState, action: ILoginActions) => {

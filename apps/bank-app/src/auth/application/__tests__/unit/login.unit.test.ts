@@ -8,10 +8,10 @@ import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AuthError, Email } from '@clean-rn/auth/domain';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
-import { loginSaga, loginApiSaga } from '../usecases/login';
-import { ILoginTypes, loginSuccess, loginFailure } from '../commands/login';
+import { loginSaga, loginApiSaga } from '../../usecases/login';
+import { ILoginTypes, loginSuccess, loginFailure } from '../../commands/login';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { IStoreKey } from '../../../shared/application/types';
+import { IStoreKey } from '../../../../shared/application/types';
 
 describe('Login - usecase', () => {
   const genObject = loginSaga();
@@ -37,9 +37,9 @@ describe('Login - usecase', () => {
   const api = AuthApi.getInstance(httpConnection);
 
   beforeAll(async () => {
+    nock.disableNetConnect();
     nock.back.fixtures = path.resolve(`${__dirname}/fixtures`);
     nock.back.setMode('record');
-    nock.disableNetConnect();
   });
 
   afterAll(() => {

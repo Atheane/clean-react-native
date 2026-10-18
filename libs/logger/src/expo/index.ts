@@ -26,12 +26,12 @@ export class Logger implements ILogger {
   }
 
   public debug(primaryMessage: any, ...supportingDetails: any[]): void {
-    if (this.env !== 'production') {
+    if (this.env === 'development') {
       this.emitLogMessage('debug', primaryMessage, supportingDetails);
     }
   }
   public info(primaryMessage: any, ...supportingDetails: any[]): void {
-    if (this.env !== 'production') {
+    if (this.env === 'development') {
       this.emitLogMessage('info', primaryMessage, supportingDetails);
     }
   }
