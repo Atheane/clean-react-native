@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useTheme } from '@rneui/themed';
 
 type IProps = {
@@ -10,10 +10,8 @@ type IProps = {
 export const TouchCardText: FC<IProps> = (props: IProps) => {
   const { theme } = useTheme();
   return (
-    <TouchableOpacity onPress={props.onPress}>
-      <View style={[theme.bank.shadow.card, theme.bank.container.card.kpi]}>
-        <Text style={[styles.textContainer, theme.bank.text.darkBlue]}>{props.text}</Text>
-      </View>
+    <TouchableOpacity onPress={props.onPress} style={[theme.bank.shadow.card, theme.bank.container.card.kpi]}>
+      <Text style={[styles.textContainer, theme.bank.text.darkBlue]}>{props.text}</Text>
     </TouchableOpacity>
   );
 };

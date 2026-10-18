@@ -4,7 +4,7 @@ import { Logo, TopBlueBg, BottomLeavesBg } from '../../../assets';
 
 export const TopDownBackground = () => {
   return (
-    <View style={styles.container}>
+    <View>
       <View style={styles.top}>
         <TopBlueBg />
       </View>
@@ -19,9 +19,6 @@ export const TopDownBackground = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   top: {
     position: 'absolute',
     top: -232,

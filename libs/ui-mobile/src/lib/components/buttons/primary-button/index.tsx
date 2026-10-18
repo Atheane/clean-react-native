@@ -30,8 +30,8 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
     >
       <Button
         ViewComponent={LinearGradient}
-        buttonStyle={styles.button}
-        containerStyle={props.long ? theme.bank.container.button.long : theme.bank.container.button.short}
+        buttonStyle={[styles.button, theme.bank.shadow.button]}
+        containerStyle={[props.long ? theme.bank.container.button.long : theme.bank.container.button.short]}
         loading={props?.loading ?? false}
         linearGradientProps={{
           colors: [Colors.bank.greenGradient.lightGreen, Colors.bank.greenGradient.darkGreen],
