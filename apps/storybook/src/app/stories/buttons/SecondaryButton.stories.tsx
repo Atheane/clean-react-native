@@ -13,7 +13,7 @@ const SecondaryButtonMeta: ComponentMeta<typeof SecondaryButton> = {
   },
   args: {
     title: 'Log in',
-    large: false,
+    long: false,
     uppercase: true,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],

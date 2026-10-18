@@ -13,7 +13,7 @@ const PrimaryButtonMeta: ComponentMeta<typeof PrimaryButton> = {
   },
   args: {
     title: 'Sign up',
-    large: false,
+    long: false,
     uppercase: true,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],

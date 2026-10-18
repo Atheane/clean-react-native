@@ -14,33 +14,22 @@ declare module '@rneui/themed' {
   export interface Theme {
     bank: {
       container: {
-        centered: StyleProp<ViewStyle>;
+        button: {
+          short: StyleProp<ViewStyle>;
+          long: StyleProp<ViewStyle>;
+        };
+        centeredItem: StyleProp<ViewStyle>;
+        centeredItems: StyleProp<ViewStyle>;
         card: {
-          short: {
-            width: number;
-            height: number;
-            margin: number;
-            borderRadius: number;
-          };
-          long: {
-            width: number;
-            height: number;
-            margin: number;
-            borderRadius: number;
-          };
+          short: StyleProp<ViewStyle>;
+          long: StyleProp<ViewStyle>;
         };
         input: StyleProp<ViewStyle>;
       };
-      shadow: {
-        color: string;
-        opacity: number;
-        offset: {
-          width: number;
-          height: number;
-        };
-        radius: number;
-      };
+      shadow: StyleProp<ViewStyle>;
       text: {
+        banner: StyleProp<TextStyle>;
+        link: StyleProp<TextStyle>;
         button: StyleProp<TextStyle>;
         pinkLabel: StyleProp<TextStyle>;
         greyLabel: StyleProp<TextStyle>;
@@ -58,8 +47,9 @@ declare module '@rneui/themed' {
   }
 }
 
-const CARD_WIDTH = Dimensions.get('window').width * 0.5;
-const CARD_RATIO = 168 / 228;
+const LONG_BUTTON_RATIO = 55 / 307;
+const SHORT_CARD_RATIO = 168 / 228;
+const LONG_CARD_RATIO = 85 / 356;
 
 export const theme = createTheme({
   components: {
@@ -69,17 +59,27 @@ export const theme = createTheme({
   },
   bank: {
     container: {
-      centered: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' },
+      button: {
+        short: {
+          flexDirection: 'row',
+        },
+        long: {
+          width: Dimensions.get('window').width * 0.8,
+          height: Dimensions.get('window').width * 0.8 * LONG_BUTTON_RATIO,
+        },
+      },
+      centeredItem: { alignItems: 'center', justifyContent: 'center' },
+      centeredItems: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' },
       card: {
         short: {
           width: Dimensions.get('window').width * 0.45,
-          height: CARD_WIDTH * CARD_RATIO,
+          height: Dimensions.get('window').width * 0.45 * SHORT_CARD_RATIO,
           margin: 16,
           borderRadius: 16,
         },
         long: {
           width: Dimensions.get('window').width * 0.85,
-          height: 85,
+          height: Dimensions.get('window').width * 0.85 * LONG_CARD_RATIO,
           borderRadius: 20,
         },
       },
@@ -93,12 +93,25 @@ export const theme = createTheme({
       },
     },
     shadow: {
-      color: Colors.bank.shadow,
-      opacity: 0.34,
-      offset: { width: 5, height: 15 },
-      radius: 20,
+      shadowColor: Colors.bank.shadow, // iOS
+      shadowOffset: { width: 0, height: 15 }, // iOS
+      shadowOpacity: 0.6, // iOS
+      shadowRadius: 20, // iOS
+      elevation: 50, // android,
     },
     text: {
+      banner: {
+        color: Colors.bank.primary.white,
+        fontSize: 18,
+        fontFamily: FontNames.MartelSans_700Bold,
+        fontWeight: '700',
+      },
+      link: {
+        textAlign: 'left',
+        fontFamily: FontNames.Roboto_400Regular,
+        fontSize: 14,
+        lineHeight: 19,
+      },
       button: {
         lineHeight: 24,
         fontSize: 18,

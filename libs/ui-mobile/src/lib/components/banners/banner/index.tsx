@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { Header } from '@rneui/themed';
+import { Header, useTheme } from '@rneui/themed';
 
 import { RightChevron, Warning } from '../../../assets';
-import { Colors, FontNames } from '../../../constants';
+import { Colors } from '../../../constants';
 import { LinkButtonColors, BannerColors } from '../../../types';
 import { LinkButton } from '../../buttons/link-button';
 
@@ -14,6 +14,7 @@ type IProps = {
 };
 
 export const Banner = (props: IProps) => {
+  const { theme } = useTheme();
   return props.rightIcon ? (
     <Header
       leftComponent={
@@ -22,8 +23,8 @@ export const Banner = (props: IProps) => {
         </View>
       }
       centerComponent={
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>{props.title}</Text>
+        <View style={theme.bank.container.centeredItem}>
+          <Text style={theme.bank.text.banner}>{props.title}</Text>
         </View>
       }
       rightComponent={
@@ -52,7 +53,7 @@ export const Banner = (props: IProps) => {
         </View>
       }
       containerStyle={[
-        styles.container,
+        theme.bank.container.centeredItem,
         {
           backgroundColor:
             props.color === BannerColors.PINK
@@ -69,8 +70,8 @@ export const Banner = (props: IProps) => {
         </View>
       }
       centerComponent={
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>{props.title}</Text>
+        <View style={theme.bank.container.centeredItem}>
+          <Text style={theme.bank.text.banner}>{props.title}</Text>
         </View>
       }
       rightComponent={
@@ -86,7 +87,7 @@ export const Banner = (props: IProps) => {
         </View>
       }
       containerStyle={[
-        styles.container,
+        theme.bank.container.centeredItem,
         {
           backgroundColor:
             props.color === BannerColors.PINK
@@ -99,18 +100,6 @@ export const Banner = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-  },
-  textContainer: {
-    alignItems: 'center',
-  },
-  title: {
-    color: Colors.bank.primary.white,
-    fontSize: 18,
-    fontFamily: FontNames.MartelSans_700Bold,
-    fontWeight: '700',
-  },
   leftIcon: { marginLeft: 8 },
   rightIcon: { marginTop: -8 },
 });
