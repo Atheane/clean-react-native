@@ -512,7 +512,8 @@ exports[`PrimaryButton -  large -  true - renders as before 1`] = `
     [
       {
         "borderRadius": 28,
-        "flexDirection": "row",
+        "height": 107.49185667752442,
+        "width": 600,
       },
       {
         "borderRadius": 28,
@@ -540,7 +541,8 @@ exports[`PrimaryButton -  large -  true - renders as before 1`] = `
         [
           {
             "borderRadius": 28,
-            "flexDirection": "row",
+            "height": 107.49185667752442,
+            "width": 600,
           },
         ],
         {
