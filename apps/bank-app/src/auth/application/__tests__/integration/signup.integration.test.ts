@@ -2,10 +2,22 @@
 import SagaTester from 'redux-saga-tester';
 import Constants from 'expo-constants';
 
-import { Email, IGender, IRegisterIdentityCommand, Prospect } from '@clean-rn/auth/domain';
+import {
+  Email,
+  IGender,
+  IRegisterIdentityCommand,
+  IRegisterPasswordCommand,
+  Prospect,
+} from '@clean-rn/auth/domain';
 
 import { checkEmailSaga, registerIdentitySaga } from '../../usecases/signup';
-import { ISignupTypes, emailChecked, fetchCheckEmail, identityRegistered } from '../../commands/signup';
+import {
+  ISignupTypes,
+  emailChecked,
+  fetchCheckEmail,
+  identityRegistered,
+  passwordRegistered,
+} from '../../commands/signup';
 import { ISignupState, signupReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
 
@@ -24,8 +36,19 @@ describe('CheckEmail - integration', () => {
   let sagaTester: SagaTester;
   let httpConnection: HttpConnection;
 
-  const mockResponse = {
+  const mockSuccessFalse = {
     success: false,
+  };
+
+  const mockIdentity: IRegisterIdentityCommand = {
+    gender: IGender.MAN,
+    firstName: 'John',
+    lastName: 'Smith',
+    nationality: 'FR',
+  };
+
+  const mockPassword: IRegisterPasswordCommand = {
+    password: 'azekpoakz',
   };
 
   beforeAll(() => {
@@ -82,10 +105,10 @@ describe('CheckEmail - integration', () => {
     });
   });
 
-  it('Should store correct state if CHECK_EMAIL_SUCCESS', () => {
+  it('Should store correct state if EMAIL_CHECKED', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
     sagaTester.dispatch(fetchCheckEmail(new Email('test@example.com')));
-    sagaTester.dispatch(emailChecked(mockResponse));
+    sagaTester.dispatch(emailChecked(mockSuccessFalse));
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
@@ -96,7 +119,7 @@ describe('CheckEmail - integration', () => {
     });
   });
 
-  it('Should store correct state in case if REGISTER_IDENTITY', () => {
+  it('Should store correct state in case if IDENTITY_REGISTERED', () => {
     const initialState: ISignupState = {
       pending: false,
       success: false,
@@ -110,17 +133,10 @@ describe('CheckEmail - integration', () => {
       reducers: signupReducer,
     });
 
-    const mockData: IRegisterIdentityCommand = {
-      gender: IGender.MAN,
-      firstName: 'John',
-      lastName: 'Smith',
-      nationality: 'FR',
-    };
-
     sagaTester.start(registerIdentitySaga);
 
     const prospect = Prospect.Create(new Email('test@example.com'));
-    prospect.registerIdentity(mockData);
+    prospect.registerIdentity(mockIdentity);
     sagaTester.dispatch(identityRegistered(prospect));
 
     expect(sagaTester.getState()).toEqual({
@@ -128,6 +144,38 @@ describe('CheckEmail - integration', () => {
       success: false,
       email: new Email('test@example.com'),
       prospect: prospect,
+      user: null,
+    });
+  });
+
+  it('Should store correct state in case if PASSWORD_REGISTERED', () => {
+    const prospectIdentity = Prospect.Create(new Email('test@example.com'));
+    prospectIdentity.registerIdentity(mockIdentity);
+
+    const initialState: ISignupState = {
+      pending: false,
+      success: false,
+      email: new Email('test@example.com'),
+      prospect: prospectIdentity,
+      user: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: signupReducer,
+    });
+
+    sagaTester.start(registerIdentitySaga);
+
+    sagaTester.dispatch(identityRegistered(prospectIdentity));
+    prospectIdentity.registerPassword(mockPassword.password);
+    sagaTester.dispatch(passwordRegistered(prospectIdentity));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      success: false,
+      email: new Email('test@example.com'),
+      prospect: prospectIdentity,
       user: null,
     });
   });

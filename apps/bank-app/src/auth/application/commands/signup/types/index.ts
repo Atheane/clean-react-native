@@ -6,6 +6,7 @@ export enum ISignupTypes {
   REGISTER_IDENTITY = 'REGISTER_IDENTITY',
   IDENTITY_REGISTERED = 'IDENTITY_REGISTERED',
   REGISTER_PASSWORD = 'REGISTER_PASSWORD',
+  PASSWORD_REGISTERED = 'PASSWORD_REGISTERED',
   REGISTER_BIRTH = 'REGISTER_BIRTH',
   REGISTER_ADDRESS = 'REGISTER_ADDRESS',
   CREATE_USER = 'CREATE_USER',
@@ -21,17 +22,13 @@ export type IEmailChecked = {
   payload: ISuccess;
 };
 
-export type IRegisterIdentity = {
-  type: typeof ISignupTypes.REGISTER_IDENTITY;
-};
-
 export type IIdentityRegistered = {
   type: typeof ISignupTypes.IDENTITY_REGISTERED;
   payload: Prospect;
 };
 
-export type IRegisterPassword = {
-  type: typeof ISignupTypes.REGISTER_PASSWORD;
+export type IPasswordRegistered = {
+  type: typeof ISignupTypes.PASSWORD_REGISTERED;
   payload: Prospect;
 };
 
@@ -53,9 +50,8 @@ export type ICreateUser = {
 export type ISignupActions =
   | IFetchCheckEmail
   | IEmailChecked
-  | IRegisterIdentity
   | IIdentityRegistered
-  | IRegisterPassword
+  | IPasswordRegistered
   | IRegisterBirth
   | IRegisterAddress
   | ICreateUser;

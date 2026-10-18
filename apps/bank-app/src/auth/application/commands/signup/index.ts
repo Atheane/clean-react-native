@@ -4,11 +4,11 @@ import {
   ISignupTypes,
   IFetchCheckEmail,
   IIdentityRegistered,
-  IRegisterPassword,
   IRegisterAddress,
   IRegisterBirth,
   ICreateUser,
   IEmailChecked,
+  IPasswordRegistered,
 } from './types';
 
 export const fetchCheckEmail = (payload: Email): IFetchCheckEmail => ({
@@ -26,8 +26,8 @@ export const identityRegistered = (payload: Prospect): IIdentityRegistered => ({
   payload,
 });
 
-export const registerPassword = (payload: Prospect): IRegisterPassword => ({
-  type: ISignupTypes.REGISTER_PASSWORD,
+export const passwordRegistered = (payload: Prospect): IPasswordRegistered => ({
+  type: ISignupTypes.PASSWORD_REGISTERED,
   payload,
 });
 

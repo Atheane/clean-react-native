@@ -37,7 +37,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
         prospect: action.payload,
       };
       return newState;
-    case ISignupTypes.REGISTER_PASSWORD:
+    case ISignupTypes.PASSWORD_REGISTERED:
       logger.debug(action.type);
       newState = {
         ...state,
