@@ -9,7 +9,7 @@ import {
   IRegisterPasswordCommand,
   ISignupUserCommand,
   IValidatePhoneQuery,
-  PhoneOtp,
+  Email,
   User,
 } from '@clean-rn/auth/domain';
 import {
@@ -41,22 +41,24 @@ export const fetchCheckEmailExists = (payload: ICheckEmailQuery): IFetchCheckEma
   payload,
 });
 
-export const registerIdentity = (payload: IRegisterIdentityCommand): IRegisterIdentity => ({
+export const registerIdentity = (
+  payload: IRegisterIdentityCommand & { email: Email },
+): IRegisterIdentity => ({
   type: ISignupTypes.REGISTER_IDENTITY,
   payload,
 });
 
-export const registerPassword = (payload: IRegisterPasswordCommand): IRegisterPassword => ({
+export const registerPassword = (payload: IRegisterPasswordCommand & { user: User }): IRegisterPassword => ({
   type: ISignupTypes.REGISTER_PASSWORD,
   payload,
 });
 
-export const registerBirth = (payload: IRegisterBirthCommand): IRegisterBirth => ({
+export const registerBirth = (payload: IRegisterBirthCommand & { user: User }): IRegisterBirth => ({
   type: ISignupTypes.REGISTER_BIRTH,
   payload,
 });
 
-export const registerAddress = (payload: IRegisterAddressCommand): IRegisterAddress => ({
+export const registerAddress = (payload: IRegisterAddressCommand & { user: User }): IRegisterAddress => ({
   type: ISignupTypes.REGISTER_ADDRESS,
   payload,
 });

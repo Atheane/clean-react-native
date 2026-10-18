@@ -29,5 +29,5 @@ export function* initialization({
       initRouteName,
     }),
   );
-  yield call(navigate, { route: initRouteName });
+  yield call(navigate, { route: IAuthStackPages.SIGNUP_EMAIL });
 }

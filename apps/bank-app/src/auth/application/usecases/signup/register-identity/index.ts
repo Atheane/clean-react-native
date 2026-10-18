@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { put, StrictEffect, takeEvery } from 'redux-saga/effects';
 
-import { IRegisterIdentityCommand, User } from '@clean-rn/auth/domain';
+import { IRegisterIdentityCommand, Email, User } from '@clean-rn/auth/domain';
 
 import { ISignupTypes, identityRegistered } from '../../../commands/signup';
 
@@ -13,9 +13,11 @@ export function* registerIdentityGenerator({
   payload,
 }: {
   type: string;
-  payload: IRegisterIdentityCommand & { user: User };
+  payload: IRegisterIdentityCommand & { email: Email };
 }): Generator<StrictEffect, any, any> {
-  const { user, ...properties } = payload;
+  const { email, ...properties } = payload;
+
+  const user = User.Create(email);
   // add identity property to prospect instance
   user.registerIdentity(properties);
   // domain event

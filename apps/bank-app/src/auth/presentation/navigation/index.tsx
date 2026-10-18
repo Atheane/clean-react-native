@@ -10,13 +10,7 @@ import {
   ResetPassword,
   SignupEmail,
   SignupIdentityPasswordPhone,
-  // SignupStep3,
-  // SignupStep4,
-  // SignupStep5,
-  // SignupStep6,
-  // SignupStep7,
-  // SignupStep8,
-  // SignupStep9,
+  SignupValidatePhone,
   LegalScreen,
   CguScreen,
 } from '../screens';
@@ -81,15 +75,16 @@ export const AuthStack = () => {
         name={IAuthStackPages.CGU}
         component={CguScreen}
       />
-      {/*
       <Stack.Screen
         options={{
-          headerTitle: t(`screens.signupstep3.title`),
-          ...headersOptions(onPressBackButton(navigateBack)),
+          headerTitle: t(`screens.signup-validate-phone.title`),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
-        name={IAuthStackPages.SIGNUP_STEP3}
-        component={SignupStep3}
+        name={IAuthStackPages.SIGNUP_VALIDATE_PHONE}
+        component={SignupValidatePhone}
       />
+      {/*
+
       <Stack.Screen
         options={{
           headerTitle: t(`screens.signupstep4.title`),

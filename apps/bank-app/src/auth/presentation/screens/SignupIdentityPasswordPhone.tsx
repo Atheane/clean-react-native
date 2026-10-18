@@ -49,18 +49,25 @@ export const SignupIdentityPasswordPhone = () => {
   // api call
   const dispatch = useDispatch();
 
-  const { pending, error } = useSelector((state: IRootState) => state.auth.signup);
+  const { pending, error, email, user } = useSelector((state: IRootState) => state.auth.signup);
 
   const onSubmit = useCallback(
     (formData: ISignupIdentityPasswordPhoneFormData) => {
+      if (!email) {
+        throw new Error('email is missing');
+      }
       dispatch(
         registerIdentity({
           gender: formData.title,
           firstName: formData.firstName,
           lastName: formData.lastName,
+          email,
         }),
       );
-      dispatch(registerPassword({ password: formData.password }));
+      if (!user) {
+        throw new Error('user is missing');
+      }
+      dispatch(registerPassword({ password: formData.password, user }));
       dispatch(fetchCheckPhone({ phone: new Phone(formData.phone, formData.countryCode) }));
     },
     [dispatch],
