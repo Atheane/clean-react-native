@@ -85,7 +85,7 @@ describe('Signup - usecase', () => {
   };
 
   const mockQueryPhoneOtp = {
-    otp: new PhoneOtp('123456'),
+    phoneOtp: new PhoneOtp('123456'),
     phone: new Phone('0616804613', 'FR'),
   };
 

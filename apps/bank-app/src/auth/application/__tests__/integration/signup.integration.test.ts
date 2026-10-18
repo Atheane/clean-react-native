@@ -216,7 +216,7 @@ describe('CheckEmail - integration', () => {
   it('Should store correct state if FETCH_VALIDATE_PHONE', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, fetchValidatePhone, httpConnection);
     sagaTester.dispatch(
-      fetchValidatePhone({ phone: new Phone('0616804613', 'FR'), otp: new PhoneOtp('123456') }),
+      fetchValidatePhone({ phone: new Phone('0616804613', 'FR'), phoneOtp: new PhoneOtp('123456') }),
     );
 
     expect(sagaTester.getState()).toEqual({
@@ -246,10 +246,10 @@ describe('CheckEmail - integration', () => {
 
     sagaTester.start(wrapSagaHidingNotFoundError, validatePhoneSaga, httpConnection);
     sagaTester.dispatch(
-      fetchValidatePhone({ phone: new Phone('0616804613', 'FR'), otp: new PhoneOtp('123456') }),
+      fetchValidatePhone({ phone: new Phone('0616804613', 'FR'), phoneOtp: new PhoneOtp('123456') }),
     );
     const prospect = Prospect.Create(new Email('test@example.com'));
-    prospect.validatePhone({ phone: new Phone('0616804613', 'FR'), otp: new PhoneOtp('123456') });
+    prospect.validatePhone({ phone: new Phone('0616804613', 'FR'), phoneOtp: new PhoneOtp('123456') });
     sagaTester.dispatch(phoneValidated(prospect));
 
     expect(sagaTester.getState()).toEqual({
