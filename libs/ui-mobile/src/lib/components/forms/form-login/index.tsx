@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet, GestureResponderEvent } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
+import { useTheme } from '@rneui/themed';
 
 import { IDomainError, IInfraError } from '@clean-rn/ddd';
 import { IAuthErrorCodes, IAuthErrorMessage, Email } from '@clean-rn/auth/domain';
 
-import { Colors, FontNames } from '../../../constants';
 import { LinkButtonColors } from '../../../types';
 import { firstLetterCapitalize } from '../../../utils';
 
@@ -36,11 +36,12 @@ export type ILoginFormData = {
 };
 
 export const FormLogin = (props: IProps) => {
+  const { theme } = useTheme();
   const { t } = useTranslation();
   return (
-    <View>
-      <View style={styles.formInputs}>
-        <View style={styles.inputEmail}>
+    <View style={theme.bank.container.centeredItem}>
+      <View>
+        <View style={styles.inputContainer}>
           {props.filled && props.email ? (
             <EmailInput
               email={props.email}
@@ -60,19 +61,23 @@ export const FormLogin = (props: IProps) => {
               />
               {props.errors?.email && props.errors.email.type === 'required' && (
                 <View style={styles.container}>
-                  <Text style={styles.errors}>{firstLetterCapitalize(t('errors.email.required'))}</Text>
+                  <Text style={theme.bank.text.errors}>
+                    {firstLetterCapitalize(t('errors.email.required'))}
+                  </Text>
                 </View>
               )}
               {props.errors?.email && props.errors.email.type !== 'required' && (
                 <View style={styles.container}>
-                  <Text style={styles.errors}>{firstLetterCapitalize(t('errors.email.invalid'))}</Text>
-                  <Text style={styles.errors}>{props.errors.email.ref?.value}</Text>
+                  <Text style={theme.bank.text.errors}>
+                    {firstLetterCapitalize(t('errors.email.invalid'))}
+                  </Text>
+                  <Text style={theme.bank.text.errors}>{props.errors.email.ref?.value}</Text>
                 </View>
               )}
             </View>
           )}
         </View>
-        <View style={styles.inputPassword}>
+        <View style={[styles.inputContainer, theme.bank.container.centeredItem]}>
           <Controller
             control={props.control}
             name="password"
@@ -89,12 +94,16 @@ export const FormLogin = (props: IProps) => {
           />
           {props.errors?.password && props.errors.password.type === 'required' && (
             <View style={styles.container}>
-              <Text style={styles.errors}>{firstLetterCapitalize(t('errors.password.required'))}</Text>
+              <Text style={theme.bank.text.errors}>
+                {firstLetterCapitalize(t('errors.password.required'))}
+              </Text>
             </View>
           )}
           {props.errors?.password && props.errors.password.type === 'minLength' && (
             <View style={styles.container}>
-              <Text style={styles.errors}>{firstLetterCapitalize(t('errors.password.minLength'))}</Text>
+              <Text style={theme.bank.text.errors}>
+                {firstLetterCapitalize(t('errors.password.minLength'))}
+              </Text>
             </View>
           )}
         </View>
@@ -111,7 +120,7 @@ export const FormLogin = (props: IProps) => {
         </View>
       </View>
 
-      <View style={styles.formSubmit}>
+      <View style={styles.submitButtonContainer}>
         <SubmitButton
           title={t('screens.login.submitButton')}
           uppercase={false}
@@ -124,29 +133,14 @@ export const FormLogin = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
-  errors: {
-    color: Colors.bank.secondary.salmon,
-    fontFamily: FontNames.Roboto_700Bold,
-    fontSize: 12,
-    textAlign: 'center',
-  },
-  formInputs: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  inputEmail: {
-    marginTop: 30,
-  },
-  inputPassword: {
+  inputContainer: {
     marginTop: 30,
   },
   linkButton: {
     marginTop: 10,
   },
-  formSubmit: {
+  submitButtonContainer: {
     marginTop: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   container: {
     paddingTop: 8,

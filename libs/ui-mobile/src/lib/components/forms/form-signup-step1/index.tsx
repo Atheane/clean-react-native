@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet, GestureResponderEvent } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
+import { useTheme } from '@rneui/themed';
 
 import { IDomainError, IInfraError } from '@clean-rn/ddd';
 import { IAuthErrorCodes, IAuthErrorMessage, Email } from '@clean-rn/auth/domain';
 
-import { FontNames, Colors } from '../../../constants';
 import { firstLetterCapitalize } from '../../../utils';
 
 import { SubmitButton } from '../../buttons/submit-button';
@@ -33,11 +33,12 @@ export type ISignupStep1FormData = {
 };
 
 export const FormSignupStep1 = (props: IProps) => {
+  const { theme } = useTheme();
   const { t } = useTranslation();
 
   return (
     <View style={styles.form}>
-      <View style={styles.formInputs}>
+      <View style={theme.bank.container.centeredItem}>
         <View style={styles.inputEmail}>
           <Controller
             control={props.control}
@@ -49,13 +50,13 @@ export const FormSignupStep1 = (props: IProps) => {
           />
           {props.errors?.email && props.errors.email.type === 'required' && (
             <View style={styles.container}>
-              <Text style={styles.errors}>{firstLetterCapitalize(t('errors.email.required'))}</Text>
+              <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.email.required'))}</Text>
             </View>
           )}
           {props.errors?.email && props.errors.email.type === 'pattern' && (
             <View style={styles.container}>
-              <Text style={styles.errors}>{firstLetterCapitalize(t('errors.email.invalid'))}</Text>
-              <Text style={styles.errors}>{props.errors.email.ref?.value}</Text>
+              <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.email.invalid'))}</Text>
+              <Text style={theme.bank.text.errors}>{props.errors.email.ref?.value}</Text>
             </View>
           )}
         </View>
@@ -76,12 +77,16 @@ export const FormSignupStep1 = (props: IProps) => {
           />
           {props.errors?.password && props.errors.password.type === 'required' && (
             <View style={styles.container}>
-              <Text style={styles.errors}>{firstLetterCapitalize(t('errors.password.required'))}</Text>
+              <Text style={theme.bank.text.errors}>
+                {firstLetterCapitalize(t('errors.password.required'))}
+              </Text>
             </View>
           )}
           {props.errors?.password && props.errors.password.type === 'minLength' && (
             <View style={styles.container}>
-              <Text style={styles.errors}>{firstLetterCapitalize(t('errors.password.minLength'))}</Text>
+              <Text style={theme.bank.text.errors}>
+                {firstLetterCapitalize(t('errors.password.minLength'))}
+              </Text>
             </View>
           )}
         </View>
@@ -103,12 +108,16 @@ export const FormSignupStep1 = (props: IProps) => {
           />
           {props.errors?.confirmPassword && props.errors.confirmPassword.type === 'required' && (
             <View style={styles.container}>
-              <Text style={styles.errors}>{firstLetterCapitalize(t('errors.password.required'))}</Text>
+              <Text style={theme.bank.text.errors}>
+                {firstLetterCapitalize(t('errors.password.required'))}
+              </Text>
             </View>
           )}
           {props.errors?.confirmPassword && props.errors.confirmPassword.type === 'minLength' && (
             <View style={styles.container}>
-              <Text style={styles.errors}>{firstLetterCapitalize(t('errors.password.minLength'))}</Text>
+              <Text style={theme.bank.text.errors}>
+                {firstLetterCapitalize(t('errors.password.minLength'))}
+              </Text>
             </View>
           )}
         </View>
@@ -117,7 +126,7 @@ export const FormSignupStep1 = (props: IProps) => {
         </View>
       </View>
 
-      <View style={styles.formSubmit}>
+      <View style={[theme.bank.container.centeredItem, styles.formSubmit]}>
         <SubmitButton
           title={t('submitButton')}
           uppercase={false}
@@ -133,11 +142,6 @@ const styles = StyleSheet.create({
   form: {
     flex: 4,
   },
-  formInputs: {
-    flex: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   inputEmail: {
     marginTop: 30,
   },
@@ -145,18 +149,9 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   formSubmit: {
-    flex: 1,
     marginTop: 36,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   container: {
     paddingTop: 16,
-  },
-  errors: {
-    color: Colors.bank.secondary.salmon,
-    fontFamily: FontNames.Roboto_700Bold,
-    fontSize: 12,
-    textAlign: 'center',
   },
 });

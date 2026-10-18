@@ -2,9 +2,10 @@ import { FC } from 'react';
 import { View, StyleSheet, Text, Dimensions } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import { SvgProps } from 'react-native-svg';
+import { useTheme } from '@rneui/themed';
 
 import { DropDownChevron } from '../../../assets';
-import { Colors, FontNames } from '../../../constants';
+import { Colors } from '../../../constants';
 
 type IData = {
   key: any;
@@ -27,14 +28,16 @@ export const Dropdown = (props: IProps) => {
     props.onSelect(props.data[index]);
   };
 
+  const { theme } = useTheme();
+
   return (
     <View>
-      <Text style={[styles.inputLabel, { color: props.labelColor ?? Colors.bank.secondary.pink }]}>
+      <Text style={[theme.bank.text.pinkLabel, { color: props.labelColor ?? Colors.bank.secondary.pink }]}>
         {props.label.toLocaleUpperCase()}
       </Text>
 
-      <View style={styles.selectContainer}>
-        <View style={styles.leftIconContainer}>
+      <View style={theme.bank.container.centeredItems}>
+        <View style={[styles.leftIconContainer, theme.bank.container.centeredItem]}>
           <props.icon />
         </View>
         <SelectDropdown
@@ -43,7 +46,7 @@ export const Dropdown = (props: IProps) => {
           buttonTextAfterSelection={(item: IData) => item.value}
           buttonStyle={styles.buttonContainer}
           rowTextForSelection={(item: IData) => item.value}
-          buttonTextStyle={styles.inputText}
+          buttonTextStyle={theme.bank.text.input}
           rowTextStyle={styles.rowText}
           renderDropdownIcon={() => (
             <View style={styles.dropdownIcon}>
@@ -61,28 +64,10 @@ const styles = StyleSheet.create({
   rowText: {
     textTransform: 'uppercase',
   },
-  inputText: {
-    color: Colors.bank.secondary.pink,
-    fontFamily: FontNames.Roboto_400Regular,
-    fontSize: 14,
-    textAlign: 'center',
-  },
-  inputLabel: {
-    color: Colors.bank.secondary.pink,
-    fontFamily: FontNames.Roboto_700Bold,
-    fontSize: 18,
-    lineHeight: 24,
-    marginBottom: 16,
-  },
-  selectContainer: {
-    flexDirection: 'row',
-  },
   leftIconContainer: {
     width: 30,
     marginLeft: 4,
     marginRight: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   buttonContainer: {
     borderRadius: 8,

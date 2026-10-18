@@ -54,7 +54,6 @@ declare module '@rneui/themed' {
   }
 }
 
-const LONG_BUTTON_RATIO = 55 / 307;
 const SHORT_CARD_RATIO = 168 / 228;
 const LONG_CARD_RATIO = 85 / 356;
 const KPI_CARD_RATIO = 112 / 174;

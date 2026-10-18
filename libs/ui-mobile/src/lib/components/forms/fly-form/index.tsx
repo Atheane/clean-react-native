@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useTheme } from '@rneui/themed';
 
 import { FlightSeatE as SeatE, FlightI } from '@bank/carbon-weight/dist';
 
@@ -42,6 +43,7 @@ type IProps = {
 };
 
 export const FlyForm = (props: IProps) => {
+  const { theme } = useTheme();
   const { t } = useTranslation();
 
   const [disabled, setDisabled] = useState(true);
@@ -118,7 +120,7 @@ export const FlyForm = (props: IProps) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={theme.bank.container.centeredItem}>
       <View style={styles.dropdownContainer}>
         <SearchModal
           label={t('screens.carbonFly.dropdown.destination')}
@@ -181,10 +183,6 @@ export const FlyForm = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   cardScroller: {
     marginBottom: 32,
   },

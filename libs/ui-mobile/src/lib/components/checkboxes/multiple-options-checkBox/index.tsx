@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
-import { Text, CheckBox } from '@rneui/themed';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { CheckBox, useTheme } from '@rneui/themed';
 
 import { CheckBox as CheckedIcon, UncheckBox as UncheckIcon } from '../../../assets';
-import { Colors, FontNames } from '../../../constants';
+import { Colors } from '../../../constants';
 
 type IProps = {
   label?: string;
@@ -24,10 +24,12 @@ export const MultipleOptionsCheckBox = (props: IProps) => {
     [props.onChange],
   );
 
+  const { theme } = useTheme();
+
   return (
     <View>
-      {props.label && <Text style={styles.label}>{props.label}</Text>}
-      {props.subtitle && <Text style={styles.text}>{props.subtitle}</Text>}
+      {props.label && <Text style={theme.bank.text.greyLabel}>{props.label}</Text>}
+      {props.subtitle && <Text style={theme.bank.text.grey}>{props.subtitle}</Text>}
       <View style={styles.checkboxContainer}>
         {props.optionsValues.map((option: string, index: number) => {
           return (
@@ -36,7 +38,7 @@ export const MultipleOptionsCheckBox = (props: IProps) => {
                 checked={currentOption === option}
                 onPress={() => handleOnPress(option)}
                 title={props.optionsTitle[index]}
-                titleProps={{ style: { ...styles.text, marginLeft: 8 } }}
+                titleProps={{ style: [theme.bank.text.grey, { marginLeft: 8 }] }}
                 checkedIcon={<CheckedIcon style={{ color: Colors.bank.primary.lightGreen }} />}
                 uncheckedIcon={<UncheckIcon style={{ color: Colors.bank.primary.lightGreen }} />}
               />
@@ -49,21 +51,6 @@ export const MultipleOptionsCheckBox = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
-  label: {
-    textTransform: 'uppercase',
-    fontFamily: FontNames.Roboto_700Bold,
-    fontSize: 16,
-    color: Colors.bank.primary.grey,
-    lineHeight: 21,
-    textAlign: 'left',
-    marginBottom: 8,
-  },
-  text: {
-    fontSize: 14,
-    lineHeight: 19,
-    color: Colors.bank.primary.grey,
-    fontFamily: FontNames.Roboto_400Regular,
-  },
   checkboxContainer: {
     flexDirection: 'row',
     width: Dimensions.get('window').width * 0.8,

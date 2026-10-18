@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
+import { useTheme } from '@rneui/themed';
 
 import { IDomainError, IInfraError } from '@clean-rn/ddd';
 import { IAuthErrorCodes, IAuthErrorMessage, Email } from '@clean-rn/auth/domain';
 
-import { FontNames, Colors } from '../../../constants';
 import { firstLetterCapitalize } from '../../../utils';
 
 import { SubmitButton } from '../../buttons/submit-button';
@@ -30,10 +30,11 @@ export type IResetPasswordFormData = {
 };
 
 export const FormResetPassword = (props: IProps) => {
+  const { theme } = useTheme();
   const { t } = useTranslation();
   return (
     <View>
-      <View style={styles.formInputs}>
+      <View style={theme.bank.container.centeredItem}>
         <View>
           {props.filled && props.email ? (
             <EmailInput
@@ -54,12 +55,16 @@ export const FormResetPassword = (props: IProps) => {
               />
               {props.errors?.email && props.errors.email.type === 'required' && (
                 <View style={styles.container}>
-                  <Text style={styles.errors}>{firstLetterCapitalize(t('errors.email.required'))}</Text>
+                  <Text style={theme.bank.text.errors}>
+                    {firstLetterCapitalize(t('errors.email.required'))}
+                  </Text>
                 </View>
               )}
               {props.errors?.email && props.errors.email.type !== 'required' && (
                 <View style={styles.container}>
-                  <Text style={styles.errors}>{firstLetterCapitalize(t('errors.email.invalid'))}</Text>
+                  <Text style={theme.bank.text.errors}>
+                    {firstLetterCapitalize(t('errors.email.invalid'))}
+                  </Text>
                 </View>
               )}
             </View>
@@ -69,9 +74,9 @@ export const FormResetPassword = (props: IProps) => {
           <ErrorMessage error={props.error} />
         </View>
       </View>
-      <View style={styles.formSubmit}>
+      <View style={theme.bank.container.centeredItem}>
         {props.success ? (
-          <Text style={styles.instructionText}>{t('screens.resetPassword.success')}</Text>
+          <Text style={theme.bank.text.darkBlue}>{t('screens.resetPassword.success')}</Text>
         ) : (
           <SubmitButton
             title={t('screens.resetPassword.submitButton')}
@@ -86,31 +91,7 @@ export const FormResetPassword = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
-  formInputs: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  formSubmit: {
-    flex: 2,
-    alignItems: 'center',
-  },
   container: {
     paddingTop: 8,
-  },
-  errors: {
-    color: Colors.bank.secondary.salmon,
-    fontFamily: FontNames.Roboto_700Bold,
-    fontSize: 12,
-    textAlign: 'center',
-  },
-  // grey text
-  instructionText: {
-    width: '80%',
-    fontSize: 16,
-    lineHeight: 30,
-    textAlign: 'center',
-    fontFamily: FontNames.Roboto_400Regular,
-    color: Colors.bank.primary.darkGrey,
   },
 });

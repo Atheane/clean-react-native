@@ -1,12 +1,13 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
+import { useTheme } from '@rneui/themed';
 
 import { IDomainError, IInfraError } from '@clean-rn/ddd';
 import { ICountry, COUNTRIES_AVAILABLE, IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
 
 import { House } from '../../../assets';
-import { Colors, FontNames } from '../../../constants';
+import { Colors } from '../../../constants';
 import { firstLetterCapitalize } from '../../../utils';
 
 import { SubmitButton } from '../../buttons/submit-button';
@@ -34,11 +35,12 @@ export type ISignupStep5FormData = {
 };
 
 export const FormSignupStep5 = (props: IProps) => {
+  const { theme } = useTheme();
   const { t } = useTranslation();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.input}>
+    <View style={[styles.container, theme.bank.container.centeredItem]}>
+      <View style={styles.inputContainer}>
         <Controller
           control={props.control}
           name="street"
@@ -59,10 +61,12 @@ export const FormSignupStep5 = (props: IProps) => {
       </View>
       {props.errors?.street && props.errors.street.type === 'required' && (
         <View style={styles.errorContainer}>
-          <Text style={styles.errors}>{firstLetterCapitalize(t('screens.signupstep5.street.required'))}</Text>
+          <Text style={theme.bank.text.errors}>
+            {firstLetterCapitalize(t('screens.signupstep5.street.required'))}
+          </Text>
         </View>
       )}
-      <View style={styles.input}>
+      <View style={styles.inputContainer}>
         <Controller
           control={props.control}
           name="city"
@@ -83,10 +87,12 @@ export const FormSignupStep5 = (props: IProps) => {
       </View>
       {props.errors?.city && props.errors.city.type === 'required' && (
         <View style={styles.errorContainer}>
-          <Text style={styles.errors}>{firstLetterCapitalize(t('screens.signupstep5.city.required'))}</Text>
+          <Text style={theme.bank.text.errors}>
+            {firstLetterCapitalize(t('screens.signupstep5.city.required'))}
+          </Text>
         </View>
       )}
-      <View style={styles.input}>
+      <View style={styles.inputContainer}>
         <Controller
           control={props.control}
           name="zip"
@@ -107,10 +113,12 @@ export const FormSignupStep5 = (props: IProps) => {
       </View>
       {props.errors?.zip && props.errors.zip.type === 'required' && (
         <View style={styles.errorContainer}>
-          <Text style={styles.errors}>{firstLetterCapitalize(t('screens.signupstep5.zip.required'))}</Text>
+          <Text style={theme.bank.text.errors}>
+            {firstLetterCapitalize(t('screens.signupstep5.zip.required'))}
+          </Text>
         </View>
       )}
-      <View style={styles.input}>
+      <View style={styles.inputContainer}>
         <Controller
           control={props.control}
           name="country"
@@ -130,13 +138,13 @@ export const FormSignupStep5 = (props: IProps) => {
         />
         {props.errors?.country && props.errors.country.type === 'required' && (
           <View style={styles.errorContainer}>
-            <Text style={styles.errors}>
+            <Text style={theme.bank.text.errors}>
               {firstLetterCapitalize(t('screens.signupstep5.country.required'))}
             </Text>
           </View>
         )}
       </View>
-      <View style={styles.input}>
+      <View style={styles.inputContainer}>
         <Controller
           control={props.control}
           name="specifiedUSPerson"
@@ -154,7 +162,7 @@ export const FormSignupStep5 = (props: IProps) => {
       <View style={styles.errorContainer}>
         <ErrorMessage error={props.error} />
       </View>
-      <View style={styles.formSubmit}>
+      <View style={styles.submitButtonContainer}>
         <SubmitButton
           disabled={false}
           title={t('submitButton')}
@@ -171,16 +179,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  input: { flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 30 },
-  errors: {
-    color: Colors.bank.secondary.salmon,
-    fontFamily: FontNames.Roboto_700Bold,
-    fontSize: 12,
-    textAlign: 'center',
-  },
-  formSubmit: {
-    alignItems: 'center',
-    justifyContent: 'center',
+  inputContainer: { marginTop: 30 },
+  submitButtonContainer: {
     paddingTop: 20,
   },
   errorContainer: {
