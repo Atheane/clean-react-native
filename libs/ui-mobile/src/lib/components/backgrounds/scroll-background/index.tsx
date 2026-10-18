@@ -44,13 +44,13 @@ export const ScrollBackground = (props: IProps) => {
 const styles = (height: number) =>
   StyleSheet.create({
     container: {
-      flexGrow: 1,
+      flex: 1,
     },
     background: {
-      height: height,
+      height,
     },
     content: {
-      flexGrow: 1,
+      flex: 1,
       position: 'absolute',
       top: 0,
       left: 0,

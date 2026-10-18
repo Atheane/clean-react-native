@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textAlign: 'center',
   },
+  // grey text
   instructionText: {
     width: '80%',
     fontSize: 16,

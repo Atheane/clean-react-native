@@ -76,11 +76,6 @@ const styles = StyleSheet.create({
     paddingRight: 24,
     paddingBottom: 16,
     paddingLeft: 26,
-    textTransform: 'uppercase',
-    fontFamily: FontNames.MartelSans_600SemiBold,
-    fontSize: 18,
-    lineHeight: 24,
-    radius: 28,
   },
   contentContainer: {
     flexDirection: 'row',

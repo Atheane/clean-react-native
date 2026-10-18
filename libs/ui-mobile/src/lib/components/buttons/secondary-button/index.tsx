@@ -51,15 +51,14 @@ const styles = StyleSheet.create({
   containerLarge: {
     width: Dimensions.get('window').width * 0.8,
     height: 55,
+    radius: 50,
   },
   buttonContainer: {
-    backgroundColor: Colors.bank.primary.white,
     shadowColor: Colors.bank.shadow, // iOS
     shadowOffset: { width: 5, height: 15 }, // iOS
     shadowOpacity: 0.34, // iOS
     shadowRadius: 20, // iOS
     elevation: 1, // android,
-    borderRadius: 50,
   },
   button: {
     paddingTop: 12,

@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { Text, CheckBox } from '@rneui/themed';
 
 import { CheckBox as CheckedIcon, UncheckBox as UncheckIcon } from '../../../assets';
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   },
   checkboxContainer: {
     flexDirection: 'row',
-    width: 309,
+    width: Dimensions.get('window').width * 0.8,
   },
   item: {
     marginLeft: -20,

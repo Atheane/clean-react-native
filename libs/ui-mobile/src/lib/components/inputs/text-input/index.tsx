@@ -80,8 +80,6 @@ const styles = StyleSheet.create({
     color: Colors.bank.secondary.pink,
     fontFamily: FontNames.Roboto_400Regular,
     fontSize: 14,
-    textDecorationLine: 'none',
-    textDecorationColor: 'transparent',
   },
   inputContainerStyle: {
     marginTop: 10,

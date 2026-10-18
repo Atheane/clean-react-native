@@ -17,17 +17,17 @@ export const Banner = (props: IProps) => {
   return props.rightIcon ? (
     <Header
       leftComponent={
-        <View style={styles(props).leftIcon}>
+        <View style={styles.leftIcon}>
           <Warning />
         </View>
       }
       centerComponent={
-        <View style={styles(props).textContainer}>
-          <Text style={styles(props).title}>{props.title}</Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.title}>{props.title}</Text>
         </View>
       }
       rightComponent={
-        <View style={styles(props).rightIcon}>
+        <View style={styles.rightIcon}>
           {props.onPressRightIcon ? (
             <LinkButton
               pressed={false}
@@ -51,22 +51,30 @@ export const Banner = (props: IProps) => {
           )}
         </View>
       }
-      containerStyle={styles(props).container}
+      containerStyle={[
+        styles.container,
+        {
+          backgroundColor:
+            props.color === BannerColors.PINK
+              ? Colors.bank.secondary.salmon
+              : Colors.bank.primary.lightPurple,
+        },
+      ]}
     />
   ) : (
     <Header
       leftComponent={
-        <View style={styles(props).leftIcon}>
+        <View style={styles.leftIcon}>
           <Warning />
         </View>
       }
       centerComponent={
-        <View style={styles(props).textContainer}>
-          <Text style={styles(props).title}>{props.title}</Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.title}>{props.title}</Text>
         </View>
       }
       rightComponent={
-        <View style={styles(props).rightIcon}>
+        <View style={styles.rightIcon}>
           <LinkButton
             pressed={false}
             onPress={() => {
@@ -77,27 +85,32 @@ export const Banner = (props: IProps) => {
           />
         </View>
       }
-      containerStyle={styles(props).container}
+      containerStyle={[
+        styles.container,
+        {
+          backgroundColor:
+            props.color === BannerColors.PINK
+              ? Colors.bank.secondary.salmon
+              : Colors.bank.primary.lightPurple,
+        },
+      ]}
     />
   );
 };
 
-const styles = (props: IProps) =>
-  StyleSheet.create({
-    container: {
-      backgroundColor:
-        props.color === BannerColors.PINK ? Colors.bank.secondary.salmon : Colors.bank.primary.lightPurple,
-      alignItems: 'center',
-    },
-    textContainer: {
-      alignItems: 'center',
-    },
-    title: {
-      color: Colors.bank.primary.white,
-      fontSize: 18,
-      fontFamily: FontNames.MartelSans_700Bold,
-      fontWeight: '700',
-    },
-    leftIcon: { marginLeft: 8 },
-    rightIcon: { marginTop: -8 },
-  });
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+  },
+  textContainer: {
+    alignItems: 'center',
+  },
+  title: {
+    color: Colors.bank.primary.white,
+    fontSize: 18,
+    fontFamily: FontNames.MartelSans_700Bold,
+    fontWeight: '700',
+  },
+  leftIcon: { marginLeft: 8 },
+  rightIcon: { marginTop: -8 },
+});
