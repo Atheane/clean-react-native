@@ -12,8 +12,8 @@ import {
   registerIdentityGenerator,
   registerIdentitySaga,
 } from '../../usecases/signup';
-import { ISignupTypes, checkEmailSuccess, registerIdentity } from '../../commands/signup';
-import { selectEmailFromCheckEmail } from '../../../application/state-management';
+import { ISignupTypes, checkEmailSuccess, identityRegistered } from '../../commands/signup';
+import { selectEmail } from '../../../application/state-management';
 
 describe('Signup - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -76,9 +76,9 @@ describe('Signup - usecase', () => {
       payload: mockData,
     })
       .next()
-      .select(selectEmailFromCheckEmail)
+      .select(selectEmail)
       .next(new Email('test@example.com'))
-      .put(registerIdentity(prospect))
+      .put(identityRegistered(prospect))
       .next();
   });
 });

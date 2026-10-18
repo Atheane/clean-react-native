@@ -30,7 +30,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
         success: action.payload.success,
       };
       return newState;
-    case ISignupTypes.REGISTER_IDENTITY:
+    case ISignupTypes.IDENTITY_REGISTERED:
       logger.debug(action.type);
       newState = {
         ...state,

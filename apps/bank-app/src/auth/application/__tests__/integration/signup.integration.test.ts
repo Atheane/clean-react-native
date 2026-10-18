@@ -2,10 +2,10 @@
 import SagaTester from 'redux-saga-tester';
 import Constants from 'expo-constants';
 
-import { Email } from '@clean-rn/auth/domain';
+import { Email, IGender, IRegisterIdentityCommand, Prospect } from '@clean-rn/auth/domain';
 
-import { checkEmailSaga } from '../../usecases/signup';
-import { ISignupTypes, checkEmailSuccess, fetchCheckEmail } from '../../commands/signup';
+import { checkEmailSaga, registerIdentitySaga } from '../../usecases/signup';
+import { ISignupTypes, checkEmailSuccess, fetchCheckEmail, identityRegistered } from '../../commands/signup';
 import { ISignupState, signupReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
 
@@ -92,6 +92,42 @@ describe('CheckEmail - integration', () => {
       success: false,
       email: new Email('test@example.com'),
       prospect: null,
+      user: null,
+    });
+  });
+
+  it('Should store correct state in case if REGISTER_IDENTITY', () => {
+    const initialState: ISignupState = {
+      pending: false,
+      success: false,
+      email: new Email('test@example.com'),
+      prospect: null,
+      user: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: signupReducer,
+    });
+
+    const mockData: IRegisterIdentityCommand = {
+      gender: IGender.MAN,
+      firstName: 'John',
+      lastName: 'Smith',
+      nationality: 'FR',
+    };
+
+    sagaTester.start(registerIdentitySaga);
+
+    const prospect = Prospect.Create(new Email('test@example.com'));
+    prospect.registerIdentity(mockData);
+    sagaTester.dispatch(identityRegistered(prospect));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      success: false,
+      email: new Email('test@example.com'),
+      prospect: prospect,
       user: null,
     });
   });

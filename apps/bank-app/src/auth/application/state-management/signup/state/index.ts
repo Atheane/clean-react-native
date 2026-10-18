@@ -8,5 +8,5 @@ export interface ISignupState {
   user: User | null;
 }
 
-export * from './selectEmailFromCheckEmail';
-export * from './selectProspect';
+export const selectEmail = (state: ISignupState) => state.email;
+export const selectProspect = (state: ISignupState) => state.prospect;
