@@ -53,7 +53,7 @@ export const FormSignupEmail = (props: IProps) => {
             </View>
           )}
         </View>
-        <View style={styles.container}>
+        <View style={styles.errorContainer}>
           <ErrorMessage error={props.error} />
         </View>
       </View>
@@ -85,7 +85,10 @@ const styles = StyleSheet.create({
     marginTop: 36,
   },
   container: {
-    paddingTop: 16,
+    marginTop: 16,
+  },
+  errorContainer: {
+    marginBottom: 32,
   },
   textContainer: {
     width: '80%',

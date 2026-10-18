@@ -22,7 +22,7 @@ import { Welcome } from '../assets/images';
 import { Email } from '@clean-rn/auth/domain';
 import { fetchCheckEmailExists } from '../../application/commands/signup';
 import { IAuthStackPages } from '../../../shared/presentation/types';
-import { navigationRef } from '../../../shared/presentation/navigation/navigationRef';
+import { navigate } from '../../../shared/presentation/navigation/navigationRef';
 
 export const SignupEmail = () => {
   // internal state
@@ -51,20 +51,16 @@ export const SignupEmail = () => {
         Logger.getInstance().error(e);
       }
     },
-    [dispatch, t],
+    [dispatch],
   );
 
   // navigation
-  const onPressLogin = useCallback(() => {
-    navigationRef.navigate(IAuthStackPages.LOGIN as never);
-  }, []);
-
   const onPressLegal = useCallback(() => {
-    navigationRef.navigate(IAuthStackPages.LEGAL as never);
+    navigate({ route: IAuthStackPages.LEGAL });
   }, []);
 
   const onPressCgu = useCallback(() => {
-    navigationRef.navigate(IAuthStackPages.CGU as never);
+    navigate({ route: IAuthStackPages.CGU });
   }, []);
 
   // clean serverError onFocus
@@ -86,15 +82,6 @@ export const SignupEmail = () => {
             error={domainError}
             onFocus={onFocus}
           />
-          <View style={styles.linkButton}>
-            <LinkButton
-              title={t('linkButton.login')}
-              arrow
-              colorOption={LinkButtonColors.GREEN}
-              pressed={false}
-              onPress={onPressLogin}
-            />
-          </View>
           <View style={styles.cgu}>
             <LinkButton
               title={t('linkButton.legal')}

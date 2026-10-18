@@ -21,7 +21,8 @@ export const LinkingConfiguration: LinkingOptions<
     screens: {
       Login: 'Login',
       ResetPassword: 'ResetPassword',
-      SignupStep1: 'SignupStep1',
+      SignupEmail: 'SignupEmail',
+      SignupPassword: 'SignupPassword',
       // SignupStep2: 'SignupStep2',
       // SignupStep3: 'SignupStep3',
       // SignupStep4: 'SignupStep4',

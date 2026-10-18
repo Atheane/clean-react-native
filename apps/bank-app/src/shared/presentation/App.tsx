@@ -11,7 +11,7 @@ import { Fonts, theme, i18n } from '@clean-rn/ui-mobile';
 
 import { store } from '../application/state-management/state/store';
 import { NavigationUI } from './navigation';
-import { RootState } from '../../shared/application/state-management/reducers/root-reducer';
+import { IRootState } from '../../shared/application/state-management/reducers/root-reducer';
 import { initializeApplication } from '../../shared/application/commands/initialization';
 
 const App: () => JSX.Element = () => {
@@ -22,7 +22,7 @@ const App: () => JSX.Element = () => {
     dispatch(initializeApplication());
   }, [dispatch]);
 
-  const { pending } = useSelector((state: RootState) => state.initialization);
+  const { pending } = useSelector((state: IRootState) => state.initialization);
 
   return fontsLoaded && !pending ? (
     <ThemeProvider theme={theme}>
