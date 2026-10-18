@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Button, useTheme, Theme } from '@rneui/themed';
+import { Button } from '@rneui/themed';
 
 import { Colors, FontNames } from '../../../constants';
 import { firstLetterCapitalize } from '../../../utils';
@@ -19,17 +19,15 @@ type IProps = {
 };
 
 export const PrimaryButton: FC<IProps> = (props: IProps) => {
-  const { theme } = useTheme();
-
   return (
-    <View style={styles(props)(theme).container}>
+    <View style={props.large ? styles.containerLarge : styles.container}>
       <Button
         ViewComponent={LinearGradient}
-        style={styles(props)(theme).buttonContainer}
-        buttonStyle={styles(props)(theme).button}
+        style={styles.buttonContainer}
+        buttonStyle={styles.button}
         loading={props?.loading ?? false}
         linearGradientProps={{
-          colors: [theme.linearGradient.start, theme.linearGradient.end],
+          colors: [Colors.background.lightGreen, Colors.background.darkGreen],
           start: [0, 1],
           end: [1, 0],
         }}
@@ -37,15 +35,17 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
         disabled={props.disabled}
         raised
       >
-        <View style={styles(props)(theme).contentContainer}>
+        <View style={styles.contentContainer}>
           {props.iconOne && (
-            <View style={styles(props)(theme).iconOneContainer}>
+            <View style={styles.iconOneContainer}>
               <props.iconOne />
             </View>
           )}
-          <Text style={styles(props)(theme).content}>{firstLetterCapitalize(props.title)}</Text>
+          <Text style={[styles.content, { textTransform: props.uppercase ? 'uppercase' : 'none' }]}>
+            {firstLetterCapitalize(props.title)}
+          </Text>
           {props.iconTwo && (
-            <View style={styles(props)(theme).iconTwoContainer}>
+            <View style={styles.iconTwoContainer}>
               <props.iconTwo />
             </View>
           )}
@@ -55,47 +55,49 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
   );
 };
 
-const styles = (props: IProps) => (theme: Theme) =>
-  StyleSheet.create({
-    container: props.large
-      ? {
-          width: Dimensions.get('window').width * 0.8,
-          height: 55,
-        }
-      : {
-          flexDirection: 'row',
-        },
-    buttonContainer: {
-      backgroundColor: Colors.background.white,
-      shadowColor: theme.shadow.color, // iOS
-      shadowOffset: theme.shadow.offset, // iOS
-      shadowOpacity: theme.shadow.opacity, // iOS
-      shadowRadius: theme.shadow.radius, // iOS
-      elevation: 1, // android,
-      borderRadius: 50,
-    },
-    button: {
-      paddingTop: 15,
-      paddingRight: 24,
-      paddingBottom: 16,
-      paddingLeft: 26,
-    },
-    contentContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-around',
-    },
-    content: {
-      lineHeight: 24,
-      fontSize: 18,
-      textTransform: props.uppercase ? 'uppercase' : 'none',
-      color: Colors.text.white,
-      fontFamily: FontNames.Roboto_700Bold,
-    },
-    iconOneContainer: {
-      marginRight: 15,
-    },
-    iconTwoContainer: {
-      marginLeft: 15,
-    },
-  });
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+  },
+  containerLarge: {
+    width: Dimensions.get('window').width * 0.8,
+    height: 55,
+  },
+  buttonContainer: {
+    backgroundColor: Colors.background.white,
+    shadowColor: Colors.shadow.bold, // iOS
+    shadowOffset: { width: 5, height: 15 }, // iOS
+    shadowOpacity: 0.34, // iOS
+    shadowRadius: 20, // iOS
+    elevation: 10, // android,
+    borderRadius: 50,
+  },
+  button: {
+    paddingTop: 15,
+    paddingRight: 24,
+    paddingBottom: 16,
+    paddingLeft: 26,
+    textTransform: 'uppercase',
+    fontFamily: FontNames.MartelSans_600SemiBold,
+    fontSize: 18,
+    lineHeight: 24,
+    radius: 28,
+  },
+  contentContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  content: {
+    lineHeight: 24,
+    fontSize: 18,
+    color: Colors.text.white,
+    fontFamily: FontNames.Roboto_700Bold,
+  },
+  iconOneContainer: {
+    marginRight: 15,
+  },
+  iconTwoContainer: {
+    marginLeft: 15,
+  },
+});

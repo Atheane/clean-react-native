@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { Input, useTheme } from '@rneui/themed';
+import { Input } from '@rneui/themed';
 
 import { Mail, Edit } from '../../../assets';
-import { Colors } from '../../../constants';
+import { Colors, FontNames } from '../../../constants';
 
 import { TextInput } from '../../inputs/text-input';
 
@@ -23,7 +23,6 @@ type State = {
 
 export const EmailInput = (props: Props & State) => {
   const { t } = useTranslation();
-  const { theme } = useTheme();
 
   const handleOnChange = useCallback((text: string) => {
     const cleanEmail = text.trim();
@@ -39,15 +38,15 @@ export const EmailInput = (props: Props & State) => {
               flexDirection: 'row',
               width: 335,
             }
-          : theme.input.container
+          : styles.inputContainerStyle
       }
     >
       <Input
         autoCapitalize="none"
-        inputContainerStyle={theme.input.subContainer}
-        inputStyle={theme.input.text}
+        inputContainerStyle={styles.inputContainerStyle}
+        inputStyle={styles.inputStyle}
         leftIcon={<Mail style={{ color: Colors.text.lightGreenTransparent }} />}
-        leftIconContainerStyle={theme.input.leftIconContainer}
+        leftIconContainerStyle={styles.leftIconContainer}
         value={props.email?.trim()}
         rightIcon={
           <View style={styles.editIcon} onTouchStart={props.onEdit}>
@@ -71,7 +70,21 @@ export const EmailInput = (props: Props & State) => {
 };
 
 const styles = StyleSheet.create({
+  inputContainerStyle: {
+    width: Dimensions.get('window').width * 0.8,
+    borderRadius: 8,
+    borderBottomWidth: 0,
+  },
   editIcon: {
     marginLeft: 12,
+  },
+  inputStyle: {
+    color: Colors.input.pink,
+    fontFamily: FontNames.Roboto_400Regular,
+    fontSize: 14,
+  },
+  leftIconContainer: {
+    marginHorizontal: 10,
+    borderBottomWidth: 0,
   },
 });

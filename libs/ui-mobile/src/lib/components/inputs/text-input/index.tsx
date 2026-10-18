@@ -1,8 +1,8 @@
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { SvgProps } from 'react-native-svg';
-import { Input, useTheme } from '@rneui/themed';
+import { Input } from '@rneui/themed';
 
-import { Colors } from '../../../constants';
+import { Colors, FontNames } from '../../../constants';
 
 type IProps = {
   placeholder: string;
@@ -20,24 +20,22 @@ type IProps = {
 };
 
 export const TextInput = (props: IProps) => {
-  const { theme } = useTheme();
-
   return (
     <View>
       {props.label && (
-        <Text style={[theme.input.label, { color: props.labelColor ?? Colors.input.pink }]}>
+        <Text style={[styles.inputLabelStyle, { color: props.labelColor ?? Colors.input.pink }]}>
           {props.label}
         </Text>
       )}
-      <View style={theme.input.container}>
+      <View style={styles.inputContainer}>
         {props.lowerCase ? (
           <Input
             autoCapitalize="none"
             autoCorrect={false}
-            inputContainerStyle={theme.input.subContainer}
-            inputStyle={theme.input.text}
+            inputContainerStyle={styles.inputContainerStyle}
+            inputStyle={styles.inputStyle}
             leftIcon={props.icon ? <props.icon /> : undefined}
-            leftIconContainerStyle={theme.input.leftIconContainer}
+            leftIconContainerStyle={styles.leftIconContainer}
             onChangeText={props.onChange}
             placeholder={props.placeholder}
             value={props.value}
@@ -46,15 +44,14 @@ export const TextInput = (props: IProps) => {
             onBlur={props.onBlur}
             autoFocus={props.autoFocus}
             clearTextOnFocus={props.clearTextOnFocus}
-            underlineColorAndroid="transparent"
           />
         ) : (
           <Input
             autoCorrect={false}
-            inputContainerStyle={theme.input.subContainer}
-            inputStyle={theme.input.text}
+            inputContainerStyle={styles.inputContainerStyle}
+            inputStyle={styles.inputStyle}
             leftIcon={props.icon ? <props.icon /> : undefined}
-            leftIconContainerStyle={theme.input.leftIconContainer}
+            leftIconContainerStyle={styles.leftIconContainer}
             onChangeText={props.onChange}
             placeholder={props.placeholder}
             value={props.value}
@@ -63,10 +60,45 @@ export const TextInput = (props: IProps) => {
             onBlur={props.onBlur}
             autoFocus={props.autoFocus}
             clearTextOnFocus
-            underlineColorAndroid="transparent"
           />
         )}
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  editIcon: {
+    marginLeft: 12,
+  },
+  inputContainer: {
+    width: Dimensions.get('window').width * 0.8,
+    backgroundColor: Colors.input.darkWhite,
+    borderRadius: 8,
+  },
+  inputStyle: {
+    color: Colors.input.pink,
+    fontFamily: FontNames.Roboto_400Regular,
+    fontSize: 14,
+    textDecorationLine: 'none',
+    textDecorationColor: 'transparent',
+  },
+  inputContainerStyle: {
+    marginTop: 10,
+    marginBottom: -15, // override of default input bottomMargin
+    borderBottomWidth: 0,
+  },
+  inputLabelStyle: {
+    textTransform: 'uppercase',
+    fontFamily: FontNames.Roboto_700Bold,
+    fontSize: 16,
+    color: Colors.text.lightGrey,
+    lineHeight: 21,
+    textAlign: 'left',
+    marginBottom: 8,
+  },
+  leftIconContainer: {
+    marginHorizontal: 10,
+    borderBottomWidth: 0,
+  },
+});
