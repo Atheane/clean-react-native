@@ -32,9 +32,6 @@
       ],
       "@clean-rn/ui-mobile": [
         "libs/ui-mobile/src/index.ts"
-      ],
-      "@clean-rn/utils-mobile": [
-        "libs/utils-mobile/src/index.ts"
       ]
     }
   },

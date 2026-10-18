@@ -45,7 +45,11 @@
     "dotenv": "*",
     "@expo/vector-icons": "*",
     "@react-navigation/native": "*",
-    "expo-linking": "*"
+    "expo-linking": "*",
+    "redux": "*",
+    "@react-native-async-storage/async-storage": "*",
+    "redux-saga": "*",
+    "react-redux": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp package-lock.json apps/bank-app",

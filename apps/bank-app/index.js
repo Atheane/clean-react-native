@@ -3,7 +3,7 @@ import * as Sentry from '@sentry/react-native';
 
 import Constants from 'expo-constants';
 
-import App from './src/app/App';
+import App from './src/shared/presentation/App';
 
 if (Constants.expoConfig?.extra?.NODE_ENV !== 'development') {
   Sentry.init({
