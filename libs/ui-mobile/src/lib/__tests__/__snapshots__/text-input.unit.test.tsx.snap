@@ -66,8 +66,6 @@ exports[`TextInput -  icon -  renders as before 1`] = `
               "fontFamily": "Roboto_400Regular",
               "fontSize": 14,
               "minHeight": 40,
-              "textDecorationColor": "transparent",
-              "textDecorationLine": "none",
             }
           }
           testID="RNE__Input__text-input"
@@ -159,8 +157,6 @@ exports[`TextInput -  label -  renders as before 1`] = `
               "fontFamily": "Roboto_400Regular",
               "fontSize": 14,
               "minHeight": 40,
-              "textDecorationColor": "transparent",
-              "textDecorationLine": "none",
             }
           }
           testID="RNE__Input__text-input"
@@ -252,8 +248,6 @@ exports[`TextInput -  labelColor -  renders as before 1`] = `
               "fontFamily": "Roboto_400Regular",
               "fontSize": 14,
               "minHeight": 40,
-              "textDecorationColor": "transparent",
-              "textDecorationLine": "none",
             }
           }
           testID="RNE__Input__text-input"
@@ -340,8 +334,6 @@ exports[`TextInput -  lowerCase & icon -  renders as before 1`] = `
               "fontFamily": "Roboto_400Regular",
               "fontSize": 14,
               "minHeight": 40,
-              "textDecorationColor": "transparent",
-              "textDecorationLine": "none",
             }
           }
           testID="RNE__Input__text-input"
@@ -413,8 +405,6 @@ exports[`TextInput -  lowerCase -  renders as before 1`] = `
               "fontFamily": "Roboto_400Regular",
               "fontSize": 14,
               "minHeight": 40,
-              "textDecorationColor": "transparent",
-              "textDecorationLine": "none",
             }
           }
           testID="RNE__Input__text-input"
@@ -486,8 +476,6 @@ exports[`TextInput -  minimal props -  renders as before 1`] = `
               "fontFamily": "Roboto_400Regular",
               "fontSize": 14,
               "minHeight": 40,
-              "textDecorationColor": "transparent",
-              "textDecorationLine": "none",
             }
           }
           testID="RNE__Input__text-input"

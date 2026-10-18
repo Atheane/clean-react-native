@@ -94,18 +94,13 @@ exports[`PrimaryButton -  disabled -  true - renders as before 1`] = `
             "borderRadius": 28,
             "borderWidth": 0,
             "flexDirection": "row",
-            "fontFamily": "MartelSans_600SemiBold",
-            "fontSize": 18,
             "justifyContent": "center",
-            "lineHeight": 24,
             "padding": 8,
             "paddingBottom": 16,
             "paddingHorizontal": 10,
             "paddingLeft": 26,
             "paddingRight": 24,
             "paddingTop": 15,
-            "radius": 28,
-            "textTransform": "uppercase",
           }
         }
       >
@@ -246,18 +241,13 @@ exports[`PrimaryButton -  iconOne -  true - renders as before 1`] = `
             "borderRadius": 28,
             "borderWidth": 0,
             "flexDirection": "row",
-            "fontFamily": "MartelSans_600SemiBold",
-            "fontSize": 18,
             "justifyContent": "center",
-            "lineHeight": 24,
             "padding": 8,
             "paddingBottom": 16,
             "paddingHorizontal": 10,
             "paddingLeft": 26,
             "paddingRight": 24,
             "paddingTop": 15,
-            "radius": 28,
-            "textTransform": "uppercase",
           }
         }
       >
@@ -407,18 +397,13 @@ exports[`PrimaryButton -  iconTwo -  true - renders as before 1`] = `
             "borderRadius": 28,
             "borderWidth": 0,
             "flexDirection": "row",
-            "fontFamily": "MartelSans_600SemiBold",
-            "fontSize": 18,
             "justifyContent": "center",
-            "lineHeight": 24,
             "padding": 8,
             "paddingBottom": 16,
             "paddingHorizontal": 10,
             "paddingLeft": 26,
             "paddingRight": 24,
             "paddingTop": 15,
-            "radius": 28,
-            "textTransform": "uppercase",
           }
         }
       >
@@ -569,18 +554,13 @@ exports[`PrimaryButton -  large -  true - renders as before 1`] = `
             "borderRadius": 28,
             "borderWidth": 0,
             "flexDirection": "row",
-            "fontFamily": "MartelSans_600SemiBold",
-            "fontSize": 18,
             "justifyContent": "center",
-            "lineHeight": 24,
             "padding": 8,
             "paddingBottom": 16,
             "paddingHorizontal": 10,
             "paddingLeft": 26,
             "paddingRight": 24,
             "paddingTop": 15,
-            "radius": 28,
-            "textTransform": "uppercase",
           }
         }
       >
@@ -721,18 +701,13 @@ exports[`PrimaryButton -  loading -  true - renders as before 1`] = `
             "borderRadius": 28,
             "borderWidth": 0,
             "flexDirection": "row",
-            "fontFamily": "MartelSans_600SemiBold",
-            "fontSize": 18,
             "justifyContent": "center",
-            "lineHeight": 24,
             "padding": 8,
             "paddingBottom": 16,
             "paddingHorizontal": 10,
             "paddingLeft": 26,
             "paddingRight": 24,
             "paddingTop": 15,
-            "radius": 28,
-            "textTransform": "uppercase",
           }
         }
       >
@@ -855,18 +830,13 @@ exports[`PrimaryButton -  minimal props -  renders as before 1`] = `
             "borderRadius": 28,
             "borderWidth": 0,
             "flexDirection": "row",
-            "fontFamily": "MartelSans_600SemiBold",
-            "fontSize": 18,
             "justifyContent": "center",
-            "lineHeight": 24,
             "padding": 8,
             "paddingBottom": 16,
             "paddingHorizontal": 10,
             "paddingLeft": 26,
             "paddingRight": 24,
             "paddingTop": 15,
-            "radius": 28,
-            "textTransform": "uppercase",
           }
         }
       >
@@ -1007,18 +977,13 @@ exports[`PrimaryButton -  uppercase -  true - renders as before 1`] = `
             "borderRadius": 28,
             "borderWidth": 0,
             "flexDirection": "row",
-            "fontFamily": "MartelSans_600SemiBold",
-            "fontSize": 18,
             "justifyContent": "center",
-            "lineHeight": 24,
             "padding": 8,
             "paddingBottom": 16,
             "paddingHorizontal": 10,
             "paddingLeft": 26,
             "paddingRight": 24,
             "paddingTop": 15,
-            "radius": 28,
-            "textTransform": "uppercase",
           }
         }
       >

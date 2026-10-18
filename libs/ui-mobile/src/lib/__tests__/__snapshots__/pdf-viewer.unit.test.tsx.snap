@@ -4,7 +4,7 @@ exports[`PdfViewer -  minimal props -  renders as before 1`] = `
 <View
   style={
     {
-      "backgroundColor": "#ecf0f1",
+      "backgroundColor": "#F0F0F0",
       "flex": 1,
     }
   }

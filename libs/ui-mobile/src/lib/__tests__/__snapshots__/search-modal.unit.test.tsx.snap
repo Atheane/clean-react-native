@@ -91,8 +91,6 @@ exports[`SearchModal -  minimal props -  renders as before 1`] = `
                 "fontFamily": "Roboto_400Regular",
                 "fontSize": 14,
                 "minHeight": 40,
-                "textDecorationColor": "transparent",
-                "textDecorationLine": "none",
               }
             }
             testID="RNE__Input__text-input"
