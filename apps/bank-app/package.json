@@ -41,7 +41,8 @@
     "react-hook-form": "*",
     "fast-sort": "*",
     "@react-native-community/slider": "*",
-    "expo-clipboard": "*"
+    "expo-clipboard": "*",
+    "dotenv": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp package-lock.json apps/bank-app",

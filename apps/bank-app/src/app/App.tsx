@@ -3,7 +3,7 @@ import { useFonts } from 'expo-font';
 import { ThemeProvider } from '@rneui/themed';
 import { PrimaryButton, Love, Validate, theme, Fonts, Colors } from '@clean-rn/ui-mobile';
 
-export const App = () => {
+export const App: () => JSX.Element = () => {
   const [fontsLoaded] = useFonts(Fonts);
   return fontsLoaded ? (
     <ThemeProvider theme={theme}>

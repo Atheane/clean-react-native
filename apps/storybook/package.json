@@ -42,7 +42,8 @@
     "iban": "*",
     "expo-clipboard": "*",
     "@react-native-community/slider": "*",
-    "@sentry/react-native": "*"
+    "@sentry/react-native": "*",
+    "dotenv": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",
