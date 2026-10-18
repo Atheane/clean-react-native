@@ -29,8 +29,7 @@ describe('ResetPassword - integration', () => {
   beforeEach(() => {
     const initialState = {
       pending: false,
-      success: false,
-      error: null,
+      success: null,
     };
     sagaTester = new SagaTester({
       initialState,
@@ -46,8 +45,7 @@ describe('ResetPassword - integration', () => {
 
     expect(newState).toEqual({
       pending: true,
-      success: false,
-      error: null,
+      success: null,
     });
   });
 
@@ -58,8 +56,7 @@ describe('ResetPassword - integration', () => {
 
     expect(sagaTester.getState()).toEqual({
       pending: true,
-      success: false,
-      error: null,
+      success: null,
     });
   });
 
@@ -71,7 +68,6 @@ describe('ResetPassword - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       success: mockResponse.success,
-      error: null,
     });
   });
 
@@ -82,8 +78,7 @@ describe('ResetPassword - integration', () => {
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      success: false,
-      error: null,
+      success: null,
     });
   });
 });

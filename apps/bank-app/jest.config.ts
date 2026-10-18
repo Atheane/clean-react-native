@@ -1,6 +1,5 @@
 module.exports = {
   displayName: 'bank-app',
-  color: 'blueBright',
   resolver: '@nx/jest/plugins/resolver',
   preset: 'jest-expo',
   transformIgnorePatterns: [

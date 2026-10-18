@@ -4,8 +4,7 @@ import { IResetPasswordState } from '../state';
 
 const initialState: IResetPasswordState = {
   pending: false,
-  success: false,
-  error: null,
+  success: null,
 };
 
 export const resetPasswordReducer = (state = initialState, action: IResetPasswordActions) => {
@@ -17,6 +16,7 @@ export const resetPasswordReducer = (state = initialState, action: IResetPasswor
       newState = {
         ...state,
         pending: true,
+        success: null,
       };
       return newState;
     case IResetPasswordTypes.RESET_PASSWORD_SUCCEDED:
