@@ -1,6 +1,4 @@
 import { combineReducers } from 'redux';
-import { navigationReducer } from './navigation-reducer';
-import { storageReducer } from './storage-reducer';
 // import { loginReducer, resetPasswordReducer } from '@auth/infrastructure/redux';
 // import {
 //   signupStep1Reducer,
@@ -38,8 +36,6 @@ export const rootReducer = combineReducers({
   //   food: foodEmissionsReducer,
   //   fly: flyEmissionsReducer,
   // }),
-  nav: navigationReducer,
-  storage: storageReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

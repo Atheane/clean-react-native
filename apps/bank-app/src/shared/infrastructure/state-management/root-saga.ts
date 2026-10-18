@@ -1,6 +1,5 @@
 import { all } from 'redux-saga/effects';
 
-import { loadStorageSaga, navigateToSaga, navigateBackSaga } from './usecases';
 // import {
 //   loginSaga,
 //   resetPasswordSaga,
@@ -28,9 +27,6 @@ import { loadStorageSaga, navigateToSaga, navigateBackSaga } from './usecases';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function* rootSaga() {
   yield all([
-    loadStorageSaga(),
-    navigateToSaga(),
-    navigateBackSaga(),
     // loginSaga(authApi),
     // resetPasswordSaga(authApi),
     // navigatePasswordToLoginSaga(),

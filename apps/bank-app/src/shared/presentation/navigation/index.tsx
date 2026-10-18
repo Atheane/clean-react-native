@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
-import { Navigation } from '../../application/adapters/services/navigation';
 import { RootStack } from './root';
+import { navigationRef } from './root/RootNavigation';
+
 import { LinkingConfiguration } from './LinkingConfiguration';
 
 const NavigationUI = () => {
   return (
-    <NavigationContainer ref={Navigation.getInstance()} linking={LinkingConfiguration}>
+    <NavigationContainer ref={navigationRef} linking={LinkingConfiguration}>
       <RootStack />
     </NavigationContainer>
   );
