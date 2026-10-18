@@ -3,6 +3,7 @@ import { ResetPassword } from './ResetPassword';
 import { SignupEmail } from './SignupEmail';
 import { SignupIdentityPasswordPhone } from './SignupIdentityPasswordPhone';
 import { SignupValidatePhone } from './SignupValidatePhone';
+import { SignupBirth } from './SignupBirth';
 import { LegalScreen } from './LegalScreen';
 import { CguScreen } from './CguScreen';
 
@@ -12,6 +13,7 @@ export {
   SignupEmail,
   SignupIdentityPasswordPhone,
   SignupValidatePhone,
+  SignupBirth,
   LegalScreen,
   CguScreen,
 };

@@ -1,12 +1,9 @@
-// todo: delete below once ForgotPassword is done
-/* eslint-disable */
-import { StyleSheet, View } from 'react-native';
 import { useCallback } from 'react';
+import { StyleSheet, SafeAreaView, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import * as Sentry from '@sentry/react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import { Logger } from '@clean-rn/logger';
 import { Colors, FormResetPassword, IResetPasswordFormData } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
@@ -30,39 +27,39 @@ export const ResetPassword = () => {
 
   const onSubmit = useCallback(
     (formData: IResetPasswordFormData) => {
-      try {
-        const payload = {
-          ...formData,
-          email: email ? email : new Email(formData.email),
-        };
-        dispatch(fetchResetPassword(payload));
-      } catch (e: unknown) {
-        Sentry.captureException(e);
-        Logger.getInstance().error(e);
-      }
+      const payload = {
+        ...formData,
+        email: email ? email : new Email(formData.email),
+      };
+      dispatch(fetchResetPassword(payload));
     },
     [dispatch, email],
   );
 
   return (
-    <View style={styles.container}>
-      <FormResetPassword
-        loading={pending}
-        control={control}
-        errors={errors}
-        email={email?.value}
-        onSubmit={handleSubmit(onSubmit)}
-        success={success}
-      />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.form}>
+          <FormResetPassword
+            loading={pending}
+            control={control}
+            errors={errors}
+            email={email?.value}
+            onSubmit={handleSubmit(onSubmit)}
+            success={success}
+          />
+        </View>
+      </KeyboardAwareScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: Colors.bank.primary.white,
+  },
+  form: {
+    marginTop: '40%',
   },
 });

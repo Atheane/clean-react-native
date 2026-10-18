@@ -1,5 +1,3 @@
-// import { useCallback } from 'react';
-// import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useNavigationState } from '@react-navigation/native';
@@ -11,6 +9,7 @@ import {
   SignupEmail,
   SignupIdentityPasswordPhone,
   SignupValidatePhone,
+  SignupBirth,
   LegalScreen,
   CguScreen,
 } from '../screens';
@@ -61,6 +60,22 @@ export const AuthStack = () => {
       />
       <Stack.Screen
         options={{
+          headerTitle: t(`screens.signup-validate-phone.title`),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+        name={IAuthStackPages.SIGNUP_VALIDATE_PHONE}
+        component={SignupValidatePhone}
+      />
+      <Stack.Screen
+        options={{
+          headerTitle: t(`screens.signup-birth.title`),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+        name={IAuthStackPages.SIGNUP_REGISTER_BIRTH}
+        component={SignupBirth}
+      />
+      <Stack.Screen
+        options={{
           headerTitle: t(`screens.cgu`),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
@@ -74,14 +89,6 @@ export const AuthStack = () => {
         }}
         name={IAuthStackPages.CGU}
         component={CguScreen}
-      />
-      <Stack.Screen
-        options={{
-          headerTitle: t(`screens.signup-validate-phone.title`),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
-        }}
-        name={IAuthStackPages.SIGNUP_VALIDATE_PHONE}
-        component={SignupValidatePhone}
       />
       {/*
 

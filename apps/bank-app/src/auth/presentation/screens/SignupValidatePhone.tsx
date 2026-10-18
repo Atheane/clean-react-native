@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -65,48 +65,51 @@ export const SignupValidatePhone = () => {
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
   return (
-    <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.container}>
-        <View style={styles.subContainer}>
-          <Security />
-          <View style={styles.textContainer}>
-            <Text style={styles.instructionText}>{t('screens.signupstep3.instruction')}</Text>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.container}>
+          <View style={styles.subContainer}>
+            <Security />
+            <View style={styles.textContainer}>
+              <Text style={styles.instructionText}>{t('screens.signup-validate-phone.instruction')}</Text>
+            </View>
+          </View>
+          <View style={styles.formContainer}>
+            <FormSignupValidatePhone
+              loading={pending}
+              control={control}
+              errors={errors}
+              onSubmit={handleSubmit(onSubmit)}
+              error={domainError}
+              onFocus={onFocus}
+            />
+          </View>
+          <View style={styles.cgu}>
+            <LinkButton
+              title={t('linkButton.legal')}
+              arrow={false}
+              colorOption={LinkButtonColors.BLUE}
+              pressed={false}
+              onPress={onPressLegal}
+            />
+            <LinkButton
+              title={t('linkButton.cgu')}
+              arrow={false}
+              colorOption={LinkButtonColors.BLUE}
+              pressed={false}
+              onPress={onPressCgu}
+            />
           </View>
         </View>
-        <View style={styles.formContainer}>
-          <FormSignupValidatePhone
-            loading={pending}
-            control={control}
-            errors={errors}
-            onSubmit={handleSubmit(onSubmit)}
-            error={domainError}
-            onFocus={onFocus}
-          />
-        </View>
-        <View style={styles.cgu}>
-          <LinkButton
-            title={t('linkButton.legal')}
-            arrow={false}
-            colorOption={LinkButtonColors.BLUE}
-            pressed={false}
-            onPress={onPressLegal}
-          />
-          <LinkButton
-            title={t('linkButton.cgu')}
-            arrow={false}
-            colorOption={LinkButtonColors.BLUE}
-            pressed={false}
-            onPress={onPressCgu}
-          />
-        </View>
-      </View>
-    </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.bank.primary.white,
   },
   subContainer: {
     flex: 1,

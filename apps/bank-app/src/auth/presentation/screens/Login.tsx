@@ -1,18 +1,16 @@
 import { useCallback } from 'react';
 import { StyleSheet, View, Image, SafeAreaView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import * as Sentry from '@sentry/react-native';
 
-import { Logger } from '@clean-rn/logger';
 import { useSecure, useCleanErrorOnFocus, FormLogin, ILoginFormData, Colors } from '@clean-rn/ui-mobile';
 
 import { Email } from '@clean-rn/auth/domain';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IAuthStackPages } from '../../../shared/presentation/types';
-import { navigate } from '../../../shared/presentation/navigation/navigationRef';
 
 import { Welcome } from '../assets/images';
 import { fetchLogin } from '../../application/commands/login';
@@ -34,24 +32,21 @@ export const Login = () => {
   const dispatch = useDispatch();
   const onSubmit = useCallback(
     (formData: ILoginFormData) => {
-      try {
-        const payload = {
-          ...formData,
-          email: email ? email : new Email(formData.email),
-        };
-        dispatch(fetchLogin(payload));
-      } catch (e: unknown) {
-        Sentry.captureException(e);
-        Logger.getInstance().error(e);
-      }
+      const payload = {
+        ...formData,
+        email: email ? email : new Email(formData.email),
+      };
+      dispatch(fetchLogin(payload));
     },
     [dispatch, email],
   );
 
   // navigate to forgot_password
+  const navigation = useNavigation();
+
   const onPress = useCallback(() => {
-    navigate({ route: IAuthStackPages.RESET_PASSWORD });
-  }, []);
+    navigation.navigate(IAuthStackPages.RESET_PASSWORD as never);
+  }, [navigation]);
 
   // clean serverError onFocus
   const { domainError, onFocus } = useCleanErrorOnFocus(error);

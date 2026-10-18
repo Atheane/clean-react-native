@@ -2,10 +2,13 @@
 import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
 
 import { ICheckPhoneQuery, ISuccess, AuthError, ISendPhoneValidationCommand } from '@clean-rn/auth/domain';
-
-import { ISignupTypes, signupFailed, phoneChecked } from '../../../commands/signup';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
+
+import { IAuthStackPages } from '../../../../../shared/presentation/types';
+import { navigate } from '../../../../../shared/presentation/navigation/navigationRef';
+
+import { ISignupTypes, signupFailed, phoneChecked } from '../../../commands/signup';
 
 export function* checkPhoneSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(ISignupTypes.FETCH_CHECK_PHONE, checkPhoneGenerator, httpConnection);
@@ -38,4 +41,5 @@ export function* checkPhoneGenerator(
   // domain event
   yield put(phoneChecked());
   // navigation
+  yield call(navigate, { route: IAuthStackPages.SIGNUP_VALIDATE_PHONE });
 }

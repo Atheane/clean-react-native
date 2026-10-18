@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, put, StrictEffect, select, takeEvery, cancel } from 'redux-saga/effects';
 
+import { Logger } from '@clean-rn/logger';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { ISuccess, AuthError, IValidatePhoneQuery, User } from '@clean-rn/auth/domain';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
+import { navigate } from '../../../../../shared/presentation/navigation/navigationRef';
+import { IAuthStackPages } from '../../../../../shared/presentation/types';
+import { selectUser, selectEmail } from '../../../state-management/selectors';
 import { ISignupTypes, signupFailed, phoneValidated } from '../../../commands/signup';
 
 export function* validatePhoneSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
@@ -17,22 +21,30 @@ export function* validatePhoneGenerator(
     payload,
   }: {
     type: string;
-    payload: IValidatePhoneQuery & { user: User };
+    payload: IValidatePhoneQuery;
   },
 ): Generator<StrictEffect, any, any> {
-  const { user, ...properties } = payload;
-
   const api = AuthApi.getInstance(httpConnection);
   // api call
-  const otpIsValid: ISuccess = yield call([api, api.checkPhoneValidation], properties);
+  const otpIsValid: ISuccess = yield call([api, api.checkPhoneValidation], payload);
   if (!otpIsValid.success) {
     yield put(signupFailed(new AuthError.SignupFailureInvalidPhoneCode()));
     yield cancel();
   }
 
-  // add password property to prospect instance
-  user.validatePhone(properties);
+  let user = yield select(selectUser);
+  if (!user) {
+    const email = yield select(selectEmail);
+    user = User.Create(email);
+  }
 
+  Logger.getInstance().info('>>>>>>>>>>>>> user.validatePhone', user);
+
+  // add password property to prospect instance
+  user.validatePhone(payload);
+
+  Logger.getInstance().info('<<<<<<<<<<<<< user.validatePhone', user);
   // domain event
   yield put(phoneValidated(user));
+  yield call(navigate, { route: IAuthStackPages.SIGNUP_REGISTER_BIRTH });
 }
