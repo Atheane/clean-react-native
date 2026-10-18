@@ -8,6 +8,7 @@ export enum IInitializationTypes {
 
 export type IInitialization = {
   type: typeof IInitializationTypes.INITIALIZE_APPLICATION;
+  payload?: boolean;
 };
 
 export type IInitializationSucceded = {

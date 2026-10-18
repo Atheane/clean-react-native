@@ -21,3 +21,9 @@ export function navigate({ route, params }: { route: IAuthStackPages; params?: R
 export function goToInitRoute() {
   navigate({ route: initRoute });
 }
+
+export function goBack(): void {
+  if (navigationRef && navigationRef.canGoBack()) {
+    navigationRef.goBack();
+  }
+}

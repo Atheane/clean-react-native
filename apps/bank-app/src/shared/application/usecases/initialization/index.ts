@@ -9,8 +9,18 @@ import { IStoreKey } from '../../../../shared/application/types';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
-function* initialization(): Generator<StrictEffect, any, any> {
+export function* initializationSaga(): Generator<StrictEffect, any, any> {
+  yield takeEvery(IInitializationTypes.INITIALIZE_APPLICATION, initialization);
+}
+
+export function* initialization({
+  payload,
+}: {
+  type: string;
+  payload?: boolean;
+}): Generator<StrictEffect, any, any> {
   // retireve data from async storage
+  console.log('initialization isFirstConnection', payload);
   const emailString = yield call(AsyncStorage.getItem, IStoreKey.USER_EMAIL);
   const initRouteName = emailString ? IAuthStackPages.LOGIN : IAuthStackPages.SIGNUP_EMAIL;
   // dispatch action to the store
@@ -19,9 +29,3 @@ function* initialization(): Generator<StrictEffect, any, any> {
   );
   yield call(navigate, { route: initRouteName });
 }
-
-function* initializationSaga(): Generator<StrictEffect, any, any> {
-  yield takeEvery(IInitializationTypes.INITIALIZE_APPLICATION, initialization);
-}
-
-export { initializationSaga, initialization };

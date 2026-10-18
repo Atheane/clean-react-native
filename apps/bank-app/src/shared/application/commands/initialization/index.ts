@@ -7,8 +7,9 @@ import {
 } from './types';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 
-export const initializeApplication = (): IInitialization => ({
+export const initializeApplication = (isFirstConnection?: boolean): IInitialization => ({
   type: IInitializationTypes.INITIALIZE_APPLICATION,
+  payload: isFirstConnection,
 });
 
 export const initializeApplicationSuccess = (payload: {

@@ -22,21 +22,23 @@ import {
 } from '../screens';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { IAuthStackPages, IAuthStackProps } from '../../../shared/presentation/types';
-import { navigate } from '../../../shared/presentation/navigation/navigationRef';
+import { navigate, goBack } from '../../../shared/presentation/navigation/navigationRef';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 const Stack = createNativeStackNavigator<IAuthStackProps>();
 
 export const AuthStack = () => {
   const { t } = useTranslation();
-  const { initRouteName } = useSelector((state: IRootState) => state.initialization);
-  console.log('initRouteName', initRouteName);
+  const { initRouteName, isFirstConnection } = useSelector((state: IRootState) => state.initialization);
+
   return (
     <Stack.Navigator initialRouteName={initRouteName}>
       <Stack.Screen
         options={{
           headerTitle: t(`screens.login.title`),
-          ...headersOptions(),
+          ...headersOptions(
+            isFirstConnection ? () => navigate({ route: IAuthStackPages.SIGNUP_EMAIL }) : undefined,
+          ),
         }}
         name={IAuthStackPages.LOGIN}
         component={Login}
