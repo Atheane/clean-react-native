@@ -46,6 +46,7 @@ export const TextInput = (props: IProps) => {
             onBlur={props.onBlur}
             autoFocus={props.autoFocus}
             clearTextOnFocus={props.clearTextOnFocus}
+            underlineColorAndroid="transparent"
           />
         ) : (
           <Input
@@ -62,6 +63,7 @@ export const TextInput = (props: IProps) => {
             onBlur={props.onBlur}
             autoFocus={props.autoFocus}
             clearTextOnFocus
+            underlineColorAndroid="transparent"
           />
         )}
       </View>
