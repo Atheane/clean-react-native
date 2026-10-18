@@ -38,7 +38,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
         error: action.payload,
       };
       return newState;
-    case ISignupTypes.FETCH_CHECK_PHONE_EXISTS:
+    case ISignupTypes.FETCH_CHECK_PHONE:
       logger.debug(action.type);
       newState = {
         ...state,
@@ -65,6 +65,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
       newState = {
         ...state,
         pending: false,
+        prospect: action.payload,
       };
       return newState;
     case ISignupTypes.IDENTITY_REGISTERED:

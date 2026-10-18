@@ -22,14 +22,14 @@ import {
   registerPasswordSaga,
   registerBirthSaga,
   registerAddressSaga,
-  checkPhoneExistsSaga,
+  checkPhoneSaga,
   validatePhoneSaga,
 } from '../../usecases/signup';
 import {
   ISignupTypes,
   emailChecked,
   fetchCheckEmailExists,
-  fetchCheckPhoneExists,
+  fetchCheckPhone,
   phoneChecked,
   identityRegistered,
   passwordRegistered,
@@ -78,6 +78,7 @@ describe('CheckEmail - integration', () => {
     city: 'string',
     zip: 'string',
     country: 'GR',
+    USPerson: false,
   };
 
   beforeAll(() => {
@@ -170,8 +171,8 @@ describe('CheckEmail - integration', () => {
   });
 
   it('Should store correct state if FETCH_CHECK_PHONE_EXISTS', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, fetchCheckPhoneExists, httpConnection);
-    sagaTester.dispatch(fetchCheckPhoneExists({ phone: new Phone('0616804613', 'FR') }));
+    sagaTester.start(wrapSagaHidingNotFoundError, fetchCheckPhone, httpConnection);
+    sagaTester.dispatch(fetchCheckPhone({ phone: new Phone('0616804613', 'FR') }));
 
     expect(sagaTester.getState()).toEqual({
       pending: true,
@@ -198,8 +199,8 @@ describe('CheckEmail - integration', () => {
       reducers: signupReducer,
     });
 
-    sagaTester.start(wrapSagaHidingNotFoundError, checkPhoneExistsSaga, httpConnection);
-    sagaTester.dispatch(fetchCheckPhoneExists({ phone: new Phone('0616804613', 'FR') }));
+    sagaTester.start(wrapSagaHidingNotFoundError, checkPhoneSaga, httpConnection);
+    sagaTester.dispatch(fetchCheckPhone({ phone: new Phone('0616804613', 'FR') }));
     sagaTester.dispatch(phoneChecked());
 
     expect(sagaTester.getState()).toEqual({
@@ -247,13 +248,15 @@ describe('CheckEmail - integration', () => {
     sagaTester.dispatch(
       fetchValidatePhone({ phone: new Phone('0616804613', 'FR'), otp: new PhoneOtp('123456') }),
     );
-    sagaTester.dispatch(phoneValidated());
+    const prospect = Prospect.Create(new Email('test@example.com'));
+    prospect.validatePhone({ phone: new Phone('0616804613', 'FR'), otp: new PhoneOtp('123456') });
+    sagaTester.dispatch(phoneValidated(prospect));
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
       email: null,
       phone: new Phone('0616804613', 'FR'),
-      prospect: null,
+      prospect,
       user: null,
       error: null,
     });

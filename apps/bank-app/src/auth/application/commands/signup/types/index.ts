@@ -17,7 +17,7 @@ export enum ISignupTypes {
   IDENTITY_REGISTERED = 'IDENTITY_REGISTERED',
   REGISTER_PASSWORD = 'REGISTER_PASSWORD',
   PASSWORD_REGISTERED = 'PASSWORD_REGISTERED',
-  FETCH_CHECK_PHONE_EXISTS = 'FETCH_CHECK_PHONE_EXISTS',
+  FETCH_CHECK_PHONE = 'FETCH_CHECK_PHONE',
   PHONE_CHECKED = 'PHONE_CHECKED',
   FETCH_VALIDATE_PHONE = 'FETCH_VALIDATE_PHONE',
   PHONE_VALIDATED = 'PHONE_VALIDATED',
@@ -52,8 +52,8 @@ export type IPasswordRegistered = {
   payload: Prospect;
 };
 
-export type IFetchCheckPhoneExists = {
-  type: typeof ISignupTypes.FETCH_CHECK_PHONE_EXISTS;
+export type IFetchCheckPhone = {
+  type: typeof ISignupTypes.FETCH_CHECK_PHONE;
   payload: ICheckPhoneQuery;
 };
 
@@ -68,6 +68,7 @@ export type IFetchValidatePhone = {
 
 export type IPhoneValidated = {
   type: typeof ISignupTypes.PHONE_VALIDATED;
+  payload: Prospect;
 };
 
 export type IBirthRegistered = {
@@ -96,7 +97,7 @@ export type ISignupActions =
   | ISignupFailed
   | IIdentityRegistered
   | IPasswordRegistered
-  | IFetchCheckPhoneExists
+  | IFetchCheckPhone
   | IPhoneChecked
   | IFetchValidatePhone
   | IPhoneValidated

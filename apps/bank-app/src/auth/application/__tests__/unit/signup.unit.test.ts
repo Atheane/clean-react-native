@@ -24,8 +24,8 @@ import {
   checkEmailExistsSaga,
   registerIdentityGenerator,
   registerIdentitySaga,
-  checkPhoneExistsGenerator,
-  checkPhoneExistsSaga,
+  checkPhoneGenerator,
+  checkPhoneSaga,
   registerPasswordGenerator,
   registerPasswordSaga,
   registerBirthGenerator,
@@ -73,6 +73,7 @@ describe('Signup - usecase', () => {
     city: 'string',
     zip: 'string',
     country: 'GR',
+    USPerson: false,
   };
 
   const mockQueryEmail = {
@@ -120,11 +121,7 @@ describe('Signup - usecase', () => {
       .next()
       .call([api, api.searchEmail], mockQueryEmail)
       .next(mockSuccessFalse)
-      .put(
-        emailChecked({
-          success: mockSuccessFalse.success,
-        }),
-      )
+      .put(emailChecked())
       .next();
   });
 
@@ -226,35 +223,52 @@ describe('Signup - usecase', () => {
   });
 
   it('should wait for FETCH_CHECK_PHONE_EXISTS action and call registerPhoneGenerator, should be done on next iteration', () => {
-    const genObject = checkPhoneExistsSaga(httpConnection);
+    const genObject = checkPhoneSaga(httpConnection);
 
     expect(genObject.next().value).toEqual(
-      takeEvery(ISignupTypes.FETCH_CHECK_PHONE_EXISTS, checkPhoneExistsGenerator, httpConnection),
+      takeEvery(ISignupTypes.FETCH_CHECK_PHONE, checkPhoneGenerator, httpConnection),
     );
     expect(genObject.next().done).toBeTruthy();
   });
 
   it('should call phoneChecked', () => {
-    testSaga(checkPhoneExistsGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_CHECK_PHONE_EXISTS,
+    testSaga(checkPhoneGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_CHECK_PHONE,
       payload: mockQueryPhone,
     })
       .next()
       .call([api, api.searchPhone], mockQueryPhone)
       .next(mockSuccessFalse)
+      .call([api, api.sendPhoneValidation], mockQueryPhone)
+      .next(mockSuccessTrue)
       .put(phoneChecked())
       .next();
   });
 
   it('should call signupFailed action if phone exists', () => {
-    testSaga(checkPhoneExistsGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_CHECK_PHONE_EXISTS,
+    testSaga(checkPhoneGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_CHECK_PHONE,
       payload: mockQueryPhone,
     })
       .next()
       .call([api, api.searchPhone], mockQueryPhone)
       .next(mockSuccessTrue)
       .put(signupFailed(new AuthError.SignupFailurePhoneExists()))
+      .next()
+      .cancel();
+  });
+
+  it('should call signupFailed action if send phone validation code fails', () => {
+    testSaga(checkPhoneGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_CHECK_PHONE,
+      payload: mockQueryPhone,
+    })
+      .next()
+      .call([api, api.searchPhone], mockQueryPhone)
+      .next(mockSuccessFalse)
+      .call([api, api.sendPhoneValidation], mockQueryPhone)
+      .next(mockSuccessFalse)
+      .put(signupFailed(new AuthError.SignupFailureSendPhoneValidation()))
       .next()
       .cancel();
   });
@@ -268,15 +282,40 @@ describe('Signup - usecase', () => {
     expect(genObject.next().done).toBeTruthy();
   });
 
-  it('should call phoneValidated', () => {
+  it('should call phoneValidated if propect exists', () => {
+    const prospectPrev = Prospect.Create(new Email('test@example.com'));
+    const prospect = Prospect.Create(new Email('test@example.com'));
+    prospect.validatePhone(mockQueryPhoneOtp);
+
     testSaga(validatePhoneGenerator, httpConnection, {
       type: ISignupTypes.FETCH_VALIDATE_PHONE,
       payload: mockQueryPhoneOtp,
     })
       .next()
-      .call([api, api.validatePhone], mockQueryPhoneOtp)
+      .call([api, api.checkPhoneValidation], mockQueryPhoneOtp)
       .next(mockSuccessTrue)
-      .put(phoneValidated())
+      .select(selectProspect)
+      .next(prospectPrev)
+      .put(phoneValidated(prospect))
+      .next();
+  });
+
+  it('should call phoneValidated if prospect does not exist', () => {
+    const prospect = Prospect.Create(new Email('test@example.com'));
+    prospect.validatePhone(mockQueryPhoneOtp);
+
+    testSaga(validatePhoneGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_VALIDATE_PHONE,
+      payload: mockQueryPhoneOtp,
+    })
+      .next()
+      .call([api, api.checkPhoneValidation], mockQueryPhoneOtp)
+      .next(mockSuccessTrue)
+      .select(selectProspect)
+      .next(null)
+      .select(selectEmail)
+      .next(new Email('test@example.com'))
+      .put(phoneValidated(prospect))
       .next();
   });
 
@@ -286,7 +325,7 @@ describe('Signup - usecase', () => {
       payload: mockQueryPhoneOtp,
     })
       .next()
-      .call([api, api.validatePhone], mockQueryPhoneOtp)
+      .call([api, api.checkPhoneValidation], mockQueryPhoneOtp)
       .next(mockSuccessFalse)
       .put(signupFailed(new AuthError.SignupFailureInvalidPhoneCode()))
       .next()

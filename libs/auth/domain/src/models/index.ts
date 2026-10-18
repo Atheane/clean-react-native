@@ -1,7 +1,8 @@
 import { IAddress, IIdentity, IBirth } from '../types';
-import { Email, Phone, BirthDay, Country, Password } from '../valueObjects';
+import { Email, Phone, BirthDay, Country, Password, PhoneOtp } from '../valueObjects';
 import { IRegisterAddressCommand, IRegisterBirthCommand, IRegisterIdentityCommand } from '../commands';
 import { AuthError } from '../errors';
+import { IValidatePhoneQuery } from '../queries';
 
 export interface IProspectProperties {
   email: Email;
@@ -10,6 +11,8 @@ export interface IProspectProperties {
   identity?: IIdentity;
   birth?: IBirth;
   address?: IAddress;
+  USPerson?: boolean;
+  phoneOtp?: PhoneOtp;
 }
 
 export class Prospect {
@@ -48,18 +51,20 @@ export class Prospect {
     };
   }
 
+  validatePhone(cmd: IValidatePhoneQuery): void {
+    const { phone, otp } = cmd;
+    this.properties.phoneOtp = otp;
+    this.properties.phone = phone;
+  }
+
   registerAddress(cmd: IRegisterAddressCommand): void {
-    const { str, city, zip, country } = cmd;
+    const { str, city, zip, country, USPerson } = cmd;
     this.properties.address = {
       str,
       city,
       zip,
       country: new Country(country),
     };
-  }
-
-  registerContact(emailString: string, phoneString: string, countryString: string): void {
-    this.properties.email = new Email(emailString);
-    this.properties.phone = new Phone(phoneString, countryString);
+    this.properties.USPerson = USPerson;
   }
 }

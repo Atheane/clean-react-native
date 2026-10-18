@@ -15,8 +15,8 @@ import {
   IAddressRegistered,
   IEmailChecked,
   IPasswordRegistered,
-  IFetchCheckPhoneExists,
   IFetchCheckEmailExists,
+  IFetchCheckPhone,
   IFetchValidatePhone,
   IPhoneChecked,
   IPhoneValidated,
@@ -57,8 +57,8 @@ export const addressRegistered = (payload: Prospect): IAddressRegistered => ({
   payload,
 });
 
-export const fetchCheckPhoneExists = (payload: ICheckPhoneQuery): IFetchCheckPhoneExists => ({
-  type: ISignupTypes.FETCH_CHECK_PHONE_EXISTS,
+export const fetchCheckPhone = (payload: ICheckPhoneQuery): IFetchCheckPhone => ({
+  type: ISignupTypes.FETCH_CHECK_PHONE,
   payload,
 });
 
@@ -71,8 +71,9 @@ export const fetchValidatePhone = (payload: IValidatePhoneQuery): IFetchValidate
   payload,
 });
 
-export const phoneValidated = (): IPhoneValidated => ({
+export const phoneValidated = (prospect: Prospect): IPhoneValidated => ({
   type: ISignupTypes.PHONE_VALIDATED,
+  payload: prospect,
 });
 
 export { ISignupTypes, ISignupActions };

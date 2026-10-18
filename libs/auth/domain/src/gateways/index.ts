@@ -1,15 +1,13 @@
-import { Phone } from '../valueObjects';
-import { ILoginCommand, IResetPasswordCommand } from '../commands';
-import { ICheckEmailQuery } from '../queries';
+import { ILoginCommand, IResetPasswordCommand, ISendPhoneValidationCommand } from '../commands';
+import { ICheckEmailQuery, ICheckPhoneQuery, IValidatePhoneQuery } from '../queries';
 import { IAuth, ISuccess } from '../types';
 
 export interface IAuthGateway {
   login: (cmd: ILoginCommand) => Promise<IAuth>;
   resetPassword: (cmd: IResetPasswordCommand) => Promise<ISuccess>;
   searchEmail(query: ICheckEmailQuery): Promise<ISuccess>;
-  // searchPhone(phone: Phone): Promise<ISuccess>;
-  //   sendPhoneValidation: (
-  //     params: IPostSendPhoneValidationParams,
-  //   ) => Promise<AxiosResponse<{ success: boolean }>>;
+  searchPhone(query: ICheckPhoneQuery): Promise<ISuccess>;
+  sendPhoneValidation: (cmd: ISendPhoneValidationCommand) => Promise<ISuccess>;
+  checkPhoneValidation: (query: IValidatePhoneQuery) => Promise<ISuccess>;
   //   checkPhoneValidationCode: (params: IGetCheckPinParams) => Promise<{ success: boolean }>;
 }

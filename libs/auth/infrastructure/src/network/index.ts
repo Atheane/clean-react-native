@@ -8,6 +8,7 @@ import {
   ISuccess,
   ICheckPhoneQuery,
   IValidatePhoneQuery,
+  ISendPhoneValidationCommand,
 } from '@clean-rn/auth/domain';
 
 export class AuthApi implements IAuthGateway {
@@ -81,7 +82,20 @@ export class AuthApi implements IAuthGateway {
     return response.json();
   }
 
-  async validatePhone(query: IValidatePhoneQuery): Promise<ISuccess> {
+  async sendPhoneValidation(query: ISendPhoneValidationCommand): Promise<ISuccess> {
+    //map cmd to dto
+    const params = {
+      phone: query.phone.value,
+    };
+    const response = await fetch(
+      `${this.connection.baseUrl}/app/user/sendPhoneValidationCode`,
+      this.connection.options(IHttpVerb.POST, params),
+    );
+    await this.connection.handleError(response);
+    return response.json();
+  }
+
+  async checkPhoneValidation(query: IValidatePhoneQuery): Promise<ISuccess> {
     //map query to dto
     const params = {
       phone: query.phone.value,

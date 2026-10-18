@@ -11,6 +11,7 @@ import {
   IRegisterAddressCommand,
   AuthError,
   IValidatePhoneQuery,
+  ISendPhoneValidationCommand,
 } from '@clean-rn/auth/domain';
 
 import {
@@ -90,7 +91,7 @@ function* registerPasswordGenerator({
   yield put(passwordRegistered(prospect));
 }
 
-function* checkPhoneExistsGenerator(
+function* checkPhoneGenerator(
   httpConnection: HttpConnection,
   {
     payload,
@@ -104,6 +105,14 @@ function* checkPhoneExistsGenerator(
   const phoneExists: ISuccess = yield call([api, api.searchPhone], payload);
   if (phoneExists.success) {
     yield put(signupFailed(new AuthError.SignupFailurePhoneExists()));
+    yield cancel();
+  }
+  const phoneOtpSent: ISuccess = yield call(
+    [api, api.sendPhoneValidation],
+    payload as ISendPhoneValidationCommand,
+  );
+  if (!phoneOtpSent.success) {
+    yield put(signupFailed(new AuthError.SignupFailureSendPhoneValidation()));
     yield cancel();
   }
   yield put(phoneChecked());
@@ -120,12 +129,23 @@ function* validatePhoneGenerator(
 ): Generator<StrictEffect, any, any> {
   const api = AuthApi.getInstance(httpConnection);
   // api call
-  const otpIsValid: ISuccess = yield call([api, api.validatePhone], payload);
+  const otpIsValid: ISuccess = yield call([api, api.checkPhoneValidation], payload);
   if (!otpIsValid.success) {
     yield put(signupFailed(new AuthError.SignupFailureInvalidPhoneCode()));
     yield cancel();
   }
-  yield put(phoneValidated());
+  let prospect: Prospect;
+  // retrieve prospect from redux store
+  prospect = yield select(selectProspect);
+  if (!prospect) {
+    // retrieve email from redux store
+    const email = yield select(selectEmail);
+    prospect = Prospect.Create(email);
+  }
+
+  // add password property to prospect instance
+  prospect.validatePhone(payload);
+  yield put(phoneValidated(prospect));
 }
 
 function* registerBirthGenerator({
@@ -172,6 +192,28 @@ function* registerAddressGenerator({
   yield put(addressRegistered(prospect));
 }
 
+function* createUserGenerator({
+  payload,
+}: {
+  type: string;
+  payload: IRegisterAddressCommand;
+}): Generator<StrictEffect, any, any> {
+  let prospect: Prospect;
+  // retrieve prospect from redux store
+  prospect = yield select(selectProspect);
+
+  if (!prospect) {
+    // retrieve email from redux store
+    const email = yield select(selectEmail);
+    prospect = Prospect.Create(email);
+  }
+
+  // add password property to prospect instance
+  prospect.registerAddress(payload);
+  // save prospect with identity & password registered in redux store
+  yield put(addressRegistered(prospect));
+}
+
 function* checkEmailExistsSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(ISignupTypes.FETCH_CHECK_EMAIL_EXISTS, checkEmailExistsGenerator, httpConnection);
 }
@@ -184,8 +226,8 @@ function* registerPasswordSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(ISignupTypes.REGISTER_PASSWORD, registerPasswordGenerator);
 }
 
-function* checkPhoneExistsSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(ISignupTypes.FETCH_CHECK_PHONE_EXISTS, checkPhoneExistsGenerator, httpConnection);
+function* checkPhoneSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
+  yield takeEvery(ISignupTypes.FETCH_CHECK_PHONE, checkPhoneGenerator, httpConnection);
 }
 
 function* registerBirthSaga(): Generator<StrictEffect, any, any> {
@@ -204,14 +246,14 @@ export {
   checkEmailExistsSaga,
   registerIdentitySaga,
   registerPasswordSaga,
-  checkPhoneExistsSaga,
+  checkPhoneSaga,
   registerBirthSaga,
   registerAddressSaga,
   validatePhoneSaga,
   checkEmailExistsGenerator,
   registerIdentityGenerator,
   registerPasswordGenerator,
-  checkPhoneExistsGenerator,
+  checkPhoneGenerator,
   registerBirthGenerator,
   registerAddressGenerator,
   validatePhoneGenerator,
