@@ -3,13 +3,6 @@ import { Dimensions, StyleProp, TextStyle, ViewStyle } from 'react-native';
 import { createTheme } from '@rneui/themed';
 import { FontNames, Colors } from '../constants';
 
-export const DefaultTheme = {
-  dark: false,
-  colors: {
-    ...Colors.bank,
-  },
-};
-
 declare module '@rneui/themed' {
   export interface Theme {
     bank: {

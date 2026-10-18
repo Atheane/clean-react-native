@@ -30,6 +30,9 @@
       "@clean-rn/ddd": [
         "libs/ddd/src/index.ts"
       ],
+      "@clean-rn/services-mobile": [
+        "libs/services-mobile/src/index.ts"
+      ],
       "@clean-rn/ui-mobile": [
         "libs/ui-mobile/src/index.ts"
       ]

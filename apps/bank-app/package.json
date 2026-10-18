@@ -42,7 +42,10 @@
     "fast-sort": "*",
     "@react-native-community/slider": "*",
     "expo-clipboard": "*",
-    "dotenv": "*"
+    "dotenv": "*",
+    "@expo/vector-icons": "*",
+    "@react-navigation/native": "*",
+    "expo-linking": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp package-lock.json apps/bank-app",
