@@ -12,6 +12,7 @@ import {
   AuthError,
   IValidatePhoneQuery,
   ISendPhoneValidationCommand,
+  User,
 } from '@clean-rn/auth/domain';
 
 import {
@@ -24,6 +25,7 @@ import {
   signupFailed,
   phoneValidated,
   phoneChecked,
+  userSignedUp,
 } from '../../commands/signup';
 import { selectEmail, selectProspect } from '../../state-management';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
@@ -192,26 +194,24 @@ function* registerAddressGenerator({
   yield put(addressRegistered(prospect));
 }
 
-function* createUserGenerator({
-  payload,
-}: {
-  type: string;
-  payload: IRegisterAddressCommand;
-}): Generator<StrictEffect, any, any> {
-  let prospect: Prospect;
-  // retrieve prospect from redux store
-  prospect = yield select(selectProspect);
+function* signupUserGenerator(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
+  const prospect = yield select(selectProspect);
+  const { email, phone, password, identity, birth, address, USPerson, phoneOtp } = prospect;
 
-  if (!prospect) {
-    // retrieve email from redux store
-    const email = yield select(selectEmail);
-    prospect = Prospect.Create(email);
-  }
+  const api = AuthApi.getInstance(httpConnection);
 
-  // add password property to prospect instance
-  prospect.registerAddress(payload);
-  // save prospect with identity & password registered in redux store
-  yield put(addressRegistered(prospect));
+  const { uid } = yield call([api, api.createUser], {
+    email,
+    phone,
+    password,
+    identity,
+    birth,
+    address,
+    USPerson,
+    phoneOtp,
+  });
+  const user = User.Signup({ id: uid, email, phone, password, identity, birth, address, USPerson });
+  yield put(userSignedUp(user));
 }
 
 function* checkEmailExistsSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
@@ -242,6 +242,10 @@ function* validatePhoneSaga(httpConnection: HttpConnection): Generator<StrictEff
   yield takeEvery(ISignupTypes.FETCH_VALIDATE_PHONE, validatePhoneGenerator, httpConnection);
 }
 
+function* signupUserSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
+  yield takeEvery(ISignupTypes.FETCH_SIGNUP_USER, validatePhoneGenerator, httpConnection);
+}
+
 export {
   checkEmailExistsSaga,
   registerIdentitySaga,
@@ -250,6 +254,7 @@ export {
   registerBirthSaga,
   registerAddressSaga,
   validatePhoneSaga,
+  signupUserSaga,
   checkEmailExistsGenerator,
   registerIdentityGenerator,
   registerPasswordGenerator,
@@ -257,4 +262,5 @@ export {
   registerBirthGenerator,
   registerAddressGenerator,
   validatePhoneGenerator,
+  signupUserGenerator,
 };

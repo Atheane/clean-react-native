@@ -5,6 +5,7 @@ import {
   ICheckEmailQuery,
   ICheckPhoneQuery,
   IValidatePhoneQuery,
+  User,
 } from '@clean-rn/auth/domain';
 import {
   ISignupActions,
@@ -20,6 +21,8 @@ import {
   IFetchValidatePhone,
   IPhoneChecked,
   IPhoneValidated,
+  IFetchSignupUser,
+  IUserSignedUp,
 } from './types';
 import { IDomainError } from '@clean-rn/ddd';
 
@@ -74,6 +77,15 @@ export const fetchValidatePhone = (payload: IValidatePhoneQuery): IFetchValidate
 export const phoneValidated = (prospect: Prospect): IPhoneValidated => ({
   type: ISignupTypes.PHONE_VALIDATED,
   payload: prospect,
+});
+
+export const fetchSignupUser = (): IFetchSignupUser => ({
+  type: ISignupTypes.FETCH_SIGNUP_USER,
+});
+
+export const userSignedUp = (user: User): IUserSignedUp => ({
+  type: ISignupTypes.USER_SIGNED_UP,
+  payload: user,
 });
 
 export { ISignupTypes, ISignupActions };

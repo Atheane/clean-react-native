@@ -31,11 +31,11 @@ export type IAddress = {
 };
 
 export enum IGender {
-  MAN = 'M',
-  WOMAN = 'Mme',
-  NEUTRAL = 'Mlle', // KycProvider do not allow for neutral, but still, we want to offer this option to user. Encoding is not correct, but it is mapped to KycProvider third option so as to keep "third option" information.
+  MAN = 'MAN',
+  WOMAN = 'WOMAN',
+  NEUTRAL = 'NEUTRAL', // KycProvider do not allow for neutral, but still, we want to offer this option to user. Encoding is not correct, but it is mapped to KycProvider third option so as to keep "third option" information.
 }
 
-export interface ISuccess {
+export type ISuccess = {
   success: boolean;
-}
+};

@@ -52,8 +52,8 @@ export class Prospect {
   }
 
   validatePhone(cmd: IValidatePhoneQuery): void {
-    const { phone, otp } = cmd;
-    this.properties.phoneOtp = otp;
+    const { phone, phoneOtp } = cmd;
+    this.properties.phoneOtp = phoneOtp;
     this.properties.phone = phone;
   }
 

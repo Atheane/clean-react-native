@@ -3,13 +3,13 @@ import { IAddress, IIdentity, IBirth } from '../types';
 import { Email, Phone, Password } from '../valueObjects';
 
 export interface IUserProperties {
-  uid: number;
   email: Email;
   phone: Phone;
   password: Password;
   identity: IIdentity;
   birth: IBirth;
   address: IAddress;
+  USPerson: boolean;
 }
 
 export class User extends Entity<IUserProperties> {
@@ -17,9 +17,8 @@ export class User extends Entity<IUserProperties> {
     super({ id, properties });
   }
 
-  static Signup(props: IUserProperties): User {
-    const user = new User({ properties: props });
-    user.id = props.uid.toString();
+  static Signup({ id, ...properties }: { id: string } & IUserProperties): User {
+    const user = new User({ id, properties });
     return user;
   }
 }

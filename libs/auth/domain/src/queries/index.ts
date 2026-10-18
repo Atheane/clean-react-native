@@ -10,5 +10,5 @@ export type ICheckPhoneQuery = {
 
 export type IValidatePhoneQuery = {
   phone: Phone;
-  otp: PhoneOtp;
+  phoneOtp: PhoneOtp;
 };

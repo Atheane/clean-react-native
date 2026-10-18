@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs';
-import { IGender } from '../types';
-import { Email, Phone } from '../valueObjects';
+import { IAddress, IBirth, IGender, IIdentity } from '../types';
+import { Email, Password, Phone, PhoneOtp } from '../valueObjects';
 
 export type ILoginCommand = {
   email: Email;
@@ -37,4 +37,15 @@ export type IRegisterAddressCommand = {
 
 export type ISendPhoneValidationCommand = {
   phone: Phone;
+};
+
+export type ISignupUserCommand = {
+  email: Email;
+  phone: Phone;
+  password: Password;
+  identity: IIdentity;
+  birth: IBirth;
+  address: IAddress;
+  USPerson: boolean;
+  phoneOtp: PhoneOtp;
 };

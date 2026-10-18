@@ -1,6 +1,7 @@
 import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
 import {
   IAuthGateway,
+  IUserRepository,
   IAuth,
   ILoginCommand,
   IResetPasswordCommand,
@@ -9,9 +10,13 @@ import {
   ICheckPhoneQuery,
   IValidatePhoneQuery,
   ISendPhoneValidationCommand,
+  User,
+  IUserProperties,
+  PhoneOtp,
+  IGender,
 } from '@clean-rn/auth/domain';
 
-export class AuthApi implements IAuthGateway {
+export class AuthApi implements IAuthGateway, IUserRepository {
   private static instance: AuthApi | null = null;
   private connection: HttpConnection;
 
@@ -99,12 +104,50 @@ export class AuthApi implements IAuthGateway {
     //map query to dto
     const params = {
       phone: query.phone.value,
-      code: query.otp.value,
+      code: query.phoneOtp.value,
     };
 
     const url = `${this.connection.baseUrl}/app/user/checkPhoneValidationCode?` + new URLSearchParams(params);
 
     const response = await fetch(url, this.connection.options(IHttpVerb.GET));
+    await this.connection.handleError(response);
+    return response.json();
+  }
+
+  async createUser({ phoneOtp, ...cmd }: IUserProperties & { phoneOtp: PhoneOtp }): Promise<User> {
+    //map cmd to dto
+    let title: string;
+    if (cmd.identity.gender === IGender.MAN) {
+      title = 'M';
+    } else if (cmd.identity.gender === IGender.WOMAN) {
+      title = 'Mme';
+    } else {
+      title = 'Mlle'; // KycProvider do not have title for neutral gender. As a reminder, we use Mlle as incorrectly encoded value for neutral gender
+    }
+    const params = {
+      email: cmd.email,
+      title,
+      firstname: cmd.identity.firstName,
+      lastname: cmd.identity.lastName,
+      phone: cmd.phone.valueInternational,
+      password: cmd.password.value,
+      birthday: cmd.birth.birthday.value,
+      birthCountry: cmd.birth.birthCountry.value,
+      nationality: cmd.identity.nationality.value,
+      address: {
+        str: cmd.address.str,
+        city: cmd.address.city,
+        zip: cmd.address.zip,
+        country: cmd.address.country.value,
+      },
+      phoneValidationCode: phoneOtp.value,
+      specifiedUSPerson: cmd.USPerson,
+    };
+
+    const response = await fetch(
+      `${this.connection.baseUrl}/app/user/sendPhoneValidationCode`,
+      this.connection.options(IHttpVerb.POST, params),
+    );
     await this.connection.handleError(response);
     return response.json();
   }

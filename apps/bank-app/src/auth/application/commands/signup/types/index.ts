@@ -25,7 +25,8 @@ export enum ISignupTypes {
   BIRTH_REGISTERED = 'BIRTH_REGISTERED',
   REGISTER_ADDRESS = 'REGISTER_ADDRESS',
   ADDRESS_REGISTERED = 'ADDRESS_REGISTERED',
-  CREATE_USER = 'CREATE_USER',
+  FETCH_SIGNUP_USER = 'FETCH_SIGNUP_USER',
+  USER_SIGNED_UP = 'USER_SIGNED_UP',
 }
 
 export type IFetchCheckEmailExists = {
@@ -86,8 +87,12 @@ export type IAddressRegistered = {
   payload: Prospect;
 };
 
-export type ICreateUser = {
-  type: typeof ISignupTypes.CREATE_USER;
+export type IFetchSignupUser = {
+  type: typeof ISignupTypes.FETCH_SIGNUP_USER;
+};
+
+export type IUserSignedUp = {
+  type: typeof ISignupTypes.USER_SIGNED_UP;
   payload: User;
 };
 
@@ -103,4 +108,5 @@ export type ISignupActions =
   | IPhoneValidated
   | IBirthRegistered
   | IAddressRegistered
-  | ICreateUser;
+  | IFetchSignupUser
+  | IUserSignedUp;

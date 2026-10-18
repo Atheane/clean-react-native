@@ -97,12 +97,19 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
       };
       return newState;
 
-    case ISignupTypes.CREATE_USER:
+    case ISignupTypes.FETCH_SIGNUP_USER:
       logger.debug(action.type);
       newState = {
         ...state,
+        pending: true,
+      };
+      return newState;
+    case ISignupTypes.USER_SIGNED_UP:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
         user: action.payload,
-        prospect: null,
       };
       return newState;
     default:
