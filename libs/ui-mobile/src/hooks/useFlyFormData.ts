@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { FlightI, FlightSeatE as SeatE } from '@bank/carbon-weight/dist';
-import { Logger } from '../utils';
+import { Logger } from '@clean-rn/logger';
 import { FlyEmissions } from '@clean-rn/carbon/domain';
 
 export const useFlyFormData = () => {

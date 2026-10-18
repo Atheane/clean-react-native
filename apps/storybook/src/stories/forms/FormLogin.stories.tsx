@@ -5,7 +5,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { FormLogin, ILoginFormData, useTogglePress, useEdit, useSecure } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithKeyboardAwareScroll, WithExtraBottomSpace } from '../../wrappers';
-import { Logger } from '@clean-rn/ddd';
+import { Logger } from '@clean-rn/logger';
 
 const FormLoginMeta: ComponentMeta<typeof FormLogin> = {
   title: 'Forms/FormLogin',

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { HouseHeaterE as HeaterE, HouseYearE as YearE, HouseT, HouseE } from '@bank/carbon-weight/dist';
 
-import { Logger } from '../utils';
+import { Logger } from '@clean-rn/logger';
 import { HouseEmissions } from '@clean-rn/carbon/domain';
 
 export const useHouseFormData = () => {

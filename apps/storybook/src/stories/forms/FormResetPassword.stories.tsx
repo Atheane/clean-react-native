@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
-import { Logger } from '@clean-rn/ddd';
+import { Logger } from '@clean-rn/logger';
 import { FormResetPassword, IResetPasswordFormData, useEdit } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithKeyboardAwareScroll, WithExtraBottomSpace } from '../../wrappers';

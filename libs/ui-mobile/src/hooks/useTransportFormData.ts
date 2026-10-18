@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { VehicleFuelE as FuelE, VehicleConsumptionT } from '@bank/carbon-weight/dist';
 
-import { Logger } from '../utils';
+import { Logger } from '@clean-rn/logger';
 import { TransportEmissions } from '@clean-rn/carbon/domain';
 
 export const useTransportFormData = () => {

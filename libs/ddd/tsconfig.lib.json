@@ -5,5 +5,5 @@
     "types": ["node"]
   },
   "exclude": ["**/*.spec.ts", "**/*.spec.tsx", "test-setup.ts"],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "../utils-mobile/src/logger/index.ts"]
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
 }

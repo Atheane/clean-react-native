@@ -1,20 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import { IInfraError } from '@clean-rn/ddd';
-
 enum IStorageErrorMessages {
   STORAGE_SET_ERROR = 'Async Storage SetItem Error',
   STORAGE_GET_ERROR = 'Async Storage GetItem Error',
 }
 
-export enum IStorageErrorCodes {
+enum IStorageErrorCodes {
   STORAGE_SET_ERROR = 'SHARED_INFRA_STORAGE_0',
   STORAGE_GET_ERROR = 'SHARED_INFRA_STORAGE_1',
 }
 
 export namespace StorageError {
-  export class SetError extends Error implements IInfraError {
+  export class SetError extends Error {
     code: IStorageErrorCodes;
     message: IStorageErrorMessages;
     cause?: any;
@@ -26,7 +24,7 @@ export namespace StorageError {
       this.cause = cause?.message || cause;
     }
   }
-  export class GetError extends Error implements IInfraError {
+  export class GetError extends Error {
     code: IStorageErrorCodes;
     message: IStorageErrorMessages;
     cause?: any;

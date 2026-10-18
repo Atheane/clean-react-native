@@ -6,8 +6,8 @@ import { Input, useTheme } from '@rneui/themed';
 import SelectDropdown from 'react-native-select-dropdown';
 import { PhoneNumberUtil } from 'google-libphonenumber';
 
-import { Logger } from '../../../utils';
-import { IDomainError, IInfraError } from '@clean-rn/ddd';
+import { IDomainError } from '@clean-rn/ddd';
+import { Logger } from '@clean-rn/logger';
 
 import {
   Country,
@@ -33,7 +33,7 @@ type IProps = {
   onSubmit: () => void;
   control: Control<ISignupStep2FormData>;
   errors: FieldErrors<ISignupStep2FormData>;
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | IInfraError | null;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | Error | null;
   onFocus: () => void;
 };
 

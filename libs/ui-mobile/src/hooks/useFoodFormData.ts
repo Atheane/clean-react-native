@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { FoodConsumptionT } from '@bank/carbon-weight/dist';
-import { Logger } from '../utils';
+import { Logger } from '@clean-rn/logger';
 import { FoodEmissions } from '@clean-rn/carbon/domain';
 
 type IFood = {

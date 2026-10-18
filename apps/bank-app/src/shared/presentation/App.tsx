@@ -7,7 +7,7 @@ import { ThemeProvider } from '@rneui/themed';
 
 import { Fonts, theme, i18n } from '@clean-rn/ui-mobile';
 
-import { store } from '../infrastructure/state-management/store';
+import { store } from '../application/state-management/store';
 import { NavigationUI } from './navigation';
 
 const App: () => JSX.Element = () => {

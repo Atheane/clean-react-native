@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { useTranslation } from 'react-i18next';
 
-import { Logger } from '@clean-rn/ddd';
+import { Logger } from '@clean-rn/logger';
 import { AuthError } from '@clean-rn/auth/domain';
 import {
   FormSignupStep1,

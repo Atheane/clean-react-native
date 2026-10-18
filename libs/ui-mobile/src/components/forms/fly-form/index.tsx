@@ -6,7 +6,7 @@ import { useTheme } from '@rneui/themed';
 
 import { FlightSeatE as SeatE, FlightI } from '@bank/carbon-weight/dist';
 
-import { Logger } from '../../../utils';
+import { Logger } from '@clean-rn/logger';
 import { FlyEmissions } from '@clean-rn/carbon/domain';
 
 import { FlyFrom, FlyTo, PlaneEmpty } from '../../../assets';

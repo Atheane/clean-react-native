@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { getLocales } from 'expo-localization';
 
-import { Logger } from '@clean-rn/ddd';
+import { Logger } from '@clean-rn/logger';
 import { IGender } from '@clean-rn/auth/domain';
 import { FormSignupStep2, ISignupStep2FormData } from '@clean-rn/ui-mobile';
 import { WithStatus, ValidationStatus, WithKeyboardAwareScroll, WithExtraBottomSpace } from '../../wrappers';

@@ -49,7 +49,9 @@
     "redux": "*",
     "@react-native-async-storage/async-storage": "*",
     "redux-saga": "*",
-    "react-redux": "*"
+    "react-redux": "*",
+    "axios": "*",
+    "@react-navigation/native-stack": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp package-lock.json apps/bank-app",

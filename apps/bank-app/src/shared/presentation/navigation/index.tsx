@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import { RootStack } from './root';
 import { navigationRef } from './root/RootNavigation';
-
+import { headersOptions } from './headersOptions';
 import { LinkingConfiguration } from './LinkingConfiguration';
 
 const NavigationUI = () => {
@@ -14,4 +14,4 @@ const NavigationUI = () => {
   );
 };
 
-export { NavigationUI, LinkingConfiguration };
+export { NavigationUI, LinkingConfiguration, headersOptions, navigationRef };
