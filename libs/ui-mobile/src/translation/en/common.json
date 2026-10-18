@@ -78,7 +78,8 @@
       "email": {
         "placeholder": "your@email.com",
         "label": "e-mail"
-      }
+      },
+      "text":"Let's check together if your email address is linked to an existing account."
     },
     "signup-identity": {
       "title": "Sign up",

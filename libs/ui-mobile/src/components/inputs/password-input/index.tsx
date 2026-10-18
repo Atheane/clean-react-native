@@ -30,7 +30,7 @@ export const PasswordInput = (props: InputProps & State) => {
           leftIconContainerStyle={styles.leftIconContainer}
           onFocus={props.onFocus}
           onChangeText={props.onChange}
-          value={props.value ? props.value.toLowerCase() : props.value}
+          value={props.value}
           placeholder={t('screens.login.password.placeholder')}
           rightIcon={
             <View style={styles.eyeContainer} onTouchStart={props.onToggleSecurity}>

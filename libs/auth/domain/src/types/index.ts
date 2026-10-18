@@ -9,12 +9,12 @@ export type IIdentity = {
   gender: IGender;
   firstName: string;
   lastName: string;
-  nationality: Country;
 };
 
 export type IBirth = {
   birthday: BirthDay;
   birthCountry: Country;
+  nationality: Country;
 };
 
 export type ICountry = {

@@ -27,9 +27,10 @@ export class User extends Entity<IUserProperties> {
     return new User({ id: email.value, properties: { email } });
   }
 
-  signup({ id, ...properties }: { id: string } & IUserProperties): User {
-    const user = new User({ id, properties });
-    return user;
+  signup({ id, properties }: { id: string; properties: IUserProperties }): User {
+    this.properties = properties;
+    this.id = id;
+    return this;
   }
 
   registerPassword(passwordString: string): void {
@@ -38,12 +39,11 @@ export class User extends Entity<IUserProperties> {
   }
 
   registerIdentity(cmd: IRegisterIdentityCommand): void {
-    const { gender, firstName, lastName, nationality } = cmd;
+    const { gender, firstName, lastName } = cmd;
     this.properties.identity = {
       gender,
       firstName,
       lastName,
-      nationality: new Country(nationality),
     };
   }
 
@@ -53,10 +53,11 @@ export class User extends Entity<IUserProperties> {
   }
 
   registerBirth(cmd: IRegisterBirthCommand): void {
-    const { birthday, birthCountry } = cmd;
+    const { birthday, birthCountry, nationality } = cmd;
     this.properties.birth = {
       birthday: new BirthDay(birthday),
       birthCountry: new Country(birthCountry),
+      nationality: new Country(nationality),
     };
   }
 

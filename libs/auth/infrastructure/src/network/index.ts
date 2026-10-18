@@ -94,7 +94,7 @@ export class AuthApi implements IAuthGateway, IUserRepository {
   async sendPhoneValidation(query: ISendPhoneValidationCommand): Promise<ISuccess> {
     //map cmd to dto
     const params = {
-      phone: query.phone.value,
+      phone: query.phone.valueInternational,
     };
     const response = await fetch(
       `${this.connection.baseUrl}/app/user/sendPhoneValidationCode`,
@@ -137,7 +137,7 @@ export class AuthApi implements IAuthGateway, IUserRepository {
       password: cmd.password.value,
       birthday: cmd.birth.birthday.value,
       birthCountry: cmd.birth.birthCountry.value,
-      nationality: cmd.identity.nationality.value,
+      nationality: cmd.birth.nationality.value,
       address: {
         str: cmd.address.str,
         city: cmd.address.city,

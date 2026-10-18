@@ -23,6 +23,11 @@ export function* initialization({
   const emailString = yield call(AsyncStorage.getItem, IStoreKey.USER_EMAIL);
   const initRouteName = emailString ? IAuthStackPages.LOGIN : IAuthStackPages.SIGNUP_EMAIL;
   // dispatch action to the store
-  yield put(applicationInitialized({ email: emailString ? new Email(emailString) : null, initRouteName }));
+  yield put(
+    applicationInitialized({
+      email: emailString ? new Email(emailString) : null,
+      initRouteName,
+    }),
+  );
   yield call(navigate, { route: initRouteName });
 }

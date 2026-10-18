@@ -1,6 +1,7 @@
 import { Dayjs } from 'dayjs';
-import { IAddress, IBirth, IGender, IIdentity } from '../types';
-import { Email, Password, Phone, PhoneOtp } from '../valueObjects';
+import { IGender } from '../types';
+import { Email, Phone, PhoneOtp } from '../valueObjects';
+import { IUserProperties } from '../entities';
 
 export type ILoginCommand = {
   email: Email;
@@ -15,7 +16,6 @@ export type IRegisterIdentityCommand = {
   gender: IGender;
   firstName: string;
   lastName: string;
-  nationality: string;
 };
 
 export type IRegisterPasswordCommand = {
@@ -25,6 +25,7 @@ export type IRegisterPasswordCommand = {
 export type IRegisterBirthCommand = {
   birthday: Dayjs;
   birthCountry: string;
+  nationality: string;
 };
 
 export type IRegisterAddressCommand = {
@@ -39,13 +40,4 @@ export type ISendPhoneValidationCommand = {
   phone: Phone;
 };
 
-export type ISignupUserCommand = {
-  email: Email;
-  phone: Phone;
-  password: Password;
-  identity: IIdentity;
-  birth: IBirth;
-  address: IAddress;
-  USPerson: boolean;
-  phoneOtp: PhoneOtp;
-};
+export type ISignupUserCommand = IUserProperties & { phoneOtp: PhoneOtp };

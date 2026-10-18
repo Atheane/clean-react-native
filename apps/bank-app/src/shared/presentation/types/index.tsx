@@ -44,7 +44,7 @@ export enum IAuthStackPages {
   LOGIN = 'Login',
   RESET_PASSWORD = 'ResetPassword',
   SIGNUP_EMAIL = 'SignupEmail',
-  SIGNUP_PASSWORD = 'SignupPassword',
+  SIGNUP_IDENTITY_PASSWORD_PHONE = 'SignupIdentityPasswordPhone',
   // SIGNUP_STEP3 = 'SignupStep3',
   // SIGNUP_STEP4 = 'SignupStep4',
   // SIGNUP_STEP5 = 'SignupStep5',
@@ -60,7 +60,7 @@ export type IAuthStackProps = {
   [IAuthStackPages.LOGIN]: object;
   [IAuthStackPages.RESET_PASSWORD]: object;
   [IAuthStackPages.SIGNUP_EMAIL]: object;
-  [IAuthStackPages.SIGNUP_PASSWORD]: object;
+  [IAuthStackPages.SIGNUP_IDENTITY_PASSWORD_PHONE]: object;
   // [IAuthStackPages.SIGNUP_STEP3]: object;
   // [IAuthStackPages.SIGNUP_STEP4]: object;
   // [IAuthStackPages.SIGNUP_STEP5]: object;
@@ -76,7 +76,7 @@ export type IRoutes =
   | IAuthStackPages.LOGIN
   | IAuthStackPages.RESET_PASSWORD
   | IAuthStackPages.SIGNUP_EMAIL
-  | IAuthStackPages.SIGNUP_PASSWORD;
+  | IAuthStackPages.SIGNUP_IDENTITY_PASSWORD_PHONE;
 // | IAuthStackPages.SIGNUP_STEP3
 // | IAuthStackPages.SIGNUP_STEP4
 // | IAuthStackPages.SIGNUP_STEP5

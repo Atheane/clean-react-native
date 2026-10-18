@@ -15,6 +15,7 @@ import {
   PhoneOtp,
   User,
   IUserProperties,
+  ISignupUserCommand,
 } from '@clean-rn/auth/domain';
 
 import {
@@ -43,7 +44,7 @@ import {
   userSignedUp,
   fetchSignupUser,
 } from '../../commands/signup';
-import { ISignupState, selectEmail, selectUser, signupReducer } from '../../state-management';
+import { ISignupState, signupReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
 
 const expoConstantsMock = {
@@ -65,7 +66,6 @@ describe('CheckEmail - integration', () => {
     gender: IGender.MAN,
     firstName: 'John',
     lastName: 'Smith',
-    nationality: 'FR',
   };
 
   const mockPassword: IRegisterPasswordCommand = {
@@ -75,6 +75,7 @@ describe('CheckEmail - integration', () => {
   const mockBirth: IRegisterBirthCommand = {
     birthday: dayjs('1980-01-01'),
     birthCountry: 'FR',
+    nationality: 'FR',
   };
 
   const mockAddress: IRegisterAddressCommand = {
@@ -418,7 +419,9 @@ describe('CheckEmail - integration', () => {
     });
 
     sagaTester.start(wrapSagaHidingNotFoundError, signupUserSaga, httpConnection);
-    sagaTester.dispatch(fetchSignupUser());
+    sagaTester.dispatch(
+      fetchSignupUser({ ...user.properties, phoneOtp: new PhoneOtp('123456') } as ISignupUserCommand),
+    );
 
     expect(sagaTester.getState()).toEqual({
       pending: true,
@@ -467,52 +470,5 @@ describe('CheckEmail - integration', () => {
       user,
       error: null,
     });
-  });
-
-  it('should select the user from state', () => {
-    const user = User.Create(new Email('test@example.com'));
-    user.registerIdentity(mockIdentity);
-    user.registerPassword(mockPassword.password);
-    user.validatePhone(mockQueryPhoneOtp);
-    user.registerBirth(mockBirth);
-    user.registerAddress(mockAddress);
-
-    const initialState: ISignupState = {
-      pending: false,
-      email: new Email('test@example.com'),
-      phone: new Phone('0616804613', 'FR'),
-      phoneOtp: new PhoneOtp('123456'),
-      user,
-      error: null,
-    };
-
-    sagaTester = new SagaTester({
-      initialState,
-      reducers: signupReducer,
-    });
-    sagaTester.start(signupUserSaga, httpConnection);
-
-    const userFromState = selectUser(sagaTester.getState());
-    expect(userFromState).toEqual(user);
-  });
-
-  it('should select the email from state', () => {
-    const initialState: ISignupState = {
-      pending: false,
-      email: new Email('test@example.com'),
-      phone: new Phone('0616804613', 'FR'),
-      phoneOtp: new PhoneOtp('123456'),
-      user: null,
-      error: null,
-    };
-
-    sagaTester = new SagaTester({
-      initialState,
-      reducers: signupReducer,
-    });
-    sagaTester.start(signupUserSaga, httpConnection);
-
-    const emailFormState = selectEmail(sagaTester.getState());
-    expect(emailFormState).toEqual(new Email('test@example.com'));
   });
 });

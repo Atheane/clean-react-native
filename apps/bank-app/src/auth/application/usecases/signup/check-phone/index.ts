@@ -37,4 +37,5 @@ export function* checkPhoneGenerator(
   }
   // domain event
   yield put(phoneChecked());
+  // navigation
 }

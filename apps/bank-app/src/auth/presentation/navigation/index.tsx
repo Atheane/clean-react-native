@@ -9,7 +9,7 @@ import {
   Login,
   ResetPassword,
   SignupEmail,
-  // SignupStep2,
+  SignupIdentityPasswordPhone,
   // SignupStep3,
   // SignupStep4,
   // SignupStep5,
@@ -57,14 +57,31 @@ export const AuthStack = () => {
         name={IAuthStackPages.SIGNUP_EMAIL}
         component={SignupEmail}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         options={{
-          headerTitle: t(`screens.signupstep2.title`),
-          ...headersOptions(onPressBackButton(navigateBack)),
+          headerTitle: t(`screens.signup-identity-password-phone.title`),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
-        name={IAuthStackPages.SIGNUP_STEP2}
-        component={SignupStep2}
+        name={IAuthStackPages.SIGNUP_IDENTITY_PASSWORD_PHONE}
+        component={SignupIdentityPasswordPhone}
       />
+      <Stack.Screen
+        options={{
+          headerTitle: t(`screens.cgu`),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+        name={IAuthStackPages.LEGAL}
+        component={LegalScreen}
+      />
+      <Stack.Screen
+        options={{
+          headerTitle: t(`screens.cguKycProvider`),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+        name={IAuthStackPages.CGU}
+        component={CguScreen}
+      />
+      {/*
       <Stack.Screen
         options={{
           headerTitle: t(`screens.signupstep3.title`),
@@ -125,22 +142,7 @@ export const AuthStack = () => {
         name={IAuthStackPages.SIGNUP_STEP9}
         component={SignupStep9}
       />
-      <Stack.Screen
-        options={{
-          headerTitle: t(`screens.cgu`),
-          ...headersOptions(onPressBackButton(navigateBack)),
-        }}
-        name={IAuthStackPages.LEGAL}
-        component={LegalScreen}
-      />
-      <Stack.Screen
-        options={{
-          headerTitle: t(`screens.cguKycProvider`),
-          ...headersOptions(onPressBackButton(navigateBack)),
-        }}
-        name={IAuthStackPages.CGU}
-        component={CguScreen}
-      /> */}
+      */}
     </Stack.Navigator>
   );
 };

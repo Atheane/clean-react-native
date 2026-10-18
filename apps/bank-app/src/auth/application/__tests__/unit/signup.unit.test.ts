@@ -17,6 +17,7 @@ import {
   PhoneOtp,
   User,
   IUserProperties,
+  ISignupUserCommand,
 } from '@clean-rn/auth/domain';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
@@ -65,7 +66,6 @@ describe('Signup - usecase', () => {
     gender: IGender.MAN,
     firstName: 'John',
     lastName: 'Smith',
-    nationality: 'FR',
   };
 
   const mockPassword: IRegisterPasswordCommand = {
@@ -75,6 +75,7 @@ describe('Signup - usecase', () => {
   const mockBirth: IRegisterBirthCommand = {
     birthday: dayjs('1980-01-01'),
     birthCountry: 'FR',
+    nationality: 'FR',
   };
 
   const mockAddress: IRegisterAddressCommand = {
@@ -146,7 +147,7 @@ describe('Signup - usecase', () => {
       .next()
       .call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, mockQueryEmail.email.value)
       .next(mockQueryEmail.email.value)
-      .put(loadStorage({ email: mockQueryEmail.email }))
+      .put(loadStorage())
       .next(mockQueryEmail.email)
       .call(navigate, { route: IAuthStackPages.LOGIN })
       .next()
@@ -449,17 +450,19 @@ describe('Signup - usecase', () => {
     user.registerAddress(mockAddress);
 
     const uid = '123';
-    user.signup({ id: uid, ...(user.properties as IUserProperties) });
+    user.signup({ id: uid, properties: user.properties as IUserProperties });
 
-    testSaga(signupUserGenerator, httpConnection)
+    testSaga(signupUserGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_SIGNUP_USER,
+      payload: {
+        ...user.properties,
+        phoneOtp: mockQueryPhoneOtp.phoneOtp,
+      } as ISignupUserCommand,
+    })
       .next()
-      .select(selectUser)
-      .next(user)
-      .select(selectPhoneOtp)
-      .next(mockQueryPhoneOtp.phoneOtp)
       .call([api, api.createUser], { ...user.properties, phoneOtp: mockQueryPhoneOtp.phoneOtp })
       .next({ uid })
       .put(userSignedUp(user))
-      .next();
+      .next(user);
   });
 });

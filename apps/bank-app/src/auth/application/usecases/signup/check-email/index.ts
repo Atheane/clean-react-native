@@ -38,4 +38,5 @@ export function* checkEmailExistsGenerator(
   }
   // domain event
   yield put(emailChecked());
+  yield call(navigate, { route: IAuthStackPages.SIGNUP_IDENTITY_PASSWORD_PHONE });
 }
