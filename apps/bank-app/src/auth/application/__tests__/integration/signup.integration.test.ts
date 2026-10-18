@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import {
   AuthError,
   Email,
+  Phone,
   IGender,
   IRegisterAddressCommand,
   IRegisterBirthCommand,
@@ -20,11 +21,14 @@ import {
   registerPasswordSaga,
   registerBirthSaga,
   registerAddressSaga,
+  checkPhoneSaga,
 } from '../../usecases/signup';
 import {
   ISignupTypes,
   emailChecked,
   fetchCheckEmail,
+  fetchCheckPhone,
+  phoneChecked,
   identityRegistered,
   passwordRegistered,
   birthRegistered,
@@ -93,6 +97,7 @@ describe('CheckEmail - integration', () => {
       pending: false,
       success: null,
       email: null,
+      phone: null,
       prospect: null,
       user: null,
       error: null,
@@ -106,13 +111,16 @@ describe('CheckEmail - integration', () => {
   it('Should store correct initial state if not initial state is provided', () => {
     const newState = signupReducer(undefined, {
       type: ISignupTypes.FETCH_CHECK_EMAIL,
-      payload: new Email('test@example.com'),
+      payload: {
+        email: new Email('test@example.com'),
+      },
     });
 
     expect(newState).toEqual({
       pending: true,
       success: null,
       email: new Email('test@example.com'),
+      phone: null,
       prospect: null,
       user: null,
       error: null,
@@ -122,11 +130,12 @@ describe('CheckEmail - integration', () => {
   it('Should store correct state in case if FETCH_CHECK_EMAIL', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
 
-    sagaTester.dispatch(fetchCheckEmail(new Email('test@example.com')));
+    sagaTester.dispatch(fetchCheckEmail({ email: new Email('test@example.com') }));
     expect(sagaTester.getState()).toEqual({
       pending: true,
       success: null,
       email: new Email('test@example.com'),
+      phone: null,
       prospect: null,
       user: null,
       error: null,
@@ -135,13 +144,14 @@ describe('CheckEmail - integration', () => {
 
   it('Should store correct state if EMAIL_CHECKED', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
-    sagaTester.dispatch(fetchCheckEmail(new Email('test@example.com')));
+    sagaTester.dispatch(fetchCheckEmail({ email: new Email('test@example.com') }));
     sagaTester.dispatch(emailChecked(mockSuccessFalse));
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
       success: false,
       email: new Email('test@example.com'),
+      phone: null,
       prospect: null,
       user: null,
       error: null,
@@ -150,7 +160,7 @@ describe('CheckEmail - integration', () => {
 
   it('Should store correct state if SIGNUP_FAILED', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
-    sagaTester.dispatch(fetchCheckEmail(new Email('test@example.com')));
+    sagaTester.dispatch(fetchCheckEmail({ email: new Email('test@example.com') }));
     sagaTester.dispatch(
       signupFailed({
         error: new AuthError.SignupFailureEmailExists(),
@@ -162,9 +172,26 @@ describe('CheckEmail - integration', () => {
       pending: false,
       success: true,
       email: new Email('test@example.com'),
+      phone: null,
       prospect: null,
       user: null,
       error: new AuthError.SignupFailureEmailExists(),
+    });
+  });
+
+  it('Should store correct state if PHONE_CHECKED', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, checkPhoneSaga, httpConnection);
+    sagaTester.dispatch(fetchCheckPhone({ phone: new Phone('0616804613', 'FR') }));
+    sagaTester.dispatch(phoneChecked(mockSuccessFalse));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      success: false,
+      email: null,
+      phone: new Phone('0616804613', 'FR'),
+      prospect: null,
+      user: null,
+      error: null,
     });
   });
 
@@ -173,6 +200,7 @@ describe('CheckEmail - integration', () => {
       pending: false,
       success: false,
       email: new Email('test@example.com'),
+      phone: null,
       prospect: null,
       user: null,
       error: null,
@@ -193,6 +221,7 @@ describe('CheckEmail - integration', () => {
       pending: false,
       success: false,
       email: new Email('test@example.com'),
+      phone: null,
       prospect: prospect,
       user: null,
       error: null,
@@ -206,6 +235,7 @@ describe('CheckEmail - integration', () => {
       pending: false,
       success: false,
       email: new Email('test@example.com'),
+      phone: null,
       prospect,
       user: null,
       error: null,
@@ -224,6 +254,7 @@ describe('CheckEmail - integration', () => {
       pending: false,
       success: false,
       email: new Email('test@example.com'),
+      phone: null,
       prospect,
       user: null,
       error: null,
@@ -237,6 +268,7 @@ describe('CheckEmail - integration', () => {
       pending: false,
       success: false,
       email: new Email('test@example.com'),
+      phone: null,
       prospect,
       user: null,
       error: null,
@@ -255,6 +287,7 @@ describe('CheckEmail - integration', () => {
       pending: false,
       success: false,
       email: new Email('test@example.com'),
+      phone: null,
       prospect,
       user: null,
       error: null,
@@ -268,6 +301,7 @@ describe('CheckEmail - integration', () => {
       pending: false,
       success: false,
       email: new Email('test@example.com'),
+      phone: null,
       prospect,
       user: null,
       error: null,
@@ -286,6 +320,7 @@ describe('CheckEmail - integration', () => {
       pending: false,
       success: false,
       email: new Email('test@example.com'),
+      phone: null,
       prospect,
       user: null,
       error: null,

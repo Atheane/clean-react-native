@@ -10,6 +10,7 @@ import {
   IRegisterBirthCommand,
   IRegisterAddressCommand,
   AuthError,
+  Email,
 } from '@clean-rn/auth/domain';
 
 import {
@@ -106,8 +107,13 @@ function* checkPhoneGenerator(
   // api call
   const phoneExists: ISuccess = yield call([api, api.searchPhone], payload);
   if (phoneExists.success) {
+    yield put(
+      signupFailed({
+        error: new AuthError.SignupFailurePhoneExists(),
+        success: phoneExists.success,
+      }),
+    );
     yield cancel();
-    throw new AuthError.SignupFailurePhoneExists();
   }
   yield put(phoneChecked(phoneExists));
 }
@@ -190,6 +196,7 @@ export {
   checkEmailGenerator,
   registerIdentityGenerator,
   registerPasswordGenerator,
+  checkPhoneGenerator,
   registerBirthGenerator,
   registerAddressGenerator,
 };

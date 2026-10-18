@@ -1,4 +1,14 @@
-import { Email, Prospect, User, ISuccess, IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
+import {
+  Email,
+  Phone,
+  Prospect,
+  User,
+  ISuccess,
+  IAuthErrorCodes,
+  IAuthErrorMessage,
+  ICheckEmailQuery,
+  ICheckPhoneQuery,
+} from '@clean-rn/auth/domain';
 import {
   ISignupActions,
   ISignupTypes,
@@ -11,10 +21,11 @@ import {
   IEmailChecked,
   IPasswordRegistered,
   IPhoneChecked,
+  IFetchCheckPhone,
 } from './types';
 import { IDomainError } from '@clean-rn/ddd';
 
-export const fetchCheckEmail = (payload: Email): IFetchCheckEmail => ({
+export const fetchCheckEmail = (payload: ICheckEmailQuery): IFetchCheckEmail => ({
   type: ISignupTypes.FETCH_CHECK_EMAIL,
   payload,
 });
@@ -49,6 +60,11 @@ export const birthRegistered = (payload: Prospect): IBirthRegistered => ({
 
 export const addressRegistered = (payload: Prospect): IAddressRegistered => ({
   type: ISignupTypes.ADDRESS_REGISTERED,
+  payload,
+});
+
+export const fetchCheckPhone = (payload: ICheckPhoneQuery): IFetchCheckPhone => ({
+  type: ISignupTypes.FETCH_CHECK_PHONE,
   payload,
 });
 

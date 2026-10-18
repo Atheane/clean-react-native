@@ -5,6 +5,7 @@ import { ISignupActions, ISignupTypes } from '../../../commands/signup';
 const initialState: ISignupState = {
   pending: false,
   email: null,
+  phone: null,
   success: null,
   prospect: null,
   user: null,
@@ -20,7 +21,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
       newState = {
         ...state,
         pending: true,
-        email: action.payload,
+        email: action.payload.email,
       };
       return newState;
     case ISignupTypes.EMAIL_CHECKED:
@@ -38,6 +39,22 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
         pending: false,
         success: action.payload.success,
         error: action.payload.error,
+      };
+      return newState;
+    case ISignupTypes.FETCH_CHECK_PHONE:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: true,
+        phone: action.payload.phone,
+      };
+      return newState;
+    case ISignupTypes.PHONE_CHECKED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        success: action.payload.success,
       };
       return newState;
     case ISignupTypes.IDENTITY_REGISTERED:

@@ -1,9 +1,10 @@
-import { Email, IAuthErrorCodes, IAuthErrorMessage, Prospect, User } from '@clean-rn/auth/domain';
+import { Email, Phone, IAuthErrorCodes, IAuthErrorMessage, Prospect, User } from '@clean-rn/auth/domain';
 import { IDomainError } from '@clean-rn/ddd';
 
 export interface ISignupState {
   pending: boolean;
   email: Email | null;
+  phone: Phone | null;
   success: boolean | null;
   prospect: Prospect | null;
   user: User | null;

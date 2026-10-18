@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 
 import {
   Email,
+  Phone,
   IGender,
   IRegisterIdentityCommand,
   Prospect,
@@ -22,6 +23,8 @@ import {
   checkEmailSaga,
   registerIdentityGenerator,
   registerIdentitySaga,
+  checkPhoneGenerator,
+  checkPhoneSaga,
   registerPasswordGenerator,
   registerPasswordSaga,
   registerBirthGenerator,
@@ -36,6 +39,7 @@ import {
   emailChecked,
   identityRegistered,
   passwordRegistered,
+  phoneChecked,
   signupFailed,
 } from '../../commands/signup';
 import { selectEmail, selectProspect } from '../../../application/state-management';
@@ -65,6 +69,22 @@ describe('Signup - usecase', () => {
     city: 'string',
     zip: 'string',
     country: 'GR',
+  };
+
+  const mockQueryEmail = {
+    email: new Email('test@example.com'),
+  };
+
+  const mockQueryPhone = {
+    phone: new Phone('0616804613', 'FR'),
+  };
+
+  const mockSuccessTrue: ISuccess = {
+    success: true,
+  };
+
+  const mockSuccessFalse: ISuccess = {
+    success: false,
   };
 
   it('should wait for FETCH_CHECK_EMAIL action and call checkEmailApiSaga, should be done on next iteration', () => {
@@ -100,13 +120,6 @@ describe('Signup - usecase', () => {
   });
 
   it('should throw SignupFailureEmailExists if email exists', () => {
-    const mockQueryEmail = {
-      email: new Email('test@example.com'),
-    };
-    const mockSuccessTrue: ISuccess = {
-      success: true,
-    };
-
     testSaga(checkEmailGenerator, httpConnection, {
       type: ISignupTypes.FETCH_CHECK_EMAIL,
       payload: mockQueryEmail,
@@ -206,6 +219,45 @@ describe('Signup - usecase', () => {
       .next(new Email('test@example.com'))
       .put(passwordRegistered(prospect))
       .next();
+  });
+
+  it('should wait for CHECK_PHONE action and call registerPhoneGenerator, should be done on next iteration', () => {
+    const genObject = checkPhoneSaga(httpConnection);
+
+    expect(genObject.next().value).toEqual(
+      takeEvery(ISignupTypes.FETCH_CHECK_PHONE, checkPhoneGenerator, httpConnection),
+    );
+    expect(genObject.next().done).toBeTruthy();
+  });
+
+  it('should call phoneChecked', () => {
+    testSaga(checkPhoneGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_CHECK_PHONE,
+      payload: mockQueryPhone,
+    })
+      .next()
+      .call([api, api.searchPhone], mockQueryPhone)
+      .next(mockSuccessFalse)
+      .put(phoneChecked(mockSuccessFalse))
+      .next();
+  });
+
+  it('should call signupFailed action if phone exists', () => {
+    testSaga(checkPhoneGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_CHECK_PHONE,
+      payload: mockQueryPhone,
+    })
+      .next()
+      .call([api, api.searchPhone], mockQueryPhone)
+      .next(mockSuccessTrue)
+      .put(
+        signupFailed({
+          error: new AuthError.SignupFailurePhoneExists(),
+          success: mockSuccessTrue.success,
+        }),
+      )
+      .next()
+      .cancel();
   });
 
   it('should wait for REGISTER_BIRTH action and call registerBirthGenerator, should be done on next iteration', () => {

@@ -1,11 +1,11 @@
 import {
-  Email,
   Prospect,
   User,
   ISuccess,
-  Phone,
   IAuthErrorCodes,
   IAuthErrorMessage,
+  ICheckEmailQuery,
+  ICheckPhoneQuery,
 } from '@clean-rn/auth/domain';
 import { IDomainError } from '@clean-rn/ddd';
 
@@ -28,7 +28,7 @@ export enum ISignupTypes {
 
 export type IFetchCheckEmail = {
   type: typeof ISignupTypes.FETCH_CHECK_EMAIL;
-  payload: Email;
+  payload: ICheckEmailQuery;
 };
 
 export type IEmailChecked = {
@@ -54,9 +54,9 @@ export type IPasswordRegistered = {
   payload: Prospect;
 };
 
-export type IFetchPhoneEmail = {
+export type IFetchCheckPhone = {
   type: typeof ISignupTypes.FETCH_CHECK_PHONE;
-  payload: Phone;
+  payload: ICheckPhoneQuery;
 };
 
 export type IPhoneChecked = {
@@ -90,7 +90,7 @@ export type ISignupActions =
   | ISignupFailed
   | IIdentityRegistered
   | IPasswordRegistered
-  | IFetchPhoneEmail
+  | IFetchCheckPhone
   | IPhoneChecked
   | IBirthRegistered
   | IAddressRegistered
