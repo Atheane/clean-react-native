@@ -32,15 +32,17 @@ function* loginApiSaga({
   try {
     // api call
     auth = yield call([api, api.login], payload);
+    //attachBearerToken to httpConnection
+    httpConnection.attachBearerToken(auth.accessToken);
     // dispatch action to the store
     yield put(loginSuccess(auth));
   } catch (error: unknown) {
     yield put(loginFailure(new AuthError.LoginFailureInvalidCredentials(error)));
     yield cancel();
   }
+
   // store token and email in async storage
   yield call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, auth.accessToken);
-  yield call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, payload.email.value);
 }
 
 function* loginSaga(): Generator<StrictEffect, any, any> {

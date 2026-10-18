@@ -1,8 +1,13 @@
 import { IHttpVerb } from './types';
+import { ServerError } from './errors';
 
 export class HttpConnection {
   private static instance: HttpConnection | null = null;
   public baseUrl: string;
+  private static headers: HeadersInit & { Authorization?: string } = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  };
 
   private constructor(baseUrl: string) {
     this.baseUrl = baseUrl;
@@ -15,11 +20,8 @@ export class HttpConnection {
     return this.instance;
   }
 
-  public getDefaultHeaders(): HeadersInit {
-    return {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    };
+  public getDefaultHeaders(): HeadersInit & { Authorization?: string } {
+    return HttpConnection.headers;
   }
 
   public options(httpVerb: IHttpVerb, params: any): RequestInit {
@@ -33,7 +35,11 @@ export class HttpConnection {
   public async handleError(response: Response): Promise<void> {
     if (!response.ok) {
       const err = await response.json();
-      throw new Error(err.message || err.statusText);
+      throw new ServerError(err);
     }
+  }
+
+  public attachBearerToken(token: string): void {
+    HttpConnection.headers['Authorization'] = `Bearer ${token}`;
   }
 }
