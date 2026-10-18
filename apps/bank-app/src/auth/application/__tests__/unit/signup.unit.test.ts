@@ -15,6 +15,7 @@ import {
   IRegisterAddressCommand,
   AuthError,
   PhoneOtp,
+  User,
 } from '@clean-rn/auth/domain';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
@@ -34,6 +35,8 @@ import {
   registerAddressGenerator,
   validatePhoneGenerator,
   validatePhoneSaga,
+  signupUserSaga,
+  signupUserGenerator,
 } from '../../usecases/signup';
 import {
   ISignupTypes,
@@ -45,6 +48,7 @@ import {
   phoneChecked,
   phoneValidated,
   signupFailed,
+  userSignedUp,
 } from '../../commands/signup';
 import { selectEmail, selectProspect } from '../../../application/state-management';
 
@@ -413,6 +417,36 @@ describe('Signup - usecase', () => {
       .select(selectEmail)
       .next(new Email('test@example.com'))
       .put(addressRegistered(prospect))
+      .next();
+  });
+
+  it('should wait for FETCH_SIGNUP_USER action and call signupUserGenerator, should be done on next iteration', () => {
+    const genObject = signupUserSaga(httpConnection);
+
+    expect(genObject.next().value).toEqual(
+      takeEvery(ISignupTypes.FETCH_SIGNUP_USER, signupUserGenerator, httpConnection),
+    );
+    expect(genObject.next().done).toBeTruthy();
+  });
+
+  it('should call userSignedUp actions if prospect exists', () => {
+    const prospect = Prospect.Create(new Email('test@example.com'));
+    prospect.registerIdentity(mockIdentity);
+    prospect.registerPassword(mockPassword.password);
+    prospect.validatePhone(mockQueryPhoneOtp);
+    prospect.registerBirth(mockBirth);
+    prospect.registerAddress(mockAddress);
+
+    const uid = '123';
+    const user = User.Signup({ id: uid, ...prospect.properties });
+
+    testSaga(signupUserGenerator, httpConnection)
+      .next()
+      .select(selectProspect)
+      .next(prospect)
+      .call([api, api.createUser], { ...prospect.properties })
+      .next({ uid })
+      .put(userSignedUp(user))
       .next();
   });
 });

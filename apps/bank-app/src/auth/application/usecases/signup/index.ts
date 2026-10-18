@@ -196,21 +196,10 @@ function* registerAddressGenerator({
 
 function* signupUserGenerator(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   const prospect = yield select(selectProspect);
-  const { email, phone, password, identity, birth, address, USPerson, phoneOtp } = prospect;
 
   const api = AuthApi.getInstance(httpConnection);
-
-  const { uid } = yield call([api, api.createUser], {
-    email,
-    phone,
-    password,
-    identity,
-    birth,
-    address,
-    USPerson,
-    phoneOtp,
-  });
-  const user = User.Signup({ id: uid, email, phone, password, identity, birth, address, USPerson });
+  const { uid } = yield call([api, api.createUser], { ...prospect.properties });
+  const user = User.Signup({ id: uid, ...prospect.properties });
   yield put(userSignedUp(user));
 }
 
@@ -243,7 +232,7 @@ function* validatePhoneSaga(httpConnection: HttpConnection): Generator<StrictEff
 }
 
 function* signupUserSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(ISignupTypes.FETCH_SIGNUP_USER, validatePhoneGenerator, httpConnection);
+  yield takeEvery(ISignupTypes.FETCH_SIGNUP_USER, signupUserGenerator, httpConnection);
 }
 
 export {

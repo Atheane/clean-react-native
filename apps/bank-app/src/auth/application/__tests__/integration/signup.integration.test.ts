@@ -14,6 +14,7 @@ import {
   IRegisterPasswordCommand,
   Prospect,
   PhoneOtp,
+  User,
 } from '@clean-rn/auth/domain';
 
 import {
@@ -24,6 +25,7 @@ import {
   registerAddressSaga,
   checkPhoneSaga,
   validatePhoneSaga,
+  signupUserSaga,
 } from '../../usecases/signup';
 import {
   ISignupTypes,
@@ -38,6 +40,8 @@ import {
   signupFailed,
   fetchValidatePhone,
   phoneValidated,
+  userSignedUp,
+  fetchSignupUser,
 } from '../../commands/signup';
 import { ISignupState, signupReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
@@ -79,6 +83,11 @@ describe('CheckEmail - integration', () => {
     zip: 'string',
     country: 'GR',
     USPerson: false,
+  };
+
+  const mockQueryPhoneOtp = {
+    phoneOtp: new PhoneOtp('123456'),
+    phone: new Phone('0616804613', 'FR'),
   };
 
   beforeAll(() => {
@@ -382,6 +391,80 @@ describe('CheckEmail - integration', () => {
       phone: null,
       prospect,
       user: null,
+      error: null,
+    });
+  });
+
+  it('Should store correct state in case if FETCH_SIGNUP_USER', () => {
+    const prospect = Prospect.Create(new Email('test@example.com'));
+    prospect.registerIdentity(mockIdentity);
+    prospect.registerPassword(mockPassword.password);
+    prospect.validatePhone(mockQueryPhoneOtp);
+    prospect.registerBirth(mockBirth);
+    prospect.registerAddress(mockAddress);
+
+    const initialState: ISignupState = {
+      pending: true,
+      email: new Email('test@example.com'),
+      phone: new Phone('0616804613', 'FR'),
+      prospect,
+      user: null,
+      error: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: signupReducer,
+    });
+
+    sagaTester.start(wrapSagaHidingNotFoundError, signupUserSaga, httpConnection);
+    sagaTester.dispatch(fetchSignupUser());
+
+    expect(sagaTester.getState()).toEqual({
+      pending: true,
+      email: new Email('test@example.com'),
+      phone: new Phone('0616804613', 'FR'),
+      prospect,
+      user: null,
+      error: null,
+    });
+  });
+
+  it('Should store correct state in case if USER_SIGNED_UP', () => {
+    const prospect = Prospect.Create(new Email('test@example.com'));
+    prospect.registerIdentity(mockIdentity);
+    prospect.registerPassword(mockPassword.password);
+    prospect.validatePhone(mockQueryPhoneOtp);
+    prospect.registerBirth(mockBirth);
+    prospect.registerAddress(mockAddress);
+
+    const initialState: ISignupState = {
+      pending: false,
+      email: new Email('test@example.com'),
+      phone: new Phone('0616804613', 'FR'),
+      prospect,
+      user: null,
+      error: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: signupReducer,
+    });
+
+    sagaTester.start(signupUserSaga, httpConnection);
+
+    const uid = '123';
+    const user = User.Signup({ id: uid, ...prospect.properties });
+
+    sagaTester.dispatch(userSignedUp(user));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: new Email('test@example.com'),
+      phone: new Phone('0616804613', 'FR'),
+      prospect,
+      user,
       error: null,
     });
   });
