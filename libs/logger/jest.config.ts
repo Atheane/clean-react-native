@@ -10,4 +10,14 @@ module.exports = {
   moduleNameMapper: {
     '\\.svg$': '@nx/expo/plugins/jest/svg-mock',
   },
+  collectCoverage: true,
+  collectCoverageFrom: ['**/expo/**/*.ts'],
+  coverageThreshold: {
+    global: {
+      statements: 100,
+      branches: 100,
+      lines: 100,
+      functions: 100,
+    },
+  },
 };
