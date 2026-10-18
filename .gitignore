@@ -66,3 +66,4 @@ apps/storybook-e2e/artifacts
 tsconfig.tsbuildinfo
 
 build*
+.env*
