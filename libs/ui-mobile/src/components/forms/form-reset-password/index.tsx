@@ -76,7 +76,9 @@ export const FormResetPassword = (props: IProps) => {
       </View>
       <View style={[theme.bank.container.centeredItem, styles.submitButtonContainer]}>
         {props.success ? (
-          <Text style={theme.bank.text.darkBlue}>{t('screens.resetPassword.success')}</Text>
+          <View style={styles.textContainer}>
+            <Text style={theme.bank.text.darkBlue}>{t('screens.resetPassword.success')}</Text>
+          </View>
         ) : (
           <SubmitButton
             title={t('screens.resetPassword.submitButton')}
@@ -96,5 +98,8 @@ const styles = StyleSheet.create({
   },
   submitButtonContainer: {
     marginTop: 64,
+  },
+  textContainer: {
+    width: '90%',
   },
 });

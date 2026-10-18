@@ -4,9 +4,8 @@ import { IInitializationTypes, IInitializationActions } from '../../../commands/
 import { IInitializationState } from '../../state/initialization';
 
 const initialState: IInitializationState = {
-  pending: false,
+  pending: null,
   email: null,
-  error: null,
 };
 
 export const initializationReducer = (state = initialState, action: IInitializationActions) => {
@@ -24,15 +23,7 @@ export const initializationReducer = (state = initialState, action: IInitializat
       logger.debug(action.type);
       newState = {
         ...state,
-        email: action.payload.email,
-        pending: false,
-      };
-      return newState;
-    case IInitializationTypes.INITIALIZE_APPLICATION_FAILED:
-      logger.debug(action.type);
-      newState = {
-        ...state,
-        error: action.payload.error,
+        email: action.payload,
         pending: false,
       };
       return newState;

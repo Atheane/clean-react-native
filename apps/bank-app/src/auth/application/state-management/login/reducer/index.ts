@@ -17,27 +17,27 @@ export const loginReducer = (state = initialState, action: ILoginActions) => {
   const logger = Logger.getInstance();
   let newState: ILoginState;
   switch (action.type) {
-    case ILoginTypes.FETCH_LOGIN_REQUEST:
+    case ILoginTypes.FETCH_LOGIN:
       logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
       };
       return newState;
-    case ILoginTypes.FETCH_LOGIN_SUCCESS:
+    case ILoginTypes.LOGIN_SUCCEDED:
       logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
-        auth: action.payload.auth,
+        auth: action.payload,
       };
       return newState;
-    case ILoginTypes.LOGIN_FAILURE:
+    case ILoginTypes.LOGIN_FAILED:
       logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
-        error: action.payload.error,
+        error: action.payload,
       };
       return newState;
     default:

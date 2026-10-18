@@ -4,20 +4,14 @@ import {
   IInitializationActions,
   IInitialization,
   IInitializationSucceded,
-  IInitializationFailed,
 } from './types';
 
 export const initializeApplication = (): IInitialization => ({
   type: IInitializationTypes.INITIALIZE_APPLICATION,
 });
 
-export const initializeApplicationSucceded = (payload: { email: Email }): IInitializationSucceded => ({
+export const initializeApplicationSucceded = (payload: Email | null): IInitializationSucceded => ({
   type: IInitializationTypes.INITIALIZE_APPLICATION_SUCCEDED,
-  payload,
-});
-
-export const initializeApplicationFailed = (payload: { error: Error | unknown }): IInitializationFailed => ({
-  type: IInitializationTypes.INITIALIZE_APPLICATION_FAILED,
   payload,
 });
 

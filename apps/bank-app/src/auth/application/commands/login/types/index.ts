@@ -1,6 +1,6 @@
 import { IDomainError } from '@clean-rn/ddd';
 
-import { IAuth, Email, IAuthErrorMessage, IAuthErrorCodes } from '@clean-rn/auth/domain';
+import { IAuth, IAuthErrorMessage, IAuthErrorCodes, ILoginCommand } from '@clean-rn/auth/domain';
 
 export enum ILoginTypes {
   FETCH_LOGIN = 'FETCH_LOGIN',
@@ -10,24 +10,17 @@ export enum ILoginTypes {
 
 export type IFetchLogin = {
   type: typeof ILoginTypes.FETCH_LOGIN;
-  payload: {
-    email: Email;
-    password: string;
-  };
+  payload: ILoginCommand;
 };
 
 export type ILoginSucceded = {
   type: typeof ILoginTypes.LOGIN_SUCCEDED;
-  payload: {
-    auth: IAuth;
-  };
+  payload: IAuth;
 };
 
 export type ILoginFailed = {
   type: typeof ILoginTypes.LOGIN_FAILED;
-  payload: {
-    error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | Error;
-  };
+  payload: IDomainError<IAuthErrorCodes, IAuthErrorMessage>;
 };
 
 export type ILoginActions = IFetchLogin | ILoginSucceded | ILoginFailed;

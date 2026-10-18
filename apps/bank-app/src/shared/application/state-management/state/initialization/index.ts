@@ -1,7 +1,6 @@
 import { Email } from '@clean-rn/auth/domain';
 
 export interface IInitializationState {
-  pending: boolean;
+  pending: boolean | null;
   email: Email | null;
-  error: unknown | null;
 }

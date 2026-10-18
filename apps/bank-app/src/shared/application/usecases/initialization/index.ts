@@ -1,38 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
-import * as Sentry from '@sentry/react-native';
+import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { Logger } from '@clean-rn/logger';
-
-import { getItemFromStore } from '@clean-rn/shared/infrastructure';
 import { Email } from '@clean-rn/auth/domain';
 
-import {
-  initializeApplicationSucceded,
-  initializeApplicationFailed,
-  IInitializationTypes,
-} from '../../commands/initialization';
+import { initializeApplicationSucceded, IInitializationTypes } from '../../commands/initialization';
 import { IStoreKey } from '../../../../shared/application/types';
 
 function* initialization(): Generator<StrictEffect, any, any> {
-  try {
-    const emailString = yield call(getItemFromStore, IStoreKey.USER_EMAIL);
+  // retireve data from async storage
+  const emailString = yield call(AsyncStorage.getItem, IStoreKey.USER_EMAIL);
 
-    // dispatch action to the store
-    yield put(
-      initializeApplicationSucceded({
-        email: new Email(emailString),
-      }),
-    );
-  } catch (error: unknown) {
-    Logger.getInstance().error(error);
-    Sentry.captureException(error);
-    yield put(
-      initializeApplicationFailed({
-        error,
-      }),
-    );
-  }
+  // dispatch action to the store
+  yield put(initializeApplicationSucceded(emailString ? new Email(emailString) : null));
 }
 
 function* initializationSaga(): Generator<StrictEffect, any, any> {

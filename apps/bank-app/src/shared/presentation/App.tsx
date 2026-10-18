@@ -16,7 +16,6 @@ import { initializeApplication } from '../../shared/application/commands/initial
 
 const App: () => JSX.Element = () => {
   const [fontsLoaded] = useFonts(Fonts);
-
   const dispatch = useDispatch();
 
   useEffect(() => {

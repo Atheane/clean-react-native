@@ -1,13 +1,11 @@
 import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
-import * as Sentry from '@sentry/react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Constants from 'expo-constants';
 
-import { AuthError, ILoginParams } from '@clean-rn/auth/domain';
-import { Logger } from '@clean-rn/logger';
-
-import { getItemFromStore, storeItem } from '@clean-rn/shared/infrastructure';
+import { AuthError, ILoginCommand } from '@clean-rn/auth/domain';
+import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { loginSuccess, loginFailure, ILoginTypes } from '../../commands/login';
-import { authApi } from '../../../infrastructure/network';
 
 import { IStoreKey } from '../../../../shared/application/types';
 
@@ -15,44 +13,32 @@ function* loginApiSaga({
   payload,
 }: {
   type: string;
-  payload: ILoginParams;
+  payload: ILoginCommand;
 }): Generator<StrictEffect, any, any> {
+  // get email from async storage
+  const email = yield call(AsyncStorage.getItem, IStoreKey.USER_EMAIL);
+
+  // compare stored email with input
+  if (email && email !== payload.email.value) {
+    yield put(loginFailure(new AuthError.LoginFailureOneEmailByPhone('Phone already registered')));
+    yield cancel();
+  }
+
+  const api = AuthApi.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+
+  let auth;
   try {
     // api call
-    const auth = yield call(authApi.login, payload);
-
-    // get email from async storage
-    const email = yield call(getItemFromStore, IStoreKey.USER_EMAIL);
-
-    // compare stored email with input
-    if (email && email !== payload.email.value) {
-      yield put(
-        loginFailure({
-          error: new AuthError.LoginFailureOneEmailByPhone('Phone already registered'),
-        }),
-      );
-      yield cancel();
-    }
-
+    auth = yield call([api, api.login], payload);
     // dispatch action to the store
-    yield put(
-      loginSuccess({
-        auth,
-      }),
-    );
-
-    // store token and email in async storage
-    yield call(storeItem, IStoreKey.JWT_ACCESS_TOKEN, auth.accessToken);
-    yield call(storeItem, IStoreKey.USER_EMAIL, payload.email.value);
-  } catch (e: unknown) {
-    Logger.getInstance().error(e);
-    Sentry.captureException(e);
-    yield put(
-      loginFailure({
-        error: e as Error,
-      }),
-    );
+    yield put(loginSuccess(auth));
+  } catch (error: unknown) {
+    yield put(loginFailure(new AuthError.LoginFailureInvalidCredentials(error)));
+    yield cancel();
   }
+  // store token and email in async storage
+  yield call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, auth.accessToken);
+  yield call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, payload.email.value);
 }
 
 function* loginSaga(): Generator<StrictEffect, any, any> {

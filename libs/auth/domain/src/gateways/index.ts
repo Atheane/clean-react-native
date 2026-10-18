@@ -1,8 +1,22 @@
-import { IAuth, ILoginParams, IResetPasswordParams } from '../types';
+import { Email } from '../valueObjects';
+
+export type IAuth = {
+  accessToken: string;
+  refreshToken: string;
+};
+
+export type ILoginCommand = {
+  email: Email;
+  password: string;
+};
+
+export type IResetPasswordCommand = {
+  email: Email;
+};
 
 export interface IAuthGateway {
-  login: (params: ILoginParams) => Promise<IAuth>;
-  resetPassword: (params: IResetPasswordParams) => Promise<{ success: boolean }>;
+  login: (cmd: ILoginCommand) => Promise<IAuth>;
+  resetPassword: (cmd: IResetPasswordCommand) => Promise<{ success: boolean }>;
   //   sendPhoneValidation: (
   //     params: IPostSendPhoneValidationParams,
   //   ) => Promise<AxiosResponse<{ success: boolean }>>;

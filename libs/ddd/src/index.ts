@@ -1,4 +1,4 @@
 export * from './utils';
-//todo export * from './ICommand';
+export * from './ISuccess';
 //todo export * from './IDomainEvent';
 export * from './IDomainError';

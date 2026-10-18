@@ -1,15 +1,10 @@
 import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
-import * as Sentry from '@sentry/react-native';
+import Constants from 'expo-constants';
 
-import { Logger } from '@clean-rn/logger';
 import { Email } from '@clean-rn/auth/domain';
+import { AuthApi } from '@clean-rn/auth/infrastructure';
 
-import {
-  IResetPasswordTypes,
-  resetPasswordSuccess,
-  resetPasswordFailure,
-} from '../../commands/reset-password';
-import { authApi } from '../../../infrastructure/network';
+import { IResetPasswordTypes, resetPasswordSuccess } from '../../commands/reset-password';
 
 function* resetPasswordApiSaga({
   payload,
@@ -17,26 +12,18 @@ function* resetPasswordApiSaga({
   type: string;
   payload: { email: Email };
 }): Generator<StrictEffect, any, any> {
-  try {
-    // api call
-    const response = yield call(authApi.resetPassword, { email: payload.email });
-    const success = response.success;
+  // api call
+  const api = AuthApi.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+  // api call
+  const response = yield call([api, api.resetPassword], { email: payload.email });
+  const success = response.success;
 
-    // dispatch action to the store
-    yield put(
-      resetPasswordSuccess({
-        success,
-      }),
-    );
-  } catch (error: unknown) {
-    Logger.getInstance().error(error);
-    Sentry.captureException(error);
-    yield put(
-      resetPasswordFailure({
-        error: error as Error,
-      }),
-    );
-  }
+  // dispatch action to the store
+  yield put(
+    resetPasswordSuccess({
+      success,
+    }),
+  );
 }
 
 function* resetPasswordSaga(): Generator<StrictEffect, any, any> {
