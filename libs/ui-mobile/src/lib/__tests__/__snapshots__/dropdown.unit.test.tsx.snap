@@ -6,14 +6,14 @@ exports[`Dropdown -  defaultValue -  renders as before 1`] = `
     style={
       [
         {
-          "color": "rgba(203, 40, 125, 1)",
+          "color": "#CB287D",
           "fontFamily": "Roboto_700Bold",
           "fontSize": 18,
           "lineHeight": 24,
           "marginBottom": 16,
         },
         {
-          "color": "rgba(203, 40, 125, 1)",
+          "color": "#CB287D",
         },
       ]
     }
@@ -94,7 +94,7 @@ exports[`Dropdown -  defaultValue -  renders as before 1`] = `
         <SvgMock
           style={
             {
-              "color": "rgba(207, 206, 41, 1)",
+              "color": "#BFD23A",
             }
           }
         />
@@ -104,7 +104,7 @@ exports[`Dropdown -  defaultValue -  renders as before 1`] = `
         numberOfLines={1}
         style={
           {
-            "color": "rgba(203, 40, 125, 1)",
+            "color": "#CB287D",
             "flex": 1,
             "fontFamily": "Roboto_400Regular",
             "fontSize": 14,
@@ -126,14 +126,14 @@ exports[`Dropdown -  labelColor -  renders as before 1`] = `
     style={
       [
         {
-          "color": "rgba(203, 40, 125, 1)",
+          "color": "#CB287D",
           "fontFamily": "Roboto_700Bold",
           "fontSize": 18,
           "lineHeight": 24,
           "marginBottom": 16,
         },
         {
-          "color": "rgba(105, 113, 124, 1)",
+          "color": "#838383",
         },
       ]
     }
@@ -214,7 +214,7 @@ exports[`Dropdown -  labelColor -  renders as before 1`] = `
         <SvgMock
           style={
             {
-              "color": "rgba(207, 206, 41, 1)",
+              "color": "#BFD23A",
             }
           }
         />
@@ -224,7 +224,7 @@ exports[`Dropdown -  labelColor -  renders as before 1`] = `
         numberOfLines={1}
         style={
           {
-            "color": "rgba(203, 40, 125, 1)",
+            "color": "#CB287D",
             "flex": 1,
             "fontFamily": "Roboto_400Regular",
             "fontSize": 14,
@@ -246,14 +246,14 @@ exports[`Dropdown -  minimal props -  renders as before 1`] = `
     style={
       [
         {
-          "color": "rgba(203, 40, 125, 1)",
+          "color": "#CB287D",
           "fontFamily": "Roboto_700Bold",
           "fontSize": 18,
           "lineHeight": 24,
           "marginBottom": 16,
         },
         {
-          "color": "rgba(203, 40, 125, 1)",
+          "color": "#CB287D",
         },
       ]
     }
@@ -334,7 +334,7 @@ exports[`Dropdown -  minimal props -  renders as before 1`] = `
         <SvgMock
           style={
             {
-              "color": "rgba(207, 206, 41, 1)",
+              "color": "#BFD23A",
             }
           }
         />
@@ -344,7 +344,7 @@ exports[`Dropdown -  minimal props -  renders as before 1`] = `
         numberOfLines={1}
         style={
           {
-            "color": "rgba(203, 40, 125, 1)",
+            "color": "#CB287D",
             "flex": 1,
             "fontFamily": "Roboto_400Regular",
             "fontSize": 14,

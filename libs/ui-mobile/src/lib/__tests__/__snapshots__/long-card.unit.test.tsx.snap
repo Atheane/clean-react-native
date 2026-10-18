@@ -5,7 +5,7 @@ exports[`LongCard -  minimal props -  renders as before 1`] = `
   style={
     {
       "alignItems": "center",
-      "backgroundColor": "rgba(255, 255, 255, 1)",
+      "backgroundColor": "#FFFFFF",
       "borderRadius": 20,
       "elevation": 10,
       "flexDirection": "row",
@@ -32,7 +32,7 @@ exports[`LongCard -  minimal props -  renders as before 1`] = `
     <Text
       style={
         {
-          "color": "rgba(10, 125, 192, 1)",
+          "color": "#71C9F6",
           "fontFamily": "Roboto_400Regular",
           "fontSize": 16,
           "lineHeight": 21,

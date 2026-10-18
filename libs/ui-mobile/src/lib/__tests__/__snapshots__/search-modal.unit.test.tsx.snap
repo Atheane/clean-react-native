@@ -9,7 +9,7 @@ exports[`SearchModal -  minimal props -  renders as before 1`] = `
       style={
         [
           {
-            "color": "rgba(131, 131, 131, 1)",
+            "color": "#838383",
             "fontFamily": "Roboto_700Bold",
             "fontSize": 16,
             "lineHeight": 21,
@@ -18,7 +18,7 @@ exports[`SearchModal -  minimal props -  renders as before 1`] = `
             "textTransform": "uppercase",
           },
           {
-            "color": "rgba(203, 40, 125, 1)",
+            "color": "#CB287D",
           },
         ]
       }
@@ -30,7 +30,7 @@ exports[`SearchModal -  minimal props -  renders as before 1`] = `
         {
           "backgroundColor": "#F0F0F0",
           "borderRadius": 8,
-          "width": 309,
+          "width": 600,
         }
       }
     >
@@ -48,8 +48,7 @@ exports[`SearchModal -  minimal props -  renders as before 1`] = `
           style={
             {
               "alignItems": "center",
-              "borderBottomColor": "transparent",
-              "borderBottomWidth": 1,
+              "borderBottomWidth": 0,
               "borderColor": "#86939e",
               "flexDirection": "row",
               "marginBottom": -15,
@@ -66,6 +65,7 @@ exports[`SearchModal -  minimal props -  renders as before 1`] = `
             style={
               {
                 "alignItems": "center",
+                "borderBottomWidth": 0,
                 "height": 40,
                 "justifyContent": "center",
                 "marginHorizontal": 10,
@@ -86,11 +86,13 @@ exports[`SearchModal -  minimal props -  renders as before 1`] = `
             placeholderTextColor="#86939e"
             style={
               {
-                "color": "rgba(203, 40, 125, 1)",
+                "color": "#CB287D",
                 "flex": 1,
                 "fontFamily": "Roboto_400Regular",
                 "fontSize": 14,
                 "minHeight": 40,
+                "textDecorationColor": "transparent",
+                "textDecorationLine": "none",
               }
             }
             testID="RNE__Input__text-input"

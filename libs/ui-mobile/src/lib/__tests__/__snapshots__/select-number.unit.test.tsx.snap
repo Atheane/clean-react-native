@@ -12,7 +12,7 @@ exports[`SelectNumber -  horizontal -  renders as before 1`] = `
   <Text
     style={
       {
-        "color": "rgba(203, 40, 125, 1)",
+        "color": "#CB287D",
         "fontFamily": "Roboto_700Bold",
         "fontSize": 18,
         "lineHeight": 24,
@@ -81,7 +81,7 @@ exports[`SelectNumber -  horizontal -  renders as before 1`] = `
         style={
           {
             "alignItems": "center",
-            "backgroundColor": "rgba(162, 179, 2, 0.6)",
+            "backgroundColor": "#BFD23A",
             "borderBottomLeftRadius": 15.84,
             "borderTopLeftRadius": 15.84,
             "borderWidth": 0,
@@ -199,7 +199,7 @@ exports[`SelectNumber -  horizontal -  renders as before 1`] = `
         style={
           {
             "alignItems": "center",
-            "backgroundColor": "rgba(162, 179, 2, 0.6)",
+            "backgroundColor": "#BFD23A",
             "borderBottomRightRadius": 15.84,
             "borderTopRightRadius": 15.84,
             "borderWidth": 0,
@@ -253,7 +253,7 @@ exports[`SelectNumber -  icon -  renders as before 1`] = `
   <Text
     style={
       {
-        "color": "rgba(203, 40, 125, 1)",
+        "color": "#CB287D",
         "fontFamily": "Roboto_700Bold",
         "fontSize": 18,
         "lineHeight": 24,
@@ -334,7 +334,7 @@ exports[`SelectNumber -  icon -  renders as before 1`] = `
         style={
           {
             "alignItems": "center",
-            "backgroundColor": "rgba(162, 179, 2, 0.6)",
+            "backgroundColor": "#BFD23A",
             "borderBottomLeftRadius": 15.84,
             "borderTopLeftRadius": 15.84,
             "borderWidth": 0,
@@ -452,7 +452,7 @@ exports[`SelectNumber -  icon -  renders as before 1`] = `
         style={
           {
             "alignItems": "center",
-            "backgroundColor": "rgba(162, 179, 2, 0.6)",
+            "backgroundColor": "#BFD23A",
             "borderBottomRightRadius": 15.84,
             "borderTopRightRadius": 15.84,
             "borderWidth": 0,
@@ -506,7 +506,7 @@ exports[`SelectNumber -  minimal props -  renders as before 1`] = `
   <Text
     style={
       {
-        "color": "rgba(203, 40, 125, 1)",
+        "color": "#CB287D",
         "fontFamily": "Roboto_700Bold",
         "fontSize": 18,
         "lineHeight": 24,
@@ -576,7 +576,7 @@ exports[`SelectNumber -  minimal props -  renders as before 1`] = `
         style={
           {
             "alignItems": "center",
-            "backgroundColor": "rgba(162, 179, 2, 0.6)",
+            "backgroundColor": "#BFD23A",
             "borderBottomLeftRadius": 15.84,
             "borderTopLeftRadius": 15.84,
             "borderWidth": 0,
@@ -666,7 +666,7 @@ exports[`SelectNumber -  minimal props -  renders as before 1`] = `
         style={
           {
             "alignItems": "center",
-            "backgroundColor": "rgba(162, 179, 2, 0.6)",
+            "backgroundColor": "#BFD23A",
             "borderBottomRightRadius": 15.84,
             "borderTopRightRadius": 15.84,
             "borderWidth": 0,
