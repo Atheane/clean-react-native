@@ -18,6 +18,7 @@ export class AuthApi implements IAuthGateway, IUserRepository {
     this.connection = httpConnection;
     this.login = this.login.bind(this);
     this.resetPassword = this.resetPassword.bind(this);
+    this.searchEmail = this.searchEmail.bind(this);
   }
 
   // Public method to provide access to the singleton instance

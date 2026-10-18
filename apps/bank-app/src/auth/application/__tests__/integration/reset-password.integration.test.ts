@@ -24,9 +24,7 @@ describe('ResetPassword - integration', () => {
 
   let sagaTester: SagaTester;
 
-  beforeAll(async () => {
-    HttpConnection.getInstance('https://sandbox.example.com');
-  });
+  const httpConnection = HttpConnection.getInstance('https://fake-api.com');
 
   beforeEach(() => {
     const initialState = {
@@ -54,7 +52,7 @@ describe('ResetPassword - integration', () => {
   });
 
   it('Should store correct state in case if FETCH_RESET_PASSWORD', () => {
-    sagaTester.start(resetPasswordSaga);
+    sagaTester.start(resetPasswordSaga, httpConnection);
 
     sagaTester.dispatch(fetchResetPassword(mockData));
 
@@ -66,7 +64,7 @@ describe('ResetPassword - integration', () => {
   });
 
   it('Should store correct state if RESET_PASSWORD_SUCCESS', () => {
-    sagaTester.start(resetPasswordSaga);
+    sagaTester.start(resetPasswordSaga, httpConnection);
     sagaTester.dispatch(fetchResetPassword(mockData));
     sagaTester.dispatch(resetPasswordSuccess({ success: mockResponse.success }));
 
@@ -78,7 +76,7 @@ describe('ResetPassword - integration', () => {
   });
 
   it('Should store correct state in case if INIT_RESET_PASSWORD', () => {
-    sagaTester.start(resetPasswordSaga);
+    sagaTester.start(resetPasswordSaga, httpConnection);
 
     sagaTester.dispatch(initResetPassword());
 

@@ -1,6 +1,5 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import SagaTester from 'redux-saga-tester';
-import Constants from 'expo-constants';
 
 import { AuthError, Email } from '@clean-rn/auth/domain';
 
@@ -22,9 +21,7 @@ describe('Login - integration', () => {
     refreshToken: 'fake-refresh-token',
   };
 
-  beforeAll(async () => {
-    HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
-  });
+  const httpConnection = HttpConnection.getInstance('https://fake-api.com');
 
   beforeEach(() => {
     const initialState: ILoginState = {
@@ -58,7 +55,7 @@ describe('Login - integration', () => {
   });
 
   it('Should store correct state in case if FETCH_LOGIN', () => {
-    sagaTester.start(loginSaga);
+    sagaTester.start(loginSaga, httpConnection);
 
     sagaTester.dispatch(fetchLogin(mockData));
 
@@ -73,7 +70,7 @@ describe('Login - integration', () => {
   });
 
   it('Should store correct state if LOGIN_SUCCESS', () => {
-    sagaTester.start(loginSaga);
+    sagaTester.start(loginSaga, httpConnection);
     sagaTester.dispatch(fetchLogin(mockData));
     sagaTester.dispatch(loginSuccess(mockResponse));
 
@@ -85,7 +82,7 @@ describe('Login - integration', () => {
   });
 
   it('Should store correct state if LOGIN_FAILURE for invalid credentials', () => {
-    sagaTester.start(loginSaga);
+    sagaTester.start(loginSaga, httpConnection);
     sagaTester.dispatch(fetchLogin(mockData));
     sagaTester.dispatch(loginFailure(new AuthError.LoginFailureInvalidCredentials()));
 
