@@ -78,8 +78,8 @@ exports[`SearchModal -  minimal props -  renders as before 1`] = `
           <TextInput
             autoCapitalize="none"
             autoCorrect={false}
-            clearButtonMode="always"
             editable={true}
+            keyboardType="default"
             onFocus={[Function]}
             placeholder="string"
             placeholderTextColor="#86939e"
