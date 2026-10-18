@@ -1,4 +1,4 @@
-import { takeEvery } from 'redux-saga/effects';
+import { SelectEffectDescriptor, SimpleEffect, takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 import dayjs from 'dayjs';
@@ -40,6 +40,8 @@ import {
   signupUserSaga,
   signupUserGenerator,
 } from '../../usecases/signup';
+import { selectUser, selectEmail } from '../../state-management/selectors';
+
 import {
   ISignupTypes,
   addressRegistered,
@@ -220,7 +222,7 @@ describe('Signup - usecase', () => {
 
     testSaga(registerIdentityGenerator, {
       type: ISignupTypes.REGISTER_IDENTITY,
-      payload: { user, ...mockIdentity },
+      payload: { email: new Email('test@example.com'), ...mockIdentity },
     })
       .next()
       .put(identityRegistered(user))
@@ -228,16 +230,64 @@ describe('Signup - usecase', () => {
   });
 
   it('should call registerPassword actions', () => {
+    const userPrev = User.Create(new Email('test@example.com'));
     const user = User.Create(new Email('test@example.com'));
     user.registerPassword(mockPassword.password);
-
     testSaga(registerPasswordGenerator, {
       type: ISignupTypes.REGISTER_PASSWORD,
-      payload: { user, ...mockPassword },
+      payload: mockPassword,
     })
       .next()
+      .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
+        expect(yieldedValue.type).toEqual('SELECT');
+        expect(yieldedValue).toEqual(
+          expect.objectContaining({
+            type: 'SELECT',
+            payload: expect.objectContaining({
+              selector: selectUser,
+            }),
+          }),
+        );
+      })
+      .next(userPrev)
       .put(passwordRegistered(user))
-      .next();
+      .next(user);
+  });
+
+  it('should call registerPassword actions if user not in store', () => {
+    const user = User.Create(new Email('test@example.com'));
+    user.registerPassword(mockPassword.password);
+    testSaga(registerPasswordGenerator, {
+      type: ISignupTypes.REGISTER_PASSWORD,
+      payload: mockPassword,
+    })
+      .next()
+      .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
+        expect(yieldedValue.type).toEqual('SELECT');
+        expect(yieldedValue).toEqual(
+          expect.objectContaining({
+            type: 'SELECT',
+            payload: expect.objectContaining({
+              selector: selectUser,
+            }),
+          }),
+        );
+      })
+      .next(null)
+      .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
+        expect(yieldedValue.type).toEqual('SELECT');
+        expect(yieldedValue).toEqual(
+          expect.objectContaining({
+            type: 'SELECT',
+            payload: expect.objectContaining({
+              selector: selectEmail,
+            }),
+          }),
+        );
+      })
+      .next(new Email('test@example.com'))
+      .put(passwordRegistered(user))
+      .next(user);
   });
 
   it('should call phoneChecked', () => {

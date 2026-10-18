@@ -48,7 +48,7 @@ export const registerIdentity = (
   payload,
 });
 
-export const registerPassword = (payload: IRegisterPasswordCommand & { user: User }): IRegisterPassword => ({
+export const registerPassword = (payload: IRegisterPasswordCommand): IRegisterPassword => ({
   type: ISignupTypes.REGISTER_PASSWORD,
   payload,
 });
