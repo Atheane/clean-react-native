@@ -8,7 +8,6 @@ import {
   initializeApplicationSuccess,
 } from '../../commands/initialization';
 import { IInitializationState, initializationReducer } from '../../state-management';
-import { IStoreKey } from '../../types';
 
 describe('Initialization - integration', () => {
   let sagaTester: SagaTester;

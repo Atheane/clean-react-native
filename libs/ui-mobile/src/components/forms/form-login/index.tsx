@@ -20,7 +20,6 @@ type IProps = {
   loading: boolean;
   onSubmit: () => void;
   filled: boolean;
-  onEdit: () => void;
   onFocus: () => void;
   secured: boolean;
   onToggleSecurity: (event: GestureResponderEvent) => void;
@@ -44,12 +43,7 @@ export const FormLogin = (props: IProps) => {
       <View>
         <View style={styles.inputContainer}>
           {props.filled && props.email ? (
-            <EmailInput
-              email={props.email}
-              filled={props.filled}
-              onEdit={props.onEdit}
-              onFocus={props.onFocus}
-            />
+            <EmailInput email={props.email} filled={props.filled} onFocus={props.onFocus} />
           ) : (
             <View>
               <Controller

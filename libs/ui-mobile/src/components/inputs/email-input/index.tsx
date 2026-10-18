@@ -1,10 +1,10 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { Input, useTheme } from '@rneui/themed';
 
-import { Mail, Edit } from '../../../assets';
+import { Mail } from '../../../assets';
 import { Colors } from '../../../constants';
 
 import { TextInput } from '../../inputs/text-input';
@@ -16,7 +16,6 @@ type Props = {
 type State = {
   value?: string;
   filled?: boolean;
-  onEdit?: () => void;
   onFocus: () => void;
   onChange?: (text: string) => void;
 };
@@ -41,11 +40,7 @@ export const EmailInput = (props: Props & State) => {
       leftIcon={<Mail style={{ color: Colors.bank.primary.lightGreen }} />}
       leftIconContainerStyle={styles.leftIconContainer}
       value={props.email?.trim()}
-      rightIcon={
-        <View style={styles.editIcon} onTouchStart={props.onEdit}>
-          <Edit />
-        </View>
-      }
+      caretHidden={true}
     />
   ) : (
     <TextInput
