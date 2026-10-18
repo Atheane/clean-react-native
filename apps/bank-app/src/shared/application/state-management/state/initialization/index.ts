@@ -5,5 +5,4 @@ export interface IInitializationState {
   pending: boolean | null;
   email: Email | null;
   initRouteName: IAuthStackPages | undefined;
-  isFirstConnection: boolean;
 }

@@ -53,7 +53,7 @@ import {
 } from '../../commands/signup';
 import { selectEmail, selectPhoneOtp, selectUser } from '../../../application/state-management';
 import { IStoreKey } from '../../../../shared/application/types';
-import { initializeApplication } from '../../../../shared/application/commands/initialization';
+import { loadStorage } from '../../../../shared/application/commands/initialization';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
@@ -146,8 +146,8 @@ describe('Signup - usecase', () => {
       .next()
       .call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, mockQueryEmail.email.value)
       .next(mockQueryEmail.email.value)
-      .put(initializeApplication(true))
-      .next()
+      .put(loadStorage({ email: mockQueryEmail.email }))
+      .next(mockQueryEmail.email)
       .call(navigate, { route: IAuthStackPages.LOGIN })
       .next()
       .cancel();

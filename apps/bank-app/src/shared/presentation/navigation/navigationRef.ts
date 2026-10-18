@@ -1,4 +1,6 @@
 import { createNavigationContainerRef, NavigationContainerRef } from '@react-navigation/native';
+import { StackActions } from '@react-navigation/native';
+
 import { IAuthStackPages } from '../../../shared/presentation/types';
 
 export const navigationRef: NavigationContainerRef<Record<string, any>> | undefined =
@@ -15,6 +17,22 @@ export function navigate({ route, params }: { route: IAuthStackPages; params?: R
     }
   } else {
     initRoute = route;
+  }
+}
+
+export function push({ route, params }: { route: IAuthStackPages; params?: Record<string, any> }) {
+  if (navigationRef && navigationRef.isReady()) {
+    if (params) {
+      navigationRef.dispatch(StackActions.push(route, params));
+    } else {
+      navigationRef.dispatch(StackActions.push(route));
+    }
+  }
+}
+
+export function pop() {
+  if (navigationRef && navigationRef.isReady()) {
+    navigationRef.dispatch(StackActions.pop());
   }
 }
 

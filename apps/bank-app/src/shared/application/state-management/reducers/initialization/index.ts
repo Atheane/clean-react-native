@@ -7,7 +7,6 @@ const initialState: IInitializationState = {
   pending: null,
   email: null,
   initRouteName: undefined,
-  isFirstConnection: false,
 };
 
 export const initializationReducer = (state = initialState, action: IInitializationActions) => {
@@ -19,7 +18,6 @@ export const initializationReducer = (state = initialState, action: IInitializat
       newState = {
         ...state,
         pending: true,
-        isFirstConnection: action.payload ?? false,
       };
       return newState;
     case IInitializationTypes.APPLICATION_INITIALIZED:
@@ -27,8 +25,23 @@ export const initializationReducer = (state = initialState, action: IInitializat
       newState = {
         ...state,
         pending: false,
-        email: action.payload.email ?? null,
+        email: action.payload.email,
         initRouteName: action.payload.initRouteName,
+      };
+      return newState;
+    case IInitializationTypes.LOAD_STORAGE:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: true,
+      };
+      return newState;
+    case IInitializationTypes.STORAGE_LOADED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        email: action.payload.email,
       };
       return newState;
     default:

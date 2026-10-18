@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Email } from '@clean-rn/auth/domain';
 
-import { IInitializationTypes, initializeApplicationSuccess } from '../../commands/initialization';
+import { IInitializationTypes, applicationInitialized } from '../../commands/initialization';
 import { initializationSaga, initialization } from '../../usecases/initialization';
 import { IStoreKey } from '../../types';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
@@ -28,7 +28,7 @@ describe('Initialization - usecase', () => {
       .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
       .next(new Email('test@example.com').value)
       .put(
-        initializeApplicationSuccess({
+        applicationInitialized({
           email: new Email('test@example.com'),
           initRouteName: IAuthStackPages.LOGIN,
         }),

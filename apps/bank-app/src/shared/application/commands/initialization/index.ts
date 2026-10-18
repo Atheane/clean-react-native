@@ -4,19 +4,29 @@ import {
   IInitializationActions,
   IInitialization,
   IInitializationSucceded,
+  IStorageLoaded,
+  ILoadStorage,
 } from './types';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 
-export const initializeApplication = (isFirstConnection?: boolean): IInitialization => ({
+export const initializeApplication = (): IInitialization => ({
   type: IInitializationTypes.INITIALIZE_APPLICATION,
-  payload: isFirstConnection,
 });
 
-export const initializeApplicationSuccess = (payload: {
-  email?: Email;
-  initRouteName?: IAuthStackPages;
+export const applicationInitialized = (payload: {
+  email: Email | null;
+  initRouteName: IAuthStackPages;
 }): IInitializationSucceded => ({
   type: IInitializationTypes.APPLICATION_INITIALIZED,
+  payload,
+});
+
+export const loadStorage = (): ILoadStorage => ({
+  type: IInitializationTypes.LOAD_STORAGE,
+});
+
+export const storageLoaded = (payload: { email: Email | null }): IStorageLoaded => ({
+  type: IInitializationTypes.STORAGE_LOADED,
   payload,
 });
 

@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
-import { initializeApplication } from '../../../../../shared/application/commands/initialization';
+import { loadStorage } from '../../../../../shared/application/commands/initialization';
 import { IStoreKey } from '../../../../../shared/application/types';
 import { navigate } from '../../../../../shared/presentation/navigation/navigationRef';
 import { IAuthStackPages } from '../../../../../shared/presentation/types';
@@ -32,8 +32,7 @@ export function* checkEmailExistsGenerator(
   if (emailExists.success) {
     yield put(signupFailed(new AuthError.SignupFailureEmailExists()));
     yield call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, payload.email.value);
-    // initializeApplication(isForstConnection?: boolean)
-    yield put(initializeApplication(true));
+    yield put(loadStorage());
     yield call(navigate, { route: IAuthStackPages.LOGIN });
     yield cancel();
   }

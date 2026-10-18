@@ -2,7 +2,7 @@
 // import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-
+import { useNavigationState } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import {
@@ -22,23 +22,21 @@ import {
 } from '../screens';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { IAuthStackPages, IAuthStackProps } from '../../../shared/presentation/types';
-import { navigate, goBack } from '../../../shared/presentation/navigation/navigationRef';
+import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 const Stack = createNativeStackNavigator<IAuthStackProps>();
 
 export const AuthStack = () => {
   const { t } = useTranslation();
-  const { initRouteName, isFirstConnection } = useSelector((state: IRootState) => state.initialization);
-
+  const { initRouteName } = useSelector((state: IRootState) => state.initialization);
+  const navigationStack = useNavigationState((state) => state?.routes ?? []);
   return (
     <Stack.Navigator initialRouteName={initRouteName}>
       <Stack.Screen
         options={{
           headerTitle: t(`screens.login.title`),
-          ...headersOptions(
-            isFirstConnection ? () => navigate({ route: IAuthStackPages.SIGNUP_EMAIL }) : undefined,
-          ),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
         name={IAuthStackPages.LOGIN}
         component={Login}
@@ -46,7 +44,7 @@ export const AuthStack = () => {
       <Stack.Screen
         options={{
           headerTitle: t('screens.resetPassword.title'),
-          ...headersOptions(() => navigate({ route: IAuthStackPages.LOGIN })),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
         name={IAuthStackPages.RESET_PASSWORD}
         component={ResetPassword}
@@ -54,7 +52,7 @@ export const AuthStack = () => {
       <Stack.Screen
         options={{
           headerTitle: t(`screens.signup-email.title`),
-          ...headersOptions(),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
         name={IAuthStackPages.SIGNUP_EMAIL}
         component={SignupEmail}

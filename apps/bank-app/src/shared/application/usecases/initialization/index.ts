@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Email } from '@clean-rn/auth/domain';
 
-import { initializeApplicationSuccess, IInitializationTypes } from '../../commands/initialization';
+import { applicationInitialized, IInitializationTypes } from '../../commands/initialization';
 import { IStoreKey } from '../../../../shared/application/types';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
@@ -20,12 +20,9 @@ export function* initialization({
   payload?: boolean;
 }): Generator<StrictEffect, any, any> {
   // retireve data from async storage
-  console.log('initialization isFirstConnection', payload);
   const emailString = yield call(AsyncStorage.getItem, IStoreKey.USER_EMAIL);
   const initRouteName = emailString ? IAuthStackPages.LOGIN : IAuthStackPages.SIGNUP_EMAIL;
   // dispatch action to the store
-  yield put(
-    initializeApplicationSuccess({ email: emailString ? new Email(emailString) : undefined, initRouteName }),
-  );
+  yield put(applicationInitialized({ email: emailString ? new Email(emailString) : null, initRouteName }));
   yield call(navigate, { route: initRouteName });
 }
