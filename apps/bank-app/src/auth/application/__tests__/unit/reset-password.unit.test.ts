@@ -8,7 +8,7 @@ import { Email } from '@clean-rn/auth/domain';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { resetPasswordApiSaga, resetPasswordSaga } from '../../usecases/reset-password';
-import { IResetPasswordTypes, resetPasswordSuccess } from '../../commands/reset-password';
+import { IResetPasswordTypes, passwordReset } from '../../commands/reset-password';
 
 describe('ResetPassword - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -40,7 +40,7 @@ describe('ResetPassword - usecase', () => {
       .call([api, api.resetPassword], mockData)
       .next(mockResponse)
       .put(
-        resetPasswordSuccess({
+        passwordReset({
           success: mockResponse.success,
         }),
       )

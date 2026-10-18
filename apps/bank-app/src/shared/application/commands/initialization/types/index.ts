@@ -2,7 +2,7 @@ import { Email } from '@clean-rn/auth/domain';
 
 export enum IInitializationTypes {
   INITIALIZE_APPLICATION = 'INITIALIZE_APPLICATION',
-  INITIALIZE_APPLICATION_SUCCEDED = 'INITIALIZE_APPLICATION_SUCCEDED',
+  APPLICATION_INITIALIZED = 'APPLICATION_INITIALIZED',
 }
 
 export type IInitialization = {
@@ -10,7 +10,7 @@ export type IInitialization = {
 };
 
 export type IInitializationSucceded = {
-  type: typeof IInitializationTypes.INITIALIZE_APPLICATION_SUCCEDED;
+  type: typeof IInitializationTypes.APPLICATION_INITIALIZED;
   payload: Email | null;
 };
 

@@ -11,7 +11,7 @@ export const initializeApplication = (): IInitialization => ({
 });
 
 export const initializeApplicationSuccess = (payload: Email | null): IInitializationSucceded => ({
-  type: IInitializationTypes.INITIALIZE_APPLICATION_SUCCEDED,
+  type: IInitializationTypes.APPLICATION_INITIALIZED,
   payload,
 });
 

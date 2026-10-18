@@ -3,26 +3,20 @@ import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
-import { IDomainError } from '@clean-rn/ddd';
-import { IAuthErrorCodes, IAuthErrorMessage, Email } from '@clean-rn/auth/domain';
+import { Email } from '@clean-rn/auth/domain';
 
 import { firstLetterCapitalize } from '../../../utils';
 
 import { SubmitButton } from '../../buttons/submit-button';
 import { EmailInput } from '../../inputs/email-input';
-import { ErrorMessage } from '../../texts/error-message';
 
 type IProps = {
   email?: string;
-  success: boolean;
+  success: boolean | null;
   loading: boolean;
   onSubmit: () => void;
-  filled: boolean;
-  onEdit: () => void;
-  onFocus: () => void;
   control: Control<IResetPasswordFormData>;
   errors: FieldErrors<IResetPasswordFormData>;
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | Error | null;
 };
 
 export type IResetPasswordFormData = {
@@ -36,13 +30,8 @@ export const FormResetPassword = (props: IProps) => {
     <View>
       <View style={theme.bank.container.centeredItem}>
         <View>
-          {props.filled && props.email ? (
-            <EmailInput
-              email={props.email}
-              filled={props.filled}
-              onEdit={props.onEdit}
-              onFocus={props.onFocus}
-            />
+          {props.email ? (
+            <EmailInput email={props.email} filled />
           ) : (
             <View>
               <Controller
@@ -50,7 +39,7 @@ export const FormResetPassword = (props: IProps) => {
                 name="email"
                 rules={{ required: true, pattern: Email.pattern }}
                 render={({ field: { onChange, value } }) => (
-                  <EmailInput value={value} filled={false} onChange={onChange} onFocus={props.onFocus} />
+                  <EmailInput value={value} filled={false} onChange={onChange} />
                 )}
               />
               {props.errors?.email && props.errors.email.type === 'required' && (
@@ -69,9 +58,6 @@ export const FormResetPassword = (props: IProps) => {
               )}
             </View>
           )}
-        </View>
-        <View style={styles.errorMessageContainer}>
-          <ErrorMessage error={props.error} />
         </View>
       </View>
       <View style={[theme.bank.container.centeredItem, styles.submitButtonContainer]}>

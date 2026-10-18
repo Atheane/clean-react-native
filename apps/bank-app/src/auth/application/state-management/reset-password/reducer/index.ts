@@ -19,7 +19,7 @@ export const resetPasswordReducer = (state = initialState, action: IResetPasswor
         success: null,
       };
       return newState;
-    case IResetPasswordTypes.RESET_PASSWORD_SUCCEDED:
+    case IResetPasswordTypes.PASSWORD_RESET:
       logger.debug(action.type);
       newState = {
         ...state,

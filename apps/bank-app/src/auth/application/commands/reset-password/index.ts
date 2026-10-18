@@ -1,7 +1,7 @@
 import { IResetPasswordCommand, ISuccess } from '@clean-rn/auth/domain';
 import {
   IFetchResetPassword,
-  IFetchResetPasswordSucceded,
+  IPasswordReset,
   IResetPasswordActions,
   IResetPasswordTypes,
   IInitResetPassword,
@@ -12,8 +12,8 @@ export const fetchResetPassword = (payload: IResetPasswordCommand): IFetchResetP
   payload,
 });
 
-export const resetPasswordSuccess = (payload: ISuccess): IFetchResetPasswordSucceded => ({
-  type: IResetPasswordTypes.RESET_PASSWORD_SUCCEDED,
+export const passwordReset = (payload: ISuccess): IPasswordReset => ({
+  type: IResetPasswordTypes.PASSWORD_RESET,
   payload,
 });
 export const initResetPassword = (): IInitResetPassword => ({

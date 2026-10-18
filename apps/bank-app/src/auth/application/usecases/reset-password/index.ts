@@ -5,7 +5,7 @@ import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { IResetPasswordCommand } from '@clean-rn/auth/domain';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
-import { IResetPasswordTypes, resetPasswordSuccess } from '../../commands/reset-password';
+import { IResetPasswordTypes, passwordReset } from '../../commands/reset-password';
 
 function* resetPasswordApiSaga(
   httpConnection: HttpConnection,
@@ -23,7 +23,7 @@ function* resetPasswordApiSaga(
 
   // dispatch action to the store
   yield put(
-    resetPasswordSuccess({
+    passwordReset({
       success,
     }),
   );

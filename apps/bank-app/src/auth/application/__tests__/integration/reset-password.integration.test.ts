@@ -8,7 +8,7 @@ import { resetPasswordSaga } from '../../usecases/reset-password';
 import {
   IResetPasswordTypes,
   fetchResetPassword,
-  resetPasswordSuccess,
+  passwordReset,
   initResetPassword,
 } from '../../commands/reset-password';
 import { resetPasswordReducer } from '../../state-management';
@@ -87,7 +87,7 @@ describe('ResetPassword - integration', () => {
   it('Should store correct state if RESET_PASSWORD_SUCCESS', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, resetPasswordSaga, httpConnection);
     sagaTester.dispatch(fetchResetPassword(mockData));
-    sagaTester.dispatch(resetPasswordSuccess({ success: mockResponse.success }));
+    sagaTester.dispatch(passwordReset({ success: mockResponse.success }));
 
     expect(sagaTester.getState()).toEqual({
       pending: false,

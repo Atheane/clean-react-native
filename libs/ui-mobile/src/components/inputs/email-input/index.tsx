@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { Input, useTheme } from '@rneui/themed';
@@ -16,7 +16,7 @@ type Props = {
 type State = {
   value?: string;
   filled?: boolean;
-  onFocus: () => void;
+  onFocus?: () => void;
   onChange?: (text: string) => void;
 };
 

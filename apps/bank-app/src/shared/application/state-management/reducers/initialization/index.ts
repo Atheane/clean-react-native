@@ -19,7 +19,7 @@ export const initializationReducer = (state = initialState, action: IInitializat
         pending: true,
       };
       return newState;
-    case IInitializationTypes.INITIALIZE_APPLICATION_SUCCEDED:
+    case IInitializationTypes.APPLICATION_INITIALIZED:
       logger.debug(action.type);
       newState = {
         ...state,

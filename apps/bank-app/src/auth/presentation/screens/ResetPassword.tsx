@@ -7,22 +7,15 @@ import { useForm } from 'react-hook-form';
 import * as Sentry from '@sentry/react-native';
 
 import { Logger } from '@clean-rn/logger';
-import { Colors, useCleanErrorOnFocus, FormResetPassword, IResetPasswordFormData } from '@clean-rn/ui-mobile';
-import { RootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { Colors, FormResetPassword, IResetPasswordFormData } from '@clean-rn/ui-mobile';
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 import { Email } from '@clean-rn/auth/domain';
 import { fetchResetPassword } from '../../application/commands/reset-password';
 
 export const ResetPassword = () => {
   // retrieve email, if any
-  const { email } = useSelector((state: RootState) => state.initialization);
-
-  // internal state
-  const [filled, setFilled] = useState<boolean>(true);
-
-  const onEdit = useCallback(() => {
-    setFilled(false);
-  }, []);
+  const { email } = useSelector((state: IRootState) => state.initialization);
 
   const {
     control,
@@ -31,7 +24,7 @@ export const ResetPassword = () => {
   } = useForm<IResetPasswordFormData>();
 
   // api call
-  const { pending, success, error } = useSelector((state: RootState) => state.auth.resetPassword);
+  const { pending, success } = useSelector((state: IRootState) => state.auth.resetPassword);
 
   const dispatch = useDispatch();
 
@@ -40,7 +33,7 @@ export const ResetPassword = () => {
       try {
         const payload = {
           ...formData,
-          email: filled && email ? email : new Email(formData.email),
+          email: email ? email : new Email(formData.email),
         };
         dispatch(fetchResetPassword(payload));
       } catch (e: unknown) {
@@ -48,11 +41,8 @@ export const ResetPassword = () => {
         Logger.getInstance().error(e);
       }
     },
-    [dispatch, email, filled],
+    [dispatch, email],
   );
-
-  // clean serverError onFocus
-  const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
   return (
     <View style={styles.container}>
@@ -61,12 +51,8 @@ export const ResetPassword = () => {
         control={control}
         errors={errors}
         email={email?.value}
-        filled={filled}
-        onEdit={onEdit}
         onSubmit={handleSubmit(onSubmit)}
-        error={domainError}
         success={success}
-        onFocus={onFocus}
       />
     </View>
   );

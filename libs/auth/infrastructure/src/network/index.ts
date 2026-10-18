@@ -149,7 +149,7 @@ export class AuthApi implements IAuthGateway, IUserRepository {
     };
 
     const response = await fetch(
-      `${this.connection.baseUrl}/app/user/sendPhoneValidationCode`,
+      `${this.connection.baseUrl}/app/user`,
       this.connection.options(IHttpVerb.POST, params),
     );
     await this.connection.handleError(response);
