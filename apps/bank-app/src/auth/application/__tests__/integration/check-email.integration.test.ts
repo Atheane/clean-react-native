@@ -1,12 +1,24 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import SagaTester from 'redux-saga-tester';
+import Constants from 'expo-constants';
 
 import { Email } from '@clean-rn/auth/domain';
-import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
 import { checkEmailSaga } from '../../usecases/check-email';
 import { ICheckEmailTypes, checkEmailSuccess, fetchCheckEmail } from '../../commands/check-email';
 import { ICheckEmailState, checkEmailReducer } from '../../state-management';
+import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
+
+const expoConstantsMock = {
+  name: 'CleanRN BankApp Test',
+  slug: 'clean-rn-bank-app-test',
+  extra: {
+    BASE_URL_API: 'https://fake-api.com',
+    NODE_ENV: 'test',
+  },
+};
+
+jest.mock('expo-constants', () => expoConstantsMock);
 
 describe('CheckEmail - integration', () => {
   const mockData = {
@@ -14,12 +26,23 @@ describe('CheckEmail - integration', () => {
   };
 
   let sagaTester: SagaTester;
+  let httpConnection: HttpConnection;
 
   const mockResponse = {
     success: false,
   };
 
-  const httpConnection = HttpConnection.getInstance('https://fake-api.com');
+  beforeAll(() => {
+    Constants.expoConfig = {
+      name: 'CleanRN BankApp Test',
+      slug: 'clean-rn-bank-app-test',
+      extra: {
+        BASE_URL_API: 'https://fake-api.com',
+        NODE_ENV: 'test',
+      },
+    };
+    httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+  });
 
   beforeEach(() => {
     const initialState: ICheckEmailState = {
@@ -45,7 +68,7 @@ describe('CheckEmail - integration', () => {
   });
 
   it('Should store correct state in case if FETCH_CHECK_EMAIL', () => {
-    sagaTester.start(checkEmailSaga, httpConnection);
+    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
 
     sagaTester.dispatch(fetchCheckEmail(mockData));
     expect(sagaTester.getState()).toEqual({
@@ -55,7 +78,7 @@ describe('CheckEmail - integration', () => {
   });
 
   it('Should store correct state if CHECK_EMAIL_SUCCESS', () => {
-    sagaTester.start(checkEmailSaga, httpConnection);
+    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
     sagaTester.dispatch(fetchCheckEmail(mockData));
     sagaTester.dispatch(checkEmailSuccess(mockResponse));
 

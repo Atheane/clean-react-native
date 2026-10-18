@@ -24,7 +24,13 @@ export class HttpConnection {
     return HttpConnection.headers;
   }
 
-  public options(httpVerb: IHttpVerb, params: any): RequestInit {
+  public options(httpVerb: IHttpVerb, params?: any): RequestInit {
+    if (httpVerb === IHttpVerb.GET || httpVerb === IHttpVerb.DELETE) {
+      return {
+        method: httpVerb,
+        headers: this.getDefaultHeaders(),
+      };
+    }
     return {
       method: httpVerb,
       headers: this.getDefaultHeaders(),
@@ -34,8 +40,17 @@ export class HttpConnection {
 
   public async handleError(response: Response): Promise<void> {
     if (!response.ok) {
-      const err = await response.json();
-      throw new ServerError(err);
+      try {
+        const err = await response.json();
+        throw new ServerError(err);
+      } catch (e: unknown) {
+        throw response.status && response.statusText
+          ? new ServerError({
+              statusCode: response.status,
+              message: response.statusText,
+            })
+          : e;
+      }
     }
   }
 

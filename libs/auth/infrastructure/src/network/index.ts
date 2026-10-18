@@ -61,10 +61,8 @@ export class AuthApi implements IAuthGateway, IUserRepository {
     const params = {
       email: query.email.value,
     };
-    const response = await fetch(
-      `${this.connection.baseUrl}/app/user/search`,
-      this.connection.options(IHttpVerb.GET, params),
-    );
+    const url = `${this.connection.baseUrl}/app/user/search?` + new URLSearchParams(params);
+    const response = await fetch(url, this.connection.options(IHttpVerb.GET));
     await this.connection.handleError(response);
     return response.json();
   }

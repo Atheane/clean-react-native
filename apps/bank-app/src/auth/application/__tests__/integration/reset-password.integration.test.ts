@@ -1,5 +1,6 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import SagaTester from 'redux-saga-tester';
+import Constants from 'expo-constants';
 
 import { Email } from '@clean-rn/auth/domain';
 
@@ -11,7 +12,18 @@ import {
   initResetPassword,
 } from '../../commands/reset-password';
 import { resetPasswordReducer } from '../../state-management';
-import { HttpConnection } from '@clean-rn/shared/infrastructure';
+import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
+
+const expoConstantsMock = {
+  name: 'CleanRN BankApp Test',
+  slug: 'clean-rn-bank-app-test',
+  extra: {
+    BASE_URL_API: 'https://fake-api.com',
+    NODE_ENV: 'test',
+  },
+};
+
+jest.mock('expo-constants', () => expoConstantsMock);
 
 describe('ResetPassword - integration', () => {
   const mockData = {
@@ -24,7 +36,19 @@ describe('ResetPassword - integration', () => {
 
   let sagaTester: SagaTester;
 
-  const httpConnection = HttpConnection.getInstance('https://fake-api.com');
+  let httpConnection: HttpConnection;
+
+  beforeAll(() => {
+    Constants.expoConfig = {
+      name: 'CleanRN BankApp Test',
+      slug: 'clean-rn-bank-app-test',
+      extra: {
+        BASE_URL_API: 'https://fake-api.com',
+        NODE_ENV: 'test',
+      },
+    };
+    httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+  });
 
   beforeEach(() => {
     const initialState = {
@@ -50,7 +74,7 @@ describe('ResetPassword - integration', () => {
   });
 
   it('Should store correct state in case if FETCH_RESET_PASSWORD', () => {
-    sagaTester.start(resetPasswordSaga, httpConnection);
+    sagaTester.start(wrapSagaHidingNotFoundError, resetPasswordSaga, httpConnection);
 
     sagaTester.dispatch(fetchResetPassword(mockData));
 
@@ -61,7 +85,7 @@ describe('ResetPassword - integration', () => {
   });
 
   it('Should store correct state if RESET_PASSWORD_SUCCESS', () => {
-    sagaTester.start(resetPasswordSaga, httpConnection);
+    sagaTester.start(wrapSagaHidingNotFoundError, resetPasswordSaga, httpConnection);
     sagaTester.dispatch(fetchResetPassword(mockData));
     sagaTester.dispatch(resetPasswordSuccess({ success: mockResponse.success }));
 
@@ -72,7 +96,7 @@ describe('ResetPassword - integration', () => {
   });
 
   it('Should store correct state in case if INIT_RESET_PASSWORD', () => {
-    sagaTester.start(resetPasswordSaga, httpConnection);
+    sagaTester.start(wrapSagaHidingNotFoundError, resetPasswordSaga, httpConnection);
 
     sagaTester.dispatch(initResetPassword());
 

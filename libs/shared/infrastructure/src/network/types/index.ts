@@ -8,13 +8,13 @@ export enum IHttpVerb {
 export type IServerError = {
   statusCode: number;
   message: string;
-  response:
+  response?:
     | string
     | {
         statusCode: number;
         message: string[] | string;
         error: any;
       };
-  timestamp: string;
-  path: string;
+  timestamp?: string;
+  path?: string;
 };

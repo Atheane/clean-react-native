@@ -13,12 +13,12 @@ export class ServerError extends Error {
   }
 
   cleanResponse(error: IServerError) {
-    if (error.response === '' && error.message !== '') {
+    if (!error.response && error.message !== '') {
       return error.message;
     } else if (typeof error.response === 'string') {
       return error.response;
     } else {
-      if (typeof error.response.message === 'object' && error.response.message.length > 0) {
+      if (typeof error?.response?.message === 'object' && error.response.message.length > 0) {
         return error.response.message.reduce((acc, curr) => `${acc} \n${curr}`, '');
       } else {
         return error.message;
