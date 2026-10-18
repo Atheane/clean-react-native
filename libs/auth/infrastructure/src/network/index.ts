@@ -7,6 +7,7 @@ import {
   ICheckEmailQuery,
   ISuccess,
   ICheckPhoneQuery,
+  IValidatePhoneQuery,
 } from '@clean-rn/auth/domain';
 
 export class AuthApi implements IAuthGateway {
@@ -68,19 +69,27 @@ export class AuthApi implements IAuthGateway {
   }
 
   async searchPhone(query: ICheckPhoneQuery): Promise<ISuccess> {
-    console.log('------------> 1');
-    console.log(query);
     //map query to dto
     const params = {
       phone: query.phone.value,
     };
-    console.log('------------> 2');
-    console.log(params);
 
     const url = `${this.connection.baseUrl}/app/user/search?` + new URLSearchParams(params);
 
-    console.log('------------> 3');
-    console.log(url);
+    const response = await fetch(url, this.connection.options(IHttpVerb.GET));
+    await this.connection.handleError(response);
+    return response.json();
+  }
+
+  async validatePhone(query: IValidatePhoneQuery): Promise<ISuccess> {
+    //map query to dto
+    const params = {
+      phone: query.phone.value,
+      code: query.otp.value,
+    };
+
+    const url = `${this.connection.baseUrl}/app/user/checkPhoneValidationCode?` + new URLSearchParams(params);
+
     const response = await fetch(url, this.connection.options(IHttpVerb.GET));
     await this.connection.handleError(response);
     return response.json();

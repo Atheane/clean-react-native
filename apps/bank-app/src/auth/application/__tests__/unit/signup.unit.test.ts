@@ -14,23 +14,26 @@ import {
   IRegisterBirthCommand,
   IRegisterAddressCommand,
   AuthError,
+  PhoneOtp,
 } from '@clean-rn/auth/domain';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import {
-  checkEmailGenerator,
-  checkEmailSaga,
+  checkEmailExistsGenerator,
+  checkEmailExistsSaga,
   registerIdentityGenerator,
   registerIdentitySaga,
-  checkPhoneGenerator,
-  checkPhoneSaga,
+  checkPhoneExistsGenerator,
+  checkPhoneExistsSaga,
   registerPasswordGenerator,
   registerPasswordSaga,
   registerBirthGenerator,
   registerBirthSaga,
   registerAddressSaga,
   registerAddressGenerator,
+  validatePhoneGenerator,
+  validatePhoneSaga,
 } from '../../usecases/signup';
 import {
   ISignupTypes,
@@ -40,6 +43,7 @@ import {
   identityRegistered,
   passwordRegistered,
   phoneChecked,
+  phoneValidated,
   signupFailed,
 } from '../../commands/signup';
 import { selectEmail, selectProspect } from '../../../application/state-management';
@@ -79,6 +83,11 @@ describe('Signup - usecase', () => {
     phone: new Phone('0616804613', 'FR'),
   };
 
+  const mockQueryPhoneOtp = {
+    otp: new PhoneOtp('123456'),
+    phone: new Phone('0616804613', 'FR'),
+  };
+
   const mockSuccessTrue: ISuccess = {
     success: true,
   };
@@ -88,10 +97,10 @@ describe('Signup - usecase', () => {
   };
 
   it('should wait for FETCH_CHECK_EMAIL action and call checkEmailApiSaga, should be done on next iteration', () => {
-    const genObject = checkEmailSaga(httpConnection);
+    const genObject = checkEmailExistsSaga(httpConnection);
 
     expect(genObject.next().value).toEqual(
-      takeEvery(ISignupTypes.FETCH_CHECK_EMAIL, checkEmailGenerator, httpConnection),
+      takeEvery(ISignupTypes.FETCH_CHECK_EMAIL_EXISTS, checkEmailExistsGenerator, httpConnection),
     );
     expect(genObject.next().done).toBeTruthy();
   });
@@ -104,8 +113,8 @@ describe('Signup - usecase', () => {
       success: false,
     };
 
-    testSaga(checkEmailGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_CHECK_EMAIL,
+    testSaga(checkEmailExistsGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_CHECK_EMAIL_EXISTS,
       payload: mockQueryEmail,
     })
       .next()
@@ -120,19 +129,14 @@ describe('Signup - usecase', () => {
   });
 
   it('should throw SignupFailureEmailExists if email exists', () => {
-    testSaga(checkEmailGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_CHECK_EMAIL,
+    testSaga(checkEmailExistsGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_CHECK_EMAIL_EXISTS,
       payload: mockQueryEmail,
     })
       .next()
       .call([api, api.searchEmail], mockQueryEmail)
       .next(mockSuccessTrue)
-      .put(
-        signupFailed({
-          error: new AuthError.SignupFailureEmailExists(),
-          success: mockSuccessTrue.success,
-        }),
-      )
+      .put(signupFailed(new AuthError.SignupFailureEmailExists()))
       .next()
       .cancel();
   });
@@ -221,41 +225,70 @@ describe('Signup - usecase', () => {
       .next();
   });
 
-  it('should wait for CHECK_PHONE action and call registerPhoneGenerator, should be done on next iteration', () => {
-    const genObject = checkPhoneSaga(httpConnection);
+  it('should wait for FETCH_CHECK_PHONE_EXISTS action and call registerPhoneGenerator, should be done on next iteration', () => {
+    const genObject = checkPhoneExistsSaga(httpConnection);
 
     expect(genObject.next().value).toEqual(
-      takeEvery(ISignupTypes.FETCH_CHECK_PHONE, checkPhoneGenerator, httpConnection),
+      takeEvery(ISignupTypes.FETCH_CHECK_PHONE_EXISTS, checkPhoneExistsGenerator, httpConnection),
     );
     expect(genObject.next().done).toBeTruthy();
   });
 
   it('should call phoneChecked', () => {
-    testSaga(checkPhoneGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_CHECK_PHONE,
+    testSaga(checkPhoneExistsGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_CHECK_PHONE_EXISTS,
       payload: mockQueryPhone,
     })
       .next()
       .call([api, api.searchPhone], mockQueryPhone)
       .next(mockSuccessFalse)
-      .put(phoneChecked(mockSuccessFalse))
+      .put(phoneChecked())
       .next();
   });
 
   it('should call signupFailed action if phone exists', () => {
-    testSaga(checkPhoneGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_CHECK_PHONE,
+    testSaga(checkPhoneExistsGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_CHECK_PHONE_EXISTS,
       payload: mockQueryPhone,
     })
       .next()
       .call([api, api.searchPhone], mockQueryPhone)
       .next(mockSuccessTrue)
-      .put(
-        signupFailed({
-          error: new AuthError.SignupFailurePhoneExists(),
-          success: mockSuccessTrue.success,
-        }),
-      )
+      .put(signupFailed(new AuthError.SignupFailurePhoneExists()))
+      .next()
+      .cancel();
+  });
+
+  it('should wait for FETCH_VALIDATE_PHONE action and call validatePhoneGenerator, should be done on next iteration', () => {
+    const genObject = validatePhoneSaga(httpConnection);
+
+    expect(genObject.next().value).toEqual(
+      takeEvery(ISignupTypes.FETCH_VALIDATE_PHONE, validatePhoneGenerator, httpConnection),
+    );
+    expect(genObject.next().done).toBeTruthy();
+  });
+
+  it('should call phoneValidated', () => {
+    testSaga(validatePhoneGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_VALIDATE_PHONE,
+      payload: mockQueryPhoneOtp,
+    })
+      .next()
+      .call([api, api.validatePhone], mockQueryPhoneOtp)
+      .next(mockSuccessTrue)
+      .put(phoneValidated())
+      .next();
+  });
+
+  it('should call signupFailed action if otp incorrect', () => {
+    testSaga(validatePhoneGenerator, httpConnection, {
+      type: ISignupTypes.SIGNUP_FAILED,
+      payload: mockQueryPhoneOtp,
+    })
+      .next()
+      .call([api, api.validatePhone], mockQueryPhoneOtp)
+      .next(mockSuccessFalse)
+      .put(signupFailed(new AuthError.SignupFailureInvalidPhoneCode()))
       .next()
       .cancel();
   });

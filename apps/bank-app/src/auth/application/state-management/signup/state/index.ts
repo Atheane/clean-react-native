@@ -5,7 +5,6 @@ export interface ISignupState {
   pending: boolean;
   email: Email | null;
   phone: Phone | null;
-  success: boolean | null;
   prospect: Prospect | null;
   user: User | null;
   error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | null;

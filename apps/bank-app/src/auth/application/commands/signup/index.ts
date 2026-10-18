@@ -1,44 +1,38 @@
 import {
-  Email,
-  Phone,
   Prospect,
-  User,
-  ISuccess,
   IAuthErrorCodes,
   IAuthErrorMessage,
   ICheckEmailQuery,
   ICheckPhoneQuery,
+  IValidatePhoneQuery,
 } from '@clean-rn/auth/domain';
 import {
   ISignupActions,
   ISignupTypes,
-  IFetchCheckEmail,
   ISignupFailed,
   IIdentityRegistered,
   IBirthRegistered,
   IAddressRegistered,
-  ICreateUser,
   IEmailChecked,
   IPasswordRegistered,
+  IFetchCheckPhoneExists,
+  IFetchCheckEmailExists,
+  IFetchValidatePhone,
   IPhoneChecked,
-  IFetchCheckPhone,
+  IPhoneValidated,
 } from './types';
 import { IDomainError } from '@clean-rn/ddd';
 
-export const fetchCheckEmail = (payload: ICheckEmailQuery): IFetchCheckEmail => ({
-  type: ISignupTypes.FETCH_CHECK_EMAIL,
+export const fetchCheckEmailExists = (payload: ICheckEmailQuery): IFetchCheckEmailExists => ({
+  type: ISignupTypes.FETCH_CHECK_EMAIL_EXISTS,
   payload,
 });
 
-export const emailChecked = (payload: ISuccess): IEmailChecked => ({
+export const emailChecked = (): IEmailChecked => ({
   type: ISignupTypes.EMAIL_CHECKED,
-  payload,
 });
 
-export const signupFailed = (payload: {
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage>;
-  success: boolean;
-}): ISignupFailed => ({
+export const signupFailed = (payload: IDomainError<IAuthErrorCodes, IAuthErrorMessage>): ISignupFailed => ({
   type: ISignupTypes.SIGNUP_FAILED,
   payload,
 });
@@ -63,19 +57,22 @@ export const addressRegistered = (payload: Prospect): IAddressRegistered => ({
   payload,
 });
 
-export const fetchCheckPhone = (payload: ICheckPhoneQuery): IFetchCheckPhone => ({
-  type: ISignupTypes.FETCH_CHECK_PHONE,
+export const fetchCheckPhoneExists = (payload: ICheckPhoneQuery): IFetchCheckPhoneExists => ({
+  type: ISignupTypes.FETCH_CHECK_PHONE_EXISTS,
   payload,
 });
 
-export const phoneChecked = (payload: ISuccess): IPhoneChecked => ({
+export const phoneChecked = (): IPhoneChecked => ({
   type: ISignupTypes.PHONE_CHECKED,
+});
+
+export const fetchValidatePhone = (payload: IValidatePhoneQuery): IFetchValidatePhone => ({
+  type: ISignupTypes.FETCH_VALIDATE_PHONE,
   payload,
 });
 
-export const createUser = (payload: User): ICreateUser => ({
-  type: ISignupTypes.CREATE_USER,
-  payload,
+export const phoneValidated = (): IPhoneValidated => ({
+  type: ISignupTypes.PHONE_VALIDATED,
 });
 
 export { ISignupTypes, ISignupActions };

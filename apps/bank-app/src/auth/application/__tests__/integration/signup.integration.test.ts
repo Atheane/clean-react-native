@@ -13,27 +13,31 @@ import {
   IRegisterIdentityCommand,
   IRegisterPasswordCommand,
   Prospect,
+  PhoneOtp,
 } from '@clean-rn/auth/domain';
 
 import {
-  checkEmailSaga,
+  checkEmailExistsSaga,
   registerIdentitySaga,
   registerPasswordSaga,
   registerBirthSaga,
   registerAddressSaga,
-  checkPhoneSaga,
+  checkPhoneExistsSaga,
+  validatePhoneSaga,
 } from '../../usecases/signup';
 import {
   ISignupTypes,
   emailChecked,
-  fetchCheckEmail,
-  fetchCheckPhone,
+  fetchCheckEmailExists,
+  fetchCheckPhoneExists,
   phoneChecked,
   identityRegistered,
   passwordRegistered,
   birthRegistered,
   addressRegistered,
   signupFailed,
+  fetchValidatePhone,
+  phoneValidated,
 } from '../../commands/signup';
 import { ISignupState, signupReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
@@ -52,10 +56,6 @@ jest.mock('expo-constants', () => expoConstantsMock);
 describe('CheckEmail - integration', () => {
   let sagaTester: SagaTester;
   let httpConnection: HttpConnection;
-
-  const mockSuccessFalse = {
-    success: false,
-  };
 
   const mockIdentity: IRegisterIdentityCommand = {
     gender: IGender.MAN,
@@ -95,7 +95,6 @@ describe('CheckEmail - integration', () => {
   beforeEach(() => {
     const initialState: ISignupState = {
       pending: false,
-      success: null,
       email: null,
       phone: null,
       prospect: null,
@@ -110,7 +109,7 @@ describe('CheckEmail - integration', () => {
 
   it('Should store correct initial state if not initial state is provided', () => {
     const newState = signupReducer(undefined, {
-      type: ISignupTypes.FETCH_CHECK_EMAIL,
+      type: ISignupTypes.FETCH_CHECK_EMAIL_EXISTS,
       payload: {
         email: new Email('test@example.com'),
       },
@@ -118,7 +117,6 @@ describe('CheckEmail - integration', () => {
 
     expect(newState).toEqual({
       pending: true,
-      success: null,
       email: new Email('test@example.com'),
       phone: null,
       prospect: null,
@@ -128,12 +126,11 @@ describe('CheckEmail - integration', () => {
   });
 
   it('Should store correct state in case if FETCH_CHECK_EMAIL', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
+    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailExistsSaga, httpConnection);
 
-    sagaTester.dispatch(fetchCheckEmail({ email: new Email('test@example.com') }));
+    sagaTester.dispatch(fetchCheckEmailExists({ email: new Email('test@example.com') }));
     expect(sagaTester.getState()).toEqual({
       pending: true,
-      success: null,
       email: new Email('test@example.com'),
       phone: null,
       prospect: null,
@@ -143,13 +140,12 @@ describe('CheckEmail - integration', () => {
   });
 
   it('Should store correct state if EMAIL_CHECKED', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
-    sagaTester.dispatch(fetchCheckEmail({ email: new Email('test@example.com') }));
-    sagaTester.dispatch(emailChecked(mockSuccessFalse));
+    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailExistsSaga, httpConnection);
+    sagaTester.dispatch(fetchCheckEmailExists({ email: new Email('test@example.com') }));
+    sagaTester.dispatch(emailChecked());
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      success: false,
       email: new Email('test@example.com'),
       phone: null,
       prospect: null,
@@ -159,18 +155,12 @@ describe('CheckEmail - integration', () => {
   });
 
   it('Should store correct state if SIGNUP_FAILED', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
-    sagaTester.dispatch(fetchCheckEmail({ email: new Email('test@example.com') }));
-    sagaTester.dispatch(
-      signupFailed({
-        error: new AuthError.SignupFailureEmailExists(),
-        success: true,
-      }),
-    );
+    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailExistsSaga, httpConnection);
+    sagaTester.dispatch(fetchCheckEmailExists({ email: new Email('test@example.com') }));
+    sagaTester.dispatch(signupFailed(new AuthError.SignupFailureEmailExists()));
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      success: true,
       email: new Email('test@example.com'),
       phone: null,
       prospect: null,
@@ -179,14 +169,88 @@ describe('CheckEmail - integration', () => {
     });
   });
 
+  it('Should store correct state if FETCH_CHECK_PHONE_EXISTS', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, fetchCheckPhoneExists, httpConnection);
+    sagaTester.dispatch(fetchCheckPhoneExists({ phone: new Phone('0616804613', 'FR') }));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: true,
+      email: null,
+      phone: new Phone('0616804613', 'FR'),
+      prospect: null,
+      user: null,
+      error: null,
+    });
+  });
+
   it('Should store correct state if PHONE_CHECKED', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, checkPhoneSaga, httpConnection);
-    sagaTester.dispatch(fetchCheckPhone({ phone: new Phone('0616804613', 'FR') }));
-    sagaTester.dispatch(phoneChecked(mockSuccessFalse));
+    const initialState: ISignupState = {
+      pending: false,
+      email: null,
+      phone: new Phone('0616804613', 'FR'),
+      prospect: null,
+      user: null,
+      error: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: signupReducer,
+    });
+
+    sagaTester.start(wrapSagaHidingNotFoundError, checkPhoneExistsSaga, httpConnection);
+    sagaTester.dispatch(fetchCheckPhoneExists({ phone: new Phone('0616804613', 'FR') }));
+    sagaTester.dispatch(phoneChecked());
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      success: false,
+      email: null,
+      phone: new Phone('0616804613', 'FR'),
+      prospect: null,
+      user: null,
+      error: null,
+    });
+  });
+
+  it('Should store correct state if FETCH_VALIDATE_PHONE', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, fetchValidatePhone, httpConnection);
+    sagaTester.dispatch(
+      fetchValidatePhone({ phone: new Phone('0616804613', 'FR'), otp: new PhoneOtp('123456') }),
+    );
+
+    expect(sagaTester.getState()).toEqual({
+      pending: true,
+      email: null,
+      phone: null,
+      prospect: null,
+      user: null,
+      error: null,
+    });
+  });
+
+  it('Should store correct state if PHONE_VALIDATED', () => {
+    const initialState: ISignupState = {
+      pending: false,
+      email: null,
+      phone: new Phone('0616804613', 'FR'),
+      prospect: null,
+      user: null,
+      error: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: signupReducer,
+    });
+
+    sagaTester.start(wrapSagaHidingNotFoundError, validatePhoneSaga, httpConnection);
+    sagaTester.dispatch(
+      fetchValidatePhone({ phone: new Phone('0616804613', 'FR'), otp: new PhoneOtp('123456') }),
+    );
+    sagaTester.dispatch(phoneValidated());
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
       email: null,
       phone: new Phone('0616804613', 'FR'),
       prospect: null,
@@ -198,7 +262,6 @@ describe('CheckEmail - integration', () => {
   it('Should store correct state in case if IDENTITY_REGISTERED', () => {
     const initialState: ISignupState = {
       pending: false,
-      success: false,
       email: new Email('test@example.com'),
       phone: null,
       prospect: null,
@@ -219,7 +282,6 @@ describe('CheckEmail - integration', () => {
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      success: false,
       email: new Email('test@example.com'),
       phone: null,
       prospect: prospect,
@@ -233,7 +295,6 @@ describe('CheckEmail - integration', () => {
 
     const initialState: ISignupState = {
       pending: false,
-      success: false,
       email: new Email('test@example.com'),
       phone: null,
       prospect,
@@ -252,7 +313,6 @@ describe('CheckEmail - integration', () => {
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      success: false,
       email: new Email('test@example.com'),
       phone: null,
       prospect,
@@ -266,7 +326,6 @@ describe('CheckEmail - integration', () => {
 
     const initialState: ISignupState = {
       pending: false,
-      success: false,
       email: new Email('test@example.com'),
       phone: null,
       prospect,
@@ -285,7 +344,6 @@ describe('CheckEmail - integration', () => {
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      success: false,
       email: new Email('test@example.com'),
       phone: null,
       prospect,
@@ -299,7 +357,6 @@ describe('CheckEmail - integration', () => {
 
     const initialState: ISignupState = {
       pending: false,
-      success: false,
       email: new Email('test@example.com'),
       phone: null,
       prospect,
@@ -318,7 +375,6 @@ describe('CheckEmail - integration', () => {
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      success: false,
       email: new Email('test@example.com'),
       phone: null,
       prospect,

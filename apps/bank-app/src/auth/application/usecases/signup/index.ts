@@ -10,7 +10,7 @@ import {
   IRegisterBirthCommand,
   IRegisterAddressCommand,
   AuthError,
-  Email,
+  IValidatePhoneQuery,
 } from '@clean-rn/auth/domain';
 
 import {
@@ -20,14 +20,15 @@ import {
   passwordRegistered,
   birthRegistered,
   addressRegistered,
-  phoneChecked,
   signupFailed,
+  phoneValidated,
+  phoneChecked,
 } from '../../commands/signup';
 import { selectEmail, selectProspect } from '../../state-management';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
-function* checkEmailGenerator(
+function* checkEmailExistsGenerator(
   httpConnection: HttpConnection,
   {
     payload,
@@ -40,15 +41,10 @@ function* checkEmailGenerator(
   // api call
   const emailExists: ISuccess = yield call([api, api.searchEmail], payload);
   if (emailExists.success) {
-    yield put(
-      signupFailed({
-        error: new AuthError.SignupFailureEmailExists(),
-        success: emailExists.success,
-      }),
-    );
+    yield put(signupFailed(new AuthError.SignupFailureEmailExists()));
     yield cancel();
   }
-  yield put(emailChecked(emailExists));
+  yield put(emailChecked());
 }
 
 function* registerIdentityGenerator({
@@ -94,7 +90,7 @@ function* registerPasswordGenerator({
   yield put(passwordRegistered(prospect));
 }
 
-function* checkPhoneGenerator(
+function* checkPhoneExistsGenerator(
   httpConnection: HttpConnection,
   {
     payload,
@@ -107,15 +103,29 @@ function* checkPhoneGenerator(
   // api call
   const phoneExists: ISuccess = yield call([api, api.searchPhone], payload);
   if (phoneExists.success) {
-    yield put(
-      signupFailed({
-        error: new AuthError.SignupFailurePhoneExists(),
-        success: phoneExists.success,
-      }),
-    );
+    yield put(signupFailed(new AuthError.SignupFailurePhoneExists()));
     yield cancel();
   }
-  yield put(phoneChecked(phoneExists));
+  yield put(phoneChecked());
+}
+
+function* validatePhoneGenerator(
+  httpConnection: HttpConnection,
+  {
+    payload,
+  }: {
+    type: string;
+    payload: IValidatePhoneQuery;
+  },
+): Generator<StrictEffect, any, any> {
+  const api = AuthApi.getInstance(httpConnection);
+  // api call
+  const otpIsValid: ISuccess = yield call([api, api.validatePhone], payload);
+  if (!otpIsValid.success) {
+    yield put(signupFailed(new AuthError.SignupFailureInvalidPhoneCode()));
+    yield cancel();
+  }
+  yield put(phoneValidated());
 }
 
 function* registerBirthGenerator({
@@ -162,8 +172,8 @@ function* registerAddressGenerator({
   yield put(addressRegistered(prospect));
 }
 
-function* checkEmailSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(ISignupTypes.FETCH_CHECK_EMAIL, checkEmailGenerator, httpConnection);
+function* checkEmailExistsSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
+  yield takeEvery(ISignupTypes.FETCH_CHECK_EMAIL_EXISTS, checkEmailExistsGenerator, httpConnection);
 }
 
 function* registerIdentitySaga(): Generator<StrictEffect, any, any> {
@@ -174,8 +184,8 @@ function* registerPasswordSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(ISignupTypes.REGISTER_PASSWORD, registerPasswordGenerator);
 }
 
-function* checkPhoneSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(ISignupTypes.FETCH_CHECK_PHONE, checkPhoneGenerator, httpConnection);
+function* checkPhoneExistsSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
+  yield takeEvery(ISignupTypes.FETCH_CHECK_PHONE_EXISTS, checkPhoneExistsGenerator, httpConnection);
 }
 
 function* registerBirthSaga(): Generator<StrictEffect, any, any> {
@@ -186,17 +196,23 @@ function* registerAddressSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(ISignupTypes.REGISTER_ADDRESS, registerAddressGenerator);
 }
 
+function* validatePhoneSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
+  yield takeEvery(ISignupTypes.FETCH_VALIDATE_PHONE, validatePhoneGenerator, httpConnection);
+}
+
 export {
-  checkEmailSaga,
+  checkEmailExistsSaga,
   registerIdentitySaga,
   registerPasswordSaga,
-  checkPhoneSaga,
+  checkPhoneExistsSaga,
   registerBirthSaga,
   registerAddressSaga,
-  checkEmailGenerator,
+  validatePhoneSaga,
+  checkEmailExistsGenerator,
   registerIdentityGenerator,
   registerPasswordGenerator,
-  checkPhoneGenerator,
+  checkPhoneExistsGenerator,
   registerBirthGenerator,
   registerAddressGenerator,
+  validatePhoneGenerator,
 };

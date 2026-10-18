@@ -6,7 +6,6 @@ const initialState: ISignupState = {
   pending: false,
   email: null,
   phone: null,
-  success: null,
   prospect: null,
   user: null,
   error: null,
@@ -16,7 +15,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
   const logger = Logger.getInstance();
   let newState: ISignupState;
   switch (action.type) {
-    case ISignupTypes.FETCH_CHECK_EMAIL:
+    case ISignupTypes.FETCH_CHECK_EMAIL_EXISTS:
       logger.debug(action.type);
       newState = {
         ...state,
@@ -29,7 +28,6 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
       newState = {
         ...state,
         pending: false,
-        success: action.payload.success,
       };
       return newState;
     case ISignupTypes.SIGNUP_FAILED:
@@ -37,11 +35,10 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
       newState = {
         ...state,
         pending: false,
-        success: action.payload.success,
-        error: action.payload.error,
+        error: action.payload,
       };
       return newState;
-    case ISignupTypes.FETCH_CHECK_PHONE:
+    case ISignupTypes.FETCH_CHECK_PHONE_EXISTS:
       logger.debug(action.type);
       newState = {
         ...state,
@@ -54,7 +51,20 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
       newState = {
         ...state,
         pending: false,
-        success: action.payload.success,
+      };
+      return newState;
+    case ISignupTypes.FETCH_VALIDATE_PHONE:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: true,
+      };
+      return newState;
+    case ISignupTypes.PHONE_VALIDATED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
       };
       return newState;
     case ISignupTypes.IDENTITY_REGISTERED:

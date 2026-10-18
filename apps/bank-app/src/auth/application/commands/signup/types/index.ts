@@ -1,24 +1,26 @@
 import {
   Prospect,
   User,
-  ISuccess,
   IAuthErrorCodes,
   IAuthErrorMessage,
   ICheckEmailQuery,
   ICheckPhoneQuery,
+  IValidatePhoneQuery,
 } from '@clean-rn/auth/domain';
 import { IDomainError } from '@clean-rn/ddd';
 
 export enum ISignupTypes {
-  FETCH_CHECK_EMAIL = 'FETCH_CHECK_EMAIL',
+  FETCH_CHECK_EMAIL_EXISTS = 'FETCH_CHECK_EMAIL_EXISTS',
   EMAIL_CHECKED = 'EMAIL_CHECKED',
   SIGNUP_FAILED = 'SIGNUP_FAILED',
   REGISTER_IDENTITY = 'REGISTER_IDENTITY',
   IDENTITY_REGISTERED = 'IDENTITY_REGISTERED',
   REGISTER_PASSWORD = 'REGISTER_PASSWORD',
   PASSWORD_REGISTERED = 'PASSWORD_REGISTERED',
-  FETCH_CHECK_PHONE = 'FETCH_CHECK_PHONE',
+  FETCH_CHECK_PHONE_EXISTS = 'FETCH_CHECK_PHONE_EXISTS',
   PHONE_CHECKED = 'PHONE_CHECKED',
+  FETCH_VALIDATE_PHONE = 'FETCH_VALIDATE_PHONE',
+  PHONE_VALIDATED = 'PHONE_VALIDATED',
   REGISTER_BIRTH = 'REGISTER_BIRTH',
   BIRTH_REGISTERED = 'BIRTH_REGISTERED',
   REGISTER_ADDRESS = 'REGISTER_ADDRESS',
@@ -26,22 +28,18 @@ export enum ISignupTypes {
   CREATE_USER = 'CREATE_USER',
 }
 
-export type IFetchCheckEmail = {
-  type: typeof ISignupTypes.FETCH_CHECK_EMAIL;
+export type IFetchCheckEmailExists = {
+  type: typeof ISignupTypes.FETCH_CHECK_EMAIL_EXISTS;
   payload: ICheckEmailQuery;
 };
 
 export type IEmailChecked = {
   type: typeof ISignupTypes.EMAIL_CHECKED;
-  payload: ISuccess;
 };
 
 export type ISignupFailed = {
   type: typeof ISignupTypes.SIGNUP_FAILED;
-  payload: {
-    error: IDomainError<IAuthErrorCodes, IAuthErrorMessage>;
-    success: boolean;
-  };
+  payload: IDomainError<IAuthErrorCodes, IAuthErrorMessage>;
 };
 
 export type IIdentityRegistered = {
@@ -54,14 +52,22 @@ export type IPasswordRegistered = {
   payload: Prospect;
 };
 
-export type IFetchCheckPhone = {
-  type: typeof ISignupTypes.FETCH_CHECK_PHONE;
+export type IFetchCheckPhoneExists = {
+  type: typeof ISignupTypes.FETCH_CHECK_PHONE_EXISTS;
   payload: ICheckPhoneQuery;
 };
 
 export type IPhoneChecked = {
   type: typeof ISignupTypes.PHONE_CHECKED;
-  payload: ISuccess;
+};
+
+export type IFetchValidatePhone = {
+  type: typeof ISignupTypes.FETCH_VALIDATE_PHONE;
+  payload: IValidatePhoneQuery;
+};
+
+export type IPhoneValidated = {
+  type: typeof ISignupTypes.PHONE_VALIDATED;
 };
 
 export type IBirthRegistered = {
@@ -85,13 +91,15 @@ export type ICreateUser = {
 };
 
 export type ISignupActions =
-  | IFetchCheckEmail
+  | IFetchCheckEmailExists
   | IEmailChecked
   | ISignupFailed
   | IIdentityRegistered
   | IPasswordRegistered
-  | IFetchCheckPhone
+  | IFetchCheckPhoneExists
   | IPhoneChecked
+  | IFetchValidatePhone
+  | IPhoneValidated
   | IBirthRegistered
   | IAddressRegistered
   | ICreateUser;
