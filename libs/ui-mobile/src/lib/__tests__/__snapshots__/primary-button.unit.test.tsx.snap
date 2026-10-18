@@ -31,10 +31,12 @@ exports[`PrimaryButton -  disabled -  true - renders as before 1`] = `
         {
           "borderRadius": 2,
         },
-        {
-          "borderRadius": 28,
-          "flexDirection": "row",
-        },
+        [
+          {
+            "borderRadius": 28,
+            "flexDirection": "row",
+          },
+        ],
         false,
       ]
     }
@@ -101,6 +103,7 @@ exports[`PrimaryButton -  disabled -  true - renders as before 1`] = `
             "borderColor": "#2089dc",
             "borderRadius": 28,
             "borderWidth": 0,
+            "elevation": 50,
             "flexDirection": "row",
             "justifyContent": "center",
             "padding": 8,
@@ -109,6 +112,13 @@ exports[`PrimaryButton -  disabled -  true - renders as before 1`] = `
             "paddingLeft": 26,
             "paddingRight": 24,
             "paddingTop": 15,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 20,
           }
         }
       >
@@ -177,10 +187,12 @@ exports[`PrimaryButton -  iconOne -  true - renders as before 1`] = `
         {
           "borderRadius": 2,
         },
-        {
-          "borderRadius": 28,
-          "flexDirection": "row",
-        },
+        [
+          {
+            "borderRadius": 28,
+            "flexDirection": "row",
+          },
+        ],
         {
           "backgroundColor": "#fff",
           "overflow": "visible",
@@ -257,6 +269,7 @@ exports[`PrimaryButton -  iconOne -  true - renders as before 1`] = `
             "borderColor": "#2089dc",
             "borderRadius": 28,
             "borderWidth": 0,
+            "elevation": 50,
             "flexDirection": "row",
             "justifyContent": "center",
             "padding": 8,
@@ -265,6 +278,13 @@ exports[`PrimaryButton -  iconOne -  true - renders as before 1`] = `
             "paddingLeft": 26,
             "paddingRight": 24,
             "paddingTop": 15,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 20,
           }
         }
       >
@@ -342,10 +362,12 @@ exports[`PrimaryButton -  iconTwo -  true - renders as before 1`] = `
         {
           "borderRadius": 2,
         },
-        {
-          "borderRadius": 28,
-          "flexDirection": "row",
-        },
+        [
+          {
+            "borderRadius": 28,
+            "flexDirection": "row",
+          },
+        ],
         {
           "backgroundColor": "#fff",
           "overflow": "visible",
@@ -422,6 +444,7 @@ exports[`PrimaryButton -  iconTwo -  true - renders as before 1`] = `
             "borderColor": "#2089dc",
             "borderRadius": 28,
             "borderWidth": 0,
+            "elevation": 50,
             "flexDirection": "row",
             "justifyContent": "center",
             "padding": 8,
@@ -430,6 +453,13 @@ exports[`PrimaryButton -  iconTwo -  true - renders as before 1`] = `
             "paddingLeft": 26,
             "paddingRight": 24,
             "paddingTop": 15,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 20,
           }
         }
       >
@@ -507,10 +537,12 @@ exports[`PrimaryButton -  large -  true - renders as before 1`] = `
         {
           "borderRadius": 2,
         },
-        {
-          "borderRadius": 28,
-          "flexDirection": "row",
-        },
+        [
+          {
+            "borderRadius": 28,
+            "flexDirection": "row",
+          },
+        ],
         {
           "backgroundColor": "#fff",
           "overflow": "visible",
@@ -587,6 +619,7 @@ exports[`PrimaryButton -  large -  true - renders as before 1`] = `
             "borderColor": "#2089dc",
             "borderRadius": 28,
             "borderWidth": 0,
+            "elevation": 50,
             "flexDirection": "row",
             "justifyContent": "center",
             "padding": 8,
@@ -595,6 +628,13 @@ exports[`PrimaryButton -  large -  true - renders as before 1`] = `
             "paddingLeft": 26,
             "paddingRight": 24,
             "paddingTop": 15,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 20,
           }
         }
       >
@@ -663,10 +703,12 @@ exports[`PrimaryButton -  loading -  true - renders as before 1`] = `
         {
           "borderRadius": 2,
         },
-        {
-          "borderRadius": 28,
-          "flexDirection": "row",
-        },
+        [
+          {
+            "borderRadius": 28,
+            "flexDirection": "row",
+          },
+        ],
         {
           "backgroundColor": "#fff",
           "overflow": "visible",
@@ -743,6 +785,7 @@ exports[`PrimaryButton -  loading -  true - renders as before 1`] = `
             "borderColor": "#2089dc",
             "borderRadius": 28,
             "borderWidth": 0,
+            "elevation": 50,
             "flexDirection": "row",
             "justifyContent": "center",
             "padding": 8,
@@ -751,6 +794,13 @@ exports[`PrimaryButton -  loading -  true - renders as before 1`] = `
             "paddingLeft": 26,
             "paddingRight": 24,
             "paddingTop": 15,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 20,
           }
         }
       >
@@ -800,10 +850,12 @@ exports[`PrimaryButton -  minimal props -  renders as before 1`] = `
         {
           "borderRadius": 2,
         },
-        {
-          "borderRadius": 28,
-          "flexDirection": "row",
-        },
+        [
+          {
+            "borderRadius": 28,
+            "flexDirection": "row",
+          },
+        ],
         {
           "backgroundColor": "#fff",
           "overflow": "visible",
@@ -880,6 +932,7 @@ exports[`PrimaryButton -  minimal props -  renders as before 1`] = `
             "borderColor": "#2089dc",
             "borderRadius": 28,
             "borderWidth": 0,
+            "elevation": 50,
             "flexDirection": "row",
             "justifyContent": "center",
             "padding": 8,
@@ -888,6 +941,13 @@ exports[`PrimaryButton -  minimal props -  renders as before 1`] = `
             "paddingLeft": 26,
             "paddingRight": 24,
             "paddingTop": 15,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 20,
           }
         }
       >
@@ -956,10 +1016,12 @@ exports[`PrimaryButton -  uppercase -  true - renders as before 1`] = `
         {
           "borderRadius": 2,
         },
-        {
-          "borderRadius": 28,
-          "flexDirection": "row",
-        },
+        [
+          {
+            "borderRadius": 28,
+            "flexDirection": "row",
+          },
+        ],
         {
           "backgroundColor": "#fff",
           "overflow": "visible",
@@ -1036,6 +1098,7 @@ exports[`PrimaryButton -  uppercase -  true - renders as before 1`] = `
             "borderColor": "#2089dc",
             "borderRadius": 28,
             "borderWidth": 0,
+            "elevation": 50,
             "flexDirection": "row",
             "justifyContent": "center",
             "padding": 8,
@@ -1044,6 +1107,13 @@ exports[`PrimaryButton -  uppercase -  true - renders as before 1`] = `
             "paddingLeft": 26,
             "paddingRight": 24,
             "paddingTop": 15,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 20,
           }
         }
       >
