@@ -7,14 +7,16 @@ import {
   Prospect,
   IRegisterPasswordCommand,
   IRegisterBirthCommand,
+  IRegisterAddressCommand,
 } from '@clean-rn/auth/domain';
 
 import {
   ISignupTypes,
-  birthRegistered,
   emailChecked,
   identityRegistered,
   passwordRegistered,
+  birthRegistered,
+  addressRegistered,
 } from '../../commands/signup';
 import { selectEmail, selectProspect } from '../../state-management';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
@@ -41,9 +43,16 @@ function* registerIdentityGenerator({
   type: string;
   payload: IRegisterIdentityCommand;
 }): Generator<StrictEffect, any, any> {
-  // retrieve email from redux store
-  const email = yield select(selectEmail);
-  const prospect = Prospect.Create(email);
+  let prospect: Prospect;
+  // retrieve prospect from redux store
+  prospect = yield select(selectProspect);
+
+  if (!prospect) {
+    // retrieve email from redux store
+    const email = yield select(selectEmail);
+    prospect = Prospect.Create(email);
+  }
+
   // add identity property to prospect instance
   prospect.registerIdentity(payload);
   // save prospect with identity registered in redux store
@@ -56,8 +65,15 @@ function* registerPasswordGenerator({
   type: string;
   payload: IRegisterPasswordCommand;
 }): Generator<StrictEffect, any, any> {
-  // retrieve prospect with identity registered from redux store
-  const prospect = yield select(selectProspect);
+  let prospect: Prospect;
+  // retrieve prospect from redux store
+  prospect = yield select(selectProspect);
+
+  if (!prospect) {
+    // retrieve email from redux store
+    const email = yield select(selectEmail);
+    prospect = Prospect.Create(email);
+  }
   // add password property to prospect instance
   prospect.registerPassword(payload.password);
   // save prospect with identity & password registered in redux store
@@ -70,12 +86,42 @@ function* registerBirthGenerator({
   type: string;
   payload: IRegisterBirthCommand;
 }): Generator<StrictEffect, any, any> {
-  // retrieve prospect with identity registered from redux store
-  const prospect = yield select(selectProspect);
+  let prospect: Prospect;
+  // retrieve prospect from redux store
+  prospect = yield select(selectProspect);
+
+  if (!prospect) {
+    // retrieve email from redux store
+    const email = yield select(selectEmail);
+    prospect = Prospect.Create(email);
+  }
+
   // add password property to prospect instance
   prospect.registerBirth(payload);
   // save prospect with identity & password registered in redux store
   yield put(birthRegistered(prospect));
+}
+
+function* registerAddressGenerator({
+  payload,
+}: {
+  type: string;
+  payload: IRegisterAddressCommand;
+}): Generator<StrictEffect, any, any> {
+  let prospect: Prospect;
+  // retrieve prospect from redux store
+  prospect = yield select(selectProspect);
+
+  if (!prospect) {
+    // retrieve email from redux store
+    const email = yield select(selectEmail);
+    prospect = Prospect.Create(email);
+  }
+
+  // add password property to prospect instance
+  prospect.registerAddress(payload);
+  // save prospect with identity & password registered in redux store
+  yield put(addressRegistered(prospect));
 }
 
 function* checkEmailSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
@@ -94,13 +140,19 @@ function* registerBirthSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(ISignupTypes.REGISTER_BIRTH, registerBirthGenerator);
 }
 
+function* registerAddressSaga(): Generator<StrictEffect, any, any> {
+  yield takeEvery(ISignupTypes.REGISTER_ADDRESS, registerAddressGenerator);
+}
+
 export {
   checkEmailSaga,
   registerIdentitySaga,
   registerPasswordSaga,
   registerBirthSaga,
+  registerAddressSaga,
   checkEmailGenerator,
   registerIdentityGenerator,
   registerPasswordGenerator,
   registerBirthGenerator,
+  registerAddressGenerator,
 };

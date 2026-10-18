@@ -1,6 +1,7 @@
 import { IAddress, IIdentity, IBirth } from '../types';
 import { Email, Phone, BirthDay, Country, Password } from '../valueObjects';
-import { IRegisterBirthCommand, IRegisterIdentityCommand } from '../commands';
+import { IRegisterAddressCommand, IRegisterBirthCommand, IRegisterIdentityCommand } from '../commands';
+import { AuthError } from '../errors';
 
 export interface IProspectProperties {
   email: Email;
@@ -18,6 +19,9 @@ export class Prospect {
   }
 
   static Create(email: Email): Prospect {
+    if (!email) {
+      throw new AuthError.InvalidEmail('Email is required');
+    }
     return new Prospect({ properties: { email } });
   }
 
@@ -44,12 +48,13 @@ export class Prospect {
     };
   }
 
-  registerAddress(str: string, city: string, zip: string, countryString: string): void {
+  registerAddress(cmd: IRegisterAddressCommand): void {
+    const { str, city, zip, country } = cmd;
     this.properties.address = {
       str,
       city,
       zip,
-      country: new Country(countryString),
+      country: new Country(country),
     };
   }
 

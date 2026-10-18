@@ -95,7 +95,8 @@ describe('Signup - usecase', () => {
     expect(genObject.next().done).toBeTruthy();
   });
 
-  it('should call registerIdentity actions', () => {
+  it('should call registerIdentity actions if prospect exists', () => {
+    const prospectPrev = Prospect.Create(new Email('test@example.com'));
     const prospect = Prospect.Create(new Email('test@example.com'));
     prospect.registerIdentity(mockIdentity);
 
@@ -104,6 +105,23 @@ describe('Signup - usecase', () => {
       payload: mockIdentity,
     })
       .next()
+      .select(selectProspect)
+      .next(prospectPrev)
+      .put(identityRegistered(prospect))
+      .next();
+  });
+
+  it('should call registerIdentity actions if no prospect', () => {
+    const prospect = Prospect.Create(new Email('test@example.com'));
+    prospect.registerIdentity(mockIdentity);
+
+    testSaga(registerIdentityGenerator, {
+      type: ISignupTypes.REGISTER_IDENTITY,
+      payload: mockIdentity,
+    })
+      .next()
+      .select(selectProspect)
+      .next(null)
       .select(selectEmail)
       .next(new Email('test@example.com'))
       .put(identityRegistered(prospect))
@@ -119,12 +137,9 @@ describe('Signup - usecase', () => {
     expect(genObject.next().done).toBeTruthy();
   });
 
-  it('should call registerPassword actions', () => {
+  it('should call registerPassword actions if prospect exists', () => {
     const prospectPreviousState = Prospect.Create(new Email('test@example.com'));
-    prospectPreviousState.registerIdentity(mockIdentity);
-
     const prospect = Prospect.Create(new Email('test@example.com'));
-    prospect.registerIdentity(mockIdentity);
     prospect.registerPassword(mockPassword.password);
 
     testSaga(registerPasswordGenerator, {
@@ -138,6 +153,23 @@ describe('Signup - usecase', () => {
       .next();
   });
 
+  it('should call registerPassword actions if no prospect', () => {
+    const prospect = Prospect.Create(new Email('test@example.com'));
+    prospect.registerPassword(mockPassword.password);
+
+    testSaga(registerPasswordGenerator, {
+      type: ISignupTypes.REGISTER_PASSWORD,
+      payload: mockPassword,
+    })
+      .next()
+      .select(selectProspect)
+      .next(null)
+      .select(selectEmail)
+      .next(new Email('test@example.com'))
+      .put(passwordRegistered(prospect))
+      .next();
+  });
+
   it('should wait for REGISTER_BIRTH action and call registerBirthGenerator, should be done on next iteration', () => {
     const genObject = registerBirthSaga();
 
@@ -145,14 +177,10 @@ describe('Signup - usecase', () => {
     expect(genObject.next().done).toBeTruthy();
   });
 
-  it('should call registerBirth actions', () => {
+  it('should call registerBirth actions if prospect exists', () => {
     const prospectPreviousState = Prospect.Create(new Email('test@example.com'));
-    prospectPreviousState.registerIdentity(mockIdentity);
-    prospectPreviousState.registerPassword(mockPassword.password);
 
     const prospect = Prospect.Create(new Email('test@example.com'));
-    prospect.registerIdentity(mockIdentity);
-    prospect.registerPassword(mockPassword.password);
     prospect.registerBirth(mockBirth);
 
     testSaga(registerBirthGenerator, {
@@ -162,6 +190,23 @@ describe('Signup - usecase', () => {
       .next()
       .select(selectProspect)
       .next(prospectPreviousState)
+      .put(birthRegistered(prospect))
+      .next();
+  });
+
+  it('should call registerBirth actions if no prospect', () => {
+    const prospect = Prospect.Create(new Email('test@example.com'));
+    prospect.registerBirth(mockBirth);
+
+    testSaga(registerBirthGenerator, {
+      type: ISignupTypes.REGISTER_BIRTH,
+      payload: mockBirth,
+    })
+      .next()
+      .select(selectProspect)
+      .next(null)
+      .select(selectEmail)
+      .next(new Email('test@example.com'))
       .put(birthRegistered(prospect))
       .next();
   });

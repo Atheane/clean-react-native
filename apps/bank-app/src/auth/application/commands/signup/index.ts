@@ -4,8 +4,8 @@ import {
   ISignupTypes,
   IFetchCheckEmail,
   IIdentityRegistered,
-  IRegisterAddress,
   IBirthRegistered,
+  IAddressRegistered,
   ICreateUser,
   IEmailChecked,
   IPasswordRegistered,
@@ -36,8 +36,8 @@ export const birthRegistered = (payload: Prospect): IBirthRegistered => ({
   payload,
 });
 
-export const registerAddress = (payload: Prospect): IRegisterAddress => ({
-  type: ISignupTypes.REGISTER_ADDRESS,
+export const addressRegistered = (payload: Prospect): IAddressRegistered => ({
+  type: ISignupTypes.ADDRESS_REGISTERED,
   payload,
 });
 
