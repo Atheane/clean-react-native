@@ -41,7 +41,8 @@
     "bic": "*",
     "iban": "*",
     "expo-clipboard": "*",
-    "@react-native-community/slider": "*"
+    "@react-native-community/slider": "*",
+    "@sentry/react-native": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",
