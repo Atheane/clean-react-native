@@ -12,9 +12,9 @@ import {
   IRegisterBirthCommand,
   IRegisterIdentityCommand,
   IRegisterPasswordCommand,
-  Prospect,
   PhoneOtp,
   User,
+  IUserProperties,
 } from '@clean-rn/auth/domain';
 
 import {
@@ -43,8 +43,9 @@ import {
   userSignedUp,
   fetchSignupUser,
 } from '../../commands/signup';
-import { ISignupState, signupReducer } from '../../state-management';
+import { ISignupState, selectEmail, selectUser, signupReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
+import { select } from 'redux-saga/effects';
 
 const expoConstantsMock = {
   name: 'CleanRN BankApp Test',
@@ -107,7 +108,7 @@ describe('CheckEmail - integration', () => {
       pending: false,
       email: null,
       phone: null,
-      prospect: null,
+      phoneOtp: null,
       user: null,
       error: null,
     };
@@ -129,7 +130,7 @@ describe('CheckEmail - integration', () => {
       pending: true,
       email: new Email('test@example.com'),
       phone: null,
-      prospect: null,
+      phoneOtp: null,
       user: null,
       error: null,
     });
@@ -143,7 +144,7 @@ describe('CheckEmail - integration', () => {
       pending: true,
       email: new Email('test@example.com'),
       phone: null,
-      prospect: null,
+      phoneOtp: null,
       user: null,
       error: null,
     });
@@ -158,7 +159,7 @@ describe('CheckEmail - integration', () => {
       pending: false,
       email: new Email('test@example.com'),
       phone: null,
-      prospect: null,
+      phoneOtp: null,
       user: null,
       error: null,
     });
@@ -173,7 +174,7 @@ describe('CheckEmail - integration', () => {
       pending: false,
       email: new Email('test@example.com'),
       phone: null,
-      prospect: null,
+      phoneOtp: null,
       user: null,
       error: new AuthError.SignupFailureEmailExists(),
     });
@@ -187,7 +188,7 @@ describe('CheckEmail - integration', () => {
       pending: true,
       email: null,
       phone: new Phone('0616804613', 'FR'),
-      prospect: null,
+      phoneOtp: null,
       user: null,
       error: null,
     });
@@ -198,7 +199,7 @@ describe('CheckEmail - integration', () => {
       pending: false,
       email: null,
       phone: new Phone('0616804613', 'FR'),
-      prospect: null,
+      phoneOtp: null,
       user: null,
       error: null,
     };
@@ -216,7 +217,7 @@ describe('CheckEmail - integration', () => {
       pending: false,
       email: null,
       phone: new Phone('0616804613', 'FR'),
-      prospect: null,
+      phoneOtp: null,
       user: null,
       error: null,
     });
@@ -232,7 +233,7 @@ describe('CheckEmail - integration', () => {
       pending: true,
       email: null,
       phone: null,
-      prospect: null,
+      phoneOtp: new PhoneOtp('123456'),
       user: null,
       error: null,
     });
@@ -243,7 +244,7 @@ describe('CheckEmail - integration', () => {
       pending: false,
       email: null,
       phone: new Phone('0616804613', 'FR'),
-      prospect: null,
+      phoneOtp: new PhoneOtp('123456'),
       user: null,
       error: null,
     };
@@ -257,16 +258,16 @@ describe('CheckEmail - integration', () => {
     sagaTester.dispatch(
       fetchValidatePhone({ phone: new Phone('0616804613', 'FR'), phoneOtp: new PhoneOtp('123456') }),
     );
-    const prospect = Prospect.Create(new Email('test@example.com'));
-    prospect.validatePhone({ phone: new Phone('0616804613', 'FR'), phoneOtp: new PhoneOtp('123456') });
-    sagaTester.dispatch(phoneValidated(prospect));
+    const user = User.Create(new Email('test@example.com'));
+    user.validatePhone({ phone: new Phone('0616804613', 'FR'), phoneOtp: new PhoneOtp('123456') });
+    sagaTester.dispatch(phoneValidated(user));
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
       email: null,
       phone: new Phone('0616804613', 'FR'),
-      prospect,
-      user: null,
+      phoneOtp: new PhoneOtp('123456'),
+      user,
       error: null,
     });
   });
@@ -276,7 +277,7 @@ describe('CheckEmail - integration', () => {
       pending: false,
       email: new Email('test@example.com'),
       phone: null,
-      prospect: null,
+      phoneOtp: null,
       user: null,
       error: null,
     };
@@ -288,29 +289,29 @@ describe('CheckEmail - integration', () => {
 
     sagaTester.start(registerIdentitySaga);
 
-    const prospect = Prospect.Create(new Email('test@example.com'));
-    prospect.registerIdentity(mockIdentity);
-    sagaTester.dispatch(identityRegistered(prospect));
+    const user = User.Create(new Email('test@example.com'));
+    user.registerIdentity(mockIdentity);
+    sagaTester.dispatch(identityRegistered(user));
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
       email: new Email('test@example.com'),
       phone: null,
-      prospect: prospect,
-      user: null,
+      phoneOtp: null,
+      user,
       error: null,
     });
   });
 
   it('Should store correct state in case if PASSWORD_REGISTERED', () => {
-    const prospect = Prospect.Create(new Email('test@example.com'));
+    const user = User.Create(new Email('test@example.com'));
 
     const initialState: ISignupState = {
       pending: false,
       email: new Email('test@example.com'),
       phone: null,
-      prospect,
-      user: null,
+      phoneOtp: null,
+      user,
       error: null,
     };
 
@@ -320,28 +321,28 @@ describe('CheckEmail - integration', () => {
     });
 
     sagaTester.start(registerPasswordSaga);
-    prospect.registerPassword(mockPassword.password);
-    sagaTester.dispatch(passwordRegistered(prospect));
+    user.registerPassword(mockPassword.password);
+    sagaTester.dispatch(passwordRegistered(user));
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
       email: new Email('test@example.com'),
       phone: null,
-      prospect,
-      user: null,
+      phoneOtp: null,
+      user,
       error: null,
     });
   });
 
   it('Should store correct state in case if BIRTH_REGISTERED', () => {
-    const prospect = Prospect.Create(new Email('test@example.com'));
+    const user = User.Create(new Email('test@example.com'));
 
     const initialState: ISignupState = {
       pending: false,
       email: new Email('test@example.com'),
       phone: null,
-      prospect,
-      user: null,
+      phoneOtp: null,
+      user,
       error: null,
     };
 
@@ -351,27 +352,27 @@ describe('CheckEmail - integration', () => {
     });
 
     sagaTester.start(registerBirthSaga);
-    prospect.registerBirth(mockBirth);
-    sagaTester.dispatch(birthRegistered(prospect));
+    user.registerBirth(mockBirth);
+    sagaTester.dispatch(birthRegistered(user));
 
-    expect(sagaTester.getState()).toEqual({
+    expect(sagaTester.getState()).toStrictEqual({
       pending: false,
       email: new Email('test@example.com'),
       phone: null,
-      prospect,
-      user: null,
+      phoneOtp: null,
+      user,
       error: null,
     });
   });
 
   it('Should store correct state in case if ADDRESS_REGISTERED', () => {
-    const prospect = Prospect.Create(new Email('test@example.com'));
+    const user = User.Create(new Email('test@example.com'));
 
     const initialState: ISignupState = {
       pending: false,
       email: new Email('test@example.com'),
       phone: null,
-      prospect,
+      phoneOtp: null,
       user: null,
       error: null,
     };
@@ -382,33 +383,33 @@ describe('CheckEmail - integration', () => {
     });
 
     sagaTester.start(registerAddressSaga);
-    prospect.registerAddress(mockAddress);
-    sagaTester.dispatch(addressRegistered(prospect));
+    user.registerAddress(mockAddress);
+    sagaTester.dispatch(addressRegistered(user));
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
       email: new Email('test@example.com'),
       phone: null,
-      prospect,
-      user: null,
+      phoneOtp: null,
+      user,
       error: null,
     });
   });
 
   it('Should store correct state in case if FETCH_SIGNUP_USER', () => {
-    const prospect = Prospect.Create(new Email('test@example.com'));
-    prospect.registerIdentity(mockIdentity);
-    prospect.registerPassword(mockPassword.password);
-    prospect.validatePhone(mockQueryPhoneOtp);
-    prospect.registerBirth(mockBirth);
-    prospect.registerAddress(mockAddress);
+    const user = User.Create(new Email('test@example.com'));
+    user.registerIdentity(mockIdentity);
+    user.registerPassword(mockPassword.password);
+    user.validatePhone(mockQueryPhoneOtp);
+    user.registerBirth(mockBirth);
+    user.registerAddress(mockAddress);
 
     const initialState: ISignupState = {
       pending: true,
       email: new Email('test@example.com'),
       phone: new Phone('0616804613', 'FR'),
-      prospect,
-      user: null,
+      phoneOtp: new PhoneOtp('123456'),
+      user,
       error: null,
     };
 
@@ -424,25 +425,25 @@ describe('CheckEmail - integration', () => {
       pending: true,
       email: new Email('test@example.com'),
       phone: new Phone('0616804613', 'FR'),
-      prospect,
-      user: null,
+      phoneOtp: new PhoneOtp('123456'),
+      user,
       error: null,
     });
   });
 
   it('Should store correct state in case if USER_SIGNED_UP', () => {
-    const prospect = Prospect.Create(new Email('test@example.com'));
-    prospect.registerIdentity(mockIdentity);
-    prospect.registerPassword(mockPassword.password);
-    prospect.validatePhone(mockQueryPhoneOtp);
-    prospect.registerBirth(mockBirth);
-    prospect.registerAddress(mockAddress);
+    const user = User.Create(new Email('test@example.com'));
+    user.registerIdentity(mockIdentity);
+    user.registerPassword(mockPassword.password);
+    user.validatePhone(mockQueryPhoneOtp);
+    user.registerBirth(mockBirth);
+    user.registerAddress(mockAddress);
 
     const initialState: ISignupState = {
       pending: false,
       email: new Email('test@example.com'),
       phone: new Phone('0616804613', 'FR'),
-      prospect,
+      phoneOtp: new PhoneOtp('123456'),
       user: null,
       error: null,
     };
@@ -455,7 +456,7 @@ describe('CheckEmail - integration', () => {
     sagaTester.start(signupUserSaga, httpConnection);
 
     const uid = '123';
-    const user = User.Signup({ id: uid, ...prospect.properties });
+    user.signup({ id: uid, ...(user.properties as IUserProperties) });
 
     sagaTester.dispatch(userSignedUp(user));
 
@@ -463,9 +464,56 @@ describe('CheckEmail - integration', () => {
       pending: false,
       email: new Email('test@example.com'),
       phone: new Phone('0616804613', 'FR'),
-      prospect,
+      phoneOtp: new PhoneOtp('123456'),
       user,
       error: null,
     });
+  });
+
+  it('should select the user from state', () => {
+    const user = User.Create(new Email('test@example.com'));
+    user.registerIdentity(mockIdentity);
+    user.registerPassword(mockPassword.password);
+    user.validatePhone(mockQueryPhoneOtp);
+    user.registerBirth(mockBirth);
+    user.registerAddress(mockAddress);
+
+    const initialState: ISignupState = {
+      pending: false,
+      email: new Email('test@example.com'),
+      phone: new Phone('0616804613', 'FR'),
+      phoneOtp: new PhoneOtp('123456'),
+      user,
+      error: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: signupReducer,
+    });
+    sagaTester.start(signupUserSaga, httpConnection);
+
+    const userFromState = selectUser(sagaTester.getState());
+    expect(userFromState).toEqual(user);
+  });
+
+  it('should select the email from state', () => {
+    const initialState: ISignupState = {
+      pending: false,
+      email: new Email('test@example.com'),
+      phone: new Phone('0616804613', 'FR'),
+      phoneOtp: new PhoneOtp('123456'),
+      user: null,
+      error: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: signupReducer,
+    });
+    sagaTester.start(signupUserSaga, httpConnection);
+
+    const emailFormState = selectEmail(sagaTester.getState());
+    expect(emailFormState).toEqual(new Email('test@example.com'));
   });
 });

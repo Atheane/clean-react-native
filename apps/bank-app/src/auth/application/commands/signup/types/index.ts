@@ -1,5 +1,4 @@
 import {
-  Prospect,
   User,
   IAuthErrorCodes,
   IAuthErrorMessage,
@@ -45,12 +44,12 @@ export type ISignupFailed = {
 
 export type IIdentityRegistered = {
   type: typeof ISignupTypes.IDENTITY_REGISTERED;
-  payload: Prospect;
+  payload: User;
 };
 
 export type IPasswordRegistered = {
   type: typeof ISignupTypes.PASSWORD_REGISTERED;
-  payload: Prospect;
+  payload: User;
 };
 
 export type IFetchCheckPhone = {
@@ -69,22 +68,22 @@ export type IFetchValidatePhone = {
 
 export type IPhoneValidated = {
   type: typeof ISignupTypes.PHONE_VALIDATED;
-  payload: Prospect;
+  payload: User;
 };
 
 export type IBirthRegistered = {
   type: typeof ISignupTypes.BIRTH_REGISTERED;
-  payload: Prospect;
+  payload: User;
 };
 
 export type IRegisterAddress = {
   type: typeof ISignupTypes.REGISTER_ADDRESS;
-  payload: Prospect;
+  payload: User;
 };
 
 export type IAddressRegistered = {
   type: typeof ISignupTypes.ADDRESS_REGISTERED;
-  payload: Prospect;
+  payload: User;
 };
 
 export type IFetchSignupUser = {

@@ -6,7 +6,7 @@ const initialState: ISignupState = {
   pending: false,
   email: null,
   phone: null,
-  prospect: null,
+  phoneOtp: null,
   user: null,
   error: null,
 };
@@ -58,6 +58,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
       newState = {
         ...state,
         pending: true,
+        phoneOtp: action.payload.phoneOtp,
       };
       return newState;
     case ISignupTypes.PHONE_VALIDATED:
@@ -65,35 +66,35 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
       newState = {
         ...state,
         pending: false,
-        prospect: action.payload,
+        user: action.payload,
       };
       return newState;
     case ISignupTypes.IDENTITY_REGISTERED:
       logger.debug(action.type);
       newState = {
         ...state,
-        prospect: action.payload,
+        user: action.payload,
       };
       return newState;
     case ISignupTypes.PASSWORD_REGISTERED:
       logger.debug(action.type);
       newState = {
         ...state,
-        prospect: action.payload,
+        user: action.payload,
       };
       return newState;
     case ISignupTypes.BIRTH_REGISTERED:
       logger.debug(action.type);
       newState = {
         ...state,
-        prospect: action.payload,
+        user: action.payload,
       };
       return newState;
     case ISignupTypes.ADDRESS_REGISTERED:
       logger.debug(action.type);
       newState = {
         ...state,
-        prospect: action.payload,
+        user: action.payload,
       };
       return newState;
 

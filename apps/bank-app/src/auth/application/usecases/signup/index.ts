@@ -5,7 +5,6 @@ import {
   ICheckPhoneQuery,
   IRegisterIdentityCommand,
   ISuccess,
-  Prospect,
   IRegisterPasswordCommand,
   IRegisterBirthCommand,
   IRegisterAddressCommand,
@@ -13,6 +12,7 @@ import {
   IValidatePhoneQuery,
   ISendPhoneValidationCommand,
   User,
+  IUserProperties,
 } from '@clean-rn/auth/domain';
 
 import {
@@ -27,7 +27,7 @@ import {
   phoneChecked,
   userSignedUp,
 } from '../../commands/signup';
-import { selectEmail, selectProspect } from '../../state-management';
+import { selectEmail, selectPhoneOtp, selectUser } from '../../state-management';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
@@ -56,20 +56,20 @@ function* registerIdentityGenerator({
   type: string;
   payload: IRegisterIdentityCommand;
 }): Generator<StrictEffect, any, any> {
-  let prospect: Prospect;
-  // retrieve prospect from redux store
-  prospect = yield select(selectProspect);
+  let user: User;
+  // retrieve user from redux store
+  user = yield select(selectUser);
 
-  if (!prospect) {
+  if (!user) {
     // retrieve email from redux store
     const email = yield select(selectEmail);
-    prospect = Prospect.Create(email);
+    user = User.Create(email);
   }
 
   // add identity property to prospect instance
-  prospect.registerIdentity(payload);
+  user.registerIdentity(payload);
   // save prospect with identity registered in redux store
-  yield put(identityRegistered(prospect));
+  yield put(identityRegistered(user));
 }
 
 function* registerPasswordGenerator({
@@ -78,19 +78,19 @@ function* registerPasswordGenerator({
   type: string;
   payload: IRegisterPasswordCommand;
 }): Generator<StrictEffect, any, any> {
-  let prospect: Prospect;
+  let user: User;
   // retrieve prospect from redux store
-  prospect = yield select(selectProspect);
+  user = yield select(selectUser);
 
-  if (!prospect) {
+  if (!user) {
     // retrieve email from redux store
     const email = yield select(selectEmail);
-    prospect = Prospect.Create(email);
+    user = User.Create(email);
   }
   // add password property to prospect instance
-  prospect.registerPassword(payload.password);
+  user.registerPassword(payload.password);
   // save prospect with identity & password registered in redux store
-  yield put(passwordRegistered(prospect));
+  yield put(passwordRegistered(user));
 }
 
 function* checkPhoneGenerator(
@@ -136,18 +136,18 @@ function* validatePhoneGenerator(
     yield put(signupFailed(new AuthError.SignupFailureInvalidPhoneCode()));
     yield cancel();
   }
-  let prospect: Prospect;
+  let user: User;
   // retrieve prospect from redux store
-  prospect = yield select(selectProspect);
-  if (!prospect) {
+  user = yield select(selectUser);
+  if (!user) {
     // retrieve email from redux store
     const email = yield select(selectEmail);
-    prospect = Prospect.Create(email);
+    user = User.Create(email);
   }
 
   // add password property to prospect instance
-  prospect.validatePhone(payload);
-  yield put(phoneValidated(prospect));
+  user.validatePhone(payload);
+  yield put(phoneValidated(user));
 }
 
 function* registerBirthGenerator({
@@ -156,20 +156,20 @@ function* registerBirthGenerator({
   type: string;
   payload: IRegisterBirthCommand;
 }): Generator<StrictEffect, any, any> {
-  let prospect: Prospect;
+  let user: User;
   // retrieve prospect from redux store
-  prospect = yield select(selectProspect);
+  user = yield select(selectUser);
 
-  if (!prospect) {
+  if (!user) {
     // retrieve email from redux store
     const email = yield select(selectEmail);
-    prospect = Prospect.Create(email);
+    user = User.Create(email);
   }
 
-  // add password property to prospect instance
-  prospect.registerBirth(payload);
-  // save prospect with identity & password registered in redux store
-  yield put(birthRegistered(prospect));
+  // add password property to user instance
+  user.registerBirth(payload);
+  // save user with identity & password registered in redux store
+  yield put(birthRegistered(user));
 }
 
 function* registerAddressGenerator({
@@ -178,28 +178,29 @@ function* registerAddressGenerator({
   type: string;
   payload: IRegisterAddressCommand;
 }): Generator<StrictEffect, any, any> {
-  let prospect: Prospect;
+  let user: User;
   // retrieve prospect from redux store
-  prospect = yield select(selectProspect);
+  user = yield select(selectUser);
 
-  if (!prospect) {
+  if (!user) {
     // retrieve email from redux store
     const email = yield select(selectEmail);
-    prospect = Prospect.Create(email);
+    user = User.Create(email);
   }
 
-  // add password property to prospect instance
-  prospect.registerAddress(payload);
-  // save prospect with identity & password registered in redux store
-  yield put(addressRegistered(prospect));
+  // add password property to user instance
+  user.registerAddress(payload);
+  // save user with identity & password registered in redux store
+  yield put(addressRegistered(user));
 }
 
 function* signupUserGenerator(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  const prospect = yield select(selectProspect);
+  const user = yield select(selectUser);
+  const phoneOtp = yield select(selectPhoneOtp);
 
   const api = AuthApi.getInstance(httpConnection);
-  const { uid } = yield call([api, api.createUser], { ...prospect.properties });
-  const user = User.Signup({ id: uid, ...prospect.properties });
+  const { uid } = yield call([api, api.createUser], { ...user.properties, phoneOtp });
+  user.signup({ id: uid, ...(user.properties as IUserProperties) });
   yield put(userSignedUp(user));
 }
 
