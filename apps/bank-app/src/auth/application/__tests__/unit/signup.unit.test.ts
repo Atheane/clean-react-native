@@ -11,6 +11,7 @@ import {
   ISuccess,
   IRegisterPasswordCommand,
   IRegisterBirthCommand,
+  IRegisterAddressCommand,
 } from '@clean-rn/auth/domain';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
@@ -24,9 +25,12 @@ import {
   registerPasswordSaga,
   registerBirthGenerator,
   registerBirthSaga,
+  registerAddressSaga,
+  registerAddressGenerator,
 } from '../../usecases/signup';
 import {
   ISignupTypes,
+  addressRegistered,
   birthRegistered,
   emailChecked,
   identityRegistered,
@@ -52,6 +56,13 @@ describe('Signup - usecase', () => {
   const mockBirth: IRegisterBirthCommand = {
     birthday: dayjs('1980-01-01'),
     birthCountry: 'FR',
+  };
+
+  const mockAddress: IRegisterAddressCommand = {
+    str: 'fake address',
+    city: 'string',
+    zip: 'string',
+    country: 'GR',
   };
 
   it('should wait for FETCH_CHECK_EMAIL action and call checkEmailApiSaga, should be done on next iteration', () => {
@@ -208,6 +219,49 @@ describe('Signup - usecase', () => {
       .select(selectEmail)
       .next(new Email('test@example.com'))
       .put(birthRegistered(prospect))
+      .next();
+  });
+
+  it('should wait for REGISTER_ADDRESS action and call registerAddressGenerator, should be done on next iteration', () => {
+    const genObject = registerAddressSaga();
+
+    expect(genObject.next().value).toEqual(
+      takeEvery(ISignupTypes.REGISTER_ADDRESS, registerAddressGenerator),
+    );
+    expect(genObject.next().done).toBeTruthy();
+  });
+
+  it('should call registerAddress actions if prospect exists', () => {
+    const prospectPreviousState = Prospect.Create(new Email('test@example.com'));
+
+    const prospect = Prospect.Create(new Email('test@example.com'));
+    prospect.registerAddress(mockAddress);
+
+    testSaga(registerAddressGenerator, {
+      type: ISignupTypes.REGISTER_ADDRESS,
+      payload: mockAddress,
+    })
+      .next()
+      .select(selectProspect)
+      .next(prospectPreviousState)
+      .put(addressRegistered(prospect))
+      .next();
+  });
+
+  it('should call registerAddress actions if no prospect', () => {
+    const prospect = Prospect.Create(new Email('test@example.com'));
+    prospect.registerAddress(mockAddress);
+
+    testSaga(registerAddressGenerator, {
+      type: ISignupTypes.REGISTER_ADDRESS,
+      payload: mockAddress,
+    })
+      .next()
+      .select(selectProspect)
+      .next(null)
+      .select(selectEmail)
+      .next(new Email('test@example.com'))
+      .put(addressRegistered(prospect))
       .next();
   });
 });
