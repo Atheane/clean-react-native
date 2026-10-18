@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
 
@@ -42,5 +42,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textContainer: { marginLeft: 30 },
-  iconContainer: { position: 'absolute', right: 24 },
+  iconContainer: { position: 'absolute', right: 12, top: 0 },
 });

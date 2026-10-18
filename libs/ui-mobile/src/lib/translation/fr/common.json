@@ -297,7 +297,8 @@
         "meatWhite": "V. blanche / Volaille",
         "rice": "Pâtes / Riz",
         "soft": "Jus de fruits / Soda / Eau",
-        "unit": " fois / semaine"
+        "unit": " fois / semaine",
+        "units": " fois / semaine"
       }
     },
     "warningFood": {

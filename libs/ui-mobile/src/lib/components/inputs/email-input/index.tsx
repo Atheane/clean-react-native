@@ -30,7 +30,7 @@ export const EmailInput = (props: Props & State) => {
       const cleanEmail = text.trim();
       if (props.onChange) props.onChange(cleanEmail);
     },
-    [props.onChange],
+    [props],
   );
 
   return props.filled ? (

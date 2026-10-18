@@ -34,7 +34,7 @@ export const FormSignupStep4 = (props: IProps) => {
 
   return (
     <View style={[styles.container, theme.bank.container.centeredItem]}>
-      <View style={styles.inputContainer}>
+      <View style={[styles.inputContainer, { marginBottom: 16 }]}>
         <Controller
           control={props.control}
           name="birthday"
@@ -124,10 +124,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   inputContainer: { marginTop: 30 },
+  datePickerContainer: { marginBottom: 16 },
   submitButtonContainer: {
     marginTop: 50,
   },
   errorContainer: {
-    marginVertical: 10,
+    marginTop: 16,
   },
 });

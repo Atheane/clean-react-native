@@ -1,10 +1,10 @@
-import { View, Text, StyleSheet, GestureResponderEvent, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, GestureResponderEvent } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { Input, InputProps, useTheme } from '@rneui/themed';
 
 import { Lock, Eye, Blind } from '../../../assets';
-import { Colors, FontNames } from '../../../constants';
+import { Colors } from '../../../constants';
 
 type State = {
   label?: string;

@@ -18,7 +18,6 @@ import {
   BilanFranceFR,
   BilanFranceEN,
 } from '../../../assets';
-import { Colors, FontNames } from '../../../constants';
 
 type IProps = {
   emissions: number;

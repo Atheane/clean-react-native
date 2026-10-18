@@ -20,7 +20,7 @@ export const EventCard = (props: IProps) => {
   const handleOnPress = useCallback(() => {
     props.onDelete(props.uid);
     setShow(false);
-  }, [props.uid]);
+  }, [props]);
 
   const { theme } = useTheme();
 
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   },
   deleteCross: {
     position: 'absolute',
-    top: -10,
+    top: -2,
     right: -10,
   },
   text: {

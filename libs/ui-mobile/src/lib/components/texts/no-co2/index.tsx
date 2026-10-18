@@ -8,7 +8,7 @@ type IProps = {
 export const NoCO2 = (props: IProps) => {
   const { theme } = useTheme();
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, theme.bank.container.centeredItem]}>
       <Text style={theme.bank.text.darkBlue}>{props.text}</Text>
     </View>
   );

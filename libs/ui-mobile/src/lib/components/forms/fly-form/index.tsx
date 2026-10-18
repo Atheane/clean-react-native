@@ -61,28 +61,28 @@ export const FlyForm = (props: IProps) => {
     (item: IData, property: keyof FlightI) => {
       props.onChangeField(property, item.key);
     },
-    [props.onChangeField],
+    [props],
   );
 
   const handleOnChangeFlightNumber = useCallback(
     (value: number) => {
       props.onChangeField('nbPassengers', value);
     },
-    [props.onChangeField],
+    [props],
   );
 
   const handleOnToggleWays = useCallback(
     ({ key }: { key: string }) => {
       props.onChangeField('roundTrip', FlyTypeComparator[key as FLY_TYPE]);
     },
-    [props.onChangeField],
+    [props],
   );
 
   const handleOnToggleSeat = useCallback(
     ({ key }: { key: string }) => {
       props.onChangeField('seatType', SeatE[key as SeatE]);
     },
-    [props.onChangeField],
+    [props],
   );
 
   const mapFlightToCards = (flights: FlightI[]) => {
@@ -121,7 +121,7 @@ export const FlyForm = (props: IProps) => {
 
   return (
     <View style={theme.bank.container.centeredItem}>
-      <View style={styles.dropdownContainer}>
+      <View style={styles.inputContainer}>
         <SearchModal
           label={t('screens.carbonFly.dropdown.destination')}
           placeholder={t('screens.carbonFly.dropdown.destination')}
@@ -130,7 +130,7 @@ export const FlyForm = (props: IProps) => {
           onSelect={(data: IData) => handleOnChangeField(data, 'fromIATA')}
         />
       </View>
-      <View style={styles.dropdownContainer}>
+      <View style={styles.inputContainer}>
         <SearchModal
           label={t('screens.carbonFly.dropdown.arrival')}
           placeholder={t('screens.carbonFly.dropdown.arrival')}
@@ -139,14 +139,14 @@ export const FlyForm = (props: IProps) => {
           onSelect={(data: IData) => handleOnChangeField(data, 'toIATA')}
         />
       </View>
-      <View style={styles.sliderContainer}>
+      <View style={[styles.sliderContainer, styles.inputContainer]}>
         <SelectNumber
           label={t('screens.carbonFly.slider')}
           value={props.flight?.nbPassengers ?? 1}
           onChange={handleOnChangeFlightNumber}
         />
       </View>
-      <View style={styles.swipeButtonContainer}>
+      <View style={[styles.swipeButtonContainer, styles.inputContainer]}>
         <SwitchButton
           label={t('screens.carbonFly.swipeButton.type')}
           options={[
@@ -156,7 +156,7 @@ export const FlyForm = (props: IProps) => {
           onToggle={handleOnToggleWays}
         />
       </View>
-      <View style={styles.swipeButtonContainer}>
+      <View style={[styles.swipeButtonContainer, styles.inputContainer]}>
         <SwitchButton
           label={t('screens.carbonFly.swipeButton.class')}
           options={[
@@ -166,7 +166,7 @@ export const FlyForm = (props: IProps) => {
           onToggle={handleOnToggleSeat}
         />
       </View>
-      <View style={styles.addButtonContainer}>
+      <View style={styles.inputContainer}>
         <SecondaryButton
           title={t('screens.carbonFly.secondaryButton')}
           onPress={handleOnAddFlight}
@@ -183,21 +183,18 @@ export const FlyForm = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
+  inputContainer: {
+    marginTop: 60,
+  },
   cardScroller: {
     marginBottom: 32,
   },
-  dropdownContainer: {
-    marginVertical: 16,
-  },
   sliderContainer: {
-    marginVertical: 16,
     marginHorizontal: 32,
+    marginBottom: -32,
   },
   swipeButtonContainer: {
-    marginVertical: 16,
     marginHorizontal: 8,
-  },
-  addButtonContainer: {
-    marginVertical: 16,
+    marginBottom: -16,
   },
 });

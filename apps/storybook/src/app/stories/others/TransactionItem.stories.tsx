@@ -26,5 +26,5 @@ export default TransactionItemMeta;
 
 type TransactionItemStory = ComponentStory<typeof TransactionItem>;
 
-export const Static: TransactionItemStory = (args) => <TransactionItem {...args} />;
+export const PositiveAmount: TransactionItemStory = (args) => <TransactionItem {...args} />;
 export const NegativeAmount: TransactionItemStory = (args) => <TransactionItem {...args} amount={-49} />;

@@ -54,14 +54,14 @@ export const FormResetPassword = (props: IProps) => {
                 )}
               />
               {props.errors?.email && props.errors.email.type === 'required' && (
-                <View style={styles.container}>
+                <View style={styles.errorMessageContainer}>
                   <Text style={theme.bank.text.errors}>
                     {firstLetterCapitalize(t('errors.email.required'))}
                   </Text>
                 </View>
               )}
               {props.errors?.email && props.errors.email.type !== 'required' && (
-                <View style={styles.container}>
+                <View style={styles.errorMessageContainer}>
                   <Text style={theme.bank.text.errors}>
                     {firstLetterCapitalize(t('errors.email.invalid'))}
                   </Text>
@@ -70,11 +70,11 @@ export const FormResetPassword = (props: IProps) => {
             </View>
           )}
         </View>
-        <View style={styles.container}>
+        <View style={styles.errorMessageContainer}>
           <ErrorMessage error={props.error} />
         </View>
       </View>
-      <View style={theme.bank.container.centeredItem}>
+      <View style={[theme.bank.container.centeredItem, styles.submitButtonContainer]}>
         {props.success ? (
           <Text style={theme.bank.text.darkBlue}>{t('screens.resetPassword.success')}</Text>
         ) : (
@@ -91,7 +91,10 @@ export const FormResetPassword = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 8,
+  errorMessageContainer: {
+    marginTop: 16,
+  },
+  submitButtonContainer: {
+    marginTop: 64,
   },
 });

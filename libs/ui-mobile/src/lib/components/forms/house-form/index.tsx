@@ -41,7 +41,7 @@ export const HouseForm = (props: IProps) => {
       setConsumption(5000);
       props.onChangeForm(HeaterE[key as keyof typeof HeaterE]);
     },
-    [props.onChangeForm],
+    [props],
   );
 
   // slider consumption
@@ -51,7 +51,7 @@ export const HouseForm = (props: IProps) => {
       setConsumption(value);
       props.onChangeField('consumption', value);
     },
-    [props.onChangeField],
+    [props],
   );
 
   // gas
@@ -68,7 +68,7 @@ export const HouseForm = (props: IProps) => {
       setRegion(parseInt(value));
       props.onChangeField('region', parseInt(value));
     },
-    [props.onChangeField],
+    [props],
   );
 
   const [surface, setSurface] = useState<number>(60);
@@ -77,7 +77,7 @@ export const HouseForm = (props: IProps) => {
       setSurface(value);
       props.onChangeField('surface', value);
     },
-    [props.onChangeField],
+    [props],
   );
 
   const [builtYear, setBuiltYear] = useState<number>(1980);
@@ -87,7 +87,7 @@ export const HouseForm = (props: IProps) => {
 
       props.onChangeField('built', value <= OLD_BUILDING_YEAR ? HouseYearE.old : HouseYearE.recent);
     },
-    [props.onChangeField],
+    [props],
   );
 
   const ConditionalForm = () => {
@@ -170,6 +170,6 @@ export const HouseForm = (props: IProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 36,
+    marginTop: 24,
   },
 });

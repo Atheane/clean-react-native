@@ -10,7 +10,7 @@ const TouchCardTextMeta: ComponentMeta<typeof TouchCardText> = {
     onPress: { action: 'onPress' },
   },
   args: {
-    text: 'Être récompensé par la prime CO2',
+    text: 'Being rewarded by CO2 prime',
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };

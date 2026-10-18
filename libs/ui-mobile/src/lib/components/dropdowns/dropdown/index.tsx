@@ -32,10 +32,11 @@ export const Dropdown = (props: IProps) => {
 
   return (
     <View>
-      <Text style={[theme.bank.text.pinkLabel, { color: props.labelColor ?? Colors.bank.secondary.pink }]}>
-        {props.label.toLocaleUpperCase()}
-      </Text>
-
+      <View style={styles.labelContainer}>
+        <Text style={[theme.bank.text.label, { color: props.labelColor ?? Colors.bank.secondary.pink }]}>
+          {props.label.toLocaleUpperCase()}
+        </Text>
+      </View>
       <View style={theme.bank.container.centeredItems}>
         <View style={[styles.leftIconContainer, theme.bank.container.centeredItem]}>
           <props.icon />
@@ -61,6 +62,9 @@ export const Dropdown = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
+  labelContainer: {
+    marginBottom: 16,
+  },
   rowText: {
     textTransform: 'uppercase',
   },

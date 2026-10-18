@@ -7,7 +7,6 @@ import { IDomainError, IInfraError } from '@clean-rn/ddd';
 import { IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
 
 import { firstLetterCapitalize } from '../../../utils';
-import { Colors, FontNames } from '../../../constants';
 
 import { SubmitButton } from '../../buttons/submit-button';
 import { PhoneValidationCodeInput } from '../../inputs/phone-validation-code-input';
@@ -72,6 +71,6 @@ const styles = StyleSheet.create({
     marginTop: 100,
   },
   errorContainer: {
-    marginTop: 32,
+    marginTop: 16,
   },
 });

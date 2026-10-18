@@ -20,7 +20,7 @@ export const LinkButton: FC<IProps> = (props: IProps) => {
   const { theme } = useTheme();
   return (
     <Button type={'clear'} {...props} onPress={props.onPress}>
-      <View style={theme.bank.container.centeredItems}>
+      <View style={[theme.bank.container.centeredItems, styles.container]}>
         {props.arrow && (
           <View style={styles.iconContainer}>
             <RightArrow
@@ -62,5 +62,6 @@ const getColor = (option: LinkButtonColors) => (isPressed: boolean) => {
 };
 
 const styles = StyleSheet.create({
+  container: { marginTop: 16 },
   iconContainer: { marginRight: 10 },
 });

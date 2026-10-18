@@ -60,14 +60,14 @@ export const FormLogin = (props: IProps) => {
                 )}
               />
               {props.errors?.email && props.errors.email.type === 'required' && (
-                <View style={styles.container}>
+                <View style={styles.errorContainer}>
                   <Text style={theme.bank.text.errors}>
                     {firstLetterCapitalize(t('errors.email.required'))}
                   </Text>
                 </View>
               )}
               {props.errors?.email && props.errors.email.type !== 'required' && (
-                <View style={styles.container}>
+                <View style={styles.errorContainer}>
                   <Text style={theme.bank.text.errors}>
                     {firstLetterCapitalize(t('errors.email.invalid'))}
                   </Text>
@@ -93,14 +93,14 @@ export const FormLogin = (props: IProps) => {
             )}
           />
           {props.errors?.password && props.errors.password.type === 'required' && (
-            <View style={styles.container}>
+            <View style={styles.errorContainer}>
               <Text style={theme.bank.text.errors}>
                 {firstLetterCapitalize(t('errors.password.required'))}
               </Text>
             </View>
           )}
           {props.errors?.password && props.errors.password.type === 'minLength' && (
-            <View style={styles.container}>
+            <View style={styles.errorContainer}>
               <Text style={theme.bank.text.errors}>
                 {firstLetterCapitalize(t('errors.password.minLength'))}
               </Text>
@@ -115,9 +115,7 @@ export const FormLogin = (props: IProps) => {
             onPress={props.onPress}
           />
         </View>
-        <View style={styles.container}>
-          <ErrorMessage error={props.error} />
-        </View>
+        <ErrorMessage error={props.error} />
       </View>
 
       <View style={styles.submitButtonContainer}>
@@ -133,16 +131,19 @@ export const FormLogin = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    marginTop: 8,
+  },
   inputContainer: {
     marginTop: 30,
+  },
+  errorContainer: {
+    marginTop: 16,
   },
   linkButton: {
     marginTop: 10,
   },
   submitButtonContainer: {
     marginTop: 50,
-  },
-  container: {
-    paddingTop: 8,
   },
 });

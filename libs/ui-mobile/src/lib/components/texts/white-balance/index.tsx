@@ -42,16 +42,20 @@ export const WhiteBalance = (props: IProps) => {
           <Text style={[theme.bank.text.white, styles.balance]}>
             {props.account.authorizedBalance.toString().replace('.', ',')}
           </Text>
-          <GreenEuro />
+          <View style={styles.greenEuroContainer}>
+            <GreenEuro />
+          </View>
         </View>
-        {props.onPress && (
-          <LinkButton
-            iconOne={() => <RightChevron style={{ color: Colors.bank.primary.white }} />}
-            colorOption={LinkButtonColors.WHITE}
-            pressed={false}
-            onPress={props.onPress}
-          />
-        )}
+        <View style={styles.linkContainer}>
+          {props.onPress && (
+            <LinkButton
+              iconOne={() => <RightChevron style={{ color: Colors.bank.primary.white }} />}
+              colorOption={LinkButtonColors.WHITE}
+              pressed={false}
+              onPress={props.onPress}
+            />
+          )}
+        </View>
       </View>
     </View>
   );
@@ -60,6 +64,12 @@ export const WhiteBalance = (props: IProps) => {
 const styles = StyleSheet.create({
   widgetContainer: {
     width: Dimensions.get('window').width * 0.9,
+  },
+  greenEuroContainer: {
+    marginBottom: 8,
+  },
+  linkContainer: {
+    marginBottom: 24,
   },
   title: {
     color: Colors.bank.primary.white,

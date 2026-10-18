@@ -17,7 +17,7 @@ const EmailInputMeta: ComponentMeta<typeof EmailInput> = {
     },
   },
   args: {
-    email: 'thisisaveryveryveryverylongemail@gmail.com',
+    email: 'shortemail@gmail.com',
     filled: true,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
@@ -25,7 +25,18 @@ const EmailInputMeta: ComponentMeta<typeof EmailInput> = {
 
 export default EmailInputMeta;
 
-export const Dynamic: ComponentStory<typeof EmailInput> = (args) => {
+export const ShortEmail: ComponentStory<typeof EmailInput> = (args) => {
   const { filled, onEdit } = useEdit(true);
   return <EmailInput {...args} filled={filled} onEdit={onEdit} />;
+};
+export const LongEmail: ComponentStory<typeof EmailInput> = (args) => {
+  const { filled, onEdit } = useEdit(true);
+  return (
+    <EmailInput
+      {...args}
+      email={'thisisaveryveryveryverylongemail@gmail.com'}
+      filled={filled}
+      onEdit={onEdit}
+    />
+  );
 };

@@ -49,24 +49,30 @@ export const SearchModal = (props: IProps) => {
     return false;
   };
 
-  const handleSearchQuery = useCallback((query: string) => {
-    if (query === '') {
-      clearSearch();
-      return;
-    }
-    setSearchQuery(query);
-    const formattedQuery = query.toLocaleLowerCase();
-    const filteredData = props.data.filter((item: IData) => contains(item, formattedQuery));
-    setFilteredData(filteredData);
-  }, []);
+  const handleSearchQuery = useCallback(
+    (query: string) => {
+      if (query === '') {
+        clearSearch();
+        return;
+      }
+      setSearchQuery(query);
+      const formattedQuery = query.toLocaleLowerCase();
+      const filteredData = props.data.filter((item: IData) => contains(item, formattedQuery));
+      setFilteredData(filteredData);
+    },
+    [props.data],
+  );
 
   const [selectedItem, setSelectedItem] = useState<IData>();
 
-  const handleSelect = useCallback((item: IData) => {
-    setSelectedItem(item);
-    props.onSelect(item);
-    setVisible(false);
-  }, []);
+  const handleSelect = useCallback(
+    (item: IData) => {
+      setSelectedItem(item);
+      props.onSelect(item);
+      setVisible(false);
+    },
+    [props],
+  );
 
   const renderLabel = (item: IData) => `${item.key} - ${item.value}`.slice(0, 29) + '...';
 

@@ -47,6 +47,7 @@ export const DateTimePicker = (props: Props) => {
           display={'spinner'}
         />
       )}
+
       <TextInput
         label={props.label}
         labelColor={Colors.bank.primary.grey}

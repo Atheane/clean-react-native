@@ -2,7 +2,7 @@ import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import RNSlider from '@react-native-community/slider';
 
 import { useTheme } from '@rneui/themed';
-import { Colors, FontNames } from '../../../constants';
+import { Colors } from '../../../constants';
 
 type IProps = {
   label: string;
@@ -66,10 +66,11 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   sliderUnitContainer: {
+    width: Dimensions.get('window').width * 0.3,
     marginLeft: 12,
   },
   labelShortContainer: {
-    width: '60%',
+    width: Dimensions.get('window').width * 0.6,
     paddingTop: 20,
   },
   text: {

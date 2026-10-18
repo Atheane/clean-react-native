@@ -184,6 +184,6 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   errorContainer: {
-    marginVertical: 10,
+    marginTop: 16,
   },
 });

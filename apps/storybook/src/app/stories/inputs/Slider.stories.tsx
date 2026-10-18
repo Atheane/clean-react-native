@@ -75,7 +75,7 @@ export const Short: SliderStory = () => {
       value={value}
       onChange={onChange}
       short
-      unit={t('screens.carbonFood.slider.unit')}
+      unit={value < 2 ? t('screens.carbonFood.slider.unit') : t('screens.carbonFood.slider.units')}
     />
   );
 };

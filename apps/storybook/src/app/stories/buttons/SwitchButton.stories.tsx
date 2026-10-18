@@ -25,3 +25,4 @@ export default SwitchButtonMeta;
 type SwitchButtonStory = ComponentStory<typeof SwitchButton>;
 
 export const Basic: SwitchButtonStory = (args) => <SwitchButton {...args} />;
+export const NoLabel: SwitchButtonStory = (args) => <SwitchButton {...args} label={undefined} />;

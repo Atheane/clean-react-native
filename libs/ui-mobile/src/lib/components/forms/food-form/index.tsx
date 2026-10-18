@@ -64,7 +64,9 @@ export const FoodForm = (props: IProps) => {
             maxValue={14}
             value={slider[key]}
             onChange={(value: number) => handleSlider(key, value)}
-            unit={t('screens.carbonFood.slider.unit')}
+            unit={
+              slider[key] < 2 ? t('screens.carbonFood.slider.unit') : t('screens.carbonFood.slider.units')
+            }
             short
           />
         </View>

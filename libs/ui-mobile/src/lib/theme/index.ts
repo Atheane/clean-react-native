@@ -58,6 +58,7 @@ declare module '@rneui/themed' {
   }
 }
 
+const LONG_BUTTON_RATIO = 55 / 307;
 const SHORT_CARD_RATIO = 168 / 228;
 const LONG_CARD_RATIO = 85 / 356;
 const KPI_CARD_RATIO = 112 / 174;
@@ -79,6 +80,7 @@ export const theme = createTheme({
         },
         long: {
           width: Dimensions.get('window').width * 0.8,
+          height: Dimensions.get('window').width * 0.8 * LONG_BUTTON_RATIO,
           borderRadius: 28,
         },
       },

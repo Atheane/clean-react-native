@@ -25,7 +25,13 @@ export const SwitchButton: FC<IProps> = (props: IProps) => {
 
   return (
     <View>
-      {props.label && <Text style={theme.bank.text.pinkLabel}>{props.label.toLocaleUpperCase()}</Text>}
+      {props.label && (
+        <View style={styles.labelContainer}>
+          <Text style={[theme.bank.text.label, { color: Colors.bank.secondary.pink }]}>
+            {props.label.toLocaleUpperCase()}
+          </Text>
+        </View>
+      )}
       <View
         style={[
           theme.bank.container.button.long,
@@ -84,6 +90,9 @@ export const SwitchButton: FC<IProps> = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
+  labelContainer: {
+    marginBottom: 16,
+  },
   button: {
     position: 'relative',
     width: 141,

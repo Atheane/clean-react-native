@@ -18,7 +18,7 @@ import {
   IAuthErrorMessage,
 } from '@clean-rn/auth/domain';
 import { Person, Phone as PhoneIcon } from '../../../assets';
-import { Colors, FontNames } from '../../../constants';
+import { Colors } from '../../../constants';
 import { firstLetterCapitalize } from '../../../utils';
 
 import { SubmitButton } from '../../buttons/submit-button';
@@ -134,7 +134,7 @@ export const FormSignupStep2 = (props: IProps) => {
           )}
         </View>
         <View style={styles.input}>
-          <Text style={[theme.bank.text.greyLabel, { marginBottom: 0 }]}>
+          <Text style={[theme.bank.text.label, { marginBottom: 0, color: Colors.bank.primary.grey }]}>
             {t('screens.signupstep2.phone.label')}
           </Text>
           <View style={[theme.bank.container.input, { marginBottom: 0 }]}>
@@ -201,25 +201,19 @@ export const FormSignupStep2 = (props: IProps) => {
             </View>
           </View>
           {props.errors?.countryCode && props.errors.countryCode.type === 'required' && (
-            <View style={styles.container}>
-              <Text style={theme.bank.text.errors}>
-                {firstLetterCapitalize(t('screens.signupstep2.countryCode.required'))}
-              </Text>
-            </View>
+            <Text style={theme.bank.text.errors}>
+              {firstLetterCapitalize(t('screens.signupstep2.countryCode.required'))}
+            </Text>
           )}
           {props.errors?.phone && props.errors.phone.type === 'required' && (
-            <View style={styles.container}>
-              <Text style={theme.bank.text.errors}>
-                {firstLetterCapitalize(t('screens.signupstep2.phone.required'))}
-              </Text>
-            </View>
+            <Text style={theme.bank.text.errors}>
+              {firstLetterCapitalize(t('screens.signupstep2.phone.required'))}
+            </Text>
           )}
           {props.errors?.phone && props.errors.phone.type === 'validate' && (
-            <View style={styles.container}>
-              <Text style={theme.bank.text.errors}>
-                {firstLetterCapitalize(t('screens.signupstep2.phone.invalid'))}
-              </Text>
-            </View>
+            <Text style={theme.bank.text.errors}>
+              {firstLetterCapitalize(t('screens.signupstep2.phone.invalid'))}
+            </Text>
           )}
           <View style={styles.container}>
             <ErrorMessage error={props.error} />
