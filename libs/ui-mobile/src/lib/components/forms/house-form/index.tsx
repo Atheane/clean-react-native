@@ -122,7 +122,7 @@ export const HouseForm = (props: IProps) => {
             <Dropdown
               label={t('screens.carbonHouse.dropdown.region')}
               placeholder={t('screens.carbonHouse.dropdown.region')}
-              icon={Department}
+              icon={() => <Department style={{ color: Colors.bank.primary.lightGreen }} />}
               data={sortedDeps}
               value={region.toString()}
               onSelect={handleOnChangeRegion}
