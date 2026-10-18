@@ -15,14 +15,12 @@ const App: () => JSX.Element = () => {
   return fontsLoaded ? (
     <ThemeProvider theme={theme}>
       <I18nextProvider i18n={i18n}>
-        <SafeAreaView style={styles.container}>
-          <NavigationUI />
-          <StatusBar />
-        </SafeAreaView>
+        <NavigationUI />
+        <StatusBar />
       </I18nextProvider>
     </ThemeProvider>
   ) : (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <Text>Loading Font...</Text>
     </SafeAreaView>
   );

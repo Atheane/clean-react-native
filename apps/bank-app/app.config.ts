@@ -6,7 +6,7 @@ export default {
     slug: 'clean-rn-bank-app-dev',
     version: '1.2.6',
     orientation: 'portrait',
-    icon: './assets/icon.png',
+    icon: './assets/images/icon.png',
     splash: {
       image: './assets/images/splash.png',
       resizeMode: 'contain',
@@ -40,6 +40,7 @@ export default {
         },
       ],
     ],
+    scheme: 'com.clean-rn.bank-appdev',
     extra: {
       BASE_URL_API: process.env.BASE_URL_API,
       NODE_ENV: process.env.NODE_ENV,

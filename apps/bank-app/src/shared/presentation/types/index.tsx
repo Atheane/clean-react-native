@@ -20,18 +20,18 @@ export type RootTabParamList = {
 
 export type AuthStackParamList = {
   Login: undefined;
-  ResetPassword: undefined;
-  SignupStep1: undefined;
-  SignupStep2: undefined;
-  SignupStep3: undefined;
-  SignupStep4: undefined;
-  SignupStep5: undefined;
-  SignupStep6: undefined;
-  SignupStep7: undefined;
-  SignupStep8: undefined;
-  SignupStep9: undefined;
-  Legal: undefined;
-  Cgu: undefined;
+  // ResetPassword: undefined;
+  // SignupStep1: undefined;
+  // SignupStep2: undefined;
+  // SignupStep3: undefined;
+  // SignupStep4: undefined;
+  // SignupStep5: undefined;
+  // SignupStep6: undefined;
+  // SignupStep7: undefined;
+  // SignupStep8: undefined;
+  // SignupStep9: undefined;
+  // Legal: undefined;
+  // Cgu: undefined;
 };
 
 export enum ISharedStackPages {
@@ -42,51 +42,47 @@ export enum ISharedStackPages {
 export enum IAuthStackPages {
   LOGIN = 'Login',
   RESET_PASSWORD = 'ResetPassword',
-  SIGNUP_STEP1 = 'SignupStep1',
-  SIGNUP_STEP2 = 'SignupStep2',
-  SIGNUP_STEP3 = 'SignupStep3',
-  SIGNUP_STEP4 = 'SignupStep4',
-  SIGNUP_STEP5 = 'SignupStep5',
-  SIGNUP_STEP6 = 'SignupStep6',
-  SIGNUP_STEP7 = 'SignupStep7',
-  SIGNUP_STEP8 = 'SignupStep8',
-  SIGNUP_STEP9 = 'SignupStep9',
-  LEGAL = 'Legal',
-  CGU = 'CGU',
+  // SIGNUP_STEP1 = 'SignupStep1',
+  // SIGNUP_STEP2 = 'SignupStep2',
+  // SIGNUP_STEP3 = 'SignupStep3',
+  // SIGNUP_STEP4 = 'SignupStep4',
+  // SIGNUP_STEP5 = 'SignupStep5',
+  // SIGNUP_STEP6 = 'SignupStep6',
+  // SIGNUP_STEP7 = 'SignupStep7',
+  // SIGNUP_STEP8 = 'SignupStep8',
+  // SIGNUP_STEP9 = 'SignupStep9',
+  // LEGAL = 'Legal',
+  // CGU = 'CGU',
 }
 
 export type IAuthStackProps = {
   [IAuthStackPages.LOGIN]: object;
   [IAuthStackPages.RESET_PASSWORD]: object;
-  [IAuthStackPages.SIGNUP_STEP1]: object;
-  [IAuthStackPages.SIGNUP_STEP2]: object;
-  [IAuthStackPages.SIGNUP_STEP3]: object;
-  [IAuthStackPages.SIGNUP_STEP4]: object;
-  [IAuthStackPages.SIGNUP_STEP5]: object;
-  [IAuthStackPages.SIGNUP_STEP6]: object;
-  [IAuthStackPages.SIGNUP_STEP7]: object;
-  [IAuthStackPages.SIGNUP_STEP8]: object;
-  [IAuthStackPages.SIGNUP_STEP9]: object;
-  [IAuthStackPages.LEGAL]: object;
-  [IAuthStackPages.CGU]: object;
+  // [IAuthStackPages.SIGNUP_STEP1]: object;
+  // [IAuthStackPages.SIGNUP_STEP2]: object;
+  // [IAuthStackPages.SIGNUP_STEP3]: object;
+  // [IAuthStackPages.SIGNUP_STEP4]: object;
+  // [IAuthStackPages.SIGNUP_STEP5]: object;
+  // [IAuthStackPages.SIGNUP_STEP6]: object;
+  // [IAuthStackPages.SIGNUP_STEP7]: object;
+  // [IAuthStackPages.SIGNUP_STEP8]: object;
+  // [IAuthStackPages.SIGNUP_STEP9]: object;
+  // [IAuthStackPages.LEGAL]: object;
+  // [IAuthStackPages.CGU]: object;
 };
 
-export type IRoutes =
-  | ISharedStackPages.MODAL
-  | ISharedStackPages.NOT_FOUND
-  | IAuthStackPages.LOGIN
-  | IAuthStackPages.RESET_PASSWORD
-  | IAuthStackPages.SIGNUP_STEP1
-  | IAuthStackPages.SIGNUP_STEP2
-  | IAuthStackPages.SIGNUP_STEP3
-  | IAuthStackPages.SIGNUP_STEP4
-  | IAuthStackPages.SIGNUP_STEP5
-  | IAuthStackPages.SIGNUP_STEP6
-  | IAuthStackPages.SIGNUP_STEP7
-  | IAuthStackPages.SIGNUP_STEP8
-  | IAuthStackPages.SIGNUP_STEP9
-  | IAuthStackPages.LEGAL
-  | IAuthStackPages.CGU;
+export type IRoutes = IAuthStackPages.LOGIN | IAuthStackPages.RESET_PASSWORD;
+// | IAuthStackPages.SIGNUP_STEP1
+// | IAuthStackPages.SIGNUP_STEP2
+// | IAuthStackPages.SIGNUP_STEP3
+// | IAuthStackPages.SIGNUP_STEP4
+// | IAuthStackPages.SIGNUP_STEP5
+// | IAuthStackPages.SIGNUP_STEP6
+// | IAuthStackPages.SIGNUP_STEP7
+// | IAuthStackPages.SIGNUP_STEP8
+// | IAuthStackPages.SIGNUP_STEP9
+// | IAuthStackPages.LEGAL
+// | IAuthStackPages.CGU;
 // | HOME_STACK_PAGES.MENU
 // | HOME_STACK_PAGES.HOME
 // | HOME_STACK_PAGES.HELP

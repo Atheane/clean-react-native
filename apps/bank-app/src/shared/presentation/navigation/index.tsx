@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
-import { RootStack } from './root';
-import { navigationRef } from './root/RootNavigation';
-import { headersOptions } from './headersOptions';
+import { RootStack } from './RootStack';
+import { navigationRef } from './navigationRef';
 import { LinkingConfiguration } from './LinkingConfiguration';
 
 const NavigationUI = () => {
@@ -14,4 +13,4 @@ const NavigationUI = () => {
   );
 };
 
-export { NavigationUI, LinkingConfiguration, headersOptions, navigationRef };
+export { NavigationUI };

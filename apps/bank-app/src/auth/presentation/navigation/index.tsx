@@ -19,7 +19,7 @@ import {
   // LegalScreen,
   // CguScreen,
 } from '../screens';
-import { headersOptions } from '../../../shared/presentation/navigation';
+import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { IAuthStackPages, IAuthStackProps } from '../../../shared/presentation/types';
 
 const Stack = createNativeStackNavigator<IAuthStackProps>();
@@ -30,6 +30,7 @@ type Props = {
 
 export const AuthStack = (props: Props) => {
   const { t } = useTranslation();
+
   // const dispatch = useDispatch();
 
   // const onPressBackButton = (action: () => NavigationActions) =>

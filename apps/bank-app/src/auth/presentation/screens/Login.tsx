@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, SafeAreaView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -18,7 +18,7 @@ import { Email } from '@clean-rn/auth/domain';
 
 import { RootState } from '../../../shared/application/state-management/root-reducer';
 import { IAuthStackPages } from '../../../shared/presentation/types';
-import { navigationRef } from '../../../shared/presentation/navigation';
+import { navigationRef } from '../../../shared/presentation/navigation/navigationRef';
 
 import { Welcome } from '../assets/images';
 import { fetchLoginRequest } from '../../application/commands/login';
@@ -70,30 +70,36 @@ export const Login = () => {
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
   return (
-    <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.image}>
-        <Image source={Welcome} width={146} height={146} />
-      </View>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.image}>
+          <Image style={{ width: 146, height: 146 }} source={Welcome} />
+        </View>
 
-      <FormLogin
-        loading={pending}
-        control={control}
-        errors={errors}
-        email={storedValue ? new Email(storedValue).value : undefined}
-        filled={filled}
-        onEdit={onEdit}
-        secured={secured}
-        onToggleSecurity={onToggleSecurity}
-        onPress={onPress}
-        onSubmit={handleSubmit(onSubmit)}
-        error={domainError}
-        onFocus={onFocus}
-      />
-    </KeyboardAwareScrollView>
+        <FormLogin
+          loading={pending}
+          control={control}
+          errors={errors}
+          email={storedValue ? new Email(storedValue).value : undefined}
+          filled={filled}
+          onEdit={onEdit}
+          secured={secured}
+          onToggleSecurity={onToggleSecurity}
+          onPress={onPress}
+          onSubmit={handleSubmit(onSubmit)}
+          error={domainError}
+          onFocus={onFocus}
+        />
+      </KeyboardAwareScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
   image: {
     alignItems: 'center',
     justifyContent: 'center',
