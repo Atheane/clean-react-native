@@ -7,6 +7,7 @@ import { WithKeyboardAwareScroll } from './withKeyboardAwareScroll';
 import { WithBackground } from './withBackground';
 import { WithStatusBelow } from './withStatusBelow';
 import { WithCenterView } from './withCenterView';
+import { WithExtraBottomSpace } from './withExtraBottomSpace';
 export {
   WithTheme,
   WithStatus,
@@ -18,4 +19,5 @@ export {
   WithBackground,
   WithStatusBelow,
   WithCenterView,
+  WithExtraBottomSpace,
 };

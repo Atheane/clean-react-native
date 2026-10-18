@@ -38,12 +38,12 @@ export default TextInputMeta;
 
 type TextInputStory = ComponentStory<typeof TextInput>;
 
-export const Static: TextInputStory = (args) => {
+export const TextPinkLabel: TextInputStory = (args) => {
   const { t } = useTranslation();
 
   return <TextInput {...args} label={t('screens.signupstep2.firstName.label')} />;
 };
-export const GreyLabel: TextInputStory = (args) => {
+export const TextGreyLabel: TextInputStory = (args) => {
   const { t } = useTranslation();
 
   return (
@@ -53,4 +53,10 @@ export const GreyLabel: TextInputStory = (args) => {
       labelColor={Colors.bank.primary.grey}
     />
   );
+};
+
+export const NumericPinkLabel: TextInputStory = (args) => {
+  const { t } = useTranslation();
+
+  return <TextInput {...args} label={t('screens.signupstep5.zip.label')} numeric />;
 };

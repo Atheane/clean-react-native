@@ -107,6 +107,7 @@ export const FormSignupStep5 = (props: IProps) => {
               icon={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
               placeholder={t('screens.signupstep5.zip.placeholder')}
               onChange={onChange}
+              numeric
             />
           )}
         />

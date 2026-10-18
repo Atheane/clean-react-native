@@ -6,6 +6,7 @@ import { Colors } from '../../../constants';
 
 type IProps = {
   placeholder: string;
+  numeric?: boolean;
   label?: string;
   labelColor?: string;
   icon?: React.FC<SvgProps>;
@@ -45,6 +46,7 @@ export const TextInput = (props: IProps) => {
             onBlur={props.onBlur}
             autoFocus={props.autoFocus}
             clearTextOnFocus={props.clearTextOnFocus}
+            keyboardType={props.numeric ? 'number-pad' : 'default'}
           />
         ) : (
           <Input
@@ -61,6 +63,7 @@ export const TextInput = (props: IProps) => {
             onBlur={props.onBlur}
             autoFocus={props.autoFocus}
             clearTextOnFocus
+            keyboardType={props.numeric ? 'number-pad' : 'default'}
           />
         )}
       </View>

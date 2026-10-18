@@ -6,7 +6,7 @@ import { getLocales } from 'expo-localization';
 import { Logger } from '@clean-rn/ddd';
 import { IGender } from '@clean-rn/auth/domain';
 import { FormSignupStep2, ISignupStep2FormData } from '@clean-rn/ui-mobile';
-import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../../wrappers';
+import { WithStatus, ValidationStatus, WithKeyboardAwareScroll, WithExtraBottomSpace } from '../../wrappers';
 
 const locales = getLocales();
 const defaultCountry = locales[0]?.regionCode || undefined;
@@ -21,7 +21,11 @@ const FormSignupStep2Meta: ComponentMeta<typeof FormSignupStep2> = {
   args: {
     defaultCountry,
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithKeyboardAwareScroll],
+  decorators: [
+    (Story) => WithStatus(Story, ValidationStatus.VALIDATED),
+    WithExtraBottomSpace,
+    WithKeyboardAwareScroll,
+  ],
 };
 
 export default FormSignupStep2Meta;
