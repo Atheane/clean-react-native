@@ -21,6 +21,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
         ...state,
         pending: true,
         email: action.payload.email,
+        error: null,
       };
       return newState;
     case ISignupTypes.EMAIL_CHECKED:
@@ -28,6 +29,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
       newState = {
         ...state,
         pending: false,
+        error: null,
       };
       return newState;
     case ISignupTypes.SIGNUP_FAILED:
@@ -44,6 +46,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
         ...state,
         pending: true,
         phone: action.payload.phone,
+        error: null,
       };
       return newState;
     case ISignupTypes.PHONE_CHECKED:
@@ -51,6 +54,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
       newState = {
         ...state,
         pending: false,
+        error: null,
       };
       return newState;
     case ISignupTypes.FETCH_VALIDATE_PHONE:
@@ -59,6 +63,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
         ...state,
         pending: true,
         phoneOtp: action.payload.phoneOtp,
+        error: null,
       };
       return newState;
     case ISignupTypes.PHONE_VALIDATED:
@@ -67,6 +72,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
         ...state,
         pending: false,
         user: action.payload,
+        error: null,
       };
       return newState;
     case ISignupTypes.IDENTITY_REGISTERED:
@@ -74,6 +80,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
       newState = {
         ...state,
         user: action.payload,
+        error: null,
       };
       return newState;
     case ISignupTypes.PASSWORD_REGISTERED:
@@ -81,6 +88,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
       newState = {
         ...state,
         user: action.payload,
+        error: null,
       };
       return newState;
     case ISignupTypes.BIRTH_REGISTERED:
@@ -88,6 +96,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
       newState = {
         ...state,
         user: action.payload,
+        error: null,
       };
       return newState;
     case ISignupTypes.ADDRESS_REGISTERED:
@@ -95,6 +104,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
       newState = {
         ...state,
         user: action.payload,
+        error: null,
       };
       return newState;
 
@@ -103,6 +113,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
       newState = {
         ...state,
         pending: true,
+        error: null,
       };
       return newState;
     case ISignupTypes.USER_SIGNED_UP:
@@ -111,6 +122,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
         ...state,
         pending: false,
         user: action.payload,
+        error: null,
       };
       return newState;
     default:

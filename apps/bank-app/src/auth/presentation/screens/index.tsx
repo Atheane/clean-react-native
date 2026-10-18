@@ -5,6 +5,7 @@ import { SignupIdentityPasswordPhone } from './SignupIdentityPasswordPhone';
 import { SignupValidatePhone } from './SignupValidatePhone';
 import { SignupBirth } from './SignupBirth';
 import { SignupAddress } from './SignupAddress';
+import { SignupCongrats } from './SignupCongrats';
 import { LegalScreen } from './LegalScreen';
 import { CguScreen } from './CguScreen';
 
@@ -16,6 +17,7 @@ export {
   SignupValidatePhone,
   SignupBirth,
   SignupAddress,
+  SignupCongrats,
   LegalScreen,
   CguScreen,
 };

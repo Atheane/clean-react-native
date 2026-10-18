@@ -10,5 +10,5 @@ export interface ILoginState {
         accessToken: null;
         refreshToken: null;
       };
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | Error | null;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | null;
 }

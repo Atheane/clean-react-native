@@ -6,7 +6,7 @@ import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
-import { AuthError, Email } from '@clean-rn/auth/domain';
+import { AuthError, Email, Password } from '@clean-rn/auth/domain';
 
 import { loginSaga, loginApiSaga } from '../../usecases/login';
 import { ILoginTypes, loginSuccess, loginFailure } from '../../commands/login';
@@ -20,7 +20,7 @@ describe('Login - usecase', () => {
 
   const mockData = {
     email: new Email('test@example.com'),
-    password: '123123',
+    password: new Password('123123'),
   };
 
   const mockResponse = {
@@ -47,8 +47,6 @@ describe('Login - usecase', () => {
       payload: mockData,
     })
       .next()
-      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
-      .next(new Email('test@example.com').value)
       .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
       .put(loginSuccess(mockResponse))
@@ -63,24 +61,9 @@ describe('Login - usecase', () => {
       payload: mockData,
     })
       .next()
-      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
-      .next(new Email('test@example.com').value)
       .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError400))
       .put(loginFailure(new AuthError.LoginFailureInvalidCredentials(new ServerError(mockError400))))
       .next();
-  });
-
-  it('Should call loginFailure if login with different email that the one stored on the phone', () => {
-    testSaga(loginApiSaga, httpConnection, {
-      type: ILoginTypes.FETCH_LOGIN,
-      payload: mockData,
-    })
-      .next()
-      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
-      .next(new Email('another_email@example.com').value)
-      .put(loginFailure(new AuthError.LoginFailureOneEmailByPhone()))
-      .next()
-      .cancel();
   });
 });
