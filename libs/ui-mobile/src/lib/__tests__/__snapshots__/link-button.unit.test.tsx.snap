@@ -8,7 +8,7 @@ exports[`LinkButton -  blue & pressed & arrow - renders as before 1`] = `
         "overflow": "hidden",
       },
       {
-        "borderRadius": 28,
+        "borderRadius": 2,
       },
       undefined,
       false,
@@ -57,7 +57,7 @@ exports[`LinkButton -  blue & pressed & arrow - renders as before 1`] = `
           "alignItems": "center",
           "backgroundColor": "transparent",
           "borderColor": "#2089dc",
-          "borderRadius": 28,
+          "borderRadius": 2,
           "borderWidth": 0,
           "flexDirection": "row",
           "justifyContent": "center",
@@ -94,13 +94,17 @@ exports[`LinkButton -  blue & pressed & arrow - renders as before 1`] = `
         </View>
         <Text
           style={
-            {
-              "color": "#7887CC",
-              "fontFamily": "Roboto_400Regular",
-              "fontSize": 14,
-              "lineHeight": 19,
-              "textAlign": "left",
-            }
+            [
+              {
+                "fontFamily": "Roboto_400Regular",
+                "fontSize": 14,
+                "lineHeight": 19,
+                "textAlign": "left",
+              },
+              {
+                "color": "#7887CC",
+              },
+            ]
           }
         >
           test-title
@@ -119,7 +123,7 @@ exports[`LinkButton -  blue & unpressed & noarrow - renders as before 1`] = `
         "overflow": "hidden",
       },
       {
-        "borderRadius": 28,
+        "borderRadius": 2,
       },
       undefined,
       false,
@@ -168,7 +172,7 @@ exports[`LinkButton -  blue & unpressed & noarrow - renders as before 1`] = `
           "alignItems": "center",
           "backgroundColor": "transparent",
           "borderColor": "#2089dc",
-          "borderRadius": 28,
+          "borderRadius": 2,
           "borderWidth": 0,
           "flexDirection": "row",
           "justifyContent": "center",
@@ -188,13 +192,17 @@ exports[`LinkButton -  blue & unpressed & noarrow - renders as before 1`] = `
       >
         <Text
           style={
-            {
-              "color": "#113580",
-              "fontFamily": "Roboto_400Regular",
-              "fontSize": 14,
-              "lineHeight": 19,
-              "textAlign": "left",
-            }
+            [
+              {
+                "fontFamily": "Roboto_400Regular",
+                "fontSize": 14,
+                "lineHeight": 19,
+                "textAlign": "left",
+              },
+              {
+                "color": "#113580",
+              },
+            ]
           }
         >
           test-title
@@ -213,7 +221,7 @@ exports[`LinkButton -  green & pressed & arrow - renders as before 1`] = `
         "overflow": "hidden",
       },
       {
-        "borderRadius": 28,
+        "borderRadius": 2,
       },
       undefined,
       false,
@@ -262,7 +270,7 @@ exports[`LinkButton -  green & pressed & arrow - renders as before 1`] = `
           "alignItems": "center",
           "backgroundColor": "transparent",
           "borderColor": "#2089dc",
-          "borderRadius": 28,
+          "borderRadius": 2,
           "borderWidth": 0,
           "flexDirection": "row",
           "justifyContent": "center",
@@ -299,13 +307,17 @@ exports[`LinkButton -  green & pressed & arrow - renders as before 1`] = `
         </View>
         <Text
           style={
-            {
-              "color": "#BFD23A",
-              "fontFamily": "Roboto_400Regular",
-              "fontSize": 14,
-              "lineHeight": 19,
-              "textAlign": "left",
-            }
+            [
+              {
+                "fontFamily": "Roboto_400Regular",
+                "fontSize": 14,
+                "lineHeight": 19,
+                "textAlign": "left",
+              },
+              {
+                "color": "#BFD23A",
+              },
+            ]
           }
         >
           test-title
@@ -324,7 +336,7 @@ exports[`LinkButton -  green & unpressed & iconOne - renders as before 1`] = `
         "overflow": "hidden",
       },
       {
-        "borderRadius": 28,
+        "borderRadius": 2,
       },
       undefined,
       false,
@@ -373,7 +385,7 @@ exports[`LinkButton -  green & unpressed & iconOne - renders as before 1`] = `
           "alignItems": "center",
           "backgroundColor": "transparent",
           "borderColor": "#2089dc",
-          "borderRadius": 28,
+          "borderRadius": 2,
           "borderWidth": 0,
           "flexDirection": "row",
           "justifyContent": "center",
@@ -406,7 +418,7 @@ exports[`LinkButton -  green & unpressed & noarrow - renders as before 1`] = `
         "overflow": "hidden",
       },
       {
-        "borderRadius": 28,
+        "borderRadius": 2,
       },
       undefined,
       false,
@@ -455,7 +467,7 @@ exports[`LinkButton -  green & unpressed & noarrow - renders as before 1`] = `
           "alignItems": "center",
           "backgroundColor": "transparent",
           "borderColor": "#2089dc",
-          "borderRadius": 28,
+          "borderRadius": 2,
           "borderWidth": 0,
           "flexDirection": "row",
           "justifyContent": "center",
@@ -475,13 +487,17 @@ exports[`LinkButton -  green & unpressed & noarrow - renders as before 1`] = `
       >
         <Text
           style={
-            {
-              "color": "#8BBD44",
-              "fontFamily": "Roboto_400Regular",
-              "fontSize": 14,
-              "lineHeight": 19,
-              "textAlign": "left",
-            }
+            [
+              {
+                "fontFamily": "Roboto_400Regular",
+                "fontSize": 14,
+                "lineHeight": 19,
+                "textAlign": "left",
+              },
+              {
+                "color": "#8BBD44",
+              },
+            ]
           }
         >
           test-title
@@ -500,7 +516,7 @@ exports[`LinkButton -  pink & pressed & arrow - renders as before 1`] = `
         "overflow": "hidden",
       },
       {
-        "borderRadius": 28,
+        "borderRadius": 2,
       },
       undefined,
       false,
@@ -549,7 +565,7 @@ exports[`LinkButton -  pink & pressed & arrow - renders as before 1`] = `
           "alignItems": "center",
           "backgroundColor": "transparent",
           "borderColor": "#2089dc",
-          "borderRadius": 28,
+          "borderRadius": 2,
           "borderWidth": 0,
           "flexDirection": "row",
           "justifyContent": "center",
@@ -586,13 +602,17 @@ exports[`LinkButton -  pink & pressed & arrow - renders as before 1`] = `
         </View>
         <Text
           style={
-            {
-              "color": "rgba(203, 40, 125, 0.6)",
-              "fontFamily": "Roboto_400Regular",
-              "fontSize": 14,
-              "lineHeight": 19,
-              "textAlign": "left",
-            }
+            [
+              {
+                "fontFamily": "Roboto_400Regular",
+                "fontSize": 14,
+                "lineHeight": 19,
+                "textAlign": "left",
+              },
+              {
+                "color": "rgba(203, 40, 125, 0.6)",
+              },
+            ]
           }
         >
           test-title
@@ -611,7 +631,7 @@ exports[`LinkButton -  pink & unpressed & noarrow - renders as before 1`] = `
         "overflow": "hidden",
       },
       {
-        "borderRadius": 28,
+        "borderRadius": 2,
       },
       undefined,
       false,
@@ -660,7 +680,7 @@ exports[`LinkButton -  pink & unpressed & noarrow - renders as before 1`] = `
           "alignItems": "center",
           "backgroundColor": "transparent",
           "borderColor": "#2089dc",
-          "borderRadius": 28,
+          "borderRadius": 2,
           "borderWidth": 0,
           "flexDirection": "row",
           "justifyContent": "center",
@@ -680,13 +700,17 @@ exports[`LinkButton -  pink & unpressed & noarrow - renders as before 1`] = `
       >
         <Text
           style={
-            {
-              "color": "#CB287D",
-              "fontFamily": "Roboto_400Regular",
-              "fontSize": 14,
-              "lineHeight": 19,
-              "textAlign": "left",
-            }
+            [
+              {
+                "fontFamily": "Roboto_400Regular",
+                "fontSize": 14,
+                "lineHeight": 19,
+                "textAlign": "left",
+              },
+              {
+                "color": "#CB287D",
+              },
+            ]
           }
         >
           test-title
@@ -705,7 +729,7 @@ exports[`LinkButton -  white & pressed & arrow - renders as before 1`] = `
         "overflow": "hidden",
       },
       {
-        "borderRadius": 28,
+        "borderRadius": 2,
       },
       undefined,
       false,
@@ -754,7 +778,7 @@ exports[`LinkButton -  white & pressed & arrow - renders as before 1`] = `
           "alignItems": "center",
           "backgroundColor": "transparent",
           "borderColor": "#2089dc",
-          "borderRadius": 28,
+          "borderRadius": 2,
           "borderWidth": 0,
           "flexDirection": "row",
           "justifyContent": "center",
@@ -791,13 +815,17 @@ exports[`LinkButton -  white & pressed & arrow - renders as before 1`] = `
         </View>
         <Text
           style={
-            {
-              "color": "#F0F0F0",
-              "fontFamily": "Roboto_400Regular",
-              "fontSize": 14,
-              "lineHeight": 19,
-              "textAlign": "left",
-            }
+            [
+              {
+                "fontFamily": "Roboto_400Regular",
+                "fontSize": 14,
+                "lineHeight": 19,
+                "textAlign": "left",
+              },
+              {
+                "color": "#F0F0F0",
+              },
+            ]
           }
         >
           test-title
@@ -816,7 +844,7 @@ exports[`LinkButton -  white & unpressed & noarrow - renders as before 1`] = `
         "overflow": "hidden",
       },
       {
-        "borderRadius": 28,
+        "borderRadius": 2,
       },
       undefined,
       false,
@@ -865,7 +893,7 @@ exports[`LinkButton -  white & unpressed & noarrow - renders as before 1`] = `
           "alignItems": "center",
           "backgroundColor": "transparent",
           "borderColor": "#2089dc",
-          "borderRadius": 28,
+          "borderRadius": 2,
           "borderWidth": 0,
           "flexDirection": "row",
           "justifyContent": "center",
@@ -885,13 +913,17 @@ exports[`LinkButton -  white & unpressed & noarrow - renders as before 1`] = `
       >
         <Text
           style={
-            {
-              "color": "#FFFFFF",
-              "fontFamily": "Roboto_400Regular",
-              "fontSize": 14,
-              "lineHeight": 19,
-              "textAlign": "left",
-            }
+            [
+              {
+                "fontFamily": "Roboto_400Regular",
+                "fontSize": 14,
+                "lineHeight": 19,
+                "textAlign": "left",
+              },
+              {
+                "color": "#FFFFFF",
+              },
+            ]
           }
         >
           test-title
