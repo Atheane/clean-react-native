@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
 
 import { HttpConnection } from '@clean-rn/shared/infrastructure';

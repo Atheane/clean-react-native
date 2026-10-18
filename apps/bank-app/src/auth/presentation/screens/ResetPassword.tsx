@@ -1,7 +1,7 @@
 // todo: delete below once ForgotPassword is done
 /* eslint-disable */
 import { StyleSheet, View } from 'react-native';
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import * as Sentry from '@sentry/react-native';

@@ -29,11 +29,14 @@ import { DateTimePicker } from './dropdowns/datetime-picker';
 // Forms
 import { ILoginFormData, FormLogin } from './forms/form-login';
 import { IResetPasswordFormData, FormResetPassword } from './forms/form-reset-password';
-import { ISignupStep1FormData, FormSignupStep1 } from './forms/form-signup-step1';
-import { ISignupStep2FormData, FormSignupStep2 } from './forms/form-signup-step2';
-import { ISignupStep3FormData, FormSignupStep3 } from './forms/form-signup-step3';
-import { ISignupStep4FormData, FormSignupStep4 } from './forms/form-signup-step4';
-import { ISignupStep5FormData, FormSignupStep5 } from './forms/form-signup-step5';
+import { ISignupEmailFormData, FormSignupEmail } from './forms/form-signup-email';
+import {
+  ISignupIdentityPasswordPhoneFormData,
+  FormSignupIdentityPasswordPhone,
+} from './forms/form-signup-identity-password-phone';
+import { ISignupValidatePhoneFormData, FormSignupValidatePhone } from './forms/form-signup-validate-phone';
+import { ISignupBirthFormData, FormSignupBirth } from './forms/form-signup-birth';
+import { ISignupAddressFormData, FormSignupAddress } from './forms/form-signup-address';
 import { FlyForm } from './forms/fly-form';
 import { FoodForm } from './forms/food-form';
 import { HouseForm } from './forms/house-form';
@@ -93,18 +96,18 @@ export {
   // Forms
   ILoginFormData,
   IResetPasswordFormData,
-  ISignupStep1FormData,
-  ISignupStep2FormData,
-  ISignupStep3FormData,
-  ISignupStep4FormData,
-  ISignupStep5FormData,
+  ISignupEmailFormData,
+  ISignupIdentityPasswordPhoneFormData,
+  ISignupValidatePhoneFormData,
+  ISignupBirthFormData,
+  ISignupAddressFormData,
   FormLogin,
   FormResetPassword,
-  FormSignupStep1,
-  FormSignupStep2,
-  FormSignupStep3,
-  FormSignupStep4,
-  FormSignupStep5,
+  FormSignupEmail,
+  FormSignupIdentityPasswordPhone,
+  FormSignupValidatePhone,
+  FormSignupBirth,
+  FormSignupAddress,
   FlyForm,
   FoodForm,
   HouseForm,

@@ -73,15 +73,14 @@
       "submitButton": "reset",
       "error": "error, please contact the administrator"
     },
-    "signupstep1": {
+    "signup-email": {
       "title": "Sign up",
       "email": {
         "placeholder": "your@email.com",
         "label": "e-mail"
-      },
-      "confirmPassword": "Password confirmation"
+      }
     },
-    "signupstep2": {
+    "signup-identity": {
       "title": "Sign up",
       "gender": {
         "label": "gender",
@@ -101,7 +100,9 @@
       },
       "countryCode": {
         "required": "country code required"
-      },
+      }
+    },
+    "signup-phone": {
       "phone": {
         "label": "phone number",
         "placeholder": "phone number",
@@ -112,7 +113,7 @@
         "notavailable": "this country is not available"
       }
     },
-    "signupstep3": {
+    "signup-validate-phone": {
       "title": "Security",
       "instruction": "Enter the verification code that was just sent to you by SMS",
       "submitButton": "validate",
@@ -122,7 +123,7 @@
         "other": "error, please contact the administrator"
       }
     },
-    "signupstep4": {
+    "signup-birth": {
       "title": "Complete my profile",
       "birthday": {
         "label": "Date of birth",
@@ -141,7 +142,7 @@
         "required": "Nationality required"
       }
     },
-    "signupstep5": {
+    "signup-address": {
       "title": "Complete my profile",
       "street": {
         "label": "address",
@@ -171,18 +172,7 @@
         "required": "please indicate if you are a US person"
       }
     },
-    "signupstep6": {
-      "title": "Security",
-      "instruction": "Set up a security code to access your CO2 Account. It will also be required for certain sensitive actions.",
-      "button": "I understand"
-    },
-    "signupstep7": {
-      "title": "Create your security code"
-    },
-    "signupstep8": {
-      "title": "Confirm your security code"
-    },
-    "signupstep9": {
+    "signup-congrats": {
       "title": "Congratulations",
       "congrats": "Congratulations! You can now access your CO2 Account app.",
       "button": "Let's go!"

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
-import { IDomainError, IInfraError } from '@clean-rn/ddd';
+import { IDomainError } from '@clean-rn/ddd';
 import { ICountry, COUNTRIES_AVAILABLE, IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
 
 import { House } from '../../../assets';
@@ -19,14 +19,14 @@ import { ErrorMessage } from '../../texts/error-message';
 type IProps = {
   defaultCountry?: string;
   loading: boolean;
-  control: Control<ISignupStep5FormData>;
-  errors: FieldErrors<ISignupStep5FormData>;
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | IInfraError | null;
+  control: Control<ISignupAddressFormData>;
+  errors: FieldErrors<ISignupAddressFormData>;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | Error | null;
   onSubmit: () => void;
   onFocus: () => void;
 };
 
-export type ISignupStep5FormData = {
+export type ISignupAddressFormData = {
   country: string;
   street: string;
   city: string;
@@ -34,7 +34,7 @@ export type ISignupStep5FormData = {
   specifiedUSPerson: string;
 };
 
-export const FormSignupStep5 = (props: IProps) => {
+export const FormSignupAddress = (props: IProps) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
 
@@ -49,11 +49,11 @@ export const FormSignupStep5 = (props: IProps) => {
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
-              label={t('screens.signupstep5.street.label')}
+              label={t('screens.signup-address.street.label')}
               labelColor={Colors.bank.primary.grey}
               value={value}
               icon={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
-              placeholder={t('screens.signupstep5.street.placeholder')}
+              placeholder={t('screens.signup-address.street.placeholder')}
               onChange={onChange}
             />
           )}
@@ -62,7 +62,7 @@ export const FormSignupStep5 = (props: IProps) => {
       {props.errors?.street && props.errors.street.type === 'required' && (
         <View style={styles.errorContainer}>
           <Text style={theme.bank.text.errors}>
-            {firstLetterCapitalize(t('screens.signupstep5.street.required'))}
+            {firstLetterCapitalize(t('screens.signup-address.street.required'))}
           </Text>
         </View>
       )}
@@ -75,11 +75,11 @@ export const FormSignupStep5 = (props: IProps) => {
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
-              label={t('screens.signupstep5.city.label')}
+              label={t('screens.signup-address.city.label')}
               labelColor={Colors.bank.primary.grey}
               value={value}
               icon={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
-              placeholder={t('screens.signupstep5.city.placeholder')}
+              placeholder={t('screens.signup-address.city.placeholder')}
               onChange={onChange}
             />
           )}
@@ -88,7 +88,7 @@ export const FormSignupStep5 = (props: IProps) => {
       {props.errors?.city && props.errors.city.type === 'required' && (
         <View style={styles.errorContainer}>
           <Text style={theme.bank.text.errors}>
-            {firstLetterCapitalize(t('screens.signupstep5.city.required'))}
+            {firstLetterCapitalize(t('screens.signup-address.city.required'))}
           </Text>
         </View>
       )}
@@ -101,11 +101,11 @@ export const FormSignupStep5 = (props: IProps) => {
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
-              label={t('screens.signupstep5.zip.label')}
+              label={t('screens.signup-address.zip.label')}
               labelColor={Colors.bank.primary.grey}
               value={value}
               icon={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
-              placeholder={t('screens.signupstep5.zip.placeholder')}
+              placeholder={t('screens.signup-address.zip.placeholder')}
               onChange={onChange}
               numeric
             />
@@ -115,7 +115,7 @@ export const FormSignupStep5 = (props: IProps) => {
       {props.errors?.zip && props.errors.zip.type === 'required' && (
         <View style={styles.errorContainer}>
           <Text style={theme.bank.text.errors}>
-            {firstLetterCapitalize(t('screens.signupstep5.zip.required'))}
+            {firstLetterCapitalize(t('screens.signup-address.zip.required'))}
           </Text>
         </View>
       )}
@@ -128,7 +128,7 @@ export const FormSignupStep5 = (props: IProps) => {
           }}
           render={({ field: { onChange, value } }) => (
             <CountryPicker
-              label={t('screens.signupstep5.country.label')}
+              label={t('screens.signup-address.country.label')}
               value={value}
               onChange={onChange}
               defaultValue={props.defaultCountry}
@@ -140,7 +140,7 @@ export const FormSignupStep5 = (props: IProps) => {
         {props.errors?.country && props.errors.country.type === 'required' && (
           <View style={styles.errorContainer}>
             <Text style={theme.bank.text.errors}>
-              {firstLetterCapitalize(t('screens.signupstep5.country.required'))}
+              {firstLetterCapitalize(t('screens.signup-address.country.required'))}
             </Text>
           </View>
         )}
@@ -151,9 +151,12 @@ export const FormSignupStep5 = (props: IProps) => {
           name="specifiedUSPerson"
           render={({ field: { onChange } }) => (
             <MultipleOptionsCheckBox
-              label={t('screens.signupstep5.usperson.label')}
-              subtitle={t('screens.signupstep5.usperson.subtitle')}
-              optionsTitle={[t('screens.signupstep5.usperson.no'), t('screens.signupstep5.usperson.yes')]}
+              label={t('screens.signup-address.usperson.label')}
+              subtitle={t('screens.signup-address.usperson.subtitle')}
+              optionsTitle={[
+                t('screens.signup-address.usperson.no'),
+                t('screens.signup-address.usperson.yes'),
+              ]}
               optionsValues={['0', '1']}
               onChange={onChange}
             />

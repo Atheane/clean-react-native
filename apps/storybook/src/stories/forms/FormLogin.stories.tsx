@@ -11,14 +11,12 @@ const FormLoginMeta: ComponentMeta<typeof FormLogin> = {
   title: 'Forms/FormLogin',
   component: FormLogin,
   argTypes: {
-    onEdit: { action: 'onEdit' },
     onToggleSecurity: { action: 'onToggleSecurity' },
     onPress: { action: 'onPress' },
     onSubmit: { action: 'onSubmit' },
   },
   args: {
     email: 'jean-luc.baradat@gmail.com',
-    filled: true,
     secured: true,
   },
   decorators: [
@@ -33,7 +31,6 @@ export default FormLoginMeta;
 type FormLoginStory = ComponentStory<typeof FormLogin>;
 
 export const Dynamic: FormLoginStory = (args) => {
-  const { filled, onEdit } = useEdit(true);
   const { secured, onToggleSecurity } = useSecure(true);
   const { onPress } = useTogglePress(false);
 
@@ -52,8 +49,6 @@ export const Dynamic: FormLoginStory = (args) => {
       {...args}
       control={control}
       errors={errors}
-      filled={filled}
-      onEdit={onEdit}
       secured={secured}
       onToggleSecurity={onToggleSecurity}
       onPress={onPress}

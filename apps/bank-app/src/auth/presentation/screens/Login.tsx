@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import { StyleSheet, View, Image, SafeAreaView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -10,7 +10,7 @@ import { useSecure, useCleanErrorOnFocus, FormLogin, ILoginFormData } from '@cle
 
 import { Email } from '@clean-rn/auth/domain';
 
-import { RootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IAuthStackPages } from '../../../shared/presentation/types';
 import { navigationRef } from '../../../shared/presentation/navigation/navigationRef';
 
@@ -19,13 +19,7 @@ import { fetchLogin } from '../../application/commands/login';
 
 export const Login = () => {
   // retrieve email, if any
-  const { email } = useSelector((state: RootState) => state.initialization);
-
-  // internal state
-  const [filled, setFilled] = useState<boolean>(!!email);
-  const onEdit = useCallback(() => {
-    setFilled(false);
-  }, []);
+  const { email } = useSelector((state: IRootState) => state.initialization);
 
   const { secured, onToggleSecurity } = useSecure(true);
   const {
@@ -35,7 +29,7 @@ export const Login = () => {
   } = useForm<ILoginFormData>();
 
   // api call
-  const { pending, error } = useSelector((state: RootState) => state.auth.login);
+  const { pending, error } = useSelector((state: IRootState) => state.auth.login);
 
   const dispatch = useDispatch();
   const onSubmit = useCallback(
@@ -43,7 +37,7 @@ export const Login = () => {
       try {
         const payload = {
           ...formData,
-          email: filled && email ? email : new Email(formData.email),
+          email: email ? email : new Email(formData.email),
         };
         dispatch(fetchLogin(payload));
       } catch (e: unknown) {
@@ -51,7 +45,7 @@ export const Login = () => {
         Logger.getInstance().error(e);
       }
     },
-    [dispatch, email, filled],
+    [dispatch, email],
   );
 
   // navigate to forgot_password
@@ -74,8 +68,6 @@ export const Login = () => {
           control={control}
           errors={errors}
           email={email?.value}
-          filled={filled}
-          onEdit={onEdit}
           secured={secured}
           onToggleSecurity={onToggleSecurity}
           onPress={onPress}

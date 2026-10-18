@@ -45,7 +45,6 @@ import {
 } from '../../commands/signup';
 import { ISignupState, selectEmail, selectUser, signupReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
-import { select } from 'redux-saga/effects';
 
 const expoConstantsMock = {
   name: 'CleanRN BankApp Test',

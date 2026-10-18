@@ -5,7 +5,7 @@ import { Dayjs } from 'dayjs';
 import { useTheme } from '@rneui/themed';
 import countryFlagEmoji from 'country-flag-emoji';
 
-import { IDomainError, IInfraError } from '@clean-rn/ddd';
+import { IDomainError } from '@clean-rn/ddd';
 import { IAuthErrorCodes, IAuthErrorMessage, BirthDay } from '@clean-rn/auth/domain';
 import { firstLetterCapitalize } from '../../../utils';
 
@@ -15,20 +15,20 @@ import { DateTimePicker } from '../../dropdowns/datetime-picker';
 
 type IProps = {
   defaultCountry?: string;
-  control: Control<ISignupStep4FormData>;
-  errors: FieldErrors<ISignupStep4FormData>;
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | IInfraError | null;
+  control: Control<ISignupBirthFormData>;
+  errors: FieldErrors<ISignupBirthFormData>;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | Error | null;
   onSubmit: () => void;
   onFocus: () => void;
 };
 
-export type ISignupStep4FormData = {
+export type ISignupBirthFormData = {
   birthday: Dayjs;
   birthCountry: string;
   nationality: string;
 };
 
-export const FormSignupStep4 = (props: IProps) => {
+export const FormSignupBirth = (props: IProps) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
 
@@ -51,10 +51,10 @@ export const FormSignupStep4 = (props: IProps) => {
           }}
           render={({ field: { onChange, value } }) => (
             <DateTimePicker
-              label={t('screens.signupstep4.birthday.label')}
+              label={t('screens.signup-birth.birthday.label')}
               value={value}
               format={'DD/MM/YYYY'}
-              placeholder={t('screens.signupstep4.birthday.placeholder')}
+              placeholder={t('screens.signup-birth.birthday.placeholder')}
               onChange={onChange}
             />
           )}
@@ -63,14 +63,14 @@ export const FormSignupStep4 = (props: IProps) => {
       {props.errors?.birthday && props.errors.birthday.type === 'required' && (
         <View style={styles.errorContainer}>
           <Text style={theme.bank.text.errors}>
-            {firstLetterCapitalize(t('screens.signupstep4.birthday.required'))}
+            {firstLetterCapitalize(t('screens.signup-birth.birthday.required'))}
           </Text>
         </View>
       )}
       {props.errors?.birthday && props.errors.birthday.type === 'validate' && (
         <View style={styles.errorContainer}>
           <Text style={theme.bank.text.errors}>
-            {firstLetterCapitalize(t('screens.signupstep4.birthday.validate'))}
+            {firstLetterCapitalize(t('screens.signup-birth.birthday.validate'))}
           </Text>
         </View>
       )}
@@ -83,7 +83,7 @@ export const FormSignupStep4 = (props: IProps) => {
           }}
           render={({ field: { onChange, value } }) => (
             <CountryPicker
-              label={t('screens.signupstep4.birthCountry.label')}
+              label={t('screens.signup-birth.birthCountry.label')}
               value={value}
               onChange={onChange}
               defaultValue={props.defaultCountry}
@@ -102,7 +102,7 @@ export const FormSignupStep4 = (props: IProps) => {
           }}
           render={({ field: { onChange, value } }) => (
             <CountryPicker
-              label={t('screens.signupstep4.nationality.label')}
+              label={t('screens.signup-birth.nationality.label')}
               value={value}
               onChange={onChange}
               defaultValue={props.defaultCountry}

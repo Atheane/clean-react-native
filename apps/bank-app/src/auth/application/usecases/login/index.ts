@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

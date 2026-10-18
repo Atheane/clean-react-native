@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
-import { IDomainError, IInfraError } from '@clean-rn/ddd';
+import { IDomainError } from '@clean-rn/ddd';
 import { IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
 
 import { firstLetterCapitalize } from '../../../utils';
@@ -15,17 +15,17 @@ import { ErrorMessage } from '../../texts/error-message';
 type IProps = {
   loading: boolean;
   onSubmit: () => void;
-  control: Control<ISignupStep3FormData>;
-  errors: FieldErrors<ISignupStep3FormData>;
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | IInfraError | null;
+  control: Control<ISignupValidatePhoneFormData>;
+  errors: FieldErrors<ISignupValidatePhoneFormData>;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | Error | null;
   onFocus: () => void;
 };
 
-export type ISignupStep3FormData = {
+export type ISignupValidatePhoneFormData = {
   code: string;
 };
 
-export const FormSignupStep3 = (props: IProps) => {
+export const FormSignupValidatePhone = (props: IProps) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
 
@@ -44,7 +44,7 @@ export const FormSignupStep3 = (props: IProps) => {
       {props.errors?.code && props.errors.code.type === 'required' && (
         <View style={styles.errorContainer}>
           <Text style={theme.bank.text.errors}>
-            {firstLetterCapitalize(t('screens.signupstep3.required'))}
+            {firstLetterCapitalize(t('screens.signup-validate-phone.required'))}
           </Text>
         </View>
       )}
@@ -53,7 +53,7 @@ export const FormSignupStep3 = (props: IProps) => {
       </View>
       <View style={[styles.formSubmit, theme.bank.container.centeredItem]}>
         <SubmitButton
-          title={t('screens.signupstep3.submitButton')}
+          title={t('screens.signup-validate-phone.submitButton')}
           uppercase={false}
           onSubmit={props.onSubmit}
           loading={props.loading}

@@ -5,7 +5,7 @@ import { getLocales } from 'expo-localization';
 
 import { Logger } from '@clean-rn/logger';
 
-import { FormSignupStep4, ISignupStep4FormData } from '@clean-rn/ui-mobile';
+import { FormSignupBirth, ISignupBirthFormData } from '@clean-rn/ui-mobile';
 
 import { COUNTRIES_AVAILABLE } from '@clean-rn/auth/domain';
 import { WithStatus, ValidationStatus, WithScroll, WithExtraBottomSpace } from '../../wrappers';
@@ -13,9 +13,9 @@ import { WithStatus, ValidationStatus, WithScroll, WithExtraBottomSpace } from '
 const locales = getLocales();
 const defaultCountry = locales[0]?.regionCode || undefined;
 
-const FormSignupStep4Meta: ComponentMeta<typeof FormSignupStep4> = {
-  title: 'Forms/FormSignupStep4',
-  component: FormSignupStep4,
+const FormSignupBirthMeta: ComponentMeta<typeof FormSignupBirth> = {
+  title: 'Forms/FormSignupBirth',
+  component: FormSignupBirth,
   argTypes: {
     onSubmit: { action: 'onSubmit' },
     onFocus: { action: 'onFocus' },
@@ -30,16 +30,16 @@ const FormSignupStep4Meta: ComponentMeta<typeof FormSignupStep4> = {
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithExtraBottomSpace, WithScroll],
 };
 
-export default FormSignupStep4Meta;
+export default FormSignupBirthMeta;
 
-type FormSignupStep4Story = ComponentStory<typeof FormSignupStep4>;
+type FormSignupBirthStory = ComponentStory<typeof FormSignupBirth>;
 
-export const Dynamic: FormSignupStep4Story = (args) => {
+export const Dynamic: FormSignupBirthStory = (args) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<ISignupStep4FormData>({
+  } = useForm<ISignupBirthFormData>({
     defaultValues: {
       birthCountry: defaultCountry,
       nationality: defaultCountry,
@@ -47,9 +47,9 @@ export const Dynamic: FormSignupStep4Story = (args) => {
     },
   });
 
-  const onSubmit = useCallback((formData: ISignupStep4FormData) => {
+  const onSubmit = useCallback((formData: ISignupBirthFormData) => {
     Logger.getInstance().debug(formData);
   }, []);
 
-  return <FormSignupStep4 {...args} control={control} errors={errors} onSubmit={handleSubmit(onSubmit)} />;
+  return <FormSignupBirth {...args} control={control} errors={errors} onSubmit={handleSubmit(onSubmit)} />;
 };

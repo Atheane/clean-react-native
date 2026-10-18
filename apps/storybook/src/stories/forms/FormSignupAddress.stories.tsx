@@ -5,15 +5,15 @@ import { getLocales } from 'expo-localization';
 
 import { Logger } from '@clean-rn/logger';
 import { COUNTRIES_AVAILABLE } from '@clean-rn/auth/domain';
-import { FormSignupStep5, ISignupStep5FormData } from '@clean-rn/ui-mobile';
+import { FormSignupAddress, ISignupAddressFormData } from '@clean-rn/ui-mobile';
 import { WithStatus, ValidationStatus, WithKeyboardAwareScroll, WithExtraBottomSpace } from '../../wrappers';
 
 const locales = getLocales();
 const defaultCountry = locales[0]?.regionCode || undefined;
 
-const FormSignupStep5Meta: ComponentMeta<typeof FormSignupStep5> = {
-  title: 'Forms/FormSignupStep5',
-  component: FormSignupStep5,
+const FormSignupAddressMeta: ComponentMeta<typeof FormSignupAddress> = {
+  title: 'Forms/FormSignupAddress',
+  component: FormSignupAddress,
   argTypes: {
     onSubmit: { action: 'onSubmit' },
     onFocus: { action: 'onFocus' },
@@ -32,24 +32,24 @@ const FormSignupStep5Meta: ComponentMeta<typeof FormSignupStep5> = {
   ],
 };
 
-export default FormSignupStep5Meta;
+export default FormSignupAddressMeta;
 
-type FormSignupStep5Story = ComponentStory<typeof FormSignupStep5>;
+type FormSignupAddressStory = ComponentStory<typeof FormSignupAddress>;
 
-export const Dynamic: FormSignupStep5Story = (args) => {
+export const Dynamic: FormSignupAddressStory = (args) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<ISignupStep5FormData>({
+  } = useForm<ISignupAddressFormData>({
     defaultValues: {
       country: defaultCountry,
     },
   });
 
-  const onSubmit = useCallback((formData: ISignupStep5FormData) => {
+  const onSubmit = useCallback((formData: ISignupAddressFormData) => {
     Logger.getInstance().debug(formData);
   }, []);
 
-  return <FormSignupStep5 {...args} control={control} errors={errors} onSubmit={handleSubmit(onSubmit)} />;
+  return <FormSignupAddress {...args} control={control} errors={errors} onSubmit={handleSubmit(onSubmit)} />;
 };

@@ -73,15 +73,14 @@
       "submitButton": "réinitialiser",
       "error": "erreur, veuillez contacter l'administrateur"
     },
-    "signupstep1": {
+    "signup-email": {
       "title": "Inscription",
       "email": {
         "placeholder": "votre@email.com",
         "label": "email"
-      },
-      "confirmPassword": "confirmation mot de passe"
+      }
     },
-    "signupstep2": {
+    "signup-identity": {
       "title": "Inscription",
       "gender": {
         "label": "genre",
@@ -90,15 +89,17 @@
         "neutral": "Neutre"
       },
       "firstName": {
-        "label": "prénom",
-        "placeholder": "prénom",
-        "required": "prénom requis"
+        "label": "prénom",
+        "placeholder": "prénom",
+        "required": "prénom requis"
       },
       "lastName": {
         "label": "nom",
         "placeholder": "nom",
         "required": "nom requis"
-      },
+      }
+    },
+    "signup-phone": {
       "countryCode": {
         "required": "indicatif pays requis"
       },
@@ -112,7 +113,7 @@
         "notavailable": "ce pays n'est pas disponible"
       }
     },
-    "signupstep3": {
+    "signup-validate-phone": {
       "title": "Sécurité",
       "instruction": "Saisissez le code vérification qui vient de vous être envoyé par SMS",
       "submitButton": "valider",
@@ -122,7 +123,7 @@
         "other": "erreur, veuillez contacter l'administrateur"
       }
     },
-    "signupstep4": {
+    "signup-birth": {
       "title": "Compléter mon profil",
       "birthday": {
         "label": "Date de naissance",
@@ -141,7 +142,7 @@
         "required": "Nationalité requise"
       }
     },
-    "signupstep5": {
+    "signup-address": {
       "title": "Compléter mon profil",
       "street": {
         "label": "adresse",
@@ -170,18 +171,7 @@
         "no": "Non"
       }
     },
-    "signupstep6": {
-      "title": "Sécurité",
-      "instruction": "Définissez un code de sécurité afin d’accéder à votre Bank App. Il sera demandé également pour certaines actions sensibles.",
-      "button": "J'ai compris"
-    },
-    "signupstep7": {
-      "title": "Créez votre code de sécurité"
-    },
-    "signupstep8": {
-      "title": "Confirmez votre code de sécurité"
-    },
-    "signupstep9": {
+    "signup-congrats": {
       "title": "Félicitations",
       "congrats": "Félicitations ! Vous pouvez maintenant accéder à votre application Bank App.",
       "button": "C'est parti !"

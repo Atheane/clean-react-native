@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, GestureResponderEvent } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { Input, useTheme } from '@rneui/themed';
@@ -22,6 +22,7 @@ import { Person, Phone as PhoneIcon } from '../../../assets';
 import { Colors } from '../../../constants';
 import { firstLetterCapitalize } from '../../../utils';
 
+import { PasswordInput } from '../../inputs/password-input';
 import { SubmitButton } from '../../buttons/submit-button';
 import { MultipleOptionsCheckBox } from '../../checkboxes/multiple-options-checkBox';
 import { ErrorMessage } from '../../texts/error-message';
@@ -31,21 +32,24 @@ type IProps = {
   defaultCountry?: string;
   loading: boolean;
   onSubmit: () => void;
-  control: Control<ISignupStep2FormData>;
-  errors: FieldErrors<ISignupStep2FormData>;
+  securedPassword: boolean;
+  onToggleSecurityPassword: (event: GestureResponderEvent) => void;
+  control: Control<ISignupIdentityPasswordPhoneFormData>;
+  errors: FieldErrors<ISignupIdentityPasswordPhoneFormData>;
   error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | Error | null;
   onFocus: () => void;
 };
 
-export type ISignupStep2FormData = {
+export type ISignupIdentityPasswordPhoneFormData = {
   title: IGender;
   firstName: string;
   lastName: string;
+  password: string;
   phone: string;
   countryCode: string;
 };
 
-export const FormSignupStep2 = (props: IProps) => {
+export const FormSignupIdentityPasswordPhone = (props: IProps) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
 
@@ -74,11 +78,11 @@ export const FormSignupStep2 = (props: IProps) => {
             name="title"
             render={({ field: { onChange } }) => (
               <MultipleOptionsCheckBox
-                label={t('screens.signupstep2.gender.label')}
+                label={t('screens.signup-identity.gender.label')}
                 optionsTitle={[
-                  t('screens.signupstep2.gender.man'),
-                  t('screens.signupstep2.gender.woman'),
-                  t('screens.signupstep2.gender.neutral'),
+                  t('screens.signup-identity.gender.man'),
+                  t('screens.signup-identity.gender.woman'),
+                  t('screens.signup-identity.gender.neutral'),
                 ]}
                 optionsValues={[IGender.MAN, IGender.WOMAN, IGender.NEUTRAL]}
                 onChange={onChange}
@@ -93,9 +97,9 @@ export const FormSignupStep2 = (props: IProps) => {
             rules={{ required: true }}
             render={({ field: { onChange, value } }) => (
               <TextInput
-                label={t('screens.signupstep2.firstName.label')}
+                label={t('screens.signup-identity.firstName.label')}
                 labelColor={Colors.bank.primary.grey}
-                placeholder={firstLetterCapitalize(t('screens.signupstep2.firstName.placeholder'))}
+                placeholder={firstLetterCapitalize(t('screens.signup-identity.firstName.placeholder'))}
                 icon={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
                 value={value}
                 onChange={onChange}
@@ -105,7 +109,7 @@ export const FormSignupStep2 = (props: IProps) => {
           {props.errors?.firstName && props.errors.firstName.type === 'required' && (
             <View style={styles.container}>
               <Text style={theme.bank.text.errors}>
-                {firstLetterCapitalize(t('screens.signupstep2.firstName.required'))}
+                {firstLetterCapitalize(t('screens.signup-identity.firstName.required'))}
               </Text>
             </View>
           )}
@@ -117,9 +121,9 @@ export const FormSignupStep2 = (props: IProps) => {
             rules={{ required: true }}
             render={({ field: { onChange, value } }) => (
               <TextInput
-                label={t('screens.signupstep2.lastName.label')}
+                label={t('screens.signup-identity.lastName.label')}
                 labelColor={Colors.bank.primary.grey}
-                placeholder={firstLetterCapitalize(t('screens.signupstep2.lastName.placeholder'))}
+                placeholder={firstLetterCapitalize(t('screens.signup-identity.lastName.placeholder'))}
                 icon={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
                 value={value}
                 onChange={onChange}
@@ -129,14 +133,44 @@ export const FormSignupStep2 = (props: IProps) => {
           {props.errors?.lastName && props.errors.lastName.type === 'required' && (
             <View style={styles.container}>
               <Text style={theme.bank.text.errors}>
-                {firstLetterCapitalize(t('screens.signupstep2.lastName.required'))}
+                {firstLetterCapitalize(t('screens.signup-identity.lastName.required'))}
+              </Text>
+            </View>
+          )}
+        </View>
+        <View style={styles.inputPassword}>
+          <Controller
+            control={props.control}
+            name="password"
+            rules={{ required: true, minLength: 6 }}
+            render={({ field: { onChange, value } }) => (
+              <PasswordInput
+                value={value}
+                onChange={onChange}
+                secured={props.securedPassword}
+                onToggleSecurity={props.onToggleSecurityPassword}
+                onFocus={props.onFocus}
+              />
+            )}
+          />
+          {props.errors?.password && props.errors.password.type === 'required' && (
+            <View style={styles.container}>
+              <Text style={theme.bank.text.errors}>
+                {firstLetterCapitalize(t('errors.password.required'))}
+              </Text>
+            </View>
+          )}
+          {props.errors?.password && props.errors.password.type === 'minLength' && (
+            <View style={styles.container}>
+              <Text style={theme.bank.text.errors}>
+                {firstLetterCapitalize(t('errors.password.minLength'))}
               </Text>
             </View>
           )}
         </View>
         <View style={styles.input}>
           <Text style={[theme.bank.text.label, { marginBottom: 0, color: Colors.bank.primary.grey }]}>
-            {t('screens.signupstep2.phone.label')}
+            {t('screens.signup-phone.phone.label')}
           </Text>
           <View style={[theme.bank.container.input, { marginBottom: 0 }]}>
             <View style={styles.subContainer}>
@@ -194,7 +228,7 @@ export const FormSignupStep2 = (props: IProps) => {
                     onChangeText={onChange}
                     value={value}
                     onFocus={props.onFocus}
-                    placeholder={firstLetterCapitalize(t('screens.signupstep2.phone.placeholder'))}
+                    placeholder={firstLetterCapitalize(t('screens.signup-phone.phone.placeholder'))}
                     keyboardType={'phone-pad'}
                   />
                 )}
@@ -203,17 +237,17 @@ export const FormSignupStep2 = (props: IProps) => {
           </View>
           {props.errors?.countryCode && props.errors.countryCode.type === 'required' && (
             <Text style={theme.bank.text.errors}>
-              {firstLetterCapitalize(t('screens.signupstep2.countryCode.required'))}
+              {firstLetterCapitalize(t('screens.signup-identity.countryCode.required'))}
             </Text>
           )}
           {props.errors?.phone && props.errors.phone.type === 'required' && (
             <Text style={theme.bank.text.errors}>
-              {firstLetterCapitalize(t('screens.signupstep2.phone.required'))}
+              {firstLetterCapitalize(t('screens.signup-phone.phone.required'))}
             </Text>
           )}
           {props.errors?.phone && props.errors.phone.type === 'validate' && (
             <Text style={theme.bank.text.errors}>
-              {firstLetterCapitalize(t('screens.signupstep2.phone.invalid'))}
+              {firstLetterCapitalize(t('screens.signup-phone.phone.invalid'))}
             </Text>
           )}
           <View style={styles.container}>
@@ -258,5 +292,8 @@ const styles = StyleSheet.create({
   selectButton: {
     width: 100,
     alignItems: 'center',
+  },
+  inputPassword: {
+    marginTop: 30,
   },
 });
