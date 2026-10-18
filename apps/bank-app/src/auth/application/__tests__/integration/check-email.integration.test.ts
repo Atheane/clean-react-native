@@ -48,6 +48,7 @@ describe('CheckEmail - integration', () => {
     const initialState: ICheckEmailState = {
       pending: false,
       success: null,
+      email: null,
     };
     sagaTester = new SagaTester({
       initialState,
@@ -64,6 +65,7 @@ describe('CheckEmail - integration', () => {
     expect(newState).toEqual({
       pending: true,
       success: null,
+      email: mockData.email,
     });
   });
 
@@ -74,6 +76,7 @@ describe('CheckEmail - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: true,
       success: null,
+      email: mockData.email,
     });
   });
 
@@ -85,6 +88,7 @@ describe('CheckEmail - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       success: false,
+      email: mockData.email,
     });
   });
 });

@@ -1,4 +1,4 @@
-import short from 'short-uuid';
+import ShortUniqueId from 'short-unique-id';
 
 const isEntity = (v: any): v is Entity<any> => {
   return v instanceof Entity;
@@ -9,7 +9,7 @@ export class Entity<T> {
   public properties: Partial<T>;
 
   protected constructor({ id, properties }: { id?: string } & { properties: Partial<T> }) {
-    this.id = id ?? short().new();
+    this.id = id ?? new ShortUniqueId({ length: 8 }).rnd();
     this.initProperties();
     this.properties = properties;
   }
