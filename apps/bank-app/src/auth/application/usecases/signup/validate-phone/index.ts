@@ -37,13 +37,9 @@ export function* validatePhoneGenerator(
     const email = yield select(selectEmail);
     user = User.Create(email);
   }
-
-  Logger.getInstance().info('>>>>>>>>>>>>> user.validatePhone', user);
-
   // add password property to prospect instance
   user.validatePhone(payload);
 
-  Logger.getInstance().info('<<<<<<<<<<<<< user.validatePhone', user);
   // domain event
   yield put(phoneValidated(user));
   yield call(navigate, { route: IAuthStackPages.SIGNUP_REGISTER_BIRTH });

@@ -333,16 +333,69 @@ describe('Signup - usecase', () => {
   });
 
   it('should call phoneValidated', () => {
+    const userPrev = User.Create(new Email('test@example.com'));
+
     const user = User.Create(new Email('test@example.com'));
     user.validatePhone(mockQueryPhoneOtp);
 
     testSaga(validatePhoneGenerator, httpConnection, {
       type: ISignupTypes.FETCH_VALIDATE_PHONE,
-      payload: { user, ...mockQueryPhoneOtp },
+      payload: mockQueryPhoneOtp,
     })
       .next()
       .call([api, api.checkPhoneValidation], mockQueryPhoneOtp)
       .next(mockSuccessTrue)
+      .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
+        expect(yieldedValue.type).toEqual('SELECT');
+        expect(yieldedValue).toEqual(
+          expect.objectContaining({
+            type: 'SELECT',
+            payload: expect.objectContaining({
+              selector: selectUser,
+            }),
+          }),
+        );
+      })
+      .next(userPrev)
+      .put(phoneValidated(user))
+      .next();
+  });
+
+  it('should call phoneValidated is user not in store', () => {
+    const user = User.Create(new Email('test@example.com'));
+    user.validatePhone(mockQueryPhoneOtp);
+
+    testSaga(validatePhoneGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_VALIDATE_PHONE,
+      payload: mockQueryPhoneOtp,
+    })
+      .next()
+      .call([api, api.checkPhoneValidation], mockQueryPhoneOtp)
+      .next(mockSuccessTrue)
+      .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
+        expect(yieldedValue.type).toEqual('SELECT');
+        expect(yieldedValue).toEqual(
+          expect.objectContaining({
+            type: 'SELECT',
+            payload: expect.objectContaining({
+              selector: selectUser,
+            }),
+          }),
+        );
+      })
+      .next(null)
+      .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
+        expect(yieldedValue.type).toEqual('SELECT');
+        expect(yieldedValue).toEqual(
+          expect.objectContaining({
+            type: 'SELECT',
+            payload: expect.objectContaining({
+              selector: selectEmail,
+            }),
+          }),
+        );
+      })
+      .next(new Email('test@example.com'))
       .put(phoneValidated(user))
       .next();
   });
@@ -353,7 +406,7 @@ describe('Signup - usecase', () => {
 
     testSaga(validatePhoneGenerator, httpConnection, {
       type: ISignupTypes.SIGNUP_FAILED,
-      payload: { user, ...mockQueryPhoneOtp },
+      payload: mockQueryPhoneOtp,
     })
       .next()
       .call([api, api.checkPhoneValidation], mockQueryPhoneOtp)
