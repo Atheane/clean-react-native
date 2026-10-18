@@ -12,6 +12,7 @@ import {
   IRegisterPasswordCommand,
   IRegisterBirthCommand,
   IRegisterAddressCommand,
+  AuthError,
 } from '@clean-rn/auth/domain';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
@@ -35,6 +36,7 @@ import {
   emailChecked,
   identityRegistered,
   passwordRegistered,
+  signupFailed,
 } from '../../commands/signup';
 import { selectEmail, selectProspect } from '../../../application/state-management';
 
@@ -74,7 +76,7 @@ describe('Signup - usecase', () => {
     expect(genObject.next().done).toBeTruthy();
   });
 
-  it('should call checkEmailSuccess actions', () => {
+  it('should call checkEmailSuccess actions if email does not exists', () => {
     const mockQueryEmail = {
       email: new Email('test@example.com'),
     };
@@ -95,6 +97,31 @@ describe('Signup - usecase', () => {
         }),
       )
       .next();
+  });
+
+  it('should throw SignupFailureEmailExists if email exists', () => {
+    const mockQueryEmail = {
+      email: new Email('test@example.com'),
+    };
+    const mockSuccessTrue: ISuccess = {
+      success: true,
+    };
+
+    testSaga(checkEmailGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_CHECK_EMAIL,
+      payload: mockQueryEmail,
+    })
+      .next()
+      .call([api, api.searchEmail], mockQueryEmail)
+      .next(mockSuccessTrue)
+      .put(
+        signupFailed({
+          error: new AuthError.SignupFailureEmailExists(),
+          success: mockSuccessTrue.success,
+        }),
+      )
+      .next()
+      .cancel();
   });
 
   it('should wait for REGISTER_IDENTITY action and call registerIdentityGenerator, should be done on next iteration', () => {

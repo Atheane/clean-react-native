@@ -1,13 +1,15 @@
-import { call, put, StrictEffect, select, takeEvery } from 'redux-saga/effects';
+import { call, put, StrictEffect, select, takeEvery, cancel } from 'redux-saga/effects';
 
 import {
   ICheckEmailQuery,
+  ICheckPhoneQuery,
   IRegisterIdentityCommand,
   ISuccess,
   Prospect,
   IRegisterPasswordCommand,
   IRegisterBirthCommand,
   IRegisterAddressCommand,
+  AuthError,
 } from '@clean-rn/auth/domain';
 
 import {
@@ -17,6 +19,8 @@ import {
   passwordRegistered,
   birthRegistered,
   addressRegistered,
+  phoneChecked,
+  signupFailed,
 } from '../../commands/signup';
 import { selectEmail, selectProspect } from '../../state-management';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
@@ -34,6 +38,15 @@ function* checkEmailGenerator(
   const api = AuthApi.getInstance(httpConnection);
   // api call
   const emailExists: ISuccess = yield call([api, api.searchEmail], payload);
+  if (emailExists.success) {
+    yield put(
+      signupFailed({
+        error: new AuthError.SignupFailureEmailExists(),
+        success: emailExists.success,
+      }),
+    );
+    yield cancel();
+  }
   yield put(emailChecked(emailExists));
 }
 
@@ -78,6 +91,25 @@ function* registerPasswordGenerator({
   prospect.registerPassword(payload.password);
   // save prospect with identity & password registered in redux store
   yield put(passwordRegistered(prospect));
+}
+
+function* checkPhoneGenerator(
+  httpConnection: HttpConnection,
+  {
+    payload,
+  }: {
+    type: string;
+    payload: ICheckPhoneQuery;
+  },
+): Generator<StrictEffect, any, any> {
+  const api = AuthApi.getInstance(httpConnection);
+  // api call
+  const phoneExists: ISuccess = yield call([api, api.searchPhone], payload);
+  if (phoneExists.success) {
+    yield cancel();
+    throw new AuthError.SignupFailurePhoneExists();
+  }
+  yield put(phoneChecked(phoneExists));
 }
 
 function* registerBirthGenerator({
@@ -136,6 +168,10 @@ function* registerPasswordSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(ISignupTypes.REGISTER_PASSWORD, registerPasswordGenerator);
 }
 
+function* checkPhoneSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
+  yield takeEvery(ISignupTypes.FETCH_CHECK_PHONE, checkPhoneGenerator, httpConnection);
+}
+
 function* registerBirthSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(ISignupTypes.REGISTER_BIRTH, registerBirthGenerator);
 }
@@ -148,6 +184,7 @@ export {
   checkEmailSaga,
   registerIdentitySaga,
   registerPasswordSaga,
+  checkPhoneSaga,
   registerBirthSaga,
   registerAddressSaga,
   checkEmailGenerator,

@@ -1,4 +1,5 @@
-import { Email, Prospect, User } from '@clean-rn/auth/domain';
+import { Email, IAuthErrorCodes, IAuthErrorMessage, Prospect, User } from '@clean-rn/auth/domain';
+import { IDomainError } from '@clean-rn/ddd';
 
 export interface ISignupState {
   pending: boolean;
@@ -6,6 +7,7 @@ export interface ISignupState {
   success: boolean | null;
   prospect: Prospect | null;
   user: User | null;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | null;
 }
 
 export const selectEmail = (state: ISignupState) => state.email;

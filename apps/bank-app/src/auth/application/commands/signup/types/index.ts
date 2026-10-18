@@ -1,12 +1,24 @@
-import { Email, Prospect, User, ISuccess } from '@clean-rn/auth/domain';
+import {
+  Email,
+  Prospect,
+  User,
+  ISuccess,
+  Phone,
+  IAuthErrorCodes,
+  IAuthErrorMessage,
+} from '@clean-rn/auth/domain';
+import { IDomainError } from '@clean-rn/ddd';
 
 export enum ISignupTypes {
   FETCH_CHECK_EMAIL = 'FETCH_CHECK_EMAIL',
   EMAIL_CHECKED = 'EMAIL_CHECKED',
+  SIGNUP_FAILED = 'SIGNUP_FAILED',
   REGISTER_IDENTITY = 'REGISTER_IDENTITY',
   IDENTITY_REGISTERED = 'IDENTITY_REGISTERED',
   REGISTER_PASSWORD = 'REGISTER_PASSWORD',
   PASSWORD_REGISTERED = 'PASSWORD_REGISTERED',
+  FETCH_CHECK_PHONE = 'FETCH_CHECK_PHONE',
+  PHONE_CHECKED = 'PHONE_CHECKED',
   REGISTER_BIRTH = 'REGISTER_BIRTH',
   BIRTH_REGISTERED = 'BIRTH_REGISTERED',
   REGISTER_ADDRESS = 'REGISTER_ADDRESS',
@@ -24,6 +36,14 @@ export type IEmailChecked = {
   payload: ISuccess;
 };
 
+export type ISignupFailed = {
+  type: typeof ISignupTypes.SIGNUP_FAILED;
+  payload: {
+    error: IDomainError<IAuthErrorCodes, IAuthErrorMessage>;
+    success: boolean;
+  };
+};
+
 export type IIdentityRegistered = {
   type: typeof ISignupTypes.IDENTITY_REGISTERED;
   payload: Prospect;
@@ -32,6 +52,16 @@ export type IIdentityRegistered = {
 export type IPasswordRegistered = {
   type: typeof ISignupTypes.PASSWORD_REGISTERED;
   payload: Prospect;
+};
+
+export type IFetchPhoneEmail = {
+  type: typeof ISignupTypes.FETCH_CHECK_PHONE;
+  payload: Phone;
+};
+
+export type IPhoneChecked = {
+  type: typeof ISignupTypes.PHONE_CHECKED;
+  payload: ISuccess;
 };
 
 export type IBirthRegistered = {
@@ -57,8 +87,11 @@ export type ICreateUser = {
 export type ISignupActions =
   | IFetchCheckEmail
   | IEmailChecked
+  | ISignupFailed
   | IIdentityRegistered
   | IPasswordRegistered
+  | IFetchPhoneEmail
+  | IPhoneChecked
   | IBirthRegistered
   | IAddressRegistered
   | ICreateUser;

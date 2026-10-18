@@ -4,6 +4,7 @@ import Constants from 'expo-constants';
 import dayjs from 'dayjs';
 
 import {
+  AuthError,
   Email,
   IGender,
   IRegisterAddressCommand,
@@ -28,6 +29,7 @@ import {
   passwordRegistered,
   birthRegistered,
   addressRegistered,
+  signupFailed,
 } from '../../commands/signup';
 import { ISignupState, signupReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
@@ -93,6 +95,7 @@ describe('CheckEmail - integration', () => {
       email: null,
       prospect: null,
       user: null,
+      error: null,
     };
     sagaTester = new SagaTester({
       initialState,
@@ -112,6 +115,7 @@ describe('CheckEmail - integration', () => {
       email: new Email('test@example.com'),
       prospect: null,
       user: null,
+      error: null,
     });
   });
 
@@ -125,6 +129,7 @@ describe('CheckEmail - integration', () => {
       email: new Email('test@example.com'),
       prospect: null,
       user: null,
+      error: null,
     });
   });
 
@@ -139,6 +144,27 @@ describe('CheckEmail - integration', () => {
       email: new Email('test@example.com'),
       prospect: null,
       user: null,
+      error: null,
+    });
+  });
+
+  it('Should store correct state if SIGNUP_FAILED', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
+    sagaTester.dispatch(fetchCheckEmail(new Email('test@example.com')));
+    sagaTester.dispatch(
+      signupFailed({
+        error: new AuthError.SignupFailureEmailExists(),
+        success: true,
+      }),
+    );
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      success: true,
+      email: new Email('test@example.com'),
+      prospect: null,
+      user: null,
+      error: new AuthError.SignupFailureEmailExists(),
     });
   });
 
@@ -149,6 +175,7 @@ describe('CheckEmail - integration', () => {
       email: new Email('test@example.com'),
       prospect: null,
       user: null,
+      error: null,
     };
 
     sagaTester = new SagaTester({
@@ -168,6 +195,7 @@ describe('CheckEmail - integration', () => {
       email: new Email('test@example.com'),
       prospect: prospect,
       user: null,
+      error: null,
     });
   });
 
@@ -180,6 +208,7 @@ describe('CheckEmail - integration', () => {
       email: new Email('test@example.com'),
       prospect,
       user: null,
+      error: null,
     };
 
     sagaTester = new SagaTester({
@@ -197,6 +226,7 @@ describe('CheckEmail - integration', () => {
       email: new Email('test@example.com'),
       prospect,
       user: null,
+      error: null,
     });
   });
 
@@ -209,6 +239,7 @@ describe('CheckEmail - integration', () => {
       email: new Email('test@example.com'),
       prospect,
       user: null,
+      error: null,
     };
 
     sagaTester = new SagaTester({
@@ -226,6 +257,7 @@ describe('CheckEmail - integration', () => {
       email: new Email('test@example.com'),
       prospect,
       user: null,
+      error: null,
     });
   });
 
@@ -238,6 +270,7 @@ describe('CheckEmail - integration', () => {
       email: new Email('test@example.com'),
       prospect,
       user: null,
+      error: null,
     };
 
     sagaTester = new SagaTester({
@@ -255,6 +288,7 @@ describe('CheckEmail - integration', () => {
       email: new Email('test@example.com'),
       prospect,
       user: null,
+      error: null,
     });
   });
 });

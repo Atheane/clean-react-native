@@ -6,6 +6,7 @@ import {
   IResetPasswordCommand,
   ICheckEmailQuery,
   ISuccess,
+  ICheckPhoneQuery,
 } from '@clean-rn/auth/domain';
 
 export class AuthApi implements IAuthGateway {
@@ -59,6 +60,17 @@ export class AuthApi implements IAuthGateway {
     //map query to dto
     const params = {
       email: query.email.value,
+    };
+    const url = `${this.connection.baseUrl}/app/user/search?` + new URLSearchParams(params);
+    const response = await fetch(url, this.connection.options(IHttpVerb.GET));
+    await this.connection.handleError(response);
+    return response.json();
+  }
+
+  async searchPhone(query: ICheckPhoneQuery): Promise<ISuccess> {
+    //map query to dto
+    const params = {
+      phone: query.phone.value,
     };
     const url = `${this.connection.baseUrl}/app/user/search?` + new URLSearchParams(params);
     const response = await fetch(url, this.connection.options(IHttpVerb.GET));

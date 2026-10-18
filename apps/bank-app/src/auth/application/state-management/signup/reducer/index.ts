@@ -8,6 +8,7 @@ const initialState: ISignupState = {
   success: null,
   prospect: null,
   user: null,
+  error: null,
 };
 
 export const signupReducer = (state = initialState, action: ISignupActions) => {
@@ -28,6 +29,15 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
         ...state,
         pending: false,
         success: action.payload.success,
+      };
+      return newState;
+    case ISignupTypes.SIGNUP_FAILED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        success: action.payload.success,
+        error: action.payload.error,
       };
       return newState;
     case ISignupTypes.IDENTITY_REGISTERED:
