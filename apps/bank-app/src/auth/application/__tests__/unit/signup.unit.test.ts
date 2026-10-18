@@ -2,6 +2,7 @@ import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 import dayjs from 'dayjs';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   Email,
@@ -51,6 +52,10 @@ import {
   userSignedUp,
 } from '../../commands/signup';
 import { selectEmail, selectPhoneOtp, selectUser } from '../../../application/state-management';
+import { IStoreKey } from '../../../../shared/application/types';
+import { initializeApplication } from '../../../../shared/application/commands/initialization';
+import { IAuthStackPages } from '../../../../shared/presentation/types';
+import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 describe('Signup - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -138,6 +143,12 @@ describe('Signup - usecase', () => {
       .call([api, api.searchEmail], mockQueryEmail)
       .next(mockSuccessTrue)
       .put(signupFailed(new AuthError.SignupFailureEmailExists()))
+      .next()
+      .call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, mockQueryEmail.email.value)
+      .next(mockQueryEmail.email.value)
+      .put(initializeApplication())
+      .next()
+      .call(navigate, { route: IAuthStackPages.LOGIN })
       .next()
       .cancel();
   });

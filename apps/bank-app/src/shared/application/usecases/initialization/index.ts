@@ -13,7 +13,6 @@ function* initialization(): Generator<StrictEffect, any, any> {
   // retireve data from async storage
   const emailString = yield call(AsyncStorage.getItem, IStoreKey.USER_EMAIL);
   const initRouteName = emailString ? IAuthStackPages.LOGIN : IAuthStackPages.SIGNUP_EMAIL;
-  console.log('initialization', initRouteName);
   // dispatch action to the store
   yield put(
     initializeApplicationSuccess({ email: emailString ? new Email(emailString) : undefined, initRouteName }),

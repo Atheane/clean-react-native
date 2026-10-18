@@ -8,6 +8,7 @@ import {
   initializeApplicationSuccess,
 } from '../../commands/initialization';
 import { IInitializationState, initializationReducer } from '../../state-management';
+import { IAuthStackPages } from '../../../../shared/presentation/types';
 
 describe('Initialization - integration', () => {
   let sagaTester: SagaTester;
@@ -16,6 +17,7 @@ describe('Initialization - integration', () => {
     const initialState: IInitializationState = {
       pending: false,
       email: null,
+      initRouteName: undefined,
     };
     sagaTester = new SagaTester({
       initialState,
@@ -31,6 +33,7 @@ describe('Initialization - integration', () => {
     expect(newState).toEqual({
       pending: true,
       email: null,
+      initRouteName: undefined,
     });
   });
 
@@ -42,6 +45,7 @@ describe('Initialization - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: true,
       email: null,
+      initRouteName: undefined,
     });
   });
 
@@ -49,11 +53,17 @@ describe('Initialization - integration', () => {
     sagaTester.start(initializationSaga);
 
     sagaTester.dispatch(initializeApplication());
-    sagaTester.dispatch(initializeApplicationSuccess(new Email('test@example.com')));
+    sagaTester.dispatch(
+      initializeApplicationSuccess({
+        email: new Email('test@example.com'),
+        initRouteName: IAuthStackPages.LOGIN,
+      }),
+    );
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
       email: new Email('test@example.com'),
+      initRouteName: IAuthStackPages.LOGIN,
     });
   });
 });

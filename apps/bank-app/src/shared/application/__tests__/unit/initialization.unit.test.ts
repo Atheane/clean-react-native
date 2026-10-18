@@ -7,6 +7,8 @@ import { Email } from '@clean-rn/auth/domain';
 import { IInitializationTypes, initializeApplicationSuccess } from '../../commands/initialization';
 import { initializationSaga, initialization } from '../../usecases/initialization';
 import { IStoreKey } from '../../types';
+import { IAuthStackPages } from '../../../../shared/presentation/types';
+import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 describe('Initialization - usecase', () => {
   const genObject = initializationSaga();
@@ -23,7 +25,14 @@ describe('Initialization - usecase', () => {
       .next()
       .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
       .next(new Email('test@example.com').value)
-      .put(initializeApplicationSuccess(new Email('test@example.com')))
+      .put(
+        initializeApplicationSuccess({
+          email: new Email('test@example.com'),
+          initRouteName: IAuthStackPages.LOGIN,
+        }),
+      )
+      .next()
+      .call(navigate, { route: IAuthStackPages.LOGIN })
       .next();
   });
 });
