@@ -4,7 +4,7 @@ export default {
   expo: {
     name: 'CleanRN Storybook Dev',
     slug: 'clean-rn-storybook-dev',
-    version: '1.2.4',
+    version: '1.2.6',
     orientation: 'portrait',
     icon: './assets/icon.png',
     splash: {
