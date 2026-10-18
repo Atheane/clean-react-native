@@ -63,7 +63,7 @@ export const TransportForm = (props: IProps) => {
           <Slider
             label={t('screens.carbonTransport.slider.mpg')}
             minValue={0}
-            maxValue={17}
+            maxValue={25}
             value={mpg}
             onChange={handleSliderConsumption}
             unit={' L/100km'}
@@ -72,7 +72,7 @@ export const TransportForm = (props: IProps) => {
             <Slider
               label={t('screens.carbonTransport.slider.distanceByYear')}
               minValue={0}
-              maxValue={40000}
+              maxValue={150000}
               step={500}
               value={distanceByYear}
               onChange={handleSliderDistance}

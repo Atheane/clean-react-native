@@ -9,12 +9,10 @@ import { FlyForm, useFlyFormData } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus } from '../../wrappers';
 
-const formattedAirports = airports
-  .map((airport) => ({
-    key: airport.IATA,
-    value: airport.IATA + ' ' + airport.name,
-  }))
-  .slice(0, 50);
+const formattedAirports = airports.map((airport) => ({
+  key: airport.IATA,
+  value: airport.IATA + ' ' + airport.name,
+}));
 
 const FlyFormMeta: ComponentMeta<typeof FlyForm> = {
   title: 'Forms/FlyForm',

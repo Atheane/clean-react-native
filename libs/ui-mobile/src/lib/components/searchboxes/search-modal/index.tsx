@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Modal,
   Platform,
+  Dimensions,
 } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
@@ -82,7 +83,7 @@ export const SearchModal = (props: IProps) => {
   }, []);
 
   const handleClearQuery = useCallback(() => {
-    clearSearch();
+    setVisible(false);
   }, []);
 
   const handleClearInput = useCallback(() => {
@@ -97,12 +98,11 @@ export const SearchModal = (props: IProps) => {
         label={props.label}
         icon={props.icon}
         lowerCase
-        clearButtonMode="always"
         value={selectedItem ? renderLabel(selectedItem) : ''}
         onFocus={handleOnPress}
         labelColor={Colors.bank.secondary.pink}
       />
-      {Platform.OS === 'android' && selectedItem && (
+      {selectedItem && (
         <TouchableOpacity onPress={handleClearInput} style={styles.closeIcon}>
           <Close />
         </TouchableOpacity>
@@ -114,12 +114,11 @@ export const SearchModal = (props: IProps) => {
             label={props.label}
             icon={props.icon}
             lowerCase
-            clearButtonMode="always"
             value={searchQuery}
             onChange={handleSearchQuery}
             autoFocus
           />
-          {Platform.OS === 'android' && searchQuery.length > 0 && (
+          {searchQuery.length > 0 && (
             <TouchableOpacity onPress={handleClearQuery} style={styles.closeIconModal}>
               <Close />
             </TouchableOpacity>
@@ -159,14 +158,6 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.bank.primary.lightGrey,
     borderBottomWidth: 1,
   },
-  closeIcon: {
-    position: 'absolute',
-    right: 16,
-    top: 58,
-  },
-  closeIconModal: {
-    position: 'absolute',
-    right: 58,
-    top: 56,
-  },
+  closeIcon: { position: 'relative', bottom: 25, left: Dimensions.get('window').width * 0.8 - 35 },
+  closeIconModal: { position: 'relative', bottom: 25, left: Dimensions.get('window').width * 0.8 - 35 },
 });
