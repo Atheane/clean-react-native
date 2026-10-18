@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, put, StrictEffect, select, takeEvery, cancel } from 'redux-saga/effects';
 
-import { Logger } from '@clean-rn/logger';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { ISuccess, AuthError, IValidatePhoneQuery, User } from '@clean-rn/auth/domain';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
@@ -42,5 +41,5 @@ export function* validatePhoneGenerator(
 
   // domain event
   yield put(phoneValidated(user));
-  yield call(navigate, { route: IAuthStackPages.SIGNUP_REGISTER_BIRTH });
+  yield call(navigate, { route: IAuthStackPages.SIGNUP_BIRTH });
 }

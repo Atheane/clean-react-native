@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { StyleSheet, View, SafeAreaView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -21,7 +22,6 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { IAuthStackPages } from '../../../shared/presentation/types';
 
 import { registerIdentity, fetchCheckPhone, registerPassword } from '../../application/commands/signup';
-import { useNavigation } from '@react-navigation/native';
 
 const locales = getLocales();
 

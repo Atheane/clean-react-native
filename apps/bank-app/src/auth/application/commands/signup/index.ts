@@ -58,7 +58,7 @@ export const registerBirth = (payload: IRegisterBirthCommand): IRegisterBirth =>
   payload,
 });
 
-export const registerAddress = (payload: IRegisterAddressCommand & { user: User }): IRegisterAddress => ({
+export const registerAddress = (payload: IRegisterAddressCommand): IRegisterAddress => ({
   type: ISignupTypes.REGISTER_ADDRESS,
   payload,
 });

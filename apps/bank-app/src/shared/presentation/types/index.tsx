@@ -24,7 +24,9 @@ export type AuthStackParamList = {
   SignupEmail: undefined;
   SignupIdentityPasswordPhone: undefined;
   SignupValidatePhone: undefined;
-  SignupRegisterBirth: undefined;
+  SignupBirth: undefined;
+  SignupAddress: undefined;
+  SignupCongrats: undefined;
   Legal: undefined;
   Cgu: undefined;
 };
@@ -40,7 +42,9 @@ export enum IAuthStackPages {
   SIGNUP_EMAIL = 'SignupEmail',
   SIGNUP_IDENTITY_PASSWORD_PHONE = 'SignupIdentityPasswordPhone',
   SIGNUP_VALIDATE_PHONE = 'SignupValidatePhone',
-  SIGNUP_REGISTER_BIRTH = 'SignupRegisterBirth',
+  SIGNUP_BIRTH = 'SignupBirth',
+  SIGNUP_ADDRESS = 'SignupAddress',
+  SIGNUP_CONGRATS = 'SignupCongrats',
   LEGAL = 'Legal',
   CGU = 'CGU',
 }
@@ -51,7 +55,9 @@ export type IAuthStackProps = {
   [IAuthStackPages.SIGNUP_EMAIL]: object;
   [IAuthStackPages.SIGNUP_IDENTITY_PASSWORD_PHONE]: object;
   [IAuthStackPages.SIGNUP_VALIDATE_PHONE]: object;
-  [IAuthStackPages.SIGNUP_REGISTER_BIRTH]: object;
+  [IAuthStackPages.SIGNUP_BIRTH]: object;
+  [IAuthStackPages.SIGNUP_ADDRESS]: object;
+  [IAuthStackPages.SIGNUP_CONGRATS]: object;
   [IAuthStackPages.LEGAL]: object;
   [IAuthStackPages.CGU]: object;
 };
@@ -62,7 +68,9 @@ export type IRoutes =
   | IAuthStackPages.SIGNUP_EMAIL
   | IAuthStackPages.SIGNUP_IDENTITY_PASSWORD_PHONE
   | IAuthStackPages.SIGNUP_VALIDATE_PHONE
-  | IAuthStackPages.SIGNUP_REGISTER_BIRTH
+  | IAuthStackPages.SIGNUP_BIRTH
+  | IAuthStackPages.SIGNUP_ADDRESS
+  | IAuthStackPages.SIGNUP_CONGRATS
   | IAuthStackPages.LEGAL
   | IAuthStackPages.CGU;
 // | HOME_STACK_PAGES.MENU

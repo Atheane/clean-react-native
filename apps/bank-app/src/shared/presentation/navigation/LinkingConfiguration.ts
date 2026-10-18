@@ -24,15 +24,10 @@ export const LinkingConfiguration: LinkingOptions<
       SignupEmail: 'SignupEmail',
       SignupIdentityPasswordPhone: 'SignupIdentityPasswordPhone',
       SignupValidatePhone: 'SignupValidatePhone',
-      // SignupStep3: 'SignupStep3',
-      // SignupStep4: 'SignupStep4',
-      // SignupStep5: 'SignupStep5',
-      // SignupStep6: 'SignupStep6',
-      // SignupStep7: 'SignupStep7',
-      // SignupStep8: 'SignupStep8',
-      // SignupStep9: 'SignupStep9',
-      // Legal: 'Legal',
-      // Cgu: 'Cgu',
+      SignupBirth: 'SignupBirth',
+      SignupAddress: 'SignupAddress',
+      Legal: 'Legal',
+      Cgu: 'Cgu',
       // Home: {
       //   screens: {
       //     Menu: {

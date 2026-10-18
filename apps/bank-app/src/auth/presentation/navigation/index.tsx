@@ -10,6 +10,7 @@ import {
   SignupIdentityPasswordPhone,
   SignupValidatePhone,
   SignupBirth,
+  SignupAddress,
   LegalScreen,
   CguScreen,
 } from '../screens';
@@ -71,8 +72,16 @@ export const AuthStack = () => {
           headerTitle: t(`screens.signup-birth.title`),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
-        name={IAuthStackPages.SIGNUP_REGISTER_BIRTH}
+        name={IAuthStackPages.SIGNUP_BIRTH}
         component={SignupBirth}
+      />
+      <Stack.Screen
+        options={{
+          headerTitle: t(`screens.signup-address.title`),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+        name={IAuthStackPages.SIGNUP_ADDRESS}
+        component={SignupAddress}
       />
       <Stack.Screen
         options={{
