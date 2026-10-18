@@ -4,9 +4,9 @@ import Constants from 'expo-constants';
 
 import { Email } from '@clean-rn/auth/domain';
 
-import { checkEmailSaga } from '../../usecases/check-email';
-import { ICheckEmailTypes, checkEmailSuccess, fetchCheckEmail } from '../../commands/check-email';
-import { ICheckEmailState, checkEmailReducer } from '../../state-management';
+import { checkEmailSaga } from '../../usecases/signup';
+import { ISignupTypes, checkEmailSuccess, fetchCheckEmail } from '../../commands/signup';
+import { ISignupState, signupReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
 
 const expoConstantsMock = {
@@ -21,10 +21,6 @@ const expoConstantsMock = {
 jest.mock('expo-constants', () => expoConstantsMock);
 
 describe('CheckEmail - integration', () => {
-  const mockData = {
-    email: new Email('test@example.com'),
-  };
-
   let sagaTester: SagaTester;
   let httpConnection: HttpConnection;
 
@@ -45,50 +41,58 @@ describe('CheckEmail - integration', () => {
   });
 
   beforeEach(() => {
-    const initialState: ICheckEmailState = {
+    const initialState: ISignupState = {
       pending: false,
       success: null,
       email: null,
+      prospect: null,
+      user: null,
     };
     sagaTester = new SagaTester({
       initialState,
-      reducers: checkEmailReducer,
+      reducers: signupReducer,
     });
   });
 
   it('Should store correct initial state if not initial state is provided', () => {
-    const newState = checkEmailReducer(undefined, {
-      type: ICheckEmailTypes.FETCH_CHECK_EMAIL,
-      payload: mockData,
+    const newState = signupReducer(undefined, {
+      type: ISignupTypes.FETCH_CHECK_EMAIL,
+      payload: new Email('test@example.com'),
     });
 
     expect(newState).toEqual({
       pending: true,
       success: null,
-      email: mockData.email,
+      email: new Email('test@example.com'),
+      prospect: null,
+      user: null,
     });
   });
 
   it('Should store correct state in case if FETCH_CHECK_EMAIL', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
 
-    sagaTester.dispatch(fetchCheckEmail(mockData));
+    sagaTester.dispatch(fetchCheckEmail(new Email('test@example.com')));
     expect(sagaTester.getState()).toEqual({
       pending: true,
       success: null,
-      email: mockData.email,
+      email: new Email('test@example.com'),
+      prospect: null,
+      user: null,
     });
   });
 
   it('Should store correct state if CHECK_EMAIL_SUCCESS', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
-    sagaTester.dispatch(fetchCheckEmail(mockData));
+    sagaTester.dispatch(fetchCheckEmail(new Email('test@example.com')));
     sagaTester.dispatch(checkEmailSuccess(mockResponse));
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
       success: false,
-      email: mockData.email,
+      email: new Email('test@example.com'),
+      prospect: null,
+      user: null,
     });
   });
 });

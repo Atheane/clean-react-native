@@ -3,6 +3,7 @@ export * from './constants';
 export * from './entities';
 export * from './errors';
 export * from './gateways';
+export * from './models';
 export * from './queries';
 export * from './repositories';
 export * from './types';
