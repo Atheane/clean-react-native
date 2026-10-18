@@ -1,10 +1,9 @@
 import { useCallback, useState } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { SvgProps } from 'react-native-svg';
-import { Card } from '@rneui/themed';
+import { Card, useTheme } from '@rneui/themed';
 
 import { DeleteCross } from '../../../assets';
-import { Colors, FontNames } from '../../../constants';
 import { LinkButtonColors } from '../../../types';
 
 import { LinkButton } from '../../buttons/link-button';
@@ -16,17 +15,17 @@ type IProps = {
   onDelete: (uid: string) => void;
 };
 
-export const CARD_WIDTH = Dimensions.get('window').width * 0.5;
-export const CARD_RATIO = 168 / 228;
 export const EventCard = (props: IProps) => {
   const [show, setShow] = useState(true);
   const handleOnPress = useCallback(() => {
     props.onDelete(props.uid);
     setShow(false);
-  }, []);
+  }, [props.uid]);
+
+  const { theme } = useTheme();
 
   return show ? (
-    <Card containerStyle={styles.container}>
+    <Card containerStyle={[theme.bank.container.card.short, theme.bank.shadow.card]}>
       {props.icon && (
         <View style={styles.icon}>
           <props.icon />
@@ -40,7 +39,7 @@ export const EventCard = (props: IProps) => {
           colorOption={LinkButtonColors.BLUE}
         />
       </View>
-      <Text style={styles.text}>{props.text}</Text>
+      <Text style={[styles.text, theme.bank.text.grey]}>{props.text}</Text>
     </Card>
   ) : (
     <View />
@@ -48,21 +47,6 @@ export const EventCard = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    width: CARD_WIDTH,
-    height: CARD_WIDTH * CARD_RATIO,
-    margin: 16,
-    borderRadius: 16,
-    borderWidth: 0,
-    shadowColor: Colors.bank.shadow,
-    shadowOffset: {
-      width: 5,
-      height: 5,
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 10,
-  },
   icon: {
     position: 'relative',
     top: -16,
@@ -75,11 +59,7 @@ const styles = StyleSheet.create({
     right: -10,
   },
   text: {
-    top: -10,
+    top: -20,
     left: 6,
-    fontSize: 16,
-    fontFamily: FontNames.MartelSans_400Regular,
-    color: Colors.bank.primary.darkGrey,
-    lineHeight: 22,
   },
 });

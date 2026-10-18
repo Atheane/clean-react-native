@@ -14,6 +14,7 @@ declare module '@rneui/themed' {
   export interface Theme {
     bank: {
       container: {
+        bulletGreen: StyleProp<ViewStyle>;
         button: {
           short: StyleProp<ViewStyle>;
           long: StyleProp<ViewStyle>;
@@ -23,10 +24,15 @@ declare module '@rneui/themed' {
         card: {
           short: StyleProp<ViewStyle>;
           long: StyleProp<ViewStyle>;
+          kpi: StyleProp<ViewStyle>;
         };
         input: StyleProp<ViewStyle>;
       };
-      shadow: StyleProp<ViewStyle>;
+      shadow: {
+        button: StyleProp<ViewStyle>;
+        bullet: StyleProp<ViewStyle>;
+        card: StyleProp<ViewStyle>;
+      };
       text: {
         banner: StyleProp<TextStyle>;
         link: StyleProp<TextStyle>;
@@ -39,6 +45,7 @@ declare module '@rneui/themed' {
         darkBlue: StyleProp<TextStyle>;
         boldDarkBlue: StyleProp<TextStyle>;
         grey: StyleProp<TextStyle>;
+        cyan: StyleProp<TextStyle>;
         input: StyleProp<TextStyle>;
         errors: StyleProp<TextStyle>;
         white: StyleProp<TextStyle>;
@@ -50,37 +57,51 @@ declare module '@rneui/themed' {
 const LONG_BUTTON_RATIO = 55 / 307;
 const SHORT_CARD_RATIO = 168 / 228;
 const LONG_CARD_RATIO = 85 / 356;
+const KPI_CARD_RATIO = 112 / 174;
 
 export const theme = createTheme({
-  components: {
-    Button: {
-      radius: 28, // todo find a way to put it in common bank button style
-    },
-  },
   bank: {
     container: {
+      bulletGreen: {
+        backgroundColor: Colors.bank.primary.lightGreen,
+        width: 13,
+        height: 13,
+        borderRadius: 50,
+        margin: 3.5,
+      },
       button: {
         short: {
           flexDirection: 'row',
+          borderRadius: 28,
         },
         long: {
           width: Dimensions.get('window').width * 0.8,
-          height: Dimensions.get('window').width * 0.8 * LONG_BUTTON_RATIO,
+          borderRadius: 28,
         },
       },
       centeredItem: { alignItems: 'center', justifyContent: 'center' },
       centeredItems: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' },
       card: {
         short: {
-          width: Dimensions.get('window').width * 0.45,
-          height: Dimensions.get('window').width * 0.45 * SHORT_CARD_RATIO,
+          width: Dimensions.get('window').width * 0.5,
+          height: Dimensions.get('window').width * 0.5 * SHORT_CARD_RATIO,
           margin: 16,
           borderRadius: 16,
+          borderWidth: 0,
         },
         long: {
-          width: Dimensions.get('window').width * 0.85,
-          height: Dimensions.get('window').width * 0.85 * LONG_CARD_RATIO,
+          width: Dimensions.get('window').width * 0.9,
+          minHeight: Dimensions.get('window').width * 0.9 * LONG_CARD_RATIO,
           borderRadius: 20,
+          borderWidth: 0,
+        },
+        kpi: {
+          width: Dimensions.get('window').width * 0.46,
+          height: Dimensions.get('window').width * 0.46 * KPI_CARD_RATIO,
+          margin: 16,
+          borderRadius: 20,
+          backgroundColor: Colors.bank.primary.white,
+          padding: 8,
         },
       },
       input: {
@@ -93,11 +114,39 @@ export const theme = createTheme({
       },
     },
     shadow: {
-      shadowColor: Colors.bank.shadow, // iOS
-      shadowOffset: { width: 0, height: 15 }, // iOS
-      shadowOpacity: 0.6, // iOS
-      shadowRadius: 20, // iOS
-      elevation: 50, // android,
+      button: {
+        shadowColor: Colors.bank.shadow, // iOS
+        shadowOffset: { width: 0, height: 15 }, // iOS
+        shadowOpacity: 0.6, // iOS
+        shadowRadius: 20, // iOS
+        elevation: 50, // android,
+        borderRadius: 28,
+      },
+      bullet: {
+        backgroundColor: Colors.bank.primary.white,
+        width: 20,
+        height: 20,
+        borderRadius: 50,
+        marginHorizontal: 4,
+        shadowColor: Colors.bank.shadow,
+        shadowOffset: {
+          width: 0,
+          height: 5,
+        },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+        elevation: 10,
+      },
+      card: {
+        shadowColor: Colors.bank.shadow,
+        shadowOffset: {
+          width: 5,
+          height: 5,
+        },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+        elevation: 10,
+      },
     },
     text: {
       banner: {
@@ -116,6 +165,7 @@ export const theme = createTheme({
         lineHeight: 24,
         fontSize: 18,
         fontFamily: FontNames.Roboto_700Bold,
+        textTransform: 'none',
       },
       pinkLabel: {
         textTransform: 'uppercase',
@@ -161,7 +211,6 @@ export const theme = createTheme({
         fontSize: 16,
         color: Colors.bank.primary.darkBlue,
         lineHeight: 22,
-        textAlign: 'center',
       },
       boldDarkBlue: {
         fontSize: 13,
@@ -175,6 +224,12 @@ export const theme = createTheme({
         lineHeight: 19,
         color: Colors.bank.primary.grey,
         fontFamily: FontNames.Roboto_400Regular,
+      },
+      cyan: {
+        fontSize: 16,
+        fontFamily: FontNames.Roboto_400Regular,
+        color: Colors.bank.secondary.cyan,
+        lineHeight: 21,
       },
       input: {
         color: Colors.bank.secondary.pink,

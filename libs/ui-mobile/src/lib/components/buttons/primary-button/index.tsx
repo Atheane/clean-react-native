@@ -22,11 +22,16 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
   const { theme } = useTheme();
 
   return (
-    <View style={props.long ? theme.bank.container.button.long : theme.bank.container.button.short}>
+    <View
+      style={[
+        props.long ? theme.bank.container.button.long : theme.bank.container.button.short,
+        theme.bank.shadow.button,
+      ]}
+    >
       <Button
         ViewComponent={LinearGradient}
-        style={[theme.bank.shadow, styles.buttonContainer]}
         buttonStyle={styles.button}
+        containerStyle={props.long ? theme.bank.container.button.long : theme.bank.container.button.short}
         loading={props?.loading ?? false}
         linearGradientProps={{
           colors: [Colors.bank.greenGradient.lightGreen, Colors.bank.greenGradient.darkGreen],
@@ -47,7 +52,7 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
             style={[
               theme.bank.text.button,
               styles.content,
-              { textTransform: props.uppercase ? 'uppercase' : 'none' },
+              props.uppercase && { textTransform: 'uppercase' },
             ]}
           >
             {firstLetterCapitalize(props.title)}
@@ -64,14 +69,12 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    borderRadius: 50,
-  },
   button: {
     paddingTop: 15,
     paddingRight: 24,
     paddingBottom: 16,
     paddingLeft: 26,
+    borderRadius: 28,
   },
   content: {
     color: Colors.bank.primary.white,

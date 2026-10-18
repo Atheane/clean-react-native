@@ -1,10 +1,10 @@
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Card, Divider } from '@rneui/base';
+import { useTheme } from '@rneui/themed';
 
 import { ITransaction, ITransactionCategory, TransactionCategory } from '@clean-rn/account/domain';
 
 import { Restaurant, Cart } from '../../../assets';
-import { Colors, FontNames } from '../../../constants';
 
 import { TransactionItem } from '../../others/transaction-item';
 
@@ -24,10 +24,11 @@ const getIcon = (category: TransactionCategory) => {
 };
 
 export const TransactionsCard = (props: IProps) => {
+  const { theme } = useTheme();
   return (
-    <Card containerStyle={styles.container}>
+    <Card containerStyle={[theme.bank.container.card.long, theme.bank.shadow.card]}>
       <View>
-        <Text style={styles.date}>{props.date}</Text>
+        <Text style={theme.bank.text.boldDarkBlue}>{props.date}</Text>
       </View>
       <View style={styles.transactionsContainer}>
         {props.data.map((data: ITransaction, index: number) => {
@@ -48,27 +49,6 @@ export const TransactionsCard = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    width: Dimensions.get('window').width * 0.9,
-    margin: 16,
-    borderRadius: 10,
-    borderWidth: 0,
-    shadowColor: Colors.bank.shadow,
-    shadowOffset: {
-      width: 5,
-      height: 5,
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 10,
-  },
-  date: {
-    fontSize: 13,
-    fontWeight: 'bold',
-    color: Colors.bank.primary.darkBlue,
-    textAlign: 'left',
-    fontFamily: FontNames.MartelSans_700Bold,
-  },
   transactionsContainer: {
     marginTop: 16,
   },
