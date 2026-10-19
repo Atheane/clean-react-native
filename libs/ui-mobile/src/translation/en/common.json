@@ -183,7 +183,8 @@
       "title": "Forgot your password?"
     },
     "signup-email": {
-      "title": "Sign up"
+      "title": "Sign up",
+      "checkbox": "By checking the box, I acknowledge having read the TOS, the legal notices as well as the use of personal data from the CO2 Account"
     },
     "signup-identity": {
       "title": "Sign up"

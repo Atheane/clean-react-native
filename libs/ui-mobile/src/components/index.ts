@@ -22,6 +22,7 @@ import { TouchCardKpi } from './cards/touch-card-kpi';
 import { TouchCardText } from './cards/touch-card-text';
 // Checkboxes
 import { MultipleOptionsCheckBox } from './checkboxes/multiple-options-checkBox';
+import { SimpleCheckBox } from './checkboxes/simple-checkbox';
 // Dropdowns
 import { Dropdown } from './dropdowns/dropdown';
 import { CountryPicker } from './dropdowns/country-picker';
@@ -91,6 +92,7 @@ export {
   TouchCardText,
   // Checkboxes
   MultipleOptionsCheckBox,
+  SimpleCheckBox,
   // Dropdowns
   Dropdown,
   CountryPicker,

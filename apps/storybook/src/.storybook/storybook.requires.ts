@@ -67,6 +67,7 @@ const getStories = () => {
     './stories/cards/TouchCardKpi.stories.tsx': require('../stories/cards/TouchCardKpi.stories'),
     './stories/cards/TouchCardText.stories.tsx': require('../stories/cards/TouchCardText.stories'),
     // Checkboxes
+    './stories/checkboxes/SimpleCheckBox.stories.tsx': require('../stories/checkboxes/SimpleCheckBox.stories'),
     './stories/checkboxes/MultipleOptionsCheckBox.stories.tsx': require('../stories/checkboxes/MultipleOptionsCheckBox.stories'),
     // Dropdowns
     './stories/dropdowns/Dropdown.stories.tsx': require('../stories/dropdowns/Dropdown.stories'),

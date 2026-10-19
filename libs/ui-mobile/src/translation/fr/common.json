@@ -176,7 +176,8 @@
       "title": "Mot de passe oublié"
     },
     "signup-email": {
-      "title": "Inscription"
+      "title": "Inscription",
+      "checkbox": "En cochant la case ci-contre je reconnais avoir pris connaissance des CGU, des mentions légales ainsi que l’usage des données personnelles du Bank App"
     },
     "signup-identity": {
       "title": "Inscription"
