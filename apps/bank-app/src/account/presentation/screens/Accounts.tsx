@@ -65,7 +65,7 @@ export const Accounts = () => {
               }))}
               height={200}
               onPress={handleOnPressCard}
-              cardType={ICardType.TOUCH_EVENT_CARD}
+              cardType={ICardType.EVENT_CARD_DELETE}
             />
           </View>
 

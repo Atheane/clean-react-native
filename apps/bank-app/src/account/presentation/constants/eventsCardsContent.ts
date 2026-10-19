@@ -7,47 +7,47 @@ import {
   CardRocket,
   CardTeam,
   CardWorkflow,
-} from '../assets/images';
+} from '../assets/svg';
 
 export const eventsCardsContent = [
   {
-    image: CardBANK,
+    icon: CardBANK,
     text: 'Notre Carte de paiement pour économiser du CO2',
     uid: 'card',
   },
   { image: CardEG, text: 'Nos prêts pour décarboner l’économie', uid: 'loan' },
   {
-    image: CardLoanHeater,
+    icon: CardLoanHeater,
     text: 'Notre offre de prêt pour changer de chaudière',
     uid: 'loan-heater',
   },
   {
-    image: CardPremium,
+    icon: CardPremium,
     text: 'Soyez récompensé grâce à nos primes',
     uid: 'carbon-premium',
   },
   {
-    image: CardTeam,
+    icon: CardTeam,
     text: 'Manifeste',
     uid: 'manifesto',
   },
   {
-    image: CardWorkflow,
+    icon: CardWorkflow,
     text: 'Notre histoire',
     uid: 'history',
   },
   {
-    image: CardEG,
+    icon: CardEG,
     text: 'Comment fonctionnent les euros-verts ?',
     uid: 'green-euro',
   },
   {
-    image: CardRocket,
+    icon: CardRocket,
     text: 'Nos objectifs et nos limites',
     uid: 'currency',
   },
   {
-    image: CardContract,
+    icon: CardContract,
     text: 'Notre blog sur le monde bancaire et l’urgence climatique',
     uid: 'article',
   },

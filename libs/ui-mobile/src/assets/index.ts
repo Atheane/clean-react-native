@@ -91,6 +91,7 @@ import {
   TRAVEL,
   VEHICLES,
   HouseCarbon,
+  CarbonFootPrint,
 } from './svg';
 import { DefaultImage } from './image';
 export {
@@ -185,4 +186,5 @@ export {
   VEHICLES,
   HouseCarbon,
   DefaultImage,
+  CarbonFootPrint,
 };

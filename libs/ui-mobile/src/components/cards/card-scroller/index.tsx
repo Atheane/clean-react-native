@@ -99,7 +99,9 @@ export const CardScroller = (props: IProps & IState) => {
             })}
           {props.cardType === ICardType.EVENT_CARD_DELETE &&
             props.data.map((card: any) => {
-              return <EventCardDelete key={card.uid} {...card} onDelete={handleOnDelete} />;
+              return (
+                <EventCardDelete key={card.uid} {...card} onDelete={handleOnDelete} onPress={props.onPress} />
+              );
             })}
         </View>
       </ScrollView>

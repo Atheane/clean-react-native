@@ -13,32 +13,45 @@ type IProps = {
   uid: string;
   text: string;
   onDelete: (uid: string) => void;
+  onPress: (uid: string) => void;
 };
 
 export const EventCardDelete = (props: IProps) => {
+  const { theme } = useTheme();
+
   const [show, setShow] = useState(true);
-  const handleOnPress = useCallback(() => {
+  const handleOnDelete = useCallback(() => {
     props.onDelete(props.uid);
     setShow(false);
   }, [props]);
 
-  const { theme } = useTheme();
+  const handleOnPress = useCallback(() => {
+    props.onPress(props.uid);
+  }, [props]);
 
   return show ? (
     <Card containerStyle={[theme.bank.container.card.short, theme.bank.shadow.card]}>
-      <View style={styles.icon}>
-        <props.icon />
+      <View style={styles.subContainer}>
+        <View style={styles.icon}>
+          <LinkButton
+            pressed={false}
+            onPress={handleOnPress}
+            iconOne={props.icon}
+            colorOption={LinkButtonColors.BLUE}
+          />
+        </View>
+        <View style={styles.deleteCross}>
+          <LinkButton
+            pressed={false}
+            onPress={handleOnDelete}
+            iconOne={DeleteCross}
+            colorOption={LinkButtonColors.BLUE}
+          />
+        </View>
+        <View style={[styles.textContainer]}>
+          <Text style={[styles.text, theme.bank.text.grey]}>{props.text}</Text>
+        </View>
       </View>
-      <View style={styles.deleteCross}>
-        <LinkButton
-          pressed={false}
-          onPress={handleOnPress}
-          iconOne={DeleteCross}
-          colorOption={LinkButtonColors.BLUE}
-        />
-      </View>
-
-      <Text style={[styles.text, theme.bank.text.grey]}>{props.text}</Text>
     </Card>
   ) : (
     <View />
@@ -46,10 +59,14 @@ export const EventCardDelete = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
+  subContainer: {
+    paddingTop: 16,
+    paddingHorizontal: 12,
+  },
   icon: {
-    position: 'relative',
-    top: -16,
-    left: -10,
+    position: 'absolute',
+    top: -36,
+    left: -12,
     width: 80,
   },
   deleteCross: {
@@ -57,8 +74,12 @@ const styles = StyleSheet.create({
     top: -20,
     right: -10,
   },
+  textContainer: {
+    marginTop: 50,
+    marginLeft: -8,
+    alignItems: 'flex-start',
+  },
   text: {
-    top: -20,
-    left: 6,
+    lineHeight: 18,
   },
 });
