@@ -25,6 +25,10 @@ export type IRootTabParamList = {
   MenuProfile: undefined;
 };
 
+export type ISharedStackParamList = {
+  ModalError: undefined;
+};
+
 export type IAuthStackParamList = {
   Login: undefined;
   ResetPassword: undefined;
@@ -39,7 +43,6 @@ export type IAuthStackParamList = {
   Legal: undefined;
   Cgu: undefined;
   CguKycProvider: undefined;
-  ModalError: undefined;
 };
 
 export type IHomeStackParamList = {
@@ -77,8 +80,7 @@ export type IProfileStackParamList = {
 };
 
 export enum ISharedStackPages {
-  MODAL = 'Modal',
-  NOT_FOUND = 'NotFound',
+  MODAL_ERROR = 'ModalError',
 }
 
 export enum IAuthStackPages {
@@ -95,7 +97,6 @@ export enum IAuthStackPages {
   LEGAL = 'Legal',
   CGU = 'Cgu',
   CGU_KYC_PROVIDER = 'CguKycProvider',
-  MODAL_ERROR = 'ModalError',
 }
 
 export enum IHomeStackPages {
@@ -132,6 +133,8 @@ export enum IProfileStackPage {
   PROFILE = 'Profile',
 }
 
+export type ISharedStackProps = { [ISharedStackPages.MODAL_ERROR]: object };
+
 export type IAuthStackProps = {
   [IAuthStackPages.LOGIN]: object;
   [IAuthStackPages.RESET_PASSWORD]: object;
@@ -146,7 +149,6 @@ export type IAuthStackProps = {
   [IAuthStackPages.LEGAL]: object;
   [IAuthStackPages.CGU]: object;
   [IAuthStackPages.CGU_KYC_PROVIDER]: object;
-  [IAuthStackPages.MODAL_ERROR]: object;
 };
 
 export type IHomeStackProps = {
@@ -184,6 +186,7 @@ export type IProfileStackProps = {
 };
 
 export type IRoutes =
+  | ISharedStackPages.MODAL_ERROR
   | IAuthStackPages.LOGIN
   | IAuthStackPages.RESET_PASSWORD
   | IAuthStackPages.SIGNUP_EMAIL
@@ -197,7 +200,6 @@ export type IRoutes =
   | IAuthStackPages.LEGAL
   | IAuthStackPages.CGU
   | IAuthStackPages.CGU_KYC_PROVIDER
-  | IAuthStackPages.MODAL_ERROR
   | IHomeStackPages.HOME
   | IHomeStackPages.MENU
   | IHomeStackPages.HELP

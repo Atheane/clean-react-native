@@ -60,6 +60,14 @@ export const loginReducer = (state = initialState, action: ILoginActions) => {
         ...initialState,
       };
       return newState;
+    case ILoginTypes.USER_UNAUTHENTICATED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        ...initialState,
+        error: action.payload,
+      };
+      return newState;
     default:
       return {
         ...state,

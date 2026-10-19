@@ -4,12 +4,17 @@ import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 
 import { IAccountType, Iban, Bic } from '@clean-rn/account/domain';
+import { AuthError } from '@clean-rn/auth/domain';
+
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AccountApi } from '@clean-rn/account/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+
+import { userUnauthenticated } from '../../../../auth/application/commands/login';
+
 import { selectAccounts } from '../../state-management/selectors';
 import { listAccountsGenerator, listAccountsSaga } from '../../usecases/list-accounts';
 import { IAccountsTypes, accountsListed, initializeListAccounts } from '../../commands/list-accounts';
@@ -29,6 +34,18 @@ describe('ListAccounts - usecase', () => {
       bic: new Bic('TRZOFR21XXX'),
     },
   ];
+
+  const mockError401 = {
+    statusCode: 401,
+    message: 'Unauthorized',
+    response: {
+      statusCode: 401,
+      message: 'Unauthorized',
+    },
+    timestamp: '2023-10-03T13:20:21.303Z',
+    path: '/app/account',
+    method: 'GET',
+  };
 
   const mockError500 = {
     message: 'Core::AuthService::Auth - Server Error',
@@ -67,6 +84,18 @@ describe('ListAccounts - usecase', () => {
       .next()
       .call(navigate, { route: IHomeStackPages.MENU })
       .next();
+  });
+
+  it('Should call showUnknownError action if 401 from Server', () => {
+    testSaga(listAccountsGenerator, httpConnection)
+      .next()
+      .select(selectAccounts)
+      .next(null)
+      .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .throw(new ServerError(mockError401))
+      .put(userUnauthenticated(new AuthError.UserUnauthenticated()))
+      .next()
+      .cancel();
   });
 
   it('Should call showUnknownError action if 500 from Server', () => {

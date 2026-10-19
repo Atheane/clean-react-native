@@ -6,6 +6,7 @@ import { showUnknownErrorSaga } from './manage-global-errors';
 
 import {
   loginSaga,
+  refreshLoginSaga,
   resetPasswordSaga,
   checkEmailSaga,
   registerIdentitySaga,
@@ -35,6 +36,7 @@ export function* rootSaga(httpConnection: HttpConnection) {
     loadStorageSaga(),
     showUnknownErrorSaga(),
     loginSaga(httpConnection),
+    refreshLoginSaga(),
     resetPasswordSaga(httpConnection),
     checkEmailSaga(httpConnection),
     registerIdentitySaga(),

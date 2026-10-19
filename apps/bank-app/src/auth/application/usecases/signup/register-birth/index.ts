@@ -32,6 +32,7 @@ export function* registerBirthGenerator({
     yield put(birthRegistered(user));
     yield call(navigate, { route: IAuthStackPages.SIGNUP_ADDRESS });
   } catch (e: unknown) {
+    // once app is well tested, delete this part and let onError hook manage unexpected errors
     yield put(initializeSignupStep());
     yield put(showUnknownError(e as Error));
   }

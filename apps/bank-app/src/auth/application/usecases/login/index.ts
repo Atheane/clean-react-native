@@ -98,3 +98,11 @@ export function* loginGenerator(
     yield put(showUnknownError(error as Error));
   }
 }
+
+export function* refreshLoginSaga(): Generator<StrictEffect, any, any> {
+  yield takeEvery(ILoginTypes.USER_UNAUTHENTICATED, refreshLoginGenerator);
+}
+
+export function* refreshLoginGenerator(): Generator<StrictEffect, any, any> {
+  yield call(navigate, { route: IAuthStackPages.LOGIN });
+}

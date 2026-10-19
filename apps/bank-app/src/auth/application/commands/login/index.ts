@@ -9,6 +9,7 @@ import {
   ILoginActions,
   IInitializeLogin,
   IResetError,
+  IUserUnauthenticated,
 } from './types';
 
 export const fetchLogin = (payload: ILoginCommand): IFetchLogin => ({
@@ -32,6 +33,13 @@ export const initializeLogin = (): IInitializeLogin => ({
 
 export const resetError = (): IResetError => ({
   type: ILoginTypes.RESET_ERROR,
+});
+
+export const userUnauthenticated = (
+  payload: IDomainError<IAuthErrorCodes, IAuthErrorMessage>,
+): IUserUnauthenticated => ({
+  type: ILoginTypes.USER_UNAUTHENTICATED,
+  payload,
 });
 
 export { ILoginTypes, ILoginActions };

@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 
 import { AuthError, Email, Password, User, Phone, BirthDay, Country, IGender } from '@clean-rn/auth/domain';
 
-import { loginSaga } from '../../usecases/login';
+import { loginSaga, refreshLoginSaga } from '../../usecases/login';
 import {
   loginSuccess,
   loginFailure,
@@ -13,6 +13,7 @@ import {
   ILoginTypes,
   initializeLogin,
   resetError,
+  userUnauthenticated,
 } from '../../commands/login';
 import { ILoginState, loginReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
@@ -211,6 +212,23 @@ describe('Login - integration', () => {
       email: null,
       password: null,
       error: null,
+    });
+  });
+
+  it('Should store correct state if USER_UNAUTHENTICATED', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, refreshLoginSaga, httpConnection);
+    sagaTester.dispatch(userUnauthenticated(new AuthError.UserUnauthenticated()));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      auth: {
+        accessToken: null,
+        refreshToken: null,
+      },
+      user: null,
+      error: new AuthError.UserUnauthenticated(),
+      email: null,
+      password: null,
     });
   });
 });
