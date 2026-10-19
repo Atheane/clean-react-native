@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
   },
   formSubmit: {
     marginTop: 20,
+    marginBottom: 100,
   },
   errorContainer: {
     marginTop: 24,

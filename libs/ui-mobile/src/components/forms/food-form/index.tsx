@@ -80,5 +80,6 @@ export const FoodForm = (props: IProps) => {
 const styles = StyleSheet.create({
   sliderContainer: {
     width: Dimensions.get('window').width * 0.95,
+    marginVertical: 8,
   },
 });

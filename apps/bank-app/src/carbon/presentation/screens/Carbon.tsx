@@ -9,7 +9,6 @@ import {
   Food,
   HouseCarbon,
   Plane,
-  PrimaryButton,
   TouchCardKpi,
   GraphCO2,
   TouchCardText,

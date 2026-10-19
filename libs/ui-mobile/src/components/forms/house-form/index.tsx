@@ -188,7 +188,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   formContainer: {
-    flex: 1,
     marginTop: 24,
   },
 });

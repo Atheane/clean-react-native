@@ -183,7 +183,7 @@ export const FlyForm = (props: IProps) => {
           <CardScroller
             data={mapFlightToCards(props.flights)}
             onDelete={handleOnDeleteFlight}
-            height={200}
+            height={260}
             cardType={ICardType.EVENT_CARD_DELETE}
             cardScrollRef={cardScrollRef}
           />
@@ -198,6 +198,7 @@ const styles = StyleSheet.create({
     marginTop: 60,
   },
   cardScroller: {
+    marginTop: -20,
     marginBottom: 32,
   },
   sliderContainer: {

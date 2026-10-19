@@ -168,6 +168,7 @@ const styles = StyleSheet.create({
   },
   formSubmit: {
     marginTop: 80,
+    marginBottom: 120,
   },
   errorPhoneContainer: {
     marginTop: 10,
