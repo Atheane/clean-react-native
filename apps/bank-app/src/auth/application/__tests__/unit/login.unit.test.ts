@@ -68,7 +68,19 @@ describe('Login - usecase', () => {
     path: '/auth/login',
   };
 
-  const mockUserData = {
+  const mockUserManData = {
+    birthday: '1982-11-07T00:00:00.000Z',
+    email: 'dev2@example.com',
+    firstname: 'John',
+    lastname: 'Smith',
+    nationality: 'FR',
+    phone: '+33600000002',
+    specifiedUSPerson: 0,
+    title: 'M',
+    userId: 3952560,
+  };
+
+  const mockUserWomanData = {
     birthday: '1984-10-06T00:00:00.000Z',
     email: 'dev1@example.com',
     firstname: 'Jane',
@@ -80,6 +92,18 @@ describe('Login - usecase', () => {
     userId: 3952561,
   };
 
+  const mockUserNeutralData = {
+    birthday: '1984-10-06T00:00:00.000Z',
+    email: 'dev1@example.com',
+    firstname: 'Jane',
+    lastname: 'Doe',
+    nationality: 'FR',
+    phone: '+33600000002',
+    specifiedUSPerson: 0,
+    title: 'Mlle',
+    userId: 3952561,
+  };
+
   it('Should wait for FETCH_LOGIN action and call loginGenerator, should be done on next iteration', () => {
     expect(genObject.next().value).toEqual(
       takeEvery(ILoginTypes.FETCH_LOGIN, loginGenerator, httpConnection),
@@ -87,29 +111,29 @@ describe('Login - usecase', () => {
     expect(genObject.next().done).toBeTruthy();
   });
 
-  it('Should call loginSuccess', async () => {
+  it('Should call loginSuccess if user is a man', async () => {
     let gender = IGender.NEUTRAL;
-    if (mockUserData.title === 'Mme') {
+    if (mockUserManData.title === 'Mme') {
       gender = IGender.WOMAN;
-    } else if (mockUserData.title === 'M') {
+    } else if (mockUserManData.title === 'M') {
       gender = IGender.MAN;
     }
 
     const user = User.Create({
-      id: mockUserData.userId,
+      id: mockUserManData.userId,
       properties: {
-        email: new Email(mockUserData.email),
-        phone: new Phone(mockUserData.phone),
+        email: new Email(mockUserManData.email),
+        phone: new Phone(mockUserManData.phone),
         identity: {
           gender,
-          firstName: mockUserData.firstname,
-          lastName: mockUserData.lastname,
+          firstName: mockUserManData.firstname,
+          lastName: mockUserManData.lastname,
         },
         birth: {
-          birthday: new BirthDay(dayjs(mockUserData.birthday)),
-          nationality: new Country(mockUserData.nationality),
+          birthday: new BirthDay(dayjs(mockUserManData.birthday)),
+          nationality: new Country(mockUserManData.nationality),
         },
-        USPerson: mockUserData.specifiedUSPerson === 1,
+        USPerson: mockUserManData.specifiedUSPerson === 1,
       },
     });
     testSaga(loginGenerator, httpConnection, {
@@ -124,7 +148,95 @@ describe('Login - usecase', () => {
       .call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, mockResponse.accessToken)
       .next()
       .call([api, api.getUser])
-      .next(mockUserData)
+      .next(mockUserManData)
+      .put(loginSuccess({ auth: mockResponse, user }))
+      .next()
+      .call(navigate, { route: IHomeStackPages.HOME })
+      .next();
+  });
+
+  it('Should call loginSuccess if user is a woman', async () => {
+    let gender = IGender.NEUTRAL;
+    if (mockUserWomanData.title === 'Mme') {
+      gender = IGender.WOMAN;
+    } else if (mockUserWomanData.title === 'M') {
+      gender = IGender.MAN;
+    }
+
+    const user = User.Create({
+      id: mockUserWomanData.userId,
+      properties: {
+        email: new Email(mockUserWomanData.email),
+        phone: new Phone(mockUserWomanData.phone),
+        identity: {
+          gender,
+          firstName: mockUserWomanData.firstname,
+          lastName: mockUserWomanData.lastname,
+        },
+        birth: {
+          birthday: new BirthDay(dayjs(mockUserWomanData.birthday)),
+          nationality: new Country(mockUserWomanData.nationality),
+        },
+        USPerson: mockUserWomanData.specifiedUSPerson === 1,
+      },
+    });
+    testSaga(loginGenerator, httpConnection, {
+      type: ILoginTypes.FETCH_LOGIN,
+      payload: mockData,
+    })
+      .next()
+      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .next(mockResponse)
+      .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .next()
+      .call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, mockResponse.accessToken)
+      .next()
+      .call([api, api.getUser])
+      .next(mockUserWomanData)
+      .put(loginSuccess({ auth: mockResponse, user }))
+      .next()
+      .call(navigate, { route: IHomeStackPages.HOME })
+      .next();
+  });
+
+  it('Should call loginSuccess if user is neutral', async () => {
+    let gender = IGender.NEUTRAL;
+    if (mockUserNeutralData.title === 'Mme') {
+      gender = IGender.WOMAN;
+    } else if (mockUserNeutralData.title === 'M') {
+      gender = IGender.MAN;
+    }
+
+    const user = User.Create({
+      id: mockUserNeutralData.userId,
+      properties: {
+        email: new Email(mockUserNeutralData.email),
+        phone: new Phone(mockUserNeutralData.phone),
+        identity: {
+          gender,
+          firstName: mockUserNeutralData.firstname,
+          lastName: mockUserNeutralData.lastname,
+        },
+        birth: {
+          birthday: new BirthDay(dayjs(mockUserNeutralData.birthday)),
+          nationality: new Country(mockUserNeutralData.nationality),
+        },
+        USPerson: mockUserNeutralData.specifiedUSPerson === 1,
+      },
+    });
+    testSaga(loginGenerator, httpConnection, {
+      type: ILoginTypes.FETCH_LOGIN,
+      payload: mockData,
+    })
+      .next()
+      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .next(mockResponse)
+      .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .next()
+      .call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, mockResponse.accessToken)
+      .next()
+      .call([api, api.getUser])
+      .next(mockUserNeutralData)
       .put(loginSuccess({ auth: mockResponse, user }))
       .next()
       .call(navigate, { route: IHomeStackPages.HOME })

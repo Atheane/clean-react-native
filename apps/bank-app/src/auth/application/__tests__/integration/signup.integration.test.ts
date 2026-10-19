@@ -513,6 +513,33 @@ describe('CheckEmail - integration', () => {
     });
   });
 
+  it('Should store correct state in case if PHONE_NOT_FOUND with no error', () => {
+    const initialState: ISignupState = {
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: signupReducer,
+    });
+
+    sagaTester.dispatch(phoneNotFound(new AuthError.ValidatePhoneFailurePhoneNotFound('test')));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: new AuthError.ValidatePhoneFailurePhoneNotFound('test'),
+    });
+  });
+
   it('Should store correct state if INITIALIZE_SIGNUP for invalid credentials', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
 

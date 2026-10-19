@@ -55,7 +55,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
       newState = {
         ...state,
         pending: false,
-        error: action.payload ?? null,
+        error: action.payload,
       };
       return newState;
     case ISignupTypes.PHONE_CODE_SENT:

@@ -6,7 +6,14 @@ import dayjs from 'dayjs';
 import { AuthError, Email, Password, User, Phone, BirthDay, Country, IGender } from '@clean-rn/auth/domain';
 
 import { loginSaga } from '../../usecases/login';
-import { loginSuccess, loginFailure, fetchLogin, ILoginTypes, initializeLogin } from '../../commands/login';
+import {
+  loginSuccess,
+  loginFailure,
+  fetchLogin,
+  ILoginTypes,
+  initializeLogin,
+  resetError,
+} from '../../commands/login';
 import { ILoginState, loginReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
 
@@ -137,6 +144,22 @@ describe('Login - integration', () => {
       error: null,
       email: mockData.email,
       password: mockData.password,
+    });
+  });
+
+  it('Should store correct state in case if RESET_ERROR', () => {
+    sagaTester.dispatch(resetError());
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      auth: {
+        accessToken: null,
+        refreshToken: null,
+      },
+      user: null,
+      error: null,
+      email: null,
+      password: null,
     });
   });
 
