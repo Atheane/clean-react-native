@@ -17,7 +17,7 @@ import { userUnauthenticated } from '../../../../auth/application/commands/login
 
 import { selectAccounts } from '../../state-management/selectors';
 import { listAccountsGenerator, listAccountsSaga } from '../../usecases/account';
-import { IAccountsTypes, accountsListed, initializeAccountsList } from '../../commands/account';
+import { IAccountsTypes, accountsListed, initializeAccountsList } from '../../commands/accounts';
 
 describe('ListAccounts - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);

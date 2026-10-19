@@ -10,7 +10,6 @@ import {
   TopDownBackground,
   ScrollBackground,
   WhiteBalanceList,
-  ICardType,
 } from '@clean-rn/ui-mobile';
 import { IAccount } from '@clean-rn/account/domain';
 
@@ -18,8 +17,9 @@ import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { ISharedStackPages } from '../../../shared/presentation/types';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
-import { listAccounts } from '../../application/commands/account';
+import { listAccounts } from '../../application/commands/accounts';
 import { listTransactions } from '../../application/commands/transactions';
+import { deleteEventCard } from '../../application/commands/event-cards';
 
 import { eventsCardsContent } from '../constants';
 
@@ -28,6 +28,7 @@ export const Accounts = () => {
   const { t } = useTranslation();
 
   const { accounts, pending } = useSelector((state: IRootState) => state.account.accounts);
+  const { deleteCards } = useSelector((state: IRootState) => state.account.deletedEventCards);
 
   const dispatch = useDispatch();
 
@@ -51,6 +52,13 @@ export const Accounts = () => {
     [navigation],
   );
 
+  const handleOnDeleteCard = useCallback(
+    (uid: string) => {
+      dispatch(deleteEventCard({ uid }));
+    },
+    [dispatch],
+  );
+
   return pending ? (
     <Text>Loading ...</Text> // todo replace with loading gif
   ) : (
@@ -59,13 +67,17 @@ export const Accounts = () => {
         <ScrollBackground background={TopDownBackground} initialScroll={-20} window={1.2}>
           <View style={styles.cardScroller}>
             <CardScroller
-              data={eventsCardsContent.map((item) => ({
-                ...item,
-                text: t('screens.account.cards.' + item.uid),
-              }))}
+              data={eventsCardsContent.filter((item: { image: any; text: string; uid: string }) => {
+                if (!deleteCards.includes(item.uid)) {
+                  return {
+                    ...item,
+                    text: t('screens.account.cards.' + item.uid),
+                  };
+                }
+              })}
               height={200}
               onPress={handleOnPressCard}
-              delete
+              onDelete={handleOnDeleteCard}
             />
           </View>
 
