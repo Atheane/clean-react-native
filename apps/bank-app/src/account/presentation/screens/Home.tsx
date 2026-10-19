@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
@@ -9,16 +9,14 @@ import {
   Meeting,
   Tree,
   TopRightFlowersBg,
-  Banner,
   CardScroller,
   TopDownBackground,
   ScrollBackground,
   WhiteBalanceList,
-  BannerColors,
 } from '@clean-rn/ui-mobile';
 import { IAccount } from '@clean-rn/account/domain';
 import { listAccounts } from '../../application/commands/list-accounts';
-import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { ErrorBoundary } from '../../../shared/presentation/hoc';
 // import { fetchTransactions } from '@account/infrastructure/redux';
 
 //todo change with api
@@ -66,8 +64,6 @@ export const Home = () => {
   const { t } = useTranslation();
 
   const { accounts, pending } = useSelector((state: IRootState) => state.account.accounts);
-  console.log('accounts', accounts);
-  console.log('pending', pending);
 
   const dispatch = useDispatch();
 
@@ -75,23 +71,17 @@ export const Home = () => {
     dispatch(listAccounts());
   }, [dispatch]);
 
-  // const { error: transactionsError } = useSelector((state: IRootState) => state.account.transactions);
-  const transactionsError: Error = null;
   const handleOnPressAccount = useCallback(
     (account: IAccount) => {
-      // dispatch(fetchTransactions({ account }));
+      // dispatch(listTransactions({ account }));
     },
     [dispatch],
   );
 
-  return (
+  return pending ? (
+    <Text>Loading ...</Text>
+  ) : (
     <ErrorBoundary t={t}>
-      {/* {accountsError && (
-        <Banner title={accountsError.message} colorBanner={BannerColors.PINK} rightIcon={false} />
-      )} */}
-      {/* {transactionsError && (
-        <Banner title={transactionsError.message} colorBanner={BannerColors.PINK} rightIcon={false} />
-      )} */}
       <View style={styles.container}>
         <ScrollBackground background={TopDownBackground} initialScroll={-20} window={1.2}>
           <View style={styles.cardScroller}>

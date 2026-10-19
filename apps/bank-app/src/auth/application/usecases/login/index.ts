@@ -22,7 +22,7 @@ import { initializeSignupStep } from '../../commands/signup';
 
 import { IStoreKey } from '../../../../shared/application/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 export function* loginSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {

@@ -1,5 +1,6 @@
 import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
-import { IAccount, IAccountRepository } from '@clean-rn/account/domain';
+import { IAccount, IAccountRepository, Iban, Bic } from '@clean-rn/account/domain';
+import { IAccountServer } from '../types';
 
 export class AccountApi implements IAccountRepository {
   private static instance: AccountApi | null = null;
@@ -24,8 +25,14 @@ export class AccountApi implements IAccountRepository {
       `${this.connection.baseUrl}/app/account`,
       this.connection.options(IHttpVerb.GET),
     );
-    console.log('>>>>>>>>>>>>> getAccounts');
     await this.connection.handleError(response);
-    return response.json();
+    const accounts = await response.json();
+    return accounts.map((account: IAccountServer) => ({
+      accountId: account.accountId,
+      accountType: account.accountType,
+      authorizedBalance: account.authorizedBalance,
+      iban: new Iban(account.iban),
+      bic: new Bic(account.bic),
+    }));
   }
 }

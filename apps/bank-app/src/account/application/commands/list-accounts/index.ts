@@ -1,24 +1,24 @@
 import { IAccount } from '@clean-rn/account/domain';
 import {
-  IGetAccountsTypes,
+  IAccountsTypes,
   IListAccounts,
   IAccountsListed,
   IInitializeListAccounts,
-  IGetAccountsActions,
+  IAccountsActions,
 } from './types';
 
 // commands
 export const listAccounts = (): IListAccounts => ({
-  type: IGetAccountsTypes.LIST_ACCOUNTS,
+  type: IAccountsTypes.LIST_ACCOUNTS,
 });
 
 export const accountsListed = (payload: IAccount[]): IAccountsListed => ({
-  type: IGetAccountsTypes.ACCOUNTS_LISTED,
+  type: IAccountsTypes.ACCOUNTS_LISTED,
   payload,
 });
 
 export const initializeListAccounts = (): IInitializeListAccounts => ({
-  type: IGetAccountsTypes.INITIALIZE_LIST_ACCOUNTS,
+  type: IAccountsTypes.INITIALIZE_LIST_ACCOUNTS,
 });
 
-export { IGetAccountsTypes, IGetAccountsActions };
+export { IAccountsTypes, IAccountsActions };

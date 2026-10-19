@@ -2,25 +2,25 @@
 import { call, put, StrictEffect, takeEvery, select } from 'redux-saga/effects';
 
 import { IAccount } from '@clean-rn/account/domain';
+
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { AccountApi } from '@clean-rn/account/infrastructure';
 
-import { accountsListed, IGetAccountsTypes, initializeListAccounts } from '../../commands/list-accounts';
+import { accountsListed, IAccountsTypes, initializeListAccounts } from '../../commands/list-accounts';
 import { IHomeStackPages } from '../../../../shared/presentation/types';
-import { IRootState } from '../../../../shared/application/state-management/reducers/root-reducer';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
+import { selectAccounts } from '../../state-management/selectors';
 
 export function* listAccountsSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(IGetAccountsTypes.LIST_ACCOUNTS, listAccountsGenerator, httpConnection);
+  yield takeEvery(IAccountsTypes.LIST_ACCOUNTS, listAccountsGenerator, httpConnection);
 }
 
 export function* listAccountsGenerator(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   try {
-    const { accounts: accountsFromStore } = yield select((state: IRootState) => state.account.accounts);
-
+    const accountsFromStore = yield select(selectAccounts);
     let accounts;
-    if (accountsFromStore && accountsFromStore.length > 0) {
+    if (accountsFromStore) {
       accounts = accountsFromStore;
       yield put(accountsListed(accounts));
       yield call(navigate, { route: IHomeStackPages.MENU });
@@ -28,7 +28,6 @@ export function* listAccountsGenerator(httpConnection: HttpConnection): Generato
       const api = AccountApi.getInstance(httpConnection);
 
       const accounts: IAccount[] = yield call([api, api.getAccounts]);
-      console.log('>>>>>>>>>>>>> listAccountsGenerator');
       yield put(accountsListed(accounts));
       yield call(navigate, { route: IHomeStackPages.MENU });
     }

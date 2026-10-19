@@ -19,6 +19,7 @@ module.exports = {
     './apps/bank-app/src/shared/application/state-management/state/store.ts',
     './apps/bank-app/src/shared/application/usecases/root-saga.ts',
     './apps/bank-app/src/auth/application/state-management/selectors/index.ts',
+    './apps/bank-app/src/account/application/state-management/selectors/index.ts',
   ],
   coverageThreshold: {
     global: {

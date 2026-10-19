@@ -1,2 +1,2 @@
-export { listAccountsReducer } from './reducer';
-export { IGetAccountsState } from './state';
+export { accountsReducer } from './reducer';
+export { IAccountsState } from './state';
