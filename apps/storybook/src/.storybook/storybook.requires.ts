@@ -101,6 +101,7 @@ const getStories = () => {
     // Others
     './stories/others/WebViewer.stories.tsx': require('../stories/others/WebViewer.stories'),
     './stories/others/ShareScreen.stories.tsx': require('../stories/others/ShareScreen.stories'),
+    './stories/others/DocumentScanner.stories.tsx': require('../stories/others/DocumentScanner.stories'),
     './stories/others/CopyValueClipboard.stories.tsx': require('../stories/others/CopyValueClipboard.stories'),
     './stories/others/TransactionItem.stories.tsx': require('../stories/others/TransactionItem.stories'),
     './stories/others/GraphCO2.stories.tsx': require('../stories/others/GraphCO2.stories'),

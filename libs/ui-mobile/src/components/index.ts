@@ -58,6 +58,7 @@ import { WhiteBalanceList } from './lists/white-balance-list';
 // Others
 import { WebViewer } from './others/web-viewer';
 import { ShareScreen } from './others/share-screen';
+import { DocumentScanner } from './others/document-scanner';
 // import { PdfViewer } from './others/pdf-viewer';
 import { CopyValueClipboard } from './others/copy-value-clipboard';
 import { TransactionItem } from './others/transaction-item';
@@ -137,6 +138,7 @@ export {
   // Others
   WebViewer,
   ShareScreen,
+  DocumentScanner,
   // PdfViewer,
   CopyValueClipboard,
   TransactionItem,

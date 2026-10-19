@@ -1,8 +1,8 @@
 import { useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import ViewShot from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
-import { useTranslation } from 'react-i18next';
 import { PrimaryButton } from '../../buttons/primary-button';
 
 type IProps = {

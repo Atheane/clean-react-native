@@ -54,7 +54,8 @@
     "react-native-screens": "*",
     "redux-saga": "*",
     "react-native-view-shot": "*",
-    "expo-sharing": "*"
+    "expo-sharing": "*",
+    "react-native-document-scanner-plugin": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",
