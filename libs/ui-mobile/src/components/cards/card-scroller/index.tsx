@@ -16,7 +16,7 @@ type IProps = {
   height?: number;
   cardScrollRef?: React.RefObject<ScrollView>;
   onPress: (uid: string) => void;
-  delete: boolean;
+  onDelete?: (uid: string) => void;
 };
 
 export const CardScroller = (props: IProps) => {
@@ -44,6 +44,7 @@ export const CardScroller = (props: IProps) => {
     const removeIndex = data.map((item) => item.uid).indexOf(uid);
     data.splice(removeIndex, 1);
     setData([...data] as IPropsTouchEventCard[]);
+    props.onDelete?.(uid);
   };
 
   const { theme } = useTheme();
@@ -72,11 +73,11 @@ export const CardScroller = (props: IProps) => {
         ref={props.cardScrollRef}
       >
         <View style={theme.bank.container.centeredItems}>
-          {!props.delete &&
+          {!props.onDelete &&
             props.data.map((card: any) => {
               return <TouchEventCard key={card.uid} {...card} onPress={props.onPress} />;
             })}
-          {props.delete &&
+          {props.onDelete &&
             props.data.map((card: any) => {
               return (
                 <TouchEventCard key={card.uid} {...card} onPress={props.onPress} onDelete={handleOnDelete} />

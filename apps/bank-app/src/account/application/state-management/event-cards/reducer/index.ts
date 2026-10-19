@@ -5,7 +5,7 @@ import { IEventCardsState } from '../state';
 
 const initialState: IEventCardsState = {
   uid: null,
-  deleteCards: [],
+  deletedCards: [],
 };
 
 export const eventCardsReducer = (state = initialState, action: IEventCardsActions) => {
@@ -13,17 +13,10 @@ export const eventCardsReducer = (state = initialState, action: IEventCardsActio
   switch (action.type) {
     case IEventCardsTypes.DELETE_EVENT_CARD:
       logger.debug(action.type);
-      if (state.deleteCards.length === 0) {
-        return {
-          ...state,
-          uid: action.payload.uid,
-          deleteCards: [action.payload.uid],
-        };
-      }
       return {
         ...state,
         uid: action.payload.uid,
-        deleteCards: [...state.deleteCards, action.payload.uid],
+        deletedCards: [...state.deletedCards, action.payload.uid],
       };
     default:
       return {

@@ -28,7 +28,7 @@ export const Accounts = () => {
   const { t } = useTranslation();
 
   const { accounts, pending } = useSelector((state: IRootState) => state.account.accounts);
-  const { deleteCards } = useSelector((state: IRootState) => state.account.deletedEventCards);
+  const { deletedCards } = useSelector((state: IRootState) => state.account.deletedEventCards);
 
   const dispatch = useDispatch();
 
@@ -68,7 +68,7 @@ export const Accounts = () => {
           <View style={styles.cardScroller}>
             <CardScroller
               data={eventsCardsContent.filter((item: { image: any; text: string; uid: string }) => {
-                if (!deleteCards.includes(item.uid)) {
+                if (!deletedCards.includes(item.uid)) {
                   return {
                     ...item,
                     text: t('screens.account.cards.' + item.uid),

@@ -16,7 +16,7 @@ import { GreenBackButton } from './buttons/green-back-button';
 // Cards
 import { TouchEventCard } from './cards/touch-event-card';
 import { LongCard } from './cards/long-card';
-import { CardScroller, ICardType } from './cards/card-scroller';
+import { CardScroller } from './cards/card-scroller';
 import { TransactionsCard } from './cards/transactions-card';
 import { TouchCardKpi } from './cards/touch-card-kpi';
 import { TouchCardText } from './cards/touch-card-text';
@@ -89,7 +89,6 @@ export {
   TouchEventCard,
   LongCard,
   CardScroller,
-  ICardType,
   TransactionsCard,
   TouchCardKpi,
   TouchCardText,

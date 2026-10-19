@@ -10,6 +10,7 @@ const CardScrollerMeta: ComponentMeta<typeof CardScroller> = {
   component: CardScroller,
   argTypes: {
     onPress: { action: 'onPress' },
+    onDelete: { action: 'onDelete' },
   },
   args: {
     data: [
@@ -23,7 +24,6 @@ const CardScrollerMeta: ComponentMeta<typeof CardScroller> = {
       { image: LoanHeater, text: 'bla8', uid: 'ajkzhrei8' },
     ],
     height: 200,
-    delete: true,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };
@@ -37,5 +37,5 @@ export const CardScrollerWithDelete: CardScrollerStory = (args) => {
 };
 
 export const CardScrollerNoDelete: CardScrollerStory = (args) => {
-  return <CardScroller {...args} delete={false} />;
+  return <CardScroller {...args} onDelete={undefined} />;
 };
