@@ -4,7 +4,7 @@ export default {
   expo: {
     name: 'CleanRN Storybook Dev',
     slug: 'clean-rn-storybook-dev',
-    version: '1.4.2',
+    version: '1.4.3',
     orientation: 'portrait',
     icon: './assets/images/icon.png',
     splash: {
@@ -36,7 +36,7 @@ export default {
         '@config-plugins/detox',
         {
           skipProguard: false,
-          subdomains: ['10.0.2.2', 'localhost'],
+          subdomains: '*',
         },
       ],
       [

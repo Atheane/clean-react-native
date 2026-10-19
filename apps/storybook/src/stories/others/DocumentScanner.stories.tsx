@@ -6,9 +6,12 @@ import { DocumentScanner } from '@clean-rn/ui-mobile';
 const DocumentScannerMeta: ComponentMeta<typeof DocumentScanner> = {
   title: 'Others/DocumentScanner',
   component: DocumentScanner,
-  // decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
+  argTypes: {
+    handleError: { action: 'handleError' },
+  },
+  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
 };
 
 export default DocumentScannerMeta;
 
-export const Static: ComponentStory<typeof DocumentScanner> = () => <DocumentScanner />;
+export const Static: ComponentStory<typeof DocumentScanner> = (args) => <DocumentScanner {...args} />;
