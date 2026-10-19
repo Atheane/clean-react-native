@@ -10,10 +10,10 @@ import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 export function* initializeApplicationSaga(): Generator<StrictEffect, any, any> {
-  yield takeEvery(IInitializationTypes.INITIALIZE_APPLICATION, initializeApplication);
+  yield takeEvery(IInitializationTypes.INITIALIZE_APPLICATION, initializeApplicationGenerator);
 }
 
-export function* initializeApplication({
+export function* initializeApplicationGenerator({
   payload,
 }: {
   type: string;
@@ -29,5 +29,5 @@ export function* initializeApplication({
       initRouteName,
     }),
   );
-  yield call(navigate, { route: IAuthStackPages.SIGNUP_EMAIL });
+  yield call(navigate, { route: initRouteName });
 }

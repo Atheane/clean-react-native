@@ -3,6 +3,9 @@ import * as Sentry from '@sentry/react-native';
 import { TFunction } from 'i18next';
 
 import { Logger } from '@clean-rn/logger';
+
+import { showUnknownError } from '../../application/commands/global-error-management';
+import { store } from '../../application/state-management/state/store';
 import { ModalError } from '@clean-rn/ui-mobile';
 
 type IProps = {
@@ -27,6 +30,7 @@ export class ErrorBoundary extends Component<IProps, IState> {
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     this.setState({ hasError: true, error });
+    store.dispatch(showUnknownError(error));
     Logger.getInstance().error(error);
     Logger.getInstance().error(errorInfo);
     Sentry.captureException(error);

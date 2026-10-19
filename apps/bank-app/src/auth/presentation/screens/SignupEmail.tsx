@@ -69,6 +69,7 @@ export const SignupEmail = () => {
 
   // clean serverError onFocus
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
+
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>

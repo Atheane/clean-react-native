@@ -1,7 +1,7 @@
 import SagaTester from 'redux-saga-tester';
 import { Email } from '@clean-rn/auth/domain';
 
-import { initializationSaga } from '../../usecases/initialization';
+import { initializeApplicationSaga } from '../../usecases/initialize-application';
 import {
   IInitializationTypes,
   initializeApplication,
@@ -38,7 +38,7 @@ describe('Initialization - integration', () => {
   });
 
   it('Should store correct state in case if INITIALIZE_APPLICATION', () => {
-    sagaTester.start(initializationSaga);
+    sagaTester.start(initializeApplicationSaga);
 
     sagaTester.dispatch(initializeApplication());
 
@@ -50,7 +50,7 @@ describe('Initialization - integration', () => {
   });
 
   it('Should store correct state in case if INITIALIZE_APPLICATION_SUCCESS', () => {
-    sagaTester.start(initializationSaga);
+    sagaTester.start(initializeApplicationSaga);
 
     sagaTester.dispatch(initializeApplication());
     sagaTester.dispatch(
