@@ -34,7 +34,7 @@ export function* listTransactionsGenerator(
   },
 ): Generator<StrictEffect, any, any> {
   try {
-    const { transactions: transactionsFromStore } = yield select(selectTransactions);
+    const transactionsFromStore = yield select(selectTransactions);
     let transactions;
     if (transactionsFromStore) {
       transactions = transactionsFromStore;

@@ -27,7 +27,7 @@ export function* initializeApplicationGenerator(): Generator<StrictEffect, any, 
         initRouteName,
       }),
     );
-    yield call(navigate, { route: IAuthStackPages.SIGNUP_EMAIL });
+    yield call(navigate, { route: initRouteName });
   } catch (error: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors
     yield put(showUnknownError(error as Error));
