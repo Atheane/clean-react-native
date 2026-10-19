@@ -33,6 +33,7 @@ exports[`LongCard -  minimal props -  renders as before 1`] = `
     style={
       {
         "marginLeft": 30,
+        "marginVertical": 14,
       }
     }
   >
