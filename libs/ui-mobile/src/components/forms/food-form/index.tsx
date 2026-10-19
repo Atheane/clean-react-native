@@ -59,13 +59,13 @@ export const FoodForm = (props: IProps) => {
       return (
         <View key={key} style={styles.sliderContainer}>
           <Slider
-            label={t('screens.carbonFood.slider.' + key)}
+            label={t('screens.carbon-food.slider.' + key)}
             minValue={0}
             maxValue={14}
             value={slider[key]}
             onChange={(value: number) => handleSlider(key, value)}
             unit={
-              slider[key] < 2 ? t('screens.carbonFood.slider.unit') : t('screens.carbonFood.slider.units')
+              slider[key] < 2 ? t('screens.carbon-food.slider.unit') : t('screens.carbon-food.slider.units')
             }
             short
           />

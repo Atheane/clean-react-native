@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, StyleProp, ViewStyle } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 
@@ -27,7 +27,11 @@ export const WarningFood = () => {
           <PrimaryButton
             long
             title={t('screens.warning-food.next')}
-            iconTwo={RightChevron}
+            iconTwo={() => (
+              <View style={styles.iconContainer}>
+                <RightChevron style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+              </View>
+            )}
             onPress={handleOnPress}
           />
         </View>
@@ -42,6 +46,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  iconContainer: { position: 'relative', left: 90, top: 2 },
   title: {
     textAlign: 'center',
     fontFamily: FontNames.Roboto_700Bold,

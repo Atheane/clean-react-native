@@ -26,7 +26,7 @@ export const Food = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView fixedHeight>
+      <SafeScrollingView>
         <View style={styles.container}>
           <FoodForm initialValues={payload} onChangeForm={handleFormData} />
 
