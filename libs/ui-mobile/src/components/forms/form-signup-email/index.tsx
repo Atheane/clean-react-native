@@ -76,14 +76,11 @@ export const FormSignupEmail = (props: IProps) => {
             </Text>
           )}
         </View>
-        <View style={styles.domainErrorContainer}>
-          <ErrorMessage error={props.error} />
-        </View>
       </View>
 
       <View style={styles.formSubmit}>
         <SubmitButton
-          title={t('submit-button')}
+          title={t('button.submit')}
           uppercase={false}
           onSubmit={props.onSubmit}
           loading={props.loading}
@@ -112,16 +109,18 @@ const styles = StyleSheet.create({
     marginVertical: 30,
   },
   inputCheckbox: {
+    marginTop: 12,
     marginBottom: -10,
   },
   formSubmit: {
-    marginTop: 10,
+    marginTop: 20,
   },
   errorContainer: {
     marginTop: 24,
     marginBottom: -20,
   },
   domainErrorContainer: {
-    marginBottom: 16,
+    marginTop: 24,
+    marginBottom: -40,
   },
 });

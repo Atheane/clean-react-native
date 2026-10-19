@@ -73,7 +73,7 @@ export const SignupEmail = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView fixedHeight>
+      <SafeScrollingView>
         <>
           <View style={styles.image}>
             <Image style={{ width: 200, height: 200 }} source={Welcome} />
@@ -135,5 +135,7 @@ const styles = StyleSheet.create({
   cgu: {
     flexDirection: 'row',
     justifyContent: 'center',
+    marginTop: 24,
+    marginBottom: 50,
   },
 });

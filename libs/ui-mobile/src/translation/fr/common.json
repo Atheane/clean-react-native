@@ -178,9 +178,9 @@
     "stack": "Détails "
   },
   "screens": {
-    "legal": "Mentions légales",
+    "legal": "Données personnelles",
     "cgu": "CGU",
-    "cgu-kyc-provider": "CGU KycProvider",
+    "cgu-kyc-provider": "CGU (KycProvider)",
     "modal-error": "Erreur",
     "login": {
       "title": "Connexion"

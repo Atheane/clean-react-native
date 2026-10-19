@@ -83,8 +83,9 @@
     "submit": "validate",
     "link": {
       "login": "Login",
-      "legal": "TOS",
-      "cgu": "KycProvider TOS"
+      "legal": "Privacy Policy",
+      "cgu": "GTC",
+      "cgu-kyc-provider": "GTC (KycProvider)"
     }
   },
   "email-input": {

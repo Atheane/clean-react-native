@@ -1,23 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigationState } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { getLocales } from 'expo-localization';
 
-import { WebViewer } from '@clean-rn/ui-mobile';
+import { ModalError, WebViewer } from '@clean-rn/ui-mobile';
 
-import {
-  Login,
-  ResetPassword,
-  SignupEmail,
-  SignupIdentityPasswordPhone,
-  SignupValidatePhone,
-  SignupBirth,
-  SignupAddress,
-  SignupCongrats,
-  EmailSent,
-  SignupPhone,
-} from '../screens';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import {
   IAuthStackPages,
@@ -31,6 +20,20 @@ import { initGlobalError } from '../../../shared/application/commands/manage-glo
 import { ScreenModalError } from '../../../shared/presentation/screens';
 
 import { pdfUrls } from '../constants';
+import {
+  Login,
+  ResetPassword,
+  SignupEmail,
+  SignupIdentityPasswordPhone,
+  SignupValidatePhone,
+  SignupBirth,
+  SignupAddress,
+  SignupCongrats,
+  EmailSent,
+  SignupPhone,
+} from '../screens';
+
+const locales = getLocales();
 
 const Stack = createNativeStackNavigator<IAuthStackProps & ISharedStackProps>();
 
@@ -38,9 +41,20 @@ export const AuthStack = () => {
   const { t } = useTranslation();
   const { initRouteName } = useSelector((state: IRootState) => state.initialization);
   const navigationStack = useNavigationState((state) => state?.routes ?? []);
-  const ScreenLegal = () => <WebViewer uri={pdfUrls.legal} />;
-  const ScreenCgu = () => <WebViewer uri={pdfUrls.cgu} />;
-  const ScreenCguKycProvider = () => <WebViewer uri={pdfUrls.cguKycProvider} />;
+
+  const [unknownError, setUnknownError] = useState<Error>();
+
+  const handleError = (error: unknown) => {
+    setUnknownError(error as Error);
+  };
+
+  const regionCode = locales[0]?.regionCode ?? 'en';
+  let lng = regionCode?.toLocaleLowerCase();
+  if (lng === 'gb') lng = 'en';
+
+  const ScreenLegal = () => <WebViewer uri={pdfUrls(lng).legal} handleError={handleError} />;
+  const ScreenCgu = () => <WebViewer uri={pdfUrls(lng).cgu} handleError={handleError} />;
+  const ScreenCguKycProvider = () => <WebViewer uri={pdfUrls(lng).cguKycProvider} handleError={handleError} />;
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -138,7 +152,7 @@ export const AuthStack = () => {
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
         name={IAuthStackPages.LEGAL}
-        component={ScreenLegal}
+        component={unknownError ? () => <ModalError error={unknownError} /> : ScreenLegal}
       />
       <Stack.Screen
         options={{
@@ -146,7 +160,7 @@ export const AuthStack = () => {
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
         name={IAuthStackPages.CGU}
-        component={ScreenCgu}
+        component={unknownError ? () => <ModalError error={unknownError} /> : ScreenCgu}
       />
       <Stack.Screen
         options={{
@@ -154,7 +168,7 @@ export const AuthStack = () => {
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
         name={IAuthStackPages.CGU_KYC_PROVIDER}
-        component={ScreenCguKycProvider}
+        component={unknownError ? () => <ModalError error={unknownError} /> : ScreenCguKycProvider}
       />
       <Stack.Screen
         options={{
