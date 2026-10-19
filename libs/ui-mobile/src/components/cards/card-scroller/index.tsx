@@ -1,22 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useCallback, useEffect } from 'react';
 import { ScrollView, Dimensions, StyleSheet, View, ImageSourcePropType } from 'react-native';
-import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
 
-import { EventCardDelete } from '../event-card-delete';
 import { TouchEventCard } from '../touch-event-card';
-
-export enum ICardType {
-  EVENT_CARD_DELETE = 'event-card-delete',
-  TOUCH_EVENT_CARD = 'touch-event-card',
-}
-
-type IPropsEventCardDelete = {
-  uid: string;
-  icon: React.FC<SvgProps>;
-  text: string;
-};
 
 type IPropsTouchEventCard = {
   uid: string;
@@ -24,25 +11,18 @@ type IPropsTouchEventCard = {
   text: string;
 };
 
-type IPropsEventCard<T extends ICardType.EVENT_CARD_DELETE | ICardType.TOUCH_EVENT_CARD> =
-  T extends ICardType.EVENT_CARD_DELETE ? IPropsEventCardDelete : IPropsTouchEventCard;
-
 type IProps = {
-  data: IPropsEventCard<ICardType>[];
+  data: IPropsTouchEventCard[];
   height?: number;
-  cardType: ICardType;
   cardScrollRef?: React.RefObject<ScrollView>;
-  onPress?: (uid: string) => void;
+  onPress: (uid: string) => void;
+  delete: boolean;
 };
 
-type IState = {
-  onDelete?: (uid: string) => void;
-};
-
-export const CardScroller = (props: IProps & IState) => {
+export const CardScroller = (props: IProps) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
-  const [data, setData] = useState<IPropsEventCard<ICardType>[]>(props.data);
+  const [data, setData] = useState<IPropsTouchEventCard[]>(props.data);
 
   useEffect(() => {
     setData(props.data);
@@ -63,8 +43,7 @@ export const CardScroller = (props: IProps & IState) => {
   const handleOnDelete = (uid: string) => {
     const removeIndex = data.map((item) => item.uid).indexOf(uid);
     data.splice(removeIndex, 1);
-    setData([...data] as IPropsEventCard<ICardType>[]);
-    if (props.onDelete) props.onDelete(uid);
+    setData([...data] as IPropsTouchEventCard[]);
   };
 
   const { theme } = useTheme();
@@ -93,14 +72,14 @@ export const CardScroller = (props: IProps & IState) => {
         ref={props.cardScrollRef}
       >
         <View style={theme.bank.container.centeredItems}>
-          {props.cardType === ICardType.TOUCH_EVENT_CARD &&
+          {!props.delete &&
             props.data.map((card: any) => {
               return <TouchEventCard key={card.uid} {...card} onPress={props.onPress} />;
             })}
-          {props.cardType === ICardType.EVENT_CARD_DELETE &&
+          {props.delete &&
             props.data.map((card: any) => {
               return (
-                <EventCardDelete key={card.uid} {...card} onDelete={handleOnDelete} onPress={props.onPress} />
+                <TouchEventCard key={card.uid} {...card} onPress={props.onPress} onDelete={handleOnDelete} />
               );
             })}
         </View>

@@ -349,9 +349,7 @@
     },
     "warning-food": {
       "title": "Avertissement",
-      "text": "L'estimation de l'empreinte carbone de l'alimentation est par construction approximative. En effet, comment compter EXACTEMENT le nombre d'ananas importés par avion et tous les kilos d'asperges surgelées, etc, que vous avez mangés cette année? L'approximation vous permet tout de même de fixer un ordre de grandeur et d'agir.\n\nPour plus d'information:\n",
-      "link-wrong-footprint": "• Les bilans carbones sont ils tous faux?",
-      "link-how-to": "• Comment faire mon bilan carbone ?",
+      "text": "À partir de l’estimation de l’empreinte carbone de l’alimentation on déduit celle des déchets.",
       "next": "Suivant"
     },
     "carbon-fly": {

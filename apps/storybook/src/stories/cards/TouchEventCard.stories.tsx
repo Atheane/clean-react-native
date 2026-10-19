@@ -11,6 +11,7 @@ const TouchEventCardMeta: ComponentMeta<typeof TouchEventCard> = {
   component: TouchEventCard,
   argTypes: {
     onPress: { action: 'onPress' },
+    onDelete: { action: 'onDelete' },
   },
   args: {
     image: LoanHeater,
@@ -23,4 +24,5 @@ export default TouchEventCardMeta;
 
 type TouchEventCardStory = ComponentStory<typeof TouchEventCard>;
 
-export const Dynamic: TouchEventCardStory = (args) => <TouchEventCard {...args} />;
+export const WithDelete: TouchEventCardStory = (args) => <TouchEventCard {...args} />;
+export const NoDelete: TouchEventCardStory = (args) => <TouchEventCard {...args} onDelete={undefined} />;

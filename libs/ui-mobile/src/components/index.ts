@@ -14,7 +14,6 @@ import { LinkButton } from './buttons/link-button';
 import { SwitchButton } from './buttons/switch-button';
 import { GreenBackButton } from './buttons/green-back-button';
 // Cards
-import { EventCardDelete } from './cards/event-card-delete';
 import { TouchEventCard } from './cards/touch-event-card';
 import { LongCard } from './cards/long-card';
 import { CardScroller, ICardType } from './cards/card-scroller';
@@ -87,7 +86,6 @@ export {
   SwitchButton,
   GreenBackButton,
   // Cards
-  EventCardDelete,
   TouchEventCard,
   LongCard,
   CardScroller,
