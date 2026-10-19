@@ -93,8 +93,6 @@ export const FormSignupEmail = (props: IProps) => {
   );
 };
 
-const HEIGHT = Dimensions.get('window').height;
-
 const styles = StyleSheet.create({
   form: {
     flex: 1,
@@ -117,10 +115,6 @@ const styles = StyleSheet.create({
     marginTop: 12,
     marginBottom: -10,
   },
-  formSubmit: {
-    position: 'absolute',
-    bottom: 12,
-  },
   errorContainer: {
     marginTop: 24,
     marginBottom: -20,
@@ -128,5 +122,9 @@ const styles = StyleSheet.create({
   domainErrorContainer: {
     marginTop: 24,
     marginBottom: -40,
+  },
+  formSubmit: {
+    position: 'absolute',
+    bottom: 12,
   },
 });

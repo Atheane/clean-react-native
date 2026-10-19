@@ -73,7 +73,7 @@ export const theme = createTheme({
         },
         long: {
           width: Dimensions.get('window').width * 0.8,
-          height: Dimensions.get('window').width * 0.8 * LONG_BUTTON_RATIO,
+          height: Dimensions.get('window').width * 0.8 * LONG_BUTTON_RATIO - 1,
           borderRadius: 28,
         },
       },
