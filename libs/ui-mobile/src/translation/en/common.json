@@ -78,12 +78,15 @@
   "country-picker": {
     "placeholder": "Select a country"
   },
-  "link-button": {
-    "login": "Login",
-    "legal": "TOS",
-    "cgu": "KycProvider TOS"
+  "button": {
+    "share": "share",
+    "submit": "validate",
+    "link": {
+      "login": "Login",
+      "legal": "TOS",
+      "cgu": "KycProvider TOS"
+    }
   },
-  "submit-button": "validate",
   "email-input": {
     "placeholder": "E-mail address",
     "label": "e-mail address"

@@ -52,7 +52,9 @@
     "@react-navigation/native": "*",
     "short-unique-id": "*",
     "react-native-screens": "*",
-    "redux-saga": "*"
+    "redux-saga": "*",
+    "react-native-view-shot": "*",
+    "expo-sharing": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",

@@ -92,6 +92,7 @@ import {
   VEHICLES,
   HouseCarbon,
 } from './svg';
+import { DefaultImage } from './image';
 export {
   Love,
   Validate,
@@ -183,4 +184,5 @@ export {
   TRAVEL,
   VEHICLES,
   HouseCarbon,
+  DefaultImage,
 };

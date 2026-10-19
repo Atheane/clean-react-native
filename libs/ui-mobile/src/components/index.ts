@@ -57,6 +57,7 @@ import { TransactionsCardsList } from './lists/transactions-cards-list';
 import { WhiteBalanceList } from './lists/white-balance-list';
 // Others
 import { WebViewer } from './others/web-viewer';
+import { ShareScreen } from './others/share-screen';
 // import { PdfViewer } from './others/pdf-viewer';
 import { CopyValueClipboard } from './others/copy-value-clipboard';
 import { TransactionItem } from './others/transaction-item';
@@ -135,6 +136,7 @@ export {
   WhiteBalanceList,
   // Others
   WebViewer,
+  ShareScreen,
   // PdfViewer,
   CopyValueClipboard,
   TransactionItem,

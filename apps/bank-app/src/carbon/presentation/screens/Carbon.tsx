@@ -17,6 +17,7 @@ import {
   FontNames,
   useHideBottomBar,
   useReduxOverStorageValue,
+  ShareScreen,
 } from '@clean-rn/ui-mobile';
 import { IBANKCategories } from '@clean-rn/carbon/domain';
 
@@ -246,53 +247,44 @@ export const Carbon = () => {
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <>
-          <View>
-            <View style={styles.graphContainer}>
-              <GraphCO2
-                headers={
-                  {
-                    [IBANKCategories.BAD]: HeaderBad as ImageSourcePropType,
-                    [IBANKCategories.FRANCE]: HeaderFrance as ImageSourcePropType,
-                    [IBANKCategories.CHAMPION]: HeaderChampion as ImageSourcePropType,
-                    [IBANKCategories.COP21]: HeaderCop21 as ImageSourcePropType,
-                  } as { [key: string]: ImageSourcePropType }
-                }
-                bilans={{
-                  FR: {
-                    [IBANKCategories.BAD]: BilanBadFR as ImageSourcePropType,
-                    [IBANKCategories.FRANCE]: BilanFranceFR as ImageSourcePropType,
-                    [IBANKCategories.CHAMPION]: BilanChampionFR as ImageSourcePropType,
-                    [IBANKCategories.COP21]: BilanCop21FR as ImageSourcePropType,
-                  } as { [key: string]: ImageSourcePropType },
-                  GB: {
-                    [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
-                    [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
-                    [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
-                    [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
-                  } as { [key: string]: ImageSourcePropType },
-                  US: {
-                    [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
-                    [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
-                    [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
-                    [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
-                  } as { [key: string]: ImageSourcePropType },
-                }}
-                emissions={totalEmissions}
-              />
+          <ShareScreen>
+            <View>
+              <View style={styles.graphContainer}>
+                <GraphCO2
+                  headers={
+                    {
+                      [IBANKCategories.BAD]: HeaderBad as ImageSourcePropType,
+                      [IBANKCategories.FRANCE]: HeaderFrance as ImageSourcePropType,
+                      [IBANKCategories.CHAMPION]: HeaderChampion as ImageSourcePropType,
+                      [IBANKCategories.COP21]: HeaderCop21 as ImageSourcePropType,
+                    } as { [key: string]: ImageSourcePropType }
+                  }
+                  bilans={{
+                    FR: {
+                      [IBANKCategories.BAD]: BilanBadFR as ImageSourcePropType,
+                      [IBANKCategories.FRANCE]: BilanFranceFR as ImageSourcePropType,
+                      [IBANKCategories.CHAMPION]: BilanChampionFR as ImageSourcePropType,
+                      [IBANKCategories.COP21]: BilanCop21FR as ImageSourcePropType,
+                    } as { [key: string]: ImageSourcePropType },
+                    GB: {
+                      [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
+                      [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
+                      [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
+                      [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
+                    } as { [key: string]: ImageSourcePropType },
+                    US: {
+                      [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
+                      [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
+                      [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
+                      [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
+                    } as { [key: string]: ImageSourcePropType },
+                  }}
+                  emissions={totalEmissions}
+                />
+              </View>
+              <Cards />
             </View>
-
-            <Cards />
-          </View>
-
-          <View style={styles.buttonContainer}>
-            <PrimaryButton
-              title={t('screens.carbon.share')}
-              onPress={() => {
-                return;
-              }}
-              long
-            />
-          </View>
+          </ShareScreen>
 
           <View style={styles.row}>
             <TouchCardText text={t('screens.carbon.reward')} onPress={handleOnPressPremium} />
@@ -338,9 +330,5 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     marginTop: -20,
-  },
-  buttonContainer: {
-    marginVertical: 40,
-    alignItems: 'center',
   },
 });

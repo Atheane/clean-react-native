@@ -86,7 +86,10 @@
     "placeholder": "******",
     "label": "password"
   },
-  "submit-button": "valider",
+  "button": {
+    "share": "partager",
+    "submit": "valider"
+  },
   "login": {
     "forgotten-password": "Mot de passe oublié ?",
     "submit-button": "valider",
