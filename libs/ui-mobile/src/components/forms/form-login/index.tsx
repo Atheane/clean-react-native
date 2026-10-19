@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, GestureResponderEvent } from 'react-native';
+import { View, Text, StyleSheet, GestureResponderEvent, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
@@ -32,6 +32,10 @@ export type ILoginFormData = {
   email: string;
   password: string;
 };
+
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
+const RATIO = HEIGHT / WIDTH;
 
 export const FormLogin = (props: IProps) => {
   const { theme } = useTheme();
@@ -114,7 +118,19 @@ export const FormLogin = (props: IProps) => {
         <ErrorMessage error={props.error} />
       </View>
 
-      <View style={styles.submitButtonContainer}>
+      <View
+        style={
+          RATIO > 2.16
+            ? {
+                position: 'absolute',
+                bottom: 240,
+              }
+            : {
+                position: 'absolute',
+                bottom: 120,
+              }
+        }
+      >
         <SubmitButton
           title={t('button.submit')}
           uppercase={false}
@@ -144,9 +160,5 @@ const styles = StyleSheet.create({
   },
   linkButton: {
     marginTop: 16,
-  },
-  submitButtonContainer: {
-    position: 'absolute',
-    bottom: 160,
   },
 });

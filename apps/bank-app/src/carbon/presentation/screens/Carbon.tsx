@@ -139,8 +139,7 @@ export const Carbon = () => {
   }, [navigation]);
   // handle learn more
 
-  const regionCode = locales[0]?.regionCode;
-  const lng = regionCode?.toLocaleLowerCase();
+  const lng = locales[0]?.languageCode ?? 'en';
 
   const handleOnPressLearnMore = useCallback(() => {
     navigation.navigate(ISharedStackPages.MODAL_WEBVIEW, {

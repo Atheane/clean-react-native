@@ -14,12 +14,14 @@ import {
   IHomeStackProps,
   ISharedStackPages,
   ISharedStackProps,
+  HeaderTitleAlign,
 } from '../../../shared/presentation/types';
 import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
 import { ScreenModalError, ScreenModalWebview } from '../../../shared/presentation/screens';
 import { Login } from '../../../auth/presentation/screens';
 
 import { Accounts, Transactions, AccountStatements, AccountStatementsPdf, RibPdf } from '../screens';
+import { Colors, FontNames } from '@clean-rn/ui-mobile';
 
 const Stack = createNativeStackNavigator<IHomeStackProps & ISharedStackProps & IAuthStackProps>();
 
@@ -90,6 +92,12 @@ export const HomeStack = () => {
         options={{
           presentation: 'modal',
           headerTitle: t('modal.login.title'),
+          headerTitleAlign: 'center' as HeaderTitleAlign,
+          headerTitleStyle: {
+            color: Colors.bank.primary.darkBlue,
+            fontSize: 19,
+            fontFamily: FontNames.MartelSans_600SemiBold,
+          },
           headerBackVisible: false,
         }}
         name={IAuthStackPages.LOGIN}

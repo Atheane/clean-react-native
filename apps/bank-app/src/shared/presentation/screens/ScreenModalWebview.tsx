@@ -12,9 +12,7 @@ export const ScreenModalWebview = () => {
     params: { uid },
   } = useRoute() as { params: { uid: string } };
 
-  const regionCode = locales[0]?.regionCode;
-  let lng = regionCode?.toLocaleLowerCase();
-  if (lng !== 'fr') lng = 'en';
+  const lng = locales[0]?.languageCode ?? 'en';
 
   const [unknownError, setUnknownError] = useState<Error>();
 

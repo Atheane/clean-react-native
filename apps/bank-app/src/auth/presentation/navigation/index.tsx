@@ -48,9 +48,7 @@ export const AuthStack = () => {
     setUnknownError(error as Error);
   };
 
-  const regionCode = locales[0]?.regionCode ?? 'en';
-  let lng = regionCode?.toLocaleLowerCase();
-  if (lng === 'gb') lng = 'en';
+  const lng = locales[0]?.languageCode ?? 'en';
 
   const ScreenLegal = () => <WebViewer uri={pdfUrls(lng).legal} handleError={handleError} />;
   const ScreenCgu = () => <WebViewer uri={pdfUrls(lng).cgu} handleError={handleError} />;

@@ -92,9 +92,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.bank.primary.white,
     height: Dimensions.get('window').height,
-    marginTop: '12%',
+    marginTop: '4%',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   image: {
     width: 146,
