@@ -39,7 +39,7 @@ export function* listTransactionsGenerator(
     if (transactionsFromStore) {
       transactions = transactionsFromStore;
       yield put(transactionsListed(transactions));
-      yield call(navigate, { route: IHomeStackPages.TRANSACTIONS });
+      yield call(navigate, { route: IHomeStackPages.TRANSACTIONS, params: { account: payload.account } });
     } else {
       const api = TransactionApi.getInstance(httpConnection);
 
