@@ -24,15 +24,49 @@ describe('Initialization - usecase', () => {
     expect(genObject.next().done).toBeTruthy();
   });
 
-  it('Should call initializationSuccess', async () => {
+  it('Should call applicationInitialized', async () => {
     testSaga(initializeApplicationGenerator)
       .next()
       .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
       .next(new Email('test@example.com').value)
+      .call(AsyncStorage.getItem, IStoreKey.HOUSE_EMISSION)
+      .next('1200.00')
+      .call(AsyncStorage.getItem, IStoreKey.AVERAGE_HOUSE_EMISSION)
+      .next('710.00')
+      .call(AsyncStorage.getItem, IStoreKey.TRANSPORT_EMISSION)
+      .next('1100.00')
+      .call(AsyncStorage.getItem, IStoreKey.AVERAGE_TRANSPORT_EMISSION)
+      .next('1000.00')
+      .call(AsyncStorage.getItem, IStoreKey.FOOD_EMISSION)
+      .next('800.00')
+      .call(AsyncStorage.getItem, IStoreKey.AVERAGE_FOOD_EMISSION)
+      .next('2690.00')
+      .call(AsyncStorage.getItem, IStoreKey.FLY_EMISSION)
+      .next('50.00')
+      .call(AsyncStorage.getItem, IStoreKey.AVERAGE_FLY_EMISSION)
+      .next('180.00')
       .put(
         applicationInitialized({
           email: new Email('test@example.com'),
           initRouteName: IAuthStackPages.LOGIN,
+          carbon: {
+            house: {
+              footprint: 1200,
+              average: 710,
+            },
+            transport: {
+              footprint: 1100,
+              average: 1000,
+            },
+            food: {
+              footprint: 800,
+              average: 2690,
+            },
+            fly: {
+              footprint: 50,
+              average: 180,
+            },
+          },
         }),
       )
       .next()
