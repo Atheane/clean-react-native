@@ -1,4 +1,4 @@
-import { ITransaction } from '@clean-rn/account/domain';
+import { IAccount, ITransaction } from '@clean-rn/account/domain';
 
 export enum ITransactionsTypes {
   LIST_TRANSACTIONS = 'LIST_TRANSACTIONS',
@@ -9,7 +9,7 @@ export enum ITransactionsTypes {
 export type IListTransactions = {
   type: typeof ITransactionsTypes.LIST_TRANSACTIONS;
   payload: {
-    accountId: number;
+    account: IAccount;
   };
 };
 

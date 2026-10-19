@@ -45,7 +45,7 @@ export function* rootSaga(httpConnection: HttpConnection) {
     validatePhoneSaga(httpConnection),
     signupUserSaga(httpConnection),
     listAccountsSaga(httpConnection),
-    // listTransactionsSaga(httpConnection),
+    listTransactionsSaga(httpConnection),
     // getTransactionsSaga(accountApi),
     // houseEmissionsSaga(),
     // transportEmissionsSaga(),

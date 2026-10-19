@@ -1,4 +1,4 @@
-import { ITransaction } from '@clean-rn/account/domain';
+import { IAccount, ITransaction } from '@clean-rn/account/domain';
 import {
   ITransactionsTypes,
   ITransactionsActions,
@@ -8,7 +8,7 @@ import {
 } from './types';
 
 // commands
-export const listTransactions = (payload: { accountId: number }): IListTransactions => ({
+export const listTransactions = (payload: { account: IAccount }): IListTransactions => ({
   type: ITransactionsTypes.LIST_TRANSACTIONS,
   payload,
 });

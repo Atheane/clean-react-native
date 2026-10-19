@@ -1,6 +1,6 @@
 import { Home } from './Home';
 // import { Help } from './Help';
-// import { Account } from './Account';
+import { Account } from './Account';
 // import { RestoFlash } from './RestoFlash';
 // import { Weflo } from './Weflo';
 // import { Transfer } from './Transfer';
@@ -15,7 +15,7 @@ import { Home } from './Home';
 export {
   Home,
   // Help,
-  // Account,
+  Account,
   // RestoFlash,
   // Weflo,
   // Transfer,

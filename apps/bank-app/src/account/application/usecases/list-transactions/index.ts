@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, put, StrictEffect, takeEvery, select, cancel } from 'redux-saga/effects';
 
-import { ITransaction } from '@clean-rn/account/domain';
+import { IAccount, ITransaction } from '@clean-rn/account/domain';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { TransactionApi } from '@clean-rn/account/infrastructure';
@@ -29,7 +29,7 @@ export function* listTransactionsGenerator(
   }: {
     type: string;
     payload: {
-      accountId: number;
+      account: IAccount;
     };
   },
 ): Generator<StrictEffect, any, any> {
@@ -43,9 +43,9 @@ export function* listTransactionsGenerator(
     } else {
       const api = TransactionApi.getInstance(httpConnection);
 
-      const transactions: ITransaction[] = yield call([api, api.getTransactions], payload.accountId);
+      const transactions: ITransaction[] = yield call([api, api.getTransactions], payload.account.accountId);
       yield put(transactionsListed(transactions));
-      yield call(navigate, { route: IHomeStackPages.ACCOUNT });
+      yield call(navigate, { route: IHomeStackPages.ACCOUNT, params: { account: payload.account } });
     }
   } catch (error: unknown) {
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level

@@ -18,7 +18,6 @@ import { IAccount } from '@clean-rn/account/domain';
 import { listAccounts } from '../../application/commands/list-accounts';
 import { listTransactions } from '../../application/commands/list-transactions';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
-// import { fetchTransactions } from '@account/infrastructure/redux';
 
 //todo change with api
 const fakeEventsData = [
@@ -74,13 +73,13 @@ export const Home = () => {
 
   const handleOnPressAccount = useCallback(
     (account: IAccount) => {
-      dispatch(listTransactions({ accountId: account.accountId }));
+      dispatch(listTransactions({ account }));
     },
     [dispatch],
   );
 
   return pending ? (
-    <Text>Loading ...</Text>
+    <Text>Loading ...</Text> // todo replace with loading gif
   ) : (
     <ErrorBoundary t={t}>
       <View style={styles.container}>

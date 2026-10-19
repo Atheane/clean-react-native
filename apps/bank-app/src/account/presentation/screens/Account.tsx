@@ -1,35 +1,36 @@
 import { useCallback } from 'react';
 import { View, StyleSheet, Image, Text, Dimensions, ScrollView } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import * as Sentry from '@sentry/react-native';
 
-import { RootState } from '@shared/infrastructure/redux/reducers';
-import { navigateTo } from '@shared/infrastructure/redux/actions';
-import { LinkButton } from '@shared/presentation/components';
-import { LinkButtonColors } from '@shared/presentation/types';
-import { BannerColors, HOME_STACK_PAGES } from '@account/presentation/types';
-
-import { Bic as BicIcon, ExportPdf, Iban as IbanIcon, Oups } from '@account/presentation/assets';
+import { IAccount } from '@clean-rn/account/domain';
 import {
+  LinkButton,
+  LinkButtonColors,
+  Bic as BicIcon,
+  ExportPdf,
+  Iban as IbanIcon,
   TopBackground,
-  Banner,
   CopyValueClipboard,
   TransactionsCardsList,
-  ViewBackground,
   WhiteBalance,
-} from '@account/presentation/components';
-import { IAccount } from '@account/domain/entities';
-import { Colors, FontNames } from '@shared/presentation/constants';
+  Colors,
+  FontNames,
+} from '@clean-rn/ui-mobile';
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { IHomeStackPages } from '../../../shared/presentation/types';
+import { Oups } from '../assets/images';
+import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
 const Top = ({ currentAccount }: { currentAccount?: IAccount }) => {
   const { t } = useTranslation();
 
-  const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const handleOnPressPdf = useCallback(() => {
-    dispatch(navigateTo({ route: HOME_STACK_PAGES.ACCOUNT_STATEMENTS }));
-  }, []);
+    navigation.navigate(IHomeStackPages.ACCOUNT_STATEMENTS as never);
+  }, [navigation]);
 
   return (
     <View style={styles.row}>
@@ -59,8 +60,8 @@ const ContentNoTransactions = ({ currentAccount }: { currentAccount?: IAccount }
       </View>
       {currentAccount && (
         <View>
-          <CopyValueClipboard value={currentAccount.iban} icon={IbanIcon} />
-          <CopyValueClipboard value={currentAccount.bic} icon={BicIcon} />
+          <CopyValueClipboard value={currentAccount.iban.value} icon={IbanIcon} />
+          <CopyValueClipboard value={currentAccount.bic.value} icon={BicIcon} />
         </View>
       )}
     </ScrollView>
@@ -68,48 +69,27 @@ const ContentNoTransactions = ({ currentAccount }: { currentAccount?: IAccount }
 };
 
 export const Account = () => {
-  const { accounts, error: errorAccount } = useSelector((state: RootState) => state.account.accounts);
-
-  const { transactions, error: errorTransactions } = useSelector(
-    (state: RootState) => state.account.transactions,
-  );
-
+  const { transactions } = useSelector((state: IRootState) => state.account.transactions);
   const hasTransactions = transactions && transactions?.length > 0;
-  const hasAccounts = accounts && accounts?.length > 0;
+  const { t } = useTranslation();
 
-  if (!hasAccounts) {
-    // this is captured by usecase getAccounts layer so this should not happen here
-    Sentry.captureException(new Error('User has no account'));
-  }
+  const {
+    params: { account },
+  } = useRoute() as { params: { account: IAccount } };
 
   return (
-    <View>
-      {errorAccount && <Banner title={errorAccount.message} color={BannerColors.PINK} rightIcon={false} />}
-      {!hasAccounts && <Banner title={'User has no account'} color={BannerColors.PINK} rightIcon={false} />}
-      {errorTransactions && (
-        <Banner title={errorTransactions.message} color={BannerColors.PINK} rightIcon={false} />
-      )}
-      {!hasTransactions && hasAccounts && (
-        <ViewBackground background={TopBackground}>
-          <View style={styles.top}>
-            <Top currentAccount={accounts[0]} />
-          </View>
-          <View style={styles.content}>
-            <ContentNoTransactions currentAccount={accounts[0]} />
-          </View>
-        </ViewBackground>
-      )}
-      {hasTransactions && hasAccounts && (
-        <ViewBackground background={TopBackground}>
-          <View style={styles.top}>
-            <Top currentAccount={accounts[0]} />
-          </View>
-          <View style={styles.content}>
-            <TransactionsCardsList data={transactions} />
-          </View>
-        </ViewBackground>
-      )}
-    </View>
+    <ErrorBoundary t={t}>
+      <SafeScrollingView>
+        <View style={styles.content}>
+          {!hasTransactions && <ContentNoTransactions currentAccount={account} />}
+          {hasTransactions && <TransactionsCardsList data={transactions} />}
+        </View>
+      </SafeScrollingView>
+      <TopBackground />
+      <View style={styles.top}>
+        <Top currentAccount={account} />
+      </View>
+    </ErrorBoundary>
   );
 };
 
@@ -121,7 +101,7 @@ const OUPS_SIZE = {
 const styles = StyleSheet.create({
   top: {
     position: 'absolute',
-    top: 10,
+    top: 0,
     left: -30,
   },
   row: {
@@ -151,12 +131,12 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.8,
     fontSize: 22,
     fontFamily: FontNames.Roboto_400Regular,
-    color: Colors.text.darkBlue,
+    color: Colors.bank.primary.darkBlue,
     textAlign: 'center',
     lineHeight: 29,
   },
   content: {
-    marginTop: 200,
+    marginTop: 300,
   },
   scrollNoTransactions: {
     alignItems: 'center',
