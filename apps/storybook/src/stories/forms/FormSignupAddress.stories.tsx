@@ -6,7 +6,7 @@ import { getLocales } from 'expo-localization';
 import { Logger } from '@clean-rn/logger';
 import { COUNTRIES_AVAILABLE } from '@clean-rn/auth/domain';
 import { FormSignupAddress, ISignupAddressFormData } from '@clean-rn/ui-mobile';
-import { WithStatus, ValidationStatus, WithKeyboardAwareScroll, WithExtraBottomSpace } from '../../wrappers';
+import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../../wrappers';
 
 const locales = getLocales();
 const defaultCountry = locales[0]?.regionCode || undefined;
@@ -25,11 +25,7 @@ const FormSignupAddressMeta: ComponentMeta<typeof FormSignupAddress> = {
   args: {
     defaultCountry,
   },
-  decorators: [
-    (Story) => WithStatus(Story, ValidationStatus.VALIDATED),
-    WithExtraBottomSpace,
-    WithKeyboardAwareScroll,
-  ],
+  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
 };
 
 export default FormSignupAddressMeta;

@@ -8,7 +8,7 @@ import { Logger } from '@clean-rn/logger';
 import { FormSignupBirth, ISignupBirthFormData } from '@clean-rn/ui-mobile';
 
 import { COUNTRIES_AVAILABLE } from '@clean-rn/auth/domain';
-import { WithStatus, ValidationStatus, WithScroll, WithExtraBottomSpace } from '../../wrappers';
+import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../../wrappers';
 
 const locales = getLocales();
 const defaultCountry = locales[0]?.regionCode || undefined;
@@ -27,7 +27,7 @@ const FormSignupBirthMeta: ComponentMeta<typeof FormSignupBirth> = {
   args: {
     defaultCountry,
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithExtraBottomSpace, WithScroll],
+  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
 };
 
 export default FormSignupBirthMeta;

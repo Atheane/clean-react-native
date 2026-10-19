@@ -17,5 +17,5 @@ type NoCO2Story = ComponentStory<typeof NoCO2>;
 
 export const Static: NoCO2Story = () => {
   const { t } = useTranslation();
-  return <NoCO2 text={t('screens.carbonHouse.noCO2')} />;
+  return <NoCO2 text={t('screens.carbon-house.no-CO2')} />;
 };

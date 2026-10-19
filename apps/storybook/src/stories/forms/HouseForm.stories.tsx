@@ -1,7 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
 import { HouseForm, useHouseFormData } from '@clean-rn/ui-mobile';
-import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
+import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../../wrappers';
 
 const HouseFormMeta: ComponentMeta<typeof HouseForm> = {
   title: 'Forms/HouseForm',
@@ -10,7 +10,7 @@ const HouseFormMeta: ComponentMeta<typeof HouseForm> = {
     onChangeForm: { action: 'onChangeForm' },
     onChangeField: { action: 'onChangeField' },
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
 };
 
 export default HouseFormMeta;

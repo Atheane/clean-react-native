@@ -19,7 +19,7 @@ const FormLoginMeta: ComponentMeta<typeof FormLogin> = {
     email: 'jean-luc.baradat@gmail.com',
     secured: true,
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithKeyboardAwareScroll],
+  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };
 
 export default FormLoginMeta;

@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
 import { Logger } from '@clean-rn/logger';
 import { FormSignupValidatePhone, ISignupValidatePhoneFormData } from '@clean-rn/ui-mobile';
-import { WithStatus, ValidationStatus, WithKeyboardAwareScroll, WithExtraBottomSpace } from '../../wrappers';
+import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../../wrappers';
 
 const FormSignupValidatePhoneMeta: ComponentMeta<typeof FormSignupValidatePhone> = {
   title: 'Forms/FormSignupValidatePhone',
@@ -13,11 +13,7 @@ const FormSignupValidatePhoneMeta: ComponentMeta<typeof FormSignupValidatePhone>
     onSubmit: { action: 'onSubmit' },
   },
   args: {},
-  decorators: [
-    (Story) => WithStatus(Story, ValidationStatus.VALIDATED),
-    WithExtraBottomSpace,
-    WithKeyboardAwareScroll,
-  ],
+  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };
 
 export default FormSignupValidatePhoneMeta;

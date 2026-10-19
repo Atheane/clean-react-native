@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
 import { Logger } from '@clean-rn/logger';
 import { FormSignupEmail, ISignupEmailFormData } from '@clean-rn/ui-mobile';
-import { WithStatus, ValidationStatus, WithKeyboardAwareScroll, WithExtraBottomSpace } from '../../wrappers';
+import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../../wrappers';
 
 const FormSignupEmailMeta: ComponentMeta<typeof FormSignupEmail> = {
   title: 'Forms/FormSignupEmail',
@@ -12,11 +12,7 @@ const FormSignupEmailMeta: ComponentMeta<typeof FormSignupEmail> = {
   argTypes: {
     onSubmit: { action: 'onSubmit' },
   },
-  decorators: [
-    (Story) => WithStatus(Story, ValidationStatus.VALIDATED),
-    WithExtraBottomSpace,
-    WithKeyboardAwareScroll,
-  ],
+  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
 };
 
 export default FormSignupEmailMeta;

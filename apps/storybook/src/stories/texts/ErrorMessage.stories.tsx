@@ -9,7 +9,7 @@ const ErrorMessageMeta: ComponentMeta<typeof ErrorMessage> = {
   title: 'Texts/ErrorMessage',
   component: ErrorMessage,
   args: {
-    error: new AuthError.Invalid6Digits(),
+    error: new AuthError.ValidatePhoneIncorrectPhoneCode(),
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };
