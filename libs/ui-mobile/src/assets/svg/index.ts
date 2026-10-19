@@ -46,6 +46,8 @@ import Surface from './surface.svg';
 import CO2 from './co2.svg';
 import FlyFrom from './flyFrom.svg';
 import FlyTo from './flyTo.svg';
+import PlaneFrom from './planeFrom.svg';
+import PlaneTo from './planeTo.svg';
 import Lock from './lock.svg';
 import Eye from './remove_red_eye_48px.svg';
 import Blind from './icon_eye-invisible.svg';
@@ -136,6 +138,8 @@ export {
   Fuel,
   FlyFrom,
   FlyTo,
+  PlaneFrom,
+  PlaneTo,
   Lock,
   Eye,
   Blind,

@@ -9,12 +9,12 @@ import { FlightSeatE as SeatE, FlightI } from '@bank/carbon-weight/dist';
 import { Logger } from '@clean-rn/logger';
 import { FlyEmissions } from '@clean-rn/carbon/domain';
 
-import { FlyFrom, FlyTo, PlaneEmpty } from '../../../assets';
+import { FlyFrom, FlyTo, PlaneFrom, PlaneTo } from '../../../assets';
 import { Colors } from '../../../constants';
 
 import { SecondaryButton } from '../../buttons/secondary-button';
 import { SwitchButton } from '../../buttons/switch-button';
-import { CardScroller } from '../../cards/card-scroller';
+import { CardScroller, ICardType } from '../../cards/card-scroller';
 import { SelectNumber } from '../../inputs/select-number';
 import { SearchModal } from '../../searchboxes/search-modal';
 
@@ -93,16 +93,18 @@ export const FlyForm = (props: IProps) => {
       .map(({ nbPassengers, fromIATA, toIATA, seatType, roundTrip }: FlightI) => {
         const plural = nbPassengers > 1 ? 's' : '';
         const travelType = (
-          roundTrip ? t('screens.carbonFly.swipeButton.round') : t('screens.carbonFly.swipeButton.simple')
+          roundTrip ? t('screens.carbon-fly.swipe-button.round') : t('screens.carbon-fly.swipe-button.simple')
         ).toLocaleLowerCase();
         const seat = (
-          seatType ? t('screens.carbonFly.swipeButton.economy') : t('screens.carbonFly.swipeButton.business')
+          seatType === SeatE.economy
+            ? t('screens.carbon-fly.swipe-button.economy')
+            : t('screens.carbon-fly.swipe-button.business')
         ).toLocaleLowerCase();
 
         return {
           uid: `${nbPassengers}_${fromIATA}_${toIATA}_${seatType}_${roundTrip}`,
           text: `${nbPassengers} ${travelType}${plural} ${fromIATA} / ${toIATA} ${seat}`,
-          icon: PlaneEmpty,
+          icon: () => <View style={{ margin: 16 }}>{roundTrip ? <PlaneFrom /> : <PlaneTo />}</View>,
         };
       })
       .filter((value, index, self) => {
@@ -123,8 +125,8 @@ export const FlyForm = (props: IProps) => {
     <View style={theme.bank.container.centeredItem}>
       <View style={styles.inputContainer}>
         <SearchModal
-          label={t('screens.carbonFly.dropdown.destination')}
-          placeholder={t('screens.carbonFly.dropdown.destination')}
+          label={t('screens.carbon-fly.dropdown.destination')}
+          placeholder={t('screens.carbon-fly.dropdown.destination')}
           data={props.airports}
           icon={() => <FlyFrom style={{ color: Colors.bank.primary.lightGreen }} />}
           onSelect={(data: IData) => handleOnChangeField(data, 'fromIATA')}
@@ -132,8 +134,8 @@ export const FlyForm = (props: IProps) => {
       </View>
       <View style={styles.inputContainer}>
         <SearchModal
-          label={t('screens.carbonFly.dropdown.arrival')}
-          placeholder={t('screens.carbonFly.dropdown.arrival')}
+          label={t('screens.carbon-fly.dropdown.arrival')}
+          placeholder={t('screens.carbon-fly.dropdown.arrival')}
           data={props.airports}
           icon={() => <FlyTo style={{ color: Colors.bank.primary.lightGreen }} />}
           onSelect={(data: IData) => handleOnChangeField(data, 'toIATA')}
@@ -141,41 +143,46 @@ export const FlyForm = (props: IProps) => {
       </View>
       <View style={[styles.sliderContainer, styles.inputContainer]}>
         <SelectNumber
-          label={t('screens.carbonFly.slider')}
+          label={t('screens.carbon-fly.slider')}
           value={props.flight?.nbPassengers ?? 1}
           onChange={handleOnChangeFlightNumber}
         />
       </View>
       <View style={[styles.swipeButtonContainer, styles.inputContainer]}>
         <SwitchButton
-          label={t('screens.carbonFly.swipeButton.type')}
+          label={t('screens.carbon-fly.swipe-button.type')}
           options={[
-            { key: FLY_TYPE.SIMPLE, value: t('screens.carbonFly.swipeButton.simple') },
-            { key: FLY_TYPE.ROUND, value: t('screens.carbonFly.swipeButton.round') },
+            { key: FLY_TYPE.SIMPLE, value: t('screens.carbon-fly.swipe-button.simple') },
+            { key: FLY_TYPE.ROUND, value: t('screens.carbon-fly.swipe-button.round') },
           ]}
           onToggle={handleOnToggleWays}
         />
       </View>
       <View style={[styles.swipeButtonContainer, styles.inputContainer]}>
         <SwitchButton
-          label={t('screens.carbonFly.swipeButton.class')}
+          label={t('screens.carbon-fly.swipe-button.class')}
           options={[
-            { key: SeatE.economy, value: t('screens.carbonFly.swipeButton.economy') },
-            { key: SeatE.business, value: t('screens.carbonFly.swipeButton.business') },
+            { key: SeatE.economy, value: t('screens.carbon-fly.swipe-button.economy') },
+            { key: SeatE.business, value: t('screens.carbon-fly.swipe-button.business') },
           ]}
           onToggle={handleOnToggleSeat}
         />
       </View>
       <View style={styles.inputContainer}>
         <SecondaryButton
-          title={t('screens.carbonFly.secondaryButton')}
+          title={t('screens.carbon-fly.secondaryButton')}
           onPress={handleOnAddFlight}
           disabled={disabled}
         />
       </View>
       {props.flights && props.flights.length > 0 && (
         <View style={styles.cardScroller}>
-          <CardScroller data={mapFlightToCards(props.flights)} onDelete={handleOnDeleteFlight} height={200} />
+          <CardScroller
+            data={mapFlightToCards(props.flights)}
+            onDelete={handleOnDeleteFlight}
+            height={200}
+            cardType={ICardType.EVENT_CARD_DELETE}
+          />
         </View>
       )}
     </View>
