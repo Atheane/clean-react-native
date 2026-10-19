@@ -15,6 +15,7 @@ import BilanCop21EN from './bilan-cop21-en.png';
 import BilanFranceFR from './bilan-france-fr.png';
 import BilanFranceEN from './bilan-france-en.png';
 import WarningFoodCO2 from './warning.png';
+import LoanHeater from './loan-heater.png';
 export {
   Oups,
   Thumb,
@@ -31,4 +32,5 @@ export {
   BilanFranceFR,
   BilanFranceEN,
   WarningFoodCO2,
+  LoanHeater,
 };

@@ -14,9 +14,10 @@ import { LinkButton } from './buttons/link-button';
 import { SwitchButton } from './buttons/switch-button';
 import { GreenBackButton } from './buttons/green-back-button';
 // Cards
-import { EventCard } from './cards/event-card';
+import { EventCardDelete } from './cards/event-card-delete';
+import { TouchEventCard } from './cards/touch-event-card';
 import { LongCard } from './cards/long-card';
-import { CardScroller } from './cards/card-scroller';
+import { CardScroller, ICardType } from './cards/card-scroller';
 import { TransactionsCard } from './cards/transactions-card';
 import { TouchCardKpi } from './cards/touch-card-kpi';
 import { TouchCardText } from './cards/touch-card-text';
@@ -84,9 +85,11 @@ export {
   SwitchButton,
   GreenBackButton,
   // Cards
-  EventCard,
+  EventCardDelete,
+  TouchEventCard,
   LongCard,
   CardScroller,
+  ICardType,
   TransactionsCard,
   TouchCardKpi,
   TouchCardText,

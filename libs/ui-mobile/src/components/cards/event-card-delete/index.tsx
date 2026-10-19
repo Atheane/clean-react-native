@@ -15,7 +15,7 @@ type IProps = {
   onDelete: (uid: string) => void;
 };
 
-export const EventCard = (props: IProps) => {
+export const EventCardDelete = (props: IProps) => {
   const [show, setShow] = useState(true);
   const handleOnPress = useCallback(() => {
     props.onDelete(props.uid);
@@ -26,11 +26,9 @@ export const EventCard = (props: IProps) => {
 
   return show ? (
     <Card containerStyle={[theme.bank.container.card.short, theme.bank.shadow.card]}>
-      {props.icon && (
-        <View style={styles.icon}>
-          <props.icon />
-        </View>
-      )}
+      <View style={styles.icon}>
+        <props.icon />
+      </View>
       <View style={styles.deleteCross}>
         <LinkButton
           pressed={false}
@@ -39,6 +37,7 @@ export const EventCard = (props: IProps) => {
           colorOption={LinkButtonColors.BLUE}
         />
       </View>
+
       <Text style={[styles.text, theme.bank.text.grey]}>{props.text}</Text>
     </Card>
   ) : (

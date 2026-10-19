@@ -66,7 +66,7 @@ describe('ListAccounts - usecase', () => {
     testSaga(listAccountsGenerator, httpConnection)
       .next()
       .select(selectAccounts)
-      .next(null)
+      .next({ accounts: null })
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
       .put(accountsListed(mockResponse))
@@ -79,7 +79,7 @@ describe('ListAccounts - usecase', () => {
     testSaga(listAccountsGenerator, httpConnection)
       .next()
       .select(selectAccounts)
-      .next(mockResponse)
+      .next({ accounts: mockResponse })
       .put(accountsListed(mockResponse))
       .next()
       .call(navigate, { route: IHomeStackPages.MENU })
@@ -90,7 +90,7 @@ describe('ListAccounts - usecase', () => {
     testSaga(listAccountsGenerator, httpConnection)
       .next()
       .select(selectAccounts)
-      .next(null)
+      .next({ accounts: null })
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
       .put(userUnauthenticated(new AuthError.UserUnauthenticated()))
@@ -102,7 +102,7 @@ describe('ListAccounts - usecase', () => {
     testSaga(listAccountsGenerator, httpConnection)
       .next()
       .select(selectAccounts)
-      .next(null)
+      .next({ accounts: null })
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
       .put(initializeAccountsList())
@@ -115,7 +115,7 @@ describe('ListAccounts - usecase', () => {
     testSaga(listAccountsGenerator, httpConnection)
       .next()
       .select(selectAccounts)
-      .next(null)
+      .next({ accounts: null })
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unknown error'))
       .put(initializeAccountsList())

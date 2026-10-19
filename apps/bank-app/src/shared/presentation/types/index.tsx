@@ -58,6 +58,7 @@ export type IHomeStackParamList = {
   AccountStatementsLastThreeMonths: undefined;
   AccountStatementsAll: undefined;
   ExportPdfIban: undefined;
+  ModalWebView: undefined;
 };
 
 export type ITransferStackParamList = {
@@ -113,6 +114,7 @@ export enum IHomeStackPages {
   ACCOUNT_STATEMENTS_LAST_THREE_MONTHS = 'AccountStatementsLastThreeMonths',
   ACCOUNT_STATEMENTS_ALL = 'AccountStatementsAll',
   EXPORT_PDF_IBAN = 'ExportPdfIban',
+  MODAL_WEBVIEW = 'ModalWebview',
 }
 
 export enum ITransferStackPages {
@@ -165,6 +167,7 @@ export type IHomeStackProps = {
   [IHomeStackPages.EXPORT_PDF_IBAN]: object;
   [IHomeStackPages.RESTO_FLASH]: object;
   [IHomeStackPages.WEFLO]: object;
+  [IHomeStackPages.MODAL_WEBVIEW]: object;
 };
 
 export type ITransferStackProps = {
@@ -208,6 +211,7 @@ export type IRoutes =
   | IHomeStackPages.TRANSACTIONS
   | IHomeStackPages.RESTO_FLASH
   | IHomeStackPages.WEFLO
+  | IHomeStackPages.MODAL_WEBVIEW
   | IHomeStackPages.ACCOUNT_STATEMENTS
   | IHomeStackPages.ACCOUNT_STATEMENTS_CURRENT_MONTH
   | IHomeStackPages.ACCOUNT_STATEMENTS_LAST_THREE_MONTHS

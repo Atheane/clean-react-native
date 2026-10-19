@@ -60,7 +60,8 @@ const getStories = () => {
     './stories/buttons/SwitchButton.stories.tsx': require('../stories/buttons/SwitchButton.stories'),
     './stories/buttons/GreenBackButton.stories.tsx': require('../stories/buttons/GreenBackButton.stories'),
     // Cards
-    './stories/cards/EventCard.stories.tsx': require('../stories/cards/EventCard.stories'),
+    './stories/cards/EventCardDelete.stories.tsx': require('../stories/cards/EventCardDelete.stories'),
+    './stories/cards/TouchEventCard.stories.tsx': require('../stories/cards/TouchEventCard.stories'),
     './stories/cards/LongCard.stories.tsx': require('../stories/cards/LongCard.stories'),
     './stories/cards/CardScroller.stories.tsx': require('../stories/cards/CardScroller.stories'),
     './stories/cards/TransactionsCard.stories.tsx': require('../stories/cards/TransactionsCard.stories'),

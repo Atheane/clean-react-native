@@ -10,6 +10,7 @@ import {
   // Help,
   Accounts,
   Transactions,
+  ScreenModalWebview,
   // RestoFlash,
   // Weflo,
   // AccountStatements,
@@ -32,6 +33,15 @@ export const HomeStack = () => {
         name={IHomeStackPages.TRANSACTIONS}
         component={Transactions}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        options={{
+          presentation: 'modal',
+          headerShown: false,
+          headerBackVisible: false,
+        }}
+        name={IHomeStackPages.MODAL_WEBVIEW}
+        component={ScreenModalWebview}
       />
       {/* <Stack.Screen name={IHomeStackPages.HELP} component={Help} options={{ headerShown: false }} />
       <Stack.Screen

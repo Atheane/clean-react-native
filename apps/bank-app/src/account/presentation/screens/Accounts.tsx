@@ -6,58 +6,23 @@ import { useTranslation } from 'react-i18next';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 import {
-  Meeting,
-  Tree,
   TopRightFlowersBg,
   CardScroller,
   TopDownBackground,
   ScrollBackground,
   WhiteBalanceList,
+  ICardType,
 } from '@clean-rn/ui-mobile';
 import { IAccount } from '@clean-rn/account/domain';
+
+import { ErrorBoundary } from '../../../shared/presentation/hoc';
+import { IHomeStackPages } from '../../../shared/presentation/types';
+
 import { listAccounts } from '../../application/commands/list-accounts';
 import { listTransactions } from '../../application/commands/list-transactions';
-import { ErrorBoundary } from '../../../shared/presentation/hoc';
 
-//todo change with api
-const fakeEventsData = [
-  {
-    icon: Tree,
-    text: 'Éteindre les veilleuses',
-    uid: 'ajkzhrei1',
-  },
-  { icon: Meeting, text: 'Éteignez en sortant d’une pièce.', uid: 'ajkzhrei2' },
-  {
-    icon: Tree,
-    text: 'Eteindre les lumières inutiles',
-    uid: 'ajkzhrei3',
-  },
-  {
-    icon: Meeting,
-    text: 'Privilégier le programme « Eco »',
-    uid: 'ajkzhrei4',
-  },
-  {
-    icon: Tree,
-    text: 'Raccourcir les programmes',
-    uid: 'ajkzhrei5',
-  },
-  {
-    icon: Meeting,
-    text: 'Couvrez les poêles et casseroles',
-    uid: 'ajkzhrei6',
-  },
-  {
-    icon: Tree,
-    text: 'Limiter la taille et la luminosité de la TV',
-    uid: 'ajkzhrei7',
-  },
-  {
-    icon: Meeting,
-    text: 'Débrancher les ordinateurs',
-    uid: 'ajkzhrei8',
-  },
-];
+import { eventsCardsContent } from '../constants';
+import { useNavigation } from '@react-navigation/native';
 
 export const Accounts = () => {
   // translation
@@ -78,6 +43,15 @@ export const Accounts = () => {
     [dispatch],
   );
 
+  const navigation = useNavigation();
+
+  const handleOnPressCard = useCallback(
+    (uid: string) => {
+      navigation.navigate(IHomeStackPages.MODAL_WEBVIEW, { uid });
+    },
+    [navigation],
+  );
+
   return pending ? (
     <Text>Loading ...</Text> // todo replace with loading gif
   ) : (
@@ -85,7 +59,12 @@ export const Accounts = () => {
       <View style={styles.container}>
         <ScrollBackground background={TopDownBackground} initialScroll={-20} window={1.2}>
           <View style={styles.cardScroller}>
-            <CardScroller data={fakeEventsData} height={200} />
+            <CardScroller
+              data={eventsCardsContent}
+              height={200}
+              onPress={handleOnPressCard}
+              cardType={ICardType.TOUCH_EVENT_CARD}
+            />
           </View>
 
           <View style={styles.decoration}>
