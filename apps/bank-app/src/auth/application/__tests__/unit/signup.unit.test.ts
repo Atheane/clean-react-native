@@ -236,7 +236,7 @@ describe('Signup - usecase', () => {
       .next(mockQueryEmail.email.value)
       .put(loadStorage())
       .next(mockQueryEmail.email)
-      .call(navigate, { route: IAuthStackPages.CHOOSE_PASSWORD })
+      .call(navigate, { route: IAuthStackPages.EMAIL_SENT })
       .next();
   });
 
