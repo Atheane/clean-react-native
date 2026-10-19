@@ -20,10 +20,10 @@ import {
   listTransactions,
   transactionsListed,
   initializeTransactionsList,
-} from '../../commands/list-transactions';
+} from '../../commands/transactions';
 import { ITransactionsState, transactionsReducer } from '../../state-management';
 
-import { listTransactionsSaga } from '../../usecases/list-transactions';
+import { listTransactionsSaga } from '../../usecases/transactions';
 
 const expoConstantsMock = {
   name: 'CleanRN BankApp Test',

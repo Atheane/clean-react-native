@@ -5,6 +5,7 @@ import {
   Amount,
   TransactionCategory,
   ITransactionType,
+  IStatementsPeriod,
 } from '@clean-rn/account/domain';
 import { ITransactionServer } from '../types';
 
@@ -43,5 +44,16 @@ export class TransactionApi implements ITransactionRepository {
       date: new Date(item.updatedAt),
       type: item.transactionType as ITransactionType, //todo: maybe delete this, and make use of category only, easier to map, and this is all we need to know in the app
     }));
+  }
+
+  async getStatements(accountId: number, period: IStatementsPeriod): Promise<Buffer> {
+    const url =
+      `${this.connection.baseUrl}/app/account/${accountId}/statements?` +
+      new URLSearchParams({
+        period,
+      });
+    const response = await fetch(url, this.connection.options(IHttpVerb.GET));
+    await this.connection.handleError(response);
+    return response.json();
   }
 }

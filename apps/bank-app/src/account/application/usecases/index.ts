@@ -1,2 +1,2 @@
-export * from './list-accounts';
-export * from './list-transactions';
+export * from './account';
+export * from './transactions';

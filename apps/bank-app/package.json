@@ -58,7 +58,8 @@
     "short-unique-id": "*",
     "react-native-safe-area-context": "*",
     "react-native-screens": "*",
-    "@react-navigation/bottom-tabs": "*"
+    "@react-navigation/bottom-tabs": "*",
+    "react-native-pdf": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp package-lock.json apps/bank-app",

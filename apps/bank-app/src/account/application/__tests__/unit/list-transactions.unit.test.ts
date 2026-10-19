@@ -25,12 +25,12 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 import { userUnauthenticated } from '../../../../auth/application/commands/login';
 
 import { selectTransactions } from '../../state-management/selectors';
-import { listTransactionsGenerator, listTransactionsSaga } from '../../usecases/list-transactions';
+import { listTransactionsGenerator, listTransactionsSaga } from '../../usecases/transactions';
 import {
   ITransactionsTypes,
   transactionsListed,
   initializeTransactionsList,
-} from '../../commands/list-transactions';
+} from '../../commands/transactions';
 
 describe('ListTransactions - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);

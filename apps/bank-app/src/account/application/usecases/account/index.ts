@@ -6,7 +6,7 @@ import { IAccount } from '@clean-rn/account/domain';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AccountApi } from '@clean-rn/account/infrastructure';
 
-import { accountsListed, IAccountsTypes, initializeAccountsList } from '../../commands/list-accounts';
+import { accountsListed, IAccountsTypes, initializeAccountsList } from '../../commands/account';
 import { IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';

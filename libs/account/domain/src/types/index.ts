@@ -41,3 +41,9 @@ export enum ITransactionCategory {
   NURSING = 'nursing',
   PRO = 'PRO',
 }
+
+export enum IStatementsPeriod {
+  LAST_MONTH = 'month',
+  LAST_TRIMESTER = 'trimester',
+  ALL = 'all',
+}

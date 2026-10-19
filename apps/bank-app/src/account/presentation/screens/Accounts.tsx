@@ -18,8 +18,8 @@ import { IAccount } from '@clean-rn/account/domain';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { IHomeStackPages } from '../../../shared/presentation/types';
 
-import { listAccounts } from '../../application/commands/list-accounts';
-import { listTransactions } from '../../application/commands/list-transactions';
+import { listAccounts } from '../../application/commands/account';
+import { listTransactions } from '../../application/commands/transactions';
 
 import { eventsCardsContent } from '../constants';
 import { useNavigation } from '@react-navigation/native';

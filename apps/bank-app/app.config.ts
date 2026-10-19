@@ -38,8 +38,6 @@ export default {
           skipProguard: false,
           subdomains: ['10.0.2.2', 'localhost'],
         },
-        '@config-plugins/react-native-blob-util',
-        '@config-plugins/react-native-pdf',
       ],
     ],
     scheme: 'com.clean-rn.bank-appdev',

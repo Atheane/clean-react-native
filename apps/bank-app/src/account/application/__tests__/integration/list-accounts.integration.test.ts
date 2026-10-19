@@ -6,15 +6,10 @@ import { Bic, IAccountType, Iban } from '@clean-rn/account/domain';
 
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
 
-import {
-  IAccountsTypes,
-  listAccounts,
-  accountsListed,
-  initializeAccountsList,
-} from '../../commands/list-accounts';
+import { IAccountsTypes, listAccounts, accountsListed, initializeAccountsList } from '../../commands/account';
 import { IAccountsState, accountsReducer } from '../../state-management';
 
-import { listAccountsSaga } from '../../usecases/list-accounts';
+import { listAccountsSaga } from '../../usecases/account';
 
 const expoConstantsMock = {
   name: 'CleanRN BankApp Test',

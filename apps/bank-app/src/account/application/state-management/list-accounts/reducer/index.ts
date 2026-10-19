@@ -1,6 +1,6 @@
 import { Logger } from '@clean-rn/logger';
 
-import { IAccountsTypes, IAccountsActions } from '../../../commands/list-accounts';
+import { IAccountsTypes, IAccountsActions } from '../../../commands/account';
 import { IAccountsState } from '../state';
 
 const initialState: IAccountsState = {
