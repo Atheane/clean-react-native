@@ -42,7 +42,22 @@
     "fast-sort": "*",
     "@react-native-community/slider": "*",
     "expo-clipboard": "*",
-    "dotenv": "*"
+    "dotenv": "*",
+    "@expo/vector-icons": "*",
+    "@react-navigation/native": "*",
+    "expo-linking": "*",
+    "redux": "*",
+    "@react-native-async-storage/async-storage": "*",
+    "redux-saga": "*",
+    "react-redux": "*",
+    "@react-navigation/native-stack": "*",
+    "redux-saga-test-plan": "*",
+    "nock": "*",
+    "@types/jest": "*",
+    "redux-saga-tester": "*",
+    "short-unique-id": "*",
+    "react-native-safe-area-context": "*",
+    "react-native-screens": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp package-lock.json apps/bank-app",
@@ -51,6 +66,7 @@
     "ios": "expo run:ios"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "@types/jest": "*"
   }
 }

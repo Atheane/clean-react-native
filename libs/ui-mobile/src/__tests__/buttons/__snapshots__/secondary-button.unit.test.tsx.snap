@@ -1,0 +1,574 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SecondaryButton -  iconOne -  true - renders as before 1`] = `
+<View
+  style={
+    [
+      {
+        "borderRadius": 28,
+        "flexDirection": "row",
+      },
+      {
+        "borderRadius": 28,
+        "elevation": 50,
+        "shadowColor": "#707070",
+        "shadowOffset": {
+          "height": 15,
+          "width": 0,
+        },
+        "shadowOpacity": 0.6,
+        "shadowRadius": 20,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      [
+        {
+          "overflow": "hidden",
+        },
+        {
+          "borderRadius": 2,
+        },
+        {
+          "borderRadius": 28,
+          "flexDirection": "row",
+        },
+        {
+          "backgroundColor": "#fff",
+          "overflow": "visible",
+          "shadowColor": "rgba(0,0,0, .4)",
+          "shadowOffset": {
+            "height": 1,
+            "width": 1,
+          },
+          "shadowOpacity": 1,
+          "shadowRadius": 1,
+        },
+      ]
+    }
+    testID="RNE_BUTTON_WRAPPER"
+  >
+    <View
+      accessibilityRole="button"
+      accessibilityState={
+        {
+          "busy": false,
+          "checked": undefined,
+          "disabled": false,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FFFFFF",
+            "borderColor": "#2089dc",
+            "borderRadius": 28,
+            "borderWidth": 0,
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "padding": 8,
+            "paddingBottom": 11,
+            "paddingHorizontal": 10,
+            "paddingLeft": 26,
+            "paddingRight": 24,
+            "paddingTop": 12,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "space-around",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "marginRight": 15,
+              }
+            }
+          >
+            <SvgMock />
+          </View>
+          <View>
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "Roboto_700Bold",
+                    "fontSize": 18,
+                    "lineHeight": 24,
+                    "textTransform": "none",
+                  },
+                  {
+                    "color": "#BFD23A",
+                  },
+                  undefined,
+                ]
+              }
+            >
+              Test-title
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`SecondaryButton -  large -  true - renders as before 1`] = `
+<View
+  style={
+    [
+      {
+        "borderRadius": 28,
+        "height": 107.49185667752442,
+        "width": 600,
+      },
+      {
+        "borderRadius": 28,
+        "elevation": 50,
+        "shadowColor": "#707070",
+        "shadowOffset": {
+          "height": 15,
+          "width": 0,
+        },
+        "shadowOpacity": 0.6,
+        "shadowRadius": 20,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      [
+        {
+          "overflow": "hidden",
+        },
+        {
+          "borderRadius": 2,
+        },
+        {
+          "borderRadius": 28,
+          "height": 107.49185667752442,
+          "width": 600,
+        },
+        {
+          "backgroundColor": "#fff",
+          "overflow": "visible",
+          "shadowColor": "rgba(0,0,0, .4)",
+          "shadowOffset": {
+            "height": 1,
+            "width": 1,
+          },
+          "shadowOpacity": 1,
+          "shadowRadius": 1,
+        },
+      ]
+    }
+    testID="RNE_BUTTON_WRAPPER"
+  >
+    <View
+      accessibilityRole="button"
+      accessibilityState={
+        {
+          "busy": false,
+          "checked": undefined,
+          "disabled": false,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FFFFFF",
+            "borderColor": "#2089dc",
+            "borderRadius": 28,
+            "borderWidth": 0,
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "padding": 8,
+            "paddingBottom": 11,
+            "paddingHorizontal": 10,
+            "paddingLeft": 26,
+            "paddingRight": 24,
+            "paddingTop": 12,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "space-around",
+            }
+          }
+        >
+          <View>
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "Roboto_700Bold",
+                    "fontSize": 18,
+                    "lineHeight": 24,
+                    "textTransform": "none",
+                  },
+                  {
+                    "color": "#BFD23A",
+                  },
+                  undefined,
+                ]
+              }
+            >
+              Test-title
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`SecondaryButton -  minimal props -  renders as before 1`] = `
+<View
+  style={
+    [
+      {
+        "borderRadius": 28,
+        "flexDirection": "row",
+      },
+      {
+        "borderRadius": 28,
+        "elevation": 50,
+        "shadowColor": "#707070",
+        "shadowOffset": {
+          "height": 15,
+          "width": 0,
+        },
+        "shadowOpacity": 0.6,
+        "shadowRadius": 20,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      [
+        {
+          "overflow": "hidden",
+        },
+        {
+          "borderRadius": 2,
+        },
+        {
+          "borderRadius": 28,
+          "flexDirection": "row",
+        },
+        {
+          "backgroundColor": "#fff",
+          "overflow": "visible",
+          "shadowColor": "rgba(0,0,0, .4)",
+          "shadowOffset": {
+            "height": 1,
+            "width": 1,
+          },
+          "shadowOpacity": 1,
+          "shadowRadius": 1,
+        },
+      ]
+    }
+    testID="RNE_BUTTON_WRAPPER"
+  >
+    <View
+      accessibilityRole="button"
+      accessibilityState={
+        {
+          "busy": false,
+          "checked": undefined,
+          "disabled": false,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FFFFFF",
+            "borderColor": "#2089dc",
+            "borderRadius": 28,
+            "borderWidth": 0,
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "padding": 8,
+            "paddingBottom": 11,
+            "paddingHorizontal": 10,
+            "paddingLeft": 26,
+            "paddingRight": 24,
+            "paddingTop": 12,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "space-around",
+            }
+          }
+        >
+          <View>
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "Roboto_700Bold",
+                    "fontSize": 18,
+                    "lineHeight": 24,
+                    "textTransform": "none",
+                  },
+                  {
+                    "color": "#BFD23A",
+                  },
+                  undefined,
+                ]
+              }
+            >
+              Test-title
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`SecondaryButton -  uppercase -  true - renders as before 1`] = `
+<View
+  style={
+    [
+      {
+        "borderRadius": 28,
+        "flexDirection": "row",
+      },
+      {
+        "borderRadius": 28,
+        "elevation": 50,
+        "shadowColor": "#707070",
+        "shadowOffset": {
+          "height": 15,
+          "width": 0,
+        },
+        "shadowOpacity": 0.6,
+        "shadowRadius": 20,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      [
+        {
+          "overflow": "hidden",
+        },
+        {
+          "borderRadius": 2,
+        },
+        {
+          "borderRadius": 28,
+          "flexDirection": "row",
+        },
+        {
+          "backgroundColor": "#fff",
+          "overflow": "visible",
+          "shadowColor": "rgba(0,0,0, .4)",
+          "shadowOffset": {
+            "height": 1,
+            "width": 1,
+          },
+          "shadowOpacity": 1,
+          "shadowRadius": 1,
+        },
+      ]
+    }
+    testID="RNE_BUTTON_WRAPPER"
+  >
+    <View
+      accessibilityRole="button"
+      accessibilityState={
+        {
+          "busy": false,
+          "checked": undefined,
+          "disabled": false,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FFFFFF",
+            "borderColor": "#2089dc",
+            "borderRadius": 28,
+            "borderWidth": 0,
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "padding": 8,
+            "paddingBottom": 11,
+            "paddingHorizontal": 10,
+            "paddingLeft": 26,
+            "paddingRight": 24,
+            "paddingTop": 12,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "space-around",
+            }
+          }
+        >
+          <View>
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "Roboto_700Bold",
+                    "fontSize": 18,
+                    "lineHeight": 24,
+                    "textTransform": "none",
+                  },
+                  {
+                    "color": "#BFD23A",
+                  },
+                  {
+                    "textTransform": "uppercase",
+                  },
+                ]
+              }
+            >
+              Test-title
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;

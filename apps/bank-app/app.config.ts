@@ -4,11 +4,11 @@ export default {
   expo: {
     name: 'CleanRN BankApp Dev',
     slug: 'clean-rn-bank-app-dev',
-    version: '1.2.6',
+    version: '1.3.0',
     orientation: 'portrait',
-    icon: './assets/icon.png',
+    icon: './assets/images/icon.png',
     splash: {
-      image: './assets/splash.png',
+      image: './assets/images/splash.png',
       resizeMode: 'contain',
       backgroundColor: '#ffffff',
     },
@@ -22,13 +22,13 @@ export default {
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: './assets/adaptive-icon.png',
+        foregroundImage: './assets/images/adaptive-icon.png',
         backgroundColor: '#FFFFFF',
       },
       package: 'com.clean-rn.bank-appdev',
     },
     web: {
-      favicon: './assets/favicon.png',
+      favicon: './assets/images/favicon.png',
       bundler: 'metro',
     },
     plugins: [
@@ -40,6 +40,7 @@ export default {
         },
       ],
     ],
+    scheme: 'com.clean-rn.bank-appdev',
     extra: {
       BASE_URL_API: process.env.BASE_URL_API,
       NODE_ENV: process.env.NODE_ENV,

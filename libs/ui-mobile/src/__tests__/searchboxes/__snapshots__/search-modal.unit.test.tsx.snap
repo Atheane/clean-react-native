@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchModal -  minimal props -  renders as before 1`] = `
+<View>
+  <View>
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Roboto_700Bold",
+            "fontSize": 16,
+            "lineHeight": 21,
+            "textAlign": "left",
+            "textTransform": "uppercase",
+          },
+          {
+            "color": "#CB287D",
+          },
+        ]
+      }
+    >
+      string
+    </Text>
+    <View
+      style={
+        {
+          "backgroundColor": "#F0F0F0",
+          "borderBottomWidth": 0,
+          "borderRadius": 8,
+          "marginBottom": -16,
+          "marginTop": 11,
+          "width": 600,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "paddingHorizontal": 10,
+            "width": "100%",
+          }
+        }
+        testID="RNE__Input__view-wrapper"
+      >
+        <View
+          collapsable={false}
+          style={
+            {
+              "alignItems": "center",
+              "borderBottomWidth": 0,
+              "borderColor": "#86939e",
+              "flexDirection": "row",
+              "marginBottom": -15,
+              "marginTop": 10,
+              "transform": [
+                {
+                  "translateX": 0,
+                },
+              ],
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "borderBottomWidth": 0,
+                "height": 40,
+                "justifyContent": "center",
+                "marginHorizontal": 10,
+                "marginVertical": 4,
+                "paddingRight": 4,
+              }
+            }
+          >
+            <SvgMock />
+          </View>
+          <TextInput
+            autoCapitalize="none"
+            autoCorrect={false}
+            editable={true}
+            keyboardType="default"
+            onFocus={[Function]}
+            placeholder="string"
+            placeholderTextColor="#86939e"
+            style={
+              {
+                "color": "#CB287D",
+                "flex": 1,
+                "fontFamily": "Roboto_400Regular",
+                "fontSize": 14,
+                "minHeight": 40,
+                "textAlign": "left",
+              }
+            }
+            testID="RNE__Input__text-input"
+            underlineColorAndroid="transparent"
+            value=""
+          />
+        </View>
+        <Text
+          style={
+            {
+              "color": "#ff190c",
+              "fontSize": 12,
+              "margin": 5,
+            }
+          }
+        />
+      </View>
+    </View>
+  </View>
+  <Modal
+    animationType="none"
+    hardwareAccelerated={false}
+    visible={false}
+  />
+</View>
+`;

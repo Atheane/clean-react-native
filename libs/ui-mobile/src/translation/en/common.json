@@ -1,0 +1,369 @@
+{
+  "banners": {
+    "update-application": "New version available",
+    "identity-validation": "Validate identity"
+  },
+  "errors": {
+    "email": {
+      "required": "e-mail required",
+      "invalid": "invalid email"
+    },
+    "consent": {
+      "required": "consent required"
+    },
+    "password": {
+      "required": "password required",
+      "invalid": "invalid password",
+      "min-length": "must contain at least 6 characters"
+    },
+    "phone": {
+      "required": "phone number required",
+      "invalid": "provide a valid mobile phone number"
+    },
+    "phone-otp": {
+      "required": "6-digits code required",
+      "invalid": "code invalide",
+      "min-length": "should contain at least 6 numbers"
+    },
+    "birthday": {
+      "invalid": "invalid date of birth, 18 years minimum"
+    },
+    "first-name": {
+      "required": "First name required"
+    },
+    "last-name": {
+      "required": "Last name required"
+    },
+    "birth-country": {
+      "required": "country of birth required"
+    },
+    "nationality": {
+      "required": "nationality required"
+    },
+    "street": {
+      "required": "street required"
+    },
+    "city": {
+      "required": "city required"
+    },
+    "zip": {
+      "required": "postal code required"
+    },
+    "country": {
+      "required": "country code required",
+      "invalid": "invalid country",
+      "unvailable": "this country is not available"
+    },
+    "domain-error": {
+      "auth": {
+        "LOGIN_FAILURE_INVALID_CREDENTIALS": "username or password error, please try again",
+        "LOGIN_FAILURE_USER_NOT_FOUND": "user account doe snot exist",
+        "LOGIN_FAILURE_USER_PHONE_NOT_VALIDATED": "phone number is not verified",
+        "VALIDATE_PHONE_FAILURE_INVALID_PHONE_CODE": "invalid code",
+        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "validate phone failure, phone not found",
+        "SIGNUP_FAILURE_EMAIL_EXISTS": "this email is already registered",
+        "SIGNUP_FAILURE_PHONE_EXISTS": "this phone is already registered",
+        "USER_UNAUTHENTICATED": "please authenticate",
+        "USER_UNAUTHORIZED": "unauthorized user"
+      },
+      "other": "error, please contact the administrator"
+    },
+    "other": "error, please contact the administrator"
+  },
+  "country-picker": {
+    "placeholder": "Select a country"
+  },
+  "link-button": {
+    "login": "Login",
+    "legal": "TOS",
+    "cgu": "KycProvider TOS"
+  },
+  "submit-button": "validate",
+  "email-input": {
+    "placeholder": "E-mail address",
+    "label": "e-mail address"
+  },
+  "password-input": {
+    "placeholder": "******",
+    "label": "password"
+  },
+  "login": {
+    "forgotten-password": "Forgot your password?",
+    "submit-button": "validate",
+    "validate": "Validate"
+  },
+  "reset-password": {
+    "email": {
+      "placeholder": "votre@email.com",
+      "label": "e-mail"
+    },
+    "success": "If this email exists, a message has been sent to you",
+    "submit-button": "reset"
+  },
+  "signup-email": {
+    "email": {
+      "placeholder": "your@email.com",
+      "label": "e-mail"
+    },
+    "text":"Let's check together if your email address is linked to an existing account."
+  },
+  "signup-identity": {
+    "title": "Sign up",
+    "gender": {
+      "label": "gender",
+      "man": "Man",
+      "woman": "Woman",
+      "neutral": "Neutre"
+    },
+    "first-name": {
+      "label": "First name",
+      "placeholder": "First name"
+    },
+    "last-name": {
+      "label": "Last name",
+      "placeholder": "Last name"
+    }
+  },
+  "signup-phone": {
+    "phone": {
+      "label": "phone number",
+      "placeholder": "phone number"
+    }
+  },
+  "signup-validate-phone": {
+    "submit-button": "validate"
+  },
+  "signup-birth": {
+    "birthday": {
+      "label": "Date of birth",
+      "placeholder": "DD/MM/YYYY"
+    },
+    "birth-country": {
+      "label": "country of birth",
+      "placeholder": "Country of birth"
+    },
+    "nationality": {
+      "label": "Nationality",
+      "placeholder": "Nationality"
+    }
+  },
+  "signup-address": {
+    "street": {
+      "label": "address",
+      "placeholder": "Street name"
+    },
+    "city": {
+      "label": "city",
+      "placeholder": "City"
+    },
+    "zip": {
+      "label": "postal code",
+      "placeholder": "Postal code"
+    },
+    "country": {
+      "label": "Country",
+      "placeholder": "Country"
+    },
+    "usperson": {
+      "label": "I am a “US person”",
+      "subtitle": "(US Resident)",
+      "yes": "Yes",
+      "no": "No"
+    }
+  },
+  "modal-error": {
+    "code": "Error code",
+    "message": "Error message",
+    "stack": "Detailled message"
+  },
+  "screens": {
+    "legal": "Legal mentions",
+    "cgu": "TOS",
+    "cgu-kyc-provider": "KycProvider TOS",
+    "modal-error": "Erreur",
+    "login": {
+      "title": "Login"
+    },
+    "reset-password": {
+      "title": "Forgot your password?"
+    },
+    "signup-email": {
+      "title": "Sign up",
+      "checkbox": "By checking the box, I acknowledge having read the TOS, the legal notices as well as the use of personal data from the CO2 Account"
+    },
+    "signup-identity": {
+      "title": "Sign up"
+    },
+    "signup-validate-phone": {
+      "title": "Security",
+      "instruction": "Enter the verification code that was just sent to you by SMS",
+    },
+    "signup-birth": {
+      "title": "Complete my profile"
+    },
+    "signup-address": {
+      "title": "Complete my profile"
+    },
+    "signup-congrats": {
+      "title": "Congratulations",
+      "congrats": "Congratulations! You can now access your CO2 Account app.",
+      "button": "Let's go!"
+    },
+    "email-sent": {
+      "title": "Email sent",
+      "text": "We have sent you a confirmation email to the address provided.\n\nPlease click on the link to log in."
+    },
+    "signup-phone": {
+      "title": "Phone number validation",
+      "text": "Verify your mobile phone"
+    },
+    "home": {
+      "title": "Home",
+      "tab": "Home",
+      "help": "Help",
+      "balance": {
+        "main": "My CO2 Account:",
+        "restoflash": "My Restau Flash Account:",
+        "weflo": "My Weflo Account:",
+        "noaccounts": "No accounts"
+      },
+      "banner": {
+        "validationIdentity": "Identity validation"
+      }
+    },
+    "account": {
+      "balance": "Account balance",
+      "oups": "Top up your CO2 Account to use the climate currency on a daily basis!",
+      "iban": "Display my CO2 IBAN",
+      "transfer": "Transfer"
+    },
+    "accountStatements": {
+      "title": "Export",
+      "bold": "Export my account statement",
+      "normal": "Download my account statement in PDF",
+      "cards": {
+        "currentMonth": "Current month",
+        "threeLastMonths": "Last 3 months",
+        "all": "All my statements",
+        "iban": "Download IBAN"
+      }
+    },
+    "accountStatementsCurrentMonth": {
+      "title": "Current month"
+    },
+    "accountStatementsThreeLastMonths": {
+      "title": "Last 3 months"
+    },
+    "accountStatementsAll": {
+      "title": "All my statements"
+    },
+    "exportPdfIban": {
+      "title": "Download the IBAN"
+    },
+    "transfer": {
+      "title": "Transfer",
+      "tab": "Transfer"
+    },
+    "carbon": {
+      "title": "My carbon footprint",
+      "tab": "CO2 Assessment",
+      "instruction": "Press on a category to start",
+      "zeroCarbon": "0 tC02",
+      "average": "French Average",
+      "ton": "ton",
+      "tons": "tons",
+      "share": "Share",
+      "reward": "Be rewarded with the CO2 bonus",
+      "method": "Learn more about the calculation method",
+      "compute": "Calculate",
+      "consumption": "Consumption"
+    },
+    "carbonHouse": {
+      "title": "My housing",
+      "noCO2": "The consumption of this type of heating does not emit CO2 in the calculation methodology.",
+      "dropdown": {
+        "heater": "Type of heating",
+        "region": "Department",
+        "electric": "Electricity",
+        "coal": "Coal",
+        "gas": "Town gas",
+        "fuelOil": "Domestic fuel oil",
+        "urban": "Urban heat network",
+        "wood": "Wood",
+        "heatPump": "Heat pump",
+        "thermalSolar": "Thermal solar",
+        "propane": "Propane",
+        "stateDepartment": "State department"
+      },
+      "slider": {
+        "consumption": "consumption",
+        "builtYear": "Year of housing"
+      },
+      "surface": "Surface"
+    },
+    "carbonTransport": {
+      "title": "My transportation",
+      "noCO2": "The consumption of this type of vehicle does not emit CO2 in the calculation methodology",
+      "dropdown": {
+        "title": "Fuel",
+        "fuel": "Gasoline (including Hybrid)",
+        "E85": "E85 (Superethanol)",
+        "electric": "Electric",
+        "gasoil": "Diesel (including Hybrid)",
+        "GNV": "NGV (Natural Gas)",
+        "LPG": "LPG",
+        "unit": " L/100 km"
+      },
+      "slider": {
+        "mpg": "consumption",
+        "distanceByYear": "Annual mileage",
+        "unit": " km"
+      }
+    },
+    "carbonFood": {
+      "title": "My diet",
+      "slider": {
+        "alcohol": "Wine / Beer",
+        "bread": "Bread",
+        "cheese": "Cheese / Dairy / Egg",
+        "fish": "Fish / Crustacean",
+        "harvestExotic": "Exotic veggies / Fruit",
+        "harvestLocal": "Seasonal veggies / Fruit",
+        "meatRed": "Red meat",
+        "meatWhite": "White meat / Poultry",
+        "rice": "Pasta / Rice",
+        "soft": "Fruit juice / Soda / Water",
+        "unit": " time / week",
+        "units": " times / week" 
+      }
+    },
+    "warningFood": {
+      "title": "Warning",
+      "text": "For your information, the estimation of the carbon footprint of the diet is inherently approximate. Indeed, how do you count the number of pineapples imported by plane and frozen asparagus you ate this year? We included waste...",
+      "next": "Next"
+    },
+    "carbonFly": {
+      "title": "My air transportation",
+      "dropdown": {
+        "destination": "Departure from",
+        "arrival": "Arrival at"
+      },
+      "slider": "Number of trips",
+      "search": "Search",
+      "swipeButton": {
+        "type": "Journey",
+        "simple": "One way",
+        "round": "Round trip",
+        "class": "Class",
+        "economy": "Economy",
+        "business": "Business"
+      },
+      "secondaryButton": "Add",
+      "flight": "trip"
+    },
+    "profile": {
+      "title": "Profile",
+      "tab": "Profile"
+    }
+  }
+}

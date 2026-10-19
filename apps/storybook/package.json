@@ -48,7 +48,11 @@
     "react-native-select-dropdown": "*",
     "react-native-svg": "*",
     "react-native-web": "*",
-    "react-native-webview": "*"
+    "react-native-webview": "*",
+    "@react-navigation/native": "*",
+    "short-unique-id": "*",
+    "react-native-screens": "*",
+    "redux-saga": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",

@@ -1,0 +1,359 @@
+{
+  "banners": {
+    "update-application": "Mise à jour disponible",
+    "identity-validation": "Validation de l'identité"
+  },
+  "errors": {
+    "email": {
+      "required": "email requis",
+      "invalid": "email invalide"
+    },
+    "consent": {
+      "required": "consentement requis"
+    },
+    "password": {
+      "required": "mot de passe requis",
+      "invalid": "mot de passe invalide",
+      "min-length": "doit contenir au minimum 6 caractères"
+    },
+    "phone": {
+      "required": "numéro de téléphone requis",
+      "invalid": "indiquer un numéro de téléphone mobile valide"
+    },
+    "phone-otp": {
+      "required": "code à 6 chiffres requis",
+      "invalid": "code invalide",
+      "min-length": "doit contenir au minimum 6 chiffres"
+    },
+    "birthday": {
+      "invalid": "date de naissance invalide, 18 ans minimum"
+    },
+    "first-name": {
+      "required": "prénom requis"
+    },
+    "last-name": {
+      "required": "nom requis"
+    },
+    "birth-country": {
+      "required": "pays de naissance requis"
+    },
+    "nationality": {
+      "required": "nationalité requise"
+    },
+    "street": {
+      "required": "rue requise"
+    },
+    "city": {
+      "required": "ville requise"
+    },
+    "zip": {
+      "required": "code postal requis"
+    },
+    "country": {
+      "required": "code pays requis",
+      "invalid": "pays invalide",
+      "unvailable": "ce pays n'est pas disponible"
+    },
+    "domain-error": {
+      "auth": {
+        "LOGIN_FAILURE_INVALID_CREDENTIALS": "Email ou mot de passe incorrect",
+        "LOGIN_FAILURE_USER_NOT_FOUND": "le compte n'existe pas",
+        "LOGIN_FAILURE_USER_PHONE_NOT_VALIDATED": "le numéro de téléphone n'est pas valide",
+        "VALIDATE_PHONE_FAILURE_INVALID_PHONE_CODE": "code incorrect",
+        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "numéro de téléphone inconnu",
+        "SIGNUP_FAILURE_EMAIL_EXISTS": "cet email est déjà enregistré",
+        "SIGNUP_FAILURE_PHONE_EXISTS": "ce téléphone est déjà enregistré",
+        "USER_UNAUTHENTICATED": "veuillez vous authentifier",
+        "USER_UNAUTHORIZED": "utilisateur non authorisé"
+      },
+      "other": "erreur, veuillez contacter l'administrateur"
+    },
+    "other": "erreur, veuillez contacter l'administrateur"
+  },
+  "country-picker": {
+    "placeholder": "Sélectionner un pays"
+  },
+  "email-input": {
+    "label": "email",
+    "placeholder": "votre@email.com"
+  },
+  "password-input": {
+    "placeholder": "******",
+    "label": "password"
+  },
+  "submit-button": "valider",
+  "login": {
+    "forgotten-password": "Mot de passe oublié ?",
+    "submit-button": "valider",
+    "validate": "valider"
+  },
+  "reset-password": {
+    "success": "Si cet email existe, un message vous a été envoyé",
+    "submit-button": "réinitialiser"
+  },
+  "signup-email": {
+    "text":"Vérifions ensemble si votre adresse mail est rattachée à un compte existant."
+  },
+  "signup-identity": {
+    "gender": {
+      "label": "genre",
+      "man": "Homme",
+      "woman": "Femme",
+      "neutral": "Neutre"
+    },
+    "first-name": {
+      "label": "prénom",
+      "placeholder": "prénom"
+    },
+    "last-name": {
+      "label": "nom",
+      "placeholder": "nom"
+    }
+  },
+  "signup-phone": {
+    "country-code": {
+      "required": "indicatif pays requis"
+    },
+    "phone": {
+      "label": "numéro de téléphone",
+      "placeholder": "numéro de téléphone"
+    }
+  },
+  "signup-validate-phone": {
+    "submit-button": "valider"
+  },
+  "signup-birth": {
+    "birthday": {
+      "label": "Date de naissance",
+      "placeholder": "DD/MM/YYYY"
+    },
+    "birth-country": {
+      "label": "pays de naissance",
+      "placeholder": "Pays de naissance"
+    },
+    "nationality": {
+      "label": "Nationalité",
+      "placeholder": "Nationalité"
+    }
+  },
+  "signup-address": {
+    "street": {
+      "label": "adresse",
+      "placeholder": "Nom de la rue"
+    },
+    "city": {
+      "label": "ville",
+      "placeholder": "Ville"
+    },
+    "zip": {
+      "label": "code postal",
+      "placeholder": "Code postal"
+    },
+    "country": {
+      "label": "Pays",
+      "placeholder": "Pays"
+    },
+    "usperson": {
+      "label": "je suis une « person US »",
+      "subtitle": "(Résident américain)",
+      "yes": "Oui",
+      "no": "Non"
+    }
+  },
+  "email-sent": {
+    "title": "Email envoyé",
+    "text": "Nous vous avons envoyé un email de confirmation à l’adresse indiquée. \nVeuillez cliquer sur le lien pour vous connecter."
+  },
+  "modal-error": {
+    "code": "Code erreur ",
+    "details": "Message ",
+    "stack": "Détails "
+  },
+  "screens": {
+    "legal": "Mentions légales",
+    "cgu": "CGU",
+    "cgu-kyc-provider": "CGU KycProvider",
+    "modal-error": "Erreur",
+    "login": {
+      "title": "Connexion"
+    },
+    "reset-password": {
+      "title": "Mot de passe oublié"
+    },
+    "signup-email": {
+      "title": "Inscription",
+      "checkbox": "En cochant la case ci-contre je reconnais avoir pris connaissance des CGU, des mentions légales ainsi que l’usage des données personnelles du Bank App"
+    },
+    "signup-identity": {
+      "title": "Inscription"
+    },
+    "signup-validate-phone": {
+      "title": "Sécurité",
+      "instruction": "Saisissez le code vérification qui vient de vous être envoyé par SMS",
+    },
+    "signup-birth": {
+      "title": "Compléter mon profil"
+    },
+    "signup-address": {
+      "title": "Compléter mon profil"
+    },
+    "signup-congrats": {
+      "title": "Félicitations",
+      "congrats": "Félicitations ! Vous pouvez maintenant accéder à votre application Bank App.",
+      "button": "C'est parti !"
+    },
+    "signup-phone": {
+      "title": "Validation du mobile",
+      "text": "Valider votre numéro de téléphone mobile",
+    },
+    "home": {
+      "title": "Accueil",
+      "tab": "Accueil",
+      "help": "Aide",
+      "balance": {
+        "main": "Mon Bank App :",
+        "restoflash": "Mon compte restau Flash :",
+        "weflo": "Mon compte Weflo :",
+        "noaccounts": "Aucun compte"
+      },
+      "banner": {
+        "validationIdentity": "Validation identité"
+      }
+    },
+    "account": {
+      "balance": "Solde de mon compte",
+      "oups": "Créditez votre Bank App pour utiliser la monnaie climatique au quotidien !",
+      "iban": "Afficher mon IBAN CO2",
+      "transfer": "Virement"
+    },
+    "accountStatements": {
+      "title": "Export",
+      "bold": "Exporter mon relevé de compte",
+      "normal": "Télécharger mon relevé de compte en PDF",
+      "cards": {
+        "currentMonth": "Le mois en cours",
+        "threeLastMonths": "3 derniers mois",
+        "all": "Tous mes relevés",
+        "iban": "Télécharger l'IBAN"
+      }
+    },
+    "accountStatementsCurrentMonth": {
+      "title": "Le mois en cours"
+    },
+    "accountStatementsThreeLastMonths": {
+      "title": "3 derniers mois"
+    },
+    "accountStatementsAll": {
+      "title": "Tous mes relevés"
+    },
+    "exportPdfIban": {
+      "title": "Télécharger l'IBAN"
+    },
+    "transfer": {
+      "title": "Virement",
+      "tab": "Virement"
+    },
+    "carbon": {
+      "title": "Mon bilan carbone",
+      "tab": "Bilan CO2",
+      "instruction": "Appuyer sur une catégorie pour démarrer",
+      "zeroCarbon": "0 tC02",
+      "average": "Moyenne Française",
+      "ton": "tonne",
+      "tons": "tonnes",
+      "share": "Partager",
+      "reward": "Etre récompensé par la prime CO2",
+      "method": "En savoir plus sur la méthode de calcul",
+      "compute": "Calculer",
+      "consumption": "Consommation"
+    },
+    "carbonHouse": {
+      "title": "Mon logement",
+      "noCO2": "La consommation de ce type de chauffage n’émet pas de CO2 dans la méthodologie de calcul.",
+      "dropdown": {
+        "heater": "Type de chauffage",
+        "region": "Département",
+        "electric": "Electricité",
+        "coal": "Charbon",
+        "gas": "Gaz de ville",
+        "fuelOil": "Fioul domestique",
+        "urban": "Réseau de chaleur urbain",
+        "wood": "Bois",
+        "heatPump": "Pompe à chaleur",
+        "thermalSolar": "Solaire thermique",
+        "propane": "Propane",
+        "unit": " L",
+        "stateDepartment": "Département"
+      },
+      "slider": {
+        "consumption": "consommation",
+        "builtYear": "Année du logement"
+      },
+      "surface": "Surface"
+    },
+    "carbonTransport": {
+      "title": "Mon transport",
+      "noCO2": "La consommation de ce type de véhicule n’émet pas de CO2 dans la méthodologie de calcul",
+      "dropdown": {
+        "title": "Carburant",
+        "fuel": "Essence (inclus Hybride)",
+        "E85": "E85 (Superethanol)",
+        "electric": "Electrique",
+        "gasoil": "Diesel (inclus Hybride)",
+        "GNV": "GNV (Gas Naturel)",
+        "LPG": "GPL",
+        "unit": " L/100 KM"
+      },
+      "slider": {
+        "mpg": "consommation",
+        "distanceByYear": "Kilométrage annuel",
+        "unit": " km"
+      }
+    },
+    "carbonFood": {
+      "title": "Mon alimentation",
+      "slider": {
+        "alcohol": "Vin / Bière",
+        "bread": "Pain",
+        "cheese": "From. / Laitage / Oeuf",
+        "fish": "Poisson / Crustacé",
+        "harvestExotic": "Lég. / Fruit exotiques",
+        "harvestLocal": "Lég. / Fruit saison",
+        "meatRed": "Viande rouge",
+        "meatWhite": "V. blanche / Volaille",
+        "rice": "Pâtes / Riz",
+        "soft": "Jus de fruits / Soda / Eau",
+        "unit": " fois / semaine",
+        "units": " fois / semaine"
+      }
+    },
+    "warningFood": {
+      "title": "Avertissement",
+      "text": "Pour votre information l’estimation de l’empreinte carbone de l’alimentation est par construction approximative. En effet comment compter le nombre d’ananas importés par avion et d’asperges surgelées que vous avez mangé cette année ? Nous avons inclus les déchets…",
+      "next": "Suivant"
+    },
+    "carbonFly": {
+      "title": "Mon transport aérien",
+      "dropdown": {
+        "destination": "Départ de",
+        "arrival": "Arrivée à"
+      },
+      "search": "Rechercher",
+      "slider": "Nombre de trajets",
+      "swipeButton": {
+        "type": "Trajet",
+        "simple": "Aller simple",
+        "round": "Aller-retour",
+        "class": "Classe",
+        "economy": "Economique",
+        "business": "Business"
+      },
+      "secondaryButton": "Ajouter",
+      "flight": "trajet"
+    },
+    "profile": {
+      "title": "Profil",
+      "tab": "Profil"
+    }
+  }
+}
