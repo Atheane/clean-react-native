@@ -295,9 +295,9 @@
       },
       "surface": "Surface"
     },
-    "carbonTransport": {
+    "carbon-transport": {
       "title": "Mon transport",
-      "noCO2": "La consommation de ce type de véhicule n’émet pas de CO2 dans la méthodologie de calcul",
+      "no-CO2": "La consommation de ce type de véhicule n’émet pas de CO2 dans la méthodologie de calcul",
       "dropdown": {
         "title": "Carburant",
         "fuel": "Essence (inclus Hybride)",
@@ -310,11 +310,11 @@
       },
       "slider": {
         "mpg": "consommation",
-        "distanceByYear": "Kilométrage annuel",
+        "distance-by-year": "Kilométrage annuel",
         "unit": " km"
       }
     },
-    "carbonFood": {
+    "carbon-food": {
       "title": "Mon alimentation",
       "slider": {
         "alcohol": "Vin / Bière",
@@ -331,12 +331,12 @@
         "units": " fois / semaine"
       }
     },
-    "warningFood": {
+    "warning-food": {
       "title": "Avertissement",
       "text": "Pour votre information l’estimation de l’empreinte carbone de l’alimentation est par construction approximative. En effet comment compter le nombre d’ananas importés par avion et d’asperges surgelées que vous avez mangé cette année ? Nous avons inclus les déchets…",
       "next": "Suivant"
     },
-    "carbonFly": {
+    "carbon-fly": {
       "title": "Mon transport aérien",
       "dropdown": {
         "destination": "Départ de",
@@ -344,7 +344,7 @@
       },
       "search": "Rechercher",
       "slider": "Nombre de trajets",
-      "swipeButton": {
+      "swipe-button": {
         "type": "Trajet",
         "simple": "Aller simple",
         "round": "Aller-retour",
@@ -352,7 +352,7 @@
         "economy": "Economique",
         "business": "Business"
       },
-      "secondaryButton": "Ajouter",
+      "secondary-button": "Ajouter",
       "flight": "trajet"
     },
     "profile": {

@@ -102,7 +102,7 @@ export const theme = createTheme({
         kpi: {
           width: Dimensions.get('window').width * 0.46,
           height: Dimensions.get('window').width * 0.46 * KPI_CARD_RATIO,
-          margin: 16,
+          marginHorizontal: 16,
           borderRadius: 20,
           backgroundColor: Colors.bank.primary.white,
           padding: 8,

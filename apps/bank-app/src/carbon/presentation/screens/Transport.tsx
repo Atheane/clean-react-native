@@ -1,14 +1,13 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle, Dimensions } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { VehicleConsumptionT } from '@bank/carbon-weight/dist';
 
-import { useTransportFormData } from '@carbon/presentation/hooks';
-import { TransportForm } from '@carbon/presentation/components';
-import { PrimaryButton } from '@shared/presentation/components';
-import { CO2 } from '@carbon/presentation/assets';
-import { computeTransportEmissions } from '@carbon/infrastructure/redux';
+import { useTransportFormData, TransportForm, PrimaryButton, CO2, Colors } from '@clean-rn/ui-mobile';
+import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+
+// import { computeTransportEmissions } from '@carbon/infrastructure/redux';
 
 export const Transport = () => {
   const { t } = useTranslation();
@@ -17,24 +16,31 @@ export const Transport = () => {
 
   const dispatch = useDispatch();
   const handleOnPress = () => {
-    dispatch(computeTransportEmissions(formData as VehicleConsumptionT));
+    // dispatch(computeTransportEmissions(formData as VehicleConsumptionT));
   };
 
   return (
-    <View style={styles.container}>
-      <TransportForm onChangeForm={resetFormData} onChangeField={handleFormData} />
+    <ErrorBoundary t={t}>
+      <SafeScrollingView fixedHeight>
+        <View style={styles.container}>
+          <TransportForm onChangeForm={resetFormData} onChangeField={handleFormData} />
 
-      <View style={styles.buttonContainer}>
-        <PrimaryButton
-          title={t('screens.carbon.compute')}
-          pressed={false}
-          onPress={handleOnPress}
-          iconOne={CO2}
-          fixedSize
-          disabled={disabled}
-        />
-      </View>
-    </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton
+              title={t('screens.carbon.compute')}
+              onPress={handleOnPress}
+              iconOne={() => (
+                <View style={{ height: 23, justifyContent: 'center' }}>
+                  <CO2 style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+                </View>
+              )}
+              long
+              disabled={disabled}
+            />
+          </View>
+        </View>
+      </SafeScrollingView>
+    </ErrorBoundary>
   );
 };
 
@@ -46,6 +52,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   buttonContainer: {
-    marginTop: 20,
+    position: 'absolute',
+    top: Dimensions.get('window').height - 230,
   },
 });

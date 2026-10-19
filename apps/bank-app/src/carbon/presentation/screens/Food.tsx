@@ -1,48 +1,51 @@
-import { View, StyleSheet, ScrollView } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { View, StyleSheet, StyleProp, ViewStyle, Dimensions } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { FoodConsumptionT } from '@bank/carbon-weight/dist';
 
-import { useFoodFormData } from '@carbon/presentation/hooks';
-import { FoodForm } from '@carbon/presentation/components';
-import { PrimaryButton } from '@shared/presentation/components';
-import { CO2 } from '@carbon/presentation/assets';
-import { computeFoodEmissions } from '@carbon/infrastructure/redux';
-import { useSelector } from 'react-redux';
-import { RootState } from '@shared/infrastructure/redux/reducers';
+import { useFoodFormData, FoodForm, PrimaryButton, CO2, Colors } from '@clean-rn/ui-mobile';
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+
+// import { computeFoodEmissions } from '@carbon/infrastructure/redux';
 
 export const Food = () => {
   const { t } = useTranslation();
 
   // init values with previous stored values
-  const { payload } = useSelector((state: RootState) => state.carbon.food);
-
+  // const { payload } = useSelector((state: IRootState) => state.carbon.food);
+  const payload = null;
   // formData
   const { disabled, formData, handleFormData } = useFoodFormData(payload);
 
   const dispatch = useDispatch();
   const handleOnPress = () => {
-    dispatch(computeFoodEmissions(formData as FoodConsumptionT));
+    // dispatch(computeFoodEmissions(formData as FoodConsumptionT));
   };
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.container}>
-        <FoodForm initialValues={payload} onChangeForm={handleFormData} />
+    <ErrorBoundary t={t}>
+      <SafeScrollingView fixedHeight>
+        <View style={styles.container}>
+          <FoodForm initialValues={payload} onChangeForm={handleFormData} />
 
-        <View style={styles.buttonContainer}>
-          <PrimaryButton
-            title={t('screens.carbon.compute')}
-            pressed={false}
-            onPress={handleOnPress}
-            iconOne={CO2}
-            fixedSize
-            disabled={disabled}
-          />
+          <View style={styles.buttonContainer}>
+            <PrimaryButton
+              title={t('screens.carbon.compute')}
+              onPress={handleOnPress}
+              iconOne={() => (
+                <View style={{ height: 23, justifyContent: 'center' }}>
+                  <CO2 style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+                </View>
+              )}
+              long
+              disabled={disabled}
+            />
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </SafeScrollingView>
+    </ErrorBoundary>
   );
 };
 
@@ -53,6 +56,6 @@ const styles = StyleSheet.create({
     marginBottom: 60,
   },
   buttonContainer: {
-    marginTop: 40,
+    marginTop: 30,
   },
 });

@@ -64,8 +64,8 @@ export const Login = () => {
     <ErrorBoundary t={t}>
       <SafeScrollingView fixedHeight>
         <>
-          <View style={styles.image}>
-            <Image style={{ width: 146, height: 146 }} source={Welcome} />
+          <View style={styles.imageContainer}>
+            <Image style={styles.image} source={Welcome} />
           </View>
 
           <FormLogin
@@ -87,8 +87,12 @@ export const Login = () => {
 };
 
 const styles = StyleSheet.create({
-  image: {
+  imageContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  image: {
+    width: 146,
+    height: 146,
   },
 });

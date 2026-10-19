@@ -10,7 +10,7 @@ import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 import { IAuthStackPages, ICarbonStackPages, ICarbonStackProps } from '../../../shared/presentation/types';
 import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
 
-import { Carbon, House } from '../screens';
+import { Carbon, House, Transport, Food, WarningFood } from '../screens';
 
 const Stack = createNativeStackNavigator<ICarbonStackProps>();
 
@@ -44,7 +44,7 @@ export const CarbonStack = () => {
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         name={ICarbonStackPages.TRANSPORT}
         component={Transport}
         options={{
@@ -68,7 +68,7 @@ export const CarbonStack = () => {
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name={ICarbonStackPages.FLY}
         component={Fly}
         options={{

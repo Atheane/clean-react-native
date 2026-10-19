@@ -1,4 +1,4 @@
-import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle, Dimensions } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   buttonContainer: {
-    marginTop: 20,
+    position: 'absolute',
+    top: Dimensions.get('window').height - 230,
   },
 });

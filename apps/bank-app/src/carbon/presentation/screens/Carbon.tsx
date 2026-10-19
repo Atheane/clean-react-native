@@ -311,13 +311,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    marginTop: 20,
+    marginVertical: 15,
   },
   cardContainer: {
     marginTop: -20,
   },
   buttonContainer: {
-    marginTop: 40,
+    marginVertical: 40,
     alignItems: 'center',
   },
 });

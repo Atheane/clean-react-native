@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { sort } from 'fast-sort';
 import { getLocales } from 'expo-localization';
@@ -170,9 +170,9 @@ export const HouseForm = (props: IProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: Dimensions.get('window').height * 0.6,
   },
   formContainer: {
+    flex: 1,
     marginTop: 24,
   },
 });

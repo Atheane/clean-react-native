@@ -305,9 +305,9 @@
       },
       "surface": "Surface"
     },
-    "carbonTransport": {
+    "carbon-transport": {
       "title": "My transportation",
-      "noCO2": "The consumption of this type of vehicle does not emit CO2 in the calculation methodology",
+      "no-CO2": "The consumption of this type of vehicle does not emit CO2 in the calculation methodology",
       "dropdown": {
         "title": "Fuel",
         "fuel": "Gasoline (including Hybrid)",
@@ -320,11 +320,11 @@
       },
       "slider": {
         "mpg": "consumption",
-        "distanceByYear": "Annual mileage",
+        "distance-by-year": "Annual mileage",
         "unit": " km"
       }
     },
-    "carbonFood": {
+    "carbon-food": {
       "title": "My diet",
       "slider": {
         "alcohol": "Wine / Beer",
@@ -341,12 +341,12 @@
         "units": " times / week"
       }
     },
-    "warningFood": {
+    "warning-food": {
       "title": "Warning",
       "text": "For your information, the estimation of the carbon footprint of the diet is inherently approximate. Indeed, how do you count the number of pineapples imported by plane and frozen asparagus you ate this year? We included waste...",
       "next": "Next"
     },
-    "carbonFly": {
+    "carbon-fly": {
       "title": "My air transportation",
       "dropdown": {
         "destination": "Departure from",
@@ -354,7 +354,7 @@
       },
       "slider": "Number of trips",
       "search": "Search",
-      "swipeButton": {
+      "swipe-button": {
         "type": "Journey",
         "simple": "One way",
         "round": "Round trip",

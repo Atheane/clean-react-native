@@ -1,39 +1,38 @@
 import { useCallback } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 
-import { CustomImage, PrimaryButton } from '@shared/presentation/components';
-import { RightChevron } from '@shared/presentation/assets';
+import { PrimaryButton, RightChevron, Colors, FontNames } from '@clean-rn/ui-mobile';
+import { ICarbonStackPages } from '../../../shared/presentation/types';
+import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
-import { Warning } from '@carbon/presentation/assets';
-import { navigateTo } from '@shared/infrastructure/redux/actions';
-import { CARBON_STACK_PAGES } from '@carbon/presentation/types';
-import { Colors, FontNames } from '@shared/presentation/constants';
+import { WarningFoodCO2 } from '../assets/images';
 
 export const WarningFood = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const handleOnPress = useCallback(() => {
-    dispatch(navigateTo({ route: CARBON_STACK_PAGES.FOOD }));
-  }, []);
+    navigation.navigate(ICarbonStackPages.FOOD as never);
+  }, [navigation]);
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <CustomImage source={Warning} width={200} height={200} />
-        <Text style={styles.title}>{t('screens.warningFood.title')}</Text>
-        <Text style={styles.text}>{t('screens.warningFood.text')}</Text>
-        <PrimaryButton
-          fixedSize
-          pressed={false}
-          title={t('screens.warningFood.next')}
-          iconTwo={RightChevron}
-          onPress={handleOnPress}
-        />
-      </View>
-    </ScrollView>
+    <ErrorBoundary t={t}>
+      <SafeScrollingView fixedHeight>
+        <View style={styles.container}>
+          <Image source={WarningFoodCO2} style={{ width: 200, height: 200 }} />
+          <Text style={styles.title}>{t('screens.warning-food.title')}</Text>
+          <Text style={styles.text}>{t('screens.warning-food.text')}</Text>
+          <PrimaryButton
+            long
+            title={t('screens.warning-food.next')}
+            iconTwo={RightChevron}
+            onPress={handleOnPress}
+          />
+        </View>
+      </SafeScrollingView>
+    </ErrorBoundary>
   );
 };
 
@@ -47,13 +46,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: FontNames.Roboto_700Bold,
     fontSize: 26,
-    color: Colors.text.darkBlue,
+    color: Colors.bank.primary.darkBlue,
   },
   text: {
     textAlign: 'justify',
     fontFamily: FontNames.MartelSans_400Regular,
     fontSize: 16,
-    color: Colors.text.darkGrey,
+    color: Colors.bank.primary.darkGrey,
     width: '80%',
     paddingTop: 20,
     paddingBottom: 30,
