@@ -61,7 +61,7 @@ export function* listTransactionsGenerator(
 }
 
 export function* downloadStatementsSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(ITransactionsTypes.DOWNLOAD_STATEMENTS, listTransactionsGenerator, httpConnection);
+  yield takeEvery(ITransactionsTypes.DOWNLOAD_STATEMENTS, downloadStatementsGenerator, httpConnection);
 }
 
 export function* downloadStatementsGenerator(
@@ -77,18 +77,32 @@ export function* downloadStatementsGenerator(
   },
 ): Generator<StrictEffect, any, any> {
   try {
-    const { statements: statementsFromStore } = yield select(selectTransactions);
-    let statements;
-    if (statementsFromStore) {
-      statements = statementsFromStore;
-      yield put(statementsDownloaded({ buffer: statements[payload.period], period: payload.period }));
-    } else {
-      const api = TransactionApi.getInstance(httpConnection);
+    // const { statements: statementsFromStore } = yield select(selectTransactions);
+    // let statements;
+    // if (statementsFromStore[payload.period] && statementsFromStore[payload.period].length > 0) {
+    //   statements = statementsFromStore;
+    //   yield put(statementsDownloaded({ buffer: statements[payload.period], period: payload.period }));
+    //   yield call(navigate, {
+    //     route: IHomeStackPages.ACCOUNT_STATEMENTS_PDF,
+    //     params: { period: payload.period },
+    //   });
+    // } else {
+    const api = TransactionApi.getInstance(httpConnection);
 
-      const buffer: Buffer = yield call([api, api.getStatements], payload.account.accountId, payload.period);
-      yield put(statementsDownloaded({ buffer, period: payload.period }));
-    }
+    const buffer: ArrayBuffer = yield call(
+      [api, api.getStatements],
+      payload.account.accountId,
+      payload.period,
+    );
+    console.log('>>>>>>>>buffer', buffer);
+    yield put(statementsDownloaded({ buffer, period: payload.period }));
+    yield call(navigate, {
+      route: IHomeStackPages.ACCOUNT_STATEMENTS_PDF,
+      params: { period: payload.period },
+    });
+    // }
   } catch (error: unknown) {
+    console.log(error);
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {
       yield put(userUnauthenticated(new AuthError.UserUnauthenticated()));

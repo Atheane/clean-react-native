@@ -1,7 +1,9 @@
 import { useCallback } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useRoute } from '@react-navigation/native';
+import { IAccount, IStatementsPeriod } from '@clean-rn/account/domain';
 
 import {
   LongCard,
@@ -14,26 +16,50 @@ import {
   WebViewer,
 } from '@clean-rn/ui-mobile';
 
-import { IRoutes, IHomeStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
-export const AccountStatementsCurrentMonth = () => <WebViewer url={pdfUrls.accountStatementCurrentMonth} />;
-export const AccountStatementsLastThreeMonths = () => (
-  <WebViewer url={pdfUrls.accountStatementLastThreeMonth} />
-);
-export const AccountStatementsAll = () => <WebViewer url={pdfUrls.accountStatementAll} />;
-export const ExportPdfIban = () => <WebViewer url={pdfUrls.iban} />;
+import { downloadStatements } from '../../../account/application/commands/transactions';
+
+export const AccountStatementsPdf = () => {
+  const { t } = useTranslation();
+  const {
+    params: { period },
+  } = useRoute() as { params: { period: IStatementsPeriod } };
+
+  console.log('AccountStatementsPdf period', period);
+
+  const { statements, pending } = useSelector((state: IRootState) => state.account.transactions);
+
+  console.log('AccountStatementsPdf statements', statements);
+
+  return (
+    <ErrorBoundary t={t}>
+      {pending ? <Text>Loading...</Text> : <WebViewer uri={statements[period] as unknown as string} />}
+    </ErrorBoundary>
+  );
+};
+
+// export const ExportPdfIban = () => <WebViewer uri={pdfUrls.iban} />;
 
 export const AccountStatements = () => {
   const { t } = useTranslation();
+  const {
+    params: { account },
+  } = useRoute() as { params: { account: IAccount } };
+  const dispatch = useDispatch();
 
-  const navigation = useNavigation();
-  const handleOnPress = useCallback(
-    (route: IRoutes) => {
-      navigation.navigate(route as never);
+  const handleOnDownloadStatements = useCallback(
+    (period: IStatementsPeriod) => {
+      dispatch(downloadStatements({ account, period }));
     },
-    [navigation],
+    [dispatch, account],
   );
+
+  const handleOnDownloadRIB = useCallback(() => {
+    // todo
+    console.log('handleOnDownloadRIB');
+  }, [dispatch, account]);
 
   useHideBottomBar();
 
@@ -49,24 +75,24 @@ export const AccountStatements = () => {
           </View>
           <View style={styles.cardsContainer}>
             <LongCard
-              text={t('screens.accountStatements.cards.currentMonth')}
+              text={t('screens.account-statements.cards.last-month')}
               icon={ExportPdfGradient}
-              onPress={() => handleOnPress(IHomeStackPages.ACCOUNT_STATEMENTS_CURRENT_MONTH)}
+              onPress={() => handleOnDownloadStatements(IStatementsPeriod.LAST_MONTH)}
             />
             <LongCard
-              text={t('screens.accountStatements.cards.threeLastMonths')}
+              text={t('screens.account-statements.cards.last-trimester')}
               icon={ExportPdfGradient}
-              onPress={() => handleOnPress(IHomeStackPages.ACCOUNT_STATEMENTS_LAST_THREE_MONTHS)}
+              onPress={() => handleOnDownloadStatements(IStatementsPeriod.LAST_TRIMESTER)}
             />
             <LongCard
               text={t('screens.accountStatements.cards.all')}
               icon={ExportPdfGradient}
-              onPress={() => handleOnPress(IHomeStackPages.ACCOUNT_STATEMENTS_ALL)}
+              onPress={() => handleOnDownloadStatements(IStatementsPeriod.ALL)}
             />
             <LongCard
               text={t('screens.accountStatements.cards.iban')}
               icon={Ibanv2}
-              onPress={() => handleOnPress(IHomeStackPages.EXPORT_PDF_IBAN)}
+              onPress={handleOnDownloadRIB}
             />
           </View>
         </View>

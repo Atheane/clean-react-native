@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { useNavigationState } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -15,7 +15,6 @@ import {
   SignupBirth,
   SignupAddress,
   SignupCongrats,
-  ScreenModalError,
   EmailSent,
   SignupPhone,
 } from '../screens';
@@ -29,6 +28,7 @@ import {
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
+import { ScreenModalError } from '../../../shared/presentation/screens';
 
 import { pdfUrls } from '../constants';
 
@@ -38,9 +38,9 @@ export const AuthStack = () => {
   const { t } = useTranslation();
   const { initRouteName } = useSelector((state: IRootState) => state.initialization);
   const navigationStack = useNavigationState((state) => state?.routes ?? []);
-  const ScreenLegal = () => <WebViewer url={pdfUrls.legal} />;
-  const ScreenCgu = () => <WebViewer url={pdfUrls.cgu} />;
-  const ScreenCguKycProvider = () => <WebViewer url={pdfUrls.cguKycProvider} />;
+  const ScreenLegal = () => <WebViewer uri={pdfUrls.legal} />;
+  const ScreenCgu = () => <WebViewer uri={pdfUrls.cgu} />;
+  const ScreenCguKycProvider = () => <WebViewer uri={pdfUrls.cguKycProvider} />;
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -156,7 +156,6 @@ export const AuthStack = () => {
         name={IAuthStackPages.CGU_KYC_PROVIDER}
         component={ScreenCguKycProvider}
       />
-
       <Stack.Screen
         options={{
           presentation: 'modal',

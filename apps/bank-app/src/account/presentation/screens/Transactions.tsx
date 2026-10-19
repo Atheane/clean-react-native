@@ -29,8 +29,8 @@ const Top = ({ currentAccount }: { currentAccount?: IAccount }) => {
   const navigation = useNavigation();
 
   const handleOnPressPdf = useCallback(() => {
-    navigation.navigate(IHomeStackPages.ACCOUNT_STATEMENTS as never);
-  }, [navigation]);
+    navigation.navigate(IHomeStackPages.ACCOUNT_STATEMENTS, { account: currentAccount });
+  }, [navigation, currentAccount]);
 
   return (
     <View style={styles.row}>

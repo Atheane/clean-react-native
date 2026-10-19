@@ -46,14 +46,26 @@ export class TransactionApi implements ITransactionRepository {
     }));
   }
 
-  async getStatements(accountId: number, period: IStatementsPeriod): Promise<Buffer> {
+  async getStatements(accountId: number, period: IStatementsPeriod) {
     const url =
-      `${this.connection.baseUrl}/app/account/${accountId}/statements?` +
+      `${this.connection.baseUrl}/app/account/${accountId}/statement?` +
       new URLSearchParams({
         period,
       });
     const response = await fetch(url, this.connection.options(IHttpVerb.GET));
     await this.connection.handleError(response);
-    return response.json();
+    const blob = await response.blob();
+    console.log('------------------- blob', blob);
+
+    const fileName = blob._data.name;
+    console.log('------------------- fileName', fileName);
+
+    return blob;
+
+    // const buff = Buffer.from(JSON.stringify(res._bodyBlob), 'base64');
+    // const base64 = buff.toString('base64');
+
+    // const pdfData = `data:application/pdf;base64,${blob}`; //formatted for use with PdfReader library
+    // console.log('------------------- pdfData', pdfData);
   }
 }

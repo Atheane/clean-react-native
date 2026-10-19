@@ -34,7 +34,7 @@ export type IDownloadStatements = {
 export type IStatementsDownloaded = {
   type: typeof ITransactionsTypes.STATEMENTS_DOWNLOADED;
   payload: {
-    buffer: Buffer;
+    buffer: ArrayBuffer;
     period: IStatementsPeriod;
   };
 };

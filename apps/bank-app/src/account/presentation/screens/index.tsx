@@ -3,21 +3,9 @@ import { Transactions } from './Transactions';
 import { ScreenModalWebview } from './ScreenModalWebview';
 import {
   AccountStatements,
-  AccountStatementsCurrentMonth,
-  AccountStatementsLastThreeMonths,
-  AccountStatementsAll,
-  ExportPdfIban,
+  AccountStatementsPdf,
+  // ExportPdfIban,
 } from './AccountStatements';
 import { Transfer } from './Transfer';
 
-export {
-  Accounts,
-  Transactions,
-  ScreenModalWebview,
-  Transfer,
-  AccountStatements,
-  AccountStatementsCurrentMonth,
-  AccountStatementsLastThreeMonths,
-  AccountStatementsAll,
-  ExportPdfIban,
-};
+export { Accounts, Transactions, ScreenModalWebview, Transfer, AccountStatements, AccountStatementsPdf };

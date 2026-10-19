@@ -6,7 +6,6 @@ import { SignupValidatePhone } from './SignupValidatePhone';
 import { SignupBirth } from './SignupBirth';
 import { SignupAddress } from './SignupAddress';
 import { SignupCongrats } from './SignupCongrats';
-import { ScreenModalError } from './ScreenModalError';
 import { EmailSent } from './EmailSent';
 import { SignupPhone } from './SignupPhone';
 
@@ -19,7 +18,6 @@ export {
   SignupBirth,
   SignupAddress,
   SignupCongrats,
-  ScreenModalError,
   EmailSent,
   SignupPhone,
 };

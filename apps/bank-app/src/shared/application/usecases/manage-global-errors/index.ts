@@ -18,5 +18,5 @@ export function* showUnknownErrorGenerator({
   payload: ServerError | Error;
 }): Generator<StrictEffect, any, any> {
   yield call(Sentry.captureException, payload);
-  yield call(navigate, { route: ISharedStackPages.MODAL_ERROR });
+  yield call(navigate, { route: ISharedStackPages.MODAL_ERROR, params: { error: payload } });
 }

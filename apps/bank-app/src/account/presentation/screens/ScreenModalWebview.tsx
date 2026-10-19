@@ -12,5 +12,5 @@ export const ScreenModalWebview = () => {
 
   const lng = locales[0]?.languageCode || 'en';
 
-  return <WebViewer url={`${Constants.expoConfig?.extra?.BASE_URL}/${lng}/${uid}`} />;
+  return <WebViewer uri={`${Constants.expoConfig?.extra?.BASE_URL}/${lng}/${uid}`} />;
 };

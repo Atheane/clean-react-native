@@ -1,25 +1,43 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useNavigationState } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 
-import { IHomeStackPages, IHomeStackProps } from '../../../shared/presentation/types';
+import {
+  IHomeStackPages,
+  IHomeStackProps,
+  ISharedStackPages,
+  ISharedStackProps,
+} from '../../../shared/presentation/types';
 import {
   Accounts,
   Transactions,
   ScreenModalWebview,
   AccountStatements,
-  AccountStatementsCurrentMonth,
-  AccountStatementsLastThreeMonths,
-  AccountStatementsAll,
-  ExportPdfIban,
+  AccountStatementsPdf,
+  // ExportPdfIban,
 } from '../screens';
+import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
+import { ScreenModalError } from '../../../shared/presentation/screens';
 
-const Stack = createNativeStackNavigator<IHomeStackProps>();
+const Stack = createNativeStackNavigator<IHomeStackProps & ISharedStackProps>();
 
 export const HomeStack = () => {
   const { t } = useTranslation();
+
+  const navigationStack = useNavigationState((state) => state?.routes ?? []);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const isModalErrorInStack = navigationStack.find((route) => route.name === ISharedStackPages.MODAL_ERROR);
+    if (!isModalErrorInStack) {
+      dispatch(initGlobalError());
+    }
+  }, [navigationStack, dispatch]);
 
   return (
     <Stack.Navigator>
@@ -42,42 +60,35 @@ export const HomeStack = () => {
         name={IHomeStackPages.ACCOUNT_STATEMENTS}
         component={AccountStatements}
         options={{
-          headerTitle: t('screens.accountStatements.title'),
+          headerTitle: t('screens.account-statements.title'),
           ...headersOptions(goBack),
         }}
       />
       <Stack.Screen
-        name={IHomeStackPages.ACCOUNT_STATEMENTS_CURRENT_MONTH}
-        component={AccountStatementsCurrentMonth}
+        name={IHomeStackPages.ACCOUNT_STATEMENTS_PDF}
+        component={AccountStatementsPdf}
         options={{
-          headerTitle: t('screens.accountStatementsCurrentMonth.title'),
+          headerTitle: t('screens.account-statements.title'),
           ...headersOptions(goBack),
         }}
       />
       <Stack.Screen
-        name={IHomeStackPages.ACCOUNT_STATEMENTS_LAST_THREE_MONTHS}
-        component={AccountStatementsLastThreeMonths}
         options={{
-          headerTitle: t('screens.accountStatementsThreeLastMonths.title'),
-          ...headersOptions(goBack),
+          presentation: 'modal',
+          headerShown: false,
+          headerBackVisible: false,
         }}
+        name={ISharedStackPages.MODAL_ERROR}
+        component={ScreenModalError}
       />
-      <Stack.Screen
-        name={IHomeStackPages.ACCOUNT_STATEMENTS_ALL}
-        component={AccountStatementsAll}
-        options={{
-          headerTitle: t('screens.accountStatementsAll.title'),
-          ...headersOptions(goBack),
-        }}
-      />
-      <Stack.Screen
+      {/* <Stack.Screen
         name={IHomeStackPages.EXPORT_PDF_IBAN}
         component={ExportPdfIban}
         options={{
           headerTitle: t('screens.exportPdfIban.title'),
           ...headersOptions(goBack),
         }}
-      />
+      /> */}
     </Stack.Navigator>
   );
 };

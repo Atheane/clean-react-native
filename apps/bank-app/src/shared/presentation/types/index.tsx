@@ -110,9 +110,7 @@ export enum IHomeStackPages {
   RESTO_FLASH = 'RestoFlash',
   WEFLO = 'Weflo',
   ACCOUNT_STATEMENTS = 'AccountStatements',
-  ACCOUNT_STATEMENTS_CURRENT_MONTH = 'AccountStatementsCurrentMonth',
-  ACCOUNT_STATEMENTS_LAST_THREE_MONTHS = 'AccountStatementsLastThreeMonths',
-  ACCOUNT_STATEMENTS_ALL = 'AccountStatementsAll',
+  ACCOUNT_STATEMENTS_PDF = 'AccountStatementsPdf',
   EXPORT_PDF_IBAN = 'ExportPdfIban',
   MODAL_WEBVIEW = 'ModalWebview',
 }
@@ -161,9 +159,7 @@ export type IHomeStackProps = {
   [IHomeStackPages.HELP]: object;
   [IHomeStackPages.TRANSACTIONS]: object;
   [IHomeStackPages.ACCOUNT_STATEMENTS]: object;
-  [IHomeStackPages.ACCOUNT_STATEMENTS_CURRENT_MONTH]: object;
-  [IHomeStackPages.ACCOUNT_STATEMENTS_LAST_THREE_MONTHS]: object;
-  [IHomeStackPages.ACCOUNT_STATEMENTS_ALL]: object;
+  [IHomeStackPages.ACCOUNT_STATEMENTS_PDF]: object;
   [IHomeStackPages.EXPORT_PDF_IBAN]: object;
   [IHomeStackPages.RESTO_FLASH]: object;
   [IHomeStackPages.WEFLO]: object;
@@ -213,9 +209,7 @@ export type IRoutes =
   | IHomeStackPages.WEFLO
   | IHomeStackPages.MODAL_WEBVIEW
   | IHomeStackPages.ACCOUNT_STATEMENTS
-  | IHomeStackPages.ACCOUNT_STATEMENTS_CURRENT_MONTH
-  | IHomeStackPages.ACCOUNT_STATEMENTS_LAST_THREE_MONTHS
-  | IHomeStackPages.ACCOUNT_STATEMENTS_ALL
+  | IHomeStackPages.ACCOUNT_STATEMENTS_PDF
   | IHomeStackPages.EXPORT_PDF_IBAN
   | ITransferStackPages.MENU
   | ITransferStackPages.TRANSFER

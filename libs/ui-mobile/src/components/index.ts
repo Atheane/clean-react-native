@@ -57,7 +57,7 @@ import { TransactionsCardsList } from './lists/transactions-cards-list';
 import { WhiteBalanceList } from './lists/white-balance-list';
 // Others
 import { WebViewer } from './others/web-viewer';
-import { PdfViewer } from './others/pdf-viewer';
+// import { PdfViewer } from './others/pdf-viewer';
 import { CopyValueClipboard } from './others/copy-value-clipboard';
 import { TransactionItem } from './others/transaction-item';
 import { GraphCO2 } from './others/graph-co2';
@@ -135,7 +135,7 @@ export {
   WhiteBalanceList,
   // Others
   WebViewer,
-  PdfViewer,
+  // PdfViewer,
   CopyValueClipboard,
   TransactionItem,
   GraphCO2,

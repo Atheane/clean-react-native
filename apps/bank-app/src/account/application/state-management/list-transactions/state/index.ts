@@ -4,6 +4,6 @@ export interface ITransactionsState {
   pending: boolean;
   transactions: ITransaction[] | null;
   statements: {
-    [key: string]: Buffer | null;
+    [key: string]: ArrayBuffer | null;
   };
 }

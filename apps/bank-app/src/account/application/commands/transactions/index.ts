@@ -25,13 +25,16 @@ export const transactionsListed = (payload: ITransaction[]): ITransactionsListed
   payload,
 });
 
-export const downloadStatements = (payload: { account: IAccount }): IDownloadStatements => ({
+export const downloadStatements = (payload: {
+  account: IAccount;
+  period: IStatementsPeriod;
+}): IDownloadStatements => ({
   type: ITransactionsTypes.DOWNLOAD_STATEMENTS,
   payload,
 });
 
 export const statementsDownloaded = (payload: {
-  buffer: Buffer;
+  buffer: ArrayBuffer;
   period: IStatementsPeriod;
 }): IStatementsDownloaded => ({
   type: ITransactionsTypes.STATEMENTS_DOWNLOADED,
