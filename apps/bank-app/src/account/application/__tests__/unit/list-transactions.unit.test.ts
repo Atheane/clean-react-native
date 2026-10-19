@@ -19,7 +19,7 @@ import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { TransactionApi } from '@clean-rn/account/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IHomeStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { userUnauthenticated } from '../../../../auth/application/commands/login';
@@ -130,7 +130,7 @@ describe('ListTransactions - usecase', () => {
       .next();
   });
 
-  it('Should call showUnknownError action if 401 from Server', () => {
+  it('Should call navigate to Login modale action if 401 from Server', () => {
     testSaga(listTransactionsGenerator, httpConnection, {
       type: ITransactionsTypes.LIST_TRANSACTIONS,
       payload: { account },
@@ -140,7 +140,7 @@ describe('ListTransactions - usecase', () => {
       .next({ transactions: null })
       .call([api, api.getTransactions], account.accountId) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
-      .put(userUnauthenticated(new AuthError.UserUnauthenticated()))
+      .call(navigate, { route: IAuthStackPages.LOGIN })
       .next()
       .cancel();
   });

@@ -4,13 +4,13 @@ import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 
 import { IAccountType, Iban, Bic } from '@clean-rn/account/domain';
-import { AuthError } from '@clean-rn/auth/domain';
+import { AuthError, IAuthErrorMessage } from '@clean-rn/auth/domain';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AccountApi } from '@clean-rn/account/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IHomeStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { userUnauthenticated } from '../../../../auth/application/commands/login';
@@ -86,14 +86,14 @@ describe('ListAccounts - usecase', () => {
       .next();
   });
 
-  it('Should call showUnknownError action if 401 from Server', () => {
+  it('Should call navigate to Login modale if 401 from Server', () => {
     testSaga(listAccountsGenerator, httpConnection)
       .next()
       .select(selectAccounts)
       .next({ accounts: null })
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
-      .put(userUnauthenticated(new AuthError.UserUnauthenticated()))
+      .call(navigate, { route: IAuthStackPages.LOGIN })
       .next()
       .cancel();
   });

@@ -3,6 +3,11 @@
     "update-application": "Mise à jour disponible",
     "identity-validation": "Validation de l'identité"
   },
+  "modal": {
+    "login": {
+      "title": "Session expirée, veuillez vous connecter"
+    }
+  },
   "errors": {
     "email": {
       "required": "email requis",

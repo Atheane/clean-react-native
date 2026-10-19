@@ -3,6 +3,11 @@
     "update-application": "New version available",
     "identity-validation": "Validate identity"
   },
+  "modal": {
+    "login": {
+      "title": "Session expired, please log in"
+    }
+  },
   "errors": {
     "email": {
       "required": "e-mail required",

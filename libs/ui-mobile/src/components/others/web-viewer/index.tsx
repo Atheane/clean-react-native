@@ -1,35 +1,43 @@
+import { useRef } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
-
 import { ServerError } from '@clean-rn/shared/infrastructure';
 
 import { Colors } from '../../../constants';
 
-// ok on IOS
-// on Android, the pdf is downloaded https://github.com/react-native-webview/react-native-webview/issues/2397
-export const WebViewer = ({
-  uri,
-  headers,
-  handleHttpError,
-}: {
+type IProps = {
   uri: string;
   headers?: { [key: string]: string };
-  handleHttpError: (error: unknown) => void;
-}) => {
+  handleError: (error: unknown) => void;
+};
+
+export const WebViewer = (props: IProps) => {
+  const webviewRef = useRef<WebView | null>(null);
+
   const handleServerError = ({ nativeEvent }: { nativeEvent: { url: string; statusCode: number } }) => {
-    const error = nativeEvent.statusCode
+    const serverError = nativeEvent.statusCode
       ? new ServerError({
           statusCode: nativeEvent.statusCode,
           message: 'server error when loading webview',
           path: nativeEvent.url,
         })
       : nativeEvent;
-    handleHttpError(error);
+    props.handleError(serverError);
+  };
+
+  const handleError = (event: any) => {
+    props.handleError(event);
   };
 
   return (
     <View style={styles.container}>
-      <WebView style={{ flex: 1 }} source={{ uri, headers }} onHttpError={handleServerError} />
+      <WebView
+        style={{ flex: 1 }}
+        ref={webviewRef}
+        source={{ uri: props.uri, headers: props.headers }}
+        onError={handleError}
+        onHttpError={handleServerError}
+      />
     </View>
   );
 };

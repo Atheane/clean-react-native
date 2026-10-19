@@ -11,7 +11,7 @@ import {
   ITransactionsTypes,
   initializeTransactionsList,
 } from '../../commands/transactions';
-import { IHomeStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { selectTransactions } from '../../state-management/selectors';
@@ -50,7 +50,7 @@ export function* listTransactionsGenerator(
   } catch (error: unknown) {
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {
-      yield put(userUnauthenticated(new AuthError.UserUnauthenticated()));
+      yield call(navigate, { route: IAuthStackPages.LOGIN });
       yield cancel();
     }
     // once app is well tested, delete this part and let onError hook manage unexpected errors

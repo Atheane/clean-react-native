@@ -19,9 +19,10 @@ import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 
 import { loginFailure, ILoginTypes, initializeLogin, loginSuccess } from '../../commands/login';
 import { initializeSignupStep } from '../../commands/signup';
+import { resetError } from '../../commands/login';
 
 import { IStoreKey } from '../../../../shared/application/types';
-import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+import { goBack, navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
@@ -99,10 +100,11 @@ export function* loginGenerator(
   }
 }
 
-export function* refreshLoginSaga(): Generator<StrictEffect, any, any> {
-  yield takeEvery(ILoginTypes.USER_UNAUTHENTICATED, refreshLoginGenerator);
+export function* closeLoginModalSaga(): Generator<StrictEffect, any, any> {
+  yield takeEvery(ILoginTypes.LOGIN_SUCCEDED, closeLoginModalGenerator);
 }
 
-export function* refreshLoginGenerator(): Generator<StrictEffect, any, any> {
-  yield call(navigate, { route: IAuthStackPages.LOGIN });
+export function* closeLoginModalGenerator(): Generator<StrictEffect, any, any> {
+  yield put(resetError());
+  yield call(goBack);
 }

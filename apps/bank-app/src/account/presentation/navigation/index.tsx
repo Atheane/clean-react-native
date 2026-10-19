@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigationState } from '@react-navigation/native';
@@ -8,6 +8,8 @@ import { headersOptions } from '../../../shared/presentation/navigation/headersO
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 
 import {
+  IAuthStackPages,
+  IAuthStackProps,
   IHomeStackPages,
   IHomeStackProps,
   ISharedStackPages,
@@ -23,8 +25,9 @@ import {
 } from '../screens';
 import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
 import { ScreenModalError } from '../../../shared/presentation/screens';
+import { Login } from '../../../auth/presentation/screens';
 
-const Stack = createNativeStackNavigator<IHomeStackProps & ISharedStackProps>();
+const Stack = createNativeStackNavigator<IHomeStackProps & ISharedStackProps & IAuthStackProps>();
 
 export const HomeStack = () => {
   const { t } = useTranslation();
@@ -88,6 +91,15 @@ export const HomeStack = () => {
         }}
         name={ISharedStackPages.MODAL_ERROR}
         component={ScreenModalError}
+      />
+      <Stack.Screen
+        options={{
+          presentation: 'modal',
+          headerTitle: t('modal.login.title'),
+          headerBackVisible: false,
+        }}
+        name={IAuthStackPages.LOGIN}
+        component={Login}
       />
     </Stack.Navigator>
   );
