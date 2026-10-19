@@ -58,7 +58,6 @@ export const Static: TransactionsCardsListStory = (args) => {
     {
       id: 187097697587,
       amount: new Amount(-32.45),
-      label: 'Carrefour Saint-Serge',
       category: new TransactionCategory(ITransactionType.CARD_TRANSACTION, 122),
       date: new Date('2023-06-13T10:02:24.139Z'),
       type: ITransactionType.CARD_TRANSACTION,
