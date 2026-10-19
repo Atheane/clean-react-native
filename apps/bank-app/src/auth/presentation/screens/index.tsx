@@ -7,6 +7,7 @@ import { SignupBirth } from './SignupBirth';
 import { SignupAddress } from './SignupAddress';
 import { SignupCongrats } from './SignupCongrats';
 import { ScreenModalError } from './ScreenModalError';
+import { EmailSent } from './EmailSent';
 
 export {
   Login,
@@ -18,4 +19,5 @@ export {
   SignupAddress,
   SignupCongrats,
   ScreenModalError,
+  EmailSent,
 };

@@ -202,6 +202,10 @@
       "congrats": "Congratulations! You can now access your CO2 Account app.",
       "button": "Let's go!"
     },
+    "email-sent": {
+      "title": "Email sent",
+      "text": "We have sent you a confirmation email to the address provided.\n\nPlease click on the link to log in."
+    },
     "home": {
       "title": "Home",
       "tab": "Home",

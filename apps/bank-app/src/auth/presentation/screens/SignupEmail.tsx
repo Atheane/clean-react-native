@@ -22,7 +22,7 @@ import { showUnknownError } from '../../../shared/application/commands/manage-gl
 import { IAuthStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
-import { fetchCheckEmailExists } from '../../application/commands/signup';
+import { fetchSearchEmail } from '../../application/commands/signup';
 
 export const SignupEmail = () => {
   /// translations
@@ -45,7 +45,7 @@ export const SignupEmail = () => {
         const payload = {
           email: new Email(formData.email),
         };
-        dispatch(fetchCheckEmailExists(payload));
+        dispatch(fetchSearchEmail(payload));
       } catch (e: unknown) {
         dispatch(showUnknownError(e as Error));
       }

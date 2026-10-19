@@ -16,7 +16,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 
-import { registerIdentity, fetchCheckPhone, registerPassword } from '../../application/commands/signup';
+import { registerIdentity, fetchSearchPhone, registerPassword } from '../../application/commands/signup';
 
 const locales = getLocales();
 
@@ -59,7 +59,7 @@ export const SignupIdentityPasswordPhone = () => {
           } as IRegisterIdentityCommand & { email: Email }),
         );
         dispatch(registerPassword({ password: formData.password }));
-        dispatch(fetchCheckPhone({ phone: new Phone(formData.phone, formData.countryCode) }));
+        dispatch(fetchSearchPhone({ phone: new Phone(formData.phone, formData.countryCode) }));
       } catch (e: unknown) {
         dispatch(showUnknownError(e as Error));
       }

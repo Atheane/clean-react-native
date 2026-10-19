@@ -27,7 +27,7 @@ export type AuthStackParamList = {
   SignupBirth: undefined;
   SignupAddress: undefined;
   SignupCongrats: undefined;
-  ChoosePassword: undefined;
+  EmailSent: undefined;
   ValidatePhone: undefined;
   Legal: undefined;
   Cgu: undefined;
@@ -49,7 +49,7 @@ export enum IAuthStackPages {
   SIGNUP_BIRTH = 'SignupBirth',
   SIGNUP_ADDRESS = 'SignupAddress',
   SIGNUP_CONGRATS = 'SignupCongrats',
-  CHOOSE_PASSWORD = 'ChoosePassword',
+  EMAIL_SENT = 'EmailSent',
   VALIDATE_PHONE = 'ValidatePhone',
   LEGAL = 'Legal',
   CGU = 'Cgu',
@@ -70,7 +70,7 @@ export type IAuthStackProps = {
   [IAuthStackPages.SIGNUP_BIRTH]: object;
   [IAuthStackPages.SIGNUP_ADDRESS]: object;
   [IAuthStackPages.SIGNUP_CONGRATS]: object;
-  [IAuthStackPages.CHOOSE_PASSWORD]: object;
+  [IAuthStackPages.EMAIL_SENT]: object;
   [IAuthStackPages.VALIDATE_PHONE]: object;
   [IAuthStackPages.LEGAL]: object;
   [IAuthStackPages.CGU]: object;
@@ -91,7 +91,7 @@ export type IRoutes =
   | IAuthStackPages.SIGNUP_BIRTH
   | IAuthStackPages.SIGNUP_ADDRESS
   | IAuthStackPages.SIGNUP_CONGRATS
-  | IAuthStackPages.CHOOSE_PASSWORD
+  | IAuthStackPages.EMAIL_SENT
   | IAuthStackPages.VALIDATE_PHONE
   | IAuthStackPages.LEGAL
   | IAuthStackPages.CGU

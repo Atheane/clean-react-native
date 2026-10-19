@@ -154,6 +154,10 @@
       "no": "Non"
     }
   },
+  "email-sent": {
+    "title": "Email envoyé",
+    "text": "Nous vous avons envoyé un email de confirmation à l’adresse indiquée. \nVeuillez cliquer sur le lien pour vous connecter."
+  },
   "modal-error": {
     "code": "Code erreur ",
     "details": "Message ",

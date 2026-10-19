@@ -16,6 +16,7 @@ import {
   SignupAddress,
   SignupCongrats,
   ScreenModalError,
+  EmailSent,
 } from '../screens';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { IAuthStackPages, IAuthStackProps } from '../../../shared/presentation/types';
@@ -108,6 +109,14 @@ export const AuthStack = () => {
         }}
         name={IAuthStackPages.SIGNUP_CONGRATS}
         component={SignupCongrats}
+      />
+      <Stack.Screen
+        options={{
+          headerTitle: t(`screens.email-sent.title`),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+        name={IAuthStackPages.EMAIL_SENT}
+        component={EmailSent}
       />
       <Stack.Screen
         options={{

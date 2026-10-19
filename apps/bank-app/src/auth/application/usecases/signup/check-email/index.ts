@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
+import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
 import { ISearchEmailQuery, AuthError } from '@clean-rn/auth/domain';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -42,7 +42,7 @@ export function* checkEmailGenerator(
         yield put(signupFailed(new AuthError.SignupFailureEmailExists()));
         yield call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, payload.email.value);
         yield put(loadStorage());
-        yield call(navigate, { route: IAuthStackPages.CHOOSE_PASSWORD });
+        yield call(navigate, { route: IAuthStackPages.EMAIL_SENT });
         break;
       default:
         // domain event

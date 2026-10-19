@@ -7,7 +7,7 @@ import { showUnknownErrorSaga } from './manage-global-errors';
 import {
   loginSaga,
   resetPasswordSaga,
-  checkEmailExistsSaga,
+  checkEmailSaga,
   registerIdentitySaga,
   registerPasswordSaga,
   checkPhoneSaga,
@@ -36,7 +36,7 @@ export function* rootSaga(httpConnection: HttpConnection) {
     showUnknownErrorSaga(),
     loginSaga(httpConnection),
     resetPasswordSaga(httpConnection),
-    checkEmailExistsSaga(httpConnection),
+    checkEmailSaga(httpConnection),
     registerIdentitySaga(),
     registerPasswordSaga(),
     checkPhoneSaga(httpConnection),
