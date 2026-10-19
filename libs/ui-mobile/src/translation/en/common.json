@@ -353,7 +353,9 @@
     },
     "warning-food": {
       "title": "Warning",
-      "text": "For your information, the estimation of the carbon footprint of the diet is inherently approximate. Indeed, how do you count the number of pineapples imported by plane and frozen asparagus you ate this year? We included waste...",
+      "text": "Your food carbon footprint is by design a best estimate. Indeed how can you EXACTLY count the number of pineapples imported by plane, all the kilos of frozen asparagus, etc. that you have eaten this year? This approximation still allows you to get an order of magnitude and act.\n\nMore information:\n",
+      "link-wrong-footprint": "• Are all carbon footprints wrong?",
+      "link-how-to": "• How to perform carbon footprint?",
       "next": "Next"
     },
     "carbon-fly": {
