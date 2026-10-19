@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { View, StyleSheet, Image, Text, Dimensions, ScrollView } from 'react-native';
+import { View, StyleSheet, Image, Text, Dimensions, ScrollView, SafeAreaView } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -17,7 +17,6 @@ import {
   WhiteBalance,
   Colors,
   FontNames,
-  ViewBackground,
 } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IHomeStackPages } from '../../../shared/presentation/types';
@@ -83,7 +82,7 @@ export const Transactions = () => {
       {!hasTransactions && (
         <>
           <SafeScrollingView>
-            <View style={styles.content}>
+            <View style={styles.noContent}>
               <ContentNoTransactions currentAccount={account} />
             </View>
           </SafeScrollingView>
@@ -93,7 +92,7 @@ export const Transactions = () => {
           </View>
         </>
       )}
-      {hasTransactions && (
+      {/* {hasTransactions && (
         <ViewBackground background={TopBackground}>
           <View style={styles.top}>
             <Top currentAccount={account} />
@@ -102,6 +101,19 @@ export const Transactions = () => {
             <TransactionsCardsList data={transactions} />
           </View>
         </ViewBackground>
+      )} */}
+      {hasTransactions && (
+        <>
+          <SafeAreaView style={styles.container}>
+            <View style={styles.content}>
+              <TransactionsCardsList data={transactions} />
+            </View>
+          </SafeAreaView>
+          <TopBackground />
+          <View style={styles.top}>
+            <Top currentAccount={account} />
+          </View>
+        </>
       )}
     </ErrorBoundary>
   );
@@ -113,6 +125,10 @@ const OUPS_SIZE = {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.bank.primary.white,
+  },
   top: {
     position: 'absolute',
     top: 0,
@@ -149,8 +165,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 29,
   },
-  content: {
+  noContent: {
     marginTop: 100,
+  },
+  content: {
+    marginTop: 60,
   },
   scrollNoTransactions: {
     alignItems: 'center',

@@ -5,7 +5,7 @@ export interface ITransaction {
   id: number;
   amount: Amount;
   label: string;
-  category: TransactionCategory; //todo
+  category: TransactionCategory;
   date: Date;
   type: ITransactionType;
 }
