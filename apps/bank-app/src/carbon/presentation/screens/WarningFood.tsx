@@ -47,8 +47,9 @@ export const WarningFood = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 24,
+    marginTop: -40,
   },
   iconContainer: { position: 'relative', left: 90, top: 2 },
   title: {
@@ -67,6 +68,6 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
   },
   buttonContainer: {
-    marginTop: 36,
+    marginTop: 0,
   },
 });

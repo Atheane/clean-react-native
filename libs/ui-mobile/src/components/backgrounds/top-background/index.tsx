@@ -13,7 +13,7 @@ export const TopBackground = () => {
 const styles = StyleSheet.create({
   top: {
     position: 'absolute',
-    top: -500,
+    top: -470,
     left: 0,
   },
 });

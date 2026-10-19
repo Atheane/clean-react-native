@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   },
   top: {
     position: 'absolute',
-    top: 0,
+    top: 20,
     left: -30,
   },
   row: {

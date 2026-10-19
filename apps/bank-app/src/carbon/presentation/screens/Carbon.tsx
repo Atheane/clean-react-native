@@ -202,7 +202,7 @@ export const Carbon = () => {
     return foodEmissions !== undefined && averageFoodEmissions !== undefined ? (
       <TouchCardKpi
         icon={Food}
-        onPress={() => handlePressNavigation(ICarbonStackPages.WARNING_FOOD)} //todo replace with FOOD
+        onPress={() => handlePressNavigation(ICarbonStackPages.FOOD)} //todo replace with FOOD
         data={{
           pct: toPct(foodEmissions),
           co2: toCO2(foodEmissions),

@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
   textContainer: {
     marginTop: 24,
     width: '80%',
+    alignItems: 'center',
   },
   text: {
     width: 290,

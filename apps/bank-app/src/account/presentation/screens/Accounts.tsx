@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 
-import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-
 import {
   TopRightFlowersBg,
   CardScroller,
@@ -18,6 +16,7 @@ import { IAccount } from '@clean-rn/account/domain';
 
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { ISharedStackPages } from '../../../shared/presentation/types';
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 import { listAccounts } from '../../application/commands/account';
 import { listTransactions } from '../../application/commands/transactions';

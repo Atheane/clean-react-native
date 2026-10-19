@@ -86,7 +86,6 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   formSubmit: {
-    position: 'absolute',
-    bottom: 80,
+    marginTop: 120,
   },
 });

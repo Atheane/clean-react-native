@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
   },
   subContainer: {
     flex: 1,
-    marginTop: '10%',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -106,7 +105,6 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
   },
 });

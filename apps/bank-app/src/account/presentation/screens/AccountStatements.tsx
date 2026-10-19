@@ -17,6 +17,8 @@ import {
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IHomeStackPages } from '../../../shared/presentation/types';
 
+const HEIGHT = Dimensions.get('window').height;
+
 export const AccountStatements = () => {
   const { t } = useTranslation();
   const {
@@ -37,7 +39,7 @@ export const AccountStatements = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={styles.container}>
+        <View style={[styles.container, { height: HEIGHT }]}>
           <View style={styles.textContainer}>
             <Text style={{ ...styles.text, ...styles.boldText }}>{t('screens.account-statements.bold')}</Text>
             <Text style={{ ...styles.text, ...styles.normalText }}>
@@ -93,9 +95,8 @@ export const AccountStatements = () => {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'relative',
-    top: 30,
-    height: Dimensions.get('window').height,
+    flex: 1,
+    marginVertical: '10%',
   },
   textContainer: {
     alignItems: 'flex-start',
@@ -103,7 +104,8 @@ const styles = StyleSheet.create({
   },
   cardsContainer: {
     alignItems: 'center',
-    margin: 16,
+    justifyContent: 'center',
+    margin: '10%',
   },
   iconContainer: {
     marginTop: 6,
