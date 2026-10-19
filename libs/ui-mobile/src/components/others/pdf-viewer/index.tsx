@@ -1,37 +1,43 @@
+import { useCallback, useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import Pdf from 'react-native-pdf';
-// import { ServerError } from '@clean-rn/shared/infrastructure';
+import { LinearProgress } from '@rneui/themed';
+
+import { Colors } from '../../../constants';
 
 type IProps = {
   uri: string;
-  // handleError: (error: unknown) => void;
+  handleError: (error: unknown) => void;
 };
 
-const PdfResource = { uri: 'https://example.com/assets/docs/cgu.pdf', cache: true };
-
 export const PdfViewer = (props: IProps) => {
-  // const handleError = (event: any) => {
-  //   props.handleError(event);
-  // };
+  const handleError = useCallback(
+    (error: Error) => {
+      if (error?.message.includes('canceled')) {
+        return null;
+      }
+      props.handleError(error);
+    },
+    [props],
+  );
+
+  const [progress, setProgress] = useState<number>();
+
+  const handleProgress = useCallback((progress: number) => {
+    setProgress(progress);
+  }, []);
 
   return (
     <View style={styles.container}>
       <Pdf
         trustAllCerts={false}
         source={{ uri: props.uri, cache: true }}
-        onLoadComplete={(numberOfPages, filePath) => {
-          console.log(`Number of pages: ${numberOfPages}`);
-        }}
-        onPageChanged={(page, numberOfPages) => {
-          console.log(`Current page: ${page}`);
-        }}
-        onError={(error) => {
-          console.log(error);
-        }}
-        onPressLink={(uri) => {
-          console.log(`Link pressed: ${uri}`);
-        }}
+        onError={handleError}
         style={styles.pdf}
+        onLoadProgress={handleProgress}
+        renderActivityIndicator={() => (
+          <LinearProgress value={progress} color={Colors.bank.primary.darkGreen} style={styles.progress} />
+        )}
       />
     </View>
   );
@@ -42,11 +48,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginTop: 25,
   },
   pdf: {
     flex: 1,
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
+  },
+  progress: {
+    width: '100%',
+    height: 8,
+    position: 'absolute',
+    top: 0,
   },
 });

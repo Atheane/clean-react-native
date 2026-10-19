@@ -4,8 +4,14 @@ import { PdfViewer } from '@clean-rn/ui-mobile';
 const PdfViewerMeta: ComponentMeta<typeof PdfViewer> = {
   title: 'Others/PdfViewer',
   component: PdfViewer,
+  argTypes: {
+    handleError: {
+      action: 'handleError',
+    },
+  },
   args: {
-    uri: 'https://www.africau.edu/images/default/sample.pdf',
+    // uri: 'https://www.africau.edu/images/default/sample.pdf',
+    uri: 'https://example.com/assets/docs/cgu.pdf',
   },
 };
 
