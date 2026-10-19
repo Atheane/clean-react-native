@@ -7,12 +7,15 @@ import { Colors } from '@clean-rn/ui-mobile';
 type IProps = {
   fixedHeight?: boolean;
   children: React.ReactElement;
+  ref?: React.RefObject<KeyboardAwareScrollView>;
 };
 
-export const SafeScrollingView = ({ children, fixedHeight }: IProps) => {
+export const SafeScrollingView = ({ children, fixedHeight, ref }: IProps) => {
   return (
     <SafeAreaView style={[styles.container, fixedHeight ? { height: Dimensions.get('window').height } : {}]}>
-      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>{children}</KeyboardAwareScrollView>
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false} ref={ref}>
+        {children}
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 };

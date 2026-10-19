@@ -362,7 +362,7 @@
         "economy": "Economy",
         "business": "Business"
       },
-      "secondaryButton": "Add",
+      "secondary-button": "Add",
       "flight": "trip"
     },
     "profile": {

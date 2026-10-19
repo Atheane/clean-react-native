@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { ScrollView, Dimensions, StyleSheet, View, ImageSourcePropType } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
@@ -31,6 +31,7 @@ type IProps = {
   data: IPropsEventCard<ICardType>[];
   height?: number;
   cardType: ICardType;
+  cardScrollRef?: React.RefObject<ScrollView>;
   onPress?: (uid: string) => void;
 };
 
@@ -42,6 +43,10 @@ export const CardScroller = (props: IProps & IState) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
   const [data, setData] = useState<IPropsEventCard<ICardType>[]>(props.data);
+
+  useEffect(() => {
+    setData(props.data);
+  }, [props.data]);
 
   const handleOnScroll = useCallback(
     (event: any) => {
@@ -85,6 +90,7 @@ export const CardScroller = (props: IProps & IState) => {
         onScroll={handleOnScroll}
         scrollEventThrottle={1}
         showsHorizontalScrollIndicator={false}
+        ref={props.cardScrollRef}
       >
         <View style={theme.bank.container.centeredItems}>
           {props.cardType === ICardType.TOUCH_EVENT_CARD &&

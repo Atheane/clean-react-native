@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle, SafeAreaView } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -31,8 +31,8 @@ export const Fly = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView>
-        <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
+        <KeyboardAwareScrollView showsVerticalScrollIndicator={false} ref={scrollViewRef}>
           <FlyForm
             airports={formattedAirports}
             flight={flight}
@@ -55,18 +55,20 @@ export const Fly = () => {
               long
             />
           </View>
-        </View>
-      </SafeScrollingView>
+        </KeyboardAwareScrollView>
+      </SafeAreaView>
     </ErrorBoundary>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: Colors.bank.primary.white,
     alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1,
   },
   buttonContainer: {
     marginVertical: 20,
+    alignItems: 'center',
   },
 });

@@ -12,6 +12,7 @@ import BilanCop21FR from './bilan-cop21-fr.png';
 import BilanCop21EN from './bilan-cop21-en.png';
 import BilanFranceFR from './bilan-france-fr.png';
 import BilanFranceEN from './bilan-france-en.png';
+import LoanHeater from './loan-heater.png';
 export {
   HeaderBad,
   HeaderChampion,
@@ -25,4 +26,5 @@ export {
   BilanCop21EN,
   BilanFranceFR,
   BilanFranceEN,
+  LoanHeater,
 };
