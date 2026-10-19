@@ -7,6 +7,7 @@ import { Colors } from '../../../constants';
 
 type IProps = {
   uri: string;
+  getPdf?: (pdfPath: string) => void;
   handleError: (error: unknown) => void;
   headers?: { [key: string]: string };
 };
@@ -28,6 +29,10 @@ export const PdfViewer = (props: IProps) => {
     setProgress(progress);
   }, []);
 
+  const handleGetPdf = useCallback((pdfPath: string) => {
+    if (props.getPdf) props.getPdf(pdfPath);
+  }, []);
+
   return (
     <View style={styles.container}>
       <Pdf
@@ -36,6 +41,9 @@ export const PdfViewer = (props: IProps) => {
         onError={handleError}
         style={styles.pdf}
         onLoadProgress={handleProgress}
+        onLoadComplete={(_, pdfPath) => {
+          handleGetPdf(pdfPath);
+        }}
         renderActivityIndicator={() => (
           <LinearProgress value={progress} color={Colors.bank.primary.darkGreen} style={styles.progress} />
         )}

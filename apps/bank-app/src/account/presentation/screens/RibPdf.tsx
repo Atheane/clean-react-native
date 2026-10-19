@@ -42,7 +42,7 @@ export const RibPdf = () => {
   ) : (
     <ErrorBoundary t={t}>
       <PdfDownloader
-        uri={`${Constants.expoConfig?.extra?.BASE_URL_API}/app/account/${account.accountId}/statement?period=${period}`}
+        uri={`${Constants.expoConfig?.extra?.BASE_URL_API}/app/account/${account.accountId}/rib`}
         headers={{
           Authorization: `Bearer ${accessToken}`,
         }}

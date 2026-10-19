@@ -25,6 +25,7 @@ export const PdfDownloader = (props: IProps) => {
     },
     [props],
   );
+
   const downloadPDF = () => {
     const dirs = ReactNativeBlobUtil.fs.dirs;
     ReactNativeBlobUtil.config({
@@ -48,6 +49,7 @@ export const PdfDownloader = (props: IProps) => {
           const options = {
             type: 'application/pdf',
             url: filePath,
+            title: props.fileName,
             saveToFiles: true,
           };
           Share.open(options).catch(handleError);
@@ -55,6 +57,7 @@ export const PdfDownloader = (props: IProps) => {
       })
       .catch(props.handleError);
   };
+
   return (
     <View style={styles.container}>
       <LinkButton onPress={downloadPDF} pressed={false} iconOne={props.icon} />
