@@ -21,8 +21,10 @@ exports[`LongCard -  minimal props -  renders as before 1`] = `
         "shadowRadius": 6.27,
       },
       {
+        "backgroundColor": "#FFFFFF",
         "borderRadius": 20,
-        "borderWidth": 0,
+        "marginHorizontal": 16,
+        "marginVertical": 8,
         "minHeight": 161.16573033707866,
         "width": 675,
       },
