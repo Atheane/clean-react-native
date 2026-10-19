@@ -40,6 +40,12 @@ export function* loginGenerator(
   },
 ): Generator<StrictEffect, any, any> {
   try {
+    const email = yield call(AsyncStorage.getItem, IStoreKey.USER_EMAIL);
+    if (!email) {
+      // persist user email if absent from storage (first login after signup)
+      yield call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, payload.email.value);
+    }
+
     // api call
     const api = AuthApi.getInstance(httpConnection);
     const auth = yield call([api, api.login], payload);
@@ -47,7 +53,6 @@ export function* loginGenerator(
     yield call(httpConnection.attachBearerToken, auth.accessToken);
 
     // store token and email in async storage
-    yield call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, payload.email.value);
     yield call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, auth.accessToken);
 
     const userProps = yield call([api, api.getUser]);

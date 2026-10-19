@@ -141,6 +141,8 @@ describe('Login - usecase', () => {
       payload: mockData,
     })
       .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next('test@example.com')
       .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
       .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
@@ -183,6 +185,8 @@ describe('Login - usecase', () => {
       payload: mockData,
     })
       .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next('test@example.com')
       .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
       .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
@@ -225,6 +229,8 @@ describe('Login - usecase', () => {
       payload: mockData,
     })
       .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next('test@example.com')
       .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
       .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
@@ -243,6 +249,8 @@ describe('Login - usecase', () => {
       payload: mockData,
     })
       .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next('test@example.com')
       .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401InvalidCredentials))
       .put(
@@ -259,6 +267,8 @@ describe('Login - usecase', () => {
       payload: mockData,
     })
       .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next('test@example.com')
       .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401UserNotFound))
       .put(loginFailure(new AuthError.LoginFailureUserNotFound(new ServerError(mockError401UserNotFound))))
@@ -271,6 +281,8 @@ describe('Login - usecase', () => {
       payload: mockData,
     })
       .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next('test@example.com')
       .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401UserPhoneNotValidated))
       .put(initializeSignupStep())
@@ -291,6 +303,8 @@ describe('Login - usecase', () => {
       payload: mockData,
     })
       .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next('test@example.com')
       .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
       .put(initializeLogin())
@@ -304,6 +318,10 @@ describe('Login - usecase', () => {
       type: ILoginTypes.FETCH_LOGIN,
       payload: mockData,
     })
+      .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next(null)
+      .call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, 'test@example.com')
       .next()
       .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unknown error'))
