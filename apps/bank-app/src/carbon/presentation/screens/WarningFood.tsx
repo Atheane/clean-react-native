@@ -23,7 +23,7 @@ export const WarningFood = () => {
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={[styles.container, { height: HEIGHT }]}>
-          <Image source={WarningFoodCO2} style={{ width: 200, height: 200 }} />
+          <Image source={WarningFoodCO2} style={{ width: 250, height: 250 }} />
           <Text style={styles.title}>{t('screens.warning-food.title')}</Text>
           <Text style={styles.text}>{t('screens.warning-food.text')}</Text>
           <View style={styles.buttonContainer}>

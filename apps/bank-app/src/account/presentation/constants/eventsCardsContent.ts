@@ -15,7 +15,7 @@ export const eventsCardsContent = [
     text: 'Notre Carte de paiement pour économiser du CO2',
     uid: 'card',
   },
-  { image: CardEG, text: 'Nos prêts pour décarboner l’économie', uid: 'loan' },
+  { icon: CardEG, text: 'Nos prêts pour décarboner l’économie', uid: 'loan' },
   {
     icon: CardLoanHeater,
     text: 'Notre offre de prêt pour changer de chaudière',
