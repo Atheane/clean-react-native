@@ -16,9 +16,9 @@ type IFood = {
   soft: number;
 };
 
-export const useFoodFormData = (payload: FoodConsumptionT | null) => {
+export const useFoodFormData = (initialValues: FoodConsumptionT | null) => {
   const [formData, setFormData] = useState<FoodConsumptionT>(
-    payload ?? {
+    initialValues ?? {
       alcohol: 7,
       bread: 7,
       cheese: 7,

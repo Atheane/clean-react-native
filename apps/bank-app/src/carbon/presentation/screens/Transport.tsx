@@ -1,18 +1,23 @@
 import { View, StyleSheet, StyleProp, ViewStyle, Dimensions } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { VehicleConsumptionT } from '@bank/carbon-weight/dist';
 
 import { useTransportFormData, TransportForm, PrimaryButton, CO2, Colors } from '@clean-rn/ui-mobile';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 import { computeTransportEmissions } from '../../application/commands';
 
 export const Transport = () => {
   const { t } = useTranslation();
+
+  // init values with previous stored values
+  const { data } = useSelector((state: IRootState) => state.carbon.transport);
+
   // formData
-  const { disabled, formData, resetFormData, handleFormData } = useTransportFormData();
+  const { disabled, formData, resetFormData, handleFormData } = useTransportFormData(data);
 
   const dispatch = useDispatch();
   const handleOnPress = () => {
@@ -23,7 +28,7 @@ export const Transport = () => {
     <ErrorBoundary t={t}>
       <SafeScrollingView fixedHeight>
         <View style={styles.container}>
-          <TransportForm onChangeForm={resetFormData} onChangeField={handleFormData} />
+          <TransportForm initialValues={data} onChangeForm={resetFormData} onChangeField={handleFormData} />
 
           <View style={styles.buttonContainer}>
             <PrimaryButton

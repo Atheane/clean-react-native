@@ -1,9 +1,9 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useTranslation } from 'react-i18next';
 
-import { VehicleFuelE as FuelE } from '@bank/carbon-weight/dist';
+import { VehicleFuelE as FuelE, VehicleConsumptionT } from '@bank/carbon-weight/dist';
 
 import { Gasoline } from '../../../assets';
 import { Colors } from '../../../constants';
@@ -13,6 +13,7 @@ import { Dropdown } from '../../dropdowns/dropdown';
 import { NoCO2 } from '../../texts/no-co2';
 
 type IProps = {
+  initialValues: VehicleConsumptionT | null;
   onChangeForm: (value: FuelE) => void;
   onChangeField: (key: 'mpg' | 'distanceByYear', value: number) => void;
 };
@@ -56,6 +57,14 @@ export const TransportForm = (props: IProps) => {
     [props],
   );
 
+  useEffect(() => {
+    if (props.initialValues) {
+      setFuel(props.initialValues.fuel);
+      setMpg(props.initialValues.mpg ?? 8);
+      setDistanceByYear(props.initialValues.distanceByYear ?? 20000);
+    }
+  }, [props.initialValues]);
+
   const ConditionalForm = () => {
     if (fuel !== FuelE.electric) {
       return (
@@ -94,6 +103,7 @@ export const TransportForm = (props: IProps) => {
         icon={() => <Gasoline style={{ color: Colors.bank.primary.lightGreen }} />}
         data={dataFuel}
         onSelect={handleOnChange}
+        defaultValue={t(`screens.carbon-transport.dropdown.${fuel ?? 'title'}`)}
       />
       {fuel && <View style={styles.container}>{ConditionalForm()}</View>}
     </KeyboardAwareScrollView>

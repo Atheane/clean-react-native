@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { View, StyleSheet, StyleProp, ViewStyle, SafeAreaView } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { FlightI } from '@bank/carbon-weight/dist';
@@ -9,6 +9,7 @@ import { airports } from '@clean-rn/carbon/domain';
 import { FlyForm, CO2, PrimaryButton, useFlyFormData, Colors } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 import { computeFlyEmissions } from '../../application/commands';
 
@@ -20,7 +21,10 @@ const formattedAirports = airports.map((airport) => ({
 export const Fly = () => {
   const { t } = useTranslation();
 
-  const { flight, flights, handleChangeField, handleOnAddFlight, handleRemoveFlight } = useFlyFormData();
+  // init values with previous stored values
+  const { data } = useSelector((state: IRootState) => state.carbon.fly);
+
+  const { flight, flights, handleChangeField, handleOnAddFlight, handleRemoveFlight } = useFlyFormData(data);
 
   const dispatch = useDispatch();
   const handleOnPress = () => {
