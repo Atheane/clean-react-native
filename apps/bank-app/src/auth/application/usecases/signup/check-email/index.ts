@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
-import { loadStorage } from '../../../../../shared/application/commands/initialization';
+import { loadStorage } from '../../../../../shared/application/commands/initialize-application';
 import { IStoreKey } from '../../../../../shared/application/types';
 import { navigate } from '../../../../../shared/presentation/navigation/navigationRef';
 import { IAuthStackPages } from '../../../../../shared/presentation/types';

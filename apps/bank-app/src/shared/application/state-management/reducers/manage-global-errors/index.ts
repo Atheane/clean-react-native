@@ -1,13 +1,13 @@
 import { Logger } from '@clean-rn/logger';
 
-import { IGlobalErrorActions, IGlobalErrorTypes } from '../../../commands/global-error-management/types';
+import { IGlobalErrorActions, IGlobalErrorTypes } from '../../../commands/manage-global-errors/types';
 import { IGlobalErrorState } from '../../state/manage-global-errors';
 
 const initialState: IGlobalErrorState = {
   error: null,
 };
 
-export const errorReducer = (state = initialState, action: IGlobalErrorActions) => {
+export const globalErrorReducer = (state = initialState, action: IGlobalErrorActions) => {
   const logger = Logger.getInstance();
   let newState: IGlobalErrorState;
   switch (action.type) {

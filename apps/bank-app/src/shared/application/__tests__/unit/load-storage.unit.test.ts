@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Email } from '@clean-rn/auth/domain';
 
-import { IInitializationTypes, storageLoaded } from '../../commands/initialization';
+import { IInitializationTypes, storageLoaded } from '../../commands/initialize-application';
 import { loadStorageSaga, loadStorage } from '../../usecases/load-storage';
 import { IStoreKey } from '../../types';
 

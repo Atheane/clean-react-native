@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Email } from '@clean-rn/auth/domain';
 
-import { applicationInitialized, IInitializationTypes } from '../../commands/initialization';
+import { applicationInitialized, IInitializationTypes } from '../../commands/initialize-application';
 import { IStoreKey } from '../../../../shared/application/types';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';

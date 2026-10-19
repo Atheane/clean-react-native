@@ -2,7 +2,7 @@ import SagaTester from 'redux-saga-tester';
 import { Email } from '@clean-rn/auth/domain';
 
 import { loadStorageSaga } from '../../usecases/load-storage';
-import { IInitializationTypes, loadStorage, storageLoaded } from '../../commands/initialization';
+import { IInitializationTypes, loadStorage, storageLoaded } from '../../commands/initialize-application';
 import { IInitializationState, initializationReducer } from '../../state-management';
 
 describe('Load Storage - integration', () => {

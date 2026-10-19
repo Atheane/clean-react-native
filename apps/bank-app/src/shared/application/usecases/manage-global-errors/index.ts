@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, StrictEffect, takeEvery } from 'redux-saga/effects';
 
-import { IGlobalErrorTypes } from '../../commands/global-error-management';
+import { IGlobalErrorTypes } from '../../commands/manage-global-errors';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { ServerError } from '@clean-rn/shared/infrastructure';

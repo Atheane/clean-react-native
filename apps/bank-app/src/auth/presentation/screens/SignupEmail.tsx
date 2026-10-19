@@ -18,7 +18,7 @@ import { Email } from '@clean-rn/auth/domain';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { Welcome } from '../assets/images';
 
-import { showUnknownError } from '../../../shared/application/commands/global-error-management';
+import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 import { IAuthStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { fetchCheckEmailExists } from '../../application/commands/signup';

@@ -4,7 +4,7 @@ import { TFunction } from 'i18next';
 
 import { Logger } from '@clean-rn/logger';
 
-import { showUnknownError } from '../../application/commands/global-error-management';
+import { showUnknownError } from '../../application/commands/manage-global-errors';
 import { store } from '../../application/state-management/state/store';
 import { ModalError } from '@clean-rn/ui-mobile';
 

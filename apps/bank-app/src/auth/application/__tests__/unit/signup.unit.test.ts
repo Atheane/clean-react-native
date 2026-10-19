@@ -55,7 +55,7 @@ import {
   fetchSignupUser,
 } from '../../commands/signup';
 import { IStoreKey } from '../../../../shared/application/types';
-import { loadStorage } from '../../../../shared/application/commands/initialization';
+import { loadStorage } from '../../../../shared/application/commands/initialize-application';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 

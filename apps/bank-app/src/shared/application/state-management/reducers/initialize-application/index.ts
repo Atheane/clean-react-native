@@ -1,7 +1,7 @@
 import { Logger } from '@clean-rn/logger';
 
-import { IInitializationTypes, IInitializationActions } from '../../../commands/initialization/types';
-import { IInitializationState } from '../../state/initialization';
+import { IInitializationTypes, IInitializationActions } from '../../../commands/initialize-application/types';
+import { IInitializationState } from '../../state/initialize-application';
 
 const initialState: IInitializationState = {
   pending: null,

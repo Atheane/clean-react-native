@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Email } from '@clean-rn/auth/domain';
 
-import { IInitializationTypes, storageLoaded } from '../../commands/initialization';
+import { IInitializationTypes, storageLoaded } from '../../commands/initialize-application';
 import { IStoreKey } from '../../../../shared/application/types';
 
 export function* loadStorageSaga(): Generator<StrictEffect, any, any> {

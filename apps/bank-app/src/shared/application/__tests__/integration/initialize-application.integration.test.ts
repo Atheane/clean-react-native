@@ -6,9 +6,9 @@ import {
   IInitializationTypes,
   initializeApplication,
   applicationInitialized,
-} from '../../commands/initialization';
+} from '../../commands/initialize-application';
 import { IInitializationState, initializationReducer } from '../../state-management';
-import { IAuthStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages } from '../../../presentation/types';
 
 describe('Initialization - integration', () => {
   let sagaTester: SagaTester;

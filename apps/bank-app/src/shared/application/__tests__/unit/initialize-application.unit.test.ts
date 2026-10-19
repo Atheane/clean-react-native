@@ -4,14 +4,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Email } from '@clean-rn/auth/domain';
 
-import { IInitializationTypes, applicationInitialized } from '../../commands/initialization';
+import { IInitializationTypes, applicationInitialized } from '../../commands/initialize-application';
 import {
   initializeApplicationSaga,
   initializeApplicationGenerator,
 } from '../../usecases/initialize-application';
 import { IStoreKey } from '../../types';
-import { IAuthStackPages } from '../../../../shared/presentation/types';
-import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+import { IAuthStackPages } from '../../../presentation/types';
+import { navigate } from '../../../presentation/navigation/navigationRef';
 
 describe('Initialization - usecase', () => {
   const genObject = initializeApplicationSaga();
