@@ -15,12 +15,7 @@ export function* initializeApplicationSaga(): Generator<StrictEffect, any, any> 
   yield takeEvery(IInitializationTypes.INITIALIZE_APPLICATION, initializeApplicationGenerator);
 }
 
-export function* initializeApplicationGenerator({
-  payload,
-}: {
-  type: string;
-  payload?: boolean;
-}): Generator<StrictEffect, any, any> {
+export function* initializeApplicationGenerator(): Generator<StrictEffect, any, any> {
   // retireve data from async storage
   try {
     const emailString = yield call(AsyncStorage.getItem, IStoreKey.USER_EMAIL);

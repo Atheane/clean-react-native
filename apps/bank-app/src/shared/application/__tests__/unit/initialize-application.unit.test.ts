@@ -12,6 +12,7 @@ import {
 import { IStoreKey } from '../../types';
 import { IAuthStackPages } from '../../../presentation/types';
 import { navigate } from '../../../presentation/navigation/navigationRef';
+import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 describe('Initialization - usecase', () => {
   const genObject = initializeApplicationSaga();
@@ -24,9 +25,7 @@ describe('Initialization - usecase', () => {
   });
 
   it('Should call initializationSuccess', async () => {
-    testSaga(initializeApplicationGenerator, {
-      type: IInitializationTypes.INITIALIZE_APPLICATION,
-    })
+    testSaga(initializeApplicationGenerator)
       .next()
       .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
       .next(new Email('test@example.com').value)
@@ -38,6 +37,15 @@ describe('Initialization - usecase', () => {
       )
       .next()
       .call(navigate, { route: IAuthStackPages.LOGIN })
+      .next();
+  });
+
+  it('Should call showUnknownError action if unknown error', () => {
+    testSaga(initializeApplicationGenerator)
+      .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .throw(new Error('Unknown error'))
+      .put(showUnknownError(new Error('Unknown error')))
       .next();
   });
 });
