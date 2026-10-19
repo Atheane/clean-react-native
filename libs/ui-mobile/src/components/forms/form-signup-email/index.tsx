@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
@@ -93,6 +93,8 @@ export const FormSignupEmail = (props: IProps) => {
   );
 };
 
+const HEIGHT = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
   form: {
     flex: 1,
@@ -106,7 +108,7 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
   },
   textError: {
-    marginTop: 10,
+    marginTop: -8,
   },
   inputEmail: {
     marginVertical: 30,
@@ -116,8 +118,8 @@ const styles = StyleSheet.create({
     marginBottom: -10,
   },
   formSubmit: {
-    marginTop: 20,
-    marginBottom: 100,
+    position: 'absolute',
+    bottom: 12,
   },
   errorContainer: {
     marginTop: 24,

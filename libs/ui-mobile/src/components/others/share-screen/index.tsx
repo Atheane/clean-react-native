@@ -7,9 +7,10 @@ import { PrimaryButton } from '../../buttons/primary-button';
 
 type IProps = {
   children: React.ReactElement;
+  handleError: (error: unknown) => void;
 };
 
-export const ShareScreen = ({ children }: IProps) => {
+export const ShareScreen = ({ children, handleError }: IProps) => {
   const { t } = useTranslation();
 
   const viewShot = useRef<ViewShot | null>(null);
@@ -18,7 +19,7 @@ export const ShareScreen = ({ children }: IProps) => {
       const uri = await viewShot.current?.capture();
       Sharing.shareAsync('file://' + uri);
     } catch (error: unknown) {
-      console.error('Oops, snapshot failed', error);
+      handleError(error);
     }
   };
   return (
@@ -35,7 +36,7 @@ export const ShareScreen = ({ children }: IProps) => {
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    marginVertical: 40,
+    marginVertical: 50,
     alignItems: 'center',
   },
 });

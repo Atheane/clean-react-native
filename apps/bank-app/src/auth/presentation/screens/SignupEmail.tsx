@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
@@ -23,6 +23,8 @@ import { IAuthStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
 import { fetchSearchEmail } from '../../application/commands/signup';
+
+const HEIGHT = Dimensions.get('window').height;
 
 export const SignupEmail = () => {
   /// translations
@@ -74,7 +76,7 @@ export const SignupEmail = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <>
+        <View style={[styles.container, { height: HEIGHT < 700 ? HEIGHT * 1.1 : HEIGHT }]}>
           <View style={styles.image}>
             <Image style={{ width: 200, height: 200 }} source={Welcome} />
           </View>
@@ -110,7 +112,7 @@ export const SignupEmail = () => {
               onPress={onPressCguKycProvider}
             />
           </View>
-        </>
+        </View>
       </SafeScrollingView>
     </ErrorBoundary>
   );
@@ -135,7 +137,5 @@ const styles = StyleSheet.create({
   cgu: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 24,
-    marginBottom: 50,
   },
 });

@@ -52,12 +52,13 @@ export const Transport = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: Dimensions.get('window').height,
     alignItems: 'center',
     marginBottom: 60,
     marginTop: 50,
   },
   buttonContainer: {
-    position: 'absolute',
-    top: Dimensions.get('window').height - 230,
+    position: 'relative',
+    top: -180,
   },
 });

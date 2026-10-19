@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -48,7 +48,7 @@ export const ResetPassword = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView fixedHeight>
+      <SafeScrollingView>
         <View style={styles.form}>
           <FormResetPassword
             loading={pending}
@@ -66,6 +66,8 @@ export const ResetPassword = () => {
 
 const styles = StyleSheet.create({
   form: {
+    flex: 1,
+    height: Dimensions.get('window').height,
     marginTop: '40%',
   },
 });

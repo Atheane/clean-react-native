@@ -1,8 +1,9 @@
 import { useEffect, useState, useCallback } from 'react';
 import { StyleSheet, View, Text, ImageSourcePropType } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
+import { getLocales } from 'expo-localization';
 
 import {
   Car,
@@ -23,6 +24,7 @@ import { IBANKCategories } from '@clean-rn/carbon/domain';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IRoutes, ICarbonStackPages, ISharedStackPages } from '../../../shared/presentation/types';
+import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 
 import {
   HeaderBad,
@@ -39,7 +41,9 @@ import {
   BilanFranceEN,
 } from '../assets/images';
 
-import { URL_CO2_COMPUTATION, URL_CO2_REWARD } from '../constants';
+import { URL_CO2_COMPUTATION_FR, URL_CO2_COMPUTATION_EN, URL_CO2_REWARD } from '../constants';
+
+const locales = getLocales();
 
 export const Carbon = () => {
   const { t } = useTranslation();
@@ -118,14 +122,29 @@ export const Carbon = () => {
     setTotalEmissions(total);
   }, [houseEmissions, transportEmissions, foodEmissions, flyEmissions]);
 
+  const dispatch = useDispatch();
+  //handleErrorShare
+  const handleErrorShare = useCallback(
+    (error: unknown) => {
+      dispatch(showUnknownError(error as Error));
+    },
+    [dispatch],
+  );
+
   //handle premium
   const handleOnPressPremium = useCallback(() => {
     navigation.navigate(ISharedStackPages.MODAL_WEBVIEW, { uid: URL_CO2_REWARD });
   }, [navigation]);
   // handle learn more
+
+  const regionCode = locales[0]?.regionCode;
+  const lng = regionCode?.toLocaleLowerCase();
+
   const handleOnPressLearnMore = useCallback(() => {
-    navigation.navigate(ISharedStackPages.MODAL_WEBVIEW, { uid: URL_CO2_COMPUTATION });
-  }, [navigation]);
+    navigation.navigate(ISharedStackPages.MODAL_WEBVIEW, {
+      uid: lng === 'fr' ? URL_CO2_COMPUTATION_FR : URL_CO2_COMPUTATION_EN,
+    });
+  }, [navigation, lng]);
 
   // UI text
   const toPct = (value: number) => {
@@ -246,7 +265,7 @@ export const Carbon = () => {
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <>
-          <ShareScreen>
+          <ShareScreen handleError={handleErrorShare}>
             <View>
               <View style={styles.graphContainer}>
                 <GraphCO2

@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
@@ -63,7 +63,7 @@ export const Login = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <>
+        <View style={styles.container}>
           <View style={styles.imageContainer}>
             <Image style={styles.image} source={Welcome} />
           </View>
@@ -80,13 +80,18 @@ export const Login = () => {
             error={domainError}
             onFocus={onFocus}
           />
-        </>
+        </View>
       </SafeScrollingView>
     </ErrorBoundary>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    height: Dimensions.get('window').height,
+    marginVertical: '13%',
+  },
   imageContainer: {
     alignItems: 'center',
     justifyContent: 'center',

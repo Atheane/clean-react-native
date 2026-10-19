@@ -55,7 +55,6 @@ export const Fly = () => {
                   <CO2 style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
                 </View>
               )}
-              disabled={false}
               long
             />
           </View>
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   buttonContainer: {
-    marginVertical: 20,
+    marginVertical: 50,
     alignItems: 'center',
   },
 });

@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { View, Text, StyleSheet, Image, StyleProp, ViewStyle } from 'react-native';
+import { View, Text, StyleSheet, Image, StyleProp, ViewStyle, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 
@@ -19,7 +19,7 @@ export const WarningFood = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView fixedHeight>
+      <SafeScrollingView>
         <View style={styles.container}>
           <Image source={WarningFoodCO2} style={{ width: 200, height: 200 }} />
           <Text style={styles.title}>{t('screens.warning-food.title')}</Text>
@@ -43,6 +43,7 @@ export const WarningFood = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: Dimensions.get('window').height,
     alignItems: 'center',
     justifyContent: 'center',
   },

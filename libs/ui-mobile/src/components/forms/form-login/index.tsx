@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, GestureResponderEvent } from 'react-native';
+import { View, Text, StyleSheet, GestureResponderEvent, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
@@ -126,6 +126,7 @@ export const FormLogin = (props: IProps) => {
   );
 };
 
+const HEIGHT = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     marginTop: 8,
@@ -135,15 +136,16 @@ const styles = StyleSheet.create({
   },
   errorContainer: {
     marginTop: 24,
+    marginBottom: -30,
   },
   domainErrorContainer: {
     marginTop: 16,
   },
   linkButton: {
-    marginTop: 10,
+    marginTop: 16,
   },
   submitButtonContainer: {
-    marginTop: 100,
-    marginBottom: 160,
+    position: 'absolute',
+    top: 0.5 * HEIGHT,
   },
 });

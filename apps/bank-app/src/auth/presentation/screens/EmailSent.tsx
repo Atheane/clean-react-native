@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image, Text } from 'react-native';
+import { StyleSheet, View, Image, Text, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
@@ -13,7 +13,7 @@ export const EmailSent = () => {
   const { theme } = useTheme();
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView fixedHeight>
+      <SafeScrollingView>
         <View style={styles.container}>
           <View style={styles.imageContainer}>
             <Image style={{ width: 100, height: 100 }} source={IconMailCode} />
@@ -29,6 +29,8 @@ export const EmailSent = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    height: Dimensions.get('window').height,
     alignItems: 'center',
   },
   imageContainer: {
