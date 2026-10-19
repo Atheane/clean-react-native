@@ -46,9 +46,9 @@ export const PdfViewer = (props: IProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+    position: 'absolute',
+    top: -50,
+    left: 0,
   },
   pdf: {
     flex: 1,

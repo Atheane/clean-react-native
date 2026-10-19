@@ -6,7 +6,7 @@ import Constants from 'expo-constants';
 
 import { IAccount, IStatementsPeriod } from '@clean-rn/account/domain';
 
-import { ModalError, PdfViewer } from '@clean-rn/ui-mobile';
+import { Download, ModalError, PdfDownloader, PdfViewer } from '@clean-rn/ui-mobile';
 import { ServerError } from '@clean-rn/shared/infrastructure';
 
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
@@ -42,6 +42,15 @@ export const AccountStatementsPdf = () => {
     <ModalError error={unknownError} />
   ) : (
     <ErrorBoundary t={t}>
+      <PdfDownloader
+        uri={`${Constants.expoConfig?.extra?.BASE_URL_API}/app/account/${account.accountId}/statement?period=${period}`}
+        headers={{
+          Authorization: `Bearer ${accessToken}`,
+        }}
+        handleError={handleError}
+        icon={Download}
+        fileName={`statement-${period}.pdf`}
+      />
       <PdfViewer
         uri={`${Constants.expoConfig?.extra?.BASE_URL_API}/app/account/${account.accountId}/statement?period=${period}`}
         headers={{

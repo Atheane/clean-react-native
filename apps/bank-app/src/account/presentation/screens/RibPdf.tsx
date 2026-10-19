@@ -6,7 +6,7 @@ import Constants from 'expo-constants';
 
 import { ServerError } from '@clean-rn/shared/infrastructure';
 import { IAccount } from '@clean-rn/account/domain';
-import { ModalError, PdfViewer } from '@clean-rn/ui-mobile';
+import { ModalError, PdfViewer, PdfDownloader, Download } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
@@ -41,6 +41,15 @@ export const RibPdf = () => {
     <ModalError error={unknownError} />
   ) : (
     <ErrorBoundary t={t}>
+      <PdfDownloader
+        uri={`${Constants.expoConfig?.extra?.BASE_URL_API}/app/account/${account.accountId}/statement?period=${period}`}
+        headers={{
+          Authorization: `Bearer ${accessToken}`,
+        }}
+        handleError={handleError}
+        icon={Download}
+        fileName={`account-details.pdf`}
+      />
       <PdfViewer
         uri={`${Constants.expoConfig?.extra?.BASE_URL_API}/app/account/${account.accountId}/rib`}
         headers={{

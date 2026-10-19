@@ -1,4 +1,5 @@
-import { View, StyleSheet, Platform } from 'react-native';
+import { useCallback } from 'react';
+import { View, StyleSheet, Platform, Dimensions } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import ReactNativeBlobUtil from 'react-native-blob-util';
 import Share from 'react-native-share';
@@ -15,6 +16,15 @@ type IProps = {
 };
 
 export const PdfDownloader = (props: IProps) => {
+  const handleError = useCallback(
+    (error: Error) => {
+      if (error?.message.includes('CANCELLED')) {
+        return null;
+      }
+      props.handleError(error);
+    },
+    [props],
+  );
   const downloadPDF = () => {
     const dirs = ReactNativeBlobUtil.fs.dirs;
     ReactNativeBlobUtil.config({
@@ -40,7 +50,7 @@ export const PdfDownloader = (props: IProps) => {
             url: filePath,
             saveToFiles: true,
           };
-          Share.open(options).catch(props.handleError);
+          Share.open(options).catch(handleError);
         }
       })
       .catch(props.handleError);
@@ -54,9 +64,11 @@ export const PdfDownloader = (props: IProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    position: 'relative',
+    top: 24,
+    left: Dimensions.get('window').width / 2 - 24,
+    marginTop: -16,
+    zIndex: 1,
   },
   icon: { color: Colors.bank.primary.lightGreen },
 });

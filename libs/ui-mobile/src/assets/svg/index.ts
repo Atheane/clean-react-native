@@ -91,6 +91,8 @@ import TRAVEL from './t-travel.svg';
 import VEHICLES from './t-vehicle.svg';
 import HouseCarbon from './house-carbon.svg';
 import CarbonFootPrint from './carbon-footprint.svg';
+import Save from './save.svg';
+import Download from './download.svg';
 
 export {
   Love,
@@ -184,4 +186,6 @@ export {
   VEHICLES,
   HouseCarbon,
   CarbonFootPrint,
+  Save,
+  Download,
 };
