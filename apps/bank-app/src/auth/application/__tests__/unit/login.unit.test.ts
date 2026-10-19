@@ -2,18 +2,20 @@
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
+import dayjs from 'dayjs';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
-import { AuthError, Email, Password } from '@clean-rn/auth/domain';
+import { AuthError, Email, Password, User, Phone, BirthDay, Country, IGender } from '@clean-rn/auth/domain';
 import { AuthApi, IUserLoginServerCode } from '@clean-rn/auth/infrastructure';
 
 import { loginSaga, loginGenerator } from '../../usecases/login';
 import { ILoginTypes, loginSuccess, loginFailure, initializeLogin } from '../../commands/login';
+import { initializeSignupStep } from '../../commands/signup';
 import { IStoreKey } from '../../../../shared/application/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 describe('Login - usecase', () => {
@@ -66,6 +68,18 @@ describe('Login - usecase', () => {
     path: '/auth/login',
   };
 
+  const mockUserData = {
+    birthday: '1984-10-06T00:00:00.000Z',
+    email: 'dev1@example.com',
+    firstname: 'Jane',
+    lastname: 'Doe',
+    nationality: 'FR',
+    phone: '+33600000002',
+    specifiedUSPerson: 0,
+    title: 'Mme',
+    userId: 3952561,
+  };
+
   it('Should wait for FETCH_LOGIN action and call loginGenerator, should be done on next iteration', () => {
     expect(genObject.next().value).toEqual(
       takeEvery(ILoginTypes.FETCH_LOGIN, loginGenerator, httpConnection),
@@ -74,6 +88,30 @@ describe('Login - usecase', () => {
   });
 
   it('Should call loginSuccess', async () => {
+    let gender = IGender.NEUTRAL;
+    if (mockUserData.title === 'Mme') {
+      gender = IGender.WOMAN;
+    } else if (mockUserData.title === 'M') {
+      gender = IGender.MAN;
+    }
+
+    const user = User.Create({
+      id: mockUserData.userId,
+      properties: {
+        email: new Email(mockUserData.email),
+        phone: new Phone(mockUserData.phone),
+        identity: {
+          gender,
+          firstName: mockUserData.firstname,
+          lastName: mockUserData.lastname,
+        },
+        birth: {
+          birthday: new BirthDay(dayjs(mockUserData.birthday)),
+          nationality: new Country(mockUserData.nationality),
+        },
+        USPerson: mockUserData.specifiedUSPerson === 1,
+      },
+    });
     testSaga(loginGenerator, httpConnection, {
       type: ILoginTypes.FETCH_LOGIN,
       payload: mockData,
@@ -81,9 +119,15 @@ describe('Login - usecase', () => {
       .next()
       .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
-      .put(loginSuccess(mockResponse))
+      .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next()
       .call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, mockResponse.accessToken)
+      .next()
+      .call([api, api.getUser])
+      .next(mockUserData)
+      .put(loginSuccess({ auth: mockResponse, user }))
+      .next()
+      .call(navigate, { route: IHomeStackPages.HOME })
       .next();
   });
 
@@ -123,6 +167,8 @@ describe('Login - usecase', () => {
       .next()
       .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401UserPhoneNotValidated))
+      .put(initializeSignupStep())
+      .next()
       .put(
         loginFailure(
           new AuthError.LoginFailurePhoneNotValidated(new ServerError(mockError401UserPhoneNotValidated)),

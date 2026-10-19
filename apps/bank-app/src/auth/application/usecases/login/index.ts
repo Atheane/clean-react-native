@@ -43,7 +43,8 @@ export function* loginGenerator(
     const api = AuthApi.getInstance(httpConnection);
     const auth = yield call([api, api.login], payload);
     //attachBearerToken to httpConnection
-    httpConnection.attachBearerToken(auth.accessToken);
+    yield call(httpConnection.attachBearerToken, auth.accessToken);
+
     // store token and email in async storage
     yield call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, auth.accessToken);
 
@@ -71,7 +72,7 @@ export function* loginGenerator(
           birthday: new BirthDay(dayjs(userProps.birthday)),
           nationality: new Country(userProps.nationality),
         },
-        USPerson: userProps.specifiedUSPerson,
+        USPerson: userProps.specifiedUSPerson === 1,
       },
     });
 

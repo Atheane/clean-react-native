@@ -1,8 +1,9 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import SagaTester from 'redux-saga-tester';
 import Constants from 'expo-constants';
+import dayjs from 'dayjs';
 
-import { AuthError, Email, Password } from '@clean-rn/auth/domain';
+import { AuthError, Email, Password, User, Phone, BirthDay, Country, IGender } from '@clean-rn/auth/domain';
 
 import { loginSaga } from '../../usecases/login';
 import { loginSuccess, loginFailure, fetchLogin, ILoginTypes, initializeLogin } from '../../commands/login';
@@ -35,6 +36,43 @@ describe('Login - integration', () => {
 
   let httpConnection: HttpConnection;
 
+  const mockUserData = {
+    birthday: '1984-10-06T00:00:00.000Z',
+    email: 'dev1@example.com',
+    firstname: 'Jane',
+    lastname: 'Doe',
+    nationality: 'FR',
+    phone: '+33600000002',
+    specifiedUSPerson: 0,
+    title: 'Mme',
+    userId: 3952561,
+  };
+
+  let gender = IGender.NEUTRAL;
+  if (mockUserData.title === 'Mme') {
+    gender = IGender.WOMAN;
+  } else if (mockUserData.title === 'M') {
+    gender = IGender.MAN;
+  }
+
+  const user = User.Create({
+    id: mockUserData.userId,
+    properties: {
+      email: new Email(mockUserData.email),
+      phone: new Phone(mockUserData.phone),
+      identity: {
+        gender,
+        firstName: mockUserData.firstname,
+        lastName: mockUserData.lastname,
+      },
+      birth: {
+        birthday: new BirthDay(dayjs(mockUserData.birthday)),
+        nationality: new Country(mockUserData.nationality),
+      },
+      USPerson: mockUserData.specifiedUSPerson === 1,
+    },
+  });
+
   beforeAll(() => {
     Constants.expoConfig = {
       name: 'CleanRN BankApp Test',
@@ -54,6 +92,7 @@ describe('Login - integration', () => {
         accessToken: null,
         refreshToken: null,
       },
+      user: null,
       email: null,
       password: null,
       error: null,
@@ -77,6 +116,7 @@ describe('Login - integration', () => {
         refreshToken: null,
       },
       email: mockData.email,
+      user: null,
       password: mockData.password,
       error: null,
     });
@@ -93,6 +133,7 @@ describe('Login - integration', () => {
         accessToken: null,
         refreshToken: null,
       },
+      user: null,
       error: null,
       email: mockData.email,
       password: mockData.password,
@@ -102,11 +143,12 @@ describe('Login - integration', () => {
   it('Should store correct state if LOGIN_SUCCESS', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, loginSaga, httpConnection);
     sagaTester.dispatch(fetchLogin(mockData));
-    sagaTester.dispatch(loginSuccess(mockResponse));
+    sagaTester.dispatch(loginSuccess({ auth: mockResponse, user }));
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
       auth: mockResponse,
+      user,
       error: null,
       email: mockData.email,
       password: mockData.password,
@@ -124,6 +166,7 @@ describe('Login - integration', () => {
         accessToken: null,
         refreshToken: null,
       },
+      user: null,
       email: mockData.email,
       password: mockData.password,
       error: new AuthError.LoginFailureInvalidCredentials(),
@@ -141,6 +184,7 @@ describe('Login - integration', () => {
         accessToken: null,
         refreshToken: null,
       },
+      user: null,
       email: null,
       password: null,
       error: null,
