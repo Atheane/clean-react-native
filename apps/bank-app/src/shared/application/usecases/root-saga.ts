@@ -23,9 +23,9 @@ import { listAccountsSaga, listTransactionsSaga } from '../../../account/applica
 
 import {
   computeHouseEmissionsSaga,
-  // transportEmissionsSaga,
-  // foodEmissionsSaga,
-  // flyEmissionsSaga,
+  computeTransportEmissionsSaga,
+  computeFoodEmissionsSaga,
+  computeFlyEmissionsSaga,
 } from '../../../carbon/application/usecases';
 
 export function* rootSaga(httpConnection: HttpConnection) {
@@ -47,8 +47,8 @@ export function* rootSaga(httpConnection: HttpConnection) {
     listAccountsSaga(httpConnection),
     listTransactionsSaga(httpConnection),
     computeHouseEmissionsSaga(),
-    // transportEmissionsSaga(),
-    // foodEmissionsSaga(),
-    // flyEmissionsSaga(),
+    computeTransportEmissionsSaga(),
+    computeFoodEmissionsSaga(),
+    computeFlyEmissionsSaga(),
   ]);
 }

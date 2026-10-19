@@ -7,7 +7,7 @@ import { VehicleConsumptionT } from '@bank/carbon-weight/dist';
 import { useTransportFormData, TransportForm, PrimaryButton, CO2, Colors } from '@clean-rn/ui-mobile';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
-// import { computeTransportEmissions } from '@carbon/infrastructure/redux';
+import { computeTransportEmissions } from '../../application/commands';
 
 export const Transport = () => {
   const { t } = useTranslation();
@@ -16,7 +16,7 @@ export const Transport = () => {
 
   const dispatch = useDispatch();
   const handleOnPress = () => {
-    // dispatch(computeTransportEmissions(formData as VehicleConsumptionT));
+    dispatch(computeTransportEmissions(formData as VehicleConsumptionT));
   };
 
   return (

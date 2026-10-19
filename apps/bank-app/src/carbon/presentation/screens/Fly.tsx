@@ -8,9 +8,9 @@ import { FlightI } from '@bank/carbon-weight/dist';
 import { airports } from '@clean-rn/carbon/domain';
 import { FlyForm, CO2, PrimaryButton, useFlyFormData, Colors } from '@clean-rn/ui-mobile';
 
-import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { ErrorBoundary } from '../../../shared/presentation/hoc';
 
-// import { computeFlyEmissions } from '@carbon/infrastructure/redux';
+import { computeFlyEmissions } from '../../application/commands';
 
 const formattedAirports = airports.map((airport) => ({
   key: airport.IATA,
@@ -24,7 +24,7 @@ export const Fly = () => {
 
   const dispatch = useDispatch();
   const handleOnPress = () => {
-    // dispatch(computeFlyEmissions(flights as FlightI[]));
+    dispatch(computeFlyEmissions(flights as FlightI[]));
   };
 
   const scrollViewRef = useRef<null | KeyboardAwareScrollView>(null);

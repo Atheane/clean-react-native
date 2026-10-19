@@ -51,15 +51,11 @@ export const Carbon = () => {
 
   //storage
   const {
-    houseEmissions: houseEmissionsFromStorage,
-    averageHouseEmissions: averageHouseEmissionsFromStorage,
-    transportEmissions: transportEmissionsFromStorage,
-    averageTransportEmissions: averageTransportEmissionsFromStorage,
-    foodEmissions: foodEmissionsFromStorage,
-    averageFoodEmissions: averageFoodEmissionsFromStorage,
-    flyEmissions: flyEmissionsFromStorage,
-    averageFlyEmissions: averageFlyEmissionsFromStorage,
-  } = useSelector((state: IRootState) => state.initialization);
+    house: { footprint: houseEmissionsFromStorage, average: averageHouseEmissionsFromStorage },
+    transport: { footprint: transportEmissionsFromStorage, average: averageTransportEmissionsFromStorage },
+    food: { footprint: foodEmissionsFromStorage, average: averageFoodEmissionsFromStorage },
+    fly: { footprint: flyEmissionsFromStorage, average: averageFlyEmissionsFromStorage },
+  } = useSelector((state: IRootState) => state.initialization.carbon);
 
   // house
   const { footprint: houseEmissionsFromRedux, average: averageHouseEmissionsFromRedux } = useSelector(
@@ -138,64 +134,80 @@ export const Carbon = () => {
     }`;
   };
 
+  const CardHouse = () => {
+    return houseEmissions !== undefined && averageHouseEmissions !== undefined ? (
+      <TouchCardKpi
+        icon={HouseCarbon}
+        onPress={() => handlePressNavigation(ICarbonStackPages.HOUSE)}
+        data={{
+          pct: toPct(houseEmissions),
+          co2: toCO2(houseEmissions),
+          legend: toLegend(averageHouseEmissions),
+        }}
+      />
+    ) : (
+      <TouchCardKpi icon={HouseCarbon} onPress={() => handlePressNavigation(ICarbonStackPages.HOUSE)} />
+    );
+  };
+
+  const CardTransport = () => {
+    return transportEmissions !== undefined && averageTransportEmissions !== undefined ? (
+      <TouchCardKpi
+        icon={Car}
+        onPress={() => handlePressNavigation(ICarbonStackPages.TRANSPORT)}
+        data={{
+          pct: toPct(transportEmissions),
+          co2: toCO2(transportEmissions),
+          legend: toLegend(averageTransportEmissions),
+        }}
+      />
+    ) : (
+      <TouchCardKpi icon={Car} onPress={() => handlePressNavigation(ICarbonStackPages.TRANSPORT)} />
+    );
+  };
+
+  const CardFood = () => {
+    return foodEmissions !== undefined && averageFoodEmissions !== undefined ? (
+      <TouchCardKpi
+        icon={Food}
+        onPress={() => handlePressNavigation(ICarbonStackPages.WARNING_FOOD)} //todo replace with FOOD
+        data={{
+          pct: toPct(foodEmissions),
+          co2: toCO2(foodEmissions),
+          legend: toLegend(averageFoodEmissions),
+        }}
+      />
+    ) : (
+      <TouchCardKpi icon={Food} onPress={() => handlePressNavigation(ICarbonStackPages.WARNING_FOOD)} />
+    );
+  };
+
+  const CardFly = () => {
+    return flyEmissions !== undefined && averageFlyEmissions !== undefined ? (
+      <TouchCardKpi
+        icon={Plane}
+        onPress={() => handlePressNavigation(ICarbonStackPages.FLY)} //todo replace with FOOD
+        data={{
+          pct: toPct(flyEmissions),
+          co2: toCO2(flyEmissions),
+          legend: toLegend(averageFlyEmissions),
+        }}
+      />
+    ) : (
+      <TouchCardKpi icon={Plane} onPress={() => handlePressNavigation(ICarbonStackPages.FLY)} />
+    );
+  };
+
   const Cards = () => {
     return (
       <View style={styles.cardContainer}>
         <View style={styles.row}>
-          {houseEmissions !== undefined && averageHouseEmissions !== undefined ? (
-            <TouchCardKpi
-              icon={HouseCarbon}
-              onPress={() => handlePressNavigation(ICarbonStackPages.HOUSE)}
-              data={{
-                pct: toPct(houseEmissions),
-                co2: toCO2(houseEmissions),
-                legend: toLegend(averageHouseEmissions),
-              }}
-            />
-          ) : (
-            <TouchCardKpi icon={HouseCarbon} onPress={() => handlePressNavigation(ICarbonStackPages.HOUSE)} />
-          )}
-          {transportEmissions !== undefined && averageTransportEmissions !== undefined ? (
-            <TouchCardKpi
-              icon={Car}
-              onPress={() => handlePressNavigation(ICarbonStackPages.TRANSPORT)}
-              data={{
-                pct: toPct(transportEmissions),
-                co2: toCO2(transportEmissions),
-                legend: toLegend(averageTransportEmissions),
-              }}
-            />
-          ) : (
-            <TouchCardKpi icon={Car} onPress={() => handlePressNavigation(ICarbonStackPages.TRANSPORT)} />
-          )}
+          <CardHouse />
+          <CardTransport />
         </View>
         <View style={styles.row}>
-          {foodEmissions !== undefined && averageFoodEmissions !== undefined ? (
-            <TouchCardKpi
-              icon={Food}
-              onPress={() => handlePressNavigation(ICarbonStackPages.WARNING_FOOD)} //todo replace with FOOD
-              data={{
-                pct: toPct(foodEmissions),
-                co2: toCO2(foodEmissions),
-                legend: toLegend(averageFoodEmissions),
-              }}
-            />
-          ) : (
-            <TouchCardKpi icon={Food} onPress={() => handlePressNavigation(ICarbonStackPages.WARNING_FOOD)} />
-          )}
-          {flyEmissions !== undefined && averageFlyEmissions !== undefined ? (
-            <TouchCardKpi
-              icon={Plane}
-              onPress={() => handlePressNavigation(ICarbonStackPages.FLY)} //todo replace with FOOD
-              data={{
-                pct: toPct(flyEmissions),
-                co2: toCO2(flyEmissions),
-                legend: toLegend(averageFlyEmissions),
-              }}
-            />
-          ) : (
-            <TouchCardKpi icon={Plane} onPress={() => handlePressNavigation(ICarbonStackPages.FLY)} />
-          )}
+          <CardFood />
+          <CardFly />
         </View>
       </View>
     );

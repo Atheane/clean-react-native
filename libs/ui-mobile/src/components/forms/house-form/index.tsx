@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { sort } from 'fast-sort';
@@ -16,10 +16,12 @@ import { Dropdown } from '../../dropdowns/dropdown';
 import { SelectNumber } from '../../inputs/select-number';
 import { Slider } from '../../inputs/slider';
 import { NoCO2 } from '../../texts/no-co2';
+import { YearE } from '@bank/carbon-weight/dist/house/types';
 
 type IProps = {
+  initialValues: (HouseT & { consumption: number } & { builtYear: number }) | null;
   onChangeForm: (value: HeaterE) => void;
-  onChangeField: (key: keyof HouseT | 'consumption', value: number | HouseYearE) => void;
+  onChangeField: (key: keyof HouseT | 'consumption' | 'builtYear', value: number | YearE) => void;
 };
 
 const locales = getLocales();
@@ -83,11 +85,23 @@ export const HouseForm = (props: IProps) => {
   const handleBuiltYear = useCallback(
     (value: number) => {
       setBuiltYear(value);
-
+      props.onChangeField('builtYear', value);
       props.onChangeField('built', value <= OLD_BUILDING_YEAR ? HouseYearE.old : HouseYearE.recent);
     },
     [props],
   );
+
+  useEffect(() => {
+    if (props.initialValues) {
+      setHeater(props.initialValues.heater);
+      setConsumption(props.initialValues.consumption);
+      if (props.initialValues.region) {
+        setRegion(props.initialValues.region);
+      }
+      setSurface(props.initialValues.surface ?? 60);
+      setBuiltYear(props.initialValues.builtYear ?? 1980);
+    }
+  }, [props.initialValues]);
 
   const ConditionalForm = () => {
     if (heater === HeaterE.coal || heater === HeaterE.propane) {
@@ -125,6 +139,7 @@ export const HouseForm = (props: IProps) => {
               data={sortedDeps}
               value={region.toString()}
               onSelect={handleOnChangeRegion}
+              defaultValue={props.initialValues?.region?.toString()}
             />
           )}
           <View style={styles.formContainer}>
@@ -161,6 +176,7 @@ export const HouseForm = (props: IProps) => {
         icon={() => <Flame style={{ color: Colors.bank.primary.lightGreen }} />}
         data={dataHeating}
         onSelect={handleOnChange}
+        defaultValue={t(`screens.carbon-house.dropdown.${heater ?? 'heater'}`)}
       />
       <View style={styles.formContainer}>{ConditionalForm()}</View>
     </View>

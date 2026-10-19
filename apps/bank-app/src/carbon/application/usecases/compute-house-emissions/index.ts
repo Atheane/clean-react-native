@@ -6,13 +6,11 @@ import { HouseT } from '@bank/carbon-weight/dist';
 
 import { HouseEmissions } from '@clean-rn/carbon/domain';
 
-import { ICarbonTypes, houseEmissionsComputed, initializeHouseEmissions } from '../../commands';
-
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IStoreKey } from '../../../../shared/application/types';
-
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { ICarbonStackPages } from '../../../../shared/presentation/types';
+import { ICarbonTypes, houseEmissionsComputed, initializeHouseEmissions } from '../../commands';
 
 export function* computeHouseEmissionsSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(ICarbonTypes.COMPUTE_HOUSE_EMISSIONS, computeHouseEmissionsGenerator);
@@ -22,7 +20,7 @@ export function* computeHouseEmissionsGenerator({
   payload,
 }: {
   type: string;
-  payload: HouseT & { consumption: number };
+  payload: HouseT & { consumption: number } & { builtYear: number };
 }): Generator<StrictEffect, any, any> {
   try {
     const houseCarbonFootprint = new HouseEmissions(payload);

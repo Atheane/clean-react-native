@@ -1,4 +1,4 @@
-import { View, StyleSheet, StyleProp, ViewStyle, Dimensions } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
@@ -8,27 +8,26 @@ import { useFoodFormData, FoodForm, PrimaryButton, CO2, Colors } from '@clean-rn
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
-// import { computeFoodEmissions } from '@carbon/infrastructure/redux';
+import { computeFoodEmissions } from '../../application/commands';
 
 export const Food = () => {
   const { t } = useTranslation();
 
   // init values with previous stored values
-  // const { payload } = useSelector((state: IRootState) => state.carbon.food);
-  const payload = null;
+  const { data } = useSelector((state: IRootState) => state.carbon.food);
   // formData
-  const { disabled, formData, handleFormData } = useFoodFormData(payload);
+  const { disabled, formData, handleFormData } = useFoodFormData(data);
 
   const dispatch = useDispatch();
   const handleOnPress = () => {
-    // dispatch(computeFoodEmissions(formData as FoodConsumptionT));
+    dispatch(computeFoodEmissions(formData as FoodConsumptionT));
   };
 
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={styles.container}>
-          <FoodForm initialValues={payload} onChangeForm={handleFormData} />
+          <FoodForm initialValues={data} onChangeForm={handleFormData} />
 
           <View style={styles.buttonContainer}>
             <PrimaryButton

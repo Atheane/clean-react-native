@@ -2,12 +2,12 @@ import { HouseDataE, House, HouseT, HouseHeaterE as HeaterE } from '@bank/carbon
 import { CarbonError } from '../errors';
 
 export class HouseEmissions {
-  private props: HouseT & { consumption: number };
+  private props: HouseT & { consumption: number } & { builtYear: number };
   private calculator: House;
   private average: number;
   private emission: number;
 
-  constructor(props: HouseT & { consumption: number }) {
+  constructor(props: HouseT & { consumption: number } & { builtYear: number }) {
     if (!this.validate(props)) {
       throw new CarbonError.InvalidHouseProps();
     }
@@ -22,7 +22,7 @@ export class HouseEmissions {
     this.compute();
   }
 
-  private validate(props: HouseT & { consumption: number }): boolean {
+  private validate(props: HouseT & { consumption: number } & { builtYear: number }): boolean {
     if (!props.heater) {
       return false;
     } else if (props.heater === HeaterE.gas && (!props.surface || !props.built || !props.type)) {

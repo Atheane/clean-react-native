@@ -22,7 +22,7 @@ export const TransportForm = (props: IProps) => {
 
   const dataFuel = Object.entries(FuelE).map(([key, value]) => ({
     key,
-    value: t('screens.carbonTransport.dropdown.' + value),
+    value: t('screens.carbon-transport.dropdown.' + value),
   }));
 
   const [fuel, setFuel] = useState<FuelE>();
@@ -61,7 +61,7 @@ export const TransportForm = (props: IProps) => {
       return (
         <View>
           <Slider
-            label={t('screens.carbonTransport.slider.mpg')}
+            label={t('screens.carbon-transport.slider.mpg')}
             minValue={0}
             maxValue={25}
             value={mpg}
@@ -70,7 +70,7 @@ export const TransportForm = (props: IProps) => {
           />
           <View style={styles.container}>
             <Slider
-              label={t('screens.carbonTransport.slider.distanceByYear')}
+              label={t('screens.carbon-transport.slider.distance-by-year')}
               minValue={0}
               maxValue={150000}
               step={500}
@@ -82,15 +82,15 @@ export const TransportForm = (props: IProps) => {
         </View>
       );
     } else {
-      return <NoCO2 text={t('screens.carbonTransport.noCO2')} />;
+      return <NoCO2 text={t('screens.carbon-transport.no-CO2')} />;
     }
   };
 
   return (
     <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <Dropdown
-        label={t('screens.carbonTransport.dropdown.title')}
-        placeholder={t('screens.carbonTransport.dropdown.title')}
+        label={t('screens.carbon-transport.dropdown.title')}
+        placeholder={t('screens.carbon-transport.dropdown.title')}
         icon={() => <Gasoline style={{ color: Colors.bank.primary.lightGreen }} />}
         data={dataFuel}
         onSelect={handleOnChange}
