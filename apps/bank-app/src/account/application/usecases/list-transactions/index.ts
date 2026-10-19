@@ -39,13 +39,13 @@ export function* listTransactionsGenerator(
     if (transactionsFromStore) {
       transactions = transactionsFromStore;
       yield put(transactionsListed(transactions));
-      yield call(navigate, { route: IHomeStackPages.ACCOUNT });
+      yield call(navigate, { route: IHomeStackPages.TRANSACTIONS });
     } else {
       const api = TransactionApi.getInstance(httpConnection);
 
       const transactions: ITransaction[] = yield call([api, api.getTransactions], payload.account.accountId);
       yield put(transactionsListed(transactions));
-      yield call(navigate, { route: IHomeStackPages.ACCOUNT, params: { account: payload.account } });
+      yield call(navigate, { route: IHomeStackPages.TRANSACTIONS, params: { account: payload.account } });
     }
   } catch (error: unknown) {
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level

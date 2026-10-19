@@ -55,7 +55,7 @@ export namespace AccountError {
       this.cause = cause;
     }
   }
-  export class InvalidTransaction
+  export class InvalidTransactionAmount
     extends Error
     implements IDomainError<IAccountErrorCodes, IAccountErrorMessage>
   {

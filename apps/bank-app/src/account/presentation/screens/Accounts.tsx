@@ -59,7 +59,7 @@ const fakeEventsData = [
   },
 ];
 
-export const Home = () => {
+export const Accounts = () => {
   // translation
   const { t } = useTranslation();
 

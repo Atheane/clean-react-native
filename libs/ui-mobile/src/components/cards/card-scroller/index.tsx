@@ -22,14 +22,19 @@ type IState = {
 export const CardScroller = (props: IProps & IState) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
-  const handleOnScroll = useCallback((event: any) => {
-    const scrollOffset = event.nativeEvent.contentOffset.x;
-    const cardWidth = Dimensions.get('window').width * 0.5 + 20;
-    const index = Math.round(scrollOffset / cardWidth);
-    setSlideIndex(index);
-  }, []);
-
   const [data, setData] = useState(props.data);
+
+  const handleOnScroll = useCallback(
+    (event: any) => {
+      const scrollOffset = event.nativeEvent.contentOffset.x;
+      const cardWidth = Dimensions.get('window').width * 0.5 + 20;
+      let index = Math.round(scrollOffset / (cardWidth - 20));
+      if (index < 0) index = 0;
+      if (index > data.length - 1) index = data.length - 1;
+      setSlideIndex(index);
+    },
+    [data.length],
+  );
 
   const handleOnDelete = (uid: string) => {
     const removeIndex = data.map((item) => item.uid).indexOf(uid);

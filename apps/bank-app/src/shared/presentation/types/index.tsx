@@ -48,9 +48,9 @@ export type IAuthStackParamList = {
 
 export type IHomeStackParamList = {
   MenuHome: undefined;
-  Home: undefined;
+  Accounts: undefined;
   Help: undefined;
-  Account: undefined;
+  Transactions: undefined;
   RestoFlash: undefined;
   Weflo: undefined;
   AccountStatements: undefined;
@@ -103,9 +103,9 @@ export enum IAuthStackPages {
 
 export enum IHomeStackPages {
   MENU = 'MenuHome',
-  HOME = 'Home',
+  ACCOUNTS = 'Accounts',
   HELP = 'Help',
-  ACCOUNT = 'Account',
+  TRANSACTIONS = 'Transactions',
   RESTO_FLASH = 'RestoFlash',
   WEFLO = 'Weflo',
   ACCOUNT_STATEMENTS = 'AccountStatements',
@@ -155,9 +155,9 @@ export type IAuthStackProps = {
 
 export type IHomeStackProps = {
   [IHomeStackPages.MENU]: object;
-  [IHomeStackPages.HOME]: object;
+  [IHomeStackPages.ACCOUNTS]: object;
   [IHomeStackPages.HELP]: object;
-  [IHomeStackPages.ACCOUNT]: object;
+  [IHomeStackPages.TRANSACTIONS]: object;
   [IHomeStackPages.ACCOUNT_STATEMENTS]: object;
   [IHomeStackPages.ACCOUNT_STATEMENTS_CURRENT_MONTH]: object;
   [IHomeStackPages.ACCOUNT_STATEMENTS_LAST_THREE_MONTHS]: object;
@@ -202,10 +202,10 @@ export type IRoutes =
   | IAuthStackPages.LEGAL
   | IAuthStackPages.CGU
   | IAuthStackPages.CGU_KYC_PROVIDER
-  | IHomeStackPages.HOME
+  | IHomeStackPages.ACCOUNTS
   | IHomeStackPages.MENU
   | IHomeStackPages.HELP
-  | IHomeStackPages.ACCOUNT
+  | IHomeStackPages.TRANSACTIONS
   | IHomeStackPages.RESTO_FLASH
   | IHomeStackPages.WEFLO
   | IHomeStackPages.ACCOUNT_STATEMENTS

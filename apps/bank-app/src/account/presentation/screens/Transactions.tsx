@@ -17,6 +17,7 @@ import {
   WhiteBalance,
   Colors,
   FontNames,
+  ViewBackground,
 } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IHomeStackPages } from '../../../shared/presentation/types';
@@ -68,7 +69,7 @@ const ContentNoTransactions = ({ currentAccount }: { currentAccount?: IAccount }
   );
 };
 
-export const Account = () => {
+export const Transactions = () => {
   const { transactions } = useSelector((state: IRootState) => state.account.transactions);
   const hasTransactions = transactions && transactions?.length > 0;
   const { t } = useTranslation();
@@ -79,16 +80,29 @@ export const Account = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView>
-        <View style={styles.content}>
-          {!hasTransactions && <ContentNoTransactions currentAccount={account} />}
-          {hasTransactions && <TransactionsCardsList data={transactions} />}
-        </View>
-      </SafeScrollingView>
-      <TopBackground />
-      <View style={styles.top}>
-        <Top currentAccount={account} />
-      </View>
+      {!hasTransactions && (
+        <>
+          <SafeScrollingView>
+            <View style={styles.content}>
+              <ContentNoTransactions currentAccount={account} />
+            </View>
+          </SafeScrollingView>
+          <TopBackground />
+          <View style={styles.top}>
+            <Top currentAccount={account} />
+          </View>
+        </>
+      )}
+      {hasTransactions && (
+        <ViewBackground background={TopBackground}>
+          <View style={styles.top}>
+            <Top currentAccount={account} />
+          </View>
+          <View style={styles.content}>
+            <TransactionsCardsList data={transactions} />
+          </View>
+        </ViewBackground>
+      )}
     </ErrorBoundary>
   );
 };
@@ -136,7 +150,7 @@ const styles = StyleSheet.create({
     lineHeight: 29,
   },
   content: {
-    marginTop: 300,
+    marginTop: 100,
   },
   scrollNoTransactions: {
     alignItems: 'center',

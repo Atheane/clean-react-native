@@ -7,9 +7,9 @@ import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 
 import { IHomeStackPages, IHomeStackProps } from '../../../shared/presentation/types';
 import {
-  Account,
   // Help,
-  Home,
+  Accounts,
+  Transactions,
   // RestoFlash,
   // Weflo,
   // AccountStatements,
@@ -27,8 +27,12 @@ export const HomeStack = () => {
 
   return (
     <Stack.Navigator>
-      <Stack.Screen name={IHomeStackPages.HOME} component={Home} options={{ headerShown: false }} />
-      <Stack.Screen name={IHomeStackPages.ACCOUNT} component={Account} options={{ headerShown: false }} />
+      <Stack.Screen name={IHomeStackPages.ACCOUNTS} component={Accounts} options={{ headerShown: false }} />
+      <Stack.Screen
+        name={IHomeStackPages.TRANSACTIONS}
+        component={Transactions}
+        options={{ headerShown: false }}
+      />
       {/* <Stack.Screen name={IHomeStackPages.HELP} component={Help} options={{ headerShown: false }} />
       <Stack.Screen
         name={IHomeStackPages.ACCOUNT_STATEMENTS}

@@ -19,7 +19,7 @@ export class Amount {
       throw new AccountError.UnknownTransactionType();
     }
     if (rawAmount < 0 && transactionType !== ITransactionType.CARD_TRANSACTION) {
-      throw new AccountError.InvalidTransaction(
+      throw new AccountError.InvalidTransactionAmount(
         `Amount cannot be negative for transaction type ${transactionType}`,
       );
     }

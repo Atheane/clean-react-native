@@ -1,5 +1,12 @@
 import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
-import { ITransaction, ITransactionRepository } from '@clean-rn/account/domain';
+import {
+  ITransaction,
+  ITransactionRepository,
+  Amount,
+  TransactionCategory,
+  ITransactionType,
+} from '@clean-rn/account/domain';
+import { ITransactionServer } from '../types';
 
 export class TransactionApi implements ITransactionRepository {
   private static instance: TransactionApi | null = null;
@@ -26,8 +33,15 @@ export class TransactionApi implements ITransactionRepository {
     );
     await this.connection.handleError(response);
     const transactions = await response.json();
-    return transactions.map((transaction: ITransaction) => ({
-      ...transaction,
+    return transactions.map((item: ITransactionServer) => ({
+      id: item.transactionId,
+      amount: new Amount(item.amount, item.transactionType as ITransactionType),
+      label: item.label,
+      category: item.mccCode
+        ? new TransactionCategory(item.transactionType as ITransactionType, item.mccCode)
+        : new TransactionCategory(item.transactionType as ITransactionType),
+      date: new Date(item.updatedAt),
+      type: item.transactionType as ITransactionType, //todo: maybe delete this, and make use of category only, easier to map, and this is all we need to know in the app
     }));
   }
 }
