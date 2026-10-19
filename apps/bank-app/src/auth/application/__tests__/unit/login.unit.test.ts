@@ -30,7 +30,7 @@ describe('Login - usecase', () => {
 
   const mockError400 = {
     message: 'Core::AuthService::Auth - Incorrect email or password.',
-    statusCode: 400,
+    statusCode: 401,
     response: 'Core::AuthService::Auth - Incorrect email or password.',
     timestamp: '2023-04-07T15:28:04.657Z',
     path: '/auth/login',

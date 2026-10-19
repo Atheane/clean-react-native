@@ -16,7 +16,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
   const logger = Logger.getInstance();
   let newState: ISignupState;
   switch (action.type) {
-    case ISignupTypes.FETCH_CHECK_EMAIL_EXISTS:
+    case ISignupTypes.FETCH_SEARCH_EMAIL:
       logger.debug(action.type);
       newState = {
         ...state,
@@ -25,7 +25,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
         error: null,
       };
       return newState;
-    case ISignupTypes.EMAIL_CHECKED:
+    case ISignupTypes.EMAIL_NOT_FOUND:
       logger.debug(action.type);
       newState = {
         ...state,
@@ -41,7 +41,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
         error: action.payload,
       };
       return newState;
-    case ISignupTypes.FETCH_CHECK_PHONE:
+    case ISignupTypes.FETCH_SEARCH_PHONE:
       logger.debug(action.type);
       newState = {
         ...state,
@@ -50,7 +50,7 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
         error: null,
       };
       return newState;
-    case ISignupTypes.PHONE_CHECKED:
+    case ISignupTypes.PHONE_NOT_FOUND:
       logger.debug(action.type);
       newState = {
         ...state,

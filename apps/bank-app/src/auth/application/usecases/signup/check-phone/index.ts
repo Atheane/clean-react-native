@@ -12,7 +12,7 @@ import { showUnknownError } from '../../../../../shared/application/commands/man
 import { ISignupTypes, signupFailed, phoneNotFound, initializeSignupStep } from '../../../commands/signup';
 
 export function* checkPhoneSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(ISignupTypes.FETCH_SEARCH_EMAIL, checkPhoneGenerator, httpConnection);
+  yield takeEvery(ISignupTypes.FETCH_SEARCH_PHONE, checkPhoneGenerator, httpConnection);
 }
 
 export function* checkPhoneGenerator(

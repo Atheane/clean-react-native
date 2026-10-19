@@ -19,11 +19,11 @@ import {
   IUserProperties,
 } from '@clean-rn/auth/domain';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
+import { AuthApi, IUserSearchServerCode } from '@clean-rn/auth/infrastructure';
 
 import {
-  checkEmailExistsGenerator,
-  checkEmailExistsSaga,
+  checkEmailGenerator,
+  checkEmailSaga,
   registerIdentityGenerator,
   registerIdentitySaga,
   checkPhoneGenerator,
@@ -45,10 +45,10 @@ import {
   ISignupTypes,
   addressRegistered,
   birthRegistered,
-  emailChecked,
+  emailNotFound,
   identityRegistered,
   passwordRegistered,
-  phoneChecked,
+  phoneNotFound,
   phoneValidated,
   signupFailed,
   userSignedUp,
@@ -108,11 +108,11 @@ describe('Signup - usecase', () => {
     success: false,
   };
 
-  it('should wait for FETCH_CHECK_EMAIL action and call checkEmailApiSaga, should be done on next iteration', () => {
-    const genObject = checkEmailExistsSaga(httpConnection);
+  it('should wait for FETCH_SEARCH_EMAIL action and call checkEmailApiSaga, should be done on next iteration', () => {
+    const genObject = checkEmailSaga(httpConnection);
 
     expect(genObject.next().value).toEqual(
-      takeEvery(ISignupTypes.FETCH_CHECK_EMAIL_EXISTS, checkEmailExistsGenerator, httpConnection),
+      takeEvery(ISignupTypes.FETCH_SEARCH_EMAIL, checkEmailGenerator, httpConnection),
     );
     expect(genObject.next().done).toBeTruthy();
   });
@@ -135,11 +135,11 @@ describe('Signup - usecase', () => {
     expect(genObject.next().done).toBeTruthy();
   });
 
-  it('should wait for FETCH_CHECK_PHONE_EXISTS action and call registerPhoneGenerator, should be done on next iteration', () => {
+  it('should wait for FETCH_SEARCH_PHONE action and call checkPhoneGenerator, should be done on next iteration', () => {
     const genObject = checkPhoneSaga(httpConnection);
 
     expect(genObject.next().value).toEqual(
-      takeEvery(ISignupTypes.FETCH_CHECK_PHONE, checkPhoneGenerator, httpConnection),
+      takeEvery(ISignupTypes.FETCH_SEARCH_PHONE, checkPhoneGenerator, httpConnection),
     );
     expect(genObject.next().done).toBeTruthy();
   });
@@ -178,33 +178,30 @@ describe('Signup - usecase', () => {
     expect(genObject.next().done).toBeTruthy();
   });
 
-  it('should call checkEmailSuccess actions if email does not exists', () => {
+  it('should call emailNotFound actions if email does not exists', () => {
     const mockQueryEmail = {
       email: new Email('test@example.com'),
     };
-    const mockSuccessFalse: ISuccess = {
-      success: false,
-    };
 
-    testSaga(checkEmailExistsGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_CHECK_EMAIL_EXISTS,
+    testSaga(checkEmailGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_SEARCH_EMAIL,
       payload: mockQueryEmail,
     })
       .next()
       .call([api, api.searchEmail], mockQueryEmail)
-      .next(mockSuccessFalse)
-      .put(emailChecked())
+      .next(IUserSearchServerCode.NOT_FOUND)
+      .put(emailNotFound())
       .next();
   });
 
   it('should throw SignupFailureEmailExists if email exists', () => {
-    testSaga(checkEmailExistsGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_CHECK_EMAIL_EXISTS,
+    testSaga(checkEmailGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_SEARCH_EMAIL,
       payload: mockQueryEmail,
     })
       .next()
       .call([api, api.searchEmail], mockQueryEmail)
-      .next(mockSuccessTrue)
+      .next(IUserSearchServerCode.EMAIL_EXISTS)
       .put(signupFailed(new AuthError.SignupFailureEmailExists()))
       .next()
       .call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, mockQueryEmail.email.value)
@@ -290,28 +287,28 @@ describe('Signup - usecase', () => {
       .next(user);
   });
 
-  it('should call phoneChecked', () => {
+  it('should call phoneNotFound', () => {
     testSaga(checkPhoneGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_CHECK_PHONE,
+      type: ISignupTypes.FETCH_SEARCH_PHONE,
       payload: mockQueryPhone,
     })
       .next()
       .call([api, api.searchPhone], mockQueryPhone)
-      .next(mockSuccessFalse)
+      .next(IUserSearchServerCode.NOT_FOUND)
       .call([api, api.sendPhoneValidation], mockQueryPhone)
       .next(mockSuccessTrue)
-      .put(phoneChecked())
+      .put(phoneNotFound())
       .next();
   });
 
   it('should call signupFailed action if phone exists', () => {
     testSaga(checkPhoneGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_CHECK_PHONE,
+      type: ISignupTypes.FETCH_SEARCH_PHONE,
       payload: mockQueryPhone,
     })
       .next()
       .call([api, api.searchPhone], mockQueryPhone)
-      .next(mockSuccessTrue)
+      .next(IUserSearchServerCode.PHONE_EXISTS)
       .put(signupFailed(new AuthError.SignupFailurePhoneExists()))
       .next()
       .cancel();

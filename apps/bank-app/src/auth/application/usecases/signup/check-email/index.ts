@@ -14,11 +14,11 @@ import { showUnknownError } from '../../../../../shared/application/commands/man
 
 import { ISignupTypes, emailNotFound, initializeSignupStep, signupFailed } from '../../../commands/signup';
 
-export function* checkEmailExistsSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(ISignupTypes.FETCH_SEARCH_EMAIL, checkEmailExistsGenerator, httpConnection);
+export function* checkEmailSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
+  yield takeEvery(ISignupTypes.FETCH_SEARCH_EMAIL, checkEmailGenerator, httpConnection);
 }
 
-export function* checkEmailExistsGenerator(
+export function* checkEmailGenerator(
   httpConnection: HttpConnection,
   {
     payload,

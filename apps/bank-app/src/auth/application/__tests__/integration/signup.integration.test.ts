@@ -18,7 +18,7 @@ import {
 } from '@clean-rn/auth/domain';
 
 import {
-  checkEmailExistsSaga,
+  checkEmailSaga,
   registerIdentitySaga,
   registerPasswordSaga,
   registerBirthSaga,
@@ -29,10 +29,10 @@ import {
 } from '../../usecases/signup';
 import {
   ISignupTypes,
-  emailChecked,
-  fetchCheckEmailExists,
-  fetchCheckPhone,
-  phoneChecked,
+  emailNotFound,
+  fetchSearchEmail,
+  fetchSearchPhone,
+  phoneNotFound,
   identityRegistered,
   passwordRegistered,
   birthRegistered,
@@ -125,7 +125,7 @@ describe('CheckEmail - integration', () => {
 
   it('Should store correct initial state if not initial state is provided', () => {
     const newState = signupReducer(undefined, {
-      type: ISignupTypes.FETCH_CHECK_EMAIL_EXISTS,
+      type: ISignupTypes.FETCH_SEARCH_EMAIL,
       payload: {
         email: new Email('test@example.com'),
       },
@@ -141,10 +141,10 @@ describe('CheckEmail - integration', () => {
     });
   });
 
-  it('Should store correct state in case if FETCH_CHECK_EMAIL', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailExistsSaga, httpConnection);
+  it('Should store correct state in case if FETCH_SEARCH_EMAIL', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
 
-    sagaTester.dispatch(fetchCheckEmailExists({ email: new Email('test@example.com') }));
+    sagaTester.dispatch(fetchSearchEmail({ email: new Email('test@example.com') }));
     expect(sagaTester.getState()).toEqual({
       pending: true,
       email: new Email('test@example.com'),
@@ -156,7 +156,7 @@ describe('CheckEmail - integration', () => {
   });
 
   it('Should store correct state in case if REGISTER_IDENTITY', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailExistsSaga, httpConnection);
+    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
 
     sagaTester.dispatch(registerIdentity({ ...mockIdentity, email: new Email('test@example.com') }));
     expect(sagaTester.getState()).toEqual({
@@ -165,7 +165,7 @@ describe('CheckEmail - integration', () => {
   });
 
   it('Should store correct state in case if REGISTER_PASSWORD', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailExistsSaga, httpConnection);
+    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
 
     sagaTester.dispatch(registerPassword(mockPassword));
     expect(sagaTester.getState()).toEqual({
@@ -174,7 +174,7 @@ describe('CheckEmail - integration', () => {
   });
 
   it('Should store correct state in case if REGISTER_BIRTH', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailExistsSaga, httpConnection);
+    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
 
     sagaTester.dispatch(registerBirth(mockBirth));
     expect(sagaTester.getState()).toEqual({
@@ -183,7 +183,7 @@ describe('CheckEmail - integration', () => {
   });
 
   it('Should store correct state in case if REGISTER_ADDRESS', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailExistsSaga, httpConnection);
+    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
 
     sagaTester.dispatch(registerAddress(mockAddress));
     expect(sagaTester.getState()).toEqual({
@@ -191,9 +191,9 @@ describe('CheckEmail - integration', () => {
     });
   });
 
-  it('Should store correct state if FETCH_CHECK_PHONE_EXISTS', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, fetchCheckPhone, httpConnection);
-    sagaTester.dispatch(fetchCheckPhone({ phone: new Phone('0616804613', 'FR') }));
+  it('Should store correct state if FETCH_SEARCH_PHONE', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, fetchSearchPhone, httpConnection);
+    sagaTester.dispatch(fetchSearchPhone({ phone: new Phone('0616804613', 'FR') }));
 
     expect(sagaTester.getState()).toEqual({
       pending: true,
@@ -257,9 +257,9 @@ describe('CheckEmail - integration', () => {
   });
 
   it('Should store correct state if EMAIL_CHECKED', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailExistsSaga, httpConnection);
-    sagaTester.dispatch(fetchCheckEmailExists({ email: new Email('test@example.com') }));
-    sagaTester.dispatch(emailChecked());
+    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
+    sagaTester.dispatch(fetchSearchEmail({ email: new Email('test@example.com') }));
+    sagaTester.dispatch(emailNotFound());
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
@@ -272,8 +272,8 @@ describe('CheckEmail - integration', () => {
   });
 
   it('Should store correct state if SIGNUP_FAILED', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailExistsSaga, httpConnection);
-    sagaTester.dispatch(fetchCheckEmailExists({ email: new Email('test@example.com') }));
+    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
+    sagaTester.dispatch(fetchSearchEmail({ email: new Email('test@example.com') }));
     sagaTester.dispatch(signupFailed(new AuthError.SignupFailureEmailExists()));
 
     expect(sagaTester.getState()).toEqual({
@@ -302,8 +302,8 @@ describe('CheckEmail - integration', () => {
     });
 
     sagaTester.start(wrapSagaHidingNotFoundError, checkPhoneSaga, httpConnection);
-    sagaTester.dispatch(fetchCheckPhone({ phone: new Phone('0616804613', 'FR') }));
-    sagaTester.dispatch(phoneChecked());
+    sagaTester.dispatch(fetchSearchPhone({ phone: new Phone('0616804613', 'FR') }));
+    sagaTester.dispatch(phoneNotFound());
 
     expect(sagaTester.getState()).toEqual({
       pending: false,

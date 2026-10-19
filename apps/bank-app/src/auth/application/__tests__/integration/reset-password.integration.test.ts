@@ -9,7 +9,7 @@ import {
   IResetPasswordTypes,
   fetchResetPassword,
   passwordReset,
-  initResetPassword,
+  initializeResetPassword,
 } from '../../commands/reset-password';
 import { resetPasswordReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
@@ -98,7 +98,7 @@ describe('ResetPassword - integration', () => {
   it('Should store correct state in case if INIT_RESET_PASSWORD', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, resetPasswordSaga, httpConnection);
 
-    sagaTester.dispatch(initResetPassword());
+    sagaTester.dispatch(initializeResetPassword());
 
     expect(sagaTester.getState()).toEqual({
       pending: false,

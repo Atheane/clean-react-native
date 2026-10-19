@@ -1,5 +1,6 @@
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
+import * as Sentry from '@sentry/react-native';
 
 import { IGlobalErrorTypes } from '../../commands/manage-global-errors';
 import { showUnknownErrorGenerator, showUnknownErrorSaga } from '../../usecases/manage-global-errors';
@@ -21,6 +22,8 @@ describe('Manage Global Errors - usecase', () => {
       type: IGlobalErrorTypes.SHOW_UNKNOWN_ERROR,
       payload: new Error('test'),
     })
+      .next()
+      .call(Sentry.captureException, new Error('test'))
       .next()
       .call(navigate, { route: IAuthStackPages.MODAL_ERROR })
       .next();
