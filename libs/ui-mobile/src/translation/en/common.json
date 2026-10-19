@@ -235,7 +235,18 @@
       "balance": "Account balance",
       "oups": "Top up your CO2 Account to use the climate currency on a daily basis!",
       "iban": "Display my CO2 IBAN",
-      "transfer": "Transfer"
+      "transfer": "Transfer",
+      "cards": {
+        "card": "Our payment card to save CO2",
+        "loan": "Our loans to decarbonize the economy",
+        "loan-heater": "Our loan offer to change your boiler",
+        "carbon-premium": "Get rewarded with our bonuses",
+        "manifesto": "Manifest",
+        "history": "Our story",
+        "green-euro": "How do green euros work?",
+        "currency": "Our objectives and our limits",
+        "article": "Our blog on the banking world and the climate emergency"
+      }
     },
     "accountStatements": {
       "title": "Export",

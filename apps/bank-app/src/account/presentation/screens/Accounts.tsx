@@ -60,7 +60,10 @@ export const Accounts = () => {
         <ScrollBackground background={TopDownBackground} initialScroll={-20} window={1.2}>
           <View style={styles.cardScroller}>
             <CardScroller
-              data={eventsCardsContent}
+              data={eventsCardsContent.map((item) => ({
+                ...item,
+                text: t('screens.account.cards.' + item.uid),
+              }))}
               height={200}
               onPress={handleOnPressCard}
               cardType={ICardType.TOUCH_EVENT_CARD}

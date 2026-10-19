@@ -20,7 +20,7 @@ export const TouchEventCard = (props: IProps) => {
   const { theme } = useTheme();
 
   return (
-    <TouchableOpacity onPress={() => handleOnPress(props.uid)}>
+    <TouchableOpacity onPress={() => handleOnPress(props.uid)} activeOpacity={0.85}>
       <Card containerStyle={[theme.bank.container.card.short, theme.bank.shadow.card]}>
         <Image style={styles.image} source={props.image} />
         <Text style={[styles.text, theme.bank.text.grey]}>{props.text}</Text>
@@ -43,7 +43,8 @@ const styles = StyleSheet.create({
     right: -10,
   },
   text: {
-    top: -20,
+    top: -16,
     left: 6,
+    lineHeight: 18,
   },
 });
