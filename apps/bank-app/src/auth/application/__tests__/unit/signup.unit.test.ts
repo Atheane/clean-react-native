@@ -52,12 +52,13 @@ import {
   emailNotFound,
   identityRegistered,
   passwordRegistered,
-  phoneNotFound,
   phoneValidated,
   signupFailed,
   userSignedUp,
   fetchSignupUser,
   initializeSignupStep,
+  phoneCodeSent,
+  phoneNotFound,
 } from '../../commands/signup';
 import { IStoreKey } from '../../../../shared/application/types';
 import { loadStorage } from '../../../../shared/application/commands/initialize-application';
@@ -260,7 +261,7 @@ describe('Signup - usecase', () => {
   });
 
   it('should call registerIdentity actions', () => {
-    const user = User.Create(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
     user.registerIdentity(mockIdentity);
 
     testSaga(registerIdentityGenerator, {
@@ -273,7 +274,7 @@ describe('Signup - usecase', () => {
   });
 
   it('Should call showUnknownError action if unknown error when registerIdentity', () => {
-    const user = User.Create(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
     user.registerIdentity(mockIdentity);
 
     testSaga(registerIdentityGenerator, {
@@ -289,8 +290,8 @@ describe('Signup - usecase', () => {
   });
 
   it('should call registerPassword actions', () => {
-    const userPrev = User.Create(new Email('test@example.com'));
-    const user = User.Create(new Email('test@example.com'));
+    const userPrev = User.CreateFromEmail(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
     user.registerPassword(mockPassword.password);
     testSaga(registerPasswordGenerator, {
       type: ISignupTypes.REGISTER_PASSWORD,
@@ -314,7 +315,7 @@ describe('Signup - usecase', () => {
   });
 
   it('should call registerPassword actions if user not in store', () => {
-    const user = User.Create(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
     user.registerPassword(mockPassword.password);
     testSaga(registerPasswordGenerator, {
       type: ISignupTypes.REGISTER_PASSWORD,
@@ -350,7 +351,7 @@ describe('Signup - usecase', () => {
   });
 
   it('Should call showUnknownError action if unknown error when registerPassword', () => {
-    const user = User.Create(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
     user.registerPassword(mockPassword.password);
     testSaga(registerPasswordGenerator, {
       type: ISignupTypes.REGISTER_PASSWORD,
@@ -364,7 +365,8 @@ describe('Signup - usecase', () => {
       .next();
   });
 
-  it('should call phoneNotFound', () => {
+  it('should call phoneCodeSent if signup flow and phone not found', () => {
+    const user = User.CreateFromEmail(new Email('test@example.com'));
     testSaga(checkPhoneGenerator, httpConnection, {
       type: ISignupTypes.FETCH_SEARCH_PHONE,
       payload: mockQueryPhone,
@@ -372,13 +374,17 @@ describe('Signup - usecase', () => {
       .next()
       .call([api, api.searchPhone], mockQueryPhone)
       .next(IUserSearchServerCode.NOT_FOUND)
+      .select(selectUserFromSignup)
+      .next(user)
       .call([api, api.sendPhoneValidation], mockQueryPhone)
       .next(mockSuccessTrue)
-      .put(phoneNotFound())
+      .put(phoneCodeSent())
       .next();
   });
 
-  it('should call signupFailed action if phone exists', () => {
+  it('should call signupFailed action if signup flow phone exists', () => {
+    const user = User.CreateFromEmail(new Email('test@example.com'));
+
     testSaga(checkPhoneGenerator, httpConnection, {
       type: ISignupTypes.FETCH_SEARCH_PHONE,
       payload: mockQueryPhone,
@@ -386,7 +392,40 @@ describe('Signup - usecase', () => {
       .next()
       .call([api, api.searchPhone], mockQueryPhone)
       .next(IUserSearchServerCode.PHONE_EXISTS)
+      .select(selectUserFromSignup)
+      .next(user)
       .put(signupFailed(new AuthError.SignupFailurePhoneExists()))
+      .next()
+      .cancel();
+  });
+
+  it('should call phoneCodeSent action if migration flow phone exists', () => {
+    testSaga(checkPhoneGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_SEARCH_PHONE,
+      payload: mockQueryPhone,
+    })
+      .next()
+      .call([api, api.searchPhone], mockQueryPhone)
+      .next(IUserSearchServerCode.PHONE_EXISTS)
+      .select(selectUserFromSignup)
+      .next(null)
+      .call([api, api.sendPhoneValidation], mockQueryPhone)
+      .next(mockSuccessTrue)
+      .put(phoneCodeSent())
+      .next();
+  });
+
+  it('should call phoneNotFound action if migration flow phone not found', () => {
+    testSaga(checkPhoneGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_SEARCH_PHONE,
+      payload: mockQueryPhone,
+    })
+      .next()
+      .call([api, api.searchPhone], mockQueryPhone)
+      .next(IUserSearchServerCode.NOT_FOUND)
+      .select(selectUserFromSignup)
+      .next(null)
+      .put(phoneNotFound(new AuthError.ValidatePhoneFailurePhoneNotFound()))
       .next()
       .cancel();
   });
@@ -407,9 +446,9 @@ describe('Signup - usecase', () => {
   });
 
   it('should call phoneValidated', () => {
-    const userPrev = User.Create(new Email('test@example.com'));
+    const userPrev = User.CreateFromEmail(new Email('test@example.com'));
 
-    const user = User.Create(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
     user.validatePhone(mockQueryPhoneOtp);
 
     testSaga(validatePhoneGenerator, httpConnection, {
@@ -438,7 +477,7 @@ describe('Signup - usecase', () => {
   });
 
   it('should call phoneValidated is user not in store', () => {
-    const user = User.Create(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
     user.validatePhone(mockQueryPhoneOtp);
 
     testSaga(validatePhoneGenerator, httpConnection, {
@@ -468,7 +507,7 @@ describe('Signup - usecase', () => {
   });
 
   it('should call signupFailed action if otp incorrect', () => {
-    const user = User.Create(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
     user.validatePhone(mockQueryPhoneOtp);
 
     testSaga(validatePhoneGenerator, httpConnection, {
@@ -478,13 +517,13 @@ describe('Signup - usecase', () => {
       .next()
       .call([api, api.checkPhoneValidation], mockQueryPhoneOtp)
       .next(mockSuccessFalse)
-      .put(signupFailed(new AuthError.SignupFailureIncorrectPhoneCode()))
+      .put(signupFailed(new AuthError.ValidatePhoneIncorrectPhoneCode()))
       .next()
       .cancel();
   });
 
   it('Should call showUnknownError action if unknown error when validatePhone', () => {
-    const user = User.Create(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
     user.validatePhone(mockQueryPhoneOtp);
 
     testSaga(validatePhoneGenerator, httpConnection, {
@@ -500,8 +539,8 @@ describe('Signup - usecase', () => {
   });
 
   it('should call registerBirth actions', () => {
-    const userPrev = User.Create(new Email('test@example.com'));
-    const user = User.Create(new Email('test@example.com'));
+    const userPrev = User.CreateFromEmail(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
     user.registerBirth(mockBirth);
 
     testSaga(registerBirthGenerator, {
@@ -528,7 +567,7 @@ describe('Signup - usecase', () => {
   });
 
   it('should call registerBirth actions if no user in store', () => {
-    const user = User.Create(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
     user.registerBirth(mockBirth);
 
     testSaga(registerBirthGenerator, {
@@ -565,7 +604,7 @@ describe('Signup - usecase', () => {
   });
 
   it('Should call showUnknownError action if unknown error when registerBirth', () => {
-    const user = User.Create(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
     user.registerBirth(mockBirth);
 
     testSaga(registerBirthGenerator, {
@@ -581,8 +620,8 @@ describe('Signup - usecase', () => {
   });
 
   it('should call registerAddress actions if user exists', () => {
-    const userPrev = User.Create(new Email('test@example.com'));
-    const user = User.Create(new Email('test@example.com'));
+    const userPrev = User.CreateFromEmail(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
     user.registerAddress(mockAddress);
 
     testSaga(registerAddressGenerator, {
@@ -621,7 +660,7 @@ describe('Signup - usecase', () => {
   });
 
   it('should call registerAddress actions if no user', () => {
-    const user = User.Create(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
     user.registerAddress(mockAddress);
 
     testSaga(registerAddressGenerator, {
@@ -672,7 +711,7 @@ describe('Signup - usecase', () => {
   });
 
   it('Should call showUnknownError action if unknown error when registerAddress', () => {
-    const user = User.Create(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
 
     testSaga(registerAddressGenerator, {
       type: ISignupTypes.REGISTER_ADDRESS,
@@ -687,7 +726,7 @@ describe('Signup - usecase', () => {
   });
 
   it('should call userSignedUp actions if user exists', () => {
-    const userPrev = User.Create(new Email('test@example.com'));
+    const userPrev = User.CreateFromEmail(new Email('test@example.com'));
     userPrev.registerIdentity(mockIdentity);
     userPrev.registerPassword(mockPassword.password);
     userPrev.validatePhone(mockQueryPhoneOtp);
@@ -715,7 +754,7 @@ describe('Signup - usecase', () => {
   });
 
   it('Should call showUnknownError action if 500', () => {
-    const userPrev = User.Create(new Email('test@example.com'));
+    const userPrev = User.CreateFromEmail(new Email('test@example.com'));
 
     testSaga(signupUserGenerator, httpConnection, {
       type: ISignupTypes.FETCH_SIGNUP_USER,

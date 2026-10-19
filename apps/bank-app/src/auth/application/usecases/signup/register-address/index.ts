@@ -30,7 +30,7 @@ export function* registerAddressGenerator({
 
     if (!user) {
       const email = yield select(selectEmailFromSignup);
-      user = User.Create(email);
+      user = User.CreateFromEmail(email);
     }
     // add password property to user instance
     user.registerAddress(payload);

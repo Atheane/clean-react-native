@@ -47,6 +47,7 @@ import {
   registerBirth,
   registerAddress,
   initializeSignupStep,
+  phoneCodeSent,
 } from '../../commands/signup';
 import { ISignupState, signupReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
@@ -223,7 +224,7 @@ describe('CheckEmail - integration', () => {
   });
 
   it('Should store correct state in case if FETCH_SIGNUP_USER', () => {
-    const user = User.Create(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
     user.registerIdentity(mockIdentity);
     user.registerPassword(mockPassword.password);
     user.validatePhone(mockQueryPhoneOtp);
@@ -304,7 +305,7 @@ describe('CheckEmail - integration', () => {
 
     sagaTester.start(wrapSagaHidingNotFoundError, checkPhoneSaga, httpConnection);
     sagaTester.dispatch(fetchSearchPhone({ phone: new Phone('0616804613', 'FR') }));
-    sagaTester.dispatch(phoneNotFound());
+    sagaTester.dispatch(phoneCodeSent());
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
@@ -335,7 +336,7 @@ describe('CheckEmail - integration', () => {
     sagaTester.dispatch(
       fetchValidatePhone({ phone: new Phone('0616804613', 'FR'), phoneOtp: new PhoneOtp('123456') }),
     );
-    const user = User.Create(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
     user.validatePhone({ phone: new Phone('0616804613', 'FR'), phoneOtp: new PhoneOtp('123456') });
     sagaTester.dispatch(phoneValidated(user));
 
@@ -366,7 +367,7 @@ describe('CheckEmail - integration', () => {
 
     sagaTester.start(registerIdentitySaga);
 
-    const user = User.Create(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
     user.registerIdentity(mockIdentity);
     sagaTester.dispatch(identityRegistered(user));
 
@@ -381,7 +382,7 @@ describe('CheckEmail - integration', () => {
   });
 
   it('Should store correct state in case if PASSWORD_REGISTERED', () => {
-    const user = User.Create(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
 
     const initialState: ISignupState = {
       pending: false,
@@ -412,7 +413,7 @@ describe('CheckEmail - integration', () => {
   });
 
   it('Should store correct state in case if BIRTH_REGISTERED', () => {
-    const user = User.Create(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
 
     const initialState: ISignupState = {
       pending: false,
@@ -443,7 +444,7 @@ describe('CheckEmail - integration', () => {
   });
 
   it('Should store correct state in case if ADDRESS_REGISTERED', () => {
-    const user = User.Create(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
 
     const initialState: ISignupState = {
       pending: false,
@@ -474,7 +475,7 @@ describe('CheckEmail - integration', () => {
   });
 
   it('Should store correct state in case if USER_SIGNED_UP', () => {
-    const user = User.Create(new Email('test@example.com'));
+    const user = User.CreateFromEmail(new Email('test@example.com'));
     user.registerIdentity(mockIdentity);
     user.registerPassword(mockPassword.password);
     user.validatePhone(mockQueryPhoneOtp);

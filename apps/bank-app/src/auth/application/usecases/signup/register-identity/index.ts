@@ -19,7 +19,7 @@ export function* registerIdentityGenerator({
   try {
     const { email, ...properties } = payload;
 
-    const user = User.Create(email);
+    const user = User.CreateFromEmail(email);
     // add identity property to prospect instance
     user.registerIdentity(properties);
     // domain event

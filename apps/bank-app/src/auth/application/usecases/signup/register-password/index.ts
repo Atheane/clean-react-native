@@ -24,7 +24,7 @@ export function* registerPasswordGenerator({
 
     if (!user) {
       const email = yield select(selectEmailFromSignup);
-      user = User.Create(email);
+      user = User.CreateFromEmail(email);
     }
     // add password property to prospect instance
     user.registerPassword(password);
