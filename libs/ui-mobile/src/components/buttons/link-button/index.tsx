@@ -8,7 +8,7 @@ import { Colors } from '../../../constants';
 import { LinkButtonColors } from '../../../types';
 
 type IProps = {
-  colorOption: LinkButtonColors;
+  colorOption?: LinkButtonColors;
   title?: string;
   arrow?: boolean;
   iconOne?: React.FC<SvgProps>;
@@ -26,7 +26,7 @@ export const LinkButton: FC<IProps> = (props: IProps) => {
             <RightArrow
               width={27}
               height={16}
-              style={{ color: getColor(props.colorOption)(props.pressed) }}
+              style={props.colorOption ? { color: getColor(props.colorOption)(props.pressed) } : {}}
             />
           </View>
         )}
@@ -34,9 +34,11 @@ export const LinkButton: FC<IProps> = (props: IProps) => {
           <Text
             style={[
               theme.bank.text.link,
-              {
-                color: getColor(props.colorOption)(props.pressed),
-              },
+              props.colorOption
+                ? {
+                    color: getColor(props.colorOption)(props.pressed),
+                  }
+                : {},
             ]}
           >
             {props.title}

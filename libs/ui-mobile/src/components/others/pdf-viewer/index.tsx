@@ -8,6 +8,7 @@ import { Colors } from '../../../constants';
 type IProps = {
   uri: string;
   handleError: (error: unknown) => void;
+  headers?: { [key: string]: string };
 };
 
 export const PdfViewer = (props: IProps) => {
@@ -31,7 +32,7 @@ export const PdfViewer = (props: IProps) => {
     <View style={styles.container}>
       <Pdf
         trustAllCerts={false}
-        source={{ uri: props.uri, cache: true }}
+        source={props.headers ? { uri: props.uri, cache: true, headers: props.headers } : { uri: props.uri }}
         onError={handleError}
         style={styles.pdf}
         onLoadProgress={handleProgress}
