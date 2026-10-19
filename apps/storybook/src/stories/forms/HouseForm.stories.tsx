@@ -17,7 +17,6 @@ export default HouseFormMeta;
 
 type HouseFormStory = ComponentStory<typeof HouseForm>;
 
-export const Static: HouseFormStory = (args) => <HouseForm {...args} />;
 export const Dynamic: HouseFormStory = () => {
   const { resetFormData, handleFormData } = useHouseFormData();
   return <HouseForm onChangeForm={resetFormData} onChangeField={handleFormData} />;

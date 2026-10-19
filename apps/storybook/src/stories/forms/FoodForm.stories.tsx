@@ -16,7 +16,6 @@ export default FoodFormMeta;
 
 type FoodFormStory = ComponentStory<typeof FoodForm>;
 
-export const Static: FoodFormStory = (args) => <FoodForm {...args} />;
 export const Dynamic: FoodFormStory = () => {
   const { handleFormData } = useFoodFormData(null);
   return <FoodForm initialValues={null} onChangeForm={handleFormData} />;

@@ -17,7 +17,6 @@ export default TransportFormMeta;
 
 type TransportFormStory = ComponentStory<typeof TransportForm>;
 
-export const Static: TransportFormStory = (args) => <TransportForm {...args} />;
 export const Dynamic: TransportFormStory = () => {
   const { resetFormData, handleFormData } = useTransportFormData();
   return <TransportForm onChangeForm={resetFormData} onChangeField={handleFormData} />;
