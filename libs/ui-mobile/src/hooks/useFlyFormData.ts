@@ -3,14 +3,14 @@ import { FlightI, FlightSeatE as SeatE } from '@bank/carbon-weight/dist';
 import { Logger } from '@clean-rn/logger';
 import { FlyEmissions } from '@clean-rn/carbon/domain';
 
-export const useFlyFormData = () => {
+export const useFlyFormData = (initialValues: FlightI[] | null) => {
   const [flight, setFlight] = useState<Partial<FlightI>>({
     nbPassengers: 1,
     roundTrip: false,
     seatType: SeatE.economy,
   });
 
-  const [flights, setFlights] = useState<FlightI[]>([]);
+  const [flights, setFlights] = useState<FlightI[]>(initialValues ?? []);
 
   const handleChangeField = useCallback((key: keyof FlightI, value: number | string | boolean | SeatE) => {
     setFlight((flight: Partial<FlightI>) => ({ ...flight, [key]: value }));

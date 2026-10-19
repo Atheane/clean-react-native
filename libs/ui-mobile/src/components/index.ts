@@ -14,9 +14,10 @@ import { LinkButton } from './buttons/link-button';
 import { SwitchButton } from './buttons/switch-button';
 import { GreenBackButton } from './buttons/green-back-button';
 // Cards
-import { EventCard } from './cards/event-card';
+import { EventCardDelete } from './cards/event-card-delete';
+import { TouchEventCard } from './cards/touch-event-card';
 import { LongCard } from './cards/long-card';
-import { CardScroller } from './cards/card-scroller';
+import { CardScroller, ICardType } from './cards/card-scroller';
 import { TransactionsCard } from './cards/transactions-card';
 import { TouchCardKpi } from './cards/touch-card-kpi';
 import { TouchCardText } from './cards/touch-card-text';
@@ -55,7 +56,9 @@ import { Slider } from './inputs/slider';
 import { TransactionsCardsList } from './lists/transactions-cards-list';
 import { WhiteBalanceList } from './lists/white-balance-list';
 // Others
-import { PdfViewer } from './others/pdf-viewer';
+import { WebViewer } from './others/web-viewer';
+import { ShareScreen } from './others/share-screen';
+// import { PdfViewer } from './others/pdf-viewer';
 import { CopyValueClipboard } from './others/copy-value-clipboard';
 import { TransactionItem } from './others/transaction-item';
 import { GraphCO2 } from './others/graph-co2';
@@ -84,9 +87,11 @@ export {
   SwitchButton,
   GreenBackButton,
   // Cards
-  EventCard,
+  EventCardDelete,
+  TouchEventCard,
   LongCard,
   CardScroller,
+  ICardType,
   TransactionsCard,
   TouchCardKpi,
   TouchCardText,
@@ -130,7 +135,9 @@ export {
   TransactionsCardsList,
   WhiteBalanceList,
   // Others
-  PdfViewer,
+  WebViewer,
+  ShareScreen,
+  // PdfViewer,
   CopyValueClipboard,
   TransactionItem,
   GraphCO2,

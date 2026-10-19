@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
@@ -26,6 +26,9 @@ export type ISignupEmailFormData = {
   email: string;
   consent: boolean;
 };
+
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
 
 export const FormSignupEmail = (props: IProps) => {
   const { theme } = useTheme();
@@ -56,6 +59,9 @@ export const FormSignupEmail = (props: IProps) => {
               <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.email.invalid'))}</Text>
             </View>
           )}
+          <View style={styles.domainErrorContainer}>
+            <ErrorMessage error={props.error} />
+          </View>
         </View>
         <View style={styles.inputCheckbox}>
           <Controller
@@ -76,14 +82,11 @@ export const FormSignupEmail = (props: IProps) => {
             </Text>
           )}
         </View>
-        <View style={styles.domainErrorContainer}>
-          <ErrorMessage error={props.error} />
-        </View>
       </View>
 
       <View style={styles.formSubmit}>
         <SubmitButton
-          title={t('submit-button')}
+          title={t('button.submit')}
           uppercase={false}
           onSubmit={props.onSubmit}
           loading={props.loading}
@@ -106,22 +109,26 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
   },
   textError: {
-    marginTop: 10,
+    marginTop: -8,
   },
   inputEmail: {
     marginVertical: 30,
   },
   inputCheckbox: {
+    marginTop: 12,
     marginBottom: -10,
-  },
-  formSubmit: {
-    marginTop: 10,
   },
   errorContainer: {
     marginTop: 24,
     marginBottom: -20,
   },
   domainErrorContainer: {
-    marginBottom: 16,
+    marginTop: 24,
+    marginBottom: -40,
+  },
+  formSubmit: {
+    marginTop: 60,
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
 });

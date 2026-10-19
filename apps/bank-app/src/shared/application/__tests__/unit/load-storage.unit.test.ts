@@ -7,6 +7,7 @@ import { Email } from '@clean-rn/auth/domain';
 import { IInitializationTypes, storageLoaded } from '../../commands/initialize-application';
 import { loadStorageSaga, loadStorage } from '../../usecases/load-storage';
 import { IStoreKey } from '../../types';
+import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 describe('Load Storage - usecase', () => {
   const genObject = loadStorageSaga();
@@ -26,6 +27,15 @@ describe('Load Storage - usecase', () => {
           email: new Email('test@example.com'),
         }),
       )
+      .next();
+  });
+
+  it('Should call showUnknownError action if unknown error', () => {
+    testSaga(loadStorage)
+      .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .throw(new Error('Unknown error'))
+      .put(showUnknownError(new Error('Unknown error')))
       .next();
   });
 });

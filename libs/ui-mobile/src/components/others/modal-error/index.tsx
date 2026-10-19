@@ -13,10 +13,8 @@ export const ModalError = ({ error }: { error: ServerError | Error }) => {
     <View style={styles.container}>
       <View style={styles.modalContainer}>
         <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.other'))}</Text>
-        {error instanceof ServerError && error?.code && (
-          <Text style={theme.bank.text.errors}>
-            {`\n ${t('modal-error.code')}: ${firstLetterCapitalize(error.code)}`}
-          </Text>
+        {error instanceof ServerError && error?.statusCode && (
+          <Text style={theme.bank.text.errors}>{`\n ${t('modal-error.code')}: ${error.statusCode}`}</Text>
         )}
         {error?.message && (
           <Text style={theme.bank.text.errors}>

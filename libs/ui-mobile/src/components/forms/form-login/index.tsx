@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, GestureResponderEvent } from 'react-native';
+import { View, Text, StyleSheet, GestureResponderEvent, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
@@ -33,12 +33,16 @@ export type ILoginFormData = {
   password: string;
 };
 
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
+const RATIO = HEIGHT / WIDTH;
+
 export const FormLogin = (props: IProps) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
 
   return (
-    <View style={theme.bank.container.centeredItem}>
+    <View style={[styles.container]}>
       <View>
         <View style={styles.inputContainer}>
           {props.email ? (
@@ -114,9 +118,21 @@ export const FormLogin = (props: IProps) => {
         <ErrorMessage error={props.error} />
       </View>
 
-      <View style={styles.submitButtonContainer}>
+      <View
+        style={
+          RATIO > 2.16
+            ? {
+                position: 'absolute',
+                bottom: 240,
+              }
+            : {
+                position: 'absolute',
+                bottom: 120,
+              }
+        }
+      >
         <SubmitButton
-          title={t('login.submit-button')}
+          title={t('button.submit')}
           uppercase={false}
           onSubmit={props.onSubmit}
           loading={props.loading}
@@ -128,6 +144,8 @@ export const FormLogin = (props: IProps) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    alignItems: 'center',
     marginTop: 8,
   },
   inputContainer: {
@@ -135,14 +153,12 @@ const styles = StyleSheet.create({
   },
   errorContainer: {
     marginTop: 24,
+    marginBottom: -30,
   },
   domainErrorContainer: {
     marginTop: 16,
   },
   linkButton: {
-    marginTop: 10,
-  },
-  submitButtonContainer: {
-    marginTop: 50,
+    marginTop: 16,
   },
 });

@@ -1,21 +1,40 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { SvgProps } from 'react-native-svg';
+
 import { useTheme } from '@rneui/themed';
 
+import { LinkButton } from '../../buttons/link-button';
 import { Colors } from '../../../constants';
 import { LinkButtonColors } from '../../../types';
 
-import { LinkButton } from '../../buttons/link-button';
-
 type IProps = {
-  text: string;
   icon: React.FC<SvgProps>;
+  text: string;
+  pressable?: boolean;
   onPress: () => void;
 };
 
 export const LongCard = (props: IProps) => {
   const { theme } = useTheme();
-  return (
+
+  return props.pressable ? (
+    <TouchableOpacity
+      onPress={props.onPress}
+      activeOpacity={0.4}
+      style={[theme.bank.shadow.card, theme.bank.container.card.long, { justifyContent: 'center' }]}
+    >
+      <View>
+        <View style={styles.textContainer}>
+          <Text style={theme.bank.text.cyan}>{props.text}</Text>
+        </View>
+        {props.icon && (
+          <View style={[styles.iconContainer, { top: 8, right: 22 }]}>
+            <props.icon />
+          </View>
+        )}
+      </View>
+    </TouchableOpacity>
+  ) : (
     <View style={[styles.container, theme.bank.shadow.card, theme.bank.container.card.long]}>
       <View style={styles.textContainer}>
         <Text style={theme.bank.text.cyan}>{props.text}</Text>
@@ -41,6 +60,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  textContainer: { marginLeft: 30 },
+  rowContainer: {
+    marginLeft: 16,
+  },
+  textContainer: { marginLeft: 30, marginVertical: 14 },
   iconContainer: { position: 'absolute', right: 12, top: 0 },
 });

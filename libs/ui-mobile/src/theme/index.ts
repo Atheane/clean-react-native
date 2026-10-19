@@ -51,7 +51,10 @@ declare module '@rneui/themed' {
   }
 }
 
-const LONG_BUTTON_RATIO = 55 / 307;
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
+const COEFF = HEIGHT / WIDTH > 2.16 ? 0.75 : 0.8;
+
 const SHORT_CARD_RATIO = 168 / 228;
 const LONG_CARD_RATIO = 85 / 356;
 const KPI_CARD_RATIO = 112 / 174;
@@ -72,9 +75,9 @@ export const theme = createTheme({
           borderRadius: 28,
         },
         long: {
-          width: Dimensions.get('window').width * 0.8,
-          height: Dimensions.get('window').width * 0.8 * LONG_BUTTON_RATIO,
-          borderRadius: 28,
+          width: Dimensions.get('window').width * COEFF,
+          borderRadius: 32,
+          backgroundColor: Colors.bank.primary.lightGreen,
         },
       },
       centeredItem: { alignItems: 'center', justifyContent: 'center' },
@@ -92,24 +95,27 @@ export const theme = createTheme({
           margin: 16,
           borderRadius: 16,
           borderWidth: 0,
+          backgroundColor: Colors.bank.primary.white,
         },
         long: {
           width: Dimensions.get('window').width * 0.9,
           minHeight: Dimensions.get('window').width * 0.9 * LONG_CARD_RATIO,
+          marginHorizontal: 16,
+          marginVertical: 8,
           borderRadius: 20,
-          borderWidth: 0,
+          backgroundColor: Colors.bank.primary.white,
         },
         kpi: {
           width: Dimensions.get('window').width * 0.46,
           height: Dimensions.get('window').width * 0.46 * KPI_CARD_RATIO,
-          margin: 16,
+          marginHorizontal: 16,
           borderRadius: 20,
           backgroundColor: Colors.bank.primary.white,
           padding: 8,
         },
       },
       input: {
-        width: Dimensions.get('window').width * 0.8,
+        width: Dimensions.get('window').width * COEFF,
         backgroundColor: Colors.bank.primary.lightGrey,
         borderRadius: 8,
         marginTop: 11,
@@ -122,7 +128,7 @@ export const theme = createTheme({
         shadowColor: Colors.bank.shadow, // iOS
         shadowOffset: { width: 0, height: 15 }, // iOS
         shadowOpacity: 0.6, // iOS
-        shadowRadius: 20, // iOS
+        shadowRadius: 28, // iOS
         elevation: 50, // android,
         borderRadius: 28,
       },

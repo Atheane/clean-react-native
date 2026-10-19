@@ -14,48 +14,36 @@ export enum ITransactionType {
 
 //todo need relevant categories in app from Gildas
 export enum ITransactionCategory {
-  BANK = 'bank',
-  HOUSING = 'housing',
-  NUTRITION = 'nutrition',
-  TRANSPORT = 'transport',
-  SUBSCRIPTIONS = 'subscriptions',
-  DIVERSE = 'diverse',
-  HIGHT_TECH = 'high-tech',
-  LEISURE = 'leisure',
-  PROCUREMENT = 'procurement',
-  HEALTH = 'health',
-  PRO = 'pro',
+  BANK = 'BANK',
+  BAR = 'BAR',
+  ENDOWMENT = 'ENDOWMENT',
+  ASSURANCES = 'ASSURANCES',
+  LEISURE = 'LEISURE',
+  ART = 'ART',
+  LEGAL = 'LEGAL',
+  PROCUREMENT = 'PROCUREMENT',
+  HOUSING = 'HOUSING',
+  TRANSPORT = 'TRANSPORT',
+  HIGHT_TECH = 'HIGHT_TECH',
+  SUBSCRIPTIONS = 'SUBSCRIPTIONS',
+  TRAVEL = 'TRAVEL',
+  VEHICLES = 'VEHICLES',
+  ALCOHOL = 'ALCOHOL',
+  HEALTH = 'HEALTH',
+  SCHOOLING = 'SCHOOLING',
+  RESTAURANTS = 'RESTAURANTS',
+  DIVERSE = 'DIVERSE',
+  FUEL = 'FUEL',
+  NUTRITION = 'NUTRITION',
+  NUMERIC = 'NUMERIC',
+  CLOTHING = 'CLOTHING',
+  CULTURE = 'CULTURE',
   NURSING = 'nursing',
-  SCHOOLING = 'schooling',
+  PRO = 'PRO',
 }
 
-//todo need relevant categories in app from Gildas
-export enum ITransactionSubCategory {
-  // nutrition
-  RESTAURANTS = 'restaurants',
-  BARS = 'bars',
-  // transport
-  FUEL = 'fuel',
-  //subscriptions
-  ASSURANCES = 'assurances',
-  // diverse
-  ENDOWMENT = 'endowment',
-  // high-tech
-  // leisure
-  TRAVEL = 'travel',
-  SPORT = 'sport',
-  NUMERIC = 'numeric',
-  // procurement
-  VEHICLES = 'vehicles',
-  CLOTHING = 'clothing',
-  HOUSING = 'housing',
-  ALCOHOL = 'alcohol',
-  CULTURE = 'culture',
-  ART = 'art',
-  LEGAL = 'legal',
-  // health
-  NURSING = 'nursing',
-  // pro
-  // nursing
-  // schooling
+export enum IStatementsPeriod {
+  LAST_MONTH = 'month',
+  LAST_TRIMESTER = 'trimester',
+  ALL = 'all',
 }

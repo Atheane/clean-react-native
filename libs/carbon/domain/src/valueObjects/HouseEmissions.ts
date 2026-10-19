@@ -2,12 +2,12 @@ import { HouseDataE, House, HouseT, HouseHeaterE as HeaterE } from '@bank/carbon
 import { CarbonError } from '../errors';
 
 export class HouseEmissions {
-  private props: HouseT & { consumption: number };
+  private props: HouseT & { consumption: number } & { builtYear: number };
   private calculator: House;
   private average: number;
   private emission: number;
 
-  constructor(props: HouseT & { consumption: number }) {
+  constructor(props: HouseT & { consumption: number } & { builtYear: number }) {
     if (!this.validate(props)) {
       throw new CarbonError.InvalidHouseProps();
     }
@@ -18,11 +18,11 @@ export class HouseEmissions {
     // get calculator
     this.calculator = House.build(HouseDataE.BANK_2022);
     //compute
-    this.calculateAverage();
-    this.calculate();
+    this.computeAverage();
+    this.compute();
   }
 
-  private validate(props: HouseT & { consumption: number }): boolean {
+  private validate(props: HouseT & { consumption: number } & { builtYear: number }): boolean {
     if (!props.heater) {
       return false;
     } else if (props.heater === HeaterE.gas && (!props.surface || !props.built || !props.type)) {
@@ -36,11 +36,11 @@ export class HouseEmissions {
     return true;
   }
 
-  private calculateAverage(): void {
+  private computeAverage(): void {
     this.average = this.calculator.getEmissionAvg();
   }
 
-  private calculate(): void {
+  private compute(): void {
     if (this.props.heater === HeaterE.gas) {
       this.emission = this.calculator.getEmissionEstimated(this.props);
     } else if ([HeaterE.coal, HeaterE.fuelOil, HeaterE.propane].includes(this.props.heater)) {

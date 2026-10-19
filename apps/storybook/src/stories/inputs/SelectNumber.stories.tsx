@@ -1,5 +1,4 @@
 import { StyleProp, ViewStyle } from 'react-native';
-import { useTranslation } from 'react-i18next';
 
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { Colors, SelectNumber, Surface } from '@clean-rn/ui-mobile';
@@ -24,10 +23,8 @@ export default SelectNumberMeta;
 type SelectNumberStory = ComponentStory<typeof SelectNumber>;
 
 export const Static: SelectNumberStory = (args) => {
-  const { t } = useTranslation();
-  return <SelectNumber {...args} label={t('screens.carbonHouse.surface')} />;
+  return <SelectNumber {...args} label={'surface'} />;
 };
 export const NoIcon: SelectNumberStory = (args) => {
-  const { t } = useTranslation();
-  return <SelectNumber {...args} label={t('screens.carbonHouse.surface')} icon={undefined} />;
+  return <SelectNumber {...args} label={'surface'} icon={undefined} />;
 };

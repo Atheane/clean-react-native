@@ -15,7 +15,7 @@ import { ILoginTypes, loginSuccess, loginFailure, initializeLogin } from '../../
 import { initializeSignupStep } from '../../commands/signup';
 import { IStoreKey } from '../../../../shared/application/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 describe('Login - usecase', () => {
@@ -141,6 +141,8 @@ describe('Login - usecase', () => {
       payload: mockData,
     })
       .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next('test@example.com')
       .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
       .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
@@ -150,8 +152,6 @@ describe('Login - usecase', () => {
       .call([api, api.getUser])
       .next(mockUserManData)
       .put(loginSuccess({ auth: mockResponse, user }))
-      .next()
-      .call(navigate, { route: IHomeStackPages.HOME })
       .next();
   });
 
@@ -185,6 +185,8 @@ describe('Login - usecase', () => {
       payload: mockData,
     })
       .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next('test@example.com')
       .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
       .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
@@ -194,8 +196,6 @@ describe('Login - usecase', () => {
       .call([api, api.getUser])
       .next(mockUserWomanData)
       .put(loginSuccess({ auth: mockResponse, user }))
-      .next()
-      .call(navigate, { route: IHomeStackPages.HOME })
       .next();
   });
 
@@ -229,6 +229,8 @@ describe('Login - usecase', () => {
       payload: mockData,
     })
       .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next('test@example.com')
       .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
       .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
@@ -238,8 +240,6 @@ describe('Login - usecase', () => {
       .call([api, api.getUser])
       .next(mockUserNeutralData)
       .put(loginSuccess({ auth: mockResponse, user }))
-      .next()
-      .call(navigate, { route: IHomeStackPages.HOME })
       .next();
   });
 
@@ -249,6 +249,8 @@ describe('Login - usecase', () => {
       payload: mockData,
     })
       .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next('test@example.com')
       .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401InvalidCredentials))
       .put(
@@ -265,6 +267,8 @@ describe('Login - usecase', () => {
       payload: mockData,
     })
       .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next('test@example.com')
       .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401UserNotFound))
       .put(loginFailure(new AuthError.LoginFailureUserNotFound(new ServerError(mockError401UserNotFound))))
@@ -277,6 +281,8 @@ describe('Login - usecase', () => {
       payload: mockData,
     })
       .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next('test@example.com')
       .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401UserPhoneNotValidated))
       .put(initializeSignupStep())
@@ -297,6 +303,8 @@ describe('Login - usecase', () => {
       payload: mockData,
     })
       .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next('test@example.com')
       .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
       .put(initializeLogin())
@@ -310,6 +318,10 @@ describe('Login - usecase', () => {
       type: ILoginTypes.FETCH_LOGIN,
       payload: mockData,
     })
+      .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next(null)
+      .call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, 'test@example.com')
       .next()
       .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unknown error'))

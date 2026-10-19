@@ -46,6 +46,8 @@ import Surface from './surface.svg';
 import CO2 from './co2.svg';
 import FlyFrom from './flyFrom.svg';
 import FlyTo from './flyTo.svg';
+import PlaneFrom from './planeFrom.svg';
+import PlaneTo from './planeTo.svg';
 import Lock from './lock.svg';
 import Eye from './remove_red_eye_48px.svg';
 import Blind from './icon_eye-invisible.svg';
@@ -60,6 +62,34 @@ import Shield from './shield.svg';
 import Delete from './delete.svg';
 import Right from './right.svg';
 import Gasoline from './gasoline.svg';
+import Profile from './profile.svg';
+import ALCOHOL from './t-alcohol.svg';
+import ART from './t-art.svg';
+import ASSURANCES from './t-assurance.svg';
+import BANK from './t-bank.svg';
+import BAR from './t-bar.svg';
+import CLOTHING from './t-clothing.svg';
+import CULTURE from './t-culture.svg';
+import DIVERSE from './t-diverse.svg';
+import ENDOWMENT from './t-endowment.svg';
+import FUEL from './t-fuel.svg';
+import HEALTH from './t-health.svg';
+import HIGHT_TECH from './t-high-tech.svg';
+import HOUSING from './t-housing.svg';
+import LEGAL from './t-legal.svg';
+import LEISURE from './t-leisure.svg';
+import NUMERIC from './t-numeric.svg';
+import NURSING from './t-nursing.svg';
+import NUTRITION from './t-nutrition.svg';
+import PRO from './t-pro.svg';
+import PROCUREMENT from './t-procurement.svg';
+import RESTAURANTS from './t-restaurant.svg';
+import SCHOOLING from './t-schooling.svg';
+import SUBSCRIPTIONS from './t-subscription.svg';
+import TRANSPORT from './t-transport.svg';
+import TRAVEL from './t-travel.svg';
+import VEHICLES from './t-vehicle.svg';
+import HouseCarbon from './house-carbon.svg';
 
 export {
   Love,
@@ -108,6 +138,8 @@ export {
   Fuel,
   FlyFrom,
   FlyTo,
+  PlaneFrom,
+  PlaneTo,
   Lock,
   Eye,
   Blind,
@@ -122,4 +154,32 @@ export {
   Delete,
   Right,
   Gasoline,
+  Profile,
+  ALCOHOL,
+  ART,
+  ASSURANCES,
+  BANK,
+  BAR,
+  CLOTHING,
+  CULTURE,
+  DIVERSE,
+  ENDOWMENT,
+  FUEL,
+  HEALTH,
+  HIGHT_TECH,
+  HOUSING,
+  LEGAL,
+  LEISURE,
+  NUMERIC,
+  NURSING,
+  NUTRITION,
+  PRO,
+  PROCUREMENT,
+  RESTAURANTS,
+  SCHOOLING,
+  SUBSCRIPTIONS,
+  TRANSPORT,
+  TRAVEL,
+  VEHICLES,
+  HouseCarbon,
 };

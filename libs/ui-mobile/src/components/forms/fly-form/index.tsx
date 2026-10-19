@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { useCallback, useEffect, useState, useRef } from 'react';
+import { View, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useTheme } from '@rneui/themed';
@@ -14,7 +14,7 @@ import { Colors } from '../../../constants';
 
 import { SecondaryButton } from '../../buttons/secondary-button';
 import { SwitchButton } from '../../buttons/switch-button';
-import { CardScroller } from '../../cards/card-scroller';
+import { CardScroller, ICardType } from '../../cards/card-scroller';
 import { SelectNumber } from '../../inputs/select-number';
 import { SearchModal } from '../../searchboxes/search-modal';
 
@@ -41,6 +41,10 @@ type IProps = {
   onRemoveFlight: (uid: string) => void;
   scrollViewRef: React.RefObject<KeyboardAwareScrollView>;
 };
+
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
+const COEFF = HEIGHT / WIDTH > 2.16 ? 0.75 : 0.8;
 
 export const FlyForm = (props: IProps) => {
   const { theme } = useTheme();
@@ -93,10 +97,12 @@ export const FlyForm = (props: IProps) => {
       .map(({ nbPassengers, fromIATA, toIATA, seatType, roundTrip }: FlightI) => {
         const plural = nbPassengers > 1 ? 's' : '';
         const travelType = (
-          roundTrip ? t('screens.carbonFly.swipeButton.round') : t('screens.carbonFly.swipeButton.simple')
+          roundTrip ? t('screens.carbon-fly.swipe-button.round') : t('screens.carbon-fly.swipe-button.simple')
         ).toLocaleLowerCase();
         const seat = (
-          seatType ? t('screens.carbonFly.swipeButton.economy') : t('screens.carbonFly.swipeButton.business')
+          seatType === SeatE.economy
+            ? t('screens.carbon-fly.swipe-button.economy')
+            : t('screens.carbon-fly.swipe-button.business')
         ).toLocaleLowerCase();
 
         return {
@@ -114,17 +120,20 @@ export const FlyForm = (props: IProps) => {
     if (props.onRemoveFlight) props.onRemoveFlight(uid);
   };
 
+  const cardScrollRef = useRef<null | ScrollView>(null);
+
   const handleOnAddFlight = () => {
     props.onAddFlight();
     props.scrollViewRef.current?.scrollToEnd();
+    cardScrollRef.current?.scrollToEnd();
   };
 
   return (
     <View style={theme.bank.container.centeredItem}>
       <View style={styles.inputContainer}>
         <SearchModal
-          label={t('screens.carbonFly.dropdown.destination')}
-          placeholder={t('screens.carbonFly.dropdown.destination')}
+          label={t('screens.carbon-fly.dropdown.destination')}
+          placeholder={t('screens.carbon-fly.dropdown.destination')}
           data={props.airports}
           icon={() => <FlyFrom style={{ color: Colors.bank.primary.lightGreen }} />}
           onSelect={(data: IData) => handleOnChangeField(data, 'fromIATA')}
@@ -132,50 +141,62 @@ export const FlyForm = (props: IProps) => {
       </View>
       <View style={styles.inputContainer}>
         <SearchModal
-          label={t('screens.carbonFly.dropdown.arrival')}
-          placeholder={t('screens.carbonFly.dropdown.arrival')}
+          label={t('screens.carbon-fly.dropdown.arrival')}
+          placeholder={t('screens.carbon-fly.dropdown.arrival')}
           data={props.airports}
           icon={() => <FlyTo style={{ color: Colors.bank.primary.lightGreen }} />}
           onSelect={(data: IData) => handleOnChangeField(data, 'toIATA')}
         />
       </View>
-      <View style={[styles.sliderContainer, styles.inputContainer]}>
+      <View
+        style={[
+          styles.sliderContainer,
+          styles.inputContainer,
+          { width: Dimensions.get('window').width * COEFF },
+        ]}
+      >
         <SelectNumber
-          label={t('screens.carbonFly.slider')}
+          label={t('screens.carbon-fly.slider')}
           value={props.flight?.nbPassengers ?? 1}
           onChange={handleOnChangeFlightNumber}
         />
       </View>
       <View style={[styles.swipeButtonContainer, styles.inputContainer]}>
         <SwitchButton
-          label={t('screens.carbonFly.swipeButton.type')}
+          label={t('screens.carbon-fly.swipe-button.type')}
           options={[
-            { key: FLY_TYPE.SIMPLE, value: t('screens.carbonFly.swipeButton.simple') },
-            { key: FLY_TYPE.ROUND, value: t('screens.carbonFly.swipeButton.round') },
+            { key: FLY_TYPE.SIMPLE, value: t('screens.carbon-fly.swipe-button.simple') },
+            { key: FLY_TYPE.ROUND, value: t('screens.carbon-fly.swipe-button.round') },
           ]}
           onToggle={handleOnToggleWays}
         />
       </View>
       <View style={[styles.swipeButtonContainer, styles.inputContainer]}>
         <SwitchButton
-          label={t('screens.carbonFly.swipeButton.class')}
+          label={t('screens.carbon-fly.swipe-button.class')}
           options={[
-            { key: SeatE.economy, value: t('screens.carbonFly.swipeButton.economy') },
-            { key: SeatE.business, value: t('screens.carbonFly.swipeButton.business') },
+            { key: SeatE.economy, value: t('screens.carbon-fly.swipe-button.economy') },
+            { key: SeatE.business, value: t('screens.carbon-fly.swipe-button.business') },
           ]}
           onToggle={handleOnToggleSeat}
         />
       </View>
-      <View style={styles.inputContainer}>
+      <View style={styles.buttonContainer}>
         <SecondaryButton
-          title={t('screens.carbonFly.secondaryButton')}
+          title={t('screens.carbon-fly.secondary-button')}
           onPress={handleOnAddFlight}
           disabled={disabled}
         />
       </View>
       {props.flights && props.flights.length > 0 && (
         <View style={styles.cardScroller}>
-          <CardScroller data={mapFlightToCards(props.flights)} onDelete={handleOnDeleteFlight} height={200} />
+          <CardScroller
+            data={mapFlightToCards(props.flights)}
+            onDelete={handleOnDeleteFlight}
+            height={260}
+            cardType={ICardType.EVENT_CARD_DELETE}
+            cardScrollRef={cardScrollRef}
+          />
         </View>
       )}
     </View>
@@ -187,6 +208,7 @@ const styles = StyleSheet.create({
     marginTop: 60,
   },
   cardScroller: {
+    marginTop: -20,
     marginBottom: 32,
   },
   sliderContainer: {
@@ -196,5 +218,9 @@ const styles = StyleSheet.create({
   swipeButtonContainer: {
     marginHorizontal: 8,
     marginBottom: -16,
+  },
+  buttonContainer: {
+    marginTop: 64,
+    marginBottom: 16,
   },
 });

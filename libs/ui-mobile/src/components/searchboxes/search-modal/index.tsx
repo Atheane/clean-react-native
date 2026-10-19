@@ -142,6 +142,10 @@ export const SearchModal = (props: IProps) => {
   );
 };
 
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
+const COEFF = HEIGHT / WIDTH > 2.16 ? 0.75 : 0.8;
+
 const styles = StyleSheet.create({
   listContainer: {
     marginTop: 24,
@@ -149,15 +153,16 @@ const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
     marginTop: 50,
-    marginLeft: 30,
+    alignItems: 'center',
   },
   itemContainer: {
     flex: 1,
-    width: '90%',
+    justifyContent: 'center',
+    width: Dimensions.get('window').width * COEFF,
     paddingVertical: 10,
     borderBottomColor: Colors.bank.primary.lightGrey,
     borderBottomWidth: 1,
   },
-  closeIcon: { position: 'relative', bottom: 25, left: Dimensions.get('window').width * 0.8 - 35 },
-  closeIconModal: { position: 'relative', bottom: 25, left: Dimensions.get('window').width * 0.8 - 35 },
+  closeIcon: { position: 'relative', bottom: 25, left: Dimensions.get('window').width * COEFF - 35 },
+  closeIconModal: { position: 'relative', bottom: 25, left: Dimensions.get('window').width * COEFF - 35 },
 });

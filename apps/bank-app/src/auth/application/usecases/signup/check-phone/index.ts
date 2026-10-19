@@ -54,6 +54,7 @@ export function* checkPhoneGenerator(
     // navigation
     yield call(navigate, { route: IAuthStackPages.SIGNUP_VALIDATE_PHONE });
   } catch (e: unknown) {
+    // once app is well tested, delete this part and let onError hook manage unexpected errors
     yield put(initializeSignupStep());
     yield put(showUnknownError(e as Error));
   }

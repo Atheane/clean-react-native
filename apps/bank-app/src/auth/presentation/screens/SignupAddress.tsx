@@ -1,15 +1,23 @@
 import { useCallback } from 'react';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 
-import { useCleanErrorOnFocus, FormSignupAddress, ISignupAddressFormData } from '@clean-rn/ui-mobile';
+import {
+  useCleanErrorOnFocus,
+  FormSignupAddress,
+  ISignupAddressFormData,
+  Colors,
+} from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 
 import { registerAddress } from '../../application/commands/signup';
+
+const HEIGHT = Dimensions.get('window').height;
 
 export const SignupAddress = () => {
   /// translations
@@ -53,16 +61,25 @@ export const SignupAddress = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <FormSignupAddress
-          loading={pending}
-          control={control}
-          errors={errors}
-          error={domainError}
-          defaultCountry={user?.properties.phone?.countryCode}
-          onSubmit={handleSubmit(onSubmit)}
-          onFocus={onFocus}
-        />
+        <View style={[styles.container, { height: HEIGHT }]}>
+          <FormSignupAddress
+            loading={pending}
+            control={control}
+            errors={errors}
+            error={domainError}
+            defaultCountry={user?.properties.phone?.countryCode}
+            onSubmit={handleSubmit(onSubmit)}
+            onFocus={onFocus}
+          />
+        </View>
       </SafeScrollingView>
     </ErrorBoundary>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.bank.primary.white,
+  },
+});

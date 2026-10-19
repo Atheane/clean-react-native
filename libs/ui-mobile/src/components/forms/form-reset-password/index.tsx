@@ -67,7 +67,7 @@ export const FormResetPassword = (props: IProps) => {
           </View>
         ) : (
           <SubmitButton
-            title={t('reset-password.submit-button')}
+            title={t('reset-password.reset')}
             uppercase
             onSubmit={props.onSubmit}
             loading={props.loading}
@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
   },
   submitButtonContainer: {
     marginTop: 64,
+    marginBottom: 200,
   },
   textContainer: {
     width: '90%',

@@ -60,7 +60,8 @@ const getStories = () => {
     './stories/buttons/SwitchButton.stories.tsx': require('../stories/buttons/SwitchButton.stories'),
     './stories/buttons/GreenBackButton.stories.tsx': require('../stories/buttons/GreenBackButton.stories'),
     // Cards
-    './stories/cards/EventCard.stories.tsx': require('../stories/cards/EventCard.stories'),
+    './stories/cards/EventCardDelete.stories.tsx': require('../stories/cards/EventCardDelete.stories'),
+    './stories/cards/TouchEventCard.stories.tsx': require('../stories/cards/TouchEventCard.stories'),
     './stories/cards/LongCard.stories.tsx': require('../stories/cards/LongCard.stories'),
     './stories/cards/CardScroller.stories.tsx': require('../stories/cards/CardScroller.stories'),
     './stories/cards/TransactionsCard.stories.tsx': require('../stories/cards/TransactionsCard.stories'),
@@ -98,7 +99,8 @@ const getStories = () => {
     './stories/lists/TransactionsCardsList.stories.tsx': require('../stories/lists/TransactionsCardsList.stories'),
     './stories/lists/WhiteBalanceList.stories.tsx': require('../stories/lists/WhiteBalanceList.stories'),
     // Others
-    './stories/others/PdfViewer.stories.tsx': require('../stories/others/PdfViewer.stories'),
+    './stories/others/WebViewer.stories.tsx': require('../stories/others/WebViewer.stories'),
+    './stories/others/ShareScreen.stories.tsx': require('../stories/others/ShareScreen.stories'),
     './stories/others/CopyValueClipboard.stories.tsx': require('../stories/others/CopyValueClipboard.stories'),
     './stories/others/TransactionItem.stories.tsx': require('../stories/others/TransactionItem.stories'),
     './stories/others/GraphCO2.stories.tsx': require('../stories/others/GraphCO2.stories'),

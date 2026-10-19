@@ -24,10 +24,6 @@ export default DateTimePickerMeta;
 export const Dynamic: ComponentStory<typeof DateTimePicker> = (args) => {
   const { t } = useTranslation();
   return (
-    <DateTimePicker
-      {...args}
-      label={t('screens.signupstep4.birthday.label')}
-      placeholder={t('screens.signupstep4.birthday.placeholder')}
-    />
+    <DateTimePicker {...args} label={t('date-picker.label')} placeholder={t('date-picker.placeholder')} />
   );
 };

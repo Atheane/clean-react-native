@@ -32,8 +32,8 @@ exports[`SwitchButton -  label -  renders as before 1`] = `
     style={
       [
         {
-          "borderRadius": 28,
-          "height": 107.49185667752442,
+          "backgroundColor": "#BFD23A",
+          "borderRadius": 32,
           "width": 600,
         },
         {
@@ -50,7 +50,7 @@ exports[`SwitchButton -  label -  renders as before 1`] = `
             "width": 0,
           },
           "shadowOpacity": 0.6,
-          "shadowRadius": 20,
+          "shadowRadius": 28,
         },
       ]
     }
@@ -77,8 +77,8 @@ exports[`SwitchButton -  label -  renders as before 1`] = `
       style={
         [
           {
-            "borderRadius": 28,
-            "height": 107.49185667752442,
+            "backgroundColor": "#BFD23A",
+            "borderRadius": 32,
             "width": 600,
           },
           {
@@ -95,7 +95,10 @@ exports[`SwitchButton -  label -  renders as before 1`] = `
               "width": 0,
             },
             "shadowOpacity": 0.6,
-            "shadowRadius": 20,
+            "shadowRadius": 28,
+          },
+          {
+            "height": 107.49185667752442,
           },
         ]
       }
@@ -283,8 +286,8 @@ exports[`SwitchButton -  minimal props -  renders as before 1`] = `
     style={
       [
         {
-          "borderRadius": 28,
-          "height": 107.49185667752442,
+          "backgroundColor": "#BFD23A",
+          "borderRadius": 32,
           "width": 600,
         },
         {
@@ -301,7 +304,7 @@ exports[`SwitchButton -  minimal props -  renders as before 1`] = `
             "width": 0,
           },
           "shadowOpacity": 0.6,
-          "shadowRadius": 20,
+          "shadowRadius": 28,
         },
       ]
     }
@@ -328,8 +331,8 @@ exports[`SwitchButton -  minimal props -  renders as before 1`] = `
       style={
         [
           {
-            "borderRadius": 28,
-            "height": 107.49185667752442,
+            "backgroundColor": "#BFD23A",
+            "borderRadius": 32,
             "width": 600,
           },
           {
@@ -346,7 +349,10 @@ exports[`SwitchButton -  minimal props -  renders as before 1`] = `
               "width": 0,
             },
             "shadowOpacity": 0.6,
-            "shadowRadius": 20,
+            "shadowRadius": 28,
+          },
+          {
+            "height": 107.49185667752442,
           },
         ]
       }

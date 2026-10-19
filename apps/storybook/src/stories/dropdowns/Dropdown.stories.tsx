@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { sort } from 'fast-sort';
 
+import { HouseHeaterE as HeaterE } from '@bank/carbon-weight/dist';
+
 import { Flame, Department, Dropdown, Colors } from '@clean-rn/ui-mobile';
 import { IHeatingType, departmentsFR, IDepartment } from '@clean-rn/carbon/domain';
 
@@ -51,12 +53,16 @@ const sortedDeps = sort(departmentsFR)
 
 export const HeatingTypes: DropdownStory = (args) => {
   const { t } = useTranslation();
+  const dataHeating = Object.entries(HeaterE).map(([key, value]) => ({
+    key,
+    value: t('screens.carbon-house.dropdown.' + value),
+  }));
   return (
     <Dropdown
       {...args}
-      label={t('screens.carbonHouse.dropdown.heater')}
-      placeholder={t('screens.carbonHouse.dropdown.heater')}
-      data={sortedDeps}
+      label={t('screens.carbon-house.dropdown.heater')}
+      placeholder={t('screens.carbon-house.dropdown.heater')}
+      data={dataHeating}
     />
   );
 };
@@ -66,8 +72,8 @@ export const Departments: DropdownStory = (args) => {
   return (
     <Dropdown
       {...args}
-      label={t('screens.carbonHouse.dropdown.stateDepartment')}
-      placeholder={t('screens.carbonHouse.dropdown.stateDepartment')}
+      label={t('screens.carbon-house.dropdown.state-department')}
+      placeholder={t('screens.carbon-house.dropdown.state-department')}
       data={sortedDeps}
       icon={() => <Department style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />}
     />

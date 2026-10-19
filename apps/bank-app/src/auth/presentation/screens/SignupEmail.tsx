@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
@@ -71,10 +71,22 @@ export const SignupEmail = () => {
   // clean domainError onFocus
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
+  const WIDTH = Dimensions.get('window').width;
+  const HEIGHT = Dimensions.get('window').height;
+
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <>
+        <View
+          style={[
+            styles.container,
+            HEIGHT / WIDTH > 2.16
+              ? { height: HEIGHT * 0.8, marginTop: 80 }
+              : HEIGHT / WIDTH > 2
+              ? { height: HEIGHT, marginTop: 50 }
+              : { marginTop: 24 },
+          ]}
+        >
           <View style={styles.image}>
             <Image style={{ width: 200, height: 200 }} source={Welcome} />
           </View>
@@ -110,7 +122,7 @@ export const SignupEmail = () => {
               onPress={onPressCguKycProvider}
             />
           </View>
-        </>
+        </View>
       </SafeScrollingView>
     </ErrorBoundary>
   );
@@ -119,6 +131,7 @@ export const SignupEmail = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
     backgroundColor: Colors.bank.primary.white,
   },
   modalContainer: {
@@ -133,6 +146,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   cgu: {
+    marginTop: 16,
     flexDirection: 'row',
     justifyContent: 'center',
   },

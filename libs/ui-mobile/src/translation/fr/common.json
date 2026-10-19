@@ -3,6 +3,11 @@
     "update-application": "Mise à jour disponible",
     "identity-validation": "Validation de l'identité"
   },
+  "modal": {
+    "login": {
+      "title": "Session expirée, connectez-vous"
+    }
+  },
   "errors": {
     "email": {
       "required": "email requis",
@@ -59,7 +64,7 @@
         "LOGIN_FAILURE_INVALID_CREDENTIALS": "Email ou mot de passe incorrect",
         "LOGIN_FAILURE_USER_NOT_FOUND": "le compte n'existe pas",
         "LOGIN_FAILURE_USER_PHONE_NOT_VALIDATED": "le numéro de téléphone n'est pas valide",
-        "VALIDATE_PHONE_FAILURE_INVALID_PHONE_CODE": "code incorrect",
+        "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "code incorrect",
         "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "numéro de téléphone inconnu",
         "SIGNUP_FAILURE_EMAIL_EXISTS": "cet email est déjà enregistré",
         "SIGNUP_FAILURE_PHONE_EXISTS": "ce téléphone est déjà enregistré",
@@ -71,7 +76,12 @@
     "other": "erreur, veuillez contacter l'administrateur"
   },
   "country-picker": {
+    "label": "pays",
     "placeholder": "Sélectionner un pays"
+  },
+  "date-picker": {
+    "label": "Date de naissance",
+    "placeholder": "DD/MM/YYYY"
   },
   "email-input": {
     "label": "email",
@@ -81,18 +91,20 @@
     "placeholder": "******",
     "label": "password"
   },
-  "submit-button": "valider",
+  "button": {
+    "share": "partager",
+    "submit": "valider"
+  },
   "login": {
     "forgotten-password": "Mot de passe oublié ?",
-    "submit-button": "valider",
     "validate": "valider"
   },
   "reset-password": {
     "success": "Si cet email existe, un message vous a été envoyé",
-    "submit-button": "réinitialiser"
+    "reset": "réinitialiser"
   },
   "signup-email": {
-    "text":"Vérifions ensemble si votre adresse mail est rattachée à un compte existant."
+    "text": "Vérifions ensemble si votre adresse mail est rattachée à un compte existant."
   },
   "signup-identity": {
     "gender": {
@@ -118,9 +130,6 @@
       "label": "numéro de téléphone",
       "placeholder": "numéro de téléphone"
     }
-  },
-  "signup-validate-phone": {
-    "submit-button": "valider"
   },
   "signup-birth": {
     "birthday": {
@@ -170,9 +179,9 @@
     "stack": "Détails "
   },
   "screens": {
-    "legal": "Mentions légales",
+    "legal": "Données personnelles",
     "cgu": "CGU",
-    "cgu-kyc-provider": "CGU KycProvider",
+    "cgu-kyc-provider": "CGU (KycProvider)",
     "modal-error": "Erreur",
     "login": {
       "title": "Connexion"
@@ -189,7 +198,7 @@
     },
     "signup-validate-phone": {
       "title": "Sécurité",
-      "instruction": "Saisissez le code vérification qui vient de vous être envoyé par SMS",
+      "instruction": "Saisissez le code vérification qui vient de vous être envoyé par SMS"
     },
     "signup-birth": {
       "title": "Compléter mon profil"
@@ -202,9 +211,13 @@
       "congrats": "Félicitations ! Vous pouvez maintenant accéder à votre application Bank App.",
       "button": "C'est parti !"
     },
+    "email-sent": {
+      "title": "Email envoyé",
+      "text": "Nous vous avons envoyé un email de confirmation à l’adresse indiquée. \n\nVeuillez cliquer sur le lien pour vous connecter."
+    },
     "signup-phone": {
       "title": "Validation du mobile",
-      "text": "Valider votre numéro de téléphone mobile",
+      "text": "Valider votre numéro de téléphone mobile"
     },
     "home": {
       "title": "Accueil",
@@ -217,37 +230,42 @@
         "noaccounts": "Aucun compte"
       },
       "banner": {
-        "validationIdentity": "Validation identité"
+        "validation-identity": "Validation identité"
       }
     },
     "account": {
       "balance": "Solde de mon compte",
       "oups": "Créditez votre Bank App pour utiliser la monnaie climatique au quotidien !",
       "iban": "Afficher mon IBAN CO2",
-      "transfer": "Virement"
+      "transfer": "Virement",
+      "cards": {
+        "card": "Notre Carte de paiement pour économiser du CO2",
+        "loan": "Nos prêts pour décarboner l’économie",
+        "loan-heater": "Notre offre de prêt pour changer de chaudière",
+        "carbon-premium": "Soyez récompensé grâce à nos primes",
+        "manifesto": "Manifeste",
+        "history": "Notre histoire",
+        "green-euro": "Comment fonctionnent les euros-verts ?",
+        "currency": "Nos objectifs et nos limites",
+        "article": "Notre blog sur le monde bancaire et l’urgence climatique"
+      }
     },
-    "accountStatements": {
+    "account-statements": {
       "title": "Export",
       "bold": "Exporter mon relevé de compte",
       "normal": "Télécharger mon relevé de compte en PDF",
       "cards": {
-        "currentMonth": "Le mois en cours",
-        "threeLastMonths": "3 derniers mois",
+        "last-month": "Le mois dernier",
+        "last-trimester": "3 derniers mois",
         "all": "Tous mes relevés",
-        "iban": "Télécharger l'IBAN"
+        "rib": "Télécharger le RIB"
       }
     },
-    "accountStatementsCurrentMonth": {
-      "title": "Le mois en cours"
+    "account-statements-pdf": {
+      "title": "Relevé de compte"
     },
-    "accountStatementsThreeLastMonths": {
-      "title": "3 derniers mois"
-    },
-    "accountStatementsAll": {
-      "title": "Tous mes relevés"
-    },
-    "exportPdfIban": {
-      "title": "Télécharger l'IBAN"
+    "rib-pdf": {
+      "title": "Le RIB"
     },
     "transfer": {
       "title": "Virement",
@@ -257,7 +275,7 @@
       "title": "Mon bilan carbone",
       "tab": "Bilan CO2",
       "instruction": "Appuyer sur une catégorie pour démarrer",
-      "zeroCarbon": "0 tC02",
+      "zero-carbon": "0 tC02",
       "average": "Moyenne Française",
       "ton": "tonne",
       "tons": "tonnes",
@@ -267,9 +285,9 @@
       "compute": "Calculer",
       "consumption": "Consommation"
     },
-    "carbonHouse": {
+    "carbon-house": {
       "title": "Mon logement",
-      "noCO2": "La consommation de ce type de chauffage n’émet pas de CO2 dans la méthodologie de calcul.",
+      "no-CO2": "La consommation de ce type de chauffage n’émet pas de CO2 dans la méthodologie de calcul.",
       "dropdown": {
         "heater": "Type de chauffage",
         "region": "Département",
@@ -283,17 +301,17 @@
         "thermalSolar": "Solaire thermique",
         "propane": "Propane",
         "unit": " L",
-        "stateDepartment": "Département"
+        "state-department": "Département"
       },
       "slider": {
         "consumption": "consommation",
-        "builtYear": "Année du logement"
+        "built-year": "Année du logement"
       },
       "surface": "Surface"
     },
-    "carbonTransport": {
+    "carbon-transport": {
       "title": "Mon transport",
-      "noCO2": "La consommation de ce type de véhicule n’émet pas de CO2 dans la méthodologie de calcul",
+      "no-CO2": "La consommation de ce type de véhicule n’émet pas de CO2 dans la méthodologie de calcul",
       "dropdown": {
         "title": "Carburant",
         "fuel": "Essence (inclus Hybride)",
@@ -306,11 +324,11 @@
       },
       "slider": {
         "mpg": "consommation",
-        "distanceByYear": "Kilométrage annuel",
+        "distance-by-year": "Kilométrage annuel",
         "unit": " km"
       }
     },
-    "carbonFood": {
+    "carbon-food": {
       "title": "Mon alimentation",
       "slider": {
         "alcohol": "Vin / Bière",
@@ -327,12 +345,12 @@
         "units": " fois / semaine"
       }
     },
-    "warningFood": {
+    "warning-food": {
       "title": "Avertissement",
       "text": "Pour votre information l’estimation de l’empreinte carbone de l’alimentation est par construction approximative. En effet comment compter le nombre d’ananas importés par avion et d’asperges surgelées que vous avez mangé cette année ? Nous avons inclus les déchets…",
       "next": "Suivant"
     },
-    "carbonFly": {
+    "carbon-fly": {
       "title": "Mon transport aérien",
       "dropdown": {
         "destination": "Départ de",
@@ -340,7 +358,7 @@
       },
       "search": "Rechercher",
       "slider": "Nombre de trajets",
-      "swipeButton": {
+      "swipe-button": {
         "type": "Trajet",
         "simple": "Aller simple",
         "round": "Aller-retour",
@@ -348,7 +366,7 @@
         "economy": "Economique",
         "business": "Business"
       },
-      "secondaryButton": "Ajouter",
+      "secondary-button": "Ajouter",
       "flight": "trajet"
     },
     "profile": {

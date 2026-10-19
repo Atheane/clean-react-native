@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WebViewer -  minimal props -  renders as before 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "#F0F0F0",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      [
+        {
+          "flex": 1,
+          "overflow": "hidden",
+        },
+        undefined,
+      ]
+    }
+  >
+    <RNCWebView
+      cacheEnabled={true}
+      fraudulentWebsiteWarningEnabled={true}
+      hasOnFileDownload={false}
+      injectedJavaScriptBeforeContentLoadedForMainFrameOnly={true}
+      injectedJavaScriptForMainFrameOnly={true}
+      javaScriptEnabled={true}
+      messagingEnabled={false}
+      messagingModuleName=""
+      newSource={
+        {
+          "headers": undefined,
+          "uri": "https://www.example.com/assets/docs/cgu.pdf",
+        }
+      }
+      onContentProcessDidTerminate={[Function]}
+      onHttpError={[Function]}
+      onLoadingError={[Function]}
+      onLoadingFinish={[Function]}
+      onLoadingProgress={[Function]}
+      onLoadingStart={[Function]}
+      onMessage={[Function]}
+      onShouldStartLoadWithRequest={[Function]}
+      source={
+        {
+          "headers": undefined,
+          "uri": "https://www.example.com/assets/docs/cgu.pdf",
+        }
+      }
+      style={
+        [
+          {
+            "flex": 1,
+            "overflow": "hidden",
+          },
+          {
+            "backgroundColor": "#ffffff",
+          },
+          {
+            "flex": 1,
+          },
+        ]
+      }
+      textInteractionEnabled={true}
+      useSharedProcessPool={true}
+    />
+  </View>
+</View>
+`;

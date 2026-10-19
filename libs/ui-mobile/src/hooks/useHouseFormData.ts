@@ -4,9 +4,18 @@ import { HouseHeaterE as HeaterE, HouseYearE as YearE, HouseT, HouseE } from '@b
 import { Logger } from '@clean-rn/logger';
 import { HouseEmissions } from '@clean-rn/carbon/domain';
 
-export const useHouseFormData = () => {
-  const [formData, setFormData] = useState<Partial<HouseT & { consumption: number }>>();
+export const useHouseFormData = (
+  initialValues: (HouseT & { consumption: number } & { builtYear: number }) | null,
+) => {
+  const [formData, setFormData] =
+    useState<Partial<HouseT & { consumption: number } & { builtYear: number }>>();
   const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    if (initialValues) {
+      setFormData(initialValues);
+    }
+  }, [initialValues]);
 
   const resetFormData = useCallback((value: HeaterE) => {
     const newFormData = {
@@ -24,6 +33,7 @@ export const useHouseFormData = () => {
         ...newFormData,
         surface: 60,
         built: YearE.recent,
+        builtYear: 1980,
       });
     } else {
       setFormData({
@@ -33,13 +43,16 @@ export const useHouseFormData = () => {
     }
   }, []);
 
-  const handleFormData = useCallback((key: keyof HouseT | 'consumption', value: YearE | number) => {
-    setFormData((formData) => ({ ...formData, [key]: value }));
-  }, []);
+  const handleFormData = useCallback(
+    (key: keyof HouseT | 'consumption' | 'builtYear', value: YearE | number) => {
+      setFormData((formData) => ({ ...formData, [key]: value }));
+    },
+    [],
+  );
 
   useEffect(() => {
     try {
-      new HouseEmissions(formData as HouseT & { consumption: number });
+      new HouseEmissions(formData as HouseT & { consumption: number } & { builtYear: number });
       setDisabled(false);
     } catch (e: unknown) {
       Logger.getInstance().debug(e);

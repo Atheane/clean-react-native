@@ -16,6 +16,24 @@ export const initializeApplication = (): IInitialization => ({
 export const applicationInitialized = (payload: {
   email: Email | null;
   initRouteName: IAuthStackPages;
+  carbon: {
+    house: {
+      footprint: number | null;
+      average: number | null;
+    };
+    transport: {
+      footprint: number | null;
+      average: number | null;
+    };
+    food: {
+      footprint: number | null;
+      average: number | null;
+    };
+    fly: {
+      footprint: number | null;
+      average: number | null;
+    };
+  };
 }): IInitializationSucceded => ({
   type: IInitializationTypes.APPLICATION_INITIALIZED,
   payload,

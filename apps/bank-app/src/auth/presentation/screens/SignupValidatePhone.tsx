@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
@@ -15,9 +15,11 @@ import {
 import { PhoneOtp } from '@clean-rn/auth/domain';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { SafeScrollingView } from '../../../shared/presentation/hoc';
+import { SafeScrollingView, ErrorBoundary } from '../../../shared/presentation/hoc';
 
 import { fetchValidatePhone } from '../../../auth/application/commands/signup';
+
+const HEIGHT = Dimensions.get('window').height;
 
 export const SignupValidatePhone = () => {
   /// translations
@@ -53,33 +55,38 @@ export const SignupValidatePhone = () => {
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
   return (
-    <SafeScrollingView>
-      <>
-        <View style={styles.subContainer}>
-          <Security />
-          <View style={styles.textContainer}>
-            <Text style={styles.instructionText}>{t('screens.signup-validate-phone.instruction')}</Text>
+    <ErrorBoundary t={t}>
+      <SafeScrollingView>
+        <View style={[styles.container, { height: HEIGHT }]}>
+          <View style={styles.subContainer}>
+            <Security />
+            <View style={styles.textContainer}>
+              <Text style={styles.instructionText}>{t('screens.signup-validate-phone.instruction')}</Text>
+            </View>
+          </View>
+          <View style={styles.formContainer}>
+            <FormSignupValidatePhone
+              loading={pending}
+              control={control}
+              errors={errors}
+              onSubmit={handleSubmit(onSubmit)}
+              error={domainError}
+              onFocus={onFocus}
+            />
           </View>
         </View>
-        <View style={styles.formContainer}>
-          <FormSignupValidatePhone
-            loading={pending}
-            control={control}
-            errors={errors}
-            onSubmit={handleSubmit(onSubmit)}
-            error={domainError}
-            onFocus={onFocus}
-          />
-        </View>
-      </>
-    </SafeScrollingView>
+      </SafeScrollingView>
+    </ErrorBoundary>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.bank.primary.white,
+  },
   subContainer: {
     flex: 1,
-    marginTop: '15%',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -98,8 +105,6 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     flex: 1,
-    marginTop: 50,
-    justifyContent: 'center',
     alignItems: 'center',
   },
 });

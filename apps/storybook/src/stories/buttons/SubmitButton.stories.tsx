@@ -13,6 +13,7 @@ const SubmitButtonMeta: ComponentMeta<typeof SubmitButton> = {
   args: {
     title: 'Valider',
     uppercase: false,
+    disabled: false,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
@@ -21,5 +22,5 @@ export default SubmitButtonMeta;
 
 export const Static: ComponentStory<typeof SubmitButton> = (args) => {
   const { t } = useTranslation();
-  return <SubmitButton {...args} title={t('screens.login.submitButton')} />;
+  return <SubmitButton {...args} title={t('button.submit')} />;
 };

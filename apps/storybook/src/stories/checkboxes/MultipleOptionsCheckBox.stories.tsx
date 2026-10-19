@@ -20,10 +20,10 @@ export const YesNo: ComponentStory<typeof MultipleOptionsCheckBox> = (args) => {
   return (
     <MultipleOptionsCheckBox
       {...args}
-      label={t('screens.signupstep5.usperson.label')}
-      subtitle={t('screens.signupstep5.usperson.subtitle')}
-      optionsTitle={[t('screens.signupstep5.usperson.yes'), t('screens.signupstep5.usperson.no')]}
-      optionsValues={[t('screens.signupstep5.usperson.yes'), t('screens.signupstep5.usperson.no')]}
+      label={t('signup-address.usperson.label')}
+      subtitle={t('signup-address.usperson.subtitle')}
+      optionsTitle={[t('signup-address.usperson.yes'), t('signup-address.usperson.no')]}
+      optionsValues={[t('signup-address.usperson.yes'), t('signup-address.usperson.no')]}
     />
   );
 };
@@ -33,16 +33,16 @@ export const ThreeTileOptions: ComponentStory<typeof MultipleOptionsCheckBox> = 
   return (
     <MultipleOptionsCheckBox
       {...args}
-      label={t('screens.signupstep2.gender.label')}
+      label={t('signup-identity.gender.label')}
       optionsTitle={[
-        t('screens.signupstep2.gender.man'),
-        t('screens.signupstep2.gender.woman'),
-        t('screens.signupstep2.gender.neutral'),
+        t('signup-identity.gender.man'),
+        t('signup-identity.gender.woman'),
+        t('signup-identity.gender.neutral'),
       ]}
       optionsValues={[
-        t('screens.signupstep2.gender.man'),
-        t('screens.signupstep2.gender.woman'),
-        t('screens.signupstep2.gender.neutral'),
+        t('signup-identity.gender.man'),
+        t('signup-identity.gender.woman'),
+        t('signup-identity.gender.neutral'),
       ]}
     />
   );

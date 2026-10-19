@@ -21,8 +21,10 @@ exports[`LongCard -  minimal props -  renders as before 1`] = `
         "shadowRadius": 6.27,
       },
       {
+        "backgroundColor": "#FFFFFF",
         "borderRadius": 20,
-        "borderWidth": 0,
+        "marginHorizontal": 16,
+        "marginVertical": 8,
         "minHeight": 161.16573033707866,
         "width": 675,
       },
@@ -33,13 +35,14 @@ exports[`LongCard -  minimal props -  renders as before 1`] = `
     style={
       {
         "marginLeft": 30,
+        "marginVertical": 14,
       }
     }
   >
     <Text
       style={
         {
-          "color": "#71C9F6",
+          "color": "#0A7DC0",
           "fontFamily": "Roboto_400Regular",
           "fontSize": 16,
           "lineHeight": 21,

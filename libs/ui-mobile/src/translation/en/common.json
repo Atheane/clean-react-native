@@ -3,6 +3,11 @@
     "update-application": "New version available",
     "identity-validation": "Validate identity"
   },
+  "modal": {
+    "login": {
+      "title": "Session expired, please log in"
+    }
+  },
   "errors": {
     "email": {
       "required": "e-mail required",
@@ -22,7 +27,7 @@
     },
     "phone-otp": {
       "required": "6-digits code required",
-      "invalid": "code invalide",
+      "invalid": "invalid code",
       "min-length": "should contain at least 6 numbers"
     },
     "birthday": {
@@ -59,7 +64,7 @@
         "LOGIN_FAILURE_INVALID_CREDENTIALS": "username or password error, please try again",
         "LOGIN_FAILURE_USER_NOT_FOUND": "user account doe snot exist",
         "LOGIN_FAILURE_USER_PHONE_NOT_VALIDATED": "phone number is not verified",
-        "VALIDATE_PHONE_FAILURE_INVALID_PHONE_CODE": "invalid code",
+        "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "incorrect code",
         "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "validate phone failure, phone not found",
         "SIGNUP_FAILURE_EMAIL_EXISTS": "this email is already registered",
         "SIGNUP_FAILURE_PHONE_EXISTS": "this phone is already registered",
@@ -70,15 +75,18 @@
     },
     "other": "error, please contact the administrator"
   },
+  "date-picker": {
+    "label": "Birthday",
+    "placeholder": "DD/MM/YYYY"
+  },
   "country-picker": {
+    "label": "Country",
     "placeholder": "Select a country"
   },
-  "link-button": {
-    "login": "Login",
-    "legal": "TOS",
-    "cgu": "KycProvider TOS"
+  "button": {
+    "share": "share",
+    "submit": "validate"
   },
-  "submit-button": "validate",
   "email-input": {
     "placeholder": "E-mail address",
     "label": "e-mail address"
@@ -88,9 +96,8 @@
     "label": "password"
   },
   "login": {
-    "forgotten-password": "Forgot your password?",
-    "submit-button": "validate",
-    "validate": "Validate"
+    "validate": "Validate",
+    "forgotten-password": "Forgot your password?"
   },
   "reset-password": {
     "email": {
@@ -98,14 +105,14 @@
       "label": "e-mail"
     },
     "success": "If this email exists, a message has been sent to you",
-    "submit-button": "reset"
+    "reset": "reset"
   },
   "signup-email": {
     "email": {
       "placeholder": "your@email.com",
       "label": "e-mail"
     },
-    "text":"Let's check together if your email address is linked to an existing account."
+    "text": "Let's check together if your email address is linked to an existing account."
   },
   "signup-identity": {
     "title": "Sign up",
@@ -131,7 +138,7 @@
     }
   },
   "signup-validate-phone": {
-    "submit-button": "validate"
+    "reset": "validate"
   },
   "signup-birth": {
     "birthday": {
@@ -177,9 +184,9 @@
     "stack": "Detailled message"
   },
   "screens": {
-    "legal": "Legal mentions",
-    "cgu": "TOS",
-    "cgu-kyc-provider": "KycProvider TOS",
+    "legal": "Privacy Policy",
+    "cgu": "GTC",
+    "cgu-kyc-provider": "GTC (KycProvider)",
     "modal-error": "Erreur",
     "login": {
       "title": "Login"
@@ -196,7 +203,7 @@
     },
     "signup-validate-phone": {
       "title": "Security",
-      "instruction": "Enter the verification code that was just sent to you by SMS",
+      "instruction": "Enter the verification code that was just sent to you by SMS"
     },
     "signup-birth": {
       "title": "Complete my profile"
@@ -228,37 +235,42 @@
         "noaccounts": "No accounts"
       },
       "banner": {
-        "validationIdentity": "Identity validation"
+        "validation-identity": "Identity validation"
       }
     },
     "account": {
       "balance": "Account balance",
       "oups": "Top up your CO2 Account to use the climate currency on a daily basis!",
       "iban": "Display my CO2 IBAN",
-      "transfer": "Transfer"
+      "transfer": "Transfer",
+      "cards": {
+        "card": "Our payment card to save CO2",
+        "loan": "Our loans to decarbonize the economy",
+        "loan-heater": "Our loan offer to change your boiler",
+        "carbon-premium": "Get rewarded with our bonuses",
+        "manifesto": "Manifest",
+        "history": "Our story",
+        "green-euro": "How do green euros work?",
+        "currency": "Our objectives and our limits",
+        "article": "Our blog on the banking world and the climate emergency"
+      }
     },
-    "accountStatements": {
+    "account-statements": {
       "title": "Export",
       "bold": "Export my account statement",
       "normal": "Download my account statement in PDF",
       "cards": {
-        "currentMonth": "Current month",
-        "threeLastMonths": "Last 3 months",
-        "all": "All my statements",
-        "iban": "Download IBAN"
+        "last-month": "Last month",
+        "last-trimester": "Last trimester",
+        "all": "All statements",
+        "rib": "Download IBAN"
       }
     },
-    "accountStatementsCurrentMonth": {
-      "title": "Current month"
+    "account-statements-pdf": {
+      "title": "Account statement"
     },
-    "accountStatementsThreeLastMonths": {
-      "title": "Last 3 months"
-    },
-    "accountStatementsAll": {
-      "title": "All my statements"
-    },
-    "exportPdfIban": {
-      "title": "Download the IBAN"
+    "rib-pdf": {
+      "title": "IBAN"
     },
     "transfer": {
       "title": "Transfer",
@@ -268,7 +280,7 @@
       "title": "My carbon footprint",
       "tab": "CO2 Assessment",
       "instruction": "Press on a category to start",
-      "zeroCarbon": "0 tC02",
+      "zero-carbon": "0 tC02",
       "average": "French Average",
       "ton": "ton",
       "tons": "tons",
@@ -278,9 +290,9 @@
       "compute": "Calculate",
       "consumption": "Consumption"
     },
-    "carbonHouse": {
+    "carbon-house": {
       "title": "My housing",
-      "noCO2": "The consumption of this type of heating does not emit CO2 in the calculation methodology.",
+      "no-CO2": "The consumption of this type of heating does not emit CO2 in the calculation methodology.",
       "dropdown": {
         "heater": "Type of heating",
         "region": "Department",
@@ -293,17 +305,17 @@
         "heatPump": "Heat pump",
         "thermalSolar": "Thermal solar",
         "propane": "Propane",
-        "stateDepartment": "State department"
+        "state-department": "Region"
       },
       "slider": {
         "consumption": "consumption",
-        "builtYear": "Year of housing"
+        "built-year": "Year of housing"
       },
       "surface": "Surface"
     },
-    "carbonTransport": {
+    "carbon-transport": {
       "title": "My transportation",
-      "noCO2": "The consumption of this type of vehicle does not emit CO2 in the calculation methodology",
+      "no-CO2": "The consumption of this type of vehicle does not emit CO2 in the calculation methodology",
       "dropdown": {
         "title": "Fuel",
         "fuel": "Gasoline (including Hybrid)",
@@ -316,11 +328,11 @@
       },
       "slider": {
         "mpg": "consumption",
-        "distanceByYear": "Annual mileage",
+        "distance-by-year": "Annual mileage",
         "unit": " km"
       }
     },
-    "carbonFood": {
+    "carbon-food": {
       "title": "My diet",
       "slider": {
         "alcohol": "Wine / Beer",
@@ -334,15 +346,15 @@
         "rice": "Pasta / Rice",
         "soft": "Fruit juice / Soda / Water",
         "unit": " time / week",
-        "units": " times / week" 
+        "units": " times / week"
       }
     },
-    "warningFood": {
+    "warning-food": {
       "title": "Warning",
       "text": "For your information, the estimation of the carbon footprint of the diet is inherently approximate. Indeed, how do you count the number of pineapples imported by plane and frozen asparagus you ate this year? We included waste...",
       "next": "Next"
     },
-    "carbonFly": {
+    "carbon-fly": {
       "title": "My air transportation",
       "dropdown": {
         "destination": "Departure from",
@@ -350,7 +362,7 @@
       },
       "slider": "Number of trips",
       "search": "Search",
-      "swipeButton": {
+      "swipe-button": {
         "type": "Journey",
         "simple": "One way",
         "round": "Round trip",
@@ -358,7 +370,7 @@
         "economy": "Economy",
         "business": "Business"
       },
-      "secondaryButton": "Add",
+      "secondary-button": "Add",
       "flight": "trip"
     },
     "profile": {

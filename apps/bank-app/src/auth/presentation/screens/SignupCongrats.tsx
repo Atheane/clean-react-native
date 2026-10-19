@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from 'react';
+import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { StyleSheet, View, Text, Image } from 'react-native';
+
 import { useTranslation } from 'react-i18next';
 
 import { ILoginCommand } from '@clean-rn/auth/domain';
@@ -12,6 +13,8 @@ import { showUnknownError } from '../../../shared/application/commands/manage-gl
 
 import { fetchLogin, resetError } from '../../../auth/application/commands/login';
 import { Congrats } from '../../presentation/assets/images';
+
+const HEIGHT = Dimensions.get('window').height;
 
 export const SignupCongrats = () => {
   const { t } = useTranslation();
@@ -43,7 +46,7 @@ export const SignupCongrats = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={styles.subContainer}>
+        <View style={[styles.container, { height: HEIGHT }]}>
           <View style={styles.image}>
             <Image style={{ width: 250, height: 250 }} source={Congrats} />
           </View>
@@ -53,7 +56,7 @@ export const SignupCongrats = () => {
           <View style={styles.errorContainer}>
             <ErrorMessage error={error} />
           </View>
-          <View style={styles.submit}>
+          <View style={styles.formSubmit}>
             <PrimaryButton
               long
               title={t('screens.signup-congrats.button')}
@@ -69,7 +72,8 @@ export const SignupCongrats = () => {
 };
 
 const styles = StyleSheet.create({
-  subContainer: {
+  container: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -80,6 +84,7 @@ const styles = StyleSheet.create({
   textContainer: {
     marginTop: 24,
     width: '80%',
+    alignItems: 'center',
   },
   text: {
     width: 290,
@@ -89,10 +94,9 @@ const styles = StyleSheet.create({
     fontFamily: FontNames.MartelSans_400Regular,
     color: Colors.bank.primary.grey,
   },
-  submit: {
+  formSubmit: {
     marginTop: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginBottom: 100,
   },
   errorContainer: {
     marginVertical: 10,

@@ -21,6 +21,9 @@
       "@clean-rn/account/domain": [
         "libs/account/domain/src/index.ts"
       ],
+      "@clean-rn/account/infrastructure": [
+        "libs/account/infrastructure/src/index.ts"
+      ],
       "@clean-rn/auth/domain": [
         "libs/auth/domain/src/index.ts"
       ],

@@ -1,4 +1,4 @@
-import { FlatList } from 'react-native';
+import { FlatList, View, StyleSheet } from 'react-native';
 import { ITransaction } from '@clean-rn/account/domain';
 
 import { firstLetterCapitalize, toLocalDateString } from '../../../utils';
@@ -45,10 +45,21 @@ export const TransactionsCardsList = (props: IProps) => {
       showsVerticalScrollIndicator={false}
       pinchGestureEnabled
       data={transactionsByDateArray}
-      renderItem={({ item }: { item: { date: string; data: ITransaction[] } }) => (
-        <TransactionsCard {...item} />
+      renderItem={({ item, index }: { item: { date: string; data: ITransaction[] }; index: number }) => (
+        <View style={index === 0 ? styles.container : styles.containerNoMargin}>
+          <TransactionsCard {...item} />
+        </View>
       )}
       keyExtractor={(item: { date: string; data: ITransaction[] }) => item.date}
     />
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 140,
+  },
+  containerNoMargin: {
+    marginTop: 0,
+  },
+});

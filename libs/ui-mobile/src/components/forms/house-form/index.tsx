@@ -1,11 +1,11 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useTranslation } from 'react-i18next';
 import { sort } from 'fast-sort';
 import { getLocales } from 'expo-localization';
 
 import { HouseHeaterE as HeaterE, HouseT, HouseYearE } from '@bank/carbon-weight/dist';
+import { YearE } from '@bank/carbon-weight/dist/house/types';
 
 import { IDepartment, departmentsFR, OLD_BUILDING_YEAR } from '@clean-rn/carbon/domain';
 
@@ -19,8 +19,9 @@ import { Slider } from '../../inputs/slider';
 import { NoCO2 } from '../../texts/no-co2';
 
 type IProps = {
+  initialValues: (HouseT & { consumption: number } & { builtYear: number }) | null;
   onChangeForm: (value: HeaterE) => void;
-  onChangeField: (key: keyof HouseT | 'consumption', value: number | HouseYearE) => void;
+  onChangeField: (key: keyof HouseT | 'consumption' | 'builtYear', value: number | YearE) => void;
 };
 
 const locales = getLocales();
@@ -31,7 +32,7 @@ export const HouseForm = (props: IProps) => {
 
   const dataHeating = Object.entries(HeaterE).map(([key, value]) => ({
     key,
-    value: t('screens.carbonHouse.dropdown.' + value),
+    value: t('screens.carbon-house.dropdown.' + value),
   }));
 
   const [heater, setHeater] = useState<HeaterE>();
@@ -64,9 +65,9 @@ export const HouseForm = (props: IProps) => {
 
   const [region, setRegion] = useState<number>(1);
   const handleOnChangeRegion = useCallback(
-    ({ value }: { value: string }) => {
-      setRegion(parseInt(value));
-      props.onChangeField('region', parseInt(value));
+    ({ key }: { key: string }) => {
+      setRegion(parseInt(key));
+      props.onChangeField('region', parseInt(key));
     },
     [props],
   );
@@ -84,17 +85,30 @@ export const HouseForm = (props: IProps) => {
   const handleBuiltYear = useCallback(
     (value: number) => {
       setBuiltYear(value);
-
+      props.onChangeField('builtYear', value);
       props.onChangeField('built', value <= OLD_BUILDING_YEAR ? HouseYearE.old : HouseYearE.recent);
     },
     [props],
   );
 
+  useEffect(() => {
+    if (props.initialValues) {
+      setHeater(props.initialValues.heater);
+      setConsumption(props.initialValues.consumption);
+      setRegion(props.initialValues.region ?? 1);
+      setSurface(props.initialValues.surface ?? 60);
+      setBuiltYear(props.initialValues.builtYear ?? 1980);
+    }
+  }, [props.initialValues]);
+
+  const convertDepNumberToName = (depNumber: number) =>
+    sortedDeps.find(({ key }) => key === depNumber.toString())?.value;
+
   const ConditionalForm = () => {
     if (heater === HeaterE.coal || heater === HeaterE.propane) {
       return (
         <Slider
-          label={t('screens.carbonHouse.slider.consumption')}
+          label={t('screens.carbon-house.slider.consumption')}
           minValue={0}
           maxValue={10000}
           value={consumption}
@@ -106,7 +120,7 @@ export const HouseForm = (props: IProps) => {
     } else if (heater === HeaterE.fuelOil) {
       return (
         <Slider
-          label={t('screens.carbonHouse.slider.consumption')}
+          label={t('screens.carbon-house.slider.consumption')}
           minValue={0}
           maxValue={10000}
           value={consumption}
@@ -120,25 +134,28 @@ export const HouseForm = (props: IProps) => {
         <View>
           {country === 'FR' && (
             <Dropdown
-              label={t('screens.carbonHouse.dropdown.region')}
-              placeholder={t('screens.carbonHouse.dropdown.region')}
+              label={t('screens.carbon-house.dropdown.region')}
+              placeholder={t('screens.carbon-house.dropdown.region')}
               icon={() => <Department style={{ color: Colors.bank.primary.lightGreen }} />}
               data={sortedDeps}
-              value={region.toString()}
+              value={region ? convertDepNumberToName(region) : undefined}
               onSelect={handleOnChangeRegion}
+              defaultValue={
+                props.initialValues?.region ? convertDepNumberToName(props.initialValues.region) : undefined
+              }
             />
           )}
-          <View style={styles.container}>
+          <View style={styles.formContainer}>
             <SelectNumber
-              label={t('screens.carbonHouse.surface')}
+              label={t('screens.carbon-house.surface')}
               icon={() => <Surface style={{ color: Colors.bank.primary.lightGreen }} />}
               value={surface}
               onChange={handleOnChangeSurface}
             />
           </View>
-          <View style={styles.container}>
+          <View style={styles.formContainer}>
             <Slider
-              label={t('screens.carbonHouse.slider.builtYear')}
+              label={t('screens.carbon-house.slider.built-year')}
               minValue={1900}
               maxValue={todayYear()}
               value={builtYear}
@@ -150,26 +167,30 @@ export const HouseForm = (props: IProps) => {
     } else if (!heater) {
       return <View />;
     } else {
-      return <NoCO2 text={t('screens.carbonHouse.noCO2')} />;
+      return <NoCO2 text={t('screens.carbon-house.no-CO2')} />;
     }
   };
 
   return (
-    <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+    <View style={styles.container}>
       <Dropdown
-        label={t('screens.carbonHouse.dropdown.heater')}
-        placeholder={t('screens.carbonHouse.dropdown.heater')}
+        label={t('screens.carbon-house.dropdown.heater')}
+        placeholder={t('screens.carbon-house.dropdown.heater')}
         icon={() => <Flame style={{ color: Colors.bank.primary.lightGreen }} />}
         data={dataHeating}
         onSelect={handleOnChange}
+        defaultValue={t(`screens.carbon-house.dropdown.${heater ?? 'heater'}`)}
       />
-      <View style={styles.container}>{ConditionalForm()}</View>
-    </KeyboardAwareScrollView>
+      <View style={styles.formContainer}>{ConditionalForm()}</View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  formContainer: {
     marginTop: 24,
   },
 });

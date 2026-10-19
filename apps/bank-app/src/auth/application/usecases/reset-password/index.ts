@@ -34,6 +34,7 @@ export function* resetPasswordGenerator(
       }),
     );
   } catch (e: unknown) {
+    // once app is well tested, delete this part and let onError hook manage unexpected errors
     yield put(initializeResetPassword());
     yield put(showUnknownError(e as Error));
   }

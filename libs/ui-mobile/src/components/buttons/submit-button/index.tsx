@@ -11,12 +11,12 @@ type IProps = {
 
 export const SubmitButton = (props: IProps) => (
   <PrimaryButton
-    long
     iconOne={Validate}
     title={props.title}
     uppercase={props.uppercase}
     loading={props.loading}
     onPress={props.onSubmit}
     disabled={props.disabled}
+    long
   />
 );

@@ -1,10 +1,27 @@
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { Story } from '@storybook/react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { SafeScrollingView } from '@clean-rn/ui-mobile';
+
+const HEIGHT = Dimensions.get('window').height;
 
 export const WithKeyboardAwareScroll = (Story: Story) => {
   return (
-    <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-      <Story />
-    </KeyboardAwareScrollView>
+    <SafeScrollingView>
+      <View style={[styles.container, { height: HEIGHT }]}>
+        <Story />
+      </View>
+    </SafeScrollingView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: '4%',
+    alignItems: 'center',
+  },
+  image: {
+    width: 146,
+    height: 146,
+  },
+});

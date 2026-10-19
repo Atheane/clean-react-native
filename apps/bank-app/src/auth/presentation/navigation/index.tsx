@@ -1,11 +1,25 @@
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { useNavigationState } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { getLocales } from 'expo-localization';
 
-import { PdfViewer } from '@clean-rn/ui-mobile';
+import { ModalError, WebViewer } from '@clean-rn/ui-mobile';
 
+import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
+import {
+  IAuthStackPages,
+  IAuthStackProps,
+  ISharedStackPages,
+  ISharedStackProps,
+} from '../../../shared/presentation/types';
+import { goBack } from '../../../shared/presentation/navigation/navigationRef';
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
+import { ScreenModalError } from '../../../shared/presentation/screens';
+
+import { pdfUrls } from '../constants';
 import {
   Login,
   ResetPassword,
@@ -15,38 +29,41 @@ import {
   SignupBirth,
   SignupAddress,
   SignupCongrats,
-  ScreenModalError,
   EmailSent,
   SignupPhone,
 } from '../screens';
-import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
-import { IAuthStackPages, IAuthStackProps } from '../../../shared/presentation/types';
-import { goBack } from '../../../shared/presentation/navigation/navigationRef';
-import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
 
-import { pdfUrls } from '../constants';
+const locales = getLocales();
 
-const Stack = createNativeStackNavigator<IAuthStackProps>();
+const Stack = createNativeStackNavigator<IAuthStackProps & ISharedStackProps>();
 
 export const AuthStack = () => {
   const { t } = useTranslation();
   const { initRouteName } = useSelector((state: IRootState) => state.initialization);
   const navigationStack = useNavigationState((state) => state?.routes ?? []);
-  const ScreenLegal = () => <PdfViewer url={pdfUrls.legal} />;
-  const ScreenCgu = () => <PdfViewer url={pdfUrls.cgu} />;
-  const ScreenCguKycProvider = () => <PdfViewer url={pdfUrls.cguKycProvider} />;
+
+  const [unknownError, setUnknownError] = useState<Error>();
+
+  const handleError = (error: unknown) => {
+    setUnknownError(error as Error);
+  };
+
+  const lng = locales[0]?.languageCode ?? 'en';
+
+  const ScreenLegal = () => <WebViewer uri={pdfUrls(lng).legal} handleError={handleError} />;
+  const ScreenCgu = () => <WebViewer uri={pdfUrls(lng).cgu} handleError={handleError} />;
+  const ScreenCguKycProvider = () => <WebViewer uri={pdfUrls(lng).cguKycProvider} handleError={handleError} />;
 
   const dispatch = useDispatch();
   useEffect(() => {
-    const isModalErrorInStack = navigationStack.find((route) => route.name === IAuthStackPages.MODAL_ERROR);
+    const isModalErrorInStack = navigationStack.find((route) => route.name === ISharedStackPages.MODAL_ERROR);
     if (!isModalErrorInStack) {
       dispatch(initGlobalError());
     }
   }, [navigationStack, dispatch]);
 
   return (
-    <Stack.Navigator initialRouteName={initRouteName}>
+    <Stack.Navigator initialRouteName={initRouteName as keyof IAuthStackProps}>
       <Stack.Screen
         options={{
           headerTitle: t(`screens.login.title`),
@@ -133,7 +150,7 @@ export const AuthStack = () => {
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
         name={IAuthStackPages.LEGAL}
-        component={ScreenLegal}
+        component={unknownError ? () => <ModalError error={unknownError} /> : ScreenLegal}
       />
       <Stack.Screen
         options={{
@@ -141,7 +158,7 @@ export const AuthStack = () => {
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
         name={IAuthStackPages.CGU}
-        component={ScreenCgu}
+        component={unknownError ? () => <ModalError error={unknownError} /> : ScreenCgu}
       />
       <Stack.Screen
         options={{
@@ -149,16 +166,15 @@ export const AuthStack = () => {
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
         name={IAuthStackPages.CGU_KYC_PROVIDER}
-        component={ScreenCguKycProvider}
+        component={unknownError ? () => <ModalError error={unknownError} /> : ScreenCguKycProvider}
       />
-
       <Stack.Screen
         options={{
           presentation: 'modal',
           headerShown: false,
           headerBackVisible: false,
         }}
-        name={IAuthStackPages.MODAL_ERROR}
+        name={ISharedStackPages.MODAL_ERROR}
         component={ScreenModalError}
       />
     </Stack.Navigator>

@@ -15,6 +15,14 @@ export type IFetchLogin = {
   payload: ILoginCommand;
 };
 
+export type IInitializeLogin = {
+  type: typeof ILoginTypes.INITIALIZE_LOGIN;
+};
+
+export type IResetError = {
+  type: typeof ILoginTypes.RESET_ERROR;
+};
+
 export type ILoginSucceded = {
   type: typeof ILoginTypes.LOGIN_SUCCEDED;
   payload: {
@@ -26,14 +34,6 @@ export type ILoginSucceded = {
 export type ILoginFailed = {
   type: typeof ILoginTypes.LOGIN_FAILED;
   payload: IDomainError<IAuthErrorCodes, IAuthErrorMessage>;
-};
-
-export type IInitializeLogin = {
-  type: typeof ILoginTypes.INITIALIZE_LOGIN;
-};
-
-export type IResetError = {
-  type: typeof ILoginTypes.RESET_ERROR;
 };
 
 export type ILoginActions = IFetchLogin | ILoginSucceded | ILoginFailed | IInitializeLogin | IResetError;

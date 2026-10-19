@@ -5,13 +5,16 @@ import { Colors } from '../../../constants';
 
 type IProps = {
   icon: React.FC<SvgProps>;
-  label: string;
+  label?: string;
   amount: number;
 };
 
 export const TransactionItem = (props: IProps) => {
   const { theme } = useTheme();
   const cleanText = () => {
+    if (!props.label) {
+      return '';
+    }
     const substring = props.label.substring(0, 25);
     if (props.label.length > 25) {
       return substring.substring(0, 25) + '...';

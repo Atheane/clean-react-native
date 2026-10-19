@@ -14,7 +14,7 @@ export type IServerError = {
     | {
         statusCode: number;
         message: string[] | string;
-        error: any;
+        error?: any;
       };
   timestamp?: string;
   path?: string;

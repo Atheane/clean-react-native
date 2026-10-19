@@ -4,7 +4,7 @@ export default {
   expo: {
     name: 'CleanRN Storybook Dev',
     slug: 'clean-rn-storybook-dev',
-    version: '1.3.0',
+    version: '1.4.2',
     orientation: 'portrait',
     icon: './assets/images/icon.png',
     splash: {
@@ -17,8 +17,8 @@ export default {
     },
     assetBundlePatterns: ['**/*'],
     ios: {
-      supportsTablet: true,
       bundleIdentifier: 'com.example.storybookdev',
+      supportsTablet: true,
     },
     android: {
       adaptiveIcon: {

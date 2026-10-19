@@ -70,7 +70,7 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
   );
 
   return (
-    <View>
+    <View style={styles.form}>
       <View style={theme.bank.container.centeredItem}>
         <View style={styles.input}>
           <Controller
@@ -259,7 +259,7 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
 
         <View style={[theme.bank.container.centeredItem, styles.formSubmit]}>
           <SubmitButton
-            title={t('submit-button')}
+            title={t('button.submit')}
             uppercase={false}
             onSubmit={props.onSubmit}
             loading={props.loading}
@@ -271,11 +271,12 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
+  form: {
+    flex: 1,
+    alignItems: 'center',
+  },
   input: {
     marginTop: 30,
-  },
-  formSubmit: {
-    marginTop: 36,
   },
   errorContainer: {
     marginTop: 24,
@@ -303,5 +304,9 @@ const styles = StyleSheet.create({
   },
   inputPassword: {
     marginTop: 30,
+  },
+  formSubmit: {
+    marginTop: 36,
+    marginBottom: 70,
   },
 });

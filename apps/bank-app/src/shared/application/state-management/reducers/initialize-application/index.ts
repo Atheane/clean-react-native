@@ -7,6 +7,24 @@ const initialState: IInitializationState = {
   pending: null,
   email: null,
   initRouteName: undefined,
+  carbon: {
+    house: {
+      footprint: null,
+      average: null,
+    },
+    transport: {
+      footprint: null,
+      average: null,
+    },
+    food: {
+      footprint: null,
+      average: null,
+    },
+    fly: {
+      footprint: null,
+      average: null,
+    },
+  },
 };
 
 export const initializationReducer = (state = initialState, action: IInitializationActions) => {
@@ -27,6 +45,9 @@ export const initializationReducer = (state = initialState, action: IInitializat
         pending: false,
         email: action.payload.email,
         initRouteName: action.payload.initRouteName,
+        carbon: {
+          ...action.payload.carbon,
+        },
       };
       return newState;
     case IInitializationTypes.LOAD_STORAGE:

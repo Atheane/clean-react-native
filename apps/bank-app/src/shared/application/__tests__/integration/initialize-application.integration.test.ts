@@ -18,6 +18,24 @@ describe('Initialization - integration', () => {
       pending: false,
       email: null,
       initRouteName: undefined,
+      carbon: {
+        house: {
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          footprint: null,
+          average: null,
+        },
+        food: {
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          footprint: null,
+          average: null,
+        },
+      },
     };
     sagaTester = new SagaTester({
       initialState,
@@ -34,6 +52,24 @@ describe('Initialization - integration', () => {
       pending: true,
       email: null,
       initRouteName: undefined,
+      carbon: {
+        house: {
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          footprint: null,
+          average: null,
+        },
+        food: {
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          footprint: null,
+          average: null,
+        },
+      },
     });
   });
 
@@ -46,6 +82,24 @@ describe('Initialization - integration', () => {
       pending: true,
       email: null,
       initRouteName: undefined,
+      carbon: {
+        house: {
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          footprint: null,
+          average: null,
+        },
+        food: {
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          footprint: null,
+          average: null,
+        },
+      },
     });
   });
 
@@ -57,6 +111,24 @@ describe('Initialization - integration', () => {
       applicationInitialized({
         email: new Email('test@example.com'),
         initRouteName: IAuthStackPages.LOGIN,
+        carbon: {
+          house: {
+            footprint: null,
+            average: null,
+          },
+          transport: {
+            footprint: null,
+            average: null,
+          },
+          food: {
+            footprint: null,
+            average: null,
+          },
+          fly: {
+            footprint: null,
+            average: null,
+          },
+        },
       }),
     );
 
@@ -64,6 +136,24 @@ describe('Initialization - integration', () => {
       pending: false,
       email: new Email('test@example.com'),
       initRouteName: IAuthStackPages.LOGIN,
+      carbon: {
+        house: {
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          footprint: null,
+          average: null,
+        },
+        food: {
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          footprint: null,
+          average: null,
+        },
+      },
     });
   });
 });

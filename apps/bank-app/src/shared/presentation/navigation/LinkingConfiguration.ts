@@ -7,11 +7,10 @@
 import { LinkingOptions } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
 
-import { RootStackParamList, AuthStackParamList } from '../types';
+import { IRootStackParamList, IAuthStackParamList, IHomeStackParamList } from '../types';
 
 export const LinkingConfiguration: LinkingOptions<
-  RootStackParamList | AuthStackParamList
-  // | HomeStackParamList
+  IRootStackParamList | IAuthStackParamList | IHomeStackParamList
   // | CarbonStackParamList
   // | TransferStackParamList
   // | ProfileStackParamList
@@ -28,43 +27,43 @@ export const LinkingConfiguration: LinkingOptions<
       SignupAddress: 'SignupAddress',
       Legal: 'Legal',
       Cgu: 'Cgu',
-      // Home: {
-      //   screens: {
-      //     Menu: {
-      //       screens: {
-      //         Home: 'Home',
-      //         Account: 'Account',
-      //         RestoFlash: 'RestoFlash',
-      //         WeFlo: 'WeFlo',
-      //         AccountStatements: 'AccountStatements',
-      //         AccountStatementsCurrentMonth: 'AccountStatementsCurrentMonth',
-      //         AccountStatementsLastThreeMonths: 'AccountStatementsLastThreeMonths',
-      //         AccountStatementsAll: 'AccountStatementsAll',
-      //         ExportPdfIban: 'ExportPdfIban',
-      //       },
-      //     },
-      //     Transfer: {
-      //       screens: {
-      //         Transfer: 'Transfer',
-      //       },
-      //     },
-      //     Carbon: {
-      //       screens: {
-      //         Carbon: 'Carbon',
-      //         House: 'House',
-      //         Transport: 'Transport',
-      //         Food: 'Food',
-      //         Fly: 'Fly',
-      //         WarningFood: 'WarningFood',
-      //       },
-      //     },
-      //     Profile: {
-      //       screens: {
-      //         Profile: 'Profile',
-      //       },
-      //     },
-      //   },
-      // },
+      Home: {
+        screens: {
+          Menu: {
+            screens: {
+              Home: 'Home',
+              // Account: 'Account',
+              // RestoFlash: 'RestoFlash',
+              // WeFlo: 'WeFlo',
+              // AccountStatements: 'AccountStatements',
+              // AccountStatementsCurrentMonth: 'AccountStatementsCurrentMonth',
+              // AccountStatementsLastThreeMonths: 'AccountStatementsLastThreeMonths',
+              // AccountStatementsAll: 'AccountStatementsAll',
+              // ExportPdfIban: 'ExportPdfIban',
+            },
+          },
+          //     Transfer: {
+          //       screens: {
+          //         Transfer: 'Transfer',
+          //       },
+          //     },
+          //     Carbon: {
+          //       screens: {
+          //         Carbon: 'Carbon',
+          //         House: 'House',
+          //         Transport: 'Transport',
+          //         Food: 'Food',
+          //         Fly: 'Fly',
+          //         WarningFood: 'WarningFood',
+          //       },
+          //     },
+          //     Profile: {
+          //       screens: {
+          //         Profile: 'Profile',
+          //       },
+          //     },
+        },
+      },
       Modal: 'modal',
       NotFound: '*',
     },

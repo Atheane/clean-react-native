@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35.225" height="28.132" viewBox="0 0 35.225 28.132">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#c4277c"/>
+      <stop offset="1" stop-color="#0c7bbe"/>
+    </linearGradient>
+  </defs>
+  <g id="np_house_983462_000000" transform="translate(-3.744 -12.598)">
+    <path id="Tracé_7427" data-name="Tracé 7427" d="M41.818,49.6V37.086L28.733,26.769,15.649,37.086V49.6H41.818Z" transform="translate(-7.453 -8.872)" fill-rule="evenodd" fill="url(#linear-gradient)"/>
+    <path id="Tracé_7428" data-name="Tracé 7428" d="M5.583,28.816l15.7-12.376L37.073,28.891l1.9-2.407L34.3,22.8V13.484H28.278v4.571L21.357,12.6,3.744,26.484Z" fill-rule="evenodd" fill="url(#linear-gradient)"/>
+  </g>
+</svg>

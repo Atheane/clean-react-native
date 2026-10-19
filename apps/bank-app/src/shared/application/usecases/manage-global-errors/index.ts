@@ -4,7 +4,7 @@ import * as Sentry from '@sentry/react-native';
 import { ServerError } from '@clean-rn/shared/infrastructure';
 
 import { IGlobalErrorTypes } from '../../commands/manage-global-errors';
-import { IAuthStackPages } from '../../../../shared/presentation/types';
+import { ISharedStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 export function* showUnknownErrorSaga(): Generator<StrictEffect, any, any> {
@@ -18,5 +18,5 @@ export function* showUnknownErrorGenerator({
   payload: ServerError | Error;
 }): Generator<StrictEffect, any, any> {
   yield call(Sentry.captureException, payload);
-  yield call(navigate, { route: IAuthStackPages.MODAL_ERROR });
+  yield call(navigate, { route: ISharedStackPages.MODAL_ERROR, params: { error: payload } });
 }

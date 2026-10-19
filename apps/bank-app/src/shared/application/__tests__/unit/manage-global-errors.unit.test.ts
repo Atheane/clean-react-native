@@ -4,7 +4,7 @@ import * as Sentry from '@sentry/react-native';
 
 import { IGlobalErrorTypes } from '../../commands/manage-global-errors';
 import { showUnknownErrorGenerator, showUnknownErrorSaga } from '../../usecases/manage-global-errors';
-import { IAuthStackPages } from '../../../presentation/types';
+import { ISharedStackPages } from '../../../presentation/types';
 import { navigate } from '../../../presentation/navigation/navigationRef';
 
 describe('Manage Global Errors - usecase', () => {
@@ -25,7 +25,7 @@ describe('Manage Global Errors - usecase', () => {
       .next()
       .call(Sentry.captureException, new Error('test'))
       .next()
-      .call(navigate, { route: IAuthStackPages.MODAL_ERROR })
+      .call(navigate, { route: ISharedStackPages.MODAL_ERROR, params: { error: new Error('test') } })
       .next();
   });
 });

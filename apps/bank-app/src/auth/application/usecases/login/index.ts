@@ -19,10 +19,11 @@ import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 
 import { loginFailure, ILoginTypes, initializeLogin, loginSuccess } from '../../commands/login';
 import { initializeSignupStep } from '../../commands/signup';
+import { resetError } from '../../commands/login';
 
 import { IStoreKey } from '../../../../shared/application/types';
-import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
+import { goBack, navigate } from '../../../../shared/presentation/navigation/navigationRef';
+import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 export function* loginSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
@@ -39,6 +40,12 @@ export function* loginGenerator(
   },
 ): Generator<StrictEffect, any, any> {
   try {
+    const email = yield call(AsyncStorage.getItem, IStoreKey.USER_EMAIL);
+    if (!email) {
+      // persist user email if absent from storage (first login after signup)
+      yield call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, payload.email.value);
+    }
+
     // api call
     const api = AuthApi.getInstance(httpConnection);
     const auth = yield call([api, api.login], payload);
@@ -77,7 +84,6 @@ export function* loginGenerator(
     });
 
     yield put(loginSuccess({ auth, user }));
-    yield call(navigate, { route: IHomeStackPages.HOME });
   } catch (error: unknown) {
     if (error instanceof ServerError) {
       switch (error.codeError) {
@@ -98,4 +104,13 @@ export function* loginGenerator(
     yield put(initializeLogin());
     yield put(showUnknownError(error as Error));
   }
+}
+
+export function* closeLoginModalSaga(): Generator<StrictEffect, any, any> {
+  yield takeEvery(ILoginTypes.LOGIN_SUCCEDED, closeLoginModalGenerator);
+}
+
+export function* closeLoginModalGenerator(): Generator<StrictEffect, any, any> {
+  yield put(resetError());
+  yield call(goBack);
 }

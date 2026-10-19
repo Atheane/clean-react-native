@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Button, useTheme } from '@rneui/themed';
 
@@ -12,6 +12,11 @@ type IProps = {
   options: [IData, IData];
   onToggle: (option: IData) => void;
 };
+
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
+
+const LONG_BUTTON_RATIO = HEIGHT / WIDTH > 2.16 ? 55 / 360 : 55 / 307;
 
 export const SwitchButton: FC<IProps> = (props: IProps) => {
   const [toggle, setToggle] = useState(true);
@@ -48,6 +53,9 @@ export const SwitchButton: FC<IProps> = (props: IProps) => {
             theme.bank.container.button.long,
             theme.bank.container.centeredItems,
             theme.bank.shadow.button,
+            {
+              height: Dimensions.get('window').width * 0.8 * LONG_BUTTON_RATIO,
+            },
           ]}
         >
           <Button

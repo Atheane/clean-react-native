@@ -1,10 +1,11 @@
 import { useCallback } from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useSecure, useCleanErrorOnFocus, FormLogin, ILoginFormData } from '@clean-rn/ui-mobile';
+
+import { Colors, useSecure, useCleanErrorOnFocus, FormLogin, ILoginFormData } from '@clean-rn/ui-mobile';
 
 import { Email, Password } from '@clean-rn/auth/domain';
 
@@ -15,6 +16,8 @@ import { showUnknownError } from '../../../shared/application/commands/manage-gl
 
 import { Welcome } from '../assets/images';
 import { fetchLogin } from '../../application/commands/login';
+
+const HEIGHT = Dimensions.get('window').height;
 
 export const Login = () => {
   /// translations
@@ -63,10 +66,8 @@ export const Login = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <>
-          <View style={styles.image}>
-            <Image style={{ width: 146, height: 146 }} source={Welcome} />
-          </View>
+        <View style={[styles.container, { height: HEIGHT }]}>
+          <Image style={styles.image} source={Welcome} />
 
           <FormLogin
             loading={pending}
@@ -80,15 +81,22 @@ export const Login = () => {
             error={domainError}
             onFocus={onFocus}
           />
-        </>
+        </View>
       </SafeScrollingView>
     </ErrorBoundary>
   );
 };
 
 const styles = StyleSheet.create({
-  image: {
+  container: {
+    flex: 1,
+    backgroundColor: Colors.bank.primary.white,
+    height: Dimensions.get('window').height,
+    marginTop: '4%',
     alignItems: 'center',
-    justifyContent: 'center',
+  },
+  image: {
+    width: 146,
+    height: 146,
   },
 });

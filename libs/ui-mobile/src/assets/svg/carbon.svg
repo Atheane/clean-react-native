@@ -6,9 +6,9 @@
     </linearGradient>
   </defs>
   <g id="Groupe_1570" data-name="Groupe 1570" transform="translate(-469 -6668)">
-    <rect id="Rectangle_2266" data-name="Rectangle 2266" width="10" height="23" rx="3" transform="translate(469 6668)" fill="#000"/>
-    <rect id="Rectangle_2267" data-name="Rectangle 2267" width="10" height="17" rx="3" transform="translate(493 6674)" fill="#000"/>
+    <rect id="Rectangle_2266" data-name="Rectangle 2266" width="10" height="23" rx="3" transform="translate(469 6668)" fill="currentColor"/>
+    <rect id="Rectangle_2267" data-name="Rectangle 2267" width="10" height="17" rx="3" transform="translate(493 6674)" fill="currentColor"/>
     <rect id="Rectangle_2265" data-name="Rectangle 2265" width="10" height="21" rx="3" transform="translate(481 6670)" fill="url(#linear-gradient)"/>
-    <rect id="Rectangle_2268" data-name="Rectangle 2268" width="10" height="12" rx="3" transform="translate(505 6679)" fill="#000"/>
+    <rect id="Rectangle_2268" data-name="Rectangle 2268" width="10" height="12" rx="3" transform="translate(505 6679)" fill="currentColor"/>
   </g>
 </svg>

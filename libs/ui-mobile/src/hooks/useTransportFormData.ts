@@ -4,9 +4,15 @@ import { VehicleFuelE as FuelE, VehicleConsumptionT } from '@bank/carbon-weight/
 import { Logger } from '@clean-rn/logger';
 import { TransportEmissions } from '@clean-rn/carbon/domain';
 
-export const useTransportFormData = () => {
+export const useTransportFormData = (initialValues: VehicleConsumptionT | null) => {
   const [formData, setFormData] = useState<Partial<VehicleConsumptionT>>();
   const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    if (initialValues) {
+      setFormData(initialValues);
+    }
+  }, [initialValues]);
 
   const resetFormData = useCallback((value: FuelE) => {
     const newFormData = {

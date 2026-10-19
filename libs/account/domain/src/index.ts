@@ -1,4 +1,5 @@
 export * from './entities';
 export * from './errors';
 export * from './types';
-export * from './valueObjects';
+export * from './value-objects';
+export * from './repositories';

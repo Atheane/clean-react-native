@@ -6,6 +6,7 @@ import { showUnknownErrorSaga } from './manage-global-errors';
 
 import {
   loginSaga,
+  closeLoginModalSaga,
   resetPasswordSaga,
   checkEmailSaga,
   registerIdentitySaga,
@@ -15,19 +16,17 @@ import {
   registerAddressSaga,
   validatePhoneSaga,
   signupUserSaga,
-  // navigatePasswordToLoginSaga,
 } from '../../../auth/application/usecases';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
-// import { getAccountsSaga, getTransactionsSaga } from '@account/usecases';
-// import { accountApi } from '@account/infrastructure/services';
+import { listAccountsSaga, listTransactionsSaga } from '../../../account/application/usecases';
 
-// import {
-//   houseEmissionsSaga,
-//   transportEmissionsSaga,
-//   foodEmissionsSaga,
-//   flyEmissionsSaga,
-// } from '@carbon/usecases';
+import {
+  computeHouseEmissionsSaga,
+  computeTransportEmissionsSaga,
+  computeFoodEmissionsSaga,
+  computeFlyEmissionsSaga,
+} from '../../../carbon/application/usecases';
 
 export function* rootSaga(httpConnection: HttpConnection) {
   yield all([
@@ -35,6 +34,7 @@ export function* rootSaga(httpConnection: HttpConnection) {
     loadStorageSaga(),
     showUnknownErrorSaga(),
     loginSaga(httpConnection),
+    closeLoginModalSaga(),
     resetPasswordSaga(httpConnection),
     checkEmailSaga(httpConnection),
     registerIdentitySaga(),
@@ -44,12 +44,11 @@ export function* rootSaga(httpConnection: HttpConnection) {
     registerAddressSaga(),
     validatePhoneSaga(httpConnection),
     signupUserSaga(httpConnection),
-    // navigatePasswordToLoginSaga(),
-    // getAccountsSaga(accountApi),
-    // getTransactionsSaga(accountApi),
-    // houseEmissionsSaga(),
-    // transportEmissionsSaga(),
-    // foodEmissionsSaga(),
-    // flyEmissionsSaga(),
+    listAccountsSaga(httpConnection),
+    listTransactionsSaga(httpConnection),
+    computeHouseEmissionsSaga(),
+    computeTransportEmissionsSaga(),
+    computeFoodEmissionsSaga(),
+    computeFlyEmissionsSaga(),
   ]);
 }

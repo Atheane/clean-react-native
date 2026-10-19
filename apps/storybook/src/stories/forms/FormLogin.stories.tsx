@@ -2,9 +2,9 @@ import React, { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
-import { FormLogin, ILoginFormData, useTogglePress, useEdit, useSecure } from '@clean-rn/ui-mobile';
+import { FormLogin, ILoginFormData, useTogglePress, useSecure } from '@clean-rn/ui-mobile';
 
-import { WithStatus, ValidationStatus, WithKeyboardAwareScroll, WithExtraBottomSpace } from '../../wrappers';
+import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../../wrappers';
 import { Logger } from '@clean-rn/logger';
 
 const FormLoginMeta: ComponentMeta<typeof FormLogin> = {
@@ -19,11 +19,7 @@ const FormLoginMeta: ComponentMeta<typeof FormLogin> = {
     email: 'jean-luc.baradat@gmail.com',
     secured: true,
   },
-  decorators: [
-    (Story) => WithStatus(Story, ValidationStatus.VALIDATED),
-    WithExtraBottomSpace,
-    WithKeyboardAwareScroll,
-  ],
+  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };
 
 export default FormLoginMeta;

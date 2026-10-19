@@ -1,9 +1,9 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useTranslation } from 'react-i18next';
 
-import { VehicleFuelE as FuelE } from '@bank/carbon-weight/dist';
+import { VehicleFuelE as FuelE, VehicleConsumptionT } from '@bank/carbon-weight/dist';
 
 import { Gasoline } from '../../../assets';
 import { Colors } from '../../../constants';
@@ -13,6 +13,7 @@ import { Dropdown } from '../../dropdowns/dropdown';
 import { NoCO2 } from '../../texts/no-co2';
 
 type IProps = {
+  initialValues: VehicleConsumptionT | null;
   onChangeForm: (value: FuelE) => void;
   onChangeField: (key: 'mpg' | 'distanceByYear', value: number) => void;
 };
@@ -22,7 +23,7 @@ export const TransportForm = (props: IProps) => {
 
   const dataFuel = Object.entries(FuelE).map(([key, value]) => ({
     key,
-    value: t('screens.carbonTransport.dropdown.' + value),
+    value: t('screens.carbon-transport.dropdown.' + value),
   }));
 
   const [fuel, setFuel] = useState<FuelE>();
@@ -56,12 +57,20 @@ export const TransportForm = (props: IProps) => {
     [props],
   );
 
+  useEffect(() => {
+    if (props.initialValues) {
+      setFuel(props.initialValues.fuel);
+      setMpg(props.initialValues.mpg ?? 8);
+      setDistanceByYear(props.initialValues.distanceByYear ?? 20000);
+    }
+  }, [props.initialValues]);
+
   const ConditionalForm = () => {
     if (fuel !== FuelE.electric) {
       return (
         <View>
           <Slider
-            label={t('screens.carbonTransport.slider.mpg')}
+            label={t('screens.carbon-transport.slider.mpg')}
             minValue={0}
             maxValue={25}
             value={mpg}
@@ -70,7 +79,7 @@ export const TransportForm = (props: IProps) => {
           />
           <View style={styles.container}>
             <Slider
-              label={t('screens.carbonTransport.slider.distanceByYear')}
+              label={t('screens.carbon-transport.slider.distance-by-year')}
               minValue={0}
               maxValue={150000}
               step={500}
@@ -82,18 +91,19 @@ export const TransportForm = (props: IProps) => {
         </View>
       );
     } else {
-      return <NoCO2 text={t('screens.carbonTransport.noCO2')} />;
+      return <NoCO2 text={t('screens.carbon-transport.no-CO2')} />;
     }
   };
 
   return (
     <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <Dropdown
-        label={t('screens.carbonTransport.dropdown.title')}
-        placeholder={t('screens.carbonTransport.dropdown.title')}
+        label={t('screens.carbon-transport.dropdown.title')}
+        placeholder={t('screens.carbon-transport.dropdown.title')}
         icon={() => <Gasoline style={{ color: Colors.bank.primary.lightGreen }} />}
         data={dataFuel}
         onSelect={handleOnChange}
+        defaultValue={t(`screens.carbon-transport.dropdown.${fuel ?? 'title'}`)}
       />
       {fuel && <View style={styles.container}>{ConditionalForm()}</View>}
     </KeyboardAwareScrollView>
