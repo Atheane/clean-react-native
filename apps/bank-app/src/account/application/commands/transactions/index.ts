@@ -1,12 +1,10 @@
-import { IAccount, IStatementsPeriod, ITransaction } from '@clean-rn/account/domain';
+import { IAccount, ITransaction } from '@clean-rn/account/domain';
 import {
   ITransactionsTypes,
   ITransactionsActions,
   IListTransactions,
   ITransactionsListed,
   IInitializeTransactionsList,
-  IDownloadStatements,
-  IStatementsDownloaded,
 } from './types';
 
 // commands
@@ -22,22 +20,6 @@ export const initializeTransactionsList = (): IInitializeTransactionsList => ({
 // domainEvents
 export const transactionsListed = (payload: ITransaction[]): ITransactionsListed => ({
   type: ITransactionsTypes.TRANSACTIONS_LISTED,
-  payload,
-});
-
-export const downloadStatements = (payload: {
-  account: IAccount;
-  period: IStatementsPeriod;
-}): IDownloadStatements => ({
-  type: ITransactionsTypes.DOWNLOAD_STATEMENTS,
-  payload,
-});
-
-export const statementsDownloaded = (payload: {
-  buffer: ArrayBuffer;
-  period: IStatementsPeriod;
-}): IStatementsDownloaded => ({
-  type: ITransactionsTypes.STATEMENTS_DOWNLOADED,
   payload,
 });
 

@@ -31,6 +31,7 @@ exports[`WebViewer -  minimal props -  renders as before 1`] = `
       messagingModuleName=""
       newSource={
         {
+          "headers": undefined,
           "uri": "https://www.example.com/assets/docs/cgu.pdf",
         }
       }
@@ -44,6 +45,7 @@ exports[`WebViewer -  minimal props -  renders as before 1`] = `
       onShouldStartLoadWithRequest={[Function]}
       source={
         {
+          "headers": undefined,
           "uri": "https://www.example.com/assets/docs/cgu.pdf",
         }
       }

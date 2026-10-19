@@ -25,7 +25,7 @@ describe('Manage Global Errors - usecase', () => {
       .next()
       .call(Sentry.captureException, new Error('test'))
       .next()
-      .call(navigate, { route: ISharedStackPages.MODAL_ERROR })
+      .call(navigate, { route: ISharedStackPages.MODAL_ERROR, params: { error: new Error('test') } })
       .next();
   });
 });

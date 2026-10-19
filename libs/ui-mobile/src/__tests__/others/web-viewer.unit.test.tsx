@@ -8,7 +8,7 @@ describe('WebViewer - ', () => {
     it('renders as before', () => {
       const tree = render(
         <ThemeProvider theme={theme}>
-          <WebViewer url="https://www.example.com/assets/docs/cgu.pdf" />
+          <WebViewer uri="https://www.example.com/assets/docs/cgu.pdf" handleHttpError={() => null} />
         </ThemeProvider>,
       );
       expect(tree).toMatchSnapshot();

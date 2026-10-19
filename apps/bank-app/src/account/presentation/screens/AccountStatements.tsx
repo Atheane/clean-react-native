@@ -1,8 +1,7 @@
 import { useCallback } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { IAccount, IStatementsPeriod } from '@clean-rn/account/domain';
 
 import {
@@ -13,53 +12,26 @@ import {
   useHideBottomBar,
   ExportPdfGradient,
   Ibanv2,
-  WebViewer,
 } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-
-import { downloadStatements } from '../../../account/application/commands/transactions';
-
-export const AccountStatementsPdf = () => {
-  const { t } = useTranslation();
-  const {
-    params: { period },
-  } = useRoute() as { params: { period: IStatementsPeriod } };
-
-  console.log('AccountStatementsPdf period', period);
-
-  const { statements, pending } = useSelector((state: IRootState) => state.account.transactions);
-
-  console.log('AccountStatementsPdf statements', statements);
-
-  return (
-    <ErrorBoundary t={t}>
-      {pending ? <Text>Loading...</Text> : <WebViewer uri={statements[period] as unknown as string} />}
-    </ErrorBoundary>
-  );
-};
-
-// export const ExportPdfIban = () => <WebViewer uri={pdfUrls.iban} />;
+import { IHomeStackPages } from '../../../shared/presentation/types';
 
 export const AccountStatements = () => {
   const { t } = useTranslation();
   const {
     params: { account },
   } = useRoute() as { params: { account: IAccount } };
-  const dispatch = useDispatch();
+  const navigation = useNavigation();
 
-  const handleOnDownloadStatements = useCallback(
-    (period: IStatementsPeriod) => {
-      dispatch(downloadStatements({ account, period }));
-    },
-    [dispatch, account],
-  );
+  const handleOnDownloadStatements = (period: IStatementsPeriod) => {
+    navigation.navigate(IHomeStackPages.ACCOUNT_STATEMENTS_PDF, { account, period });
+  };
 
   const handleOnDownloadRIB = useCallback(() => {
     // todo
     console.log('handleOnDownloadRIB');
-  }, [dispatch, account]);
+  }, []);
 
   useHideBottomBar();
 

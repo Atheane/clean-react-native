@@ -24,10 +24,6 @@ export class HttpConnection {
     return HttpConnection.headers;
   }
 
-  public setHeaders(headers: HeadersInit & { Authorization?: string }): void {
-    HttpConnection.headers = headers;
-  }
-
   public options(httpVerb: IHttpVerb, params?: any): RequestInit {
     if (httpVerb === IHttpVerb.GET || httpVerb === IHttpVerb.DELETE) {
       return {

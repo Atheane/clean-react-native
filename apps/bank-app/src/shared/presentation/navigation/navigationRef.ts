@@ -14,6 +14,7 @@ export function navigate({ route, params }: { route: IRoutes; params?: Record<st
       navigationRef.navigate(route, params);
     } else {
       navigationRef.navigate(route);
+      console.log('navigationRef', route);
     }
   } else {
     initRoute = route;
