@@ -14,23 +14,22 @@ export const WebViewer = ({
 }: {
   uri: string;
   headers?: { [key: string]: string };
-  handleHttpError: (error: ServerError) => void;
+  handleHttpError: (error: unknown) => void;
 }) => {
+  const handleServerError = ({ nativeEvent }: { nativeEvent: { url: string; statusCode: number } }) => {
+    const error = nativeEvent.statusCode
+      ? new ServerError({
+          statusCode: nativeEvent.statusCode,
+          message: 'server error when loading webview',
+          path: nativeEvent.url,
+        })
+      : nativeEvent;
+    handleHttpError(error);
+  };
+
   return (
     <View style={styles.container}>
-      <WebView
-        style={{ flex: 1 }}
-        source={{ uri, headers }}
-        onHttpError={(syntheticEvent) => {
-          const { nativeEvent } = syntheticEvent;
-          const error = new ServerError({
-            statusCode: nativeEvent.statusCode,
-            message: 'server error when loading webview',
-            path: nativeEvent.url,
-          });
-          handleHttpError(error);
-        }}
-      />
+      <WebView style={{ flex: 1 }} source={{ uri, headers }} onHttpError={handleServerError} />
     </View>
   );
 };

@@ -19,7 +19,7 @@ import {
   ScreenModalWebview,
   AccountStatements,
   AccountStatementsPdf,
-  // ExportPdfIban,
+  RibPdf,
 } from '../screens';
 import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
 import { ScreenModalError } from '../../../shared/presentation/screens';
@@ -68,7 +68,15 @@ export const HomeStack = () => {
         name={IHomeStackPages.ACCOUNT_STATEMENTS_PDF}
         component={AccountStatementsPdf}
         options={{
-          headerTitle: t('screens.account-statements.title'),
+          headerTitle: t('screens.account-statements-pdf.title'),
+          ...headersOptions(goBack),
+        }}
+      />
+      <Stack.Screen
+        name={IHomeStackPages.RIB_PDF}
+        component={RibPdf}
+        options={{
+          headerTitle: t('screens.rib-pdf.title'),
           ...headersOptions(goBack),
         }}
       />
@@ -81,14 +89,6 @@ export const HomeStack = () => {
         name={ISharedStackPages.MODAL_ERROR}
         component={ScreenModalError}
       />
-      {/* <Stack.Screen
-        name={IHomeStackPages.EXPORT_PDF_IBAN}
-        component={ExportPdfIban}
-        options={{
-          headerTitle: t('screens.exportPdfIban.title'),
-          ...headersOptions(goBack),
-        }}
-      /> */}
     </Stack.Navigator>
   );
 };

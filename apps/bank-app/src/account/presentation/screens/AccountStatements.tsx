@@ -29,9 +29,8 @@ export const AccountStatements = () => {
   };
 
   const handleOnDownloadRIB = useCallback(() => {
-    // todo
-    console.log('handleOnDownloadRIB');
-  }, []);
+    navigation.navigate(IHomeStackPages.RIB_PDF, { account });
+  }, [navigation, account]);
 
   useHideBottomBar();
 
@@ -40,30 +39,46 @@ export const AccountStatements = () => {
       <SafeScrollingView>
         <View style={styles.container}>
           <View style={styles.textContainer}>
-            <Text style={{ ...styles.text, ...styles.boldText }}>{t('screens.accountStatements.bold')}</Text>
+            <Text style={{ ...styles.text, ...styles.boldText }}>{t('screens.account-statements.bold')}</Text>
             <Text style={{ ...styles.text, ...styles.normalText }}>
-              {t('screens.accountStatements.normal')}
+              {t('screens.account-statements.normal')}
             </Text>
           </View>
           <View style={styles.cardsContainer}>
             <LongCard
               text={t('screens.account-statements.cards.last-month')}
-              icon={ExportPdfGradient}
+              icon={() => (
+                <View style={styles.iconContainer}>
+                  <ExportPdfGradient />
+                </View>
+              )}
+              pressable
               onPress={() => handleOnDownloadStatements(IStatementsPeriod.LAST_MONTH)}
             />
             <LongCard
               text={t('screens.account-statements.cards.last-trimester')}
-              icon={ExportPdfGradient}
+              icon={() => (
+                <View style={styles.iconContainer}>
+                  <ExportPdfGradient />
+                </View>
+              )}
+              pressable
               onPress={() => handleOnDownloadStatements(IStatementsPeriod.LAST_TRIMESTER)}
             />
             <LongCard
-              text={t('screens.accountStatements.cards.all')}
-              icon={ExportPdfGradient}
+              text={t('screens.account-statements.cards.all')}
+              icon={() => (
+                <View style={styles.iconContainer}>
+                  <ExportPdfGradient />
+                </View>
+              )}
+              pressable
               onPress={() => handleOnDownloadStatements(IStatementsPeriod.ALL)}
             />
             <LongCard
-              text={t('screens.accountStatements.cards.iban')}
+              text={t('screens.account-statements.cards.rib')}
               icon={Ibanv2}
+              pressable
               onPress={handleOnDownloadRIB}
             />
           </View>
@@ -89,6 +104,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 16,
   },
+  iconContainer: {
+    marginTop: 6,
+  },
   text: {
     fontSize: 14,
     lineHeight: 19,
@@ -103,6 +121,6 @@ const styles = StyleSheet.create({
   },
   bottom: {
     position: 'absolute',
-    top: Dimensions.get('window').height * 0.65,
+    top: Dimensions.get('window').height * 0.7,
   },
 });

@@ -54,10 +54,8 @@ export type IHomeStackParamList = {
   RestoFlash: undefined;
   Weflo: undefined;
   AccountStatements: undefined;
-  AccountStatementsCurrentMonth: undefined;
-  AccountStatementsLastThreeMonths: undefined;
-  AccountStatementsAll: undefined;
-  ExportPdfIban: undefined;
+  AccountStatementsPdf: undefined;
+  RibPdf: undefined;
   ModalWebView: undefined;
 };
 
@@ -111,7 +109,7 @@ export enum IHomeStackPages {
   WEFLO = 'Weflo',
   ACCOUNT_STATEMENTS = 'AccountStatements',
   ACCOUNT_STATEMENTS_PDF = 'AccountStatementsPdf',
-  EXPORT_PDF_IBAN = 'ExportPdfIban',
+  RIB_PDF = 'RibPdf',
   MODAL_WEBVIEW = 'ModalWebview',
 }
 
@@ -160,7 +158,7 @@ export type IHomeStackProps = {
   [IHomeStackPages.TRANSACTIONS]: object;
   [IHomeStackPages.ACCOUNT_STATEMENTS]: object;
   [IHomeStackPages.ACCOUNT_STATEMENTS_PDF]: object;
-  [IHomeStackPages.EXPORT_PDF_IBAN]: object;
+  [IHomeStackPages.RIB_PDF]: object;
   [IHomeStackPages.RESTO_FLASH]: object;
   [IHomeStackPages.WEFLO]: object;
   [IHomeStackPages.MODAL_WEBVIEW]: object;
@@ -210,7 +208,7 @@ export type IRoutes =
   | IHomeStackPages.MODAL_WEBVIEW
   | IHomeStackPages.ACCOUNT_STATEMENTS
   | IHomeStackPages.ACCOUNT_STATEMENTS_PDF
-  | IHomeStackPages.EXPORT_PDF_IBAN
+  | IHomeStackPages.RIB_PDF
   | ITransferStackPages.MENU
   | ITransferStackPages.TRANSFER
   | ICarbonStackPages.MENU

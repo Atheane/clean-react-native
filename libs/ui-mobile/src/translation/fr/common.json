@@ -237,28 +237,22 @@
         "article": "Notre blog sur le monde bancaire et l’urgence climatique"
       }
     },
-    "accountStatements": {
+    "account-statements": {
       "title": "Export",
       "bold": "Exporter mon relevé de compte",
       "normal": "Télécharger mon relevé de compte en PDF",
       "cards": {
-        "currentMonth": "Le mois en cours",
-        "threeLastMonths": "3 derniers mois",
+        "last-month": "Le mois dernier",
+        "last-trimester": "3 derniers mois",
         "all": "Tous mes relevés",
-        "iban": "Télécharger l'IBAN"
+        "rib": "Télécharger le RIB"
       }
     },
-    "accountStatementsCurrentMonth": {
-      "title": "Le mois en cours"
+    "account-statements-pdf": {
+      "title": "Relevé de compte"
     },
-    "accountStatementsThreeLastMonths": {
-      "title": "3 derniers mois"
-    },
-    "accountStatementsAll": {
-      "title": "Tous mes relevés"
-    },
-    "exportPdfIban": {
-      "title": "Télécharger l'IBAN"
+    "rib-pdf": {
+      "title": "Le RIB"
     },
     "transfer": {
       "title": "Virement",

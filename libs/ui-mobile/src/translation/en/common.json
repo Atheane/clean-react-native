@@ -105,7 +105,7 @@
       "placeholder": "your@email.com",
       "label": "e-mail"
     },
-    "text":"Let's check together if your email address is linked to an existing account."
+    "text": "Let's check together if your email address is linked to an existing account."
   },
   "signup-identity": {
     "title": "Sign up",
@@ -196,7 +196,7 @@
     },
     "signup-validate-phone": {
       "title": "Security",
-      "instruction": "Enter the verification code that was just sent to you by SMS",
+      "instruction": "Enter the verification code that was just sent to you by SMS"
     },
     "signup-birth": {
       "title": "Complete my profile"
@@ -248,28 +248,22 @@
         "article": "Our blog on the banking world and the climate emergency"
       }
     },
-    "accountStatements": {
+    "account-statements": {
       "title": "Export",
       "bold": "Export my account statement",
       "normal": "Download my account statement in PDF",
       "cards": {
-        "currentMonth": "Current month",
-        "threeLastMonths": "Last 3 months",
-        "all": "All my statements",
-        "iban": "Download IBAN"
+        "last-month": "Last month",
+        "last-trimester": "Last trimester",
+        "all": "All statements",
+        "rib": "Download IBAN"
       }
     },
-    "accountStatementsCurrentMonth": {
-      "title": "Current month"
+    "account-statements-pdf": {
+      "title": "Account statement"
     },
-    "accountStatementsThreeLastMonths": {
-      "title": "Last 3 months"
-    },
-    "accountStatementsAll": {
-      "title": "All my statements"
-    },
-    "exportPdfIban": {
-      "title": "Download the IBAN"
+    "rib-pdf": {
+      "title": "IBAN"
     },
     "transfer": {
       "title": "Transfer",
@@ -345,7 +339,7 @@
         "rice": "Pasta / Rice",
         "soft": "Fruit juice / Soda / Water",
         "unit": " time / week",
-        "units": " times / week" 
+        "units": " times / week"
       }
     },
     "warningFood": {

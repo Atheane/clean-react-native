@@ -24,5 +24,10 @@ type LongCardStory = ComponentStory<typeof LongCard>;
 export const Static: LongCardStory = (args) => {
   const { t } = useTranslation();
 
-  return <LongCard {...args} text={t('screens.accountStatementsCurrentMonth.title')} />;
+  return <LongCard {...args} text={t('screens.account-statements.cards.last-month')} />;
+};
+export const Pressable: LongCardStory = (args) => {
+  const { t } = useTranslation();
+
+  return <LongCard {...args} pressable text={t('screens.account-statements.cards.last-month')} />;
 };
