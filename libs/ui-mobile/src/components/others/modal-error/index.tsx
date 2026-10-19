@@ -23,6 +23,11 @@ export const ModalError = ({ error }: { error: ServerError | Error }) => {
             {`\n ${t('modal-error.details')}: ${firstLetterCapitalize(error.message)}`}
           </Text>
         )}
+        {error?.stack && (
+          <Text style={theme.bank.text.errors}>
+            {`\n ${t('modal-error.stack')}: ${firstLetterCapitalize(error.stack)}`}
+          </Text>
+        )}
       </View>
     </View>
   );

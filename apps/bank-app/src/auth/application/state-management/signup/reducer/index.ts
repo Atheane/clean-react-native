@@ -1,6 +1,7 @@
 import { Logger } from '@clean-rn/logger';
-import { ISignupState } from '../state';
+
 import { ISignupActions, ISignupTypes } from '../../../commands/signup';
+import { ISignupState } from '../state';
 
 const initialState: ISignupState = {
   pending: false,
@@ -122,6 +123,14 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
         ...state,
         pending: false,
         user: action.payload,
+        error: null,
+      };
+      return newState;
+    case ISignupTypes.INITIALIZE_SIGNUP_STEP:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
         error: null,
       };
       return newState;

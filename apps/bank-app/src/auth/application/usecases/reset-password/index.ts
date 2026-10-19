@@ -6,7 +6,8 @@ import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { IResetPasswordCommand } from '@clean-rn/auth/domain';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
-import { IResetPasswordTypes, passwordReset } from '../../commands/reset-password';
+import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
+import { initializeResetPassword, IResetPasswordTypes, passwordReset } from '../../commands/reset-password';
 
 function* resetPasswordApiSaga(
   httpConnection: HttpConnection,
@@ -17,17 +18,22 @@ function* resetPasswordApiSaga(
     payload: IResetPasswordCommand;
   },
 ): Generator<StrictEffect, any, any> {
-  // api call
-  const api = AuthApi.getInstance(httpConnection);
-  const response = yield call([api, api.resetPassword], { email: payload.email });
-  const success = response.success;
+  try {
+    // api call
+    const api = AuthApi.getInstance(httpConnection);
+    const response = yield call([api, api.resetPassword], { email: payload.email });
+    const success = response.success;
 
-  // dispatch action to the store
-  yield put(
-    passwordReset({
-      success,
-    }),
-  );
+    // dispatch action to the store
+    yield put(
+      passwordReset({
+        success,
+      }),
+    );
+  } catch (e: unknown) {
+    yield put(initializeResetPassword());
+    yield put(showUnknownError(e as Error));
+  }
 }
 
 function* resetPasswordSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {

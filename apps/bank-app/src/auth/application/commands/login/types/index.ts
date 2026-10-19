@@ -6,6 +6,7 @@ export enum ILoginTypes {
   FETCH_LOGIN = 'FETCH_LOGIN',
   LOGIN_SUCCEDED = 'LOGIN_SUCCEDED',
   LOGIN_FAILED = 'LOGIN_FAILED',
+  INITIALIZE_LOGIN = 'INITIALIZE_LOGIN',
 }
 
 export type IFetchLogin = {
@@ -23,4 +24,8 @@ export type ILoginFailed = {
   payload: IDomainError<IAuthErrorCodes, IAuthErrorMessage>;
 };
 
-export type ILoginActions = IFetchLogin | ILoginSucceded | ILoginFailed;
+export type IInitializeLogin = {
+  type: typeof ILoginTypes.INITIALIZE_LOGIN;
+};
+
+export type ILoginActions = IFetchLogin | ILoginSucceded | ILoginFailed | IInitializeLogin;

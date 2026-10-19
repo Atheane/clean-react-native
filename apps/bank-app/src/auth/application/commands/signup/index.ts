@@ -20,6 +20,7 @@ import {
   IRegisterBirth,
   IRegisterPassword,
   IRegisterAddress,
+  IInitializeSignupStep,
   IIdentityRegistered,
   IBirthRegistered,
   IAddressRegistered,
@@ -66,6 +67,10 @@ export const registerAddress = (payload: IRegisterAddressCommand): IRegisterAddr
 export const fetchSignupUser = (payload: ISignupUserCommand): IFetchSignupUser => ({
   type: ISignupTypes.FETCH_SIGNUP_USER,
   payload,
+});
+
+export const initializeSignupStep = (): IInitializeSignupStep => ({
+  type: ISignupTypes.INITIALIZE_SIGNUP_STEP,
 });
 
 // redux actions that are domain Events

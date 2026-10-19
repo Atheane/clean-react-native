@@ -1,7 +1,9 @@
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigationState } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import { PdfViewer } from '@clean-rn/ui-mobile';
 
 import {
@@ -19,6 +21,8 @@ import { headersOptions } from '../../../shared/presentation/navigation/headersO
 import { IAuthStackPages, IAuthStackProps } from '../../../shared/presentation/types';
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
+
 import { pdfUrls } from '../constants';
 
 const Stack = createNativeStackNavigator<IAuthStackProps>();
@@ -30,6 +34,14 @@ export const AuthStack = () => {
   const ScreenLegal = () => <PdfViewer url={pdfUrls.legal} />;
   const ScreenCgu = () => <PdfViewer url={pdfUrls.cgu} />;
   const ScreenCguKycProvider = () => <PdfViewer url={pdfUrls.cguKycProvider} />;
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const isModalErrorInStack = navigationStack.find((route) => route.name === IAuthStackPages.MODAL_ERROR);
+    if (!isModalErrorInStack) {
+      dispatch(initGlobalError());
+    }
+  }, [navigationStack, dispatch]);
 
   return (
     <Stack.Navigator initialRouteName={initRouteName}>
@@ -121,70 +133,16 @@ export const AuthStack = () => {
         name={IAuthStackPages.CGU_KYC_PROVIDER}
         component={ScreenCguKycProvider}
       />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen
-          options={{
-            headerTitle: t(`screens.modal-error`),
-          }}
-          name={IAuthStackPages.MODAL_ERROR}
-          component={ScreenModalError}
-        />
-      </Stack.Group>
-      {/*
 
       <Stack.Screen
         options={{
-          headerTitle: t(`screens.signupstep4.title`),
-          ...headersOptions(onPressBackButton(navigateBack)),
+          presentation: 'modal',
+          headerShown: false,
+          headerBackVisible: false,
         }}
-        name={IAuthStackPages.SIGNUP_STEP4}
-        component={SignupStep4}
+        name={IAuthStackPages.MODAL_ERROR}
+        component={ScreenModalError}
       />
-      <Stack.Screen
-        options={{
-          headerTitle: t(`screens.signupstep5.title`),
-          ...headersOptions(onPressBackButton(navigateBack)),
-        }}
-        name={IAuthStackPages.SIGNUP_STEP5}
-        component={SignupStep5}
-      />
-      <Stack.Screen
-        options={{
-          headerTitle: t(`screens.signupstep6.title`),
-          ...headersOptions(onPressBackButton(navigateBack)),
-        }}
-        name={IAuthStackPages.SIGNUP_STEP6}
-        component={SignupStep6}
-      />
-      <Stack.Screen
-        options={{
-          headerTitle: t(`screens.signupstep7.title`),
-          ...headersOptions(onPressBackButton(navigateBack)),
-          headerTitleStyle: {
-            ...headersOptions(onPressBackButton(navigateBack)).headerTitleStyle,
-            fontSize: 18,
-          },
-        }}
-        name={IAuthStackPages.SIGNUP_STEP7}
-        component={SignupStep7}
-      />
-      <Stack.Screen
-        options={{
-          headerTitle: t(`screens.signupstep8.title`),
-          ...headersOptions(onPressBackButton(navigateBack)),
-        }}
-        name={IAuthStackPages.SIGNUP_STEP8}
-        component={SignupStep8}
-      />
-      <Stack.Screen
-        options={{
-          headerTitle: t(`screens.signupstep9.title`),
-          ...headersOptions(onPressBackButton(navigateBack)),
-        }}
-        name={IAuthStackPages.SIGNUP_STEP9}
-        component={SignupStep9}
-      />
-      */}
     </Stack.Navigator>
   );
 };

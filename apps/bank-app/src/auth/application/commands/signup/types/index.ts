@@ -22,6 +22,7 @@ export enum ISignupTypes {
   REGISTER_BIRTH = 'REGISTER_BIRTH',
   REGISTER_ADDRESS = 'REGISTER_ADDRESS',
   FETCH_SIGNUP_USER = 'FETCH_SIGNUP_USER',
+  INITIALIZE_SIGNUP_STEP = 'INITIALIZE_SIGNUP_STEP',
   // domain events
   EMAIL_CHECKED = 'EMAIL_CHECKED',
   SIGNUP_FAILED = 'SIGNUP_FAILED',
@@ -76,6 +77,10 @@ export type IFetchSignupUser = {
   payload: ISignupUserCommand;
 };
 
+export type IInitializeSignupStep = {
+  type: typeof ISignupTypes.INITIALIZE_SIGNUP_STEP;
+};
+
 // domainEvents
 export type IEmailChecked = {
   type: typeof ISignupTypes.EMAIL_CHECKED;
@@ -121,6 +126,7 @@ export type IUserSignedUp = {
 };
 
 export type ISignupActions =
+  | IInitializeSignupStep
   | IFetchCheckEmailExists
   | IEmailChecked
   | ISignupFailed

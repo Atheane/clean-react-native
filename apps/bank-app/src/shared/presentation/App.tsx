@@ -12,7 +12,7 @@ import { Fonts, theme, i18n } from '@clean-rn/ui-mobile';
 import { store } from '../application/state-management/state/store';
 import { NavigationUI } from './navigation';
 import { IRootState } from '../../shared/application/state-management/reducers/root-reducer';
-import { initializeApplication } from '../../shared/application/commands/initialization';
+import { initializeApplication } from '../../shared/application/commands/initialize-application';
 
 const App: () => JSX.Element = () => {
   const [fontsLoaded] = useFonts(Fonts);

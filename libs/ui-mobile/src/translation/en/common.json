@@ -166,8 +166,9 @@
     }
   },
   "modal-error": {
-    "details": "Detailled message",
-    "code": "Error code"
+    "code": "Error code",
+    "message": "Error message",
+    "stack": "Detailled message"
   },
   "screens": {
     "legal": "Legal mentions",

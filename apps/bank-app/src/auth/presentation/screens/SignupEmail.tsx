@@ -15,18 +15,20 @@ import {
 } from '@clean-rn/ui-mobile';
 import { Email } from '@clean-rn/auth/domain';
 
-import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { Welcome } from '../assets/images';
 
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 import { IAuthStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+
 import { fetchCheckEmailExists } from '../../application/commands/signup';
 
 export const SignupEmail = () => {
-  // internal state
+  /// translations
   const { t } = useTranslation();
 
+  // internal state
   const {
     control,
     handleSubmit,
@@ -36,6 +38,20 @@ export const SignupEmail = () => {
   // api call
   const dispatch = useDispatch();
   const { pending, error } = useSelector((state: IRootState) => state.auth.signup);
+
+  const onSubmit = useCallback(
+    (formData: ISignupEmailFormData) => {
+      try {
+        const payload = {
+          email: new Email(formData.email),
+        };
+        dispatch(fetchCheckEmailExists(payload));
+      } catch (e: unknown) {
+        dispatch(showUnknownError(e as Error));
+      }
+    },
+    [dispatch],
+  );
 
   // navigation
   const navigation = useNavigation();
@@ -52,22 +68,7 @@ export const SignupEmail = () => {
     navigation.navigate(IAuthStackPages.CGU_KYC_PROVIDER as never);
   }, [navigation]);
 
-  // handleSubmit
-  const onSubmit = useCallback(
-    (formData: ISignupEmailFormData) => {
-      try {
-        const payload = {
-          email: new Email(formData.email),
-        };
-        dispatch(fetchCheckEmailExists(payload));
-      } catch (e: unknown) {
-        dispatch(showUnknownError(e as Error));
-      }
-    },
-    [dispatch],
-  );
-
-  // clean serverError onFocus
+  // clean domainError onFocus
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
   return (

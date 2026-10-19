@@ -2,16 +2,21 @@ import { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
-import { Colors, FormResetPassword, IResetPasswordFormData } from '@clean-rn/ui-mobile';
+import { FormResetPassword, IResetPasswordFormData } from '@clean-rn/ui-mobile';
 import { Email } from '@clean-rn/auth/domain';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 
-import { SafeScrollingView } from '../../../shared/presentation/hoc';
 import { fetchResetPassword } from '../../application/commands/reset-password';
 
 export const ResetPassword = () => {
+  /// translations
+  const { t } = useTranslation();
+
   // retrieve email, if any
   const { email } = useSelector((state: IRootState) => state.initialization);
 
@@ -28,36 +33,38 @@ export const ResetPassword = () => {
 
   const onSubmit = useCallback(
     (formData: IResetPasswordFormData) => {
-      const payload = {
-        ...formData,
-        email: email ? email : new Email(formData.email),
-      };
-      dispatch(fetchResetPassword(payload));
+      try {
+        const payload = {
+          ...formData,
+          email: email ? email : new Email(formData.email),
+        };
+        dispatch(fetchResetPassword(payload));
+      } catch (e: unknown) {
+        dispatch(showUnknownError(e as Error));
+      }
     },
     [dispatch, email],
   );
 
   return (
-    <SafeScrollingView>
-      <View style={styles.form}>
-        <FormResetPassword
-          loading={pending}
-          control={control}
-          errors={errors}
-          email={email?.value}
-          onSubmit={handleSubmit(onSubmit)}
-          success={success}
-        />
-      </View>
-    </SafeScrollingView>
+    <ErrorBoundary t={t}>
+      <SafeScrollingView>
+        <View style={styles.form}>
+          <FormResetPassword
+            loading={pending}
+            control={control}
+            errors={errors}
+            email={email?.value}
+            onSubmit={handleSubmit(onSubmit)}
+            success={success}
+          />
+        </View>
+      </SafeScrollingView>
+    </ErrorBoundary>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.bank.primary.white,
-  },
   form: {
     marginTop: '40%',
   },

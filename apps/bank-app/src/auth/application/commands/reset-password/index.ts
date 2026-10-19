@@ -16,7 +16,7 @@ export const passwordReset = (payload: ISuccess): IPasswordReset => ({
   type: IResetPasswordTypes.PASSWORD_RESET,
   payload,
 });
-export const initResetPassword = (): IInitResetPassword => ({
+export const initializeResetPassword = (): IInitResetPassword => ({
   type: IResetPasswordTypes.INIT_RESET_PASSWORD,
 });
 

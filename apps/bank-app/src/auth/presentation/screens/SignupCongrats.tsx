@@ -3,12 +3,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
+import { ILoginCommand } from '@clean-rn/auth/domain';
+
 import { PrimaryButton, FontNames, Colors, ErrorMessage } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { SafeScrollingView } from '../../../shared/presentation/hoc';
+import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 
-import { Congrats } from '../../presentation/assets/images';
 import { fetchLogin } from '../../../auth/application/commands/login';
+import { Congrats } from '../../presentation/assets/images';
 
 export const SignupCongrats = () => {
   const { t } = useTranslation();
@@ -21,49 +24,47 @@ export const SignupCongrats = () => {
   const dispatch = useDispatch();
 
   const onPress = useCallback(() => {
-    if (!user || !user.properties.email || !user.properties.password) {
-      throw new Error('Missing at least one field in this list: email, password');
+    try {
+      const payload = {
+        email: user?.properties.email,
+        password: user?.properties.password,
+      };
+
+      dispatch(fetchLogin(payload as ILoginCommand));
+    } catch (e: unknown) {
+      dispatch(showUnknownError(e as Error));
     }
-
-    const payload = {
-      email: user.properties.email,
-      password: user.properties.password,
-    };
-
-    dispatch(fetchLogin(payload));
   }, [dispatch, user]);
 
   return (
-    <SafeScrollingView>
-      <View style={styles.subContainer}>
-        <View style={styles.image}>
-          <Image style={{ width: 250, height: 250 }} source={Congrats} />
+    <ErrorBoundary t={t}>
+      <SafeScrollingView>
+        <View style={styles.subContainer}>
+          <View style={styles.image}>
+            <Image style={{ width: 250, height: 250 }} source={Congrats} />
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.text}>{t('screens.signup-congrats.congrats')}</Text>
+          </View>
+          <View style={styles.errorContainer}>
+            <ErrorMessage error={error} />
+          </View>
+          <View style={styles.submit}>
+            <PrimaryButton
+              long
+              title={t('screens.signup-congrats.button')}
+              uppercase
+              onPress={onPress}
+              loading={pending}
+            />
+          </View>
         </View>
-        <View style={styles.textContainer}>
-          <Text style={styles.text}>{t('screens.signup-congrats.congrats')}</Text>
-        </View>
-        <View style={styles.errorContainer}>
-          <ErrorMessage error={error} />
-        </View>
-        <View style={styles.submit}>
-          <PrimaryButton
-            long
-            title={t('screens.signup-congrats.button')}
-            uppercase
-            onPress={onPress}
-            loading={pending}
-          />
-        </View>
-      </View>
-    </SafeScrollingView>
+      </SafeScrollingView>
+    </ErrorBoundary>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.bank.primary.white,
-  },
   subContainer: {
     alignItems: 'center',
     justifyContent: 'center',

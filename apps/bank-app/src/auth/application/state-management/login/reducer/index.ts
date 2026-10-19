@@ -39,6 +39,13 @@ export const loginReducer = (state = initialState, action: ILoginActions) => {
         error: action.payload,
       };
       return newState;
+    case ILoginTypes.INITIALIZE_LOGIN:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        ...initialState,
+      };
+      return newState;
     default:
       return {
         ...state,

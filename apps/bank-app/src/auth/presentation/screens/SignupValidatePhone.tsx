@@ -1,13 +1,10 @@
 import { useCallback } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 
 import {
-  LinkButton,
-  LinkButtonColors,
   FontNames,
   Colors,
   useCleanErrorOnFocus,
@@ -17,12 +14,13 @@ import {
 } from '@clean-rn/ui-mobile';
 import { PhoneOtp } from '@clean-rn/auth/domain';
 
-import { fetchValidatePhone } from '../../../auth/application/commands/signup';
-import { IAuthStackPages } from '../../../shared/presentation/types';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { SafeScrollingView } from '../../../shared/presentation/hoc';
 
+import { fetchValidatePhone } from '../../../auth/application/commands/signup';
+
 export const SignupValidatePhone = () => {
+  /// translations
   const { t } = useTranslation();
 
   // internal state
@@ -32,8 +30,8 @@ export const SignupValidatePhone = () => {
     formState: { errors },
   } = useForm<ISignupValidatePhoneFormData>();
 
+  // api call
   const dispatch = useDispatch();
-
   const { phone, pending, error } = useSelector((state: IRootState) => state.auth.signup);
 
   const onSubmit = useCallback(
@@ -51,21 +49,7 @@ export const SignupValidatePhone = () => {
     [dispatch, phone],
   );
 
-  // navigation
-  const navigation = useNavigation();
-
-  const onPressLegal = useCallback(() => {
-    navigation.navigate(IAuthStackPages.LEGAL as never);
-  }, [navigation]);
-
-  const onPressCgu = useCallback(() => {
-    navigation.navigate(IAuthStackPages.CGU as never);
-  }, [navigation]);
-
-  const onPressCguKycProvider = useCallback(() => {
-    navigation.navigate(IAuthStackPages.CGU_KYC_PROVIDER as never);
-  }, [navigation]);
-
+  // clean domainError onFocus
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
   return (
@@ -87,39 +71,12 @@ export const SignupValidatePhone = () => {
             onFocus={onFocus}
           />
         </View>
-        <View style={styles.cgu}>
-          <LinkButton
-            title={t('screens.legal')}
-            arrow={false}
-            colorOption={LinkButtonColors.BLUE}
-            pressed={false}
-            onPress={onPressLegal}
-          />
-          <LinkButton
-            title={t('screens.cgu')}
-            arrow={false}
-            colorOption={LinkButtonColors.BLUE}
-            pressed={false}
-            onPress={onPressCgu}
-          />
-          <LinkButton
-            title={t('screens.cgu-kyc-provider')}
-            arrow={false}
-            colorOption={LinkButtonColors.BLUE}
-            pressed={false}
-            onPress={onPressCguKycProvider}
-          />
-        </View>
       </>
     </SafeScrollingView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.bank.primary.white,
-  },
   subContainer: {
     flex: 1,
     marginTop: '15%',
@@ -144,10 +101,5 @@ const styles = StyleSheet.create({
     marginTop: 50,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  cgu: {
-    marginTop: 50,
-    flexDirection: 'row',
-    justifyContent: 'center',
   },
 });

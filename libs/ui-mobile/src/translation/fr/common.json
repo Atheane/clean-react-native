@@ -155,8 +155,9 @@
     }
   },
   "modal-error": {
-    "details": "Message détaillé",
-    "code": "Code erreur"
+    "code": "Code erreur ",
+    "details": "Message ",
+    "stack": "Détails "
   },
   "screens": {
     "legal": "Mentions légales",

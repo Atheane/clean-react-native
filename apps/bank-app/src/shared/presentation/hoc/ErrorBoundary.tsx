@@ -4,8 +4,6 @@ import { TFunction } from 'i18next';
 
 import { Logger } from '@clean-rn/logger';
 
-import { showUnknownError } from '../../application/commands/manage-global-errors';
-import { store } from '../../application/state-management/state/store';
 import { ModalError } from '@clean-rn/ui-mobile';
 
 type IProps = {
@@ -29,17 +27,16 @@ export class ErrorBoundary extends Component<IProps, IState> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    error.stack = errorInfo.componentStack;
     this.setState({ hasError: true, error });
-    store.dispatch(showUnknownError(error));
     Logger.getInstance().error(error);
-    Logger.getInstance().error(errorInfo);
     Sentry.captureException(error);
   }
 
   render() {
-    // if (this.state.hasError && this.state.error !== null) {
-    //   return <ModalError error={this.state.error} />;
-    // }
+    if (this.state.hasError && this.state.error !== null) {
+      return <ModalError error={this.state.error} />;
+    }
 
     return this.props.children;
   }

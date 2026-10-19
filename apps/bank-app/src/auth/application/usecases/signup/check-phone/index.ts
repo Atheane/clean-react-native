@@ -7,8 +7,9 @@ import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { IAuthStackPages } from '../../../../../shared/presentation/types';
 import { navigate } from '../../../../../shared/presentation/navigation/navigationRef';
+import { showUnknownError } from '../../../../../shared/application/commands/manage-global-errors';
 
-import { ISignupTypes, signupFailed, phoneChecked } from '../../../commands/signup';
+import { ISignupTypes, signupFailed, phoneChecked, initializeSignupStep } from '../../../commands/signup';
 
 export function* checkPhoneSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(ISignupTypes.FETCH_CHECK_PHONE, checkPhoneGenerator, httpConnection);
@@ -23,16 +24,21 @@ export function* checkPhoneGenerator(
     payload: ICheckPhoneQuery;
   },
 ): Generator<StrictEffect, any, any> {
-  const api = AuthApi.getInstance(httpConnection);
-  // api call
-  const phoneExists: ISuccess = yield call([api, api.searchPhone], payload);
-  if (phoneExists.success) {
-    yield put(signupFailed(new AuthError.SignupFailurePhoneExists()));
-    yield cancel();
+  try {
+    const api = AuthApi.getInstance(httpConnection);
+    // api call
+    const phoneExists: ISuccess = yield call([api, api.searchPhone], payload);
+    if (phoneExists.success) {
+      yield put(signupFailed(new AuthError.SignupFailurePhoneExists()));
+      yield cancel();
+    }
+    yield call([api, api.sendPhoneValidation], payload as ISendPhoneValidationCommand);
+    // domain event
+    yield put(phoneChecked());
+    // navigation
+    yield call(navigate, { route: IAuthStackPages.SIGNUP_VALIDATE_PHONE });
+  } catch (e: unknown) {
+    yield put(initializeSignupStep());
+    yield put(showUnknownError(e as Error));
   }
-  yield call([api, api.sendPhoneValidation], payload as ISendPhoneValidationCommand);
-  // domain event
-  yield put(phoneChecked());
-  // navigation
-  yield call(navigate, { route: IAuthStackPages.SIGNUP_VALIDATE_PHONE });
 }
