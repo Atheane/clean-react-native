@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { useNavigationState } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
@@ -7,24 +6,20 @@ import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 
 import { IHomeStackPages, IHomeStackProps } from '../../../shared/presentation/types';
 import {
-  // Help,
   Accounts,
   Transactions,
   ScreenModalWebview,
-  // RestoFlash,
-  // Weflo,
-  // AccountStatements,
-  // AccountStatementsCurrentMonth,
-  // AccountStatementsLastThreeMonths,
-  // AccountStatementsAll,
-  // ExportPdfIban,
+  AccountStatements,
+  AccountStatementsCurrentMonth,
+  AccountStatementsLastThreeMonths,
+  AccountStatementsAll,
+  ExportPdfIban,
 } from '../screens';
 
 const Stack = createNativeStackNavigator<IHomeStackProps>();
 
 export const HomeStack = () => {
   const { t } = useTranslation();
-  const navigationStack = useNavigationState((state) => state?.routes ?? []);
 
   return (
     <Stack.Navigator>
@@ -43,13 +38,12 @@ export const HomeStack = () => {
         name={IHomeStackPages.MODAL_WEBVIEW}
         component={ScreenModalWebview}
       />
-      {/* <Stack.Screen name={IHomeStackPages.HELP} component={Help} options={{ headerShown: false }} />
       <Stack.Screen
         name={IHomeStackPages.ACCOUNT_STATEMENTS}
         component={AccountStatements}
         options={{
           headerTitle: t('screens.accountStatements.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+          ...headersOptions(goBack),
         }}
       />
       <Stack.Screen
@@ -57,7 +51,7 @@ export const HomeStack = () => {
         component={AccountStatementsCurrentMonth}
         options={{
           headerTitle: t('screens.accountStatementsCurrentMonth.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+          ...headersOptions(goBack),
         }}
       />
       <Stack.Screen
@@ -65,7 +59,7 @@ export const HomeStack = () => {
         component={AccountStatementsLastThreeMonths}
         options={{
           headerTitle: t('screens.accountStatementsThreeLastMonths.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+          ...headersOptions(goBack),
         }}
       />
       <Stack.Screen
@@ -73,7 +67,7 @@ export const HomeStack = () => {
         component={AccountStatementsAll}
         options={{
           headerTitle: t('screens.accountStatementsAll.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+          ...headersOptions(goBack),
         }}
       />
       <Stack.Screen
@@ -81,16 +75,9 @@ export const HomeStack = () => {
         component={ExportPdfIban}
         options={{
           headerTitle: t('screens.exportPdfIban.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+          ...headersOptions(goBack),
         }}
       />
-      <Stack.Screen name={IHomeStackPages.ACCOUNT} component={Account} options={{ headerShown: false }} />
-      <Stack.Screen
-        name={IHomeStackPages.RESTO_FLASH}
-        component={RestoFlash}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen name={IHomeStackPages.WEFLO} component={Weflo} options={{ headerShown: false }} /> */}
     </Stack.Navigator>
   );
 };

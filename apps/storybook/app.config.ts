@@ -17,8 +17,8 @@ export default {
     },
     assetBundlePatterns: ['**/*'],
     ios: {
-      supportsTablet: true,
       bundleIdentifier: 'com.example.storybookdev',
+      supportsTablet: true,
     },
     android: {
       adaptiveIcon: {

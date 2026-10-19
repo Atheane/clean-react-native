@@ -1,20 +1,45 @@
-import { View, StyleSheet } from 'react-native';
-import { WebView } from 'react-native-webview';
-import { Colors } from '../../../constants';
+import { StyleSheet, Dimensions } from 'react-native';
+import Pdf from 'react-native-pdf';
 
-// ok on IOS
-// on Android, the pdf is downloaded https://github.com/react-native-webview/react-native-webview/issues/2397
-export const PdfViewer = ({ url: uri }: { url: string }) => {
+type IProps = {
+  source: string;
+};
+
+export const PdfViewer = (props: IProps) => {
+  const source = { uri: props.source, cache: true };
+
   return (
-    <View style={styles.container}>
-      <WebView style={{ flex: 1 }} source={{ uri }} />
-    </View>
+    // <View style={styles.container}>
+    <Pdf
+      source={source}
+      onLoadComplete={(numberOfPages, filePath) => {
+        console.log(`Number of pages: ${numberOfPages}`);
+      }}
+      onPageChanged={(page, numberOfPages) => {
+        console.log(`Current page: ${page}`);
+      }}
+      onError={(error) => {
+        console.log(error);
+      }}
+      onPressLink={(uri) => {
+        console.log(`Link pressed: ${uri}`);
+      }}
+      style={styles.pdf}
+    />
+    // </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.bank.primary.lightGrey,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginTop: 25,
+  },
+  pdf: {
+    flex: 1,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
   },
 });

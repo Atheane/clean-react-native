@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { Dimensions, SafeAreaView, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { Colors } from '@clean-rn/ui-mobile';
@@ -18,7 +18,7 @@ export const SafeScrollingView = ({ children }: IProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: Colors.bank.primary.white,
+    height: Dimensions.get('window').height * 1.4,
   },
 });

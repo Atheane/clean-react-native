@@ -5,7 +5,7 @@ const PdfViewerMeta: ComponentMeta<typeof PdfViewer> = {
   title: 'Others/PdfViewer',
   component: PdfViewer,
   args: {
-    url: 'https://www.example.com/assets/docs/cgu.pdf',
+    source: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
   },
 };
 

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigationState } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { PdfViewer } from '@clean-rn/ui-mobile';
+import { WebViewer } from '@clean-rn/ui-mobile';
 
 import {
   Login,
@@ -38,9 +38,9 @@ export const AuthStack = () => {
   const { t } = useTranslation();
   const { initRouteName } = useSelector((state: IRootState) => state.initialization);
   const navigationStack = useNavigationState((state) => state?.routes ?? []);
-  const ScreenLegal = () => <PdfViewer url={pdfUrls.legal} />;
-  const ScreenCgu = () => <PdfViewer url={pdfUrls.cgu} />;
-  const ScreenCguKycProvider = () => <PdfViewer url={pdfUrls.cguKycProvider} />;
+  const ScreenLegal = () => <WebViewer url={pdfUrls.legal} />;
+  const ScreenCgu = () => <WebViewer url={pdfUrls.cgu} />;
+  const ScreenCguKycProvider = () => <WebViewer url={pdfUrls.cguKycProvider} />;
 
   const dispatch = useDispatch();
   useEffect(() => {

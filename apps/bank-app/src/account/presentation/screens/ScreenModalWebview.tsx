@@ -1,8 +1,7 @@
-import { PdfViewer } from '@clean-rn/ui-mobile';
+import { WebViewer } from '@clean-rn/ui-mobile';
 import { useRoute } from '@react-navigation/native';
 import { getLocales } from 'expo-localization';
-
-import { BASE_URL } from '../constants';
+import Constants from 'expo-constants';
 
 const locales = getLocales();
 
@@ -13,5 +12,5 @@ export const ScreenModalWebview = () => {
 
   const lng = locales[0]?.languageCode || 'en';
 
-  return <PdfViewer url={`${BASE_URL}/${lng}/${uid}`} />;
+  return <WebViewer url={`${Constants.expoConfig?.extra?.BASE_URL}/${lng}/${uid}`} />;
 };

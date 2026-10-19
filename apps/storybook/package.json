@@ -52,7 +52,8 @@
     "@react-navigation/native": "*",
     "short-unique-id": "*",
     "react-native-screens": "*",
-    "redux-saga": "*"
+    "redux-saga": "*",
+    "react-native-pdf": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",

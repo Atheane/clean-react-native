@@ -92,16 +92,6 @@ export const Transactions = () => {
           </View>
         </>
       )}
-      {/* {hasTransactions && (
-        <ViewBackground background={TopBackground}>
-          <View style={styles.top}>
-            <Top currentAccount={account} />
-          </View>
-          <View style={styles.content}>
-            <TransactionsCardsList data={transactions} />
-          </View>
-        </ViewBackground>
-      )} */}
       {hasTransactions && (
         <>
           <SafeAreaView style={styles.container}>

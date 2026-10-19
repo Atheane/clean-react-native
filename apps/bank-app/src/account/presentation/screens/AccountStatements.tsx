@@ -1,73 +1,80 @@
 import { useCallback } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 
-import { LongCard } from '@shared/presentation/components';
-import { navigateTo } from '@shared/infrastructure/redux/actions';
+import {
+  LongCard,
+  Colors,
+  FontNames,
+  BottomLeavesBg,
+  useHideBottomBar,
+  ExportPdfGradient,
+  Ibanv2,
+  WebViewer,
+} from '@clean-rn/ui-mobile';
 
-import { Colors, FontNames } from '@shared/presentation/constants';
-import { BottomBackground, ViewBackground } from '@account/presentation/components';
-import { useHideBottomBar } from '@shared/presentation/hooks';
+import { IRoutes, IHomeStackPages } from '../../../shared/presentation/types';
+import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
-import { ExportPdfGradient, Ibanv2 } from '@account/presentation/assets';
-import { Routes } from '@shared/presentation/types';
-import { HOME_STACK_PAGES } from '@account/presentation/types';
-
-import { PdfViewer } from '@shared/presentation/components';
-import { pdfUrls } from '@account/presentation/constants';
-
-export const AccountStatementsCurrentMonth = () => <PdfViewer url={pdfUrls.accountStatementCurrentMonth} />;
+export const AccountStatementsCurrentMonth = () => <WebViewer url={pdfUrls.accountStatementCurrentMonth} />;
 export const AccountStatementsLastThreeMonths = () => (
-  <PdfViewer url={pdfUrls.accountStatementLastThreeMonth} />
+  <WebViewer url={pdfUrls.accountStatementLastThreeMonth} />
 );
-export const AccountStatementsAll = () => <PdfViewer url={pdfUrls.accountStatementAll} />;
-export const ExportPdfIban = () => <PdfViewer url={pdfUrls.iban} />;
+export const AccountStatementsAll = () => <WebViewer url={pdfUrls.accountStatementAll} />;
+export const ExportPdfIban = () => <WebViewer url={pdfUrls.iban} />;
 
 export const AccountStatements = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
 
-  const handleOnPress = useCallback((route: Routes) => {
-    //console.log('handleOnPressCurrentMonth');
-    dispatch(navigateTo({ route }));
-  }, []);
+  const navigation = useNavigation();
+  const handleOnPress = useCallback(
+    (route: IRoutes) => {
+      navigation.navigate(route as never);
+    },
+    [navigation],
+  );
 
   useHideBottomBar();
 
   return (
-    <ViewBackground background={BottomBackground}>
-      <View style={styles.container}>
-        <View style={styles.textContainer}>
-          <Text style={{ ...styles.text, ...styles.boldText }}>{t('screens.accountStatements.bold')}</Text>
-          <Text style={{ ...styles.text, ...styles.normalText }}>
-            {t('screens.accountStatements.normal')}
-          </Text>
+    <ErrorBoundary t={t}>
+      <SafeScrollingView>
+        <View style={styles.container}>
+          <View style={styles.textContainer}>
+            <Text style={{ ...styles.text, ...styles.boldText }}>{t('screens.accountStatements.bold')}</Text>
+            <Text style={{ ...styles.text, ...styles.normalText }}>
+              {t('screens.accountStatements.normal')}
+            </Text>
+          </View>
+          <View style={styles.cardsContainer}>
+            <LongCard
+              text={t('screens.accountStatements.cards.currentMonth')}
+              icon={ExportPdfGradient}
+              onPress={() => handleOnPress(IHomeStackPages.ACCOUNT_STATEMENTS_CURRENT_MONTH)}
+            />
+            <LongCard
+              text={t('screens.accountStatements.cards.threeLastMonths')}
+              icon={ExportPdfGradient}
+              onPress={() => handleOnPress(IHomeStackPages.ACCOUNT_STATEMENTS_LAST_THREE_MONTHS)}
+            />
+            <LongCard
+              text={t('screens.accountStatements.cards.all')}
+              icon={ExportPdfGradient}
+              onPress={() => handleOnPress(IHomeStackPages.ACCOUNT_STATEMENTS_ALL)}
+            />
+            <LongCard
+              text={t('screens.accountStatements.cards.iban')}
+              icon={Ibanv2}
+              onPress={() => handleOnPress(IHomeStackPages.EXPORT_PDF_IBAN)}
+            />
+          </View>
         </View>
-        <View style={styles.cardsContainer}>
-          <LongCard
-            text={t('screens.accountStatements.cards.currentMonth')}
-            icon={ExportPdfGradient}
-            onPress={() => handleOnPress(HOME_STACK_PAGES.ACCOUNT_STATEMENTS_CURRENT_MONTH)}
-          />
-          <LongCard
-            text={t('screens.accountStatements.cards.threeLastMonths')}
-            icon={ExportPdfGradient}
-            onPress={() => handleOnPress(HOME_STACK_PAGES.ACCOUNT_STATEMENTS_LAST_THREE_MONTHS)}
-          />
-          <LongCard
-            text={t('screens.accountStatements.cards.all')}
-            icon={ExportPdfGradient}
-            onPress={() => handleOnPress(HOME_STACK_PAGES.ACCOUNT_STATEMENTS_ALL)}
-          />
-          <LongCard
-            text={t('screens.accountStatements.cards.iban')}
-            icon={Ibanv2}
-            onPress={() => handleOnPress(HOME_STACK_PAGES.EXPORT_PDF_IBAN)}
-          />
-        </View>
+      </SafeScrollingView>
+      <View style={styles.bottom}>
+        <BottomLeavesBg />
       </View>
-    </ViewBackground>
+    </ErrorBoundary>
   );
 };
 
@@ -87,7 +94,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 14,
     lineHeight: 19,
-    color: Colors.text.darkBlue,
+    color: Colors.bank.primary.darkBlue,
     paddingVertical: 8,
   },
   boldText: {
@@ -95,5 +102,9 @@ const styles = StyleSheet.create({
   },
   normalText: {
     fontFamily: FontNames.Roboto_400Regular,
+  },
+  bottom: {
+    position: 'absolute',
+    top: Dimensions.get('window').height * 0.65,
   },
 });

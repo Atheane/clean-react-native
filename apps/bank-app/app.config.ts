@@ -38,10 +38,13 @@ export default {
           skipProguard: false,
           subdomains: ['10.0.2.2', 'localhost'],
         },
+        '@config-plugins/react-native-blob-util',
+        '@config-plugins/react-native-pdf',
       ],
     ],
     scheme: 'com.clean-rn.bank-appdev',
     extra: {
+      BASE_URL: process.env.BASE_URL,
       BASE_URL_API: process.env.BASE_URL_API,
       NODE_ENV: process.env.NODE_ENV,
       SENTRY_DSN: process.env.SENTRY_DSN,

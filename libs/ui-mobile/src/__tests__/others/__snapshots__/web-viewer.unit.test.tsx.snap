@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PdfViewer -  minimal props -  renders as before 1`] = `
+exports[`WebViewer -  minimal props -  renders as before 1`] = `
 <View
   style={
     {

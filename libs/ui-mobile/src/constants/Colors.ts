@@ -14,7 +14,7 @@ export const Colors = {
       darkGreen: '#8BBD44',
     },
     secondary: {
-      cyan: '#71C9F6',
+      cyan: '#0A7DC0',
       purple: '#BB81EE',
       salmon: '#E36070',
       pink: '#CB287D',
