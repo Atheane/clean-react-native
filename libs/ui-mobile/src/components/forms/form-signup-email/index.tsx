@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
@@ -26,6 +26,9 @@ export type ISignupEmailFormData = {
   email: string;
   consent: boolean;
 };
+
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
 
 export const FormSignupEmail = (props: IProps) => {
   const { theme } = useTheme();
@@ -124,7 +127,8 @@ const styles = StyleSheet.create({
     marginBottom: -40,
   },
   formSubmit: {
-    position: 'absolute',
-    bottom: 12,
+    marginTop: 60,
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
 });

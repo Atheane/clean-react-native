@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState, useRef } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useTheme } from '@rneui/themed';
@@ -41,6 +41,10 @@ type IProps = {
   onRemoveFlight: (uid: string) => void;
   scrollViewRef: React.RefObject<KeyboardAwareScrollView>;
 };
+
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
+const COEFF = HEIGHT / WIDTH > 2.16 ? 0.75 : 0.8;
 
 export const FlyForm = (props: IProps) => {
   const { theme } = useTheme();
@@ -144,7 +148,13 @@ export const FlyForm = (props: IProps) => {
           onSelect={(data: IData) => handleOnChangeField(data, 'toIATA')}
         />
       </View>
-      <View style={[styles.sliderContainer, styles.inputContainer]}>
+      <View
+        style={[
+          styles.sliderContainer,
+          styles.inputContainer,
+          { width: Dimensions.get('window').width * COEFF },
+        ]}
+      >
         <SelectNumber
           label={t('screens.carbon-fly.slider')}
           value={props.flight?.nbPassengers ?? 1}

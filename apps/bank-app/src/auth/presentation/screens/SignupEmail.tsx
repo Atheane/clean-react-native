@@ -73,10 +73,13 @@ export const SignupEmail = () => {
   // clean domainError onFocus
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
+  const WIDTH = Dimensions.get('window').width;
+  const HEIGHT = Dimensions.get('window').height;
+
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT < 700 ? HEIGHT * 1.1 : HEIGHT }]}>
+        <View style={[styles.container, HEIGHT / WIDTH > 2 ? { height: HEIGHT } : {}]}>
           <View style={styles.image}>
             <Image style={{ width: 200, height: 200 }} source={Welcome} />
           </View>
@@ -121,6 +124,8 @@ export const SignupEmail = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
+    marginTop: 24,
     backgroundColor: Colors.bank.primary.white,
   },
   modalContainer: {
@@ -135,6 +140,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   cgu: {
+    marginTop: 16,
     flexDirection: 'row',
     justifyContent: 'center',
   },
