@@ -107,7 +107,7 @@ export const FormSignupBirth = (props: IProps) => {
           )}
         />
       </View>
-      <View style={styles.submitButtonContainer}>
+      <View style={styles.formSubmit}>
         <SubmitButton title={t('button.submit')} uppercase={false} onSubmit={props.onSubmit} />
       </View>
     </View>
@@ -120,11 +120,11 @@ const styles = StyleSheet.create({
   },
   inputContainer: { marginTop: 30 },
   datePickerContainer: { marginBottom: 16 },
-  submitButtonContainer: {
-    marginTop: 120,
-    marginBottom: 160,
-  },
   errorContainer: {
     marginTop: 16,
+  },
+  formSubmit: {
+    marginTop: 120,
+    marginBottom: 160,
   },
 });

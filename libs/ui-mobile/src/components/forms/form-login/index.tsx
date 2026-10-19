@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, GestureResponderEvent, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, GestureResponderEvent } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
@@ -38,7 +38,7 @@ export const FormLogin = (props: IProps) => {
   const { t } = useTranslation();
 
   return (
-    <View style={theme.bank.container.centeredItem}>
+    <View style={[styles.container]}>
       <View>
         <View style={styles.inputContainer}>
           {props.email ? (
@@ -126,9 +126,10 @@ export const FormLogin = (props: IProps) => {
   );
 };
 
-const HEIGHT = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    alignItems: 'center',
     marginTop: 8,
   },
   inputContainer: {
@@ -146,6 +147,6 @@ const styles = StyleSheet.create({
   },
   submitButtonContainer: {
     position: 'absolute',
-    top: 0.5 * HEIGHT,
+    bottom: 120,
   },
 });

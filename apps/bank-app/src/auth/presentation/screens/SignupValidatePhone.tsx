@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
@@ -18,6 +18,8 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { SafeScrollingView, ErrorBoundary } from '../../../shared/presentation/hoc';
 
 import { fetchValidatePhone } from '../../../auth/application/commands/signup';
+
+const HEIGHT = Dimensions.get('window').height;
 
 export const SignupValidatePhone = () => {
   /// translations
@@ -55,7 +57,7 @@ export const SignupValidatePhone = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <>
+        <View style={[styles.container, { height: HEIGHT }]}>
           <View style={styles.subContainer}>
             <Security />
             <View style={styles.textContainer}>
@@ -72,16 +74,20 @@ export const SignupValidatePhone = () => {
               onFocus={onFocus}
             />
           </View>
-        </>
+        </View>
       </SafeScrollingView>
     </ErrorBoundary>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.bank.primary.white,
+  },
   subContainer: {
     flex: 1,
-    marginTop: '15%',
+    marginTop: '10%',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -100,7 +106,6 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     flex: 1,
-    marginTop: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },

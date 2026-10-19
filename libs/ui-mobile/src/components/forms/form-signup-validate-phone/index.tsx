@@ -77,15 +77,16 @@ export const FormSignupValidatePhone = (props: IProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  formSubmit: {
-    marginTop: 120,
-    marginBottom: 120,
+    alignItems: 'center',
   },
   errorContainer: {
     marginTop: 24,
   },
   domainErrorContainer: {
     marginTop: 16,
+  },
+  formSubmit: {
+    position: 'absolute',
+    bottom: 80,
   },
 });

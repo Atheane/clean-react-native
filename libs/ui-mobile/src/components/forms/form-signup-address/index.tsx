@@ -155,7 +155,7 @@ export const FormSignupAddress = (props: IProps) => {
       <View style={styles.domainErrorContainer}>
         <ErrorMessage error={props.error} />
       </View>
-      <View style={styles.submitButtonContainer}>
+      <View style={styles.formSubmit}>
         <SubmitButton
           disabled={false}
           title={t('button.submit')}
@@ -173,14 +173,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   inputContainer: { marginTop: 30 },
-  submitButtonContainer: {
-    marginTop: 20,
-    marginBottom: 100,
-  },
   errorContainer: {
     marginTop: 24,
   },
   domainErrorContainer: {
     marginTop: 16,
+  },
+  formSubmit: {
+    marginTop: 20,
+    marginBottom: 100,
   },
 });

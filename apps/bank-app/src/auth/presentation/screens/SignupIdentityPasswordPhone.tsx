@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Dimensions, View, StyleSheet } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { getLocales } from 'expo-localization';
@@ -7,10 +8,10 @@ import { getLocales } from 'expo-localization';
 import { Email, IGender, IRegisterIdentityCommand, Phone } from '@clean-rn/auth/domain';
 import {
   useCleanErrorOnFocus,
-  useCleanErrorOnNavigation,
   FormSignupIdentityPasswordPhone,
   ISignupIdentityPasswordPhoneFormData,
   useSecure,
+  Colors,
 } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
@@ -20,6 +21,8 @@ import { showUnknownError } from '../../../shared/application/commands/manage-gl
 import { registerIdentity, fetchSearchPhone, registerPassword } from '../../application/commands/signup';
 
 const locales = getLocales();
+
+const HEIGHT = Dimensions.get('window').height;
 
 export const SignupIdentityPasswordPhone = () => {
   /// translations
@@ -74,18 +77,27 @@ export const SignupIdentityPasswordPhone = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <FormSignupIdentityPasswordPhone
-          defaultCountry={defaultCountry}
-          loading={pending}
-          securedPassword={secured}
-          onToggleSecurityPassword={onToggleSecurity}
-          control={control}
-          errors={errors}
-          onSubmit={handleSubmit(onSubmit)}
-          error={domainError}
-          onFocus={onFocus}
-        />
+        <View style={[styles.container, { height: HEIGHT * 1.1 }]}>
+          <FormSignupIdentityPasswordPhone
+            defaultCountry={defaultCountry}
+            loading={pending}
+            securedPassword={secured}
+            onToggleSecurityPassword={onToggleSecurity}
+            control={control}
+            errors={errors}
+            onSubmit={handleSubmit(onSubmit)}
+            error={domainError}
+            onFocus={onFocus}
+          />
+        </View>
       </SafeScrollingView>
     </ErrorBoundary>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.bank.primary.white,
+  },
+});

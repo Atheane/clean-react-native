@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useSecure, useCleanErrorOnFocus, FormLogin, ILoginFormData } from '@clean-rn/ui-mobile';
+
+import { Colors, useSecure, useCleanErrorOnFocus, FormLogin, ILoginFormData } from '@clean-rn/ui-mobile';
 
 import { Email, Password } from '@clean-rn/auth/domain';
 
@@ -15,6 +16,8 @@ import { showUnknownError } from '../../../shared/application/commands/manage-gl
 
 import { Welcome } from '../assets/images';
 import { fetchLogin } from '../../application/commands/login';
+
+const HEIGHT = Dimensions.get('window').height;
 
 export const Login = () => {
   /// translations
@@ -63,10 +66,8 @@ export const Login = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={styles.container}>
-          <View style={styles.imageContainer}>
-            <Image style={styles.image} source={Welcome} />
-          </View>
+        <View style={[styles.container, { height: HEIGHT }]}>
+          <Image style={styles.image} source={Welcome} />
 
           <FormLogin
             loading={pending}
@@ -89,10 +90,9 @@ export const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.bank.primary.white,
     height: Dimensions.get('window').height,
-    marginVertical: '13%',
-  },
-  imageContainer: {
+    marginTop: '12%',
     alignItems: 'center',
     justifyContent: 'center',
   },

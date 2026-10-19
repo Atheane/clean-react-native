@@ -1,5 +1,4 @@
 import { useCleanErrorOnFocus } from './useCleanErrorOnFocus';
-import { useCleanErrorOnNavigation } from './useCleanErrorOnNavigation';
 import { useEdit } from './useEdit';
 import { useFlyFormData } from './useFlyFormData';
 import { useFoodFormData } from './useFoodFormData';
@@ -13,7 +12,6 @@ import { useReduxOverStorageValue } from './useReduxOverStorageValue';
 
 export {
   useCleanErrorOnFocus,
-  useCleanErrorOnNavigation,
   useEdit,
   useFlyFormData,
   useFoodFormData,

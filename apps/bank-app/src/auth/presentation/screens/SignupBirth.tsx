@@ -1,17 +1,19 @@
 import { useCallback } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import dayjs from 'dayjs';
 
-import { FormSignupBirth, ISignupBirthFormData, useCleanErrorOnFocus } from '@clean-rn/ui-mobile';
+import { FormSignupBirth, ISignupBirthFormData, useCleanErrorOnFocus, Colors } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
 import { registerBirth } from '../../application/commands/signup';
+
+const HEIGHT = Dimensions.get('window').height;
 
 export const SignupBirth = () => {
   /// translations
@@ -51,7 +53,7 @@ export const SignupBirth = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={styles.form}>
+        <View style={[styles.container, { height: HEIGHT }]}>
           <FormSignupBirth
             control={control}
             errors={errors}
@@ -67,7 +69,9 @@ export const SignupBirth = () => {
 };
 
 const styles = StyleSheet.create({
-  form: {
-    marginTop: 30,
+  container: {
+    flex: 1,
+    backgroundColor: Colors.bank.primary.white,
+    marginTop: '10%',
   },
 });
