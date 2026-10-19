@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react';
 import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
@@ -16,13 +17,12 @@ import {
 import { IAccount } from '@clean-rn/account/domain';
 
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
-import { IHomeStackPages } from '../../../shared/presentation/types';
+import { ISharedStackPages } from '../../../shared/presentation/types';
 
 import { listAccounts } from '../../application/commands/account';
 import { listTransactions } from '../../application/commands/transactions';
 
 import { eventsCardsContent } from '../constants';
-import { useNavigation } from '@react-navigation/native';
 
 export const Accounts = () => {
   // translation
@@ -47,7 +47,7 @@ export const Accounts = () => {
 
   const handleOnPressCard = useCallback(
     (uid: string) => {
-      navigation.navigate(IHomeStackPages.MODAL_WEBVIEW, { uid });
+      navigation.navigate(ISharedStackPages.MODAL_WEBVIEW, { uid });
     },
     [navigation],
   );

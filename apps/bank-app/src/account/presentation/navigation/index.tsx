@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigationState } from '@react-navigation/native';
@@ -15,17 +15,11 @@ import {
   ISharedStackPages,
   ISharedStackProps,
 } from '../../../shared/presentation/types';
-import {
-  Accounts,
-  Transactions,
-  ScreenModalWebview,
-  AccountStatements,
-  AccountStatementsPdf,
-  RibPdf,
-} from '../screens';
 import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
-import { ScreenModalError } from '../../../shared/presentation/screens';
+import { ScreenModalError, ScreenModalWebview } from '../../../shared/presentation/screens';
 import { Login } from '../../../auth/presentation/screens';
+
+import { Accounts, Transactions, AccountStatements, AccountStatementsPdf, RibPdf } from '../screens';
 
 const Stack = createNativeStackNavigator<IHomeStackProps & ISharedStackProps & IAuthStackProps>();
 
@@ -56,7 +50,7 @@ export const HomeStack = () => {
           headerShown: false,
           headerBackVisible: false,
         }}
-        name={IHomeStackPages.MODAL_WEBVIEW}
+        name={ISharedStackPages.MODAL_WEBVIEW}
         component={ScreenModalWebview}
       />
       <Stack.Screen

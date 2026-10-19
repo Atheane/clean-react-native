@@ -7,12 +7,18 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 
-import { IAuthStackPages, ICarbonStackPages, ICarbonStackProps } from '../../../shared/presentation/types';
+import {
+  ICarbonStackPages,
+  ICarbonStackProps,
+  ISharedStackPages,
+  ISharedStackProps,
+} from '../../../shared/presentation/types';
 import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
+import { ScreenModalError, ScreenModalWebview } from '../../../shared/presentation/screens';
 
 import { Carbon, House, Transport, Food, WarningFood, Fly } from '../screens';
 
-const Stack = createNativeStackNavigator<ICarbonStackProps>();
+const Stack = createNativeStackNavigator<ICarbonStackProps & ISharedStackProps>();
 
 export const CarbonStack = () => {
   const { t } = useTranslation();
@@ -20,7 +26,7 @@ export const CarbonStack = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    const isModalErrorInStack = navigationStack.find((route) => route.name === IAuthStackPages.MODAL_ERROR);
+    const isModalErrorInStack = navigationStack.find((route) => route.name === ISharedStackPages.MODAL_ERROR);
     if (!isModalErrorInStack) {
       dispatch(initGlobalError());
     }
@@ -75,6 +81,24 @@ export const CarbonStack = () => {
           headerTitle: t('screens.carbon-fly.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
+      />
+      <Stack.Screen
+        options={{
+          presentation: 'modal',
+          headerShown: false,
+          headerBackVisible: false,
+        }}
+        name={ISharedStackPages.MODAL_ERROR}
+        component={ScreenModalError}
+      />
+      <Stack.Screen
+        options={{
+          presentation: 'modal',
+          headerShown: false,
+          headerBackVisible: false,
+        }}
+        name={ISharedStackPages.MODAL_WEBVIEW}
+        component={ScreenModalWebview}
       />
     </Stack.Navigator>
   );

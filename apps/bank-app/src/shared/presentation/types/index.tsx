@@ -27,6 +27,7 @@ export type IRootTabParamList = {
 
 export type ISharedStackParamList = {
   ModalError: undefined;
+  ModalWebView: undefined;
 };
 
 export type IAuthStackParamList = {
@@ -56,7 +57,6 @@ export type IHomeStackParamList = {
   AccountStatements: undefined;
   AccountStatementsPdf: undefined;
   RibPdf: undefined;
-  ModalWebView: undefined;
 };
 
 export type ITransferStackParamList = {
@@ -81,6 +81,7 @@ export type IProfileStackParamList = {
 
 export enum ISharedStackPages {
   MODAL_ERROR = 'ModalError',
+  MODAL_WEBVIEW = 'ModalWebview',
 }
 
 export enum IAuthStackPages {
@@ -110,7 +111,6 @@ export enum IHomeStackPages {
   ACCOUNT_STATEMENTS = 'AccountStatements',
   ACCOUNT_STATEMENTS_PDF = 'AccountStatementsPdf',
   RIB_PDF = 'RibPdf',
-  MODAL_WEBVIEW = 'ModalWebview',
 }
 
 export enum ITransferStackPages {
@@ -133,7 +133,10 @@ export enum IProfileStackPage {
   PROFILE = 'Profile',
 }
 
-export type ISharedStackProps = { [ISharedStackPages.MODAL_ERROR]: object };
+export type ISharedStackProps = {
+  [ISharedStackPages.MODAL_ERROR]: object;
+  [ISharedStackPages.MODAL_WEBVIEW]: object;
+};
 
 export type IAuthStackProps = {
   [IAuthStackPages.LOGIN]: object;
@@ -161,7 +164,6 @@ export type IHomeStackProps = {
   [IHomeStackPages.RIB_PDF]: object;
   [IHomeStackPages.RESTO_FLASH]: object;
   [IHomeStackPages.WEFLO]: object;
-  [IHomeStackPages.MODAL_WEBVIEW]: object;
 };
 
 export type ITransferStackProps = {
@@ -186,6 +188,7 @@ export type IProfileStackProps = {
 
 export type IRoutes =
   | ISharedStackPages.MODAL_ERROR
+  | ISharedStackPages.MODAL_WEBVIEW
   | IAuthStackPages.LOGIN
   | IAuthStackPages.RESET_PASSWORD
   | IAuthStackPages.SIGNUP_EMAIL
@@ -205,7 +208,6 @@ export type IRoutes =
   | IHomeStackPages.TRANSACTIONS
   | IHomeStackPages.RESTO_FLASH
   | IHomeStackPages.WEFLO
-  | IHomeStackPages.MODAL_WEBVIEW
   | IHomeStackPages.ACCOUNT_STATEMENTS
   | IHomeStackPages.ACCOUNT_STATEMENTS_PDF
   | IHomeStackPages.RIB_PDF

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { StyleSheet, View, Text, ImageSourcePropType } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +22,7 @@ import { IBANKCategories } from '@clean-rn/carbon/domain';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { IRoutes, ICarbonStackPages } from '../../../shared/presentation/types';
+import { IRoutes, ICarbonStackPages, ISharedStackPages } from '../../../shared/presentation/types';
 
 import {
   HeaderBad,
@@ -38,6 +38,8 @@ import {
   BilanFranceFR,
   BilanFranceEN,
 } from '../assets/images';
+
+import { URL_CO2_COMPUTATION, URL_CO2_REWARD } from '../constants';
 
 export const Carbon = () => {
   const { t } = useTranslation();
@@ -115,6 +117,15 @@ export const Carbon = () => {
       (houseEmissions ?? 0) + (transportEmissions ?? 0) + (foodEmissions ?? 0) + (flyEmissions ?? 0);
     setTotalEmissions(total);
   }, [houseEmissions, transportEmissions, foodEmissions, flyEmissions]);
+
+  //handle premium
+  const handleOnPressPremium = useCallback(() => {
+    navigation.navigate(ISharedStackPages.MODAL_WEBVIEW, { uid: URL_CO2_REWARD });
+  }, [navigation]);
+  // handle learn more
+  const handleOnPressLearnMore = useCallback(() => {
+    navigation.navigate(ISharedStackPages.MODAL_WEBVIEW, { uid: URL_CO2_COMPUTATION });
+  }, [navigation]);
 
   // UI text
   const toPct = (value: number) => {
@@ -284,18 +295,8 @@ export const Carbon = () => {
           </View>
 
           <View style={styles.row}>
-            <TouchCardText
-              text={t('screens.carbon.reward')}
-              onPress={() => {
-                return;
-              }}
-            />
-            <TouchCardText
-              text={t('screens.carbon.method')}
-              onPress={() => {
-                return;
-              }}
-            />
+            <TouchCardText text={t('screens.carbon.reward')} onPress={handleOnPressPremium} />
+            <TouchCardText text={t('screens.carbon.method')} onPress={handleOnPressLearnMore} />
           </View>
         </>
       </SafeScrollingView>
