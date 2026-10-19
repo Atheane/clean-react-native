@@ -5,6 +5,7 @@ import { sort } from 'fast-sort';
 import { getLocales } from 'expo-localization';
 
 import { HouseHeaterE as HeaterE, HouseT, HouseYearE } from '@bank/carbon-weight/dist';
+import { YearE } from '@bank/carbon-weight/dist/house/types';
 
 import { IDepartment, departmentsFR, OLD_BUILDING_YEAR } from '@clean-rn/carbon/domain';
 
@@ -16,7 +17,6 @@ import { Dropdown } from '../../dropdowns/dropdown';
 import { SelectNumber } from '../../inputs/select-number';
 import { Slider } from '../../inputs/slider';
 import { NoCO2 } from '../../texts/no-co2';
-import { YearE } from '@bank/carbon-weight/dist/house/types';
 
 type IProps = {
   initialValues: (HouseT & { consumption: number } & { builtYear: number }) | null;
@@ -65,9 +65,9 @@ export const HouseForm = (props: IProps) => {
 
   const [region, setRegion] = useState<number>(1);
   const handleOnChangeRegion = useCallback(
-    ({ value }: { value: string }) => {
-      setRegion(parseInt(value));
-      props.onChangeField('region', parseInt(value));
+    ({ key }: { key: string }) => {
+      setRegion(parseInt(key));
+      props.onChangeField('region', parseInt(key));
     },
     [props],
   );
@@ -95,13 +95,14 @@ export const HouseForm = (props: IProps) => {
     if (props.initialValues) {
       setHeater(props.initialValues.heater);
       setConsumption(props.initialValues.consumption);
-      if (props.initialValues.region) {
-        setRegion(props.initialValues.region);
-      }
+      setRegion(props.initialValues.region ?? 1);
       setSurface(props.initialValues.surface ?? 60);
       setBuiltYear(props.initialValues.builtYear ?? 1980);
     }
   }, [props.initialValues]);
+
+  const convertDepNumberToName = (depNumber: number) =>
+    sortedDeps.find(({ key }) => key === depNumber.toString())?.value;
 
   const ConditionalForm = () => {
     if (heater === HeaterE.coal || heater === HeaterE.propane) {
@@ -137,9 +138,11 @@ export const HouseForm = (props: IProps) => {
               placeholder={t('screens.carbon-house.dropdown.region')}
               icon={() => <Department style={{ color: Colors.bank.primary.lightGreen }} />}
               data={sortedDeps}
-              value={region.toString()}
+              value={region ? convertDepNumberToName(region) : undefined}
               onSelect={handleOnChangeRegion}
-              defaultValue={props.initialValues?.region?.toString()}
+              defaultValue={
+                props.initialValues?.region ? convertDepNumberToName(props.initialValues.region) : undefined
+              }
             />
           )}
           <View style={styles.formContainer}>
