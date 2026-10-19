@@ -8,6 +8,7 @@ const DocumentScannerMeta: ComponentMeta<typeof DocumentScanner> = {
   component: DocumentScanner,
   argTypes: {
     handleError: { action: 'handleError' },
+    getScan: { action: 'getScan' },
   },
   decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
 };
