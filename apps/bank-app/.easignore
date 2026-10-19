@@ -53,14 +53,6 @@ npm-debug.*
 web-build/
 cache/
 
-apps/bank-app/android
-apps/bank-app/ios
-apps/storybook/android
-apps/storybook/ios
-
-apps/bank-app-e2e/artifacts
-apps/storybook-e2e/artifacts
-
 .vscode/
 **/coverage/
 tsconfig.tsbuildinfo

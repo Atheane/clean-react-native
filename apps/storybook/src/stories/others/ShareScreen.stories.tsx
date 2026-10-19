@@ -12,7 +12,11 @@ const ShareScreenMeta: ComponentMeta<typeof ShareScreen> = {
 export default ShareScreenMeta;
 
 export const Static: ComponentStory<typeof ShareScreen> = () => (
-  <ShareScreen>
+  <ShareScreen
+    handleError={() => {
+      return;
+    }}
+  >
     <View style={styles.container}>
       <Image source={LoanHeater} />
     </View>
