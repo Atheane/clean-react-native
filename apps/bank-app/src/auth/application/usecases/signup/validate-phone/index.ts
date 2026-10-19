@@ -35,6 +35,7 @@ export function* validatePhoneGenerator(
     }
 
     const user = yield select(selectUserFromSignup);
+
     if (!user) {
       // user comes from login -> check phone flow (ex: already signup, and uses a new phone, or migration flow)
       yield put(phoneValidated(user));

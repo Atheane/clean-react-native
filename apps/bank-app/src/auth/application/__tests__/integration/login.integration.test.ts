@@ -54,6 +54,8 @@ describe('Login - integration', () => {
         accessToken: null,
         refreshToken: null,
       },
+      email: null,
+      password: null,
       error: null,
     };
     sagaTester = new SagaTester({
@@ -74,6 +76,8 @@ describe('Login - integration', () => {
         accessToken: null,
         refreshToken: null,
       },
+      email: mockData.email,
+      password: mockData.password,
       error: null,
     });
   });
@@ -90,6 +94,8 @@ describe('Login - integration', () => {
         refreshToken: null,
       },
       error: null,
+      email: mockData.email,
+      password: mockData.password,
     });
   });
 
@@ -102,6 +108,8 @@ describe('Login - integration', () => {
       pending: false,
       auth: mockResponse,
       error: null,
+      email: mockData.email,
+      password: mockData.password,
     });
   });
 
@@ -116,6 +124,8 @@ describe('Login - integration', () => {
         accessToken: null,
         refreshToken: null,
       },
+      email: mockData.email,
+      password: mockData.password,
       error: new AuthError.LoginFailureInvalidCredentials(),
     });
   });
@@ -131,6 +141,8 @@ describe('Login - integration', () => {
         accessToken: null,
         refreshToken: null,
       },
+      email: null,
+      password: null,
       error: null,
     });
   });

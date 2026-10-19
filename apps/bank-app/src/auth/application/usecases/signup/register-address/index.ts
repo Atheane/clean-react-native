@@ -10,7 +10,11 @@ import {
   fetchSignupUser,
   initializeSignupStep,
 } from '../../../commands/signup';
-import { selectUser, selectEmail, selectPhoneOtp } from '../../../state-management/selectors';
+import {
+  selectUserFromSignup,
+  selectEmailFromSignup,
+  selectPhoneOtpFromSignup,
+} from '../../../state-management/selectors';
 
 export function* registerAddressSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(ISignupTypes.REGISTER_ADDRESS, registerAddressGenerator);
@@ -22,10 +26,10 @@ export function* registerAddressGenerator({
   payload: IRegisterAddressCommand;
 }): Generator<StrictEffect, any, any> {
   try {
-    let user = yield select(selectUser);
+    let user = yield select(selectUserFromSignup);
 
     if (!user) {
-      const email = yield select(selectEmail);
+      const email = yield select(selectEmailFromSignup);
       user = User.Create(email);
     }
     // add password property to user instance
@@ -34,7 +38,7 @@ export function* registerAddressGenerator({
     // domain event
     yield put(addressRegistered(user));
 
-    const phoneOtp = yield select(selectPhoneOtp);
+    const phoneOtp = yield select(selectPhoneOtpFromSignup);
     yield put(fetchSignupUser({ user, phoneOtp }));
   } catch (e: unknown) {
     yield put(initializeSignupStep());

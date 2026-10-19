@@ -5,9 +5,9 @@ import {
   IAuth,
   ILoginCommand,
   IResetPasswordCommand,
-  ICheckEmailQuery,
+  ISearchEmailQuery,
   ISuccess,
-  ICheckPhoneQuery,
+  ISearchPhoneQuery,
   IValidatePhoneQuery,
   ISendPhoneValidationCommand,
   User,
@@ -67,7 +67,7 @@ export class AuthApi implements IAuthGateway, IUserRepository {
     return response.json();
   }
 
-  async searchEmail(query: ICheckEmailQuery): Promise<ISuccess> {
+  async searchEmail(query: ISearchEmailQuery): Promise<ISuccess> {
     //map query to dto
     const params = {
       email: query.email.value,
@@ -78,7 +78,7 @@ export class AuthApi implements IAuthGateway, IUserRepository {
     return response.json();
   }
 
-  async searchPhone(query: ICheckPhoneQuery): Promise<ISuccess> {
+  async searchPhone(query: ISearchPhoneQuery): Promise<ISuccess> {
     //map query to dto
     const params = {
       phone: query.phone.value,

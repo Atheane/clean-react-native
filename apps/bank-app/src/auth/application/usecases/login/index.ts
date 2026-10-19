@@ -14,10 +14,10 @@ import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentatio
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 export function* loginSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(ILoginTypes.FETCH_LOGIN, loginApiSaga, httpConnection);
+  yield takeEvery(ILoginTypes.FETCH_LOGIN, loginGenerator, httpConnection);
 }
 
-export function* loginApiSaga(
+export function* loginGenerator(
   httpConnection: HttpConnection,
   {
     payload,
@@ -40,7 +40,7 @@ export function* loginApiSaga(
     yield call(navigate, { route: IHomeStackPages.HOME });
   } catch (error: unknown) {
     if (error instanceof ServerError) {
-      switch (error.errorCode) {
+      switch (error.codeError) {
         case IUserLoginServerCode.USER_INVALID_CREDENTIAL:
           yield put(loginFailure(new AuthError.LoginFailureInvalidCredentials(error)));
           break;

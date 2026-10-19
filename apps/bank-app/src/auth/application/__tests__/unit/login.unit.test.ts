@@ -7,12 +7,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AuthError, Email, Password } from '@clean-rn/auth/domain';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
+import { AuthApi, IUserLoginServerCode } from '@clean-rn/auth/infrastructure';
 
-import { loginSaga, loginApiSaga } from '../../usecases/login';
+import { loginSaga, loginGenerator } from '../../usecases/login';
 import { ILoginTypes, loginSuccess, loginFailure, initializeLogin } from '../../commands/login';
 import { IStoreKey } from '../../../../shared/application/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
+import { IAuthStackPages } from '../../../../shared/presentation/types';
+import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 describe('Login - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -29,10 +31,29 @@ describe('Login - usecase', () => {
     refreshToken: 'fake-refresh-token',
   };
 
-  const mockError401 = {
+  const mockError401InvalidCredentials = {
     message: 'Core::AuthService::Auth - Incorrect email or password.',
     statusCode: 401,
+    codeError: IUserLoginServerCode.USER_INVALID_CREDENTIAL,
     response: 'Core::AuthService::Auth - Incorrect email or password.',
+    timestamp: '2023-04-07T15:28:04.657Z',
+    path: '/auth/login',
+  };
+
+  const mockError401UserNotFound = {
+    message: 'Core::AuthService::Auth - User not found',
+    statusCode: 401,
+    codeError: IUserLoginServerCode.USER_NOT_FOUND,
+    response: 'Core::AuthService::Auth - User not found.',
+    timestamp: '2023-04-07T15:28:04.657Z',
+    path: '/auth/login',
+  };
+
+  const mockError401UserPhoneNotValidated = {
+    message: 'Core::AuthService::Auth - User phone not validated',
+    statusCode: 401,
+    codeError: IUserLoginServerCode.USER_PHONE_NOT_VALIDATED,
+    response: 'Core::AuthService::Auth - User phone not validated.',
     timestamp: '2023-04-07T15:28:04.657Z',
     path: '/auth/login',
   };
@@ -45,13 +66,15 @@ describe('Login - usecase', () => {
     path: '/auth/login',
   };
 
-  it('Should wait for FETCH_LOGIN action and call loginApiSaga, should be done on next iteration', () => {
-    expect(genObject.next().value).toEqual(takeEvery(ILoginTypes.FETCH_LOGIN, loginApiSaga, httpConnection));
+  it('Should wait for FETCH_LOGIN action and call loginGenerator, should be done on next iteration', () => {
+    expect(genObject.next().value).toEqual(
+      takeEvery(ILoginTypes.FETCH_LOGIN, loginGenerator, httpConnection),
+    );
     expect(genObject.next().done).toBeTruthy();
   });
 
   it('Should call loginSuccess', async () => {
-    testSaga(loginApiSaga, httpConnection, {
+    testSaga(loginGenerator, httpConnection, {
       type: ILoginTypes.FETCH_LOGIN,
       payload: mockData,
     })
@@ -64,20 +87,54 @@ describe('Login - usecase', () => {
       .next();
   });
 
-  it('Should call loginFailure action if 401', () => {
-    testSaga(loginApiSaga, httpConnection, {
+  it('Should call loginFailure action if invalid credentials', () => {
+    testSaga(loginGenerator, httpConnection, {
       type: ILoginTypes.FETCH_LOGIN,
       payload: mockData,
     })
       .next()
       .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .throw(new ServerError(mockError401))
-      .put(loginFailure(new AuthError.LoginFailureInvalidCredentials(new ServerError(mockError401))))
+      .throw(new ServerError(mockError401InvalidCredentials))
+      .put(
+        loginFailure(
+          new AuthError.LoginFailureInvalidCredentials(new ServerError(mockError401InvalidCredentials)),
+        ),
+      )
       .next();
   });
 
-  it('Should call showUnknownError action if 500', () => {
-    testSaga(loginApiSaga, httpConnection, {
+  it('Should call loginFailure action if user not found', () => {
+    testSaga(loginGenerator, httpConnection, {
+      type: ILoginTypes.FETCH_LOGIN,
+      payload: mockData,
+    })
+      .next()
+      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .throw(new ServerError(mockError401UserNotFound))
+      .put(loginFailure(new AuthError.LoginFailureUserNotFound(new ServerError(mockError401UserNotFound))))
+      .next();
+  });
+
+  it('Should call loginFailure action if user phone not validated', () => {
+    testSaga(loginGenerator, httpConnection, {
+      type: ILoginTypes.FETCH_LOGIN,
+      payload: mockData,
+    })
+      .next()
+      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .throw(new ServerError(mockError401UserPhoneNotValidated))
+      .put(
+        loginFailure(
+          new AuthError.LoginFailurePhoneNotValidated(new ServerError(mockError401UserPhoneNotValidated)),
+        ),
+      )
+      .next()
+      .call(navigate, { route: IAuthStackPages.SIGNUP_PHONE })
+      .next();
+  });
+
+  it('Should call showUnknownError action if 500 from Server', () => {
+    testSaga(loginGenerator, httpConnection, {
       type: ILoginTypes.FETCH_LOGIN,
       payload: mockData,
     })
@@ -87,6 +144,20 @@ describe('Login - usecase', () => {
       .put(initializeLogin())
       .next()
       .put(showUnknownError(new ServerError(mockError500)))
+      .next();
+  });
+
+  it('Should call showUnknownError action if unknown error', () => {
+    testSaga(loginGenerator, httpConnection, {
+      type: ILoginTypes.FETCH_LOGIN,
+      payload: mockData,
+    })
+      .next()
+      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .throw(new Error('unknown error'))
+      .put(initializeLogin())
+      .next()
+      .put(showUnknownError(new Error('unknown error')))
       .next();
   });
 });

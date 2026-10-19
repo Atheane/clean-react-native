@@ -3,14 +3,14 @@ import { IServerError } from '../types';
 export class ServerError extends Error {
   message: string;
   statusCode: number;
-  errorCode?: number;
+  codeError?: number;
   cause: any;
 
   constructor(error: IServerError) {
     super();
     this.message = this.cleanResponse(error);
     this.statusCode = error.statusCode;
-    this.errorCode = error?.errorCode;
+    this.codeError = error?.codeError;
     this.cause = error.response;
   }
 

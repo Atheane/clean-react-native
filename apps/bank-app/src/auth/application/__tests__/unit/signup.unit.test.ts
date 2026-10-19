@@ -39,7 +39,11 @@ import {
   signupUserSaga,
   signupUserGenerator,
 } from '../../usecases/signup';
-import { selectUser, selectEmail, selectPhoneOtp } from '../../state-management/selectors';
+import {
+  selectUserFromSignup,
+  selectEmailFromSignup,
+  selectPhoneOtpFromSignup,
+} from '../../state-management/selectors';
 
 import {
   ISignupTypes,
@@ -299,7 +303,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectUser,
+              selector: selectUserFromSignup,
             }),
           }),
         );
@@ -323,7 +327,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectUser,
+              selector: selectUserFromSignup,
             }),
           }),
         );
@@ -335,7 +339,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectEmail,
+              selector: selectEmailFromSignup,
             }),
           }),
         );
@@ -412,7 +416,7 @@ describe('Signup - usecase', () => {
       type: ISignupTypes.FETCH_VALIDATE_PHONE,
       payload: mockQueryPhoneOtp,
     })
-      .next()
+      .next(mockQueryPhoneOtp)
       .call([api, api.checkPhoneValidation], mockQueryPhoneOtp)
       .next(mockSuccessTrue)
       .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
@@ -421,13 +425,15 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectUser,
+              selector: selectUserFromSignup,
             }),
           }),
         );
       })
       .next(userPrev)
       .put(phoneValidated(user))
+      .next()
+      .call(navigate, { route: IAuthStackPages.SIGNUP_BIRTH })
       .next();
   });
 
@@ -448,26 +454,17 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectUser,
+              selector: selectUserFromSignup,
             }),
           }),
         );
       })
       .next(null)
-      .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
-        expect(yieldedValue.type).toEqual('SELECT');
-        expect(yieldedValue).toEqual(
-          expect.objectContaining({
-            type: 'SELECT',
-            payload: expect.objectContaining({
-              selector: selectEmail,
-            }),
-          }),
-        );
-      })
-      .next(new Email('test@example.com'))
-      .put(phoneValidated(user))
-      .next();
+      .put(phoneValidated(null))
+      .next()
+      .call(navigate, { route: IAuthStackPages.SIGNUP_CONGRATS })
+      .next()
+      .cancel();
   });
 
   it('should call signupFailed action if otp incorrect', () => {
@@ -518,7 +515,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectUser,
+              selector: selectUserFromSignup,
             }),
           }),
         );
@@ -545,7 +542,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectUser,
+              selector: selectUserFromSignup,
             }),
           }),
         );
@@ -557,7 +554,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectEmail,
+              selector: selectEmailFromSignup,
             }),
           }),
         );
@@ -599,7 +596,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectUser,
+              selector: selectUserFromSignup,
             }),
           }),
         );
@@ -613,7 +610,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectPhoneOtp,
+              selector: selectPhoneOtpFromSignup,
             }),
           }),
         );
@@ -638,7 +635,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectUser,
+              selector: selectUserFromSignup,
             }),
           }),
         );
@@ -650,7 +647,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectEmail,
+              selector: selectEmailFromSignup,
             }),
           }),
         );
@@ -664,7 +661,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectPhoneOtp,
+              selector: selectPhoneOtpFromSignup,
             }),
           }),
         );
