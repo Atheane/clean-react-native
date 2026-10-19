@@ -43,7 +43,7 @@ export const ErrorMessage = (props: IProps) => {
         )}
       {props.error && !props.error?.code && (
         <View>
-          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.unknown-error'))}</Text>
+          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.other'))}</Text>
           {props.error.message && (
             <Text style={theme.bank.text.errors}>{'\n' + firstLetterCapitalize(props.error.message)}</Text>
           )}

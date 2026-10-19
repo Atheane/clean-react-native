@@ -5,6 +5,7 @@ import {
   resetPasswordReducer,
   signupReducer,
 } from '../../../../auth/application/state-management';
+import { errorReducer } from './manage-global-errors';
 
 // import { getAccountsReducer, getTransactionsReducer } from '@account/infrastructure/redux';
 // import {
@@ -16,6 +17,7 @@ import {
 
 export const rootReducer = combineReducers({
   initialization: initializationReducer,
+  unknownError: errorReducer,
   auth: combineReducers({
     login: loginReducer,
     resetPassword: resetPasswordReducer,

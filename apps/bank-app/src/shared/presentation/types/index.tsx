@@ -30,6 +30,7 @@ export type AuthStackParamList = {
   Legal: undefined;
   Cgu: undefined;
   CguKycProvider: undefined;
+  ModalError: undefined;
 };
 
 export enum ISharedStackPages {
@@ -49,6 +50,7 @@ export enum IAuthStackPages {
   LEGAL = 'Legal',
   CGU = 'Cgu',
   CGU_KYC_PROVIDER = 'CguKycProvider',
+  MODAL_ERROR = 'ModalError',
 }
 
 export enum IHomeStackPages {
@@ -67,6 +69,7 @@ export type IAuthStackProps = {
   [IAuthStackPages.LEGAL]: object;
   [IAuthStackPages.CGU]: object;
   [IAuthStackPages.CGU_KYC_PROVIDER]: object;
+  [IAuthStackPages.MODAL_ERROR]: object;
 };
 
 export type IHomeStackProps = {
@@ -85,6 +88,7 @@ export type IRoutes =
   | IAuthStackPages.LEGAL
   | IAuthStackPages.CGU
   | IAuthStackPages.CGU_KYC_PROVIDER
+  | IAuthStackPages.MODAL_ERROR
   | IHomeStackPages.HOME;
 // | HOME_STACK_PAGES.MENU
 // | HOME_STACK_PAGES.HELP

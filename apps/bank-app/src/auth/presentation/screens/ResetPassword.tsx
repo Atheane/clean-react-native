@@ -8,7 +8,7 @@ import { Email } from '@clean-rn/auth/domain';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
-import { ScreenWrapper } from '../../../shared/presentation/hoc';
+import { SafeScrollingView } from '../../../shared/presentation/hoc';
 import { fetchResetPassword } from '../../application/commands/reset-password';
 
 export const ResetPassword = () => {
@@ -38,7 +38,7 @@ export const ResetPassword = () => {
   );
 
   return (
-    <ScreenWrapper>
+    <SafeScrollingView>
       <View style={styles.form}>
         <FormResetPassword
           loading={pending}
@@ -49,7 +49,7 @@ export const ResetPassword = () => {
           success={success}
         />
       </View>
-    </ScreenWrapper>
+    </SafeScrollingView>
   );
 };
 

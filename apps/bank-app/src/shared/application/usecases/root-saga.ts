@@ -1,7 +1,8 @@
 import { all } from 'redux-saga/effects';
 
-import { initializationSaga } from './initialization';
+import { initializeApplicationSaga } from './initialize-application';
 import { loadStorageSaga } from './load-storage';
+import { showUnknownErrorSaga } from './manage-global-errors';
 
 import {
   loginSaga,
@@ -30,8 +31,9 @@ import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
 export function* rootSaga(httpConnection: HttpConnection) {
   yield all([
-    initializationSaga(),
+    initializeApplicationSaga(),
     loadStorageSaga(),
+    showUnknownErrorSaga(),
     loginSaga(httpConnection),
     resetPasswordSaga(httpConnection),
     checkEmailExistsSaga(httpConnection),

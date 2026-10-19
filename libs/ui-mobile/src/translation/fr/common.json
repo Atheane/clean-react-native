@@ -62,7 +62,7 @@
       },
       "other": "erreur, veuillez contacter l'administrateur"
     },
-    "unknownError": "erreur, veuillez contacter l'administrateur"
+    "other": "erreur, veuillez contacter l'administrateur"
   },
   "country-picker": {
     "placeholder": "Sélectionner un pays"
@@ -154,10 +154,15 @@
       "no": "Non"
     }
   },
+  "modal-error": {
+    "details": "Message détaillé",
+    "code": "Code erreur"
+  },
   "screens": {
     "legal": "Mentions légales",
     "cgu": "CGU",
     "cgu-kyc-provider": "CGU KycProvider",
+    "modal-error": "Erreur",
     "login": {
       "title": "Connexion"
     },

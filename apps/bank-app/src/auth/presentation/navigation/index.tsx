@@ -13,6 +13,7 @@ import {
   SignupBirth,
   SignupAddress,
   SignupCongrats,
+  ScreenModalError,
 } from '../screens';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { IAuthStackPages, IAuthStackProps } from '../../../shared/presentation/types';
@@ -120,6 +121,15 @@ export const AuthStack = () => {
         name={IAuthStackPages.CGU_KYC_PROVIDER}
         component={ScreenCguKycProvider}
       />
+      <Stack.Group screenOptions={{ presentation: 'modal' }}>
+        <Stack.Screen
+          options={{
+            headerTitle: t(`screens.modal-error`),
+          }}
+          name={IAuthStackPages.MODAL_ERROR}
+          component={ScreenModalError}
+        />
+      </Stack.Group>
       {/*
 
       <Stack.Screen

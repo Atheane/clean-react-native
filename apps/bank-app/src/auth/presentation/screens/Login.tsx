@@ -10,7 +10,7 @@ import { Email, Password } from '@clean-rn/auth/domain';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IAuthStackPages } from '../../../shared/presentation/types';
-import { ScreenWrapper } from '../../../shared/presentation/hoc';
+import { SafeScrollingView } from '../../../shared/presentation/hoc';
 
 import { Welcome } from '../assets/images';
 import { fetchLogin } from '../../application/commands/login';
@@ -53,7 +53,7 @@ export const Login = () => {
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
   return (
-    <ScreenWrapper>
+    <SafeScrollingView>
       <>
         <View style={styles.image}>
           <Image style={{ width: 146, height: 146 }} source={Welcome} />
@@ -72,7 +72,7 @@ export const Login = () => {
           onFocus={onFocus}
         />
       </>
-    </ScreenWrapper>
+    </SafeScrollingView>
   );
 };
 

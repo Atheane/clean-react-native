@@ -9,11 +9,11 @@ import { IStoreKey } from '../../../../shared/application/types';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
-export function* initializationSaga(): Generator<StrictEffect, any, any> {
-  yield takeEvery(IInitializationTypes.INITIALIZE_APPLICATION, initialization);
+export function* initializeApplicationSaga(): Generator<StrictEffect, any, any> {
+  yield takeEvery(IInitializationTypes.INITIALIZE_APPLICATION, initializeApplication);
 }
 
-export function* initialization({
+export function* initializeApplication({
   payload,
 }: {
   type: string;
@@ -29,5 +29,5 @@ export function* initialization({
       initRouteName,
     }),
   );
-  yield call(navigate, { route: initRouteName });
+  yield call(navigate, { route: IAuthStackPages.SIGNUP_EMAIL });
 }

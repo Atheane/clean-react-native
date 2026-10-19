@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { PrimaryButton, FontNames, Colors, ErrorMessage } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { ScreenWrapper } from '../../../shared/presentation/hoc';
+import { SafeScrollingView } from '../../../shared/presentation/hoc';
 
 import { Congrats } from '../../presentation/assets/images';
 import { fetchLogin } from '../../../auth/application/commands/login';
@@ -34,7 +34,7 @@ export const SignupCongrats = () => {
   }, [dispatch, user]);
 
   return (
-    <ScreenWrapper>
+    <SafeScrollingView>
       <View style={styles.subContainer}>
         <View style={styles.image}>
           <Image style={{ width: 250, height: 250 }} source={Congrats} />
@@ -55,7 +55,7 @@ export const SignupCongrats = () => {
           />
         </View>
       </View>
-    </ScreenWrapper>
+    </SafeScrollingView>
   );
 };
 

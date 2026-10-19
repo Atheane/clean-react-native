@@ -70,7 +70,7 @@ export class AuthApi implements IAuthGateway, IUserRepository {
   async searchEmail(query: ICheckEmailQuery): Promise<ISuccess> {
     //map query to dto
     const params = {
-      email: query.email,
+      email: query.email.value,
     };
     const url = `${this.connection.baseUrl}/app/user/search?` + new URLSearchParams(params);
     const response = await fetch(url, this.connection.options(IHttpVerb.GET));

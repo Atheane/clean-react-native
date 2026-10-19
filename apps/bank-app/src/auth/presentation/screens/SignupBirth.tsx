@@ -17,7 +17,7 @@ import {
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IAuthStackPages } from '../../../shared/presentation/types';
-import { ScreenWrapper } from '../../../shared/presentation/hoc';
+import { SafeScrollingView } from '../../../shared/presentation/hoc';
 
 import { registerBirth } from '../../application/commands/signup';
 
@@ -66,7 +66,7 @@ export const SignupBirth = () => {
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
   return (
-    <ScreenWrapper>
+    <SafeScrollingView>
       <View style={styles.form}>
         <FormSignupBirth
           control={control}
@@ -100,7 +100,7 @@ export const SignupBirth = () => {
           />
         </View>
       </View>
-    </ScreenWrapper>
+    </SafeScrollingView>
   );
 };
 

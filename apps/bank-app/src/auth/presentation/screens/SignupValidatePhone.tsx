@@ -20,7 +20,7 @@ import { PhoneOtp } from '@clean-rn/auth/domain';
 import { fetchValidatePhone } from '../../../auth/application/commands/signup';
 import { IAuthStackPages } from '../../../shared/presentation/types';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { ScreenWrapper } from '../../../shared/presentation/hoc';
+import { SafeScrollingView } from '../../../shared/presentation/hoc';
 
 export const SignupValidatePhone = () => {
   const { t } = useTranslation();
@@ -69,7 +69,7 @@ export const SignupValidatePhone = () => {
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
   return (
-    <ScreenWrapper>
+    <SafeScrollingView>
       <>
         <View style={styles.subContainer}>
           <Security />
@@ -111,7 +111,7 @@ export const SignupValidatePhone = () => {
           />
         </View>
       </>
-    </ScreenWrapper>
+    </SafeScrollingView>
   );
 };
 

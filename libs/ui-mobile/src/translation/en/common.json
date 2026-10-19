@@ -62,7 +62,7 @@
       },
       "other": "error, please contact the administrator"
     },
-    "unknown-error": "error, please contact the administrator"
+    "other": "error, please contact the administrator"
   },
   "country-picker": {
     "placeholder": "Select a country"
@@ -165,10 +165,15 @@
       "no": "No"
     }
   },
+  "modal-error": {
+    "details": "Detailled message",
+    "code": "Error code"
+  },
   "screens": {
     "legal": "Legal mentions",
     "cgu": "TOS",
     "cgu-kyc-provider": "KycProvider TOS",
+    "modal-error": "Erreur",
     "login": {
       "title": "Login"
     },

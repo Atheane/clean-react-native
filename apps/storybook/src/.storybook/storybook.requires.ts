@@ -100,6 +100,7 @@ const getStories = () => {
     './stories/others/CopyValueClipboard.stories.tsx': require('../stories/others/CopyValueClipboard.stories'),
     './stories/others/TransactionItem.stories.tsx': require('../stories/others/TransactionItem.stories'),
     './stories/others/GraphCO2.stories.tsx': require('../stories/others/GraphCO2.stories'),
+    './stories/others/ModalError.stories.tsx': require('../stories/others/ModalError.stories'),
     // Searchboxes
     './stories/searchboxes/SearchModal.stories.tsx': require('../stories/searchboxes/SearchModal.stories'),
     // Texts

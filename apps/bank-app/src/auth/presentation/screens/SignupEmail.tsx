@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
@@ -13,14 +13,15 @@ import {
   ISignupEmailFormData,
   useCleanErrorOnFocus,
 } from '@clean-rn/ui-mobile';
+import { Email } from '@clean-rn/auth/domain';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { Welcome } from '../assets/images';
 
-import { Email } from '@clean-rn/auth/domain';
-import { fetchCheckEmailExists } from '../../application/commands/signup';
+import { showUnknownError } from '../../../shared/application/commands/global-error-management';
 import { IAuthStackPages } from '../../../shared/presentation/types';
-import { ScreenWrapper } from '../../../shared/presentation/hoc';
+import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { fetchCheckEmailExists } from '../../application/commands/signup';
 
 export const SignupEmail = () => {
   // internal state
@@ -34,18 +35,7 @@ export const SignupEmail = () => {
 
   // api call
   const dispatch = useDispatch();
-
   const { pending, error } = useSelector((state: IRootState) => state.auth.signup);
-
-  const onSubmit = useCallback(
-    (formData: ISignupEmailFormData) => {
-      const payload = {
-        email: new Email(formData.email),
-      };
-      dispatch(fetchCheckEmailExists(payload));
-    },
-    [dispatch],
-  );
 
   // navigation
   const navigation = useNavigation();
@@ -62,49 +52,65 @@ export const SignupEmail = () => {
     navigation.navigate(IAuthStackPages.CGU_KYC_PROVIDER as never);
   }, [navigation]);
 
+  // handleSubmit
+  const onSubmit = useCallback(
+    (formData: ISignupEmailFormData) => {
+      try {
+        const payload = {
+          email: new Email(formData.email),
+        };
+        dispatch(fetchCheckEmailExists(payload));
+      } catch (e: unknown) {
+        dispatch(showUnknownError(e as Error));
+      }
+    },
+    [dispatch],
+  );
+
   // clean serverError onFocus
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
-
   return (
-    <ScreenWrapper>
-      <>
-        <View style={styles.image}>
-          <Image style={{ width: 200, height: 200 }} source={Welcome} />
-        </View>
+    <ErrorBoundary t={t}>
+      <SafeScrollingView>
+        <>
+          <View style={styles.image}>
+            <Image style={{ width: 200, height: 200 }} source={Welcome} />
+          </View>
 
-        <FormSignupEmail
-          loading={pending}
-          control={control}
-          errors={errors}
-          onSubmit={handleSubmit(onSubmit)}
-          error={domainError}
-          onFocus={onFocus}
-        />
-        <View style={styles.cgu}>
-          <LinkButton
-            title={t('screens.legal')}
-            arrow={false}
-            colorOption={LinkButtonColors.BLUE}
-            pressed={false}
-            onPress={onPressLegal}
+          <FormSignupEmail
+            loading={pending}
+            control={control}
+            errors={errors}
+            onSubmit={handleSubmit(onSubmit)}
+            error={domainError}
+            onFocus={onFocus}
           />
-          <LinkButton
-            title={t('screens.cgu')}
-            arrow={false}
-            colorOption={LinkButtonColors.BLUE}
-            pressed={false}
-            onPress={onPressCgu}
-          />
-          <LinkButton
-            title={t('screens.cgu-kyc-provider')}
-            arrow={false}
-            colorOption={LinkButtonColors.BLUE}
-            pressed={false}
-            onPress={onPressCguKycProvider}
-          />
-        </View>
-      </>
-    </ScreenWrapper>
+          <View style={styles.cgu}>
+            <LinkButton
+              title={t('screens.legal')}
+              arrow={false}
+              colorOption={LinkButtonColors.BLUE}
+              pressed={false}
+              onPress={onPressLegal}
+            />
+            <LinkButton
+              title={t('screens.cgu')}
+              arrow={false}
+              colorOption={LinkButtonColors.BLUE}
+              pressed={false}
+              onPress={onPressCgu}
+            />
+            <LinkButton
+              title={t('screens.cgu-kyc-provider')}
+              arrow={false}
+              colorOption={LinkButtonColors.BLUE}
+              pressed={false}
+              onPress={onPressCguKycProvider}
+            />
+          </View>
+        </>
+      </SafeScrollingView>
+    </ErrorBoundary>
   );
 };
 
@@ -112,6 +118,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.bank.primary.white,
+  },
+  modalContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   image: {
     alignItems: 'center',
