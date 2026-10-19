@@ -262,7 +262,7 @@
       "title": "Mon bilan carbone",
       "tab": "Bilan CO2",
       "instruction": "Appuyer sur une catégorie pour démarrer",
-      "zeroCarbon": "0 tC02",
+      "zero-carbon": "0 tC02",
       "average": "Moyenne Française",
       "ton": "tonne",
       "tons": "tonnes",
@@ -272,9 +272,9 @@
       "compute": "Calculer",
       "consumption": "Consommation"
     },
-    "carbonHouse": {
+    "carbon-house": {
       "title": "Mon logement",
-      "noCO2": "La consommation de ce type de chauffage n’émet pas de CO2 dans la méthodologie de calcul.",
+      "no-CO2": "La consommation de ce type de chauffage n’émet pas de CO2 dans la méthodologie de calcul.",
       "dropdown": {
         "heater": "Type de chauffage",
         "region": "Département",
@@ -287,12 +287,11 @@
         "heatPump": "Pompe à chaleur",
         "thermalSolar": "Solaire thermique",
         "propane": "Propane",
-        "unit": " L",
-        "stateDepartment": "Département"
+        "unit": " L"
       },
       "slider": {
         "consumption": "consommation",
-        "builtYear": "Année du logement"
+        "built-year": "Année du logement"
       },
       "surface": "Surface"
     },

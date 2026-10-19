@@ -273,7 +273,7 @@
       "title": "My carbon footprint",
       "tab": "CO2 Assessment",
       "instruction": "Press on a category to start",
-      "zeroCarbon": "0 tC02",
+      "zero-carbon": "0 tC02",
       "average": "French Average",
       "ton": "ton",
       "tons": "tons",
@@ -283,9 +283,9 @@
       "compute": "Calculate",
       "consumption": "Consumption"
     },
-    "carbonHouse": {
+    "carbon-house": {
       "title": "My housing",
-      "noCO2": "The consumption of this type of heating does not emit CO2 in the calculation methodology.",
+      "no-CO2": "The consumption of this type of heating does not emit CO2 in the calculation methodology.",
       "dropdown": {
         "heater": "Type of heating",
         "region": "Department",
@@ -297,12 +297,11 @@
         "wood": "Wood",
         "heatPump": "Heat pump",
         "thermalSolar": "Thermal solar",
-        "propane": "Propane",
-        "stateDepartment": "State department"
+        "propane": "Propane"
       },
       "slider": {
         "consumption": "consumption",
-        "builtYear": "Year of housing"
+        "built-year": "Year of housing"
       },
       "surface": "Surface"
     },

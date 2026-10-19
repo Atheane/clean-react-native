@@ -19,6 +19,7 @@ import {
   useReduxOverStorageValue,
 } from '@clean-rn/ui-mobile';
 import { IBANKCategories } from '@clean-rn/carbon/domain';
+
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IRoutes, ICarbonStackPages } from '../../../shared/presentation/types';
@@ -145,7 +146,7 @@ export const Carbon = () => {
             {totalEmissions === undefined ? (
               <View style={styles.textContainer}>
                 <Text style={styles.instructionText}>{t('screens.carbon.instruction')}</Text>
-                <Text style={styles.kpiText}>{t('screens.carbon.zeroCarbon')}</Text>
+                <Text style={styles.kpiText}>{t('screens.carbon.zero-carbon')}</Text>
               </View>
             ) : (
               <View style={styles.graphContainer}>

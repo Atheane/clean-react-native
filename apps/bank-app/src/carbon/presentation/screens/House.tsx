@@ -1,14 +1,12 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { HouseT } from '@bank/carbon-weight/dist';
 
-import { useHouseFormData } from '@carbon/presentation/hooks';
-import { HouseForm } from '@carbon/presentation/components';
-import { PrimaryButton } from '@shared/presentation/components';
-import { CO2 } from '@carbon/presentation/assets';
-import { computeHouseEmissions } from '@carbon/infrastructure/redux';
+import { useHouseFormData, HouseForm, PrimaryButton, CO2, Colors } from '@clean-rn/ui-mobile';
+import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+// import { computeHouseEmissions } from '@carbon/infrastructure/redux';
 
 export const House = () => {
   const { t } = useTranslation();
@@ -17,24 +15,31 @@ export const House = () => {
 
   const dispatch = useDispatch();
   const handleOnPress = () => {
-    dispatch(computeHouseEmissions(formData as HouseT & { consumption: number }));
+    // dispatch(computeHouseEmissions(formData as HouseT & { consumption: number }));
   };
 
   return (
-    <View style={styles.container}>
-      <HouseForm onChangeForm={resetFormData} onChangeField={handleFormData} />
+    <ErrorBoundary t={t}>
+      <SafeScrollingView fixedHeight>
+        <View style={styles.container}>
+          <HouseForm onChangeForm={resetFormData} onChangeField={handleFormData} />
 
-      <View style={styles.buttonContainer}>
-        <PrimaryButton
-          title={t('screens.carbon.compute')}
-          pressed={false}
-          onPress={handleOnPress}
-          iconOne={CO2}
-          fixedSize
-          disabled={disabled}
-        />
-      </View>
-    </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton
+              title={t('screens.carbon.compute')}
+              onPress={handleOnPress}
+              iconOne={() => (
+                <View style={{ height: 23, justifyContent: 'center' }}>
+                  <CO2 style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+                </View>
+              )}
+              long
+              disabled={disabled}
+            />
+          </View>
+        </View>
+      </SafeScrollingView>
+    </ErrorBoundary>
   );
 };
 
