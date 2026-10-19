@@ -3,7 +3,7 @@ import { IAccount } from '@clean-rn/account/domain';
 export enum IAccountsTypes {
   LIST_ACCOUNTS = 'LIST_ACCOUNTS',
   ACCOUNTS_LISTED = 'ACCOUNTS_LISTED',
-  INITIALIZE_LIST_ACCOUNTS = 'INITIALIZE_LIST_ACCOUNTS',
+  INITIALIZE_ACCOUNTS_LIST = 'INITIALIZE_ACCOUNTS_LIST',
 }
 
 export type IListAccounts = {
@@ -15,8 +15,8 @@ export type IAccountsListed = {
   payload: IAccount[];
 };
 
-export type IInitializeListAccounts = {
-  type: typeof IAccountsTypes.INITIALIZE_LIST_ACCOUNTS;
+export type IInitializeAccountsList = {
+  type: typeof IAccountsTypes.INITIALIZE_ACCOUNTS_LIST;
 };
 
-export type IAccountsActions = IListAccounts | IAccountsListed | IInitializeListAccounts;
+export type IAccountsActions = IListAccounts | IAccountsListed | IInitializeAccountsList;

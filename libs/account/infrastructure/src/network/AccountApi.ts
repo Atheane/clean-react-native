@@ -27,6 +27,7 @@ export class AccountApi implements IAccountRepository {
     );
     await this.connection.handleError(response);
     const accounts = await response.json();
+    console.log('------------ 1 getAccounts', accounts);
     return accounts.map((account: IAccountServer) => ({
       accountId: account.accountId,
       accountType: account.accountType,

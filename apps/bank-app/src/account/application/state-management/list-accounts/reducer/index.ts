@@ -1,6 +1,7 @@
+import { Logger } from '@clean-rn/logger';
+
 import { IAccountsTypes, IAccountsActions } from '../../../commands/list-accounts';
 import { IAccountsState } from '../state';
-import { Logger } from '@clean-rn/logger';
 
 const initialState: IAccountsState = {
   pending: false,
@@ -26,7 +27,7 @@ export const accountsReducer = (state = initialState, action: IAccountsActions) 
         accounts: action.payload,
       };
       return newState;
-    case IAccountsTypes.INITIALIZE_LIST_ACCOUNTS:
+    case IAccountsTypes.INITIALIZE_ACCOUNTS_LIST:
       logger.debug(action.type);
       newState = {
         ...state,

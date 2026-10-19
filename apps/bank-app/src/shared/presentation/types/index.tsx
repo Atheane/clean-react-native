@@ -43,6 +43,7 @@ export type IAuthStackParamList = {
   Legal: undefined;
   Cgu: undefined;
   CguKycProvider: undefined;
+  ModalError: undefined;
 };
 
 export type IHomeStackParamList = {
@@ -97,6 +98,7 @@ export enum IAuthStackPages {
   LEGAL = 'Legal',
   CGU = 'Cgu',
   CGU_KYC_PROVIDER = 'CguKycProvider',
+  MODAL_ERROR = 'ModalError',
 }
 
 export enum IHomeStackPages {

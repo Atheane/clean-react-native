@@ -19,9 +19,7 @@ import {
 } from '../../../auth/application/usecases';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
-import { listAccountsSaga } from '../../../account/application/usecases';
-// import { getAccountsSaga, getTransactionsSaga } from '@account/usecases';
-// import { accountApi } from '@account/infrastructure/services';
+import { listAccountsSaga, listTransactionsSaga } from '../../../account/application/usecases';
 
 // import {
 //   houseEmissionsSaga,
@@ -47,6 +45,7 @@ export function* rootSaga(httpConnection: HttpConnection) {
     validatePhoneSaga(httpConnection),
     signupUserSaga(httpConnection),
     listAccountsSaga(httpConnection),
+    // listTransactionsSaga(httpConnection),
     // getTransactionsSaga(accountApi),
     // houseEmissionsSaga(),
     // transportEmissionsSaga(),

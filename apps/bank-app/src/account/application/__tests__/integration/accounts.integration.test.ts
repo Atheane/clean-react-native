@@ -10,7 +10,7 @@ import {
   IAccountsTypes,
   listAccounts,
   accountsListed,
-  initializeListAccounts,
+  initializeAccountsList,
 } from '../../commands/list-accounts';
 import { IAccountsState, accountsReducer } from '../../state-management';
 
@@ -56,6 +56,7 @@ describe('ListAccounts - integration', () => {
     const initialState: IAccountsState = {
       pending: false,
       accounts: null,
+      transactions: null,
     };
     sagaTester = new SagaTester({
       initialState,
@@ -71,6 +72,7 @@ describe('ListAccounts - integration', () => {
     expect(newState).toEqual({
       pending: true,
       accounts: null,
+      transactions: null,
     });
   });
 
@@ -82,16 +84,18 @@ describe('ListAccounts - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       accounts: mockResponse,
+      transactions: null,
     });
   });
 
   it('Should store correct state if INITIALIZE_LIST_ACCOUNTS', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, listAccountsSaga, httpConnection);
-    sagaTester.dispatch(initializeListAccounts());
+    sagaTester.dispatch(initializeAccountsList());
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
       accounts: null,
+      transactions: null,
     });
   });
 });

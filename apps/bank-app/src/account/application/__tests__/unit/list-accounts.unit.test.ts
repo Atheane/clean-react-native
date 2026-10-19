@@ -17,7 +17,7 @@ import { userUnauthenticated } from '../../../../auth/application/commands/login
 
 import { selectAccounts } from '../../state-management/selectors';
 import { listAccountsGenerator, listAccountsSaga } from '../../usecases/list-accounts';
-import { IAccountsTypes, accountsListed, initializeListAccounts } from '../../commands/list-accounts';
+import { IAccountsTypes, accountsListed, initializeAccountsList } from '../../commands/list-accounts';
 
 describe('ListAccounts - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -105,7 +105,7 @@ describe('ListAccounts - usecase', () => {
       .next(null)
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
-      .put(initializeListAccounts())
+      .put(initializeAccountsList())
       .next()
       .put(showUnknownError(new ServerError(mockError500)))
       .next();
@@ -118,7 +118,7 @@ describe('ListAccounts - usecase', () => {
       .next(null)
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unknown error'))
-      .put(initializeListAccounts())
+      .put(initializeAccountsList())
       .next()
       .put(showUnknownError(new Error('unknown error')))
       .next();

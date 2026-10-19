@@ -6,7 +6,8 @@ import {
   signupReducer,
 } from '../../../../auth/application/state-management';
 
-import { listAccountsReducer } from '../../../../account/application/state-management';
+import { accountsReducer, transactionsReducer } from '../../../../account/application/state-management';
+
 // import {
 //   houseEmissionsReducer,
 //   transportEmissionsReducer,
@@ -25,8 +26,7 @@ export const rootReducer = combineReducers({
     resetPassword: resetPasswordReducer,
     signup: signupReducer,
   }),
-  account: combineReducers({ accounts: listAccountsReducer }),
-  // account: combineReducers({ accounts: getAccountsReducer, transactions: getTransactionsReducer }),
+  account: combineReducers({ accounts: accountsReducer, transactions: transactionsReducer }),
   // carbon: combineReducers({
   //   house: houseEmissionsReducer,
   //   transport: transportEmissionsReducer,

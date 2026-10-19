@@ -6,7 +6,7 @@ import { IAccount } from '@clean-rn/account/domain';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AccountApi } from '@clean-rn/account/infrastructure';
 
-import { accountsListed, IAccountsTypes, initializeListAccounts } from '../../commands/list-accounts';
+import { accountsListed, IAccountsTypes, initializeAccountsList } from '../../commands/list-accounts';
 import { IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
@@ -20,7 +20,7 @@ export function* listAccountsSaga(httpConnection: HttpConnection): Generator<Str
 
 export function* listAccountsGenerator(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   try {
-    const accountsFromStore = yield select(selectAccounts);
+    const { accounts: accountsFromStore } = yield select(selectAccounts);
     let accounts;
     if (accountsFromStore) {
       accounts = accountsFromStore;
@@ -30,6 +30,7 @@ export function* listAccountsGenerator(httpConnection: HttpConnection): Generato
       const api = AccountApi.getInstance(httpConnection);
 
       const accounts: IAccount[] = yield call([api, api.getAccounts]);
+
       yield put(accountsListed(accounts));
       yield call(navigate, { route: IHomeStackPages.MENU });
     }
@@ -40,7 +41,7 @@ export function* listAccountsGenerator(httpConnection: HttpConnection): Generato
       yield cancel();
     }
     // once app is well tested, delete this part and let onError hook manage unexpected errors
-    yield put(initializeListAccounts());
+    yield put(initializeAccountsList());
     yield put(showUnknownError(error as Error));
   }
 }

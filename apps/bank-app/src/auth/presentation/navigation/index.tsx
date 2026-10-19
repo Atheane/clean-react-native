@@ -20,14 +20,19 @@ import {
   SignupPhone,
 } from '../screens';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
-import { IAuthStackPages, IAuthStackProps } from '../../../shared/presentation/types';
+import {
+  IAuthStackPages,
+  IAuthStackProps,
+  ISharedStackPages,
+  ISharedStackProps,
+} from '../../../shared/presentation/types';
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
 
 import { pdfUrls } from '../constants';
 
-const Stack = createNativeStackNavigator<IAuthStackProps>();
+const Stack = createNativeStackNavigator<IAuthStackProps & ISharedStackProps>();
 
 export const AuthStack = () => {
   const { t } = useTranslation();
@@ -39,14 +44,14 @@ export const AuthStack = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    const isModalErrorInStack = navigationStack.find((route) => route.name === IAuthStackPages.MODAL_ERROR);
+    const isModalErrorInStack = navigationStack.find((route) => route.name === ISharedStackPages.MODAL_ERROR);
     if (!isModalErrorInStack) {
       dispatch(initGlobalError());
     }
   }, [navigationStack, dispatch]);
 
   return (
-    <Stack.Navigator initialRouteName={initRouteName}>
+    <Stack.Navigator initialRouteName={initRouteName as keyof IAuthStackProps}>
       <Stack.Screen
         options={{
           headerTitle: t(`screens.login.title`),
@@ -158,7 +163,7 @@ export const AuthStack = () => {
           headerShown: false,
           headerBackVisible: false,
         }}
-        name={IAuthStackPages.MODAL_ERROR}
+        name={ISharedStackPages.MODAL_ERROR}
         component={ScreenModalError}
       />
     </Stack.Navigator>

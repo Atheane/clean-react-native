@@ -16,6 +16,7 @@ import {
 } from '@clean-rn/ui-mobile';
 import { IAccount } from '@clean-rn/account/domain';
 import { listAccounts } from '../../application/commands/list-accounts';
+import { listTransactions } from '../../application/commands/list-transactions';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 // import { fetchTransactions } from '@account/infrastructure/redux';
 
@@ -73,7 +74,7 @@ export const Home = () => {
 
   const handleOnPressAccount = useCallback(
     (account: IAccount) => {
-      // dispatch(listTransactions({ account }));
+      dispatch(listTransactions({ accountId: account.accountId }));
     },
     [dispatch],
   );
