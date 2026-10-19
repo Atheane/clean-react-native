@@ -13,11 +13,6 @@ type IProps = {
   onToggle: (option: IData) => void;
 };
 
-const WIDTH = Dimensions.get('window').width;
-const HEIGHT = Dimensions.get('window').height;
-
-const LONG_BUTTON_RATIO = HEIGHT / WIDTH > 2.16 ? 55 / 360 : 55 / 307;
-
 export const SwitchButton: FC<IProps> = (props: IProps) => {
   const [toggle, setToggle] = useState(true);
 
@@ -54,7 +49,7 @@ export const SwitchButton: FC<IProps> = (props: IProps) => {
             theme.bank.container.centeredItems,
             theme.bank.shadow.button,
             {
-              height: Dimensions.get('window').width * 0.8 * LONG_BUTTON_RATIO,
+              height: 55,
             },
           ]}
         >
@@ -103,8 +98,8 @@ const styles = StyleSheet.create({
   },
   button: {
     position: 'relative',
-    width: 141,
-    height: 42,
+    width: (Dimensions.get('window').width * 0.75) / 2 - 10,
+    height: 46,
     borderRadius: 28,
   },
   text: {

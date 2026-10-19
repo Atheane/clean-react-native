@@ -6,7 +6,7 @@ exports[`SelectNumber -  horizontal -  renders as before 1`] = `
     {
       "flexDirection": "row",
       "marginVertical": 16,
-      "width": 600,
+      "width": 562.5,
     }
   }
 >
@@ -279,7 +279,7 @@ exports[`SelectNumber -  icon -  renders as before 1`] = `
       {
         "flexDirection": "row",
         "marginVertical": 16,
-        "width": 600,
+        "width": 562.5,
       }
     }
   >
@@ -538,7 +538,7 @@ exports[`SelectNumber -  minimal props -  renders as before 1`] = `
       {
         "flexDirection": "row",
         "marginVertical": 16,
-        "width": 600,
+        "width": 562.5,
       }
     }
   >

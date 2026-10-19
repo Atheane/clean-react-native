@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigationState } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getLocales } from 'expo-localization';
+import Constants from 'expo-constants';
 
 import { ModalError, WebViewer } from '@clean-rn/ui-mobile';
 
@@ -48,7 +49,10 @@ export const AuthStack = () => {
     setUnknownError(error as Error);
   };
 
-  const lng = locales[0]?.languageCode ?? 'en';
+  let lng = locales[0]?.languageCode ?? 'fr';
+  if (!Constants.expoConfig?.extra?.SUPPORTED_LANGUAGES_WEBSITE.includes(lng)) {
+    lng = 'fr';
+  }
 
   const ScreenLegal = () => <WebViewer uri={pdfUrls(lng).legal} handleError={handleError} />;
   const ScreenCgu = () => <WebViewer uri={pdfUrls(lng).cgu} handleError={handleError} />;

@@ -142,9 +142,7 @@ export const SearchModal = (props: IProps) => {
   );
 };
 
-const WIDTH = Dimensions.get('window').width;
-const HEIGHT = Dimensions.get('window').height;
-const COEFF = HEIGHT / WIDTH > 2.16 ? 0.75 : 0.8;
+const COEFF = 0.75;
 
 const styles = StyleSheet.create({
   listContainer: {

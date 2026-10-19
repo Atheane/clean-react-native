@@ -34,7 +34,7 @@ exports[`SwitchButton -  label -  renders as before 1`] = `
         {
           "backgroundColor": "#BFD23A",
           "borderRadius": 32,
-          "width": 600,
+          "width": 562.5,
         },
         {
           "alignItems": "center",
@@ -79,7 +79,7 @@ exports[`SwitchButton -  label -  renders as before 1`] = `
           {
             "backgroundColor": "#BFD23A",
             "borderRadius": 32,
-            "width": 600,
+            "width": 562.5,
           },
           {
             "alignItems": "center",
@@ -98,7 +98,7 @@ exports[`SwitchButton -  label -  renders as before 1`] = `
             "shadowRadius": 28,
           },
           {
-            "height": 107.49185667752442,
+            "height": 55,
           },
         ]
       }
@@ -162,12 +162,12 @@ exports[`SwitchButton -  label -  renders as before 1`] = `
                 "borderRadius": 28,
                 "borderWidth": 0,
                 "flexDirection": "row",
-                "height": 42,
+                "height": 46,
                 "justifyContent": "center",
                 "padding": 8,
                 "paddingHorizontal": 10,
                 "position": "relative",
-                "width": 141,
+                "width": 271.25,
               }
             }
           >
@@ -248,12 +248,12 @@ exports[`SwitchButton -  label -  renders as before 1`] = `
                 "borderRadius": 28,
                 "borderWidth": 0,
                 "flexDirection": "row",
-                "height": 42,
+                "height": 46,
                 "justifyContent": "center",
                 "padding": 8,
                 "paddingHorizontal": 10,
                 "position": "relative",
-                "width": 141,
+                "width": 271.25,
               }
             }
           >
@@ -288,7 +288,7 @@ exports[`SwitchButton -  minimal props -  renders as before 1`] = `
         {
           "backgroundColor": "#BFD23A",
           "borderRadius": 32,
-          "width": 600,
+          "width": 562.5,
         },
         {
           "alignItems": "center",
@@ -333,7 +333,7 @@ exports[`SwitchButton -  minimal props -  renders as before 1`] = `
           {
             "backgroundColor": "#BFD23A",
             "borderRadius": 32,
-            "width": 600,
+            "width": 562.5,
           },
           {
             "alignItems": "center",
@@ -352,7 +352,7 @@ exports[`SwitchButton -  minimal props -  renders as before 1`] = `
             "shadowRadius": 28,
           },
           {
-            "height": 107.49185667752442,
+            "height": 55,
           },
         ]
       }
@@ -416,12 +416,12 @@ exports[`SwitchButton -  minimal props -  renders as before 1`] = `
                 "borderRadius": 28,
                 "borderWidth": 0,
                 "flexDirection": "row",
-                "height": 42,
+                "height": 46,
                 "justifyContent": "center",
                 "padding": 8,
                 "paddingHorizontal": 10,
                 "position": "relative",
-                "width": 141,
+                "width": 271.25,
               }
             }
           >
@@ -502,12 +502,12 @@ exports[`SwitchButton -  minimal props -  renders as before 1`] = `
                 "borderRadius": 28,
                 "borderWidth": 0,
                 "flexDirection": "row",
-                "height": 42,
+                "height": 46,
                 "justifyContent": "center",
                 "padding": 8,
                 "paddingHorizontal": 10,
                 "position": "relative",
-                "width": 141,
+                "width": 271.25,
               }
             }
           >

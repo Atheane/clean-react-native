@@ -17,8 +17,8 @@ export default {
     },
     assetBundlePatterns: ['**/*'],
     ios: {
-      supportsTablet: false,
       bundleIdentifier: 'com.clean-rn.bank-appdev',
+      supportsTablet: true,
     },
     android: {
       adaptiveIcon: {
@@ -36,7 +36,7 @@ export default {
         '@config-plugins/detox',
         {
           skipProguard: false,
-          subdomains: ['10.0.2.2', 'localhost'],
+          subdomains: '*',
         },
       ],
     ],
@@ -46,6 +46,7 @@ export default {
       BASE_URL_API: process.env.BASE_URL_API,
       NODE_ENV: process.env.NODE_ENV,
       SENTRY_DSN: process.env.SENTRY_DSN,
+      SUPPORTED_LANGUAGES_WEBSITE: process.env.SUPPORTED_LANGUAGES_WEBSITE,
       eas: {
         projectId: 'a7e1acaf-2f79-4e7a-8582-8cd0e216a793',
       },

@@ -12,7 +12,10 @@ export const ScreenModalWebview = () => {
     params: { uid },
   } = useRoute() as { params: { uid: string } };
 
-  const lng = locales[0]?.languageCode ?? 'en';
+  let lng = locales[0]?.languageCode ?? 'fr';
+  if (!Constants.expoConfig?.extra?.SUPPORTED_LANGUAGES_WEBSITE.includes(lng)) {
+    lng = 'fr';
+  }
 
   const [unknownError, setUnknownError] = useState<Error>();
 
@@ -23,6 +26,9 @@ export const ScreenModalWebview = () => {
   return unknownError ? (
     <ModalError error={unknownError} />
   ) : (
-    <WebViewer uri={`${Constants.expoConfig?.extra?.BASE_URL}/${lng}/${uid}`} handleError={handleError} />
+    <WebViewer
+      uri={`${Constants.expoConfig?.extra?.BASE_URL || 'https://www.example.com'}/${lng}/${uid}`}
+      handleError={handleError}
+    />
   );
 };

@@ -54,10 +54,9 @@
     "react-native-screens": "*",
     "redux-saga": "*",
     "react-native-view-shot": "*",
-    "expo-sharing": "*"
+    "react-native-share": "*"
   },
   "scripts": {
-    "prestart": "sb-rn-get-stories",
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/storybook && cp package-lock.json apps/storybook",
     "eas-build-post-install": "cd ../../ && node tools/scripts/eas-build-post-install.mjs . apps/storybook",
     "android": "expo run:android",

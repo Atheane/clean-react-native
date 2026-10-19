@@ -29,7 +29,7 @@ exports[`SearchModal -  minimal props -  renders as before 1`] = `
           "borderRadius": 8,
           "marginBottom": -16,
           "marginTop": 11,
-          "width": 600,
+          "width": 562.5,
         }
       }
     >

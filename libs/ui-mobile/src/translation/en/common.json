@@ -288,7 +288,9 @@
       "reward": "Be rewarded with the CO2 bonus",
       "method": "Learn more about the calculation method",
       "compute": "Calculate",
-      "consumption": "Consumption"
+      "consumption": "Consumption",
+      "message-part-one": "Hello,\n\nI just completed my carbon footprint assessment in two minutes.\n\nVery interesting. My carbon footprint is ",
+      "message-part-two": "Discover yours as well and tell me how much you weigh!!\n\nOn iOS:\n\nhttps://apps.apple.com/fr/app/bank-app/id0000000000?l=fr-FR\n\nOn Android:\n\nhttps://play.google.com/store/apps/details?id=com.example.energyapp"
     },
     "carbon-house": {
       "title": "My housing",

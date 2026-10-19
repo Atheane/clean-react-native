@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: -40,
   },
-  iconContainer: { position: 'relative', left: 90, top: 2 },
+  iconContainer: { position: 'relative', right: -75, top: 2 },
   title: {
     textAlign: 'center',
     fontFamily: FontNames.Roboto_700Bold,
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     fontFamily: FontNames.MartelSans_400Regular,
     fontSize: 16,
     color: Colors.bank.primary.darkGrey,
-    width: '80%',
+    width: '75%',
     paddingTop: 20,
     paddingBottom: 30,
   },

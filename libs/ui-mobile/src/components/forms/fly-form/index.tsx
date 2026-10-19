@@ -42,9 +42,7 @@ type IProps = {
   scrollViewRef: React.RefObject<KeyboardAwareScrollView>;
 };
 
-const WIDTH = Dimensions.get('window').width;
-const HEIGHT = Dimensions.get('window').height;
-const COEFF = HEIGHT / WIDTH > 2.16 ? 0.75 : 0.8;
+const COEFF = 0.75;
 
 export const FlyForm = (props: IProps) => {
   const { theme } = useTheme();
