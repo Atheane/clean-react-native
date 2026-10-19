@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any  */
+/* eslint-disable no-fallthrough */
 import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -38,8 +39,9 @@ export function* loginGenerator(
     // store token and email in async storage
     yield call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, auth.accessToken);
 
-    const userProperties = yield call([api, api.getUser]);
-    console.log('>>>>>>>>>>>>>>>', userProperties);
+    //todo
+    // const userProperties = yield call([api, api.getUser]);
+    // console.log('>>>>>>>>>>>>>>>', userProperties);
     yield call(navigate, { route: IHomeStackPages.HOME });
   } catch (error: unknown) {
     if (error instanceof ServerError) {
@@ -47,16 +49,13 @@ export function* loginGenerator(
         case IUserLoginServerCode.USER_INVALID_CREDENTIAL:
           yield put(loginFailure(new AuthError.LoginFailureInvalidCredentials(error)));
           yield cancel();
-          break;
         case IUserLoginServerCode.USER_NOT_FOUND:
           yield put(loginFailure(new AuthError.LoginFailureUserNotFound(error)));
           yield cancel();
-          break;
         case IUserLoginServerCode.USER_PHONE_NOT_VALIDATED:
           yield put(loginFailure(new AuthError.LoginFailurePhoneNotValidated(error)));
           yield call(navigate, { route: IAuthStackPages.SIGNUP_PHONE });
           yield cancel();
-          break;
       }
     }
     yield put(initializeLogin());
