@@ -88,6 +88,7 @@ import {
   TRANSPORT,
   TRAVEL,
   VEHICLES,
+  HouseCarbon,
 } from './svg';
 export {
   Love,
@@ -177,4 +178,5 @@ export {
   TRANSPORT,
   TRAVEL,
   VEHICLES,
+  HouseCarbon,
 };

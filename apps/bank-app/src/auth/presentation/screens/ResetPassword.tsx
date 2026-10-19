@@ -48,7 +48,7 @@ export const ResetPassword = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView>
+      <SafeScrollingView fixedHeight>
         <View style={styles.form}>
           <FormResetPassword
             loading={pending}

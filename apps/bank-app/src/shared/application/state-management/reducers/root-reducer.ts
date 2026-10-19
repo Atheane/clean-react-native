@@ -27,11 +27,32 @@ export const rootReducer = combineReducers({
     signup: signupReducer,
   }),
   account: combineReducers({ accounts: accountsReducer, transactions: transactionsReducer }),
-  // carbon: combineReducers({
-  //   house: houseEmissionsReducer,
-  //   transport: transportEmissionsReducer,
-  //   food: foodEmissionsReducer,
-  //   fly: flyEmissionsReducer,
+  carbon: combineReducers({
+    house: () => {
+      return {
+        footprint: 0,
+        average: 0,
+      };
+    },
+    transport: () => {
+      return {
+        footprint: 0,
+        average: 0,
+      };
+    },
+    food: () => {
+      return {
+        footprint: 0,
+        average: 0,
+      };
+    },
+    fly: () => {
+      return {
+        footprint: 0,
+        average: 0,
+      };
+    },
+  }),
 });
 
 export type IRootState = ReturnType<typeof rootReducer>;

@@ -87,6 +87,7 @@ import SUBSCRIPTIONS from './t-subscription.svg';
 import TRANSPORT from './t-transport.svg';
 import TRAVEL from './t-travel.svg';
 import VEHICLES from './t-vehicle.svg';
+import HouseCarbon from './house-carbon.svg';
 
 export {
   Love,
@@ -176,4 +177,5 @@ export {
   TRANSPORT,
   TRAVEL,
   VEHICLES,
+  HouseCarbon,
 };

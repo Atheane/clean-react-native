@@ -8,6 +8,7 @@ import { useTogglePress } from './useTogglePress';
 import { useTransportFormData } from './useTransportFormData';
 import { useChange } from './useChange';
 import { useHideBottomBar } from './useHideBottomBar';
+import { useReduxOverStorageValue } from './useReduxOverStorageValue';
 
 export {
   useCleanErrorOnFocus,
@@ -20,4 +21,5 @@ export {
   useTogglePress,
   useChange,
   useHideBottomBar,
+  useReduxOverStorageValue,
 };

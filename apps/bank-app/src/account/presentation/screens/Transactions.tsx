@@ -81,7 +81,7 @@ export const Transactions = () => {
     <ErrorBoundary t={t}>
       {!hasTransactions && (
         <>
-          <SafeScrollingView>
+          <SafeScrollingView fixedHeight>
             <View style={styles.noContent}>
               <ContentNoTransactions currentAccount={account} />
             </View>

@@ -42,7 +42,7 @@ export const SignupCongrats = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView>
+      <SafeScrollingView fixedHeight>
         <View style={styles.subContainer}>
           <View style={styles.image}>
             <Image style={{ width: 250, height: 250 }} source={Congrats} />

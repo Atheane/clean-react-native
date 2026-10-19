@@ -53,7 +53,7 @@ export const SignupValidatePhone = () => {
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
   return (
-    <SafeScrollingView>
+    <SafeScrollingView fixedHeight>
       <>
         <View style={styles.subContainer}>
           <Security />

@@ -13,7 +13,7 @@ export const EmailSent = () => {
   const { theme } = useTheme();
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView>
+      <SafeScrollingView fixedHeight>
         <View style={styles.container}>
           <View style={styles.imageContainer}>
             <Image style={{ width: 100, height: 100 }} source={IconMailCode} />

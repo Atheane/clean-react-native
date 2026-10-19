@@ -50,7 +50,7 @@ export const SignupBirth = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView>
+      <SafeScrollingView fixedHeight>
         <View style={styles.form}>
           <FormSignupBirth
             control={control}

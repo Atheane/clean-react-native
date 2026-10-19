@@ -58,7 +58,7 @@ export const SignupPhone = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView>
+      <SafeScrollingView fixedHeight>
         <View style={styles.container}>
           <View style={styles.iconContainer}>
             <Shield width={150} height={150} />

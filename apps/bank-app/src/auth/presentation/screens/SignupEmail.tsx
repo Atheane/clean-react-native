@@ -73,7 +73,7 @@ export const SignupEmail = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView>
+      <SafeScrollingView fixedHeight>
         <>
           <View style={styles.image}>
             <Image style={{ width: 200, height: 200 }} source={Welcome} />

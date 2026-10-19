@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { Pressable, StyleSheet, Text, StyleProp, ViewStyle } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
@@ -21,10 +21,10 @@ import {
 } from '../../types';
 
 import { HomeStack } from '../../../../account/presentation/navigation';
-// import { CarbonStack } from '../../../../carbon/presentation/navigation';
+import { CarbonStack } from '../../../../carbon/presentation/navigation';
 
-// import { Transfer } from '../../../../transfer/presentation/screens';
-// import { Profile } from '../../../../profile/presentation/screens';
+import { Transfer } from '../../../../transfer/presentation/screens';
+import { Profile } from '../../../../profile/presentation/screens';
 
 const Tab = createBottomTabNavigator<IRootTabParamList>();
 
@@ -46,24 +46,24 @@ export const BottomTabNavigator = () => {
           title: t('screens.home.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             focused ? (
-              <HomeIcon fill={Colors.bank.primary.lightGreen} />
+              <HomeIcon style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />
             ) : (
-              <HomeIcon fill={Colors.bank.primary.grey} />
+              <HomeIcon style={{ color: Colors.bank.primary.grey } as StyleProp<ViewStyle>} />
             ),
           tabBarLabel: ({ focused }: { focused: boolean }) =>
             focused ? <Text style={styles.tab}> {t('screens.home.tab')}</Text> : '',
         })}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         name={ITransferStackPages.MENU}
         component={Transfer}
         options={({ navigation }: IRootTabScreenProps<ITransferStackPages.MENU>) => ({
           title: t('screens.transfer.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             focused ? (
-              <TransferIcon fill={Colors.bank.primary.lightGreen} />
+              <TransferIcon style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />
             ) : (
-              <TransferIcon fill={Colors.bank.primary.grey} />
+              <TransferIcon style={{ color: Colors.bank.primary.grey } as StyleProp<ViewStyle>} />
             ),
 
           tabBarLabel: ({ focused }: { focused: boolean }) =>
@@ -87,9 +87,9 @@ export const BottomTabNavigator = () => {
           title: t('screens.carbon.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             focused ? (
-              <CarbontIcon fill={Colors.bank.primary.lightGreen} />
+              <CarbontIcon style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />
             ) : (
-              <CarbontIcon fill={Colors.bank.primary.grey} />
+              <CarbontIcon style={{ color: Colors.bank.primary.grey } as StyleProp<ViewStyle>} />
             ),
           tabBarLabel: ({ focused }: { focused: boolean }) =>
             focused ? <Text style={styles.tab}> {t('screens.carbon.tab')}</Text> : '',
@@ -112,9 +112,9 @@ export const BottomTabNavigator = () => {
           title: t('screens.profile.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             focused ? (
-              <ProfileIcon fill={Colors.bank.primary.lightGreen} />
+              <ProfileIcon style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />
             ) : (
-              <ProfileIcon fill={Colors.bank.primary.grey} />
+              <ProfileIcon style={{ color: Colors.bank.primary.grey } as StyleProp<ViewStyle>} />
             ),
 
           tabBarLabel: ({ focused }: { focused: boolean }) =>
@@ -130,7 +130,7 @@ export const BottomTabNavigator = () => {
             </Pressable>
           ),
         })}
-      /> */}
+      />
     </Tab.Navigator>
   );
 };

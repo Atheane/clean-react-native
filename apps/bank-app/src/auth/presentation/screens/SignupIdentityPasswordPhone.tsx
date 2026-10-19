@@ -72,7 +72,7 @@ export const SignupIdentityPasswordPhone = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView>
+      <SafeScrollingView fixedHeight>
         <FormSignupIdentityPasswordPhone
           defaultCountry={defaultCountry}
           loading={pending}

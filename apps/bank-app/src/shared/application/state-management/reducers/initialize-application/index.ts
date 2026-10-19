@@ -7,6 +7,14 @@ const initialState: IInitializationState = {
   pending: null,
   email: null,
   initRouteName: undefined,
+  houseEmissions: undefined,
+  averageHouseEmissions: undefined,
+  transportEmissions: undefined,
+  averageTransportEmissions: undefined,
+  foodEmissions: undefined,
+  averageFoodEmissions: undefined,
+  flyEmissions: undefined,
+  averageFlyEmissions: undefined,
 };
 
 export const initializationReducer = (state = initialState, action: IInitializationActions) => {

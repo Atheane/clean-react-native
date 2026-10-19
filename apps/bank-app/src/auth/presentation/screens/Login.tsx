@@ -62,7 +62,7 @@ export const Login = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView>
+      <SafeScrollingView fixedHeight>
         <>
           <View style={styles.image}>
             <Image style={{ width: 146, height: 146 }} source={Welcome} />
