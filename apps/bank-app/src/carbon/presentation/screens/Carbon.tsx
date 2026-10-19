@@ -138,147 +138,153 @@ export const Carbon = () => {
     }`;
   };
 
+  const Cards = () => {
+    return (
+      <View style={styles.cardContainer}>
+        <View style={styles.row}>
+          {houseEmissions !== undefined && averageHouseEmissions !== undefined ? (
+            <TouchCardKpi
+              icon={HouseCarbon}
+              onPress={() => handlePressNavigation(ICarbonStackPages.HOUSE)}
+              data={{
+                pct: toPct(houseEmissions),
+                co2: toCO2(houseEmissions),
+                legend: toLegend(averageHouseEmissions),
+              }}
+            />
+          ) : (
+            <TouchCardKpi icon={HouseCarbon} onPress={() => handlePressNavigation(ICarbonStackPages.HOUSE)} />
+          )}
+          {transportEmissions !== undefined && averageTransportEmissions !== undefined ? (
+            <TouchCardKpi
+              icon={Car}
+              onPress={() => handlePressNavigation(ICarbonStackPages.TRANSPORT)}
+              data={{
+                pct: toPct(transportEmissions),
+                co2: toCO2(transportEmissions),
+                legend: toLegend(averageTransportEmissions),
+              }}
+            />
+          ) : (
+            <TouchCardKpi icon={Car} onPress={() => handlePressNavigation(ICarbonStackPages.TRANSPORT)} />
+          )}
+        </View>
+        <View style={styles.row}>
+          {foodEmissions !== undefined && averageFoodEmissions !== undefined ? (
+            <TouchCardKpi
+              icon={Food}
+              onPress={() => handlePressNavigation(ICarbonStackPages.WARNING_FOOD)} //todo replace with FOOD
+              data={{
+                pct: toPct(foodEmissions),
+                co2: toCO2(foodEmissions),
+                legend: toLegend(averageFoodEmissions),
+              }}
+            />
+          ) : (
+            <TouchCardKpi icon={Food} onPress={() => handlePressNavigation(ICarbonStackPages.WARNING_FOOD)} />
+          )}
+          {flyEmissions !== undefined && averageFlyEmissions !== undefined ? (
+            <TouchCardKpi
+              icon={Plane}
+              onPress={() => handlePressNavigation(ICarbonStackPages.FLY)} //todo replace with FOOD
+              data={{
+                pct: toPct(flyEmissions),
+                co2: toCO2(flyEmissions),
+                legend: toLegend(averageFlyEmissions),
+              }}
+            />
+          ) : (
+            <TouchCardKpi icon={Plane} onPress={() => handlePressNavigation(ICarbonStackPages.FLY)} />
+          )}
+        </View>
+      </View>
+    );
+  };
+
+  if (totalEmissions === undefined) {
+    return (
+      <ErrorBoundary t={t}>
+        <SafeScrollingView fixedHeight>
+          <View>
+            <View style={styles.textContainer}>
+              <Text style={styles.instructionText}>{t('screens.carbon.instruction')}</Text>
+              <View style={styles.kpiContainer}>
+                <Text style={styles.kpiText}>{t('screens.carbon.zero-carbon')}</Text>
+              </View>
+            </View>
+            <Cards />
+          </View>
+        </SafeScrollingView>
+      </ErrorBoundary>
+    );
+  }
+
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <>
           <View>
-            {totalEmissions === undefined ? (
-              <View style={styles.textContainer}>
-                <Text style={styles.instructionText}>{t('screens.carbon.instruction')}</Text>
-                <Text style={styles.kpiText}>{t('screens.carbon.zero-carbon')}</Text>
-              </View>
-            ) : (
-              <View style={styles.graphContainer}>
-                <GraphCO2
-                  headers={
-                    {
-                      [IBANKCategories.BAD]: HeaderBad as ImageSourcePropType,
-                      [IBANKCategories.FRANCE]: HeaderFrance as ImageSourcePropType,
-                      [IBANKCategories.CHAMPION]: HeaderChampion as ImageSourcePropType,
-                      [IBANKCategories.COP21]: HeaderCop21 as ImageSourcePropType,
-                    } as { [key: string]: ImageSourcePropType }
-                  }
-                  bilans={{
-                    FR: {
-                      [IBANKCategories.BAD]: BilanBadFR as ImageSourcePropType,
-                      [IBANKCategories.FRANCE]: BilanFranceFR as ImageSourcePropType,
-                      [IBANKCategories.CHAMPION]: BilanChampionFR as ImageSourcePropType,
-                      [IBANKCategories.COP21]: BilanCop21FR as ImageSourcePropType,
-                    } as { [key: string]: ImageSourcePropType },
-                    GB: {
-                      [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
-                      [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
-                      [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
-                      [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
-                    } as { [key: string]: ImageSourcePropType },
-                    US: {
-                      [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
-                      [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
-                      [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
-                      [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
-                    } as { [key: string]: ImageSourcePropType },
-                  }}
-                  emissions={totalEmissions}
-                />
-              </View>
-            )}
+            <View style={styles.graphContainer}>
+              <GraphCO2
+                headers={
+                  {
+                    [IBANKCategories.BAD]: HeaderBad as ImageSourcePropType,
+                    [IBANKCategories.FRANCE]: HeaderFrance as ImageSourcePropType,
+                    [IBANKCategories.CHAMPION]: HeaderChampion as ImageSourcePropType,
+                    [IBANKCategories.COP21]: HeaderCop21 as ImageSourcePropType,
+                  } as { [key: string]: ImageSourcePropType }
+                }
+                bilans={{
+                  FR: {
+                    [IBANKCategories.BAD]: BilanBadFR as ImageSourcePropType,
+                    [IBANKCategories.FRANCE]: BilanFranceFR as ImageSourcePropType,
+                    [IBANKCategories.CHAMPION]: BilanChampionFR as ImageSourcePropType,
+                    [IBANKCategories.COP21]: BilanCop21FR as ImageSourcePropType,
+                  } as { [key: string]: ImageSourcePropType },
+                  GB: {
+                    [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
+                    [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
+                    [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
+                    [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
+                  } as { [key: string]: ImageSourcePropType },
+                  US: {
+                    [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
+                    [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
+                    [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
+                    [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
+                  } as { [key: string]: ImageSourcePropType },
+                }}
+                emissions={totalEmissions}
+              />
+            </View>
 
-            <View style={styles.cardContainer}>
-              <View style={styles.row}>
-                {houseEmissions !== undefined && averageHouseEmissions !== undefined ? (
-                  <TouchCardKpi
-                    icon={HouseCarbon}
-                    onPress={() => handlePressNavigation(ICarbonStackPages.HOUSE)}
-                    data={{
-                      pct: toPct(houseEmissions),
-                      co2: toCO2(houseEmissions),
-                      legend: toLegend(averageHouseEmissions),
-                    }}
-                  />
-                ) : (
-                  <TouchCardKpi
-                    icon={HouseCarbon}
-                    onPress={() => handlePressNavigation(ICarbonStackPages.HOUSE)}
-                  />
-                )}
-                {transportEmissions !== undefined && averageTransportEmissions !== undefined ? (
-                  <TouchCardKpi
-                    icon={Car}
-                    onPress={() => handlePressNavigation(ICarbonStackPages.TRANSPORT)}
-                    data={{
-                      pct: toPct(transportEmissions),
-                      co2: toCO2(transportEmissions),
-                      legend: toLegend(averageTransportEmissions),
-                    }}
-                  />
-                ) : (
-                  <TouchCardKpi
-                    icon={Car}
-                    onPress={() => handlePressNavigation(ICarbonStackPages.TRANSPORT)}
-                  />
-                )}
-              </View>
-              <View style={styles.row}>
-                {foodEmissions !== undefined && averageFoodEmissions !== undefined ? (
-                  <TouchCardKpi
-                    icon={Food}
-                    onPress={() => handlePressNavigation(ICarbonStackPages.WARNING_FOOD)} //todo replace with FOOD
-                    data={{
-                      pct: toPct(foodEmissions),
-                      co2: toCO2(foodEmissions),
-                      legend: toLegend(averageFoodEmissions),
-                    }}
-                  />
-                ) : (
-                  <TouchCardKpi
-                    icon={Food}
-                    onPress={() => handlePressNavigation(ICarbonStackPages.WARNING_FOOD)}
-                  />
-                )}
-                {flyEmissions !== undefined && averageFlyEmissions !== undefined ? (
-                  <TouchCardKpi
-                    icon={Plane}
-                    onPress={() => handlePressNavigation(ICarbonStackPages.FLY)} //todo replace with FOOD
-                    data={{
-                      pct: toPct(flyEmissions),
-                      co2: toCO2(flyEmissions),
-                      legend: toLegend(averageFlyEmissions),
-                    }}
-                  />
-                ) : (
-                  <TouchCardKpi icon={Plane} onPress={() => handlePressNavigation(ICarbonStackPages.FLY)} />
-                )}
-              </View>
-            </View>
+            <Cards />
           </View>
-          {totalEmissions !== undefined && (
-            <View style={styles.buttonContainer}>
-              <PrimaryButton
-                title={t('screens.carbon.share')}
-                onPress={() => {
-                  return;
-                }}
-                long
-              />
-            </View>
-          )}
-          {totalEmissions !== undefined && (
-            <View style={styles.row}>
-              <TouchCardText
-                text={t('screens.carbon.reward')}
-                onPress={() => {
-                  return;
-                }}
-              />
-              <TouchCardText
-                text={t('screens.carbon.method')}
-                onPress={() => {
-                  return;
-                }}
-              />
-            </View>
-          )}
+
+          <View style={styles.buttonContainer}>
+            <PrimaryButton
+              title={t('screens.carbon.share')}
+              onPress={() => {
+                return;
+              }}
+              long
+            />
+          </View>
+
+          <View style={styles.row}>
+            <TouchCardText
+              text={t('screens.carbon.reward')}
+              onPress={() => {
+                return;
+              }}
+            />
+            <TouchCardText
+              text={t('screens.carbon.method')}
+              onPress={() => {
+                return;
+              }}
+            />
+          </View>
         </>
       </SafeScrollingView>
     </ErrorBoundary>
@@ -301,7 +307,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   textContainer: {
-    marginTop: 20,
+    marginVertical: 20,
+    alignItems: 'center',
+  },
+  kpiContainer: {
+    marginVertical: 20,
     alignItems: 'center',
   },
   graphContainer: {

@@ -6,7 +6,7 @@ import { HouseT } from '@bank/carbon-weight/dist';
 
 import { useHouseFormData, HouseForm, PrimaryButton, CO2, Colors } from '@clean-rn/ui-mobile';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-// import { computeHouseEmissions } from '@carbon/infrastructure/redux';
+import { computeHouseEmissions } from '../../application/commands';
 
 export const House = () => {
   const { t } = useTranslation();
@@ -15,7 +15,7 @@ export const House = () => {
 
   const dispatch = useDispatch();
   const handleOnPress = () => {
-    // dispatch(computeHouseEmissions(formData as HouseT & { consumption: number }));
+    dispatch(computeHouseEmissions(formData as HouseT & { consumption: number }));
   };
 
   return (

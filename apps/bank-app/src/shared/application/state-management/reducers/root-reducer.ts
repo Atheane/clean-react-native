@@ -8,12 +8,7 @@ import {
 
 import { accountsReducer, transactionsReducer } from '../../../../account/application/state-management';
 
-// import {
-//   houseEmissionsReducer,
-//   transportEmissionsReducer,
-//   foodEmissionsReducer,
-//   flyEmissionsReducer,
-// } from '@carbon/infrastructure/redux';
+import { carbonReducer } from '../../../../carbon/application/state-management';
 
 import { initializationReducer } from './initialize-application';
 import { globalErrorReducer } from './manage-global-errors';
@@ -27,32 +22,7 @@ export const rootReducer = combineReducers({
     signup: signupReducer,
   }),
   account: combineReducers({ accounts: accountsReducer, transactions: transactionsReducer }),
-  carbon: combineReducers({
-    house: () => {
-      return {
-        footprint: 0,
-        average: 0,
-      };
-    },
-    transport: () => {
-      return {
-        footprint: 0,
-        average: 0,
-      };
-    },
-    food: () => {
-      return {
-        footprint: 0,
-        average: 0,
-      };
-    },
-    fly: () => {
-      return {
-        footprint: 0,
-        average: 0,
-      };
-    },
-  }),
+  carbon: carbonReducer,
 });
 
 export type IRootState = ReturnType<typeof rootReducer>;

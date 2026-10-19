@@ -21,12 +21,12 @@ import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
 import { listAccountsSaga, listTransactionsSaga } from '../../../account/application/usecases';
 
-// import {
-//   houseEmissionsSaga,
-//   transportEmissionsSaga,
-//   foodEmissionsSaga,
-//   flyEmissionsSaga,
-// } from '@carbon/usecases';
+import {
+  computeHouseEmissionsSaga,
+  // transportEmissionsSaga,
+  // foodEmissionsSaga,
+  // flyEmissionsSaga,
+} from '../../../carbon/application/usecases';
 
 export function* rootSaga(httpConnection: HttpConnection) {
   yield all([
@@ -46,8 +46,7 @@ export function* rootSaga(httpConnection: HttpConnection) {
     signupUserSaga(httpConnection),
     listAccountsSaga(httpConnection),
     listTransactionsSaga(httpConnection),
-    // getTransactionsSaga(accountApi),
-    // houseEmissionsSaga(),
+    computeHouseEmissionsSaga(),
     // transportEmissionsSaga(),
     // foodEmissionsSaga(),
     // flyEmissionsSaga(),

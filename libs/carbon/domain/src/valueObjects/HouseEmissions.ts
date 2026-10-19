@@ -18,8 +18,8 @@ export class HouseEmissions {
     // get calculator
     this.calculator = House.build(HouseDataE.BANK_2022);
     //compute
-    this.calculateAverage();
-    this.calculate();
+    this.computeAverage();
+    this.compute();
   }
 
   private validate(props: HouseT & { consumption: number }): boolean {
@@ -36,11 +36,11 @@ export class HouseEmissions {
     return true;
   }
 
-  private calculateAverage(): void {
+  private computeAverage(): void {
     this.average = this.calculator.getEmissionAvg();
   }
 
-  private calculate(): void {
+  private compute(): void {
     if (this.props.heater === HeaterE.gas) {
       this.emission = this.calculator.getEmissionEstimated(this.props);
     } else if ([HeaterE.coal, HeaterE.fuelOil, HeaterE.propane].includes(this.props.heater)) {
