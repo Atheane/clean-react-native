@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { useTranslation } from 'react-i18next';
@@ -10,7 +10,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 
-import { fetchLogin } from '../../../auth/application/commands/login';
+import { fetchLogin, resetError } from '../../../auth/application/commands/login';
 import { Congrats } from '../../presentation/assets/images';
 
 export const SignupCongrats = () => {
@@ -30,12 +30,15 @@ export const SignupCongrats = () => {
         email: user ? user.properties.email : email,
         password: user ? user.properties.password : password,
       };
-
       dispatch(fetchLogin(payload as ILoginCommand));
     } catch (e: unknown) {
       dispatch(showUnknownError(e as Error));
     }
   }, [dispatch, user, email, password]);
+
+  useEffect(() => {
+    dispatch(resetError());
+  }, [dispatch]);
 
   return (
     <ErrorBoundary t={t}>

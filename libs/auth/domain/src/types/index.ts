@@ -5,11 +5,6 @@ export type IAuth = {
   refreshToken: string;
 };
 
-export enum IUserStatus {
-  PROSPECT = 'PROSPECT',
-  ACTIVE = 'ACTIVE',
-}
-
 export type IIdentity = {
   gender: IGender;
   firstName: string;
@@ -18,7 +13,7 @@ export type IIdentity = {
 
 export type IBirth = {
   birthday: BirthDay;
-  birthCountry: Country;
+  birthCountry?: Country;
   nationality: Country;
 };
 

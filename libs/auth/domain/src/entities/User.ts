@@ -1,18 +1,17 @@
 import { Entity } from '@clean-rn/ddd';
-import { IAddress, IIdentity, IBirth, IUserStatus } from '../types';
+import { IAddress, IIdentity, IBirth } from '../types';
 import { Email, Phone, Password, Country, BirthDay } from '../valueObjects';
 import { AuthError } from '../errors';
 import { IRegisterAddressCommand, IRegisterBirthCommand, IRegisterIdentityCommand } from '../commands';
 import { IValidatePhoneQuery } from '../queries';
 
 export interface IUserProperties {
-  status: IUserStatus;
   email: Email;
   phone: Phone;
-  password: Password;
+  password?: Password;
   identity: IIdentity;
   birth: IBirth;
-  address: IAddress;
+  address?: IAddress;
   USPerson: boolean;
 }
 
@@ -21,16 +20,19 @@ export class User extends Entity<IUserProperties> {
     super({ id, properties });
   }
 
-  static Create(email: Email): User {
+  static Create({ id, properties }: { id: number; properties: Partial<IUserProperties> }): User {
+    return new User({ id: id.toString(), properties });
+  }
+
+  static CreateFromEmail(email: Email): User {
     if (!email) {
       throw new AuthError.InvalidEmail('Email is required');
     }
-    return new User({ id: email.value, properties: { email, status: IUserStatus.PROSPECT } });
+    return new User({ id: email.value, properties: { email } });
   }
 
   signup({ id, properties }: { id: string; properties: IUserProperties }): User {
     this.properties = properties;
-    this.properties.status = IUserStatus.ACTIVE;
     this.id = id;
     return this;
   }

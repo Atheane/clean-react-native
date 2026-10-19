@@ -5,13 +5,16 @@ import { AuthError } from '../errors';
 export class Phone {
   private readonly phoneUtil: PhoneNumberUtil;
   private readonly numberProto: any;
-  public readonly countryCode: string;
+  public readonly countryCode?: string;
 
-  constructor(phone: string, countryCode: string) {
+  constructor(phone: string, countryCode?: string) {
     this.phoneUtil = PhoneNumberUtil.getInstance();
-    this.countryCode = countryCode;
-    this.numberProto = this.phoneUtil.parse(phone, this.countryCode);
-
+    if (countryCode) {
+      this.countryCode = countryCode;
+      this.numberProto = this.phoneUtil.parse(phone, this.countryCode);
+    } else {
+      this.numberProto = this.phoneUtil.parse(phone);
+    }
     if (!this.validate()) {
       throw new AuthError.InvalidPhone('Invalid phone');
     }

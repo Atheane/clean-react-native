@@ -1,5 +1,5 @@
 import { IDomainError } from '@clean-rn/ddd';
-import { IAuth, ILoginCommand, IAuthErrorMessage, IAuthErrorCodes } from '@clean-rn/auth/domain';
+import { IAuth, User, ILoginCommand, IAuthErrorMessage, IAuthErrorCodes } from '@clean-rn/auth/domain';
 
 import {
   ILoginTypes,
@@ -8,6 +8,7 @@ import {
   ILoginFailed,
   ILoginActions,
   IInitializeLogin,
+  IResetError,
 } from './types';
 
 export const fetchLogin = (payload: ILoginCommand): IFetchLogin => ({
@@ -15,7 +16,7 @@ export const fetchLogin = (payload: ILoginCommand): IFetchLogin => ({
   payload,
 });
 
-export const loginSuccess = (payload: IAuth): ILoginSucceded => ({
+export const loginSuccess = (payload: { auth: IAuth; user: User }): ILoginSucceded => ({
   type: ILoginTypes.LOGIN_SUCCEDED,
   payload,
 });
@@ -27,6 +28,10 @@ export const loginFailure = (payload: IDomainError<IAuthErrorCodes, IAuthErrorMe
 
 export const initializeLogin = (): IInitializeLogin => ({
   type: ILoginTypes.INITIALIZE_LOGIN,
+});
+
+export const resetError = (): IResetError => ({
+  type: ILoginTypes.RESET_ERROR,
 });
 
 export { ILoginTypes, ILoginActions };

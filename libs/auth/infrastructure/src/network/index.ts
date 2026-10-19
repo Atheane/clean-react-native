@@ -56,7 +56,10 @@ export class AuthApi implements IAuthGateway, IUserRepository {
 
   async getUser(): Promise<IUserProperties> {
     //map cmd to dto
-    const response = await fetch(`${this.connection.baseUrl}/user`, this.connection.options(IHttpVerb.GET));
+    const response = await fetch(
+      `${this.connection.baseUrl}/app/user`,
+      this.connection.options(IHttpVerb.GET),
+    );
     await this.connection.handleError(response);
     return response.json();
   }
@@ -141,13 +144,13 @@ export class AuthApi implements IAuthGateway, IUserRepository {
       firstname: cmd.identity.firstName,
       lastname: cmd.identity.lastName,
       phone: cmd.phone.valueInternational,
-      password: cmd.password.value,
+      password: cmd.password?.value,
       birthday: cmd.birth.birthday.value,
-      birthCountry: cmd.birth.birthCountry.value,
+      birthCountry: cmd.birth.birthCountry?.value,
       nationality: cmd.birth.nationality.value,
       address: {
         ...cmd.address,
-        country: cmd.address.country.value,
+        country: cmd.address?.country.value,
       },
       phoneValidationCode: phoneOtp.value,
       specifiedUSPerson: cmd.USPerson ? 1 : 0,

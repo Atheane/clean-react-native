@@ -7,6 +7,7 @@ const initialState: ILoginState = {
   pending: false,
   email: null,
   password: null,
+  user: null,
   auth: {
     accessToken: null,
     refreshToken: null,
@@ -32,7 +33,8 @@ export const loginReducer = (state = initialState, action: ILoginActions) => {
       newState = {
         ...state,
         pending: false,
-        auth: action.payload,
+        auth: action.payload.auth,
+        user: action.payload.user,
       };
       return newState;
     case ILoginTypes.LOGIN_FAILED:
@@ -41,6 +43,14 @@ export const loginReducer = (state = initialState, action: ILoginActions) => {
         ...state,
         pending: false,
         error: action.payload,
+      };
+      return newState;
+    case ILoginTypes.RESET_ERROR:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        error: null,
       };
       return newState;
     case ILoginTypes.INITIALIZE_LOGIN:
