@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -16,8 +16,10 @@ import {
   WhiteBalanceList,
   BannerColors,
 } from '@clean-rn/ui-mobile';
-// import { fetchTransactions } from '@account/infrastructure/redux';
 import { IAccount } from '@clean-rn/account/domain';
+import { listAccounts } from '../../application/commands/list-accounts';
+import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+// import { fetchTransactions } from '@account/infrastructure/redux';
 
 //todo change with api
 const fakeEventsData = [
@@ -60,16 +62,21 @@ const fakeEventsData = [
 ];
 
 export const Home = () => {
-  const transactionsError: Error = null;
+  // translation
+  const { t } = useTranslation();
 
   const { accounts, pending } = useSelector((state: IRootState) => state.account.accounts);
-  // const { error: transactionsError } = useSelector((state: IRootState) => state.account.transactions);
-
   console.log('accounts', accounts);
   console.log('pending', pending);
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(listAccounts());
+  }, [dispatch]);
+
+  // const { error: transactionsError } = useSelector((state: IRootState) => state.account.transactions);
+  const transactionsError: Error = null;
   const handleOnPressAccount = useCallback(
     (account: IAccount) => {
       // dispatch(fetchTransactions({ account }));
@@ -77,56 +84,43 @@ export const Home = () => {
     [dispatch],
   );
 
-  // const { documents, error } = useSelector((state: RootState) => state.kyc.documents); to-do
-
-  const { t } = useTranslation();
-  const [identityValidation] = useState(false);
-  // useEffect(() => {
-  //   if (documents.findIndex((doc) => doc.documentStatus === 'INVALID')) {
-  //     setIdentityValidation(false);
-  //   }
-  // }, [documents]);
-
-  //todo loader if pending
-
   return (
-    <View>
+    <ErrorBoundary t={t}>
       {/* {accountsError && (
         <Banner title={accountsError.message} colorBanner={BannerColors.PINK} rightIcon={false} />
       )} */}
-      {transactionsError && (
+      {/* {transactionsError && (
         <Banner title={transactionsError.message} colorBanner={BannerColors.PINK} rightIcon={false} />
-      )}
-      {identityValidation && (
-        <Banner
-          title={t('screens.home.banner.validation-identity')}
-          colorBanner={BannerColors.PURPLE}
-          rightIcon={false}
-        />
-      )}
-      <ScrollBackground background={TopDownBackground} initialScroll={-20} window={1.2}>
-        <View style={styles.cardScroller}>
-          <CardScroller data={fakeEventsData} />
-        </View>
-
-        <View style={styles.decoration}>
-          <TopRightFlowersBg />
-        </View>
-        {accounts && accounts.length > 0 && (
-          <View style={styles.accountList}>
-            <WhiteBalanceList data={accounts} onPress={handleOnPressAccount} />
+      )} */}
+      <View style={styles.container}>
+        <ScrollBackground background={TopDownBackground} initialScroll={-20} window={1.2}>
+          <View style={styles.cardScroller}>
+            <CardScroller data={fakeEventsData} height={200} />
           </View>
-        )}
-      </ScrollBackground>
-    </View>
+
+          <View style={styles.decoration}>
+            <TopRightFlowersBg />
+          </View>
+          {accounts && accounts.length > 0 && (
+            <View style={styles.accountList}>
+              <WhiteBalanceList data={accounts} onPress={handleOnPressAccount} />
+            </View>
+          )}
+        </ScrollBackground>
+      </View>
+    </ErrorBoundary>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+  },
   cardScroller: {
     flex: 1,
     position: 'relative',
     top: 110,
+    width: Dimensions.get('window').width,
   },
   decoration: {
     position: 'absolute',

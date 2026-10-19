@@ -24,6 +24,7 @@ export class AccountApi implements IAccountRepository {
       `${this.connection.baseUrl}/app/account`,
       this.connection.options(IHttpVerb.GET),
     );
+    console.log('>>>>>>>>>>>>> getAccounts');
     await this.connection.handleError(response);
     return response.json();
   }

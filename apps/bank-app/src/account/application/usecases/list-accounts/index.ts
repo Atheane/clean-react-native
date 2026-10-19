@@ -28,7 +28,7 @@ export function* listAccountsGenerator(httpConnection: HttpConnection): Generato
       const api = AccountApi.getInstance(httpConnection);
 
       const accounts: IAccount[] = yield call([api, api.getAccounts]);
-
+      console.log('>>>>>>>>>>>>> listAccountsGenerator');
       yield put(accountsListed(accounts));
       yield call(navigate, { route: IHomeStackPages.MENU });
     }
