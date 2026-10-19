@@ -60,6 +60,7 @@ import Shield from './shield.svg';
 import Delete from './delete.svg';
 import Right from './right.svg';
 import Gasoline from './gasoline.svg';
+import Profile from './profile.svg';
 
 export {
   Love,
@@ -122,4 +123,5 @@ export {
   Delete,
   Right,
   Gasoline,
+  Profile,
 };

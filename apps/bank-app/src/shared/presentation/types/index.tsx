@@ -1,24 +1,31 @@
-import { NavigatorScreenParams } from '@react-navigation/native';
+import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type HeaderTitleAlign = 'center' | 'left' | undefined;
 
-export type RootStackParamList = {
-  MenuHome: NavigatorScreenParams<RootTabParamList> | undefined;
-  MenuTransfer: NavigatorScreenParams<RootTabParamList> | undefined;
-  MenuCarbon: NavigatorScreenParams<RootTabParamList> | undefined;
-  MenuProfile: NavigatorScreenParams<RootTabParamList> | undefined;
+export type IRootStackParamList = {
+  MenuHome: NavigatorScreenParams<IRootTabParamList> | undefined;
+  MenuTransfer: NavigatorScreenParams<IRootTabParamList> | undefined;
+  MenuCarbon: NavigatorScreenParams<IRootTabParamList> | undefined;
+  MenuProfile: NavigatorScreenParams<IRootTabParamList> | undefined;
   Modal: undefined;
   NotFound: undefined;
 };
 
-export type RootTabParamList = {
+export type IRootTabScreenProps<Screen extends keyof IRootTabParamList> = CompositeScreenProps<
+  BottomTabScreenProps<IRootTabParamList, Screen>,
+  NativeStackScreenProps<IRootStackParamList>
+>;
+
+export type IRootTabParamList = {
   MenuHome: undefined;
   MenuTransfer: undefined;
   MenuCarbon: undefined;
   MenuProfile: undefined;
 };
 
-export type AuthStackParamList = {
+export type IAuthStackParamList = {
   Login: undefined;
   ResetPassword: undefined;
   SignupEmail: undefined;
@@ -33,6 +40,40 @@ export type AuthStackParamList = {
   Cgu: undefined;
   CguKycProvider: undefined;
   ModalError: undefined;
+};
+
+export type IHomeStackParamList = {
+  MenuHome: undefined;
+  Home: undefined;
+  Help: undefined;
+  Account: undefined;
+  RestoFlash: undefined;
+  Weflo: undefined;
+  AccountStatements: undefined;
+  AccountStatementsCurrentMonth: undefined;
+  AccountStatementsLastThreeMonths: undefined;
+  AccountStatementsAll: undefined;
+  ExportPdfIban: undefined;
+};
+
+export type ITransferStackParamList = {
+  MenuTransfer: undefined;
+  Transfer: undefined;
+};
+
+export type ICarbonStackParamList = {
+  MenuCarbon: undefined;
+  Carbon: undefined;
+  House: undefined;
+  Transport: undefined;
+  Food: undefined;
+  Fly: undefined;
+  WarningFood: undefined;
+};
+
+export type IProfileStackParamList = {
+  MenuProfile: undefined;
+  Profile: undefined;
 };
 
 export enum ISharedStackPages {
@@ -58,7 +99,37 @@ export enum IAuthStackPages {
 }
 
 export enum IHomeStackPages {
+  MENU = 'MenuHome',
   HOME = 'Home',
+  HELP = 'Help',
+  ACCOUNT = 'Account',
+  RESTO_FLASH = 'RestoFlash',
+  WEFLO = 'Weflo',
+  ACCOUNT_STATEMENTS = 'AccountStatements',
+  ACCOUNT_STATEMENTS_CURRENT_MONTH = 'AccountStatementsCurrentMonth',
+  ACCOUNT_STATEMENTS_LAST_THREE_MONTHS = 'AccountStatementsLastThreeMonths',
+  ACCOUNT_STATEMENTS_ALL = 'AccountStatementsAll',
+  EXPORT_PDF_IBAN = 'ExportPdfIban',
+}
+
+export enum ITransferStackPages {
+  MENU = 'MenuTransfer',
+  TRANSFER = 'Transfer',
+}
+
+export enum ICarbonStackPages {
+  MENU = 'MenuCarbon',
+  CARBON = 'Carbon',
+  HOUSE = 'House',
+  TRANSPORT = 'Transport',
+  FOOD = 'Food',
+  FLY = 'Fly',
+  WARNING_FOOD = 'WarningFood',
+}
+
+export enum IProfileStackPage {
+  MENU = 'MenuProfile',
+  PROFILE = 'Profile',
 }
 
 export type IAuthStackProps = {
@@ -79,7 +150,37 @@ export type IAuthStackProps = {
 };
 
 export type IHomeStackProps = {
+  [IHomeStackPages.MENU]: object;
   [IHomeStackPages.HOME]: object;
+  [IHomeStackPages.HELP]: object;
+  [IHomeStackPages.ACCOUNT]: object;
+  [IHomeStackPages.ACCOUNT_STATEMENTS]: object;
+  [IHomeStackPages.ACCOUNT_STATEMENTS_CURRENT_MONTH]: object;
+  [IHomeStackPages.ACCOUNT_STATEMENTS_LAST_THREE_MONTHS]: object;
+  [IHomeStackPages.ACCOUNT_STATEMENTS_ALL]: object;
+  [IHomeStackPages.EXPORT_PDF_IBAN]: object;
+  [IHomeStackPages.RESTO_FLASH]: object;
+  [IHomeStackPages.WEFLO]: object;
+};
+
+export type ITransferStackProps = {
+  [ITransferStackPages.MENU]: object;
+  [ITransferStackPages.TRANSFER]: object;
+};
+
+export type ICarbonStackProps = {
+  [ICarbonStackPages.MENU]: object;
+  [ICarbonStackPages.CARBON]: object;
+  [ICarbonStackPages.HOUSE]: object;
+  [ICarbonStackPages.TRANSPORT]: object;
+  [ICarbonStackPages.FOOD]: object;
+  [ICarbonStackPages.FLY]: object;
+  [ICarbonStackPages.WARNING_FOOD]: object;
+};
+
+export type IProfileStackProps = {
+  [IProfileStackPage.MENU]: object;
+  [IProfileStackPage.PROFILE]: object;
 };
 
 export type IRoutes =
@@ -97,24 +198,24 @@ export type IRoutes =
   | IAuthStackPages.CGU
   | IAuthStackPages.CGU_KYC_PROVIDER
   | IAuthStackPages.MODAL_ERROR
-  | IHomeStackPages.HOME;
-// | HOME_STACK_PAGES.MENU
-// | HOME_STACK_PAGES.HELP
-// | HOME_STACK_PAGES.ACCOUNT
-// | HOME_STACK_PAGES.RESTO_FLASH
-// | HOME_STACK_PAGES.WEFLO
-// | HOME_STACK_PAGES.ACCOUNT_STATEMENTS
-// | HOME_STACK_PAGES.ACCOUNT_STATEMENTS_CURRENT_MONTH
-// | HOME_STACK_PAGES.ACCOUNT_STATEMENTS_LAST_THREE_MONTHS
-// | HOME_STACK_PAGES.ACCOUNT_STATEMENTS_ALL
-// | HOME_STACK_PAGES.EXPORT_PDF_IBAN
-// | TRANSFER_STACK_PAGES.MENU
-// | TRANSFER_STACK_PAGES.TRANSFER
-// | CARBON_STACK_PAGES.MENU
-// | CARBON_STACK_PAGES.CARBON
-// | CARBON_STACK_PAGES.HOUSE
-// | CARBON_STACK_PAGES.TRANSPORT
-// | CARBON_STACK_PAGES.FOOD
-// | CARBON_STACK_PAGES.FLY
-// | CARBON_STACK_PAGES.WARNING_FOOD
-// | PROFILE_STACK_PAGES.PROFILE;
+  | IHomeStackPages.HOME
+  | IHomeStackPages.MENU
+  | IHomeStackPages.HELP
+  | IHomeStackPages.ACCOUNT
+  | IHomeStackPages.RESTO_FLASH
+  | IHomeStackPages.WEFLO
+  | IHomeStackPages.ACCOUNT_STATEMENTS
+  | IHomeStackPages.ACCOUNT_STATEMENTS_CURRENT_MONTH
+  | IHomeStackPages.ACCOUNT_STATEMENTS_LAST_THREE_MONTHS
+  | IHomeStackPages.ACCOUNT_STATEMENTS_ALL
+  | IHomeStackPages.EXPORT_PDF_IBAN
+  | ITransferStackPages.MENU
+  | ITransferStackPages.TRANSFER
+  | ICarbonStackPages.MENU
+  | ICarbonStackPages.CARBON
+  | ICarbonStackPages.HOUSE
+  | ICarbonStackPages.TRANSPORT
+  | ICarbonStackPages.FOOD
+  | ICarbonStackPages.FLY
+  | ICarbonStackPages.WARNING_FOOD
+  | IProfileStackPage.PROFILE;

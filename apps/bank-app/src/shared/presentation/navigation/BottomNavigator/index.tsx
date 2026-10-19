@@ -3,58 +3,67 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 
-import { Colors, FontNames } from '@shared/presentation/constants';
-import { useColorScheme } from '@shared/presentation/hooks';
-import { RootTabParamList, RootTabScreenProps } from '@shared/presentation/types';
+import {
+  Colors,
+  FontNames,
+  Home as HomeIcon,
+  Transfer as TransferIcon,
+  Carbon as CarbontIcon,
+  Profile as ProfileIcon,
+} from '@clean-rn/ui-mobile';
+import {
+  IRootTabParamList,
+  IRootTabScreenProps,
+  IHomeStackPages,
+  ITransferStackPages,
+  ICarbonStackPages,
+  IProfileStackPage,
+} from '../../types';
 
-import { Home as HomeIcon, Transfer as TransferIcon } from '@account/presentation/assets';
-import { HomeStack } from '@account/presentation/navigation';
-import { Transfer } from '@account/presentation/screens';
+import { HomeStack } from '../../../../account/presentation/navigation';
+// import { CarbonStack } from '../../../../carbon/presentation/navigation';
 
-import { Carbon as CarbontIcon } from '@carbon/presentation/assets';
-import { CarbonStack } from '@carbon/presentation/navigation';
+// import { Transfer } from '../../../../transfer/presentation/screens';
+// import { Profile } from '../../../../profile/presentation/screens';
 
-import { Profile as ProfileIcon } from '@profile/presentation/assets';
-import { Profile } from '@profile/presentation/screens';
-import { HOME_STACK_PAGES, TRANSFER_STACK_PAGES } from '@account/presentation/types';
-import { CARBON_STACK_PAGES } from '@carbon/presentation/types';
-import { PROFILE_STACK_PAGES } from '@profile/presentation/types';
-
-const Tab = createBottomTabNavigator<RootTabParamList>();
+const Tab = createBottomTabNavigator<IRootTabParamList>();
 
 export const BottomTabNavigator = () => {
-  const colorScheme = useColorScheme();
   const { t } = useTranslation();
 
   return (
     <Tab.Navigator
-      initialRouteName={HOME_STACK_PAGES.MENU}
+      initialRouteName={IHomeStackPages.MENU}
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: Colors.bank.primary.white,
         headerShown: false,
       }}
     >
       <Tab.Screen
-        name={HOME_STACK_PAGES.MENU}
+        name={IHomeStackPages.MENU}
         component={HomeStack}
         options={() => ({
           title: t('screens.home.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
-            focused ? <HomeIcon fill={Colors.icon.lightGreen} /> : <HomeIcon fill={Colors.icon.grey} />,
+            focused ? (
+              <HomeIcon fill={Colors.bank.primary.lightGreen} />
+            ) : (
+              <HomeIcon fill={Colors.bank.primary.grey} />
+            ),
           tabBarLabel: ({ focused }: { focused: boolean }) =>
             focused ? <Text style={styles.tab}> {t('screens.home.tab')}</Text> : '',
         })}
       />
-      <Tab.Screen
-        name={TRANSFER_STACK_PAGES.MENU}
+      {/* <Tab.Screen
+        name={ITransferStackPages.MENU}
         component={Transfer}
-        options={({ navigation }: RootTabScreenProps<TRANSFER_STACK_PAGES.MENU>) => ({
+        options={({ navigation }: IRootTabScreenProps<ITransferStackPages.MENU>) => ({
           title: t('screens.transfer.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             focused ? (
-              <TransferIcon fill={Colors.icon.lightGreen} />
+              <TransferIcon fill={Colors.bank.primary.lightGreen} />
             ) : (
-              <TransferIcon fill={Colors.icon.grey} />
+              <TransferIcon fill={Colors.bank.primary.grey} />
             ),
 
           tabBarLabel: ({ focused }: { focused: boolean }) =>
@@ -66,23 +75,22 @@ export const BottomTabNavigator = () => {
                 opacity: pressed ? 0.5 : 1,
               })}
             >
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].tab}
-                style={{ marginRight: 15 }}
-              />
+              <FontAwesome name="info-circle" size={25} color={Colors.bank.tab} style={{ marginRight: 15 }} />
             </Pressable>
           ),
         })}
       />
       <Tab.Screen
-        name={CARBON_STACK_PAGES.MENU}
+        name={ICarbonStackPages.MENU}
         component={CarbonStack}
-        options={({ navigation }: RootTabScreenProps<CARBON_STACK_PAGES.MENU>) => ({
+        options={({ navigation }: IRootTabScreenProps<ICarbonStackPages.MENU>) => ({
           title: t('screens.carbon.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
-            focused ? <CarbontIcon fill={Colors.icon.lightGreen} /> : <CarbontIcon fill={Colors.icon.grey} />,
+            focused ? (
+              <CarbontIcon fill={Colors.bank.primary.lightGreen} />
+            ) : (
+              <CarbontIcon fill={Colors.bank.primary.grey} />
+            ),
           tabBarLabel: ({ focused }: { focused: boolean }) =>
             focused ? <Text style={styles.tab}> {t('screens.carbon.tab')}</Text> : '',
           headerRight: () => (
@@ -92,23 +100,22 @@ export const BottomTabNavigator = () => {
                 opacity: pressed ? 0.5 : 1,
               })}
             >
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].tab}
-                style={{ marginRight: 15 }}
-              />
+              <FontAwesome name="info-circle" size={25} color={Colors.bank.tab} style={{ marginRight: 15 }} />
             </Pressable>
           ),
         })}
       />
       <Tab.Screen
-        name={PROFILE_STACK_PAGES.MENU}
+        name={IProfileStackPage.MENU}
         component={Profile}
-        options={({ navigation }: RootTabScreenProps<PROFILE_STACK_PAGES.MENU>) => ({
+        options={({ navigation }: IRootTabScreenProps<IProfileStackPage.MENU>) => ({
           title: t('screens.profile.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
-            focused ? <ProfileIcon fill={Colors.icon.lightGreen} /> : <ProfileIcon fill={Colors.icon.grey} />,
+            focused ? (
+              <ProfileIcon fill={Colors.bank.primary.lightGreen} />
+            ) : (
+              <ProfileIcon fill={Colors.bank.primary.grey} />
+            ),
 
           tabBarLabel: ({ focused }: { focused: boolean }) =>
             focused ? <Text style={styles.tab}> {t('screens.profile.tab')}</Text> : '',
@@ -119,16 +126,11 @@ export const BottomTabNavigator = () => {
                 opacity: pressed ? 0.5 : 1,
               })}
             >
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].tab}
-                style={{ marginRight: 15 }}
-              />
+              <FontAwesome name="info-circle" size={25} color={Colors.bank.tab} style={{ marginRight: 15 }} />
             </Pressable>
           ),
         })}
-      />
+      /> */}
     </Tab.Navigator>
   );
 };
@@ -137,6 +139,6 @@ const styles = StyleSheet.create({
   tab: {
     fontSize: 9,
     fontName: FontNames.MartelSans_600SemiBold,
-    color: Colors.text.lightGreen,
+    color: Colors.bank.primary.lightGreen,
   },
 });

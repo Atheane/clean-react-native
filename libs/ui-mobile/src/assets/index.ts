@@ -61,6 +61,7 @@ import {
   Delete,
   Right,
   Gasoline,
+  Profile,
 } from './svg';
 export {
   Love,
@@ -123,4 +124,5 @@ export {
   Delete,
   Right,
   Gasoline,
+  Profile,
 };

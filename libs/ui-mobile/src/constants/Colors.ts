@@ -34,5 +34,6 @@ export const Colors = {
     shadow: '#707070',
     transparent: 'transparent',
     pinkTransparent: 'rgba(203, 40, 125, 0.6)',
+    tab: '#eee',
   },
 };
