@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 30,
     marginVertical: 40,
-    height: Dimensions.get('window').height,
     alignItems: 'center',
   },
   buttonContainer: {

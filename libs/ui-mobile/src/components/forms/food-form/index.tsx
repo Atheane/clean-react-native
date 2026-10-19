@@ -74,10 +74,13 @@ export const FoodForm = (props: IProps) => {
     });
   };
 
-  return <View>{SliderList()}</View>;
+  return <View style={styles.container}>{SliderList()}</View>;
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   sliderContainer: {
     width: Dimensions.get('window').width * 0.95,
     marginVertical: 8,

@@ -9,6 +9,8 @@ import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/h
 
 import { WarningFoodCO2 } from '../assets/images';
 
+const HEIGHT = Dimensions.get('window').height;
+
 export const WarningFood = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
@@ -20,20 +22,22 @@ export const WarningFood = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={styles.container}>
+        <View style={[styles.container, { height: HEIGHT }]}>
           <Image source={WarningFoodCO2} style={{ width: 200, height: 200 }} />
           <Text style={styles.title}>{t('screens.warning-food.title')}</Text>
           <Text style={styles.text}>{t('screens.warning-food.text')}</Text>
-          <PrimaryButton
-            long
-            title={t('screens.warning-food.next')}
-            iconTwo={() => (
-              <View style={styles.iconContainer}>
-                <RightChevron style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
-              </View>
-            )}
-            onPress={handleOnPress}
-          />
+          <View style={styles.buttonContainer}>
+            <PrimaryButton
+              long
+              title={t('screens.warning-food.next')}
+              iconTwo={() => (
+                <View style={styles.iconContainer}>
+                  <RightChevron style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+                </View>
+              )}
+              onPress={handleOnPress}
+            />
+          </View>
         </View>
       </SafeScrollingView>
     </ErrorBoundary>
@@ -43,9 +47,8 @@ export const WarningFood = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: Dimensions.get('window').height,
     alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 24,
   },
   iconContainer: { position: 'relative', left: 90, top: 2 },
   title: {
@@ -62,5 +65,8 @@ const styles = StyleSheet.create({
     width: '80%',
     paddingTop: 20,
     paddingBottom: 30,
+  },
+  buttonContainer: {
+    marginTop: 36,
   },
 });

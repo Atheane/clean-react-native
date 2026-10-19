@@ -10,6 +10,8 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 
 import { computeTransportEmissions } from '../../application/commands';
 
+const HEIGHT = Dimensions.get('window').height;
+
 export const Transport = () => {
   const { t } = useTranslation();
 
@@ -26,8 +28,8 @@ export const Transport = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView fixedHeight>
-        <View style={styles.container}>
+      <SafeScrollingView>
+        <View style={[styles.container, { height: HEIGHT }]}>
           <TransportForm initialValues={data} onChangeForm={resetFormData} onChangeField={handleFormData} />
 
           <View style={styles.buttonContainer}>
@@ -52,13 +54,11 @@ export const Transport = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: Dimensions.get('window').height,
     alignItems: 'center',
-    marginBottom: 60,
     marginTop: 50,
   },
   buttonContainer: {
     position: 'relative',
-    top: -180,
+    bottom: '25%',
   },
 });

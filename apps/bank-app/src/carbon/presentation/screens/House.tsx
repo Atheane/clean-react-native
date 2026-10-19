@@ -11,6 +11,8 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 
 import { computeHouseEmissions } from '../../application/commands';
 
+const HEIGHT = Dimensions.get('window').height;
+
 export const House = () => {
   const { t } = useTranslation();
 
@@ -28,7 +30,7 @@ export const House = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={styles.container}>
+        <View style={[styles.container, { height: HEIGHT }]}>
           <HouseForm initialValues={data} onChangeForm={resetFormData} onChangeField={handleFormData} />
 
           <View style={styles.buttonContainer}>
@@ -53,13 +55,11 @@ export const House = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: Dimensions.get('window').height,
     alignItems: 'center',
-    marginBottom: 60,
     marginTop: 50,
   },
   buttonContainer: {
     position: 'relative',
-    top: -180,
+    bottom: '25%',
   },
 });

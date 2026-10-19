@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { StyleSheet, View, Text, ImageSourcePropType } from 'react-native';
+import { StyleSheet, View, Text, ImageSourcePropType, Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
@@ -44,6 +44,8 @@ import {
 import { URL_CO2_COMPUTATION_FR, URL_CO2_COMPUTATION_EN, URL_CO2_REWARD } from '../constants';
 
 const locales = getLocales();
+
+const HEIGHT = Dimensions.get('window').height;
 
 export const Carbon = () => {
   const { t } = useTranslation();
@@ -246,8 +248,8 @@ export const Carbon = () => {
   if (totalEmissions === undefined) {
     return (
       <ErrorBoundary t={t}>
-        <SafeScrollingView fixedHeight>
-          <View>
+        <SafeScrollingView>
+          <View style={[styles.container, { height: HEIGHT }]}>
             <View style={styles.textContainer}>
               <Text style={styles.instructionText}>{t('screens.carbon.instruction')}</Text>
               <View style={styles.kpiContainer}>
@@ -264,7 +266,7 @@ export const Carbon = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <>
+        <View style={styles.container}>
           <ShareScreen handleError={handleErrorShare}>
             <View>
               <View style={styles.graphContainer}>
@@ -308,13 +310,16 @@ export const Carbon = () => {
             <TouchCardText text={t('screens.carbon.reward')} onPress={handleOnPressPremium} />
             <TouchCardText text={t('screens.carbon.method')} onPress={handleOnPressLearnMore} />
           </View>
-        </>
+        </View>
       </SafeScrollingView>
     </ErrorBoundary>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   instructionText: {
     fontFamily: FontNames.MartelSans_400Regular,
     color: Colors.bank.primary.darkBlue,

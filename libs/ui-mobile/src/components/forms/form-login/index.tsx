@@ -147,6 +147,6 @@ const styles = StyleSheet.create({
   },
   submitButtonContainer: {
     position: 'absolute',
-    bottom: 120,
+    bottom: 160,
   },
 });
