@@ -17,7 +17,7 @@ exports[`PrimaryButton -  disabled -  true - renders as before 1`] = `
           "width": 0,
         },
         "shadowOpacity": 0.6,
-        "shadowRadius": 20,
+        "shadowRadius": 28,
       },
     ]
   }
@@ -35,6 +35,17 @@ exports[`PrimaryButton -  disabled -  true - renders as before 1`] = `
           {
             "borderRadius": 28,
             "flexDirection": "row",
+          },
+          {
+            "borderRadius": 28,
+            "elevation": 50,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 28,
           },
         ],
         false,
@@ -118,7 +129,7 @@ exports[`PrimaryButton -  disabled -  true - renders as before 1`] = `
               "width": 0,
             },
             "shadowOpacity": 0.6,
-            "shadowRadius": 20,
+            "shadowRadius": 28,
           }
         }
       >
@@ -173,7 +184,7 @@ exports[`PrimaryButton -  iconOne -  true - renders as before 1`] = `
           "width": 0,
         },
         "shadowOpacity": 0.6,
-        "shadowRadius": 20,
+        "shadowRadius": 28,
       },
     ]
   }
@@ -191,6 +202,17 @@ exports[`PrimaryButton -  iconOne -  true - renders as before 1`] = `
           {
             "borderRadius": 28,
             "flexDirection": "row",
+          },
+          {
+            "borderRadius": 28,
+            "elevation": 50,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 28,
           },
         ],
         {
@@ -284,7 +306,7 @@ exports[`PrimaryButton -  iconOne -  true - renders as before 1`] = `
               "width": 0,
             },
             "shadowOpacity": 0.6,
-            "shadowRadius": 20,
+            "shadowRadius": 28,
           }
         }
       >
@@ -348,7 +370,7 @@ exports[`PrimaryButton -  iconTwo -  true - renders as before 1`] = `
           "width": 0,
         },
         "shadowOpacity": 0.6,
-        "shadowRadius": 20,
+        "shadowRadius": 28,
       },
     ]
   }
@@ -366,6 +388,17 @@ exports[`PrimaryButton -  iconTwo -  true - renders as before 1`] = `
           {
             "borderRadius": 28,
             "flexDirection": "row",
+          },
+          {
+            "borderRadius": 28,
+            "elevation": 50,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 28,
           },
         ],
         {
@@ -459,7 +492,7 @@ exports[`PrimaryButton -  iconTwo -  true - renders as before 1`] = `
               "width": 0,
             },
             "shadowOpacity": 0.6,
-            "shadowRadius": 20,
+            "shadowRadius": 28,
           }
         }
       >
@@ -511,8 +544,8 @@ exports[`PrimaryButton -  large -  true - renders as before 1`] = `
   style={
     [
       {
-        "borderRadius": 28,
-        "height": 107.49185667752442,
+        "backgroundColor": "#BFD23A",
+        "borderRadius": 32,
         "width": 600,
       },
       {
@@ -524,7 +557,7 @@ exports[`PrimaryButton -  large -  true - renders as before 1`] = `
           "width": 0,
         },
         "shadowOpacity": 0.6,
-        "shadowRadius": 20,
+        "shadowRadius": 28,
       },
     ]
   }
@@ -540,9 +573,20 @@ exports[`PrimaryButton -  large -  true - renders as before 1`] = `
         },
         [
           {
-            "borderRadius": 28,
-            "height": 107.49185667752442,
+            "backgroundColor": "#BFD23A",
+            "borderRadius": 32,
             "width": 600,
+          },
+          {
+            "borderRadius": 28,
+            "elevation": 50,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 28,
           },
         ],
         {
@@ -636,7 +680,7 @@ exports[`PrimaryButton -  large -  true - renders as before 1`] = `
               "width": 0,
             },
             "shadowOpacity": 0.6,
-            "shadowRadius": 20,
+            "shadowRadius": 28,
           }
         }
       >
@@ -691,7 +735,7 @@ exports[`PrimaryButton -  loading -  true - renders as before 1`] = `
           "width": 0,
         },
         "shadowOpacity": 0.6,
-        "shadowRadius": 20,
+        "shadowRadius": 28,
       },
     ]
   }
@@ -709,6 +753,17 @@ exports[`PrimaryButton -  loading -  true - renders as before 1`] = `
           {
             "borderRadius": 28,
             "flexDirection": "row",
+          },
+          {
+            "borderRadius": 28,
+            "elevation": 50,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 28,
           },
         ],
         {
@@ -802,7 +857,7 @@ exports[`PrimaryButton -  loading -  true - renders as before 1`] = `
               "width": 0,
             },
             "shadowOpacity": 0.6,
-            "shadowRadius": 20,
+            "shadowRadius": 28,
           }
         }
       >
@@ -838,7 +893,7 @@ exports[`PrimaryButton -  minimal props -  renders as before 1`] = `
           "width": 0,
         },
         "shadowOpacity": 0.6,
-        "shadowRadius": 20,
+        "shadowRadius": 28,
       },
     ]
   }
@@ -856,6 +911,17 @@ exports[`PrimaryButton -  minimal props -  renders as before 1`] = `
           {
             "borderRadius": 28,
             "flexDirection": "row",
+          },
+          {
+            "borderRadius": 28,
+            "elevation": 50,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 28,
           },
         ],
         {
@@ -949,7 +1015,7 @@ exports[`PrimaryButton -  minimal props -  renders as before 1`] = `
               "width": 0,
             },
             "shadowOpacity": 0.6,
-            "shadowRadius": 20,
+            "shadowRadius": 28,
           }
         }
       >
@@ -1004,7 +1070,7 @@ exports[`PrimaryButton -  uppercase -  true - renders as before 1`] = `
           "width": 0,
         },
         "shadowOpacity": 0.6,
-        "shadowRadius": 20,
+        "shadowRadius": 28,
       },
     ]
   }
@@ -1022,6 +1088,17 @@ exports[`PrimaryButton -  uppercase -  true - renders as before 1`] = `
           {
             "borderRadius": 28,
             "flexDirection": "row",
+          },
+          {
+            "borderRadius": 28,
+            "elevation": 50,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 28,
           },
         ],
         {
@@ -1115,7 +1192,7 @@ exports[`PrimaryButton -  uppercase -  true - renders as before 1`] = `
               "width": 0,
             },
             "shadowOpacity": 0.6,
-            "shadowRadius": 20,
+            "shadowRadius": 28,
           }
         }
       >
