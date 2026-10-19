@@ -54,7 +54,9 @@
     "react-native-screens": "*",
     "redux-saga": "*",
     "react-native-view-shot": "*",
-    "react-native-share": "*"
+    "react-native-share": "*",
+    "react-native-blob-util": "*",
+    "react-native-pdf": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/storybook && cp package-lock.json apps/storybook",

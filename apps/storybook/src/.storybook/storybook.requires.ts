@@ -99,6 +99,7 @@ const getStories = () => {
     './stories/lists/WhiteBalanceList.stories.tsx': require('../stories/lists/WhiteBalanceList.stories'),
     // Others
     './stories/others/WebViewer.stories.tsx': require('../stories/others/WebViewer.stories'),
+    './stories/others/PdfViewer.stories.tsx': require('../stories/others/PdfViewer.stories'),
     './stories/others/ShareScreen.stories.tsx': require('../stories/others/ShareScreen.stories'),
     './stories/others/CopyValueClipboard.stories.tsx': require('../stories/others/CopyValueClipboard.stories'),
     './stories/others/TransactionItem.stories.tsx': require('../stories/others/TransactionItem.stories'),
