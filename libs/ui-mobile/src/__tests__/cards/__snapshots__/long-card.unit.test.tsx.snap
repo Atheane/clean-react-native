@@ -39,7 +39,7 @@ exports[`LongCard -  minimal props -  renders as before 1`] = `
     <Text
       style={
         {
-          "color": "#71C9F6",
+          "color": "#0A7DC0",
           "fontFamily": "Roboto_400Regular",
           "fontSize": 16,
           "lineHeight": 21,
