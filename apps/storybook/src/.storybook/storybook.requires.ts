@@ -77,6 +77,7 @@ const getStories = () => {
     './stories/forms/FormResetPassword.stories.tsx': require('../stories/forms/FormResetPassword.stories'),
     './stories/forms/FormSignupEmail.stories.tsx': require('../stories/forms/FormSignupEmail.stories'),
     './stories/forms/FormSignupIdentityPasswordPhone.stories.tsx': require('../stories/forms/FormSignupIdentityPasswordPhone.stories'),
+    './stories/forms/FormSignupPhone.stories.tsx': require('../stories/forms/FormSignupPhone.stories'),
     './stories/forms/FormSignupValidatePhone.stories.tsx': require('../stories/forms/FormSignupValidatePhone.stories'),
     './stories/forms/FormSignupBirth.stories.tsx': require('../stories/forms/FormSignupBirth.stories'),
     './stories/forms/FormSignupAddress.stories.tsx': require('../stories/forms/FormSignupAddress.stories'),

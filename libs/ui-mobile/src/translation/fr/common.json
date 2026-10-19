@@ -196,6 +196,10 @@
       "congrats": "Félicitations ! Vous pouvez maintenant accéder à votre application Bank App.",
       "button": "C'est parti !"
     },
+    "signup-phone": {
+      "title": "Validation du mobile",
+      "text": "Valider votre numéro de téléphone mobile",
+    },
     "home": {
       "title": "Accueil",
       "tab": "Accueil",

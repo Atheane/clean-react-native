@@ -6,9 +6,10 @@ import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/h
 import { IconMailCode } from '../assets/images';
 
 export const EmailSent = () => {
-  /// translations
+  // translations
   const { t } = useTranslation();
 
+  // css theme
   const { theme } = useTheme();
   return (
     <ErrorBoundary t={t}>

@@ -17,6 +17,7 @@ export const SignupCongrats = () => {
   const { t } = useTranslation();
 
   const { user } = useSelector((state: IRootState) => state.auth.signup);
+  const { email, password } = useSelector((state: IRootState) => state.auth.login);
 
   // api call
   const { pending, error } = useSelector((state: IRootState) => state.auth.login);
@@ -26,15 +27,15 @@ export const SignupCongrats = () => {
   const onPress = useCallback(() => {
     try {
       const payload = {
-        email: user?.properties.email,
-        password: user?.properties.password,
+        email: user ? user.properties.email : email,
+        password: user ? user.properties.password : password,
       };
 
       dispatch(fetchLogin(payload as ILoginCommand));
     } catch (e: unknown) {
       dispatch(showUnknownError(e as Error));
     }
-  }, [dispatch, user]);
+  }, [dispatch, user, email, password]);
 
   return (
     <ErrorBoundary t={t}>

@@ -1,9 +1,11 @@
 import { IDomainError } from '@clean-rn/ddd';
 
-import { IAuth, IAuthErrorMessage, IAuthErrorCodes } from '@clean-rn/auth/domain';
+import { IAuth, IAuthErrorMessage, IAuthErrorCodes, Email, Password } from '@clean-rn/auth/domain';
 
 export interface ILoginState {
   pending: boolean;
+  email: Email | null;
+  password: Password | null;
   auth:
     | IAuth
     | {

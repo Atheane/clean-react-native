@@ -2,14 +2,14 @@
 import { call, put, StrictEffect, select, takeEvery, cancel } from 'redux-saga/effects';
 
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
-import { ISuccess, AuthError, IValidatePhoneQuery, User } from '@clean-rn/auth/domain';
+import { ISuccess, AuthError, IValidatePhoneQuery } from '@clean-rn/auth/domain';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { navigate } from '../../../../../shared/presentation/navigation/navigationRef';
 import { IAuthStackPages } from '../../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../../shared/application/commands/manage-global-errors';
 
-import { selectUser, selectEmail } from '../../../state-management/selectors';
+import { selectUserFromSignup } from '../../../state-management/selectors';
 import { ISignupTypes, signupFailed, phoneValidated, initializeSignupStep } from '../../../commands/signup';
 
 export function* validatePhoneSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
@@ -34,14 +34,15 @@ export function* validatePhoneGenerator(
       yield cancel();
     }
 
-    let user = yield select(selectUser);
+    const user = yield select(selectUserFromSignup);
     if (!user) {
-      const email = yield select(selectEmail);
-      user = User.Create(email);
+      // user comes from login -> check phone flow (ex: already signup, and uses a new phone, or migration flow)
+      yield put(phoneValidated(user));
+      yield call(navigate, { route: IAuthStackPages.SIGNUP_CONGRATS });
+      yield cancel();
     }
-    // add password property to prospect instance
+    // add phone to user property
     user.validatePhone(payload);
-
     // domain event
     yield put(phoneValidated(user));
     yield call(navigate, { route: IAuthStackPages.SIGNUP_BIRTH });

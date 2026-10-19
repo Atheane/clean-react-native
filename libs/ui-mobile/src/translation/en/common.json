@@ -207,6 +207,10 @@
       "title": "Email sent",
       "text": "We have sent you a confirmation email to the address provided.\n\nPlease click on the link to log in."
     },
+    "signup-phone": {
+      "title": "Phone number validation",
+      "text": "Validate your mobile phone number",
+    },
     "home": {
       "title": "Home",
       "tab": "Home",

@@ -5,6 +5,8 @@ import { ILoginState } from '../state';
 
 const initialState: ILoginState = {
   pending: false,
+  email: null,
+  password: null,
   auth: {
     accessToken: null,
     refreshToken: null,
@@ -21,6 +23,8 @@ export const loginReducer = (state = initialState, action: ILoginActions) => {
       newState = {
         ...state,
         pending: true,
+        email: action.payload.email,
+        password: action.payload.password,
       };
       return newState;
     case ILoginTypes.LOGIN_SUCCEDED:

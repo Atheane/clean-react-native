@@ -28,7 +28,7 @@ export type AuthStackParamList = {
   SignupAddress: undefined;
   SignupCongrats: undefined;
   EmailSent: undefined;
-  ValidatePhone: undefined;
+  SignupPhone: undefined;
   Legal: undefined;
   Cgu: undefined;
   CguKycProvider: undefined;
@@ -50,7 +50,7 @@ export enum IAuthStackPages {
   SIGNUP_ADDRESS = 'SignupAddress',
   SIGNUP_CONGRATS = 'SignupCongrats',
   EMAIL_SENT = 'EmailSent',
-  VALIDATE_PHONE = 'ValidatePhone',
+  SIGNUP_PHONE = 'SignupPhone',
   LEGAL = 'Legal',
   CGU = 'Cgu',
   CGU_KYC_PROVIDER = 'CguKycProvider',
@@ -71,7 +71,7 @@ export type IAuthStackProps = {
   [IAuthStackPages.SIGNUP_ADDRESS]: object;
   [IAuthStackPages.SIGNUP_CONGRATS]: object;
   [IAuthStackPages.EMAIL_SENT]: object;
-  [IAuthStackPages.VALIDATE_PHONE]: object;
+  [IAuthStackPages.SIGNUP_PHONE]: object;
   [IAuthStackPages.LEGAL]: object;
   [IAuthStackPages.CGU]: object;
   [IAuthStackPages.CGU_KYC_PROVIDER]: object;
@@ -92,7 +92,7 @@ export type IRoutes =
   | IAuthStackPages.SIGNUP_ADDRESS
   | IAuthStackPages.SIGNUP_CONGRATS
   | IAuthStackPages.EMAIL_SENT
-  | IAuthStackPages.VALIDATE_PHONE
+  | IAuthStackPages.SIGNUP_PHONE
   | IAuthStackPages.LEGAL
   | IAuthStackPages.CGU
   | IAuthStackPages.CGU_KYC_PROVIDER

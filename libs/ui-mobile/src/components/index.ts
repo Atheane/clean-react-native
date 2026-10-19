@@ -34,6 +34,7 @@ import {
   ISignupIdentityPasswordPhoneFormData,
   FormSignupIdentityPasswordPhone,
 } from './forms/form-signup-identity-password-phone';
+import { ISignupPhoneFormData, FormSignupPhone } from './forms/form-signup-phone';
 import { ISignupValidatePhoneFormData, FormSignupValidatePhone } from './forms/form-signup-validate-phone';
 import { ISignupBirthFormData, FormSignupBirth } from './forms/form-signup-birth';
 import { ISignupAddressFormData, FormSignupAddress } from './forms/form-signup-address';
@@ -102,6 +103,7 @@ export {
   ISignupValidatePhoneFormData,
   ISignupBirthFormData,
   ISignupAddressFormData,
+  ISignupPhoneFormData,
   FormLogin,
   FormResetPassword,
   FormSignupEmail,
@@ -109,6 +111,7 @@ export {
   FormSignupValidatePhone,
   FormSignupBirth,
   FormSignupAddress,
+  FormSignupPhone,
   FlyForm,
   FoodForm,
   HouseForm,

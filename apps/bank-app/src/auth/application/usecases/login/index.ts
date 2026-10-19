@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
+import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { AuthError, ILoginCommand } from '@clean-rn/auth/domain';
@@ -39,21 +39,17 @@ export function* loginApiSaga(
     yield call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, auth.accessToken);
     yield call(navigate, { route: IHomeStackPages.HOME });
   } catch (error: unknown) {
-    //todo have a more precise code error
     if (error instanceof ServerError) {
       switch (error.errorCode) {
         case IUserLoginServerCode.USER_INVALID_CREDENTIAL:
-          yield put(loginFailure(new AuthError.InvalidCredentials(error)));
+          yield put(loginFailure(new AuthError.LoginFailureInvalidCredentials(error)));
           break;
         case IUserLoginServerCode.USER_NOT_FOUND:
-          yield put(loginFailure(new AuthError.UserNotFound(error)));
+          yield put(loginFailure(new AuthError.LoginFailureUserNotFound(error)));
           break;
         case IUserLoginServerCode.USER_PHONE_NOT_VALIDATED:
-          yield call(navigate, { route: IAuthStackPages.VALIDATE_PHONE });
-          break;
-        default:
-          yield put(initializeLogin());
-          yield put(showUnknownError(error as Error));
+          yield put(loginFailure(new AuthError.LoginFailurePhoneNotValidated(error)));
+          yield call(navigate, { route: IAuthStackPages.SIGNUP_PHONE });
           break;
       }
     }

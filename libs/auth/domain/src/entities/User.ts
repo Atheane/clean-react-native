@@ -1,11 +1,12 @@
 import { Entity } from '@clean-rn/ddd';
-import { IAddress, IIdentity, IBirth } from '../types';
+import { IAddress, IIdentity, IBirth, IUserStatus } from '../types';
 import { Email, Phone, Password, Country, BirthDay } from '../valueObjects';
 import { AuthError } from '../errors';
 import { IRegisterAddressCommand, IRegisterBirthCommand, IRegisterIdentityCommand } from '../commands';
 import { IValidatePhoneQuery } from '../queries';
 
 export interface IUserProperties {
+  status: IUserStatus;
   email: Email;
   phone: Phone;
   password: Password;
@@ -24,11 +25,12 @@ export class User extends Entity<IUserProperties> {
     if (!email) {
       throw new AuthError.InvalidEmail('Email is required');
     }
-    return new User({ id: email.value, properties: { email } });
+    return new User({ id: email.value, properties: { email, status: IUserStatus.PROSPECT } });
   }
 
   signup({ id, properties }: { id: string; properties: IUserProperties }): User {
     this.properties = properties;
+    this.properties.status = IUserStatus.ACTIVE;
     this.id = id;
     return this;
   }

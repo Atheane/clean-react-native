@@ -51,7 +51,8 @@
     "react-native-webview": "*",
     "@react-navigation/native": "*",
     "short-unique-id": "*",
-    "react-native-screens": "*"
+    "react-native-screens": "*",
+    "redux-saga": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",

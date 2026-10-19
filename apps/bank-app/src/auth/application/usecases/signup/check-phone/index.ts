@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
 
-import { ISearchPhoneQuery, ISuccess, AuthError, ISendPhoneValidationCommand } from '@clean-rn/auth/domain';
+import { ISearchPhoneQuery, AuthError, ISendPhoneValidationCommand } from '@clean-rn/auth/domain';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { AuthApi, IUserSearchServerCode } from '@clean-rn/auth/infrastructure';
 
