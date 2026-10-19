@@ -15,7 +15,7 @@ import {
 import { PhoneOtp } from '@clean-rn/auth/domain';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { SafeScrollingView } from '../../../shared/presentation/hoc';
+import { SafeScrollingView, ErrorBoundary } from '../../../shared/presentation/hoc';
 
 import { fetchValidatePhone } from '../../../auth/application/commands/signup';
 
@@ -53,26 +53,28 @@ export const SignupValidatePhone = () => {
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
   return (
-    <SafeScrollingView fixedHeight>
-      <>
-        <View style={styles.subContainer}>
-          <Security />
-          <View style={styles.textContainer}>
-            <Text style={styles.instructionText}>{t('screens.signup-validate-phone.instruction')}</Text>
+    <ErrorBoundary t={t}>
+      <SafeScrollingView>
+        <>
+          <View style={styles.subContainer}>
+            <Security />
+            <View style={styles.textContainer}>
+              <Text style={styles.instructionText}>{t('screens.signup-validate-phone.instruction')}</Text>
+            </View>
           </View>
-        </View>
-        <View style={styles.formContainer}>
-          <FormSignupValidatePhone
-            loading={pending}
-            control={control}
-            errors={errors}
-            onSubmit={handleSubmit(onSubmit)}
-            error={domainError}
-            onFocus={onFocus}
-          />
-        </View>
-      </>
-    </SafeScrollingView>
+          <View style={styles.formContainer}>
+            <FormSignupValidatePhone
+              loading={pending}
+              control={control}
+              errors={errors}
+              onSubmit={handleSubmit(onSubmit)}
+              error={domainError}
+              onFocus={onFocus}
+            />
+          </View>
+        </>
+      </SafeScrollingView>
+    </ErrorBoundary>
   );
 };
 

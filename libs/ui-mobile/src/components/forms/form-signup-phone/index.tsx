@@ -152,7 +152,7 @@ export const FormSignupPhone = (props: IProps) => {
 
       <View style={[theme.bank.container.centeredItem, styles.formSubmit]}>
         <SubmitButton
-          title={t('submit-button')}
+          title={t('button.submit')}
           uppercase={false}
           onSubmit={props.onSubmit}
           loading={props.loading}

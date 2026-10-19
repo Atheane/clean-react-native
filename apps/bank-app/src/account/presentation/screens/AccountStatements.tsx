@@ -36,7 +36,7 @@ export const AccountStatements = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView fixedHeight>
+      <SafeScrollingView>
         <View style={styles.container}>
           <View style={styles.textContainer}>
             <Text style={{ ...styles.text, ...styles.boldText }}>{t('screens.account-statements.bold')}</Text>
@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
     top: 30,
+    height: Dimensions.get('window').height,
   },
   textContainer: {
     alignItems: 'flex-start',
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
   },
   cardsContainer: {
     alignItems: 'center',
-    marginTop: 16,
+    margin: 16,
   },
   iconContainer: {
     marginTop: 6,

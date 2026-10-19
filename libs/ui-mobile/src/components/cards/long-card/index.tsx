@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 
@@ -19,17 +18,21 @@ export const LongCard = (props: IProps) => {
   const { theme } = useTheme();
 
   return props.pressable ? (
-    <TouchableOpacity onPress={props.onPress} activeOpacity={0.4}>
-      <Card containerStyle={[theme.bank.container.card.long, theme.bank.shadow.card]}>
+    <TouchableOpacity
+      onPress={props.onPress}
+      activeOpacity={0.4}
+      style={[theme.bank.shadow.card, theme.bank.container.card.long, { justifyContent: 'center' }]}
+    >
+      <View>
         <View style={styles.textContainer}>
           <Text style={theme.bank.text.cyan}>{props.text}</Text>
         </View>
         {props.icon && (
-          <View style={[styles.iconContainer, { top: 6 }]}>
+          <View style={[styles.iconContainer, { top: 8, right: 24 }]}>
             <props.icon />
           </View>
         )}
-      </Card>
+      </View>
     </TouchableOpacity>
   ) : (
     <View style={[styles.container, theme.bank.shadow.card, theme.bank.container.card.long]}>
@@ -56,6 +59,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.bank.primary.white,
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  rowContainer: {
+    marginLeft: 16,
   },
   textContainer: { marginLeft: 30, marginVertical: 14 },
   iconContainer: { position: 'absolute', right: 12, top: 0 },

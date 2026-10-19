@@ -81,7 +81,7 @@ export const Transactions = () => {
     <ErrorBoundary t={t}>
       {!hasTransactions && (
         <>
-          <SafeScrollingView fixedHeight>
+          <SafeScrollingView>
             <View style={styles.noContent}>
               <ContentNoTransactions currentAccount={account} />
             </View>
@@ -156,7 +156,8 @@ const styles = StyleSheet.create({
     lineHeight: 29,
   },
   noContent: {
-    marginTop: 100,
+    marginTop: 200,
+    height: Dimensions.get('window').height,
   },
   content: {
     marginTop: 60,

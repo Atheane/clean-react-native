@@ -27,7 +27,7 @@
     },
     "phone-otp": {
       "required": "6-digits code required",
-      "invalid": "code invalide",
+      "invalid": "invalid code",
       "min-length": "should contain at least 6 numbers"
     },
     "birthday": {
@@ -64,7 +64,7 @@
         "LOGIN_FAILURE_INVALID_CREDENTIALS": "username or password error, please try again",
         "LOGIN_FAILURE_USER_NOT_FOUND": "user account doe snot exist",
         "LOGIN_FAILURE_USER_PHONE_NOT_VALIDATED": "phone number is not verified",
-        "VALIDATE_PHONE_FAILURE_INVALID_PHONE_CODE": "invalid code",
+        "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "incorrect code",
         "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "validate phone failure, phone not found",
         "SIGNUP_FAILURE_EMAIL_EXISTS": "this email is already registered",
         "SIGNUP_FAILURE_PHONE_EXISTS": "this phone is already registered",
@@ -80,13 +80,7 @@
   },
   "button": {
     "share": "share",
-    "submit": "validate",
-    "link": {
-      "login": "Login",
-      "legal": "Privacy Policy",
-      "cgu": "GTC",
-      "cgu-kyc-provider": "GTC (KycProvider)"
-    }
+    "submit": "validate"
   },
   "email-input": {
     "placeholder": "E-mail address",
@@ -98,7 +92,6 @@
   },
   "login": {
     "forgotten-password": "Forgot your password?",
-    "submit-button": "validate",
     "validate": "Validate"
   },
   "reset-password": {
@@ -107,7 +100,7 @@
       "label": "e-mail"
     },
     "success": "If this email exists, a message has been sent to you",
-    "submit-button": "reset"
+    "reset": "reset"
   },
   "signup-email": {
     "email": {
@@ -140,7 +133,7 @@
     }
   },
   "signup-validate-phone": {
-    "submit-button": "validate"
+    "reset": "validate"
   },
   "signup-birth": {
     "birthday": {
@@ -186,9 +179,9 @@
     "stack": "Detailled message"
   },
   "screens": {
-    "legal": "Legal mentions",
-    "cgu": "TOS",
-    "cgu-kyc-provider": "KycProvider TOS",
+    "legal": "Privacy Policy",
+    "cgu": "GTC",
+    "cgu-kyc-provider": "GTC (KycProvider)",
     "modal-error": "Erreur",
     "login": {
       "title": "Login"

@@ -116,7 +116,7 @@ export const FormLogin = (props: IProps) => {
 
       <View style={styles.submitButtonContainer}>
         <SubmitButton
-          title={t('login.submit-button')}
+          title={t('button.submit')}
           uppercase={false}
           onSubmit={props.onSubmit}
           loading={props.loading}
@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   submitButtonContainer: {
-    marginTop: 50,
+    marginTop: 100,
+    marginBottom: 160,
   },
 });

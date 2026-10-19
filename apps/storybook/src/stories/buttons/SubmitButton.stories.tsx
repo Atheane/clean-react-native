@@ -22,5 +22,5 @@ export default SubmitButtonMeta;
 
 export const Static: ComponentStory<typeof SubmitButton> = (args) => {
   const { t } = useTranslation();
-  return <SubmitButton {...args} title={t('login.submit-button')} />;
+  return <SubmitButton {...args} title={t('button.submit')} />;
 };

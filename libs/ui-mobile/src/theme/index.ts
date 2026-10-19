@@ -96,8 +96,10 @@ export const theme = createTheme({
         long: {
           width: Dimensions.get('window').width * 0.9,
           minHeight: Dimensions.get('window').width * 0.9 * LONG_CARD_RATIO,
+          marginHorizontal: 16,
+          marginVertical: 8,
           borderRadius: 20,
-          borderWidth: 0,
+          backgroundColor: Colors.bank.primary.white,
         },
         kpi: {
           width: Dimensions.get('window').width * 0.46,

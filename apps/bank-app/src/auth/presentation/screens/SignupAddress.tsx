@@ -52,7 +52,7 @@ export const SignupAddress = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView fixedHeight>
+      <SafeScrollingView>
         <FormSignupAddress
           loading={pending}
           control={control}

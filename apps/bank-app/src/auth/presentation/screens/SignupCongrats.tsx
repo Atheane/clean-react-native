@@ -42,7 +42,7 @@ export const SignupCongrats = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView fixedHeight>
+      <SafeScrollingView>
         <View style={styles.subContainer}>
           <View style={styles.image}>
             <Image style={{ width: 250, height: 250 }} source={Congrats} />
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
   },
   submit: {
     marginTop: 100,
+    marginBottom: 100,
     alignItems: 'center',
     justifyContent: 'center',
   },

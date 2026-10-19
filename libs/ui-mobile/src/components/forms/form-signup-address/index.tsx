@@ -158,7 +158,7 @@ export const FormSignupAddress = (props: IProps) => {
       <View style={styles.submitButtonContainer}>
         <SubmitButton
           disabled={false}
-          title={t('submit-button')}
+          title={t('button.submit')}
           uppercase={false}
           onSubmit={props.onSubmit}
           loading={props.loading}
@@ -174,7 +174,8 @@ const styles = StyleSheet.create({
   },
   inputContainer: { marginTop: 30 },
   submitButtonContainer: {
-    paddingTop: 20,
+    marginTop: 20,
+    marginBottom: 100,
   },
   errorContainer: {
     marginTop: 24,

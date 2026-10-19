@@ -64,7 +64,7 @@ export const FormSignupValidatePhone = (props: IProps) => {
       </View>
       <View style={[styles.formSubmit, theme.bank.container.centeredItem]}>
         <SubmitButton
-          title={t('signup-validate-phone.submit-button')}
+          title={t('button.submit')}
           uppercase={false}
           onSubmit={props.onSubmit}
           loading={props.loading}
@@ -79,7 +79,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   formSubmit: {
-    marginTop: 100,
+    marginTop: 120,
+    marginBottom: 80,
   },
   errorContainer: {
     marginTop: 24,

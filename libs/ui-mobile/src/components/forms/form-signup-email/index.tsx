@@ -56,6 +56,9 @@ export const FormSignupEmail = (props: IProps) => {
               <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.email.invalid'))}</Text>
             </View>
           )}
+          <View style={styles.domainErrorContainer}>
+            <ErrorMessage error={props.error} />
+          </View>
         </View>
         <View style={styles.inputCheckbox}>
           <Controller

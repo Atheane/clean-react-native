@@ -64,7 +64,7 @@
         "LOGIN_FAILURE_INVALID_CREDENTIALS": "Email ou mot de passe incorrect",
         "LOGIN_FAILURE_USER_NOT_FOUND": "le compte n'existe pas",
         "LOGIN_FAILURE_USER_PHONE_NOT_VALIDATED": "le numéro de téléphone n'est pas valide",
-        "VALIDATE_PHONE_FAILURE_INVALID_PHONE_CODE": "code incorrect",
+        "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "code incorrect",
         "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "numéro de téléphone inconnu",
         "SIGNUP_FAILURE_EMAIL_EXISTS": "cet email est déjà enregistré",
         "SIGNUP_FAILURE_PHONE_EXISTS": "ce téléphone est déjà enregistré",
@@ -92,12 +92,11 @@
   },
   "login": {
     "forgotten-password": "Mot de passe oublié ?",
-    "submit-button": "valider",
     "validate": "valider"
   },
   "reset-password": {
     "success": "Si cet email existe, un message vous a été envoyé",
-    "submit-button": "réinitialiser"
+    "reset": "réinitialiser"
   },
   "signup-email": {
     "text": "Vérifions ensemble si votre adresse mail est rattachée à un compte existant."
@@ -126,9 +125,6 @@
       "label": "numéro de téléphone",
       "placeholder": "numéro de téléphone"
     }
-  },
-  "signup-validate-phone": {
-    "submit-button": "valider"
   },
   "signup-birth": {
     "birthday": {

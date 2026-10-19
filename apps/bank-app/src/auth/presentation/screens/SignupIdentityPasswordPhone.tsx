@@ -7,6 +7,7 @@ import { getLocales } from 'expo-localization';
 import { Email, IGender, IRegisterIdentityCommand, Phone } from '@clean-rn/auth/domain';
 import {
   useCleanErrorOnFocus,
+  useCleanErrorOnNavigation,
   FormSignupIdentityPasswordPhone,
   ISignupIdentityPasswordPhoneFormData,
   useSecure,
@@ -72,7 +73,7 @@ export const SignupIdentityPasswordPhone = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView fixedHeight>
+      <SafeScrollingView>
         <FormSignupIdentityPasswordPhone
           defaultCountry={defaultCountry}
           loading={pending}
