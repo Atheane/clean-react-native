@@ -7,6 +7,7 @@ export enum IHttpVerb {
 
 export type IServerError = {
   statusCode: number;
+  errorCode?: number;
   message: string;
   response?:
     | string

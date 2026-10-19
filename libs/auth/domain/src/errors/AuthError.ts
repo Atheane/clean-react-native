@@ -9,12 +9,13 @@ export enum IAuthErrorMessage {
   UNAVAILABLE_COUNTRY = 'Unavailable country',
   INVALID_BIRTHDAY = 'Invalid birthday',
   INVALID_6_DIGITS = 'Invalid 6 digits',
-  LOGIN_FAILURE_INVALID_CREDENTIALS = 'Login Failure, invalid credentials',
+  USER_NOT_FOUND = 'Login failure, user account does not exist',
+  USER_PHONE_NOT_VALIDATED = 'Login failure, user phone is not validated yet',
+  INVALID_CREDENTIALS = 'Login failure, invalid email or password',
   SIGNUP_FAILURE_EMAIL_EXISTS = 'Signup failure, email already exists',
   SIGNUP_FAILURE_PHONE_EXISTS = 'Signup failure, phone already exists',
   SIGNUP_FAILURE_INCORRECT_PHONE_CODE = 'Signup failure, incorrect phone code',
-  USER_UNAUTHORIZED = 'User unauthorized',
-  USER_UNAUTHENTICATED = 'USser unauthenticated',
+  USER_UNAUTHENTICATED = 'User unauthenticated', //login expired
 }
 
 export enum IAuthErrorCodes {
@@ -25,12 +26,13 @@ export enum IAuthErrorCodes {
   UNAVAILABLE_COUNTRY = 'UNAVAILABLE_COUNTRY',
   INVALID_BIRTHDAY = 'INVALID_BIRTHDAY',
   INVALID_6_DIGITS = 'INVALID_6_DIGITS',
-  LOGIN_FAILURE_INVALID_CREDENTIALS = 'LOGIN_FAILURE_INVALID_CREDENTIALS',
-  SIGNUP_FAILURE_EMAIL_EXISTS = '40133439',
-  SIGNUP_FAILURE_PHONE_EXISTS = '60067008',
+  USER_NOT_FOUND = 'USER_NOT_FOUND',
+  USER_PHONE_NOT_VALIDATED = 'USER_PHONE_NOT_VALIDATED',
+  INVALID_CREDENTIALS = 'INVALID_CREDENTIALS',
+  SIGNUP_FAILURE_EMAIL_EXISTS = 'SIGNUP_FAILURE_EMAIL_EXISTS',
+  SIGNUP_FAILURE_PHONE_EXISTS = 'SIGNUP_FAILURE_PHONE_EXISTS',
   SIGNUP_FAILURE_INCORRECT_PHONE_CODE = 'SIGNUP_FAILURE_INCORRECT_PHONE_CODE',
-  USER_UNAUTHORIZED = 'USER_UNAUTHORIZED',
-  USER_UNAUTHENTICATED = 'USER_UNAUTHENTICATED',
+  USER_UNAUTHENTICATED = 'USER_UNAUTHENTICATED', //login expired
 }
 
 export namespace AuthError {
@@ -113,17 +115,27 @@ export namespace AuthError {
       this.cause = cause;
     }
   }
-  export class LoginFailureInvalidCredentials
-    extends Error
-    implements IDomainError<IAuthErrorCodes, IAuthErrorMessage>
-  {
+  export class UserNotFound extends Error implements IDomainError<IAuthErrorCodes, IAuthErrorMessage> {
     code: IAuthErrorCodes;
     message: IAuthErrorMessage;
     cause?: unknown;
+
     constructor(cause?: unknown) {
       super();
-      this.message = IAuthErrorMessage.LOGIN_FAILURE_INVALID_CREDENTIALS;
-      this.code = IAuthErrorCodes.LOGIN_FAILURE_INVALID_CREDENTIALS;
+      this.message = IAuthErrorMessage.USER_NOT_FOUND;
+      this.code = IAuthErrorCodes.USER_NOT_FOUND;
+      this.cause = cause;
+    }
+  }
+  export class InvalidCredentials extends Error implements IDomainError<IAuthErrorCodes, IAuthErrorMessage> {
+    code: IAuthErrorCodes;
+    message: IAuthErrorMessage;
+    cause?: unknown;
+
+    constructor(cause?: unknown) {
+      super();
+      this.message = IAuthErrorMessage.INVALID_CREDENTIALS;
+      this.code = IAuthErrorCodes.INVALID_CREDENTIALS;
       this.cause = cause;
     }
   }

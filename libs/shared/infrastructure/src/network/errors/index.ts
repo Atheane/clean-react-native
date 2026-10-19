@@ -2,13 +2,15 @@ import { IServerError } from '../types';
 
 export class ServerError extends Error {
   message: string;
-  code: string;
+  statusCode: number;
+  errorCode?: number;
   cause: any;
 
   constructor(error: IServerError) {
     super();
     this.message = this.cleanResponse(error);
-    this.code = error.statusCode.toString();
+    this.statusCode = error.statusCode;
+    this.errorCode = error?.errorCode;
     this.cause = error.response;
   }
 

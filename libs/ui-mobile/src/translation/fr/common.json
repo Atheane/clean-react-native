@@ -53,10 +53,11 @@
     },
     "domain-error": {
       "auth": {
-        "LOGIN_FAILURE_INVALID_CREDENTIALS": "erreur d'identifiant ou de mot de passe, veuillez réessayer",
+        "INVALID_PASSWORD": "email / mot de passe incorrect",
+        "USER_ACCOUNT_NOT_FOUND": "le compte n'existe pas",
         "SIGNUP_FAILURE_INCORRECT_PHONE_CODE": "code incorrect",
-        "40133439": "cet email est déjà enregistré",
-        "60067008": "ce téléphone est déjà enregistré",
+        "SIGNUP_FAILURE_EMAIL_EXISTS": "cet email est déjà enregistré",
+        "SIGNUP_FAILURE_PHONE_EXISTS": "ce téléphone est déjà enregistré",
         "USER_UNAUTHENTICATED": "veuillez vous authentifier",
         "USER_UNAUTHORIZED": "utilisateur non authorisé"
       },
