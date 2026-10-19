@@ -11,6 +11,7 @@ import { firstLetterCapitalize } from '../../../utils';
 import { SubmitButton } from '../../buttons/submit-button';
 import { EmailInput } from '../../inputs/email-input';
 import { ErrorMessage } from '../../texts/error-message';
+import { SimpleCheckBox } from '../../checkboxes/simple-checkbox';
 
 type IProps = {
   loading: boolean;
@@ -23,6 +24,7 @@ type IProps = {
 
 export type ISignupEmailFormData = {
   email: string;
+  consent: boolean;
 };
 
 export const FormSignupEmail = (props: IProps) => {
@@ -32,6 +34,9 @@ export const FormSignupEmail = (props: IProps) => {
   return (
     <View style={styles.form}>
       <View style={theme.bank.container.centeredItem}>
+        <View style={styles.textContainer}>
+          <Text style={[theme.bank.text.darkBlue, styles.text]}>{t('signup-email.text')}</Text>
+        </View>
         <View style={styles.inputEmail}>
           <Controller
             control={props.control}
@@ -49,19 +54,34 @@ export const FormSignupEmail = (props: IProps) => {
           {props.errors?.email && props.errors.email.type === 'pattern' && (
             <View style={styles.errorContainer}>
               <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.email.invalid'))}</Text>
-              <Text style={theme.bank.text.errors}>{props.errors.email.ref?.value}</Text>
             </View>
+          )}
+        </View>
+        <View style={styles.inputCheckbox}>
+          <Controller
+            control={props.control}
+            name="consent"
+            rules={{ required: true }}
+            render={({ field: { onChange, value } }) => (
+              <SimpleCheckBox
+                title={t('screens.signup-email.checkbox')}
+                checked={value as boolean}
+                toggleCheckbox={onChange}
+              />
+            )}
+          />
+          {props.errors?.consent && props.errors.consent.type === 'required' && (
+            <Text style={[theme.bank.text.errors, styles.textError]}>
+              {firstLetterCapitalize(t('errors.consent.required'))}
+            </Text>
           )}
         </View>
         <View style={styles.domainErrorContainer}>
           <ErrorMessage error={props.error} />
         </View>
       </View>
-      <View style={styles.textContainer}>
-        <Text style={[theme.bank.text.darkBlue, styles.text]}>{t('signup-email.text')}</Text>
-      </View>
 
-      <View style={[theme.bank.container.centeredItem, styles.formSubmit]}>
+      <View style={styles.formSubmit}>
         <SubmitButton
           title={t('submit-button')}
           uppercase={false}
@@ -78,22 +98,30 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  inputEmail: {
-    marginVertical: 30,
-  },
-  formSubmit: {
-    marginTop: 36,
-  },
-  errorContainer: {
-    marginTop: 24,
-  },
-  domainErrorContainer: {
-    marginBottom: 16,
-  },
   textContainer: {
+    marginTop: 24,
     width: '80%',
   },
   text: {
     textAlign: 'justify',
+  },
+  textError: {
+    marginTop: 10,
+  },
+  inputEmail: {
+    marginVertical: 30,
+  },
+  inputCheckbox: {
+    marginBottom: -10,
+  },
+  formSubmit: {
+    marginTop: 10,
+  },
+  errorContainer: {
+    marginTop: 24,
+    marginBottom: -20,
+  },
+  domainErrorContainer: {
+    marginBottom: 16,
   },
 });

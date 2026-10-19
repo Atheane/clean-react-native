@@ -8,6 +8,9 @@
       "required": "email requis",
       "invalid": "email invalide"
     },
+    "consent": {
+      "required": "consentement requis"
+    },
     "password": {
       "required": "mot de passe requis",
       "invalid": "mot de passe invalide",
@@ -53,8 +56,9 @@
     },
     "domain-error": {
       "auth": {
-        "INVALID_PASSWORD": "email / mot de passe incorrect",
-        "USER_ACCOUNT_NOT_FOUND": "le compte n'existe pas",
+        "LOGIN_FAILURE_INVALID_CREDENTIALS": "Email ou mot de passe incorrect",
+        "LOGIN_FAILURE_USER_NOT_FOUND": "le compte n'existe pas",
+        "LOGIN_FAILURE_USER_PHONE_NOT_VALIDATED": "le numéro de téléphone n'est pas valide",
         "SIGNUP_FAILURE_INCORRECT_PHONE_CODE": "code incorrect",
         "SIGNUP_FAILURE_EMAIL_EXISTS": "cet email est déjà enregistré",
         "SIGNUP_FAILURE_PHONE_EXISTS": "ce téléphone est déjà enregistré",

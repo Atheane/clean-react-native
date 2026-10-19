@@ -27,7 +27,7 @@ export const SimpleCheckBox: React.FunctionComponent<IProps> = (props: IProps) =
     <CheckBox
       containerStyle={styles.container}
       textStyle={[theme.bank.text.darkBlue, styles.title]}
-      checkedColor={Colors.bank.primary.darkGreen}
+      checkedColor={Colors.bank.primary.lightGreen}
       title={props.title}
       checked={checked}
       onPress={() => toggleCheckbox(checked)}
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   title: {
-    marginTop: 70,
     textAlign: 'left',
+    fontSize: 14,
   },
 });

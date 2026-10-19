@@ -54,6 +54,13 @@ export class AuthApi implements IAuthGateway, IUserRepository {
     return response.json();
   }
 
+  async getUser(): Promise<IUserProperties> {
+    //map cmd to dto
+    const response = await fetch(`${this.connection.baseUrl}/user`, this.connection.options(IHttpVerb.GET));
+    await this.connection.handleError(response);
+    return response.json();
+  }
+
   async resetPassword(cmd: IResetPasswordCommand): Promise<ISuccess> {
     //map cmd to dto
     const params = {

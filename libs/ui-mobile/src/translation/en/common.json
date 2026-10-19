@@ -8,6 +8,9 @@
       "required": "e-mail required",
       "invalid": "invalid email"
     },
+    "consent": {
+      "required": "consent required"
+    },
     "password": {
       "required": "password required",
       "invalid": "invalid password",
@@ -53,8 +56,9 @@
     },
     "domain-error": {
       "auth": {
-        "INVALID_PASSWORD": "username or password error, please try again",
-        "USER_ACCOUNT_NOT_FOUND": "user account doe snot exist",
+        "LOGIN_FAILURE_INVALID_CREDENTIALS": "username or password error, please try again",
+        "LOGIN_FAILURE_USER_NOT_FOUND": "user account doe snot exist",
+        "LOGIN_FAILURE_USER_PHONE_NOT_VALIDATED": "phone number is not verified",
         "SIGNUP_FAILURE_INVALID_PHONE_CODE": "invalid code",
         "SIGNUP_FAILURE_EMAIL_EXISTS": "this email is already registered",
         "SIGNUP_FAILURE_PHONE_EXISTS": "this phone is already registered",
@@ -210,7 +214,7 @@
     },
     "signup-phone": {
       "title": "Phone number validation",
-      "text": "Validate your mobile phone number",
+      "text": "Verify your mobile phone"
     },
     "home": {
       "title": "Home",
