@@ -25,7 +25,7 @@ type BannerStory = ComponentStory<typeof Banner>;
 
 export const UpdateNeeded: BannerStory = (args) => {
   const { t } = useTranslation();
-  return <Banner {...args} title={t('banners.updateApplication')} />;
+  return <Banner {...args} title={t('banners.update-application')} />;
 };
 export const ErrorMessage: BannerStory = (args) => {
   const error = new AccountError.InvalidIban('Invalid IBAN');
@@ -33,5 +33,5 @@ export const ErrorMessage: BannerStory = (args) => {
 };
 export const IdentityValidation: BannerStory = (args) => {
   const { t } = useTranslation();
-  return <Banner {...args} title={t('banners.identityValidation')} colorBanner={BannerColors.PURPLE} />;
+  return <Banner {...args} title={t('banners.identity-validation')} colorBanner={BannerColors.PURPLE} />;
 };

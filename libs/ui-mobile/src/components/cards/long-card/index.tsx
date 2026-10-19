@@ -1,7 +1,7 @@
 import { Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 
-import { Card, useTheme } from '@rneui/themed';
+import { useTheme } from '@rneui/themed';
 
 import { LinkButton } from '../../buttons/link-button';
 import { Colors } from '../../../constants';
@@ -28,7 +28,7 @@ export const LongCard = (props: IProps) => {
           <Text style={theme.bank.text.cyan}>{props.text}</Text>
         </View>
         {props.icon && (
-          <View style={[styles.iconContainer, { top: 8, right: 24 }]}>
+          <View style={[styles.iconContainer, { top: 8, right: 22 }]}>
             <props.icon />
           </View>
         )}

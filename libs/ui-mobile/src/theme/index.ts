@@ -95,6 +95,7 @@ export const theme = createTheme({
           margin: 16,
           borderRadius: 16,
           borderWidth: 0,
+          backgroundColor: Colors.bank.primary.white,
         },
         long: {
           width: Dimensions.get('window').width * 0.9,

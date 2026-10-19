@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-import { Text, StyleSheet, Image, TouchableOpacity, ImageSourcePropType } from 'react-native';
-import { Card, useTheme } from '@rneui/themed';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ImageSourcePropType } from 'react-native';
+import { useTheme } from '@rneui/themed';
 
 type IProps = {
   image: ImageSourcePropType;
@@ -20,16 +20,24 @@ export const TouchEventCard = (props: IProps) => {
   const { theme } = useTheme();
 
   return (
-    <TouchableOpacity onPress={() => handleOnPress(props.uid)} activeOpacity={0.85}>
-      <Card containerStyle={[theme.bank.container.card.short, theme.bank.shadow.card]}>
+    <TouchableOpacity
+      onPress={() => handleOnPress(props.uid)}
+      activeOpacity={0.85}
+      style={[theme.bank.container.card.short, theme.bank.shadow.card]}
+    >
+      <View style={styles.subContainer}>
         <Image style={styles.image} source={props.image} />
         <Text style={[styles.text, theme.bank.text.grey]}>{props.text}</Text>
-      </Card>
+      </View>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
+  subContainer: {
+    paddingTop: 16,
+    paddingHorizontal: 12,
+  },
   image: {
     position: 'relative',
     top: -16,

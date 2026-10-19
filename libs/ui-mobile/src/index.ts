@@ -1,6 +1,7 @@
 import i18n from './i18n';
 export * from './assets';
 export * from './constants';
+export * from './hoc';
 export * from './theme';
 export * from './components';
 export * from './hooks';

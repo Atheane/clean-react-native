@@ -27,13 +27,11 @@ export default LinkButtonMeta;
 
 export const Static: ComponentStory<typeof LinkButton> = (args) => {
   const { t } = useTranslation();
-  return <LinkButton {...args} title={t('screens.login.forgottenPassword')} />;
+  return <LinkButton {...args} title={t('login.forgotten-password')} />;
 };
 export const Dynamic: ComponentStory<typeof LinkButton> = (args) => {
   const { t } = useTranslation();
 
   const { pressed, onPress } = useTogglePress(false);
-  return (
-    <LinkButton {...args} title={t('screens.login.forgottenPassword')} pressed={pressed} onPress={onPress} />
-  );
+  return <LinkButton {...args} title={t('login.forgotten-password')} pressed={pressed} onPress={onPress} />;
 };

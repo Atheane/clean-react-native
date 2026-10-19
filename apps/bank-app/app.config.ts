@@ -4,7 +4,7 @@ export default {
   expo: {
     name: 'CleanRN BankApp Dev',
     slug: 'clean-rn-bank-app-dev',
-    version: '1.4.1',
+    version: '1.4.2',
     orientation: 'portrait',
     icon: './assets/images/icon.png',
     splash: {
@@ -17,7 +17,7 @@ export default {
     },
     assetBundlePatterns: ['**/*'],
     ios: {
-      supportsTablet: true,
+      supportsTablet: false,
       bundleIdentifier: 'com.clean-rn.bank-appdev',
     },
     android: {

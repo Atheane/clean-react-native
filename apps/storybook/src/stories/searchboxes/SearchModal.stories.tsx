@@ -34,8 +34,8 @@ export const Airports: SearchModalStory = (args) => {
   return (
     <SearchModal
       {...args}
-      label={t('screens.carbonFly.dropdown.destination')}
-      placeholder={t('screens.carbonFly.search')}
+      label={t('screens.carbon-fly.dropdown.destination')}
+      placeholder={t('screens.carbon-fly.search')}
     />
   );
 };

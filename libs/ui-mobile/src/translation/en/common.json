@@ -75,7 +75,12 @@
     },
     "other": "error, please contact the administrator"
   },
+  "date-picker": {
+    "label": "Birthday",
+    "placeholder": "DD/MM/YYYY"
+  },
   "country-picker": {
+    "label": "Country",
     "placeholder": "Select a country"
   },
   "button": {
@@ -91,8 +96,8 @@
     "label": "password"
   },
   "login": {
-    "forgotten-password": "Forgot your password?",
-    "validate": "Validate"
+    "validate": "Validate",
+    "forgotten-password": "Forgot your password?"
   },
   "reset-password": {
     "email": {
@@ -230,7 +235,7 @@
         "noaccounts": "No accounts"
       },
       "banner": {
-        "validationIdentity": "Identity validation"
+        "validation-identity": "Identity validation"
       }
     },
     "account": {
@@ -299,7 +304,8 @@
         "wood": "Wood",
         "heatPump": "Heat pump",
         "thermalSolar": "Thermal solar",
-        "propane": "Propane"
+        "propane": "Propane",
+        "state-department": "Region"
       },
       "slider": {
         "consumption": "consumption",

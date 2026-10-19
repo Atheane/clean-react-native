@@ -44,7 +44,5 @@ export default CountryPickerMeta;
 export const Dynamic: ComponentStory<typeof CountryPicker> = (args) => {
   const { t } = useTranslation();
   const { regionCode } = getLocales()[0] as { regionCode: string };
-  return (
-    <CountryPicker {...args} label={t('screens.signupstep4.birthCountry.label')} defaultValue={regionCode} />
-  );
+  return <CountryPicker {...args} label={t('country-picker.label')} defaultValue={regionCode} />;
 };

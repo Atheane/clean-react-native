@@ -38,7 +38,7 @@ export const Units: SliderStory = (args) => {
       label={t('screens.carbon.consumption')}
       value={value}
       onChange={onChange}
-      unit={t('screens.carbonTransport.dropdown.unit')}
+      unit={t('screens.carbon-transport.dropdown.unit')}
       minValue={0}
       maxValue={20}
     />
@@ -55,7 +55,7 @@ export const Steps500: SliderStory = (args) => {
       label={t('screens.carbon.consumption')}
       value={value}
       onChange={onChange}
-      unit={t('screens.carbonTransport.slider.unit')}
+      unit={t('screens.carbon-transport.slider.unit')}
       minValue={0}
       maxValue={20000}
       step={500}
@@ -69,13 +69,13 @@ export const Short: SliderStory = () => {
 
   return (
     <Slider
-      label={t('screens.carbonFood.slider.meatRed')}
+      label={t('screens.carbon-food.slider.meatRed')}
       minValue={0}
       maxValue={14}
       value={value}
       onChange={onChange}
       short
-      unit={value < 2 ? t('screens.carbonFood.slider.unit') : t('screens.carbonFood.slider.units')}
+      unit={value < 2 ? t('screens.carbon-food.slider.unit') : t('screens.carbon-food.slider.units')}
     />
   );
 };

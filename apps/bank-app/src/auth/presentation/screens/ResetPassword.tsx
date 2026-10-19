@@ -69,7 +69,6 @@ export const ResetPassword = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: Dimensions.get('window').height,
     marginTop: '40%',
   },
 });

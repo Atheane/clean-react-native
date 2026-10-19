@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { Colors } from '@clean-rn/ui-mobile';
@@ -10,9 +10,9 @@ type IProps = {
   ref?: React.RefObject<KeyboardAwareScrollView>;
 };
 
-export const SafeScrollingView = ({ children, fixedHeight, ref }: IProps) => {
+export const SafeScrollingView = ({ children, ref }: IProps) => {
   return (
-    <SafeAreaView style={[styles.container, fixedHeight ? { height: Dimensions.get('window').height } : {}]}>
+    <SafeAreaView style={styles.container}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false} ref={ref}>
         {children}
       </KeyboardAwareScrollView>

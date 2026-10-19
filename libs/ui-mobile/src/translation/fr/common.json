@@ -5,7 +5,7 @@
   },
   "modal": {
     "login": {
-      "title": "Session expirée, veuillez vous connecter"
+      "title": "Session expirée, connectez-vous"
     }
   },
   "errors": {
@@ -76,7 +76,12 @@
     "other": "erreur, veuillez contacter l'administrateur"
   },
   "country-picker": {
+    "label": "pays",
     "placeholder": "Sélectionner un pays"
+  },
+  "date-picker": {
+    "label": "Date de naissance",
+    "placeholder": "DD/MM/YYYY"
   },
   "email-input": {
     "label": "email",
@@ -225,7 +230,7 @@
         "noaccounts": "Aucun compte"
       },
       "banner": {
-        "validationIdentity": "Validation identité"
+        "validation-identity": "Validation identité"
       }
     },
     "account": {
@@ -295,7 +300,8 @@
         "heatPump": "Pompe à chaleur",
         "thermalSolar": "Solaire thermique",
         "propane": "Propane",
-        "unit": " L"
+        "unit": " L",
+        "state-department": "Département"
       },
       "slider": {
         "consumption": "consommation",
