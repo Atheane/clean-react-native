@@ -46,6 +46,7 @@ import {
   registerPassword,
   registerBirth,
   registerAddress,
+  initializeSignupStep,
 } from '../../commands/signup';
 import { ISignupState, signupReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
@@ -507,6 +508,20 @@ describe('CheckEmail - integration', () => {
       phone: new Phone('0616804613', 'FR'),
       phoneOtp: new PhoneOtp('123456'),
       user,
+      error: null,
+    });
+  });
+
+  it('Should store correct state if INITIALIZE_SIGNUP for invalid credentials', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
+
+    sagaTester.dispatch(initializeSignupStep());
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
       error: null,
     });
   });

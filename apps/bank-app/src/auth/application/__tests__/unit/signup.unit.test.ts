@@ -18,7 +18,7 @@ import {
   User,
   IUserProperties,
 } from '@clean-rn/auth/domain';
-import { HttpConnection } from '@clean-rn/shared/infrastructure';
+import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AuthApi, IUserSearchServerCode } from '@clean-rn/auth/infrastructure';
 
 import {
@@ -53,11 +53,13 @@ import {
   signupFailed,
   userSignedUp,
   fetchSignupUser,
+  initializeSignupStep,
 } from '../../commands/signup';
 import { IStoreKey } from '../../../../shared/application/types';
 import { loadStorage } from '../../../../shared/application/commands/initialize-application';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 describe('Signup - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -106,6 +108,14 @@ describe('Signup - usecase', () => {
 
   const mockSuccessFalse: ISuccess = {
     success: false,
+  };
+
+  const mockError500 = {
+    message: 'Core::AuthService::Auth - Server Error',
+    statusCode: 500,
+    response: 'Core::AuthService::Auth - Server Error',
+    timestamp: '2023-04-07T15:28:04.657Z',
+    path: '/auth/login',
   };
 
   it('should wait for FETCH_SEARCH_EMAIL action and call checkEmailApiSaga, should be done on next iteration', () => {
@@ -209,8 +219,40 @@ describe('Signup - usecase', () => {
       .put(loadStorage())
       .next(mockQueryEmail.email)
       .call(navigate, { route: IAuthStackPages.LOGIN })
+      .next();
+  });
+
+  it('should throw SignupFailureEmailExists if email exists in old database', () => {
+    testSaga(checkEmailGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_SEARCH_EMAIL,
+      payload: mockQueryEmail,
+    })
       .next()
-      .cancel();
+      .call([api, api.searchEmail], mockQueryEmail)
+      .next(IUserSearchServerCode.KELVIN_USER)
+      .put(signupFailed(new AuthError.SignupFailureEmailExists()))
+      .next()
+      .call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, mockQueryEmail.email.value)
+      .next(mockQueryEmail.email.value)
+      .put(loadStorage())
+      .next(mockQueryEmail.email)
+      .call(navigate, { route: IAuthStackPages.CHOOSE_PASSWORD })
+      .next();
+  });
+
+  it('Should call showUnknownError action if 500 when fetchSearchEmail', () => {
+    testSaga(checkEmailGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_SEARCH_EMAIL,
+      payload: mockQueryEmail,
+    })
+      .next()
+      .call([api, api.searchEmail], mockQueryEmail)
+      .next()
+      .throw(new ServerError(mockError500))
+      .put(initializeSignupStep())
+      .next()
+      .put(showUnknownError(new ServerError(mockError500)))
+      .next();
   });
 
   it('should call registerIdentity actions', () => {
@@ -223,6 +265,22 @@ describe('Signup - usecase', () => {
     })
       .next()
       .put(identityRegistered(user))
+      .next();
+  });
+
+  it('Should call showUnknownError action if unknown error when registerIdentity', () => {
+    const user = User.Create(new Email('test@example.com'));
+    user.registerIdentity(mockIdentity);
+
+    testSaga(registerIdentityGenerator, {
+      type: ISignupTypes.REGISTER_IDENTITY,
+      payload: { email: new Email('test@example.com'), ...mockIdentity },
+    })
+      .next()
+      .throw(new Error('unknown error'))
+      .put(initializeSignupStep())
+      .next()
+      .put(showUnknownError(new Error('unknown error')))
       .next();
   });
 
@@ -287,6 +345,21 @@ describe('Signup - usecase', () => {
       .next(user);
   });
 
+  it('Should call showUnknownError action if unknown error when registerPassword', () => {
+    const user = User.Create(new Email('test@example.com'));
+    user.registerPassword(mockPassword.password);
+    testSaga(registerPasswordGenerator, {
+      type: ISignupTypes.REGISTER_PASSWORD,
+      payload: mockPassword,
+    })
+      .next()
+      .throw(new Error('unknown error'))
+      .put(initializeSignupStep())
+      .next()
+      .put(showUnknownError(new Error('unknown error')))
+      .next();
+  });
+
   it('should call phoneNotFound', () => {
     testSaga(checkPhoneGenerator, httpConnection, {
       type: ISignupTypes.FETCH_SEARCH_PHONE,
@@ -312,6 +385,21 @@ describe('Signup - usecase', () => {
       .put(signupFailed(new AuthError.SignupFailurePhoneExists()))
       .next()
       .cancel();
+  });
+
+  it('Should call showUnknownError action if 500 when fetchSearchPhone', () => {
+    testSaga(checkPhoneGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_SEARCH_PHONE,
+      payload: mockQueryPhone,
+    })
+      .next()
+      .call([api, api.searchPhone], mockQueryPhone)
+      .next()
+      .throw(new ServerError(mockError500))
+      .put(initializeSignupStep())
+      .next()
+      .put(showUnknownError(new ServerError(mockError500)))
+      .next();
   });
 
   it('should call phoneValidated', () => {
@@ -398,6 +486,22 @@ describe('Signup - usecase', () => {
       .cancel();
   });
 
+  it('Should call showUnknownError action if unknown error when validatePhone', () => {
+    const user = User.Create(new Email('test@example.com'));
+    user.validatePhone(mockQueryPhoneOtp);
+
+    testSaga(validatePhoneGenerator, httpConnection, {
+      type: ISignupTypes.SIGNUP_FAILED,
+      payload: mockQueryPhoneOtp,
+    })
+      .next()
+      .throw(new Error('unknown error'))
+      .put(initializeSignupStep())
+      .next()
+      .put(showUnknownError(new Error('unknown error')))
+      .next();
+  });
+
   it('should call registerBirth actions', () => {
     const userPrev = User.Create(new Email('test@example.com'));
     const user = User.Create(new Email('test@example.com'));
@@ -460,6 +564,22 @@ describe('Signup - usecase', () => {
       })
       .next(new Email('test@example.com'))
       .put(birthRegistered(user))
+      .next();
+  });
+
+  it('Should call showUnknownError action if unknown error when registerBirth', () => {
+    const user = User.Create(new Email('test@example.com'));
+    user.registerBirth(mockBirth);
+
+    testSaga(registerBirthGenerator, {
+      type: ISignupTypes.REGISTER_BIRTH,
+      payload: mockBirth,
+    })
+      .next()
+      .throw(new Error('unknown error'))
+      .put(initializeSignupStep())
+      .next()
+      .put(showUnknownError(new Error('unknown error')))
       .next();
   });
 
@@ -554,6 +674,21 @@ describe('Signup - usecase', () => {
       .next(mockQueryPhoneOtp.phoneOtp);
   });
 
+  it('Should call showUnknownError action if unknown error when registerAddress', () => {
+    const user = User.Create(new Email('test@example.com'));
+
+    testSaga(registerAddressGenerator, {
+      type: ISignupTypes.REGISTER_ADDRESS,
+      payload: { user, ...mockAddress },
+    })
+      .next()
+      .throw(new Error('unknown error'))
+      .put(initializeSignupStep())
+      .next()
+      .put(showUnknownError(new Error('unknown error')))
+      .next();
+  });
+
   it('should call userSignedUp actions if user exists', () => {
     const userPrev = User.Create(new Email('test@example.com'));
     userPrev.registerIdentity(mockIdentity);
@@ -579,6 +714,25 @@ describe('Signup - usecase', () => {
       .put(userSignedUp(user))
       .next(user)
       .call(navigate, { route: IAuthStackPages.SIGNUP_CONGRATS })
+      .next();
+  });
+
+  it('Should call showUnknownError action if 500', () => {
+    const userPrev = User.Create(new Email('test@example.com'));
+
+    testSaga(signupUserGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_SIGNUP_USER,
+      payload: {
+        user: userPrev,
+        phoneOtp: mockQueryPhoneOtp.phoneOtp,
+      },
+    })
+      .next()
+      .call([api, api.createUser], { ...userPrev.properties, phoneOtp: mockQueryPhoneOtp.phoneOtp })
+      .throw(new ServerError(mockError500))
+      .put(initializeSignupStep())
+      .next()
+      .put(showUnknownError(new ServerError(mockError500)))
       .next();
   });
 });

@@ -2,10 +2,10 @@
 import SagaTester from 'redux-saga-tester';
 import Constants from 'expo-constants';
 
-import { AuthError, Email } from '@clean-rn/auth/domain';
+import { AuthError, Email, Password } from '@clean-rn/auth/domain';
 
 import { loginSaga } from '../../usecases/login';
-import { loginSuccess, loginFailure, fetchLogin, ILoginTypes } from '../../commands/login';
+import { loginSuccess, loginFailure, fetchLogin, ILoginTypes, initializeLogin } from '../../commands/login';
 import { ILoginState, loginReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
 
@@ -23,7 +23,7 @@ jest.mock('expo-constants', () => expoConstantsMock);
 describe('Login - integration', () => {
   const mockData = {
     email: new Email('test@example.com'),
-    password: '123456',
+    password: new Password('123456'),
   };
 
   let sagaTester: SagaTester;
@@ -117,6 +117,21 @@ describe('Login - integration', () => {
         refreshToken: null,
       },
       error: new AuthError.LoginFailureInvalidCredentials(),
+    });
+  });
+
+  it('Should store correct state if INITIALIZE_LOGIN for invalid credentials', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, loginSaga, httpConnection);
+    sagaTester.dispatch(fetchLogin(mockData));
+    sagaTester.dispatch(initializeLogin());
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      auth: {
+        accessToken: null,
+        refreshToken: null,
+      },
+      error: null,
     });
   });
 });

@@ -37,14 +37,12 @@ export function* checkEmailGenerator(
         yield call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, payload.email.value);
         yield put(loadStorage());
         yield call(navigate, { route: IAuthStackPages.LOGIN });
-        yield cancel();
         break;
       case IUserSearchServerCode.KELVIN_USER:
         yield put(signupFailed(new AuthError.SignupFailureEmailExists()));
         yield call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, payload.email.value);
         yield put(loadStorage());
         yield call(navigate, { route: IAuthStackPages.CHOOSE_PASSWORD });
-        yield cancel();
         break;
       default:
         // domain event

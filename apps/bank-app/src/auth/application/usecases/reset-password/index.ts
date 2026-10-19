@@ -9,7 +9,10 @@ import { AuthApi } from '@clean-rn/auth/infrastructure';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { initializeResetPassword, IResetPasswordTypes, passwordReset } from '../../commands/reset-password';
 
-function* resetPasswordApiSaga(
+export function* resetPasswordSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
+  yield takeEvery(IResetPasswordTypes.FETCH_RESET_PASSWORD, resetPasswordGenerator, httpConnection);
+}
+export function* resetPasswordGenerator(
   httpConnection: HttpConnection,
   {
     payload,
@@ -35,9 +38,3 @@ function* resetPasswordApiSaga(
     yield put(showUnknownError(e as Error));
   }
 }
-
-function* resetPasswordSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(IResetPasswordTypes.FETCH_RESET_PASSWORD, resetPasswordApiSaga, httpConnection);
-}
-
-export { resetPasswordApiSaga, resetPasswordSaga };
