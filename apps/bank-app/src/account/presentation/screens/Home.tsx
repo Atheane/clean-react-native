@@ -60,11 +60,13 @@ const fakeEventsData = [
 ];
 
 export const Home = () => {
-  const accounts: IAccount[] = [];
-  const accountsError: Error = null;
   const transactionsError: Error = null;
-  // const { accounts, error: accountsError } = useSelector((state: IRootState) => state.account.accounts);
+
+  const { accounts, pending } = useSelector((state: IRootState) => state.account.accounts);
   // const { error: transactionsError } = useSelector((state: IRootState) => state.account.transactions);
+
+  console.log('accounts', accounts);
+  console.log('pending', pending);
 
   const dispatch = useDispatch();
 
@@ -89,15 +91,15 @@ export const Home = () => {
 
   return (
     <View>
-      {accountsError && (
+      {/* {accountsError && (
         <Banner title={accountsError.message} colorBanner={BannerColors.PINK} rightIcon={false} />
-      )}
+      )} */}
       {transactionsError && (
         <Banner title={transactionsError.message} colorBanner={BannerColors.PINK} rightIcon={false} />
       )}
       {identityValidation && (
         <Banner
-          title={t('screens.home.banner.validationIdentity')}
+          title={t('screens.home.banner.validation-identity')}
           colorBanner={BannerColors.PURPLE}
           rightIcon={false}
         />

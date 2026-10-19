@@ -15,10 +15,10 @@ import {
   registerAddressSaga,
   validatePhoneSaga,
   signupUserSaga,
-  // navigatePasswordToLoginSaga,
 } from '../../../auth/application/usecases';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
+import { listAccountsSaga } from '../../../account/application/usecases';
 // import { getAccountsSaga, getTransactionsSaga } from '@account/usecases';
 // import { accountApi } from '@account/infrastructure/services';
 
@@ -44,8 +44,7 @@ export function* rootSaga(httpConnection: HttpConnection) {
     registerAddressSaga(),
     validatePhoneSaga(httpConnection),
     signupUserSaga(httpConnection),
-    // navigatePasswordToLoginSaga(),
-    // getAccountsSaga(accountApi),
+    listAccountsSaga(httpConnection),
     // getTransactionsSaga(accountApi),
     // houseEmissionsSaga(),
     // transportEmissionsSaga(),

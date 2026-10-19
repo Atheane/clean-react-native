@@ -1,4 +1,4 @@
-import { Amount, TransactionCategory } from '../valueObjects';
+import { Amount, TransactionCategory } from '../value-objects';
 import { ITransactionType } from '../types';
 
 export interface ITransaction {

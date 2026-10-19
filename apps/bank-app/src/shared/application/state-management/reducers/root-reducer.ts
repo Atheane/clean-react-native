@@ -1,19 +1,21 @@
 import { combineReducers } from 'redux';
-import { initializationReducer } from './initialize-application';
+
 import {
   loginReducer,
   resetPasswordReducer,
   signupReducer,
 } from '../../../../auth/application/state-management';
-import { globalErrorReducer } from './manage-global-errors';
 
-// import { getAccountsReducer, getTransactionsReducer } from '@account/infrastructure/redux';
+import { listAccountsReducer } from '../../../../account/application/state-management';
 // import {
 //   houseEmissionsReducer,
 //   transportEmissionsReducer,
 //   foodEmissionsReducer,
 //   flyEmissionsReducer,
 // } from '@carbon/infrastructure/redux';
+
+import { initializationReducer } from './initialize-application';
+import { globalErrorReducer } from './manage-global-errors';
 
 export const rootReducer = combineReducers({
   initialization: initializationReducer,
@@ -22,13 +24,14 @@ export const rootReducer = combineReducers({
     login: loginReducer,
     resetPassword: resetPasswordReducer,
     signup: signupReducer,
-    // account: combineReducers({ accounts: getAccountsReducer, transactions: getTransactionsReducer }),
-    // carbon: combineReducers({
-    //   house: houseEmissionsReducer,
-    //   transport: transportEmissionsReducer,
-    //   food: foodEmissionsReducer,
-    //   fly: flyEmissionsReducer,
   }),
+  account: combineReducers({ accounts: listAccountsReducer }),
+  // account: combineReducers({ accounts: getAccountsReducer, transactions: getTransactionsReducer }),
+  // carbon: combineReducers({
+  //   house: houseEmissionsReducer,
+  //   transport: transportEmissionsReducer,
+  //   food: foodEmissionsReducer,
+  //   fly: flyEmissionsReducer,
 });
 
 export type IRootState = ReturnType<typeof rootReducer>;

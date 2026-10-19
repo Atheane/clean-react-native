@@ -1,4 +1,4 @@
-import { Iban, Bic } from '../valueObjects';
+import { Iban, Bic } from '../value-objects';
 import { IAccountType } from '../types';
 
 export interface IAccount {

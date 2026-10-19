@@ -7,10 +7,10 @@
 import { LinkingOptions } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
 
-import { RootStackParamList, AuthStackParamList, HomeStackParamList } from '../types';
+import { IRootStackParamList, IAuthStackParamList, IHomeStackParamList } from '../types';
 
 export const LinkingConfiguration: LinkingOptions<
-  RootStackParamList | AuthStackParamList | HomeStackParamList
+  IRootStackParamList | IAuthStackParamList | IHomeStackParamList
   // | CarbonStackParamList
   // | TransferStackParamList
   // | ProfileStackParamList
@@ -32,14 +32,14 @@ export const LinkingConfiguration: LinkingOptions<
           Menu: {
             screens: {
               Home: 'Home',
-              Account: 'Account',
-              RestoFlash: 'RestoFlash',
-              WeFlo: 'WeFlo',
-              AccountStatements: 'AccountStatements',
-              AccountStatementsCurrentMonth: 'AccountStatementsCurrentMonth',
-              AccountStatementsLastThreeMonths: 'AccountStatementsLastThreeMonths',
-              AccountStatementsAll: 'AccountStatementsAll',
-              ExportPdfIban: 'ExportPdfIban',
+              // Account: 'Account',
+              // RestoFlash: 'RestoFlash',
+              // WeFlo: 'WeFlo',
+              // AccountStatements: 'AccountStatements',
+              // AccountStatementsCurrentMonth: 'AccountStatementsCurrentMonth',
+              // AccountStatementsLastThreeMonths: 'AccountStatementsLastThreeMonths',
+              // AccountStatementsAll: 'AccountStatementsAll',
+              // ExportPdfIban: 'ExportPdfIban',
             },
           },
           //     Transfer: {

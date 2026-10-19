@@ -138,7 +138,7 @@ export const BottomTabNavigator = () => {
 const styles = StyleSheet.create({
   tab: {
     fontSize: 9,
-    fontName: FontNames.MartelSans_600SemiBold,
+    fontFamily: FontNames.MartelSans_600SemiBold,
     color: Colors.bank.primary.lightGreen,
   },
 });

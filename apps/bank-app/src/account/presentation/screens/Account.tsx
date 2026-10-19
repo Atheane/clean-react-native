@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   oupsText: {
     width: Dimensions.get('window').width * 0.8,
     fontSize: 22,
-    fontName: FontNames.Roboto_400Regular,
+    fontFamily: FontNames.Roboto_400Regular,
     color: Colors.text.darkBlue,
     textAlign: 'center',
     lineHeight: 29,
