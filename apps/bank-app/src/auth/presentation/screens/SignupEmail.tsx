@@ -24,8 +24,6 @@ import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/h
 
 import { fetchSearchEmail } from '../../application/commands/signup';
 
-const HEIGHT = Dimensions.get('window').height;
-
 export const SignupEmail = () => {
   /// translations
   const { t } = useTranslation();
@@ -79,7 +77,16 @@ export const SignupEmail = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, HEIGHT / WIDTH > 2 ? { height: HEIGHT } : {}]}>
+        <View
+          style={[
+            styles.container,
+            HEIGHT / WIDTH > 2.16
+              ? { height: HEIGHT * 0.8, marginTop: 80 }
+              : HEIGHT / WIDTH > 2
+              ? { height: HEIGHT, marginTop: 50 }
+              : { marginTop: 24 },
+          ]}
+        >
           <View style={styles.image}>
             <Image style={{ width: 200, height: 200 }} source={Welcome} />
           </View>
@@ -125,7 +132,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    marginTop: 24,
     backgroundColor: Colors.bank.primary.white,
   },
   modalContainer: {

@@ -33,11 +33,12 @@ export const EmailSent = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.bank.primary.white,
   },
   imageContainer: {
-    marginTop: 100,
+    marginTop: -160,
   },
   textContainer: {
     marginTop: 80,

@@ -54,7 +54,7 @@ export function* initializeApplicationGenerator(): Generator<StrictEffect, any, 
         },
       }),
     );
-    yield call(navigate, { route: initRouteName });
+    yield call(navigate, { route: IAuthStackPages.EMAIL_SENT });
   } catch (error: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors
     yield put(showUnknownError(error as Error));
