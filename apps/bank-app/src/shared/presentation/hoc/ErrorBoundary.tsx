@@ -37,9 +37,9 @@ export class ErrorBoundary extends Component<IProps, IState> {
   }
 
   render() {
-    if (this.state.hasError && this.state.error !== null) {
-      return <ModalError error={this.state.error} />;
-    }
+    // if (this.state.hasError && this.state.error !== null) {
+    //   return <ModalError error={this.state.error} />;
+    // }
 
     return this.props.children;
   }

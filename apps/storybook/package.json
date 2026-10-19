@@ -50,7 +50,8 @@
     "react-native-web": "*",
     "react-native-webview": "*",
     "@react-navigation/native": "*",
-    "short-unique-id": "*"
+    "short-unique-id": "*",
+    "react-native-screens": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",
