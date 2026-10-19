@@ -40,7 +40,7 @@ export function* loginApiSaga(
     yield call(navigate, { route: IHomeStackPages.HOME });
   } catch (error: unknown) {
     //todo have a more precise code error
-    if (error instanceof ServerError && error.code === '400') {
+    if (error instanceof ServerError && error.code === '401') {
       yield put(loginFailure(new AuthError.LoginFailureInvalidCredentials(error)));
       yield cancel();
     }

@@ -1,10 +1,10 @@
 import { Email, Phone, PhoneOtp } from '../valueObjects';
 
-export type ICheckEmailQuery = {
+export type ISearchEmailQuery = {
   email: Email;
 };
 
-export type ICheckPhoneQuery = {
+export type ISearchPhoneQuery = {
   phone: Phone;
 };
 

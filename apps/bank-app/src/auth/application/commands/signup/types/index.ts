@@ -2,8 +2,8 @@ import {
   User,
   IAuthErrorCodes,
   IAuthErrorMessage,
-  ICheckEmailQuery,
-  ICheckPhoneQuery,
+  ISearchEmailQuery,
+  ISearchPhoneQuery,
   IValidatePhoneQuery,
   IRegisterIdentityCommand,
   IRegisterPasswordCommand,
@@ -15,21 +15,21 @@ import { IDomainError } from '@clean-rn/ddd';
 
 export enum ISignupTypes {
   // commands
-  FETCH_CHECK_EMAIL_EXISTS = 'FETCH_CHECK_EMAIL_EXISTS',
+  FETCH_SEARCH_EMAIL = 'FETCH_SEARCH_EMAIL',
   REGISTER_IDENTITY = 'REGISTER_IDENTITY',
   REGISTER_PASSWORD = 'REGISTER_PASSWORD',
+  FETCH_SEARCH_PHONE = 'FETCH_SEARCH_PHONE',
   FETCH_VALIDATE_PHONE = 'FETCH_VALIDATE_PHONE',
   REGISTER_BIRTH = 'REGISTER_BIRTH',
   REGISTER_ADDRESS = 'REGISTER_ADDRESS',
   FETCH_SIGNUP_USER = 'FETCH_SIGNUP_USER',
   INITIALIZE_SIGNUP_STEP = 'INITIALIZE_SIGNUP_STEP',
   // domain events
-  EMAIL_CHECKED = 'EMAIL_CHECKED',
+  EMAIL_NOT_FOUND = 'EMAIL_NOT_FOUND',
   SIGNUP_FAILED = 'SIGNUP_FAILED',
   IDENTITY_REGISTERED = 'IDENTITY_REGISTERED',
   PASSWORD_REGISTERED = 'PASSWORD_REGISTERED',
-  FETCH_CHECK_PHONE = 'FETCH_CHECK_PHONE',
-  PHONE_CHECKED = 'PHONE_CHECKED',
+  PHONE_NOT_FOUND = 'PHONE_NOT_FOUND',
   PHONE_VALIDATED = 'PHONE_VALIDATED',
   BIRTH_REGISTERED = 'BIRTH_REGISTERED',
   ADDRESS_REGISTERED = 'ADDRESS_REGISTERED',
@@ -37,9 +37,9 @@ export enum ISignupTypes {
 }
 
 // commands
-export type IFetchCheckEmailExists = {
-  type: typeof ISignupTypes.FETCH_CHECK_EMAIL_EXISTS;
-  payload: ICheckEmailQuery;
+export type IFetchSearchEmail = {
+  type: typeof ISignupTypes.FETCH_SEARCH_EMAIL;
+  payload: ISearchEmailQuery;
 };
 
 export type IRegisterIdentity = {
@@ -52,9 +52,9 @@ export type IRegisterPassword = {
   payload: IRegisterPasswordCommand;
 };
 
-export type IFetchCheckPhone = {
-  type: typeof ISignupTypes.FETCH_CHECK_PHONE;
-  payload: ICheckPhoneQuery;
+export type IFetchSearchPhone = {
+  type: typeof ISignupTypes.FETCH_SEARCH_PHONE;
+  payload: ISearchPhoneQuery;
 };
 
 export type IFetchValidatePhone = {
@@ -82,8 +82,8 @@ export type IInitializeSignupStep = {
 };
 
 // domainEvents
-export type IEmailChecked = {
-  type: typeof ISignupTypes.EMAIL_CHECKED;
+export type IEmailNotFound = {
+  type: typeof ISignupTypes.EMAIL_NOT_FOUND;
 };
 
 export type ISignupFailed = {
@@ -101,8 +101,8 @@ export type IPasswordRegistered = {
   payload: User;
 };
 
-export type IPhoneChecked = {
-  type: typeof ISignupTypes.PHONE_CHECKED;
+export type IPhoneNotFound = {
+  type: typeof ISignupTypes.PHONE_NOT_FOUND;
 };
 
 export type IPhoneValidated = {
@@ -127,13 +127,13 @@ export type IUserSignedUp = {
 
 export type ISignupActions =
   | IInitializeSignupStep
-  | IFetchCheckEmailExists
-  | IEmailChecked
+  | IFetchSearchEmail
+  | IEmailNotFound
   | ISignupFailed
   | IIdentityRegistered
   | IPasswordRegistered
-  | IFetchCheckPhone
-  | IPhoneChecked
+  | IFetchSearchPhone
+  | IPhoneNotFound
   | IFetchValidatePhone
   | IPhoneValidated
   | IBirthRegistered

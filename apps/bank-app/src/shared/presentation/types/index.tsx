@@ -27,6 +27,8 @@ export type AuthStackParamList = {
   SignupBirth: undefined;
   SignupAddress: undefined;
   SignupCongrats: undefined;
+  ChoosePassword: undefined;
+  ValidatePhone: undefined;
   Legal: undefined;
   Cgu: undefined;
   CguKycProvider: undefined;
@@ -47,6 +49,8 @@ export enum IAuthStackPages {
   SIGNUP_BIRTH = 'SignupBirth',
   SIGNUP_ADDRESS = 'SignupAddress',
   SIGNUP_CONGRATS = 'SignupCongrats',
+  CHOOSE_PASSWORD = 'ChoosePassword',
+  VALIDATE_PHONE = 'ValidatePhone',
   LEGAL = 'Legal',
   CGU = 'Cgu',
   CGU_KYC_PROVIDER = 'CguKycProvider',
@@ -66,6 +70,8 @@ export type IAuthStackProps = {
   [IAuthStackPages.SIGNUP_BIRTH]: object;
   [IAuthStackPages.SIGNUP_ADDRESS]: object;
   [IAuthStackPages.SIGNUP_CONGRATS]: object;
+  [IAuthStackPages.CHOOSE_PASSWORD]: object;
+  [IAuthStackPages.VALIDATE_PHONE]: object;
   [IAuthStackPages.LEGAL]: object;
   [IAuthStackPages.CGU]: object;
   [IAuthStackPages.CGU_KYC_PROVIDER]: object;
@@ -85,6 +91,8 @@ export type IRoutes =
   | IAuthStackPages.SIGNUP_BIRTH
   | IAuthStackPages.SIGNUP_ADDRESS
   | IAuthStackPages.SIGNUP_CONGRATS
+  | IAuthStackPages.CHOOSE_PASSWORD
+  | IAuthStackPages.VALIDATE_PHONE
   | IAuthStackPages.LEGAL
   | IAuthStackPages.CGU
   | IAuthStackPages.CGU_KYC_PROVIDER

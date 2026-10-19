@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
 
-import { ICheckPhoneQuery, ISuccess, AuthError, ISendPhoneValidationCommand } from '@clean-rn/auth/domain';
+import { ISearchPhoneQuery, ISuccess, AuthError, ISendPhoneValidationCommand } from '@clean-rn/auth/domain';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
+import { AuthApi, IUserSearchServerCode } from '@clean-rn/auth/infrastructure';
 
 import { IAuthStackPages } from '../../../../../shared/presentation/types';
 import { navigate } from '../../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../../shared/application/commands/manage-global-errors';
 
-import { ISignupTypes, signupFailed, phoneChecked, initializeSignupStep } from '../../../commands/signup';
+import { ISignupTypes, signupFailed, phoneNotFound, initializeSignupStep } from '../../../commands/signup';
 
 export function* checkPhoneSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(ISignupTypes.FETCH_CHECK_PHONE, checkPhoneGenerator, httpConnection);
+  yield takeEvery(ISignupTypes.FETCH_SEARCH_EMAIL, checkPhoneGenerator, httpConnection);
 }
 
 export function* checkPhoneGenerator(
@@ -21,20 +21,20 @@ export function* checkPhoneGenerator(
     payload,
   }: {
     type: string;
-    payload: ICheckPhoneQuery;
+    payload: ISearchPhoneQuery;
   },
 ): Generator<StrictEffect, any, any> {
   try {
     const api = AuthApi.getInstance(httpConnection);
     // api call
-    const phoneExists: ISuccess = yield call([api, api.searchPhone], payload);
-    if (phoneExists.success) {
+    const response: number = yield call([api, api.searchPhone], payload);
+    if (response === IUserSearchServerCode.PHONE_EXISTS) {
       yield put(signupFailed(new AuthError.SignupFailurePhoneExists()));
       yield cancel();
     }
     yield call([api, api.sendPhoneValidation], payload as ISendPhoneValidationCommand);
     // domain event
-    yield put(phoneChecked());
+    yield put(phoneNotFound());
     // navigation
     yield call(navigate, { route: IAuthStackPages.SIGNUP_VALIDATE_PHONE });
   } catch (e: unknown) {

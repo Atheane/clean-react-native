@@ -1,8 +1,8 @@
 import {
   IAuthErrorCodes,
   IAuthErrorMessage,
-  ICheckEmailQuery,
-  ICheckPhoneQuery,
+  ISearchEmailQuery,
+  ISearchPhoneQuery,
   IRegisterAddressCommand,
   IRegisterBirthCommand,
   IRegisterIdentityCommand,
@@ -24,12 +24,12 @@ import {
   IIdentityRegistered,
   IBirthRegistered,
   IAddressRegistered,
-  IEmailChecked,
+  IEmailNotFound,
   IPasswordRegistered,
-  IFetchCheckEmailExists,
-  IFetchCheckPhone,
+  IFetchSearchEmail,
+  IFetchSearchPhone,
   IFetchValidatePhone,
-  IPhoneChecked,
+  IPhoneNotFound,
   IPhoneValidated,
   IFetchSignupUser,
   IUserSignedUp,
@@ -37,8 +37,8 @@ import {
 import { IDomainError } from '@clean-rn/ddd';
 
 // redux actions that are commands
-export const fetchCheckEmailExists = (payload: ICheckEmailQuery): IFetchCheckEmailExists => ({
-  type: ISignupTypes.FETCH_CHECK_EMAIL_EXISTS,
+export const fetchSearchEmail = (payload: ISearchEmailQuery): IFetchSearchEmail => ({
+  type: ISignupTypes.FETCH_SEARCH_EMAIL,
   payload,
 });
 
@@ -74,8 +74,8 @@ export const initializeSignupStep = (): IInitializeSignupStep => ({
 });
 
 // redux actions that are domain Events
-export const emailChecked = (): IEmailChecked => ({
-  type: ISignupTypes.EMAIL_CHECKED,
+export const emailNotFound = (): IEmailNotFound => ({
+  type: ISignupTypes.EMAIL_NOT_FOUND,
 });
 
 export const signupFailed = (payload: IDomainError<IAuthErrorCodes, IAuthErrorMessage>): ISignupFailed => ({
@@ -103,13 +103,13 @@ export const addressRegistered = (payload: User): IAddressRegistered => ({
   payload,
 });
 
-export const fetchCheckPhone = (payload: ICheckPhoneQuery): IFetchCheckPhone => ({
-  type: ISignupTypes.FETCH_CHECK_PHONE,
+export const fetchSearchPhone = (payload: ISearchPhoneQuery): IFetchSearchPhone => ({
+  type: ISignupTypes.FETCH_SEARCH_PHONE,
   payload,
 });
 
-export const phoneChecked = (): IPhoneChecked => ({
-  type: ISignupTypes.PHONE_CHECKED,
+export const phoneNotFound = (): IPhoneNotFound => ({
+  type: ISignupTypes.PHONE_NOT_FOUND,
 });
 
 export const fetchValidatePhone = (payload: IValidatePhoneQuery): IFetchValidatePhone => ({
