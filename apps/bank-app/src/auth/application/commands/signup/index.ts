@@ -33,6 +33,7 @@ import {
   IPhoneValidated,
   IFetchSignupUser,
   IUserSignedUp,
+  IPhoneCodeSent,
 } from './types';
 import { IDomainError } from '@clean-rn/ddd';
 
@@ -108,8 +109,13 @@ export const fetchSearchPhone = (payload: ISearchPhoneQuery): IFetchSearchPhone 
   payload,
 });
 
-export const phoneNotFound = (): IPhoneNotFound => ({
+export const phoneCodeSent = (): IPhoneCodeSent => ({
+  type: ISignupTypes.PHONE_CODE_SENT,
+});
+
+export const phoneNotFound = (payload: IDomainError<IAuthErrorCodes, IAuthErrorMessage>): IPhoneNotFound => ({
   type: ISignupTypes.PHONE_NOT_FOUND,
+  payload,
 });
 
 export const fetchValidatePhone = (payload: IValidatePhoneQuery): IFetchValidatePhone => ({

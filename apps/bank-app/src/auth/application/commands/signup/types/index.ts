@@ -30,6 +30,7 @@ export enum ISignupTypes {
   IDENTITY_REGISTERED = 'IDENTITY_REGISTERED',
   PASSWORD_REGISTERED = 'PASSWORD_REGISTERED',
   PHONE_NOT_FOUND = 'PHONE_NOT_FOUND',
+  PHONE_CODE_SENT = 'PHONE_CODE_SENT',
   PHONE_VALIDATED = 'PHONE_VALIDATED',
   BIRTH_REGISTERED = 'BIRTH_REGISTERED',
   ADDRESS_REGISTERED = 'ADDRESS_REGISTERED',
@@ -103,6 +104,11 @@ export type IPasswordRegistered = {
 
 export type IPhoneNotFound = {
   type: typeof ISignupTypes.PHONE_NOT_FOUND;
+  payload: IDomainError<IAuthErrorCodes, IAuthErrorMessage>;
+};
+
+export type IPhoneCodeSent = {
+  type: typeof ISignupTypes.PHONE_CODE_SENT;
 };
 
 export type IPhoneValidated = {
@@ -134,6 +140,7 @@ export type ISignupActions =
   | IPasswordRegistered
   | IFetchSearchPhone
   | IPhoneNotFound
+  | IPhoneCodeSent
   | IFetchValidatePhone
   | IPhoneValidated
   | IBirthRegistered

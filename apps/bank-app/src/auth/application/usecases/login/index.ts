@@ -18,6 +18,7 @@ import { AuthApi, IUserLoginServerCode } from '@clean-rn/auth/infrastructure';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 
 import { loginFailure, ILoginTypes, initializeLogin, loginSuccess } from '../../commands/login';
+import { initializeSignupStep } from '../../commands/signup';
 
 import { IStoreKey } from '../../../../shared/application/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
@@ -86,6 +87,8 @@ export function* loginGenerator(
           yield put(loginFailure(new AuthError.LoginFailureUserNotFound(error)));
           yield cancel();
         case IUserLoginServerCode.USER_PHONE_NOT_VALIDATED:
+          // need to reinit signupReducer if user comes from signup flow (because not store data)
+          yield put(initializeSignupStep());
           yield put(loginFailure(new AuthError.LoginFailurePhoneNotValidated(error)));
           yield call(navigate, { route: IAuthStackPages.SIGNUP_PHONE });
           yield cancel();

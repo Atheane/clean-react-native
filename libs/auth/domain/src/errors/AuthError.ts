@@ -14,7 +14,8 @@ export enum IAuthErrorMessage {
   LOGIN_FAILURE_INVALID_CREDENTIALS = 'Login failure, invalid email or password',
   SIGNUP_FAILURE_EMAIL_EXISTS = 'Signup failure, email already exists',
   SIGNUP_FAILURE_PHONE_EXISTS = 'Signup failure, phone already exists',
-  SIGNUP_FAILURE_INCORRECT_PHONE_CODE = 'Signup failure, incorrect phone code',
+  VALIDATE_PHONE_INCORRECT_PHONE_CODE = 'Validate phone failure, incorrect phone code',
+  VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND = 'Validate phone failure, phone not found',
   USER_UNAUTHENTICATED = 'User unauthenticated', //login expired
 }
 
@@ -31,7 +32,8 @@ export enum IAuthErrorCodes {
   LOGIN_FAILURE_INVALID_CREDENTIALS = 'LOGIN_FAILURE_INVALID_CREDENTIALS',
   SIGNUP_FAILURE_EMAIL_EXISTS = 'SIGNUP_FAILURE_EMAIL_EXISTS',
   SIGNUP_FAILURE_PHONE_EXISTS = 'SIGNUP_FAILURE_PHONE_EXISTS',
-  SIGNUP_FAILURE_INCORRECT_PHONE_CODE = 'SIGNUP_FAILURE_INCORRECT_PHONE_CODE',
+  VALIDATE_PHONE_INCORRECT_PHONE_CODE = 'VALIDATE_PHONE_INCORRECT_PHONE_CODE',
+  VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND = 'VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND',
   USER_UNAUTHENTICATED = 'USER_UNAUTHENTICATED', //login expired
 }
 
@@ -188,7 +190,7 @@ export namespace AuthError {
       this.cause = cause;
     }
   }
-  export class SignupFailureIncorrectPhoneCode
+  export class ValidatePhoneIncorrectPhoneCode
     extends Error
     implements IDomainError<IAuthErrorCodes, IAuthErrorMessage>
   {
@@ -197,8 +199,8 @@ export namespace AuthError {
     cause?: unknown;
     constructor(cause?: unknown) {
       super();
-      this.message = IAuthErrorMessage.SIGNUP_FAILURE_INCORRECT_PHONE_CODE;
-      this.code = IAuthErrorCodes.SIGNUP_FAILURE_INCORRECT_PHONE_CODE;
+      this.message = IAuthErrorMessage.VALIDATE_PHONE_INCORRECT_PHONE_CODE;
+      this.code = IAuthErrorCodes.VALIDATE_PHONE_INCORRECT_PHONE_CODE;
       this.cause = cause;
     }
   }
@@ -210,6 +212,20 @@ export namespace AuthError {
       super();
       this.message = IAuthErrorMessage.USER_UNAUTHENTICATED;
       this.code = IAuthErrorCodes.USER_UNAUTHENTICATED;
+      this.cause = cause;
+    }
+  }
+  export class ValidatePhoneFailurePhoneNotFound
+    extends Error
+    implements IDomainError<IAuthErrorCodes, IAuthErrorMessage>
+  {
+    code: IAuthErrorCodes;
+    message: IAuthErrorMessage;
+    cause?: unknown;
+    constructor(cause?: unknown) {
+      super();
+      this.message = IAuthErrorMessage.VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND;
+      this.code = IAuthErrorCodes.VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND;
       this.cause = cause;
     }
   }

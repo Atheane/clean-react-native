@@ -55,9 +55,16 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
       newState = {
         ...state,
         pending: false,
-        error: null,
+        error: action.payload ?? null,
       };
       return newState;
+    case ISignupTypes.PHONE_CODE_SENT:
+      logger.debug(action.type);
+      return {
+        ...state,
+        pending: false,
+        error: null,
+      };
     case ISignupTypes.FETCH_VALIDATE_PHONE:
       logger.debug(action.type);
       newState = {
