@@ -15,8 +15,6 @@ import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentatio
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { selectTransactions } from '../../state-management/selectors';
-import { userUnauthenticated } from '../../../../auth/application/commands/login';
-import { AuthError } from '@clean-rn/auth/domain';
 
 export function* listTransactionsSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(ITransactionsTypes.LIST_TRANSACTIONS, listTransactionsGenerator, httpConnection);

@@ -51,6 +51,10 @@ export const Accounts = () => {
     [navigation],
   );
 
+  useEffect(() => {
+    dispatch(checkCustomerStatus());
+  }, [dispatch]);
+
   return pending ? (
     <Text>Loading ...</Text> // todo replace with loading gif
   ) : (

@@ -36,6 +36,12 @@
       "@clean-rn/ddd": [
         "libs/ddd/src/index.ts"
       ],
+      "@clean-rn/kyc/domain": [
+        "libs/kyc/domain/src/index.ts"
+      ],
+      "@clean-rn/kyc/infrastructure": [
+        "libs/kyc/infrastructure/src/index.ts"
+      ],
       "@clean-rn/logger": [
         "libs/logger/src/index.ts"
       ],

@@ -11,8 +11,6 @@ import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentatio
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { selectAccounts } from '../../state-management/selectors';
-import { userUnauthenticated } from '../../../../auth/application/commands/login';
-import { AuthError } from '@clean-rn/auth/domain';
 
 export function* listAccountsSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IAccountsTypes.LIST_ACCOUNTS, listAccountsGenerator, httpConnection);
