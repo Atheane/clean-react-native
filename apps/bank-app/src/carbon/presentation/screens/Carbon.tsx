@@ -27,7 +27,6 @@ import {
   TouchCardText,
   Colors,
   FontNames,
-  useHideBottomBar,
   useReduxOverStorageValue,
   ShareScreen,
 } from '@clean-rn/ui-mobile';
@@ -77,8 +76,6 @@ export const Carbon = () => {
   const handlePressNavigation = (route: IRoutes) => {
     navigation.navigate(route as never);
   };
-
-  useHideBottomBar();
 
   //storage
   const {

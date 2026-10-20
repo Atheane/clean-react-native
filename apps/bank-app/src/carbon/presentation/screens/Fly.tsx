@@ -3,6 +3,7 @@ import { View, StyleSheet, StyleProp, ViewStyle, SafeAreaView } from 'react-nati
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 import { FlightI } from '@bank/carbon-weight/dist';
 
 import { airports } from '@clean-rn/carbon/domain';

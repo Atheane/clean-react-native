@@ -9,7 +9,6 @@ import {
   Colors,
   FontNames,
   BottomLeavesBg,
-  useHideBottomBar,
   ExportPdfGradient,
   Ibanv2,
 } from '@clean-rn/ui-mobile';
@@ -34,7 +33,7 @@ export const AccountStatements = () => {
     navigation.navigate(IHomeStackPages.RIB_PDF, { account });
   }, [navigation, account]);
 
-  useHideBottomBar();
+  // useHideBottomBar();
 
   return (
     <ErrorBoundary t={t}>

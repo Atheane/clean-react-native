@@ -17,6 +17,7 @@ import { initGlobalError } from '../../../shared/application/commands/manage-glo
 import { ScreenModalError, ScreenModalWebview } from '../../../shared/presentation/screens';
 
 import { Carbon, House, Transport, Food, WarningFood, Fly } from '../screens';
+import { Platform } from 'react-native';
 
 const Stack = createNativeStackNavigator<ICarbonStackProps & ISharedStackProps>();
 
@@ -39,7 +40,7 @@ export const CarbonStack = () => {
         component={Carbon}
         options={{
           headerTitle: t('screens.carbon.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+          ...headersOptions(),
         }}
       />
       <Stack.Screen
@@ -47,7 +48,7 @@ export const CarbonStack = () => {
         component={House}
         options={{
           headerTitle: t('screens.carbon-house.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+          ...headersOptions(navigationStack.length > 1 && Platform ? goBack : undefined),
         }}
       />
       <Stack.Screen

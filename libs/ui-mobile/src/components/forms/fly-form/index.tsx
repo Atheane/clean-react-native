@@ -192,7 +192,6 @@ export const FlyForm = (props: IProps) => {
             data={mapFlightToCards(props.flights)}
             onDelete={handleOnDeleteFlight}
             height={260}
-            cardType={ICardType.EVENT_CARD_DELETE}
             cardScrollRef={cardScrollRef}
           />
         </View>
