@@ -105,16 +105,19 @@ export function* uploadDocumentSagaGenerator(
     const user = yield select(selectUserFromLogin);
 
     const api = KycApi.getInstance(httpConnection);
-    const documentProps = yield call([api, api.createDocument], {
+    const document = yield call([api, api.createDocument], {
       customerId: user.id,
       document: payload.document,
     });
-    Logger.getInstance().info(documentProps);
-    yield put(documentUploaded({ document: payload.document }));
+    yield call(navigate, { route: IKycStackPages.MENU });
+    Logger.getInstance().info(document.properties.status);
+    yield put(documentUploaded({ document }));
     // todo update customer in customerReducer
-    const customerFromRedux = yield select(selectCustomer);
+    const { customer: customerFromRedux } = yield select(selectCustomer);
+
     const customer = Customer.Create(customerFromRedux);
-    customer.addDocument(payload.document);
+    customer.addKyc(customerFromRedux.properties.kyc);
+    customer.addDocument(document);
     yield put(customerDocumentsUpdated({ customer }));
   } catch (error: unknown) {
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level

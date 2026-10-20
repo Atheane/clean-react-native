@@ -34,10 +34,8 @@ export function* checkCustomerStatusGenerator(
       yield put(customerStatusChecked({ customer }));
       yield cancel();
     }
-
     const api = KycApi.getInstance(httpConnection);
     const documents: IDocumentProperties[] = yield call([api, api.getDocuments]);
-
     const customer = Customer.Create({
       id: user.id,
       properties: { USPerson: user.properties.USPerson },

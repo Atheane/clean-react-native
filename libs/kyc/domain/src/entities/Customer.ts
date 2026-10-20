@@ -1,6 +1,7 @@
 import { Entity } from '@clean-rn/ddd';
 import { IDocumentProperties, IDocumentStatus, ICustomerStatus } from '../types';
 import { KycDocuments, DocumentVO } from '../value-objects';
+import { CustomerError } from '../errors/index';
 
 export interface ICustomerProperties {
   // todo part of the actual user should be moved to customer entity
@@ -30,10 +31,15 @@ export class Customer extends Entity<ICustomerProperties> {
     });
   }
 
+  addKyc(kyc: KycDocuments): void {
+    this.properties.kyc = kyc;
+  }
+
   addDocument(document: DocumentVO): void {
-    if (this.properties.kyc) {
-      this.properties.kyc.addDocument(document);
+    if (!this.properties.kyc) {
+      throw new CustomerError.MissingKycDocuments('addKyc first');
     }
+    this.properties.kyc.addDocument(document);
   }
 
   checkDocumentsStatus(docProps: IDocumentProperties[]): void {

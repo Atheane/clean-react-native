@@ -1,4 +1,2 @@
-import { Document } from './Document';
-import { DocumentVO } from './DocumentVO';
-import { KycDocuments } from './KycDocuments';
-export { Document, KycDocuments, DocumentVO };
+import { KycDocuments, DocumentVO } from './KycDocuments';
+export { KycDocuments, DocumentVO };
