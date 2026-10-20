@@ -91,6 +91,9 @@ import {
   TRAVEL,
   VEHICLES,
   HouseCarbon,
+  GreenValidation,
+  GreyPending,
+  RedCross,
 } from './svg';
 import { DefaultImage } from './image';
 export {
@@ -185,4 +188,7 @@ export {
   VEHICLES,
   HouseCarbon,
   DefaultImage,
+  GreenValidation,
+  GreyPending,
+  RedCross,
 };

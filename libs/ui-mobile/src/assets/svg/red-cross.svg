@@ -1,0 +1,11 @@
+<svg id="Composant_256_3" data-name="Composant 256 – 3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="33" height="33" viewBox="0 0 33 33">
+  <defs>
+    <pattern id="pattern" preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 6250 6250">
+      <image width="6250" height="6250" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="/>
+    </pattern>
+  </defs>
+  <g id="Groupe_1774" data-name="Groupe 1774" transform="translate(-40 -144)">
+    <circle id="Ellipse_1105" data-name="Ellipse 1105" cx="16.5" cy="16.5" r="16.5" transform="translate(40 144)" fill="#fff"/>
+  </g>
+  <rect id="vecteezy_cross-check-icon-symbol-on-transparent-background_17178563_364" width="28" height="28" rx="14" transform="translate(3 3)" fill="url(#pattern)"/>
+</svg>

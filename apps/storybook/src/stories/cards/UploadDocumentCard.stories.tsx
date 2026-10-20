@@ -16,6 +16,7 @@ const UploadDocumentCardMeta: ComponentMeta<typeof UploadDocumentCard> = {
     image: W9,
     imageDisabled: W9Disabled,
     disabled: true,
+    status: 'PENDING',
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };

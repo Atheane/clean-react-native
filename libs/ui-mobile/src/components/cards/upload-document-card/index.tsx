@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, ImageSourcePropType } 
 import { useTheme } from '@rneui/themed';
 
 // import { DeleteGradient, Edit } from '../../../assets';
-import { Edit } from '../../../assets';
+import { Edit, GreenValidation, RedCross, GreyPending } from '../../../assets';
 import { Colors, FontNames } from '../../../constants';
 import { LinkButtonColors } from '../../../types';
 import { LinkButton } from '../../buttons/link-button';
@@ -24,13 +24,6 @@ export const UploadDocumentCard = (props: IProps) => {
 
   return (
     <View>
-      {/* {props.status && (
-        <View style={styles.leftIcon}>
-          {props.status === 'VALIDATED' && <GreenValidate />}
-          {props.status === 'PENDING' && <Clock />}
-          {props.status === 'REFUSED' && <RedCross />}
-        </View>
-      )} */}
       <TouchableOpacity
         onPress={props.onPress}
         activeOpacity={props.disabled ? 1 : 0.2}
@@ -47,6 +40,13 @@ export const UploadDocumentCard = (props: IProps) => {
           </Text>
         </View>
       </TouchableOpacity>
+      {props.status && (
+        <View style={styles.leftIcon}>
+          {props.status === 'VALIDATED' && <GreenValidation />}
+          {props.status === 'PENDING' && <GreyPending />}
+          {props.status === 'REFUSED' && <RedCross />}
+        </View>
+      )}
       {props.onEdit && (
         <View style={styles.rightIcon}>
           <LinkButton
@@ -94,8 +94,8 @@ const styles = StyleSheet.create({
   },
   leftIcon: {
     position: 'absolute',
-    top: 8,
-    left: 8,
+    top: 16,
+    left: 24,
   },
   rightIcon: {
     position: 'absolute',

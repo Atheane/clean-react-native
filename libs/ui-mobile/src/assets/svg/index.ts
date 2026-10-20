@@ -90,6 +90,9 @@ import TRANSPORT from './t-transport.svg';
 import TRAVEL from './t-travel.svg';
 import VEHICLES from './t-vehicle.svg';
 import HouseCarbon from './house-carbon.svg';
+import GreenValidation from './green-validation.svg';
+import GreyPending from './grey-pending.svg';
+import RedCross from './red-cross.svg';
 
 export {
   Love,
@@ -182,4 +185,7 @@ export {
   TRAVEL,
   VEHICLES,
   HouseCarbon,
+  GreenValidation,
+  GreyPending,
+  RedCross,
 };
