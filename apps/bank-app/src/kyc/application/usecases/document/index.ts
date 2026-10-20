@@ -105,16 +105,15 @@ export function* uploadDocumentSagaGenerator(
     const user = yield select(selectUserFromLogin);
 
     const api = KycApi.getInstance(httpConnection);
-    const document = yield call([api, api.createDocument], {
+    const document: DocumentVO = yield call([api, api.createDocument], {
       customerId: user.id,
       document: payload.document,
     });
     yield call(navigate, { route: IKycStackPages.MENU });
     Logger.getInstance().info(document.properties.status);
     yield put(documentUploaded({ document }));
-    // todo update customer in customerReducer
-    const { customer: customerFromRedux } = yield select(selectCustomer);
 
+    const { customer: customerFromRedux } = yield select(selectCustomer);
     const customer = Customer.Create(customerFromRedux);
     customer.addKyc(customerFromRedux.properties.kyc);
     customer.addDocument(document);

@@ -10,6 +10,7 @@ import {
   DocumentVO,
   IDocumentCategory,
   IDocumentStatus,
+  KycDocuments,
 } from '@clean-rn/kyc/domain';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
@@ -21,7 +22,7 @@ import { IDocumentTypes, documentUploaded } from '../../commands/document';
 import { selectCustomer, selectUserFromLogin } from '../../state-management/selectors';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { IAuthStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages, IKycStackPages } from '../../../../shared/presentation/types';
 
 describe('Document - uploadDocument - usecases', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -77,6 +78,7 @@ describe('Document - uploadDocument - usecases', () => {
         USPerson: false,
       },
     });
+    customer.addKyc(new KycDocuments([document.properties]));
     customer.addDocument(document);
 
     testSaga(uploadDocumentSagaGenerator, httpConnection, {
@@ -89,6 +91,8 @@ describe('Document - uploadDocument - usecases', () => {
       .select(selectUserFromLogin)
       .next(user)
       .call([api, api.createDocument], { customerId: user.id, document }) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .next(document)
+      .call(navigate, { route: IKycStackPages.MENU })
       .next()
       .put(
         documentUploaded({
@@ -97,7 +101,7 @@ describe('Document - uploadDocument - usecases', () => {
       )
       .next()
       .select(selectCustomer)
-      .next(customer)
+      .next({ customer })
       .put(customerDocumentsUpdated({ customer }));
   });
 
