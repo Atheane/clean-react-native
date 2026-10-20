@@ -12,9 +12,10 @@ describe('Customer - unit', () => {
     const customer = Customer.Create({ id: 1, properties: { status: 'CANCELED', USPerson: false } });
     expect(customer.properties.status).toEqual('CANCELED');
   });
+
   it('should set customer as PENDING status and compute unique list of documents by typeId and pageNumber if ID and TAX_CERTIFICATE as W9', () => {
     const customer = Customer.Create({ id: 1, properties: { USPerson: true } });
-    customer.addDocuments([
+    customer.checkDocumentsStatus([
       {
         typeId: IDocumentType.ID,
         category: IDocumentCategory.FIRST_ID,
@@ -39,9 +40,8 @@ describe('Customer - unit', () => {
     ]);
     customer.checkCustomerStatus();
     expect(customer.properties.status).toEqual('REFUSED');
-    expect(customer.properties.documents?.isComplete).toEqual(false);
-    expect(customer.properties.documents?.w9?.pagesNumber).toEqual(1);
-    expect(customer.properties.documents?.w9?.rectoProps).toEqual(
+    expect(customer.properties.kyc?.isComplete).toEqual(false);
+    expect(customer.properties.kyc?.documents.w9?.properties).toEqual(
       expect.objectContaining({
         typeId: IDocumentType.TAX_CERTIFICATE,
         category: IDocumentCategory.W9,
@@ -49,16 +49,7 @@ describe('Customer - unit', () => {
         name: 'test-mock',
       }),
     );
-    expect(customer.properties.documents?.firstId?.pagesNumber).toEqual(2);
-    expect(customer.properties.documents?.firstId?.rectoProps).toEqual(
-      expect.objectContaining({
-        typeId: IDocumentType.ID,
-        category: IDocumentCategory.FIRST_ID,
-        status: IDocumentStatus.PENDING,
-        name: 'test-mock',
-      }),
-    );
-    expect(customer.properties.documents?.firstId?.versoProps).toEqual(
+    expect(customer.properties.kyc?.documents.firstId?.properties).toEqual(
       expect.objectContaining({
         typeId: IDocumentType.ID,
         category: IDocumentCategory.FIRST_ID,
@@ -70,7 +61,7 @@ describe('Customer - unit', () => {
 
   it('should set customer as PENDING status and compute unique list of documents by typeId and pageNumber if TAX_CERTIFICATE as RESIDENCE_PROOF', () => {
     const customer = Customer.Create({ id: 1, properties: { USPerson: false } });
-    customer.addDocuments([
+    customer.checkDocumentsStatus([
       {
         typeId: IDocumentType.TAX_CERTIFICATE,
         category: IDocumentCategory.RESIDENCE_PROOF,
@@ -81,8 +72,8 @@ describe('Customer - unit', () => {
     ]);
     customer.checkCustomerStatus();
     expect(customer.properties.status).toEqual('PENDING');
-    expect(customer.properties.documents?.isComplete).toEqual(false);
-    expect(customer.properties.documents?.residenceProof?.rectoProps).toEqual(
+    expect(customer.properties.kyc?.isComplete).toEqual(false);
+    expect(customer.properties.kyc?.documents.residenceProof?.properties).toEqual(
       expect.objectContaining({
         typeId: IDocumentType.TAX_CERTIFICATE,
         category: IDocumentCategory.RESIDENCE_PROOF,
@@ -90,12 +81,11 @@ describe('Customer - unit', () => {
         name: 'test-mock',
       }),
     );
-    expect(customer.properties.documents?.residenceProof?.versoProps).toBeUndefined();
   });
 
   it('should set customer as REFUSED if verso ID is REFUSED', () => {
     const customer = Customer.Create({ id: 1, properties: { status: 'REFUSED', USPerson: false } });
-    customer.addDocuments([
+    customer.checkDocumentsStatus([
       {
         typeId: IDocumentType.ID,
         category: IDocumentCategory.FIRST_ID,
@@ -120,35 +110,26 @@ describe('Customer - unit', () => {
     ]);
     customer.checkCustomerStatus();
     expect(customer.properties.status).toEqual('REFUSED');
-    expect(customer.properties.documents?.isComplete).toEqual(false);
-    expect(customer.properties.documents?.firstId?.pagesNumber).toEqual(2);
-    expect(customer.properties.documents?.firstId?.rectoProps).toEqual(
-      expect.objectContaining({
-        typeId: IDocumentType.ID,
-        status: IDocumentStatus.PENDING,
-        name: 'test-mock',
-      }),
-    );
-    expect(customer.properties.documents?.firstId?.versoProps).toEqual(
+    expect(customer.properties.kyc?.isComplete).toEqual(false);
+    expect(customer.properties.kyc?.documents?.firstId?.properties).toEqual(
       expect.objectContaining({
         typeId: IDocumentType.ID,
         status: IDocumentStatus.REFUSED,
         name: 'test-mock',
       }),
     );
-    expect(customer.properties.documents?.secondId?.rectoProps).toEqual(
+    expect(customer.properties.kyc?.documents?.secondId?.properties).toEqual(
       expect.objectContaining({
         typeId: IDocumentType.PASSPORT,
         status: IDocumentStatus.VALIDATED,
         name: 'test-mock',
       }),
     );
-    expect(customer.properties.documents?.secondId?.versoProps).toBeUndefined();
   });
 
   it('should be complete if USPerson and  W9', () => {
     const customer = Customer.Create({ id: 1, properties: { status: 'PENDING', USPerson: true } });
-    customer.addDocuments([
+    customer.checkDocumentsStatus([
       {
         typeId: IDocumentType.TAX_CERTIFICATE,
         category: IDocumentCategory.W9,
@@ -201,61 +182,40 @@ describe('Customer - unit', () => {
     ]);
     customer.checkCustomerStatus();
     expect(customer.properties.status).toEqual('REFUSED');
-    expect(customer.properties.documents?.isComplete).toEqual(true);
-    expect(customer.properties.documents?.w9?.pagesNumber).toEqual(1);
-    expect(customer.properties.documents?.w9?.rectoProps).toEqual(
+    expect(customer.properties.kyc?.isComplete).toEqual(true);
+    expect(customer.properties.kyc?.documents?.w9?.properties).toEqual(
       expect.objectContaining({
         typeId: IDocumentType.TAX_CERTIFICATE,
         status: IDocumentStatus.VALIDATED,
         name: 'test-mock',
       }),
     );
-    expect(customer.properties.documents?.w9?.versoProps).toBeUndefined();
-    expect(customer.properties.documents?.w9?.rectoProps).toEqual(
-      expect.objectContaining({
-        typeId: IDocumentType.TAX_CERTIFICATE,
-        status: IDocumentStatus.VALIDATED,
-        name: 'test-mock',
-      }),
-    );
-    expect(customer.properties.documents?.firstId?.pagesNumber).toEqual(2);
-    expect(customer.properties.documents?.firstId?.rectoProps).toEqual(
-      expect.objectContaining({
-        typeId: IDocumentType.RESIDENT_PERMIT,
-        status: IDocumentStatus.PENDING,
-        name: 'test-mock',
-      }),
-    );
-    expect(customer.properties.documents?.firstId?.versoProps).toEqual(
+    expect(customer.properties.kyc?.documents?.firstId?.properties).toEqual(
       expect.objectContaining({
         typeId: IDocumentType.RESIDENT_PERMIT,
         status: IDocumentStatus.REFUSED,
         name: 'test-mock',
       }),
     );
-    expect(customer.properties.documents?.secondId?.pagesNumber).toEqual(1);
-    expect(customer.properties.documents?.secondId?.rectoProps).toEqual(
+    expect(customer.properties.kyc?.documents?.secondId?.properties).toEqual(
       expect.objectContaining({
         typeId: IDocumentType.HEALTH_INSURANCE_CARD,
         status: IDocumentStatus.REFUSED,
         name: 'test-mock',
       }),
     );
-    expect(customer.properties.documents?.secondId?.versoProps).toBeUndefined();
-    expect(customer.properties.documents?.residenceProof?.pagesNumber).toEqual(1);
-    expect(customer.properties.documents?.residenceProof?.rectoProps).toEqual(
+    expect(customer.properties.kyc?.documents?.residenceProof?.properties).toEqual(
       expect.objectContaining({
         typeId: IDocumentType.PROOF_OF_ADDRESS,
         status: IDocumentStatus.PENDING,
         name: 'test-mock',
       }),
     );
-    expect(customer.properties.documents?.residenceProof?.versoProps).toBeUndefined();
   });
 
   it('should be complete if not USPerson and  not W9', () => {
     const customer = Customer.Create({ id: 1, properties: { status: 'PENDING', USPerson: false } });
-    customer.addDocuments([
+    customer.checkDocumentsStatus([
       {
         typeId: IDocumentType.RESIDENT_PERMIT,
         category: IDocumentCategory.FIRST_ID,
@@ -301,33 +261,22 @@ describe('Customer - unit', () => {
     ]);
     customer.checkCustomerStatus();
     expect(customer.properties.status).toEqual('REFUSED');
-    expect(customer.properties.documents?.isComplete).toEqual(true);
-    expect(customer.properties.documents?.firstId?.pagesNumber).toEqual(2);
-    expect(customer.properties.documents?.firstId?.rectoProps).toEqual(
-      expect.objectContaining({
-        typeId: IDocumentType.RESIDENT_PERMIT,
-        status: IDocumentStatus.PENDING,
-        name: 'test-mock',
-      }),
-    );
-    expect(customer.properties.documents?.firstId?.versoProps).toEqual(
+    expect(customer.properties.kyc?.isComplete).toEqual(true);
+    expect(customer.properties.kyc?.documents?.firstId?.properties).toEqual(
       expect.objectContaining({
         typeId: IDocumentType.RESIDENT_PERMIT,
         status: IDocumentStatus.REFUSED,
         name: 'test-mock',
       }),
     );
-    expect(customer.properties.documents?.secondId?.pagesNumber).toEqual(1);
-    expect(customer.properties.documents?.secondId?.rectoProps).toEqual(
+    expect(customer.properties.kyc?.documents?.secondId?.properties).toEqual(
       expect.objectContaining({
         typeId: IDocumentType.HEALTH_INSURANCE_CARD,
         status: IDocumentStatus.REFUSED,
         name: 'test-mock',
       }),
     );
-    expect(customer.properties.documents?.secondId?.versoProps).toBeUndefined();
-    expect(customer.properties.documents?.residenceProof?.pagesNumber).toEqual(1);
-    expect(customer.properties.documents?.residenceProof?.rectoProps).toEqual(
+    expect(customer.properties.kyc?.documents?.residenceProof?.properties).toEqual(
       expect.objectContaining({
         typeId: IDocumentType.PROOF_OF_ADDRESS,
         status: IDocumentStatus.PENDING,
@@ -338,7 +287,7 @@ describe('Customer - unit', () => {
 
   it('should allocate documents correctly for Residence Proof', () => {
     const customer = Customer.Create({ id: 1, properties: { USPerson: false } });
-    customer.addDocuments([
+    customer.checkDocumentsStatus([
       {
         typeId: IDocumentType.INVOICE,
         category: IDocumentCategory.RESIDENCE_PROOF,
@@ -356,9 +305,8 @@ describe('Customer - unit', () => {
     ]);
     customer.checkCustomerStatus();
     expect(customer.properties.status).toEqual('PENDING');
-    expect(customer.properties.documents?.isComplete).toEqual(false);
-    expect(customer.properties.documents?.residenceProof?.pagesNumber).toEqual(1);
-    expect(customer.properties.documents?.residenceProof?.rectoProps).toEqual(
+    expect(customer.properties.kyc?.isComplete).toEqual(false);
+    expect(customer.properties.kyc?.documents?.residenceProof?.properties).toEqual(
       expect.objectContaining({
         typeId: IDocumentType.INVOICE,
         category: IDocumentCategory.RESIDENCE_PROOF,
@@ -366,6 +314,5 @@ describe('Customer - unit', () => {
         name: 'test-mock',
       }),
     );
-    expect(customer.properties.documents?.residenceProof?.versoProps).toBeUndefined();
   });
 });

@@ -13,8 +13,9 @@ export class Document {
   recto?: string;
   verso?: string;
   pagesNumber?: number;
-  rectoProps?: IDocumentProperties;
-  versoProps?: IDocumentProperties;
+  properties?: IDocumentProperties;
+  // rectoProps?: IDocumentProperties;
+  // versoProps?: IDocumentProperties;
   status?: IDocumentStatus;
 
   constructor(docCategory: IDocumentCategory, docsProps: IDocumentProperties[]) {
@@ -24,11 +25,8 @@ export class Document {
       return;
     }
     this.pagesNumber = relevantDocuments.length;
-    this.rectoProps = relevantDocuments[0];
-    if (this.pagesNumber === 2) {
-      this.versoProps = relevantDocuments[1];
-    }
-    this.checkDocumentStatus();
+    this.properties = relevantDocuments[0];
+    this.checkDocumentStatus(relevantDocuments);
   }
 
   static computeExpectedPagesNumber(typeId: IDocumentType): number {
@@ -112,7 +110,7 @@ export class Document {
     }
   }
 
-  private checkDocumentStatus() {
+  private checkDocumentStatus(docProps: IDocumentProperties[]) {
     this.status = this.rectoProps?.status;
     if (this.pagesNumber === 2) {
       if (

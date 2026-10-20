@@ -3,7 +3,7 @@ import { call, put, StrictEffect, takeEvery, cancel, select } from 'redux-saga/e
 
 import { Logger } from '@clean-rn/logger';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
-import { DocumentError, DocumentVO, IDocumentProperties } from '@clean-rn/kyc/domain';
+import { Customer, DocumentError, DocumentVO, IDocumentProperties } from '@clean-rn/kyc/domain';
 import { KycApi } from '@clean-rn/kyc/infrastructure';
 
 import { IAuthStackPages, IKycStackPages } from '../../../../shared/presentation/types';
@@ -114,13 +114,13 @@ export function* uploadDocumentSagaGenerator(
     Logger.getInstance().info(documentProps);
     yield put(documentUploaded({ document: payload.document }));
     // todo update customer in customerReducer
-    const customer = yield select(selectCustomer);
+    const customerFromRedux = yield select(selectCustomer);
+    const customer = Customer.Create(customerFromRedux);
     customer.addDocument(payload.document);
     yield put(customerDocumentsUpdated({ customer }));
   } catch (error: unknown) {
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {
-      console.log(error);
       yield call(navigate, { route: IAuthStackPages.LOGIN });
       yield cancel();
     }

@@ -2,18 +2,18 @@
 import SagaTester from 'redux-saga-tester';
 import Constants from 'expo-constants';
 
-import { Customer, IDocument, IDocumentStatus } from '@clean-rn/kyc/domain';
+import { Customer, IDocumentCategory, IDocumentProperties, IDocumentStatus } from '@clean-rn/kyc/domain';
 
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
 
 import {
-  IKycTypes,
+  ICustomerTypes,
   checkCustomerStatus,
   customerStatusChecked,
   initializeKyc,
   kycRouteInitialized,
 } from '../../commands/customer';
-import { IKycState, kycReducer } from '../../state-management';
+import { ICustomerState, customerReducer } from '../../state-management';
 
 import { checkCustomerStatusSaga } from '../../usecases/customer';
 import { IKycStackPages } from '../../../../shared/presentation/types';
@@ -32,9 +32,10 @@ describe('KYC - integration', () => {
   let sagaTester: SagaTester;
   let httpConnection: HttpConnection;
 
-  const mockResponse: IDocument[] = [
+  const mockResponse: IDocumentProperties[] = [
     {
       typeId: 9,
+      category: IDocumentCategory.FIRST_ID,
       status: IDocumentStatus.PENDING,
       name: 'test-mock',
       createdAt: new Date('2023-10-03T13:20:21.303Z'),
@@ -54,20 +55,20 @@ describe('KYC - integration', () => {
   });
 
   beforeEach(() => {
-    const initialState: IKycState = {
+    const initialState: ICustomerState = {
       pending: false,
       customer: null,
       initRoute: null,
     };
     sagaTester = new SagaTester({
       initialState,
-      reducers: kycReducer,
+      reducers: customerReducer,
     });
   });
 
   it('Should store correct initial state if not initial state is provided', () => {
-    const newState = kycReducer(undefined, {
-      type: IKycTypes.CHECK_CUSTOMER_STATUS,
+    const newState = customerReducer(undefined, {
+      type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
     });
 
     expect(newState).toEqual({
@@ -78,8 +79,8 @@ describe('KYC - integration', () => {
   });
 
   it('Should store correct state if CUSTOMER_STATUS_CHECKED', () => {
-    const customer = Customer.Create({ id: 123, properties: { status: 'PENDING' } });
-    customer.addDocuments(mockResponse);
+    const customer = Customer.Create({ id: 123, properties: { USPerson: false } });
+    customer.checkDocumentsStatus(mockResponse);
     sagaTester.start(wrapSagaHidingNotFoundError, checkCustomerStatusSaga, httpConnection);
     sagaTester.dispatch(checkCustomerStatus());
     sagaTester.dispatch(

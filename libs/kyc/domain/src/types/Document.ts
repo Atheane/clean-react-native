@@ -22,12 +22,12 @@ export enum IDocumentStatus {
 }
 
 export enum IDocumentCategory {
-  W9 = 'W9',
-  FIRST_ID = 'FIRST_ID',
-  SECOND_ID = 'SECOND_ID',
-  RESIDENCE_PROOF = 'RESIDENCE_PROOF',
-  HOST_ID = 'HOST_ID',
-  SWORN_STATEMENT = 'SWORN_STATEMENT',
+  W9 = 'w9',
+  FIRST_ID = 'firstId',
+  SECOND_ID = 'secondId',
+  RESIDENCE_PROOF = 'residenceProof',
+  HOST_ID = 'hostId',
+  SWORN_STATEMENT = 'swornStatement',
 }
 
 export type IDocumentProperties = {

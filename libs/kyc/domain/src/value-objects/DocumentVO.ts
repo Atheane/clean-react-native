@@ -6,16 +6,16 @@ export class DocumentVO {
   private recto?: string;
   private verso?: string;
 
-  constructor(properties: IDocumentProperties) {
-    this.expectedPageCount = DocumentVO.computeExpectedPagesNumber(properties.typeId);
-    this.properties = properties;
-  }
-
   static computeExpectedPagesNumber(typeId: IDocumentType): number {
     if ([IDocumentType.ID, IDocumentType.RESIDENT_PERMIT, IDocumentType.DRIVING_LICENSE].includes(typeId)) {
       return 2;
     }
     return 1;
+  }
+
+  constructor(properties: IDocumentProperties) {
+    this.expectedPageCount = DocumentVO.computeExpectedPagesNumber(properties.typeId);
+    this.properties = properties;
   }
 
   addPage(page: string) {

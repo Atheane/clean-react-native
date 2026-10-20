@@ -4,7 +4,7 @@ import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { Customer, DocumentVO, IDocumentCategory, IDocumentStatus } from '@clean-rn/kyc/domain';
+import { Customer, IDocumentProperties, IDocumentCategory, IDocumentStatus } from '@clean-rn/kyc/domain';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { KycApi } from '@clean-rn/kyc/infrastructure';
@@ -25,7 +25,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
   const api = KycApi.getInstance(httpConnection);
   const genObject = checkCustomerStatusSaga(httpConnection);
 
-  const mockResponse: DocumentVO[] = [
+  const mockResponse: IDocumentProperties[] = [
     {
       typeId: 9,
       category: IDocumentCategory.FIRST_ID,
@@ -70,7 +70,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
       properties: { USPerson: false },
     });
 
-    customer.addDocument(mockResponse);
+    customer.checkDocumentsStatus(mockResponse);
     customer.checkCustomerStatus();
 
     testSaga(checkCustomerStatusGenerator, httpConnection)
