@@ -1,10 +1,9 @@
 import { useCallback } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ImageSourcePropType } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
-import { IDocumentType } from '@clean-rn/kyc/domain';
 import {
   Colors,
   FontNames,
@@ -15,6 +14,7 @@ import {
 } from '@clean-rn/ui-mobile';
 import { IKycStackPages, IRoutes } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { SwornStatement } from '../assets/images';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -24,8 +24,18 @@ export const MenuKycHost = () => {
   const { theme } = useTheme();
 
   const handleOnPress = useCallback(
-    (route: IRoutes, documentType?: IDocumentType) => {
-      navigation.navigate(route as never, documentType ? { docType: documentType, step: 1 } : undefined);
+    (
+      route: IRoutes,
+      {
+        instruction,
+        imageSource,
+        showExample,
+      }: { instruction?: string; imageSource?: ImageSourcePropType; showExample?: boolean } = {},
+    ) => {
+      navigation.navigate(
+        route as never,
+        route === IKycStackPages.UPLOAD_DOCUMENT ? { instruction, imageSource, showExample } : {},
+      );
     },
     [navigation],
   );
@@ -34,8 +44,8 @@ export const MenuKycHost = () => {
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={[styles.container, { height: HEIGHT }]}>
-          <View style={[styles.titleContainer]}>
-            <Text style={[theme.bank.text.boldDarkBlue, styles.title]}>
+          <View style={[styles.instructionContainer]}>
+            <Text style={[theme.bank.text.boldDarkBlue, styles.instruction]}>
               {t('screens.kyc.menu-kyc-host.instruction')}
             </Text>
           </View>
@@ -43,21 +53,27 @@ export const MenuKycHost = () => {
             <IconTextItem
               icon={KycResidenceProof}
               text={t('screens.kyc.menu-kyc-host.sworn-statement')}
-              onPress={() => handleOnPress(IKycStackPages.UPLOAD_DOCUMENT, IDocumentType.SWORN_STATEMENT)}
+              onPress={() =>
+                handleOnPress(IKycStackPages.UPLOAD_DOCUMENT, {
+                  instruction: t('screens.kyc.sworn-statement.instruction'),
+                  imageSource: SwornStatement,
+                  showExample: true,
+                })
+              }
             />
           </View>
           <View style={[styles.itemContainer]}>
             <IconTextItem
               icon={KycIdentification}
               text={t('screens.kyc.menu-kyc-host.identification')}
-              onPress={() => handleOnPress(IKycStackPages.HOST_ID_LIST)}
+              onPress={() => handleOnPress(IKycStackPages.HOST_ID_LIST, {})}
             />
           </View>
           <View style={[styles.itemContainer]}>
             <IconTextItem
               icon={KycInvoice}
               text={t('screens.kyc.menu-kyc-host.residence-proof')}
-              onPress={() => handleOnPress(IKycStackPages.RESIDENCE_PROOF_LIST)}
+              onPress={() => handleOnPress(IKycStackPages.HOST_RESIDENCE_PROOF_LIST, {})}
             />
           </View>
         </View>
@@ -73,25 +89,14 @@ const styles = StyleSheet.create({
     marginTop: 120,
   },
   iconContainer: { position: 'relative', left: 10, top: 2 },
-  titleContainer: {
+  instructionContainer: {
     marginBottom: 50,
   },
   itemContainer: {
     marginVertical: 32,
   },
-  title: {
+  instruction: {
     fontSize: 16,
-  },
-  text: {
     textAlign: 'center',
-    fontFamily: FontNames.MartelSans_400Regular,
-    fontSize: 16,
-    color: Colors.bank.primary.darkGrey,
-    width: '80%',
-    paddingTop: 20,
-    paddingBottom: 30,
-  },
-  buttonContainer: {
-    marginTop: 0,
   },
 });

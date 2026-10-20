@@ -1,10 +1,9 @@
 import { useCallback } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ImageSourcePropType } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
-import { IDocumentType } from '@clean-rn/kyc/domain';
 import {
   Colors,
   FontNames,
@@ -16,6 +15,8 @@ import {
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
+import { IDCardRecto, Passport, ResidencePermitRecto } from '../assets/images';
+
 const HEIGHT = Dimensions.get('window').height;
 
 export const FirstIdList = () => {
@@ -24,8 +25,11 @@ export const FirstIdList = () => {
   const { theme } = useTheme();
 
   const handleOnPress = useCallback(
-    (documentType: IDocumentType) => {
-      navigation.navigate(IKycStackPages.UPLOAD_DOCUMENT as never, { docType: documentType, step: 1 });
+    ({ instruction, imageSource }: { instruction: string; imageSource: ImageSourcePropType }) => {
+      navigation.navigate(IKycStackPages.UPLOAD_DOCUMENT as never, {
+        instruction,
+        imageSource,
+      });
     },
     [navigation],
   );
@@ -44,21 +48,36 @@ export const FirstIdList = () => {
             <IconTextItem
               icon={KycId}
               text={t('screens.kyc.first-id.id')}
-              onPress={() => handleOnPress(IDocumentType.ID)}
+              onPress={() =>
+                handleOnPress({
+                  instruction: t('screens.kyc.id.recto.instruction'),
+                  imageSource: IDCardRecto,
+                })
+              }
             />
           </View>
           <View style={[styles.itemContainer]}>
             <IconTextItem
               icon={KycPassport}
               text={t('screens.kyc.first-id.passport')}
-              onPress={() => handleOnPress(IDocumentType.PASSPORT)}
+              onPress={() =>
+                handleOnPress({
+                  instruction: t('screens.kyc.passport.instruction'),
+                  imageSource: Passport,
+                })
+              }
             />
           </View>
           <View style={styles.itemContainer}>
             <IconTextItem
               icon={KycResidencePermit}
               text={t('screens.kyc.first-id.residence-permit')}
-              onPress={() => handleOnPress(IDocumentType.RESIDENT_PERMIT)}
+              onPress={() =>
+                handleOnPress({
+                  instruction: t('screens.kyc.residence-permit.recto.instruction'),
+                  imageSource: ResidencePermitRecto,
+                })
+              }
             />
           </View>
         </View>

@@ -9,3 +9,4 @@ export { ResidenceProofOptions } from './ResidenceProofOptions';
 export { ResidenceProofList } from './ResidenceProofList';
 export { MenuKycHost } from './MenuKycHost';
 export { HostIdList } from './HostIdList';
+export { HostResidenceProofList } from './HostResidenceProofList';

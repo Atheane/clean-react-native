@@ -457,7 +457,8 @@
       },
       "sworn-statement": {
         "title": "Host's sworn statement",
-        "instruction": "of the host's sworn statement"
+        "instruction": "of the host's sworn statement",
+        "example": "Example"
       },
       "invoice": {
         "title": "Invoice",
@@ -487,15 +488,56 @@
         "title": "Proof of Residence",
         "instruction": "Choose your proof of residence",
         "invoice": "An invoice (internet, electricity, and gas bills)",
-        "tax": "Tax Notice"
+        "tax": "Tax Notice",
+        "iban": "IBAN"
       },
-      "host-list": {
-        "title": "Host's Documents",
+      "menu-kyc-host": {
+        "title": "Host's Documentation",
         "instruction": "Documents to be provided:",
-        "attestation": "A host's certificate",
-        "id": "Host's identity document",
-        "residence-proof": "Host's proof of residence"
-      }
+        "sworn-statement": "A sworn statement from the host",
+        "identification": "Identification document of the host",
+        "residence-proof": "Residence proof of the host"
+      },
+      "host-id-list": {
+        "title": "Host's Identification Documents",
+        "instruction": "Select the identification document of the person hosting you",
+        "id": "Identity Card",
+        "passport": "Passport"
+      },
+      "host-id": {
+        "recto": {
+          "title": "Identity Card - Front",
+          "instruction": "of the front side of the host's identity card."
+        },
+        "verso": {
+          "title": "Identity Card - Back",
+          "instruction": "of the back side of the host's identity card."
+        }
+      },
+      "host-passport": {
+        "title": "Passport",
+        "instruction": "of the identity page of the host's passport"
+      },
+      "host-residence-proof-list": {
+        "title": "Host's Residence Proof",
+        "instruction": "Select the residence proof of your host",
+        "invoice": "An invoice\n(internet, electricity, and gas bills)",
+        "tax": "Tax Assessment",
+        "iban": "IBAN"
+      },
+      "host-iban": {
+        "title": "Your Host's Bank Identity Statement",
+        "instruction": "or send us a copy of the host's IBAN."
+      },
+      "host-taxes": {
+        "title": "Your Host's Tax Assessment",
+        "instruction": "of the host's most recent tax assessment"
+      },
+      "host-invoice": {
+        "title": "Your Host's Invoice",
+        "instruction": "of the front side of the host's invoice.",
+        "another-instruction": "Only internet, electricity, and gas bills are accepted and must be no older than 3 months. Mobile phone bills are not valid."
+      }    
     }
   }
 }

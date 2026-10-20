@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ImageSourcePropType } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
-import { IDocumentType } from '@clean-rn/kyc/domain';
 import { Colors, FontNames, IconTextItem, KycIban, KycInvoice, KycTaxes } from '@clean-rn/ui-mobile';
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { BillEdf, Iban, Taxes } from '../assets/images';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -17,8 +17,23 @@ export const ResidenceProofList = () => {
   const { theme } = useTheme();
 
   const handleOnPress = useCallback(
-    (documentType: IDocumentType) => {
-      navigation.navigate(IKycStackPages.UPLOAD_DOCUMENT as never, { docType: documentType, step: 1 });
+    ({
+      instruction,
+      imageSource,
+      anotherInstruction,
+      docPickerVisible,
+    }: {
+      instruction: string;
+      imageSource: ImageSourcePropType;
+      anotherInstruction?: string;
+      docPickerVisible?: boolean;
+    }) => {
+      navigation.navigate(IKycStackPages.UPLOAD_DOCUMENT as never, {
+        instruction,
+        imageSource,
+        anotherInstruction,
+        docPickerVisible,
+      });
     },
     [navigation],
   );
@@ -36,21 +51,40 @@ export const ResidenceProofList = () => {
             <IconTextItem
               icon={KycInvoice}
               text={t('screens.kyc.residence-proof-list.invoice')}
-              onPress={() => handleOnPress(IDocumentType.INVOICE)}
+              onPress={() =>
+                handleOnPress({
+                  instruction: t('screens.kyc.invoice.instruction'),
+                  imageSource: BillEdf,
+                  anotherInstruction: t('screens.kyc.invoice.another-instruction'),
+                  docPickerVisible: true,
+                })
+              }
             />
           </View>
           <View style={[styles.itemContainer]}>
             <IconTextItem
               icon={KycIban}
               text={t('screens.kyc.residence-proof-list.iban')}
-              onPress={() => handleOnPress(IDocumentType.BANK_ID)}
+              onPress={() =>
+                handleOnPress({
+                  instruction: t('screens.kyc.iban.instruction'),
+                  imageSource: Iban,
+                  docPickerVisible: true,
+                })
+              }
             />
           </View>
           <View style={[styles.itemContainer]}>
             <IconTextItem
               icon={KycTaxes}
               text={t('screens.kyc.residence-proof-list.tax')}
-              onPress={() => handleOnPress(IDocumentType.TAX_STATEMENT)}
+              onPress={() =>
+                handleOnPress({
+                  instruction: t('screens.kyc.taxes.instruction'),
+                  imageSource: Taxes,
+                  docPickerVisible: true,
+                })
+              }
             />
           </View>
         </View>

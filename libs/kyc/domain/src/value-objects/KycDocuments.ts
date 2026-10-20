@@ -79,6 +79,23 @@ export class KycDocuments {
     return documentsByCategory;
   }
 
+  get isReady(): boolean {
+    if (
+      (this.expectedDocumentsNumber === 3 &&
+        this.firstId?.isReady &&
+        this.secondId?.isReady &&
+        this.residenceProof?.isReady) ||
+      (this.expectedDocumentsNumber === 4 &&
+        this.w9?.isReady &&
+        this.firstId?.isReady &&
+        this.secondId?.isReady &&
+        this.residenceProof?.isReady)
+    ) {
+      return true;
+    }
+    return false;
+  }
+
   get isComplete(): boolean {
     if (
       (this.expectedDocumentsNumber === 3 && this.firstId && this.secondId && this.residenceProof) ||

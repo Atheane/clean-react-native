@@ -8,6 +8,7 @@ import { IDocumentType } from '@clean-rn/kyc/domain';
 import { IconTextItem, KycId, KycPassport } from '@clean-rn/ui-mobile';
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { IDCardRecto } from '../assets/images';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -17,8 +18,11 @@ export const HostIdList = () => {
   const { theme } = useTheme();
 
   const handleOnPress = useCallback(
-    (documentType: IDocumentType) => {
-      navigation.navigate(IKycStackPages.UPLOAD_DOCUMENT as never, { docType: documentType, step: 1 });
+    ({ instruction, imageSource }: { instruction: string; imageSource: ImageSourcePropType }) => {
+      navigation.navigate(IKycStackPages.UPLOAD_DOCUMENT as never, {
+        instruction,
+        imageSource,
+      });
     },
     [navigation],
   );
@@ -36,14 +40,24 @@ export const HostIdList = () => {
             <IconTextItem
               icon={KycId}
               text={t('screens.kyc.host-id-list.id')}
-              onPress={() => handleOnPress(IDocumentType.ID)}
+              onPress={() =>
+                handleOnPress({
+                  instruction: t('screens.kyc.host-id.recto.instruction'),
+                  imageSource: IDCardRecto,
+                })
+              }
             />
           </View>
           <View style={[styles.itemContainer]}>
             <IconTextItem
               icon={KycPassport}
               text={t('screens.kyc.host-id-list.passport')}
-              onPress={() => handleOnPress(IDocumentType.PASSPORT)}
+              onPress={() =>
+                handleOnPress({
+                  instruction: t('screens.kyc.host-passport.instruction'),
+                  imageSource: IDCardRecto,
+                })
+              }
             />
           </View>
         </View>

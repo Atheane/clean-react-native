@@ -67,6 +67,13 @@ export class Document {
     }
   }
 
+  get isReady(): boolean {
+    if (this.pagesNumber === 2) {
+      return !!this.recto && !!this.verso;
+    }
+    return !!this.recto;
+  }
+
   // this should be done in back-end
   private selectRelevantDocumentProperties(docsProps: IDocumentProperties[]): IDocumentProperties[] {
     const sortedDocuments = docsProps.sort((a, b) => {

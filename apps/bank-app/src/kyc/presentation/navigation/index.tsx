@@ -28,6 +28,7 @@ import {
   UploadDocument,
   SuccessKyc,
   CardSent,
+  HostResidenceProofList,
 } from '../screens';
 import { kycRouteInitialized } from '../../../kyc/application/commands';
 
@@ -136,6 +137,14 @@ export const KycStack = () => {
         component={HostIdList}
         options={{
           headerTitle: t('screens.kyc.host-id-list.title'),
+          ...headersOptions(goBack),
+        }}
+      />
+      <Stack.Screen
+        name={IKycStackPages.HOST_RESIDENCE_PROOF_LIST}
+        component={HostResidenceProofList}
+        options={{
+          headerTitle: t('screens.kyc.host-residence-proof-list.title'),
           ...headersOptions(goBack),
         }}
       />

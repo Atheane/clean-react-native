@@ -499,6 +499,40 @@
         "instruction": "Choisissez la pièce d'identité de la personne qui vous héberge",
         "id": "Carte d'identité",
         "passport": "Passeport"
+      },
+      "host-id": {
+        "recto": {
+          "title": "Carte d’identité - Recto",
+          "instruction": "du recto de la carte d’identité de la personne qui vous héberge."
+        },
+        "verso": {
+          "title": "Carte d’identité - Verso",
+          "instruction": "du verso de la carte d’identité de la personne qui vous héberge."
+        }
+      },
+      "host-passport": {
+        "title": "Passeport",
+        "instruction": "de la page d’identité du passeport de la personne qui vous héberge"
+      },
+      "host-residence-proof-list": {
+        "title": "Justificatif de domicile de l'hébergeur",
+        "instruction": "Choisissez le justificatif de domicile de votre hébergeur",
+        "invoice": "Une facture\n(box internet, électricité et gaz)",
+        "tax": "Avis d’imposition",
+        "iban": "IBAN"
+      },
+      "host-iban": {
+        "title": "Relevé d’identité bancaire de votre hébergeur",
+        "instruction": "ou envoyez nous une copie de l'IBAN de la personne qui vous héberge."
+      },
+      "host-taxes": {
+        "title": "Avis d’imposititon de votre hébergeur",
+        "instruction": "du dernier avis d’imposition de la personne qui vous héberge"
+      },
+      "host-invoice": {
+        "title": "Facture de votre hébergeur",
+        "instruction": "de la face avant de la facture de la personne qui vous héberge.",
+        "another-instruction": "Les factures de box internet, électricité, gaz sont les seules acceptées et doivent impérativement avoir moins de 3 mois. Les factures de téléphone mobile ne sont pas valables."
       }
     }
   }

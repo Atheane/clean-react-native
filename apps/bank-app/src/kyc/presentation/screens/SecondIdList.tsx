@@ -1,10 +1,9 @@
 import { useCallback } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ImageSourcePropType } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
-import { IDocumentType } from '@clean-rn/kyc/domain';
 import {
   Colors,
   FontNames,
@@ -14,8 +13,8 @@ import {
   KycResidencePermit,
   KycDrivingLicense,
   KycHealthCard,
-  KycIban,
 } from '@clean-rn/ui-mobile';
+import { HealthThumb, IDCardRecto, Passport, ResidencePermitRecto } from '../assets/images';
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
@@ -27,8 +26,20 @@ export const SecondIdList = () => {
   const { theme } = useTheme();
 
   const handleOnPress = useCallback(
-    (documentType: IDocumentType) => {
-      navigation.navigate(IKycStackPages.UPLOAD_DOCUMENT as never, { docType: documentType, step: 1 });
+    ({
+      instruction,
+      imageSource,
+      secondImageVisible,
+    }: {
+      instruction: string;
+      imageSource: ImageSourcePropType;
+      secondImageVisible?: boolean;
+    }) => {
+      navigation.navigate(IKycStackPages.UPLOAD_DOCUMENT as never, {
+        instruction,
+        imageSource,
+        secondImageVisible,
+      });
     },
     [navigation],
   );
@@ -47,42 +58,61 @@ export const SecondIdList = () => {
             <IconTextItem
               icon={KycId}
               text={t('screens.kyc.second-id.id')}
-              onPress={() => handleOnPress(IDocumentType.ID)}
+              onPress={() =>
+                handleOnPress({
+                  instruction: t('screens.kyc.id.recto.instruction'),
+                  imageSource: IDCardRecto,
+                })
+              }
             />
           </View>
           <View style={[styles.itemContainer]}>
             <IconTextItem
               icon={KycPassport}
               text={t('screens.kyc.second-id.passport')}
-              onPress={() => handleOnPress(IDocumentType.PASSPORT)}
+              onPress={() =>
+                handleOnPress({
+                  instruction: t('screens.kyc.passport.instruction'),
+                  imageSource: Passport,
+                })
+              }
             />
           </View>
           <View style={styles.itemContainer}>
             <IconTextItem
               icon={KycResidencePermit}
               text={t('screens.kyc.second-id.residence-permit')}
-              onPress={() => handleOnPress(IDocumentType.RESIDENT_PERMIT)}
+              onPress={() =>
+                handleOnPress({
+                  instruction: t('screens.kyc.residence-permit.recto.instruction'),
+                  imageSource: ResidencePermitRecto,
+                })
+              }
             />
           </View>
           <View style={styles.itemContainer}>
             <IconTextItem
               icon={KycDrivingLicense}
               text={t('screens.kyc.second-id.driving-license')}
-              onPress={() => handleOnPress(IDocumentType.DRIVING_LICENSE)}
+              onPress={() =>
+                handleOnPress({
+                  instruction: t('screens.kyc.driving-license.recto.instruction'),
+                  imageSource: ResidencePermitRecto,
+                })
+              }
             />
           </View>
           <View style={styles.itemContainer}>
             <IconTextItem
               icon={KycHealthCard}
               text={t('screens.kyc.second-id.health-card')}
-              onPress={() => handleOnPress(IDocumentType.HEALTH_INSURANCE_CARD)}
-            />
-          </View>
-          <View style={styles.itemContainer}>
-            <IconTextItem
-              icon={KycIban}
-              text={t('screens.kyc.second-id.iban')}
-              onPress={() => handleOnPress(IDocumentType.BANK_ID)}
+              onPress={() =>
+                handleOnPress({
+                  instruction: t('screens.kyc.health-card.instruction'),
+                  imageSource: HealthThumb,
+                  secondImageVisible: true,
+                })
+              }
             />
           </View>
         </View>
