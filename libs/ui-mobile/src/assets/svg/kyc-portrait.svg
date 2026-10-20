@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="59" height="54" viewBox="0 0 59 54">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_2369" data-name="Rectangle 2369" width="59" height="54" rx="12" transform="translate(68 220)" fill="#fff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+    <pattern id="pattern" preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 830 542">
+      <image width="830" height="542" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="/>
+    </pattern>
+  </defs>
+  <g id="Groupe_de_masques_23" data-name="Groupe de masques 23" transform="translate(-68 -220)" clip-path="url(#clip-path)">
+    <rect id="Capture_d_écran_2023-02-28_à_14.21.45" data-name="Capture d’écran 2023-02-28 à 14.21.45" width="89" height="58" transform="translate(61 216)" fill="url(#pattern)"/>
+  </g>
+</svg>

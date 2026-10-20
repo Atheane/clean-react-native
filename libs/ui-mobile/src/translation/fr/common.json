@@ -401,11 +401,11 @@
         "passport": "Passeport",
         "residence-permit": "Permis de séjour"
       },
+      "take-photo": "Prenez une photo du",
       "id": {
         "title": "Carte d’identité - Recto",
-        "instruction-part-one": "Prenez une photo du ",
-        "recto": "recto",
-        "instruction-part-two": "de votre carte d’identité"
+        "recto": "recto de votre carte d’identité",
+        "verso": "verso de votre carte d’identité"
       }
     }
   }

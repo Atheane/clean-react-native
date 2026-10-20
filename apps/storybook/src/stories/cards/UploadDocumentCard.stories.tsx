@@ -1,9 +1,9 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
-import { UploadDocumentCard } from '@clean-rn/ui-mobile';
+import { UploadDocumentCard, KycW9, KycW9Disabled } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
-import { W9, W9Disabled } from '../../../assets/images';
+import { IDocumentStatus } from '@clean-rn/kyc/domain';
 
 const UploadDocumentCardMeta: ComponentMeta<typeof UploadDocumentCard> = {
   title: 'Cards/UploadDocumentCard',
@@ -18,10 +18,10 @@ const UploadDocumentCardMeta: ComponentMeta<typeof UploadDocumentCard> = {
   },
   args: {
     text: 'Lorem ipsum delatus',
-    image: W9,
-    imageDisabled: W9Disabled,
+    icon: KycW9,
+    iconDisabled: KycW9Disabled,
     disabled: true,
-    status: 'PENDING',
+    status: IDocumentStatus.PENDING,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };

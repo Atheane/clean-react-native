@@ -1,4 +1,6 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity, ImageSourcePropType } from 'react-native';
+import { FC } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { SvgProps } from 'react-native-svg';
 import { Icon, useTheme } from '@rneui/themed';
 import { IDocumentStatus } from '@clean-rn/kyc/domain';
 
@@ -9,8 +11,8 @@ import { LinkButtonColors } from '../../../types';
 import { LinkButton } from '../../buttons/link-button';
 
 type IProps = {
-  image: ImageSourcePropType;
-  imageDisabled: ImageSourcePropType;
+  icon: FC<SvgProps>;
+  iconDisabled: FC<SvgProps>;
   status?: IDocumentStatus;
   text: string;
   disabled?: boolean;
@@ -34,7 +36,7 @@ export const UploadDocumentCard = (props: IProps) => {
         ]}
       >
         <View style={styles.container}>
-          <Image style={styles.image} source={disabled ? props.imageDisabled : props.image} />
+          <View style={styles.iconContainer}>{disabled ? <props.iconDisabled /> : <props.icon />}</View>
           <Text style={[disabled ? theme.bank.text.grey : theme.bank.text.darkBlue, styles.text]}>
             {props.text}
           </Text>
@@ -78,7 +80,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  image: {
+  iconContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 24,

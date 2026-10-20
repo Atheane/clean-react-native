@@ -405,11 +405,11 @@
         "passport": "Passport",
         "residence-permit": "Residence permit"
       },
+      "take-photo": "Take a photo of the",
       "id": {
         "title": "ID Card - Front",
-        "instruction-part-one": "Take a photo of the",
-        "recto": "front",
-        "instruction-part-two": "of your ID card."
+        "recto": "front of your ID card.",
+        "verso": "back of your ID card."
       }
     }
   }

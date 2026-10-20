@@ -3,9 +3,8 @@ import { View, Text, StyleSheet, Dimensions, Image, ImageSourcePropType } from '
 import { useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
-import Markdown from 'react-native-markdown-package';
 
-import { DocumentScanner, Colors, FontNames } from '@clean-rn/ui-mobile';
+import { DocumentScanner } from '@clean-rn/ui-mobile';
 import { IDocumentType } from '@clean-rn/kyc/domain';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
@@ -24,12 +23,21 @@ export const UploadPhoto = () => {
   } = useRoute() as { params: { docType: IDocumentType; step: number } };
 
   const [imageSource, setImageSource] = useState<ImageSourcePropType>(IDCardRecto);
+  const [instruction, setInstruction] = useState('');
+  const [docPickerVisible, setDocPickerVisible] = useState(false);
 
   useEffect(() => {
-    if (docType === IDocumentType.ID && step === 2) {
+    if (docType === IDocumentType.ID && step === 1) {
+      setImageSource(IDCardRecto);
+      setInstruction(t('screens.kyc.id.recto'));
+    } else if (docType === IDocumentType.ID && step === 2) {
       setImageSource(IDCardVerso);
+      setInstruction(t('screens.kyc.id.verso'));
+    } else if (docType === IDocumentType.PASSPORT && step === 1) {
+      setImageSource(IDCardVerso);
+      setInstruction(t('screens.kyc.passport.recto'));
     }
-  }, [docType, step]);
+  }, [docType, step, t]);
 
   const dispatch = useDispatch();
 
@@ -49,17 +57,14 @@ export const UploadPhoto = () => {
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={[styles.container, { height: HEIGHT }]}>
-          {/* <Text style={[theme.bank.text.darkBlue, styles.title]}> */}
-          {/* <Markdown style={styles.md}>{`${t('screens.kyc.id.instruction-part-one')} **${t(
-            'screens.kyc.id.recto',
-          )}** ${t('screens.kyc.id.instruction-part-two')}`}</Markdown> */}
-          {/* </Text> */}
-          <Markdown styles={styles.singleLineMd}>{`${t('screens.kyc.id.instruction-part-one')} **${t(
-            'screens.kyc.id.recto',
-          )}** ${t('screens.kyc.id.instruction-part-two')}`}</Markdown>
+          <View>
+            <Text style={[theme.bank.text.darkBlue, styles.takePhoto]}>{t('screens.kyc.take-photo')}</Text>
+            <Text style={[theme.bank.text.boldDarkBlue, styles.instruction]}>{instruction}</Text>
+          </View>
           <Image source={imageSource} style={{ width: 180 }} />
           <View style={styles.buttonContainer}>
             <DocumentScanner getScan={handleGetScan} handleError={handleError} />
+            {docPickerVisible}
           </View>
         </View>
       </SafeScrollingView>
@@ -71,26 +76,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    marginTop: 60,
+    justifyContent: 'space-around',
   },
-  title: {
+  takePhoto: {
     fontSize: 16,
     textAlign: 'center',
   },
+  instruction: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 7,
+    marginLeft: 6,
+  },
   buttonContainer: {
-    marginTop: 0,
+    marginBottom: '30%',
   },
   iconContainer: { position: 'relative', left: 10, top: 2 },
-  singleLineMd: {
-    text: {
-      color: Colors.bank.primary.darkBlue,
-      fontSize: 16,
-      textAlign: 'center',
-      fontFamily: FontNames.MartelSans_400Regular,
-      lineHeight: 22,
-    },
-    view: {
-      // alignSelf: 'stretch',
-    },
-  },
 });

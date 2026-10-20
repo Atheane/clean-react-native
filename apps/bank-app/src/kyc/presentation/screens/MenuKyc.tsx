@@ -5,24 +5,24 @@ import { useTheme } from '@rneui/themed';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import { UploadDocumentCard } from '@clean-rn/ui-mobile';
-import { IDocumentCategory, IDocumentType, IKycDocuments } from '@clean-rn/kyc/domain';
+import {
+  UploadDocumentCard,
+  KycW9,
+  KycW9Disabled,
+  KycIdentification,
+  KycIdentificationDisabled,
+  KycPassport,
+  KycPassportDisabled,
+  KycInvoice,
+  KycInvoiceDisabled,
+  KycPortrait,
+  KycPortraitDisabled,
+} from '@clean-rn/ui-mobile';
+import { IDocumentType, KycDocuments } from '@clean-rn/kyc/domain';
 
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import {
-  BillEdf,
-  BillEdfDisabled,
-  IdentityCard,
-  IdentityCardDisabled,
-  Passport,
-  PassportDisabled,
-  PhotoPortrait,
-  PhotoPortraitDisabled,
-  W9,
-  W9Disabled,
-} from '../assets/images';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -67,7 +67,7 @@ export const MenuKyc = () => {
   // docuemnts status
   const { customer } = useSelector((state: IRootState) => state.kyc);
 
-  const [submittedDocuments, setSubmittedDocuments] = useState<IKycDocuments>();
+  const [submittedDocuments, setSubmittedDocuments] = useState<KycDocuments>();
 
   useEffect(() => {
     if (customer?.properties.documents) {
@@ -86,58 +86,38 @@ export const MenuKyc = () => {
           <View>
             {user?.properties.USPerson && (
               <UploadDocumentCard
-                image={W9}
-                imageDisabled={W9Disabled}
-                status={
-                  submittedDocuments &&
-                  submittedDocuments[IDocumentCategory.W9] &&
-                  submittedDocuments[IDocumentCategory.W9].status
-                }
+                icon={KycW9}
+                iconDisabled={KycW9Disabled}
+                status={submittedDocuments?.w9?.status}
                 text={t('screens.kyc.menu.w9-form')}
                 onPress={navigateToUploadW9}
               />
             )}
             <UploadDocumentCard
-              image={IdentityCard}
-              imageDisabled={IdentityCardDisabled}
-              status={
-                submittedDocuments &&
-                submittedDocuments[IDocumentCategory.FIRST_ID] &&
-                submittedDocuments[IDocumentCategory.FIRST_ID].status
-              }
+              icon={KycIdentification}
+              iconDisabled={KycIdentificationDisabled}
+              status={submittedDocuments?.firstId?.status}
               text={`${t('screens.kyc.menu.first')} ${t('screens.kyc.menu.identity')}`}
               onPress={navigateToFirstIdList}
             />
             <UploadDocumentCard
-              image={Passport}
-              imageDisabled={PassportDisabled}
-              status={
-                submittedDocuments &&
-                submittedDocuments[IDocumentCategory.SECOND_ID] &&
-                submittedDocuments[IDocumentCategory.SECOND_ID].status
-              }
+              icon={KycPassport}
+              iconDisabled={KycPassportDisabled}
+              status={submittedDocuments?.secondId?.status}
               text={`${t('screens.kyc.menu.second')} ${t('screens.kyc.menu.identity')}`}
               onPress={navigateToSecondIdList}
             />
             <UploadDocumentCard
-              image={BillEdf}
-              imageDisabled={BillEdfDisabled}
-              status={
-                submittedDocuments &&
-                submittedDocuments[IDocumentCategory.RESIDENCE_PROOF] &&
-                submittedDocuments[IDocumentCategory.RESIDENCE_PROOF].status
-              }
+              icon={KycInvoice}
+              iconDisabled={KycInvoiceDisabled}
+              status={submittedDocuments?.residenceProof?.status}
               text={t('screens.kyc.menu.address')}
               onPress={navigateToResidenceProofIdList}
             />
             <UploadDocumentCard
-              image={PhotoPortrait}
-              imageDisabled={PhotoPortraitDisabled}
-              status={
-                submittedDocuments &&
-                submittedDocuments[IDocumentCategory.PORTRAIT] &&
-                submittedDocuments[IDocumentCategory.PORTRAIT].status
-              }
+              icon={KycPortrait}
+              iconDisabled={KycPortraitDisabled}
+              status={submittedDocuments?.portrait?.status}
               text={t('screens.kyc.menu.photo')}
               onPress={navigateToUploadPhotoPortrait}
             />
