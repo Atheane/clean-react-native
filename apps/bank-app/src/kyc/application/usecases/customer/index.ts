@@ -3,7 +3,7 @@ import { call, put, StrictEffect, takeEvery, cancel, select } from 'redux-saga/e
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
-import { Customer, IDocument } from '@clean-rn/kyc/domain';
+import { Customer, IDocumentProperties } from '@clean-rn/kyc/domain';
 import { KycApi } from '@clean-rn/kyc/infrastructure';
 
 import { IAuthStackPages } from '../../../../shared/presentation/types';
@@ -33,11 +33,12 @@ export function* checkCustomerStatusGenerator(
     }
 
     const api = KycApi.getInstance(httpConnection);
-    const documents: IDocument[] = yield call([api, api.getDocuments]);
+    const documents: IDocumentProperties[] = yield call([api, api.getDocuments]);
 
     const customer = Customer.Create({ id: user.id, properties: { status: 'INIT' } });
     customer.addDocuments(documents);
     customer.checkCustomerStatus();
+
     yield put(customerStatusChecked({ customer }));
     // customer.properties.status cannot be undefined, default value : 'PENDING' so ignore eslint warning
     yield call(AsyncStorage.setItem, IStoreKey.CUSTOMER_STATUS, customer.properties.status);

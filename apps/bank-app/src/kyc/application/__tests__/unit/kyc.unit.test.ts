@@ -4,7 +4,7 @@ import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { Customer, IDocument, IDocumentStatus } from '@clean-rn/kyc/domain';
+import { Customer, IDocumentCategory, IDocumentProperties, IDocumentStatus } from '@clean-rn/kyc/domain';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { KycApi } from '@clean-rn/kyc/infrastructure';
@@ -25,9 +25,10 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
   const api = KycApi.getInstance(httpConnection);
   const genObject = checkCustomerStatusSaga(httpConnection);
 
-  const mockResponse: IDocument[] = [
+  const mockResponse: IDocumentProperties[] = [
     {
       typeId: 9,
+      category: IDocumentCategory.FIRST_ID,
       status: IDocumentStatus.PENDING,
       name: 'test-mock',
       createdAt: new Date('2023-10-03T13:20:21.303Z'),
@@ -66,7 +67,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
 
     const customer = Customer.Create({
       id: 123,
-      properties: { status: 'PENDING' },
+      properties: { status: 'INIT' },
     });
 
     customer.addDocuments(mockResponse);
