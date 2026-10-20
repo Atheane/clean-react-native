@@ -19,16 +19,16 @@ describe('Customer - unit', () => {
       {
         typeId: IDocumentType.ID,
         category: IDocumentCategory.FIRST_ID,
-        status: IDocumentStatus.PENDING,
+        status: IDocumentStatus.REFUSED,
         name: 'test-mock',
-        createdAt: new Date('2023-10-03T13:20:21.303Z'),
+        createdAt: new Date('2023-10-01T13:20:21.303Z'),
       },
       {
         typeId: IDocumentType.ID,
         category: IDocumentCategory.FIRST_ID,
-        status: IDocumentStatus.REFUSED,
+        status: IDocumentStatus.PENDING,
         name: 'test-mock',
-        createdAt: new Date('2023-10-01T13:20:21.303Z'),
+        createdAt: new Date('2023-10-03T13:20:21.303Z'),
       },
       {
         typeId: IDocumentType.TAX_CERTIFICATE,
@@ -89,16 +89,16 @@ describe('Customer - unit', () => {
       {
         typeId: IDocumentType.ID,
         category: IDocumentCategory.FIRST_ID,
-        status: IDocumentStatus.PENDING,
+        status: IDocumentStatus.REFUSED,
         name: 'test-mock',
-        createdAt: new Date('2023-10-03T13:20:21.303Z'),
+        createdAt: new Date('2023-10-01T13:20:21.303Z'),
       },
       {
         typeId: IDocumentType.ID,
         category: IDocumentCategory.FIRST_ID,
-        status: IDocumentStatus.REFUSED,
+        status: IDocumentStatus.PENDING,
         name: 'test-mock',
-        createdAt: new Date('2023-10-01T13:20:21.303Z'),
+        createdAt: new Date('2023-10-03T13:20:21.303Z'),
       },
       {
         typeId: IDocumentType.PASSPORT,
@@ -168,16 +168,16 @@ describe('Customer - unit', () => {
       {
         typeId: IDocumentType.PROOF_OF_ADDRESS,
         category: IDocumentCategory.RESIDENCE_PROOF,
-        status: IDocumentStatus.PENDING,
+        status: IDocumentStatus.REFUSED,
         name: 'test-mock',
-        createdAt: new Date('2023-10-03T13:20:21.303Z'),
+        createdAt: new Date('2023-10-01T13:20:21.303Z'),
       },
       {
         typeId: IDocumentType.PROOF_OF_ADDRESS,
         category: IDocumentCategory.RESIDENCE_PROOF,
-        status: IDocumentStatus.REFUSED,
+        status: IDocumentStatus.PENDING,
         name: 'test-mock',
-        createdAt: new Date('2023-10-01T13:20:21.303Z'),
+        createdAt: new Date('2023-10-03T13:20:21.303Z'),
       },
     ]);
     customer.checkCustomerStatus();
@@ -219,16 +219,16 @@ describe('Customer - unit', () => {
       {
         typeId: IDocumentType.RESIDENT_PERMIT,
         category: IDocumentCategory.FIRST_ID,
-        status: IDocumentStatus.PENDING,
+        status: IDocumentStatus.REFUSED,
         name: 'test-mock',
-        createdAt: new Date('2023-10-03T13:20:21.303Z'),
+        createdAt: new Date('2023-10-01T13:20:21.303Z'),
       },
       {
         typeId: IDocumentType.RESIDENT_PERMIT,
         category: IDocumentCategory.FIRST_ID,
-        status: IDocumentStatus.REFUSED,
+        status: IDocumentStatus.PENDING,
         name: 'test-mock',
-        createdAt: new Date('2023-10-01T13:20:21.303Z'),
+        createdAt: new Date('2023-10-03T13:20:21.303Z'),
       },
       {
         typeId: IDocumentType.HEALTH_INSURANCE_CARD,
@@ -247,16 +247,16 @@ describe('Customer - unit', () => {
       {
         typeId: IDocumentType.PROOF_OF_ADDRESS,
         category: IDocumentCategory.RESIDENCE_PROOF,
-        status: IDocumentStatus.PENDING,
+        status: IDocumentStatus.REFUSED,
         name: 'test-mock',
-        createdAt: new Date('2023-10-03T13:20:21.303Z'),
+        createdAt: new Date('2023-10-01T13:20:21.303Z'),
       },
       {
         typeId: IDocumentType.PROOF_OF_ADDRESS,
         category: IDocumentCategory.RESIDENCE_PROOF,
-        status: IDocumentStatus.REFUSED,
+        status: IDocumentStatus.PENDING,
         name: 'test-mock',
-        createdAt: new Date('2023-10-01T13:20:21.303Z'),
+        createdAt: new Date('2023-10-03T13:20:21.303Z'),
       },
     ]);
     customer.checkCustomerStatus();
@@ -289,18 +289,18 @@ describe('Customer - unit', () => {
     const customer = Customer.Create({ id: 1, properties: { USPerson: false } });
     customer.checkDocumentsStatus([
       {
-        typeId: IDocumentType.INVOICE,
-        category: IDocumentCategory.RESIDENCE_PROOF,
-        status: IDocumentStatus.PENDING,
-        name: 'test-mock',
-        createdAt: new Date('2023-10-03T13:20:21.303Z'),
-      },
-      {
         typeId: IDocumentType.PROOF_OF_ADDRESS,
         category: IDocumentCategory.RESIDENCE_PROOF,
         status: IDocumentStatus.REFUSED,
         name: 'test-mock',
         createdAt: new Date('2023-10-01T13:20:21.303Z'),
+      },
+      {
+        typeId: IDocumentType.INVOICE,
+        category: IDocumentCategory.RESIDENCE_PROOF,
+        status: IDocumentStatus.PENDING,
+        name: 'test-mock',
+        createdAt: new Date('2023-10-03T13:20:21.303Z'),
       },
     ]);
     customer.checkCustomerStatus();

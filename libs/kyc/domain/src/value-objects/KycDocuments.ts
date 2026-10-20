@@ -102,14 +102,7 @@ export class KycDocuments {
   private allocateDocumentsByCategory(docsProps: IDocumentProperties[]): {
     [key in IDocumentCategory]: IDocumentProperties[];
   } {
-    // if several docs for one category, take last one
-    const sortedDocuments = docsProps.sort((a, b) => {
-      if (a.category === b.category) {
-        return b.createdAt.getTime() - a.createdAt.getTime();
-      }
-      return a.category < b.category ? -1 : 1;
-    });
-    const documentsByCategory = sortedDocuments.reduce(
+    const groupedByCategory = docsProps.reduce(
       (accumulator, doc) => {
         if (!accumulator[doc.category]) {
           accumulator[doc.category] = [doc];
@@ -120,19 +113,22 @@ export class KycDocuments {
       },
       {} as { [key in IDocumentCategory]: IDocumentProperties[] },
     );
-    return documentsByCategory;
+    return groupedByCategory;
   }
 
   private filterRelevantDocumentProperties(docsProps: IDocumentProperties[]): IDocumentProperties[] {
     // Group documentProperties by typeId
     const groupedByTypeId = docsProps.reduce(
-      (acc: { [key: number]: IDocumentProperties[] }, item: IDocumentProperties) => {
-        (acc[item.typeId] = acc[item.typeId] || []).push(item);
-        return acc;
+      (accumulator, doc) => {
+        if (!accumulator[doc.typeId]) {
+          accumulator[doc.typeId] = [doc];
+        } else {
+          accumulator[doc.typeId].push(doc);
+        }
+        return accumulator;
       },
-      {},
+      {} as { [key in number]: IDocumentProperties[] },
     );
-
     // Get the last documents based on expected page number for each typeId
     const lastRelevantDocs = Object.entries(groupedByTypeId).reduce(
       (acc: { [key: number]: IDocumentProperties[] }, [typeId, properties]) => {
