@@ -142,6 +142,17 @@ exports[`PrimaryButton -  disabled -  true - renders as before 1`] = `
             }
           }
         >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "height": 32,
+                "justifyContent": "center",
+                "marginRight": 15,
+                "paddingHorizontal": 6,
+              }
+            }
+          />
           <Text
             style={
               [
@@ -295,11 +306,11 @@ exports[`PrimaryButton -  iconOne -  true - renders as before 1`] = `
             "flexDirection": "row",
             "justifyContent": "space-around",
             "padding": 8,
-            "paddingBottom": 14,
+            "paddingBottom": 11,
             "paddingHorizontal": 10,
             "paddingLeft": 26,
             "paddingRight": 24,
-            "paddingTop": 14,
+            "paddingTop": 11,
             "shadowColor": "#707070",
             "shadowOffset": {
               "height": 15,
@@ -322,7 +333,11 @@ exports[`PrimaryButton -  iconOne -  true - renders as before 1`] = `
           <View
             style={
               {
+                "alignItems": "center",
+                "height": 32,
+                "justifyContent": "center",
                 "marginRight": 15,
+                "paddingHorizontal": 6,
               }
             }
           >
@@ -481,11 +496,11 @@ exports[`PrimaryButton -  iconTwo -  true - renders as before 1`] = `
             "flexDirection": "row",
             "justifyContent": "space-around",
             "padding": 8,
-            "paddingBottom": 14,
+            "paddingBottom": 11,
             "paddingHorizontal": 10,
             "paddingLeft": 26,
             "paddingRight": 24,
-            "paddingTop": 14,
+            "paddingTop": 11,
             "shadowColor": "#707070",
             "shadowOffset": {
               "height": 15,
@@ -505,6 +520,17 @@ exports[`PrimaryButton -  iconTwo -  true - renders as before 1`] = `
             }
           }
         >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "height": 32,
+                "justifyContent": "center",
+                "marginRight": 15,
+                "paddingHorizontal": 6,
+              }
+            }
+          />
           <Text
             style={
               [
@@ -693,6 +719,17 @@ exports[`PrimaryButton -  large -  true - renders as before 1`] = `
             }
           }
         >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "height": 32,
+                "justifyContent": "center",
+                "marginRight": 15,
+                "paddingHorizontal": 6,
+              }
+            }
+          />
           <Text
             style={
               [
@@ -1028,6 +1065,17 @@ exports[`PrimaryButton -  minimal props -  renders as before 1`] = `
             }
           }
         >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "height": 32,
+                "justifyContent": "center",
+                "marginRight": 15,
+                "paddingHorizontal": 6,
+              }
+            }
+          />
           <Text
             style={
               [
@@ -1205,6 +1253,17 @@ exports[`PrimaryButton -  uppercase -  true - renders as before 1`] = `
             }
           }
         >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "height": 32,
+                "justifyContent": "center",
+                "marginRight": 15,
+                "paddingHorizontal": 6,
+              }
+            }
+          />
           <Text
             style={
               [
