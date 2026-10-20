@@ -8,6 +8,9 @@ import { addPageSaga, addPageSagaGenerator } from '../../usecases/document';
 import { IDocumentTypes, pageAdded, uploadDocument } from '../../commands/document';
 import { selectDocument } from '../../state-management/selectors';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
+import { IKycStackPages } from '../../../../shared/presentation/types';
+import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+import { IDCardVerso } from '../../../presentation/assets/images';
 
 describe('Document - addPage - usecases', () => {
   const documentProperties = {
@@ -31,10 +34,16 @@ describe('Document - addPage - usecases', () => {
     const documentAfter = new DocumentVO(documentProperties);
     documentAfter.addPage('base64-fake-recto');
 
+    const nextRouteParams = {
+      instruction: 'instruction',
+      imageSource: IDCardVerso,
+    };
+
     testSaga(addPageSagaGenerator, {
       type: IDocumentTypes.ADD_PAGE,
       payload: {
         base64: 'base64-fake-recto',
+        nextRouteParams,
       },
     })
       .next()
@@ -44,7 +53,10 @@ describe('Document - addPage - usecases', () => {
         pageAdded({
           document: documentAfter,
         }),
-      );
+      )
+      .next(documentAfter)
+      .call(navigate, { route: IKycStackPages.UPLOAD_DOCUMENT, params: nextRouteParams })
+      .next();
   });
 
   it('Should call uploadDocument if document ready', async () => {
@@ -70,6 +82,8 @@ describe('Document - addPage - usecases', () => {
         }),
       )
       .next(documentAfter)
+      .call(navigate, { route: IKycStackPages.MENU })
+      .next()
       .cancel();
   });
 

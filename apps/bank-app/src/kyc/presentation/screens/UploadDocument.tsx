@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { View, Text, StyleSheet, Dimensions, Image, ImageSourcePropType } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
@@ -9,8 +9,6 @@ import { DocumentPicker, DocumentScanner, LinkButton, LinkButtonColors } from '@
 
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { IKycStackPages } from '../../../shared/presentation/types';
-import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 import { addPage } from '../../application/commands/document';
 
@@ -71,8 +69,6 @@ export const UploadDocument = () => {
     console.log('handleShowExample');
     //todo dispatch to upload document usecase
   }, []);
-
-  //todo select document from store
 
   return (
     <ErrorBoundary t={t}>

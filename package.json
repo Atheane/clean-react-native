@@ -33,6 +33,7 @@
     "expo-clipboard": "^4.3.1",
     "expo-constants": "^14.4.2",
     "expo-dev-client": "~2.4.8",
+    "expo-file-system": "~15.4.5",
     "expo-image": "^1.3.2",
     "expo-linear-gradient": "^12.3.0",
     "expo-linking": "^5.0.2",
@@ -69,8 +70,7 @@
     "redux-saga": "^1.2.3",
     "redux-saga-test-plan": "^4.0.6",
     "short-unique-id": "^5.0.2",
-    "tslib": "^2.3.0",
-    "expo-file-system": "~15.4.5"
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.6.7",
@@ -83,6 +83,7 @@
     "@nx/js": "16.6.0",
     "@nx/linter": "16.6.0",
     "@nx/workspace": "16.6.0",
+    "@redux-saga/testing-utils": "^1.1.5",
     "@sentry/react-native": "5.5.0",
     "@storybook/addon-actions": "^6.5.3",
     "@storybook/addon-controls": "^6.5.3",
