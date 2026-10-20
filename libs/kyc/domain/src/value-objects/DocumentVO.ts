@@ -1,17 +1,14 @@
 import { IDocumentType, IDocumentProperties } from '../types';
-import { DocumentError } from '../errors';
 
 export class DocumentVO {
-  expectedPageCount: number;
   properties: IDocumentProperties;
-  recto?: string;
-  verso?: string;
-  isReady?: boolean;
+  private expectedPageCount: number;
+  private recto?: string;
+  private verso?: string;
 
   constructor(properties: IDocumentProperties) {
     this.expectedPageCount = DocumentVO.computeExpectedPagesNumber(properties.typeId);
     this.properties = properties;
-    this.isReady = false;
   }
 
   static computeExpectedPagesNumber(typeId: IDocumentType): number {
@@ -21,18 +18,25 @@ export class DocumentVO {
     return 1;
   }
 
-  get value(): { recto: string; verso?: string } {
-    if (!this.recto) throw new DocumentError.MissingRecto();
-    if (this.expectedPageCount === 2 && !this.verso) throw new DocumentError.MissingVerso();
-    if (this.expectedPageCount === 2) {
-      return {
-        recto: this.recto,
-        verso: this.verso,
-      };
+  addPage(page: string) {
+    if (this.expectedPageCount === 2 && !!this.recto) {
+      this.verso = page;
     } else {
-      return {
-        recto: this.recto,
-      };
+      this.recto = page;
     }
+  }
+
+  get isReady(): boolean {
+    if (this.expectedPageCount === 2) {
+      return !!this.recto && !!this.verso;
+    }
+    return !!this.recto;
+  }
+
+  get value(): { recto?: string; verso?: string } {
+    return {
+      recto: this.recto,
+      verso: this.verso,
+    };
   }
 }

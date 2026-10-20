@@ -4,7 +4,7 @@ import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { Customer, IDocumentCategory, IDocumentProperties, IDocumentStatus } from '@clean-rn/kyc/domain';
+import { Customer, DocumentVO, IDocumentCategory, IDocumentStatus } from '@clean-rn/kyc/domain';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { KycApi } from '@clean-rn/kyc/infrastructure';
@@ -16,7 +16,7 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 import { IStoreKey } from '../../../../shared/application/types';
 
 import { checkCustomerStatusGenerator, checkCustomerStatusSaga } from '../../usecases/customer';
-import { IKycTypes, customerStatusChecked, initializeKyc } from '../../commands/customer';
+import { ICustomerTypes, customerStatusChecked, initializeKyc } from '../../commands/customer';
 import { selectUserFromLogin } from '../../state-management/selectors';
 
 describe('KYC - CheckCustomerStatus - usecase', () => {
@@ -25,7 +25,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
   const api = KycApi.getInstance(httpConnection);
   const genObject = checkCustomerStatusSaga(httpConnection);
 
-  const mockResponse: IDocumentProperties[] = [
+  const mockResponse: DocumentVO[] = [
     {
       typeId: 9,
       category: IDocumentCategory.FIRST_ID,
@@ -57,7 +57,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
 
   it('Should wait for CHECK_CUSTOMER_STATUS action and call checkCustomerStatusGenerator, should be done on next iteration', () => {
     expect(genObject.next().value).toEqual(
-      takeEvery(IKycTypes.CHECK_CUSTOMER_STATUS, checkCustomerStatusGenerator, httpConnection),
+      takeEvery(ICustomerTypes.CHECK_CUSTOMER_STATUS, checkCustomerStatusGenerator, httpConnection),
     );
     expect(genObject.next().done).toBeTruthy();
   });
@@ -70,7 +70,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
       properties: { USPerson: false },
     });
 
-    customer.addDocuments(mockResponse);
+    customer.addDocument(mockResponse);
     customer.checkCustomerStatus();
 
     testSaga(checkCustomerStatusGenerator, httpConnection)

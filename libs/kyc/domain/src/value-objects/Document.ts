@@ -6,7 +6,7 @@ import {
   IDocumentStatus,
 } from '../types';
 import { ALLOWED_DOCUMENT_TYPES } from '../constants';
-import { CustomerError } from '../errors';
+import { DocumentError } from '../errors';
 
 export class Document {
   private category: IDocumentCategory;
@@ -43,17 +43,14 @@ export class Document {
       this.recto = page;
     }
     if (name === 'verso') {
-      if (this.pagesNumber === 1) {
-        throw new CustomerError.MaxPagesReached();
-      }
       this.verso = page;
     }
   }
 
   get value(): { recto: string; verso?: string } {
-    if (!this.recto) throw new CustomerError.MissingRecto();
+    if (!this.recto) throw new DocumentError.MissingRecto();
     if (this.pagesNumber === 2) {
-      if (!this.verso) throw new CustomerError.MissingVerso();
+      if (!this.verso) throw new DocumentError.MissingVerso();
     }
     if (this.pagesNumber === 2) {
       return {
@@ -109,7 +106,7 @@ export class Document {
 
   private validateDocumentType(type: IDocumentType): void {
     if (!ALLOWED_DOCUMENT_TYPES[this.category].includes(type)) {
-      throw new CustomerError.InvalidDocumentType(
+      throw new DocumentError.InvalidDocumentType(
         `${type} is not a valid document type for context ${this.addPage}`,
       );
     }

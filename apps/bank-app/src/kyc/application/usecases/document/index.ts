@@ -54,23 +54,24 @@ export function* addPageSagaGenerator({
   };
 }): Generator<StrictEffect, any, any> {
   try {
-    const { document } = yield select(selectDocument);
+    // redux get rid of ib-nstance methods such as addPage, isReady...
+    const { document: documentFromRedux } = yield select(selectDocument);
+
+    // so we need to instanciate a new instance so as to make use of these useful methods
+    // bouhhh redux on that one
+
+    const document = new DocumentVO(documentFromRedux.properties);
+
+    if (documentFromRedux.value.recto) {
+      document.addPage(documentFromRedux.value.recto);
+    }
+
+    if (documentFromRedux.value.verso) {
+      document.addPage(documentFromRedux.value.verso);
+    }
 
     // addPage to document (would be better in a DocumentVO method, but public methods are lost when transfered through redux state)
-    if (document.expectedPageCount === 2 && !document.recto) {
-      document.recto = payload.base64;
-    } else if (document.expectedPageCount === 2 && !document.verso) {
-      document.verso = payload.base64;
-    } else {
-      document.recto = payload.base64;
-    }
-
-    // check if document is ready (would be better in a DocumentVO method, but public methods are lost when transfered through redux state)
-    if (document.expectedPageCount === 2) {
-      document.isReady = !!document.recto && !!document.verso;
-    } else {
-      document.isReady = !!document.recto;
-    }
+    document.addPage(payload.base64);
 
     if (document.isReady) {
       yield put(uploadDocument({ document }));
@@ -119,6 +120,7 @@ export function* uploadDocumentSagaGenerator(
   } catch (error: unknown) {
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {
+      console.log(error);
       yield call(navigate, { route: IAuthStackPages.LOGIN });
       yield cancel();
     }
