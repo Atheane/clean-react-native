@@ -10,17 +10,11 @@ import {
   FontNames,
   IconTextItem,
   KycId,
-  KycIdDisabled,
   KycPassport,
-  KycPassportDisabled,
   KycResidencePermit,
-  KycResidencePermitDisabled,
   KycDrivingLicense,
-  KycDrivingLicenseDisabled,
   KycHealthCard,
-  KycHealthCardDisabled,
   KycIban,
-  KycIbanDisabled,
 } from '@clean-rn/ui-mobile';
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
@@ -42,7 +36,7 @@ export const SecondIdList = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT }]}>
+        <View style={[styles.container, { height: HEIGHT * 0.9 }]}>
           <View style={[styles.titleContainer]}>
             <Text style={[theme.bank.text.boldDarkBlue, styles.title]}>
               {t('screens.kyc.second-id.instruction')}
@@ -101,7 +95,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    marginTop: 120,
+    marginTop: 80,
   },
   iconContainer: { position: 'relative', left: 10, top: 2 },
   titleContainer: {

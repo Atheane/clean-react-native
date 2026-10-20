@@ -94,7 +94,8 @@
   "button": {
     "share": "partager",
     "submit": "valider",
-    "photo": "Prendre une photo"
+    "photo": "Prendre une photo",
+    "document": "Importer un document"
   },
   "login": {
     "forgotten-password": "Mot de passe oublié ?",
@@ -438,7 +439,8 @@
       }, 
       "health-card": {
         "title": "Carte vitale",
-        "instruction": "de votre carte vitale en cachant les cinq derniers chiffres"
+        "instruction": "de votre carte vitale en cachant les cinq derniers chiffres",
+        "or": "Ou"
       },
       "iban": {
         "title": "Relevé d’identité bancaire",
@@ -451,6 +453,14 @@
       "residence-proof": {
         "title": "Attestation d’hébergement",
         "instruction": "de l’attestation d’hébergement"
+      },
+      "invoice": {
+        "title": "Facture",
+        "instruction": "de la face avant de votre facture.\nLes factures de box internet, électricité, gaz sont les seules acceptées et doivent impérativement avoir moins de 3 mois. Les factures de téléphone mobile ne sont pas valable."
+      },
+      "w9": {
+        "title": "Résident américain - W-9",
+        "instruction": "ou importer votre formulaire w-9"
       },
       "second-id": {
         "title": "Documents complémentaires",

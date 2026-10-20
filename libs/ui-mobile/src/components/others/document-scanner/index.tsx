@@ -5,7 +5,7 @@ import DocumentScan, { ResponseType } from 'react-native-document-scanner-plugin
 
 import { PrimaryButton } from '../../buttons/primary-button';
 import { Colors } from '../../../constants';
-import { Camera } from '../../../assets';
+import { Camera as CameraIcon } from '../../../assets';
 
 type IProps = {
   getScan: (scannedImg: string) => void;
@@ -41,7 +41,7 @@ export const DocumentScanner = (props: IProps) => {
       title={t('button.photo')}
       iconOne={() => (
         <View style={styles.iconContainer}>
-          <Camera style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+          <CameraIcon style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
         </View>
       )}
       onPress={handleOnPress}

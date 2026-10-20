@@ -94,25 +94,17 @@ import RedCross from './red-cross.svg';
 import Add from './add.svg';
 import Camera from './camera.svg';
 import KycDrivingLicense from './kyc-driving-license.svg';
-import KycDrivingLicenseDisabled from './kyc-driving-license-disabled.svg';
 import KycHealthCard from './kyc-health-card.svg';
-import KycHealthCardDisabled from './kyc-health-card-disabled.svg';
 import KycIban from './kyc-iban.svg';
-import KycIbanDisabled from './kyc-iban-disabled.svg';
 import KycId from './kyc-id.svg';
-import KycIdDisabled from './kyc-id-disabled.svg';
 import KycIdentification from './kyc-identification.svg';
-import KycIdentificationDisabled from './kyc-identification-disabled.svg';
 import KycInvoice from './kyc-invoice.svg';
-import KycInvoiceDisabled from './kyc-invoice-disabled.svg';
 import KycPassport from './kyc-passport.svg';
-import KycPassportDisabled from './kyc-passport-disabled.svg';
 import KycResidencePermit from './kyc-residence-permit.svg';
-import KycResidencePermitDisabled from './kyc-residence-permit-disabled.svg';
 import KycTaxes from './kyc-taxes.svg';
-import KycTaxesDisabled from './kyc-taxes-disabled.svg';
 import KycW9 from './kyc-w9.svg';
-import KycW9Disabled from './kyc-w9-disabled.svg';
+import Checked from './checked.svg';
+import ImportDocument from './import-document.svg';
 
 export {
   Love,
@@ -211,23 +203,15 @@ export {
   Add,
   Camera,
   KycDrivingLicense,
-  KycDrivingLicenseDisabled,
   KycHealthCard,
-  KycHealthCardDisabled,
   KycIban,
-  KycIbanDisabled,
   KycId,
-  KycIdDisabled,
   KycIdentification,
-  KycIdentificationDisabled,
   KycInvoice,
-  KycInvoiceDisabled,
   KycPassport,
-  KycPassportDisabled,
   KycResidencePermit,
-  KycResidencePermitDisabled,
   KycTaxes,
-  KycTaxesDisabled,
   KycW9,
-  KycW9Disabled,
+  Checked,
+  ImportDocument,
 };

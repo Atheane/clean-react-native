@@ -77,9 +77,9 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
 
 const styles = StyleSheet.create({
   buttonIcon: {
-    paddingTop: 14,
+    paddingTop: 12,
     paddingRight: 24,
-    paddingBottom: 14,
+    paddingBottom: 12,
     paddingLeft: 26,
   },
   button: {

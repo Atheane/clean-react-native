@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
-import { IDCard, IconTextItem } from '@clean-rn/ui-mobile';
+import { KycId, IconTextItem } from '@clean-rn/ui-mobile';
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 import { useTranslation } from 'react-i18next';
 
@@ -13,8 +13,9 @@ const IconTextItemMeta: ComponentMeta<typeof IconTextItem> = {
     },
   },
   args: {
-    icon: IDCard,
+    icon: KycId,
     text: 'ID Card',
+    validated: true,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING), WithCenterView],
 };

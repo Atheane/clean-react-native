@@ -86,7 +86,8 @@
   "button": {
     "share": "share",
     "submit": "validate",
-    "photo": "Take a photo"
+    "photo": "Take a photo",
+    "document": "Import a document"
   },
   "email-input": {
     "placeholder": "E-mail address",
@@ -442,7 +443,8 @@
       },
       "health-card": {
         "title": "Health Card",
-        "instruction": "of your health card while hiding the last five digits"
+        "instruction": "of your health card while hiding the last five digits",
+        "or": "Or"
       },
       "iban": {
         "title": "Bank Identity Statement",
@@ -456,6 +458,14 @@
         "title": "Residence Certificate",
         "instruction": "of the residence certificate"
       },
+      "invoice": {
+        "title": "Invoice",
+        "instruction": "from the front of your invoice. Internet, electricity, and gas bills are the only accepted ones and must be less than 3 months old. Mobile phone bills are not valid."
+      },
+      "w9": {
+        "title": "U.S. Resident - W-9",
+        "instruction": "or import your W-9 form"
+      },
       "second-id": {
         "title": "Additional Documents",
         "instruction": "Please add one of these documents below to complete your identity.",
@@ -465,7 +475,7 @@
         "driving-license": "Driver's License",
         "health-card": "Health Card",
         "iban": "Bank Identity Statement"
-        }    
+      }
     }
   }
 }
