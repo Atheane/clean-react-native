@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { View, Platform, StyleProp, ViewStyle, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import DocumentPickr, { DocumentPickerResponse } from 'react-native-document-picker';
+import DocumentPickr from 'react-native-document-picker';
 import ImgToBase64 from 'react-native-image-base64';
 
 import { SecondaryButton } from '../../buttons/secondary-button';
@@ -9,7 +9,7 @@ import { Colors } from '../../../constants';
 import { ImportDocument } from '../../../assets';
 
 type IProps = {
-  getDocument: (doc: DocumentPickerResponse) => void;
+  getDocument: (doc: string) => void;
   handleError: (error: unknown) => void;
 };
 

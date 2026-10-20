@@ -18,7 +18,7 @@ import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/h
 
 const HEIGHT = Dimensions.get('window').height;
 
-export const HostedList = () => {
+export const MenuKycHost = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
   const { theme } = useTheme();
@@ -36,27 +36,27 @@ export const HostedList = () => {
         <View style={[styles.container, { height: HEIGHT }]}>
           <View style={[styles.titleContainer]}>
             <Text style={[theme.bank.text.boldDarkBlue, styles.title]}>
-              {t('screens.kyc.host-list.instruction')}
+              {t('screens.kyc.menu-kyc-host.instruction')}
             </Text>
           </View>
           <View style={[styles.itemContainer]}>
             <IconTextItem
               icon={KycResidenceProof}
-              text={t('screens.kyc.host-list.attestation')}
-              onPress={() => handleOnPress(IKycStackPages.UPLOAD_DOCUMENT, IDocumentType.PROOF_OF_ADDRESS)}
+              text={t('screens.kyc.menu-kyc-host.sworn-statement')}
+              onPress={() => handleOnPress(IKycStackPages.UPLOAD_DOCUMENT, IDocumentType.SWORN_STATEMENT)}
             />
           </View>
           <View style={[styles.itemContainer]}>
             <IconTextItem
               icon={KycIdentification}
-              text={t('screens.kyc.host-list.id')}
-              onPress={() => handleOnPress(IKycStackPages.FIRST_ID_LIST)}
+              text={t('screens.kyc.menu-kyc-host.identification')}
+              onPress={() => handleOnPress(IKycStackPages.HOST_ID_LIST)}
             />
           </View>
           <View style={[styles.itemContainer]}>
             <IconTextItem
               icon={KycInvoice}
-              text={t('screens.kyc.host-list.residence-proof')}
+              text={t('screens.kyc.menu-kyc-host.residence-proof')}
               onPress={() => handleOnPress(IKycStackPages.RESIDENCE_PROOF_LIST)}
             />
           </View>

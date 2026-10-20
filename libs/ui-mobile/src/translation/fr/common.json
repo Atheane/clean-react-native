@@ -451,9 +451,10 @@
         "title": "Avis d’imposititon",
         "instruction": "de votre dernier avis d’imposition"
       },
-      "residence-proof": {
+      "sworn-statement": {
         "title": "Attestation d’hébergement",
-        "instruction": "de l’attestation d’hébergement"
+        "instruction": "de l’attestation d’hébergement",
+        "example": "Exemple"
       },
       "invoice": {
         "title": "Facture",
@@ -483,14 +484,21 @@
         "title": "Justificatif de domicile",
         "instruction": "Choisissez votre justificatif de domicile",
         "invoice": "Une facture\n(box internet, électricité et gaz)",
-        "tax": "Avis d’imposition"
+        "tax": "Avis d’imposition",
+        "iban": "IBAN"
       },
-      "host-list": {
+      "menu-kyc-host": {
         "title": "Justificatifs de l'hébergeur",
         "instruction": "Documents à transmettre :",
-        "attestation": "Une attestation de l'hébergeur",
-        "id": "Une pièce d'identité de l'hébergeur",
+        "sworn-statement": "Une attestation de l'hébergeur",
+        "identification": "Une pièce d'identité de l'hébergeur",
         "residence-proof": "Un justificatif de domicile de l'hébergeur"
+      },
+      "host-id-list": {
+        "title": "Pièces d'identité de l'hébergeur",
+        "instruction": "Choisissez la pièce d'identité de la personne qui vous héberge",
+        "id": "Carte d'identité",
+        "passport": "Passeport"
       }
     }
   }

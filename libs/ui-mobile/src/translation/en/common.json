@@ -455,9 +455,9 @@
         "title": "Tax Notice",
         "instruction": "of your most recent tax notice"
       },
-      "residence-proof": {
-        "title": "Residence Certificate",
-        "instruction": "of the residence certificate"
+      "sworn-statement": {
+        "title": "Host's sworn statement",
+        "instruction": "of the host's sworn statement"
       },
       "invoice": {
         "title": "Invoice",

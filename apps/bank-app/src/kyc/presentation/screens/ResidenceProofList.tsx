@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
 import { IDocumentType } from '@clean-rn/kyc/domain';
-import { Colors, FontNames, IconTextItem, KycInvoice, KycTaxes } from '@clean-rn/ui-mobile';
+import { Colors, FontNames, IconTextItem, KycIban, KycInvoice, KycTaxes } from '@clean-rn/ui-mobile';
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
@@ -37,6 +37,13 @@ export const ResidenceProofList = () => {
               icon={KycInvoice}
               text={t('screens.kyc.residence-proof-list.invoice')}
               onPress={() => handleOnPress(IDocumentType.INVOICE)}
+            />
+          </View>
+          <View style={[styles.itemContainer]}>
+            <IconTextItem
+              icon={KycIban}
+              text={t('screens.kyc.residence-proof-list.iban')}
+              onPress={() => handleOnPress(IDocumentType.BANK_ID)}
             />
           </View>
           <View style={[styles.itemContainer]}>

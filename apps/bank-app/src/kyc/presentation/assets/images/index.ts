@@ -10,7 +10,7 @@ import HealthCard from './health-card.png';
 import Passport from './passport.png';
 import ResidencePermitRecto from './residence-permit-recto.png';
 import ResidencePermitVerso from './residence-permit-verso.png';
-import ResidenceProof from './residence-proof.png';
+import SwornStatement from './sworn-statement.png';
 import Taxes from './taxes.png';
 import W9 from './w9.png';
 
@@ -27,7 +27,7 @@ export {
   Passport,
   ResidencePermitRecto,
   ResidencePermitVerso,
-  ResidenceProof,
+  SwornStatement,
   Taxes,
   W9,
 };

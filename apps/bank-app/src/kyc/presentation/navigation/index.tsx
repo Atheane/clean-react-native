@@ -23,7 +23,8 @@ import {
   SecondIdList,
   ResidenceProofOptions,
   ResidenceProofList,
-  HostedList,
+  MenuKycHost,
+  HostIdList,
   UploadDocument,
   SuccessKyc,
   CardSent,
@@ -123,10 +124,18 @@ export const KycStack = () => {
         }}
       />
       <Stack.Screen
-        name={IKycStackPages.HOSTED_LIST}
-        component={HostedList}
+        name={IKycStackPages.MENU_KYC_HOST}
+        component={MenuKycHost}
         options={{
-          headerTitle: t('screens.kyc.host-list.title'),
+          headerTitle: t('screens.kyc.menu-kyc-host.title'),
+          ...headersOptions(goBack),
+        }}
+      />
+      <Stack.Screen
+        name={IKycStackPages.HOST_ID_LIST}
+        component={HostIdList}
+        options={{
+          headerTitle: t('screens.kyc.host-id-list.title'),
           ...headersOptions(goBack),
         }}
       />

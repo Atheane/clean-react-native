@@ -7,4 +7,5 @@ export { FirstIdList } from './FirstIdList';
 export { SecondIdList } from './SecondIdList';
 export { ResidenceProofOptions } from './ResidenceProofOptions';
 export { ResidenceProofList } from './ResidenceProofList';
-export { HostedList } from './HostedList';
+export { MenuKycHost } from './MenuKycHost';
+export { HostIdList } from './HostIdList';

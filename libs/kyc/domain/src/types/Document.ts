@@ -1,4 +1,5 @@
 export enum IDocumentType {
+  SWORN_STATEMENT = 7, // Sworn statement
   ID = 9, // Identity card
   BANK_ID = 11, // Bank Identity Statement
   PROOF_OF_ADDRESS = 12, // Proof of address
