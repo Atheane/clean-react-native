@@ -135,7 +135,6 @@ export enum IKycStackPages {
   MENU = 'MenuKyc',
   SUCCESS = 'SuccessKyc',
   CARD_SENT = 'CardSent',
-  UPLOAD_PHOTO = 'UploadPhoto',
   UPLOAD_DOCUMENT = 'UploadDocument',
   FIRST_ID_LIST = 'FirstIdList',
   SECOND_ID_LIST = 'SecondIdList',
@@ -201,7 +200,6 @@ export type IKycStackProps = {
   [IKycStackPages.MENU]: object;
   [IKycStackPages.SUCCESS]: object;
   [IKycStackPages.CARD_SENT]: object;
-  [IKycStackPages.UPLOAD_PHOTO]: object;
   [IKycStackPages.UPLOAD_DOCUMENT]: object;
   [IKycStackPages.FIRST_ID_LIST]: object;
   [IKycStackPages.SECOND_ID_LIST]: object;
@@ -256,7 +254,6 @@ export type IRoutes =
   | IKycStackPages.SUCCESS
   | IKycStackPages.CARD_SENT
   | IKycStackPages.UPLOAD_DOCUMENT
-  | IKycStackPages.UPLOAD_PHOTO
   | IKycStackPages.FIRST_ID_LIST
   | IKycStackPages.SECOND_ID_LIST
   | IKycStackPages.OWNED_RESIDENCE_PROOF_LIST

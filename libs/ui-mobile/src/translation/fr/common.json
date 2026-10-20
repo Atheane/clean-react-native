@@ -401,11 +401,66 @@
         "passport": "Passeport",
         "residence-permit": "Permis de séjour"
       },
-      "take-photo": "Prenez une photo du",
+      "take-photo": "Prenez une photo",
       "id": {
-        "title": "Carte d’identité - Recto",
-        "recto": "recto de votre carte d’identité",
-        "verso": "verso de votre carte d’identité"
+        "recto": {
+          "title": "Carte d’identité - Recto",
+          "instruction": "du recto de votre carte d’identité"
+        },
+        "verso": {
+          "title": "Carte d’identité - Verso",
+          "instruction": "du verso de votre carte d’identité"
+        }
+      },
+      "passport": {
+        "title": "Passeport",
+        "instruction": "de la page d’identité de votre passeport"
+      },
+      "residence-permit": {
+        "recto": {
+          "title": "Permis de séjour - Recto",
+          "instruction": "du recto de votre permis de séjour"
+        },
+        "verso": {
+          "title": "Permis de séjour - Recto",
+          "instruction": "du verso de votre permis de séjour"
+        }
+      },
+      "driving-license": {
+        "recto": {
+          "title": "Permis de conduire - Recto",
+          "instruction": "du recto de votre permis de conduire"
+        },
+        "verso": {
+          "title": "Permis de conduire - Verso",
+          "instruction": "du verso de votre permis de conduire"
+        }
+      }, 
+      "health-card": {
+        "title": "Carte vitale",
+        "instruction": "de votre carte vitale en cachant les cinq derniers chiffres"
+      },
+      "iban": {
+        "title": "Relevé d’identité bancaire",
+        "instruction": "ou envoyez nous une copie de votre IBAN"
+      },
+      "taxes": {
+        "title": "Avis d’imposititon",
+        "instruction": "de votre dernier avis d’imposition"
+      },
+      "residence-proof": {
+        "title": "Attestation d’hébergement",
+        "instruction": "de l’attestation d’hébergement"
+      },
+      "second-id": {
+        "title": "Documents complémentaires",
+        "instruction": "Veuillez ajouter un de ces documents ci-après afin de compléter votre identité.",
+        "id": "Carte d'identité",
+        "passport": "Passeport",
+        "residence-permit": "Permis de séjour",
+        "driving-license": "Permis de conduire",
+        "health-card": "Carte vitale",
+        "iban": "Relevé d’identité bancaire"
       }
     }
   }

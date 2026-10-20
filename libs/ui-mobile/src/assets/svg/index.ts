@@ -92,10 +92,6 @@ import GreenValidation from './green-validation.svg';
 import GreyPending from './grey-pending.svg';
 import RedCross from './red-cross.svg';
 import Add from './add.svg';
-import IDCard from './id-card.svg';
-import Passport from './passport.svg';
-import ResidencePermit from './residence-permit.svg';
-import DrivingLicense from './driving-license.svg';
 import Camera from './camera.svg';
 import KycDrivingLicense from './kyc-driving-license.svg';
 import KycDrivingLicenseDisabled from './kyc-driving-license-disabled.svg';
@@ -213,10 +209,6 @@ export {
   GreyPending,
   RedCross,
   Add,
-  IDCard,
-  ResidencePermit,
-  DrivingLicense,
-  Passport,
   Camera,
   KycDrivingLicense,
   KycDrivingLicenseDisabled,

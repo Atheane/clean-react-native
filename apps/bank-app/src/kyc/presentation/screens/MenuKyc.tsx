@@ -75,8 +75,8 @@ export const MenuKyc = () => {
           <Text style={[styles.instruction, theme.bank.text.grey]}>{`${t(
             'screens.kyc.menu.instruction-before.begin',
           )} ${documentsNumber} ${t('screens.kyc.menu.instruction-before.end')}`}</Text>
-          <View>
-            {user?.properties.USPerson && (
+          {user?.properties.USPerson && (
+            <View style={styles.itemContainer}>
               <UploadDocumentCard
                 icon={KycW9}
                 iconDisabled={KycW9Disabled}
@@ -84,7 +84,9 @@ export const MenuKyc = () => {
                 text={t('screens.kyc.menu.w9-form')}
                 onPress={navigateToUploadW9}
               />
-            )}
+            </View>
+          )}
+          <View style={styles.itemContainer}>
             <UploadDocumentCard
               icon={KycIdentification}
               iconDisabled={KycIdentificationDisabled}
@@ -92,6 +94,8 @@ export const MenuKyc = () => {
               text={`${t('screens.kyc.menu.first')} ${t('screens.kyc.menu.identity')}`}
               onPress={navigateToFirstIdList}
             />
+          </View>
+          <View style={styles.itemContainer}>
             <UploadDocumentCard
               icon={KycPassport}
               iconDisabled={KycPassportDisabled}
@@ -99,6 +103,8 @@ export const MenuKyc = () => {
               text={`${t('screens.kyc.menu.second')} ${t('screens.kyc.menu.identity')}`}
               onPress={navigateToSecondIdList}
             />
+          </View>
+          <View style={styles.itemContainer}>
             <UploadDocumentCard
               icon={KycInvoice}
               iconDisabled={KycInvoiceDisabled}
@@ -121,6 +127,9 @@ const styles = StyleSheet.create({
   },
   title: {
     margin: 24,
+  },
+  itemContainer: {
+    marginVertical: 16,
   },
   instruction: {
     textAlign: 'justify',

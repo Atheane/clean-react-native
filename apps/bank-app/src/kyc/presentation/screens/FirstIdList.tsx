@@ -5,7 +5,14 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
 import { IDocumentType } from '@clean-rn/kyc/domain';
-import { Colors, FontNames, IconTextItem, IDCard, Passport, ResidencePermit } from '@clean-rn/ui-mobile';
+import {
+  Colors,
+  FontNames,
+  IconTextItem,
+  KycId,
+  KycPassport,
+  KycResidencePermit,
+} from '@clean-rn/ui-mobile';
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
@@ -18,7 +25,7 @@ export const FirstIdList = () => {
 
   const handleOnPress = useCallback(
     (documentType: IDocumentType) => {
-      navigation.navigate(IKycStackPages.UPLOAD_PHOTO as never, { docType: documentType, step: 1 });
+      navigation.navigate(IKycStackPages.UPLOAD_DOCUMENT as never, { docType: documentType, step: 1 });
     },
     [navigation],
   );
@@ -27,26 +34,29 @@ export const FirstIdList = () => {
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={[styles.container, { height: HEIGHT }]}>
-          <Text style={[theme.bank.text.boldDarkBlue, styles.title]}>
-            {t('screens.kyc.first-id.instruction')}
-          </Text>
-          <View style={[styles.itemContainer, { marginTop: 54 }]}>
+          <View style={[styles.titleContainer]}>
+            <Text style={[theme.bank.text.boldDarkBlue, styles.title]}>
+              {t('screens.kyc.first-id.instruction')}
+            </Text>
+          </View>
+
+          <View style={[styles.itemContainer]}>
             <IconTextItem
-              icon={IDCard}
+              icon={KycId}
               text={t('screens.kyc.first-id.id')}
               onPress={() => handleOnPress(IDocumentType.ID)}
             />
           </View>
-          <View style={[styles.itemContainer, { marginLeft: -10 }]}>
+          <View style={[styles.itemContainer]}>
             <IconTextItem
-              icon={Passport}
+              icon={KycPassport}
               text={t('screens.kyc.first-id.passport')}
               onPress={() => handleOnPress(IDocumentType.PASSPORT)}
             />
           </View>
           <View style={styles.itemContainer}>
             <IconTextItem
-              icon={ResidencePermit}
+              icon={KycResidencePermit}
               text={t('screens.kyc.first-id.residence-permit')}
               onPress={() => handleOnPress(IDocumentType.RESIDENT_PERMIT)}
             />
@@ -61,11 +71,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    marginTop: 60,
+    marginTop: 120,
   },
   iconContainer: { position: 'relative', left: 10, top: 2 },
+  titleContainer: {
+    marginBottom: 50,
+  },
   itemContainer: {
-    marginVertical: 20,
+    marginVertical: 32,
   },
   title: {
     fontSize: 16,

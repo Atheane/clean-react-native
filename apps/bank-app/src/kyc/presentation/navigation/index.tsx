@@ -26,7 +26,6 @@ import {
   SuccessKyc,
   UnownedResidenceProofList,
   UploadDocument,
-  UploadPhoto,
 } from '../screens';
 import { kycRouteInitialized } from '../../../kyc/application/commands';
 
@@ -80,14 +79,6 @@ export const KycStack = () => {
         options={{
           headerTitle: t('screens.kyc.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : goHome),
-        }}
-      />
-      <Stack.Screen
-        name={IKycStackPages.UPLOAD_PHOTO}
-        component={UploadPhoto}
-        options={{
-          headerTitle: t('screens.kyc.title'),
-          ...headersOptions(goBack),
         }}
       />
       <Stack.Screen

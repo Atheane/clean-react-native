@@ -405,12 +405,67 @@
         "passport": "Passport",
         "residence-permit": "Residence permit"
       },
-      "take-photo": "Take a photo of the",
+      "take-photo": "Take a photo",
       "id": {
-        "title": "ID Card - Front",
-        "recto": "front of your ID card.",
-        "verso": "back of your ID card."
-      }
+        "recto": {
+          "title": "Identity Card - Front",
+          "instruction": "from the front of your identity card"
+        },
+        "verso": {
+          "title": "Identity Card - Back",
+          "instruction": "from the back of your identity card"
+        }
+      },
+      "passport": {
+        "title": "Passport",
+        "instruction": "from the identity page of your passport"
+      },
+      "residence-permit": {
+        "recto": {
+          "title": "Residence Permit - Front",
+          "instruction": "from the front of your residence permit"
+        },
+        "verso": {
+          "title": "Residence Permit - Back",
+          "instruction": "from the back of your residence permit"
+        }
+      },
+      "driving-license": {
+        "recto": {
+          "title": "Driver's License - Front",
+          "instruction": "from the front of your driver's license"
+        },
+        "verso": {
+          "title": "Driver's License - Back",
+          "instruction": "from the back of your driver's license"
+        }
+      },
+      "health-card": {
+        "title": "Health Card",
+        "instruction": "of your health card while hiding the last five digits"
+      },
+      "iban": {
+        "title": "Bank Identity Statement",
+        "instruction": "or send us a copy of your IBAN"
+      },
+      "taxes": {
+        "title": "Tax Notice",
+        "instruction": "of your most recent tax notice"
+      },
+      "residence-proof": {
+        "title": "Residence Certificate",
+        "instruction": "of the residence certificate"
+      },
+      "second-id": {
+        "title": "Additional Documents",
+        "instruction": "Please add one of these documents below to complete your identity.",
+        "id": "Identity Card",
+        "passport": "Passport",
+        "residence-permit": "Residence Permit",
+        "driving-license": "Driver's License",
+        "health-card": "Health Card",
+        "iban": "Bank Identity Statement"
+        }    
     }
   }
 }
