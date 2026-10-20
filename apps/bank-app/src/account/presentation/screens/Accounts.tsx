@@ -20,7 +20,7 @@ import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { ISharedStackPages } from '../../../shared/presentation/types';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
-import { checkCustomerStatus } from '../../../kyc/application/commands/customer';
+import { checkCustomerStatus, initKycRoute } from '../../../kyc/application/commands';
 
 import { listAccounts } from '../../application/commands/account';
 import { listTransactions } from '../../application/commands/transactions';
@@ -62,22 +62,21 @@ export const Accounts = () => {
   }, [dispatch]);
 
   const handlePressBanner = useCallback(() => {
-    // navigation.navigate(IKycStackedPages.FIRST_PAGE);
-    console.log('TODO redirect to kyc');
-  }, [navigation]);
+    if (!customer) {
+      // will never happen
+      return;
+    }
+    dispatch(initKycRoute({ customer }));
+  }, [dispatch, customer]);
 
   return accountPending || kycPending ? (
     <Text>Loading ...</Text> // todo replace with loading gif
   ) : (
     <ErrorBoundary t={t}>
-      {customer && customer.properties.status && (
+      {customer && customer.properties.status !== 'CANCELED' && (
         <Banner
           title={t('screens.home.banner.validation-identity')}
-          colorBanner={
-            ['REFUSED', 'CANCELED'].includes(customer.properties.status)
-              ? BannerColors.PINK
-              : BannerColors.PURPLE
-          }
+          colorBanner={customer.properties.status === 'REFUSED' ? BannerColors.PINK : BannerColors.PURPLE}
           rightIcon
           onPressRightIcon={handlePressBanner}
         />

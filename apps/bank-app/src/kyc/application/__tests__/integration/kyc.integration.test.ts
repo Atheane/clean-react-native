@@ -6,12 +6,7 @@ import { Customer, IDocument, DOCUMENT_STATUS } from '@clean-rn/kyc/domain';
 
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
 
-import {
-  IKycTypes,
-  checkCustomerStatus,
-  customerStatusChecked,
-  initializeKyc,
-} from '../../commands/customer';
+import { IKycTypes, checkCustomerStatus, customerStatusChecked, initializeKyc } from '../../commands';
 import { IKycState, kycReducer } from '../../state-management';
 
 import { checkCustomerStatusSaga } from '../../usecases/customer';

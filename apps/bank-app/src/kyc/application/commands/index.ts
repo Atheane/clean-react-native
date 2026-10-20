@@ -5,7 +5,10 @@ import {
   IInitializeKyc,
   IKycActions,
   ICustomerStatusChecked,
+  IInitKycRoute,
+  IKycRouteInitialized,
 } from './types';
+import { IRoutes } from '../../../shared/presentation/types';
 
 // commands
 export const checkCustomerStatus = (): ICheckCustomerStatus => ({
@@ -16,9 +19,19 @@ export const initializeKyc = (): IInitializeKyc => ({
   type: IKycTypes.INITIALIZE_KYC,
 });
 
+export const initKycRoute = (payload: { customer: Customer }): IInitKycRoute => ({
+  type: IKycTypes.INIT_KYC_ROUTE,
+  payload,
+});
+
 // domainEvent
 export const customerStatusChecked = (payload: { customer: Customer }): ICustomerStatusChecked => ({
   type: IKycTypes.CUSTOMER_STATUS_CHECKED,
+  payload,
+});
+
+export const kycRouteInitialized = (payload: { initRoute: IRoutes }): IKycRouteInitialized => ({
+  type: IKycTypes.KYC_ROUTE_INITIALIZED,
   payload,
 });
 

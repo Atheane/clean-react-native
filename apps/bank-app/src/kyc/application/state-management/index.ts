@@ -1,1 +1,2 @@
-export * from './customer';
+export { kycReducer } from './reducer';
+export { IKycState } from './state';

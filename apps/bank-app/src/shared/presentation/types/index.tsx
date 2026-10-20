@@ -59,11 +59,6 @@ export type IHomeStackParamList = {
   RibPdf: undefined;
 };
 
-export type ITransferStackParamList = {
-  MenuTransfer: undefined;
-  Transfer: undefined;
-};
-
 export type ICarbonStackParamList = {
   MenuCarbon: undefined;
   Carbon: undefined;
@@ -72,6 +67,18 @@ export type ICarbonStackParamList = {
   Food: undefined;
   Fly: undefined;
   WarningFood: undefined;
+};
+
+export type IKycStackParamList = {
+  InitKyc: undefined;
+  MenuKyc: undefined;
+  SuccessKyc: undefined;
+  CardSent: undefined;
+};
+
+export type ITransferStackParamList = {
+  MenuTransfer: undefined;
+  Transfer: undefined;
 };
 
 export type IProfileStackParamList = {
@@ -113,11 +120,6 @@ export enum IHomeStackPages {
   RIB_PDF = 'RibPdf',
 }
 
-export enum ITransferStackPages {
-  MENU = 'MenuTransfer',
-  TRANSFER = 'Transfer',
-}
-
 export enum ICarbonStackPages {
   MENU = 'MenuCarbon',
   CARBON = 'Carbon',
@@ -126,6 +128,18 @@ export enum ICarbonStackPages {
   FOOD = 'Food',
   FLY = 'Fly',
   WARNING_FOOD = 'WarningFood',
+}
+
+export enum IKycStackPages {
+  INIT = 'InitKyc',
+  MENU = 'MenuKyc',
+  SUCCESS = 'SuccessKyc',
+  CARD_SENT = 'CardSent',
+}
+
+export enum ITransferStackPages {
+  MENU = 'MenuTransfer',
+  TRANSFER = 'Transfer',
 }
 
 export enum IProfileStackPage {
@@ -166,11 +180,6 @@ export type IHomeStackProps = {
   [IHomeStackPages.WEFLO]: object;
 };
 
-export type ITransferStackProps = {
-  [ITransferStackPages.MENU]: object;
-  [ITransferStackPages.TRANSFER]: object;
-};
-
 export type ICarbonStackProps = {
   [ICarbonStackPages.MENU]: object;
   [ICarbonStackPages.CARBON]: object;
@@ -179,6 +188,18 @@ export type ICarbonStackProps = {
   [ICarbonStackPages.FOOD]: object;
   [ICarbonStackPages.FLY]: object;
   [ICarbonStackPages.WARNING_FOOD]: object;
+};
+
+export type IKycStackProps = {
+  [IKycStackPages.INIT]: object;
+  [IKycStackPages.MENU]: object;
+  [IKycStackPages.SUCCESS]: object;
+  [IKycStackPages.CARD_SENT]: object;
+};
+
+export type ITransferStackProps = {
+  [ITransferStackPages.MENU]: object;
+  [ITransferStackPages.TRANSFER]: object;
 };
 
 export type IProfileStackProps = {
@@ -211,8 +232,6 @@ export type IRoutes =
   | IHomeStackPages.ACCOUNT_STATEMENTS
   | IHomeStackPages.ACCOUNT_STATEMENTS_PDF
   | IHomeStackPages.RIB_PDF
-  | ITransferStackPages.MENU
-  | ITransferStackPages.TRANSFER
   | ICarbonStackPages.MENU
   | ICarbonStackPages.CARBON
   | ICarbonStackPages.HOUSE
@@ -220,4 +239,9 @@ export type IRoutes =
   | ICarbonStackPages.FOOD
   | ICarbonStackPages.FLY
   | ICarbonStackPages.WARNING_FOOD
+  | IKycStackPages.INIT
+  | IKycStackPages.MENU
+  | IKycStackPages.SUCCESS
+  | IKycStackPages.CARD_SENT
+  | ITransferStackPages.TRANSFER
   | IProfileStackPage.PROFILE;
