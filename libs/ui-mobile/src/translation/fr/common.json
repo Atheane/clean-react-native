@@ -378,6 +378,20 @@
       "init": {
         "instruction": "Pour aller plus loin, \nmerci de valider votre Bank App, pour cela nous devons vérifier votre identité. Veuillez prévoir :\n\n- Pièce d’identité\n- Justificatif de domicile",
         "check-identity": "Vérifier mon identité"
+      },
+      "menu": {
+        "title": "Documents à transmettre",
+        "instruction-before": {
+          "begin": "Une fois les",
+          "end": "documents transférés, la vérification se lancera automatiquement."
+        },
+        "instruction-after": "Vos documents sont en cours de vérification cela peut prendre de 24h à 72h.",
+        "w9-form": "Formulaire W9",
+        "first": "Première",
+        "second": "Second",
+        "identity": "pièce d'identité",
+        "address": "justificatif de domicile",
+        "photo": "Portrait photo"
       }
     }
   }

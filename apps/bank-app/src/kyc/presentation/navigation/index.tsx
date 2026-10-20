@@ -16,7 +16,7 @@ import {
 import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
 import { ScreenModalError } from '../../../shared/presentation/screens';
 
-import { CardSent, InitKyc, MenuKyc, SuccessKyc } from '../screens';
+import { CardSent, InitKyc, MenuKyc, SuccessKyc, UploadDocument } from '../screens';
 import { kycRouteInitialized } from '../../../kyc/application/commands';
 
 const Stack = createNativeStackNavigator<IKycStackProps & ISharedStackProps>();
@@ -69,6 +69,14 @@ export const KycStack = () => {
         options={{
           headerTitle: t('screens.kyc.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : goHome),
+        }}
+      />
+      <Stack.Screen
+        name={IKycStackPages.UPLOAD_DOCUMENT}
+        component={UploadDocument}
+        options={{
+          headerTitle: t('screens.kyc.title'),
+          ...headersOptions(goBack),
         }}
       />
       <Stack.Screen

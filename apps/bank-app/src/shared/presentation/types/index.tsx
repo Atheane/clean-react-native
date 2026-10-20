@@ -135,6 +135,7 @@ export enum IKycStackPages {
   MENU = 'MenuKyc',
   SUCCESS = 'SuccessKyc',
   CARD_SENT = 'CardSent',
+  UPLOAD_DOCUMENT = 'UploadDocument',
 }
 
 export enum ITransferStackPages {
@@ -195,6 +196,7 @@ export type IKycStackProps = {
   [IKycStackPages.MENU]: object;
   [IKycStackPages.SUCCESS]: object;
   [IKycStackPages.CARD_SENT]: object;
+  [IKycStackPages.UPLOAD_DOCUMENT]: object;
 };
 
 export type ITransferStackProps = {
@@ -243,5 +245,6 @@ export type IRoutes =
   | IKycStackPages.MENU
   | IKycStackPages.SUCCESS
   | IKycStackPages.CARD_SENT
+  | IKycStackPages.UPLOAD_DOCUMENT
   | ITransferStackPages.TRANSFER
   | IProfileStackPage.PROFILE;

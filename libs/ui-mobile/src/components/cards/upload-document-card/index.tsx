@@ -10,7 +10,7 @@ import { LinkButton } from '../../buttons/link-button';
 type IProps = {
   image: ImageSourcePropType;
   imageDisabled: ImageSourcePropType;
-  status: 'VALIDATED' | 'PENDING' | 'REFUSED';
+  status?: 'VALIDATED' | 'PENDING' | 'REFUSED';
   text: string;
   disabled?: boolean;
   onPress: () => void;

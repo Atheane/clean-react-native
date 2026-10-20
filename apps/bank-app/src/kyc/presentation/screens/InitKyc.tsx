@@ -51,12 +51,6 @@ const styles = StyleSheet.create({
     marginTop: -40,
   },
   iconContainer: { position: 'relative', left: 10, top: 2 },
-  title: {
-    textAlign: 'center',
-    fontFamily: FontNames.Roboto_700Bold,
-    fontSize: 26,
-    color: Colors.bank.primary.darkBlue,
-  },
   text: {
     textAlign: 'center',
     fontFamily: FontNames.MartelSans_400Regular,

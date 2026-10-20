@@ -8,12 +8,14 @@ import { KycStack } from '../../../kyc/presentation/navigation';
 
 import { BottomTabNavigator } from './BottomNavigator';
 
+import { IKycStackPages } from '../../../shared/presentation/types';
+
 export const RootStack = () => {
   const {
     auth: { accessToken },
   } = useSelector((state: IRootState) => state.auth.login);
-  const { initRoute: initKycRoute } = useSelector((state: IRootState) => state.kyc);
-
+  // const { initRoute: initKycRoute } = useSelector((state: IRootState) => state.kyc);
+  const initKycRoute = IKycStackPages.MENU;
   const navigation = useNavigation();
 
   useEffect(() => {
