@@ -33,6 +33,7 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
         buttonStyle={[
           theme.bank.shadow.button,
           props.iconOne || props.iconTwo ? styles.buttonIcon : styles.button,
+          theme.bank.container.centeredItems,
         ]}
         containerStyle={[
           props.long ? theme.bank.container.button.long : theme.bank.container.button.short,
@@ -76,7 +77,7 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
 
 const styles = StyleSheet.create({
   buttonIcon: {
-    paddingTop: 12,
+    paddingTop: 14,
     paddingRight: 24,
     paddingBottom: 14,
     paddingLeft: 26,

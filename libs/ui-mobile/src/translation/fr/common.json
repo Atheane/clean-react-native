@@ -400,6 +400,12 @@
         "id": "Carte d'identité",
         "passport": "Passeport",
         "residence-permit": "Permis de séjour"
+      },
+      "id": {
+        "title": "Carte d’identité - Recto",
+        "instruction-part-one": "Prenez une photo du ",
+        "recto": "recto",
+        "instruction-part-two": "de votre carte d’identité"
       }
     }
   }
