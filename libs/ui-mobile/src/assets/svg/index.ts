@@ -94,6 +94,10 @@ import GreenValidation from './green-validation.svg';
 import GreyPending from './grey-pending.svg';
 import RedCross from './red-cross.svg';
 import Add from './add.svg';
+import IDCard from './id-card.svg';
+import Passport from './passport.svg';
+import ResidencePermit from './residence-permit.svg';
+import DrivingLicense from './driving-license.svg';
 
 export {
   Love,
@@ -190,4 +194,8 @@ export {
   GreyPending,
   RedCross,
   Add,
+  IDCard,
+  ResidencePermit,
+  DrivingLicense,
+  Passport,
 };

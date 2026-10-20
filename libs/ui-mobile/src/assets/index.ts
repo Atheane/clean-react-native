@@ -95,6 +95,10 @@ import {
   GreyPending,
   RedCross,
   Add,
+  IDCard,
+  ResidencePermit,
+  DrivingLicense,
+  Passport,
 } from './svg';
 import { DefaultImage } from './image';
 export {
@@ -193,4 +197,8 @@ export {
   GreyPending,
   RedCross,
   Add,
+  IDCard,
+  ResidencePermit,
+  DrivingLicense,
+  Passport,
 };

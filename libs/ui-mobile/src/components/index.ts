@@ -66,6 +66,7 @@ import { CopyValueClipboard } from './others/copy-value-clipboard';
 import { TransactionItem } from './others/transaction-item';
 import { GraphCO2 } from './others/graph-co2';
 import { ModalError } from './others/modal-error';
+import { IconTextItem } from './others/icon-text-item';
 // Searchboxes
 import { SearchModal } from './searchboxes/search-modal';
 // Texts
@@ -148,6 +149,7 @@ export {
   TransactionItem,
   GraphCO2,
   ModalError,
+  IconTextItem,
   // Searchboxes
   SearchModal,
   // Texts

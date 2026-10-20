@@ -392,6 +392,13 @@
         "identity": "pièce d'identité",
         "address": "Justificatif de domicile",
         "photo": "Portrait photo"
+      },
+      "first-id": {
+        "title": "Pièces d'identité",
+        "instruction": "Choisissez votre pièce d'identité",
+        "id": "Carte d'identité",
+        "passport": "Passeport",
+        "residence-permit": "Permis de séjour"
       }
     }
   }

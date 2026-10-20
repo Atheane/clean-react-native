@@ -102,7 +102,7 @@ export const KycStack = () => {
         name={IKycStackPages.FIRST_ID_LIST}
         component={FirstIdList}
         options={{
-          headerTitle: t('screens.kyc.title'),
+          headerTitle: t('screens.kyc.first-id.title'),
           ...headersOptions(goBack),
         }}
       />
@@ -110,7 +110,7 @@ export const KycStack = () => {
         name={IKycStackPages.SECOND_ID_LIST}
         component={SecondIdList}
         options={{
-          headerTitle: t('screens.kyc.title'),
+          headerTitle: t('screens.kyc.second-id.title'),
           ...headersOptions(goBack),
         }}
       />
@@ -118,7 +118,7 @@ export const KycStack = () => {
         name={IKycStackPages.OWNED_RESIDENCE_PROOF_LIST}
         component={OwnedResidenceProofList}
         options={{
-          headerTitle: t('screens.kyc.title'),
+          headerTitle: t('screens.kyc.owned-residence-proof.title'),
           ...headersOptions(goBack),
         }}
       />
@@ -126,7 +126,7 @@ export const KycStack = () => {
         name={IKycStackPages.UNOWNED_RESIDENCE_PROOF_LIST}
         component={UnownedResidenceProofList}
         options={{
-          headerTitle: t('screens.kyc.title'),
+          headerTitle: t('screens.kyc.unowned-residence-proof.title'),
           ...headersOptions(goBack),
         }}
       />

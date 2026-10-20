@@ -9,8 +9,8 @@ import { KycApi } from '@clean-rn/kyc/infrastructure';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { selectUserFromLogin } from '../../state-management/selectors';
 import { IStoreKey } from '../../../../shared/application/types';
+import { selectUserFromLogin } from '../../state-management/selectors';
 
 import { customerStatusChecked, initializeKyc, IKycTypes } from '../../commands';
 
@@ -34,11 +34,9 @@ export function* checkCustomerStatusGenerator(
 
     const api = KycApi.getInstance(httpConnection);
     const documents: IDocument[] = yield call([api, api.getDocuments]);
-    console.log('documents', documents);
 
-    const customer = Customer.Create({ id: user.id, properties: { USPerson: user.properties.USPerson } });
+    const customer = Customer.Create({ id: user.id, properties: { status: 'INIT' } });
     customer.addDocuments(documents);
-    console.log('customer', customer);
     customer.checkCustomerStatus();
     yield put(customerStatusChecked({ customer }));
     // customer.properties.status cannot be undefined, default value : 'PENDING' so ignore eslint warning
