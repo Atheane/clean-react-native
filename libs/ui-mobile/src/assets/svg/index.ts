@@ -93,6 +93,7 @@ import HouseCarbon from './house-carbon.svg';
 import GreenValidation from './green-validation.svg';
 import GreyPending from './grey-pending.svg';
 import RedCross from './red-cross.svg';
+import Add from './add.svg';
 
 export {
   Love,
@@ -188,4 +189,5 @@ export {
   GreenValidation,
   GreyPending,
   RedCross,
+  Add,
 };

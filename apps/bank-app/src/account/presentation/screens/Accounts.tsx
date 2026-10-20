@@ -20,7 +20,7 @@ import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { IKycStackPages, ISharedStackPages } from '../../../shared/presentation/types';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
-import { checkCustomerStatus, initKycRoute, kycRouteInitialized } from '../../../kyc/application/commands';
+import { checkCustomerStatus, kycRouteInitialized } from '../../../kyc/application/commands';
 
 import { listAccounts } from '../../application/commands/account';
 import { listTransactions } from '../../application/commands/transactions';
@@ -30,6 +30,7 @@ import { eventsCardsContent } from '../constants';
 export const Accounts = () => {
   // translation
   const { t } = useTranslation();
+  const { pending: loginPending } = useSelector((state: IRootState) => state.auth.login);
 
   const { accounts, pending: accountPending } = useSelector((state: IRootState) => state.account.accounts);
 
@@ -37,7 +38,7 @@ export const Accounts = () => {
 
   useEffect(() => {
     dispatch(listAccounts());
-  }, [dispatch]);
+  }, [dispatch, loginPending]);
 
   const handleOnPressAccount = useCallback(
     (account: IAccount) => {
@@ -59,7 +60,7 @@ export const Accounts = () => {
 
   useEffect(() => {
     dispatch(checkCustomerStatus());
-  }, [dispatch]);
+  }, [dispatch, loginPending]);
 
   const handlePressBanner = useCallback(() => {
     if (!customer) {

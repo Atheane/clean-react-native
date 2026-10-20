@@ -374,7 +374,11 @@
       "tab": "Profil"
     },
     "kyc": {
-      "title": "Vérification de votre identité"
+      "title": "Vérification de votre identité",
+      "init": {
+        "instruction": "Pour aller plus loin, \nmerci de valider votre Bank App, pour cela nous devons vérifier votre identité. Veuillez prévoir :\n\n- Pièce d’identité\n- Justificatif de domicile",
+        "check-identity": "Vérifier mon identité"
+      }
     }
   }
 }

@@ -378,7 +378,11 @@
       "tab": "Profile"
     },
     "kyc": {
-      "title": "Identity verification"
+      "title": "Identity verification",
+      "init": {
+        "instruction": "To go further, please validate your CO2 Account. For this, we need to verify your identity. Please provide\n\n:Identification document\nProof of residence",
+        "check-identity": "Verify my identity"
+      }
     }
   }
 }

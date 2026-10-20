@@ -94,6 +94,7 @@ import {
   GreenValidation,
   GreyPending,
   RedCross,
+  Add,
 } from './svg';
 import { DefaultImage } from './image';
 export {
@@ -191,4 +192,5 @@ export {
   GreenValidation,
   GreyPending,
   RedCross,
+  Add,
 };
