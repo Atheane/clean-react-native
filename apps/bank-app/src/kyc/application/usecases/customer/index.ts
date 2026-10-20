@@ -12,10 +12,10 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 import { IStoreKey } from '../../../../shared/application/types';
 import { selectUserFromLogin } from '../../state-management/selectors';
 
-import { customerStatusChecked, initializeKyc, IKycTypes } from '../../commands/customer';
+import { customerStatusChecked, initializeKyc, ICustomerTypes } from '../../commands/customer';
 
 export function* checkCustomerStatusSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(IKycTypes.CHECK_CUSTOMER_STATUS, checkCustomerStatusGenerator, httpConnection);
+  yield takeEvery(ICustomerTypes.CHECK_CUSTOMER_STATUS, checkCustomerStatusGenerator, httpConnection);
 }
 
 export function* checkCustomerStatusGenerator(

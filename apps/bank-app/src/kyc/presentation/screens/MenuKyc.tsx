@@ -47,7 +47,7 @@ export const MenuKyc = () => {
   );
 
   // docuemnts status
-  const { customer } = useSelector((state: IRootState) => state.kyc);
+  const { customer } = useSelector((state: IRootState) => state.kyc.customer);
 
   const [submittedDocuments, setSubmittedDocuments] = useState<KycDocuments>();
 

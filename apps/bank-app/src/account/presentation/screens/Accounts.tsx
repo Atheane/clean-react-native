@@ -56,7 +56,7 @@ export const Accounts = () => {
     [navigation],
   );
 
-  const { customer, pending: kycPending } = useSelector((state: IRootState) => state.kyc);
+  const { customer, pending: kycPending } = useSelector((state: IRootState) => state.kyc.customer);
 
   useEffect(() => {
     dispatch(checkCustomerStatus());

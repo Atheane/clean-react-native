@@ -12,7 +12,7 @@ export const RootStack = () => {
   const {
     auth: { accessToken },
   } = useSelector((state: IRootState) => state.auth.login);
-  const { initRoute: initKycRoute } = useSelector((state: IRootState) => state.kyc);
+  const { initRoute: initKycRoute } = useSelector((state: IRootState) => state.kyc.customer);
 
   const navigation = useNavigation();
 

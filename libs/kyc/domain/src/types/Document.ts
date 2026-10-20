@@ -14,6 +14,7 @@ export enum IDocumentType {
 }
 
 export enum IDocumentStatus {
+  INIT = 'INIT', // document template is created, but is not uploaded yet for review
   CANCELED = 'CANCELED', // document is canceled before analysis
   PENDING = 'PENDING', // document has pending status
   VALIDATED = 'VALIDATED', // document is validated
@@ -25,6 +26,8 @@ export enum IDocumentCategory {
   FIRST_ID = 'FIRST_ID',
   SECOND_ID = 'SECOND_ID',
   RESIDENCE_PROOF = 'RESIDENCE_PROOF',
+  HOST_ID = 'HOST_ID',
+  SWORN_STATEMENT = 'SWORN_STATEMENT',
 }
 
 export type IDocumentProperties = {

@@ -16,8 +16,7 @@ export const ALLOWED_DOCUMENT_TYPES = {
     IDocumentType.TAX_STATEMENT,
     IDocumentType.BANK_ID,
     IDocumentType.TAX_CERTIFICATE,
-    IDocumentType.ID,
-    IDocumentType.PASSPORT,
-    IDocumentType.SWORN_STATEMENT,
   ],
+  [IDocumentCategory.HOST_ID]: [IDocumentType.ID, IDocumentType.PASSPORT, IDocumentType.SWORN_STATEMENT],
+  [IDocumentCategory.SWORN_STATEMENT]: [IDocumentType.SWORN_STATEMENT],
 };

@@ -45,7 +45,13 @@ export class KycApi implements IDocumentRepository {
     });
   }
 
-  async createDocument(customerId: string, document: DocumentVO): Promise<IDocumentProperties[]> {
+  async createDocument({
+    customerId,
+    document,
+  }: {
+    customerId: string;
+    document: DocumentVO;
+  }): Promise<IDocumentProperties[]> {
     const params = {
       documentTypeId: document.properties.type,
       name: document.properties.name,

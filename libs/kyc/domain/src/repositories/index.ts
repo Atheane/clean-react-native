@@ -3,5 +3,11 @@ import { IDocumentProperties } from '../types';
 
 export interface IDocumentRepository {
   getDocuments(customerId: string): Promise<IDocumentProperties[]>;
-  createDocument(customerId: string, document: DocumentVO): Promise<IDocumentProperties[]>;
+  createDocument({
+    customerId,
+    document,
+  }: {
+    customerId: string;
+    document: DocumentVO;
+  }): Promise<IDocumentProperties[]>;
 }

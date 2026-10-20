@@ -4,14 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
-import {
-  Colors,
-  FontNames,
-  IconTextItem,
-  KycResidenceProof,
-  KycInvoice,
-  KycIdentification,
-} from '@clean-rn/ui-mobile';
+import { IconTextItem, KycResidenceProof, KycInvoice, KycIdentification } from '@clean-rn/ui-mobile';
 import { IKycStackPages, IRoutes } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { SwornStatement } from '../assets/images';

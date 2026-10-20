@@ -1,18 +1,18 @@
 import { useCallback } from 'react';
 import { View, Text, StyleSheet, Dimensions, Image, ImageSourcePropType } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
-import { DocumentError, DocumentVO } from '@clean-rn/kyc/domain';
 import { DocumentPicker, DocumentScanner, LinkButton, LinkButtonColors } from '@clean-rn/ui-mobile';
 
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IKycStackPages } from '../../../shared/presentation/types';
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
-import { uploadDocument } from '../../application/commands/document';
+import { addPage } from '../../application/commands/document';
 
 import { HealthCard } from '../assets/images';
 
@@ -24,7 +24,6 @@ export const UploadDocument = () => {
 
   const {
     params: {
-      document,
       instruction,
       imageSource,
       anotherInstruction,
@@ -35,7 +34,6 @@ export const UploadDocument = () => {
     },
   } = useRoute() as {
     params: {
-      document: DocumentVO;
       instruction: string;
       imageSource: ImageSourcePropType;
       anotherInstruction?: string;
@@ -53,6 +51,8 @@ export const UploadDocument = () => {
     };
   };
 
+  const { document } = useSelector((state: IRootState) => state.kyc.document);
+
   const dispatch = useDispatch();
 
   const handleError = useCallback(
@@ -66,40 +66,14 @@ export const UploadDocument = () => {
 
   const handleGetDocument = useCallback(
     (docBase64: string) => {
-      try {
-        const { recto, verso } = document.value;
-        if (document.isReady) {
-          navigator.navigate(IKycStackPages.MENU as never);
-        } else {
-          navigator.navigate(IKycStackPages.UPLOAD_DOCUMENT as never, nextRouteParams);
-        }
-      } catch (error: unknown) {
-        if (error instanceof DocumentError.MissingRecto) {
-          document.addRecto(docBase64);
-          if (document.isReady) {
-            dispatch(
-              uploadDocument({
-                document,
-              }),
-            );
-            navigator.navigate(IKycStackPages.MENU as never);
-          } else {
-            navigator.navigate(IKycStackPages.UPLOAD_DOCUMENT as never, nextRouteParams);
-          }
-        } else if (error instanceof DocumentError.MissingVerso) {
-          document.addVerso(docBase64);
-          if (document.isReady) {
-            dispatch(
-              uploadDocument({
-                document,
-              }),
-            );
-            navigator.navigate(IKycStackPages.MENU as never);
-          }
-        }
+      dispatch(addPage({ base64: docBase64 }));
+      if (!document?.isReady) {
+        navigator.navigate(IKycStackPages.UPLOAD_DOCUMENT as never, nextRouteParams);
+      } else {
+        navigator.navigate(IKycStackPages.MENU as never);
       }
     },
-    [dispatch, document, nextRouteParams, navigator],
+    [document, dispatch, nextRouteParams, navigator],
   );
 
   const handleShowExample = useCallback(() => {

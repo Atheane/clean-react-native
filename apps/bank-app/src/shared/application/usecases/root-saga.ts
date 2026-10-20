@@ -29,6 +29,11 @@ import {
 } from '../../../carbon/application/usecases';
 
 import { checkCustomerStatusSaga } from '../../../kyc/application/usecases/customer';
+import {
+  initializeDocumentSaga,
+  addPageSaga,
+  uploadDocumentSaga,
+} from '../../../kyc/application/usecases/document';
 
 export function* rootSaga(httpConnection: HttpConnection) {
   yield all([
@@ -53,5 +58,8 @@ export function* rootSaga(httpConnection: HttpConnection) {
     computeFoodEmissionsSaga(),
     computeFlyEmissionsSaga(),
     checkCustomerStatusSaga(httpConnection),
+    initializeDocumentSaga(),
+    addPageSaga(),
+    uploadDocumentSaga(httpConnection),
   ]);
 }

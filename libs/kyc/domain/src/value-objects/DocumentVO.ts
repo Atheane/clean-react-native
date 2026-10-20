@@ -1,22 +1,17 @@
-import { IDocumentType, IDocumentCategory, IDocumentPage } from '../types';
-import { CustomerError, DocumentError } from '../errors';
+import { IDocumentType, IDocumentProperties } from '../types';
+import { DocumentError } from '../errors';
 
 export class DocumentVO {
-  private expectedPageCount: number;
-  properties: {
-    category: IDocumentCategory;
-    type: IDocumentType;
-    name: string;
-  };
+  expectedPageCount: number;
+  properties: IDocumentProperties;
   recto?: string;
   verso?: string;
-  constructor({ category, type, name }: { category: IDocumentCategory; type: IDocumentType; name: string }) {
-    this.expectedPageCount = DocumentVO.computeExpectedPagesNumber(type);
-    this.properties = {
-      category,
-      type,
-      name,
-    };
+  isReady?: boolean;
+
+  constructor(properties: IDocumentProperties) {
+    this.expectedPageCount = DocumentVO.computeExpectedPagesNumber(properties.typeId);
+    this.properties = properties;
+    this.isReady = false;
   }
 
   static computeExpectedPagesNumber(typeId: IDocumentType): number {
@@ -24,17 +19,6 @@ export class DocumentVO {
       return 2;
     }
     return 1;
-  }
-
-  public addRecto(page: string) {
-    this.recto = page;
-  }
-
-  public addVerso(page: string) {
-    if (!this.recto) {
-      throw new DocumentError.MissingRecto();
-    }
-    this.verso = page;
   }
 
   get value(): { recto: string; verso?: string } {
@@ -50,12 +34,5 @@ export class DocumentVO {
         recto: this.recto,
       };
     }
-  }
-
-  get isReady(): boolean {
-    if (this.expectedPageCount === 2) {
-      return !!this.recto && !!this.verso;
-    }
-    return !!this.recto;
   }
 }

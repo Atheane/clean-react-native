@@ -1,18 +1,17 @@
 import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { View, Text, StyleSheet, Dimensions, ImageSourcePropType } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
+import { IconTextItem, KycId, KycPassport, KycResidencePermit } from '@clean-rn/ui-mobile';
 import {
-  Colors,
-  FontNames,
-  IconTextItem,
-  KycId,
-  KycPassport,
-  KycResidencePermit,
-} from '@clean-rn/ui-mobile';
-import { IDocumentCategory, IDocumentType, DocumentVO } from '@clean-rn/kyc/domain';
+  IDocumentCategory,
+  IDocumentType,
+  IDocumentProperties,
+  IDocumentStatus,
+} from '@clean-rn/kyc/domain';
 
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
@@ -24,6 +23,7 @@ import {
   ResidencePermitRecto,
   ResidencePermitVerso,
 } from '../assets/images';
+import { initializeDocument } from '../../../kyc/application/commands/document';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -32,29 +32,30 @@ export const FirstIdList = () => {
   const navigation = useNavigation();
   const { theme } = useTheme();
 
+  const dispatch = useDispatch();
   const handleOnPress = useCallback(
     ({
       instruction,
       imageSource,
-      document,
+      documentProperties,
       nextRouteParams,
     }: {
       instruction: string;
       imageSource: ImageSourcePropType;
-      document: DocumentVO;
+      documentProperties: IDocumentProperties;
       nextRouteParams?: {
         instruction: string;
         imageSource: ImageSourcePropType;
       };
     }) => {
+      dispatch(initializeDocument({ documentProperties }));
       navigation.navigate(IKycStackPages.UPLOAD_DOCUMENT as never, {
-        document,
         instruction,
         imageSource,
         nextRouteParams,
       });
     },
-    [navigation],
+    [navigation, dispatch],
   );
 
   return (
@@ -75,11 +76,13 @@ export const FirstIdList = () => {
                 handleOnPress({
                   instruction: t('screens.kyc.id.recto.instruction'),
                   imageSource: IDCardRecto,
-                  document: new DocumentVO({
+                  documentProperties: {
                     category: IDocumentCategory.FIRST_ID,
-                    type: IDocumentType.ID,
+                    typeId: IDocumentType.ID,
                     name: 'first-id.id.recto',
-                  }),
+                    status: IDocumentStatus.INIT,
+                    createdAt: new Date(),
+                  },
                   nextRouteParams: {
                     instruction: t('screens.kyc.id.verso.instruction'),
                     imageSource: IDCardVerso,
@@ -96,11 +99,13 @@ export const FirstIdList = () => {
                 handleOnPress({
                   instruction: t('screens.kyc.passport.instruction'),
                   imageSource: Passport,
-                  document: new DocumentVO({
+                  documentProperties: {
                     category: IDocumentCategory.FIRST_ID,
-                    type: IDocumentType.PASSPORT,
+                    typeId: IDocumentType.PASSPORT,
                     name: 'first-id.passport.recto',
-                  }),
+                    status: IDocumentStatus.INIT,
+                    createdAt: new Date(),
+                  },
                 })
               }
             />
@@ -113,11 +118,13 @@ export const FirstIdList = () => {
                 handleOnPress({
                   instruction: t('screens.kyc.residence-permit.recto.instruction'),
                   imageSource: ResidencePermitRecto,
-                  document: new DocumentVO({
+                  documentProperties: {
                     category: IDocumentCategory.FIRST_ID,
-                    type: IDocumentType.RESIDENT_PERMIT,
+                    typeId: IDocumentType.RESIDENT_PERMIT,
                     name: 'first-id.residence-permit.recto',
-                  }),
+                    status: IDocumentStatus.INIT,
+                    createdAt: new Date(),
+                  },
                   nextRouteParams: {
                     instruction: t('screens.kyc.residence-permit.verso.instruction'),
                     imageSource: ResidencePermitVerso,
@@ -138,7 +145,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 120,
   },
-  iconContainer: { position: 'relative', left: 10, top: 2 },
   titleContainer: {
     marginBottom: 50,
   },
@@ -147,17 +153,5 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-  },
-  text: {
-    textAlign: 'center',
-    fontFamily: FontNames.MartelSans_400Regular,
-    fontSize: 16,
-    color: Colors.bank.primary.darkGrey,
-    width: '80%',
-    paddingTop: 20,
-    paddingBottom: 30,
-  },
-  buttonContainer: {
-    marginTop: 0,
   },
 });

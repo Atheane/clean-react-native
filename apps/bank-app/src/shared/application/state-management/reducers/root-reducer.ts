@@ -10,7 +10,7 @@ import { accountsReducer, transactionsReducer } from '../../../../account/applic
 
 import { carbonReducer } from '../../../../carbon/application/state-management';
 
-import { kycReducer } from '../../../../kyc/application/state-management';
+import { customerReducer, documentReducer } from '../../../../kyc/application/state-management';
 
 import { initializationReducer } from './initialize-application';
 import { globalErrorReducer } from './manage-global-errors';
@@ -25,7 +25,7 @@ export const rootReducer = combineReducers({
   }),
   account: combineReducers({ accounts: accountsReducer, transactions: transactionsReducer }),
   carbon: carbonReducer,
-  kyc: kycReducer,
+  kyc: combineReducers({ customer: customerReducer, document: documentReducer }),
 });
 
 export type IRootState = ReturnType<typeof rootReducer>;

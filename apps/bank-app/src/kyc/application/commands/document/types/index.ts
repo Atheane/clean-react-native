@@ -1,10 +1,41 @@
-import { DocumentVO } from '@clean-rn/kyc/domain';
+import { DocumentVO, IDocumentProperties } from '@clean-rn/kyc/domain';
 
 export enum IDocumentTypes {
+  INITIALIZE_DOCUMENT = 'INITIALIZE_DOCUMENT',
+  DOCUMENT_INITIALIZED = 'DOCUMENT_INITIALIZED',
+  ADD_PAGE = 'ADD_PAGE',
+  PAGE_ADDED = 'PAGE_ADDED',
   UPLOAD_DOCUMENT = 'UPLOAD_DOCUMENT',
   DOCUMENT_UPLOADED = 'DOCUMENT_UPLOADED',
-  INITIALIZE_DOCUMENT = 'INITIALIZE_DOCUMENT',
 }
+
+export type IInitializeDocument = {
+  type: typeof IDocumentTypes.INITIALIZE_DOCUMENT;
+  payload: {
+    documentProperties: IDocumentProperties;
+  };
+};
+
+export type IDocumentInitialized = {
+  type: typeof IDocumentTypes.DOCUMENT_INITIALIZED;
+  payload: {
+    document: DocumentVO;
+  };
+};
+
+export type IAddPage = {
+  type: typeof IDocumentTypes.ADD_PAGE;
+  payload: {
+    base64: string;
+  };
+};
+
+export type IPageAdded = {
+  type: typeof IDocumentTypes.PAGE_ADDED;
+  payload: {
+    document: DocumentVO;
+  };
+};
 
 export type IUploadDocument = {
   type: typeof IDocumentTypes.UPLOAD_DOCUMENT;
@@ -20,8 +51,10 @@ export type IDocumentUploaded = {
   };
 };
 
-export type IInitializeDocument = {
-  type: typeof IDocumentTypes.INITIALIZE_DOCUMENT;
-};
-
-export type IDocumentActions = IUploadDocument | IDocumentUploaded | IInitializeDocument;
+export type IDocumentActions =
+  | IInitializeDocument
+  | IAddPage
+  | IUploadDocument
+  | IDocumentInitialized
+  | IPageAdded
+  | IDocumentUploaded;

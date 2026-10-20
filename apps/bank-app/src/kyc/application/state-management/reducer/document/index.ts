@@ -12,6 +12,28 @@ export const documentReducer = (state = initialState, action: IDocumentActions) 
   const logger = Logger.getInstance();
   let newState: IDocumentState;
   switch (action.type) {
+    case IDocumentTypes.INITIALIZE_DOCUMENT:
+      logger.debug(action.type);
+      return state;
+    case IDocumentTypes.DOCUMENT_INITIALIZED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        document: action.payload.document,
+      };
+      return newState;
+    case IDocumentTypes.ADD_PAGE:
+      logger.debug(action.type);
+      return state;
+    case IDocumentTypes.PAGE_ADDED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        document: action.payload.document,
+      };
+      return newState;
     case IDocumentTypes.UPLOAD_DOCUMENT:
       logger.debug(action.type);
       newState = {
@@ -27,14 +49,7 @@ export const documentReducer = (state = initialState, action: IDocumentActions) 
         document: action.payload.document,
       };
       return newState;
-    case IDocumentTypes.INITIALIZE_DOCUMENT:
-      logger.debug(action.type);
-      newState = {
-        ...state,
-        pending: false,
-        document: null,
-      };
-      return newState;
+
     default:
       return {
         ...state,
