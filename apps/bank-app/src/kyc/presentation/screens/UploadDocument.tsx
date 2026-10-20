@@ -1,16 +1,20 @@
 import { useCallback } from 'react';
 import { View, Text, StyleSheet, Dimensions, Image, ImageSourcePropType } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
+import { DocumentError, DocumentVO } from '@clean-rn/kyc/domain';
 import { DocumentPicker, DocumentScanner, LinkButton, LinkButtonColors } from '@clean-rn/ui-mobile';
 
+import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { IKycStackPages } from '../../../shared/presentation/types';
+
+import { uploadDocument } from '../../application/commands/document';
 
 import { HealthCard } from '../assets/images';
-import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -20,21 +24,32 @@ export const UploadDocument = () => {
 
   const {
     params: {
+      document,
       instruction,
       imageSource,
       anotherInstruction,
       docPickerVisible,
       secondImageVisible,
       showExample,
+      nextRouteParams,
     },
   } = useRoute() as {
     params: {
+      document: DocumentVO;
       instruction: string;
       imageSource: ImageSourcePropType;
       anotherInstruction?: string;
       docPickerVisible?: boolean;
       secondImageVisible?: boolean;
       showExample?: boolean;
+      nextRouteParams?: {
+        instruction: string;
+        imageSource: ImageSourcePropType;
+        anotherInstruction?: string;
+        docPickerVisible?: boolean;
+        secondImageVisible?: boolean;
+        showExample?: boolean;
+      };
     };
   };
 
@@ -47,15 +62,52 @@ export const UploadDocument = () => {
     [dispatch],
   );
 
-  const handleGetDocument = useCallback((docBase64: string) => {
-    console.log(docBase64);
-    //todo dispatch to upload document usecase
-  }, []);
+  const navigator = useNavigation();
+
+  const handleGetDocument = useCallback(
+    (docBase64: string) => {
+      try {
+        const { recto, verso } = document.value;
+        if (document.isReady) {
+          navigator.navigate(IKycStackPages.MENU as never);
+        } else {
+          navigator.navigate(IKycStackPages.UPLOAD_DOCUMENT as never, nextRouteParams);
+        }
+      } catch (error: unknown) {
+        if (error instanceof DocumentError.MissingRecto) {
+          document.addRecto(docBase64);
+          if (document.isReady) {
+            dispatch(
+              uploadDocument({
+                document,
+              }),
+            );
+            navigator.navigate(IKycStackPages.MENU as never);
+          } else {
+            navigator.navigate(IKycStackPages.UPLOAD_DOCUMENT as never, nextRouteParams);
+          }
+        } else if (error instanceof DocumentError.MissingVerso) {
+          document.addVerso(docBase64);
+          if (document.isReady) {
+            dispatch(
+              uploadDocument({
+                document,
+              }),
+            );
+            navigator.navigate(IKycStackPages.MENU as never);
+          }
+        }
+      }
+    },
+    [dispatch, document, nextRouteParams, navigator],
+  );
 
   const handleShowExample = useCallback(() => {
     console.log('handleShowExample');
     //todo dispatch to upload document usecase
   }, []);
+
+  //todo select document from store
 
   return (
     <ErrorBoundary t={t}>

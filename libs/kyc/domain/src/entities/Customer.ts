@@ -1,5 +1,5 @@
 import { Entity } from '@clean-rn/ddd';
-import { IDocumentProperties, IDocumentStatus, ICustomerStatus } from '../types';
+import { IDocumentProperties, IDocumentStatus, ICustomerStatus, IDocumentCategory } from '../types';
 import { KycDocuments, Document } from '../value-objects';
 
 export interface ICustomerProperties {
@@ -30,8 +30,27 @@ export class Customer extends Entity<ICustomerProperties> {
     });
   }
 
-  addDocuments(documents: IDocumentProperties[]): void {
-    this.properties.documents = new KycDocuments(documents, this.properties.USPerson);
+  addDocument(document: Document): void {
+    if (this.properties.documents) {
+      switch (document?.rectoProps?.category) {
+        case IDocumentCategory.W9:
+          this.properties.documents.w9 = document;
+          break;
+        case IDocumentCategory.FIRST_ID:
+          this.properties.documents.firstId = document;
+          break;
+        case IDocumentCategory.SECOND_ID:
+          this.properties.documents.secondId = document;
+          break;
+        case IDocumentCategory.RESIDENCE_PROOF:
+          this.properties.documents.residenceProof = document;
+          break;
+      }
+    }
+  }
+
+  checkDocumentsStatus(docProps: IDocumentProperties[]): void {
+    this.properties.documents = new KycDocuments(docProps, this.properties.USPerson);
   }
 
   checkCustomerStatus(): void {

@@ -1,5 +1,5 @@
 import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
-import { IDocument, IDocumentRepository } from '@clean-rn/kyc/domain';
+import { IDocumentProperties, IDocumentRepository, DocumentVO } from '@clean-rn/kyc/domain';
 import { IDocumentServer } from '../types';
 
 export class KycApi implements IDocumentRepository {
@@ -20,7 +20,7 @@ export class KycApi implements IDocumentRepository {
     return this.instance;
   }
 
-  async getDocuments(): Promise<IDocument[]> {
+  async getDocuments(): Promise<IDocumentProperties[]> {
     const response = await fetch(
       `${this.connection.baseUrl}/app/document/kyc`,
       this.connection.options(IHttpVerb.GET),
@@ -43,5 +43,29 @@ export class KycApi implements IDocumentRepository {
             createdAt: new Date(doc.createdAt),
           };
     });
+  }
+
+  async createDocument(customerId: string, document: DocumentVO): Promise<IDocumentProperties[]> {
+    const params = {
+      documentTypeId: document.properties.type,
+      name: document.properties.name,
+      userId: customerId,
+      fileContentBase64: document.value.recto,
+    };
+    const responseRecto = await fetch(
+      `${this.connection.baseUrl}/app/document/kyc`,
+      this.connection.options(IHttpVerb.POST, params),
+    );
+    await this.connection.handleError(responseRecto);
+    if (!document.verso) {
+      return [responseRecto.json()];
+    } else {
+      const responseVerso = await fetch(
+        `${this.connection.baseUrl}/app/document/kyc`,
+        this.connection.options(IHttpVerb.POST, { ...params, fileContentBase64: document.verso }),
+      );
+      await this.connection.handleError(responseVerso);
+      return [responseRecto.json(), responseVerso.json()];
+    }
   }
 }

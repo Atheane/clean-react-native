@@ -30,7 +30,7 @@ import {
   CardSent,
   HostResidenceProofList,
 } from '../screens';
-import { kycRouteInitialized } from '../../../kyc/application/commands';
+import { kycRouteInitialized } from '../../application/commands/customer';
 
 const Stack = createNativeStackNavigator<IKycStackProps & ISharedStackProps>();
 

@@ -9,7 +9,7 @@ import { ALLOWED_DOCUMENT_TYPES } from '../constants';
 import { CustomerError } from '../errors';
 
 export class Document {
-  category: IDocumentCategory;
+  private category: IDocumentCategory;
   recto?: string;
   verso?: string;
   pagesNumber?: number;

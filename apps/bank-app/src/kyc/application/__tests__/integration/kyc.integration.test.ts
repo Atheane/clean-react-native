@@ -12,7 +12,7 @@ import {
   customerStatusChecked,
   initializeKyc,
   kycRouteInitialized,
-} from '../../commands';
+} from '../../commands/customer';
 import { IKycState, kycReducer } from '../../state-management';
 
 import { checkCustomerStatusSaga } from '../../usecases/customer';

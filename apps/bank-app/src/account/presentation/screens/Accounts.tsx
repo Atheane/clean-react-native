@@ -20,7 +20,7 @@ import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { IKycStackPages, ISharedStackPages } from '../../../shared/presentation/types';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
-import { checkCustomerStatus, kycRouteInitialized } from '../../../kyc/application/commands';
+import { checkCustomerStatus, kycRouteInitialized } from '../../../kyc/application/commands/customer';
 
 import { listAccounts } from '../../application/commands/account';
 import { listTransactions } from '../../application/commands/transactions';

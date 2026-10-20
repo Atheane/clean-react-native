@@ -16,7 +16,7 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 import { IStoreKey } from '../../../../shared/application/types';
 
 import { checkCustomerStatusGenerator, checkCustomerStatusSaga } from '../../usecases/customer';
-import { IKycTypes, customerStatusChecked, initializeKyc } from '../../commands';
+import { IKycTypes, customerStatusChecked, initializeKyc } from '../../commands/customer';
 import { selectUserFromLogin } from '../../state-management/selectors';
 
 describe('KYC - CheckCustomerStatus - usecase', () => {

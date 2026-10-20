@@ -12,10 +12,18 @@ import {
   KycPassport,
   KycResidencePermit,
 } from '@clean-rn/ui-mobile';
+import { IDocumentCategory, IDocumentType, DocumentVO } from '@clean-rn/kyc/domain';
+
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
-import { IDCardRecto, Passport, ResidencePermitRecto } from '../assets/images';
+import {
+  IDCardRecto,
+  IDCardVerso,
+  Passport,
+  ResidencePermitRecto,
+  ResidencePermitVerso,
+} from '../assets/images';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -25,10 +33,25 @@ export const FirstIdList = () => {
   const { theme } = useTheme();
 
   const handleOnPress = useCallback(
-    ({ instruction, imageSource }: { instruction: string; imageSource: ImageSourcePropType }) => {
+    ({
+      instruction,
+      imageSource,
+      document,
+      nextRouteParams,
+    }: {
+      instruction: string;
+      imageSource: ImageSourcePropType;
+      document: DocumentVO;
+      nextRouteParams?: {
+        instruction: string;
+        imageSource: ImageSourcePropType;
+      };
+    }) => {
       navigation.navigate(IKycStackPages.UPLOAD_DOCUMENT as never, {
+        document,
         instruction,
         imageSource,
+        nextRouteParams,
       });
     },
     [navigation],
@@ -52,6 +75,15 @@ export const FirstIdList = () => {
                 handleOnPress({
                   instruction: t('screens.kyc.id.recto.instruction'),
                   imageSource: IDCardRecto,
+                  document: new DocumentVO({
+                    category: IDocumentCategory.FIRST_ID,
+                    type: IDocumentType.ID,
+                    name: 'first-id.id.recto',
+                  }),
+                  nextRouteParams: {
+                    instruction: t('screens.kyc.id.verso.instruction'),
+                    imageSource: IDCardVerso,
+                  },
                 })
               }
             />
@@ -64,6 +96,11 @@ export const FirstIdList = () => {
                 handleOnPress({
                   instruction: t('screens.kyc.passport.instruction'),
                   imageSource: Passport,
+                  document: new DocumentVO({
+                    category: IDocumentCategory.FIRST_ID,
+                    type: IDocumentType.PASSPORT,
+                    name: 'first-id.passport.recto',
+                  }),
                 })
               }
             />
@@ -76,6 +113,15 @@ export const FirstIdList = () => {
                 handleOnPress({
                   instruction: t('screens.kyc.residence-permit.recto.instruction'),
                   imageSource: ResidencePermitRecto,
+                  document: new DocumentVO({
+                    category: IDocumentCategory.FIRST_ID,
+                    type: IDocumentType.RESIDENT_PERMIT,
+                    name: 'first-id.residence-permit.recto',
+                  }),
+                  nextRouteParams: {
+                    instruction: t('screens.kyc.residence-permit.verso.instruction'),
+                    imageSource: ResidencePermitVerso,
+                  },
                 })
               }
             />
