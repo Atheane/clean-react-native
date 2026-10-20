@@ -127,9 +127,12 @@ export function* uploadDocumentSagaGenerator(
     yield put(documentUploaded({ document }));
 
     const { customer: customerFromRedux } = yield select(selectCustomer);
+
     const customer = Customer.Create(customerFromRedux);
     customer.addKyc(customerFromRedux.properties.kyc);
+
     customer.addDocument(document);
+
     yield put(customerDocumentsUpdated({ customer }));
   } catch (error: unknown) {
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level

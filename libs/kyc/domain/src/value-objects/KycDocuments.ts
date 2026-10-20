@@ -79,10 +79,7 @@ export class KycDocuments {
     documentsByCategory: { [key in IDocumentCategory]: IDocumentProperties[] },
   ): void {
     if (!arrayIsEmpty(documentsByCategory[category])) {
-      const relevantDocumentProperties = this.filterRelevantDocumentProperties(
-        category,
-        documentsByCategory[category],
-      );
+      const relevantDocumentProperties = this.filterRelevantDocumentProperties(documentsByCategory[category]);
       if (!arrayIsEmpty(relevantDocumentProperties)) {
         const docStatus = this.checkDocumentStatus(relevantDocumentProperties);
         this.documents[category] = new DocumentVO({
@@ -126,39 +123,43 @@ export class KycDocuments {
     return documentsByCategory;
   }
 
-  private filterRelevantDocumentProperties(
-    category: IDocumentCategory,
-    docsProps: IDocumentProperties[],
-  ): IDocumentProperties[] {
-    const sortedDocuments = docsProps.sort((a, b) => {
-      if (a.typeId === b.typeId) {
-        return b.createdAt.getTime() - a.createdAt.getTime();
-      }
-      return a.typeId < b.typeId ? -1 : 1;
-    });
-    const documentsByTypeId = sortedDocuments.reduce(
-      (accumulator, doc) => {
-        this.validateDocumentType(category, doc.typeId);
-        if (!accumulator[doc.typeId]) {
-          accumulator[doc.typeId] = [doc];
-        } else if (accumulator[doc.typeId].length < DocumentVO.computeExpectedPagesNumber(doc.typeId)) {
-          // here we keep the latest document properties up to the number of pages expected for each type
-          accumulator[doc.typeId].push(doc);
-        }
-        return accumulator;
+  private filterRelevantDocumentProperties(docsProps: IDocumentProperties[]): IDocumentProperties[] {
+    // Group documentProperties by typeId
+    const groupedByTypeId = docsProps.reduce(
+      (acc: { [key: number]: IDocumentProperties[] }, item: IDocumentProperties) => {
+        (acc[item.typeId] = acc[item.typeId] || []).push(item);
+        return acc;
       },
-      {} as { [key in IDocumentType]: IDocumentProperties[] },
+      {},
     );
-    // then we keep documents with typeID for which we have the expected number of pages
-    const typeId = ALLOWED_DOCUMENT_TYPES[category].find(
-      (typeId: IDocumentType) =>
-        documentsByTypeId[typeId] &&
-        documentsByTypeId[typeId].length === DocumentVO.computeExpectedPagesNumber(typeId),
+
+    // Get the last documents based on expected page number for each typeId
+    const lastRelevantDocs = Object.entries(groupedByTypeId).reduce(
+      (acc: { [key: number]: IDocumentProperties[] }, [typeId, properties]) => {
+        const expectedPages = DocumentVO.computeExpectedPagesNumber(parseInt(typeId));
+        if (properties.length >= expectedPages) {
+          acc[parseInt(typeId)] = properties.slice(-expectedPages);
+        }
+        return acc;
+      },
+      {},
     );
-    if (!typeId) {
-      return [];
-    }
-    return documentsByTypeId[typeId];
+
+    // Find the typeId with the most recent documents
+    let mostRecentDate = new Date(0);
+    let mostRecentTypeId = -1;
+
+    Object.entries(lastRelevantDocs).forEach(([typeId, properties]) => {
+      properties.forEach((doc) => {
+        const createdAtDate = new Date(doc.createdAt);
+        if (createdAtDate > mostRecentDate) {
+          mostRecentDate = createdAtDate;
+          mostRecentTypeId = parseInt(typeId);
+        }
+      });
+    });
+
+    return lastRelevantDocs[mostRecentTypeId] || [];
   }
 
   private checkDocumentStatus(docProps: IDocumentProperties[]) {

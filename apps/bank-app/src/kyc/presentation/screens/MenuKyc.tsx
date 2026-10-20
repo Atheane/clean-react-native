@@ -78,7 +78,7 @@ export const MenuKyc = () => {
           <View style={styles.itemContainer}>
             <UploadDocumentCard
               icon={KycIdentification}
-              status={submittedKyc?.documents.firstId?.properties.status}
+              status={submittedKyc?.documents.a?.properties.status}
               text={`${t('screens.kyc.menu.first')} ${t('screens.kyc.menu.identity')}`}
               onPress={navigateToFirstIdList}
             />
@@ -86,7 +86,7 @@ export const MenuKyc = () => {
           <View style={styles.itemContainer}>
             <UploadDocumentCard
               icon={KycPassport}
-              status={submittedKyc?.documents.SECOND_ID?.properties.status}
+              status={submittedKyc?.documents.b?.properties.status}
               text={`${t('screens.kyc.menu.second')} ${t('screens.kyc.menu.identity')}`}
               onPress={navigateToSecondIdList}
             />

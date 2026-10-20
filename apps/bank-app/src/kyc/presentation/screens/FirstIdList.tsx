@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { View, Text, StyleSheet, Dimensions, ImageSourcePropType } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -24,6 +24,7 @@ import {
   ResidencePermitVerso,
 } from '../assets/images';
 import { initializeDocument } from '../../../kyc/application/commands/document';
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -58,6 +59,8 @@ export const FirstIdList = () => {
     [navigation, dispatch],
   );
 
+  const { customer } = useSelector((state: IRootState) => state.kyc.customer);
+
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
@@ -68,70 +71,82 @@ export const FirstIdList = () => {
             </Text>
           </View>
 
-          <View style={[styles.itemContainer]}>
-            <IconTextItem
-              icon={KycId}
-              text={t('screens.kyc.first-id.id')}
-              onPress={() =>
-                handleOnPress({
-                  instruction: t('screens.kyc.id.recto.instruction'),
-                  imageSource: IDCardRecto,
-                  documentProperties: {
-                    category: IDocumentCategory.FIRST_ID,
-                    typeId: IDocumentType.ID,
-                    name: 'first-id.id.recto',
-                    status: IDocumentStatus.INIT,
-                    createdAt: new Date(),
-                  },
-                  nextRouteParams: {
-                    instruction: t('screens.kyc.id.verso.instruction'),
-                    imageSource: IDCardVerso,
-                  },
-                })
-              }
-            />
-          </View>
-          <View style={[styles.itemContainer]}>
-            <IconTextItem
-              icon={KycPassport}
-              text={t('screens.kyc.first-id.passport')}
-              onPress={() =>
-                handleOnPress({
-                  instruction: t('screens.kyc.passport.instruction'),
-                  imageSource: Passport,
-                  documentProperties: {
-                    category: IDocumentCategory.FIRST_ID,
-                    typeId: IDocumentType.PASSPORT,
-                    name: 'first-id.passport.recto',
-                    status: IDocumentStatus.INIT,
-                    createdAt: new Date(),
-                  },
-                })
-              }
-            />
-          </View>
-          <View style={styles.itemContainer}>
-            <IconTextItem
-              icon={KycResidencePermit}
-              text={t('screens.kyc.first-id.residence-permit')}
-              onPress={() =>
-                handleOnPress({
-                  instruction: t('screens.kyc.residence-permit.recto.instruction'),
-                  imageSource: ResidencePermitRecto,
-                  documentProperties: {
-                    category: IDocumentCategory.FIRST_ID,
-                    typeId: IDocumentType.RESIDENT_PERMIT,
-                    name: 'first-id.residence-permit.recto',
-                    status: IDocumentStatus.INIT,
-                    createdAt: new Date(),
-                  },
-                  nextRouteParams: {
-                    instruction: t('screens.kyc.residence-permit.verso.instruction'),
-                    imageSource: ResidencePermitVerso,
-                  },
-                })
-              }
-            />
+          <View>
+            <View style={[styles.itemContainer]}>
+              <IconTextItem
+                icon={KycId}
+                text={t('screens.kyc.first-id.id')}
+                validated={
+                  customer?.properties?.kyc?.documents.FIRST_ID?.properties?.typeId === IDocumentType.ID
+                }
+                onPress={() =>
+                  handleOnPress({
+                    instruction: t('screens.kyc.id.recto.instruction'),
+                    imageSource: IDCardRecto,
+                    documentProperties: {
+                      category: IDocumentCategory.FIRST_ID,
+                      typeId: IDocumentType.ID,
+                      name: 'first-id.id.recto',
+                      status: IDocumentStatus.INIT,
+                      createdAt: new Date(),
+                    },
+                    nextRouteParams: {
+                      instruction: t('screens.kyc.id.verso.instruction'),
+                      imageSource: IDCardVerso,
+                    },
+                  })
+                }
+              />
+            </View>
+            <View style={[styles.itemContainer]}>
+              <IconTextItem
+                icon={KycPassport}
+                text={t('screens.kyc.first-id.passport')}
+                validated={
+                  customer?.properties?.kyc?.documents.FIRST_ID?.properties?.typeId === IDocumentType.PASSPORT
+                }
+                onPress={() =>
+                  handleOnPress({
+                    instruction: t('screens.kyc.passport.instruction'),
+                    imageSource: Passport,
+                    documentProperties: {
+                      category: IDocumentCategory.FIRST_ID,
+                      typeId: IDocumentType.PASSPORT,
+                      name: 'first-id.passport.recto',
+                      status: IDocumentStatus.INIT,
+                      createdAt: new Date(),
+                    },
+                  })
+                }
+              />
+            </View>
+            <View style={styles.itemContainer}>
+              <IconTextItem
+                icon={KycResidencePermit}
+                text={t('screens.kyc.first-id.residence-permit')}
+                validated={
+                  customer?.properties?.kyc?.documents.FIRST_ID?.properties?.typeId ===
+                  IDocumentType.RESIDENT_PERMIT
+                }
+                onPress={() =>
+                  handleOnPress({
+                    instruction: t('screens.kyc.residence-permit.recto.instruction'),
+                    imageSource: ResidencePermitRecto,
+                    documentProperties: {
+                      category: IDocumentCategory.FIRST_ID,
+                      typeId: IDocumentType.RESIDENT_PERMIT,
+                      name: 'first-id.residence-permit.recto',
+                      status: IDocumentStatus.INIT,
+                      createdAt: new Date(),
+                    },
+                    nextRouteParams: {
+                      instruction: t('screens.kyc.residence-permit.verso.instruction'),
+                      imageSource: ResidencePermitVerso,
+                    },
+                  })
+                }
+              />
+            </View>
           </View>
         </View>
       </SafeScrollingView>

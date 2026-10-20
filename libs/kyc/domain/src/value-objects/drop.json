@@ -1,0 +1,75 @@
+{
+  "15": [
+    {
+      "category": "SECOND_ID",
+      "createdAt": "2023-11-27T10:10:29.927Z",
+      "name": "second-id.residence-permit.recto",
+      "status": "PENDING",
+      "typeId": 15
+    },
+    {
+      "category": "SECOND_ID",
+      "createdAt": "2023-11-27T10:10:29.927Z",
+      "name": "second-id.residence-permit.verso",
+      "status": "PENDING",
+      "typeId": 15
+    }
+  ],
+  "16": [
+    {
+      "category": "SECOND_ID",
+      "createdAt": "2023-11-27T11:13:09.541Z",
+      "name": "second-id.driving-license.recto",
+      "status": "PENDING",
+      "typeId": 16
+    },
+    {
+      "category": "SECOND_ID",
+      "createdAt": "2023-11-27T11:13:09.541Z",
+      "name": "second-id.driving-license.verso",
+      "status": "PENDING",
+      "typeId": 16
+    }
+  ],
+  "17": [
+    {
+      "category": "SECOND_ID",
+      "createdAt": "2023-11-27T10:10:29.927Z",
+      "name": "second-id.passport.recto",
+      "status": "PENDING",
+      "typeId": 17
+    }
+  ],
+  "27": [
+    {
+      "category": "SECOND_ID",
+      "createdAt": "2023-11-27T11:13:09.541Z",
+      "name": "second-id.health-card.recto",
+      "status": "PENDING",
+      "typeId": 27
+    },
+    {
+      "category": "SECOND_ID",
+      "createdAt": "2023-11-27T11:13:09.541Z",
+      "name": "second-id.health-card.recto",
+      "status": "PENDING",
+      "typeId": 27
+    }
+  ],
+  "9": [
+    {
+      "category": "SECOND_ID",
+      "createdAt": "2023-11-27T10:10:29.927Z",
+      "name": "second-id.id.recto",
+      "status": "PENDING",
+      "typeId": 9
+    },
+    {
+      "category": "SECOND_ID",
+      "createdAt": "2023-11-27T10:10:29.927Z",
+      "name": "second-id.id.verso",
+      "status": "PENDING",
+      "typeId": 9
+    }
+  ]
+}

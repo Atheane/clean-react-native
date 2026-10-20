@@ -21,19 +21,19 @@ export const IconTextItem = (props: IProps) => {
           <props.icon />
         </View>
         <View style={styles.textContainer}>
-          <Text style={[theme.bank.text.darkBlue, styles.text]}>{props.text}</Text>
+          <Text style={[theme.bank.text.darkBlue]}>{props.text}</Text>
         </View>
       </View>
     </TouchableOpacity>
   ) : (
-    <View style={theme.bank.container.centeredItems}>
+    <View style={styles.checkedContainer}>
       <TouchableOpacity onPress={props.onPress} disabled style={{ opacity: 0.5 }}>
         <View style={[theme.bank.container.leftItems, styles.container]}>
           <View style={styles.iconContainer}>
             <props.icon />
           </View>
           <View style={styles.textContainer}>
-            <Text style={[theme.bank.text.darkBlue, styles.text]}>{props.text}</Text>
+            <Text style={[theme.bank.text.darkBlue]}>{props.text}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -44,7 +44,7 @@ export const IconTextItem = (props: IProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get('window').width * 0.7,
+    width: Dimensions.get('window').width * 0.6,
   },
   iconContainer: {
     marginRight: 10,
@@ -53,5 +53,9 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginTop: 5,
   },
-  text: {},
+  checkedContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: -8,
+  },
 });
