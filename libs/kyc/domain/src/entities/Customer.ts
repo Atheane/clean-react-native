@@ -1,6 +1,6 @@
 import { Entity } from '@clean-rn/ddd';
 import { IDocumentProperties, IDocumentStatus, ICustomerStatus } from '../types';
-import { KycDocuments } from '../value-objects/KycDocuments';
+import { KycDocuments, Document } from '../value-objects';
 
 export interface ICustomerProperties {
   // todo part of the actual user should be moved to customer entity
@@ -37,7 +37,7 @@ export class Customer extends Entity<ICustomerProperties> {
     if (!documents || documents.length === 0) {
       return;
     }
-    if (documents.some((doc: IDocumentProperties) => doc.status === IDocumentStatus.CANCELED)) {
+    if (documents.some((doc: Document) => doc.status === IDocumentStatus.CANCELED)) {
       this.properties.status = 'CANCELED'; // user should be blocked anyway
     } else if (documents.some((doc: IDocumentProperties) => doc.status === IDocumentStatus.REFUSED)) {
       this.properties.status = 'REFUSED';

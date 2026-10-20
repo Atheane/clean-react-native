@@ -1,4 +1,10 @@
-import { IDocumentPage, IDocumentType, IDocumentProperties, IDocumentCategory } from '../types';
+import {
+  IDocumentPage,
+  IDocumentType,
+  IDocumentProperties,
+  IDocumentCategory,
+  IDocumentStatus,
+} from '../types';
 import { ALLOWED_DOCUMENT_TYPES } from '../constants';
 import { CustomerError } from '../errors';
 
@@ -9,6 +15,7 @@ export class Document {
   pagesNumber?: number;
   rectoProps?: IDocumentProperties;
   versoProps?: IDocumentProperties;
+  status?: IDocumentStatus;
 
   constructor(docCategory: IDocumentCategory, docsProps: IDocumentProperties[]) {
     this.category = docCategory;
@@ -18,16 +25,46 @@ export class Document {
     }
     this.pagesNumber = relevantDocuments.length;
     this.rectoProps = relevantDocuments[0];
-    if (relevantDocuments.length > 1) {
+    if (this.pagesNumber === 2) {
       this.versoProps = relevantDocuments[1];
     }
+    this.checkDocumentStatus();
   }
 
   static computeExpectedPagesNumber(typeId: IDocumentType): number {
-    if (typeId === IDocumentType.PASSPORT) {
-      return 1;
+    if ([IDocumentType.ID, IDocumentType.RESIDENT_PERMIT, IDocumentType.DRIVING_LICENSE].includes(typeId)) {
+      return 2;
     }
-    return 2;
+    return 1;
+  }
+
+  public addPage(page: string, name: IDocumentPage) {
+    if (name === 'recto') {
+      this.recto = page;
+    }
+    if (name === 'verso') {
+      if (this.pagesNumber === 1) {
+        throw new CustomerError.MaxPagesReached();
+      }
+      this.verso = page;
+    }
+  }
+
+  get value(): { recto: string; verso?: string } {
+    if (!this.recto) throw new CustomerError.MissingRecto();
+    if (this.pagesNumber === 2) {
+      if (!this.verso) throw new CustomerError.MissingVerso();
+    }
+    if (this.pagesNumber === 2) {
+      return {
+        recto: this.recto,
+        verso: this.verso,
+      };
+    } else {
+      return {
+        recto: this.recto,
+      };
+    }
   }
 
   // this should be done in back-end
@@ -70,32 +107,28 @@ export class Document {
       );
     }
   }
-  public addPage(page: string, name: IDocumentPage) {
-    if (name === 'recto') {
-      this.recto = page;
-    }
-    if (name === 'verso') {
-      if (this.pagesNumber === 1) {
-        throw new CustomerError.MaxPagesReached();
-      }
-      this.verso = page;
-    }
-  }
 
-  get value(): { recto: string; verso?: string } {
-    if (!this.recto) throw new CustomerError.MissingRecto();
+  private checkDocumentStatus() {
+    this.status = this.rectoProps?.status;
     if (this.pagesNumber === 2) {
-      if (!this.verso) throw new CustomerError.MissingVerso();
-    }
-    if (this.pagesNumber === 2) {
-      return {
-        recto: this.recto,
-        verso: this.verso,
-      };
-    } else {
-      return {
-        recto: this.recto,
-      };
+      if (
+        this.rectoProps?.status === IDocumentStatus.REFUSED ||
+        this.versoProps?.status === IDocumentStatus.REFUSED
+      ) {
+        this.status = IDocumentStatus.REFUSED;
+      } else if (
+        this.rectoProps?.status === IDocumentStatus.CANCELED ||
+        this.versoProps?.status === IDocumentStatus.CANCELED
+      ) {
+        this.status = IDocumentStatus.CANCELED;
+      } else if (
+        this.rectoProps?.status === IDocumentStatus.VALIDATED &&
+        this.versoProps?.status === IDocumentStatus.VALIDATED
+      ) {
+        this.status = IDocumentStatus.VALIDATED;
+      } else {
+        this.status = IDocumentStatus.PENDING;
+      }
     }
   }
 }

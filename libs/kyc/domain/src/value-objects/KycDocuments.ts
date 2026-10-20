@@ -10,10 +10,13 @@ export class KycDocuments {
 
   constructor(docsProps: IDocumentProperties[]) {
     const documentsByCategory = this.allocateDocumentsByCategory(docsProps);
-    if (documentsByCategory[IDocumentCategory.W9].length > 0) {
-      this.w9 = new Document(IDocumentCategory.FIRST_ID, documentsByCategory[IDocumentCategory.FIRST_ID]);
+    if (documentsByCategory[IDocumentCategory.W9] && documentsByCategory[IDocumentCategory.W9].length > 0) {
+      this.w9 = new Document(IDocumentCategory.W9, documentsByCategory[IDocumentCategory.W9]);
     }
-    if (documentsByCategory[IDocumentCategory.FIRST_ID].length > 0) {
+    if (
+      documentsByCategory[IDocumentCategory.FIRST_ID] &&
+      documentsByCategory[IDocumentCategory.FIRST_ID].length > 0
+    ) {
       const firstId = new Document(
         IDocumentCategory.FIRST_ID,
         documentsByCategory[IDocumentCategory.FIRST_ID],
@@ -22,7 +25,10 @@ export class KycDocuments {
         this.firstId = firstId;
       }
     }
-    if (documentsByCategory[IDocumentCategory.SECOND_ID].length > 0) {
+    if (
+      documentsByCategory[IDocumentCategory.SECOND_ID] &&
+      documentsByCategory[IDocumentCategory.SECOND_ID].length > 0
+    ) {
       const secondId = new Document(
         IDocumentCategory.SECOND_ID,
         documentsByCategory[IDocumentCategory.SECOND_ID],
@@ -31,7 +37,10 @@ export class KycDocuments {
         this.secondId = secondId;
       }
     }
-    if (documentsByCategory[IDocumentCategory.RESIDENCE_PROOF].length > 0) {
+    if (
+      documentsByCategory[IDocumentCategory.RESIDENCE_PROOF] &&
+      documentsByCategory[IDocumentCategory.RESIDENCE_PROOF].length > 0
+    ) {
       const residenceProof = new Document(
         IDocumentCategory.RESIDENCE_PROOF,
         documentsByCategory[IDocumentCategory.RESIDENCE_PROOF],
@@ -40,7 +49,10 @@ export class KycDocuments {
         this.residenceProof = residenceProof;
       }
     }
-    if (documentsByCategory[IDocumentCategory.PORTRAIT].length > 0) {
+    if (
+      documentsByCategory[IDocumentCategory.PORTRAIT] &&
+      documentsByCategory[IDocumentCategory.PORTRAIT].length > 0
+    ) {
       const portrait = new Document(
         IDocumentCategory.PORTRAIT,
         documentsByCategory[IDocumentCategory.PORTRAIT],
@@ -54,15 +66,6 @@ export class KycDocuments {
   private allocateDocumentsByCategory(docsProps: IDocumentProperties[]): {
     [key in IDocumentCategory]: IDocumentProperties[];
   } {
-    if (docsProps.length === 0) {
-      return {
-        [IDocumentCategory.W9]: [],
-        [IDocumentCategory.FIRST_ID]: [],
-        [IDocumentCategory.SECOND_ID]: [],
-        [IDocumentCategory.RESIDENCE_PROOF]: [],
-        [IDocumentCategory.PORTRAIT]: [],
-      };
-    }
     const sortedDocuments = docsProps.sort((a, b) => {
       if (a.category === b.category) {
         return b.createdAt.getTime() - a.createdAt.getTime();
