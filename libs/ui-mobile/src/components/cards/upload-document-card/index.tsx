@@ -12,10 +12,8 @@ import { LinkButton } from '../../buttons/link-button';
 
 type IProps = {
   icon: FC<SvgProps>;
-  iconDisabled: FC<SvgProps>;
   status?: IDocumentStatus;
   text: string;
-  disabled?: boolean;
   onPress: () => void;
   onEdit?: () => void;
 };
@@ -28,18 +26,18 @@ export const UploadDocumentCard = (props: IProps) => {
     <View>
       <TouchableOpacity
         onPress={props.onPress}
-        activeOpacity={disabled ? 1 : 0.2}
         style={[
           theme.bank.container.card.long,
           !disabled && theme.bank.shadow.card,
           disabled && styles.disabled,
         ]}
+        disabled={disabled}
       >
         <View style={styles.container}>
-          <View style={styles.iconContainer}>{disabled ? <props.iconDisabled /> : <props.icon />}</View>
-          <Text style={[disabled ? theme.bank.text.grey : theme.bank.text.darkBlue, styles.text]}>
-            {props.text}
-          </Text>
+          <View style={styles.iconContainer}>
+            <props.icon />
+          </View>
+          <Text style={[theme.bank.text.darkBlue, styles.text]}>{props.text}</Text>
         </View>
         {props.status && (
           <View style={styles.leftIconContainer}>
@@ -74,6 +72,7 @@ export const UploadDocumentCard = (props: IProps) => {
 const styles = StyleSheet.create({
   disabled: {
     backgroundColor: Colors.bank.primary.lightGrey,
+    opacity: 0.8,
   },
   container: {
     flex: 1,

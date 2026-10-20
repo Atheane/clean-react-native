@@ -63,7 +63,8 @@
     "react-native-view-shot": "*",
     "expo-sharing": "*",
     "react-native-document-picker": "*",
-    "react-native-document-scanner-plugin": "*"
+    "react-native-document-scanner-plugin": "*",
+    "react-native-image-base64": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp package-lock.json apps/bank-app",

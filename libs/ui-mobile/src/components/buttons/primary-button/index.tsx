@@ -50,11 +50,8 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
         raised
       >
         <View style={theme.bank.container.centeredItems}>
-          {props.iconOne && (
-            <View style={styles.iconOneContainer}>
-              <props.iconOne />
-            </View>
-          )}
+          <View style={styles.iconOneContainer}>{props.iconOne && <props.iconOne />}</View>
+
           <Text
             style={[
               theme.bank.text.button,
@@ -77,9 +74,9 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
 
 const styles = StyleSheet.create({
   buttonIcon: {
-    paddingTop: 12,
+    paddingTop: 11,
     paddingRight: 24,
-    paddingBottom: 12,
+    paddingBottom: 11,
     paddingLeft: 26,
   },
   button: {
@@ -92,6 +89,10 @@ const styles = StyleSheet.create({
     color: Colors.bank.primary.white,
   },
   iconOneContainer: {
+    height: 32,
+    alignItems: 'center',
+    paddingHorizontal: 6,
+    justifyContent: 'center',
     marginRight: 15,
   },
   iconOne: {

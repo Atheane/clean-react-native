@@ -5,17 +5,7 @@ import { useTheme } from '@rneui/themed';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import {
-  UploadDocumentCard,
-  KycW9,
-  KycW9Disabled,
-  KycIdentification,
-  KycIdentificationDisabled,
-  KycPassport,
-  KycPassportDisabled,
-  KycInvoice,
-  KycInvoiceDisabled,
-} from '@clean-rn/ui-mobile';
+import { UploadDocumentCard, KycW9, KycIdentification, KycPassport, KycInvoice } from '@clean-rn/ui-mobile';
 import { IDocumentType, KycDocuments } from '@clean-rn/kyc/domain';
 
 import { IKycStackPages } from '../../../shared/presentation/types';
@@ -52,7 +42,7 @@ export const MenuKyc = () => {
   );
 
   const navigateToResidenceProofIdList = useCallback(
-    () => navigation.navigate(IKycStackPages.OWNED_RESIDENCE_PROOF_LIST as never),
+    () => navigation.navigate(IKycStackPages.RESIDENCE_PROOF_OPTIONS as never),
     [navigation],
   );
 
@@ -79,7 +69,6 @@ export const MenuKyc = () => {
             <View style={styles.itemContainer}>
               <UploadDocumentCard
                 icon={KycW9}
-                iconDisabled={KycW9Disabled}
                 status={submittedDocuments?.w9?.status}
                 text={t('screens.kyc.menu.w9-form')}
                 onPress={navigateToUploadW9}
@@ -89,7 +78,6 @@ export const MenuKyc = () => {
           <View style={styles.itemContainer}>
             <UploadDocumentCard
               icon={KycIdentification}
-              iconDisabled={KycIdentificationDisabled}
               status={submittedDocuments?.firstId?.status}
               text={`${t('screens.kyc.menu.first')} ${t('screens.kyc.menu.identity')}`}
               onPress={navigateToFirstIdList}
@@ -98,7 +86,6 @@ export const MenuKyc = () => {
           <View style={styles.itemContainer}>
             <UploadDocumentCard
               icon={KycPassport}
-              iconDisabled={KycPassportDisabled}
               status={submittedDocuments?.secondId?.status}
               text={`${t('screens.kyc.menu.second')} ${t('screens.kyc.menu.identity')}`}
               onPress={navigateToSecondIdList}
@@ -107,7 +94,6 @@ export const MenuKyc = () => {
           <View style={styles.itemContainer}>
             <UploadDocumentCard
               icon={KycInvoice}
-              iconDisabled={KycInvoiceDisabled}
               status={submittedDocuments?.residenceProof?.status}
               text={t('screens.kyc.menu.address')}
               onPress={navigateToResidenceProofIdList}

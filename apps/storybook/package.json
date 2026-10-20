@@ -56,7 +56,8 @@
     "react-native-view-shot": "*",
     "expo-sharing": "*",
     "react-native-document-scanner-plugin": "*",
-    "react-native-document-picker": "*"
+    "react-native-document-picker": "*",
+    "react-native-image-base64": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 import { DocumentPickerResponse } from 'react-native-document-picker';
 
-import { DocumentPicker, DocumentScanner, KycInvoice } from '@clean-rn/ui-mobile';
+import { DocumentPicker, DocumentScanner } from '@clean-rn/ui-mobile';
 import { IDocumentType } from '@clean-rn/kyc/domain';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
@@ -41,6 +41,7 @@ export const UploadDocument = () => {
 
   const [imageSource, setImageSource] = useState<ImageSourcePropType>(IDCardRecto);
   const [instruction, setInstruction] = useState('');
+  const [anotherInstruction, setAnotherInstruction] = useState('');
 
   const [docPickerVisible, setDocPickerVisible] = useState(false);
   const [secondImageVisible, setSecondImageVisible] = useState(false);
@@ -49,66 +50,79 @@ export const UploadDocument = () => {
     if (docType === IDocumentType.ID && step === 1) {
       setImageSource(IDCardRecto);
       setInstruction(t('screens.kyc.id.recto.instruction'));
+      setAnotherInstruction('');
       setDocPickerVisible(false);
       setSecondImageVisible(false);
     } else if (docType === IDocumentType.ID && step === 2) {
       setImageSource(IDCardVerso);
       setInstruction(t('screens.kyc.id.verso.instruction'));
+      setAnotherInstruction('');
       setDocPickerVisible(false);
       setSecondImageVisible(false);
     } else if (docType === IDocumentType.PASSPORT && step === 1) {
       setImageSource(Passport);
       setInstruction(t('screens.kyc.passport.instruction'));
+      setAnotherInstruction('');
       setDocPickerVisible(false);
       setSecondImageVisible(false);
     } else if (docType === IDocumentType.RESIDENT_PERMIT && step === 1) {
       setImageSource(ResidencePermitRecto);
       setInstruction(t('screens.kyc.residence-permit.recto.instruction'));
+      setAnotherInstruction('');
       setDocPickerVisible(false);
       setSecondImageVisible(false);
     } else if (docType === IDocumentType.RESIDENT_PERMIT && step === 2) {
       setImageSource(ResidencePermitVerso);
       setInstruction(t('screens.kyc.residence-permit.verso.instruction'));
+      setAnotherInstruction('');
       setDocPickerVisible(false);
       setSecondImageVisible(false);
     } else if (docType === IDocumentType.DRIVING_LICENSE && step === 1) {
       setImageSource(DrivingLicenseRecto);
       setInstruction(t('screens.kyc.driving-license.recto.instruction'));
+      setAnotherInstruction('');
       setDocPickerVisible(false);
       setSecondImageVisible(false);
     } else if (docType === IDocumentType.DRIVING_LICENSE && step === 2) {
       setImageSource(DrivingLicenseVerso);
       setInstruction(t('screens.kyc.driving-license.verso.instruction'));
+      setAnotherInstruction('');
       setDocPickerVisible(false);
       setSecondImageVisible(false);
     } else if (docType === IDocumentType.HEALTH_INSURANCE_CARD && step === 1) {
       setImageSource(HealthThumb);
       setInstruction(t('screens.kyc.health-card.instruction'));
+      setAnotherInstruction('');
       setDocPickerVisible(false);
       setSecondImageVisible(true);
     } else if (docType === IDocumentType.BANK_ID && step === 1) {
       setImageSource(Iban);
       setInstruction(t('screens.kyc.iban.instruction'));
+      setAnotherInstruction('');
       setDocPickerVisible(true);
       setSecondImageVisible(false);
     } else if (docType === IDocumentType.TAX_STATEMENT && step === 1) {
       setImageSource(Taxes);
       setInstruction(t('screens.kyc.taxes.instruction'));
+      setAnotherInstruction('');
       setDocPickerVisible(true);
       setSecondImageVisible(false);
     } else if (docType === IDocumentType.PROOF_OF_ADDRESS && step === 1) {
       setImageSource(ResidenceProof);
       setInstruction(t('screens.kyc.residence-proof.instruction'));
+      setAnotherInstruction('');
       setDocPickerVisible(true);
       setSecondImageVisible(false);
     } else if (docType === IDocumentType.INVOICE && step === 1) {
       setImageSource(BillEdf);
       setInstruction(t('screens.kyc.invoice.instruction'));
+      setAnotherInstruction(t('screens.kyc.invoice.another-instruction'));
       setDocPickerVisible(true);
       setSecondImageVisible(false);
     } else if (docType === IDocumentType.TAX_CERTIFICATE && step === 1) {
       setImageSource(W9);
       setInstruction(t('screens.kyc.w9.instruction'));
+      setAnotherInstruction('');
       setDocPickerVisible(true);
       setSecondImageVisible(false);
     }
@@ -140,6 +154,7 @@ export const UploadDocument = () => {
           <View>
             <Text style={[theme.bank.text.darkBlue, styles.takePhoto]}>{t('screens.kyc.take-photo')}</Text>
             <Text style={[theme.bank.text.boldDarkBlue, styles.instruction]}>{instruction}</Text>
+            <Text style={[theme.bank.text.darkBlue, styles.instruction]}>{anotherInstruction}</Text>
           </View>
           <Image source={imageSource} />
           {secondImageVisible && (

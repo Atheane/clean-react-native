@@ -11,6 +11,7 @@ type IProps = {
   optionsTitle: string[];
   optionsValues: string[];
   onChange: (option: string) => void;
+  vertical?: boolean;
 };
 
 export const MultipleOptionsCheckBox = (props: IProps) => {
@@ -32,7 +33,7 @@ export const MultipleOptionsCheckBox = (props: IProps) => {
         <Text style={[theme.bank.text.label, { color: Colors.bank.primary.grey }]}>{props.label}</Text>
       )}
       {props.subtitle && <Text style={theme.bank.text.grey}>{props.subtitle}</Text>}
-      <View style={styles.checkboxContainer}>
+      <View style={props.vertical ? styles.checkboxContainerVertical : styles.checkboxContainer}>
         {props.optionsValues.map((option: string, index: number) => {
           return (
             <View
@@ -60,6 +61,9 @@ export const MultipleOptionsCheckBox = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
+  checkboxContainerVertical: {
+    width: Dimensions.get('window').width * 0.8,
+  },
   checkboxContainer: {
     flexDirection: 'row',
     width: Dimensions.get('window').width * 0.8,

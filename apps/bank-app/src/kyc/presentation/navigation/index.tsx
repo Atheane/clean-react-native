@@ -17,15 +17,16 @@ import { initGlobalError } from '../../../shared/application/commands/manage-glo
 import { ScreenModalError } from '../../../shared/presentation/screens';
 
 import {
-  CardSent,
-  FirstIdList,
   InitKyc,
   MenuKyc,
-  OwnedResidenceProofList,
+  FirstIdList,
   SecondIdList,
-  SuccessKyc,
-  UnownedResidenceProofList,
+  ResidenceProofOptions,
+  ResidenceProofList,
+  HostedList,
   UploadDocument,
+  SuccessKyc,
+  CardSent,
 } from '../screens';
 import { kycRouteInitialized } from '../../../kyc/application/commands';
 
@@ -85,7 +86,7 @@ export const KycStack = () => {
         name={IKycStackPages.UPLOAD_DOCUMENT}
         component={UploadDocument}
         options={{
-          headerTitle: t('screens.kyc.title'),
+          headerTitle: t('screens.kyc.send-document'),
           ...headersOptions(goBack),
         }}
       />
@@ -106,18 +107,26 @@ export const KycStack = () => {
         }}
       />
       <Stack.Screen
-        name={IKycStackPages.OWNED_RESIDENCE_PROOF_LIST}
-        component={OwnedResidenceProofList}
+        name={IKycStackPages.RESIDENCE_PROOF_OPTIONS}
+        component={ResidenceProofOptions}
         options={{
-          headerTitle: t('screens.kyc.owned-residence-proof.title'),
+          headerTitle: t('screens.kyc.residence-proof-options.title'),
           ...headersOptions(goBack),
         }}
       />
       <Stack.Screen
-        name={IKycStackPages.UNOWNED_RESIDENCE_PROOF_LIST}
-        component={UnownedResidenceProofList}
+        name={IKycStackPages.RESIDENCE_PROOF_LIST}
+        component={ResidenceProofList}
         options={{
-          headerTitle: t('screens.kyc.unowned-residence-proof.title'),
+          headerTitle: t('screens.kyc.residence-proof-list.title'),
+          ...headersOptions(goBack),
+        }}
+      />
+      <Stack.Screen
+        name={IKycStackPages.HOSTED_LIST}
+        component={HostedList}
+        options={{
+          headerTitle: t('screens.kyc.host-list.title'),
           ...headersOptions(goBack),
         }}
       />

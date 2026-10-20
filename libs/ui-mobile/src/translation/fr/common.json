@@ -377,6 +377,7 @@
     },
     "kyc": {
       "title": "Vérification de votre identité",
+      "send-document": "Envoyer un document",
       "init": {
         "instruction": "Pour aller plus loin, \nmerci de valider votre Bank App, pour cela nous devons vérifier votre identité. Veuillez prévoir :\n\n- Pièce d’identité\n- Justificatif de domicile",
         "check-identity": "Vérifier mon identité"
@@ -456,7 +457,8 @@
       },
       "invoice": {
         "title": "Facture",
-        "instruction": "de la face avant de votre facture.\nLes factures de box internet, électricité, gaz sont les seules acceptées et doivent impérativement avoir moins de 3 mois. Les factures de téléphone mobile ne sont pas valable."
+        "instruction": "de la face avant de votre facture.",
+        "another-instruction": "Les factures de box internet, électricité, gaz sont les seules acceptées et doivent impérativement avoir moins de 3 mois. Les factures de téléphone mobile ne sont pas valables."
       },
       "w9": {
         "title": "Résident américain - W-9",
@@ -471,6 +473,24 @@
         "driving-license": "Permis de conduire",
         "health-card": "Carte vitale",
         "iban": "Relevé d’identité bancaire"
+      },
+      "residence-proof-options": {
+        "title": "Justificatif de domicile",
+        "has-proof": "J’ai un justificatif de domicile à mon nom",
+        "no-proof": "Je n’ai pas de justificatif de domicile à mon nom, et je joins les documents de la personne qui m’héberge"
+      },
+      "residence-proof-list": {
+        "title": "Justificatif de domicile",
+        "instruction": "Choisissez votre justificatif de domicile",
+        "invoice": "Une facture\n(box internet, électricité et gaz)",
+        "tax": "Avis d’imposition"
+      },
+      "host-list": {
+        "title": "Justificatifs de l'hébergeur",
+        "instruction": "Documents à transmettre :",
+        "attestation": "Une attestation de l'hébergeur",
+        "id": "Une pièce d'identité de l'hébergeur",
+        "residence-proof": "Un justificatif de domicile de l'hébergeur"
       }
     }
   }

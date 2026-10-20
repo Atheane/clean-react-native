@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { View, Platform, StyleProp, ViewStyle, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import DocumentPickr, { DocumentPickerResponse } from 'react-native-document-picker';
+import ImgToBase64 from 'react-native-image-base64';
 
 import { SecondaryButton } from '../../buttons/secondary-button';
 import { Colors } from '../../../constants';
@@ -21,7 +22,8 @@ export const DocumentPicker = (props: IProps) => {
         type: Platform.OS === 'ios' ? 'com.adobe.pdf' : 'application/pdf',
         mode: 'open',
       });
-      props.getDocument(result);
+      const base64String = await ImgToBase64.getBase64String(result.uri);
+      props.getDocument(base64String);
     } catch (err) {
       if (!DocumentPickr.isCancel(err)) {
         props.handleError(err);

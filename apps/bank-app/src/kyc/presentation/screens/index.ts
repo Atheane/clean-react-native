@@ -5,5 +5,6 @@ export { CardSent } from './CardSent';
 export { UploadDocument } from './UploadDocument';
 export { FirstIdList } from './FirstIdList';
 export { SecondIdList } from './SecondIdList';
-export { OwnedResidenceProofList } from './OwnedResidenceProofList';
-export { UnownedResidenceProofList } from './UnownedResidenceProofList';
+export { ResidenceProofOptions } from './ResidenceProofOptions';
+export { ResidenceProofList } from './ResidenceProofList';
+export { HostedList } from './HostedList';
