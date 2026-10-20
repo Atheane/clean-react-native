@@ -2,13 +2,20 @@
 import SagaTester from 'redux-saga-tester';
 import Constants from 'expo-constants';
 
-import { Customer, IDocumentCategory, IDocumentProperties, IDocumentStatus } from '@clean-rn/kyc/domain';
+import {
+  Customer,
+  DocumentVO,
+  IDocumentCategory,
+  IDocumentProperties,
+  IDocumentStatus,
+} from '@clean-rn/kyc/domain';
 
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
 
 import {
   ICustomerTypes,
   checkCustomerStatus,
+  customerDocumentsUpdated,
   customerStatusChecked,
   initializeKyc,
   kycRouteInitialized,
@@ -114,6 +121,29 @@ describe('KYC - integration', () => {
       pending: false,
       customer: null,
       initRoute: IKycStackPages.MENU,
+    });
+  });
+
+  it('Should store correct state if CUSTOMER_DOCUMENTS_UPDATED', () => {
+    const customer = Customer.Create({ id: 123, properties: { USPerson: false } });
+    customer.checkDocumentsStatus(mockResponse);
+
+    const document = new DocumentVO({
+      typeId: 9,
+      category: IDocumentCategory.FIRST_ID,
+      status: IDocumentStatus.PENDING,
+      name: 'test-mock',
+      createdAt: new Date('2023-10-03T13:20:21.303Z'),
+    });
+
+    customer.addDocument(document);
+    sagaTester.start(wrapSagaHidingNotFoundError, checkCustomerStatusSaga, httpConnection);
+    sagaTester.dispatch(customerDocumentsUpdated({ customer }));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      customer,
+      initRoute: null,
     });
   });
 });

@@ -66,9 +66,7 @@ export function* addPageSagaGenerator({
       document.addPage(documentFromRedux.value.recto);
     }
 
-    if (documentFromRedux.value.verso) {
-      document.addPage(documentFromRedux.value.verso);
-    }
+    // if documentFromRedux.value.verso is not null, it should have been uploaded to back-end
 
     // addPage to document (would be better in a DocumentVO method, but public methods are lost when transfered through redux state)
     document.addPage(payload.base64);
