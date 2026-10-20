@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { call, put, StrictEffect, takeEvery, cancel, select } from 'redux-saga/effects';
+import { call, put, StrictEffect, takeEvery, cancel, select, fork, join } from 'redux-saga/effects';
+import { ImageSourcePropType } from 'react-native';
 
 import { Logger } from '@clean-rn/logger';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
@@ -51,10 +52,18 @@ export function* addPageSagaGenerator({
   type: string;
   payload: {
     base64: string;
+    nextRouteParams?: {
+      instruction: string;
+      imageSource: ImageSourcePropType;
+      anotherInstruction?: string;
+      docPickerVisible?: boolean;
+      secondImageVisible?: boolean;
+      showExample?: boolean;
+    };
   };
 }): Generator<StrictEffect, any, any> {
   try {
-    // redux get rid of ib-nstance methods such as addPage, isReady...
+    // redux get rid of instance methods such as addPage, isReady...
     const { document: documentFromRedux } = yield select(selectDocument);
 
     // so we need to instanciate a new instance so as to make use of these useful methods
@@ -73,9 +82,11 @@ export function* addPageSagaGenerator({
 
     if (document.isReady) {
       yield put(uploadDocument({ document }));
+      yield call(navigate, { route: IKycStackPages.MENU });
       yield cancel();
     } else {
       yield put(pageAdded({ document }));
+      yield call(navigate, { route: IKycStackPages.UPLOAD_DOCUMENT, params: payload.nextRouteParams });
     }
   } catch (error: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors
@@ -105,11 +116,13 @@ export function* uploadDocumentSagaGenerator(
     const user = yield select(selectUserFromLogin);
 
     const api = KycApi.getInstance(httpConnection);
-    const document: DocumentVO = yield call([api, api.createDocument], {
+    const createDocumentTask = yield fork([api, api.createDocument], {
       customerId: user.id,
       document: payload.document,
     });
-    yield call(navigate, { route: IKycStackPages.MENU });
+
+    const document: DocumentVO = yield join(createDocumentTask);
+
     Logger.getInstance().info(document.properties.status);
     yield put(documentUploaded({ document }));
 

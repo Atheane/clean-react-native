@@ -1,4 +1,5 @@
 import { DocumentVO, IDocumentProperties } from '@clean-rn/kyc/domain';
+import { ImageSourcePropType } from 'react-native';
 
 export enum IDocumentTypes {
   INITIALIZE_DOCUMENT = 'INITIALIZE_DOCUMENT',
@@ -27,6 +28,14 @@ export type IAddPage = {
   type: typeof IDocumentTypes.ADD_PAGE;
   payload: {
     base64: string;
+    nextRouteParams?: {
+      instruction: string;
+      imageSource: ImageSourcePropType;
+      anotherInstruction?: string;
+      docPickerVisible?: boolean;
+      secondImageVisible?: boolean;
+      showExample?: boolean;
+    };
   };
 };
 

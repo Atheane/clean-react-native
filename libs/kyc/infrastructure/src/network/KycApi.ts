@@ -42,7 +42,7 @@ export class KycApi implements IDocumentRepository {
     }));
   }
 
-  async createDocument({
+  async createOnePageDocument({
     customerId,
     document,
   }: {
@@ -75,9 +75,33 @@ export class KycApi implements IDocumentRepository {
 
     const documentAfterResponse = new DocumentVO(documentProperties);
 
-    if (document.value.recto) documentAfterResponse.addPage(document.value.recto);
-    if (document.value.verso) documentAfterResponse.addPage(document.value.verso);
-
     return documentAfterResponse;
+  }
+
+  async createDocument({
+    customerId,
+    document,
+  }: {
+    customerId: string;
+    document: DocumentVO;
+  }): Promise<DocumentVO> {
+    const documentRecto = await this.createOnePageDocument({
+      customerId,
+      document,
+    });
+
+    documentRecto.addPage(document.value.recto);
+
+    if (document.value.verso) {
+      document.properties.name = document.properties.name.replace('recto', 'verso');
+      await this.createOnePageDocument({
+        customerId,
+        document,
+      });
+      documentRecto.addPage(document.value.verso);
+      return documentRecto;
+    }
+
+    return documentRecto;
   }
 }

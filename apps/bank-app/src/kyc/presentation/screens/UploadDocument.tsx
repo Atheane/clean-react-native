@@ -51,8 +51,6 @@ export const UploadDocument = () => {
     };
   };
 
-  const { document } = useSelector((state: IRootState) => state.kyc.document);
-
   const dispatch = useDispatch();
 
   const handleError = useCallback(
@@ -62,18 +60,11 @@ export const UploadDocument = () => {
     [dispatch],
   );
 
-  const navigator = useNavigation();
-
   const handleGetDocument = useCallback(
     (docBase64: string) => {
-      dispatch(addPage({ base64: docBase64 }));
-      if (!document?.isReady) {
-        navigator.navigate(IKycStackPages.UPLOAD_DOCUMENT as never, nextRouteParams);
-      } else {
-        navigator.navigate(IKycStackPages.MENU as never);
-      }
+      dispatch(addPage({ base64: docBase64, nextRouteParams }));
     },
-    [document, dispatch, nextRouteParams, navigator],
+    [dispatch, nextRouteParams],
   );
 
   const handleShowExample = useCallback(() => {

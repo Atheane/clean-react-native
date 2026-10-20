@@ -49,13 +49,13 @@ export const MenuKyc = () => {
   // docuemnts status
   const { customer } = useSelector((state: IRootState) => state.kyc.customer);
 
-  const [submittedDocuments, setSubmittedDocuments] = useState<KycDocuments>();
+  const [submittedKyc, setSubmittedKyc] = useState<KycDocuments>();
 
   useEffect(() => {
-    if (customer?.properties.documents) {
-      setSubmittedDocuments(customer.properties.documents);
+    if (customer?.properties.kyc) {
+      setSubmittedKyc(customer.properties.kyc);
     }
-  }, [customer?.properties.documents]);
+  }, [customer?.properties.kyc]);
 
   return (
     <ErrorBoundary t={t}>
@@ -69,7 +69,7 @@ export const MenuKyc = () => {
             <View style={styles.itemContainer}>
               <UploadDocumentCard
                 icon={KycW9}
-                status={submittedDocuments?.w9?.status}
+                status={submittedKyc?.documents.W9?.properties.status}
                 text={t('screens.kyc.menu.w9-form')}
                 onPress={navigateToUploadW9}
               />
@@ -78,7 +78,7 @@ export const MenuKyc = () => {
           <View style={styles.itemContainer}>
             <UploadDocumentCard
               icon={KycIdentification}
-              status={submittedDocuments?.firstId?.status}
+              status={submittedKyc?.documents.firstId?.properties.status}
               text={`${t('screens.kyc.menu.first')} ${t('screens.kyc.menu.identity')}`}
               onPress={navigateToFirstIdList}
             />
@@ -86,7 +86,7 @@ export const MenuKyc = () => {
           <View style={styles.itemContainer}>
             <UploadDocumentCard
               icon={KycPassport}
-              status={submittedDocuments?.secondId?.status}
+              status={submittedKyc?.documents.SECOND_ID?.properties.status}
               text={`${t('screens.kyc.menu.second')} ${t('screens.kyc.menu.identity')}`}
               onPress={navigateToSecondIdList}
             />
@@ -94,7 +94,7 @@ export const MenuKyc = () => {
           <View style={styles.itemContainer}>
             <UploadDocumentCard
               icon={KycInvoice}
-              status={submittedDocuments?.residenceProof?.status}
+              status={submittedKyc?.documents.RESIDENCE_PROOF?.properties.status}
               text={t('screens.kyc.menu.address')}
               onPress={navigateToResidenceProofIdList}
             />

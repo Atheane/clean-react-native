@@ -9,6 +9,7 @@ import {
   IPageAdded,
   IDocumentUploaded,
 } from './types';
+import { ImageSourcePropType } from 'react-native';
 
 // commands
 export const initializeDocument = (payload: {
@@ -18,7 +19,17 @@ export const initializeDocument = (payload: {
   payload,
 });
 
-export const addPage = (payload: { base64: string }): IAddPage => ({
+export const addPage = (payload: {
+  base64: string;
+  nextRouteParams?: {
+    instruction: string;
+    imageSource: ImageSourcePropType;
+    anotherInstruction?: string;
+    docPickerVisible?: boolean;
+    secondImageVisible?: boolean;
+    showExample?: boolean;
+  };
+}): IAddPage => ({
   type: IDocumentTypes.ADD_PAGE,
   payload,
 });
