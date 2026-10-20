@@ -48,6 +48,7 @@ export default {
       ['react-native-compressor'],
     ],
     extra: {
+      BASE_URL: process.env.BASE_URL,
       BASE_URL_API: process.env.BASE_URL_API,
       NODE_ENV: process.env.NODE_ENV,
       SENTRY_DSN: process.env.SENTRY_DSN,

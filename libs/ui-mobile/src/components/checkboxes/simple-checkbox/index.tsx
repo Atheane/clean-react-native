@@ -37,7 +37,7 @@ export const SimpleCheckBox: React.FunctionComponent<IProps> = (props: IProps) =
 
 const styles = StyleSheet.create({
   container: {
-    width: '80%',
+    width: '75%',
   },
   title: {
     textAlign: 'left',

@@ -845,11 +845,7 @@ exports[`LinkButton -  white & pressed & arrow - renders as before 1`] = `
         >
           <SvgMock
             height={16}
-            style={
-              {
-                "color": "#F0F0F0",
-              }
-            }
+            style={{}}
             width={27}
           />
         </View>
@@ -862,9 +858,7 @@ exports[`LinkButton -  white & pressed & arrow - renders as before 1`] = `
                 "lineHeight": 19,
                 "textAlign": "left",
               },
-              {
-                "color": "#F0F0F0",
-              },
+              {},
             ]
           }
         >
@@ -965,9 +959,7 @@ exports[`LinkButton -  white & unpressed & noarrow - renders as before 1`] = `
                 "lineHeight": 19,
                 "textAlign": "left",
               },
-              {
-                "color": "#FFFFFF",
-              },
+              {},
             ]
           }
         >

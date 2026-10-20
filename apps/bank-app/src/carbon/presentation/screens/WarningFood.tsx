@@ -23,7 +23,7 @@ export const WarningFood = () => {
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={[styles.container, { height: HEIGHT }]}>
-          <Image source={WarningFoodCO2} style={{ width: 200, height: 200 }} />
+          <Image source={WarningFoodCO2} style={{ width: 250, height: 250 }} />
           <Text style={styles.title}>{t('screens.warning-food.title')}</Text>
           <Text style={styles.text}>{t('screens.warning-food.text')}</Text>
           <View style={styles.buttonContainer}>
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: -40,
   },
-  iconContainer: { position: 'relative', left: 90, top: 2 },
+  iconContainer: { position: 'relative', right: -75, top: 2 },
   title: {
     textAlign: 'center',
     fontFamily: FontNames.Roboto_700Bold,
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     fontFamily: FontNames.MartelSans_400Regular,
     fontSize: 16,
     color: Colors.bank.primary.darkGrey,
-    width: '80%',
+    width: '75%',
     paddingTop: 20,
     paddingBottom: 30,
   },

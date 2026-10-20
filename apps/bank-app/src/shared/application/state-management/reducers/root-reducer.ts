@@ -6,7 +6,11 @@ import {
   signupReducer,
 } from '../../../../auth/application/state-management';
 
-import { accountsReducer, transactionsReducer } from '../../../../account/application/state-management';
+import {
+  accountsReducer,
+  eventCardsReducer,
+  transactionsReducer,
+} from '../../../../account/application/state-management';
 
 import { carbonReducer } from '../../../../carbon/application/state-management';
 
@@ -23,7 +27,11 @@ export const rootReducer = combineReducers({
     resetPassword: resetPasswordReducer,
     signup: signupReducer,
   }),
-  account: combineReducers({ accounts: accountsReducer, transactions: transactionsReducer }),
+  account: combineReducers({
+    accounts: accountsReducer,
+    transactions: transactionsReducer,
+    deletedEventCards: eventCardsReducer,
+  }),
   carbon: carbonReducer,
   kyc: combineReducers({ customer: customerReducer, document: documentReducer }),
 });

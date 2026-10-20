@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   },
   checkboxContainer: {
     flexDirection: 'row',
-    width: Dimensions.get('window').width * 0.8,
+    width: Dimensions.get('window').width * 0.75,
   },
   item: {
     marginLeft: -20,

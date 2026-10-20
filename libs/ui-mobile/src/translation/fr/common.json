@@ -23,7 +23,7 @@
     },
     "phone": {
       "required": "numéro de téléphone requis",
-      "invalid": "indiquer un numéro de téléphone mobile valide"
+      "invalid": "numéro de téléphone mobile invalide"
     },
     "phone-otp": {
       "required": "code à 6 chiffres requis",
@@ -285,7 +285,9 @@
       "reward": "Etre récompensé par la prime CO2",
       "method": "En savoir plus sur la méthode de calcul",
       "compute": "Calculer",
-      "consumption": "Consommation"
+      "consumption": "Consommation",
+      "message-part-one": "Hello,\n\nJe viens de faire mon bilan carbone en deux minutes. Hyper intéressant.\n\nMon bilan carbone est de ",
+      "message-part-two": "Découvre le tien aussi et dis moi combien tu pèses !\n\nSur iOS:\n\nhttps://apps.apple.com/fr/app/bank-app/id0000000000?l=fr-FR\n\n sur Android:\n\nhttps://play.google.com/store/apps/details?id=com.example.energyapp"
     },
     "carbon-house": {
       "title": "Mon logement",
@@ -349,7 +351,7 @@
     },
     "warning-food": {
       "title": "Avertissement",
-      "text": "Pour votre information l’estimation de l’empreinte carbone de l’alimentation est par construction approximative. En effet comment compter le nombre d’ananas importés par avion et d’asperges surgelées que vous avez mangé cette année ? Nous avons inclus les déchets…",
+      "text": "À partir de l’estimation de l’empreinte carbone de l’alimentation on déduit celle des déchets.",
       "next": "Suivant"
     },
     "carbon-fly": {

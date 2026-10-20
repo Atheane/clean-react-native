@@ -106,6 +106,9 @@ import KycW9 from './kyc-w9.svg';
 import KycResidenceProof from './kyc-hosting-proof.svg';
 import Checked from './checked.svg';
 import ImportDocument from './import-document.svg';
+import CarbonFootPrint from './carbon-footprint.svg';
+import Save from './save.svg';
+import Download from './download.svg';
 
 export {
   Love,
@@ -216,4 +219,7 @@ export {
   KycResidenceProof,
   Checked,
   ImportDocument,
+  CarbonFootPrint,
+  Save,
+  Download,
 };

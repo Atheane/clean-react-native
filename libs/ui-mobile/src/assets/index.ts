@@ -107,6 +107,9 @@ import {
   KycW9,
   Checked,
   ImportDocument,
+  CarbonFootPrint,
+  Save,
+  Download,
 } from './svg';
 import { DefaultImage } from './image';
 export {
@@ -219,4 +222,7 @@ export {
   KycW9,
   Checked,
   ImportDocument,
+  CarbonFootPrint,
+  Save,
+  Download,
 };

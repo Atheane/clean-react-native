@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
   selectContainer: {
     flexDirection: 'row',
-    width: Dimensions.get('window').width * 0.8,
+    width: Dimensions.get('window').width * 0.75,
     marginVertical: 16,
   },
   leftIconContainer: {

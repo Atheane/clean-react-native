@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
@@ -8,14 +8,11 @@ import { IAuthErrorCodes, IAuthErrorMessage, Email } from '@clean-rn/auth/domain
 
 import { firstLetterCapitalize } from '../../../utils';
 
-import { SubmitButton } from '../../buttons/submit-button';
 import { EmailInput } from '../../inputs/email-input';
 import { ErrorMessage } from '../../texts/error-message';
 import { SimpleCheckBox } from '../../checkboxes/simple-checkbox';
 
 type IProps = {
-  loading: boolean;
-  onSubmit: () => void;
   control: Control<ISignupEmailFormData>;
   errors: FieldErrors<ISignupEmailFormData>;
   error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | null;
@@ -26,9 +23,6 @@ export type ISignupEmailFormData = {
   email: string;
   consent: boolean;
 };
-
-const WIDTH = Dimensions.get('window').width;
-const HEIGHT = Dimensions.get('window').height;
 
 export const FormSignupEmail = (props: IProps) => {
   const { theme } = useTheme();
@@ -83,15 +77,6 @@ export const FormSignupEmail = (props: IProps) => {
           )}
         </View>
       </View>
-
-      <View style={styles.formSubmit}>
-        <SubmitButton
-          title={t('button.submit')}
-          uppercase={false}
-          onSubmit={props.onSubmit}
-          loading={props.loading}
-        />
-      </View>
     </View>
   );
 };
@@ -103,7 +88,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     marginTop: 24,
-    width: '80%',
+    width: '75%',
   },
   text: {
     textAlign: 'justify',
@@ -125,10 +110,5 @@ const styles = StyleSheet.create({
   domainErrorContainer: {
     marginTop: 24,
     marginBottom: -40,
-  },
-  formSubmit: {
-    marginTop: 60,
-    flexDirection: 'row',
-    justifyContent: 'center',
   },
 });

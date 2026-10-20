@@ -59,10 +59,12 @@
     "react-native-document-picker": "*",
     "react-native-image-base64": "*",
     "react-native-compressor": "*",
-    "expo-file-system": "*"
+    "expo-file-system": "*",
+    "react-native-share": "*",
+    "react-native-blob-util": "*",
+    "react-native-pdf": "*"
   },
   "scripts": {
-    "prestart": "sb-rn-get-stories",
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/storybook && cp package-lock.json apps/storybook",
     "eas-build-post-install": "cd ../../ && node tools/scripts/eas-build-post-install.mjs . apps/storybook",
     "android": "expo run:android",

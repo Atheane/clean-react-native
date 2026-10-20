@@ -572,7 +572,7 @@ exports[`PrimaryButton -  large -  true - renders as before 1`] = `
       {
         "backgroundColor": "#BFD23A",
         "borderRadius": 32,
-        "width": 600,
+        "width": 562.5,
       },
       {
         "borderRadius": 28,
@@ -601,7 +601,7 @@ exports[`PrimaryButton -  large -  true - renders as before 1`] = `
           {
             "backgroundColor": "#BFD23A",
             "borderRadius": 32,
-            "width": 600,
+            "width": 562.5,
           },
           {
             "borderRadius": 28,

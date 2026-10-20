@@ -10,7 +10,6 @@ import {
   TopDownBackground,
   ScrollBackground,
   WhiteBalanceList,
-  ICardType,
   Banner,
   BannerColors,
 } from '@clean-rn/ui-mobile';
@@ -22,8 +21,9 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 
 import { checkCustomerStatus, kycRouteInitialized } from '../../../kyc/application/commands/customer';
 
-import { listAccounts } from '../../application/commands/account';
+import { listAccounts } from '../../application/commands/accounts';
 import { listTransactions } from '../../application/commands/transactions';
+import { deleteEventCard } from '../../application/commands/event-cards';
 
 import { eventsCardsContent } from '../constants';
 
@@ -33,6 +33,7 @@ export const Accounts = () => {
   const { pending: loginPending } = useSelector((state: IRootState) => state.auth.login);
 
   const { accounts, pending: accountPending } = useSelector((state: IRootState) => state.account.accounts);
+  const { deletedCards } = useSelector((state: IRootState) => state.account.deletedEventCards);
 
   const dispatch = useDispatch();
 
@@ -78,6 +79,13 @@ export const Accounts = () => {
     dispatch(kycRouteInitialized({ initRoute: initKycRoute }));
   }, [dispatch, customer]);
 
+  const handleOnDeleteCard = useCallback(
+    (uid: string) => {
+      dispatch(deleteEventCard({ uid }));
+    },
+    [dispatch],
+  );
+
   return accountPending || kycPending ? (
     <Text>Loading ...</Text> // todo replace with loading gif
   ) : (
@@ -94,13 +102,17 @@ export const Accounts = () => {
         <ScrollBackground background={TopDownBackground} initialScroll={-20} window={1.2}>
           <View style={styles.cardScroller}>
             <CardScroller
-              data={eventsCardsContent.map((item) => ({
-                ...item,
-                text: t('screens.account.cards.' + item.uid),
-              }))}
+              data={eventsCardsContent.filter((item: { image: any; text: string; uid: string }) => {
+                if (!deletedCards.includes(item.uid)) {
+                  return {
+                    ...item,
+                    text: t('screens.account.cards.' + item.uid),
+                  };
+                }
+              })}
               height={200}
               onPress={handleOnPressCard}
-              cardType={ICardType.TOUCH_EVENT_CARD}
+              onDelete={handleOnDeleteCard}
             />
           </View>
 

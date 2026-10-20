@@ -42,9 +42,7 @@ type IProps = {
   scrollViewRef: React.RefObject<KeyboardAwareScrollView>;
 };
 
-const WIDTH = Dimensions.get('window').width;
-const HEIGHT = Dimensions.get('window').height;
-const COEFF = HEIGHT / WIDTH > 2.16 ? 0.75 : 0.8;
+const COEFF = 0.75;
 
 export const FlyForm = (props: IProps) => {
   const { theme } = useTheme();
@@ -194,7 +192,6 @@ export const FlyForm = (props: IProps) => {
             data={mapFlightToCards(props.flights)}
             onDelete={handleOnDeleteFlight}
             height={260}
-            cardType={ICardType.EVENT_CARD_DELETE}
             cardScrollRef={cardScrollRef}
           />
         </View>
