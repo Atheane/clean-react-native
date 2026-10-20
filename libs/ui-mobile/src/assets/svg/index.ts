@@ -98,6 +98,7 @@ import IDCard from './id-card.svg';
 import Passport from './passport.svg';
 import ResidencePermit from './residence-permit.svg';
 import DrivingLicense from './driving-license.svg';
+import Camera from './camera.svg';
 
 export {
   Love,
@@ -198,4 +199,5 @@ export {
   ResidencePermit,
   DrivingLicense,
   Passport,
+  Camera,
 };

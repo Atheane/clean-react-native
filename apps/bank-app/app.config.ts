@@ -39,6 +39,12 @@ export default {
           subdomains: ['10.0.2.2', 'localhost'],
         },
       ],
+      [
+        'react-native-document-scanner-plugin',
+        {
+          cameraPermission: 'We need camera access, so you can scan documents',
+        },
+      ],
     ],
     scheme: 'com.clean-rn.bank-appdev',
     extra: {

@@ -85,7 +85,8 @@
   },
   "button": {
     "share": "share",
-    "submit": "validate"
+    "submit": "validate",
+    "photo": "Take a photo"
   },
   "email-input": {
     "placeholder": "E-mail address",

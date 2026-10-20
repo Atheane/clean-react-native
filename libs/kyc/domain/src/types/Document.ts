@@ -27,7 +27,7 @@ export enum IDocumentCategory {
   PORTRAIT = 'PORTRAIT',
 }
 
-export type IDocument = {
+export type IDocumentProperties = {
   category: IDocumentCategory;
   typeId: IDocumentType;
   status: IDocumentStatus;
@@ -35,12 +35,6 @@ export type IDocument = {
   createdAt: Date;
 };
 
-export type IKycDocuments = {
-  [IDocumentCategory.W9]: IDocument;
-  [IDocumentCategory.FIRST_ID]: IDocument;
-  [IDocumentCategory.SECOND_ID]: IDocument;
-  [IDocumentCategory.RESIDENCE_PROOF]: IDocument;
-  [IDocumentCategory.PORTRAIT]: IDocument;
-};
-
 export type ICustomerStatus = 'INIT' | 'VALIDATED' | 'PENDING' | 'REFUSED' | 'CANCELED';
+
+export type IDocumentPage = 'recto' | 'verso';

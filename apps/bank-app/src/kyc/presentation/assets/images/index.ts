@@ -9,6 +9,9 @@ import PhotoPortrait from './photo-portrait.png';
 import PhotoPortraitDisabled from './photo-portrait-disabled.png';
 import W9 from './w9.png';
 import W9Disabled from './w9-disabled.png';
+import IDCardRecto from './id-card-recto.png';
+import IDCardVerso from './id-card-verso.png';
+
 export {
   InitKyc,
   BillEdf,
@@ -21,4 +24,6 @@ export {
   PhotoPortraitDisabled,
   W9,
   W9Disabled,
+  IDCardRecto,
+  IDCardVerso,
 };

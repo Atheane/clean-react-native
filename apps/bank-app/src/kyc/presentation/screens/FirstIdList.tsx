@@ -18,7 +18,7 @@ export const FirstIdList = () => {
 
   const handleOnPress = useCallback(
     (documentType: IDocumentType) => {
-      navigation.navigate(IKycStackPages.UPLOAD_PHOTO as never, { docType: documentType });
+      navigation.navigate(IKycStackPages.UPLOAD_PHOTO as never, { docType: documentType, step: 1 });
     },
     [navigation],
   );
@@ -27,7 +27,9 @@ export const FirstIdList = () => {
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={[styles.container, { height: HEIGHT }]}>
-          <Text style={theme.bank.text.darkBlue}>{t('screens.kyc.first-id.instruction')}</Text>
+          <Text style={[theme.bank.text.boldDarkBlue, styles.title]}>
+            {t('screens.kyc.first-id.instruction')}
+          </Text>
           <View style={[styles.itemContainer, { marginTop: 54 }]}>
             <IconTextItem
               icon={IDCard}
@@ -64,6 +66,9 @@ const styles = StyleSheet.create({
   iconContainer: { position: 'relative', left: 10, top: 2 },
   itemContainer: {
     marginVertical: 20,
+  },
+  title: {
+    fontSize: 16,
   },
   text: {
     textAlign: 'center',

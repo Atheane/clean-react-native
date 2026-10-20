@@ -1,12 +1,18 @@
-import { useEffect } from 'react';
-import { View } from 'react-native';
+import { useCallback } from 'react';
+import { View, StyleProp, ViewStyle, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import DocumentScan, { ResponseType } from 'react-native-document-scanner-plugin';
 
+import { PrimaryButton } from '../../buttons/primary-button';
+import { Colors } from '../../../constants';
+import { Camera } from '../../../assets';
+
 type IProps = {
-  getScan: (scannedImg: string) => string;
+  getScan: (scannedImg: string) => void;
   handleError: (error: unknown) => void;
 };
 export const DocumentScanner = (props: IProps) => {
+  const { t } = useTranslation();
   const scanDocument = async () => {
     // start the document scanner
     try {
@@ -25,9 +31,35 @@ export const DocumentScanner = (props: IProps) => {
     }
   };
 
-  useEffect(() => {
+  const handleOnPress = useCallback(() => {
     scanDocument();
   }, []);
 
-  return <View />;
+  return (
+    <PrimaryButton
+      long
+      title={t('button.photo')}
+      iconOne={() => (
+        <View style={styles.iconContainer}>
+          <Camera style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+        </View>
+      )}
+      onPress={handleOnPress}
+    />
+  );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    marginTop: 60,
+  },
+  title: {
+    fontSize: 16,
+  },
+  buttonContainer: {
+    marginTop: 0,
+  },
+  iconContainer: { position: 'relative', left: 10, top: 2 },
+});

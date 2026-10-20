@@ -93,7 +93,8 @@
   },
   "button": {
     "share": "partager",
-    "submit": "valider"
+    "submit": "valider",
+    "photo": "Prendre une photo"
   },
   "login": {
     "forgotten-password": "Mot de passe oublié ?",

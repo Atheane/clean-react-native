@@ -99,6 +99,7 @@ import {
   ResidencePermit,
   DrivingLicense,
   Passport,
+  Camera,
 } from './svg';
 import { DefaultImage } from './image';
 export {
@@ -201,4 +202,5 @@ export {
   ResidencePermit,
   DrivingLicense,
   Passport,
+  Camera,
 };

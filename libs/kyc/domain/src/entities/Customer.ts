@@ -1,10 +1,11 @@
 import { Entity } from '@clean-rn/ddd';
-import { IDocument, IDocumentStatus, ICustomerStatus, IKycDocuments } from '../types';
+import { IDocumentProperties, IDocumentStatus, ICustomerStatus } from '../types';
+import { KycDocuments } from '../value-objects/KycDocuments';
 
 export interface ICustomerProperties {
   // todo part of the actual user should be moved to customer entity
   status: ICustomerStatus;
-  documents: IKycDocuments;
+  documents: KycDocuments;
 }
 
 export class Customer extends Entity<ICustomerProperties> {
@@ -27,21 +28,8 @@ export class Customer extends Entity<ICustomerProperties> {
     });
   }
 
-  addDocuments(documents: IDocument[]): void {
-    const sortedDocuments = documents.sort((a, b) => {
-      if (a.category === b.category) {
-        return b.createdAt.getTime() - a.createdAt.getTime();
-      }
-      return a.category < b.category ? -1 : 1;
-    });
-
-    // for eachg category, only one document, the latest should be kept if several were possibly allocated
-    this.properties.documents = sortedDocuments.reduce((accumulator, doc) => {
-      if (!accumulator[doc.category]) {
-        accumulator[doc.category] = doc;
-      }
-      return accumulator;
-    }, {} as IKycDocuments);
+  addDocuments(documents: IDocumentProperties[]): void {
+    this.properties.documents = new KycDocuments(documents);
   }
 
   checkCustomerStatus(): void {
@@ -49,11 +37,11 @@ export class Customer extends Entity<ICustomerProperties> {
     if (!documents || documents.length === 0) {
       return;
     }
-    if (documents.some((doc: IDocument) => doc.status === IDocumentStatus.CANCELED)) {
+    if (documents.some((doc: IDocumentProperties) => doc.status === IDocumentStatus.CANCELED)) {
       this.properties.status = 'CANCELED'; // user should be blocked anyway
-    } else if (documents.some((doc: IDocument) => doc.status === IDocumentStatus.REFUSED)) {
+    } else if (documents.some((doc: IDocumentProperties) => doc.status === IDocumentStatus.REFUSED)) {
       this.properties.status = 'REFUSED';
-    } else if (documents.every((doc: IDocument) => doc.status === IDocumentStatus.VALIDATED)) {
+    } else if (documents.every((doc: IDocumentProperties) => doc.status === IDocumentStatus.VALIDATED)) {
       this.properties.status = 'VALIDATED';
     } else {
       this.properties.status = 'PENDING';
