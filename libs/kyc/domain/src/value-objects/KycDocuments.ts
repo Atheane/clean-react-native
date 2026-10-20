@@ -37,7 +37,7 @@ export class DocumentVO {
     return !!this.recto;
   }
 
-  get value(): { recto?: string; verso?: string } {
+  get value(): { recto: string; verso?: string } {
     return {
       recto: this.recto,
       verso: this.verso,
@@ -59,7 +59,6 @@ export class KycDocuments {
   constructor(docsProps: IDocumentProperties[], USPerson?: boolean) {
     this.expectedDocumentCount = USPerson ? 4 : 3;
     const documentsByCategory = this.allocateDocumentsByCategory(docsProps);
-    console.log('documentsByCategory', documentsByCategory);
     Object.keys(documentsByCategory).forEach((category) => {
       this.processCategoryDocuments(category as IDocumentCategory, documentsByCategory);
     });
@@ -79,16 +78,13 @@ export class KycDocuments {
     category: IDocumentCategory,
     documentsByCategory: { [key in IDocumentCategory]: IDocumentProperties[] },
   ): void {
-    console.log('processCategoryDocuments', category, documentsByCategory);
     if (!arrayIsEmpty(documentsByCategory[category])) {
       const relevantDocumentProperties = this.filterRelevantDocumentProperties(
         category,
         documentsByCategory[category],
       );
-      console.log('relevantDocumentProperties', relevantDocumentProperties);
       if (!arrayIsEmpty(relevantDocumentProperties)) {
         const docStatus = this.checkDocumentStatus(relevantDocumentProperties);
-        console.log('checkDocumentStatus', docStatus);
         this.documents[category] = new DocumentVO({
           ...relevantDocumentProperties[0],
           status: docStatus,
@@ -98,9 +94,6 @@ export class KycDocuments {
   }
 
   private validateDocumentType(category: IDocumentCategory, type: IDocumentType): void {
-    console.log('validateDocumentType');
-    console.log(category, type);
-    console.log(ALLOWED_DOCUMENT_TYPES[category]);
     if (!ALLOWED_DOCUMENT_TYPES[category].includes(type)) {
       throw new DocumentError.InvalidDocumentType(
         `${type} is not a valid document type for context ${category}`,

@@ -45,6 +45,7 @@ export default {
           cameraPermission: 'We need camera access, so you can scan documents',
         },
       ],
+      ['react-native-compressor'],
     ],
     extra: {
       BASE_URL_API: process.env.BASE_URL_API,

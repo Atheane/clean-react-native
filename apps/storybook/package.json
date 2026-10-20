@@ -57,7 +57,9 @@
     "expo-sharing": "*",
     "react-native-document-scanner-plugin": "*",
     "react-native-document-picker": "*",
-    "react-native-image-base64": "*"
+    "react-native-image-base64": "*",
+    "react-native-compressor": "*",
+    "expo-file-system": "*"
   },
   "scripts": {
     "prestart": "sb-rn-get-stories",

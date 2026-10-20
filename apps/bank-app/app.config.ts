@@ -45,6 +45,7 @@ export default {
           cameraPermission: 'We need camera access, so you can scan documents',
         },
       ],
+      ['react-native-compressor'],
     ],
     scheme: 'com.clean-rn.bank-appdev',
     extra: {
