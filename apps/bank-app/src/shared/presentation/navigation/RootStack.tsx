@@ -12,15 +12,15 @@ export const RootStack = () => {
   const {
     auth: { accessToken },
   } = useSelector((state: IRootState) => state.auth.login);
-  const { initRoute } = useSelector((state: IRootState) => state.kyc);
+  const { initRoute: initKycRoute } = useSelector((state: IRootState) => state.kyc);
 
   const navigation = useNavigation();
 
   useEffect(() => {
-    if (initRoute) {
-      navigation.navigate(initRoute as never);
+    if (initKycRoute) {
+      navigation.navigate(initKycRoute as never);
     }
-  }, [initRoute, navigation]);
+  }, [initKycRoute, navigation]);
 
-  return initRoute && accessToken ? <KycStack /> : accessToken ? <BottomTabNavigator /> : <AuthStack />;
+  return initKycRoute && accessToken ? <KycStack /> : accessToken ? <BottomTabNavigator /> : <AuthStack />;
 };

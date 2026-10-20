@@ -62,3 +62,5 @@ export type IDocument = {
   statusCode?: DOCUMENT_STATUS_CODE;
   name: string;
 };
+
+export type CUSTOMER_STATUS = 'INIT' | 'VALIDATED' | 'PENDING' | 'REFUSED' | 'CANCELED';

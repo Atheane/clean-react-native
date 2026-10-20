@@ -19,7 +19,7 @@ import { checkCustomerStatusGenerator, checkCustomerStatusSaga } from '../../use
 import { IKycTypes, customerStatusChecked, initializeKyc } from '../../commands';
 import { selectUserFromLogin } from '../../state-management/selectors';
 
-describe('CheckCustomerStatus - usecase', () => {
+describe('KYC - CheckCustomerStatus - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
 
   const api = KycApi.getInstance(httpConnection);

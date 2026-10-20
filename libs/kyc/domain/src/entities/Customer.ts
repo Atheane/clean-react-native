@@ -1,5 +1,5 @@
 import { Entity } from '@clean-rn/ddd';
-import { IDocument, DOCUMENT_STATUS } from '../types';
+import { IDocument, DOCUMENT_STATUS, CUSTOMER_STATUS } from '../types';
 
 export interface ICustomerProperties {
   // todo part of the actual user should be moved to customer entity
@@ -7,7 +7,7 @@ export interface ICustomerProperties {
   // birth: IBirth;
   // address: IAddress;
   // USPerson: boolean;
-  status: 'VALIDATED' | 'PENDING' | 'REFUSED' | 'CANCELED';
+  status: CUSTOMER_STATUS;
   documents: IDocument[];
 }
 
@@ -21,11 +21,14 @@ export class Customer extends Entity<ICustomerProperties> {
     properties: { documents, status },
   }: {
     id: number;
-    properties: { documents?: IDocument[]; status?: 'VALIDATED' | 'PENDING' | 'REFUSED' | 'CANCELED' };
+    properties: {
+      documents?: IDocument[];
+      status?: CUSTOMER_STATUS;
+    };
   }): Customer {
     return new Customer({
       id: id.toString(),
-      properties: { documents: documents ?? [], status: status ?? 'PENDING' },
+      properties: { documents: documents ?? [], status: status ?? 'INIT' },
     });
   }
 
@@ -36,26 +39,26 @@ export class Customer extends Entity<ICustomerProperties> {
     }
     if (documents.some((doc: IDocument) => doc.status === DOCUMENT_STATUS.REFUSED)) {
       this.properties.status = 'REFUSED';
-    }
-    if (documents.some((doc: IDocument) => doc.status === DOCUMENT_STATUS.CANCELED)) {
+    } else if (documents.some((doc: IDocument) => doc.status === DOCUMENT_STATUS.CANCELED)) {
       this.properties.status = 'CANCELED';
-    }
-    if (documents.every((doc: IDocument) => doc.status === DOCUMENT_STATUS.VALIDATED)) {
+    } else if (documents.every((doc: IDocument) => doc.status === DOCUMENT_STATUS.VALIDATED)) {
       this.properties.status = 'VALIDATED';
+    } else {
+      this.properties.status = 'PENDING';
     }
   }
 
-  addDocument(document: IDocument): void {
-    if (!this.properties.documents) {
-      this.properties.documents = [];
-    }
-    this.properties.documents.push(document);
-  }
+  // addDocument(document: IDocument): void {
+  //   if (!this.properties.documents) {
+  //     this.properties.documents = [];
+  //   }
+  //   this.properties.documents.push(document);
+  // }
 
-  removeDocument(document: IDocument): void {
-    if (!this.properties.documents) {
-      throw new Error('Customer has no documents'); // todo domainError
-    }
-    this.properties.documents = this.properties.documents.filter((doc) => doc.name !== document.name);
-  }
+  // removeDocument(document: IDocument): void {
+  //   if (!this.properties.documents) {
+  //     throw new Error('Customer has no documents'); // todo domainError
+  //   }
+  //   this.properties.documents = this.properties.documents.filter((doc) => doc.name !== document.name);
+  // }
 }

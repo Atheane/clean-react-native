@@ -6,10 +6,17 @@ import { Customer, IDocument, DOCUMENT_STATUS } from '@clean-rn/kyc/domain';
 
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
 
-import { IKycTypes, checkCustomerStatus, customerStatusChecked, initializeKyc } from '../../commands';
+import {
+  IKycTypes,
+  checkCustomerStatus,
+  customerStatusChecked,
+  initializeKyc,
+  kycRouteInitialized,
+} from '../../commands';
 import { IKycState, kycReducer } from '../../state-management';
 
 import { checkCustomerStatusSaga } from '../../usecases/customer';
+import { IKycStackPages } from '../../../../shared/presentation/types';
 
 const expoConstantsMock = {
   name: 'CleanRN BankApp Test',
@@ -21,7 +28,7 @@ const expoConstantsMock = {
 };
 jest.mock('expo-constants', () => expoConstantsMock);
 
-describe('ListAccounts - integration', () => {
+describe('KYC - integration', () => {
   let sagaTester: SagaTester;
   let httpConnection: HttpConnection;
 
@@ -49,6 +56,7 @@ describe('ListAccounts - integration', () => {
     const initialState: IKycState = {
       pending: false,
       customer: null,
+      initRoute: null,
     };
     sagaTester = new SagaTester({
       initialState,
@@ -64,6 +72,7 @@ describe('ListAccounts - integration', () => {
     expect(newState).toEqual({
       pending: true,
       customer: null,
+      initRoute: null,
     });
   });
 
@@ -80,16 +89,28 @@ describe('ListAccounts - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       customer,
+      initRoute: null,
     });
   });
 
   it('Should store correct state if INITIALIZE_KYC', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, checkCustomerStatusSaga, httpConnection);
     sagaTester.dispatch(initializeKyc());
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      customer: null,
+      initRoute: null,
+    });
+  });
+
+  it('Should store correct state if KYC_ROUTE_INITIALIZED', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, checkCustomerStatusSaga, httpConnection);
+    sagaTester.dispatch(kycRouteInitialized({ initRoute: IKycStackPages.MENU }));
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
       customer: null,
+      initRoute: IKycStackPages.MENU,
     });
   });
 });

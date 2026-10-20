@@ -376,6 +376,9 @@
     "profile": {
       "title": "Profile",
       "tab": "Profile"
+    },
+    "kyc": {
+      "title": "Identity verification"
     }
   }
 }

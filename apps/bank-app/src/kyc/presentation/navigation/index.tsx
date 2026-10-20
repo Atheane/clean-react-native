@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigationState } from '@react-navigation/native';
@@ -17,6 +17,7 @@ import { initGlobalError } from '../../../shared/application/commands/manage-glo
 import { ScreenModalError } from '../../../shared/presentation/screens';
 
 import { CardSent, InitKyc, MenuKyc, SuccessKyc } from '../screens';
+import { kycRouteInitialized } from '../../../kyc/application/commands';
 
 const Stack = createNativeStackNavigator<IKycStackProps & ISharedStackProps>();
 
@@ -32,6 +33,10 @@ export const KycStack = () => {
     }
   }, [navigationStack, dispatch]);
 
+  const goHome = useCallback(() => {
+    dispatch(kycRouteInitialized({ initRoute: null }));
+  }, [dispatch]);
+
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -39,7 +44,7 @@ export const KycStack = () => {
         component={InitKyc}
         options={{
           headerTitle: t('screens.kyc.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+          ...headersOptions(navigationStack.length > 1 ? goBack : goHome),
         }}
       />
       <Stack.Screen
@@ -47,7 +52,7 @@ export const KycStack = () => {
         component={MenuKyc}
         options={{
           headerTitle: t('screens.kyc.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+          ...headersOptions(navigationStack.length > 1 ? goBack : goHome),
         }}
       />
       <Stack.Screen
@@ -55,7 +60,7 @@ export const KycStack = () => {
         component={SuccessKyc}
         options={{
           headerTitle: t('screens.kyc.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+          ...headersOptions(navigationStack.length > 1 ? goBack : goHome),
         }}
       />
       <Stack.Screen
@@ -63,7 +68,7 @@ export const KycStack = () => {
         component={CardSent}
         options={{
           headerTitle: t('screens.kyc.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+          ...headersOptions(navigationStack.length > 1 ? goBack : goHome),
         }}
       />
       <Stack.Screen

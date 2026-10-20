@@ -372,6 +372,9 @@
     "profile": {
       "title": "Profil",
       "tab": "Profil"
+    },
+    "kyc": {
+      "title": "Vérification de votre identité"
     }
   }
 }

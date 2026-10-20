@@ -17,10 +17,10 @@ import {
 import { IAccount } from '@clean-rn/account/domain';
 
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
-import { ISharedStackPages } from '../../../shared/presentation/types';
+import { IKycStackPages, ISharedStackPages } from '../../../shared/presentation/types';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
-import { checkCustomerStatus, initKycRoute } from '../../../kyc/application/commands';
+import { checkCustomerStatus, initKycRoute, kycRouteInitialized } from '../../../kyc/application/commands';
 
 import { listAccounts } from '../../application/commands/account';
 import { listTransactions } from '../../application/commands/transactions';
@@ -66,7 +66,19 @@ export const Accounts = () => {
       // will never happen
       return;
     }
-    dispatch(initKycRoute({ customer }));
+    let initKycRoute;
+    switch (customer.properties.status) {
+      case 'INIT':
+        initKycRoute = IKycStackPages.INIT;
+        break;
+      case 'VALIDATED':
+        initKycRoute = IKycStackPages.SUCCESS;
+        break;
+      default:
+        initKycRoute = IKycStackPages.MENU;
+        break;
+    }
+    dispatch(kycRouteInitialized({ initRoute: initKycRoute }));
   }, [dispatch, customer]);
 
   return accountPending || kycPending ? (
