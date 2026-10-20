@@ -68,16 +68,12 @@ export const Accounts = () => {
       return;
     }
     let initKycRoute;
-    switch (customer.properties.status) {
-      case 'INIT':
-        initKycRoute = IKycStackPages.INIT;
-        break;
-      case 'VALIDATED':
-        initKycRoute = IKycStackPages.SUCCESS;
-        break;
-      default:
-        initKycRoute = IKycStackPages.MENU;
-        break;
+    if (!customer.properties.documents?.isComplete) {
+      initKycRoute = IKycStackPages.INIT;
+    } else if (customer.properties.status === 'VALIDATED') {
+      initKycRoute = IKycStackPages.SUCCESS;
+    } else {
+      initKycRoute = IKycStackPages.MENU;
     }
     dispatch(kycRouteInitialized({ initRoute: initKycRoute }));
   }, [dispatch, customer]);
