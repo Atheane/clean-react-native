@@ -26,7 +26,10 @@ export function* checkCustomerStatusGenerator(
     const user = yield select(selectUserFromLogin);
     const customerStatus = yield call(AsyncStorage.getItem, IStoreKey.CUSTOMER_STATUS);
     if (customerStatus && ['VALIDATED', 'CANCELED'].includes(customerStatus)) {
-      const customer = Customer.Create({ id: user.id, properties: { status: customerStatus } });
+      const customer = Customer.Create({
+        id: user.id,
+        properties: { status: customerStatus, USPerson: user.properties.USPerson },
+      });
       customer.checkCustomerStatus(); // should keep the status customerStatus
       yield put(customerStatusChecked({ customer }));
       yield cancel();
@@ -35,7 +38,10 @@ export function* checkCustomerStatusGenerator(
     const api = KycApi.getInstance(httpConnection);
     const documents: IDocumentProperties[] = yield call([api, api.getDocuments]);
 
-    const customer = Customer.Create({ id: user.id, properties: { status: 'INIT' } });
+    const customer = Customer.Create({
+      id: user.id,
+      properties: { USPerson: user.properties.USPerson },
+    });
     customer.addDocuments(documents);
     customer.checkCustomerStatus();
 

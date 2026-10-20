@@ -7,8 +7,14 @@ export class KycDocuments {
   secondId?: Document;
   residenceProof?: Document;
   portrait?: Document;
+  private expectedDocumentsNumber: number;
 
-  constructor(docsProps: IDocumentProperties[]) {
+  constructor(docsProps: IDocumentProperties[], USPerson?: boolean) {
+    if (USPerson) {
+      this.expectedDocumentsNumber = 5;
+    } else {
+      this.expectedDocumentsNumber = 4;
+    }
     const documentsByCategory = this.allocateDocumentsByCategory(docsProps);
     if (documentsByCategory[IDocumentCategory.W9] && documentsByCategory[IDocumentCategory.W9].length > 0) {
       this.w9 = new Document(IDocumentCategory.W9, documentsByCategory[IDocumentCategory.W9]);
@@ -84,5 +90,24 @@ export class KycDocuments {
       {} as { [key in IDocumentCategory]: IDocumentProperties[] },
     );
     return documentsByCategory;
+  }
+
+  get isComplete(): boolean {
+    if (
+      (this.expectedDocumentsNumber === 4 &&
+        this.firstId &&
+        this.secondId &&
+        this.residenceProof &&
+        this.portrait) ||
+      (this.expectedDocumentsNumber === 5 &&
+        this.w9 &&
+        this.firstId &&
+        this.secondId &&
+        this.residenceProof &&
+        this.portrait)
+    ) {
+      return true;
+    }
+    return false;
   }
 }

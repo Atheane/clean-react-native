@@ -63,14 +63,15 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
   });
 
   it('Should call customerStatusChecked if status is not cached or not VALIDATED', async () => {
-    const user = User.Create({ id: 123, properties: {} });
+    const user = User.Create({ id: 123, properties: { USPerson: false } });
 
     const customer = Customer.Create({
       id: 123,
-      properties: { status: 'INIT' },
+      properties: { USPerson: false },
     });
 
     customer.addDocuments(mockResponse);
+    customer.checkCustomerStatus();
 
     testSaga(checkCustomerStatusGenerator, httpConnection)
       .next()
@@ -91,10 +92,10 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
   });
 
   it('Should call customerStatusChecked if status cached and VALIDATED', async () => {
-    const user = User.Create({ id: 123, properties: {} });
+    const user = User.Create({ id: 123, properties: { USPerson: false } });
     const customer = Customer.Create({
       id: 123,
-      properties: { status: 'VALIDATED' },
+      properties: { status: 'VALIDATED', USPerson: false },
     });
 
     testSaga(checkCustomerStatusGenerator, httpConnection)
@@ -113,11 +114,11 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
   });
 
   it('Should call customerStatusChecked if status cached and CANCELED', async () => {
-    const user = User.Create({ id: 123, properties: {} });
+    const user = User.Create({ id: 123, properties: { USPerson: true } });
 
     const customer = Customer.Create({
       id: 123,
-      properties: { status: 'CANCELED' },
+      properties: { status: 'CANCELED', USPerson: true },
     });
 
     testSaga(checkCustomerStatusGenerator, httpConnection)

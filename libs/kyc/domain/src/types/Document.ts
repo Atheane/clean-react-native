@@ -35,6 +35,6 @@ export type IDocumentProperties = {
   createdAt: Date;
 };
 
-export type ICustomerStatus = 'INIT' | 'VALIDATED' | 'PENDING' | 'REFUSED' | 'CANCELED';
+export type ICustomerStatus = 'VALIDATED' | 'PENDING' | 'REFUSED' | 'CANCELED';
 
 export type IDocumentPage = 'recto' | 'verso';

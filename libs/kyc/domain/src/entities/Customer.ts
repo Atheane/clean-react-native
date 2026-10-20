@@ -4,6 +4,7 @@ import { KycDocuments, Document } from '../value-objects';
 
 export interface ICustomerProperties {
   // todo part of the actual user should be moved to customer entity
+  USPerson: boolean;
   status: ICustomerStatus;
   documents: KycDocuments;
 }
@@ -15,21 +16,22 @@ export class Customer extends Entity<ICustomerProperties> {
 
   static Create({
     id,
-    properties: { status },
+    properties: { status, USPerson },
   }: {
     id: number;
     properties: {
-      status: ICustomerStatus;
+      status?: ICustomerStatus;
+      USPerson: boolean;
     };
   }): Customer {
     return new Customer({
       id: id.toString(),
-      properties: { status },
+      properties: status ? { status, USPerson } : { status: 'PENDING', USPerson },
     });
   }
 
   addDocuments(documents: IDocumentProperties[]): void {
-    this.properties.documents = new KycDocuments(documents);
+    this.properties.documents = new KycDocuments(documents, this.properties.USPerson);
   }
 
   checkCustomerStatus(): void {
@@ -41,10 +43,11 @@ export class Customer extends Entity<ICustomerProperties> {
       this.properties.status = 'CANCELED'; // user should be blocked anyway
     } else if (documents.some((doc: IDocumentProperties) => doc.status === IDocumentStatus.REFUSED)) {
       this.properties.status = 'REFUSED';
-    } else if (documents.every((doc: IDocumentProperties) => doc.status === IDocumentStatus.VALIDATED)) {
+    } else if (
+      this.properties.documents?.isComplete &&
+      documents.every((doc: IDocumentProperties) => doc.status === IDocumentStatus.VALIDATED)
+    ) {
       this.properties.status = 'VALIDATED';
-    } else {
-      this.properties.status = 'PENDING';
     }
   }
 }
