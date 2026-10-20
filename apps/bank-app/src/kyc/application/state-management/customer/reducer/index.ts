@@ -5,8 +5,7 @@ import { IKycState } from '../state';
 
 const initialState: IKycState = {
   pending: false,
-  documents: [],
-  status: 'PENDING',
+  customer: null,
 };
 
 export const kycReducer = (state = initialState, action: IKycActions) => {
@@ -25,7 +24,7 @@ export const kycReducer = (state = initialState, action: IKycActions) => {
       newState = {
         ...state,
         pending: false,
-        status: action.payload.customer.properties.status ?? 'PENDING',
+        customer: action.payload.customer,
       };
       return newState;
     case IKycTypes.INITIALIZE_KYC:
@@ -33,8 +32,7 @@ export const kycReducer = (state = initialState, action: IKycActions) => {
       newState = {
         ...state,
         pending: false,
-        documents: [],
-        status: 'PENDING',
+        customer: null,
       };
       return newState;
     default:

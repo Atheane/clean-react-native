@@ -13,7 +13,6 @@ import {
   ITransaction,
 } from '@clean-rn/account/domain';
 import { ITransactionServer } from '@clean-rn/account/infrastructure';
-import { AuthError } from '@clean-rn/auth/domain';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { TransactionApi } from '@clean-rn/account/infrastructure';
@@ -21,8 +20,6 @@ import { TransactionApi } from '@clean-rn/account/infrastructure';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-
-import { userUnauthenticated } from '../../../../auth/application/commands/login';
 
 import { selectTransactions } from '../../state-management/selectors';
 import { listTransactionsGenerator, listTransactionsSaga } from '../../usecases/transactions';

@@ -4,7 +4,6 @@ import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 
 import { IAccountType, Iban, Bic } from '@clean-rn/account/domain';
-import { AuthError, IAuthErrorMessage } from '@clean-rn/auth/domain';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AccountApi } from '@clean-rn/account/infrastructure';
@@ -12,8 +11,6 @@ import { AccountApi } from '@clean-rn/account/infrastructure';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-
-import { userUnauthenticated } from '../../../../auth/application/commands/login';
 
 import { selectAccounts } from '../../state-management/selectors';
 import { listAccountsGenerator, listAccountsSaga } from '../../usecases/account';

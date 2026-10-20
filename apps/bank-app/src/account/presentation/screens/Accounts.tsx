@@ -11,12 +11,16 @@ import {
   ScrollBackground,
   WhiteBalanceList,
   ICardType,
+  Banner,
+  BannerColors,
 } from '@clean-rn/ui-mobile';
 import { IAccount } from '@clean-rn/account/domain';
 
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { ISharedStackPages } from '../../../shared/presentation/types';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+
+import { checkCustomerStatus } from '../../../kyc/application/commands/customer';
 
 import { listAccounts } from '../../application/commands/account';
 import { listTransactions } from '../../application/commands/transactions';
@@ -27,7 +31,7 @@ export const Accounts = () => {
   // translation
   const { t } = useTranslation();
 
-  const { accounts, pending } = useSelector((state: IRootState) => state.account.accounts);
+  const { accounts, pending: accountPending } = useSelector((state: IRootState) => state.account.accounts);
 
   const dispatch = useDispatch();
 
@@ -51,14 +55,33 @@ export const Accounts = () => {
     [navigation],
   );
 
+  const { customer, pending: kycPending } = useSelector((state: IRootState) => state.kyc);
+
   useEffect(() => {
     dispatch(checkCustomerStatus());
   }, [dispatch]);
 
-  return pending ? (
+  const handlePressBanner = useCallback(() => {
+    // navigation.navigate(IKycStackedPages.FIRST_PAGE);
+    console.log('TODO redirect to kyc');
+  }, [navigation]);
+
+  return accountPending || kycPending ? (
     <Text>Loading ...</Text> // todo replace with loading gif
   ) : (
     <ErrorBoundary t={t}>
+      {customer && customer.properties.status && (
+        <Banner
+          title={t('screens.home.banner.validation-identity')}
+          colorBanner={
+            ['REFUSED', 'CANCELED'].includes(customer.properties.status)
+              ? BannerColors.PINK
+              : BannerColors.PURPLE
+          }
+          rightIcon
+          onPressRightIcon={handlePressBanner}
+        />
+      )}
       <View style={styles.container}>
         <ScrollBackground background={TopDownBackground} initialScroll={-20} window={1.2}>
           <View style={styles.cardScroller}>

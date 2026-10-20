@@ -1,7 +1,6 @@
-import { IDocument } from '@clean-rn/kyc/domain';
+import { Customer } from '@clean-rn/kyc/domain';
 
 export interface IKycState {
   pending: boolean;
-  documents: IDocument[] | [];
-  status: 'APPROVED' | 'PENDING' | 'REJECTED';
+  customer: Customer | null;
 }

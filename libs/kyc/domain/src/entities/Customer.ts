@@ -1,12 +1,13 @@
 import { Entity } from '@clean-rn/ddd';
-import { IDocument } from '../types';
+import { IDocument, DOCUMENT_STATUS } from '../types';
 
 export interface ICustomerProperties {
+  // todo part of the actual user should be moved to customer entity
   // identity: IIdentity;
   // birth: IBirth;
   // address: IAddress;
   // USPerson: boolean;
-  status: 'APPROVED' | 'PENDING' | 'REJECTED';
+  status: 'VALIDATED' | 'PENDING' | 'REFUSED' | 'CANCELED';
   documents: IDocument[];
 }
 
@@ -15,23 +16,32 @@ export class Customer extends Entity<ICustomerProperties> {
     super({ id, properties });
   }
 
-  static Create({ properties: { documents } }: { properties: { documents: IDocument[] } }): Customer {
-    return new Customer({ properties: { documents, status: 'PENDING' } });
+  static Create({
+    id,
+    properties: { documents, status },
+  }: {
+    id: number;
+    properties: { documents?: IDocument[]; status?: 'VALIDATED' | 'PENDING' | 'REFUSED' | 'CANCELED' };
+  }): Customer {
+    return new Customer({
+      id: id.toString(),
+      properties: { documents: documents ?? [], status: status ?? 'PENDING' },
+    });
   }
 
   checkCustomerStatus(): void {
     const { documents } = this.properties;
-    if (!documents) {
-      return; // it cannot happen: an instance of Customer will always have documents initialized at []
+    if (!documents || documents.length === 0) {
+      return;
     }
-    if (documents.length === 0) {
-      this.properties.status = 'PENDING';
-    } else if (documents.some((doc) => doc.statusCode === 'REJECTED')) {
-      this.properties.status = 'REJECTED';
-    } else if (documents.every((doc) => doc.statusCode === 'APPROVED')) {
-      this.properties.status = 'APPROVED';
-    } else {
-      this.properties.status = 'PENDING';
+    if (documents.some((doc: IDocument) => doc.status === DOCUMENT_STATUS.REFUSED)) {
+      this.properties.status = 'REFUSED';
+    }
+    if (documents.some((doc: IDocument) => doc.status === DOCUMENT_STATUS.CANCELED)) {
+      this.properties.status = 'CANCELED';
+    }
+    if (documents.every((doc: IDocument) => doc.status === DOCUMENT_STATUS.VALIDATED)) {
+      this.properties.status = 'VALIDATED';
     }
   }
 
