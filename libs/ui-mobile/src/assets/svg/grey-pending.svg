@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" viewBox="0 0 35 35">
-  <defs>
-    <pattern id="pattern" preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 512 512">
-      <image width="512" height="512" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="/>
-    </pattern>
-  </defs>
-  <g id="clock-svgrepo-com" opacity="0.384">
-    <rect id="clock-svgrepo-com-2" data-name="clock-svgrepo-com" width="35" height="35" rx="17" fill="url(#pattern)"/>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="33" height="33" viewBox="0 0 33 33">
+  <g id="Composant_261_1" data-name="Composant 261 – 1">
+    <g id="Composant_259_1" data-name="Composant 259 – 1">
+      <g id="Groupe_1775" data-name="Groupe 1775" transform="translate(-40 -144)">
+        <circle id="Ellipse_1105" data-name="Ellipse 1105" cx="16.5" cy="16.5" r="16.5" transform="translate(40 144)" fill="#fff"/>
+      </g>
+    </g>
   </g>
+  <image id="pngwing.com" width="21" height="21" transform="translate(6 6)" opacity="0.409" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="/>
 </svg>

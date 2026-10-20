@@ -1,9 +1,8 @@
-import { useState, useCallback } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ImageSourcePropType } from 'react-native';
-import { useTheme } from '@rneui/themed';
+import { Icon, useTheme } from '@rneui/themed';
 
 // import { DeleteGradient, Edit } from '../../../assets';
-import { Edit, GreenValidation, RedCross, GreyPending } from '../../../assets';
+import { Edit, GreenValidation } from '../../../assets';
 import { Colors, FontNames } from '../../../constants';
 import { LinkButtonColors } from '../../../types';
 import { LinkButton } from '../../buttons/link-button';
@@ -15,13 +14,11 @@ type IProps = {
   text: string;
   disabled?: boolean;
   onPress: () => void;
-  onDelete?: () => void;
   onEdit?: () => void;
 };
 
 export const UploadDocumentCard = (props: IProps) => {
   const { theme } = useTheme();
-
   return (
     <View>
       <TouchableOpacity
@@ -39,16 +36,24 @@ export const UploadDocumentCard = (props: IProps) => {
             {props.text}
           </Text>
         </View>
+        {props.status && (
+          <View style={styles.leftIconContainer}>
+            {props.status === 'VALIDATED' && (
+              <View style={styles.rightIcon}>
+                <GreenValidation />
+              </View>
+            )}
+            {props.status === 'PENDING' && (
+              <Icon name="clockcircleo" type="ant-design" color="grey" style={styles.rightIcon} />
+            )}
+            {props.status === 'REFUSED' && (
+              <Icon name="closecircleo" type="ant-design" color="red" style={styles.rightIcon} />
+            )}
+          </View>
+        )}
       </TouchableOpacity>
-      {props.status && (
-        <View style={styles.leftIcon}>
-          {props.status === 'VALIDATED' && <GreenValidation />}
-          {props.status === 'PENDING' && <GreyPending />}
-          {props.status === 'REFUSED' && <RedCross />}
-        </View>
-      )}
       {props.onEdit && (
-        <View style={styles.rightIcon}>
+        <View style={styles.rightIconContainer}>
           <LinkButton
             pressed={false}
             onPress={props.onEdit}
@@ -57,16 +62,6 @@ export const UploadDocumentCard = (props: IProps) => {
           />
         </View>
       )}
-      {/* {props.onDelete && (
-        <View style={styles.rightIcon}>
-          <LinkButton
-            pressed={false}
-            onPress={props.onDelete}
-            iconOne={DeleteGradient}
-            colorOption={LinkButtonColors.BLUE}
-          />
-        </View>
-      )} */}
     </View>
   );
 };
@@ -92,14 +87,15 @@ const styles = StyleSheet.create({
     fontFamily: FontNames.Roboto_400Regular,
     fontSize: 16,
   },
-  leftIcon: {
+  leftIconContainer: {
     position: 'absolute',
-    top: 16,
-    left: 24,
+    top: 8,
+    left: 10,
   },
-  rightIcon: {
+  rightIconContainer: {
     position: 'absolute',
     top: 8,
     right: 20,
   },
+  rightIcon: { backgroundColor: Colors.bank.primary.white, borderRadius: 100 },
 });

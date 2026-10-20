@@ -1,11 +1,10 @@
-<svg id="Composant_257_1" data-name="Composant 257 – 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="33" height="33" viewBox="0 0 33 33">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23" height="23" viewBox="0 0 23 23">
   <defs>
     <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
       <stop offset="0" stop-color="#cfce29"/>
       <stop offset="1" stop-color="#a1b201"/>
     </linearGradient>
   </defs>
-  <circle id="Ellipse_1105" data-name="Ellipse 1105" cx="16.5" cy="16.5" r="16.5" fill="#fff"/>
-  <path id="Union_7" data-name="Union 7" d="M11.5,1.84A9.66,9.66,0,1,1,4.669,4.669,9.662,9.662,0,0,1,11.5,1.84M11.5,0a11.5,11.5,0,1,0,8.132,3.368A11.5,11.5,0,0,0,11.5,0Z" transform="translate(5 5)" fill="url(#linear-gradient)"/>
-  <path id="Union_10" data-name="Union 10" d="M4,10.859H0V8H4V0H6.858V10.859Z" transform="translate(17.796 8.403) rotate(45)" fill="url(#linear-gradient)"/>
+  <path id="Union_25" data-name="Union 25" d="M11.5,1.84A9.66,9.66,0,1,1,4.669,4.669,9.662,9.662,0,0,1,11.5,1.84M11.5,0a11.5,11.5,0,1,0,8.132,3.368A11.5,11.5,0,0,0,11.5,0Z" fill="url(#linear-gradient)"/>
+  <path id="Union_26" data-name="Union 26" d="M4,10.859H0V8H4V0H6.858V10.859Z" transform="translate(12.796 3.403) rotate(45)" fill="url(#linear-gradient)"/>
 </svg>

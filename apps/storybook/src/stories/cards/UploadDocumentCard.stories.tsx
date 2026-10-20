@@ -10,6 +10,11 @@ const UploadDocumentCardMeta: ComponentMeta<typeof UploadDocumentCard> = {
   component: UploadDocumentCard,
   argTypes: {
     onPress: { action: 'onPress' },
+    onEdit: { action: 'onEdit' },
+    status: {
+      options: ['VALIDATED', 'PENDING', 'REFUSED'],
+      control: { type: 'radio' },
+    },
   },
   args: {
     text: 'Lorem ipsum delatus',
@@ -25,4 +30,5 @@ export default UploadDocumentCardMeta;
 
 type UploadDocumentCardStory = ComponentStory<typeof UploadDocumentCard>;
 
-export const Basic: UploadDocumentCardStory = (args) => <UploadDocumentCard {...args} />;
+export const Basic: UploadDocumentCardStory = (args) => <UploadDocumentCard {...args} onEdit={undefined} />;
+export const Refused: UploadDocumentCardStory = (args) => <UploadDocumentCard {...args} status="REFUSED" />;
