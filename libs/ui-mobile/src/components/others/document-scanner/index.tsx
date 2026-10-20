@@ -8,21 +8,11 @@ import * as FileSystem from 'expo-file-system';
 import { PrimaryButton } from '../../buttons/primary-button';
 import { Colors } from '../../../constants';
 import { Camera as CameraIcon } from '../../../assets';
+import { Logger } from '@clean-rn/logger';
 
 type IProps = {
   getScan: (scannedImg: string) => void;
   handleError: (error: unknown) => void;
-};
-
-const convertBase64ToFileUri = async (base64String: string) => {
-  // Générer un chemin de fichier unique
-  const fileName = `image_${new Date().getTime()}.jpg`;
-  const fileUri = `${FileSystem.cacheDirectory}${fileName}`;
-
-  // Écrire les données base64 dans le fichier
-  await FileSystem.writeAsStringAsync(fileUri, base64String, { encoding: FileSystem.EncodingType.Base64 });
-
-  return fileUri;
 };
 
 const calculateBase64Size = (base64: string) => {
@@ -39,20 +29,22 @@ const calculateBase64Size = (base64: string) => {
   return ((base64Length - padding) * 3) / 4;
 };
 
-const compressImage = async (base64Image: string, quality: number, maxMB = 0.95): Promise<string> => {
-  const compressedImage = await Image.compress(base64Image, {
-    quality: quality,
+const compressImage = async (imageURI: string, quality: number, maxMB = 0.95): Promise<string> => {
+  if (quality <= 0.1) {
+    throw new Error('There is a problem with the quality of the image. try on another camera');
+  }
+  const compressedImageURI = await Image.compress(imageURI, {
+    quality,
   });
-  const base64 = await FileSystem.readAsStringAsync(compressedImage, { encoding: 'base64' });
-
+  const base64 = await FileSystem.readAsStringAsync(compressedImageURI, { encoding: 'base64' });
   const compressedSizeMB = calculateBase64Size(base64);
-
+  Logger.getInstance().info('compressedSizeMB', compressedSizeMB);
   if (compressedSizeMB > maxMB * 1048576 && quality > 0.1) {
-    // Réduisez la qualité et réessayez
-    return compressImage(base64Image, quality - 0.1, maxMB);
+    // Réduire la qualité et réessayez
+    return compressImage(imageURI, quality - 0.1, maxMB);
   } else {
     // Taille acceptable ou qualité minimale atteinte
-    return compressedImage;
+    return compressedImageURI;
   }
 };
 
@@ -72,11 +64,10 @@ export const DocumentScanner = (props: IProps) => {
         const lastScannedImageURI = scannedImagesURI[scannedImagesURI.length - 1];
         const base64 = await FileSystem.readAsStringAsync(lastScannedImageURI, { encoding: 'base64' });
         const imageSizeMB = calculateBase64Size(base64);
-        console.log('imageSizeMB', imageSizeMB);
+        Logger.getInstance().info('imageSizeMB', imageSizeMB);
         if (imageSizeMB > 1000000) {
-          const compressedImage = await compressImage(lastScannedImageURI, 0.9, 1);
-          const base64 = await FileSystem.readAsStringAsync(compressedImage, { encoding: 'base64' });
-          console.log('base64', base64);
+          const compressedImageURI = await compressImage(lastScannedImageURI, 0.9, 1);
+          const base64 = await FileSystem.readAsStringAsync(compressedImageURI, { encoding: 'base64' });
           props.getScan(base64);
         } else {
           const base64 = await FileSystem.readAsStringAsync(lastScannedImageURI, { encoding: 'base64' });
