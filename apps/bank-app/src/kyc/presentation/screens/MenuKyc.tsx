@@ -15,8 +15,6 @@ import {
   KycPassportDisabled,
   KycInvoice,
   KycInvoiceDisabled,
-  KycPortrait,
-  KycPortraitDisabled,
 } from '@clean-rn/ui-mobile';
 import { IDocumentType, KycDocuments } from '@clean-rn/kyc/domain';
 
@@ -57,12 +55,6 @@ export const MenuKyc = () => {
     () => navigation.navigate(IKycStackPages.OWNED_RESIDENCE_PROOF_LIST as never),
     [navigation],
   );
-
-  const navigateToUploadPhotoPortrait = useCallback(() => {
-    navigation.navigate(IKycStackPages.UPLOAD_PHOTO, {
-      documentType: IDocumentType.LIVENESS,
-    });
-  }, [navigation]);
 
   // docuemnts status
   const { customer } = useSelector((state: IRootState) => state.kyc);
@@ -113,13 +105,6 @@ export const MenuKyc = () => {
               status={submittedDocuments?.residenceProof?.status}
               text={t('screens.kyc.menu.address')}
               onPress={navigateToResidenceProofIdList}
-            />
-            <UploadDocumentCard
-              icon={KycPortrait}
-              iconDisabled={KycPortraitDisabled}
-              status={submittedDocuments?.portrait?.status}
-              text={t('screens.kyc.menu.photo')}
-              onPress={navigateToUploadPhotoPortrait}
             />
           </View>
         </View>

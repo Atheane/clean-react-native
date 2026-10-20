@@ -117,13 +117,6 @@ describe('Customer - unit', () => {
         name: 'test-mock',
         createdAt: new Date('2023-10-01T13:20:21.303Z'),
       },
-      {
-        typeId: IDocumentType.LIVENESS,
-        category: IDocumentCategory.PORTRAIT,
-        status: IDocumentStatus.VALIDATED,
-        name: 'test-mock',
-        createdAt: new Date('2023-10-01T13:20:21.303Z'),
-      },
     ]);
     customer.checkCustomerStatus();
     expect(customer.properties.status).toEqual('REFUSED');
@@ -151,14 +144,6 @@ describe('Customer - unit', () => {
       }),
     );
     expect(customer.properties.documents?.secondId?.versoProps).toBeUndefined();
-    expect(customer.properties.documents?.portrait?.pagesNumber).toEqual(1);
-    expect(customer.properties.documents?.portrait?.rectoProps).toEqual(
-      expect.objectContaining({
-        typeId: IDocumentType.LIVENESS,
-        status: IDocumentStatus.VALIDATED,
-        name: 'test-mock',
-      }),
-    );
   });
 
   it('should be complete if USPerson and  W9', () => {
@@ -213,27 +198,6 @@ describe('Customer - unit', () => {
         name: 'test-mock',
         createdAt: new Date('2023-10-01T13:20:21.303Z'),
       },
-      {
-        typeId: IDocumentType.LIVENESS,
-        category: IDocumentCategory.PORTRAIT,
-        status: IDocumentStatus.REFUSED,
-        name: 'test-mock',
-        createdAt: new Date('2023-10-01T13:20:21.303Z'),
-      },
-      {
-        typeId: IDocumentType.LIVENESS,
-        category: IDocumentCategory.PORTRAIT,
-        status: IDocumentStatus.REFUSED,
-        name: 'test-mock',
-        createdAt: new Date('2023-10-02T13:20:21.303Z'),
-      },
-      {
-        typeId: IDocumentType.LIVENESS,
-        category: IDocumentCategory.PORTRAIT,
-        status: IDocumentStatus.PENDING,
-        name: 'test-mock',
-        createdAt: new Date('2023-10-03T13:20:21.303Z'),
-      },
     ]);
     customer.checkCustomerStatus();
     expect(customer.properties.status).toEqual('REFUSED');
@@ -287,14 +251,6 @@ describe('Customer - unit', () => {
       }),
     );
     expect(customer.properties.documents?.residenceProof?.versoProps).toBeUndefined();
-    expect(customer.properties.documents?.portrait?.pagesNumber).toEqual(1);
-    expect(customer.properties.documents?.portrait?.rectoProps).toEqual(
-      expect.objectContaining({
-        typeId: IDocumentType.LIVENESS,
-        status: IDocumentStatus.PENDING,
-        name: 'test-mock',
-      }),
-    );
   });
 
   it('should be complete if not USPerson and  not W9', () => {
@@ -342,27 +298,6 @@ describe('Customer - unit', () => {
         name: 'test-mock',
         createdAt: new Date('2023-10-01T13:20:21.303Z'),
       },
-      {
-        typeId: IDocumentType.LIVENESS,
-        category: IDocumentCategory.PORTRAIT,
-        status: IDocumentStatus.REFUSED,
-        name: 'test-mock',
-        createdAt: new Date('2023-10-01T13:20:21.303Z'),
-      },
-      {
-        typeId: IDocumentType.LIVENESS,
-        category: IDocumentCategory.PORTRAIT,
-        status: IDocumentStatus.REFUSED,
-        name: 'test-mock',
-        createdAt: new Date('2023-10-02T13:20:21.303Z'),
-      },
-      {
-        typeId: IDocumentType.LIVENESS,
-        category: IDocumentCategory.PORTRAIT,
-        status: IDocumentStatus.PENDING,
-        name: 'test-mock',
-        createdAt: new Date('2023-10-03T13:20:21.303Z'),
-      },
     ]);
     customer.checkCustomerStatus();
     expect(customer.properties.status).toEqual('REFUSED');
@@ -395,15 +330,6 @@ describe('Customer - unit', () => {
     expect(customer.properties.documents?.residenceProof?.rectoProps).toEqual(
       expect.objectContaining({
         typeId: IDocumentType.PROOF_OF_ADDRESS,
-        status: IDocumentStatus.PENDING,
-        name: 'test-mock',
-      }),
-    );
-    expect(customer.properties.documents?.residenceProof?.versoProps).toBeUndefined();
-    expect(customer.properties.documents?.portrait?.pagesNumber).toEqual(1);
-    expect(customer.properties.documents?.portrait?.rectoProps).toEqual(
-      expect.objectContaining({
-        typeId: IDocumentType.LIVENESS,
         status: IDocumentStatus.PENDING,
         name: 'test-mock',
       }),

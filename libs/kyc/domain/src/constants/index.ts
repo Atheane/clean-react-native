@@ -17,5 +17,4 @@ export const ALLOWED_DOCUMENT_TYPES = {
     IDocumentType.BANK_ID,
     IDocumentType.TAX_CERTIFICATE,
   ],
-  [IDocumentCategory.PORTRAIT]: [IDocumentType.ID, IDocumentType.LIVENESS],
 };

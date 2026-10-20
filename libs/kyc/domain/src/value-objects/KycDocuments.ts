@@ -6,14 +6,13 @@ export class KycDocuments {
   firstId?: Document;
   secondId?: Document;
   residenceProof?: Document;
-  portrait?: Document;
   private expectedDocumentsNumber: number;
 
   constructor(docsProps: IDocumentProperties[], USPerson?: boolean) {
     if (USPerson) {
-      this.expectedDocumentsNumber = 5;
-    } else {
       this.expectedDocumentsNumber = 4;
+    } else {
+      this.expectedDocumentsNumber = 3;
     }
     const documentsByCategory = this.allocateDocumentsByCategory(docsProps);
     if (documentsByCategory[IDocumentCategory.W9] && documentsByCategory[IDocumentCategory.W9].length > 0) {
@@ -55,18 +54,6 @@ export class KycDocuments {
         this.residenceProof = residenceProof;
       }
     }
-    if (
-      documentsByCategory[IDocumentCategory.PORTRAIT] &&
-      documentsByCategory[IDocumentCategory.PORTRAIT].length > 0
-    ) {
-      const portrait = new Document(
-        IDocumentCategory.PORTRAIT,
-        documentsByCategory[IDocumentCategory.PORTRAIT],
-      );
-      if (portrait.rectoProps) {
-        this.portrait = portrait;
-      }
-    }
   }
 
   private allocateDocumentsByCategory(docsProps: IDocumentProperties[]): {
@@ -94,17 +81,8 @@ export class KycDocuments {
 
   get isComplete(): boolean {
     if (
-      (this.expectedDocumentsNumber === 4 &&
-        this.firstId &&
-        this.secondId &&
-        this.residenceProof &&
-        this.portrait) ||
-      (this.expectedDocumentsNumber === 5 &&
-        this.w9 &&
-        this.firstId &&
-        this.secondId &&
-        this.residenceProof &&
-        this.portrait)
+      (this.expectedDocumentsNumber === 3 && this.firstId && this.secondId && this.residenceProof) ||
+      (this.expectedDocumentsNumber === 4 && this.w9 && this.firstId && this.secondId && this.residenceProof)
     ) {
       return true;
     }

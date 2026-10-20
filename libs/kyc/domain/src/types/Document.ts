@@ -24,7 +24,6 @@ export enum IDocumentCategory {
   FIRST_ID = 'FIRST_ID',
   SECOND_ID = 'SECOND_ID',
   RESIDENCE_PROOF = 'RESIDENCE_PROOF',
-  PORTRAIT = 'PORTRAIT',
 }
 
 export type IDocumentProperties = {
