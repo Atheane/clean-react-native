@@ -30,7 +30,10 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
     >
       <Button
         ViewComponent={LinearGradient}
-        buttonStyle={[styles.button, theme.bank.shadow.button]}
+        buttonStyle={[
+          theme.bank.shadow.button,
+          props.iconOne || props.iconTwo ? styles.buttonIcon : styles.button,
+        ]}
         containerStyle={[
           props.long ? theme.bank.container.button.long : theme.bank.container.button.short,
           theme.bank.shadow.button,
@@ -72,6 +75,12 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
+  buttonIcon: {
+    paddingTop: 12,
+    paddingRight: 24,
+    paddingBottom: 14,
+    paddingLeft: 26,
+  },
   button: {
     paddingTop: 15,
     paddingRight: 24,
@@ -83,6 +92,10 @@ const styles = StyleSheet.create({
   },
   iconOneContainer: {
     marginRight: 15,
+  },
+  iconOne: {
+    width: 32,
+    height: 32,
   },
   iconTwoContainer: {
     marginLeft: 15,
