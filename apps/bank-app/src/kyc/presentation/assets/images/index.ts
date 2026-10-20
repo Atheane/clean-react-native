@@ -8,7 +8,6 @@ import IDCardVerso from './id-card-verso.png';
 import HealthThumb from './health-thumb.png';
 import HealthCard from './health-card.png';
 import Passport from './passport.png';
-import PhotoPortrait from './photo-portrait.png';
 import ResidencePermitRecto from './residence-permit-recto.png';
 import ResidencePermitVerso from './residence-permit-verso.png';
 import ResidenceProof from './residence-proof.png';
@@ -26,7 +25,6 @@ export {
   HealthThumb,
   HealthCard,
   Passport,
-  PhotoPortrait,
   ResidencePermitRecto,
   ResidencePermitVerso,
   ResidenceProof,

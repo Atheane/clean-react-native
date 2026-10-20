@@ -30,7 +30,7 @@ export const MenuKyc = () => {
 
   // w9 or not ?
   const { user } = useSelector((state: IRootState) => state.auth.login);
-  const documentsNumber = user?.properties.USPerson ? 5 : 4;
+  const documentsNumber = user?.properties.USPerson ? 4 : 3;
 
   // navigation
   const navigation = useNavigation();

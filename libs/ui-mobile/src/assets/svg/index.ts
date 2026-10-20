@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
 import Love from './love.svg';
 import Validate from './validate.svg';
 import Logout from './logout.svg';
@@ -113,8 +111,6 @@ import KycInvoice from './kyc-invoice.svg';
 import KycInvoiceDisabled from './kyc-invoice-disabled.svg';
 import KycPassport from './kyc-passport.svg';
 import KycPassportDisabled from './kyc-passport-disabled.svg';
-import KycPortrait from './kyc-portrait.svg';
-import KycPortraitDisabled from './kyc-portrait-disabled.svg';
 import KycResidencePermit from './kyc-residence-permit.svg';
 import KycResidencePermitDisabled from './kyc-residence-permit-disabled.svg';
 import KycTaxes from './kyc-taxes.svg';
@@ -236,8 +232,6 @@ export {
   KycInvoiceDisabled,
   KycPassport,
   KycPassportDisabled,
-  KycPortrait,
-  KycPortraitDisabled,
   KycResidencePermit,
   KycResidencePermitDisabled,
   KycTaxes,

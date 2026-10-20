@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
 import {
   Love,
   Validate,
@@ -114,8 +112,6 @@ import {
   KycInvoiceDisabled,
   KycPassport,
   KycPassportDisabled,
-  KycPortrait,
-  KycPortraitDisabled,
   KycResidencePermit,
   KycResidencePermitDisabled,
   KycTaxes,
@@ -239,8 +235,6 @@ export {
   KycInvoiceDisabled,
   KycPassport,
   KycPassportDisabled,
-  KycPortrait,
-  KycPortraitDisabled,
   KycResidencePermit,
   KycResidencePermitDisabled,
   KycTaxes,
