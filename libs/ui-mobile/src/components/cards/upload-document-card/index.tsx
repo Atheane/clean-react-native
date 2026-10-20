@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity, ImageSourcePropType } from 'react-native';
 import { Icon, useTheme } from '@rneui/themed';
+import { IDocumentStatus } from '@clean-rn/kyc/domain';
 
 // import { DeleteGradient, Edit } from '../../../assets';
 import { Edit, GreenValidation } from '../../../assets';
@@ -10,7 +11,7 @@ import { LinkButton } from '../../buttons/link-button';
 type IProps = {
   image: ImageSourcePropType;
   imageDisabled: ImageSourcePropType;
-  status?: 'VALIDATED' | 'PENDING' | 'REFUSED';
+  status?: IDocumentStatus;
   text: string;
   disabled?: boolean;
   onPress: () => void;
@@ -19,20 +20,22 @@ type IProps = {
 
 export const UploadDocumentCard = (props: IProps) => {
   const { theme } = useTheme();
+
+  const disabled = props.status === 'PENDING' || props.status === 'VALIDATED' || props.status === 'CANCELED';
   return (
     <View>
       <TouchableOpacity
         onPress={props.onPress}
-        activeOpacity={props.disabled ? 1 : 0.2}
+        activeOpacity={disabled ? 1 : 0.2}
         style={[
           theme.bank.container.card.long,
-          !props.disabled && theme.bank.shadow.card,
-          props.disabled && styles.disabled,
+          !disabled && theme.bank.shadow.card,
+          disabled && styles.disabled,
         ]}
       >
         <View style={styles.container}>
-          <Image style={styles.image} source={props.disabled ? props.imageDisabled : props.image} />
-          <Text style={[props.disabled ? theme.bank.text.grey : theme.bank.text.darkBlue, styles.text]}>
+          <Image style={styles.image} source={disabled ? props.imageDisabled : props.image} />
+          <Text style={[disabled ? theme.bank.text.grey : theme.bank.text.darkBlue, styles.text]}>
             {props.text}
           </Text>
         </View>

@@ -16,7 +16,18 @@ import {
 import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
 import { ScreenModalError } from '../../../shared/presentation/screens';
 
-import { CardSent, InitKyc, MenuKyc, SuccessKyc, UploadDocument } from '../screens';
+import {
+  CardSent,
+  FirstIdList,
+  InitKyc,
+  MenuKyc,
+  OwnedResidenceProofList,
+  SecondIdList,
+  SuccessKyc,
+  UnownedResidenceProofList,
+  UploadDocument,
+  UploadPhoto,
+} from '../screens';
 import { kycRouteInitialized } from '../../../kyc/application/commands';
 
 const Stack = createNativeStackNavigator<IKycStackProps & ISharedStackProps>();
@@ -72,8 +83,48 @@ export const KycStack = () => {
         }}
       />
       <Stack.Screen
+        name={IKycStackPages.UPLOAD_PHOTO}
+        component={UploadPhoto}
+        options={{
+          headerTitle: t('screens.kyc.title'),
+          ...headersOptions(goBack),
+        }}
+      />
+      <Stack.Screen
         name={IKycStackPages.UPLOAD_DOCUMENT}
         component={UploadDocument}
+        options={{
+          headerTitle: t('screens.kyc.title'),
+          ...headersOptions(goBack),
+        }}
+      />
+      <Stack.Screen
+        name={IKycStackPages.FIRST_ID_LIST}
+        component={FirstIdList}
+        options={{
+          headerTitle: t('screens.kyc.title'),
+          ...headersOptions(goBack),
+        }}
+      />
+      <Stack.Screen
+        name={IKycStackPages.SECOND_ID_LIST}
+        component={SecondIdList}
+        options={{
+          headerTitle: t('screens.kyc.title'),
+          ...headersOptions(goBack),
+        }}
+      />
+      <Stack.Screen
+        name={IKycStackPages.OWNED_RESIDENCE_PROOF_LIST}
+        component={OwnedResidenceProofList}
+        options={{
+          headerTitle: t('screens.kyc.title'),
+          ...headersOptions(goBack),
+        }}
+      />
+      <Stack.Screen
+        name={IKycStackPages.UNOWNED_RESIDENCE_PROOF_LIST}
+        component={UnownedResidenceProofList}
         options={{
           headerTitle: t('screens.kyc.title'),
           ...headersOptions(goBack),

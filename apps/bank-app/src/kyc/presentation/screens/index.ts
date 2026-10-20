@@ -3,3 +3,8 @@ export { MenuKyc } from './MenuKyc';
 export { SuccessKyc } from './SuccessKyc';
 export { CardSent } from './CardSent';
 export { UploadDocument } from './UploadDocument';
+export { UploadPhoto } from './UploadPhoto';
+export { FirstIdList } from './FirstIdList';
+export { SecondIdList } from './SecondIdList';
+export { OwnedResidenceProofList } from './OwnedResidenceProofList';
+export { UnownedResidenceProofList } from './UnownedResidenceProofList';

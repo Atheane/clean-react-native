@@ -3,4 +3,5 @@ export type IDocumentServer = {
   documentStatus: string;
   documentStatusCode: string;
   name: string;
+  createdAt: string;
 };

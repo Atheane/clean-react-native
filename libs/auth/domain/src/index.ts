@@ -6,4 +6,4 @@ export * from './gateways';
 export * from './queries';
 export * from './repositories';
 export * from './types';
-export * from './valueObjects';
+export * from './value-objects';

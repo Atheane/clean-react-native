@@ -2,7 +2,7 @@
 import SagaTester from 'redux-saga-tester';
 import Constants from 'expo-constants';
 
-import { Customer, IDocument, DOCUMENT_STATUS } from '@clean-rn/kyc/domain';
+import { Customer, IDocument, IDocumentStatus } from '@clean-rn/kyc/domain';
 
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
 
@@ -34,9 +34,10 @@ describe('KYC - integration', () => {
 
   const mockResponse: IDocument[] = [
     {
-      typeId: 6,
-      status: DOCUMENT_STATUS.PENDING,
+      typeId: 9,
+      status: IDocumentStatus.PENDING,
       name: 'test-mock',
+      createdAt: new Date('2023-10-03T13:20:21.303Z'),
     },
   ];
 
@@ -77,7 +78,8 @@ describe('KYC - integration', () => {
   });
 
   it('Should store correct state if CUSTOMER_STATUS_CHECKED', () => {
-    const customer = Customer.Create({ id: 123, properties: { documents: mockResponse, status: 'PENDING' } });
+    const customer = Customer.Create({ id: 123, properties: { status: 'PENDING' } });
+    customer.addDocuments(mockResponse);
     sagaTester.start(wrapSagaHidingNotFoundError, checkCustomerStatusSaga, httpConnection);
     sagaTester.dispatch(checkCustomerStatus());
     sagaTester.dispatch(

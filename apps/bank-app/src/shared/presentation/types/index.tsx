@@ -135,7 +135,12 @@ export enum IKycStackPages {
   MENU = 'MenuKyc',
   SUCCESS = 'SuccessKyc',
   CARD_SENT = 'CardSent',
+  UPLOAD_PHOTO = 'UploadPhoto',
   UPLOAD_DOCUMENT = 'UploadDocument',
+  FIRST_ID_LIST = 'FirstIdList',
+  SECOND_ID_LIST = 'SecondIdList',
+  OWNED_RESIDENCE_PROOF_LIST = 'OwnedResidenceProofList',
+  UNOWNED_RESIDENCE_PROOF_LIST = 'UnownedResidenceProofList',
 }
 
 export enum ITransferStackPages {
@@ -196,7 +201,12 @@ export type IKycStackProps = {
   [IKycStackPages.MENU]: object;
   [IKycStackPages.SUCCESS]: object;
   [IKycStackPages.CARD_SENT]: object;
+  [IKycStackPages.UPLOAD_PHOTO]: object;
   [IKycStackPages.UPLOAD_DOCUMENT]: object;
+  [IKycStackPages.FIRST_ID_LIST]: object;
+  [IKycStackPages.SECOND_ID_LIST]: object;
+  [IKycStackPages.OWNED_RESIDENCE_PROOF_LIST]: object;
+  [IKycStackPages.UNOWNED_RESIDENCE_PROOF_LIST]: object;
 };
 
 export type ITransferStackProps = {
@@ -246,5 +256,10 @@ export type IRoutes =
   | IKycStackPages.SUCCESS
   | IKycStackPages.CARD_SENT
   | IKycStackPages.UPLOAD_DOCUMENT
+  | IKycStackPages.UPLOAD_PHOTO
+  | IKycStackPages.FIRST_ID_LIST
+  | IKycStackPages.SECOND_ID_LIST
+  | IKycStackPages.OWNED_RESIDENCE_PROOF_LIST
+  | IKycStackPages.UNOWNED_RESIDENCE_PROOF_LIST
   | ITransferStackPages.TRANSFER
   | IProfileStackPage.PROFILE;

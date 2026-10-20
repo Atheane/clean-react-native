@@ -34,11 +34,13 @@ export class KycApi implements IDocumentRepository {
             status: doc.documentStatus,
             statusCode: doc.documentStatusCode,
             name: doc.name,
+            createdAt: new Date(doc.createdAt),
           }
         : {
             typeId: doc.documentTypeId,
             status: doc.documentStatus,
             name: doc.name,
+            createdAt: new Date(doc.createdAt),
           };
     });
   }

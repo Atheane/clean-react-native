@@ -4,7 +4,7 @@ import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { Customer, IDocument, DOCUMENT_STATUS } from '@clean-rn/kyc/domain';
+import { Customer, IDocument, IDocumentStatus } from '@clean-rn/kyc/domain';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { KycApi } from '@clean-rn/kyc/infrastructure';
@@ -27,9 +27,10 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
 
   const mockResponse: IDocument[] = [
     {
-      typeId: 6,
-      status: DOCUMENT_STATUS.PENDING,
+      typeId: 9,
+      status: IDocumentStatus.PENDING,
       name: 'test-mock',
+      createdAt: new Date('2023-10-03T13:20:21.303Z'),
     },
   ];
 
@@ -65,8 +66,10 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
 
     const customer = Customer.Create({
       id: 123,
-      properties: { documents: mockResponse, status: 'PENDING' },
+      properties: { status: 'PENDING' },
     });
+
+    customer.addDocuments(mockResponse);
 
     testSaga(checkCustomerStatusGenerator, httpConnection)
       .next()
@@ -88,10 +91,9 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
 
   it('Should call customerStatusChecked if status cached and VALIDATED', async () => {
     const user = User.Create({ id: 123, properties: {} });
-
     const customer = Customer.Create({
       id: 123,
-      properties: { documents: [], status: 'VALIDATED' },
+      properties: { status: 'VALIDATED' },
     });
 
     testSaga(checkCustomerStatusGenerator, httpConnection)
@@ -114,7 +116,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
 
     const customer = Customer.Create({
       id: 123,
-      properties: { documents: [], status: 'CANCELED' },
+      properties: { status: 'CANCELED' },
     });
 
     testSaga(checkCustomerStatusGenerator, httpConnection)

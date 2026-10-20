@@ -33,8 +33,12 @@ export function* checkCustomerStatusGenerator(
     }
 
     const api = KycApi.getInstance(httpConnection);
-    const customerDocuments: IDocument[] = yield call([api, api.getDocuments]);
-    const customer = Customer.Create({ id: user.id, properties: { documents: customerDocuments } });
+    const documents: IDocument[] = yield call([api, api.getDocuments]);
+    console.log('documents', documents);
+
+    const customer = Customer.Create({ id: user.id, properties: { USPerson: user.properties.USPerson } });
+    customer.addDocuments(documents);
+    console.log('customer', customer);
     customer.checkCustomerStatus();
     yield put(customerStatusChecked({ customer }));
     // customer.properties.status cannot be undefined, default value : 'PENDING' so ignore eslint warning

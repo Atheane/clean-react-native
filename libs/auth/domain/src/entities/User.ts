@@ -1,6 +1,6 @@
 import { Entity } from '@clean-rn/ddd';
 import { IAddress, IIdentity, IBirth } from '../types';
-import { Email, Phone, Password, Country, BirthDay } from '../valueObjects';
+import { Email, Phone, Password, Country, BirthDay } from '../value-objects';
 import { AuthError } from '../errors';
 import { IRegisterAddressCommand, IRegisterBirthCommand, IRegisterIdentityCommand } from '../commands';
 import { IValidatePhoneQuery } from '../queries';

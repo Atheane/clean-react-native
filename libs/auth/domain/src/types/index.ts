@@ -1,4 +1,4 @@
-import { BirthDay, Country } from '../valueObjects';
+import { BirthDay, Country } from '../value-objects';
 
 export type IAuth = {
   accessToken: string;

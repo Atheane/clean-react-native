@@ -380,23 +380,23 @@
     "kyc": {
       "title": "Identity verification",
       "init": {
-        "instruction": "To go further, please validate your CO2 Account. For this, we need to verify your identity. Please provide\n\n:Identification document\nProof of residence",
+        "instruction": "To go further, please validate your CO2 Account. For this, we need to verify your identity. Please provide:\n\n- Identification document\n- Proof of residence",
         "check-identity": "Verify my identity"
-      }
-    },
-    "menu": {
-      "title": "Documents to be submitted",
-      "instruction-before": {
-        "begin": "After the",
-        "end": "documents have been transferred, the verification will start automatically."
       },
-      "instruction-after": "Your documents are currently being verified, which may take 24 to 72 hours.",
-      "w9-form": "W9 form",
-      "first": "First",
-      "second": "Second",
-      "identity": "identification document",
-      "address": "Proof of residence",
-      "photo": "Photo portrait"
+      "menu": {
+        "title": "Documents to be submitted",
+        "instruction-before": {
+          "begin": "After the",
+          "end": "documents have been transferred, the verification will start automatically."
+        },
+        "instruction-after": "Your documents are currently being verified, which may take 24 to 72 hours.",
+        "w9-form": "W9 form",
+        "first": "First",
+        "second": "Second",
+        "identity": "identification document",
+        "address": "Proof of residence",
+        "photo": "Photo portrait"
+      }
     }
   }
 }
