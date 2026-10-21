@@ -29,7 +29,7 @@ import {
 
 const HEIGHT = Dimensions.get('window').height;
 
-export const FirstIdList = () => {
+export const IdList = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
   const { theme } = useTheme();
@@ -63,10 +63,8 @@ export const FirstIdList = () => {
   const { customer } = useSelector((state: IRootState) => state.kyc.customer);
 
   const isAlreadySubmitted = (typeId: number) =>
-    (customer?.properties?.kyc?.documents.FIRST_ID?.properties?.typeId === typeId &&
-      customer?.properties?.kyc?.documents.FIRST_ID?.properties?.status === IDocumentStatus.PENDING) ||
-    (customer?.properties?.kyc?.documents.SECOND_ID?.properties?.typeId === typeId &&
-      customer?.properties?.kyc?.documents.FIRST_ID?.properties?.status === IDocumentStatus.PENDING);
+    customer?.properties?.kyc?.documents.ID?.properties?.typeId === typeId &&
+    customer?.properties?.kyc?.documents.ID?.properties?.status === IDocumentStatus.PENDING;
 
   return (
     <ErrorBoundary t={t}>
@@ -89,7 +87,7 @@ export const FirstIdList = () => {
                     instruction: t('screens.kyc.id.recto.instruction'),
                     imageSource: IDCardRecto,
                     documentProperties: {
-                      category: IDocumentCategory.FIRST_ID,
+                      category: IDocumentCategory.ID,
                       typeId: IDocumentType.ID,
                       name: 'first-id.id.recto',
                       status: IDocumentStatus.INIT,
@@ -114,7 +112,7 @@ export const FirstIdList = () => {
                     instruction: t('screens.kyc.passport.instruction'),
                     imageSource: Passport,
                     documentProperties: {
-                      category: IDocumentCategory.FIRST_ID,
+                      category: IDocumentCategory.ID,
                       typeId: IDocumentType.PASSPORT,
                       name: 'first-id.passport.recto',
                       status: IDocumentStatus.INIT,
@@ -135,7 +133,7 @@ export const FirstIdList = () => {
                     instruction: t('screens.kyc.residence-permit.recto.instruction'),
                     imageSource: ResidencePermitRecto,
                     documentProperties: {
-                      category: IDocumentCategory.FIRST_ID,
+                      category: IDocumentCategory.ID,
                       typeId: IDocumentType.RESIDENT_PERMIT,
                       name: 'first-id.residence-permit.recto',
                       status: IDocumentStatus.INIT,

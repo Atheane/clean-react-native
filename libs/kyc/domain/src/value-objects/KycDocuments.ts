@@ -1,7 +1,7 @@
 import { arrayIsEmpty } from '@clean-rn/shared/domain';
 
 import { IDocumentCategory, IDocumentProperties, IDocumentStatus, IDocumentType } from '../types';
-import { ALLOWED_DOCUMENT_TYPES } from '../constants';
+import { ALLOWED_DOCUMENT_TYPES, EXPECTED_DOCUMENTS_NUMBER } from '../constants';
 import { DocumentError } from '../errors';
 
 export class DocumentVO {
@@ -48,10 +48,9 @@ export class DocumentVO {
 export class KycDocuments {
   documents: { [key in IDocumentCategory]: DocumentVO | undefined } = {
     [IDocumentCategory.W9]: undefined,
-    [IDocumentCategory.FIRST_ID]: undefined,
-    [IDocumentCategory.SECOND_ID]: undefined,
+    [IDocumentCategory.ID]: undefined,
     [IDocumentCategory.RESIDENCE_PROOF]: undefined,
-    [IDocumentCategory.RESIDENCE_PROOF_FIRST_ID]: undefined,
+    [IDocumentCategory.RESIDENCE_PROOF_ID]: undefined,
     [IDocumentCategory.RESIDENCE_PROOF_SWORN_STATEMENT]: undefined,
   };
   isUSPerson: boolean;
@@ -82,7 +81,7 @@ export class KycDocuments {
 
   private setIsHosted(): boolean {
     if (
-      this.documents.RESIDENCE_PROOF_FIRST_ID ||
+      this.documents.RESIDENCE_PROOF_ID ||
       this.documents.RESIDENCE_PROOF_SWORN_STATEMENT ||
       this.documents.RESIDENCE_PROOF?.properties.name.includes('host')
     ) {
@@ -92,9 +91,9 @@ export class KycDocuments {
   }
 
   private setExpectedDocumentCount(): number {
-    let expectedDocumentCount = 3;
+    let expectedDocumentCount = EXPECTED_DOCUMENTS_NUMBER;
     if (this.isHosted) {
-      expectedDocumentCount = 5;
+      expectedDocumentCount += 2;
     }
     if (this.isUSPerson) {
       expectedDocumentCount += 1;

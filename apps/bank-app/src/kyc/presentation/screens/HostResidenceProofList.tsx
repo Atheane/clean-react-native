@@ -12,14 +12,14 @@ import {
   IDocumentStatusCode,
   IDocumentType,
 } from '@clean-rn/kyc/domain';
-import { IconTextItem, KycIban, KycInvoice, KycTaxes } from '@clean-rn/ui-mobile';
+import { IconTextItem, KycInvoice, KycTaxes } from '@clean-rn/ui-mobile';
 
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
 import { initializeDocument } from '../../application/commands/document';
 
-import { BillEdf, Iban, Taxes } from '../assets/images';
+import { BillEdf, Taxes } from '../assets/images';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -78,27 +78,6 @@ export const HostResidenceProofList = () => {
                     category: IDocumentCategory.RESIDENCE_PROOF,
                     typeId: IDocumentType.INVOICE,
                     name: 'residence-proof.host-invoice.recto',
-                    status: IDocumentStatus.INIT,
-                    createdAt: new Date(),
-                    statusCode: IDocumentStatusCode.INITIAL,
-                  },
-                })
-              }
-            />
-          </View>
-          <View style={[styles.itemContainer]}>
-            <IconTextItem
-              icon={KycIban}
-              text={t('screens.kyc.residence-proof-list.iban')}
-              onPress={() =>
-                handleOnPress({
-                  instruction: t('screens.kyc.host-iban.instruction'),
-                  imageSource: Iban,
-                  docPickerVisible: true,
-                  documentProperties: {
-                    category: IDocumentCategory.RESIDENCE_PROOF,
-                    typeId: IDocumentType.BANK_ID,
-                    name: 'residence-proof.host-iban.recto',
                     status: IDocumentStatus.INIT,
                     createdAt: new Date(),
                     statusCode: IDocumentStatusCode.INITIAL,

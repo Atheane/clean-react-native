@@ -136,8 +136,7 @@ export enum IKycStackPages {
   SUCCESS = 'SuccessKyc',
   CARD_SENT = 'CardSent',
   UPLOAD_DOCUMENT = 'UploadDocument',
-  FIRST_ID_LIST = 'FirstIdList',
-  SECOND_ID_LIST = 'SecondIdList',
+  ID_LIST = 'IdList',
   RESIDENCE_PROOF_OPTIONS = 'ResidenceProofOptions',
   RESIDENCE_PROOF_LIST = 'ResidenceProofList',
   MENU_KYC_HOST = 'MenuKycHost',
@@ -204,8 +203,7 @@ export type IKycStackProps = {
   [IKycStackPages.SUCCESS]: object;
   [IKycStackPages.CARD_SENT]: object;
   [IKycStackPages.UPLOAD_DOCUMENT]: object;
-  [IKycStackPages.FIRST_ID_LIST]: object;
-  [IKycStackPages.SECOND_ID_LIST]: object;
+  [IKycStackPages.ID_LIST]: object;
   [IKycStackPages.RESIDENCE_PROOF_OPTIONS]: object;
   [IKycStackPages.RESIDENCE_PROOF_LIST]: object;
   [IKycStackPages.MENU_KYC_HOST]: object;
@@ -260,8 +258,7 @@ export type IRoutes =
   | IKycStackPages.SUCCESS
   | IKycStackPages.CARD_SENT
   | IKycStackPages.UPLOAD_DOCUMENT
-  | IKycStackPages.FIRST_ID_LIST
-  | IKycStackPages.SECOND_ID_LIST
+  | IKycStackPages.ID_LIST
   | IKycStackPages.RESIDENCE_PROOF_OPTIONS
   | IKycStackPages.RESIDENCE_PROOF_LIST
   | IKycStackPages.MENU_KYC_HOST

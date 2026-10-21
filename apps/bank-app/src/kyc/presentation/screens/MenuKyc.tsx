@@ -150,31 +150,14 @@ export const MenuKyc = () => {
           >
             <UploadDocumentCard
               icon={KycIdentification}
-              status={submittedKyc?.documents.FIRST_ID?.properties.status}
+              status={submittedKyc?.documents.ID?.properties.status}
               text={`${t('screens.kyc.menu.first')} ${t('screens.kyc.menu.identity')}`}
-              onPress={() => navigateTo(IKycStackPages.FIRST_ID_LIST as never, {})}
-              loading={pending && document?.properties.category === IDocumentCategory.FIRST_ID}
+              onPress={() => navigateTo(IKycStackPages.ID_LIST as never, {})}
+              loading={pending && document?.properties.category === IDocumentCategory.ID}
               onCancel={handleOnCancel}
               errorMessage={
-                submittedKyc?.documents.FIRST_ID?.properties.status === IDocumentStatus.REFUSED
-                  ? t(`errors.domain-error.kyc.${submittedKyc?.documents.FIRST_ID?.properties.statusCode}`)
-                  : ''
-              }
-            />
-          </View>
-          <View
-            style={submittedKyc?.expectedDocumentCount === 3 ? styles.itemContainer3 : styles.itemContainer4}
-          >
-            <UploadDocumentCard
-              icon={KycPassport}
-              status={submittedKyc?.documents.SECOND_ID?.properties.status}
-              text={`${t('screens.kyc.menu.second')} ${t('screens.kyc.menu.identity')}`}
-              onPress={() => navigateTo(IKycStackPages.SECOND_ID_LIST as never, {})}
-              loading={pending && document?.properties.category === IDocumentCategory.SECOND_ID}
-              onCancel={handleOnCancel}
-              errorMessage={
-                submittedKyc?.documents.SECOND_ID?.properties.status === IDocumentStatus.REFUSED
-                  ? t(`errors.domain-error.kyc.${submittedKyc?.documents.SECOND_ID?.properties.statusCode}`)
+                submittedKyc?.documents.ID?.properties.status === IDocumentStatus.REFUSED
+                  ? t(`errors.domain-error.kyc.${submittedKyc?.documents.ID?.properties.statusCode}`)
                   : ''
               }
             />
@@ -213,18 +196,15 @@ export const MenuKyc = () => {
             >
               <UploadDocumentCard
                 icon={KycIdentification}
-                status={submittedKyc?.documents.RESIDENCE_PROOF_FIRST_ID?.properties.status}
+                status={submittedKyc?.documents.RESIDENCE_PROOF_ID?.properties.status}
                 text={t('screens.kyc.menu.host-id')}
                 onPress={() => navigateTo(IKycStackPages.HOST_ID_LIST as never, {})}
-                loading={
-                  pending && document?.properties.category === IDocumentCategory.RESIDENCE_PROOF_FIRST_ID
-                }
+                loading={pending && document?.properties.category === IDocumentCategory.RESIDENCE_PROOF_ID}
                 onCancel={handleOnCancel}
                 errorMessage={
-                  submittedKyc?.documents.RESIDENCE_PROOF_FIRST_ID?.properties.status ===
-                  IDocumentStatus.REFUSED
+                  submittedKyc?.documents.RESIDENCE_PROOF_ID?.properties.status === IDocumentStatus.REFUSED
                     ? t(
-                        `errors.domain-error.kyc.${submittedKyc?.documents.RESIDENCE_PROOF_FIRST_ID?.properties.statusCode}`,
+                        `errors.domain-error.kyc.${submittedKyc?.documents.RESIDENCE_PROOF_ID?.properties.statusCode}`,
                       )
                     : ''
                 }

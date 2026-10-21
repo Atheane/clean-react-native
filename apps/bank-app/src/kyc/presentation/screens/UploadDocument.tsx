@@ -21,8 +21,6 @@ import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/h
 
 import { addPage } from '../../application/commands/document';
 
-import { HealthCard } from '../assets/images';
-
 const HEIGHT = Dimensions.get('window').height;
 
 export const UploadDocument = () => {
@@ -30,29 +28,19 @@ export const UploadDocument = () => {
   const { theme } = useTheme();
 
   const {
-    params: {
-      instruction,
-      imageSource,
-      anotherInstruction,
-      docPickerVisible,
-      secondImageVisible,
-      showExample,
-      nextRouteParams,
-    },
+    params: { instruction, imageSource, anotherInstruction, docPickerVisible, showExample, nextRouteParams },
   } = useRoute() as {
     params: {
       instruction: string;
       imageSource: ImageSourcePropType;
       anotherInstruction?: string;
       docPickerVisible?: boolean;
-      secondImageVisible?: boolean;
       showExample?: boolean;
       nextRouteParams?: {
         instruction: string;
         imageSource: ImageSourcePropType;
         anotherInstruction?: string;
         docPickerVisible?: boolean;
-        secondImageVisible?: boolean;
         showExample?: boolean;
       };
     };
@@ -95,14 +83,6 @@ export const UploadDocument = () => {
             <Text style={[theme.bank.text.darkBlue, styles.instruction]}>{anotherInstruction}</Text>
           </View>
           <Image source={imageSource} />
-          {secondImageVisible && (
-            <>
-              <Text style={[theme.bank.text.darkBlue, styles.takePhoto]}>
-                {t('screens.kyc.health-card.or')}
-              </Text>
-              <Image source={HealthCard} />
-            </>
-          )}
           {domainError && <ErrorMessage error={domainError} />}
 
           {!docPickerVisible && !showExample && (

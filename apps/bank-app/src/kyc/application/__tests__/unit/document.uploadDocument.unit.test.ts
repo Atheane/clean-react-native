@@ -10,7 +10,9 @@ import {
   DocumentError,
   DocumentVO,
   IDocumentCategory,
+  IDocumentProperties,
   IDocumentStatus,
+  IDocumentStatusCode,
   KycDocuments,
 } from '@clean-rn/kyc/domain';
 
@@ -28,12 +30,13 @@ import { IAuthStackPages } from '../../../../shared/presentation/types';
 describe('Document - uploadDocument - usecases', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
 
-  const documentProperties = {
+  const documentProperties: IDocumentProperties = {
     typeId: 9,
-    category: IDocumentCategory.FIRST_ID,
+    category: IDocumentCategory.ID,
     status: IDocumentStatus.PENDING,
     name: 'test-mock',
     createdAt: new Date('2023-10-03T13:20:21.303Z'),
+    statusCode: IDocumentStatusCode.INITIAL,
   };
 
   const api = KycApi.getInstance(httpConnection);

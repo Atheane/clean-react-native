@@ -8,6 +8,7 @@ import {
   IDocumentCategory,
   IDocumentProperties,
   IDocumentStatus,
+  IDocumentStatusCode,
 } from '@clean-rn/kyc/domain';
 
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
@@ -42,10 +43,11 @@ describe('KYC - integration', () => {
   const mockResponse: IDocumentProperties[] = [
     {
       typeId: 9,
-      category: IDocumentCategory.FIRST_ID,
+      category: IDocumentCategory.ID,
       status: IDocumentStatus.PENDING,
       name: 'test-mock',
       createdAt: new Date('2023-10-03T13:20:21.303Z'),
+      statusCode: IDocumentStatusCode.INITIAL,
     },
   ];
 
@@ -130,10 +132,11 @@ describe('KYC - integration', () => {
 
     const document = new DocumentVO({
       typeId: 9,
-      category: IDocumentCategory.FIRST_ID,
+      category: IDocumentCategory.ID,
       status: IDocumentStatus.PENDING,
       name: 'test-mock',
       createdAt: new Date('2023-10-03T13:20:21.303Z'),
+      statusCode: IDocumentStatusCode.INITIAL,
     });
 
     customer.addDocument(document);

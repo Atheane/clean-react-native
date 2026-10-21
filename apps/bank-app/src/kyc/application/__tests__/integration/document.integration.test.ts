@@ -2,7 +2,13 @@
 import SagaTester from 'redux-saga-tester';
 import Constants from 'expo-constants';
 
-import { DocumentVO, IDocumentCategory, IDocumentProperties, IDocumentStatus } from '@clean-rn/kyc/domain';
+import {
+  DocumentVO,
+  IDocumentCategory,
+  IDocumentProperties,
+  IDocumentStatus,
+  IDocumentStatusCode,
+} from '@clean-rn/kyc/domain';
 
 import {
   IDocumentTypes,
@@ -34,10 +40,11 @@ describe('Document - integration', () => {
   const mockResponse: IDocumentProperties[] = [
     {
       typeId: 9,
-      category: IDocumentCategory.FIRST_ID,
+      category: IDocumentCategory.ID,
       status: IDocumentStatus.PENDING,
       name: 'test-mock',
       createdAt: new Date('2023-10-03T13:20:21.303Z'),
+      statusCode: IDocumentStatusCode.INITIAL,
     },
   ];
 

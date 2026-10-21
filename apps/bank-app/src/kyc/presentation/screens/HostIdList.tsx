@@ -73,7 +73,7 @@ export const HostIdList = () => {
                   instruction: t('screens.kyc.host-id.recto.instruction'),
                   imageSource: IDCardRecto,
                   documentProperties: {
-                    category: IDocumentCategory.RESIDENCE_PROOF_FIRST_ID,
+                    category: IDocumentCategory.RESIDENCE_PROOF_ID,
                     typeId: IDocumentType.ID,
                     name: 'host-id.id.recto',
                     status: IDocumentStatus.INIT,
@@ -97,7 +97,7 @@ export const HostIdList = () => {
                   instruction: t('screens.kyc.host-passport.instruction'),
                   imageSource: Passport,
                   documentProperties: {
-                    category: IDocumentCategory.RESIDENCE_PROOF_FIRST_ID,
+                    category: IDocumentCategory.RESIDENCE_PROOF_ID,
                     typeId: IDocumentType.PASSPORT,
                     name: 'host-id.passport.recto',
                     status: IDocumentStatus.INIT,

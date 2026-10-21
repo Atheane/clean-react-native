@@ -13,7 +13,7 @@ describe('Customer - unit', () => {
     customer.checkDocumentsStatus([
       {
         typeId: IDocumentType.ID,
-        category: IDocumentCategory.FIRST_ID,
+        category: IDocumentCategory.ID,
         status: IDocumentStatus.REFUSED,
         name: 'test-mock',
         createdAt: new Date('2023-10-01T13:20:21.303Z'),
@@ -21,7 +21,7 @@ describe('Customer - unit', () => {
       },
       {
         typeId: IDocumentType.ID,
-        category: IDocumentCategory.FIRST_ID,
+        category: IDocumentCategory.ID,
         status: IDocumentStatus.PENDING,
         name: 'test-mock',
         createdAt: new Date('2023-10-03T13:20:21.303Z'),
@@ -46,10 +46,10 @@ describe('Customer - unit', () => {
         name: 'test-mock',
       }),
     );
-    expect(customer.properties.kyc?.documents.FIRST_ID?.properties).toEqual(
+    expect(customer.properties.kyc?.documents.ID?.properties).toEqual(
       expect.objectContaining({
         typeId: IDocumentType.ID,
-        category: IDocumentCategory.FIRST_ID,
+        category: IDocumentCategory.ID,
         status: IDocumentStatus.REFUSED,
         name: 'test-mock',
       }),
@@ -85,7 +85,7 @@ describe('Customer - unit', () => {
     customer.checkDocumentsStatus([
       {
         typeId: IDocumentType.ID,
-        category: IDocumentCategory.FIRST_ID,
+        category: IDocumentCategory.ID,
         status: IDocumentStatus.REFUSED,
         name: 'test-mock',
         createdAt: new Date('2023-10-01T13:20:21.303Z'),
@@ -93,7 +93,7 @@ describe('Customer - unit', () => {
       },
       {
         typeId: IDocumentType.ID,
-        category: IDocumentCategory.FIRST_ID,
+        category: IDocumentCategory.ID,
         status: IDocumentStatus.PENDING,
         name: 'test-mock',
         createdAt: new Date('2023-10-03T13:20:21.303Z'),
@@ -101,7 +101,7 @@ describe('Customer - unit', () => {
       },
       {
         typeId: IDocumentType.PASSPORT,
-        category: IDocumentCategory.SECOND_ID,
+        category: IDocumentCategory.ID,
         status: IDocumentStatus.VALIDATED,
         name: 'test-mock',
         createdAt: new Date('2023-10-01T13:20:21.303Z'),
@@ -110,17 +110,10 @@ describe('Customer - unit', () => {
     ]);
     expect(customer.properties.status).toEqual('PENDING');
     expect(customer.properties.kyc?.isComplete).toEqual(false);
-    expect(customer.properties.kyc?.documents?.FIRST_ID?.properties).toEqual(
+    expect(customer.properties.kyc?.documents?.ID?.properties).toEqual(
       expect.objectContaining({
         typeId: IDocumentType.ID,
         status: IDocumentStatus.REFUSED,
-        name: 'test-mock',
-      }),
-    );
-    expect(customer.properties.kyc?.documents?.SECOND_ID?.properties).toEqual(
-      expect.objectContaining({
-        typeId: IDocumentType.PASSPORT,
-        status: IDocumentStatus.VALIDATED,
         name: 'test-mock',
       }),
     );
@@ -139,7 +132,7 @@ describe('Customer - unit', () => {
       },
       {
         typeId: IDocumentType.RESIDENT_PERMIT,
-        category: IDocumentCategory.FIRST_ID,
+        category: IDocumentCategory.ID,
         status: IDocumentStatus.PENDING,
         name: 'test-mock',
         createdAt: new Date('2023-10-03T13:20:21.303Z'),
@@ -147,26 +140,10 @@ describe('Customer - unit', () => {
       },
       {
         typeId: IDocumentType.RESIDENT_PERMIT,
-        category: IDocumentCategory.FIRST_ID,
+        category: IDocumentCategory.ID,
         status: IDocumentStatus.REFUSED,
         name: 'test-mock',
         createdAt: new Date('2023-10-01T13:20:21.303Z'),
-        statusCode: IDocumentStatusCode.TRUNCATED,
-      },
-      {
-        typeId: IDocumentType.HEALTH_INSURANCE_CARD,
-        category: IDocumentCategory.SECOND_ID,
-        status: IDocumentStatus.REFUSED,
-        name: 'test-mock',
-        createdAt: new Date('2023-10-01T13:20:21.303Z'),
-        statusCode: IDocumentStatusCode.TRUNCATED,
-      },
-      {
-        typeId: IDocumentType.HEALTH_INSURANCE_CARD,
-        category: IDocumentCategory.SECOND_ID,
-        status: IDocumentStatus.REFUSED,
-        name: 'test-mock',
-        createdAt: new Date('2023-10-02T13:20:21.303Z'),
         statusCode: IDocumentStatusCode.TRUNCATED,
       },
       {
@@ -195,16 +172,9 @@ describe('Customer - unit', () => {
         name: 'test-mock',
       }),
     );
-    expect(customer.properties.kyc?.documents?.FIRST_ID?.properties).toEqual(
+    expect(customer.properties.kyc?.documents?.ID?.properties).toEqual(
       expect.objectContaining({
         typeId: IDocumentType.RESIDENT_PERMIT,
-        status: IDocumentStatus.REFUSED,
-        name: 'test-mock',
-      }),
-    );
-    expect(customer.properties.kyc?.documents?.SECOND_ID?.properties).toEqual(
-      expect.objectContaining({
-        typeId: IDocumentType.HEALTH_INSURANCE_CARD,
         status: IDocumentStatus.REFUSED,
         name: 'test-mock',
       }),
@@ -223,7 +193,7 @@ describe('Customer - unit', () => {
     customer.checkDocumentsStatus([
       {
         typeId: IDocumentType.RESIDENT_PERMIT,
-        category: IDocumentCategory.FIRST_ID,
+        category: IDocumentCategory.ID,
         status: IDocumentStatus.REFUSED,
         name: 'test-mock',
         createdAt: new Date('2023-10-01T13:20:21.303Z'),
@@ -231,27 +201,11 @@ describe('Customer - unit', () => {
       },
       {
         typeId: IDocumentType.RESIDENT_PERMIT,
-        category: IDocumentCategory.FIRST_ID,
+        category: IDocumentCategory.ID,
         status: IDocumentStatus.PENDING,
         name: 'test-mock',
         createdAt: new Date('2023-10-03T13:20:21.303Z'),
         statusCode: IDocumentStatusCode.INITIAL,
-      },
-      {
-        typeId: IDocumentType.HEALTH_INSURANCE_CARD,
-        category: IDocumentCategory.SECOND_ID,
-        status: IDocumentStatus.REFUSED,
-        name: 'test-mock',
-        createdAt: new Date('2023-10-01T13:20:21.303Z'),
-        statusCode: IDocumentStatusCode.INCOHERENT,
-      },
-      {
-        typeId: IDocumentType.HEALTH_INSURANCE_CARD,
-        category: IDocumentCategory.SECOND_ID,
-        status: IDocumentStatus.REFUSED,
-        name: 'test-mock',
-        createdAt: new Date('2023-10-02T13:20:21.303Z'),
-        statusCode: IDocumentStatusCode.REFUSED,
       },
       {
         typeId: IDocumentType.PROOF_OF_ADDRESS,
@@ -272,16 +226,9 @@ describe('Customer - unit', () => {
     ]);
     expect(customer.properties.status).toEqual('PENDING');
     expect(customer.properties.kyc?.isComplete).toEqual(true);
-    expect(customer.properties.kyc?.documents?.FIRST_ID?.properties).toEqual(
+    expect(customer.properties.kyc?.documents?.ID?.properties).toEqual(
       expect.objectContaining({
         typeId: IDocumentType.RESIDENT_PERMIT,
-        status: IDocumentStatus.REFUSED,
-        name: 'test-mock',
-      }),
-    );
-    expect(customer.properties.kyc?.documents?.SECOND_ID?.properties).toEqual(
-      expect.objectContaining({
-        typeId: IDocumentType.HEALTH_INSURANCE_CARD,
         status: IDocumentStatus.REFUSED,
         name: 'test-mock',
       }),

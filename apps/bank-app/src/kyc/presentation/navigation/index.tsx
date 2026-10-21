@@ -26,8 +26,7 @@ import { kycRouteInitialized } from '../../application/commands/customer';
 import {
   InitKyc,
   MenuKyc,
-  FirstIdList,
-  SecondIdList,
+  IdList,
   ResidenceProofOptions,
   ResidenceProofList,
   MenuKycHost,
@@ -99,18 +98,10 @@ export const KycStack = () => {
         }}
       />
       <Stack.Screen
-        name={IKycStackPages.FIRST_ID_LIST}
-        component={FirstIdList}
+        name={IKycStackPages.ID_LIST}
+        component={IdList}
         options={{
           headerTitle: t('screens.kyc.first-id.title'),
-          ...headersOptions(goBack),
-        }}
-      />
-      <Stack.Screen
-        name={IKycStackPages.SECOND_ID_LIST}
-        component={SecondIdList}
-        options={{
-          headerTitle: t('screens.kyc.second-id.title'),
           ...headersOptions(goBack),
         }}
       />
