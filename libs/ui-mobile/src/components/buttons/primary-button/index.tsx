@@ -34,8 +34,8 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
         buttonStyle={[
           theme.bank.shadow.button,
           styles.button,
-          (props.iconOne || props.iconTwo) && styles.buttonIcon,
-          props.iconOne && !props.iconTwo && styles.buttonOneIcon,
+          (props.iconOne || props.iconTwo) && !props.loading && styles.buttonIcon,
+          props.iconOne && !props.iconTwo && !props.loading && styles.buttonOneIcon,
           theme.bank.container.centeredItems,
         ]}
         containerStyle={[

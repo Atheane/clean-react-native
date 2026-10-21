@@ -60,12 +60,6 @@ export const IdList = () => {
     [navigation, dispatch],
   );
 
-  const { customer } = useSelector((state: IRootState) => state.kyc.customer);
-
-  const isAlreadySubmitted = (typeId: number) =>
-    customer?.properties?.kyc?.documents.ID?.properties?.typeId === typeId &&
-    customer?.properties?.kyc?.documents.ID?.properties?.status === IDocumentStatus.PENDING;
-
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
@@ -81,7 +75,6 @@ export const IdList = () => {
               <IconTextItem
                 icon={KycId}
                 text={t('screens.kyc.first-id.id')}
-                validated={isAlreadySubmitted(IDocumentType.ID)}
                 onPress={() =>
                   handleOnPress({
                     instruction: t('screens.kyc.id.recto.instruction'),
@@ -106,7 +99,6 @@ export const IdList = () => {
               <IconTextItem
                 icon={KycPassport}
                 text={t('screens.kyc.first-id.passport')}
-                validated={isAlreadySubmitted(IDocumentType.PASSPORT)}
                 onPress={() =>
                   handleOnPress({
                     instruction: t('screens.kyc.passport.instruction'),
@@ -127,7 +119,6 @@ export const IdList = () => {
               <IconTextItem
                 icon={KycResidencePermit}
                 text={t('screens.kyc.first-id.residence-permit')}
-                validated={isAlreadySubmitted(IDocumentType.RESIDENT_PERMIT)}
                 onPress={() =>
                   handleOnPress({
                     instruction: t('screens.kyc.residence-permit.recto.instruction'),

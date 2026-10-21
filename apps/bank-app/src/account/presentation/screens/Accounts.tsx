@@ -60,9 +60,9 @@ export const Accounts = () => {
 
   const handlePressBanner = useCallback(() => {
     let initRoute;
-    if (customer?.properties.status === KYC_REVIEW.VALIDATED) {
+    if (customer?.properties?.status === KYC_REVIEW.VALIDATED) {
       initRoute = IKycStackPages.SUCCESS;
-    } else if (customer?.properties.kyc?.isEmpty) {
+    } else if (customer?.properties?.kyc?.isEmpty) {
       initRoute = IKycStackPages.INIT;
     } else {
       initRoute = IKycStackPages.KYC;
@@ -70,7 +70,7 @@ export const Accounts = () => {
     navigation.navigate(IKycStackPages.MENU as never, {
       initRoute,
     });
-  }, [navigation, customer?.properties.status, customer?.properties.kyc?.isEmpty]);
+  }, [navigation, customer?.properties?.status, customer?.properties?.kyc?.isEmpty]);
 
   const handleOnDeleteCard = useCallback(
     (uid: string) => {
@@ -87,7 +87,7 @@ export const Accounts = () => {
         <Banner
           title={t('screens.home.banner.validation-identity')}
           colorBanner={
-            customer.properties.status === KYC_REVIEW.REFUSED ? BannerColors.PINK : BannerColors.PURPLE
+            customer?.properties?.status === KYC_REVIEW.REFUSED ? BannerColors.PINK : BannerColors.PURPLE
           }
           rightIcon
           onPressRightIcon={handlePressBanner}
