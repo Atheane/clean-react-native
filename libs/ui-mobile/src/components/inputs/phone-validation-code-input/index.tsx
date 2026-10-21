@@ -9,6 +9,7 @@ type Props = {
   value: string;
   onChange: (code: string) => void;
   onFocus: () => void;
+  onFullfill: () => void;
 };
 
 export const PhoneValidationCodeInput = (props: Props) => {
@@ -49,6 +50,14 @@ export const PhoneValidationCodeInput = (props: Props) => {
     );
   };
 
+  const onChangeText = (text: string) => {
+    setCode(text);
+    props.onChange(text);
+    if (text.length === CODE_LENGTH) {
+      props.onFullfill(); // Déclencher la soumission automatique
+    }
+  };
+
   return (
     <SafeAreaView>
       <Pressable
@@ -60,10 +69,7 @@ export const PhoneValidationCodeInput = (props: Props) => {
       <TextInput
         ref={ref}
         value={props.value}
-        onChangeText={(text: string) => {
-          setCode(text);
-          props.onChange(text);
-        }}
+        onChangeText={onChangeText}
         onSubmitEditing={handleOnBlur}
         keyboardType={'phone-pad'}
         returnKeyType="done"

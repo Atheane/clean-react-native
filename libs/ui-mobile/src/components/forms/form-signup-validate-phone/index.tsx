@@ -8,7 +8,6 @@ import { IAuthErrorCodes, IAuthErrorMessage, PhoneOtp } from '@clean-rn/auth/dom
 
 import { firstLetterCapitalize } from '../../../utils';
 
-import { SubmitButton } from '../../buttons/submit-button';
 import { PhoneValidationCodeInput } from '../../inputs/phone-validation-code-input';
 import { ErrorMessage } from '../../texts/error-message';
 
@@ -37,7 +36,14 @@ export const FormSignupValidatePhone = (props: IProps) => {
           name="code"
           rules={{ required: true, pattern: PhoneOtp.pattern, minLength: 6 }}
           render={({ field: { onChange, value } }) => {
-            return <PhoneValidationCodeInput value={value} onChange={onChange} onFocus={props.onFocus} />;
+            return (
+              <PhoneValidationCodeInput
+                value={value}
+                onChange={onChange}
+                onFocus={props.onFocus}
+                onFullfill={props.onSubmit}
+              />
+            );
           }}
         />
       </View>
@@ -62,14 +68,6 @@ export const FormSignupValidatePhone = (props: IProps) => {
       <View style={styles.domainErrorContainer}>
         <ErrorMessage error={props.error} />
       </View>
-      <View style={[styles.formSubmit, theme.bank.container.centeredItem]}>
-        <SubmitButton
-          title={t('button.submit')}
-          uppercase={false}
-          onSubmit={props.onSubmit}
-          loading={props.loading}
-        />
-      </View>
     </View>
   );
 };
@@ -84,8 +82,5 @@ const styles = StyleSheet.create({
   },
   domainErrorContainer: {
     marginTop: 16,
-  },
-  formSubmit: {
-    marginTop: 120,
   },
 });
