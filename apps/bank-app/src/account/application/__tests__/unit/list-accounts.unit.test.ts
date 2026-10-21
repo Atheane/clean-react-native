@@ -6,14 +6,10 @@ import Constants from 'expo-constants';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { IAccountType, Iban, Bic } from '@clean-rn/account/domain';
 import { AccountApi } from '@clean-rn/account/infrastructure';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-
-import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
-import { refreshSuccess } from '../../../../auth/application/commands/login';
 
 import { selectAccounts } from '../../state-management/selectors';
 import { listAccountsGenerator, listAccountsSaga } from '../../usecases/account';
@@ -23,7 +19,6 @@ describe('ListAccounts - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
 
   const api = AccountApi.getInstance(httpConnection);
-  const authApi = AuthApi.getInstance(httpConnection);
 
   const genObject = listAccountsSaga(httpConnection);
 
@@ -74,12 +69,6 @@ describe('ListAccounts - usecase', () => {
       .next()
       .select(selectAccounts)
       .next({ accounts: null })
-      .select(selectAuthFromLogin)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
-      .next()
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
       .put(accountsListed(mockResponse))
@@ -104,12 +93,6 @@ describe('ListAccounts - usecase', () => {
       .next()
       .select(selectAccounts)
       .next({ accounts: null })
-      .select(selectAuthFromLogin)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
-      .next()
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
       .call(navigate, { route: IAuthStackPages.LOGIN })
@@ -122,12 +105,6 @@ describe('ListAccounts - usecase', () => {
       .next()
       .select(selectAccounts)
       .next({ accounts: null })
-      .select(selectAuthFromLogin)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
-      .next()
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
       .put(initializeAccountsList())
@@ -141,12 +118,6 @@ describe('ListAccounts - usecase', () => {
       .next()
       .select(selectAccounts)
       .next({ accounts: null })
-      .select(selectAuthFromLogin)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
-      .next()
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unknown error'))
       .put(initializeAccountsList())

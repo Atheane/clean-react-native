@@ -171,8 +171,9 @@ exports[`SecondaryButton -  iconOne -  true - renders as before 1`] = `
               [
                 {
                   "fontFamily": "Roboto_700Bold",
-                  "fontSize": 18,
-                  "lineHeight": 24,
+                  "fontSize": 16,
+                  "lineHeight": 20,
+                  "paddingLeft": 12,
                   "textTransform": "none",
                 },
                 {
@@ -351,8 +352,9 @@ exports[`SecondaryButton -  large -  true - renders as before 1`] = `
               [
                 {
                   "fontFamily": "Roboto_700Bold",
-                  "fontSize": 18,
-                  "lineHeight": 24,
+                  "fontSize": 16,
+                  "lineHeight": 20,
+                  "paddingLeft": 12,
                   "textTransform": "none",
                 },
                 {
@@ -529,8 +531,9 @@ exports[`SecondaryButton -  minimal props -  renders as before 1`] = `
               [
                 {
                   "fontFamily": "Roboto_700Bold",
-                  "fontSize": 18,
-                  "lineHeight": 24,
+                  "fontSize": 16,
+                  "lineHeight": 20,
+                  "paddingLeft": 12,
                   "textTransform": "none",
                 },
                 {
@@ -707,8 +710,9 @@ exports[`SecondaryButton -  uppercase -  true - renders as before 1`] = `
               [
                 {
                   "fontFamily": "Roboto_700Bold",
-                  "fontSize": 18,
-                  "lineHeight": 24,
+                  "fontSize": 16,
+                  "lineHeight": 20,
+                  "paddingLeft": 12,
                   "textTransform": "none",
                 },
                 {

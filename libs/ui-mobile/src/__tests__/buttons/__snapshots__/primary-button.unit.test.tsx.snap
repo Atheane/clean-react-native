@@ -148,8 +148,9 @@ exports[`PrimaryButton -  disabled -  true - renders as before 1`] = `
               [
                 {
                   "fontFamily": "Roboto_700Bold",
-                  "fontSize": 18,
-                  "lineHeight": 24,
+                  "fontSize": 16,
+                  "lineHeight": 20,
+                  "paddingLeft": 12,
                   "textTransform": "none",
                 },
                 {
@@ -339,8 +340,9 @@ exports[`PrimaryButton -  iconOne -  true - renders as before 1`] = `
               [
                 {
                   "fontFamily": "Roboto_700Bold",
-                  "fontSize": 18,
-                  "lineHeight": 24,
+                  "fontSize": 16,
+                  "lineHeight": 20,
+                  "paddingLeft": 12,
                   "textTransform": "none",
                 },
                 {
@@ -517,8 +519,9 @@ exports[`PrimaryButton -  iconTwo -  true - renders as before 1`] = `
               [
                 {
                   "fontFamily": "Roboto_700Bold",
-                  "fontSize": 18,
-                  "lineHeight": 24,
+                  "fontSize": 16,
+                  "lineHeight": 20,
+                  "paddingLeft": 12,
                   "textTransform": "none",
                 },
                 {
@@ -706,8 +709,9 @@ exports[`PrimaryButton -  large -  true - renders as before 1`] = `
               [
                 {
                   "fontFamily": "Roboto_700Bold",
-                  "fontSize": 18,
-                  "lineHeight": 24,
+                  "fontSize": 16,
+                  "lineHeight": 20,
+                  "paddingLeft": 12,
                   "textTransform": "none",
                 },
                 {
@@ -1043,8 +1047,9 @@ exports[`PrimaryButton -  minimal props -  renders as before 1`] = `
               [
                 {
                   "fontFamily": "Roboto_700Bold",
-                  "fontSize": 18,
-                  "lineHeight": 24,
+                  "fontSize": 16,
+                  "lineHeight": 20,
+                  "paddingLeft": 12,
                   "textTransform": "none",
                 },
                 {
@@ -1221,8 +1226,9 @@ exports[`PrimaryButton -  uppercase -  true - renders as before 1`] = `
               [
                 {
                   "fontFamily": "Roboto_700Bold",
-                  "fontSize": 18,
-                  "lineHeight": 24,
+                  "fontSize": 16,
+                  "lineHeight": 20,
+                  "paddingLeft": 12,
                   "textTransform": "none",
                 },
                 {

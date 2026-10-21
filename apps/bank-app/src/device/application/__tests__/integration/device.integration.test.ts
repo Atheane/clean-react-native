@@ -51,6 +51,7 @@ describe('Device - integration', () => {
     const initialState = {
       pending: false,
       device: null,
+      error: null,
     };
     sagaTester = new SagaTester({
       initialState,
@@ -67,6 +68,7 @@ describe('Device - integration', () => {
     expect(newState).toEqual({
       pending: true,
       device: null,
+      error: null,
     });
   });
 
@@ -78,6 +80,7 @@ describe('Device - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       device: null,
+      error: null,
     });
   });
 
@@ -99,6 +102,7 @@ describe('Device - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       device,
+      error: null,
     });
   });
 });

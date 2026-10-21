@@ -6,17 +6,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { Email, User } from '@clean-rn/auth/domain';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
 import { DeviceApi } from '@clean-rn/device/infrastructure';
 import { Device } from '@clean-rn/device/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IStoreKey } from '../../../../shared/application/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 
-import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
-import { refreshSuccess } from '../../../../auth/application/commands/login';
 import { selectUserFromLogin } from '../../../../kyc/application/state-management/selectors';
 
 import { registerDeviceGenerator, registerDeviceSaga } from '../../usecases/register-device';
@@ -24,7 +20,6 @@ import { IDeviceTypes, initializeDevice, deviceRegistered } from '../../commands
 
 describe('Device - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
-  const authApi = AuthApi.getInstance(httpConnection);
   const deviceApi = DeviceApi.getInstance(httpConnection);
 
   const genObject = registerDeviceSaga(httpConnection);
@@ -38,11 +33,6 @@ describe('Device - usecase', () => {
     os: 'android',
     osVersion: '1',
     userId: 100000352,
-  };
-
-  const mockAuth = {
-    accessToken: 'fake-access-token',
-    refreshToken: 'fake-refresh-token',
   };
 
   const mockError401 = {
@@ -96,48 +86,10 @@ describe('Device - usecase', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
-      .call(AsyncStorage.getItem, IStoreKey.DEVICE_ID)
-      .next(null)
-      .select(selectAuthFromLogin)
-      .next(mockAuth)
-      .call([authApi, authApi.refresh], mockAuth.refreshToken)
-      .next(mockAuth)
-      .put(refreshSuccess({ auth: mockAuth }))
-      .next()
       .call([deviceApi, deviceApi.createDevice], mockData)
       .next(device)
-      .call(AsyncStorage.setItem, IStoreKey.DEVICE_ID, mockData.deviceId)
-      .next(mockData.deviceId)
       .put(deviceRegistered(device))
       .next(device);
-  });
-
-  it('should not call deviceRegistered if already registered', () => {
-    const user = User.Create({
-      id: mockData.userId,
-      properties: {
-        email: new Email('test@test.com'),
-      },
-    });
-    const device = Device.Create({ deviceId: mockData.deviceId, userId: mockData.userId.toString() });
-    device.registerDeviceProperties({
-      brand: mockData.brand,
-      model: mockData.model,
-      os: mockData.os,
-      osVersion: mockData.osVersion,
-    });
-    device.addAppVersion(mockData.appVersion);
-    device.connectToNotifications(mockData.firebaseId);
-
-    testSaga(registerDeviceGenerator, httpConnection, {
-      type: IDeviceTypes.FETCH_REGISTER_DEVICE,
-      payload: mockData,
-    })
-      .next()
-      .select(selectUserFromLogin)
-      .next(user)
-      .call(AsyncStorage.getItem, IStoreKey.DEVICE_ID)
-      .next(mockData.deviceId);
   });
 
   it('Should call showUnknownError action if 401', () => {
@@ -155,14 +107,6 @@ describe('Device - usecase', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
-      .call(AsyncStorage.getItem, IStoreKey.DEVICE_ID)
-      .next(null)
-      .select(selectAuthFromLogin)
-      .next(mockAuth)
-      .call([authApi, authApi.refresh], mockAuth.refreshToken)
-      .next(mockAuth)
-      .put(refreshSuccess({ auth: mockAuth }))
-      .next()
       .call([deviceApi, deviceApi.createDevice], mockData)
       .throw(new ServerError(mockError401))
       .put(initializeDevice())
@@ -186,14 +130,6 @@ describe('Device - usecase', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
-      .call(AsyncStorage.getItem, IStoreKey.DEVICE_ID)
-      .next(null)
-      .select(selectAuthFromLogin)
-      .next(mockAuth)
-      .call([authApi, authApi.refresh], mockAuth.refreshToken)
-      .next(mockAuth)
-      .put(refreshSuccess({ auth: mockAuth }))
-      .next()
       .call([deviceApi, deviceApi.createDevice], mockData)
       .throw(new ServerError(mockError500))
       .put(initializeDevice())

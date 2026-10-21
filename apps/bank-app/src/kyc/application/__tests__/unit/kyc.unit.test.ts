@@ -113,12 +113,6 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
     customer.checkDocumentsStatus(mockResponse);
     testSaga(checkCustomerStatusGenerator, httpConnection)
       .next()
-      .select(selectAuthFromLogin)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
-      .next()
       .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
@@ -143,12 +137,6 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
     });
 
     testSaga(checkCustomerStatusGenerator, httpConnection)
-      .next()
-      .select(selectAuthFromLogin)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)
@@ -176,12 +164,6 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
 
     testSaga(checkCustomerStatusGenerator, httpConnection)
       .next()
-      .select(selectAuthFromLogin)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
-      .next()
       .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
@@ -199,12 +181,6 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
 
     testSaga(checkCustomerStatusGenerator, httpConnection)
       .next()
-      .select(selectAuthFromLogin)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
-      .next()
       .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
@@ -218,12 +194,6 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
     const user = User.Create({ id: 123, properties: {} });
 
     testSaga(checkCustomerStatusGenerator, httpConnection)
-      .next()
-      .select(selectAuthFromLogin)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)
@@ -239,12 +209,6 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
     const user = User.Create({ id: 123, properties: {} });
 
     testSaga(checkCustomerStatusGenerator, httpConnection)
-      .next()
-      .select(selectAuthFromLogin)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)
