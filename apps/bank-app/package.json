@@ -30,6 +30,7 @@
     "google-libphonenumber": "*",
     "country-flag-emoji": "*",
     "i18next": "*",
+    "expo-contacts": "*",
     "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
     "@babel/core": "*",

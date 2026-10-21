@@ -1,10 +1,8 @@
 import { Iban, Bic } from '../value-objects';
-import { IBeneficiaryType } from '../types';
 
 export interface IBeneficiary {
-  accountId: number;
-  accountType: IBeneficiaryType;
-  authorizedBalance: number;
+  beneficiaryId: number;
+  name: string;
   iban: Iban;
   bic: Bic;
 }

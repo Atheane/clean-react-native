@@ -1,11 +1,10 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Tab, TabView } from '@rneui/themed';
 import {
   View,
   StyleSheet,
   StyleProp,
   ViewStyle,
-  Image,
   Text,
   Dimensions,
   ScrollView,
@@ -14,6 +13,7 @@ import {
 import { useSelector } from 'react-redux';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import * as Contacts from 'expo-contacts';
 
 import { IBeneficiary } from '@clean-rn/beneficiary/domain';
 import {
@@ -34,16 +34,6 @@ import {
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IBeneficiaryStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-
-/* 
-<View style={styles.addBeneficiary}>
-        <LinkButton
-          pressed={false}
-          onPress={handleOnPressAdd}
-          iconOne={ExportPdf}
-          colorOption={LinkButtonColors.GREEN}
-        />
-      </View> */
 
 const ContentNoBeneficiary = () => {
   const { t } = useTranslation();
@@ -68,6 +58,30 @@ const ContentNoBeneficiary = () => {
         />
       </View>
     </>
+  );
+};
+
+const ContactList = () => {
+  useEffect(() => {
+    (async () => {
+      const { status } = await Contacts.requestPermissionsAsync();
+      if (status === 'granted') {
+        const { data } = await Contacts.getContactsAsync({
+          fields: [Contacts.Fields.Emails],
+        });
+
+        if (data.length > 0) {
+          const contact = data[0];
+          console.log(contact);
+        }
+      }
+    })();
+  }, []);
+
+  return (
+    <View style={styles.container}>
+      <Text>Contacts Module Example</Text>
+    </View>
   );
 };
 
@@ -116,7 +130,7 @@ const TabMenu = () => {
             <ContentNoBeneficiary />
           </TabView.Item>
           <TabView.Item style={{ backgroundColor: 'blue', width: '100%' }}>
-            <Text>Favorite</Text>
+            <ContactList />
           </TabView.Item>
         </TabView>
       </View>
