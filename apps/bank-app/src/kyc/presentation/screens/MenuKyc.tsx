@@ -84,10 +84,9 @@ export const MenuKyc = () => {
 
   useEffect(() => {
     if (customer?.properties.kyc) {
-      // console.log('customer?.properties.kyc', customer?.properties.kyc.isComplete);
       setSubmittedKyc(customer.properties.kyc);
     }
-  }, [customer?.properties.kyc]);
+  }, [customer?.properties.kyc, customer?.properties.kyc?.isHosted]);
 
   const handleOnCancel = useCallback(() => {
     dispatch(cancelUpload());

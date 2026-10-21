@@ -54,6 +54,7 @@ export class KycDocuments {
     [IDocumentCategory.RESIDENCE_PROOF_FIRST_ID]: undefined,
     [IDocumentCategory.RESIDENCE_PROOF_SWORN_STATEMENT]: undefined,
   };
+  isUSPerson: boolean;
   isHosted: boolean;
   expectedDocumentCount: number;
 
@@ -62,16 +63,16 @@ export class KycDocuments {
     Object.keys(documentsByCategory).forEach((category) => {
       this.processCategoryDocuments(category as IDocumentCategory, documentsByCategory);
     });
-    this.isHosted = this.setIsHosted();
-    this.expectedDocumentCount = this.isHosted ? 5 : 3;
-    if (USPerson) {
-      this.expectedDocumentCount += 1;
-    }
+    this.isUSPerson = !!USPerson;
+    this.isHosted = false;
+    this.expectedDocumentCount = this.setExpectedDocumentCount();
   }
 
   addDocument(document: DocumentVO): void {
     this.validateDocumentType(document.properties.category, document.properties.typeId);
     this.documents[document.properties.category] = document;
+    this.isHosted = this.setIsHosted();
+    this.expectedDocumentCount = this.setExpectedDocumentCount();
   }
 
   get isComplete(): boolean {
@@ -88,6 +89,17 @@ export class KycDocuments {
       return true;
     }
     return false;
+  }
+
+  private setExpectedDocumentCount(): number {
+    let expectedDocumentCount = 3;
+    if (this.isHosted) {
+      expectedDocumentCount = 5;
+    }
+    if (this.isUSPerson) {
+      expectedDocumentCount += 1;
+    }
+    return expectedDocumentCount;
   }
 
   private processCategoryDocuments(
