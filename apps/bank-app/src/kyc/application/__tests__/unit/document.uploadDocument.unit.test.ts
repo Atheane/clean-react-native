@@ -3,6 +3,7 @@ import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 import { createMockTask } from '@redux-saga/testing-utils';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { User } from '@clean-rn/auth/domain';
 import {
@@ -18,19 +19,16 @@ import {
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { KycApi } from '@clean-rn/kyc/infrastructure';
+import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { fetchRefresh } from '../../../../auth/application/commands/login';
+import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+import { IStoreKey } from '../../../../shared/application/types';
+import { IAuthStackPages } from '../../../../shared/presentation/types';
 
 import { uploadDocumentSaga, uploadDocumentSagaGenerator } from '../../usecases/document';
 import { customerDocumentsUpdated } from '../../commands/customer';
-import {
-  IDocumentTypes,
-  documentUploaded,
-  resetDocument,
-  setAbortController,
-  uploadDocument,
-} from '../../commands/document';
+import { IDocumentTypes, documentUploaded, resetDocument, setAbortController } from '../../commands/document';
 import { selectCustomer, selectUserFromLogin } from '../../state-management/selectors';
 
 describe('Document - uploadDocument - usecases', () => {
@@ -46,6 +44,8 @@ describe('Document - uploadDocument - usecases', () => {
   };
 
   const api = KycApi.getInstance(httpConnection);
+  const authApi = AuthApi.getInstance(httpConnection);
+
   const genObject = uploadDocumentSaga(httpConnection);
 
   const mockError401 = {
@@ -112,6 +112,10 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
+      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
+      .next('fake-refresh-token')
+      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .next()
       .put(setAbortController({ controller: mockAbortController }))
       .next()
       .spawn([api, api.createDocument], {
@@ -166,6 +170,10 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
+      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
+      .next('fake-refresh-token')
+      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .next()
       .put(setAbortController({ controller: mockAbortController }))
       .next()
       .spawn([api, api.createDocument], {
@@ -176,13 +184,7 @@ describe('Document - uploadDocument - usecases', () => {
       .throw(new ServerError(mockError401))
       .put(resetDocument())
       .next()
-      .put(fetchRefresh())
-      .next()
-      .put(
-        uploadDocument({
-          document,
-        }),
-      )
+      .call(navigate, { route: IAuthStackPages.LOGIN })
       .next()
       .cancel();
   });
@@ -202,6 +204,10 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
+      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
+      .next('fake-refresh-token')
+      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .next()
       .put(setAbortController({ controller: mockAbortController }))
       .next()
       .spawn([api, api.createDocument], {
@@ -232,6 +238,10 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
+      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
+      .next('fake-refresh-token')
+      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .next()
       .put(setAbortController({ controller: mockAbortController }))
       .next()
       .spawn([api, api.createDocument], {
@@ -261,6 +271,10 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
+      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
+      .next('fake-refresh-token')
+      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .next()
       .put(setAbortController({ controller: mockAbortController }))
       .next()
       .spawn([api, api.createDocument], {

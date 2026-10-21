@@ -2,6 +2,7 @@
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   IAccountType,
@@ -16,12 +17,12 @@ import { ITransactionServer } from '@clean-rn/account/infrastructure';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { TransactionApi } from '@clean-rn/account/infrastructure';
+import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IHomeStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-
-import { fetchRefresh } from '../../../../auth/application/commands/login';
+import { IStoreKey } from '../../../../shared/application/types';
 
 import { selectTransactions } from '../../state-management/selectors';
 import { listTransactionsGenerator, listTransactionsSaga } from '../../usecases/transactions';
@@ -29,13 +30,14 @@ import {
   ITransactionsTypes,
   transactionsListed,
   initializeTransactionsList,
-  listTransactions,
 } from '../../commands/transactions';
 
 describe('ListTransactions - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
 
   const api = TransactionApi.getInstance(httpConnection);
+  const authApi = AuthApi.getInstance(httpConnection);
+
   const genObject = listTransactionsSaga(httpConnection);
 
   const mockResponse: ITransaction[] = [
@@ -108,6 +110,10 @@ describe('ListTransactions - usecase', () => {
       .next()
       .select(selectTransactions)
       .next({ transactions: null })
+      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
+      .next('fake-refresh-token')
+      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .next()
       .call([api, api.getTransactions], account.accountId) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
       .put(transactionsListed(mockResponse))
@@ -138,11 +144,13 @@ describe('ListTransactions - usecase', () => {
       .next()
       .select(selectTransactions)
       .next({ transactions: null })
+      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
+      .next('fake-refresh-token')
+      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .next()
       .call([api, api.getTransactions], account.accountId) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
-      .put(fetchRefresh())
-      .next()
-      .put(listTransactions({ account }))
+      .call(navigate, { route: IAuthStackPages.LOGIN })
       .next()
       .cancel();
   });
@@ -155,6 +163,10 @@ describe('ListTransactions - usecase', () => {
       .next()
       .select(selectTransactions)
       .next({ transactions: null })
+      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
+      .next('fake-refresh-token')
+      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .next()
       .call([api, api.getTransactions], account.accountId)
       .throw(new ServerError(mockError500))
       .put(initializeTransactionsList())
