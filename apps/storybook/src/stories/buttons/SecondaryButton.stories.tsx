@@ -24,9 +24,13 @@ export default SecondaryButtonMeta;
 
 type SecondaryButtonStory = ComponentStory<typeof SecondaryButton>;
 
-export const Static: SecondaryButtonStory = (args) => {
+export const Short: SecondaryButtonStory = (args) => {
   const { t } = useTranslation();
   return <SecondaryButton {...args} title={t('screens.login.title')} />;
+};
+export const Long: SecondaryButtonStory = (args) => {
+  const { t } = useTranslation();
+  return <SecondaryButton {...args} title={t('screens.login.title')} long />;
 };
 export const Icon: SecondaryButtonStory = (args) => {
   const { t } = useTranslation();

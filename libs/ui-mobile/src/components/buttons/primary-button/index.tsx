@@ -32,7 +32,9 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
         ViewComponent={LinearGradient}
         buttonStyle={[
           theme.bank.shadow.button,
-          props.iconOne || props.iconTwo ? styles.buttonIcon : styles.button,
+          styles.button,
+          (props.iconOne || props.iconTwo) && styles.buttonIcon,
+          props.iconOne && !props.iconTwo && styles.buttonOneIcon,
           theme.bank.container.centeredItems,
         ]}
         containerStyle={[
@@ -50,7 +52,11 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
         raised
       >
         <View style={theme.bank.container.centeredItems}>
-          <View style={styles.iconOneContainer}>{props.iconOne && <props.iconOne />}</View>
+          {props.iconOne && (
+            <View style={styles.iconOneContainer}>
+              <props.iconOne />
+            </View>
+          )}
 
           <Text
             style={[
@@ -73,13 +79,15 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
+  buttonOneIcon: {
+    paddingRight: 50,
+  },
   buttonIcon: {
     paddingTop: 11,
-    paddingRight: 24,
     paddingBottom: 11,
-    paddingLeft: 26,
   },
   button: {
+    height: 55,
     paddingTop: 15,
     paddingRight: 24,
     paddingBottom: 16,

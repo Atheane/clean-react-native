@@ -134,9 +134,9 @@ export class AuthApi implements IAuthGateway, IUserRepository {
     if (cmd.identity.gender === IGender.MAN) {
       title = 'M';
     } else if (cmd.identity.gender === IGender.WOMAN) {
-      title = 'Mme';
+      title = 'MME';
     } else {
-      title = 'Mlle'; // KycProvider do not have title for neutral gender. As a reminder, we use Mlle as incorrectly encoded value for neutral gender
+      title = 'MLLE'; // KycProvider do not have title for neutral gender. As a reminder, we use Mlle as incorrectly encoded value for neutral gender
     }
     const params = {
       email: cmd.email.value,

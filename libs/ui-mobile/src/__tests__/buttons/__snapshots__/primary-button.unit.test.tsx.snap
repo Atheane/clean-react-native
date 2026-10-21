@@ -116,6 +116,7 @@ exports[`PrimaryButton -  disabled -  true - renders as before 1`] = `
             "borderWidth": 0,
             "elevation": 50,
             "flexDirection": "row",
+            "height": 55,
             "justifyContent": "space-around",
             "padding": 8,
             "paddingBottom": 16,
@@ -142,17 +143,6 @@ exports[`PrimaryButton -  disabled -  true - renders as before 1`] = `
             }
           }
         >
-          <View
-            style={
-              {
-                "alignItems": "center",
-                "height": 32,
-                "justifyContent": "center",
-                "marginRight": 15,
-                "paddingHorizontal": 6,
-              }
-            }
-          />
           <Text
             style={
               [
@@ -304,12 +294,13 @@ exports[`PrimaryButton -  iconOne -  true - renders as before 1`] = `
             "borderWidth": 0,
             "elevation": 50,
             "flexDirection": "row",
+            "height": 55,
             "justifyContent": "space-around",
             "padding": 8,
             "paddingBottom": 11,
             "paddingHorizontal": 10,
             "paddingLeft": 26,
-            "paddingRight": 24,
+            "paddingRight": 50,
             "paddingTop": 11,
             "shadowColor": "#707070",
             "shadowOffset": {
@@ -494,6 +485,7 @@ exports[`PrimaryButton -  iconTwo -  true - renders as before 1`] = `
             "borderWidth": 0,
             "elevation": 50,
             "flexDirection": "row",
+            "height": 55,
             "justifyContent": "space-around",
             "padding": 8,
             "paddingBottom": 11,
@@ -520,17 +512,6 @@ exports[`PrimaryButton -  iconTwo -  true - renders as before 1`] = `
             }
           }
         >
-          <View
-            style={
-              {
-                "alignItems": "center",
-                "height": 32,
-                "justifyContent": "center",
-                "marginRight": 15,
-                "paddingHorizontal": 6,
-              }
-            }
-          />
           <Text
             style={
               [
@@ -693,6 +674,7 @@ exports[`PrimaryButton -  large -  true - renders as before 1`] = `
             "borderWidth": 0,
             "elevation": 50,
             "flexDirection": "row",
+            "height": 55,
             "justifyContent": "space-around",
             "padding": 8,
             "paddingBottom": 16,
@@ -719,17 +701,6 @@ exports[`PrimaryButton -  large -  true - renders as before 1`] = `
             }
           }
         >
-          <View
-            style={
-              {
-                "alignItems": "center",
-                "height": 32,
-                "justifyContent": "center",
-                "marginRight": 15,
-                "paddingHorizontal": 6,
-              }
-            }
-          />
           <Text
             style={
               [
@@ -881,6 +852,7 @@ exports[`PrimaryButton -  loading -  true - renders as before 1`] = `
             "borderWidth": 0,
             "elevation": 50,
             "flexDirection": "row",
+            "height": 55,
             "justifyContent": "space-around",
             "padding": 8,
             "paddingBottom": 16,
@@ -1039,6 +1011,7 @@ exports[`PrimaryButton -  minimal props -  renders as before 1`] = `
             "borderWidth": 0,
             "elevation": 50,
             "flexDirection": "row",
+            "height": 55,
             "justifyContent": "space-around",
             "padding": 8,
             "paddingBottom": 16,
@@ -1065,17 +1038,6 @@ exports[`PrimaryButton -  minimal props -  renders as before 1`] = `
             }
           }
         >
-          <View
-            style={
-              {
-                "alignItems": "center",
-                "height": 32,
-                "justifyContent": "center",
-                "marginRight": 15,
-                "paddingHorizontal": 6,
-              }
-            }
-          />
           <Text
             style={
               [
@@ -1227,6 +1189,7 @@ exports[`PrimaryButton -  uppercase -  true - renders as before 1`] = `
             "borderWidth": 0,
             "elevation": 50,
             "flexDirection": "row",
+            "height": 55,
             "justifyContent": "space-around",
             "padding": 8,
             "paddingBottom": 16,
@@ -1253,17 +1216,6 @@ exports[`PrimaryButton -  uppercase -  true - renders as before 1`] = `
             }
           }
         >
-          <View
-            style={
-              {
-                "alignItems": "center",
-                "height": 32,
-                "justifyContent": "center",
-                "marginRight": 15,
-                "paddingHorizontal": 6,
-              }
-            }
-          />
           <Text
             style={
               [

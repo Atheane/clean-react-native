@@ -4,7 +4,7 @@ export default {
   expo: {
     name: 'CleanRN Storybook Dev',
     slug: 'clean-rn-storybook-dev',
-    version: '1.4.3',
+    version: '1.5.0',
     orientation: 'portrait',
     icon: './assets/images/icon.png',
     splash: {
@@ -42,14 +42,12 @@ export default {
       [
         'react-native-document-scanner-plugin',
         {
-          cameraPermission: 'We need camera access, so you can scan documents',
+          cameraPermission: 'Cette application nécessite un accès à la caméra, pour les scans de documents.',
         },
       ],
       ['react-native-compressor'],
     ],
     extra: {
-      BASE_URL: process.env.BASE_URL,
-      BASE_URL_API: process.env.BASE_URL_API,
       NODE_ENV: process.env.NODE_ENV,
       SENTRY_DSN: process.env.SENTRY_DSN,
       eas: {

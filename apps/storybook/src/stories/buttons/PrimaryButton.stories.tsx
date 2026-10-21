@@ -24,9 +24,13 @@ export default PrimaryButtonMeta;
 
 type PrimaryButtonStory = ComponentStory<typeof PrimaryButton>;
 
-export const Static: PrimaryButtonStory = (args) => {
+export const NoIcon: PrimaryButtonStory = (args) => {
   const { t } = useTranslation();
   return <PrimaryButton {...args} title={t('screens.login.title')} />;
+};
+export const Loading: PrimaryButtonStory = (args) => {
+  const { t } = useTranslation();
+  return <PrimaryButton {...args} title={t('screens.login.title')} loading long />;
 };
 export const OneIcon: PrimaryButtonStory = (args) => {
   const { t } = useTranslation();

@@ -12,16 +12,10 @@ const UploadDocumentCardMeta: ComponentMeta<typeof UploadDocumentCard> = {
     onPress: { action: 'onPress' },
     onEdit: { action: 'onEdit' },
     onCancel: { action: 'onCancel' },
-    status: {
-      options: ['VALIDATED', 'PENDING', 'REFUSED'],
-      control: { type: 'radio' },
-    },
   },
   args: {
     icon: KycW9,
     text: 'Lorem ipsum delatus',
-    status: IDocumentStatus.PENDING,
-    loading: false,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
@@ -30,9 +24,18 @@ export default UploadDocumentCardMeta;
 
 type UploadDocumentCardStory = ComponentStory<typeof UploadDocumentCard>;
 
-export const Basic: UploadDocumentCardStory = (args) => <UploadDocumentCard {...args} onEdit={undefined} />;
+export const Pending: UploadDocumentCardStory = (args) => {
+  return <UploadDocumentCard {...args} status={IDocumentStatus.PENDING} onEdit={undefined} loading={false} />;
+};
+
+export const Validated: UploadDocumentCardStory = (args) => {
+  return (
+    <UploadDocumentCard {...args} status={IDocumentStatus.VALIDATED} loading={false} onEdit={undefined} />
+  );
+};
+
 export const Refused: UploadDocumentCardStory = (args) => (
-  <UploadDocumentCard {...args} status={IDocumentStatus.REFUSED} />
+  <UploadDocumentCard {...args} status={IDocumentStatus.REFUSED} loading={false} />
 );
 export const Loading: UploadDocumentCardStory = (args) => (
   <UploadDocumentCard {...args} status={undefined} loading onEdit={undefined} />

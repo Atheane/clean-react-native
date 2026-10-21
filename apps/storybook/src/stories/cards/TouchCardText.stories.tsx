@@ -17,7 +17,7 @@ export default TouchCardTextMeta;
 
 type TouchCardTextStory = ComponentStory<typeof TouchCardText>;
 
-export const Dynamic: TouchCardTextStory = (args) => {
+export const Static: TouchCardTextStory = (args) => {
   const { t } = useTranslation();
   return <TouchCardText {...args} text={t('screens.carbon.reward')} />;
 };

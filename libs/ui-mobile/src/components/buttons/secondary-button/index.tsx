@@ -27,7 +27,7 @@ export const SecondaryButton: FC<IProps> = (props: IProps) => {
       ]}
     >
       <Button
-        buttonStyle={styles.button}
+        buttonStyle={[styles.button, props.iconOne && styles.buttonIcon, theme.bank.container.centeredItems]}
         containerStyle={props.long ? theme.bank.container.button.long : theme.bank.container.button.short}
         loading={props?.loading ?? false}
         onPress={props.onPress}
@@ -58,7 +58,11 @@ export const SecondaryButton: FC<IProps> = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
+  buttonIcon: {
+    paddingRight: 50,
+  },
   button: {
+    height: 55,
     paddingTop: 12,
     paddingRight: 24,
     paddingBottom: 11,
