@@ -267,7 +267,7 @@
         "noaccounts": "Aucun compte"
       },
       "banner": {
-        "validation-identity": "Validation identité"
+        "validation-identity": "Validez votre identité"
       }
     },
     "account": {
@@ -416,7 +416,7 @@
       "title": "Vérification de votre identité",
       "send-document": "Envoyer un document",
       "init": {
-        "instruction": "Pour aller plus loin, \nmerci de valider votre Bank App, pour cela nous devons vérifier votre identité. Veuillez prévoir :\n\n- Une pièce d’identité\n- Un justificatif de domicile\n- Un virement sur le Bank App depuis un de vos comptes",
+        "instruction": "Veuillez prévoir :\n\n- Une pièce d’identité\n- Un justificatif de domicile\n- Un virement sur le Bank App depuis un de vos comptes",
         "check-identity": "Vérifier mon identité"
       },
       "success": {
@@ -427,7 +427,7 @@
         "instruction-after-card": ". Nous vous l’enverrons par courrier dès qu’elle sera prête.\n\nUn peu de patience, vous pouvez en attendant créditer votre compte."
       },
       "menu": {
-        "title": "Documents à transmettre",
+        "title": "Documents à transmettre :",
         "instruction-before": {
           "begin": "Une fois les",
           "end": "documents transférés, la vérification se lancera automatiquement."

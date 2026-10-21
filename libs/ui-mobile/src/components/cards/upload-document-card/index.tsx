@@ -51,7 +51,10 @@ export const UploadDocumentCard = (props: IProps) => {
           <View style={styles.iconContainer}>
             <props.icon />
           </View>
-          <Text style={[theme.bank.text.darkBlue, styles.text]}>{renderLabel(props.text)}</Text>
+          <Text style={[!props.status ? theme.bank.text.darkBlue : theme.bank.text.grey, styles.text]}>
+            {renderLabel(props.text)}
+          </Text>
+
           {props.loading && (
             <View style={styles.cancelIcon}>
               <LinkButton
@@ -69,9 +72,6 @@ export const UploadDocumentCard = (props: IProps) => {
               <View style={styles.rightIcon}>
                 <GreenValidation />
               </View>
-            )}
-            {props.status === 'PENDING' && !props.loading && (
-              <Icon name="clockcircleo" type="ant-design" color="grey" style={styles.rightIcon} />
             )}
             {props.status === 'REFUSED' && !props.loading && (
               <Icon name="closecircleo" type="ant-design" color="red" style={styles.rightIcon} />

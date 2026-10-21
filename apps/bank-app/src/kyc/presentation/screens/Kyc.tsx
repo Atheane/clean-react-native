@@ -101,11 +101,8 @@ export const Kyc = () => {
   }, [dispatch]);
 
   const Instructions = () => (
-    <View style={[styles.messageContainer, { marginTop: 80 }]}>
+    <View style={[styles.messageContainer, { marginTop: 120 }]}>
       <Text style={[styles.title, theme.bank.text.darkBlue]}>{t('screens.kyc.menu.title')}</Text>
-      <Text style={[styles.instruction, theme.bank.text.grey]}>{`${t(
-        'screens.kyc.menu.instruction-before.begin',
-      )} ${submittedKyc?.expectedDocumentCount} ${t('screens.kyc.menu.instruction-before.end')}`}</Text>
     </View>
   );
 
@@ -148,11 +145,7 @@ export const Kyc = () => {
           {customer?.properties.status === KYC_REVIEW.PENDING && <KycPending />}
           {customer?.properties.status === KYC_REVIEW.REFUSED && <KycRefused />}
           {user?.properties.USPerson && (
-            <View
-              style={
-                submittedKyc?.expectedDocumentCount === 2 ? styles.itemContainer2 : styles.itemContainer4
-              }
-            >
+            <View style={styles.itemContainer}>
               <UploadDocumentCard
                 icon={KycW9}
                 status={submittedKyc?.documents.W9?.properties.status}
@@ -182,9 +175,7 @@ export const Kyc = () => {
               />
             </View>
           )}
-          <View
-            style={submittedKyc?.expectedDocumentCount === 2 ? styles.itemContainer2 : styles.itemContainer4}
-          >
+          <View style={styles.itemContainer}>
             <UploadDocumentCard
               icon={KycIdentification}
               status={submittedKyc?.documents.ID?.properties.status}
@@ -199,59 +190,8 @@ export const Kyc = () => {
               }
             />
           </View>
-          <View
-            style={submittedKyc?.expectedDocumentCount === 2 ? styles.itemContainer2 : styles.itemContainer4}
-          >
-            <UploadDocumentCard
-              icon={KycInvoice}
-              status={submittedKyc?.documents.RESIDENCE_PROOF?.properties.status}
-              text={t('screens.kyc.menu.address')}
-              onPress={() =>
-                navigateTo(
-                  submittedKyc?.isHosted
-                    ? (IKycStackPages.HOST_RESIDENCE_PROOF_LIST as never)
-                    : (IKycStackPages.RESIDENCE_PROOF_OPTIONS as never),
-                  {},
-                )
-              }
-              loading={pending && document?.properties.category === IDocumentCategory.RESIDENCE_PROOF}
-              onCancel={handleOnCancel}
-              errorMessage={
-                submittedKyc?.documents.RESIDENCE_PROOF?.properties.status === IDocumentStatus.REFUSED
-                  ? t(
-                      `errors.domain-error.kyc.${submittedKyc?.documents.RESIDENCE_PROOF?.properties.statusCode}`,
-                    )
-                  : ''
-              }
-            />
-          </View>
           {submittedKyc?.isHosted && (
-            <View
-              style={
-                submittedKyc?.expectedDocumentCount === 2 ? styles.itemContainer2 : styles.itemContainer4
-              }
-            >
-              <UploadDocumentCard
-                icon={KycIdentification}
-                status={submittedKyc?.documents.RESIDENCE_PROOF_ID?.properties.status}
-                text={t('screens.kyc.menu.host-id')}
-                onPress={() => navigateTo(IKycStackPages.HOST_ID_LIST as never, {})}
-                loading={pending && document?.properties.category === IDocumentCategory.RESIDENCE_PROOF_ID}
-                onCancel={handleOnCancel}
-                errorMessage={
-                  submittedKyc?.documents.RESIDENCE_PROOF_ID?.properties.status === IDocumentStatus.REFUSED
-                    ? t(
-                        `errors.domain-error.kyc.${submittedKyc?.documents.RESIDENCE_PROOF_ID?.properties.statusCode}`,
-                      )
-                    : ''
-                }
-              />
-            </View>
-          )}
-          {submittedKyc?.isHosted && (
-            <View
-              style={submittedKyc?.expectedDocumentCount < 5 ? styles.itemContainer2 : styles.itemContainer4}
-            >
+            <View style={styles.itemContainer}>
               <UploadDocumentCard
                 icon={KycSwornStatement}
                 status={submittedKyc?.documents.RESIDENCE_PROOF_SWORN_STATEMENT?.properties.status}
@@ -288,6 +228,51 @@ export const Kyc = () => {
               />
             </View>
           )}
+          {submittedKyc?.isHosted && (
+            <View style={styles.itemContainer}>
+              <UploadDocumentCard
+                icon={KycIdentification}
+                status={submittedKyc?.documents.RESIDENCE_PROOF_ID?.properties.status}
+                text={t('screens.kyc.menu.host-id')}
+                onPress={() => navigateTo(IKycStackPages.HOST_ID_LIST as never, {})}
+                loading={pending && document?.properties.category === IDocumentCategory.RESIDENCE_PROOF_ID}
+                onCancel={handleOnCancel}
+                errorMessage={
+                  submittedKyc?.documents.RESIDENCE_PROOF_ID?.properties.status === IDocumentStatus.REFUSED
+                    ? t(
+                        `errors.domain-error.kyc.${submittedKyc?.documents.RESIDENCE_PROOF_ID?.properties.statusCode}`,
+                      )
+                    : ''
+                }
+              />
+            </View>
+          )}
+          <View style={styles.itemContainer}>
+            <UploadDocumentCard
+              icon={KycInvoice}
+              status={submittedKyc?.documents.RESIDENCE_PROOF?.properties.status}
+              text={
+                submittedKyc?.isHosted ? t('screens.kyc.menu.host-residence') : t('screens.kyc.menu.address')
+              }
+              onPress={() =>
+                navigateTo(
+                  submittedKyc?.isHosted
+                    ? (IKycStackPages.HOST_RESIDENCE_PROOF_LIST as never)
+                    : (IKycStackPages.RESIDENCE_PROOF_OPTIONS as never),
+                  {},
+                )
+              }
+              loading={pending && document?.properties.category === IDocumentCategory.RESIDENCE_PROOF}
+              onCancel={handleOnCancel}
+              errorMessage={
+                submittedKyc?.documents.RESIDENCE_PROOF?.properties.status === IDocumentStatus.REFUSED
+                  ? t(
+                      `errors.domain-error.kyc.${submittedKyc?.documents.RESIDENCE_PROOF?.properties.statusCode}`,
+                    )
+                  : ''
+              }
+            />
+          </View>
         </View>
       </SafeScrollingView>
     </ErrorBoundary>
@@ -303,12 +288,6 @@ const styles = StyleSheet.create({
   title: {
     margin: 24,
   },
-  itemContainer2: {
-    marginVertical: 16,
-  },
-  itemContainer4: {
-    marginVertical: 0,
-  },
   instruction: {
     textAlign: 'justify',
     width: '80%',
@@ -321,5 +300,8 @@ const styles = StyleSheet.create({
   },
   errorMessage: {
     textAlign: 'left',
+  },
+  itemContainer: {
+    // height: '100%',
   },
 });

@@ -60,21 +60,17 @@ export const Accounts = () => {
 
   const handlePressBanner = useCallback(() => {
     let initRoute;
-    switch (customer?.properties.status) {
-      case KYC_REVIEW.VALIDATED:
-        initRoute = IKycStackPages.SUCCESS;
-        break;
-      case KYC_REVIEW.NONE:
-        initRoute = IKycStackPages.INIT;
-        break;
-      default:
-        initRoute = IKycStackPages.KYC;
-        break;
+    if (customer?.properties.status === KYC_REVIEW.VALIDATED) {
+      initRoute = IKycStackPages.SUCCESS;
+    } else if (customer?.properties.kyc?.isEmpty) {
+      initRoute = IKycStackPages.INIT;
+    } else {
+      initRoute = IKycStackPages.KYC;
     }
     navigation.navigate(IKycStackPages.MENU as never, {
       initRoute,
     });
-  }, [navigation, customer?.properties.status]);
+  }, [navigation, customer?.properties.status, customer?.properties.kyc?.isEmpty]);
 
   const handleOnDeleteCard = useCallback(
     (uid: string) => {

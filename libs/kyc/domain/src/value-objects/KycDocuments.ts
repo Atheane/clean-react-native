@@ -55,6 +55,7 @@ export class KycDocuments {
   };
   isUSPerson: boolean;
   isHosted: boolean;
+  isEmpty: boolean;
   expectedDocumentCount: number;
 
   constructor(docsProps: IDocumentProperties[], USPerson?: boolean) {
@@ -63,6 +64,7 @@ export class KycDocuments {
       this.processCategoryDocuments(category as IDocumentCategory, documentsByCategory);
     });
     this.isUSPerson = !!USPerson;
+    this.isEmpty = this.setIsEmpty();
     this.isHosted = this.setIsHosted();
     this.expectedDocumentCount = this.setExpectedDocumentCount();
   }
@@ -71,12 +73,17 @@ export class KycDocuments {
     this.validateDocumentType(document.properties.category, document.properties.typeId);
     this.documents[document.properties.category] = document;
     this.isHosted = this.setIsHosted();
+    this.isEmpty = this.setIsEmpty();
     this.expectedDocumentCount = this.setExpectedDocumentCount();
   }
 
   get isComplete(): boolean {
     const requiredDocs = Object.values(this.documents).filter((doc) => doc !== undefined);
     return requiredDocs.length === this.expectedDocumentCount;
+  }
+
+  private setIsEmpty(): boolean {
+    return Object.values(this.documents).every((doc) => doc === undefined);
   }
 
   private setIsHosted(): boolean {
