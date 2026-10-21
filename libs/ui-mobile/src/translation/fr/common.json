@@ -384,6 +384,13 @@
         "instruction": "Pour aller plus loin, \nmerci de valider votre Bank App, pour cela nous devons vérifier votre identité. Veuillez prévoir :\n\n- Pièce d’identité\n- Justificatif de domicile",
         "check-identity": "Vérifier mon identité"
       },
+      "success": {
+        "title": "Identité validée",
+        "congrats": "Félicitations votre identité est validée !\n\n",
+        "instruction-before-card": "Nous avons lancé la ",
+        "instruction-card": "fabrication de votre Carte CO2",
+        "instruction-after-card": ". Nous vous l’enverrons par courrier dès qu’elle sera prête.\n\nUn peu de patience, vous pouvez en attendant créditer votre compte."
+      },
       "menu": {
         "title": "Documents à transmettre",
         "instruction-before": {

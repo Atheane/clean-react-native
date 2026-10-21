@@ -60,7 +60,6 @@ export const MenuKyc = () => {
       },
     ) => {
       if (documentProperties) {
-        console.log('documentProperties', documentProperties);
         dispatch(initializeDocument({ documentProperties }));
       }
       navigation.navigate(
@@ -75,7 +74,7 @@ export const MenuKyc = () => {
           : {},
       );
     },
-    [navigation],
+    [navigation, dispatch],
   );
 
   const { customer } = useSelector((state: IRootState) => state.kyc.customer);

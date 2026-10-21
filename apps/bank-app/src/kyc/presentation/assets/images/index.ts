@@ -13,6 +13,7 @@ import ResidencePermitVerso from './residence-permit-verso.png';
 import SwornStatement from './sworn-statement.png';
 import Taxes from './taxes.png';
 import W9 from './w9.png';
+import SuccessKyc from './success-kyc.png';
 
 export {
   InitKyc,
@@ -30,4 +31,5 @@ export {
   SwornStatement,
   Taxes,
   W9,
+  SuccessKyc,
 };

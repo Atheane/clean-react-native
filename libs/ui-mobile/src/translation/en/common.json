@@ -388,6 +388,13 @@
         "instruction": "To go further, please validate your CO2 Account. For this, we need to verify your identity. Please provide:\n\n- Identification document\n- Proof of residence",
         "check-identity": "Verify my identity"
       },
+      "success": {
+        "title": "Identity Verified",
+        "congrats": "Congratulations, your identity has been verified\n\n",
+        "instruction-before-card": "We have started the ",
+        "instruction-card": "production of your CO2 Card",
+        "instruction-after-card": ". We will send it to you by mail as soon as it is ready.\n\nPlease be patient, in the meantime you can credit your account."
+      },
       "menu": {
         "title": "Documents to be submitted",
         "instruction-before": {
