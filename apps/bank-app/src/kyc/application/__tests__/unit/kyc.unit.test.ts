@@ -3,7 +3,6 @@ import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 import dayjs from 'dayjs';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { UserApi } from '@clean-rn/auth/infrastructure';
 import {
@@ -22,7 +21,9 @@ import { AuthApi } from '@clean-rn/auth/infrastructure';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { IStoreKey } from '../../../../shared/application/types';
+
+import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
+import { refreshSuccess } from '../../../../auth/application/commands/login';
 
 import { checkCustomerStatusGenerator, checkCustomerStatusSaga } from '../../usecases/customer';
 import { ICustomerTypes, customerStatusChecked, initializeKyc } from '../../commands/customer';
@@ -91,6 +92,11 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
     path: '/app/document/kyc',
   };
 
+  const mockToken = {
+    accessToken: 'fake-access-token',
+    refreshToken: 'fake-refresh-token',
+  };
+
   it('Should wait for CHECK_CUSTOMER_STATUS action and call checkCustomerStatusGenerator, should be done on next iteration', () => {
     expect(genObject.next().value).toEqual(
       takeEvery(ICustomerTypes.CHECK_CUSTOMER_STATUS, checkCustomerStatusGenerator, httpConnection),
@@ -107,9 +113,11 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
     customer.checkDocumentsStatus(mockResponse);
     testSaga(checkCustomerStatusGenerator, httpConnection)
       .next()
-      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
-      .next('fake-refresh-token')
-      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .select(selectAuthFromLogin)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)
@@ -136,9 +144,11 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
 
     testSaga(checkCustomerStatusGenerator, httpConnection)
       .next()
-      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
-      .next('fake-refresh-token')
-      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .select(selectAuthFromLogin)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)
@@ -166,9 +176,11 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
 
     testSaga(checkCustomerStatusGenerator, httpConnection)
       .next()
-      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
-      .next('fake-refresh-token')
-      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .select(selectAuthFromLogin)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)
@@ -187,9 +199,11 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
 
     testSaga(checkCustomerStatusGenerator, httpConnection)
       .next()
-      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
-      .next('fake-refresh-token')
-      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .select(selectAuthFromLogin)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)
@@ -205,9 +219,11 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
 
     testSaga(checkCustomerStatusGenerator, httpConnection)
       .next()
-      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
-      .next('fake-refresh-token')
-      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .select(selectAuthFromLogin)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)
@@ -224,9 +240,11 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
 
     testSaga(checkCustomerStatusGenerator, httpConnection)
       .next()
-      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
-      .next('fake-refresh-token')
-      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .select(selectAuthFromLogin)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)

@@ -60,7 +60,8 @@
     "expo-file-system": "*",
     "react-native-share": "*",
     "react-native-blob-util": "*",
-    "react-native-pdf": "*"
+    "react-native-pdf": "*",
+    "lottie-react-native": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/storybook && cp package-lock.json apps/storybook",

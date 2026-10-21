@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, put, StrictEffect, takeEvery, cancel, select, spawn, join } from 'redux-saga/effects';
 import { ImageSourcePropType } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Logger } from '@clean-rn/logger';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
@@ -10,10 +9,12 @@ import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { KycApi } from '@clean-rn/kyc/infrastructure';
 
-import { IStoreKey } from '../../../../shared/application/types';
 import { IAuthStackPages, IKycStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
+
+import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
+import { refreshSuccess } from '../../../../auth/application/commands/login';
 
 import { customerDocumentsUpdated } from '../../commands/customer';
 import {
@@ -122,11 +123,11 @@ export function* uploadDocumentSagaGenerator(
     const user = yield select(selectUserFromLogin);
 
     const authApi = AuthApi.getInstance(httpConnection);
-    const refreshToken = yield call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN);
-    yield call([authApi, authApi.refresh], refreshToken);
+    const authFromStore = yield select(selectAuthFromLogin);
+    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
+    yield put(refreshSuccess({ auth }));
 
     const api = KycApi.getInstance(httpConnection);
-
     const abortController = new AbortController(); // Créer une nouvelle instance ici
     yield put(setAbortController({ controller: abortController }));
 

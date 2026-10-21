@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { call, put, StrictEffect, takeEvery, cancel, select } from 'redux-saga/effects';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { Customer, IDocumentProperties } from '@clean-rn/kyc/domain';
@@ -9,12 +8,13 @@ import { AuthApi, UserApi } from '@clean-rn/auth/infrastructure';
 import { KYC_REVIEW } from '@clean-rn/auth/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-
-import { customerStatusChecked, initializeKyc, ICustomerTypes } from '../../commands/customer';
-
+import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { IStoreKey } from '../../../../shared/application/types';
+
+import { refreshSuccess } from '../../../../auth/application/commands/login';
+
+import { customerStatusChecked, initializeKyc, ICustomerTypes } from '../../commands/customer';
 
 export function* checkCustomerStatusSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(ICustomerTypes.CHECK_CUSTOMER_STATUS, checkCustomerStatusGenerator, httpConnection);
@@ -25,9 +25,9 @@ export function* checkCustomerStatusGenerator(
 ): Generator<StrictEffect, any, any> {
   try {
     const authApi = AuthApi.getInstance(httpConnection);
-    const refreshToken = yield call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN);
-    yield call([authApi, authApi.refresh], refreshToken);
-
+    const authFromStore = yield select(selectAuthFromLogin);
+    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
+    yield put(refreshSuccess({ auth }));
     const userApi = UserApi.getInstance(httpConnection);
 
     const user = yield call([userApi, userApi.getUser]);

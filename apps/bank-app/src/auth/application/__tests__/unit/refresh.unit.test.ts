@@ -3,18 +3,16 @@ import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { refreshSaga, refreshGenerator } from '../../usecases/refresh';
 
-import { ILoginTypes, refreshSuccess, resetError } from '../../commands/login';
-import { IStoreKey } from '../../../../shared/application/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
+import { ILoginTypes, refreshSuccess, resetError } from '../../commands/login';
 
 describe('Refresh - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -59,16 +57,10 @@ describe('Refresh - usecase', () => {
       type: ILoginTypes.FETCH_REFRESH,
     })
       .next()
-      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
-      .next('fake-refresh-token')
-      .call([authApi, authApi.refresh], 'fake-refresh-token') // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .select(selectAuthFromLogin)
       .next(mockResponse)
-      .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .next('fake-access-token')
-      .call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, mockResponse.accessToken)
-      .next()
-      .call(AsyncStorage.setItem, IStoreKey.JWT_REFRESH_TOKEN, mockResponse.refreshToken)
-      .next()
+      .call([authApi, authApi.refresh], mockResponse.refreshToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .next(mockResponse)
       .put(refreshSuccess({ auth: mockResponse }))
       .next();
   });
@@ -81,16 +73,10 @@ describe('Refresh - usecase', () => {
       },
     })
       .next()
-      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
-      .next('fake-refresh-token')
-      .call([authApi, authApi.refresh], 'fake-refresh-token') // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .select(selectAuthFromLogin)
       .next(mockResponse)
-      .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .next('fake-access-token')
-      .call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, mockResponse.accessToken)
-      .next()
-      .call(AsyncStorage.setItem, IStoreKey.JWT_REFRESH_TOKEN, mockResponse.refreshToken)
-      .next()
+      .call([authApi, authApi.refresh], mockResponse.refreshToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .next(mockResponse)
       .put(refreshSuccess({ auth: mockResponse }))
       .next()
       .call(navigate, { route: IHomeStackPages.HOME, params: undefined })
@@ -102,9 +88,9 @@ describe('Refresh - usecase', () => {
       type: ILoginTypes.FETCH_REFRESH,
     })
       .next()
-      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
-      .next('fake-refresh-token')
-      .call([authApi, authApi.refresh], 'fake-refresh-token') // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .select(selectAuthFromLogin)
+      .next(mockResponse)
+      .call([authApi, authApi.refresh], mockResponse.refreshToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
       .put(resetError())
       .next()
@@ -118,9 +104,9 @@ describe('Refresh - usecase', () => {
       type: ILoginTypes.FETCH_REFRESH,
     })
       .next()
-      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
-      .next('fake-refresh-token')
-      .call([authApi, authApi.refresh], 'fake-refresh-token') // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .select(selectAuthFromLogin)
+      .next(mockResponse)
+      .call([authApi, authApi.refresh], mockResponse.refreshToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
       .put(resetError())
       .next()
@@ -133,9 +119,9 @@ describe('Refresh - usecase', () => {
       type: ILoginTypes.FETCH_REFRESH,
     })
       .next()
-      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
-      .next('fake-refresh-token')
-      .call([authApi, authApi.refresh], 'fake-refresh-token') // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .select(selectAuthFromLogin)
+      .next(mockResponse)
+      .call([authApi, authApi.refresh], mockResponse.refreshToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unknown error'))
       .put(resetError())
       .next()

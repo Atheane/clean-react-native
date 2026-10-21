@@ -2,7 +2,6 @@
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { IAccountType, Iban, Bic } from '@clean-rn/account/domain';
@@ -12,7 +11,9 @@ import { AuthApi } from '@clean-rn/auth/infrastructure';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { IStoreKey } from '../../../../shared/application/types';
+
+import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
+import { refreshSuccess } from '../../../../auth/application/commands/login';
 
 import { selectAccounts } from '../../state-management/selectors';
 import { listAccountsGenerator, listAccountsSaga } from '../../usecases/account';
@@ -35,6 +36,11 @@ describe('ListAccounts - usecase', () => {
       bic: new Bic('TRZOFR21XXX'),
     },
   ];
+
+  const mockToken = {
+    accessToken: 'fake-access-token',
+    refreshToken: 'fake-refresh-token',
+  };
 
   const mockError401 = {
     statusCode: 401,
@@ -68,9 +74,11 @@ describe('ListAccounts - usecase', () => {
       .next()
       .select(selectAccounts)
       .next({ accounts: null })
-      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
-      .next('fake-refresh-token')
-      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .select(selectAuthFromLogin)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
@@ -96,9 +104,11 @@ describe('ListAccounts - usecase', () => {
       .next()
       .select(selectAccounts)
       .next({ accounts: null })
-      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
-      .next('fake-refresh-token')
-      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .select(selectAuthFromLogin)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
@@ -112,9 +122,11 @@ describe('ListAccounts - usecase', () => {
       .next()
       .select(selectAccounts)
       .next({ accounts: null })
-      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
-      .next('fake-refresh-token')
-      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .select(selectAuthFromLogin)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
@@ -129,9 +141,11 @@ describe('ListAccounts - usecase', () => {
       .next()
       .select(selectAccounts)
       .next({ accounts: null })
-      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
-      .next('fake-refresh-token')
-      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .select(selectAuthFromLogin)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unknown error'))

@@ -137,10 +137,6 @@ describe('Login - usecase', () => {
       .next(mockResponse)
       .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next()
-      .call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, mockResponse.accessToken)
-      .next()
-      .call(AsyncStorage.setItem, IStoreKey.JWT_REFRESH_TOKEN, mockResponse.refreshToken)
-      .next()
       .call([userApi, userApi.getUser])
       .next(user)
       .put(loginSuccess({ auth: mockResponse, user }))
@@ -165,10 +161,6 @@ describe('Login - usecase', () => {
       .next(mockResponse)
       .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next()
-      .call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, mockResponse.accessToken)
-      .next()
-      .call(AsyncStorage.setItem, IStoreKey.JWT_REFRESH_TOKEN, mockResponse.refreshToken)
-      .next()
       .call([userApi, userApi.getUser])
       .next(user)
       .put(loginSuccess({ auth: mockResponse, user }))
@@ -192,10 +184,6 @@ describe('Login - usecase', () => {
       .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
       .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .next()
-      .call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, mockResponse.accessToken)
-      .next()
-      .call(AsyncStorage.setItem, IStoreKey.JWT_REFRESH_TOKEN, mockResponse.refreshToken)
       .next()
       .call([userApi, userApi.getUser])
       .next(user)

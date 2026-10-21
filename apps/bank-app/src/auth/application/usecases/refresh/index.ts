@@ -1,18 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any  */
 /* eslint-disable no-fallthrough */
-import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { call, put, StrictEffect, takeEvery, cancel, select } from 'redux-saga/effects';
+
+import { Logger } from '@clean-rn/logger';
 
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 
-import { IStoreKey } from '../../../../shared/application/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { IAuthStackPages, IRoutes } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
+import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
+
 import { ILoginTypes, refreshSuccess, resetError } from '../../commands/login';
-import { Logger } from '@clean-rn/logger';
 
 export function* refreshSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(ILoginTypes.FETCH_REFRESH, refreshGenerator, httpConnection);
@@ -30,12 +31,9 @@ export function* refreshGenerator(
   try {
     Logger.getInstance().info(ILoginTypes.FETCH_REFRESH);
     const authApi = AuthApi.getInstance(httpConnection);
-    const refreshToken = yield call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN);
-    const auth = yield call([authApi, authApi.refresh], refreshToken);
-    yield call(httpConnection.attachBearerToken, auth.accessToken);
+    const authFromStore = yield select(selectAuthFromLogin);
+    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
 
-    yield call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, auth.accessToken);
-    yield call(AsyncStorage.setItem, IStoreKey.JWT_REFRESH_TOKEN, auth.refreshToken);
     yield put(refreshSuccess({ auth }));
 
     if (payload) {

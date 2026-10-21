@@ -3,7 +3,6 @@ import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 import { createMockTask } from '@redux-saga/testing-utils';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { User } from '@clean-rn/auth/domain';
 import {
@@ -23,8 +22,10 @@ import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { IStoreKey } from '../../../../shared/application/types';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
+
+import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
+import { refreshSuccess } from '../../../../auth/application/commands/login';
 
 import { uploadDocumentSaga, uploadDocumentSagaGenerator } from '../../usecases/document';
 import { customerDocumentsUpdated } from '../../commands/customer';
@@ -47,6 +48,11 @@ describe('Document - uploadDocument - usecases', () => {
   const authApi = AuthApi.getInstance(httpConnection);
 
   const genObject = uploadDocumentSaga(httpConnection);
+
+  const mockToken = {
+    accessToken: 'fake-access-token',
+    refreshToken: 'fake-refresh-token',
+  };
 
   const mockError401 = {
     statusCode: 401,
@@ -112,9 +118,11 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
-      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
-      .next('fake-refresh-token')
-      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .select(selectAuthFromLogin)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .put(setAbortController({ controller: mockAbortController }))
       .next()
@@ -170,9 +178,11 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
-      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
-      .next('fake-refresh-token')
-      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .select(selectAuthFromLogin)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .put(setAbortController({ controller: mockAbortController }))
       .next()
@@ -204,9 +214,11 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
-      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
-      .next('fake-refresh-token')
-      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .select(selectAuthFromLogin)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .put(setAbortController({ controller: mockAbortController }))
       .next()
@@ -238,9 +250,11 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
-      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
-      .next('fake-refresh-token')
-      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .select(selectAuthFromLogin)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .put(setAbortController({ controller: mockAbortController }))
       .next()
@@ -271,9 +285,11 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
-      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
-      .next('fake-refresh-token')
-      .call([authApi, authApi.refresh], 'fake-refresh-token')
+      .select(selectAuthFromLogin)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .put(setAbortController({ controller: mockAbortController }))
       .next()

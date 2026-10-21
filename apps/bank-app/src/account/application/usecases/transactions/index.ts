@@ -1,19 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, put, StrictEffect, takeEvery, select, cancel } from 'redux-saga/effects';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import { IAccount, ITransaction } from '@clean-rn/account/domain';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { TransactionApi } from '@clean-rn/account/infrastructure';
+
+import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
+import { refreshSuccess } from '../../../../auth/application/commands/login';
 
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { selectTransactions } from '../../state-management/selectors';
 
 import { AuthApi } from '@clean-rn/auth/infrastructure';
-import { IStoreKey } from '../../../../shared/application/types';
+
 import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
 
 import {
@@ -46,8 +47,9 @@ export function* listTransactionsGenerator(
       yield call(navigate, { route: IHomeStackPages.TRANSACTIONS, params: { account: payload.account } });
     } else {
       const authApi = AuthApi.getInstance(httpConnection);
-      const refreshToken = yield call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN);
-      yield call([authApi, authApi.refresh], refreshToken);
+      const authFromStore = yield select(selectAuthFromLogin);
+      const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
+      yield put(refreshSuccess({ auth }));
 
       const api = TransactionApi.getInstance(httpConnection);
 

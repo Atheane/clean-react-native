@@ -43,7 +43,7 @@ export class AuthApi implements IAuthGateway {
     await this.connection.handleError(response);
     const auth = await response.json();
     this.connection.attachBearerToken(auth.accessToken);
-    return;
+    return auth;
   }
 
   async login(cmd: ILoginCommand): Promise<IAuth> {

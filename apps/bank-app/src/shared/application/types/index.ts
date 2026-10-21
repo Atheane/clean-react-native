@@ -1,7 +1,5 @@
 export enum IStoreKey {
   USER_EMAIL = '@450useremail',
-  JWT_ACCESS_TOKEN = '@450accesstoken',
-  JWT_REFRESH_TOKEN = '@450refreshtoken',
   HOUSE_EMISSION = '@450houseemission',
   AVERAGE_HOUSE_EMISSION = '@450averagehouseemission',
   TRANSPORT_EMISSION = '@450transportemission',

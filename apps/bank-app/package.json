@@ -66,7 +66,8 @@
     "react-native-share": "*",
     "react-native-blob-util": "*",
     "react-native-pdf": "*",
-    "@redux-saga/testing-utils": "*"
+    "@redux-saga/testing-utils": "*",
+    "lottie-react-native": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp package-lock.json apps/bank-app",
