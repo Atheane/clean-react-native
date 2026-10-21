@@ -1,37 +1,19 @@
-import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import { useNavigationState } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 
-import {
-  ICarbonStackPages,
-  ICarbonStackProps,
-  ISharedStackPages,
-  ISharedStackProps,
-} from '../../../shared/presentation/types';
-import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
-import { ScreenModalError, ScreenModalWebview } from '../../../shared/presentation/screens';
+import { ICarbonStackPages, ICarbonStackProps } from '../../../shared/presentation/types';
 
 import { Carbon, House, Transport, Food, WarningFood, Fly } from '../screens';
-import { Platform } from 'react-native';
 
-const Stack = createNativeStackNavigator<ICarbonStackProps & ISharedStackProps>();
+const Stack = createNativeStackNavigator<ICarbonStackProps>();
 
 export const CarbonStack = () => {
   const { t } = useTranslation();
   const navigationStack = useNavigationState((state) => state?.routes ?? []);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const isModalErrorInStack = navigationStack.find((route) => route.name === ISharedStackPages.MODAL_ERROR);
-    if (!isModalErrorInStack) {
-      dispatch(initGlobalError());
-    }
-  }, [navigationStack, dispatch]);
 
   return (
     <Stack.Navigator>
@@ -48,7 +30,7 @@ export const CarbonStack = () => {
         component={House}
         options={{
           headerTitle: t('screens.carbon-house.title'),
-          ...headersOptions(navigationStack.length > 1 && Platform ? goBack : undefined),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />
       <Stack.Screen
@@ -82,24 +64,6 @@ export const CarbonStack = () => {
           headerTitle: t('screens.carbon-fly.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
-      />
-      <Stack.Screen
-        options={{
-          presentation: 'modal',
-          headerShown: false,
-          headerBackVisible: false,
-        }}
-        name={ISharedStackPages.MODAL_ERROR}
-        component={ScreenModalError}
-      />
-      <Stack.Screen
-        options={{
-          presentation: 'modal',
-          headerShown: false,
-          headerBackVisible: false,
-        }}
-        name={ISharedStackPages.MODAL_WEBVIEW}
-        component={ScreenModalWebview}
       />
     </Stack.Navigator>
   );

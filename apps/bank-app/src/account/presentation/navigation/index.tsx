@@ -1,48 +1,17 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { useNavigationState } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-import { Colors, FontNames } from '@clean-rn/ui-mobile';
 
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 
-import {
-  IAuthStackPages,
-  IAuthStackProps,
-  IHomeStackPages,
-  IHomeStackProps,
-  ISharedStackPages,
-  ISharedStackProps,
-  IKycStackPages,
-  IKycStackProps,
-  HeaderTitleAlign,
-} from '../../../shared/presentation/types';
-import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
-import { ScreenModalError, ScreenModalWebview } from '../../../shared/presentation/screens';
-import { Login } from '../../../auth/presentation/screens';
+import { IHomeStackPages, IHomeStackProps } from '../../../shared/presentation/types';
 
 import { Accounts, Transactions, AccountStatements, AccountStatementsPdf, RibPdf } from '../screens';
-import { KycStack } from '../../../kyc/presentation/navigation';
 
-const Stack = createNativeStackNavigator<
-  IHomeStackProps & ISharedStackProps & IAuthStackProps & IKycStackProps
->();
+const Stack = createNativeStackNavigator<IHomeStackProps>();
 
-export const HomeStack = () => {
+export const AccountStack = () => {
   const { t } = useTranslation();
-
-  const navigationStack = useNavigationState((state) => state?.routes ?? []);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const isModalErrorInStack = navigationStack.find((route) => route.name === ISharedStackPages.MODAL_ERROR);
-    if (!isModalErrorInStack) {
-      dispatch(initGlobalError());
-    }
-  }, [navigationStack, dispatch]);
 
   return (
     <Stack.Navigator>
@@ -52,15 +21,7 @@ export const HomeStack = () => {
         component={Transactions}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        options={{
-          presentation: 'modal',
-          headerShown: false,
-          headerBackVisible: false,
-        }}
-        name={ISharedStackPages.MODAL_WEBVIEW}
-        component={ScreenModalWebview}
-      />
+
       <Stack.Screen
         name={IHomeStackPages.ACCOUNT_STATEMENTS}
         component={AccountStatements}
@@ -83,37 +44,6 @@ export const HomeStack = () => {
         options={{
           headerTitle: t('screens.rib-pdf.title'),
           ...headersOptions(goBack),
-        }}
-      />
-      <Stack.Screen
-        options={{
-          presentation: 'modal',
-          headerShown: false,
-          headerBackVisible: false,
-        }}
-        name={ISharedStackPages.MODAL_ERROR}
-        component={ScreenModalError}
-      />
-      <Stack.Screen
-        options={{
-          presentation: 'modal',
-          headerTitle: t('modal.login.title'),
-          headerTitleAlign: 'center' as HeaderTitleAlign,
-          headerTitleStyle: {
-            color: Colors.bank.primary.darkBlue,
-            fontSize: 19,
-            fontFamily: FontNames.MartelSans_600SemiBold,
-          },
-          headerBackVisible: false,
-        }}
-        name={IAuthStackPages.LOGIN}
-        component={Login}
-      />
-      <Stack.Screen
-        name={IKycStackPages.MENU}
-        component={KycStack}
-        options={{
-          headerShown: false,
         }}
       />
     </Stack.Navigator>

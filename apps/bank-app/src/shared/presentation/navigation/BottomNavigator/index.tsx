@@ -20,7 +20,7 @@ import {
   IProfileStackPage,
 } from '../../types';
 
-import { HomeStack } from '../../../../account/presentation/navigation';
+import { AccountStack } from '../../../../account/presentation/navigation';
 import { CarbonStack } from '../../../../carbon/presentation/navigation';
 
 import { Transfer } from '../../../../transfer/presentation/screens';
@@ -41,7 +41,7 @@ export const BottomTabNavigator = () => {
     >
       <Tab.Screen
         name={IHomeStackPages.MENU}
-        component={HomeStack}
+        component={AccountStack}
         options={({ route }) => ({
           title: t('screens.home.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
