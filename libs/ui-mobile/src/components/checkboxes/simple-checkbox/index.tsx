@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'left',
-    fontSize: 14,
+    fontSize: 10,
+    lineHeight: 14,
   },
 });

@@ -175,12 +175,12 @@ const styles = StyleSheet.create({
   inputContainer: { marginTop: 30 },
   errorContainer: {
     marginTop: 24,
+    marginBottom: -24,
   },
   domainErrorContainer: {
     marginTop: 16,
   },
   formSubmit: {
-    marginTop: 20,
-    marginBottom: 100,
+    marginVertical: '10%',
   },
 });

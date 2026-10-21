@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, Dimensions, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '@rneui/themed';
 
 import {
   LinkButton,
@@ -25,9 +26,12 @@ import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/h
 
 import { fetchSearchEmail } from '../../application/commands/signup';
 
+const HEIGHT = Dimensions.get('window').height;
+
 export const SignupEmail = () => {
   /// translations
   const { t } = useTranslation();
+  const { theme } = useTheme();
 
   // internal state
   const {
@@ -75,20 +79,18 @@ export const SignupEmail = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={styles.container}>
-          <View style={styles.image}>
-            <Image style={{ width: 200, height: 200 }} source={Welcome} />
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
+          <Image style={styles.image} source={Welcome} />
+          <View style={styles.textContainer}>
+            <Text style={[theme.bank.text.darkBlue, styles.text]}>{t('signup-email.text')}</Text>
           </View>
-
           <FormSignupEmail control={control} errors={errors} error={domainError} onFocus={onFocus} />
-          <View style={styles.formSubmit}>
-            <SubmitButton
-              title={t('button.submit')}
-              uppercase={false}
-              onSubmit={handleSubmit(onSubmit)}
-              loading={pending}
-            />
-          </View>
+          <SubmitButton
+            title={t('button.submit')}
+            uppercase={false}
+            onSubmit={handleSubmit(onSubmit)}
+            loading={pending}
+          />
           <View style={styles.cgu}>
             <LinkButton
               title={t('screens.legal')}
@@ -118,27 +120,22 @@ export const SignupEmail = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    height: HEIGHT,
     backgroundColor: Colors.bank.primary.white,
   },
-  modalContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+  textContainer: {
+    marginTop: 16,
+    width: '75%',
+  },
+  text: {
+    textAlign: 'justify',
   },
   image: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  linkButton: {
-    marginTop: 8,
-  },
-  formSubmit: {
-    marginTop: 36,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    width: HEIGHT * 0.25,
+    height: HEIGHT * 0.25,
   },
   cgu: {
-    marginTop: 16,
+    marginBottom: '20%',
     flexDirection: 'row',
     justifyContent: 'center',
   },

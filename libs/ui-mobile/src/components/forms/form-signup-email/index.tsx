@@ -29,53 +29,48 @@ export const FormSignupEmail = (props: IProps) => {
   const { t } = useTranslation();
 
   return (
-    <View style={styles.form}>
-      <View style={theme.bank.container.centeredItem}>
-        <View style={styles.textContainer}>
-          <Text style={[theme.bank.text.darkBlue, styles.text]}>{t('signup-email.text')}</Text>
-        </View>
-        <View style={styles.inputEmail}>
-          <Controller
-            control={props.control}
-            name="email"
-            rules={{ required: true, pattern: Email.pattern }}
-            render={({ field: { onChange, value } }) => (
-              <EmailInput value={value} onChange={onChange} onFocus={props.onFocus} />
-            )}
-          />
-          {props.errors?.email && props.errors.email.type === 'required' && (
-            <View style={styles.errorContainer}>
-              <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.email.required'))}</Text>
-            </View>
+    <View style={[styles.form, theme.bank.container.centeredItem]}>
+      <View style={styles.inputEmail}>
+        <Controller
+          control={props.control}
+          name="email"
+          rules={{ required: true, pattern: Email.pattern }}
+          render={({ field: { onChange, value } }) => (
+            <EmailInput value={value} onChange={onChange} onFocus={props.onFocus} />
           )}
-          {props.errors?.email && props.errors.email.type === 'pattern' && (
-            <View style={styles.errorContainer}>
-              <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.email.invalid'))}</Text>
-            </View>
-          )}
-          <View style={styles.domainErrorContainer}>
-            <ErrorMessage error={props.error} />
+        />
+        {props.errors?.email && props.errors.email.type === 'required' && (
+          <View style={styles.errorContainer}>
+            <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.email.required'))}</Text>
           </View>
+        )}
+        {props.errors?.email && props.errors.email.type === 'pattern' && (
+          <View style={styles.errorContainer}>
+            <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.email.invalid'))}</Text>
+          </View>
+        )}
+        <View style={styles.domainErrorContainer}>
+          <ErrorMessage error={props.error} />
         </View>
-        <View style={styles.inputCheckbox}>
-          <Controller
-            control={props.control}
-            name="consent"
-            rules={{ required: true }}
-            render={({ field: { onChange, value } }) => (
-              <SimpleCheckBox
-                title={t('screens.signup-email.checkbox')}
-                checked={value as boolean}
-                toggleCheckbox={onChange}
-              />
-            )}
-          />
-          {props.errors?.consent && props.errors.consent.type === 'required' && (
-            <Text style={[theme.bank.text.errors, styles.textError]}>
-              {firstLetterCapitalize(t('errors.consent.required'))}
-            </Text>
+      </View>
+      <View style={styles.inputCheckbox}>
+        <Controller
+          control={props.control}
+          name="consent"
+          rules={{ required: true }}
+          render={({ field: { onChange, value } }) => (
+            <SimpleCheckBox
+              title={t('screens.signup-email.checkbox')}
+              checked={value as boolean}
+              toggleCheckbox={onChange}
+            />
           )}
-        </View>
+        />
+        {props.errors?.consent && props.errors.consent.type === 'required' && (
+          <Text style={[theme.bank.text.errors, styles.textError]}>
+            {firstLetterCapitalize(t('errors.consent.required'))}
+          </Text>
+        )}
       </View>
     </View>
   );
@@ -84,31 +79,21 @@ export const FormSignupEmail = (props: IProps) => {
 const styles = StyleSheet.create({
   form: {
     flex: 1,
-    alignItems: 'center',
-  },
-  textContainer: {
-    marginTop: 24,
-    width: '75%',
-  },
-  text: {
-    textAlign: 'justify',
   },
   textError: {
-    marginTop: -8,
+    marginTop: -16,
   },
   inputEmail: {
-    marginVertical: 30,
+    marginVertical: 12,
   },
   inputCheckbox: {
-    marginTop: 12,
-    marginBottom: -10,
+    marginBottom: 10,
   },
   errorContainer: {
     marginTop: 24,
-    marginBottom: -20,
+    marginBottom: -24,
   },
   domainErrorContainer: {
-    marginTop: 24,
-    marginBottom: -40,
+    marginTop: 16,
   },
 });

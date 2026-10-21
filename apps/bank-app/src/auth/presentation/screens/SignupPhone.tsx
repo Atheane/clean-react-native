@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -7,7 +7,13 @@ import { getLocales } from 'expo-localization';
 import { useTheme } from '@rneui/themed';
 
 import { Phone } from '@clean-rn/auth/domain';
-import { useCleanErrorOnFocus, ISignupPhoneFormData, FormSignupPhone, Shield } from '@clean-rn/ui-mobile';
+import {
+  useCleanErrorOnFocus,
+  ISignupPhoneFormData,
+  FormSignupPhone,
+  Shield,
+  Colors,
+} from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
@@ -16,6 +22,8 @@ import { showUnknownError } from '../../../shared/application/commands/manage-gl
 import { fetchSearchPhone } from '../../application/commands/signup';
 
 const locales = getLocales();
+
+const HEIGHT = Dimensions.get('window').height;
 
 export const SignupPhone = () => {
   // translations
@@ -59,7 +67,7 @@ export const SignupPhone = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView fixedHeight>
-        <View style={styles.container}>
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
           <View style={styles.iconContainer}>
             <Shield width={150} height={150} />
           </View>
@@ -84,7 +92,8 @@ export const SignupPhone = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    height: HEIGHT,
+    backgroundColor: Colors.bank.primary.white,
   },
   iconContainer: {
     marginTop: 50,

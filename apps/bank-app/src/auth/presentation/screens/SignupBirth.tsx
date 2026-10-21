@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import dayjs from 'dayjs';
+import { useTheme } from '@rneui/themed';
 
 import { FormSignupBirth, ISignupBirthFormData, useCleanErrorOnFocus, Colors } from '@clean-rn/ui-mobile';
 
@@ -18,6 +19,7 @@ const HEIGHT = Dimensions.get('window').height;
 export const SignupBirth = () => {
   /// translations
   const { t } = useTranslation();
+  const { theme } = useTheme();
 
   // api call
   const dispatch = useDispatch();
@@ -53,7 +55,7 @@ export const SignupBirth = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT }]}>
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
           <FormSignupBirth
             control={control}
             errors={errors}
@@ -71,7 +73,7 @@ export const SignupBirth = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: HEIGHT,
     backgroundColor: Colors.bank.primary.white,
-    marginTop: '10%',
   },
 });

@@ -4,6 +4,7 @@ import { Dimensions, View, StyleSheet } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { getLocales } from 'expo-localization';
+import { useTheme } from '@rneui/themed';
 
 import { Email, IGender, IRegisterIdentityCommand, Phone } from '@clean-rn/auth/domain';
 import {
@@ -27,6 +28,7 @@ const HEIGHT = Dimensions.get('window').height;
 export const SignupIdentityPasswordPhone = () => {
   /// translations
   const { t } = useTranslation();
+  const { theme } = useTheme();
 
   // internal state
   const defaultCountry = locales[0]?.regionCode || undefined;
@@ -77,7 +79,7 @@ export const SignupIdentityPasswordPhone = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT * 1.1 }]}>
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
           <FormSignupIdentityPasswordPhone
             defaultCountry={defaultCountry}
             loading={pending}
@@ -98,6 +100,7 @@ export const SignupIdentityPasswordPhone = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: HEIGHT * 1.1,
     backgroundColor: Colors.bank.primary.white,
   },
 });

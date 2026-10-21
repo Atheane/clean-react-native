@@ -3,6 +3,7 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
+import { useTheme } from '@rneui/themed';
 
 import {
   useCleanErrorOnFocus,
@@ -22,6 +23,7 @@ const HEIGHT = Dimensions.get('window').height;
 export const SignupAddress = () => {
   /// translations
   const { t } = useTranslation();
+  const { theme } = useTheme();
 
   // api call
   const dispatch = useDispatch();
@@ -61,7 +63,7 @@ export const SignupAddress = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT * 1.15 }]}>
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
           <FormSignupAddress
             loading={pending}
             control={control}
@@ -81,5 +83,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.bank.primary.white,
+    height: HEIGHT * 1.15,
   },
 });

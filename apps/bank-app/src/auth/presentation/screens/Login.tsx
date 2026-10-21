@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '@rneui/themed';
 
 import { Colors, useSecure, useCleanErrorOnFocus, FormLogin, ILoginFormData } from '@clean-rn/ui-mobile';
 
@@ -22,6 +23,7 @@ const HEIGHT = Dimensions.get('window').height;
 export const Login = () => {
   /// translations
   const { t } = useTranslation();
+  const { theme } = useTheme();
 
   // retrieve email, if any
   const { email } = useSelector((state: IRootState) => state.initialization);
@@ -66,20 +68,20 @@ export const Login = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT }]}>
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
           <Image style={styles.image} source={Welcome} />
 
           <FormLogin
-            loading={pending}
             control={control}
             errors={errors}
             email={email?.value}
             secured={secured}
             onToggleSecurity={onToggleSecurity}
             onPress={onPress}
-            onSubmit={handleSubmit(onSubmit)}
             error={domainError}
             onFocus={onFocus}
+            loading={pending}
+            onSubmit={handleSubmit(onSubmit)}
           />
         </View>
       </SafeScrollingView>
@@ -91,12 +93,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.bank.primary.white,
-    height: Dimensions.get('window').height,
-    marginTop: '4%',
-    alignItems: 'center',
+    height: HEIGHT,
   },
   image: {
-    width: 146,
-    height: 146,
+    width: HEIGHT * 0.25,
+    height: HEIGHT * 0.25,
   },
 });
