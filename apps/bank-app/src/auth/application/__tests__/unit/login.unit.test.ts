@@ -19,8 +19,9 @@ import { ILoginTypes, loginSuccess, loginFailure, initializeLogin } from '../../
 import { initializeSignupStep } from '../../commands/signup';
 import { IStoreKey } from '../../../../shared/application/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
 
 describe('Login - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -141,6 +142,10 @@ describe('Login - usecase', () => {
       .call([userApi, userApi.getUser])
       .next(user)
       .put(loginSuccess({ auth: mockResponse, user }))
+      .next()
+      .put(checkCustomerStatus())
+      .next()
+      .call(navigate, { route: IHomeStackPages.MENU })
       .next();
   });
 
@@ -163,6 +168,10 @@ describe('Login - usecase', () => {
       .call([userApi, userApi.getUser])
       .next(user)
       .put(loginSuccess({ auth: mockResponse, user }))
+      .next()
+      .put(checkCustomerStatus())
+      .next()
+      .call(navigate, { route: IHomeStackPages.MENU })
       .next();
   });
 
@@ -185,6 +194,10 @@ describe('Login - usecase', () => {
       .call([userApi, userApi.getUser])
       .next(user)
       .put(loginSuccess({ auth: mockResponse, user }))
+      .next()
+      .put(checkCustomerStatus())
+      .next()
+      .call(navigate, { route: IHomeStackPages.MENU })
       .next();
   });
 
