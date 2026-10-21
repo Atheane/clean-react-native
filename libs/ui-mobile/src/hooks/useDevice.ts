@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Platform } from 'react-native';
 import { getUniqueId, getDeviceId, getBrand, getBaseOs, getBuildNumber } from 'react-native-device-info';
 
 export const useDevice = () => {
@@ -11,7 +12,9 @@ export const useDevice = () => {
   useEffect(() => {
     // register device
     getUniqueId().then((id: string) => setDeviceId(id));
-    getBaseOs().then((os: string) => setOS(os));
+    getBaseOs().then((os: string) => {
+      setOS(os ? os : Platform.OS);
+    });
   }, []);
 
   return {

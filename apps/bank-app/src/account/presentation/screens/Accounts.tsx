@@ -23,7 +23,7 @@ import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { IKycStackPages, ISharedStackPages } from '../../../shared/presentation/types';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
-import { fetchRegisterDevice } from '../../../auth/application/commands/signup';
+import { fetchRegisterDevice } from '../../../device/application/commands';
 
 import { listAccounts } from '../../application/commands/accounts';
 import { listTransactions } from '../../application/commands/transactions';
@@ -93,16 +93,25 @@ export const Accounts = () => {
   const { deviceId, brand, model, os, osVersion } = useDevice();
 
   useEffect(() => {
-    dispatch(
-      fetchRegisterDevice({
-        deviceId,
-        firebaseId: firebaseToken && notificationEnabled ? firebaseToken : undefined,
-        brand,
-        model,
-        os,
-        osVersion,
-      }),
-    );
+    if (
+      deviceId !== '' &&
+      brand &&
+      model &&
+      os !== '' &&
+      osVersion &&
+      ((notificationEnabled && firebaseToken) || notificationEnabled === false)
+    ) {
+      dispatch(
+        fetchRegisterDevice({
+          deviceId,
+          firebaseId: firebaseToken,
+          brand,
+          model,
+          os,
+          osVersion,
+        }),
+      );
+    }
   }, [firebaseToken, notificationEnabled, deviceId, brand, model, os, osVersion, dispatch]);
 
   return accountPending || kycPending ? (

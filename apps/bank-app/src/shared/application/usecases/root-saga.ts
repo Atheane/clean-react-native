@@ -37,6 +37,7 @@ import {
   uploadDocumentSaga,
   cancelUploadSaga,
 } from '../../../kyc/application/usecases/document';
+import { registerDeviceSaga } from '../../../device/application/usecases/register-device';
 
 export function* rootSaga(httpConnection: HttpConnection) {
   yield all([
@@ -56,6 +57,7 @@ export function* rootSaga(httpConnection: HttpConnection) {
     validatePhoneSaga(httpConnection),
     signupUserSaga(httpConnection),
     listAccountsSaga(httpConnection),
+    registerDeviceSaga(httpConnection),
     listTransactionsSaga(httpConnection),
     computeHouseEmissionsSaga(),
     computeTransportEmissionsSaga(),

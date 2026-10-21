@@ -4,7 +4,7 @@ export default {
   expo: {
     name: 'CleanRN BankApp Dev',
     slug: process.env.SLUG_NAME_BANK_APP,
-    version: '1.6.4',
+    version: process.env.APP_VERSION,
     orientation: 'portrait',
     icon: './assets/images/logo-bank.png',
     splash: {

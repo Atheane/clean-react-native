@@ -15,6 +15,7 @@ import {
 import { carbonReducer } from '../../../../carbon/application/state-management';
 
 import { customerReducer, documentReducer } from '../../../../kyc/application/state-management';
+import { deviceReducer } from '../../../../device/application/state-management/reducer';
 
 import { initializationReducer } from './initialize-application';
 import { globalErrorReducer } from './manage-global-errors';
@@ -34,6 +35,7 @@ export const rootReducer = combineReducers({
   }),
   carbon: carbonReducer,
   kyc: combineReducers({ customer: customerReducer, document: documentReducer }),
+  device: deviceReducer,
 });
 
 export type IRootState = ReturnType<typeof rootReducer>;

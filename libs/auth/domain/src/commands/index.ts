@@ -44,10 +44,3 @@ export type ISignupUserCommand = {
   user: User;
   phoneOtp: PhoneOtp;
 };
-
-export type IRegisterDeviceCommand = {
-  brand: string;
-  model: string;
-  os: string;
-  osVersion: string;
-};

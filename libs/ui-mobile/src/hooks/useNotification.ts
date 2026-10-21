@@ -3,7 +3,7 @@ import messaging from '@react-native-firebase/messaging';
 import { Logger } from '@clean-rn/logger';
 
 export const useNotification = () => {
-  const [notificationEnabled, setNotificationEnabled] = useState(false);
+  const [notificationEnabled, setNotificationEnabled] = useState<boolean>();
 
   const requestUserPermission = async () => {
     const authStatus = await messaging().requestPermission();
@@ -13,7 +13,7 @@ export const useNotification = () => {
     setNotificationEnabled(enabled);
   };
 
-  const [firebaseToken, setFirebaseToken] = useState('');
+  const [firebaseToken, setFirebaseToken] = useState<string>();
 
   useEffect(() => {
     requestUserPermission();
@@ -27,5 +27,5 @@ export const useNotification = () => {
     }
   }, [notificationEnabled]);
 
-  return { firebaseToken, notificationEnabled, setFirebaseToken };
+  return { firebaseToken, notificationEnabled };
 };

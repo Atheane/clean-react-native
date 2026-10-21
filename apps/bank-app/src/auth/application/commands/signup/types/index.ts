@@ -10,8 +10,6 @@ import {
   IRegisterBirthCommand,
   IRegisterAddressCommand,
   ISignupUserCommand,
-  Device,
-  IRegisterDeviceCommand,
 } from '@clean-rn/auth/domain';
 import { IDomainError } from '@clean-rn/ddd';
 
@@ -26,7 +24,6 @@ export enum ISignupTypes {
   REGISTER_ADDRESS = 'REGISTER_ADDRESS',
   FETCH_SIGNUP_USER = 'FETCH_SIGNUP_USER',
   INITIALIZE_SIGNUP_STEP = 'INITIALIZE_SIGNUP_STEP',
-  FETCH_REGISTER_DEVICE = 'FETCH_REGISTER_DEVICE',
   // domain events
   EMAIL_NOT_FOUND = 'EMAIL_NOT_FOUND',
   SIGNUP_FAILED = 'SIGNUP_FAILED',
@@ -38,7 +35,6 @@ export enum ISignupTypes {
   BIRTH_REGISTERED = 'BIRTH_REGISTERED',
   ADDRESS_REGISTERED = 'ADDRESS_REGISTERED',
   USER_SIGNED_UP = 'USER_SIGNED_UP',
-  DEVICE_REGISTERED = 'DEVICE_REGISTERED',
 }
 
 // commands
@@ -84,11 +80,6 @@ export type IFetchSignupUser = {
 
 export type IInitializeSignupStep = {
   type: typeof ISignupTypes.INITIALIZE_SIGNUP_STEP;
-};
-
-export type IFetchRegisterDevice = {
-  type: typeof ISignupTypes.FETCH_REGISTER_DEVICE;
-  payload: IRegisterDeviceCommand & { firebaseId?: string } & { deviceId: string };
 };
 
 // domainEvents
@@ -140,11 +131,6 @@ export type IUserSignedUp = {
   payload: User;
 };
 
-export type IDeviceRegistered = {
-  type: typeof ISignupTypes.DEVICE_REGISTERED;
-  payload: Device;
-};
-
 export type ISignupActions =
   | IInitializeSignupStep
   | IFetchSearchEmail
@@ -160,6 +146,4 @@ export type ISignupActions =
   | IBirthRegistered
   | IAddressRegistered
   | IFetchSignupUser
-  | IUserSignedUp
-  | IFetchRegisterDevice
-  | IDeviceRegistered;
+  | IUserSignedUp;

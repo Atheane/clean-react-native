@@ -5,21 +5,25 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
 
 import { Logger } from '@clean-rn/logger';
-import { Device, IRegisterDeviceCommand } from '@clean-rn/auth/domain';
+import { IRegisterDeviceCommand } from '@clean-rn/device/domain';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
+import { AuthApi } from '@clean-rn/auth/infrastructure';
+import { DeviceApi } from '@clean-rn/device/infrastructure';
 
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IStoreKey } from '../../../../shared/application/types';
 
-import { ISignupTypes, deviceRegistered } from '../../../../auth/application/commands/signup';
+import { IDeviceTypes, deviceRegistered } from '../../../../device/application/commands';
+import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
 
-import { resetError } from '../../commands/login';
 import { selectUserFromLogin } from '../../../../kyc/application/state-management/selectors';
 
+import { refreshSuccess, resetError } from '../../../../auth/application/commands/login';
+
 export function* registerDeviceSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(ISignupTypes.FETCH_REGISTER_DEVICE, registerDeviceGenerator, httpConnection);
+  yield takeEvery(IDeviceTypes.FETCH_REGISTER_DEVICE, registerDeviceGenerator, httpConnection);
 }
 
 export function* registerDeviceGenerator(
@@ -32,27 +36,25 @@ export function* registerDeviceGenerator(
   },
 ): Generator<StrictEffect, any, any> {
   try {
-    Logger.getInstance().info(ISignupTypes.FETCH_REGISTER_DEVICE);
     const user = yield select(selectUserFromLogin);
-    const device = Device.Create({ deviceId: payload.deviceId, userId: user.id });
-    device.registerDeviceProperties({
-      brand: payload.brand,
-      model: payload.model,
-      os: payload.os,
-      osVersion: payload.osVersion,
-    });
-    if (payload.firebaseToken) {
-      device.connectToNotifications(payload.firebaseToken);
-    }
-    device.addAppVersion(Constants.expoConfig?.extra?.APP_VERSION);
     const deviceId = yield call(AsyncStorage.getItem, IStoreKey.DEVICE_ID);
+    Logger.getInstance().info('deviceId', deviceId);
+
+    const authApi = AuthApi.getInstance(httpConnection);
+    const authFromStore = yield select(selectAuthFromLogin);
+    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
+    yield put(refreshSuccess({ auth }));
 
     if (!deviceId) {
       const deviceApi = DeviceApi.getInstance(httpConnection);
-      yield call([deviceApi, deviceApi.registerDevice], device);
+      const device = yield call([deviceApi, deviceApi.createDevice], {
+        ...payload,
+        userId: parseInt(user.id),
+        appVersion: Constants.expoConfig?.extra?.APP_VERSION,
+      });
       yield call(AsyncStorage.setItem, IStoreKey.DEVICE_ID, device.id);
+      yield put(deviceRegistered(device));
     }
-    yield put(deviceRegistered(device));
   } catch (error: unknown) {
     yield put(resetError());
     if (error instanceof ServerError && error.statusCode === 401) {
