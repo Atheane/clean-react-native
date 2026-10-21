@@ -417,7 +417,7 @@
       "title": "Vérification de votre identité",
       "send-document": "Envoyer un document",
       "init": {
-        "instruction": "Pour aller plus loin, \nmerci de valider votre Bank App, pour cela nous devons vérifier votre identité. Veuillez prévoir :\n\n- Pièce d’identité\n- Justificatif de domicile",
+        "instruction": "Pour aller plus loin, \nmerci de valider votre Bank App, pour cela nous devons vérifier votre identité. Veuillez prévoir :\n\n- Une pièce d’identité\n- Un justificatif de domicile\n- Un virement sur le Bank App depuis un de vos comptes",
         "check-identity": "Vérifier mon identité"
       },
       "success": {
@@ -433,7 +433,11 @@
           "begin": "Une fois les",
           "end": "documents transférés, la vérification se lancera automatiquement."
         },
-        "instruction-after": "Vos documents sont en cours de vérification cela peut prendre de 24h à 72h.",
+        "instruction-after": {
+          "begin": "Vos documents sont",
+          "bold": " en cours de vérification, ",
+          "end": "cela peut prendre de 24h à 72h."
+        },
         "w9-form": "Formulaire W9",
         "identity": "Pièce d'identité",
         "address": "Justificatif de domicile",

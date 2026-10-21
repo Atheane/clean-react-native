@@ -19,13 +19,12 @@ import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { IKycStackPages, ISharedStackPages } from '../../../shared/presentation/types';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
-import { checkCustomerStatus, kycRouteInitialized } from '../../../kyc/application/commands/customer';
-
 import { listAccounts } from '../../application/commands/accounts';
 import { listTransactions } from '../../application/commands/transactions';
 import { deleteEventCard } from '../../application/commands/event-cards';
 
 import { eventsCardsContent } from '../constants';
+import { KYC_REVIEW } from '@clean-rn/auth/domain';
 
 export const Accounts = () => {
   // translation
@@ -59,28 +58,17 @@ export const Accounts = () => {
 
   const { customer, pending: kycPending } = useSelector((state: IRootState) => state.kyc.customer);
 
-  useEffect(() => {
-    dispatch(checkCustomerStatus());
-  }, [dispatch, loginPending]);
-
   const handlePressBanner = useCallback(() => {
-    if (!customer) {
-      // will never happen
-      return;
-    }
-    let initKycRoute;
-    if (customer.properties.status === 'VALIDATED') {
+    let initKycRoute: IKycStackPages;
+    if (customer?.properties.status === KYC_REVIEW.VALIDATED) {
       initKycRoute = IKycStackPages.SUCCESS;
-    } else if (
-      customer.properties.kyc?.documents &&
-      Object.values(customer.properties.kyc.documents).filter((doc) => doc !== undefined).length > 0
-    ) {
-      initKycRoute = IKycStackPages.MENU;
-    } else {
+    } else if (customer?.properties.status === KYC_REVIEW.NONE) {
       initKycRoute = IKycStackPages.INIT;
+    } else {
+      initKycRoute = IKycStackPages.MENU;
     }
-    dispatch(kycRouteInitialized({ initRoute: initKycRoute }));
-  }, [dispatch, customer]);
+    navigation.navigate(initKycRoute as never);
+  }, [customer?.properties.status, navigation]);
 
   const handleOnDeleteCard = useCallback(
     (uid: string) => {
@@ -93,10 +81,12 @@ export const Accounts = () => {
     <Text>Loading ...</Text> // todo replace with loading gif
   ) : (
     <ErrorBoundary t={t}>
-      {customer && customer.properties.status !== 'CANCELED' && (
+      {customer && (
         <Banner
           title={t('screens.home.banner.validation-identity')}
-          colorBanner={customer.properties.status === 'REFUSED' ? BannerColors.PINK : BannerColors.PURPLE}
+          colorBanner={
+            customer.properties.status === KYC_REVIEW.REFUSED ? BannerColors.PINK : BannerColors.PURPLE
+          }
           rightIcon
           onPressRightIcon={handlePressBanner}
         />

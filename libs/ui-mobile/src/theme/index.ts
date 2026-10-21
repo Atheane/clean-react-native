@@ -223,8 +223,9 @@ export const theme = createTheme({
         color: Colors.bank.primary.darkGrey,
       },
       boldGrey: {
+        fontSize: 13,
         fontFamily: FontNames.MartelSans_700Bold,
-        color: Colors.bank.primary.grey,
+        color: Colors.bank.primary.darkGrey,
         fontWeight: 'bold',
       },
       cyan: {

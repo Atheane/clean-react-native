@@ -47,7 +47,6 @@ export function* checkCustomerStatusGenerator(
     }
     customer.checkDocumentsStatus(documents);
     yield put(customerStatusChecked({ customer }));
-    // customer.properties.status cannot be undefined, default value : 'PENDING' so ignore eslint warning
   } catch (error: unknown) {
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {

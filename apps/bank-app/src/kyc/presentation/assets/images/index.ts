@@ -14,6 +14,8 @@ import SwornStatement from './sworn-statement.png';
 import Taxes from './taxes.png';
 import W9 from './w9.png';
 import SuccessKyc from './success-kyc.png';
+import CompletedKyc from './completed-kyc.png';
+import KycDocumentsValidated from './kyc-documents-validated.png';
 
 export {
   InitKyc,
@@ -32,4 +34,6 @@ export {
   Taxes,
   W9,
   SuccessKyc,
+  CompletedKyc,
+  KycDocumentsValidated,
 };

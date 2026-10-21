@@ -12,6 +12,8 @@ import { goBack, navigate } from '../../../../shared/presentation/navigation/nav
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
+import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
+
 import { loginFailure, ILoginTypes, initializeLogin, loginSuccess, resetError } from '../../commands/login';
 import { initializeSignupStep } from '../../commands/signup';
 
@@ -48,6 +50,7 @@ export function* loginGenerator(
     const user = yield call([userApi, userApi.getUser]);
 
     yield put(loginSuccess({ auth, user }));
+    yield put(checkCustomerStatus());
   } catch (error: unknown) {
     if (error instanceof ServerError) {
       switch (error.codeError) {
