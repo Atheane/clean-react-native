@@ -13,6 +13,7 @@ import {
   Banner,
   BannerColors,
 } from '@clean-rn/ui-mobile';
+import { KYC_REVIEW } from '@clean-rn/auth/domain';
 import { IAccount } from '@clean-rn/account/domain';
 
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
@@ -24,7 +25,6 @@ import { listTransactions } from '../../application/commands/transactions';
 import { deleteEventCard } from '../../application/commands/event-cards';
 
 import { eventsCardsContent } from '../constants';
-import { KYC_REVIEW } from '@clean-rn/auth/domain';
 
 export const Accounts = () => {
   // translation

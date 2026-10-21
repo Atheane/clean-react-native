@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     left: '8%',
   },
   errorMessageContainer: {
-    marginTop: 8,
+    marginBottom: 24,
     marginLeft: 24,
     width: '90%',
   },

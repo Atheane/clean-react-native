@@ -32,6 +32,13 @@ import { KYC_REVIEW } from '@clean-rn/auth/domain';
 
 const HEIGHT = Dimensions.get('window').height;
 
+const renderLabel = (text: string) => {
+  if (text.length > 90) {
+    return `${text}`.slice(0, 90) + '...';
+  }
+  return text;
+};
+
 export const Kyc = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
@@ -119,8 +126,10 @@ export const Kyc = () => {
     <View style={[styles.messageContainer, { marginTop: 80 }]}>
       <Text style={[styles.title, theme.bank.text.darkBlue]}>{t('screens.kyc.menu.title')}</Text>
       <Text style={[theme.bank.text.errors, styles.errorMessage]}>
-        {`${t('errors.domain-error.kyc.KYC_REFUSED')}. `}
-        {customer?.properties.kycReviewComment ? `${customer.properties.kycReviewComment}. ` : ''}
+        {`${t('errors.domain-error.kyc.KYC_REFUSED')}. \n\n`}
+        {customer?.properties.kycReviewComment
+          ? `${renderLabel(customer.properties.kycReviewComment)}. \n\n`
+          : ''}
         {`${t('screens.kyc.menu.fix-file')}. `}
       </Text>
     </View>
@@ -129,14 +138,19 @@ export const Kyc = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT * 1.1 }]}>
+        <View
+          style={[
+            styles.container,
+            submittedKyc?.expectedDocumentCount === 2 ? { height: HEIGHT * 1 } : { height: HEIGHT * 1.3 },
+          ]}
+        >
           {customer?.properties.status === KYC_REVIEW.NONE && <Instructions />}
           {customer?.properties.status === KYC_REVIEW.PENDING && <KycPending />}
           {customer?.properties.status === KYC_REVIEW.REFUSED && <KycRefused />}
           {user?.properties.USPerson && (
             <View
               style={
-                submittedKyc?.expectedDocumentCount === 3 ? styles.itemContainer3 : styles.itemContainer4
+                submittedKyc?.expectedDocumentCount === 2 ? styles.itemContainer2 : styles.itemContainer4
               }
             >
               <UploadDocumentCard
@@ -169,7 +183,7 @@ export const Kyc = () => {
             </View>
           )}
           <View
-            style={submittedKyc?.expectedDocumentCount === 3 ? styles.itemContainer3 : styles.itemContainer4}
+            style={submittedKyc?.expectedDocumentCount === 2 ? styles.itemContainer2 : styles.itemContainer4}
           >
             <UploadDocumentCard
               icon={KycIdentification}
@@ -186,7 +200,7 @@ export const Kyc = () => {
             />
           </View>
           <View
-            style={submittedKyc?.expectedDocumentCount === 3 ? styles.itemContainer3 : styles.itemContainer4}
+            style={submittedKyc?.expectedDocumentCount === 2 ? styles.itemContainer2 : styles.itemContainer4}
           >
             <UploadDocumentCard
               icon={KycInvoice}
@@ -214,7 +228,7 @@ export const Kyc = () => {
           {submittedKyc?.isHosted && (
             <View
               style={
-                submittedKyc?.expectedDocumentCount === 3 ? styles.itemContainer3 : styles.itemContainer4
+                submittedKyc?.expectedDocumentCount === 2 ? styles.itemContainer2 : styles.itemContainer4
               }
             >
               <UploadDocumentCard
@@ -236,9 +250,7 @@ export const Kyc = () => {
           )}
           {submittedKyc?.isHosted && (
             <View
-              style={
-                submittedKyc?.expectedDocumentCount === 3 ? styles.itemContainer3 : styles.itemContainer4
-              }
+              style={submittedKyc?.expectedDocumentCount < 5 ? styles.itemContainer2 : styles.itemContainer4}
             >
               <UploadDocumentCard
                 icon={KycSwornStatement}
@@ -291,11 +303,11 @@ const styles = StyleSheet.create({
   title: {
     margin: 24,
   },
-  itemContainer3: {
+  itemContainer2: {
     marginVertical: 16,
   },
   itemContainer4: {
-    marginVertical: 6,
+    marginVertical: 0,
   },
   instruction: {
     textAlign: 'justify',

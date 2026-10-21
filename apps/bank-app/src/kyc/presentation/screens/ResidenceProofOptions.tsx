@@ -33,7 +33,7 @@ export const ResidenceProofOptions = () => {
                 t('screens.kyc.residence-proof-options.has-proof'),
                 t('screens.kyc.residence-proof-options.no-proof'),
               ]}
-              optionsValues={[IKycStackPages.RESIDENCE_PROOF_LIST, IKycStackPages.MENU_KYC_HOST]}
+              optionsValues={[IKycStackPages.RESIDENCE_PROOF_LIST, IKycStackPages.KYC_HOST]}
               onChange={handleOnChange}
             />
             <View style={styles.buttonContainer}>
