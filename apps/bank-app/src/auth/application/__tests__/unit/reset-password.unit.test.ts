@@ -8,7 +8,12 @@ import { Email } from '@clean-rn/auth/domain';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { resetPasswordGenerator, resetPasswordSaga } from '../../usecases/reset-password';
-import { IResetPasswordTypes, initializeResetPassword, passwordReset } from '../../commands/reset-password';
+import {
+  IResetPasswordTypes,
+  fetchResetPassword,
+  initializeResetPassword,
+  passwordReset,
+} from '../../commands/reset-password';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { fetchRefresh } from '../../../../auth/application/commands/login';
 
@@ -78,6 +83,8 @@ describe('ResetPassword - usecase', () => {
       .call([api, api.resetPassword], mockData)
       .throw(new ServerError(mockError401))
       .put(fetchRefresh())
+      .next()
+      .put(fetchResetPassword(mockData))
       .next()
       .cancel();
   });

@@ -244,6 +244,7 @@ export type IRoutes =
   | IAuthStackPages.CGU
   | IAuthStackPages.CGU_KYC_PROVIDER
   | IHomeStackPages.ACCOUNTS
+  | IHomeStackPages.HOME
   | IHomeStackPages.MENU
   | IHomeStackPages.HELP
   | IHomeStackPages.TRANSACTIONS

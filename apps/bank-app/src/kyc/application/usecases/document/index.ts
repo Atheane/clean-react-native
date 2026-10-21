@@ -144,6 +144,7 @@ export function* uploadDocumentSagaGenerator(
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {
       yield put(fetchRefresh());
+      yield put(uploadDocument(payload));
       yield cancel();
     } else if (error.name === 'AbortError') {
       Logger.getInstance().info(error);

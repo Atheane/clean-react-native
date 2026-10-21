@@ -20,7 +20,12 @@ import { BirthDay, Email, User, Phone, IGender, Country, KYC_REVIEW } from '@cle
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 import { checkCustomerStatusGenerator, checkCustomerStatusSaga } from '../../usecases/customer';
-import { ICustomerTypes, customerStatusChecked, initializeKyc } from '../../commands/customer';
+import {
+  ICustomerTypes,
+  checkCustomerStatus,
+  customerStatusChecked,
+  initializeKyc,
+} from '../../commands/customer';
 import { fetchRefresh } from '../../../../auth/application/commands/login';
 
 describe('KYC - CheckCustomerStatus - usecase', () => {
@@ -175,6 +180,8 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
       .put(fetchRefresh())
+      .next()
+      .put(checkCustomerStatus())
       .next()
       .cancel();
   });

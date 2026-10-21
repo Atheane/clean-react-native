@@ -5,7 +5,12 @@ import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { IAccount } from '@clean-rn/account/domain';
 import { AccountApi } from '@clean-rn/account/infrastructure';
 
-import { accountsListed, IAccountsTypes, initializeAccountsList } from '../../commands/accounts';
+import {
+  listAccounts,
+  accountsListed,
+  IAccountsTypes,
+  initializeAccountsList,
+} from '../../commands/accounts';
 import { IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
@@ -37,6 +42,7 @@ export function* listAccountsGenerator(httpConnection: HttpConnection): Generato
   } catch (error: unknown) {
     if (error instanceof ServerError && error.statusCode === 401) {
       yield put(fetchRefresh());
+      yield put(listAccounts());
       yield cancel();
     }
     // Gestion des erreurs non attendues

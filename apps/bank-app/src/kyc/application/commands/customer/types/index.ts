@@ -1,5 +1,4 @@
 import { Customer } from '@clean-rn/kyc/domain';
-import { IRoutes } from '../../../../../shared/presentation/types';
 
 export enum ICustomerTypes {
   CHECK_CUSTOMER_STATUS = 'CHECK_CUSTOMER_STATUS',

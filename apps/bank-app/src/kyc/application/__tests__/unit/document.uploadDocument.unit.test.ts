@@ -24,7 +24,13 @@ import { fetchRefresh } from '../../../../auth/application/commands/login';
 
 import { uploadDocumentSaga, uploadDocumentSagaGenerator } from '../../usecases/document';
 import { customerDocumentsUpdated } from '../../commands/customer';
-import { IDocumentTypes, documentUploaded, resetDocument, setAbortController } from '../../commands/document';
+import {
+  IDocumentTypes,
+  documentUploaded,
+  resetDocument,
+  setAbortController,
+  uploadDocument,
+} from '../../commands/document';
 import { selectCustomer, selectUserFromLogin } from '../../state-management/selectors';
 
 describe('Document - uploadDocument - usecases', () => {
@@ -171,6 +177,12 @@ describe('Document - uploadDocument - usecases', () => {
       .put(resetDocument())
       .next()
       .put(fetchRefresh())
+      .next()
+      .put(
+        uploadDocument({
+          document,
+        }),
+      )
       .next()
       .cancel();
   });

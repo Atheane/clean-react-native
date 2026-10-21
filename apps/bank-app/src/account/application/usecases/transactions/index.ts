@@ -14,6 +14,7 @@ import { selectTransactions } from '../../state-management/selectors';
 import { fetchRefresh } from '../../../../auth/application/commands/login';
 
 import {
+  listTransactions,
   transactionsListed,
   ITransactionsTypes,
   initializeTransactionsList,
@@ -51,6 +52,7 @@ export function* listTransactionsGenerator(
   } catch (error: unknown) {
     if (error instanceof ServerError && error.statusCode === 401) {
       yield put(fetchRefresh());
+      yield put(listTransactions(payload));
       yield cancel();
     }
     // Gestion des erreurs non attendues

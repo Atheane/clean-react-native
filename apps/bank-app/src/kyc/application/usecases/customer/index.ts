@@ -9,10 +9,14 @@ import { KYC_REVIEW } from '@clean-rn/auth/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
-import { customerStatusChecked, initializeKyc, ICustomerTypes } from '../../commands/customer';
+import {
+  checkCustomerStatus,
+  customerStatusChecked,
+  initializeKyc,
+  ICustomerTypes,
+} from '../../commands/customer';
 
 import { fetchRefresh } from '../../../../auth/application/commands/login';
-import { IHomeStackPages } from '../../../../../src/shared/presentation/types';
 
 export function* checkCustomerStatusSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(ICustomerTypes.CHECK_CUSTOMER_STATUS, checkCustomerStatusGenerator, httpConnection);
@@ -50,6 +54,7 @@ export function* checkCustomerStatusGenerator(
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {
       yield put(fetchRefresh());
+      yield put(checkCustomerStatus());
       yield cancel();
     }
     // once app is well tested, delete this part and let onError hook manage unexpected errors

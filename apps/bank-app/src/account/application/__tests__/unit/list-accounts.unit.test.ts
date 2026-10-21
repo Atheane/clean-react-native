@@ -16,7 +16,12 @@ import { fetchRefresh } from '../../../../auth/application/commands/login';
 
 import { selectAccounts } from '../../state-management/selectors';
 import { listAccountsGenerator, listAccountsSaga } from '../../usecases/account';
-import { IAccountsTypes, accountsListed, initializeAccountsList } from '../../commands/accounts';
+import {
+  IAccountsTypes,
+  accountsListed,
+  initializeAccountsList,
+  listAccounts,
+} from '../../commands/accounts';
 
 describe('ListAccounts - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -93,6 +98,8 @@ describe('ListAccounts - usecase', () => {
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
       .put(fetchRefresh())
+      .next()
+      .put(listAccounts())
       .next()
       .cancel();
   });

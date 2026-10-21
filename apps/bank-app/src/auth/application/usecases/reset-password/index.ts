@@ -7,9 +7,13 @@ import { IResetPasswordCommand } from '@clean-rn/auth/domain';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { initializeResetPassword, IResetPasswordTypes, passwordReset } from '../../commands/reset-password';
+import {
+  fetchResetPassword,
+  initializeResetPassword,
+  IResetPasswordTypes,
+  passwordReset,
+} from '../../commands/reset-password';
 import { fetchRefresh } from '../../../../auth/application/commands/login';
-import { IAuthStackPages } from '../../../../shared/presentation/types';
 
 export function* resetPasswordSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IResetPasswordTypes.FETCH_RESET_PASSWORD, resetPasswordGenerator, httpConnection);
@@ -38,6 +42,7 @@ export function* resetPasswordGenerator(
   } catch (error: unknown) {
     if (error instanceof ServerError && error.statusCode === 401) {
       yield put(fetchRefresh());
+      yield put(fetchResetPassword(payload));
       yield cancel();
     }
     // once app is well tested, delete this part and let onError hook manage unexpected errors

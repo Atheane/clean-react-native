@@ -13,7 +13,7 @@ import { refreshSaga, refreshGenerator } from '../../usecases/refresh';
 import { ILoginTypes, refreshSuccess, resetError } from '../../commands/login';
 import { IStoreKey } from '../../../../shared/application/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 describe('Refresh - usecase', () => {
@@ -54,8 +54,10 @@ describe('Refresh - usecase', () => {
     expect(genObject.next().done).toBeTruthy();
   });
 
-  it('Should call refreshSuccess if user is a man', async () => {
-    testSaga(refreshGenerator, httpConnection)
+  it('Should call refreshSuccess if no nextRoute payload', async () => {
+    testSaga(refreshGenerator, httpConnection, {
+      type: ILoginTypes.FETCH_REFRESH,
+    })
       .next()
       .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
       .next('fake-refresh-token')
@@ -71,8 +73,34 @@ describe('Refresh - usecase', () => {
       .next();
   });
 
+  it('Should call refreshSuccess if nextRoute payload', async () => {
+    testSaga(refreshGenerator, httpConnection, {
+      type: ILoginTypes.FETCH_REFRESH,
+      payload: {
+        nextRoute: IHomeStackPages.HOME,
+      },
+    })
+      .next()
+      .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
+      .next('fake-refresh-token')
+      .call([authApi, authApi.refresh], 'fake-refresh-token') // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .next(mockResponse)
+      .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .next('fake-access-token')
+      .call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, mockResponse.accessToken)
+      .next()
+      .call(AsyncStorage.setItem, IStoreKey.JWT_REFRESH_TOKEN, mockResponse.refreshToken)
+      .next()
+      .put(refreshSuccess({ auth: mockResponse }))
+      .next()
+      .call(navigate, { route: IHomeStackPages.HOME, params: undefined })
+      .next();
+  });
+
   it('Should call showUnknownError action if 401 from Server', () => {
-    testSaga(refreshGenerator, httpConnection)
+    testSaga(refreshGenerator, httpConnection, {
+      type: ILoginTypes.FETCH_REFRESH,
+    })
       .next()
       .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
       .next('fake-refresh-token')
@@ -86,7 +114,9 @@ describe('Refresh - usecase', () => {
   });
 
   it('Should call showUnknownError action if 500 from Server', () => {
-    testSaga(refreshGenerator, httpConnection)
+    testSaga(refreshGenerator, httpConnection, {
+      type: ILoginTypes.FETCH_REFRESH,
+    })
       .next()
       .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
       .next('fake-refresh-token')
@@ -99,7 +129,9 @@ describe('Refresh - usecase', () => {
   });
 
   it('Should call showUnknownError action if unknown error', () => {
-    testSaga(refreshGenerator, httpConnection)
+    testSaga(refreshGenerator, httpConnection, {
+      type: ILoginTypes.FETCH_REFRESH,
+    })
       .next()
       .call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN)
       .next('fake-refresh-token')

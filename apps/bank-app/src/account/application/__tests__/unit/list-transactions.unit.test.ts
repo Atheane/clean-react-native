@@ -29,6 +29,7 @@ import {
   ITransactionsTypes,
   transactionsListed,
   initializeTransactionsList,
+  listTransactions,
 } from '../../commands/transactions';
 
 describe('ListTransactions - usecase', () => {
@@ -140,6 +141,8 @@ describe('ListTransactions - usecase', () => {
       .call([api, api.getTransactions], account.accountId) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
       .put(fetchRefresh())
+      .next()
+      .put(listTransactions({ account }))
       .next()
       .cancel();
   });

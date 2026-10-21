@@ -37,7 +37,6 @@ export const Accounts = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('ACCOUNTS CALLED 88888888');
     dispatch(listAccounts());
   }, [dispatch, loginPending]);
 

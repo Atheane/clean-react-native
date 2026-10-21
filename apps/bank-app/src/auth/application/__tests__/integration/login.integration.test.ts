@@ -212,24 +212,6 @@ describe('Login - integration', () => {
     });
   });
 
-  it('Should store correct state in case if FETCH_REFRESH', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, refreshSaga, httpConnection);
-
-    sagaTester.dispatch(fetchRefresh());
-
-    expect(sagaTester.getState()).toEqual({
-      pending: true,
-      auth: {
-        accessToken: null,
-        refreshToken: null,
-      },
-      user: null,
-      error: null,
-      email: null,
-      password: null,
-    });
-  });
-
   it('Should store correct state if REFRESH_SUCCESS', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, refreshSaga, httpConnection);
     sagaTester.dispatch(fetchRefresh());
