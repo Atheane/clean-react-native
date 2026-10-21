@@ -68,7 +68,7 @@ describe('ListAccounts - usecase', () => {
       .next(mockResponse)
       .put(accountsListed(mockResponse))
       .next()
-      .call(navigate, { route: IHomeStackPages.MENU })
+      .call(navigate, { route: IHomeStackPages.ACCOUNTS })
       .next();
   });
 
@@ -79,7 +79,7 @@ describe('ListAccounts - usecase', () => {
       .next({ accounts: mockResponse })
       .put(accountsListed(mockResponse))
       .next()
-      .call(navigate, { route: IHomeStackPages.MENU })
+      .call(navigate, { route: IHomeStackPages.ACCOUNTS })
       .next();
   });
 
