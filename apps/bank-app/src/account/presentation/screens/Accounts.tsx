@@ -79,7 +79,6 @@ export const Accounts = () => {
     } else {
       initKycRoute = IKycStackPages.INIT;
     }
-
     dispatch(kycRouteInitialized({ initRoute: initKycRoute }));
   }, [dispatch, customer]);
 

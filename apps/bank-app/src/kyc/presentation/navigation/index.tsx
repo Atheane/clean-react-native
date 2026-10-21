@@ -59,16 +59,16 @@ export const KycStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={IKycStackPages.INIT}
-        component={InitKyc}
+        name={IKycStackPages.MENU}
+        component={MenuKyc}
         options={{
           headerTitle: t('screens.kyc.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : goHome),
         }}
       />
       <Stack.Screen
-        name={IKycStackPages.MENU}
-        component={MenuKyc}
+        name={IKycStackPages.INIT}
+        component={InitKyc}
         options={{
           headerTitle: t('screens.kyc.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : goHome),
