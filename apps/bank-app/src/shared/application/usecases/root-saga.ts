@@ -33,6 +33,7 @@ import {
   initializeDocumentSaga,
   addPageSaga,
   uploadDocumentSaga,
+  cancelUploadSaga,
 } from '../../../kyc/application/usecases/document';
 
 export function* rootSaga(httpConnection: HttpConnection) {
@@ -61,5 +62,6 @@ export function* rootSaga(httpConnection: HttpConnection) {
     initializeDocumentSaga(),
     addPageSaga(),
     uploadDocumentSaga(httpConnection),
+    cancelUploadSaga(httpConnection),
   ]);
 }

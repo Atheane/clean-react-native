@@ -31,7 +31,9 @@ export default UploadDocumentCardMeta;
 type UploadDocumentCardStory = ComponentStory<typeof UploadDocumentCard>;
 
 export const Basic: UploadDocumentCardStory = (args) => <UploadDocumentCard {...args} onEdit={undefined} />;
-export const Refused: UploadDocumentCardStory = (args) => <UploadDocumentCard {...args} status="REFUSED" />;
+export const Refused: UploadDocumentCardStory = (args) => (
+  <UploadDocumentCard {...args} status={IDocumentStatus.REFUSED} />
+);
 export const Loading: UploadDocumentCardStory = (args) => (
   <UploadDocumentCard {...args} status={undefined} loading onEdit={undefined} />
 );

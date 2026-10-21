@@ -1,4 +1,5 @@
-import { HttpConnection, IHttpVerb, ServerError } from '@clean-rn/shared/infrastructure';
+import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
+
 import {
   IDocumentProperties,
   IDocumentRepository,
@@ -11,11 +12,14 @@ import { IDocumentServer } from '../types';
 export class KycApi implements IDocumentRepository {
   private static instance: KycApi | null = null;
   private connection: HttpConnection;
-
+  private controller: AbortController;
   // Make the constructor private to prevent direct instantiation
   private constructor(httpConnection: HttpConnection) {
     this.connection = httpConnection;
+    this.cancelRequest = this.cancelRequest.bind(this);
+    this.controller = new AbortController();
     this.getDocuments = this.getDocuments.bind(this);
+    this.createOnePageDocument = this.createOnePageDocument.bind(this);
   }
 
   // Public method to provide access to the singleton instance
@@ -24,6 +28,10 @@ export class KycApi implements IDocumentRepository {
       this.instance = new KycApi(httpConnection);
     }
     return this.instance;
+  }
+
+  public cancelRequest(): void {
+    this.controller.abort();
   }
 
   async getDocuments(): Promise<IDocumentProperties[]> {
@@ -57,10 +65,13 @@ export class KycApi implements IDocumentRepository {
       fileContentBase64: document.value.recto,
     };
 
+    const signal = this.controller.signal; // Obtenir la référence au signal
+
     const response = await fetch(
       `${this.connection.baseUrl}/app/document/kyc`,
-      this.connection.options(IHttpVerb.POST, params),
+      this.connection.options(IHttpVerb.POST, params, signal),
     );
+
     await this.connection.handleError(response);
     const documentServer = await response.json();
 

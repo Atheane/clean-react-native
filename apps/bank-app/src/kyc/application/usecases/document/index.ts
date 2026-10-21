@@ -18,7 +18,7 @@ import {
   IDocumentTypes,
   pageAdded,
   uploadDocument,
-  cancelUpload,
+  resetDocument,
 } from '../../commands/document';
 import { selectCustomer, selectDocument, selectUserFromLogin } from '../../state-management/selectors';
 
@@ -127,21 +127,38 @@ export function* uploadDocumentSagaGenerator(
     yield put(documentUploaded({ document }));
 
     const { customer: customerFromRedux } = yield select(selectCustomer);
-
     const customer = Customer.Create(customerFromRedux);
     customer.addKyc(customerFromRedux.properties.kyc);
-
     customer.addDocument(document);
-
     yield put(customerDocumentsUpdated({ customer }));
-  } catch (error: unknown) {
-    yield put(cancelUpload());
+  } catch (error: any) {
+    yield put(resetDocument());
 
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {
       yield call(navigate, { route: IAuthStackPages.LOGIN });
       yield cancel();
+    } else if (error.name === 'AbortError') {
+      Logger.getInstance().info(error);
+      yield cancel();
     }
+    // once app is well tested, delete this part and let onError hook manage unexpected errors
+    yield put(showUnknownError(error as Error));
+  }
+}
+
+export function* cancelUploadSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
+  yield takeEvery(IDocumentTypes.CANCEL_UPLOAD, cancelUploadSagaGenerator, httpConnection);
+}
+
+export function* cancelUploadSagaGenerator(
+  httpConnection: HttpConnection,
+): Generator<StrictEffect, any, any> {
+  try {
+    const api = KycApi.getInstance(httpConnection);
+    yield call(api.cancelRequest);
+  } catch (error: unknown) {
+    yield put(resetDocument());
     // once app is well tested, delete this part and let onError hook manage unexpected errors
     yield put(showUnknownError(error as Error));
   }

@@ -19,7 +19,7 @@ import { KycApi } from '@clean-rn/kyc/infrastructure';
 
 import { uploadDocumentSaga, uploadDocumentSagaGenerator } from '../../usecases/document';
 import { customerDocumentsUpdated } from '../../commands/customer';
-import { IDocumentTypes, cancelUpload, documentUploaded } from '../../commands/document';
+import { IDocumentTypes, documentUploaded, resetDocument } from '../../commands/document';
 import { selectCustomer, selectUserFromLogin } from '../../state-management/selectors';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
@@ -120,7 +120,7 @@ describe('Document - uploadDocument - usecases', () => {
       },
     })
       .next()
-      .put(cancelUpload())
+      .put(resetDocument())
       .next()
       .put(showUnknownError(new DocumentError.DocumentNotReady('Document is not ready')))
       .next();
@@ -143,7 +143,7 @@ describe('Document - uploadDocument - usecases', () => {
       .next(user)
       .spawn([api, api.createDocument], { customerId: user.id, document }) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
-      .put(cancelUpload())
+      .put(resetDocument())
       .next()
       .call(navigate, { route: IAuthStackPages.LOGIN })
       .next()
@@ -167,10 +167,33 @@ describe('Document - uploadDocument - usecases', () => {
       .next(user)
       .spawn([api, api.createDocument], { customerId: user.id, document }) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
-      .put(cancelUpload())
+      .put(resetDocument())
       .next()
       .put(showUnknownError(new ServerError(mockError500)))
       .next();
+  });
+
+  it('Should call abort error if task is cancelled', async () => {
+    const user = User.Create({ id: 123, properties: { USPerson: false } });
+
+    const document = new DocumentVO(documentProperties);
+    document.addPage('base64-fake-recto');
+    document.addPage('base64-fake-verso');
+
+    testSaga(uploadDocumentSagaGenerator, httpConnection, {
+      type: IDocumentTypes.UPLOAD_DOCUMENT,
+      payload: {
+        document,
+      },
+    })
+      .next()
+      .select(selectUserFromLogin)
+      .next(user)
+      .spawn([api, api.createDocument], { customerId: user.id, document }) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .throw(new DOMException('The operation was aborted.', 'AbortError'))
+      .put(resetDocument())
+      .next()
+      .cancel();
   });
 
   it('Should call unknown error if another unexpected error', async () => {
@@ -191,7 +214,7 @@ describe('Document - uploadDocument - usecases', () => {
       .next(user)
       .spawn([api, api.createDocument], { customerId: user.id, document }) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unexpected error'))
-      .put(cancelUpload())
+      .put(resetDocument())
       .next()
       .put(showUnknownError(new Error('unexpected error')))
       .next();

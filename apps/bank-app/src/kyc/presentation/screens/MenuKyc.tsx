@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@rneui/themed';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { UploadDocumentCard, KycW9, KycIdentification, KycPassport, KycInvoice } from '@clean-rn/ui-mobile';
 import { IDocumentType, IDocumentCategory, KycDocuments } from '@clean-rn/kyc/domain';
@@ -11,6 +11,7 @@ import { IDocumentType, IDocumentCategory, KycDocuments } from '@clean-rn/kyc/do
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { cancelUpload } from '../../../kyc/application/commands/document';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -57,6 +58,12 @@ export const MenuKyc = () => {
     }
   }, [customer?.properties.kyc]);
 
+  const dispatch = useDispatch();
+
+  const handleOnCancel = useCallback(() => {
+    dispatch(cancelUpload());
+  }, [dispatch]);
+
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
@@ -72,7 +79,8 @@ export const MenuKyc = () => {
                 status={submittedKyc?.documents.W9?.properties.status}
                 text={t('screens.kyc.menu.w9-form')}
                 onPress={navigateToUploadW9}
-                loading={pending && document.properties.category === IDocumentCategory.W9}
+                loading={pending && document?.properties.category === IDocumentCategory.W9}
+                onCancel={handleOnCancel}
               />
             </View>
           )}
@@ -82,7 +90,8 @@ export const MenuKyc = () => {
               status={submittedKyc?.documents.F?.properties.status}
               text={`${t('screens.kyc.menu.first')} ${t('screens.kyc.menu.identity')}`}
               onPress={navigateToFirstIdList}
-              loading={pending && document.properties.category === IDocumentCategory.FIRST_ID}
+              loading={pending && document?.properties.category === IDocumentCategory.FIRST_ID}
+              onCancel={handleOnCancel}
             />
           </View>
           <View style={styles.itemContainer}>
@@ -91,7 +100,8 @@ export const MenuKyc = () => {
               status={submittedKyc?.documents.SECOND_ID?.properties.status}
               text={`${t('screens.kyc.menu.second')} ${t('screens.kyc.menu.identity')}`}
               onPress={navigateToSecondIdList}
-              loading={pending && document.properties.category === IDocumentCategory.SECOND_ID}
+              loading={pending && document?.properties.category === IDocumentCategory.SECOND_ID}
+              onCancel={handleOnCancel}
             />
           </View>
           <View style={styles.itemContainer}>
@@ -100,7 +110,8 @@ export const MenuKyc = () => {
               status={submittedKyc?.documents.RESIDENCE_PROOF?.properties.status}
               text={t('screens.kyc.menu.address')}
               onPress={navigateToResidenceProofIdList}
-              loading={pending && document.properties.category === IDocumentCategory.RESIDENCE_PROOF}
+              loading={pending && document?.properties.category === IDocumentCategory.RESIDENCE_PROOF}
+              onCancel={handleOnCancel}
             />
           </View>
         </View>

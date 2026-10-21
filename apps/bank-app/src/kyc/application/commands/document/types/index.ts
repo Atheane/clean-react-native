@@ -9,6 +9,7 @@ export enum IDocumentTypes {
   UPLOAD_DOCUMENT = 'UPLOAD_DOCUMENT',
   DOCUMENT_UPLOADED = 'DOCUMENT_UPLOADED',
   CANCEL_UPLOAD = 'CANCEL_UPLOAD',
+  RESET_DOCUMENT = 'RESET_DOCUMENT',
 }
 
 export type IInitializeDocument = {
@@ -38,6 +39,10 @@ export type IUploadDocument = {
   payload: {
     document: DocumentVO;
   };
+};
+
+export type IResetDocument = {
+  type: typeof IDocumentTypes.RESET_DOCUMENT;
 };
 
 export type ICancelUpload = {
@@ -70,6 +75,7 @@ export type IDocumentActions =
   | IAddPage
   | IUploadDocument
   | ICancelUpload
+  | IResetDocument
   | IDocumentInitialized
   | IPageAdded
   | IDocumentUploaded;

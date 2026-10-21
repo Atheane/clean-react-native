@@ -12,6 +12,8 @@ import {
   pageAdded,
   documentUploaded,
   initializeDocument,
+  resetDocument,
+  cancelUpload,
 } from '../../commands/document';
 import { IDocumentState, documentReducer } from '../../state-management';
 
@@ -102,6 +104,26 @@ describe('Document - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       document,
+    });
+  });
+
+  it('Should store correct state if CANCEL_UPLOAD', () => {
+    const document = new DocumentVO(mockResponse[0]);
+    sagaTester.dispatch(documentInitialized({ document }));
+    sagaTester.dispatch(cancelUpload());
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      document: null,
+    });
+  });
+
+  it('Should store correct state if RESET_DOCUMENT', () => {
+    const document = new DocumentVO(mockResponse[0]);
+    sagaTester.dispatch(documentInitialized({ document }));
+    sagaTester.dispatch(resetDocument());
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      document: null,
     });
   });
 
