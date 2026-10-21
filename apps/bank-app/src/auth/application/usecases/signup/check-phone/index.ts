@@ -2,7 +2,7 @@
 import { call, put, StrictEffect, takeEvery, cancel, select } from 'redux-saga/effects';
 
 import { ISearchPhoneQuery, AuthError, ISendPhoneValidationCommand } from '@clean-rn/auth/domain';
-import { HttpConnection } from '@clean-rn/shared/infrastructure';
+import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AuthApi, IUserSearchServerCode } from '@clean-rn/auth/infrastructure';
 
 import { selectUserFromSignup } from '../../../state-management/selectors';
@@ -54,6 +54,10 @@ export function* checkPhoneGenerator(
     // navigation
     yield call(navigate, { route: IAuthStackPages.SIGNUP_VALIDATE_PHONE });
   } catch (e: unknown) {
+    if (e instanceof ServerError && e.statusCode === 400) {
+      yield put(signupFailed(new AuthError.InvalidPhone(e.message)));
+      yield cancel();
+    }
     // once app is well tested, delete this part and let onError hook manage unexpected errors
     yield put(initializeSignupStep());
     yield put(showUnknownError(e as Error));
