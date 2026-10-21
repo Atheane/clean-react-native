@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { View, Text, StyleSheet, Dimensions, Image, ImageSourcePropType } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
@@ -60,6 +60,8 @@ export const UploadDocument = () => {
     },
     [dispatch],
   );
+
+  const navigation = useNavigation();
 
   const handleGetDocument = useCallback(
     (docBase64: string) => {

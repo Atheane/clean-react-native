@@ -141,8 +141,10 @@ export const Kyc = () => {
             submittedKyc?.expectedDocumentCount === 2 ? { height: HEIGHT * 1 } : { height: HEIGHT * 1.3 },
           ]}
         >
-          {customer?.properties.status === KYC_REVIEW.NONE && <Instructions />}
-          {customer?.properties.status === KYC_REVIEW.PENDING && <KycPending />}
+          {customer?.properties.status === KYC_REVIEW.NONE && !customer?.properties.kyc?.isComplete && (
+            <Instructions />
+          )}
+          {customer?.properties.kyc?.isComplete && <KycPending />}
           {customer?.properties.status === KYC_REVIEW.REFUSED && <KycRefused />}
           {user?.properties.USPerson && (
             <View style={styles.itemContainer}>
