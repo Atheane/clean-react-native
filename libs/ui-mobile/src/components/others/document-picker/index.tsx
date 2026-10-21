@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { View, Platform, StyleProp, ViewStyle, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import DocumentPickr from 'react-native-document-picker';
-import ImgToBase64 from 'react-native-image-base64';
+import * as FileSystem from 'expo-file-system';
 
 import { SecondaryButton } from '../../buttons/secondary-button';
 import { Colors } from '../../../constants';
@@ -13,19 +13,24 @@ type IProps = {
   handleError: (error: unknown) => void;
 };
 
+const convertPDFToBase64 = async (uri: string) => {
+  const base64 = await FileSystem.readAsStringAsync(uri, { encoding: 'base64' });
+  return base64;
+};
+
 export const DocumentPicker = (props: IProps) => {
   const { t } = useTranslation();
-
   const selectPDF = async (): Promise<void> => {
     try {
       const result = await DocumentPickr.pickSingle({
         type: Platform.OS === 'ios' ? 'com.adobe.pdf' : 'application/pdf',
         mode: 'open',
       });
-      const base64String = await ImgToBase64.getBase64String(result.uri);
+      const base64String = await convertPDFToBase64(result.uri);
       props.getDocument(base64String);
     } catch (err) {
       if (!DocumentPickr.isCancel(err)) {
+        console.log('DocumentPicker Error:----->', err);
         props.handleError(err);
         return;
       }

@@ -63,7 +63,6 @@
     "expo-sharing": "*",
     "react-native-document-picker": "*",
     "react-native-document-scanner-plugin": "*",
-    "react-native-image-base64": "*",
     "react-native-compressor": "*",
     "react-native-share": "*",
     "react-native-blob-util": "*",

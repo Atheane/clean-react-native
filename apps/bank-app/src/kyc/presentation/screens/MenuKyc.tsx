@@ -164,7 +164,7 @@ export const MenuKyc = () => {
               onPress={() =>
                 navigateTo(
                   submittedKyc?.isHosted
-                    ? IKycStackPages.MENU_KYC_HOST
+                    ? (IKycStackPages.HOST_RESIDENCE_PROOF_LIST as never)
                     : (IKycStackPages.RESIDENCE_PROOF_OPTIONS as never),
                   {},
                 )
