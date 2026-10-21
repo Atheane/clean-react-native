@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { call, put, StrictEffect, takeEvery, cancel, select } from 'redux-saga/effects';
+import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { Customer, IDocumentProperties } from '@clean-rn/kyc/domain';
@@ -8,7 +8,6 @@ import { KycApi } from '@clean-rn/kyc/infrastructure';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { selectUserFromLogin } from '../../state-management/selectors';
 
 import { customerStatusChecked, initializeKyc, ICustomerTypes } from '../../commands/customer';
 import { UserApi } from '@clean-rn/auth/infrastructure';
@@ -22,14 +21,15 @@ export function* checkCustomerStatusGenerator(
 ): Generator<StrictEffect, any, any> {
   try {
     //todo check customer status in async storage, if VALIDATED, do not call api to avoid one api call
-    const user = yield select(selectUserFromLogin);
     const userApi = UserApi.getInstance(httpConnection);
 
-    const { status: customerStatus, kycReviewComment } = yield call([userApi, userApi.getUser]);
+    const user = yield call([userApi, userApi.getUser]);
+    const customerStatus = user.properties.status;
+
     //todo getUser from to check last status
     if (customerStatus && ['VALIDATED', 'CANCELED'].includes(customerStatus)) {
       const customer = Customer.Create({
-        id: user.id,
+        id: user.id.toString(),
         properties: { status: customerStatus, USPerson: user.properties.USPerson },
       });
       yield put(customerStatusChecked({ customer }));
@@ -38,11 +38,11 @@ export function* checkCustomerStatusGenerator(
     const api = KycApi.getInstance(httpConnection);
     const documents: IDocumentProperties[] = yield call([api, api.getDocuments]);
     const customer = Customer.Create({
-      id: user.id,
+      id: user.id.toString(),
       properties: { status: customerStatus, USPerson: user.properties.USPerson },
     });
-    if (kycReviewComment && kycReviewComment.length > 0) {
-      customer.addKycReviewComment(kycReviewComment);
+    if (user.properties.kycReviewComment && user.properties.kycReviewComment.length > 0) {
+      customer.addKycReviewComment(user.properties.kycReviewComment);
     }
     customer.checkDocumentsStatus(documents);
     yield put(customerStatusChecked({ customer }));

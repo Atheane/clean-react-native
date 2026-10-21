@@ -4,14 +4,14 @@ export enum USER_STATUS {
 }
 
 export type IUserPropertiesServer = {
-  birthday: Date;
+  birthday: string;
   email: string;
   firstname: string;
   kycReviewComment: string;
   lastname: string;
   nationality: string;
   phone: string;
-  specifiedUSPerson: boolean;
+  specifiedUSPerson: 0 | 1;
   title: string;
   status: USER_STATUS;
   userId: number;

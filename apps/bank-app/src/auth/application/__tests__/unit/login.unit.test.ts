@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AuthError, Email, Password, User, Phone, BirthDay, Country, IGender } from '@clean-rn/auth/domain';
-import { AuthApi, IUserLoginServerCode } from '@clean-rn/auth/infrastructure';
+import { AuthApi, IUserLoginServerCode, UserApi } from '@clean-rn/auth/infrastructure';
 
 import { loginSaga, loginGenerator } from '../../usecases/login';
 import { ILoginTypes, loginSuccess, loginFailure, initializeLogin } from '../../commands/login';
@@ -20,7 +20,9 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 
 describe('Login - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
-  const api = AuthApi.getInstance(httpConnection);
+  const authApi = AuthApi.getInstance(httpConnection);
+  const userApi = UserApi.getInstance(httpConnection);
+
   const genObject = loginSaga(httpConnection);
 
   const mockData = {
@@ -143,13 +145,13 @@ describe('Login - usecase', () => {
       .next()
       .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
       .next('test@example.com')
-      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
       .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next()
       .call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, mockResponse.accessToken)
       .next()
-      .call([api, api.getUser])
+      .call([userApi, userApi.getUser])
       .next(mockUserManData)
       .put(loginSuccess({ auth: mockResponse, user }))
       .next();
@@ -187,13 +189,13 @@ describe('Login - usecase', () => {
       .next()
       .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
       .next('test@example.com')
-      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
       .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next()
       .call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, mockResponse.accessToken)
       .next()
-      .call([api, api.getUser])
+      .call([userApi, userApi.getUser])
       .next(mockUserWomanData)
       .put(loginSuccess({ auth: mockResponse, user }))
       .next();
@@ -231,13 +233,13 @@ describe('Login - usecase', () => {
       .next()
       .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
       .next('test@example.com')
-      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
       .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next()
       .call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, mockResponse.accessToken)
       .next()
-      .call([api, api.getUser])
+      .call([userApi, userApi.getUser])
       .next(mockUserNeutralData)
       .put(loginSuccess({ auth: mockResponse, user }))
       .next();
@@ -251,7 +253,7 @@ describe('Login - usecase', () => {
       .next()
       .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
       .next('test@example.com')
-      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401InvalidCredentials))
       .put(
         loginFailure(
@@ -269,7 +271,7 @@ describe('Login - usecase', () => {
       .next()
       .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
       .next('test@example.com')
-      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401UserNotFound))
       .put(loginFailure(new AuthError.LoginFailureUserNotFound(new ServerError(mockError401UserNotFound))))
       .next();
@@ -283,7 +285,7 @@ describe('Login - usecase', () => {
       .next()
       .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
       .next('test@example.com')
-      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401UserPhoneNotValidated))
       .put(initializeSignupStep())
       .next()
@@ -305,7 +307,7 @@ describe('Login - usecase', () => {
       .next()
       .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
       .next('test@example.com')
-      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
       .put(initializeLogin())
       .next()
@@ -323,7 +325,7 @@ describe('Login - usecase', () => {
       .next(null)
       .call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, 'test@example.com')
       .next()
-      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unknown error'))
       .put(initializeLogin())
       .next()

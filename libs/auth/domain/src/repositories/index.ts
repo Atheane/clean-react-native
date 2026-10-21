@@ -1,6 +1,6 @@
-import { IUserProperties } from '../entities';
+import { User, IUserProperties } from '../entities';
 
 export interface IUserRepository {
-  createUser(user: IUserProperties): Promise<IUserProperties>; //user as an aggregate Entity class, with IUserProperties
-  getUser(): Promise<IUserProperties>;
+  createUser(user: IUserProperties): Promise<User>; //user as an aggregate Entity class, with IUserProperties
+  getUser(): Promise<User>;
 }

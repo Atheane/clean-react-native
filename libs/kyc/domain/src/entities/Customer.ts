@@ -1,5 +1,5 @@
 import { Entity } from '@clean-rn/ddd';
-import { IDocumentProperties, IDocumentStatus, ICustomerStatus } from '../types';
+import { IDocumentProperties, ICustomerStatus } from '../types';
 import { KycDocuments, DocumentVO } from '../value-objects';
 import { CustomerError } from '../errors/index';
 
@@ -18,17 +18,20 @@ export class Customer extends Entity<ICustomerProperties> {
 
   static Create({
     id,
-    properties: { status, USPerson },
+    properties: { status, USPerson, kycReviewComment },
   }: {
     id: number;
     properties: {
       status?: ICustomerStatus;
       USPerson: boolean;
+      kycReviewComment?: string;
     };
   }): Customer {
     return new Customer({
       id: id.toString(),
-      properties: status ? { status, USPerson } : { status: 'PENDING', USPerson },
+      properties: status
+        ? { status, USPerson, kycReviewComment }
+        : { status: 'PENDING', USPerson, kycReviewComment },
     });
   }
 

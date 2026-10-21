@@ -1,5 +1,6 @@
 import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
-import { IUserRepository, IUserProperties, PhoneOtp, IGender } from '@clean-rn/auth/domain';
+import { User, IUserRepository, IUserProperties, PhoneOtp, IGender } from '@clean-rn/auth/domain';
+import { mapUserServerToUserProperties } from '../mappers';
 
 export class UserApi implements IUserRepository {
   private static instance: UserApi | null = null;
@@ -20,17 +21,18 @@ export class UserApi implements IUserRepository {
     return this.instance;
   }
 
-  async getUser(): Promise<IUserProperties> {
+  async getUser(): Promise<User> {
     //map cmd to dto
     const response = await fetch(
       `${this.connection.baseUrl}/app/user`,
       this.connection.options(IHttpVerb.GET),
     );
     await this.connection.handleError(response);
-    return response.json();
+    const result = await response.json();
+    return mapUserServerToUserProperties(result);
   }
 
-  async createUser({ phoneOtp, ...cmd }: IUserProperties & { phoneOtp: PhoneOtp }): Promise<IUserProperties> {
+  async createUser({ phoneOtp, ...cmd }: IUserProperties & { phoneOtp: PhoneOtp }): Promise<User> {
     //map cmd to dto
     let title: string;
     if (cmd.identity.gender === IGender.MAN) {
@@ -63,6 +65,7 @@ export class UserApi implements IUserRepository {
       this.connection.options(IHttpVerb.POST, params),
     );
     await this.connection.handleError(response);
-    return response.json();
+    const result = await response.json();
+    return mapUserServerToUserProperties(result);
   }
 }

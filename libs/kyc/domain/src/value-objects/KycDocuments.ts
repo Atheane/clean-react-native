@@ -157,6 +157,7 @@ export class KycDocuments {
       },
       {} as { [key in number]: IDocumentProperties[] },
     );
+
     // Get the last documents based on expected page number for each typeId
     const lastRelevantDocs = Object.entries(groupedByTypeId).reduce(
       (acc: { [key: number]: IDocumentProperties[] }, [typeId, properties]) => {
@@ -182,7 +183,6 @@ export class KycDocuments {
         }
       });
     });
-
     return lastRelevantDocs[mostRecentTypeId] || [];
   }
 

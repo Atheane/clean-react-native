@@ -19,7 +19,7 @@ import {
   IUserProperties,
 } from '@clean-rn/auth/domain';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
-import { AuthApi, IUserSearchServerCode } from '@clean-rn/auth/infrastructure';
+import { AuthApi, IUserSearchServerCode, UserApi } from '@clean-rn/auth/infrastructure';
 
 import { applicationInitialized } from '../../../../shared/application/commands/initialize-application';
 
@@ -70,7 +70,8 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 
 describe('Signup - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
-  const api = AuthApi.getInstance(httpConnection);
+  const authApi = AuthApi.getInstance(httpConnection);
+  const userApi = UserApi.getInstance(httpConnection);
 
   const mockIdentity: IRegisterIdentityCommand = {
     gender: IGender.MAN,
@@ -205,7 +206,7 @@ describe('Signup - usecase', () => {
       payload: mockQueryEmail,
     })
       .next()
-      .call([api, api.searchEmail], mockQueryEmail)
+      .call([authApi, authApi.searchEmail], mockQueryEmail)
       .next(IUserSearchServerCode.NOT_FOUND)
       .put(emailNotFound())
       .next();
@@ -217,7 +218,7 @@ describe('Signup - usecase', () => {
       payload: mockQueryEmail,
     })
       .next()
-      .call([api, api.searchEmail], mockQueryEmail)
+      .call([authApi, authApi.searchEmail], mockQueryEmail)
       .next(IUserSearchServerCode.EMAIL_EXISTS)
       .put(signupFailed(new AuthError.SignupFailureEmailExists()))
       .next()
@@ -235,7 +236,7 @@ describe('Signup - usecase', () => {
       payload: mockQueryEmail,
     })
       .next()
-      .call([api, api.searchEmail], mockQueryEmail)
+      .call([authApi, authApi.searchEmail], mockQueryEmail)
       .next(IUserSearchServerCode.KELVIN_USER)
       .put(signupFailed(new AuthError.SignupFailureEmailExists()))
       .next()
@@ -253,7 +254,7 @@ describe('Signup - usecase', () => {
       payload: mockQueryEmail,
     })
       .next()
-      .call([api, api.searchEmail], mockQueryEmail)
+      .call([authApi, authApi.searchEmail], mockQueryEmail)
       .next()
       .throw(new ServerError(mockError500))
       .put(initializeSignupStep())
@@ -374,11 +375,11 @@ describe('Signup - usecase', () => {
       payload: mockQueryPhone,
     })
       .next()
-      .call([api, api.searchPhone], mockQueryPhone)
+      .call([authApi, authApi.searchPhone], mockQueryPhone)
       .next(IUserSearchServerCode.NOT_FOUND)
       .select(selectUserFromSignup)
       .next(user)
-      .call([api, api.sendPhoneValidation], mockQueryPhone)
+      .call([authApi, authApi.sendPhoneValidation], mockQueryPhone)
       .next(mockSuccessTrue)
       .put(phoneCodeSent())
       .next();
@@ -392,7 +393,7 @@ describe('Signup - usecase', () => {
       payload: mockQueryPhone,
     })
       .next()
-      .call([api, api.searchPhone], mockQueryPhone)
+      .call([authApi, authApi.searchPhone], mockQueryPhone)
       .next(IUserSearchServerCode.PHONE_EXISTS)
       .select(selectUserFromSignup)
       .next(user)
@@ -407,11 +408,11 @@ describe('Signup - usecase', () => {
       payload: mockQueryPhone,
     })
       .next()
-      .call([api, api.searchPhone], mockQueryPhone)
+      .call([authApi, authApi.searchPhone], mockQueryPhone)
       .next(IUserSearchServerCode.PHONE_EXISTS)
       .select(selectUserFromSignup)
       .next(null)
-      .call([api, api.sendPhoneValidation], mockQueryPhone)
+      .call([authApi, authApi.sendPhoneValidation], mockQueryPhone)
       .next(mockSuccessTrue)
       .put(phoneCodeSent())
       .next();
@@ -423,7 +424,7 @@ describe('Signup - usecase', () => {
       payload: mockQueryPhone,
     })
       .next()
-      .call([api, api.searchPhone], mockQueryPhone)
+      .call([authApi, authApi.searchPhone], mockQueryPhone)
       .next(IUserSearchServerCode.NOT_FOUND)
       .select(selectUserFromSignup)
       .next(null)
@@ -438,7 +439,7 @@ describe('Signup - usecase', () => {
       payload: mockQueryPhone,
     })
       .next()
-      .call([api, api.searchPhone], mockQueryPhone)
+      .call([authApi, authApi.searchPhone], mockQueryPhone)
       .next()
       .throw(new ServerError(mockError500))
       .put(initializeSignupStep())
@@ -458,7 +459,7 @@ describe('Signup - usecase', () => {
       payload: mockQueryPhoneOtp,
     })
       .next(mockQueryPhoneOtp)
-      .call([api, api.checkPhoneValidation], mockQueryPhoneOtp)
+      .call([authApi, authApi.checkPhoneValidation], mockQueryPhoneOtp)
       .next(mockSuccessTrue)
       .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
         expect(yieldedValue.type).toEqual('SELECT');
@@ -487,7 +488,7 @@ describe('Signup - usecase', () => {
       payload: mockQueryPhoneOtp,
     })
       .next()
-      .call([api, api.checkPhoneValidation], mockQueryPhoneOtp)
+      .call([authApi, authApi.checkPhoneValidation], mockQueryPhoneOtp)
       .next(mockSuccessTrue)
       .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
         expect(yieldedValue.type).toEqual('SELECT');
@@ -517,7 +518,7 @@ describe('Signup - usecase', () => {
       payload: mockQueryPhoneOtp,
     })
       .next()
-      .call([api, api.checkPhoneValidation], mockQueryPhoneOtp)
+      .call([authApi, authApi.checkPhoneValidation], mockQueryPhoneOtp)
       .next(mockSuccessFalse)
       .put(signupFailed(new AuthError.ValidatePhoneIncorrectPhoneCode()))
       .next()
@@ -747,7 +748,7 @@ describe('Signup - usecase', () => {
       },
     })
       .next()
-      .call([api, api.createUser], { ...userPrev.properties, phoneOtp: mockQueryPhoneOtp.phoneOtp })
+      .call([userApi, userApi.createUser], { ...userPrev.properties, phoneOtp: mockQueryPhoneOtp.phoneOtp })
       .next({ uid })
       .put(userSignedUp(user))
       .next(user)
@@ -793,7 +794,7 @@ describe('Signup - usecase', () => {
       },
     })
       .next()
-      .call([api, api.createUser], { ...userPrev.properties, phoneOtp: mockQueryPhoneOtp.phoneOtp })
+      .call([userApi, userApi.createUser], { ...userPrev.properties, phoneOtp: mockQueryPhoneOtp.phoneOtp })
       .throw(new ServerError(mockError500))
       .put(initializeSignupStep())
       .next()
