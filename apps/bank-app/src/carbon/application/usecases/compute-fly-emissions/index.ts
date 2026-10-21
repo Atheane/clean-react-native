@@ -3,9 +3,9 @@ import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { FlightI, FlightDataE, Flight, FlightSeatE } from '@bank/carbon-weight/dist';
+import { FlightI } from '@bank/carbon-weight/dist';
 
-import { FlyEmissions, airports } from '@clean-rn/carbon/domain';
+import { FlyEmissions } from '@clean-rn/carbon/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IStoreKey } from '../../../../shared/application/types';
