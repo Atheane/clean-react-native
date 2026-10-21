@@ -65,6 +65,7 @@ export const HomeStack = () => {
       dispatch(initGlobalError());
     }
   }, [navigationStack, dispatch]);
+
   return (
     <Stack.Navigator>
       <Stack.Screen

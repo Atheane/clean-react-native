@@ -1,7 +1,9 @@
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { useNavigationState, useRoute } from '@react-navigation/native';
+import { useNavigationState } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 import { IKycStackPages, IKycStackProps } from '../../../shared/presentation/types';
@@ -15,7 +17,7 @@ import {
   KycHost,
   HostIdList,
   UploadDocument,
-  KycDocumentsCompleted,
+  KycDocumentsValidated,
   CardSent,
   HostResidenceProofList,
   SuccessKyc,
@@ -26,13 +28,11 @@ const Stack = createNativeStackNavigator<IKycStackProps>();
 export const KycStack = () => {
   const { t } = useTranslation();
   const navigationStack = useNavigationState((state) => state?.routes ?? []);
-  const { params } = useRoute() as {
-    params: {
-      initRoute: keyof IKycStackProps | undefined;
-    };
-  };
+
+  const { initRoute } = useSelector((state: IRootState) => state.kyc.customer);
+
   return (
-    <Stack.Navigator initialRouteName={params?.initRoute || IKycStackPages.INIT}>
+    <Stack.Navigator initialRouteName={initRoute as IKycStackPages}>
       <Stack.Screen
         name={IKycStackPages.INIT}
         component={InitKyc}
@@ -50,8 +50,8 @@ export const KycStack = () => {
         }}
       />
       <Stack.Screen
-        name={IKycStackPages.KYC_DOCUMENTS_COMPLETED}
-        component={KycDocumentsCompleted}
+        name={IKycStackPages.DOCUMENTS_VALIDATED}
+        component={KycDocumentsValidated}
         options={{
           headerTitle: t('screens.kyc.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),

@@ -12,7 +12,7 @@ import { SuccessKyc as CheckmarkImage } from '../assets/images';
 
 const HEIGHT = Dimensions.get('window').height;
 
-export const KycDocumentsCompleted = () => {
+export const KycDocumentsValidated = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
 

@@ -5,7 +5,6 @@ import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@rneui/themed';
 import { useTranslation } from 'react-i18next';
 
-import { KYC_REVIEW } from '@clean-rn/auth/domain';
 import {
   IDocumentType,
   IDocumentCategory,
@@ -13,6 +12,7 @@ import {
   IDocumentStatus,
   IDocumentProperties,
   IDocumentStatusCode,
+  IKycState,
 } from '@clean-rn/kyc/domain';
 import {
   UploadDocumentCard,
@@ -94,7 +94,7 @@ export const Kyc = () => {
     if (customer?.properties.kyc) {
       setSubmittedKyc(customer.properties.kyc);
     }
-  }, [customer?.properties.kyc, customer?.properties.kyc?.isHosted]);
+  }, [customer?.properties.kyc]);
 
   const handleOnCancel = useCallback(() => {
     dispatch(cancelUpload());
@@ -148,13 +148,21 @@ export const Kyc = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, theme.bank.container.centeredItem]}>
-          {customer?.properties.status === KYC_REVIEW.NONE && !customer?.properties.kyc?.isComplete && (
-            <Instructions />
-          )}
-          {customer?.properties.kyc?.isComplete && <KycPending />}
-          {customer?.properties.status === KYC_REVIEW.REFUSED && <KycRefused />}
-          {!customer?.properties.kyc?.isComplete && user?.properties.USPerson && (
+        <View
+          style={[
+            styles.container,
+            theme.bank.container.centeredItem,
+            customer?.properties.kyc?.state === IKycState.REFUSED &&
+            customer?.properties.kyc?.expectedDocumentCount > 3
+              ? {}
+              : { height: HEIGHT },
+          ]}
+        >
+          {(customer?.properties.kyc?.state === IKycState.INIT ||
+            customer?.properties.kyc?.state === IKycState.INCOMPLETE) && <Instructions />}
+          {customer?.properties.kyc?.state === IKycState.PENDING && <KycPending />}
+          {customer?.properties.kyc?.state === IKycState.REFUSED && <KycRefused />}
+          {customer?.properties.kyc?.state !== IKycState.PENDING && customer?.properties.kyc?.isUSPerson && (
             <View style={styles.itemContainer}>
               <UploadDocumentCard
                 icon={KycW9}
@@ -185,7 +193,7 @@ export const Kyc = () => {
               />
             </View>
           )}
-          {!customer?.properties.kyc?.isComplete && (
+          {customer?.properties.kyc?.state !== IKycState.PENDING && (
             <View style={styles.itemContainer}>
               <UploadDocumentCard
                 icon={KycIdentification}
@@ -202,7 +210,7 @@ export const Kyc = () => {
               />
             </View>
           )}
-          {!customer?.properties.kyc?.isComplete && submittedKyc?.isHosted && (
+          {customer?.properties.kyc?.state !== IKycState.PENDING && submittedKyc?.isHosted && (
             <View style={styles.itemContainer}>
               <UploadDocumentCard
                 icon={KycSwornStatement}
@@ -239,7 +247,7 @@ export const Kyc = () => {
               />
             </View>
           )}
-          {!customer?.properties.kyc?.isComplete && submittedKyc?.isHosted && (
+          {customer?.properties.kyc?.state !== IKycState.PENDING && submittedKyc?.isHosted && (
             <View style={styles.itemContainer}>
               <UploadDocumentCard
                 icon={KycIdentification}
@@ -258,7 +266,7 @@ export const Kyc = () => {
               />
             </View>
           )}
-          {!customer?.properties.kyc?.isComplete && (
+          {customer?.properties.kyc?.state !== IKycState.PENDING && (
             <View style={styles.itemContainer}>
               <UploadDocumentCard
                 icon={KycInvoice}
@@ -297,7 +305,6 @@ export const Kyc = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: HEIGHT,
   },
   title: {
     margin: 24,

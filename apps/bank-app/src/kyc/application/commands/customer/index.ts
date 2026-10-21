@@ -7,6 +7,7 @@ import {
   ICustomerStatusChecked,
   ICustomerDocumentsUpdated,
 } from './types';
+import { IRoutes } from '../../../../shared/presentation/types';
 
 // commands
 export const checkCustomerStatus = (): ICheckCustomerStatus => ({
@@ -18,7 +19,10 @@ export const initializeKyc = (): IInitializeKyc => ({
 });
 
 // domainEvent
-export const customerStatusChecked = (payload: { customer: Customer }): ICustomerStatusChecked => ({
+export const customerStatusChecked = (payload: {
+  customer: Customer;
+  initRoute: IRoutes;
+}): ICustomerStatusChecked => ({
   type: ICustomerTypes.CUSTOMER_STATUS_CHECKED,
   payload,
 });

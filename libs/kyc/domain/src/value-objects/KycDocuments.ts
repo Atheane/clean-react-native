@@ -1,6 +1,6 @@
 import { arrayIsEmpty } from '@clean-rn/shared/domain';
 
-import { IDocumentCategory, IDocumentProperties, IDocumentStatus, IDocumentType } from '../types';
+import { IDocumentCategory, IDocumentProperties, IDocumentStatus, IDocumentType, IKycState } from '../types';
 import { ALLOWED_DOCUMENT_TYPES, EXPECTED_DOCUMENTS_NUMBER } from '../constants';
 import { DocumentError } from '../errors';
 
@@ -55,7 +55,7 @@ export class KycDocuments {
   };
   isUSPerson: boolean;
   isHosted: boolean;
-  isEmpty: boolean;
+  state: IKycState;
   expectedDocumentCount: number;
 
   constructor(docsProps: IDocumentProperties[], USPerson?: boolean) {
@@ -64,37 +64,36 @@ export class KycDocuments {
       this.processCategoryDocuments(category as IDocumentCategory, documentsByCategory);
     });
     this.isUSPerson = !!USPerson;
-    this.isEmpty = this.setIsEmpty();
     this.isHosted = this.setIsHosted();
     this.expectedDocumentCount = this.setExpectedDocumentCount();
+    this.state = this.computeState();
   }
 
   addDocument(document: DocumentVO): void {
     this.validateDocumentType(document.properties.category, document.properties.typeId);
     this.documents[document.properties.category] = document;
     this.isHosted = this.setIsHosted();
-    this.isEmpty = this.setIsEmpty();
     this.expectedDocumentCount = this.setExpectedDocumentCount();
+    this.state = this.computeState();
   }
 
-  get isComplete(): boolean {
-    const requiredDocs = Object.values(this.documents).filter(
+  private computeState(): IKycState {
+    const pendingDocs = Object.values(this.documents).filter(
       (doc) =>
-        (doc !== undefined && doc?.properties.status === IDocumentStatus.PENDING) ||
+        doc?.properties.status === IDocumentStatus.PENDING ||
         doc?.properties.status === IDocumentStatus.VALIDATED,
     );
-    return requiredDocs.length === this.expectedDocumentCount;
-  }
-
-  get isValid(): boolean {
-    const requiredDocs = Object.values(this.documents).filter(
+    const validatedDocs = Object.values(this.documents).filter(
       (doc) => doc?.properties.status === IDocumentStatus.VALIDATED,
     );
-    return requiredDocs.length === this.expectedDocumentCount;
-  }
-
-  private setIsEmpty(): boolean {
-    return Object.values(this.documents).every((doc) => doc === undefined);
+    const refusedDocs = Object.values(this.documents).some(
+      (doc) => doc?.properties.status === IDocumentStatus.REFUSED,
+    );
+    if (Object.values(this.documents).every((doc) => doc === undefined)) return IKycState.INIT;
+    else if (validatedDocs.length === this.expectedDocumentCount) return IKycState.DOCUMENTS_VALIDATED;
+    else if (refusedDocs) return IKycState.REFUSED;
+    else if (pendingDocs.length === this.expectedDocumentCount) return IKycState.PENDING;
+    else return IKycState.INCOMPLETE;
   }
 
   private setIsHosted(): boolean {

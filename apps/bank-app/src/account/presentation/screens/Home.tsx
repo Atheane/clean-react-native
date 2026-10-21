@@ -63,26 +63,9 @@ export const Home = () => {
     [navigation],
   );
 
-  const { customer, pending: kycPending } = useSelector((state: IRootState) => state.kyc.customer);
-
   const handlePressBanner = useCallback(() => {
-    let initRoute;
-    if (customer?.properties.status === KYC_REVIEW.VALIDATED) {
-      initRoute = IKycStackPages.SUCCESS;
-    } else if (customer?.properties.kyc?.isEmpty) {
-      initRoute = IKycStackPages.INIT;
-    } else if (customer?.properties.kyc?.isValid) {
-      initRoute = IKycStackPages.KYC_DOCUMENTS_COMPLETED;
-    } else {
-      initRoute = IKycStackPages.KYC;
-    }
-    navigation.navigate(IKycStackPages.MENU as never, { initRoute });
-  }, [
-    navigation,
-    customer?.properties.status,
-    customer?.properties.kyc?.isEmpty,
-    customer?.properties.kyc?.isValid,
-  ]);
+    navigation.navigate(IKycStackPages.MENU as never);
+  }, [navigation]);
 
   const handleOnDeleteCard = useCallback(
     (uid: string) => {
@@ -129,6 +112,8 @@ export const Home = () => {
   const handleUpdateNeeded = useCallback(() => {
     Linking.openURL(Platform.OS === 'ios' ? APPLE_STORE_LINK : GOOGLE_PLAY_LINK);
   }, []);
+
+  const { customer, pending: kycPending } = useSelector((state: IRootState) => state.kyc.customer);
 
   return accountPending || kycPending ? (
     <LoaderSplashScreen /> // todo replace with loading gif

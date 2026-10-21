@@ -61,3 +61,13 @@ export type IDocumentProperties = {
 export type ICustomerStatus = 'VALIDATED' | 'PENDING';
 
 export type IDocumentPage = 'recto' | 'verso';
+
+// almost same as @auth User KYC_REVIEW, but careful, KYC_REVIEW can be NONE (= INIT) even when all doc were sent and are PENDING
+// so we define KycState for the application
+export enum IKycState {
+  INIT = 'INIT', // no documents at all
+  INCOMPLETE = 'INCOMPLETE', // at least one document is pending
+  PENDING = 'PENDING', // all expected documents were sent, at least one is pending, none of them is refused
+  DOCUMENTS_VALIDATED = 'DOCUMENTS_VALIDATED', // all documents are validated
+  REFUSED = 'REFUSED', // at least one document is refused
+}
