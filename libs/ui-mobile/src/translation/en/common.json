@@ -9,9 +9,20 @@
     }
   },
   "errors": {
+    "BIC": {
+      "required": "BIC requis",
+      "invalid": "BIC invalide"
+    },
     "email": {
       "required": "e-mail required",
       "invalid": "invalid email"
+    },
+    "IBAN": {
+      "required": "IBAN requis",
+      "invalid": "IBAN invalide"
+    },
+    "name": {
+      "required": "nom requis"
     },
     "consent": {
       "required": "consent required"
@@ -259,7 +270,23 @@
     },
     "beneficiary": {
       "title": "Manage beneficiaries",
-      "add-beneficiary": "Add"
+      "add-beneficiary": "Add",
+      "new-beneficiary": {
+        "title": "Add beneficiary",
+
+        "BIC": {
+          "label": "BIC",
+          "placeholder": "TRZOFR21XXX"
+        },
+        "IBAN": {
+          "label": "IBAN",
+          "placeholder": "FR76 1679 0000 0000 0000 0000 000"
+        },
+        "name": {
+          "label": "name",
+          "placeholder": "name"
+        }
+      }
     },
     "account-statements": {
       "title": "Export",

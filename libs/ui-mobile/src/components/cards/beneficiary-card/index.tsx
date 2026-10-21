@@ -3,15 +3,21 @@ import { Card, Divider } from '@rneui/base';
 import { useTheme } from '@rneui/themed';
 import { SvgProps } from 'react-native-svg';
 
-import { IBeneficiary } from '@clean-rn/beneficiary/domain';
+import { IBeneficiary, IBeneficiaryCategory } from '@clean-rn/beneficiary/domain';
 import { BeneficiaryItem } from '../../others/transaction-item';
+
+import { BANK } from '../../../assets';
 
 type IProps = {
   date: string;
   data: IBeneficiary[];
 };
 
-export const TransactionsCard = (props: IProps) => {
+const BeneficiaryIcons = {
+  [IBeneficiaryCategory.BANK]: BANK,
+} as { [key: string]: React.FC<SvgProps> };
+
+export const BeneficiaryCard = (props: IProps) => {
   const { theme } = useTheme();
   return (
     <Card containerStyle={[theme.bank.container.card.long, theme.bank.shadow.card]}>
@@ -22,7 +28,7 @@ export const TransactionsCard = (props: IProps) => {
         {props.data.map((data: IBeneficiary, index: number) => {
           return (
             <View key={data.beneficiaryId}>
-              <BeneficiaryItem icon={null} name={data.name} iban={data.iban} />
+              <BeneficiaryItem icon={BeneficiaryIcons[BANK]} name={data.name} iban={data.iban} />
               {index !== props.data.length - 1 && (
                 <View style={styles.divider}>
                   <Divider />

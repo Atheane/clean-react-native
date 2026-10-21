@@ -1,3 +1,4 @@
+import { BeneficiaryAdd } from './BeneficiaryAdd';
 import { BeneficiaryList } from './BeneficiaryList';
 
-export { BeneficiaryList };
+export { BeneficiaryAdd, BeneficiaryList };

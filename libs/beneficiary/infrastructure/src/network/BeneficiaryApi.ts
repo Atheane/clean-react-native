@@ -21,12 +21,15 @@ export class BeneficiaryApi implements IBeneficiaryRepository {
   }
 
   async getBeneficiary(): Promise<IBeneficiary[]> {
-    const response = await fetch(`${this.connection.baseUrl}/app/`, this.connection.options(IHttpVerb.GET));
+    const response = await fetch(
+      `${this.connection.baseUrl}/app/beneficiary`,
+      this.connection.options(IHttpVerb.GET),
+    );
     await this.connection.handleError(response);
     const beneficiaries = await response.json();
     return beneficiaries.map((beneficiary: IBeneficiaryServer) => ({
       beneficiaryId: beneficiary.beneficiaryId,
-      beneficiaryType: beneficiary.beneficiaryType,
+      name: beneficiary.name,
       iban: new Iban(beneficiary.iban),
       bic: new Bic(beneficiary.bic),
     }));

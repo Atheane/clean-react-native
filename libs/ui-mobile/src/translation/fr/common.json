@@ -9,12 +9,23 @@
     }
   },
   "errors": {
+    "BIC": {
+      "required": "BIC requis",
+      "invalid": "BIC invalide"
+    },
+    "consent": {
+      "required": "consentement requis"
+    },
     "email": {
       "required": "email requis",
       "invalid": "email invalide"
     },
-    "consent": {
-      "required": "consentement requis"
+    "IBAN": {
+      "required": "IBAN requis",
+      "invalid": "IBAN invalide"
+    },
+    "name": {
+      "required": "nom requis"
     },
     "password": {
       "required": "mot de passe requis",
@@ -289,7 +300,23 @@
     },
     "beneficiary": {
       "title": "Gérer mes bénéficiaires",
-      "add-beneficiary": "Ajouter"
+      "add-beneficiary": "Ajouter",
+      "new-beneficiary": {
+        "title": "Ajouter un bénéficiaire",
+
+        "BIC": {
+          "label": "BIC",
+          "placeholder": "TRZOFR21XXX"
+        },
+        "IBAN": {
+          "label": "IBAN",
+          "placeholder": "FR76 1679 0000 0000 0000 0000 000"
+        },
+        "name": {
+          "label": "nom",
+          "placeholder": "nom"
+        }
+      }
     },
     "account-statements": {
       "title": "Export",

@@ -144,6 +144,7 @@ export {
   ExportPdf,
   Iban,
   Bic,
+  BeneficiaryAdd,
   Copy,
   Restaurant,
   TransferTransaction,

@@ -18,6 +18,7 @@ export function* listBeneficiarySaga(httpConnection: HttpConnection): Generator<
 
 export function* listBeneficiaryGenerator(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   try {
+    console.log('GET BENEFICIARIES USECASE');
     const { beneficiaries: beneficiariesFromStore } = yield select(selectBeneficiary);
     let beneficiaries;
     if (beneficiariesFromStore) {
@@ -26,7 +27,6 @@ export function* listBeneficiaryGenerator(httpConnection: HttpConnection): Gener
       yield call(navigate, { route: IHomeStackPages.BENEFICIARY_LIST });
     } else {
       const api = BeneficiaryApi.getInstance(httpConnection);
-
       const beneficiaries: IBeneficiary[] = yield call([api, api.getBeneficiary]);
 
       yield put(beneficiaryListed(beneficiaries));

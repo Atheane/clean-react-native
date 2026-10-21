@@ -10,7 +10,7 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import * as Contacts from 'expo-contacts';
@@ -22,7 +22,6 @@ import {
   LinkButton,
   LinkButtonColors,
   Bic as BicIcon,
-  ExportPdf,
   BeneficiaryAdd,
   Iban as IbanIcon,
   CopyValueClipboard,
@@ -34,6 +33,8 @@ import {
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IBeneficiaryStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+
+import { beneficiaryList } from '../../application/commands/beneficiary';
 
 const ContentNoBeneficiary = () => {
   const { t } = useTranslation();
@@ -50,8 +51,8 @@ const ContentNoBeneficiary = () => {
           title={t('screens.beneficiary.add-beneficiary')}
           onPress={handleOnPressAdd}
           iconOne={() => (
-            <View style={{ height: 23, marginLeft: -60, justifyContent: 'center' }}>
-              <ExportPdf style={{ marginTop: 30 } as StyleProp<ViewStyle>} />
+            <View style={{ height: 23, marginLeft: -80, justifyContent: 'center' }}>
+              <BeneficiaryAdd style={{ marginTop: 15 } as StyleProp<ViewStyle>} />
             </View>
           )}
           long
@@ -62,12 +63,14 @@ const ContentNoBeneficiary = () => {
 };
 
 const ContactList = () => {
+  const sortType = Contacts.SortTypes.FirstName;
   useEffect(() => {
     (async () => {
       const { status } = await Contacts.requestPermissionsAsync();
       if (status === 'granted') {
         const { data } = await Contacts.getContactsAsync({
-          fields: [Contacts.Fields.Emails],
+          fields: [Contacts.Fields.PhoneNumbers, Contacts.Fields.Emails],
+          sort: sortType,
         });
 
         if (data.length > 0) {
@@ -86,13 +89,6 @@ const ContactList = () => {
 };
 
 const TabMenu = () => {
-  const { t } = useTranslation();
-  const navigation = useNavigation();
-
-  const handleOnPressAdd = useCallback(() => {
-    navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_ADD);
-  }, [navigation]);
-
   const [index, setIndex] = useState(0);
 
   return (
@@ -142,6 +138,13 @@ export const BeneficiaryList = () => {
   const { beneficiaries } = useSelector((state: IRootState) => state.beneficiary.beneficiary);
   const hasBeneficiary = beneficiaries && beneficiaries?.length > 0;
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(beneficiaryList());
+  }, [dispatch]);
+
+  console.log('beneficiaires', beneficiaries);
 
   return (
     <ErrorBoundary t={t}>

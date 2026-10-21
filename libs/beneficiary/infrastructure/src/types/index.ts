@@ -1,8 +1,6 @@
-import { IBeneficiaryType } from '@clean-rn/beneficiary/domain';
-
 export type IBeneficiaryServer = {
   beneficiaryId: number;
-  beneficiaryType: IBeneficiaryType;
+  name: string;
   iban: string;
   bic: string;
 };

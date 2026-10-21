@@ -29,6 +29,7 @@ import { Dropdown } from './dropdowns/dropdown';
 import { CountryPicker } from './dropdowns/country-picker';
 import { DateTimePicker } from './dropdowns/datetime-picker';
 // Forms
+import { IBeneficiaryFormData, FormBeneficiary } from './forms/form-beneficiary';
 import { ILoginFormData, FormLogin } from './forms/form-login';
 import { IResetPasswordFormData, FormResetPassword } from './forms/form-reset-password';
 import { ISignupEmailFormData, FormSignupEmail } from './forms/form-signup-email';
@@ -106,6 +107,7 @@ export {
   CountryPicker,
   DateTimePicker,
   // Forms
+  IBeneficiaryFormData,
   ILoginFormData,
   IResetPasswordFormData,
   ISignupEmailFormData,
@@ -114,6 +116,7 @@ export {
   ISignupBirthFormData,
   ISignupAddressFormData,
   ISignupPhoneFormData,
+  FormBeneficiary,
   FormLogin,
   FormResetPassword,
   FormSignupEmail,
