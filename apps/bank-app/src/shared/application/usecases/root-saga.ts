@@ -44,7 +44,6 @@ export function* rootSaga(httpConnection: HttpConnection) {
     loadStorageSaga(),
     showUnknownErrorSaga(),
     loginSaga(httpConnection),
-    refreshSaga(httpConnection),
     closeLoginModalSaga(),
     resetPasswordSaga(httpConnection),
     checkEmailSaga(httpConnection),

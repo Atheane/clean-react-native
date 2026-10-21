@@ -1,17 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, put, StrictEffect, takeEvery, cancel, select, spawn, join } from 'redux-saga/effects';
 import { ImageSourcePropType } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Logger } from '@clean-rn/logger';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { Customer, DocumentError, DocumentVO, IDocumentProperties } from '@clean-rn/kyc/domain';
+import { AuthApi } from '@clean-rn/auth/infrastructure';
+
 import { KycApi } from '@clean-rn/kyc/infrastructure';
 
-import { IKycStackPages } from '../../../../shared/presentation/types';
+import { IStoreKey } from '../../../../shared/application/types';
+import { IAuthStackPages, IKycStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-
-import { fetchRefresh } from '../../../../auth/application/commands/login';
 
 import { customerDocumentsUpdated } from '../../commands/customer';
 import {
@@ -118,6 +120,11 @@ export function* uploadDocumentSagaGenerator(
       throw new DocumentError.DocumentNotReady();
     }
     const user = yield select(selectUserFromLogin);
+
+    const authApi = AuthApi.getInstance(httpConnection);
+    const refreshToken = yield call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN);
+    yield call([authApi, authApi.refresh], refreshToken);
+
     const api = KycApi.getInstance(httpConnection);
 
     const abortController = new AbortController(); // Créer une nouvelle instance ici
@@ -140,11 +147,8 @@ export function* uploadDocumentSagaGenerator(
     yield put(customerDocumentsUpdated({ customer }));
   } catch (error: any) {
     yield put(resetDocument());
-
-    // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {
-      yield put(fetchRefresh());
-      yield put(uploadDocument(payload));
+      yield call(navigate, { route: IAuthStackPages.LOGIN });
       yield cancel();
     } else if (error.name === 'AbortError') {
       Logger.getInstance().info(error);

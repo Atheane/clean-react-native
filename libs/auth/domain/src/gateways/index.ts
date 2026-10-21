@@ -4,7 +4,7 @@ import { IAuth, ISuccess } from '../types';
 
 export interface IAuthGateway {
   login: (cmd: ILoginCommand) => Promise<IAuth>;
-  refresh: (refreshToken: string) => Promise<IAuth>;
+  refresh: (refreshToken: string) => Promise<void>;
   resetPassword: (cmd: IResetPasswordCommand) => Promise<ISuccess>;
   searchEmail(query: ISearchEmailQuery): Promise<ISuccess>;
   searchPhone(query: ISearchPhoneQuery): Promise<ISuccess>;

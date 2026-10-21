@@ -40,7 +40,6 @@ export const RootStack = () => {
   const {
     auth: { accessToken },
   } = useSelector((state: IRootState) => state.auth.login);
-
   return accessToken ? <HomeStack /> : <AuthStack />;
 };
 

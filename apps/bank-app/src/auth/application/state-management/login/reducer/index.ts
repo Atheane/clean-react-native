@@ -37,14 +37,6 @@ export const loginReducer = (state = initialState, action: ILoginActions) => {
         user: action.payload.user,
       };
       return newState;
-    case ILoginTypes.REFRESH_SUCCEDED:
-      logger.debug(action.type);
-      newState = {
-        ...state,
-        pending: false,
-        auth: action.payload.auth,
-      };
-      return newState;
     case ILoginTypes.LOGIN_FAILED:
       logger.debug(action.type);
       newState = {

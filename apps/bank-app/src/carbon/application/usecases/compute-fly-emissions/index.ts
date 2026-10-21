@@ -25,6 +25,9 @@ export function* computeFlyEmissionsGenerator({
 }): Generator<StrictEffect, any, any> {
   try {
     const flyCarbonFootprint = payload.reduce((acc: number, flight: FlightI) => {
+      console.log('flight', flight);
+      console.log(new FlyEmissions(flight).value);
+      console.log('acc', acc);
       acc += new FlyEmissions(flight).value;
       return acc;
     }, 0);

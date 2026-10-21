@@ -1,20 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, put, StrictEffect, takeEvery, select, cancel } from 'redux-saga/effects';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { IAccount, ITransaction } from '@clean-rn/account/domain';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { TransactionApi } from '@clean-rn/account/infrastructure';
 
-import { IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { selectTransactions } from '../../state-management/selectors';
 
-import { fetchRefresh } from '../../../../auth/application/commands/login';
+import { AuthApi } from '@clean-rn/auth/infrastructure';
+import { IStoreKey } from '../../../../shared/application/types';
+import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
 
 import {
-  listTransactions,
   transactionsListed,
   ITransactionsTypes,
   initializeTransactionsList,
@@ -43,6 +45,10 @@ export function* listTransactionsGenerator(
       yield put(transactionsListed(transactions));
       yield call(navigate, { route: IHomeStackPages.TRANSACTIONS, params: { account: payload.account } });
     } else {
+      const authApi = AuthApi.getInstance(httpConnection);
+      const refreshToken = yield call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN);
+      yield call([authApi, authApi.refresh], refreshToken);
+
       const api = TransactionApi.getInstance(httpConnection);
 
       const transactions: ITransaction[] = yield call([api, api.getTransactions], payload.account.accountId);
@@ -51,8 +57,7 @@ export function* listTransactionsGenerator(
     }
   } catch (error: unknown) {
     if (error instanceof ServerError && error.statusCode === 401) {
-      yield put(fetchRefresh());
-      yield put(listTransactions(payload));
+      yield call(navigate, { route: IAuthStackPages.LOGIN });
       yield cancel();
     }
     // Gestion des erreurs non attendues

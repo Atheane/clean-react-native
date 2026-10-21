@@ -1,23 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, put, StrictEffect, takeEvery, select, cancel } from 'redux-saga/effects';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { IAccount } from '@clean-rn/account/domain';
 import { AccountApi } from '@clean-rn/account/infrastructure';
-
-import {
-  listAccounts,
-  accountsListed,
-  IAccountsTypes,
-  initializeAccountsList,
-} from '../../commands/accounts';
-import { IHomeStackPages } from '../../../../shared/presentation/types';
+import { AuthApi } from '@clean-rn/auth/infrastructure';
+import { IStoreKey } from '../../../../shared/application/types';
+import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
-import { fetchRefresh } from '../../../../auth/application/commands/login';
-
 import { selectAccounts } from '../../state-management/selectors';
+import { accountsListed, IAccountsTypes, initializeAccountsList } from '../../commands/accounts';
 
 export function* listAccountsSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IAccountsTypes.LIST_ACCOUNTS, listAccountsGenerator, httpConnection);
@@ -32,8 +28,11 @@ export function* listAccountsGenerator(httpConnection: HttpConnection): Generato
       yield put(accountsListed(accounts));
       yield call(navigate, { route: IHomeStackPages.ACCOUNTS });
     } else {
-      const api = AccountApi.getInstance(httpConnection);
+      const authApi = AuthApi.getInstance(httpConnection);
+      const refreshToken = yield call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN);
+      yield call([authApi, authApi.refresh], refreshToken);
 
+      const api = AccountApi.getInstance(httpConnection);
       const accounts: IAccount[] = yield call([api, api.getAccounts]);
 
       yield put(accountsListed(accounts));
@@ -41,8 +40,7 @@ export function* listAccountsGenerator(httpConnection: HttpConnection): Generato
     }
   } catch (error: unknown) {
     if (error instanceof ServerError && error.statusCode === 401) {
-      yield put(fetchRefresh());
-      yield put(listAccounts());
+      yield call(navigate, { route: IAuthStackPages.LOGIN });
       yield cancel();
     }
     // Gestion des erreurs non attendues
