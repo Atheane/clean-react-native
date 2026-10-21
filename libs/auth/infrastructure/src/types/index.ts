@@ -1,7 +1,4 @@
-export enum USER_STATUS {
-  PENDING = 'PENDING', // user has just been created (transient status - should not encounter)
-  VALIDATED = 'VALIDATED', // user is validated
-}
+import { KYC_REVIEW } from '@clean-rn/auth/domain';
 
 export type IUserPropertiesServer = {
   birthday: string;
@@ -13,6 +10,6 @@ export type IUserPropertiesServer = {
   phone: string;
   specifiedUSPerson: number;
   title: string;
-  status: USER_STATUS;
+  kycReview: KYC_REVIEW;
   userId: number;
 };

@@ -15,7 +15,7 @@ import {
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { KycApi } from '@clean-rn/kyc/infrastructure';
-import { BirthDay, Email, User, Phone, IGender, Country } from '@clean-rn/auth/domain';
+import { BirthDay, Email, User, Phone, IGender, Country, KYC_REVIEW } from '@clean-rn/auth/domain';
 
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
@@ -33,7 +33,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
   const user = User.Create({
     id: 123,
     properties: {
-      status: 'PENDING',
+      kycReview: KYC_REVIEW.NONE,
       USPerson: false,
       birth: {
         birthday: new BirthDay(dayjs('1980-01-01T00:00:00.000Z')),
@@ -51,7 +51,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
   const mockResponse: IDocumentProperties[] = [
     {
       typeId: 9,
-      category: IDocumentCategory.FIRST_ID,
+      category: IDocumentCategory.ID,
       status: IDocumentStatus.PENDING,
       name: 'test-mock-recto',
       createdAt: new Date('2023-10-03T13:20:21.303Z'),
@@ -59,7 +59,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
     },
     {
       typeId: 9,
-      category: IDocumentCategory.FIRST_ID,
+      category: IDocumentCategory.ID,
       status: IDocumentStatus.PENDING,
       name: 'test-mock-verso',
       createdAt: new Date('2023-10-03T13:20:22.303Z'),
@@ -118,12 +118,12 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
   it('Should call customerStatusChecked but no call to kycAPI if status VALIDATED', async () => {
     const user = User.Create({
       id: 123,
-      properties: { status: 'VALIDATED', USPerson: false },
+      properties: { kycReview: KYC_REVIEW.VALIDATED, USPerson: false },
     });
 
     const customer = Customer.Create({
       id: 123,
-      properties: { status: 'VALIDATED', USPerson: false },
+      properties: { status: KYC_REVIEW.VALIDATED, USPerson: false },
     });
 
     testSaga(checkCustomerStatusGenerator, httpConnection)
@@ -142,12 +142,12 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
   it('Should call customerStatusChecked if status PENDING and kycComment', async () => {
     const user = User.Create({
       id: 123,
-      properties: { status: 'PENDING', USPerson: false, kycReviewComment: 'test' },
+      properties: { kycReview: KYC_REVIEW.PENDING, USPerson: false, kycReviewComment: 'test' },
     });
 
     const customer = Customer.Create({
       id: 123,
-      properties: { status: 'PENDING', USPerson: false, kycReviewComment: 'test' },
+      properties: { status: KYC_REVIEW.PENDING, USPerson: false, kycReviewComment: 'test' },
     });
     customer.addKycReviewComment('test');
     customer.checkDocumentsStatus(mockResponse);

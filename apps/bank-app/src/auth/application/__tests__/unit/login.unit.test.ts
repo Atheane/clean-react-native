@@ -6,13 +6,12 @@ import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
-import { AuthError, Email, Password } from '@clean-rn/auth/domain';
+import { AuthError, Email, Password, KYC_REVIEW } from '@clean-rn/auth/domain';
 import {
   AuthApi,
   IUserLoginServerCode,
   UserApi,
   mapUserServerToUserProperties,
-  USER_STATUS,
 } from '@clean-rn/auth/infrastructure';
 
 import { loginSaga, loginGenerator } from '../../usecases/login';
@@ -85,7 +84,7 @@ describe('Login - usecase', () => {
     specifiedUSPerson: 0,
     title: 'M',
     userId: 3952560,
-    status: USER_STATUS.PENDING,
+    kycReview: KYC_REVIEW.NONE,
     kycReviewComment: '',
   };
 
@@ -99,7 +98,7 @@ describe('Login - usecase', () => {
     specifiedUSPerson: 0,
     title: 'Mme',
     userId: 3952561,
-    status: USER_STATUS.PENDING,
+    kycReview: KYC_REVIEW.NONE,
     kycReviewComment: '',
   };
 
@@ -113,7 +112,7 @@ describe('Login - usecase', () => {
     specifiedUSPerson: 0,
     title: 'Mlle',
     userId: 3952561,
-    status: USER_STATUS.VALIDATED,
+    kycReview: KYC_REVIEW.NONE,
     kycReviewComment: '',
   };
 

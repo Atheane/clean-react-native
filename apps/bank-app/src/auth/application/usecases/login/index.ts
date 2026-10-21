@@ -2,29 +2,18 @@
 /* eslint-disable no-fallthrough */
 import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import dayjs from 'dayjs';
 
-import {
-  AuthError,
-  BirthDay,
-  Email,
-  IGender,
-  ILoginCommand,
-  Phone,
-  User,
-  Country,
-} from '@clean-rn/auth/domain';
+import { AuthError, ILoginCommand } from '@clean-rn/auth/domain';
 import { AuthApi, IUserLoginServerCode, UserApi } from '@clean-rn/auth/infrastructure';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
-
-import { loginFailure, ILoginTypes, initializeLogin, loginSuccess } from '../../commands/login';
-import { initializeSignupStep } from '../../commands/signup';
-import { resetError } from '../../commands/login';
 
 import { IStoreKey } from '../../../../shared/application/types';
 import { goBack, navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
+
+import { loginFailure, ILoginTypes, initializeLogin, loginSuccess, resetError } from '../../commands/login';
+import { initializeSignupStep } from '../../commands/signup';
 
 export function* loginSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(ILoginTypes.FETCH_LOGIN, loginGenerator, httpConnection);

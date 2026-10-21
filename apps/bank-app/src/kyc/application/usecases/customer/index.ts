@@ -11,6 +11,7 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 
 import { customerStatusChecked, initializeKyc, ICustomerTypes } from '../../commands/customer';
 import { UserApi } from '@clean-rn/auth/infrastructure';
+import { KYC_REVIEW } from '@clean-rn/auth/domain';
 
 export function* checkCustomerStatusSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(ICustomerTypes.CHECK_CUSTOMER_STATUS, checkCustomerStatusGenerator, httpConnection);
@@ -24,10 +25,10 @@ export function* checkCustomerStatusGenerator(
     const userApi = UserApi.getInstance(httpConnection);
 
     const user = yield call([userApi, userApi.getUser]);
-    const customerStatus = user.properties.status;
+    const customerStatus = user.properties.kycReview;
 
     //todo getUser from to check last status
-    if (customerStatus && ['VALIDATED', 'CANCELED'].includes(customerStatus)) {
+    if (customerStatus && customerStatus === KYC_REVIEW.VALIDATED) {
       const customer = Customer.Create({
         id: user.id.toString(),
         properties: { status: customerStatus, USPerson: user.properties.USPerson },

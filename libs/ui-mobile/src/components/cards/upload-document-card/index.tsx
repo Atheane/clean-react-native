@@ -21,8 +21,18 @@ type IProps = {
 
 export const UploadDocumentCard = (props: IProps) => {
   const { theme } = useTheme();
-  const renderLabel = (text: string) =>
-    `${text}`.slice(0, props.status === 'REFUSED' || props.loading ? 26 : 30) + '...';
+  const renderLabel = (text: string) => {
+    if (props.status === 'REFUSED' || props.loading) {
+      if (text.length > 26) {
+        return `${text}`.slice(0, 26) + '...';
+      }
+    } else {
+      if (text.length > 30) {
+        return `${text}`.slice(0, 30) + '...';
+      }
+    }
+    return text;
+  };
 
   const disabled = props.status === 'PENDING' || props.status === 'VALIDATED' || props.status === 'CANCELED';
   return (

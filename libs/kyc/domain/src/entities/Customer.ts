@@ -1,12 +1,13 @@
 import { Entity } from '@clean-rn/ddd';
-import { IDocumentProperties, ICustomerStatus } from '../types';
+import { KYC_REVIEW } from '@clean-rn/auth/domain';
+import { IDocumentProperties } from '../types';
 import { KycDocuments, DocumentVO } from '../value-objects';
 import { CustomerError } from '../errors/index';
 
 export interface ICustomerProperties {
   // todo part of the actual user should be moved to customer entity
   USPerson: boolean;
-  status: ICustomerStatus;
+  status: KYC_REVIEW;
   kyc: KycDocuments;
   kycReviewComment?: string;
 }
@@ -22,7 +23,7 @@ export class Customer extends Entity<ICustomerProperties> {
   }: {
     id: number;
     properties: {
-      status?: ICustomerStatus;
+      status?: KYC_REVIEW;
       USPerson: boolean;
       kycReviewComment?: string;
     };
@@ -31,7 +32,7 @@ export class Customer extends Entity<ICustomerProperties> {
       id: id.toString(),
       properties: status
         ? { status, USPerson, kycReviewComment }
-        : { status: 'PENDING', USPerson, kycReviewComment },
+        : { status: KYC_REVIEW.NONE, USPerson, kycReviewComment },
     });
   }
 

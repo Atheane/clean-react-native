@@ -17,7 +17,6 @@ import {
   UploadDocumentCard,
   KycW9,
   KycIdentification,
-  KycPassport,
   KycInvoice,
   KycSwornStatement,
 } from '@clean-rn/ui-mobile';
@@ -151,7 +150,7 @@ export const MenuKyc = () => {
             <UploadDocumentCard
               icon={KycIdentification}
               status={submittedKyc?.documents.ID?.properties.status}
-              text={`${t('screens.kyc.menu.first')} ${t('screens.kyc.menu.identity')}`}
+              text={t('screens.kyc.menu.identity')}
               onPress={() => navigateTo(IKycStackPages.ID_LIST as never, {})}
               loading={pending && document?.properties.category === IDocumentCategory.ID}
               onCancel={handleOnCancel}

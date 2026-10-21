@@ -435,9 +435,7 @@
         },
         "instruction-after": "Vos documents sont en cours de vérification cela peut prendre de 24h à 72h.",
         "w9-form": "Formulaire W9",
-        "first": "Première",
-        "second": "Seconde",
-        "identity": "pièce d'identité",
+        "identity": "Pièce d'identité",
         "address": "Justificatif de domicile",
         "photo": "Portrait photo",
         "host-id": "Pièce d’identité de l’hébergeur",
@@ -477,25 +475,6 @@
           "instruction": "du verso de votre permis de séjour"
         }
       },
-      "driving-license": {
-        "recto": {
-          "title": "Permis de conduire - Recto",
-          "instruction": "du recto de votre permis de conduire"
-        },
-        "verso": {
-          "title": "Permis de conduire - Verso",
-          "instruction": "du verso de votre permis de conduire"
-        }
-      },
-      "health-card": {
-        "title": "Carte vitale",
-        "instruction": "de votre carte vitale en cachant les cinq derniers chiffres",
-        "or": "Ou"
-      },
-      "iban": {
-        "title": "Relevé d’identité bancaire",
-        "instruction": "ou envoyez nous une copie de votre IBAN"
-      },
       "taxes": {
         "title": "Avis d’imposititon",
         "instruction": "de votre dernier avis d’imposition"
@@ -513,16 +492,6 @@
       "w9": {
         "title": "Résident américain - W-9",
         "instruction": "ou importer votre formulaire w-9"
-      },
-      "second-id": {
-        "title": "Documents complémentaires",
-        "instruction": "Veuillez ajouter un de ces documents ci-après afin de compléter votre identité.",
-        "id": "Carte d'identité",
-        "passport": "Passeport",
-        "residence-permit": "Permis de séjour",
-        "driving-license": "Permis de conduire",
-        "health-card": "Carte vitale",
-        "iban": "Relevé d’identité bancaire"
       },
       "residence-proof-options": {
         "title": "Justificatif de domicile",

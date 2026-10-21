@@ -40,4 +40,9 @@ export type ISuccess = {
   success: boolean;
 };
 
-export type USER_STATUS = 'PENDING' | 'VALIDATED';
+export enum KYC_REVIEW {
+  NONE = 0, // No review yet
+  PENDING = 1,
+  VALIDATED = 2, // Review was successful
+  REFUSED = 3,
+}

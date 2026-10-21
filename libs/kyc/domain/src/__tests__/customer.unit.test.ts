@@ -1,15 +1,16 @@
 import { IDocumentCategory, IDocumentStatus, IDocumentStatusCode, IDocumentType } from '../types';
 import { Customer } from '../entities';
+import { KYC_REVIEW } from '@clean-rn/auth/domain';
 
 describe('Customer - unit', () => {
   it('should create a Customer with init status and provided id', () => {
     const customer = Customer.Create({ id: 1, properties: { USPerson: false } });
-    expect(customer.properties.status).toEqual('PENDING');
+    expect(customer.properties.status).toEqual(KYC_REVIEW.NONE);
     expect(customer.id).toEqual('1');
   });
 
   it('should set customer as PENDING status and compute unique list of documents by typeId and pageNumber if ID and TAX_CERTIFICATE as W9', () => {
-    const customer = Customer.Create({ id: 1, properties: { USPerson: true, status: 'PENDING' } });
+    const customer = Customer.Create({ id: 1, properties: { USPerson: true, status: KYC_REVIEW.PENDING } });
     customer.checkDocumentsStatus([
       {
         typeId: IDocumentType.ID,
@@ -36,7 +37,7 @@ describe('Customer - unit', () => {
         statusCode: IDocumentStatusCode.INITIAL,
       },
     ]);
-    expect(customer.properties.status).toEqual('PENDING');
+    expect(customer.properties.status).toEqual(KYC_REVIEW.PENDING);
     expect(customer.properties.kyc?.isComplete).toEqual(false);
     expect(customer.properties.kyc?.documents.W9?.properties).toEqual(
       expect.objectContaining({
@@ -57,7 +58,7 @@ describe('Customer - unit', () => {
   });
 
   it('should set customer as PENDING status and compute unique list of documents by typeId and pageNumber if TAX_CERTIFICATE as RESIDENCE_PROOF', () => {
-    const customer = Customer.Create({ id: 1, properties: { USPerson: false, status: 'PENDING' } });
+    const customer = Customer.Create({ id: 1, properties: { USPerson: false, status: KYC_REVIEW.PENDING } });
     customer.checkDocumentsStatus([
       {
         typeId: IDocumentType.TAX_CERTIFICATE,
@@ -68,7 +69,7 @@ describe('Customer - unit', () => {
         statusCode: IDocumentStatusCode.VALIDATED,
       },
     ]);
-    expect(customer.properties.status).toEqual('PENDING');
+    expect(customer.properties.status).toEqual(KYC_REVIEW.PENDING);
     expect(customer.properties.kyc?.isComplete).toEqual(false);
     expect(customer.properties.kyc?.documents.RESIDENCE_PROOF?.properties).toEqual(
       expect.objectContaining({
@@ -81,7 +82,7 @@ describe('Customer - unit', () => {
   });
 
   it('should set customer as REFUSED if verso ID is REFUSED', () => {
-    const customer = Customer.Create({ id: 1, properties: { status: 'PENDING', USPerson: false } });
+    const customer = Customer.Create({ id: 1, properties: { status: KYC_REVIEW.PENDING, USPerson: false } });
     customer.checkDocumentsStatus([
       {
         typeId: IDocumentType.ID,
@@ -108,7 +109,7 @@ describe('Customer - unit', () => {
         statusCode: IDocumentStatusCode.VALIDATED,
       },
     ]);
-    expect(customer.properties.status).toEqual('PENDING');
+    expect(customer.properties.status).toEqual(KYC_REVIEW.PENDING);
     expect(customer.properties.kyc?.isComplete).toEqual(false);
     expect(customer.properties.kyc?.documents?.ID?.properties).toEqual(
       expect.objectContaining({
@@ -120,7 +121,7 @@ describe('Customer - unit', () => {
   });
 
   it('should be complete if USPerson and  W9', () => {
-    const customer = Customer.Create({ id: 1, properties: { status: 'PENDING', USPerson: true } });
+    const customer = Customer.Create({ id: 1, properties: { status: KYC_REVIEW.PENDING, USPerson: true } });
     customer.checkDocumentsStatus([
       {
         typeId: IDocumentType.TAX_CERTIFICATE,
@@ -163,7 +164,7 @@ describe('Customer - unit', () => {
         statusCode: IDocumentStatusCode.INITIAL,
       },
     ]);
-    expect(customer.properties.status).toEqual('PENDING');
+    expect(customer.properties.status).toEqual(KYC_REVIEW.PENDING);
     expect(customer.properties.kyc?.isComplete).toEqual(true);
     expect(customer.properties.kyc?.documents?.W9?.properties).toEqual(
       expect.objectContaining({
@@ -189,7 +190,7 @@ describe('Customer - unit', () => {
   });
 
   it('should be complete if not USPerson and  not W9', () => {
-    const customer = Customer.Create({ id: 1, properties: { status: 'PENDING', USPerson: false } });
+    const customer = Customer.Create({ id: 1, properties: { status: KYC_REVIEW.PENDING, USPerson: false } });
     customer.checkDocumentsStatus([
       {
         typeId: IDocumentType.RESIDENT_PERMIT,
@@ -224,7 +225,7 @@ describe('Customer - unit', () => {
         statusCode: IDocumentStatusCode.INITIAL,
       },
     ]);
-    expect(customer.properties.status).toEqual('PENDING');
+    expect(customer.properties.status).toEqual(KYC_REVIEW.PENDING);
     expect(customer.properties.kyc?.isComplete).toEqual(true);
     expect(customer.properties.kyc?.documents?.ID?.properties).toEqual(
       expect.objectContaining({
@@ -243,7 +244,7 @@ describe('Customer - unit', () => {
   });
 
   it('should allocate documents correctly for Residence Proof', () => {
-    const customer = Customer.Create({ id: 1, properties: { USPerson: false, status: 'PENDING' } });
+    const customer = Customer.Create({ id: 1, properties: { USPerson: false, status: KYC_REVIEW.PENDING } });
     customer.checkDocumentsStatus([
       {
         typeId: IDocumentType.PROOF_OF_ADDRESS,
@@ -262,7 +263,7 @@ describe('Customer - unit', () => {
         statusCode: IDocumentStatusCode.INITIAL,
       },
     ]);
-    expect(customer.properties.status).toEqual('PENDING');
+    expect(customer.properties.status).toEqual(KYC_REVIEW.PENDING);
     expect(customer.properties.kyc?.isComplete).toEqual(false);
     expect(customer.properties.kyc?.documents?.RESIDENCE_PROOF?.properties).toEqual(
       expect.objectContaining({
@@ -275,7 +276,10 @@ describe('Customer - unit', () => {
   });
 
   it('should be VALIDATED if customer status is VALIDATED', () => {
-    const customer = Customer.Create({ id: 1, properties: { USPerson: false, status: 'VALIDATED' } });
+    const customer = Customer.Create({
+      id: 1,
+      properties: { USPerson: false, status: KYC_REVIEW.VALIDATED },
+    });
     customer.checkDocumentsStatus([
       {
         typeId: IDocumentType.PROOF_OF_ADDRESS,
@@ -294,7 +298,7 @@ describe('Customer - unit', () => {
         statusCode: IDocumentStatusCode.VALIDATED,
       },
     ]);
-    expect(customer.properties.status).toEqual('VALIDATED');
+    expect(customer.properties.status).toEqual(KYC_REVIEW.VALIDATED);
     expect(customer.properties.kyc?.isComplete).toEqual(false);
     expect(customer.properties.kyc?.documents?.RESIDENCE_PROOF?.properties).toEqual(
       expect.objectContaining({
