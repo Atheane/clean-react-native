@@ -13,6 +13,7 @@ import { SubmitButton } from './buttons/submit-button';
 import { LinkButton } from './buttons/link-button';
 import { SwitchButton } from './buttons/switch-button';
 import { GreenBackButton } from './buttons/green-back-button';
+import { SmallSwitchButton } from './buttons/small-switch-button';
 // Cards
 import { TouchEventCard } from './cards/touch-event-card';
 import { LongCard } from './cards/long-card';
@@ -91,6 +92,7 @@ export {
   LinkButton,
   SwitchButton,
   GreenBackButton,
+  SmallSwitchButton,
   // Cards
   TouchEventCard,
   LongCard,

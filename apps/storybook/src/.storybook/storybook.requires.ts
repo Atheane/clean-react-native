@@ -59,6 +59,7 @@ const getStories = () => {
     './stories/buttons/LinkButton.stories.tsx': require('../stories/buttons/LinkButton.stories'),
     './stories/buttons/SwitchButton.stories.tsx': require('../stories/buttons/SwitchButton.stories'),
     './stories/buttons/GreenBackButton.stories.tsx': require('../stories/buttons/GreenBackButton.stories'),
+    './stories/buttons/SmallSwitchButton.stories.tsx': require('../stories/buttons/SmallSwitchButton.stories'),
     // Cards
     './stories/cards/TouchEventCard.stories.tsx': require('../stories/cards/TouchEventCard.stories'),
     './stories/cards/LongCard.stories.tsx': require('../stories/cards/LongCard.stories'),
