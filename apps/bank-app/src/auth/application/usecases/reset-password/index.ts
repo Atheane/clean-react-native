@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
+import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
 
-import { HttpConnection } from '@clean-rn/shared/infrastructure';
+import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 
 import { IResetPasswordCommand } from '@clean-rn/auth/domain';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { initializeResetPassword, IResetPasswordTypes, passwordReset } from '../../commands/reset-password';
+import { fetchRefresh } from '../../../../auth/application/commands/login';
 
 export function* resetPasswordSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IResetPasswordTypes.FETCH_RESET_PASSWORD, resetPasswordGenerator, httpConnection);
@@ -33,9 +34,13 @@ export function* resetPasswordGenerator(
         success,
       }),
     );
-  } catch (e: unknown) {
+  } catch (error: unknown) {
+    if (error instanceof ServerError && error.statusCode === 401) {
+      yield put(fetchRefresh());
+      yield cancel();
+    }
     // once app is well tested, delete this part and let onError hook manage unexpected errors
     yield put(initializeResetPassword());
-    yield put(showUnknownError(e as Error));
+    yield put(showUnknownError(error as Error));
   }
 }

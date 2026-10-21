@@ -6,15 +6,18 @@ import { IAccount, ITransaction } from '@clean-rn/account/domain';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { TransactionApi } from '@clean-rn/account/infrastructure';
 
+import { IHomeStackPages } from '../../../../shared/presentation/types';
+import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
+import { selectTransactions } from '../../state-management/selectors';
+
+import { fetchRefresh } from '../../../../auth/application/commands/login';
+
 import {
   transactionsListed,
   ITransactionsTypes,
   initializeTransactionsList,
 } from '../../commands/transactions';
-import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
-import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { selectTransactions } from '../../state-management/selectors';
 
 export function* listTransactionsSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(ITransactionsTypes.LIST_TRANSACTIONS, listTransactionsGenerator, httpConnection);
@@ -46,12 +49,11 @@ export function* listTransactionsGenerator(
       yield call(navigate, { route: IHomeStackPages.TRANSACTIONS, params: { account: payload.account } });
     }
   } catch (error: unknown) {
-    // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {
-      yield call(navigate, { route: IAuthStackPages.LOGIN });
+      yield put(fetchRefresh());
       yield cancel();
     }
-    // once app is well tested, delete this part and let onError hook manage unexpected errors
+    // Gestion des erreurs non attendues
     yield put(initializeTransactionsList());
     yield put(showUnknownError(error as Error));
   }

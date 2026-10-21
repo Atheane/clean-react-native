@@ -8,11 +8,17 @@ export enum ILoginTypes {
   LOGIN_FAILED = 'LOGIN_FAILED',
   INITIALIZE_LOGIN = 'INITIALIZE_LOGIN',
   RESET_ERROR = 'RESET_ERROR',
+  FETCH_REFRESH = 'FETCH_REFRESH',
+  REFRESH_SUCCEDED = 'REFRESH_SUCCEDED',
 }
 
 export type IFetchLogin = {
   type: typeof ILoginTypes.FETCH_LOGIN;
   payload: ILoginCommand;
+};
+
+export type IFetchRefresh = {
+  type: typeof ILoginTypes.FETCH_REFRESH;
 };
 
 export type IInitializeLogin = {
@@ -31,9 +37,23 @@ export type ILoginSucceded = {
   };
 };
 
+export type IRefreshSucceded = {
+  type: typeof ILoginTypes.REFRESH_SUCCEDED;
+  payload: {
+    auth: IAuth;
+  };
+};
+
 export type ILoginFailed = {
   type: typeof ILoginTypes.LOGIN_FAILED;
   payload: IDomainError<IAuthErrorCodes, IAuthErrorMessage>;
 };
 
-export type ILoginActions = IFetchLogin | ILoginSucceded | ILoginFailed | IInitializeLogin | IResetError;
+export type ILoginActions =
+  | IFetchLogin
+  | IFetchRefresh
+  | ILoginSucceded
+  | ILoginFailed
+  | IInitializeLogin
+  | IResetError
+  | IRefreshSucceded;

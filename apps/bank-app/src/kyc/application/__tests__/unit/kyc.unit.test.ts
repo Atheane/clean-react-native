@@ -17,12 +17,11 @@ import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { KycApi } from '@clean-rn/kyc/infrastructure';
 import { BirthDay, Email, User, Phone, IGender, Country, KYC_REVIEW } from '@clean-rn/auth/domain';
 
-import { IAuthStackPages } from '../../../../shared/presentation/types';
-import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 import { checkCustomerStatusGenerator, checkCustomerStatusSaga } from '../../usecases/customer';
 import { ICustomerTypes, customerStatusChecked, initializeKyc } from '../../commands/customer';
+import { fetchRefresh } from '../../../../auth/application/commands/login';
 
 describe('KYC - CheckCustomerStatus - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -175,7 +174,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
       .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
-      .call(navigate, { route: IAuthStackPages.LOGIN })
+      .put(fetchRefresh())
       .next()
       .cancel();
   });

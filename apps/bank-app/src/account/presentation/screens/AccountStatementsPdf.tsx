@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Constants from 'expo-constants';
@@ -24,10 +24,10 @@ export const AccountStatementsPdf = () => {
   } = useSelector((state: IRootState) => state.auth.login);
 
   const [userUnauthenticated, setUserUnauthenticated] = useState<Error>();
-
   const [unknownError, setUnknownError] = useState<Error>();
 
   const navigation = useNavigation();
+
   const handleError = (error: unknown) => {
     if (error instanceof ServerError && error.statusCode === 401) {
       setUserUnauthenticated(userUnauthenticated);

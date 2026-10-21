@@ -28,6 +28,13 @@ export const loginReducer = (state = initialState, action: ILoginActions) => {
         password: action.payload.password,
       };
       return newState;
+    case ILoginTypes.FETCH_REFRESH:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: true,
+      };
+      return newState;
     case ILoginTypes.LOGIN_SUCCEDED:
       logger.debug(action.type);
       newState = {
@@ -35,6 +42,14 @@ export const loginReducer = (state = initialState, action: ILoginActions) => {
         pending: false,
         auth: action.payload.auth,
         user: action.payload.user,
+      };
+      return newState;
+    case ILoginTypes.REFRESH_SUCCEDED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        auth: action.payload.auth,
       };
       return newState;
     case ILoginTypes.LOGIN_FAILED:

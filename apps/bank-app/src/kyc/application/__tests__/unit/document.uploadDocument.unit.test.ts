@@ -19,13 +19,13 @@ import {
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { KycApi } from '@clean-rn/kyc/infrastructure';
 
+import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
+import { fetchRefresh } from '../../../../auth/application/commands/login';
+
 import { uploadDocumentSaga, uploadDocumentSagaGenerator } from '../../usecases/document';
 import { customerDocumentsUpdated } from '../../commands/customer';
 import { IDocumentTypes, documentUploaded, resetDocument, setAbortController } from '../../commands/document';
 import { selectCustomer, selectUserFromLogin } from '../../state-management/selectors';
-import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { IAuthStackPages } from '../../../../shared/presentation/types';
 
 describe('Document - uploadDocument - usecases', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -170,7 +170,7 @@ describe('Document - uploadDocument - usecases', () => {
       .throw(new ServerError(mockError401))
       .put(resetDocument())
       .next()
-      .call(navigate, { route: IAuthStackPages.LOGIN })
+      .put(fetchRefresh())
       .next()
       .cancel();
   });

@@ -1,15 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, put, StrictEffect, takeEvery, select, cancel } from 'redux-saga/effects';
 
-import { IAccount } from '@clean-rn/account/domain';
-
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
+import { IAccount } from '@clean-rn/account/domain';
 import { AccountApi } from '@clean-rn/account/infrastructure';
 
 import { accountsListed, IAccountsTypes, initializeAccountsList } from '../../commands/accounts';
-import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
+import { IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
+
+import { fetchRefresh } from '../../../../auth/application/commands/login';
+
 import { selectAccounts } from '../../state-management/selectors';
 
 export function* listAccountsSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
@@ -33,12 +35,11 @@ export function* listAccountsGenerator(httpConnection: HttpConnection): Generato
       yield call(navigate, { route: IHomeStackPages.ACCOUNTS });
     }
   } catch (error: unknown) {
-    // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {
-      yield call(navigate, { route: IAuthStackPages.LOGIN });
+      yield put(fetchRefresh());
       yield cancel();
     }
-    // once app is well tested, delete this part and let onError hook manage unexpected errors
+    // Gestion des erreurs non attendues
     yield put(initializeAccountsList());
     yield put(showUnknownError(error as Error));
   }

@@ -34,6 +34,16 @@ export class AuthApi implements IAuthGateway {
     return this.instance;
   }
 
+  async refresh(refreshToken: string): Promise<IAuth> {
+    this.connection.attachBearerToken(refreshToken);
+    const response = await fetch(
+      `${this.connection.baseUrl}/auth/refresh`,
+      this.connection.options(IHttpVerb.GET),
+    );
+    await this.connection.handleError(response);
+    return response.json();
+  }
+
   async login(cmd: ILoginCommand): Promise<IAuth> {
     //map cmd to dto
     const params = {

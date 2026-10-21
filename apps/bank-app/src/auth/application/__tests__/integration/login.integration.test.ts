@@ -16,6 +16,8 @@ import {
 } from '@clean-rn/auth/domain';
 
 import { loginSaga } from '../../usecases/login';
+import { refreshSaga } from '../../usecases/refresh';
+
 import {
   loginSuccess,
   loginFailure,
@@ -23,6 +25,8 @@ import {
   ILoginTypes,
   initializeLogin,
   resetError,
+  fetchRefresh,
+  refreshSuccess,
 } from '../../commands/login';
 import { ILoginState, loginReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
@@ -205,6 +209,38 @@ describe('Login - integration', () => {
       email: mockData.email,
       password: mockData.password,
       error: new AuthError.LoginFailureInvalidCredentials(),
+    });
+  });
+
+  it('Should store correct state in case if FETCH_REFRESH', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, refreshSaga, httpConnection);
+
+    sagaTester.dispatch(fetchRefresh());
+
+    expect(sagaTester.getState()).toEqual({
+      pending: true,
+      auth: {
+        accessToken: null,
+        refreshToken: null,
+      },
+      user: null,
+      error: null,
+      email: null,
+      password: null,
+    });
+  });
+
+  it('Should store correct state if REFRESH_SUCCESS', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, refreshSaga, httpConnection);
+    sagaTester.dispatch(fetchRefresh());
+    sagaTester.dispatch(refreshSuccess({ auth: mockResponse }));
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      auth: mockResponse,
+      user: null,
+      error: null,
+      email: null,
+      password: null,
     });
   });
 

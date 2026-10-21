@@ -16,7 +16,9 @@ import {
   registerAddressSaga,
   validatePhoneSaga,
   signupUserSaga,
+  refreshSaga,
 } from '../../../auth/application/usecases';
+
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
 import { listAccountsSaga, listTransactionsSaga } from '../../../account/application/usecases';
@@ -42,6 +44,7 @@ export function* rootSaga(httpConnection: HttpConnection) {
     loadStorageSaga(),
     showUnknownErrorSaga(),
     loginSaga(httpConnection),
+    refreshSaga(httpConnection),
     closeLoginModalSaga(),
     resetPasswordSaga(httpConnection),
     checkEmailSaga(httpConnection),

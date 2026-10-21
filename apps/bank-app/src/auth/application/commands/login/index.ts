@@ -9,6 +9,8 @@ import {
   ILoginActions,
   IInitializeLogin,
   IResetError,
+  IFetchRefresh,
+  IRefreshSucceded,
 } from './types';
 
 export const fetchLogin = (payload: ILoginCommand): IFetchLogin => ({
@@ -16,8 +18,17 @@ export const fetchLogin = (payload: ILoginCommand): IFetchLogin => ({
   payload,
 });
 
+export const fetchRefresh = (): IFetchRefresh => ({
+  type: ILoginTypes.FETCH_REFRESH,
+});
+
 export const loginSuccess = (payload: { auth: IAuth; user: User }): ILoginSucceded => ({
   type: ILoginTypes.LOGIN_SUCCEDED,
+  payload,
+});
+
+export const refreshSuccess = (payload: { auth: IAuth }): IRefreshSucceded => ({
+  type: ILoginTypes.REFRESH_SUCCEDED,
   payload,
 });
 

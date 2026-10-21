@@ -23,7 +23,6 @@ import { ScreenModalError } from '../../../shared/presentation/screens';
 import { pdfUrls } from '../constants';
 import {
   Login,
-  ResetPassword,
   SignupEmail,
   SignupIdentityPasswordPhone,
   SignupValidatePhone,
@@ -73,14 +72,6 @@ export const AuthStack = () => {
         }}
         name={IAuthStackPages.LOGIN}
         component={Login}
-      />
-      <Stack.Screen
-        options={{
-          headerTitle: t('screens.reset-password.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
-        }}
-        name={IAuthStackPages.RESET_PASSWORD}
-        component={ResetPassword}
       />
       <Stack.Screen
         options={{

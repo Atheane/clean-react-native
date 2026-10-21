@@ -9,8 +9,10 @@ import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AccountApi } from '@clean-rn/account/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
+import { IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+
+import { fetchRefresh } from '../../../../auth/application/commands/login';
 
 import { selectAccounts } from '../../state-management/selectors';
 import { listAccountsGenerator, listAccountsSaga } from '../../usecases/account';
@@ -90,7 +92,7 @@ describe('ListAccounts - usecase', () => {
       .next({ accounts: null })
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
-      .call(navigate, { route: IAuthStackPages.LOGIN })
+      .put(fetchRefresh())
       .next()
       .cancel();
   });

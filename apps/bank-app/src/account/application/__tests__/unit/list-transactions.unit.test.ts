@@ -18,8 +18,10 @@ import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { TransactionApi } from '@clean-rn/account/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
+import { IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+
+import { fetchRefresh } from '../../../../auth/application/commands/login';
 
 import { selectTransactions } from '../../state-management/selectors';
 import { listTransactionsGenerator, listTransactionsSaga } from '../../usecases/transactions';
@@ -137,7 +139,7 @@ describe('ListTransactions - usecase', () => {
       .next({ transactions: null })
       .call([api, api.getTransactions], account.accountId) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
-      .call(navigate, { route: IAuthStackPages.LOGIN })
+      .put(fetchRefresh())
       .next()
       .cancel();
   });

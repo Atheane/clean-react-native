@@ -45,6 +45,7 @@ export function* loginGenerator(
 
     // store token and email in async storage
     yield call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, auth.accessToken);
+    yield call(AsyncStorage.setItem, IStoreKey.JWT_REFRESH_TOKEN, auth.refreshToken);
 
     const userApi = UserApi.getInstance(httpConnection);
     const user = yield call([userApi, userApi.getUser]);

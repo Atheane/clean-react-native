@@ -7,9 +7,11 @@ import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { Customer, DocumentError, DocumentVO, IDocumentProperties } from '@clean-rn/kyc/domain';
 import { KycApi } from '@clean-rn/kyc/infrastructure';
 
-import { IAuthStackPages, IKycStackPages } from '../../../../shared/presentation/types';
+import { IKycStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
+
+import { fetchRefresh } from '../../../../auth/application/commands/login';
 
 import { customerDocumentsUpdated } from '../../commands/customer';
 import {
@@ -141,7 +143,7 @@ export function* uploadDocumentSagaGenerator(
 
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {
-      yield call(navigate, { route: IAuthStackPages.LOGIN });
+      yield put(fetchRefresh());
       yield cancel();
     } else if (error.name === 'AbortError') {
       Logger.getInstance().info(error);
