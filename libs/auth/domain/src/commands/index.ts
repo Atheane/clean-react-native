@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs';
 import { IGender } from '../types';
-import { Email, Phone, PhoneOtp, Password } from '../valueObjects';
+import { Email, Phone, PhoneOtp, Password } from '../value-objects';
 import { User } from '../entities';
 
 export type ILoginCommand = {

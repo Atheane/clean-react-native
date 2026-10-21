@@ -14,13 +14,13 @@ import { LinkButton } from './buttons/link-button';
 import { SwitchButton } from './buttons/switch-button';
 import { GreenBackButton } from './buttons/green-back-button';
 // Cards
-import { EventCardDelete } from './cards/event-card-delete';
 import { TouchEventCard } from './cards/touch-event-card';
 import { LongCard } from './cards/long-card';
-import { CardScroller, ICardType } from './cards/card-scroller';
+import { CardScroller } from './cards/card-scroller';
 import { TransactionsCard } from './cards/transactions-card';
 import { TouchCardKpi } from './cards/touch-card-kpi';
 import { TouchCardText } from './cards/touch-card-text';
+import { UploadDocumentCard } from './cards/upload-document-card';
 // Checkboxes
 import { MultipleOptionsCheckBox } from './checkboxes/multiple-options-checkBox';
 import { SimpleCheckBox } from './checkboxes/simple-checkbox';
@@ -58,11 +58,15 @@ import { WhiteBalanceList } from './lists/white-balance-list';
 // Others
 import { WebViewer } from './others/web-viewer';
 import { ShareScreen } from './others/share-screen';
-// import { PdfViewer } from './others/pdf-viewer';
+import { DocumentScanner } from './others/document-scanner';
+import { DocumentPicker } from './others/document-picker';
+import { PdfViewer } from './others/pdf-viewer';
+import { PdfDownloader } from './others/pdf-downloader';
 import { CopyValueClipboard } from './others/copy-value-clipboard';
 import { TransactionItem } from './others/transaction-item';
 import { GraphCO2 } from './others/graph-co2';
 import { ModalError } from './others/modal-error';
+import { IconTextItem } from './others/icon-text-item';
 // Searchboxes
 import { SearchModal } from './searchboxes/search-modal';
 // Texts
@@ -87,14 +91,13 @@ export {
   SwitchButton,
   GreenBackButton,
   // Cards
-  EventCardDelete,
   TouchEventCard,
   LongCard,
   CardScroller,
-  ICardType,
   TransactionsCard,
   TouchCardKpi,
   TouchCardText,
+  UploadDocumentCard,
   // Checkboxes
   MultipleOptionsCheckBox,
   SimpleCheckBox,
@@ -137,11 +140,16 @@ export {
   // Others
   WebViewer,
   ShareScreen,
+  DocumentScanner,
+  DocumentPicker,
   // PdfViewer,
+  PdfViewer,
+  PdfDownloader,
   CopyValueClipboard,
   TransactionItem,
   GraphCO2,
   ModalError,
+  IconTextItem,
   // Searchboxes
   SearchModal,
   // Texts

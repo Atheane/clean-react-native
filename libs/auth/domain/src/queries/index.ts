@@ -1,4 +1,4 @@
-import { Email, Phone, PhoneOtp } from '../valueObjects';
+import { Email, Phone, PhoneOtp } from '../value-objects';
 
 export type ISearchEmailQuery = {
   email: Email;

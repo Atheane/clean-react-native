@@ -9,4 +9,5 @@ export enum IStoreKey {
   AVERAGE_FOOD_EMISSION = '@450averagefoodemission',
   FLY_EMISSION = '@450flyemission',
   AVERAGE_FLY_EMISSION = '@450averageflyemission',
+  CUSTOMER_STATUS = '@450customerstatus',
 }

@@ -44,7 +44,9 @@ export const Slider = (props: IProps) => {
       <RNSlider
         style={[
           {
-            width: props.short ? Dimensions.get('window').width * 0.35 : Dimensions.get('window').width * 0.8,
+            width: props.short
+              ? Dimensions.get('window').width * 0.35
+              : Dimensions.get('window').width * 0.75,
           },
           styles.sliderContainer,
         ]}

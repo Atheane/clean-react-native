@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   textContainer: {
     alignItems: 'center',
     marginTop: '20%',
-    width: '80%',
+    width: '75%',
   },
   instructionText: {
     width: 290,

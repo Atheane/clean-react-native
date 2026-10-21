@@ -4,7 +4,7 @@ export default {
   expo: {
     name: 'CleanRN BankApp Dev',
     slug: 'clean-rn-bank-app-dev',
-    version: '1.4.2',
+    version: '1.6.2',
     orientation: 'portrait',
     icon: './assets/images/icon.png',
     splash: {
@@ -17,8 +17,8 @@ export default {
     },
     assetBundlePatterns: ['**/*'],
     ios: {
-      supportsTablet: false,
       bundleIdentifier: 'com.clean-rn.bank-appdev',
+      supportsTablet: true,
     },
     android: {
       adaptiveIcon: {
@@ -36,9 +36,16 @@ export default {
         '@config-plugins/detox',
         {
           skipProguard: false,
-          subdomains: ['10.0.2.2', 'localhost'],
+          subdomains: '*',
         },
       ],
+      [
+        'react-native-document-scanner-plugin',
+        {
+          cameraPermission: 'Cette application nécessite un accès à la caméra, pour les scans de documents.',
+        },
+      ],
+      ['react-native-compressor'],
     ],
     scheme: 'com.clean-rn.bank-appdev',
     extra: {
@@ -46,6 +53,7 @@ export default {
       BASE_URL_API: process.env.BASE_URL_API,
       NODE_ENV: process.env.NODE_ENV,
       SENTRY_DSN: process.env.SENTRY_DSN,
+      SUPPORTED_LANGUAGES_WEBSITE: process.env.SUPPORTED_LANGUAGES_WEBSITE,
       eas: {
         projectId: 'a7e1acaf-2f79-4e7a-8582-8cd0e216a793',
       },

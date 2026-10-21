@@ -24,3 +24,8 @@ export const Static: ComponentStory<typeof SubmitButton> = (args) => {
   const { t } = useTranslation();
   return <SubmitButton {...args} title={t('button.submit')} />;
 };
+
+export const Loading: ComponentStory<typeof SubmitButton> = (args) => {
+  const { t } = useTranslation();
+  return <SubmitButton {...args} title={t('button.submit')} loading />;
+};

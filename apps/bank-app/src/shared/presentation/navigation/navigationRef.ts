@@ -1,7 +1,7 @@
 import { createNavigationContainerRef, NavigationContainerRef } from '@react-navigation/native';
 import { StackActions } from '@react-navigation/native';
 
-import { IAuthStackPages, IRoutes } from '../../../shared/presentation/types';
+import { IAuthStackPages, IHomeStackPages, IRoutes } from '../../../shared/presentation/types';
 
 export const navigationRef: NavigationContainerRef<Record<string, any>> | undefined =
   createNavigationContainerRef();

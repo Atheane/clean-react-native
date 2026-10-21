@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigationState } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getLocales } from 'expo-localization';
+import Constants from 'expo-constants';
 
-import { ModalError, WebViewer } from '@clean-rn/ui-mobile';
+import { WebViewer, PdfViewer } from '@clean-rn/ui-mobile';
 
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import {
@@ -16,7 +17,7 @@ import {
 } from '../../../shared/presentation/types';
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
+import { initGlobalError, showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 import { ScreenModalError } from '../../../shared/presentation/screens';
 
 import { pdfUrls } from '../constants';
@@ -42,16 +43,17 @@ export const AuthStack = () => {
   const { initRouteName } = useSelector((state: IRootState) => state.initialization);
   const navigationStack = useNavigationState((state) => state?.routes ?? []);
 
-  const [unknownError, setUnknownError] = useState<Error>();
-
   const handleError = (error: unknown) => {
-    setUnknownError(error as Error);
+    dispatch(showUnknownError(error as Error));
   };
 
-  const lng = locales[0]?.languageCode ?? 'en';
+  let lng = locales[0]?.languageCode ?? 'fr';
+  if (!Constants.expoConfig?.extra?.SUPPORTED_LANGUAGES_WEBSITE.includes(lng)) {
+    lng = 'fr';
+  }
 
   const ScreenLegal = () => <WebViewer uri={pdfUrls(lng).legal} handleError={handleError} />;
-  const ScreenCgu = () => <WebViewer uri={pdfUrls(lng).cgu} handleError={handleError} />;
+  const ScreenCgu = () => <PdfViewer uri={pdfUrls(lng).cgu} handleError={handleError} />;
   const ScreenCguKycProvider = () => <WebViewer uri={pdfUrls(lng).cguKycProvider} handleError={handleError} />;
 
   const dispatch = useDispatch();
@@ -150,7 +152,7 @@ export const AuthStack = () => {
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
         name={IAuthStackPages.LEGAL}
-        component={unknownError ? () => <ModalError error={unknownError} /> : ScreenLegal}
+        component={ScreenLegal}
       />
       <Stack.Screen
         options={{
@@ -158,7 +160,7 @@ export const AuthStack = () => {
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
         name={IAuthStackPages.CGU}
-        component={unknownError ? () => <ModalError error={unknownError} /> : ScreenCgu}
+        component={ScreenCgu}
       />
       <Stack.Screen
         options={{
@@ -166,7 +168,7 @@ export const AuthStack = () => {
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
         name={IAuthStackPages.CGU_KYC_PROVIDER}
-        component={unknownError ? () => <ModalError error={unknownError} /> : ScreenCguKycProvider}
+        component={ScreenCguKycProvider}
       />
       <Stack.Screen
         options={{

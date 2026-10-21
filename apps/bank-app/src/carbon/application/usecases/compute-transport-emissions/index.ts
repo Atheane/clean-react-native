@@ -39,7 +39,7 @@ export function* computeTransportEmissionsGenerator({
       IStoreKey.AVERAGE_TRANSPORT_EMISSION,
       transportCarbonFootprint.valueAverage.toFixed(2),
     );
-    yield call(navigate, { route: ICarbonStackPages.CARBON });
+    yield call(navigate, { route: ICarbonStackPages.MENU });
   } catch (error: any) {
     yield put(initializeTransportEmissions());
     yield put(showUnknownError(error as Error));

@@ -85,7 +85,9 @@
   },
   "button": {
     "share": "share",
-    "submit": "validate"
+    "submit": "validate",
+    "photo": "Take a photo",
+    "document": "Import a document"
   },
   "email-input": {
     "placeholder": "E-mail address",
@@ -288,7 +290,9 @@
       "reward": "Be rewarded with the CO2 bonus",
       "method": "Learn more about the calculation method",
       "compute": "Calculate",
-      "consumption": "Consumption"
+      "consumption": "Consumption",
+      "message-part-one": "Hello,\n\nI just completed my carbon footprint assessment in two minutes.\n\nVery interesting. My carbon footprint is ",
+      "message-part-two": "Discover yours as well and tell me how much you weigh!!\n\nOn iOS:\n\nhttps://apps.apple.com/fr/app/bank-app/id0000000000?l=fr-FR\n\nOn Android:\n\nhttps://play.google.com/store/apps/details?id=com.example.energyapp"
     },
     "carbon-house": {
       "title": "My housing",
@@ -351,7 +355,7 @@
     },
     "warning-food": {
       "title": "Warning",
-      "text": "For your information, the estimation of the carbon footprint of the diet is inherently approximate. Indeed, how do you count the number of pineapples imported by plane and frozen asparagus you ate this year? We included waste...",
+      "text": "From the estimate of the carbon footprint of food, we deduce that of waste",
       "next": "Next"
     },
     "carbon-fly": {
@@ -376,6 +380,176 @@
     "profile": {
       "title": "Profile",
       "tab": "Profile"
+    },
+    "kyc": {
+      "title": "Identity verification",
+      "send-document": "Send a document",
+      "init": {
+        "instruction": "To go further, please validate your CO2 Account. For this, we need to verify your identity. Please provide:\n\n- Identification document\n- Proof of residence",
+        "check-identity": "Verify my identity"
+      },
+      "success": {
+        "title": "Identity Verified",
+        "congrats": "Congratulations, your identity has been verified\n\n",
+        "instruction-before-card": "We have started the ",
+        "instruction-card": "production of your CO2 Card",
+        "instruction-after-card": ". We will send it to you by mail as soon as it is ready.\n\nPlease be patient, in the meantime you can credit your account."
+      },
+      "menu": {
+        "title": "Documents to be submitted",
+        "instruction-before": {
+          "begin": "After the",
+          "end": "documents have been transferred, the verification will start automatically."
+        },
+        "instruction-after": "Your documents are currently being verified, which may take 24 to 72 hours.",
+        "w9-form": "W9 form",
+        "first": "First",
+        "second": "Second",
+        "identity": "identification document",
+        "address": "Proof of residence",
+        "photo": "Photo portrait",
+        "host-id": "Host's ID",
+        "host-residence": "Host's Proof of Residence",
+        "sworn-statement": "Host's Sworn Statement"
+      },
+      "first-id": {
+        "title": "Identification documents",
+        "instruction": "Choose your identity document",
+        "id": "ID card",
+        "passport": "Passport",
+        "residence-permit": "Residence permit"
+      },
+      "take-photo": "Take a photo",
+      "id": {
+        "recto": {
+          "title": "Identity Card - Front",
+          "instruction": "from the front of your identity card"
+        },
+        "verso": {
+          "title": "Identity Card - Back",
+          "instruction": "from the back of your identity card"
+        }
+      },
+      "passport": {
+        "title": "Passport",
+        "instruction": "from the identity page of your passport"
+      },
+      "residence-permit": {
+        "recto": {
+          "title": "Residence Permit - Front",
+          "instruction": "from the front of your residence permit"
+        },
+        "verso": {
+          "title": "Residence Permit - Back",
+          "instruction": "from the back of your residence permit"
+        }
+      },
+      "driving-license": {
+        "recto": {
+          "title": "Driver's License - Front",
+          "instruction": "from the front of your driver's license"
+        },
+        "verso": {
+          "title": "Driver's License - Back",
+          "instruction": "from the back of your driver's license"
+        }
+      },
+      "health-card": {
+        "title": "Health Card",
+        "instruction": "of your health card while hiding the last five digits",
+        "or": "Or"
+      },
+      "iban": {
+        "title": "Bank Identity Statement",
+        "instruction": "or send us a copy of your IBAN"
+      },
+      "taxes": {
+        "title": "Tax Notice",
+        "instruction": "of your most recent tax notice"
+      },
+      "sworn-statement": {
+        "title": "Host's sworn statement",
+        "instruction": "of the host's sworn statement",
+        "example": "Example"
+      },
+      "invoice": {
+        "title": "Invoice",
+        "instruction": "from the front of your invoice",
+        "another-instruction": "Internet, electricity, and gas bills are the only accepted ones and must be less than 3 months old. Mobile phone bills are not valid."
+      },
+      "w9": {
+        "title": "U.S. Resident - W-9",
+        "instruction": "or import your W-9 form"
+      },
+      "second-id": {
+        "title": "Additional Documents",
+        "instruction": "Please add one of these documents below to complete your identity.",
+        "id": "Identity Card",
+        "passport": "Passport",
+        "residence-permit": "Residence Permit",
+        "driving-license": "Driver's License",
+        "health-card": "Health Card",
+        "iban": "Bank Identity Statement"
+      },
+      "residence-proof-options": {
+        "title": "Proof of Residence",
+        "has-proof": "I have a proof of residence in my name",
+        "no-proof": "I don't have a proof of residence in my name, and I am attaching the documents from the person hosting me"
+      },
+      "residence-proof-list": {
+        "title": "Proof of Residence",
+        "instruction": "Choose your proof of residence",
+        "invoice": "An invoice (internet, electricity, and gas bills)",
+        "tax": "Tax Notice",
+        "iban": "IBAN"
+      },
+      "menu-kyc-host": {
+        "title": "Host's Documentation",
+        "instruction": "Documents to be provided:",
+        "sworn-statement": "A sworn statement from the host",
+        "identification": "Identification document of the host",
+        "residence-proof": "Residence proof of the host"
+      },
+      "host-id-list": {
+        "title": "Host's Identification Documents",
+        "instruction": "Select the identification document of the person hosting you",
+        "id": "Identity Card",
+        "passport": "Passport"
+      },
+      "host-id": {
+        "recto": {
+          "title": "Identity Card - Front",
+          "instruction": "of the front side of the host's identity card."
+        },
+        "verso": {
+          "title": "Identity Card - Back",
+          "instruction": "of the back side of the host's identity card."
+        }
+      },
+      "host-passport": {
+        "title": "Passport",
+        "instruction": "of the identity page of the host's passport"
+      },
+      "host-residence-proof-list": {
+        "title": "Host's Residence Proof",
+        "instruction": "Select the residence proof of your host",
+        "invoice": "An invoice\n(internet, electricity, and gas bills)",
+        "tax": "Tax Assessment",
+        "iban": "IBAN"
+      },
+      "host-iban": {
+        "title": "Your Host's Bank Identity Statement",
+        "instruction": "or send us a copy of the host's IBAN."
+      },
+      "host-taxes": {
+        "title": "Your Host's Tax Assessment",
+        "instruction": "of the host's most recent tax assessment"
+      },
+      "host-invoice": {
+        "title": "Your Host's Invoice",
+        "instruction": "of the front side of the host's invoice.",
+        "another-instruction": "Only internet, electricity, and gas bills are accepted and must be no older than 3 months. Mobile phone bills are not valid."
+      }
     }
   }
 }

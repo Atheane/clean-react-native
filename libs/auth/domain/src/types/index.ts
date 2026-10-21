@@ -1,4 +1,4 @@
-import { BirthDay, Country } from '../valueObjects';
+import { BirthDay, Country } from '../value-objects';
 
 export type IAuth = {
   accessToken: string;
@@ -39,3 +39,10 @@ export enum IGender {
 export type ISuccess = {
   success: boolean;
 };
+
+export enum KYC_REVIEW {
+  NONE = 0, // No review yet
+  PENDING = 1,
+  VALIDATED = 2, // Review was successful
+  REFUSED = 3,
+}

@@ -23,6 +23,7 @@ export type IRootTabParamList = {
   MenuTransfer: undefined;
   MenuCarbon: undefined;
   MenuProfile: undefined;
+  MenuKyc: undefined;
 };
 
 export type ISharedStackParamList = {
@@ -59,11 +60,6 @@ export type IHomeStackParamList = {
   RibPdf: undefined;
 };
 
-export type ITransferStackParamList = {
-  MenuTransfer: undefined;
-  Transfer: undefined;
-};
-
 export type ICarbonStackParamList = {
   MenuCarbon: undefined;
   Carbon: undefined;
@@ -72,6 +68,19 @@ export type ICarbonStackParamList = {
   Food: undefined;
   Fly: undefined;
   WarningFood: undefined;
+};
+
+export type IKycStackParamList = {
+  MenuKyc: undefined;
+  InitKyc: undefined;
+  Kyc: undefined;
+  SuccessKyc: undefined;
+  CardSent: undefined;
+};
+
+export type ITransferStackParamList = {
+  MenuTransfer: undefined;
+  Transfer: undefined;
 };
 
 export type IProfileStackParamList = {
@@ -113,11 +122,6 @@ export enum IHomeStackPages {
   RIB_PDF = 'RibPdf',
 }
 
-export enum ITransferStackPages {
-  MENU = 'MenuTransfer',
-  TRANSFER = 'Transfer',
-}
-
 export enum ICarbonStackPages {
   MENU = 'MenuCarbon',
   CARBON = 'Carbon',
@@ -126,6 +130,26 @@ export enum ICarbonStackPages {
   FOOD = 'Food',
   FLY = 'Fly',
   WARNING_FOOD = 'WarningFood',
+}
+
+export enum IKycStackPages {
+  MENU = 'MenuKyc',
+  INIT = 'InitKyc',
+  KYC = 'Kyc',
+  SUCCESS = 'SuccessKyc',
+  CARD_SENT = 'CardSent',
+  UPLOAD_DOCUMENT = 'UploadDocument',
+  ID_LIST = 'IdList',
+  RESIDENCE_PROOF_OPTIONS = 'ResidenceProofOptions',
+  RESIDENCE_PROOF_LIST = 'ResidenceProofList',
+  KYC_HOST = 'KycHost',
+  HOST_ID_LIST = 'HostIdList',
+  HOST_RESIDENCE_PROOF_LIST = 'HostResidenceProofList',
+}
+
+export enum ITransferStackPages {
+  MENU = 'MenuTransfer',
+  TRANSFER = 'Transfer',
 }
 
 export enum IProfileStackPage {
@@ -166,11 +190,6 @@ export type IHomeStackProps = {
   [IHomeStackPages.WEFLO]: object;
 };
 
-export type ITransferStackProps = {
-  [ITransferStackPages.MENU]: object;
-  [ITransferStackPages.TRANSFER]: object;
-};
-
 export type ICarbonStackProps = {
   [ICarbonStackPages.MENU]: object;
   [ICarbonStackPages.CARBON]: object;
@@ -179,6 +198,26 @@ export type ICarbonStackProps = {
   [ICarbonStackPages.FOOD]: object;
   [ICarbonStackPages.FLY]: object;
   [ICarbonStackPages.WARNING_FOOD]: object;
+};
+
+export type IKycStackProps = {
+  [IKycStackPages.MENU]: object;
+  [IKycStackPages.INIT]: object;
+  [IKycStackPages.KYC]: object;
+  [IKycStackPages.SUCCESS]: object;
+  [IKycStackPages.CARD_SENT]: object;
+  [IKycStackPages.UPLOAD_DOCUMENT]: object;
+  [IKycStackPages.ID_LIST]: object;
+  [IKycStackPages.RESIDENCE_PROOF_OPTIONS]: object;
+  [IKycStackPages.RESIDENCE_PROOF_LIST]: object;
+  [IKycStackPages.KYC_HOST]: object;
+  [IKycStackPages.HOST_ID_LIST]: object;
+  [IKycStackPages.HOST_RESIDENCE_PROOF_LIST]: object;
+};
+
+export type ITransferStackProps = {
+  [ITransferStackPages.MENU]: object;
+  [ITransferStackPages.TRANSFER]: object;
 };
 
 export type IProfileStackProps = {
@@ -211,8 +250,6 @@ export type IRoutes =
   | IHomeStackPages.ACCOUNT_STATEMENTS
   | IHomeStackPages.ACCOUNT_STATEMENTS_PDF
   | IHomeStackPages.RIB_PDF
-  | ITransferStackPages.MENU
-  | ITransferStackPages.TRANSFER
   | ICarbonStackPages.MENU
   | ICarbonStackPages.CARBON
   | ICarbonStackPages.HOUSE
@@ -220,4 +257,17 @@ export type IRoutes =
   | ICarbonStackPages.FOOD
   | ICarbonStackPages.FLY
   | ICarbonStackPages.WARNING_FOOD
+  | IKycStackPages.MENU
+  | IKycStackPages.INIT
+  | IKycStackPages.KYC
+  | IKycStackPages.SUCCESS
+  | IKycStackPages.CARD_SENT
+  | IKycStackPages.UPLOAD_DOCUMENT
+  | IKycStackPages.ID_LIST
+  | IKycStackPages.RESIDENCE_PROOF_OPTIONS
+  | IKycStackPages.RESIDENCE_PROOF_LIST
+  | IKycStackPages.KYC_HOST
+  | IKycStackPages.HOST_ID_LIST
+  | IKycStackPages.HOST_RESIDENCE_PROOF_LIST
+  | ITransferStackPages.TRANSFER
   | IProfileStackPage.PROFILE;

@@ -10,7 +10,7 @@ exports[`TextInput -  icon -  renders as before 1`] = `
         "borderRadius": 8,
         "marginBottom": -16,
         "marginTop": 11,
-        "width": 600,
+        "width": 562.5,
       }
     }
   >
@@ -119,7 +119,7 @@ exports[`TextInput -  label -  renders as before 1`] = `
         "borderRadius": 8,
         "marginBottom": -16,
         "marginTop": 11,
-        "width": 600,
+        "width": 562.5,
       }
     }
   >
@@ -213,7 +213,7 @@ exports[`TextInput -  labelColor -  renders as before 1`] = `
         "borderRadius": 8,
         "marginBottom": -16,
         "marginTop": 11,
-        "width": 600,
+        "width": 562.5,
       }
     }
   >
@@ -289,7 +289,7 @@ exports[`TextInput -  lowerCase & icon -  renders as before 1`] = `
         "borderRadius": 8,
         "marginBottom": -16,
         "marginTop": 11,
-        "width": 600,
+        "width": 562.5,
       }
     }
   >
@@ -380,7 +380,7 @@ exports[`TextInput -  lowerCase -  renders as before 1`] = `
         "borderRadius": 8,
         "marginBottom": -16,
         "marginTop": 11,
-        "width": 600,
+        "width": 562.5,
       }
     }
   >
@@ -456,7 +456,7 @@ exports[`TextInput -  minimal props -  renders as before 1`] = `
         "borderRadius": 8,
         "marginBottom": -16,
         "marginTop": 11,
-        "width": 600,
+        "width": 562.5,
       }
     }
   >

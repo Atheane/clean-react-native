@@ -3,7 +3,17 @@ import SagaTester from 'redux-saga-tester';
 import Constants from 'expo-constants';
 import dayjs from 'dayjs';
 
-import { AuthError, Email, Password, User, Phone, BirthDay, Country, IGender } from '@clean-rn/auth/domain';
+import {
+  AuthError,
+  Email,
+  Password,
+  User,
+  Phone,
+  BirthDay,
+  Country,
+  IGender,
+  KYC_REVIEW,
+} from '@clean-rn/auth/domain';
 
 import { loginSaga } from '../../usecases/login';
 import {
@@ -53,6 +63,7 @@ describe('Login - integration', () => {
     specifiedUSPerson: 0,
     title: 'Mme',
     userId: 3952561,
+    kycReview: KYC_REVIEW.NONE,
   };
 
   let gender = IGender.NEUTRAL;
@@ -77,6 +88,7 @@ describe('Login - integration', () => {
         nationality: new Country(mockUserData.nationality),
       },
       USPerson: mockUserData.specifiedUSPerson === 1,
+      kycReview: KYC_REVIEW.NONE,
     },
   });
 

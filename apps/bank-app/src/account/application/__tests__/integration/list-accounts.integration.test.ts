@@ -6,7 +6,12 @@ import { Bic, IAccountType, Iban } from '@clean-rn/account/domain';
 
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
 
-import { IAccountsTypes, listAccounts, accountsListed, initializeAccountsList } from '../../commands/account';
+import {
+  IAccountsTypes,
+  listAccounts,
+  accountsListed,
+  initializeAccountsList,
+} from '../../commands/accounts';
 import { IAccountsState, accountsReducer } from '../../state-management';
 
 import { listAccountsSaga } from '../../usecases/account';

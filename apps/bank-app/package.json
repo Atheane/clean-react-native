@@ -52,7 +52,6 @@
     "react-redux": "*",
     "@react-navigation/native-stack": "*",
     "redux-saga-test-plan": "*",
-    "nock": "*",
     "@types/jest": "*",
     "redux-saga-tester": "*",
     "short-unique-id": "*",

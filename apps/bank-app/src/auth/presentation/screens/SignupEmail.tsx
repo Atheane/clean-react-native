@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { View, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
@@ -12,6 +12,7 @@ import {
   FormSignupEmail,
   ISignupEmailFormData,
   useCleanErrorOnFocus,
+  SubmitButton,
 } from '@clean-rn/ui-mobile';
 import { Email } from '@clean-rn/auth/domain';
 
@@ -71,34 +72,23 @@ export const SignupEmail = () => {
   // clean domainError onFocus
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
-  const WIDTH = Dimensions.get('window').width;
-  const HEIGHT = Dimensions.get('window').height;
-
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View
-          style={[
-            styles.container,
-            HEIGHT / WIDTH > 2.16
-              ? { height: HEIGHT * 0.8, marginTop: 80 }
-              : HEIGHT / WIDTH > 2
-                ? { height: HEIGHT, marginTop: 50 }
-                : { marginTop: 24 },
-          ]}
-        >
+        <View style={styles.container}>
           <View style={styles.image}>
             <Image style={{ width: 200, height: 200 }} source={Welcome} />
           </View>
 
-          <FormSignupEmail
-            loading={pending}
-            control={control}
-            errors={errors}
-            onSubmit={handleSubmit(onSubmit)}
-            error={domainError}
-            onFocus={onFocus}
-          />
+          <FormSignupEmail control={control} errors={errors} error={domainError} onFocus={onFocus} />
+          <View style={styles.formSubmit}>
+            <SubmitButton
+              title={t('button.submit')}
+              uppercase={false}
+              onSubmit={handleSubmit(onSubmit)}
+              loading={pending}
+            />
+          </View>
           <View style={styles.cgu}>
             <LinkButton
               title={t('screens.legal')}
@@ -144,6 +134,11 @@ const styles = StyleSheet.create({
   },
   linkButton: {
     marginTop: 8,
+  },
+  formSubmit: {
+    marginTop: 36,
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   cgu: {
     marginTop: 16,

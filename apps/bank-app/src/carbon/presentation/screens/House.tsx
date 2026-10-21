@@ -18,7 +18,6 @@ export const House = () => {
 
   // init values with previous stored values
   const { data } = useSelector((state: IRootState) => state.carbon.house);
-
   // formData
   const { disabled, formData, resetFormData, handleFormData } = useHouseFormData(data);
 
@@ -55,6 +54,7 @@ export const House = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
     marginTop: 50,
   },

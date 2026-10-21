@@ -5,7 +5,7 @@ const WebViewerMeta: ComponentMeta<typeof WebViewer> = {
   title: 'Others/WebViewer',
   component: WebViewer,
   args: {
-    uri: 'https://www.example.com/assets/docs/cgu.pdf',
+    uri: 'https://example.com/green-euro-intro',
   },
 };
 
