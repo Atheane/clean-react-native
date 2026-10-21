@@ -64,27 +64,27 @@ export const UploadDocumentCard = (props: IProps) => {
         </View>
         {props.status && (
           <View style={styles.leftIconContainer}>
-            {props.status === 'VALIDATED' && (
+            {props.status === 'VALIDATED' && !props.loading && (
               <View style={styles.rightIcon}>
                 <GreenValidation />
               </View>
             )}
-            {props.status === 'PENDING' && (
+            {props.status === 'PENDING' && !props.loading && (
               <Icon name="clockcircleo" type="ant-design" color="grey" style={styles.rightIcon} />
             )}
-            {props.status === 'REFUSED' && (
+            {props.status === 'REFUSED' && !props.loading && (
               <Icon name="closecircleo" type="ant-design" color="red" style={styles.rightIcon} />
             )}
           </View>
         )}
         {props.loading && <LinearProgress color={Colors.bank.primary.darkGreen} style={styles.progress} />}
-        {props.status === 'REFUSED' && (
+        {props.status === 'REFUSED' && !props.loading && (
           <View style={styles.rightIconContainer}>
             <Edit />
           </View>
         )}
       </TouchableOpacity>
-      {props.errorMessage && (
+      {props.errorMessage && !props.loading && (
         <View style={styles.errorMessageContainer}>
           <Text style={[theme.bank.text.errors, styles.errorMessage]}>{props.errorMessage}</Text>
         </View>

@@ -2,7 +2,7 @@
 import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { ISignupUserCommand, IUserProperties, PhoneOtp } from '@clean-rn/auth/domain';
+import { ISignupUserCommand, IUserProperties, PhoneOtp, User } from '@clean-rn/auth/domain';
 
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { UserApi } from '@clean-rn/auth/infrastructure';
@@ -29,14 +29,15 @@ export function* signupUserGenerator(
   },
 ): Generator<StrictEffect, any, any> {
   try {
-    const { user, phoneOtp } = payload;
-
     const api = UserApi.getInstance(httpConnection);
-    const { uid } = yield call([api, api.createUser], { ...user.properties, phoneOtp } as IUserProperties & {
+    yield call([api, api.createUser], {
+      ...payload.user.properties,
+      phoneOtp: payload.phoneOtp,
+    } as IUserProperties & {
       phoneOtp: PhoneOtp;
     });
-
-    user.signup({ id: uid, properties: user.properties as IUserProperties });
+    const user = User.Create({ id: parseInt(payload.user.id), properties: payload.user.properties });
+    user.signup({ id: user.id, properties: user.properties as IUserProperties });
     // domain event
     yield put(userSignedUp(user));
     yield call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, user.properties.email.value);

@@ -1,5 +1,5 @@
 import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
-import { User, IUserRepository, IUserProperties, PhoneOtp, IGender } from '@clean-rn/auth/domain';
+import { User, IUserRepository, IUserProperties, PhoneOtp, IGender, IAuth } from '@clean-rn/auth/domain';
 import { mapUserServerToUserProperties } from '../mappers';
 
 export class UserApi implements IUserRepository {
@@ -32,7 +32,7 @@ export class UserApi implements IUserRepository {
     return mapUserServerToUserProperties(result);
   }
 
-  async createUser({ phoneOtp, ...cmd }: IUserProperties & { phoneOtp: PhoneOtp }): Promise<User> {
+  async createUser({ phoneOtp, ...cmd }: IUserProperties & { phoneOtp: PhoneOtp }): Promise<IAuth> {
     //map cmd to dto
     let title: string;
     if (cmd.identity.gender === IGender.MAN) {
@@ -65,7 +65,6 @@ export class UserApi implements IUserRepository {
       this.connection.options(IHttpVerb.POST, params),
     );
     await this.connection.handleError(response);
-    const result = await response.json();
-    return mapUserServerToUserProperties(result);
+    return response.json();
   }
 }

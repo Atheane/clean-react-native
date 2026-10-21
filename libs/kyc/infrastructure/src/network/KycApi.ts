@@ -34,17 +34,7 @@ export class KycApi implements IDocumentRepository {
       this.connection.options(IHttpVerb.GET),
     );
     await this.connection.handleError(response);
-    // const documents = await response.json();
-    const documents = [
-      {
-        createdAt: '2023-12-04T17:21:37.618Z',
-        documentContext: 'RESIDENCE_PROOF',
-        documentTypeId: 11,
-        documentStatus: 'REFUSED',
-        documentStatusCode: 600014,
-        name: 'residence-proof.host-iban.recto',
-      },
-    ];
+    const documents = await response.json();
     return documents.map((doc: IDocumentServer) => ({
       category: IDocumentCategory[doc.documentContext as keyof typeof IDocumentCategory],
       typeId: doc.documentTypeId,

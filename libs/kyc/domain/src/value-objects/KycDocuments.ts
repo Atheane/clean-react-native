@@ -63,7 +63,7 @@ export class KycDocuments {
       this.processCategoryDocuments(category as IDocumentCategory, documentsByCategory);
     });
     this.isUSPerson = !!USPerson;
-    this.isHosted = false;
+    this.isHosted = this.setIsHosted();
     this.expectedDocumentCount = this.setExpectedDocumentCount();
   }
 

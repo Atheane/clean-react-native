@@ -20,7 +20,7 @@ type IProps = {
 
 export const PrimaryButton: FC<IProps> = (props: IProps) => {
   const { theme } = useTheme();
-  const renderLabel = (text: string) => (text.length < 18 ? `${text}` : `${text}`.slice(0, 17) + '...');
+  const renderLabel = (text: string) => (text.length < 18 ? `${text}` : `${text}`.slice(0, 15) + '...');
 
   return (
     <View
