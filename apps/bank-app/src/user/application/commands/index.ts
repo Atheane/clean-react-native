@@ -12,8 +12,7 @@ import {
   IRegisterBirthCommand,
   IRegisterAddressCommand,
   ISignupUserCommand,
-  IPhoneNotifications,
-  IEmailNotifications,
+  IUpdateUserConfigCommand,
 } from '@clean-rn/user/domain';
 import {
   IUserActions,
@@ -74,10 +73,7 @@ export const fetchSignupUser = (payload: ISignupUserCommand): IFetchSignupUser =
   payload,
 });
 
-export const fetchUpdateNotifications = (payload: {
-  phoneNotificationsDisabled?: IPhoneNotifications[];
-  emailNotificationsDisabled?: IEmailNotifications[];
-}): IFetchUpdateNotifications => ({
+export const fetchUpdateNotifications = (payload: IUpdateUserConfigCommand): IFetchUpdateNotifications => ({
   type: IUserTypes.FETCH_UPDATE_NOTIFICATIONS,
   payload,
 });

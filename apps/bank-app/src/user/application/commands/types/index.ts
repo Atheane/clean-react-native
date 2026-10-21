@@ -11,8 +11,7 @@ import {
   IRegisterBirthCommand,
   IRegisterAddressCommand,
   ISignupUserCommand,
-  IPhoneNotifications,
-  IEmailNotifications,
+  IUpdateUserConfigCommand,
 } from '@clean-rn/user/domain';
 
 export enum IUserTypes {
@@ -84,10 +83,7 @@ export type IFetchSignupUser = {
 
 export type IFetchUpdateNotifications = {
   type: typeof IUserTypes.FETCH_UPDATE_NOTIFICATIONS;
-  payload: {
-    phoneNotificationsDisabled?: IPhoneNotifications[];
-    emailNotificationsDisabled?: IEmailNotifications[];
-  };
+  payload: IUpdateUserConfigCommand;
 };
 
 export type IInitializeUser = {

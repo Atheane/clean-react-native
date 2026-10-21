@@ -23,29 +23,27 @@ export const NotificationSettings = () => {
   const dispatch = useDispatch();
 
   const handleOnSubmit = useCallback(() => {
-    let phoneNotificationsDisabled: IPhoneNotifications[] = [];
+    let notifFirebaseDisabled: IPhoneNotifications[] = [];
     if (!paymentChecked) {
-      phoneNotificationsDisabled.push(IPhoneNotifications.PAYOUT_INITIATED);
+      notifFirebaseDisabled.push(IPhoneNotifications.PAYOUT_INITIATED);
     } else {
-      phoneNotificationsDisabled = phoneNotificationsDisabled.filter(
+      notifFirebaseDisabled = notifFirebaseDisabled.filter(
         (pn) => pn !== IPhoneNotifications.PAYOUT_INITIATED,
       );
     }
     if (!transferChecked) {
-      phoneNotificationsDisabled.push(IPhoneNotifications.PAYIN_RECEIVED);
+      notifFirebaseDisabled.push(IPhoneNotifications.PAYIN_RECEIVED);
     } else {
-      phoneNotificationsDisabled = phoneNotificationsDisabled.filter(
-        (pn) => pn !== IPhoneNotifications.PAYIN_RECEIVED,
-      );
+      notifFirebaseDisabled = notifFirebaseDisabled.filter((pn) => pn !== IPhoneNotifications.PAYIN_RECEIVED);
     }
     if (!thresholdChecked) {
-      phoneNotificationsDisabled.push(IPhoneNotifications.CARD_TRANSACTION_MODIFIED);
+      notifFirebaseDisabled.push(IPhoneNotifications.CARD_TRANSACTION_MODIFIED);
     } else {
-      phoneNotificationsDisabled = phoneNotificationsDisabled.filter(
+      notifFirebaseDisabled = notifFirebaseDisabled.filter(
         (pn) => pn !== IPhoneNotifications.CARD_TRANSACTION_MODIFIED,
       );
     }
-    dispatch(fetchUpdateNotifications({ phoneNotificationsDisabled }));
+    dispatch(fetchUpdateNotifications({ notifFirebaseDisabled }));
   }, [dispatch, paymentChecked, transferChecked, thresholdChecked]);
 
   return (

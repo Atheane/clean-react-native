@@ -37,6 +37,6 @@ export type ISignupUserCommand = {
 };
 
 export type IUpdateUserConfigCommand = {
-  notifFirebaseDisabled?: IEmailNotifications[];
-  notifEmailDisabled?: IPhoneNotifications[];
+  notifFirebaseDisabled?: IPhoneNotifications[];
+  notifEmailDisabled?: IEmailNotifications[];
 };

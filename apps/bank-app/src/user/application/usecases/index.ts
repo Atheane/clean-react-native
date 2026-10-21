@@ -6,3 +6,4 @@ export * from './validate-phone';
 export * from './register-birth';
 export * from './register-address';
 export * from './create-user';
+export * from './update-notifications';

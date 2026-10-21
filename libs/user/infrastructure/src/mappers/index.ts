@@ -27,5 +27,11 @@ export const mapUserServerToUserProperties = (result: IUserPropertiesServer): Us
     USPerson: result.specifiedUSPerson === 1,
   };
 
-  return User.Create({ id: result.userId, properties: userProperties });
+  const user = User.Create({ id: result.userId, properties: userProperties });
+
+  if (result.config) {
+    user.setConfig(result.config);
+  }
+
+  return user;
 };

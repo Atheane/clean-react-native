@@ -1,6 +1,6 @@
 import { Entity } from '@clean-rn/ddd';
 import { AuthError, Email, Password } from '@clean-rn/auth/domain';
-import { IAddress, IIdentity, IBirth, KYC_REVIEW } from '../types';
+import { IAddress, IIdentity, IBirth, KYC_REVIEW, IPhoneNotifications, IEmailNotifications } from '../types';
 import { Phone, Country, BirthDay } from '../value-objects';
 import { IRegisterAddressCommand, IRegisterBirthCommand, IRegisterIdentityCommand } from '../commands';
 import { IValidatePhoneQuery } from '../queries';
@@ -15,6 +15,11 @@ export interface IUserProperties {
   kycReview: KYC_REVIEW; // should be in Customer in back-end ?
   kycReviewComment?: string; // should be in Customer in back-end ?
   USPerson: boolean; // should be in Customer in back-end ?
+  config?: {
+    lang: string;
+    notifFirebaseDisabled: IPhoneNotifications[];
+    notifMailDisabled: IEmailNotifications[];
+  };
 }
 
 export class User extends Entity<IUserProperties> {
@@ -76,5 +81,20 @@ export class User extends Entity<IUserProperties> {
       country: new Country(country),
     };
     this.properties.USPerson = USPerson;
+  }
+
+  setConfig(config: {
+    lang?: string;
+    notifFirebaseDisabled?: IPhoneNotifications[];
+    notifMailDisabled?: IEmailNotifications[];
+  }): void {
+    if (!config.lang && !config.notifFirebaseDisabled && !config.notifMailDisabled) {
+      return;
+    }
+    this.properties.config = {
+      lang: config.lang || 'en',
+      notifFirebaseDisabled: config.notifFirebaseDisabled ?? [],
+      notifMailDisabled: config.notifMailDisabled ?? [],
+    };
   }
 }

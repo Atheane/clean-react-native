@@ -11,7 +11,7 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
-import { selectAuth, selectUser } from '../../../../auth/application/state-management/selectors';
+import { selectAuth } from '../../../../auth/application/state-management/selectors';
 
 import { refreshSuccess } from '../../../../auth/application/commands';
 import { IUserTypes, initializeUser, notificationUpdated } from '../../../../user/application/commands';
@@ -36,10 +36,8 @@ export function* updateNotificationsGenerator(
     const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
     yield put(refreshSuccess({ auth }));
 
-    const user = yield select(selectUser);
     const userApi = UserApi.getInstance(httpConnection);
-    yield call([userApi, userApi.updateConfig], payload);
-
+    const user = yield call([userApi, userApi.updateConfig], payload);
     yield put(
       notificationUpdated({
         user,

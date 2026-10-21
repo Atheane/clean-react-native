@@ -1,4 +1,4 @@
-import { KYC_REVIEW } from '@clean-rn/user/domain';
+import { IEmailNotifications, IPhoneNotifications, KYC_REVIEW } from '@clean-rn/user/domain';
 
 export type IUserPropertiesServer = {
   email: string;
@@ -12,4 +12,9 @@ export type IUserPropertiesServer = {
   kycReviewComment: string;
   kycReview: KYC_REVIEW;
   userId: number;
+  config: {
+    lang: string;
+    notifFirebaseDisabled: IPhoneNotifications[];
+    notifMailDisabled: IEmailNotifications[];
+  };
 };

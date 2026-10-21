@@ -20,6 +20,7 @@ import {
   registerAddressSaga,
   validatePhoneSaga,
   signupUserSaga,
+  updateNotificationsSaga,
 } from '../../../user/application/usecases';
 
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
@@ -71,5 +72,6 @@ export function* rootSaga(httpConnection: HttpConnection) {
     addPageSaga(),
     uploadDocumentSaga(httpConnection),
     cancelUploadSaga(),
+    updateNotificationsSaga(httpConnection),
   ]);
 }

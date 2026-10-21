@@ -135,15 +135,13 @@ export class UserApi implements IUserRepository, IUserGateway {
   }
 
   async updateConfig(cmd: IUpdateUserConfigCommand): Promise<User> {
-    console.log('updateConfig cmd', cmd);
-
+    console.log(cmd);
     const response = await fetch(
       `${this.connection.baseUrl}/app/user/updateConfig`,
       this.connection.options(IHttpVerb.PUT, cmd),
     );
     await this.connection.handleError(response);
     const userServer = await response.json();
-    console.log('updateConfig userServer', userServer);
     return mapUserServerToUserProperties(userServer);
   }
 }
