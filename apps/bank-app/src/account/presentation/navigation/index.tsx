@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigationState } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { Colors, FontNames } from '@clean-rn/ui-mobile';
+
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 
@@ -21,7 +23,6 @@ import { ScreenModalError, ScreenModalWebview } from '../../../shared/presentati
 import { Login } from '../../../auth/presentation/screens';
 
 import { Accounts, Transactions, AccountStatements, AccountStatementsPdf, RibPdf } from '../screens';
-import { Colors, FontNames } from '@clean-rn/ui-mobile';
 
 const Stack = createNativeStackNavigator<IHomeStackProps & ISharedStackProps & IAuthStackProps>();
 

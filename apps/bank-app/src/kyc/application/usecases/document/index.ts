@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { call, put, StrictEffect, takeEvery, cancel, select, fork, join } from 'redux-saga/effects';
+import { call, put, StrictEffect, takeEvery, cancel, select, spawn, join } from 'redux-saga/effects';
 import { ImageSourcePropType } from 'react-native';
 
 import { Logger } from '@clean-rn/logger';
@@ -114,13 +114,12 @@ export function* uploadDocumentSagaGenerator(
       throw new DocumentError.DocumentNotReady();
     }
     const user = yield select(selectUserFromLogin);
-
     const api = KycApi.getInstance(httpConnection);
-    const createDocumentTask = yield fork([api, api.createDocument], {
+
+    const createDocumentTask = yield spawn([api, api.createDocument], {
       customerId: user.id,
       document: payload.document,
     });
-
     const document: DocumentVO = yield join(createDocumentTask);
 
     Logger.getInstance().info(document.properties.status);

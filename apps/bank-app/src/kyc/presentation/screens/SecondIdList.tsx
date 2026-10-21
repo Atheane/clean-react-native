@@ -73,6 +73,12 @@ export const SecondIdList = () => {
 
   const { customer } = useSelector((state: IRootState) => state.kyc.customer);
 
+  const isAlreadySubmitted = (typeId: number) =>
+    (customer?.properties?.kyc?.documents.FIRST_ID?.properties?.typeId === typeId &&
+      customer?.properties?.kyc?.documents.FIRST_ID?.properties?.status === IDocumentStatus.PENDING) ||
+    (customer?.properties?.kyc?.documents.SECOND_ID?.properties?.typeId === typeId &&
+      customer?.properties?.kyc?.documents.FIRST_ID?.properties?.status === IDocumentStatus.PENDING);
+
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
@@ -88,9 +94,7 @@ export const SecondIdList = () => {
               <IconTextItem
                 icon={KycId}
                 text={t('screens.kyc.second-id.id')}
-                validated={
-                  customer?.properties?.kyc?.documents.SECOND_ID?.properties?.typeId === IDocumentType.ID
-                }
+                validated={isAlreadySubmitted(IDocumentType.ID)}
                 onPress={() =>
                   handleOnPress({
                     instruction: t('screens.kyc.id.recto.instruction'),
@@ -114,10 +118,7 @@ export const SecondIdList = () => {
               <IconTextItem
                 icon={KycPassport}
                 text={t('screens.kyc.second-id.passport')}
-                validated={
-                  customer?.properties?.kyc?.documents.SECOND_ID?.properties?.typeId ===
-                  IDocumentType.PASSPORT
-                }
+                validated={isAlreadySubmitted(IDocumentType.PASSPORT)}
                 onPress={() =>
                   handleOnPress({
                     instruction: t('screens.kyc.passport.instruction'),
@@ -137,10 +138,7 @@ export const SecondIdList = () => {
               <IconTextItem
                 icon={KycResidencePermit}
                 text={t('screens.kyc.second-id.residence-permit')}
-                validated={
-                  customer?.properties?.kyc?.documents.SECOND_ID?.properties?.typeId ===
-                  IDocumentType.RESIDENT_PERMIT
-                }
+                validated={isAlreadySubmitted(IDocumentType.RESIDENT_PERMIT)}
                 onPress={() =>
                   handleOnPress({
                     instruction: t('screens.kyc.residence-permit.recto.instruction'),
@@ -164,10 +162,7 @@ export const SecondIdList = () => {
               <IconTextItem
                 icon={KycDrivingLicense}
                 text={t('screens.kyc.second-id.driving-license')}
-                validated={
-                  customer?.properties?.kyc?.documents.SECOND_ID?.properties?.typeId ===
-                  IDocumentType.DRIVING_LICENSE
-                }
+                validated={isAlreadySubmitted(IDocumentType.DRIVING_LICENSE)}
                 onPress={() =>
                   handleOnPress({
                     instruction: t('screens.kyc.driving-license.recto.instruction'),
@@ -191,10 +186,7 @@ export const SecondIdList = () => {
               <IconTextItem
                 icon={KycHealthCard}
                 text={t('screens.kyc.second-id.health-card')}
-                validated={
-                  customer?.properties?.kyc?.documents.SECOND_ID?.properties?.typeId ===
-                  IDocumentType.HEALTH_INSURANCE_CARD
-                }
+                validated={isAlreadySubmitted(IDocumentType.HEALTH_INSURANCE_CARD)}
                 onPress={() =>
                   handleOnPress({
                     instruction: t('screens.kyc.health-card.instruction'),

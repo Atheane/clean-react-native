@@ -93,7 +93,7 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
-      .fork([api, api.createDocument], { customerId: user.id, document }) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .spawn([api, api.createDocument], { customerId: user.id, document }) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockTask)
       .join(mockTask)
       .next(document)
@@ -139,7 +139,7 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
-      .fork([api, api.createDocument], { customerId: user.id, document }) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .spawn([api, api.createDocument], { customerId: user.id, document }) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
       .call(navigate, { route: IAuthStackPages.LOGIN })
       .next()
@@ -161,7 +161,7 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
-      .fork([api, api.createDocument], { customerId: user.id, document }) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .spawn([api, api.createDocument], { customerId: user.id, document }) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
       .put(showUnknownError(new ServerError(mockError500)))
       .next();
@@ -183,7 +183,7 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
-      .fork([api, api.createDocument], { customerId: user.id, document }) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .spawn([api, api.createDocument], { customerId: user.id, document }) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unexpected error'))
       .put(showUnknownError(new Error('unexpected error')))
       .next();

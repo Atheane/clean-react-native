@@ -61,6 +61,12 @@ export const FirstIdList = () => {
 
   const { customer } = useSelector((state: IRootState) => state.kyc.customer);
 
+  const isAlreadySubmitted = (typeId: number) =>
+    (customer?.properties?.kyc?.documents.FIRST_ID?.properties?.typeId === typeId &&
+      customer?.properties?.kyc?.documents.FIRST_ID?.properties?.status === IDocumentStatus.PENDING) ||
+    (customer?.properties?.kyc?.documents.SECOND_ID?.properties?.typeId === typeId &&
+      customer?.properties?.kyc?.documents.FIRST_ID?.properties?.status === IDocumentStatus.PENDING);
+
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
@@ -76,9 +82,7 @@ export const FirstIdList = () => {
               <IconTextItem
                 icon={KycId}
                 text={t('screens.kyc.first-id.id')}
-                validated={
-                  customer?.properties?.kyc?.documents.FIRST_ID?.properties?.typeId === IDocumentType.ID
-                }
+                validated={isAlreadySubmitted(IDocumentType.ID)}
                 onPress={() =>
                   handleOnPress({
                     instruction: t('screens.kyc.id.recto.instruction'),
@@ -102,9 +106,7 @@ export const FirstIdList = () => {
               <IconTextItem
                 icon={KycPassport}
                 text={t('screens.kyc.first-id.passport')}
-                validated={
-                  customer?.properties?.kyc?.documents.FIRST_ID?.properties?.typeId === IDocumentType.PASSPORT
-                }
+                validated={isAlreadySubmitted(IDocumentType.PASSPORT)}
                 onPress={() =>
                   handleOnPress({
                     instruction: t('screens.kyc.passport.instruction'),
@@ -124,10 +126,7 @@ export const FirstIdList = () => {
               <IconTextItem
                 icon={KycResidencePermit}
                 text={t('screens.kyc.first-id.residence-permit')}
-                validated={
-                  customer?.properties?.kyc?.documents.FIRST_ID?.properties?.typeId ===
-                  IDocumentType.RESIDENT_PERMIT
-                }
+                validated={isAlreadySubmitted(IDocumentType.RESIDENT_PERMIT)}
                 onPress={() =>
                   handleOnPress({
                     instruction: t('screens.kyc.residence-permit.recto.instruction'),

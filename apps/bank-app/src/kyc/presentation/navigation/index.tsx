@@ -4,18 +4,25 @@ import { useDispatch } from 'react-redux';
 import { useNavigationState } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { Colors, FontNames } from '@clean-rn/ui-mobile';
+
+import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
-
 import {
   IKycStackPages,
   IKycStackProps,
   ISharedStackPages,
   ISharedStackProps,
+  IAuthStackProps,
+  IAuthStackPages,
+  HeaderTitleAlign,
 } from '../../../shared/presentation/types';
-import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
 import { ScreenModalError } from '../../../shared/presentation/screens';
 
+import { Login } from '../../../auth/presentation/screens';
+
+import { kycRouteInitialized } from '../../application/commands/customer';
 import {
   InitKyc,
   MenuKyc,
@@ -30,9 +37,8 @@ import {
   CardSent,
   HostResidenceProofList,
 } from '../screens';
-import { kycRouteInitialized } from '../../application/commands/customer';
 
-const Stack = createNativeStackNavigator<IKycStackProps & ISharedStackProps>();
+const Stack = createNativeStackNavigator<IKycStackProps & ISharedStackProps & IAuthStackProps>();
 
 export const KycStack = () => {
   const { t } = useTranslation();
@@ -156,6 +162,21 @@ export const KycStack = () => {
         }}
         name={ISharedStackPages.MODAL_ERROR}
         component={ScreenModalError}
+      />
+      <Stack.Screen
+        options={{
+          presentation: 'modal',
+          headerTitle: t('modal.login.title'),
+          headerTitleAlign: 'center' as HeaderTitleAlign,
+          headerTitleStyle: {
+            color: Colors.bank.primary.darkBlue,
+            fontSize: 19,
+            fontFamily: FontNames.MartelSans_600SemiBold,
+          },
+          headerBackVisible: false,
+        }}
+        name={IAuthStackPages.LOGIN}
+        component={Login}
       />
     </Stack.Navigator>
   );

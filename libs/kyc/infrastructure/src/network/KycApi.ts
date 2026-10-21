@@ -1,4 +1,4 @@
-import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
+import { HttpConnection, IHttpVerb, ServerError } from '@clean-rn/shared/infrastructure';
 import {
   IDocumentProperties,
   IDocumentRepository,
@@ -62,7 +62,6 @@ export class KycApi implements IDocumentRepository {
       this.connection.options(IHttpVerb.POST, params),
     );
     await this.connection.handleError(response);
-
     const documentServer = await response.json();
 
     const documentProperties = {
