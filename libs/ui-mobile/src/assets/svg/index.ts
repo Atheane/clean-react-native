@@ -38,7 +38,6 @@ import Car from './car.svg';
 import House from './house.svg';
 import Food from './food.svg';
 import Plane from './plane.svg';
-import PlaneEmpty from './plane_empty.svg';
 import Flame from './flame.svg';
 import Department from './department.svg';
 import Surface from './surface.svg';
@@ -152,7 +151,6 @@ export {
   House,
   Food,
   Plane,
-  PlaneEmpty,
   Flame,
   Department,
   Surface,

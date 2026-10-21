@@ -38,7 +38,6 @@ import {
   House,
   Food,
   Plane,
-  PlaneEmpty,
   Flame,
   Department,
   Surface,
@@ -113,7 +112,7 @@ import {
   Save,
   Download,
 } from './svg';
-import { DefaultImage } from './image';
+import { DefaultImage, PlaneEmpty } from './image';
 import { Loader } from './lottie';
 export {
   Love,

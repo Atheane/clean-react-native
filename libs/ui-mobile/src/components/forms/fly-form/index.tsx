@@ -14,7 +14,7 @@ import { Colors } from '../../../constants';
 
 import { SecondaryButton } from '../../buttons/secondary-button';
 import { SwitchButton } from '../../buttons/switch-button';
-import { CardScroller, ICardType } from '../../cards/card-scroller';
+import { CardScroller } from '../../cards/card-scroller';
 import { SelectNumber } from '../../inputs/select-number';
 import { SearchModal } from '../../searchboxes/search-modal';
 
@@ -106,7 +106,7 @@ export const FlyForm = (props: IProps) => {
         return {
           uid: `${nbPassengers}_${fromIATA}_${toIATA}_${seatType}_${roundTrip}`,
           text: `${nbPassengers} ${travelType}${plural} ${fromIATA} / ${toIATA} ${seat}`,
-          icon: PlaneEmpty,
+          image: PlaneEmpty,
         };
       })
       .filter((value, index, self) => {

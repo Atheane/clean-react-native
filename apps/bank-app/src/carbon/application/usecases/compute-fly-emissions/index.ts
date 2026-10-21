@@ -3,9 +3,9 @@ import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { FlightI } from '@bank/carbon-weight/dist';
+import { FlightI, FlightDataE, Flight, FlightSeatE } from '@bank/carbon-weight/dist';
 
-import { FlyEmissions } from '@clean-rn/carbon/domain';
+import { FlyEmissions, airports } from '@clean-rn/carbon/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IStoreKey } from '../../../../shared/application/types';
@@ -25,9 +25,6 @@ export function* computeFlyEmissionsGenerator({
 }): Generator<StrictEffect, any, any> {
   try {
     const flyCarbonFootprint = payload.reduce((acc: number, flight: FlightI) => {
-      console.log('flight', flight);
-      console.log(new FlyEmissions(flight).value);
-      console.log('acc', acc);
       acc += new FlyEmissions(flight).value;
       return acc;
     }, 0);

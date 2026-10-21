@@ -1,2 +1,3 @@
 import DefaultImage from './carbon-footprint.png';
-export { DefaultImage };
+import PlaneEmpty from './plane-empty.png';
+export { DefaultImage, PlaneEmpty };
