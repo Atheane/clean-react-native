@@ -14,6 +14,7 @@ import {
   ErrorMessage,
   LinkButton,
   LinkButtonColors,
+  LoaderSplashScreen,
 } from '@clean-rn/ui-mobile';
 
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
@@ -89,7 +90,7 @@ export const UploadDocument = () => {
   }, []);
 
   return loading ? (
-    <Text> Loading...</Text>
+    <LoaderSplashScreen />
   ) : (
     <ErrorBoundary t={t}>
       <SafeScrollingView>

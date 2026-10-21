@@ -110,6 +110,7 @@ const getStories = () => {
     './stories/others/GraphCO2.stories.tsx': require('../stories/others/GraphCO2.stories'),
     './stories/others/ModalError.stories.tsx': require('../stories/others/ModalError.stories'),
     './stories/others/IconTextItem.stories.tsx': require('../stories/others/IconTextItem.stories'),
+    './stories/others/LoaderSplashScreen.stories.tsx': require('../stories/others/LoaderSplashScreen.stories'),
     // Searchboxes
     './stories/searchboxes/SearchModal.stories.tsx': require('../stories/searchboxes/SearchModal.stories'),
     // Texts

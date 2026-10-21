@@ -114,6 +114,7 @@ import {
   Download,
 } from './svg';
 import { DefaultImage } from './image';
+import { Loader } from './lottie';
 export {
   Love,
   Validate,
@@ -229,4 +230,5 @@ export {
   CarbonFootPrint,
   Save,
   Download,
+  Loader,
 };

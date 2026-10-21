@@ -12,6 +12,7 @@ import {
   WhiteBalanceList,
   Banner,
   BannerColors,
+  LoaderSplashScreen,
 } from '@clean-rn/ui-mobile';
 import { KYC_REVIEW } from '@clean-rn/auth/domain';
 import { IAccount } from '@clean-rn/account/domain';
@@ -85,7 +86,7 @@ export const Accounts = () => {
   );
 
   return accountPending || kycPending ? (
-    <Text>Loading ...</Text> // todo replace with loading gif
+    <LoaderSplashScreen /> // todo replace with loading gif
   ) : (
     <ErrorBoundary t={t}>
       {customer && (

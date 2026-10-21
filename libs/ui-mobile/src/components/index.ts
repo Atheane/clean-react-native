@@ -67,6 +67,7 @@ import { TransactionItem } from './others/transaction-item';
 import { GraphCO2 } from './others/graph-co2';
 import { ModalError } from './others/modal-error';
 import { IconTextItem } from './others/icon-text-item';
+import { LoaderSplashScreen } from './others/loader-splash-screen';
 // Searchboxes
 import { SearchModal } from './searchboxes/search-modal';
 // Texts
@@ -142,7 +143,6 @@ export {
   ShareScreen,
   DocumentScanner,
   DocumentPicker,
-  // PdfViewer,
   PdfViewer,
   PdfDownloader,
   CopyValueClipboard,
@@ -150,6 +150,7 @@ export {
   GraphCO2,
   ModalError,
   IconTextItem,
+  LoaderSplashScreen,
   // Searchboxes
   SearchModal,
   // Texts
