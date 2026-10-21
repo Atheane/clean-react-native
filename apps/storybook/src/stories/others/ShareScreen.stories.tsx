@@ -1,4 +1,4 @@
-import { Image, View, StyleSheet, Text } from 'react-native';
+import { Image, View, StyleSheet } from 'react-native';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { LoanHeater } from '../../../assets/images';
 
@@ -19,11 +19,6 @@ const ShareScreenMeta: ComponentMeta<typeof ShareScreen> = {
     },
   },
   args: {
-    title: (
-      <View>
-        <Text>Mon Bilan carbone</Text>
-      </View>
-    ),
     children: (
       <View style={styles.container}>
         <Image source={LoanHeater} />

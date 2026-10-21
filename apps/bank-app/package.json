@@ -70,7 +70,8 @@
     "lottie-react-native": "~5.1.4",
     "@react-native-firebase/messaging": "*",
     "@react-native-firebase/app": "*",
-    "expo-notifications": "*"
+    "expo-notifications": "*",
+    "react-native-device-info": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp package-lock.json apps/bank-app",

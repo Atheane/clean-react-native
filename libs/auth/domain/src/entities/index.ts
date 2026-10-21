@@ -1,2 +1,3 @@
 import { User, IUserProperties } from './User';
-export { User, IUserProperties };
+import { Device, IDeviceProperties } from './Device';
+export { User, IUserProperties, Device, IDeviceProperties };

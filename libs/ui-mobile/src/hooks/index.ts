@@ -9,6 +9,7 @@ import { useTransportFormData } from './useTransportFormData';
 import { useChange } from './useChange';
 import { useHideBottomBar } from './useHideBottomBar';
 import { useReduxOverStorageValue } from './useReduxOverStorageValue';
+import { useNotification } from './useNotification';
 
 export {
   useCleanErrorOnFocus,
@@ -22,4 +23,5 @@ export {
   useChange,
   useHideBottomBar,
   useReduxOverStorageValue,
+  useNotification,
 };

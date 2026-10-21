@@ -11,6 +11,7 @@ import {
   Email,
   User,
   ISignupUserCommand,
+  Device,
 } from '@clean-rn/auth/domain';
 import {
   ISignupActions,
@@ -34,6 +35,8 @@ import {
   IFetchSignupUser,
   IUserSignedUp,
   IPhoneCodeSent,
+  IFetchRegisterDevice,
+  IDeviceRegistered,
 } from './types';
 import { IDomainError } from '@clean-rn/ddd';
 
@@ -72,6 +75,10 @@ export const fetchSignupUser = (payload: ISignupUserCommand): IFetchSignupUser =
 
 export const initializeSignupStep = (): IInitializeSignupStep => ({
   type: ISignupTypes.INITIALIZE_SIGNUP_STEP,
+});
+
+export const fetchRegisterDevice = (): IFetchRegisterDevice => ({
+  type: ISignupTypes.FETCH_REGISTER_DEVICE,
 });
 
 // redux actions that are domain Events
@@ -131,6 +138,11 @@ export const phoneValidated = (prospect: User): IPhoneValidated => ({
 export const userSignedUp = (user: User): IUserSignedUp => ({
   type: ISignupTypes.USER_SIGNED_UP,
   payload: user,
+});
+
+export const deviceRegistered = (device: Device): IDeviceRegistered => ({
+  type: ISignupTypes.DEVICE_REGISTERED,
+  payload: device,
 });
 
 export { ISignupTypes, ISignupActions };

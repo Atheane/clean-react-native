@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
+import { getUniqueId, getDeviceId, getBrand, getBaseOs, getBuildNumber } from 'react-native-device-info';
 
 import {
   FontNames,
@@ -11,13 +12,16 @@ import {
   FormSignupValidatePhone,
   ISignupValidatePhoneFormData,
   Security,
+  useNotification,
 } from '@clean-rn/ui-mobile';
-import { PhoneOtp } from '@clean-rn/auth/domain';
+import { PhoneOtp, Device } from '@clean-rn/auth/domain';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { SafeScrollingView, ErrorBoundary } from '../../../shared/presentation/hoc';
 
 import { fetchValidatePhone } from '../../../auth/application/commands/signup';
+
+import { selectUserFromLogin } from '../../../kyc/application/state-management/selectors';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -53,6 +57,30 @@ export const SignupValidatePhone = () => {
 
   // clean domainError onFocus
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
+
+  // registerPhone with a saga here
+  const { firebaseToken, notificationEnabled } = useNotification();
+  if (firebaseToken && notificationEnabled) {
+    // registerDevice
+    // const { id: userId } = yield select(selectUserFromLogin);
+    // const deviceId: string = yield call(getUniqueId);
+    // const device = Device.Create({
+    //   deviceId,
+    //   userId,
+    // });
+    // const brand = getBrand();
+    // const model = getDeviceId();
+    // const os = yield call(getBaseOs);
+    // const osVersion = getBuildNumber();
+    // device.registerDeviceProperties({
+    //   brand,
+    //   model,
+    //   os,
+    //   osVersion,
+    // });
+    // device.connectToNotifications(firebaseToken);
+    // dispatch(registerDevice());
+  }
 
   return (
     <ErrorBoundary t={t}>

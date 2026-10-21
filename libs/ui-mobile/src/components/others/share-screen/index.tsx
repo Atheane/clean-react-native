@@ -52,7 +52,7 @@ export const ShareScreen = ({ children, handleError, message }: IProps) => {
 
   return (
     <View>
-      <ViewShot options={{ format: 'png', quality: 0.8 }} ref={viewShot} collapsable={false}>
+      <ViewShot options={{ format: 'png', quality: 0.8 }} ref={viewShot}>
         {children}
       </ViewShot>
 

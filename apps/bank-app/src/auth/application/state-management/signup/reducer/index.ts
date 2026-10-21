@@ -10,6 +10,7 @@ const initialState: ISignupState = {
   phoneOtp: null,
   user: null,
   error: null,
+  device: null,
 };
 
 export const signupReducer = (state = initialState, action: ISignupActions) => {
@@ -72,6 +73,13 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
         pending: true,
         phoneOtp: action.payload.phoneOtp,
         error: null,
+      };
+      return newState;
+    case ISignupTypes.FETCH_REGISTER_DEVICE:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: true,
       };
       return newState;
     case ISignupTypes.PHONE_VALIDATED:
@@ -138,6 +146,15 @@ export const signupReducer = (state = initialState, action: ISignupActions) => {
       newState = {
         ...state,
         pending: false,
+        error: null,
+      };
+      return newState;
+    case ISignupTypes.DEVICE_REGISTERED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        device: action.payload,
         error: null,
       };
       return newState;
