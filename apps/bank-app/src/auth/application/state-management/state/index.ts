@@ -15,4 +15,5 @@ export interface IAuthState {
         refreshToken: null;
       };
   error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | null;
+  success: boolean | null;
 }

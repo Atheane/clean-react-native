@@ -18,7 +18,7 @@ export const AccountStatementsPdf = () => {
   } = useRoute() as { params: { account: IAccount; period: IStatementsPeriod } };
   const {
     auth: { accessToken },
-  } = useSelector((state: IRootState) => state.auth.login);
+  } = useSelector((state: IRootState) => state.auth);
 
   const [unknownError, setUnknownError] = useState<Error>();
 

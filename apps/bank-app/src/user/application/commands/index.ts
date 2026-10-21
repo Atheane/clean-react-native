@@ -12,8 +12,6 @@ import {
   IRegisterBirthCommand,
   IRegisterAddressCommand,
   ISignupUserCommand,
-  ISuccess,
-  IResetPasswordCommand,
 } from '@clean-rn/user/domain';
 import {
   IUserActions,
@@ -37,9 +35,6 @@ import {
   IFetchSignupUser,
   IUserSignedUp,
   IPhoneCodeSent,
-  IFetchResetPassword,
-  IInitResetPassword,
-  IPasswordReset,
 } from './types';
 
 // redux actions that are commands
@@ -77,15 +72,6 @@ export const fetchSignupUser = (payload: ISignupUserCommand): IFetchSignupUser =
 
 export const initializeSignupStep = (): IInitializeSignupStep => ({
   type: IUserTypes.INITIALIZE_SIGNUP_STEP,
-});
-
-export const fetchResetPassword = (payload: IResetPasswordCommand): IFetchResetPassword => ({
-  type: IUserTypes.FETCH_RESET_PASSWORD,
-  payload,
-});
-
-export const initializeResetPassword = (): IInitResetPassword => ({
-  type: IUserTypes.INIT_RESET_PASSWORD,
 });
 
 // redux actions that are domain Events
@@ -145,11 +131,6 @@ export const phoneValidated = (prospect: User): IPhoneValidated => ({
 export const userSignedUp = (user: User): IUserSignedUp => ({
   type: IUserTypes.USER_SIGNED_UP,
   payload: user,
-});
-
-export const passwordReset = (payload: ISuccess): IPasswordReset => ({
-  type: IUserTypes.PASSWORD_RESET,
-  payload,
 });
 
 export { IUserTypes, IUserActions };

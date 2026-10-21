@@ -17,7 +17,7 @@ export const RibPdf = () => {
   } = useRoute() as { params: { account: IAccount } };
   const {
     auth: { accessToken },
-  } = useSelector((state: IRootState) => state.auth.login);
+  } = useSelector((state: IRootState) => state.auth);
 
   const [unknownError, setUnknownError] = useState<Error>();
 

@@ -34,7 +34,7 @@ export const SignupValidatePhone = () => {
 
   // api call
   const dispatch = useDispatch();
-  const { phone, pending, error } = useSelector((state: IRootState) => state.auth.signup);
+  const { phone, pending, error } = useSelector((state: IRootState) => state.user);
 
   const onSubmit = useCallback(
     (formData: ISignupValidatePhoneFormData) => {

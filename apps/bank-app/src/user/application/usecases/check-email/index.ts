@@ -8,13 +8,13 @@ import { UserError } from '@clean-rn/user/domain';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { UserApi, IUserSearchServerCode } from '@clean-rn/user/infrastructure';
 
-import { loadStorage } from '../../../../../shared/application/commands/initialize-application';
-import { IStoreKey } from '../../../../../shared/application/types';
-import { navigate } from '../../../../../shared/presentation/navigation/navigationRef';
-import { IAuthStackPages, IUserStackPages } from '../../../../../shared/presentation/types';
-import { showUnknownError } from '../../../../../shared/application/commands/manage-global-errors';
+import { loadStorage } from '../../../../shared/application/commands/initialize-application';
+import { IStoreKey } from '../../../../shared/application/types';
+import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+import { IAuthStackPages, IUserStackPages } from '../../../../shared/presentation/types';
+import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
-import { IUserTypes, emailNotFound, initializeSignupStep, signupFailed } from '../../../commands';
+import { IUserTypes, emailNotFound, initializeSignupStep, signupFailed } from '../../commands';
 
 export function* checkEmailSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IUserTypes.FETCH_SEARCH_EMAIL, checkEmailGenerator, httpConnection);

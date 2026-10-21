@@ -1,6 +1,13 @@
 import { IDomainError } from '@clean-rn/ddd';
 import { User } from '@clean-rn/user/domain';
-import { IAuth, ILoginCommand, IAuthErrorMessage, IAuthErrorCodes } from '@clean-rn/auth/domain';
+import {
+  IAuth,
+  ILoginCommand,
+  IAuthErrorMessage,
+  IAuthErrorCodes,
+  IResetPasswordCommand,
+  ISuccess,
+} from '@clean-rn/auth/domain';
 
 import {
   IAuthTypes,
@@ -8,10 +15,12 @@ import {
   ILoginSucceded,
   ILoginFailed,
   IAuthActions,
-  IInitializeLogin,
   IResetError,
   IFetchRefresh,
   IRefreshSucceded,
+  IFetchResetPassword,
+  IPasswordReset,
+  IInitializeAuth,
 } from './types';
 import { IRoutes } from '../../../shared/presentation/types';
 
@@ -22,6 +31,11 @@ export const fetchLogin = (payload: ILoginCommand): IFetchLogin => ({
 
 export const fetchRefresh = (payload?: { nextRoute: IRoutes; params?: any }): IFetchRefresh => ({
   type: IAuthTypes.FETCH_REFRESH,
+  payload,
+});
+
+export const fetchResetPassword = (payload: IResetPasswordCommand): IFetchResetPassword => ({
+  type: IAuthTypes.FETCH_RESET_PASSWORD,
   payload,
 });
 
@@ -40,8 +54,13 @@ export const loginFailure = (payload: IDomainError<IAuthErrorCodes, IAuthErrorMe
   payload,
 });
 
-export const initializeLogin = (): IInitializeLogin => ({
-  type: IAuthTypes.INITIALIZE_LOGIN,
+export const passwordReset = (payload: ISuccess): IPasswordReset => ({
+  type: IAuthTypes.PASSWORD_RESET,
+  payload,
+});
+
+export const initializeAuth = (): IInitializeAuth => ({
+  type: IAuthTypes.INITIALIZE_AUTH,
 });
 
 export const resetError = (): IResetError => ({

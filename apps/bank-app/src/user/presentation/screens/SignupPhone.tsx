@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { getLocales } from 'expo-localization';
 import { useTheme } from '@rneui/themed';
 
-import { Phone } from '@clean-rn/auth/domain';
+import { Phone } from '@clean-rn/user/domain';
 import {
   useCleanErrorOnFocus,
   ISignupPhoneFormData,
@@ -48,7 +48,7 @@ export const SignupPhone = () => {
   // api call
   const dispatch = useDispatch();
 
-  const { pending, error } = useSelector((state: IRootState) => state.auth.signup);
+  const { pending, error } = useSelector((state: IRootState) => state.user);
 
   const onSubmit = useCallback(
     (formData: ISignupPhoneFormData) => {

@@ -11,8 +11,6 @@ import {
   IRegisterBirthCommand,
   IRegisterAddressCommand,
   ISignupUserCommand,
-  IResetPasswordCommand,
-  ISuccess,
 } from '@clean-rn/user/domain';
 
 export enum IUserTypes {
@@ -26,8 +24,6 @@ export enum IUserTypes {
   REGISTER_ADDRESS = 'REGISTER_ADDRESS',
   FETCH_SIGNUP_USER = 'FETCH_SIGNUP_USER',
   INITIALIZE_SIGNUP_STEP = 'INITIALIZE_SIGNUP_STEP',
-  FETCH_RESET_PASSWORD = 'FETCH_RESET_PASSWORD',
-  INIT_RESET_PASSWORD = 'INIT_RESET_PASSWORD',
   // domain events
   EMAIL_NOT_FOUND = 'EMAIL_NOT_FOUND',
   SIGNUP_FAILED = 'SIGNUP_FAILED',
@@ -39,7 +35,6 @@ export enum IUserTypes {
   BIRTH_REGISTERED = 'BIRTH_REGISTERED',
   ADDRESS_REGISTERED = 'ADDRESS_REGISTERED',
   USER_SIGNED_UP = 'USER_SIGNED_UP',
-  PASSWORD_RESET = 'PASSWORD_RESET',
 }
 
 // commands
@@ -85,20 +80,6 @@ export type IFetchSignupUser = {
 
 export type IInitializeSignupStep = {
   type: typeof IUserTypes.INITIALIZE_SIGNUP_STEP;
-};
-
-export type IFetchResetPassword = {
-  type: typeof IUserTypes.FETCH_RESET_PASSWORD;
-  payload: IResetPasswordCommand;
-};
-
-export type IPasswordReset = {
-  type: typeof IUserTypes.PASSWORD_RESET;
-  payload: ISuccess;
-};
-
-export type IInitResetPassword = {
-  type: typeof IUserTypes.INIT_RESET_PASSWORD;
 };
 
 // domainEvents
@@ -165,7 +146,4 @@ export type IUserActions =
   | IBirthRegistered
   | IAddressRegistered
   | IFetchSignupUser
-  | IUserSignedUp
-  | IFetchResetPassword
-  | IPasswordReset
-  | IInitResetPassword;
+  | IUserSignedUp;

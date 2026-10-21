@@ -23,6 +23,7 @@ import {
   IProfileStackPages,
   IProfileStackProps,
   IUserStackProps,
+  IUserStackPages,
 } from '../../../shared/presentation/types';
 import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
 import { ScreenModalError, ScreenModalWebview } from '../../../shared/presentation/screens';
@@ -39,13 +40,13 @@ import { AccountStatements, AccountStatementsPdf, RibPdf } from '../../../accoun
 import { NotificationSettings } from '../../../profile/presentation/screens';
 import { BottomTabNavigator } from './BottomNavigator';
 import { UserStack } from '../../../user/presentation/navigation';
+import { SignupCongrats } from '../../../user/presentation/screens';
 
 export const RootStack = () => {
   const {
     auth: { accessToken },
   } = useSelector((state: IRootState) => state.auth);
   const { email } = useSelector((state: IRootState) => state.initialization);
-
   return accessToken ? <HomeStack /> : email ? <AuthStack /> : <UserStack />;
 };
 
@@ -73,6 +74,14 @@ export const HomeStack = () => {
 
   return (
     <Stack.Navigator>
+      <Stack.Screen
+        options={{
+          headerTitle: t(`screens.signup-congrats.title`),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+        name={IUserStackPages.SIGNUP_CONGRATS}
+        component={SignupCongrats}
+      />
       <Stack.Screen
         name={IHomeStackPages.HOME}
         component={BottomTabNavigator}

@@ -4,16 +4,16 @@ import { UserError } from '../errors';
 export class BirthDay {
   private readonly birthday: Dayjs;
 
+  static validate(birthday: Dayjs): boolean {
+    const today = dayjs(new Date());
+    return !(today.diff(birthday, 'year') < 18);
+  }
+
   constructor(birthday: Dayjs) {
-    if (!this.validate(birthday)) {
+    if (!BirthDay.validate(birthday)) {
       throw new UserError.InvalidBirthday('Minimum 18 years old');
     }
     this.birthday = birthday;
-  }
-
-  private validate(birthday: Dayjs): boolean {
-    const today = dayjs(new Date());
-    return !(today.diff(birthday, 'year') < 18);
   }
 
   get value(): string {

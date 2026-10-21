@@ -1,5 +1,5 @@
 import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
-import { IAuthGateway, IAuth, ILoginCommand } from '@clean-rn/auth/domain';
+import { IAuthGateway, IAuth, ILoginCommand, IResetPasswordCommand, ISuccess } from '@clean-rn/auth/domain';
 
 export class AuthApi implements IAuthGateway {
   private static instance: AuthApi | null = null;
@@ -41,6 +41,19 @@ export class AuthApi implements IAuthGateway {
     const response = await fetch(
       `${this.connection.baseUrl}/auth/login`,
       this.connection.options(IHttpVerb.POST, params),
+    );
+    await this.connection.handleError(response);
+    return response.json();
+  }
+
+  async resetPassword(cmd: IResetPasswordCommand): Promise<ISuccess> {
+    //map cmd to dto
+    const params = {
+      email: cmd.email.value,
+    };
+    const response = await fetch(
+      `${this.connection.baseUrl}/app/user/resetPassword`,
+      this.connection.options(IHttpVerb.PUT, params),
     );
     await this.connection.handleError(response);
     return response.json();

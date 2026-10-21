@@ -1,3 +1,4 @@
 import { IRootState } from '../../../../shared/application/state-management/reducers/root-reducer';
 
-export const selectAuthFromLogin = (state: IRootState) => state.auth;
+export const selectAuth = (state: IRootState) => state.auth.auth;
+export const selectUser = (state: IRootState) => state.auth.user;

@@ -17,7 +17,7 @@ import {
   useNotification,
   useDevice,
 } from '@clean-rn/ui-mobile';
-import { KYC_REVIEW } from '@clean-rn/auth/domain';
+import { KYC_REVIEW } from '@clean-rn/user/domain';
 import { IAccount } from '@clean-rn/account/domain';
 import Constants from 'expo-constants';
 
@@ -36,7 +36,7 @@ import { APPLE_STORE_LINK, GOOGLE_PLAY_LINK, eventsCardsContent } from '../const
 export const Home = () => {
   // translation
   const { t } = useTranslation();
-  const { pending: loginPending } = useSelector((state: IRootState) => state.auth.login);
+  const { pending: loginPending } = useSelector((state: IRootState) => state.auth);
 
   const { accounts, pending: accountPending } = useSelector((state: IRootState) => state.account.accounts);
   const { deletedCards } = useSelector((state: IRootState) => state.account.deletedEventCards);

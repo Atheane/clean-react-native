@@ -6,12 +6,12 @@ import { ISuccess, UserError, IValidatePhoneQuery } from '@clean-rn/user/domain'
 
 import { UserApi } from '@clean-rn/user/infrastructure';
 
-import { navigate } from '../../../../../shared/presentation/navigation/navigationRef';
-import { IUserStackPages } from '../../../../../shared/presentation/types';
-import { showUnknownError } from '../../../../../shared/application/commands/manage-global-errors';
+import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+import { IUserStackPages } from '../../../../shared/presentation/types';
+import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
-import { selectUserFromSignup } from '../../../state-management/selectors';
-import { IUserTypes, signupFailed, phoneValidated, initializeSignupStep } from '../../../commands';
+import { selectUserFromSignup } from '../../state-management/selectors';
+import { IUserTypes, signupFailed, phoneValidated, initializeSignupStep } from '../../commands';
 
 export function* validatePhoneSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IUserTypes.FETCH_VALIDATE_PHONE, validatePhoneGenerator, httpConnection);

@@ -13,7 +13,7 @@ import { IAuthStackPages, IKycStackPages } from '../../../../shared/presentation
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
-import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
+import { selectAuth, selectUser } from '../../../../auth/application/state-management/selectors';
 import { refreshSuccess } from '../../../../auth/application/commands';
 
 import { customerDocumentsUpdated } from '../../commands/customer';
@@ -26,7 +26,7 @@ import {
   resetDocument,
   setAbortController,
 } from '../../commands/document';
-import { selectCustomer, selectDocument, selectUserFromLogin } from '../../state-management/selectors';
+import { selectCustomer, selectDocument } from '../../state-management/selectors';
 
 export function* initializeDocumentSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(IDocumentTypes.INITIALIZE_DOCUMENT, initializeDocumentSagaGenerator);
@@ -120,10 +120,10 @@ export function* uploadDocumentSagaGenerator(
     if (!payload.document.isReady) {
       throw new DocumentError.DocumentNotReady();
     }
-    const user = yield select(selectUserFromLogin);
+    const user = yield select(selectUser);
 
     const authApi = AuthApi.getInstance(httpConnection);
-    const authFromStore = yield select(selectAuthFromLogin);
+    const authFromStore = yield select(selectAuth);
     const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
     yield put(refreshSuccess({ auth }));
 

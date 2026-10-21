@@ -6,7 +6,7 @@ import { IAccount, ITransaction } from '@clean-rn/account/domain';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { TransactionApi } from '@clean-rn/account/infrastructure';
 
-import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
+import { selectAuth } from '../../../../auth/application/state-management/selectors';
 import { refreshSuccess } from '../../../../auth/application/commands';
 
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
@@ -47,7 +47,7 @@ export function* listTransactionsGenerator(
       yield call(navigate, { route: IHomeStackPages.TRANSACTIONS, params: { account: payload.account } });
     } else {
       const authApi = AuthApi.getInstance(httpConnection);
-      const authFromStore = yield select(selectAuthFromLogin);
+      const authFromStore = yield select(selectAuth);
       const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
       yield put(refreshSuccess({ auth }));
 

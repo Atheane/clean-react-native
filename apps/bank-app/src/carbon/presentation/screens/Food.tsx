@@ -11,8 +11,6 @@ import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/h
 
 import { computeFoodEmissions } from '../../application/commands';
 
-const HEIGHT = Dimensions.get('window').height;
-
 export const Food = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();

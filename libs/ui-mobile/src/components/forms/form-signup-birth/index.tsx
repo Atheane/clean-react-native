@@ -6,7 +6,7 @@ import { useTheme } from '@rneui/themed';
 import countryFlagEmoji from 'country-flag-emoji';
 
 import { IDomainError } from '@clean-rn/ddd';
-import { IAuthErrorCodes, IAuthErrorMessage, BirthDay } from '@clean-rn/auth/domain';
+import { IUserErrorCodes, IUserErrorMessage, BirthDay } from '@clean-rn/user/domain';
 import { firstLetterCapitalize } from '../../../utils';
 
 import { SubmitButton } from '../../buttons/submit-button';
@@ -17,7 +17,7 @@ type IProps = {
   defaultCountry?: string;
   control: Control<ISignupBirthFormData>;
   errors: FieldErrors<ISignupBirthFormData>;
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | Error | null;
+  error: IDomainError<IUserErrorCodes, IUserErrorMessage> | Error | null;
   onSubmit: () => void;
   onFocus: () => void;
 };
@@ -39,14 +39,7 @@ export const FormSignupBirth = (props: IProps) => {
           control={props.control}
           name="birthday"
           rules={{
-            validate: (value) => {
-              try {
-                new BirthDay(value);
-                return true;
-              } catch (e: unknown) {
-                return false;
-              }
-            },
+            validate: BirthDay.validate,
           }}
           render={({ field: { onChange, value } }) => (
             <DateTimePicker

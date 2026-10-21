@@ -1,8 +1,7 @@
 import { Entity } from '@clean-rn/ddd';
-import { Email, Password } from '@clean-rn/auth/domain';
+import { AuthError, Email, Password } from '@clean-rn/auth/domain';
 import { IAddress, IIdentity, IBirth, KYC_REVIEW } from '../types';
 import { Phone, Country, BirthDay } from '../value-objects';
-import { UserError } from '../errors';
 import { IRegisterAddressCommand, IRegisterBirthCommand, IRegisterIdentityCommand } from '../commands';
 import { IValidatePhoneQuery } from '../queries';
 
@@ -29,7 +28,7 @@ export class User extends Entity<IUserProperties> {
 
   static CreateFromEmail(email: Email): User {
     if (!email) {
-      throw new UserError.InvalidEmail('Email is required');
+      throw new AuthError.InvalidEmail('Email is required');
     }
     return new User({ id: email.value, properties: { email } });
   }

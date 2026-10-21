@@ -26,7 +26,7 @@ import {
   checkPhoneSaga,
   validatePhoneSaga,
   signupUserSaga,
-} from '../../usecases/signup';
+} from '../../usecases';
 import {
   ISignupTypes,
   emailNotFound,

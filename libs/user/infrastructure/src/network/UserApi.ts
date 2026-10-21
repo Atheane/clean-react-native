@@ -9,12 +9,12 @@ import {
   ISearchEmailQuery,
   ISearchPhoneQuery,
   IValidatePhoneQuery,
-  IResetPasswordCommand,
   ISuccess,
   ISendPhoneValidationCommand,
   // IUpdateUserConfigCommand,
 } from '@clean-rn/user/domain';
 import { mapUserServerToUserProperties } from '../mappers';
+import { IAuth } from '@clean-rn/auth/domain';
 
 export class UserApi implements IUserRepository, IUserGateway {
   private static instance: UserApi | null = null;
@@ -46,7 +46,7 @@ export class UserApi implements IUserRepository, IUserGateway {
     return mapUserServerToUserProperties(result);
   }
 
-  async createUser({ phoneOtp, ...cmd }: IUserProperties & { phoneOtp: PhoneOtp }): Promise<User> {
+  async createUser({ phoneOtp, ...cmd }: IUserProperties & { phoneOtp: PhoneOtp }): Promise<IAuth> {
     //map cmd to dto
     let title: string;
     if (cmd.identity.gender === IGender.MAN) {
@@ -79,8 +79,7 @@ export class UserApi implements IUserRepository, IUserGateway {
       this.connection.options(IHttpVerb.POST, params),
     );
     await this.connection.handleError(response);
-    const userServer = await response.json();
-    return mapUserServerToUserProperties(userServer);
+    return response.json();
   }
 
   // async updateUserConfig(cmd: IUpdateUserConfigCommand): Promise<User> {
@@ -92,19 +91,6 @@ export class UserApi implements IUserRepository, IUserGateway {
   //   const userServer = await response.json();
   //   return mapUserServerToUserProperties(userServer);
   // }
-
-  async resetPassword(cmd: IResetPasswordCommand): Promise<ISuccess> {
-    //map cmd to dto
-    const params = {
-      email: cmd.email.value,
-    };
-    const response = await fetch(
-      `${this.connection.baseUrl}/app/user/resetPassword`,
-      this.connection.options(IHttpVerb.PUT, params),
-    );
-    await this.connection.handleError(response);
-    return response.json();
-  }
 
   async searchEmail(query: ISearchEmailQuery): Promise<ISuccess> {
     //map query to dto

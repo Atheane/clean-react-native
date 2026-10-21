@@ -17,11 +17,11 @@ import {
 } from '@clean-rn/ui-mobile';
 import { Email } from '@clean-rn/auth/domain';
 
-import { Welcome } from '../assets/images';
+import { Welcome } from '../../../auth/presentation/assets/images';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages } from '../../../shared/presentation/types';
+import { ISharedStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
 import { fetchSearchEmail } from '../../application/commands';
@@ -42,7 +42,7 @@ export const SignupEmail = () => {
 
   // api call
   const dispatch = useDispatch();
-  const { pending, error } = useSelector((state: IRootState) => state.auth.signup);
+  const { pending, error } = useSelector((state: IRootState) => state.user);
 
   const onSubmit = useCallback(
     (formData: ISignupEmailFormData) => {
@@ -62,15 +62,15 @@ export const SignupEmail = () => {
   const navigation = useNavigation();
 
   const onPressLegal = useCallback(() => {
-    navigation.navigate(IAuthStackPages.LEGAL as never);
+    navigation.navigate(ISharedStackPages.LEGAL as never);
   }, [navigation]);
 
   const onPressCgu = useCallback(() => {
-    navigation.navigate(IAuthStackPages.CGU as never);
+    navigation.navigate(ISharedStackPages.CGU as never);
   }, [navigation]);
 
   const onPressCguKycProvider = useCallback(() => {
-    navigation.navigate(IAuthStackPages.CGU_KYC_PROVIDER as never);
+    navigation.navigate(ISharedStackPages.CGU_KYC_PROVIDER as never);
   }, [navigation]);
 
   // clean domainError onFocus

@@ -11,7 +11,7 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 import { IAuthStackPages, IRoutes } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
-import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
+import { selectAuth } from '../../../../auth/application/state-management/selectors';
 
 import { IAuthTypes, refreshSuccess, resetError } from '../../commands';
 
@@ -31,7 +31,7 @@ export function* refreshGenerator(
   try {
     Logger.getInstance().info(IAuthTypes.FETCH_REFRESH);
     const authApi = AuthApi.getInstance(httpConnection);
-    const authFromStore = yield select(selectAuthFromLogin);
+    const authFromStore = yield select(selectAuth);
     const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
 
     yield put(refreshSuccess({ auth }));

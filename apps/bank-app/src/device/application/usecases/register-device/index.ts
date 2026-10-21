@@ -1,12 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any  */
 /* eslint-disable no-fallthrough */
 import { call, put, StrictEffect, takeEvery, cancel, select } from 'redux-saga/effects';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { Logger } from '@clean-rn/logger';
 import { DeviceError, IRegisterDeviceCommand } from '@clean-rn/device/domain';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
 import { DeviceApi } from '@clean-rn/device/infrastructure';
 
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
@@ -20,7 +17,7 @@ import {
   initializeDevice,
 } from '../../../../device/application/commands';
 
-import { selectUserFromLogin } from '../../../../kyc/application/state-management/selectors';
+import { selectUser } from '../../../../auth/application/state-management/selectors';
 
 export function* registerDeviceSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IDeviceTypes.FETCH_REGISTER_DEVICE, registerDeviceGenerator, httpConnection);
@@ -36,7 +33,7 @@ export function* registerDeviceGenerator(
   },
 ): Generator<StrictEffect, any, any> {
   try {
-    const user = yield select(selectUserFromLogin);
+    const user = yield select(selectUser);
 
     // call app/device POST endpoint
     const deviceApi = DeviceApi.getInstance(httpConnection);

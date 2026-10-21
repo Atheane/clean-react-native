@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
+import { call, put, StrictEffect, takeEvery, cancel, select } from 'redux-saga/effects';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { Customer, IDocumentProperties, IKycState } from '@clean-rn/kyc/domain';
 import { KycApi } from '@clean-rn/kyc/infrastructure';
-import { UserApi } from '@clean-rn/auth/infrastructure';
-import { KYC_REVIEW } from '@clean-rn/auth/domain';
+import { KYC_REVIEW } from '@clean-rn/user/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IAuthStackPages, IKycStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { customerStatusChecked, initializeKyc, ICustomerTypes } from '../../commands/customer';
+import { selectUser } from '../../../../auth/application/state-management/selectors';
 
 export function* checkCustomerStatusSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(ICustomerTypes.CHECK_CUSTOMER_STATUS, checkCustomerStatusGenerator, httpConnection);
@@ -21,8 +21,7 @@ export function* checkCustomerStatusGenerator(
   httpConnection: HttpConnection,
 ): Generator<StrictEffect, any, any> {
   try {
-    const userApi = UserApi.getInstance(httpConnection);
-    const user = yield call([userApi, userApi.getUser]);
+    const user = yield select(selectUser);
     const customerStatus = user.properties.kycReview;
     if (customerStatus && customerStatus === KYC_REVIEW.VALIDATED) {
       const customer = Customer.Create({

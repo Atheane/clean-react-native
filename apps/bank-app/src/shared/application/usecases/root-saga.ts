@@ -4,10 +4,14 @@ import { initializeApplicationSaga } from './initialize-application';
 import { loadStorageSaga } from './load-storage';
 import { showUnknownErrorSaga } from './manage-global-errors';
 
-import { loginSaga, closeLoginModalSaga, refreshSaga } from '../../../auth/application/usecases';
+import {
+  loginSaga,
+  closeLoginModalSaga,
+  refreshSaga,
+  resetPasswordSaga,
+} from '../../../auth/application/usecases';
 
 import {
-  resetPasswordSaga,
   checkEmailSaga,
   registerIdentitySaga,
   registerPasswordSaga,

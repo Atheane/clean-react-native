@@ -4,17 +4,18 @@ import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { AuthError, ILoginCommand } from '@clean-rn/auth/domain';
-import { AuthApi, IUserLoginServerCode, UserApi } from '@clean-rn/auth/infrastructure';
+import { AuthApi, IAuthServerCode } from '@clean-rn/auth/infrastructure';
+import { UserApi } from '@clean-rn/user/infrastructure';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 
 import { IStoreKey } from '../../../../shared/application/types';
 import { goBack, navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
+import { IHomeStackPages, IUserStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
 
-import { loginFailure, IAuthTypes, initializeLogin, loginSuccess, resetError } from '../../commands';
+import { loginFailure, IAuthTypes, initializeAuth, loginSuccess, resetError } from '../../commands';
 import { initializeSignupStep } from '../../../../user/application/commands';
 
 export function* loginSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
@@ -52,21 +53,21 @@ export function* loginGenerator(
   } catch (error: unknown) {
     if (error instanceof ServerError) {
       switch (error.codeError) {
-        case IUserLoginServerCode.USER_INVALID_CREDENTIAL:
+        case IAuthServerCode.USER_INVALID_CREDENTIAL:
           yield put(loginFailure(new AuthError.LoginFailureInvalidCredentials(error)));
           yield cancel();
-        case IUserLoginServerCode.USER_NOT_FOUND:
+        case IAuthServerCode.USER_NOT_FOUND:
           yield put(loginFailure(new AuthError.LoginFailureUserNotFound(error)));
           yield cancel();
-        case IUserLoginServerCode.USER_PHONE_NOT_VALIDATED:
+        case IAuthServerCode.USER_PHONE_NOT_VALIDATED:
           // need to reinit signupReducer if user comes from signup flow (because not store data)
           yield put(initializeSignupStep());
           yield put(loginFailure(new AuthError.LoginFailurePhoneNotValidated(error)));
-          yield call(navigate, { route: IAuthStackPages.SIGNUP_PHONE });
+          yield call(navigate, { route: IUserStackPages.SIGNUP_PHONE });
           yield cancel();
       }
     }
-    yield put(initializeLogin());
+    yield put(initializeAuth());
     yield put(showUnknownError(error as Error));
   }
 }

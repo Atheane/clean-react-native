@@ -19,7 +19,6 @@ const formattedAirports = airports.map((airport) => ({
   key: airport.IATA,
   value: airport.IATA + ' ' + airport.name,
 }));
-const HEIGHT = Dimensions.get('window').height;
 
 export const Fly = () => {
   const { t } = useTranslation();

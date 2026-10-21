@@ -1,13 +1,7 @@
-import { Email } from '@clean-rn/auth/domain';
-
 import { Dayjs } from 'dayjs';
 import { IGender } from '../types';
 import { Phone, PhoneOtp } from '../value-objects';
 import { User } from '../entities';
-
-export type IResetPasswordCommand = {
-  email: Email;
-};
 
 export type IRegisterIdentityCommand = {
   gender: IGender;

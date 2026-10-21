@@ -15,9 +15,9 @@ import {
   ICountry,
   IGender,
   COUNTRIES_AVAILABLE,
-  IAuthErrorCodes,
-  IAuthErrorMessage,
-} from '@clean-rn/auth/domain';
+  IUserErrorCodes,
+  IUserErrorMessage,
+} from '@clean-rn/user/domain';
 import { Person, Phone as PhoneIcon } from '../../../assets';
 import { Colors } from '../../../constants';
 import { firstLetterCapitalize } from '../../../utils';
@@ -36,7 +36,7 @@ type IProps = {
   onToggleSecurityPassword: (event: GestureResponderEvent) => void;
   control: Control<ISignupIdentityPasswordPhoneFormData>;
   errors: FieldErrors<ISignupIdentityPasswordPhoneFormData>;
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | null;
+  error: IDomainError<IUserErrorCodes, IUserErrorMessage> | null;
   onFocus: () => void;
 };
 

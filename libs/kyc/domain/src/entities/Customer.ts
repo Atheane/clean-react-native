@@ -1,5 +1,5 @@
 import { Entity } from '@clean-rn/ddd';
-import { KYC_REVIEW } from '@clean-rn/auth/domain';
+import { KYC_REVIEW } from '@clean-rn/user/domain';
 import { IDocumentProperties } from '../types';
 import { KycDocuments, DocumentVO } from '../value-objects';
 import { CustomerError } from '../errors/index';

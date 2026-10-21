@@ -4,7 +4,8 @@ import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
 import { IDomainError } from '@clean-rn/ddd';
-import { IAuthErrorCodes, IAuthErrorMessage, Email } from '@clean-rn/auth/domain';
+import { Email } from '@clean-rn/auth/domain';
+import { IUserErrorCodes, IUserErrorMessage } from '@clean-rn/user/domain';
 
 import { firstLetterCapitalize } from '../../../utils';
 
@@ -15,7 +16,7 @@ import { SimpleCheckBox } from '../../checkboxes/simple-checkbox';
 type IProps = {
   control: Control<ISignupEmailFormData>;
   errors: FieldErrors<ISignupEmailFormData>;
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | null;
+  error: IDomainError<IUserErrorCodes, IUserErrorMessage> | null;
   onFocus: () => void;
 };
 

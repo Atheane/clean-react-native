@@ -29,7 +29,7 @@ export const ResetPassword = () => {
   } = useForm<IResetPasswordFormData>();
 
   // api call
-  const { pending, success } = useSelector((state: IRootState) => state.auth.resetPassword);
+  const { pending, success } = useSelector((state: IRootState) => state.auth);
 
   const dispatch = useDispatch();
 

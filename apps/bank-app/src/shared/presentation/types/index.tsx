@@ -36,10 +36,10 @@ export type ISharedStackParamList = {
 
 export type IAuthStackParamList = {
   Login: undefined;
+  ResetPassword: undefined;
 };
 
 export type IUserStackParamList = {
-  ResetPassword: undefined;
   SignupEmail: undefined;
   SignupIdentityPasswordPhone: undefined;
   SignupValidatePhone: undefined;
@@ -100,10 +100,10 @@ export enum ISharedStackPages {
 
 export enum IAuthStackPages {
   LOGIN = 'Login',
+  RESET_PASSWORD = 'ResetPassword',
 }
 
 export enum IUserStackPages {
-  RESET_PASSWORD = 'ResetPassword',
   SIGNUP_EMAIL = 'SignupEmail',
   SIGNUP_IDENTITY_PASSWORD_PHONE = 'SignupIdentityPasswordPhone',
   SIGNUP_VALIDATE_PHONE = 'SignupValidatePhone',
@@ -174,10 +174,10 @@ export type ISharedStackProps = {
 
 export type IAuthStackProps = {
   [IAuthStackPages.LOGIN]: object;
+  [IAuthStackPages.RESET_PASSWORD]: object;
 };
 
 export type IUserStackProps = {
-  [IUserStackPages.RESET_PASSWORD]: object;
   [IUserStackPages.SIGNUP_EMAIL]: object;
   [IUserStackPages.SIGNUP_IDENTITY_PASSWORD_PHONE]: object;
   [IUserStackPages.SIGNUP_VALIDATE_PHONE]: object;
@@ -245,7 +245,7 @@ export type IRoutes =
   | ISharedStackPages.CGU
   | ISharedStackPages.CGU_KYC_PROVIDER
   | IAuthStackPages.LOGIN
-  | IUserStackPages.RESET_PASSWORD
+  | IAuthStackPages.RESET_PASSWORD
   | IUserStackPages.SIGNUP_EMAIL
   | IUserStackPages.SIGNUP_IDENTITY_PASSWORD_PHONE
   | IUserStackPages.SIGNUP_VALIDATE_PHONE

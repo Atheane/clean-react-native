@@ -10,5 +10,4 @@ export interface IUserState {
   phoneOtp: PhoneOtp | null;
   user: User | null;
   error: IDomainError<IUserErrorCodes, IUserErrorMessage> | null;
-  success: boolean | null;
 }

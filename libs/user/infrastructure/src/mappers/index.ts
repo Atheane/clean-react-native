@@ -1,4 +1,5 @@
-import { User, Phone, IGender, Email, BirthDay, Country } from '@clean-rn/auth/domain';
+import { Email } from '@clean-rn/auth/domain';
+import { User, Phone, IGender, BirthDay, Country } from '@clean-rn/user/domain';
 import dayjs from 'dayjs';
 import { IUserPropertiesServer } from '../types';
 

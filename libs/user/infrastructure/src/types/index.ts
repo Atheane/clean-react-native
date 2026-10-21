@@ -1,15 +1,15 @@
 import { KYC_REVIEW } from '@clean-rn/user/domain';
 
 export type IUserPropertiesServer = {
-  birthday: string;
   email: string;
-  firstname: string;
-  kycReviewComment: string;
-  lastname: string;
-  nationality: string;
-  phone: string;
-  specifiedUSPerson: number;
   title: string;
+  firstname: string;
+  lastname: string;
+  phone: string;
+  birthday: string;
+  nationality: string;
+  specifiedUSPerson: number;
+  kycReviewComment: string;
   kycReview: KYC_REVIEW;
   userId: number;
 };

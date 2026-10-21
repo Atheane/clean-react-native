@@ -44,9 +44,6 @@ export const Kyc = () => {
   const { theme } = useTheme();
   const dispatch = useDispatch();
 
-  // w9 or not ?
-  const { user } = useSelector((state: IRootState) => state.auth.login);
-
   // navigation
   const navigation = useNavigation();
 

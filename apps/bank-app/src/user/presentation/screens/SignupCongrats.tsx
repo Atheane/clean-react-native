@@ -1,44 +1,61 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { useTranslation } from 'react-i18next';
 
-import { ILoginCommand } from '@clean-rn/auth/domain';
-
 import { PrimaryButton, FontNames, Colors, ErrorMessage } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
+import { IHomeStackPages } from '../../../shared/presentation/types';
+import { applicationInitialized } from '../../../shared/application/commands/initialize-application';
 
-import { fetchLogin, resetError } from '../../../auth/application/commands';
 import { Congrats } from '../../presentation/assets/images';
+import { useNavigation } from '@react-navigation/native';
 
 const HEIGHT = Dimensions.get('window').height;
 
 export const SignupCongrats = () => {
   const { t } = useTranslation();
 
-  const { user } = useSelector((state: IRootState) => state.user);
-  const { email, password, pending, error } = useSelector((state: IRootState) => state.auth);
+  const { user, pending, error } = useSelector((state: IRootState) => state.user);
 
   const dispatch = useDispatch();
 
+  const { navigate } = useNavigation();
+
   const onPress = useCallback(() => {
     try {
-      const payload = {
-        email: user ? user.properties.email : email,
-        password: user ? user.properties.password : password,
-      };
-      dispatch(fetchLogin(payload as ILoginCommand));
+      dispatch(
+        applicationInitialized({
+          email: user?.properties.email ?? null,
+          initRouteName: IHomeStackPages.HOME,
+          carbon: {
+            house: {
+              footprint: null,
+              average: null,
+            },
+            transport: {
+              footprint: null,
+              average: null,
+            },
+            food: {
+              footprint: null,
+              average: null,
+            },
+            fly: {
+              footprint: null,
+              average: null,
+            },
+          },
+        }),
+      );
+      navigate(IHomeStackPages.HOME as never);
     } catch (e: unknown) {
       dispatch(showUnknownError(e as Error));
     }
-  }, [dispatch, user, email, password]);
-
-  useEffect(() => {
-    dispatch(resetError());
-  }, [dispatch]);
+  }, [dispatch, user, navigate]);
 
   return (
     <ErrorBoundary t={t}>

@@ -40,7 +40,7 @@ import {
   validatePhoneSaga,
   signupUserSaga,
   signupUserGenerator,
-} from '../../usecases/signup';
+} from '../../usecases';
 import {
   selectUserFromSignup,
   selectEmailFromSignup,

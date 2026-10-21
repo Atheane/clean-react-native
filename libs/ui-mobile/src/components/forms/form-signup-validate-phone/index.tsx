@@ -4,7 +4,7 @@ import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
 import { IDomainError } from '@clean-rn/ddd';
-import { IAuthErrorCodes, IAuthErrorMessage, PhoneOtp } from '@clean-rn/auth/domain';
+import { IUserErrorCodes, IUserErrorMessage, PhoneOtp } from '@clean-rn/user/domain';
 
 import { firstLetterCapitalize } from '../../../utils';
 
@@ -16,7 +16,7 @@ type IProps = {
   onSubmit: () => void;
   control: Control<ISignupValidatePhoneFormData>;
   errors: FieldErrors<ISignupValidatePhoneFormData>;
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | null;
+  error: IDomainError<IUserErrorCodes, IUserErrorMessage> | null;
   onFocus: () => void;
 };
 

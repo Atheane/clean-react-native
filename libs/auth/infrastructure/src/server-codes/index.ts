@@ -1,4 +1,4 @@
-export enum IUserLoginServerCode {
+export enum IAuthServerCode {
   USER_NOT_FOUND = 700404111,
   USER_PHONE_NOT_VALIDATED = 32000344,
   USER_INVALID_CREDENTIAL = 401900888,

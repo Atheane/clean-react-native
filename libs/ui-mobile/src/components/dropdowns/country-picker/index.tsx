@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { StyleProp, ViewStyle } from 'react-native';
 
-import { ICountry } from '@clean-rn/auth/domain';
+import { ICountry } from '@clean-rn/user/domain';
 
 import { Dropdown } from '../../dropdowns/dropdown';
 

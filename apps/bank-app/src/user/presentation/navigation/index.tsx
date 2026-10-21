@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getLocales } from 'expo-localization';
 import Constants from 'expo-constants';
 
-import { WebViewer, PdfViewer } from '@clean-rn/ui-mobile';
+import { WebViewer } from '@clean-rn/ui-mobile';
 
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import {
@@ -27,10 +27,8 @@ import {
   SignupValidatePhone,
   SignupBirth,
   SignupAddress,
-  SignupCongrats,
   EmailSent,
   SignupPhone,
-  ResetPassword,
 } from '../screens';
 
 const locales = getLocales();
@@ -52,7 +50,7 @@ export const UserStack = () => {
   }
 
   const ScreenLegal = () => <WebViewer uri={pdfUrls(lng).legal} handleError={handleError} />;
-  const ScreenCgu = () => <PdfViewer uri={pdfUrls(lng).cgu} handleError={handleError} />;
+  const ScreenCgu = () => <WebViewer uri={pdfUrls(lng).cgu} handleError={handleError} />;
   const ScreenCguKycProvider = () => <WebViewer uri={pdfUrls(lng).cguKycProvider} handleError={handleError} />;
 
   const dispatch = useDispatch();
@@ -109,14 +107,6 @@ export const UserStack = () => {
       />
       <Stack.Screen
         options={{
-          headerTitle: t(`screens.signup-congrats.title`),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
-        }}
-        name={IUserStackPages.SIGNUP_CONGRATS}
-        component={SignupCongrats}
-      />
-      <Stack.Screen
-        options={{
           headerTitle: t(`screens.email-sent.title`),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
@@ -130,14 +120,6 @@ export const UserStack = () => {
         }}
         name={IUserStackPages.SIGNUP_PHONE}
         component={SignupPhone}
-      />
-      <Stack.Screen
-        options={{
-          headerTitle: t('screens.reset-password.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
-        }}
-        name={IUserStackPages.RESET_PASSWORD}
-        component={ResetPassword}
       />
       <Stack.Screen
         options={{

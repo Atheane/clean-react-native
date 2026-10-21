@@ -96,6 +96,9 @@ export const FormLogin = (props: IProps) => {
           </View>
         )}
       </View>
+      <View style={styles.errorContainer}>
+        <ErrorMessage error={props.error} />
+      </View>
       <View style={styles.linkButton}>
         <LinkButton
           title={t('login.forgotten-password')}
@@ -110,9 +113,6 @@ export const FormLogin = (props: IProps) => {
           onSubmit={props.onSubmit}
           loading={props.loading}
         />
-      </View>
-      <View style={styles.domainErrorContainer}>
-        <ErrorMessage error={props.error} />
       </View>
     </View>
   );

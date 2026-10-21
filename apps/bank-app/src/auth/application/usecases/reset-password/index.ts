@@ -3,14 +3,14 @@ import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
 
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
-import { IResetPasswordCommand } from '@clean-rn/user/domain';
+import { IResetPasswordCommand } from '@clean-rn/auth/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { initializeResetPassword, IUserTypes, passwordReset } from '../../commands';
-import { UserApi } from '@clean-rn/user/infrastructure';
+import { IAuthTypes, passwordReset, initializeAuth } from '../../commands';
+import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 export function* resetPasswordSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(IUserTypes.FETCH_RESET_PASSWORD, resetPasswordGenerator, httpConnection);
+  yield takeEvery(IAuthTypes.FETCH_RESET_PASSWORD, resetPasswordGenerator, httpConnection);
 }
 export function* resetPasswordGenerator(
   httpConnection: HttpConnection,
@@ -23,7 +23,7 @@ export function* resetPasswordGenerator(
 ): Generator<StrictEffect, any, any> {
   try {
     // api call
-    const api = UserApi.getInstance(httpConnection);
+    const api = AuthApi.getInstance(httpConnection);
     const response = yield call([api, api.resetPassword], { email: payload.email });
     const success = response.success;
 
@@ -35,7 +35,7 @@ export function* resetPasswordGenerator(
     );
   } catch (error: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors
-    yield put(initializeResetPassword());
+    yield put(initializeAuth());
     yield put(showUnknownError(error as Error));
   }
 }

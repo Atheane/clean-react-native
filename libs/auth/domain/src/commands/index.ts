@@ -4,3 +4,7 @@ export type ILoginCommand = {
   email: Email;
   password: Password;
 };
+
+export type IResetPasswordCommand = {
+  email: Email;
+};

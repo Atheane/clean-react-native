@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { IDomainError } from '@clean-rn/ddd';
 
 import { IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
+import { IUserErrorCodes, IUserErrorMessage } from '@clean-rn/user/domain';
 import { IAccountErrorCodes, IAccountErrorMessage } from '@clean-rn/account/domain';
 import { ICarbonErrorCodes, ICarbonErrorMessage } from '@clean-rn/carbon/domain';
 import {
@@ -20,6 +21,7 @@ import { firstLetterCapitalize } from '../../../utils';
 type IProps = {
   error:
     | IDomainError<IAuthErrorCodes, IAuthErrorMessage>
+    | IDomainError<IUserErrorCodes, IUserErrorMessage>
     | IDomainError<IAccountErrorCodes, IAccountErrorMessage>
     | IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>
     | IDomainError<ICustomerErrorCodes, ICustomerErrorMessage>
@@ -29,19 +31,24 @@ type IProps = {
 export const ErrorMessage = (props: IProps) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
+
   return (
     <View>
-      {props.error &&
-        props.error.code &&
-        Object.values(IAuthErrorCodes).includes(props.error.code as IAuthErrorCodes) && (
-          <View>
-            <Text style={theme.bank.text.errors}>
-              {firstLetterCapitalize(t(`errors.domain-error.auth.${props.error.code}`))}
-            </Text>
-          </View>
-        )}
-      {props.error &&
-        props.error.code &&
+      {props.error?.code && Object.values(IAuthErrorCodes).includes(props.error.code as IAuthErrorCodes) && (
+        <View>
+          <Text style={theme.bank.text.errors}>
+            {firstLetterCapitalize(t(`errors.domain-error.auth.${props.error.code}`))}
+          </Text>
+        </View>
+      )}
+      {props.error?.code && Object.values(IUserErrorCodes).includes(props.error.code as IUserErrorCodes) && (
+        <View>
+          <Text style={theme.bank.text.errors}>
+            {firstLetterCapitalize(t(`errors.domain-error.user.${props.error.code}`))}
+          </Text>
+        </View>
+      )}
+      {props.error?.code &&
         Object.values(IAccountErrorCodes).includes(props.error.code as IAccountErrorCodes) && (
           <View>
             <Text style={theme.bank.text.errors}>
@@ -49,8 +56,7 @@ export const ErrorMessage = (props: IProps) => {
             </Text>
           </View>
         )}
-      {props.error &&
-        props.error.code &&
+      {props.error?.code &&
         Object.values(ICarbonErrorCodes).includes(props.error.code as ICarbonErrorCodes) && (
           <View>
             <Text style={theme.bank.text.errors}>
@@ -58,8 +64,7 @@ export const ErrorMessage = (props: IProps) => {
             </Text>
           </View>
         )}
-      {props.error &&
-        props.error.code &&
+      {props.error?.code &&
         Object.values(ICustomerErrorCodes).includes(props.error.code as ICustomerErrorCodes) && (
           <View>
             <Text style={theme.bank.text.errors}>
@@ -67,8 +72,7 @@ export const ErrorMessage = (props: IProps) => {
             </Text>
           </View>
         )}
-      {props.error &&
-        props.error.code &&
+      {props.error?.code &&
         Object.values(IDocumentErrorCodes).includes(props.error.code as IDocumentErrorCodes) && (
           <View>
             <Text style={theme.bank.text.errors}>
@@ -76,9 +80,9 @@ export const ErrorMessage = (props: IProps) => {
             </Text>
           </View>
         )}
-      {props.error &&
-        props.error.code &&
+      {props.error?.code &&
         !Object.values(IAuthErrorCodes).includes(props.error.code as IAuthErrorCodes) &&
+        !Object.values(IUserErrorCodes).includes(props.error.code as IUserErrorCodes) &&
         !Object.values(IAccountErrorCodes).includes(props.error.code as IAccountErrorCodes) &&
         !Object.values(ICarbonErrorCodes).includes(props.error.code as ICarbonErrorCodes) &&
         !Object.values(ICustomerErrorCodes).includes(props.error.code as ICustomerErrorCodes) &&

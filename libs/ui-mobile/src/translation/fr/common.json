@@ -61,21 +61,23 @@
     },
     "domain-error": {
       "auth": {
-        "LOGIN_FAILURE_INVALID_CREDENTIALS": "Email ou mot de passe incorrect",
-        "LOGIN_FAILURE_USER_NOT_FOUND": "le compte n'existe pas",
-        "LOGIN_FAILURE_USER_PHONE_NOT_VALIDATED": "le numéro de téléphone n'est pas valide",
-        "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "code incorrect",
-        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "numéro de téléphone inconnu",
-        "SIGNUP_FAILURE_EMAIL_EXISTS": "cet email est déjà enregistré",
-        "SIGNUP_FAILURE_PHONE_EXISTS": "ce téléphone est déjà enregistré",
-        "USER_UNAUTHENTICATED": "veuillez vous authentifier",
         "INVALID_EMAIL": "E-mail invalide",
         "INVALID_PASSWORD": "Mot de passe invalide",
+        "LOGIN_FAILURE_USER_NOT_FOUND": "le compte n'existe pas",
+        "LOGIN_FAILURE_INVALID_CREDENTIALS": "Email ou mot de passe incorrect",
+        "LOGIN_FAILURE_USER_PHONE_NOT_VALIDATED": "le numéro de téléphone n'est pas valide",
+        "USER_UNAUTHENTICATED": "veuillez vous authentifier"
+      },
+      "user": {
         "INVALID_PHONE": "Téléphone invalide",
         "INVALID_COUNTRY": "Pays invalide",
         "UNAVAILABLE_COUNTRY": "Pays indisponible",
         "INVALID_BIRTHDAY": "Date de naissance invalide",
-        "INVALID_6_DIGITS": "6 chiffres invalides"
+        "INVALID_6_DIGITS": "6 chiffres invalides",
+        "SIGNUP_FAILURE_EMAIL_EXISTS": "cet email est déjà enregistré",
+        "SIGNUP_FAILURE_PHONE_EXISTS": "ce téléphone est déjà enregistré",
+        "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "code incorrect",
+        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "numéro de téléphone inconnu"
       },
       "account": {
         "INVALID_IBAN": "IBAN invalide",

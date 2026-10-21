@@ -1,4 +1,3 @@
-import { ResetPassword } from './ResetPassword';
 import { SignupEmail } from './SignupEmail';
 import { SignupIdentityPasswordPhone } from './SignupIdentityPasswordPhone';
 import { SignupValidatePhone } from './SignupValidatePhone';
@@ -9,7 +8,6 @@ import { EmailSent } from './EmailSent';
 import { SignupPhone } from './SignupPhone';
 
 export {
-  ResetPassword,
   SignupEmail,
   SignupIdentityPasswordPhone,
   SignupValidatePhone,

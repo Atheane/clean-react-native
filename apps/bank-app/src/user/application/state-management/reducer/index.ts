@@ -10,7 +10,6 @@ const initialState: IUserState = {
   phoneOtp: null,
   user: null,
   error: null,
-  success: null,
 };
 
 export const userReducer = (state = initialState, action: IUserActions) => {
@@ -142,25 +141,6 @@ export const userReducer = (state = initialState, action: IUserActions) => {
         error: null,
       };
       return newState;
-    case IUserTypes.FETCH_RESET_PASSWORD:
-      logger.debug(action.type);
-      newState = {
-        ...state,
-        pending: true,
-        success: null,
-      };
-      return newState;
-    case IUserTypes.PASSWORD_RESET:
-      logger.debug(action.type);
-      newState = {
-        ...state,
-        pending: false,
-        success: action.payload.success,
-      };
-      return newState;
-    case IUserTypes.INIT_RESET_PASSWORD:
-      logger.debug(action.type);
-      return initialState;
     default:
       return {
         ...state,

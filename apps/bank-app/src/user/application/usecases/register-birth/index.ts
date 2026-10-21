@@ -2,11 +2,11 @@
 import { put, StrictEffect, takeEvery, select, call } from 'redux-saga/effects';
 import { IRegisterBirthCommand, User } from '@clean-rn/user/domain';
 
-import { IUserTypes, birthRegistered, initializeSignupStep } from '../../../commands';
-import { selectUserFromSignup, selectEmailFromSignup } from '../../../state-management/selectors';
-import { navigate } from '../../../../../shared/presentation/navigation/navigationRef';
-import { IUserStackPages } from '../../../../../shared/presentation/types';
-import { showUnknownError } from '../../../../../shared/application/commands/manage-global-errors';
+import { IUserTypes, birthRegistered, initializeSignupStep } from '../../commands';
+import { selectUserFromSignup, selectEmailFromSignup } from '../../state-management/selectors';
+import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+import { IUserStackPages } from '../../../../shared/presentation/types';
+import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 export function* registerBirthSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(IUserTypes.REGISTER_BIRTH, registerBirthGenerator);

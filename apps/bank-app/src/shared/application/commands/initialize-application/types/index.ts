@@ -1,5 +1,5 @@
 import { Email } from '@clean-rn/auth/domain';
-import { IAuthStackPages } from '../../../../../shared/presentation/types';
+import { IRoutes } from '../../../../../shared/presentation/types';
 
 export enum IInitializationTypes {
   INITIALIZE_APPLICATION = 'INITIALIZE_APPLICATION',
@@ -16,7 +16,7 @@ export type IInitializationSucceded = {
   type: typeof IInitializationTypes.APPLICATION_INITIALIZED;
   payload: {
     email: Email | null;
-    initRouteName: IAuthStackPages;
+    initRouteName: IRoutes;
     carbon: {
       house: {
         footprint: number | null;

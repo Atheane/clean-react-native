@@ -24,7 +24,7 @@ export const SignupBirth = () => {
   // api call
   const dispatch = useDispatch();
 
-  const { user, error } = useSelector((state: IRootState) => state.auth.signup);
+  const { user, error } = useSelector((state: IRootState) => state.user);
   const onSubmit = useCallback(
     (formData: ISignupBirthFormData) => {
       try {
@@ -48,7 +48,6 @@ export const SignupBirth = () => {
       nationality: user?.properties.phone?.countryCode,
     },
   });
-
   // clean domainError onFocus
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 

@@ -13,6 +13,7 @@ const initialState: IAuthState = {
     refreshToken: null,
   },
   error: null,
+  success: null,
 };
 
 export const authReducer = (state = initialState, action: IAuthActions) => {
@@ -53,19 +54,35 @@ export const authReducer = (state = initialState, action: IAuthActions) => {
         error: action.payload,
       };
       return newState;
+    case IAuthTypes.FETCH_RESET_PASSWORD:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: true,
+        success: null,
+      };
+      return newState;
+    case IAuthTypes.PASSWORD_RESET:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        success: action.payload.success,
+      };
+      return newState;
+    case IAuthTypes.INITIALIZE_AUTH:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        ...initialState,
+      };
+      return newState;
     case IAuthTypes.RESET_ERROR:
       logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
         error: null,
-      };
-      return newState;
-    case IAuthTypes.INITIALIZE_LOGIN:
-      logger.debug(action.type);
-      newState = {
-        ...state,
-        ...initialState,
       };
       return newState;
     default:

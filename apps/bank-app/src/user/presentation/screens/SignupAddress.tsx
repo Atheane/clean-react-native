@@ -27,7 +27,7 @@ export const SignupAddress = () => {
 
   // api call
   const dispatch = useDispatch();
-  const { pending, error, user } = useSelector((state: IRootState) => state.auth.signup);
+  const { pending, error, user } = useSelector((state: IRootState) => state.user);
 
   // internal state
   const {

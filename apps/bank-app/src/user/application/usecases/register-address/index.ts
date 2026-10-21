@@ -3,13 +3,13 @@ import { put, select, StrictEffect, takeEvery } from 'redux-saga/effects';
 
 import { IRegisterAddressCommand, User } from '@clean-rn/user/domain';
 
-import { showUnknownError } from '../../../../../shared/application/commands/manage-global-errors';
-import { IUserTypes, addressRegistered, fetchSignupUser, initializeSignupStep } from '../../../commands';
+import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
+import { IUserTypes, addressRegistered, fetchSignupUser, initializeSignupStep } from '../../commands';
 import {
   selectUserFromSignup,
   selectEmailFromSignup,
   selectPhoneOtpFromSignup,
-} from '../../../state-management/selectors';
+} from '../../state-management/selectors';
 
 export function* registerAddressSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(IUserTypes.REGISTER_ADDRESS, registerAddressGenerator);

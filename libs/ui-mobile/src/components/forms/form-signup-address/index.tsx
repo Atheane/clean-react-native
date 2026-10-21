@@ -4,7 +4,7 @@ import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
 import { IDomainError } from '@clean-rn/ddd';
-import { ICountry, COUNTRIES_AVAILABLE, IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
+import { ICountry, COUNTRIES_AVAILABLE, IUserErrorCodes, IUserErrorMessage } from '@clean-rn/user/domain';
 
 import { House } from '../../../assets';
 import { Colors } from '../../../constants';
@@ -21,7 +21,7 @@ type IProps = {
   loading: boolean;
   control: Control<ISignupAddressFormData>;
   errors: FieldErrors<ISignupAddressFormData>;
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | null;
+  error: IDomainError<IUserErrorCodes, IUserErrorMessage> | null;
   onSubmit: () => void;
   onFocus: () => void;
 };

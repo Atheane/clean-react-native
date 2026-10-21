@@ -5,18 +5,12 @@ import { ISearchPhoneQuery, UserError, ISendPhoneValidationCommand } from '@clea
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { UserApi, IUserSearchServerCode } from '@clean-rn/user/infrastructure';
 
-import { selectUserFromSignup } from '../../../state-management/selectors';
-import { IUserStackPages } from '../../../../../shared/presentation/types';
-import { navigate } from '../../../../../shared/presentation/navigation/navigationRef';
-import { showUnknownError } from '../../../../../shared/application/commands/manage-global-errors';
+import { IUserStackPages } from '../../../../shared/presentation/types';
+import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
-import {
-  IUserTypes,
-  signupFailed,
-  phoneNotFound,
-  initializeSignupStep,
-  phoneCodeSent,
-} from '../../../commands';
+import { selectUserFromSignup } from '../../state-management/selectors';
+import { IUserTypes, signupFailed, phoneNotFound, initializeSignupStep, phoneCodeSent } from '../../commands';
 
 export function* checkPhoneSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IUserTypes.FETCH_SEARCH_PHONE, checkPhoneGenerator, httpConnection);

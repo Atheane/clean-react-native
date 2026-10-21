@@ -1,12 +1,12 @@
 import { createNavigationContainerRef, NavigationContainerRef } from '@react-navigation/native';
 import { StackActions } from '@react-navigation/native';
 
-import { IAuthStackPages, IHomeStackPages, IRoutes } from '../../../shared/presentation/types';
+import { IRoutes, IUserStackPages } from '../../../shared/presentation/types';
 
 export const navigationRef: NavigationContainerRef<Record<string, any>> | undefined =
   createNavigationContainerRef();
 
-let initRoute: IRoutes = IAuthStackPages.SIGNUP_EMAIL;
+let initRoute: IRoutes = IUserStackPages.SIGNUP_EMAIL;
 
 export function navigate({ route, params }: { route: IRoutes; params?: Record<string, any> }) {
   if (navigationRef && navigationRef.isReady()) {
@@ -14,7 +14,6 @@ export function navigate({ route, params }: { route: IRoutes; params?: Record<st
       navigationRef.navigate(route, params);
     } else {
       navigationRef.navigate(route);
-      console.log('navigationRef', route);
     }
   } else {
     initRoute = route;

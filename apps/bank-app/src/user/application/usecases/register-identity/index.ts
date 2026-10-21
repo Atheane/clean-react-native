@@ -4,8 +4,8 @@ import { put, StrictEffect, takeEvery } from 'redux-saga/effects';
 import { Email } from '@clean-rn/auth/domain';
 import { IRegisterIdentityCommand, User } from '@clean-rn/user/domain';
 
-import { showUnknownError } from '../../../../../shared/application/commands/manage-global-errors';
-import { IUserTypes, identityRegistered, initializeSignupStep } from '../../../commands';
+import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
+import { IUserTypes, identityRegistered, initializeSignupStep } from '../../commands';
 
 export function* registerIdentitySaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(IUserTypes.REGISTER_IDENTITY, registerIdentityGenerator);
