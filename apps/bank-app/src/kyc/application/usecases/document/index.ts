@@ -83,12 +83,12 @@ export function* addPageSagaGenerator({
     document.addPage(payload.base64);
 
     if (document.isReady) {
-      yield call(navigate, { route: IKycStackPages.KYC });
       yield put(uploadDocument({ document }));
+      yield call(navigate, { route: IKycStackPages.KYC });
       yield cancel();
     } else {
-      yield call(navigate, { route: IKycStackPages.UPLOAD_DOCUMENT, params: payload.nextRouteParams });
       yield put(pageAdded({ document }));
+      yield call(navigate, { route: IKycStackPages.UPLOAD_DOCUMENT, params: payload.nextRouteParams });
     }
   } catch (error: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors
