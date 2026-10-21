@@ -14,11 +14,11 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 
 import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
 
-import { loginFailure, ILoginTypes, initializeLogin, loginSuccess, resetError } from '../../commands/login';
-import { initializeSignupStep } from '../../commands/signup';
+import { loginFailure, IAuthTypes, initializeLogin, loginSuccess, resetError } from '../../commands';
+import { initializeSignupStep } from '../../../../user/application/commands';
 
 export function* loginSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(ILoginTypes.FETCH_LOGIN, loginGenerator, httpConnection);
+  yield takeEvery(IAuthTypes.FETCH_LOGIN, loginGenerator, httpConnection);
 }
 
 export function* loginGenerator(
@@ -72,7 +72,7 @@ export function* loginGenerator(
 }
 
 export function* closeLoginModalSaga(): Generator<StrictEffect, any, any> {
-  yield takeEvery(ILoginTypes.LOGIN_SUCCEDED, closeLoginModalGenerator);
+  yield takeEvery(IAuthTypes.LOGIN_SUCCEDED, closeLoginModalGenerator);
 }
 
 export function* closeLoginModalGenerator(): Generator<StrictEffect, any, any> {

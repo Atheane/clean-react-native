@@ -4,9 +4,9 @@ import { initializeApplicationSaga } from './initialize-application';
 import { loadStorageSaga } from './load-storage';
 import { showUnknownErrorSaga } from './manage-global-errors';
 
+import { loginSaga, closeLoginModalSaga, refreshSaga } from '../../../auth/application/usecases';
+
 import {
-  loginSaga,
-  closeLoginModalSaga,
   resetPasswordSaga,
   checkEmailSaga,
   registerIdentitySaga,
@@ -16,8 +16,7 @@ import {
   registerAddressSaga,
   validatePhoneSaga,
   signupUserSaga,
-  refreshSaga,
-} from '../../../auth/application/usecases';
+} from '../../../user/application/usecases';
 
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 

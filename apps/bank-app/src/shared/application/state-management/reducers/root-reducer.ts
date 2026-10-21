@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux';
 
-import {
-  loginReducer,
-  resetPasswordReducer,
-  signupReducer,
-} from '../../../../auth/application/state-management';
+import { authReducer } from '../../../../auth/application/state-management';
+
+import { userReducer } from '../../../../user/application/state-management';
 
 import {
   accountsReducer,
@@ -23,11 +21,8 @@ import { globalErrorReducer } from './manage-global-errors';
 export const rootReducer = combineReducers({
   initialization: initializationReducer,
   unknownError: globalErrorReducer,
-  auth: combineReducers({
-    login: loginReducer,
-    resetPassword: resetPasswordReducer,
-    signup: signupReducer,
-  }),
+  auth: authReducer,
+  user: userReducer,
   account: combineReducers({
     accounts: accountsReducer,
     transactions: transactionsReducer,

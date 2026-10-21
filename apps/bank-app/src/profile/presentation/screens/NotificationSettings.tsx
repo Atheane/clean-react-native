@@ -5,6 +5,7 @@ import { useTheme } from '@rneui/themed';
 
 import { SmallSwitchButton, SubmitButton, useTogglePress } from '@clean-rn/ui-mobile';
 
+import { IPhoneNotifications } from '@clean-rn/profile/domain';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { BlueBell } from '../assets';
 import { useDispatch } from 'react-redux';
@@ -21,15 +22,18 @@ export const NotificationSettings = () => {
   const dispatch = useDispatch();
 
   const handleOnSubmit = useCallback(() => {
-    // TODO: implement
-    // dispatch(
-    //   updateNotifications({
-    //     payment: paymentChecked,
-    //     transfer: transferChecked,
-    //     threshold: thresholdChecked,
-    //   }),
-    // );
-  }, []);
+    const phoneNotificationsDisabled: IPhoneNotifications[] = [];
+    if (!paymentChecked) {
+      phoneNotificationsDisabled.push(IPhoneNotifications.PAYOUT_INITIATED);
+    }
+    if (!transferChecked) {
+      phoneNotificationsDisabled.push(IPhoneNotifications.PAYIN_RECEIVED);
+    }
+    if (!thresholdChecked) {
+      phoneNotificationsDisabled.push(IPhoneNotifications.CARD_TRANSACTION_MODIFIED);
+    }
+    dispatch(fetchUpdateNotifications({ phoneNotificationsDisabled }));
+  }, [dispatch, paymentChecked, transferChecked, thresholdChecked]);
 
   return (
     <ErrorBoundary t={t}>

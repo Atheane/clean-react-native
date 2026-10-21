@@ -51,6 +51,12 @@
       "@clean-rn/logger": [
         "libs/logger/src/index.ts"
       ],
+      "@clean-rn/profile/domain": [
+        "libs/profile/domain/src/index.ts"
+      ],
+      "@clean-rn/profile/infrastructure": [
+        "libs/profile/infrastructure/src/index.ts"
+      ],
       "@clean-rn/shared/domain": [
         "libs/shared/domain/src/index.ts"
       ],
@@ -59,6 +65,12 @@
       ],
       "@clean-rn/ui-mobile": [
         "libs/ui-mobile/src/index.ts"
+      ],
+      "@clean-rn/user/domain": [
+        "libs/user/domain/src/index.ts"
+      ],
+      "@clean-rn/user/infrastructure": [
+        "libs/user/infrastructure/src/index.ts"
       ]
     }
   },

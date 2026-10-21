@@ -16,7 +16,7 @@ import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/h
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 
 import { Welcome } from '../assets/images';
-import { fetchLogin } from '../../application/commands/login';
+import { fetchLogin } from '../../application/commands';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -36,7 +36,7 @@ export const Login = () => {
   } = useForm<ILoginFormData>();
 
   // api call
-  const { pending, error } = useSelector((state: IRootState) => state.auth.login);
+  const { pending, error } = useSelector((state: IRootState) => state.auth);
 
   const dispatch = useDispatch();
   const onSubmit = useCallback(

@@ -1,0 +1,18 @@
+import { IDomainError } from '@clean-rn/ddd';
+
+import { User } from '@clean-rn/user/domain';
+import { IAuth, IAuthErrorMessage, IAuthErrorCodes, Email, Password } from '@clean-rn/auth/domain';
+
+export interface IAuthState {
+  pending: boolean;
+  email: Email | null;
+  password: Password | null;
+  user: User | null;
+  auth:
+    | IAuth
+    | {
+        accessToken: null;
+        refreshToken: null;
+      };
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | null;
+}
