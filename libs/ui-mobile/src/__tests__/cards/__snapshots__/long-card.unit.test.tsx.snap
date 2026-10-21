@@ -70,7 +70,9 @@ exports[`LongCard -  minimal props -  renders as before 1`] = `
           {
             "borderRadius": 2,
           },
-          undefined,
+          {
+            "margin": 0,
+          },
           false,
         ]
       }

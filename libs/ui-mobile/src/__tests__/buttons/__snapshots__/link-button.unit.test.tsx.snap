@@ -10,7 +10,9 @@ exports[`LinkButton -  blue & pressed & arrow - renders as before 1`] = `
       {
         "borderRadius": 2,
       },
-      undefined,
+      {
+        "margin": 0,
+      },
       false,
     ]
   }
@@ -130,7 +132,9 @@ exports[`LinkButton -  blue & unpressed & noarrow - renders as before 1`] = `
       {
         "borderRadius": 2,
       },
-      undefined,
+      {
+        "margin": 0,
+      },
       false,
     ]
   }
@@ -233,7 +237,9 @@ exports[`LinkButton -  green & pressed & arrow - renders as before 1`] = `
       {
         "borderRadius": 2,
       },
-      undefined,
+      {
+        "margin": 0,
+      },
       false,
     ]
   }
@@ -353,7 +359,9 @@ exports[`LinkButton -  green & unpressed & iconOne - renders as before 1`] = `
       {
         "borderRadius": 2,
       },
-      undefined,
+      {
+        "margin": 0,
+      },
       false,
     ]
   }
@@ -440,7 +448,9 @@ exports[`LinkButton -  green & unpressed & noarrow - renders as before 1`] = `
       {
         "borderRadius": 2,
       },
-      undefined,
+      {
+        "margin": 0,
+      },
       false,
     ]
   }
@@ -543,7 +553,9 @@ exports[`LinkButton -  pink & pressed & arrow - renders as before 1`] = `
       {
         "borderRadius": 2,
       },
-      undefined,
+      {
+        "margin": 0,
+      },
       false,
     ]
   }
@@ -663,7 +675,9 @@ exports[`LinkButton -  pink & unpressed & noarrow - renders as before 1`] = `
       {
         "borderRadius": 2,
       },
-      undefined,
+      {
+        "margin": 0,
+      },
       false,
     ]
   }
@@ -766,7 +780,9 @@ exports[`LinkButton -  white & pressed & arrow - renders as before 1`] = `
       {
         "borderRadius": 2,
       },
-      undefined,
+      {
+        "margin": 0,
+      },
       false,
     ]
   }
@@ -880,7 +896,9 @@ exports[`LinkButton -  white & unpressed & noarrow - renders as before 1`] = `
       {
         "borderRadius": 2,
       },
-      undefined,
+      {
+        "margin": 0,
+      },
       false,
     ]
   }
