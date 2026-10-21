@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { View, Text, StyleSheet, Dimensions, ImageSourcePropType } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
@@ -14,7 +14,6 @@ import {
 } from '@clean-rn/kyc/domain';
 import { IconTextItem, KycId, KycPassport, KycResidencePermit } from '@clean-rn/ui-mobile';
 
-import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
