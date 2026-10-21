@@ -1,72 +1,61 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { IDomainError } from '@clean-rn/ddd';
 
-export enum IAccountErrorMessage {
+export enum IBeneficiaryErrorMessage {
   INVALID_IBAN = 'Invalid IBAN',
   INVALID_BIC = 'Invalid BIC',
-  UNKNOWN_TRANSACTION_TYPE = 'Unknown transaction type',
-  INVALID_TRANSACTION_VALUE = 'Invalid transaction value',
+  INVALID_NAME = 'Invalid name format',
 }
 
-export enum IAccountErrorCodes {
+export enum IBeneficiaryErrorCodes {
   INVALID_IBAN = 'INVALID_IBAN',
   INVALID_BIC = 'INVALID_BIC',
-  UNKNOWN_TRANSACTION_TYPE = 'UNKNOWN_TRANSACTION_TYPE',
-  INVALID_TRANSACTION_VALUE = 'INVALID_TRANSACTION_VALUE',
+  INVALID_NAME = 'INVALID_NAME',
 }
 
-export namespace AccountError {
-  export class InvalidIban extends Error implements IDomainError<IAccountErrorCodes, IAccountErrorMessage> {
-    code: IAccountErrorCodes;
-    message: IAccountErrorMessage;
-    cause?: unknown;
-
-    constructor(cause?: unknown) {
-      super();
-      this.message = IAccountErrorMessage.INVALID_IBAN;
-      this.code = IAccountErrorCodes.INVALID_IBAN;
-      this.cause = cause;
-    }
-  }
-  export class InvalidBic extends Error implements IDomainError<IAccountErrorCodes, IAccountErrorMessage> {
-    code: IAccountErrorCodes;
-    message: IAccountErrorMessage;
-    cause?: unknown;
-
-    constructor(cause?: unknown) {
-      super();
-      this.message = IAccountErrorMessage.INVALID_BIC;
-      this.code = IAccountErrorCodes.INVALID_BIC;
-      this.cause = cause;
-    }
-  }
-  export class UnknownTransactionType
+export namespace BeneficiaryError {
+  export class InvalidIBAN
     extends Error
-    implements IDomainError<IAccountErrorCodes, IAccountErrorMessage>
+    implements IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>
   {
-    code: IAccountErrorCodes;
-    message: IAccountErrorMessage;
+    code: IBeneficiaryErrorCodes;
+    message: IBeneficiaryErrorMessage;
     cause?: unknown;
 
     constructor(cause?: unknown) {
       super();
-      this.message = IAccountErrorMessage.UNKNOWN_TRANSACTION_TYPE;
-      this.code = IAccountErrorCodes.UNKNOWN_TRANSACTION_TYPE;
+      this.message = IBeneficiaryErrorMessage.INVALID_IBAN;
+      this.code = IBeneficiaryErrorCodes.INVALID_IBAN;
       this.cause = cause;
     }
   }
-  export class InvalidTransactionAmount
+  export class InvalidBIC
     extends Error
-    implements IDomainError<IAccountErrorCodes, IAccountErrorMessage>
+    implements IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>
   {
-    code: IAccountErrorCodes;
-    message: IAccountErrorMessage;
+    code: IBeneficiaryErrorCodes;
+    message: IBeneficiaryErrorMessage;
     cause?: unknown;
 
     constructor(cause?: unknown) {
       super();
-      this.message = IAccountErrorMessage.INVALID_TRANSACTION_VALUE;
-      this.code = IAccountErrorCodes.INVALID_TRANSACTION_VALUE;
+      this.message = IBeneficiaryErrorMessage.INVALID_BIC;
+      this.code = IBeneficiaryErrorCodes.INVALID_BIC;
+      this.cause = cause;
+    }
+  }
+  export class InvalidName
+    extends Error
+    implements IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>
+  {
+    code: IBeneficiaryErrorCodes;
+    message: IBeneficiaryErrorMessage;
+    cause?: unknown;
+
+    constructor(cause?: unknown) {
+      super();
+      this.message = IBeneficiaryErrorMessage.INVALID_NAME;
+      this.code = IBeneficiaryErrorCodes.INVALID_NAME;
       this.cause = cause;
     }
   }

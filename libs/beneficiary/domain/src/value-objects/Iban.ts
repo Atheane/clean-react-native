@@ -1,18 +1,19 @@
-import { AccountError } from '../errors';
-import IBAN from 'iban';
+import { BeneficiaryError } from '../errors';
+import * as ibantools from 'ibantools';
 
-export class Iban {
+export class IBAN {
   private readonly iban: string;
 
   constructor(ibanString: string) {
-    if (!this.validate(ibanString)) {
-      throw new AccountError.InvalidIban('Invalid IBAN');
+    if (!IBAN.validate(ibanString)) {
+      throw new BeneficiaryError.InvalidIBAN('Invalid IBAN');
     }
     this.iban = ibanString;
   }
 
-  private validate(ibanString: string): boolean {
-    return IBAN.isValid(ibanString);
+  static validate(ibanString: string): boolean {
+    console.log('VALIDATE IABN', ibanString, ibantools.isValidIBAN(ibanString));
+    return ibantools.isValidIBAN(ibanString);
   }
 
   get value(): string {

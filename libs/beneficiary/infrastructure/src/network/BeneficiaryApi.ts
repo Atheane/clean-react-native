@@ -1,5 +1,11 @@
 import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
-import { IBeneficiary, IBeneficiaryRepository, Iban, Bic } from '@clean-rn/beneficiary/domain';
+import {
+  IBeneficiary,
+  IBeneficiaryAddCommand,
+  IBeneficiaryRepository,
+  IBAN,
+  BIC,
+} from '@clean-rn/beneficiary/domain';
 import { IBeneficiaryServer } from '../types';
 
 export class BeneficiaryApi implements IBeneficiaryRepository {
@@ -30,8 +36,22 @@ export class BeneficiaryApi implements IBeneficiaryRepository {
     return beneficiaries.map((beneficiary: IBeneficiaryServer) => ({
       beneficiaryId: beneficiary.beneficiaryId,
       name: beneficiary.name,
-      iban: new Iban(beneficiary.iban),
-      bic: new Bic(beneficiary.bic),
+      iban: new IBAN(beneficiary.iban),
+      bic: new BIC(beneficiary.bic),
     }));
+  }
+
+  async addBeneficiary(beneficiary: IBeneficiaryAddCommand): Promise<IBeneficiary> {
+    const params = {
+      name: beneficiary.name,
+      bic: beneficiary.bic.value,
+      iban: beneficiary.iban.value,
+    };
+    const response = await fetch(
+      `${this.connection.baseUrl}/app/beneficiary`,
+      this.connection.options(IHttpVerb.POST, params),
+    );
+    await this.connection.handleError(response);
+    return response.json();
   }
 }

@@ -10,6 +10,8 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 
+import { beneficiaryAdd } from '../../application/commands/beneficiary';
+
 const HEIGHT = Dimensions.get('window').height;
 
 export const BeneficiaryAdd = () => {
@@ -17,8 +19,7 @@ export const BeneficiaryAdd = () => {
   const { t } = useTranslation();
 
   // api call
-  const dispatch = useDispatch();
-  const { pending, error, user } = useSelector((state: IRootState) => state.auth.signup);
+  const { pending } = useSelector((state: IRootState) => state.beneficiary.beneficiary);
 
   // internal state
   const {
@@ -29,13 +30,17 @@ export const BeneficiaryAdd = () => {
     defaultValues: {},
   });
 
+  const dispatch = useDispatch();
   const onSubmit = useCallback(
     (formData: IBeneficiaryFormData) => {
-      console.log();
+      try {
+        dispatch(beneficiaryAdd(formData));
+      } catch (e: unknown) {
+        dispatch(showUnknownError(e as Error));
+      }
     },
     [dispatch],
   );
-
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
   return (

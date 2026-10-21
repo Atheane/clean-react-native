@@ -63,6 +63,7 @@ const ContentNoBeneficiary = () => {
 };
 
 const ContactList = () => {
+  const [contacts, setContacts] = useState([]);
   const sortType = Contacts.SortTypes.FirstName;
   useEffect(() => {
     (async () => {
@@ -74,8 +75,8 @@ const ContactList = () => {
         });
 
         if (data.length > 0) {
-          const contact = data[0];
-          console.log(contact);
+          console.log(data[0]);
+          setContacts(data);
         }
       }
     })();

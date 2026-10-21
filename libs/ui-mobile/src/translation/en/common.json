@@ -95,6 +95,7 @@
     "placeholder": "Select a country"
   },
   "button": {
+    "add": "add",
     "share": "share",
     "submit": "validate",
     "photo": "Take a photo",

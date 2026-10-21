@@ -1,6 +1,7 @@
-import { IBeneficiary } from '@clean-rn/beneficiary/domain';
+import { IBeneficiary, IBeneficiaryAddCommand } from '@clean-rn/beneficiary/domain';
 import {
   IBeneficiaryTypes,
+  IBeneficiaryAdd,
   IBeneficiaryList,
   IBeneficiaryListDone,
   IBeneficiaryListInit,
@@ -8,6 +9,11 @@ import {
 } from './types';
 
 // commands
+export const beneficiaryAdd = (payload: IBeneficiary): IBeneficiaryAdd => ({
+  type: IBeneficiaryTypes.BENEFICIARY_ADD,
+  payload: IBeneficiaryAddCommand,
+});
+
 export const beneficiaryList = (): IBeneficiaryList => ({
   type: IBeneficiaryTypes.BENEFICIARY_LIST,
 });

@@ -138,6 +138,7 @@
     "label": "password"
   },
   "button": {
+    "add": "ajouter",
     "share": "partager",
     "submit": "valider",
     "photo": "Prendre une photo",

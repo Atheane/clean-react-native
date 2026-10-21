@@ -1,3 +1,3 @@
-import { Iban } from './Iban';
-import { Bic } from './Bic';
-export { Iban, Bic };
+import { IBAN } from './Iban';
+import { BIC } from './Bic';
+export { IBAN, BIC };

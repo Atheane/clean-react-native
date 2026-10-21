@@ -1,4 +1,4 @@
-import { IBeneficiary } from '@clean-rn/beneficiary/domain';
+import { IBeneficiary, IBeneficiaryAddCommand } from '@clean-rn/beneficiary/domain';
 
 export enum IBeneficiaryTypes {
   BENEFICIARY_ADD = 'BENEFICIARY_ADD',
@@ -9,6 +9,7 @@ export enum IBeneficiaryTypes {
 
 export type IBeneficiaryAdd = {
   type: typeof IBeneficiaryTypes.BENEFICIARY_ADD;
+  payload: IBeneficiaryAddCommand;
 };
 
 export type IBeneficiaryList = {

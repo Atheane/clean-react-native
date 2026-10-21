@@ -1,8 +1,8 @@
-import { Iban, Bic } from '../value-objects';
+import { IBAN, BIC } from '../value-objects';
 
 export interface IBeneficiary {
   beneficiaryId: number;
   name: string;
-  iban: Iban;
-  bic: Bic;
+  iban: IBAN;
+  bic: BIC;
 }
