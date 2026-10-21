@@ -1,6 +1,6 @@
 import { IDocumentCategory, IDocumentStatus, IDocumentStatusCode, IDocumentType, IKycState } from '../types';
 import { Customer } from '../entities';
-import { KYC_REVIEW } from '@clean-rn/auth/domain';
+import { KYC_REVIEW } from '@clean-rn/user/domain';
 
 describe('Customer - unit', () => {
   it('should create a Customer with init status NONE and provided id', () => {

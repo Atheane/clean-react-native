@@ -3,32 +3,27 @@ import SagaTester from 'redux-saga-tester';
 import Constants from 'expo-constants';
 import dayjs from 'dayjs';
 
-import {
-  AuthError,
-  Email,
-  Password,
-  User,
-  Phone,
-  BirthDay,
-  Country,
-  IGender,
-  KYC_REVIEW,
-} from '@clean-rn/auth/domain';
+import { AuthError, Email, Password } from '@clean-rn/auth/domain';
+
+import { User, Phone, BirthDay, Country, IGender, KYC_REVIEW } from '@clean-rn/user/domain';
 
 import { loginSaga } from '../../usecases/login';
 import { refreshSaga } from '../../usecases/refresh';
+import { resetPasswordSaga } from '../../usecases/reset-password';
 
 import {
   loginSuccess,
   loginFailure,
   fetchLogin,
-  ILoginTypes,
-  initializeLogin,
+  IAuthTypes,
+  initializeAuth,
   resetError,
   fetchRefresh,
   refreshSuccess,
-} from '../../commands/login';
-import { ILoginState, loginReducer } from '../../state-management';
+  fetchResetPassword,
+  passwordReset,
+} from '../../commands';
+import { IAuthState, authReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
 
 const expoConstantsMock = {
@@ -53,6 +48,10 @@ describe('Login - integration', () => {
   const mockResponse = {
     accessToken: 'fake-access-token',
     refreshToken: 'fake-refresh-token',
+  };
+
+  const mockSuccess = {
+    success: true,
   };
 
   let httpConnection: HttpConnection;
@@ -109,7 +108,7 @@ describe('Login - integration', () => {
   });
 
   beforeEach(() => {
-    const initialState: ILoginState = {
+    const initialState: IAuthState = {
       pending: false,
       auth: {
         accessToken: null,
@@ -119,16 +118,17 @@ describe('Login - integration', () => {
       email: null,
       password: null,
       error: null,
+      success: null,
     };
     sagaTester = new SagaTester({
       initialState,
-      reducers: loginReducer,
+      reducers: authReducer,
     });
   });
 
   it('Should store correct initial state if not initial state is provided', () => {
-    const newState = loginReducer(undefined, {
-      type: ILoginTypes.FETCH_LOGIN,
+    const newState = authReducer(undefined, {
+      type: IAuthTypes.FETCH_LOGIN,
       payload: mockData,
     });
 
@@ -142,6 +142,7 @@ describe('Login - integration', () => {
       user: null,
       password: mockData.password,
       error: null,
+      success: null,
     });
   });
 
@@ -160,6 +161,7 @@ describe('Login - integration', () => {
       error: null,
       email: mockData.email,
       password: mockData.password,
+      success: null,
     });
   });
 
@@ -176,6 +178,7 @@ describe('Login - integration', () => {
       error: null,
       email: null,
       password: null,
+      success: null,
     });
   });
 
@@ -191,6 +194,7 @@ describe('Login - integration', () => {
       error: null,
       email: mockData.email,
       password: mockData.password,
+      success: null,
     });
   });
 
@@ -209,6 +213,7 @@ describe('Login - integration', () => {
       email: mockData.email,
       password: mockData.password,
       error: new AuthError.LoginFailureInvalidCredentials(),
+      success: null,
     });
   });
 
@@ -223,13 +228,14 @@ describe('Login - integration', () => {
       error: null,
       email: null,
       password: null,
+      success: null,
     });
   });
 
-  it('Should store correct state if INITIALIZE_LOGIN for invalid credentials', () => {
+  it('Should store correct state if INITIALIZE_AUTH for invalid credentials', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, loginSaga, httpConnection);
     sagaTester.dispatch(fetchLogin(mockData));
-    sagaTester.dispatch(initializeLogin());
+    sagaTester.dispatch(initializeAuth());
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
@@ -241,6 +247,65 @@ describe('Login - integration', () => {
       email: null,
       password: null,
       error: null,
+      success: null,
+    });
+  });
+
+  it('should store correct initial state if no initial state is provided', () => {
+    const newState = authReducer(undefined, {
+      type: IAuthTypes.FETCH_RESET_PASSWORD,
+      payload: mockData,
+    });
+
+    expect(newState).toEqual({
+      pending: true,
+      auth: {
+        accessToken: null,
+        refreshToken: null,
+      },
+      user: null,
+      email: null,
+      password: null,
+      error: null,
+      success: null,
+    });
+  });
+
+  it('Should store correct state in case if FETCH_RESET_PASSWORD', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, resetPasswordSaga, httpConnection);
+
+    sagaTester.dispatch(fetchResetPassword(mockData));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: true,
+      auth: {
+        accessToken: null,
+        refreshToken: null,
+      },
+      user: null,
+      email: null,
+      password: null,
+      error: null,
+      success: null,
+    });
+  });
+
+  it('Should store correct state if RESET_PASSWORD_SUCCESS', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, resetPasswordSaga, httpConnection);
+    sagaTester.dispatch(fetchResetPassword(mockData));
+    sagaTester.dispatch(passwordReset({ success: mockSuccess.success }));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      auth: {
+        accessToken: null,
+        refreshToken: null,
+      },
+      user: null,
+      email: null,
+      password: null,
+      error: null,
+      success: mockSuccess.success,
     });
   });
 });

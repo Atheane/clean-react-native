@@ -4,8 +4,6 @@ import Constants from 'expo-constants';
 import dayjs from 'dayjs';
 
 import {
-  AuthError,
-  Email,
   Phone,
   IGender,
   IRegisterAddressCommand,
@@ -15,7 +13,10 @@ import {
   PhoneOtp,
   User,
   IUserProperties,
-} from '@clean-rn/auth/domain';
+  UserError,
+} from '@clean-rn/user/domain';
+
+import { Email } from '@clean-rn/auth/domain';
 
 import {
   checkEmailSaga,
@@ -28,7 +29,7 @@ import {
   signupUserSaga,
 } from '../../usecases';
 import {
-  ISignupTypes,
+  IUserTypes,
   emailNotFound,
   fetchSearchEmail,
   fetchSearchPhone,
@@ -49,7 +50,7 @@ import {
   initializeSignupStep,
   phoneCodeSent,
 } from '../../commands';
-import { ISignupState, signupReducer } from '../../state-management';
+import { IUserState, userReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
 
 const expoConstantsMock = {
@@ -96,7 +97,7 @@ describe('CheckEmail - integration', () => {
     phone: new Phone('0616804613', 'FR'),
   };
 
-  let initialState: ISignupState;
+  let initialState: IUserState;
 
   beforeAll(() => {
     Constants.expoConfig = {
@@ -121,13 +122,13 @@ describe('CheckEmail - integration', () => {
     };
     sagaTester = new SagaTester({
       initialState,
-      reducers: signupReducer,
+      reducers: userReducer,
     });
   });
 
   it('Should store correct initial state if not initial state is provided', () => {
-    const newState = signupReducer(undefined, {
-      type: ISignupTypes.FETCH_SEARCH_EMAIL,
+    const newState = userReducer(undefined, {
+      type: IUserTypes.FETCH_SEARCH_EMAIL,
       payload: {
         email: new Email('test@example.com'),
       },
@@ -231,7 +232,7 @@ describe('CheckEmail - integration', () => {
     user.registerBirth(mockBirth);
     user.registerAddress(mockAddress);
 
-    const initialState: ISignupState = {
+    const initialState: IUserState = {
       pending: true,
       email: new Email('test@example.com'),
       phone: new Phone('0616804613', 'FR'),
@@ -242,7 +243,7 @@ describe('CheckEmail - integration', () => {
 
     sagaTester = new SagaTester({
       initialState,
-      reducers: signupReducer,
+      reducers: userReducer,
     });
 
     sagaTester.start(wrapSagaHidingNotFoundError, signupUserSaga, httpConnection);
@@ -276,7 +277,7 @@ describe('CheckEmail - integration', () => {
   it('Should store correct state if SIGNUP_FAILED', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
     sagaTester.dispatch(fetchSearchEmail({ email: new Email('test@example.com') }));
-    sagaTester.dispatch(signupFailed(new AuthError.SignupFailureEmailExists()));
+    sagaTester.dispatch(signupFailed(new UserError.SignupFailureEmailExists()));
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
@@ -284,12 +285,12 @@ describe('CheckEmail - integration', () => {
       phone: null,
       phoneOtp: null,
       user: null,
-      error: new AuthError.SignupFailureEmailExists(),
+      error: new UserError.SignupFailureEmailExists(),
     });
   });
 
   it('Should store correct state if PHONE_CHECKED', () => {
-    const initialState: ISignupState = {
+    const initialState: IUserState = {
       pending: false,
       email: null,
       phone: new Phone('0616804613', 'FR'),
@@ -300,7 +301,7 @@ describe('CheckEmail - integration', () => {
 
     sagaTester = new SagaTester({
       initialState,
-      reducers: signupReducer,
+      reducers: userReducer,
     });
 
     sagaTester.start(wrapSagaHidingNotFoundError, checkPhoneSaga, httpConnection);
@@ -318,7 +319,7 @@ describe('CheckEmail - integration', () => {
   });
 
   it('Should store correct state if PHONE_VALIDATED', () => {
-    const initialState: ISignupState = {
+    const initialState: IUserState = {
       pending: false,
       email: null,
       phone: new Phone('0616804613', 'FR'),
@@ -329,7 +330,7 @@ describe('CheckEmail - integration', () => {
 
     sagaTester = new SagaTester({
       initialState,
-      reducers: signupReducer,
+      reducers: userReducer,
     });
 
     sagaTester.start(wrapSagaHidingNotFoundError, validatePhoneSaga, httpConnection);
@@ -351,7 +352,7 @@ describe('CheckEmail - integration', () => {
   });
 
   it('Should store correct state in case if IDENTITY_REGISTERED', () => {
-    const initialState: ISignupState = {
+    const initialState: IUserState = {
       pending: false,
       email: new Email('test@example.com'),
       phone: null,
@@ -362,7 +363,7 @@ describe('CheckEmail - integration', () => {
 
     sagaTester = new SagaTester({
       initialState,
-      reducers: signupReducer,
+      reducers: userReducer,
     });
 
     sagaTester.start(registerIdentitySaga);
@@ -384,7 +385,7 @@ describe('CheckEmail - integration', () => {
   it('Should store correct state in case if PASSWORD_REGISTERED', () => {
     const user = User.CreateFromEmail(new Email('test@example.com'));
 
-    const initialState: ISignupState = {
+    const initialState: IUserState = {
       pending: false,
       email: new Email('test@example.com'),
       phone: null,
@@ -395,7 +396,7 @@ describe('CheckEmail - integration', () => {
 
     sagaTester = new SagaTester({
       initialState,
-      reducers: signupReducer,
+      reducers: userReducer,
     });
 
     sagaTester.start(registerPasswordSaga);
@@ -415,7 +416,7 @@ describe('CheckEmail - integration', () => {
   it('Should store correct state in case if BIRTH_REGISTERED', () => {
     const user = User.CreateFromEmail(new Email('test@example.com'));
 
-    const initialState: ISignupState = {
+    const initialState: IUserState = {
       pending: false,
       email: new Email('test@example.com'),
       phone: null,
@@ -426,7 +427,7 @@ describe('CheckEmail - integration', () => {
 
     sagaTester = new SagaTester({
       initialState,
-      reducers: signupReducer,
+      reducers: userReducer,
     });
 
     sagaTester.start(registerBirthSaga);
@@ -446,7 +447,7 @@ describe('CheckEmail - integration', () => {
   it('Should store correct state in case if ADDRESS_REGISTERED', () => {
     const user = User.CreateFromEmail(new Email('test@example.com'));
 
-    const initialState: ISignupState = {
+    const initialState: IUserState = {
       pending: false,
       email: new Email('test@example.com'),
       phone: null,
@@ -457,7 +458,7 @@ describe('CheckEmail - integration', () => {
 
     sagaTester = new SagaTester({
       initialState,
-      reducers: signupReducer,
+      reducers: userReducer,
     });
 
     sagaTester.start(registerAddressSaga);
@@ -482,7 +483,7 @@ describe('CheckEmail - integration', () => {
     user.registerBirth(mockBirth);
     user.registerAddress(mockAddress);
 
-    const initialState: ISignupState = {
+    const initialState: IUserState = {
       pending: false,
       email: new Email('test@example.com'),
       phone: new Phone('0616804613', 'FR'),
@@ -493,7 +494,7 @@ describe('CheckEmail - integration', () => {
 
     sagaTester = new SagaTester({
       initialState,
-      reducers: signupReducer,
+      reducers: userReducer,
     });
 
     sagaTester.start(signupUserSaga, httpConnection);
@@ -514,7 +515,7 @@ describe('CheckEmail - integration', () => {
   });
 
   it('Should store correct state in case if PHONE_NOT_FOUND with no error', () => {
-    const initialState: ISignupState = {
+    const initialState: IUserState = {
       pending: false,
       email: null,
       phone: null,
@@ -525,10 +526,10 @@ describe('CheckEmail - integration', () => {
 
     sagaTester = new SagaTester({
       initialState,
-      reducers: signupReducer,
+      reducers: userReducer,
     });
 
-    sagaTester.dispatch(phoneNotFound(new AuthError.ValidatePhoneFailurePhoneNotFound('test')));
+    sagaTester.dispatch(phoneNotFound(new UserError.ValidatePhoneFailurePhoneNotFound('test')));
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
@@ -536,7 +537,7 @@ describe('CheckEmail - integration', () => {
       phone: null,
       phoneOtp: null,
       user: null,
-      error: new AuthError.ValidatePhoneFailurePhoneNotFound('test'),
+      error: new UserError.ValidatePhoneFailurePhoneNotFound('test'),
     });
   });
 

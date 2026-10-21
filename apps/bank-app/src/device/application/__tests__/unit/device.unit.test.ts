@@ -2,10 +2,10 @@
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
-import { Email, User } from '@clean-rn/auth/domain';
+import { Email } from '@clean-rn/auth/domain';
+import { User } from '@clean-rn/user/domain';
 import { DeviceApi } from '@clean-rn/device/infrastructure';
 import { Device, DeviceError } from '@clean-rn/device/domain';
 
@@ -13,7 +13,7 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 
-import { selectUserFromLogin } from '../../../../kyc/application/state-management/selectors';
+import { selectUser } from '../../../../auth/application/state-management/selectors';
 
 import { registerDeviceGenerator, registerDeviceSaga } from '../../usecases/register-device';
 import { IDeviceTypes, initializeDevice, deviceRegistered, deviceAlreadyRegistered } from '../../commands';
@@ -96,7 +96,7 @@ describe('Device - usecase', () => {
       payload: mockData,
     })
       .next()
-      .select(selectUserFromLogin)
+      .select(selectUser)
       .next(user)
       .call([deviceApi, deviceApi.createDevice], mockData)
       .next(device)
@@ -117,7 +117,7 @@ describe('Device - usecase', () => {
       payload: mockData,
     })
       .next()
-      .select(selectUserFromLogin)
+      .select(selectUser)
       .next(user)
       .call([deviceApi, deviceApi.createDevice], mockData)
       .throw(new ServerError(mockError400))
@@ -141,7 +141,7 @@ describe('Device - usecase', () => {
       payload: mockData,
     })
       .next()
-      .select(selectUserFromLogin)
+      .select(selectUser)
       .next(user)
       .call([deviceApi, deviceApi.createDevice], mockData)
       .throw(new ServerError(mockError401))
@@ -164,7 +164,7 @@ describe('Device - usecase', () => {
       payload: mockData,
     })
       .next()
-      .select(selectUserFromLogin)
+      .select(selectUser)
       .next(user)
       .call([deviceApi, deviceApi.createDevice], mockData)
       .throw(new ServerError(mockError500))

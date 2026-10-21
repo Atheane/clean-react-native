@@ -8,7 +8,7 @@ import { Email } from '@clean-rn/auth/domain';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { resetPasswordGenerator, resetPasswordSaga } from '../../usecases/reset-password';
-import { IResetPasswordTypes, initializeResetPassword, passwordReset } from '../../commands/reset-password';
+import { IAuthTypes, initializeAuth, passwordReset } from '../../commands';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 describe('ResetPassword - usecase', () => {
@@ -35,14 +35,14 @@ describe('ResetPassword - usecase', () => {
 
   it('should wait for FETCH_RESET_PASSWORD action and call resetPasswordApiSaga, should be done on next iteration', () => {
     expect(genObject.next().value).toEqual(
-      takeEvery(IResetPasswordTypes.FETCH_RESET_PASSWORD, resetPasswordGenerator, httpConnection),
+      takeEvery(IAuthTypes.FETCH_RESET_PASSWORD, resetPasswordGenerator, httpConnection),
     );
     expect(genObject.next().done).toBeTruthy();
   });
 
   it('should call resetPasswordSuccess actions', () => {
     testSaga(resetPasswordGenerator, httpConnection, {
-      type: IResetPasswordTypes.FETCH_RESET_PASSWORD,
+      type: IAuthTypes.FETCH_RESET_PASSWORD,
       payload: mockData,
     })
       .next()
@@ -58,13 +58,13 @@ describe('ResetPassword - usecase', () => {
 
   it('Should call showUnknownError action if 500', () => {
     testSaga(resetPasswordGenerator, httpConnection, {
-      type: IResetPasswordTypes.FETCH_RESET_PASSWORD,
+      type: IAuthTypes.FETCH_RESET_PASSWORD,
       payload: mockData,
     })
       .next()
       .call([api, api.resetPassword], mockData)
       .throw(new ServerError(mockError500))
-      .put(initializeResetPassword())
+      .put(initializeAuth())
       .next()
       .put(showUnknownError(new ServerError(mockError500)))
       .next();

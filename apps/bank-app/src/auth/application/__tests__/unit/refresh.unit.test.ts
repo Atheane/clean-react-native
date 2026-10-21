@@ -11,8 +11,8 @@ import { refreshSaga, refreshGenerator } from '../../usecases/refresh';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
-import { ILoginTypes, refreshSuccess, resetError } from '../../commands/login';
+import { selectAuth } from '../../../../auth/application/state-management/selectors';
+import { IAuthTypes, refreshSuccess, resetError } from '../../commands';
 
 describe('Refresh - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -47,17 +47,17 @@ describe('Refresh - usecase', () => {
 
   it('Should wait for FETCH_REFRESH action and call loginGenerator, should be done on next iteration', () => {
     expect(genObject.next().value).toEqual(
-      takeEvery(ILoginTypes.FETCH_REFRESH, refreshGenerator, httpConnection),
+      takeEvery(IAuthTypes.FETCH_REFRESH, refreshGenerator, httpConnection),
     );
     expect(genObject.next().done).toBeTruthy();
   });
 
   it('Should call refreshSuccess if no nextRoute payload', async () => {
     testSaga(refreshGenerator, httpConnection, {
-      type: ILoginTypes.FETCH_REFRESH,
+      type: IAuthTypes.FETCH_REFRESH,
     })
       .next()
-      .select(selectAuthFromLogin)
+      .select(selectAuth)
       .next(mockResponse)
       .call([authApi, authApi.refresh], mockResponse.refreshToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
@@ -67,13 +67,13 @@ describe('Refresh - usecase', () => {
 
   it('Should call refreshSuccess if nextRoute payload', async () => {
     testSaga(refreshGenerator, httpConnection, {
-      type: ILoginTypes.FETCH_REFRESH,
+      type: IAuthTypes.FETCH_REFRESH,
       payload: {
         nextRoute: IHomeStackPages.HOME,
       },
     })
       .next()
-      .select(selectAuthFromLogin)
+      .select(selectAuth)
       .next(mockResponse)
       .call([authApi, authApi.refresh], mockResponse.refreshToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
@@ -85,10 +85,10 @@ describe('Refresh - usecase', () => {
 
   it('Should call showUnknownError action if 401 from Server', () => {
     testSaga(refreshGenerator, httpConnection, {
-      type: ILoginTypes.FETCH_REFRESH,
+      type: IAuthTypes.FETCH_REFRESH,
     })
       .next()
-      .select(selectAuthFromLogin)
+      .select(selectAuth)
       .next(mockResponse)
       .call([authApi, authApi.refresh], mockResponse.refreshToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
@@ -101,10 +101,10 @@ describe('Refresh - usecase', () => {
 
   it('Should call showUnknownError action if 500 from Server', () => {
     testSaga(refreshGenerator, httpConnection, {
-      type: ILoginTypes.FETCH_REFRESH,
+      type: IAuthTypes.FETCH_REFRESH,
     })
       .next()
-      .select(selectAuthFromLogin)
+      .select(selectAuth)
       .next(mockResponse)
       .call([authApi, authApi.refresh], mockResponse.refreshToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
@@ -116,10 +116,10 @@ describe('Refresh - usecase', () => {
 
   it('Should call showUnknownError action if unknown error', () => {
     testSaga(refreshGenerator, httpConnection, {
-      type: ILoginTypes.FETCH_REFRESH,
+      type: IAuthTypes.FETCH_REFRESH,
     })
       .next()
-      .select(selectAuthFromLogin)
+      .select(selectAuth)
       .next(mockResponse)
       .call([authApi, authApi.refresh], mockResponse.refreshToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unknown error'))

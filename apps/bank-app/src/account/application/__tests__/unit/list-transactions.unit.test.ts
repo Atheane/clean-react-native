@@ -22,8 +22,8 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
-import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
-import { refreshSuccess } from '../../../../auth/application/commands/login';
+import { selectAuth } from '../../../../auth/application/state-management/selectors';
+import { refreshSuccess } from '../../../../auth/application/commands';
 
 import { selectTransactions } from '../../state-management/selectors';
 import { listTransactionsGenerator, listTransactionsSaga } from '../../usecases/transactions';
@@ -116,7 +116,7 @@ describe('ListTransactions - usecase', () => {
       .next()
       .select(selectTransactions)
       .next({ transactions: null })
-      .select(selectAuthFromLogin)
+      .select(selectAuth)
       .next(mockToken)
       .call([authApi, authApi.refresh], mockToken.refreshToken)
       .next(mockToken)
@@ -152,7 +152,7 @@ describe('ListTransactions - usecase', () => {
       .next()
       .select(selectTransactions)
       .next({ transactions: null })
-      .select(selectAuthFromLogin)
+      .select(selectAuth)
       .next(mockToken)
       .call([authApi, authApi.refresh], mockToken.refreshToken)
       .next(mockToken)
@@ -173,7 +173,7 @@ describe('ListTransactions - usecase', () => {
       .next()
       .select(selectTransactions)
       .next({ transactions: null })
-      .select(selectAuthFromLogin)
+      .select(selectAuth)
       .next(mockToken)
       .call([authApi, authApi.refresh], mockToken.refreshToken)
       .next(mockToken)

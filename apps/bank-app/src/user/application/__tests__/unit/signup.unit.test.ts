@@ -4,8 +4,8 @@ import Constants from 'expo-constants';
 import dayjs from 'dayjs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { AuthError, Email, IAuth } from '@clean-rn/auth/domain';
 import {
-  Email,
   Phone,
   IGender,
   IRegisterIdentityCommand,
@@ -13,15 +13,14 @@ import {
   IRegisterPasswordCommand,
   IRegisterBirthCommand,
   IRegisterAddressCommand,
-  AuthError,
+  UserError,
   PhoneOtp,
   User,
   IUserProperties,
-} from '@clean-rn/auth/domain';
+} from '@clean-rn/user/domain';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
-import { AuthApi, IUserSearchServerCode, UserApi } from '@clean-rn/auth/infrastructure';
-
-import { applicationInitialized } from '../../../../shared/application/commands/initialize-application';
+import { IUserSearchServerCode, UserApi } from '@clean-rn/user/infrastructure';
+import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import {
   checkEmailGenerator,
@@ -48,7 +47,7 @@ import {
 } from '../../state-management/selectors';
 
 import {
-  ISignupTypes,
+  IUserTypes,
   addressRegistered,
   birthRegistered,
   emailNotFound,
@@ -64,14 +63,19 @@ import {
 } from '../../commands';
 import { IStoreKey } from '../../../../shared/application/types';
 import { loadStorage } from '../../../../shared/application/commands/initialize-application';
-import { IAuthStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages, IUserStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
+import { loginSuccess } from '../../../../auth/application/commands';
+import { selectUser } from '../../../../auth/application/state-management/selectors';
+
+import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
+
 describe('Signup - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
-  const authApi = AuthApi.getInstance(httpConnection);
   const userApi = UserApi.getInstance(httpConnection);
+  const authApi = AuthApi.getInstance(httpConnection);
 
   const mockIdentity: IRegisterIdentityCommand = {
     gender: IGender.MAN,
@@ -118,6 +122,11 @@ describe('Signup - usecase', () => {
     success: false,
   };
 
+  const mockAuth: IAuth = {
+    accessToken: 'fake-access-token',
+    refreshToken: 'fake-refresh-token',
+  };
+
   const mockError400 = {
     statusCode: 400,
     message: 'Bad Request Exception',
@@ -143,7 +152,7 @@ describe('Signup - usecase', () => {
     const genObject = checkEmailSaga(httpConnection);
 
     expect(genObject.next().value).toEqual(
-      takeEvery(ISignupTypes.FETCH_SEARCH_EMAIL, checkEmailGenerator, httpConnection),
+      takeEvery(IUserTypes.FETCH_SEARCH_EMAIL, checkEmailGenerator, httpConnection),
     );
     expect(genObject.next().done).toBeTruthy();
   });
@@ -152,7 +161,7 @@ describe('Signup - usecase', () => {
     const genObject = registerIdentitySaga();
 
     expect(genObject.next().value).toEqual(
-      takeEvery(ISignupTypes.REGISTER_IDENTITY, registerIdentityGenerator),
+      takeEvery(IUserTypes.REGISTER_IDENTITY, registerIdentityGenerator),
     );
     expect(genObject.next().done).toBeTruthy();
   });
@@ -161,7 +170,7 @@ describe('Signup - usecase', () => {
     const genObject = registerPasswordSaga();
 
     expect(genObject.next().value).toEqual(
-      takeEvery(ISignupTypes.REGISTER_PASSWORD, registerPasswordGenerator),
+      takeEvery(IUserTypes.REGISTER_PASSWORD, registerPasswordGenerator),
     );
     expect(genObject.next().done).toBeTruthy();
   });
@@ -170,7 +179,7 @@ describe('Signup - usecase', () => {
     const genObject = checkPhoneSaga(httpConnection);
 
     expect(genObject.next().value).toEqual(
-      takeEvery(ISignupTypes.FETCH_SEARCH_PHONE, checkPhoneGenerator, httpConnection),
+      takeEvery(IUserTypes.FETCH_SEARCH_PHONE, checkPhoneGenerator, httpConnection),
     );
     expect(genObject.next().done).toBeTruthy();
   });
@@ -179,7 +188,7 @@ describe('Signup - usecase', () => {
     const genObject = validatePhoneSaga(httpConnection);
 
     expect(genObject.next().value).toEqual(
-      takeEvery(ISignupTypes.FETCH_VALIDATE_PHONE, validatePhoneGenerator, httpConnection),
+      takeEvery(IUserTypes.FETCH_VALIDATE_PHONE, validatePhoneGenerator, httpConnection),
     );
     expect(genObject.next().done).toBeTruthy();
   });
@@ -187,16 +196,14 @@ describe('Signup - usecase', () => {
   it('should wait for REGISTER_BIRTH action and call registerBirthGenerator, should be done on next iteration', () => {
     const genObject = registerBirthSaga();
 
-    expect(genObject.next().value).toEqual(takeEvery(ISignupTypes.REGISTER_BIRTH, registerBirthGenerator));
+    expect(genObject.next().value).toEqual(takeEvery(IUserTypes.REGISTER_BIRTH, registerBirthGenerator));
     expect(genObject.next().done).toBeTruthy();
   });
 
   it('should wait for REGISTER_ADDRESS action and call registerAddressGenerator, should be done on next iteration', () => {
     const genObject = registerAddressSaga();
 
-    expect(genObject.next().value).toEqual(
-      takeEvery(ISignupTypes.REGISTER_ADDRESS, registerAddressGenerator),
-    );
+    expect(genObject.next().value).toEqual(takeEvery(IUserTypes.REGISTER_ADDRESS, registerAddressGenerator));
     expect(genObject.next().done).toBeTruthy();
   });
 
@@ -204,7 +211,7 @@ describe('Signup - usecase', () => {
     const genObject = signupUserSaga(httpConnection);
 
     expect(genObject.next().value).toEqual(
-      takeEvery(ISignupTypes.FETCH_SIGNUP_USER, signupUserGenerator, httpConnection),
+      takeEvery(IUserTypes.FETCH_SIGNUP_USER, signupUserGenerator, httpConnection),
     );
     expect(genObject.next().done).toBeTruthy();
   });
@@ -215,11 +222,11 @@ describe('Signup - usecase', () => {
     };
 
     testSaga(checkEmailGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_SEARCH_EMAIL,
+      type: IUserTypes.FETCH_SEARCH_EMAIL,
       payload: mockQueryEmail,
     })
       .next()
-      .call([authApi, authApi.searchEmail], mockQueryEmail)
+      .call([userApi, userApi.searchEmail], mockQueryEmail)
       .next(IUserSearchServerCode.NOT_FOUND)
       .put(emailNotFound())
       .next();
@@ -227,13 +234,13 @@ describe('Signup - usecase', () => {
 
   it('should throw SignupFailureEmailExists if email exists', () => {
     testSaga(checkEmailGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_SEARCH_EMAIL,
+      type: IUserTypes.FETCH_SEARCH_EMAIL,
       payload: mockQueryEmail,
     })
       .next()
-      .call([authApi, authApi.searchEmail], mockQueryEmail)
+      .call([userApi, userApi.searchEmail], mockQueryEmail)
       .next(IUserSearchServerCode.EMAIL_EXISTS)
-      .put(signupFailed(new AuthError.SignupFailureEmailExists()))
+      .put(signupFailed(new UserError.SignupFailureEmailExists()))
       .next()
       .call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, mockQueryEmail.email.value)
       .next(mockQueryEmail.email.value)
@@ -245,29 +252,29 @@ describe('Signup - usecase', () => {
 
   it('should throw SignupFailureEmailExists if email exists in old database', () => {
     testSaga(checkEmailGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_SEARCH_EMAIL,
+      type: IUserTypes.FETCH_SEARCH_EMAIL,
       payload: mockQueryEmail,
     })
       .next()
-      .call([authApi, authApi.searchEmail], mockQueryEmail)
+      .call([userApi, userApi.searchEmail], mockQueryEmail)
       .next(IUserSearchServerCode.KELVIN_USER)
-      .put(signupFailed(new AuthError.SignupFailureEmailExists()))
+      .put(signupFailed(new UserError.SignupFailureEmailExists()))
       .next()
       .call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, mockQueryEmail.email.value)
       .next(mockQueryEmail.email.value)
       .put(loadStorage())
       .next(mockQueryEmail.email)
-      .call(navigate, { route: IAuthStackPages.EMAIL_SENT })
+      .call(navigate, { route: IUserStackPages.EMAIL_SENT })
       .next();
   });
 
   it('Should call showUnknownError action if 500 when fetchSearchEmail', () => {
     testSaga(checkEmailGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_SEARCH_EMAIL,
+      type: IUserTypes.FETCH_SEARCH_EMAIL,
       payload: mockQueryEmail,
     })
       .next()
-      .call([authApi, authApi.searchEmail], mockQueryEmail)
+      .call([userApi, userApi.searchEmail], mockQueryEmail)
       .next()
       .throw(new ServerError(mockError500))
       .put(initializeSignupStep())
@@ -281,7 +288,7 @@ describe('Signup - usecase', () => {
     user.registerIdentity(mockIdentity);
 
     testSaga(registerIdentityGenerator, {
-      type: ISignupTypes.REGISTER_IDENTITY,
+      type: IUserTypes.REGISTER_IDENTITY,
       payload: { email: new Email('test@example.com'), ...mockIdentity },
     })
       .next()
@@ -294,7 +301,7 @@ describe('Signup - usecase', () => {
     user.registerIdentity(mockIdentity);
 
     testSaga(registerIdentityGenerator, {
-      type: ISignupTypes.REGISTER_IDENTITY,
+      type: IUserTypes.REGISTER_IDENTITY,
       payload: { email: new Email('test@example.com'), ...mockIdentity },
     })
       .next()
@@ -310,7 +317,7 @@ describe('Signup - usecase', () => {
     const user = User.CreateFromEmail(new Email('test@example.com'));
     user.registerPassword(mockPassword.password);
     testSaga(registerPasswordGenerator, {
-      type: ISignupTypes.REGISTER_PASSWORD,
+      type: IUserTypes.REGISTER_PASSWORD,
       payload: mockPassword,
     })
       .next()
@@ -334,7 +341,7 @@ describe('Signup - usecase', () => {
     const user = User.CreateFromEmail(new Email('test@example.com'));
     user.registerPassword(mockPassword.password);
     testSaga(registerPasswordGenerator, {
-      type: ISignupTypes.REGISTER_PASSWORD,
+      type: IUserTypes.REGISTER_PASSWORD,
       payload: mockPassword,
     })
       .next()
@@ -370,7 +377,7 @@ describe('Signup - usecase', () => {
     const user = User.CreateFromEmail(new Email('test@example.com'));
     user.registerPassword(mockPassword.password);
     testSaga(registerPasswordGenerator, {
-      type: ISignupTypes.REGISTER_PASSWORD,
+      type: IUserTypes.REGISTER_PASSWORD,
       payload: mockPassword,
     })
       .next()
@@ -384,15 +391,15 @@ describe('Signup - usecase', () => {
   it('should call phoneCodeSent if signup flow and phone not found', () => {
     const user = User.CreateFromEmail(new Email('test@example.com'));
     testSaga(checkPhoneGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_SEARCH_PHONE,
+      type: IUserTypes.FETCH_SEARCH_PHONE,
       payload: mockQueryPhone,
     })
       .next()
-      .call([authApi, authApi.searchPhone], mockQueryPhone)
+      .call([userApi, userApi.searchPhone], mockQueryPhone)
       .next(IUserSearchServerCode.NOT_FOUND)
       .select(selectUserFromSignup)
       .next(user)
-      .call([authApi, authApi.sendPhoneValidation], mockQueryPhone)
+      .call([userApi, userApi.sendPhoneValidation], mockQueryPhone)
       .next(mockSuccessTrue)
       .put(phoneCodeSent())
       .next();
@@ -402,43 +409,43 @@ describe('Signup - usecase', () => {
     const user = User.CreateFromEmail(new Email('test@example.com'));
 
     testSaga(checkPhoneGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_SEARCH_PHONE,
+      type: IUserTypes.FETCH_SEARCH_PHONE,
       payload: mockQueryPhone,
     })
       .next()
-      .call([authApi, authApi.searchPhone], mockQueryPhone)
+      .call([userApi, userApi.searchPhone], mockQueryPhone)
       .next(IUserSearchServerCode.PHONE_EXISTS)
       .select(selectUserFromSignup)
       .next(user)
-      .put(signupFailed(new AuthError.SignupFailurePhoneExists()))
+      .put(signupFailed(new UserError.SignupFailurePhoneExists()))
       .next()
       .cancel();
   });
 
   it('should call signupFailed action if signup flow phone receive 400 from back-end', () => {
     testSaga(checkPhoneGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_SEARCH_PHONE,
+      type: IUserTypes.FETCH_SEARCH_PHONE,
       payload: mockQueryPhone,
     })
       .next()
-      .call([authApi, authApi.searchPhone], mockQueryPhone)
+      .call([userApi, userApi.searchPhone], mockQueryPhone)
       .throw(new ServerError(mockError400))
-      .put(signupFailed(new AuthError.InvalidPhone()))
+      .put(signupFailed(new UserError.InvalidPhone()))
       .next()
       .cancel();
   });
 
   it('should call phoneCodeSent action if migration flow phone exists', () => {
     testSaga(checkPhoneGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_SEARCH_PHONE,
+      type: IUserTypes.FETCH_SEARCH_PHONE,
       payload: mockQueryPhone,
     })
       .next()
-      .call([authApi, authApi.searchPhone], mockQueryPhone)
+      .call([userApi, userApi.searchPhone], mockQueryPhone)
       .next(IUserSearchServerCode.PHONE_EXISTS)
       .select(selectUserFromSignup)
       .next(null)
-      .call([authApi, authApi.sendPhoneValidation], mockQueryPhone)
+      .call([userApi, userApi.sendPhoneValidation], mockQueryPhone)
       .next(mockSuccessTrue)
       .put(phoneCodeSent())
       .next();
@@ -446,26 +453,26 @@ describe('Signup - usecase', () => {
 
   it('should call phoneNotFound action if migration flow phone not found', () => {
     testSaga(checkPhoneGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_SEARCH_PHONE,
+      type: IUserTypes.FETCH_SEARCH_PHONE,
       payload: mockQueryPhone,
     })
       .next()
-      .call([authApi, authApi.searchPhone], mockQueryPhone)
+      .call([userApi, userApi.searchPhone], mockQueryPhone)
       .next(IUserSearchServerCode.NOT_FOUND)
       .select(selectUserFromSignup)
       .next(null)
-      .put(phoneNotFound(new AuthError.ValidatePhoneFailurePhoneNotFound()))
+      .put(phoneNotFound(new UserError.ValidatePhoneFailurePhoneNotFound()))
       .next()
       .cancel();
   });
 
   it('Should call showUnknownError action if 500 when fetchSearchPhone', () => {
     testSaga(checkPhoneGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_SEARCH_PHONE,
+      type: IUserTypes.FETCH_SEARCH_PHONE,
       payload: mockQueryPhone,
     })
       .next()
-      .call([authApi, authApi.searchPhone], mockQueryPhone)
+      .call([userApi, userApi.searchPhone], mockQueryPhone)
       .next()
       .throw(new ServerError(mockError500))
       .put(initializeSignupStep())
@@ -481,11 +488,11 @@ describe('Signup - usecase', () => {
     user.validatePhone(mockQueryPhoneOtp);
 
     testSaga(validatePhoneGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_VALIDATE_PHONE,
+      type: IUserTypes.FETCH_VALIDATE_PHONE,
       payload: mockQueryPhoneOtp,
     })
       .next(mockQueryPhoneOtp)
-      .call([authApi, authApi.checkPhoneValidation], mockQueryPhoneOtp)
+      .call([userApi, userApi.checkPhoneValidation], mockQueryPhoneOtp)
       .next(mockSuccessTrue)
       .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
         expect(yieldedValue.type).toEqual('SELECT');
@@ -501,20 +508,20 @@ describe('Signup - usecase', () => {
       .next(userPrev)
       .put(phoneValidated(user))
       .next()
-      .call(navigate, { route: IAuthStackPages.SIGNUP_BIRTH })
+      .call(navigate, { route: IUserStackPages.SIGNUP_BIRTH })
       .next();
   });
 
-  it('should call phoneValidated is user not in store', () => {
+  it('login -> check phone flow: should call phoneValidated is user not in store', () => {
     const user = User.CreateFromEmail(new Email('test@example.com'));
     user.validatePhone(mockQueryPhoneOtp);
 
     testSaga(validatePhoneGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_VALIDATE_PHONE,
+      type: IUserTypes.FETCH_VALIDATE_PHONE,
       payload: mockQueryPhoneOtp,
     })
       .next()
-      .call([authApi, authApi.checkPhoneValidation], mockQueryPhoneOtp)
+      .call([userApi, userApi.checkPhoneValidation], mockQueryPhoneOtp)
       .next(mockSuccessTrue)
       .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
         expect(yieldedValue.type).toEqual('SELECT');
@@ -530,7 +537,7 @@ describe('Signup - usecase', () => {
       .next(null)
       .put(phoneValidated(null))
       .next()
-      .call(navigate, { route: IAuthStackPages.SIGNUP_CONGRATS })
+      .call(navigate, { route: IUserStackPages.SIGNUP_CONGRATS })
       .next()
       .cancel();
   });
@@ -540,13 +547,13 @@ describe('Signup - usecase', () => {
     user.validatePhone(mockQueryPhoneOtp);
 
     testSaga(validatePhoneGenerator, httpConnection, {
-      type: ISignupTypes.SIGNUP_FAILED,
+      type: IUserTypes.SIGNUP_FAILED,
       payload: mockQueryPhoneOtp,
     })
       .next()
-      .call([authApi, authApi.checkPhoneValidation], mockQueryPhoneOtp)
+      .call([userApi, userApi.checkPhoneValidation], mockQueryPhoneOtp)
       .next(mockSuccessFalse)
-      .put(signupFailed(new AuthError.ValidatePhoneIncorrectPhoneCode()))
+      .put(signupFailed(new UserError.ValidatePhoneIncorrectPhoneCode()))
       .next()
       .cancel();
   });
@@ -556,7 +563,7 @@ describe('Signup - usecase', () => {
     user.validatePhone(mockQueryPhoneOtp);
 
     testSaga(validatePhoneGenerator, httpConnection, {
-      type: ISignupTypes.SIGNUP_FAILED,
+      type: IUserTypes.SIGNUP_FAILED,
       payload: mockQueryPhoneOtp,
     })
       .next()
@@ -573,7 +580,7 @@ describe('Signup - usecase', () => {
     user.registerBirth(mockBirth);
 
     testSaga(registerBirthGenerator, {
-      type: ISignupTypes.REGISTER_BIRTH,
+      type: IUserTypes.REGISTER_BIRTH,
       payload: mockBirth,
     })
       .next()
@@ -591,7 +598,7 @@ describe('Signup - usecase', () => {
       .next(userPrev)
       .put(birthRegistered(user))
       .next()
-      .call(navigate, { route: IAuthStackPages.SIGNUP_ADDRESS })
+      .call(navigate, { route: IUserStackPages.SIGNUP_ADDRESS })
       .next();
   });
 
@@ -600,7 +607,7 @@ describe('Signup - usecase', () => {
     user.registerBirth(mockBirth);
 
     testSaga(registerBirthGenerator, {
-      type: ISignupTypes.REGISTER_BIRTH,
+      type: IUserTypes.REGISTER_BIRTH,
       payload: mockBirth,
     })
       .next()
@@ -637,7 +644,7 @@ describe('Signup - usecase', () => {
     user.registerBirth(mockBirth);
 
     testSaga(registerBirthGenerator, {
-      type: ISignupTypes.REGISTER_BIRTH,
+      type: IUserTypes.REGISTER_BIRTH,
       payload: mockBirth,
     })
       .next()
@@ -654,7 +661,7 @@ describe('Signup - usecase', () => {
     user.registerAddress(mockAddress);
 
     testSaga(registerAddressGenerator, {
-      type: ISignupTypes.REGISTER_ADDRESS,
+      type: IUserTypes.REGISTER_ADDRESS,
       payload: mockAddress,
     })
       .next()
@@ -693,7 +700,7 @@ describe('Signup - usecase', () => {
     user.registerAddress(mockAddress);
 
     testSaga(registerAddressGenerator, {
-      type: ISignupTypes.REGISTER_ADDRESS,
+      type: IUserTypes.REGISTER_ADDRESS,
       payload: { user, ...mockAddress },
     })
       .next()
@@ -743,7 +750,7 @@ describe('Signup - usecase', () => {
     const user = User.CreateFromEmail(new Email('test@example.com'));
 
     testSaga(registerAddressGenerator, {
-      type: ISignupTypes.REGISTER_ADDRESS,
+      type: IUserTypes.REGISTER_ADDRESS,
       payload: { user, ...mockAddress },
     })
       .next()
@@ -767,7 +774,7 @@ describe('Signup - usecase', () => {
     user.signup({ id: uid, properties: user.properties as IUserProperties });
 
     testSaga(signupUserGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_SIGNUP_USER,
+      type: IUserTypes.FETCH_SIGNUP_USER,
       payload: {
         user: userPrev,
         phoneOtp: mockQueryPhoneOtp.phoneOtp,
@@ -775,45 +782,70 @@ describe('Signup - usecase', () => {
     })
       .next()
       .call([userApi, userApi.createUser], { ...userPrev.properties, phoneOtp: mockQueryPhoneOtp.phoneOtp })
-      .next({ uid })
+      .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next('test@example.com')
+      .call([authApi, authApi.login], {
+        email: userPrev.properties.email,
+        password: userPrev.properties.password,
+      })
+      .next(mockAuth)
+      .call(httpConnection.attachBearerToken, mockAuth.accessToken)
+      .next()
+      .call([userApi, userApi.getUser])
+      .next(user)
+      .put(loginSuccess({ auth: mockAuth, user }))
+      .next()
+      .put(checkCustomerStatus())
+      .next()
+      .select(selectUser)
+      .next(user)
       .put(userSignedUp(user))
       .next(user)
-      .call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, user.properties.email?.value)
-      .next(userPrev.properties.email?.value)
-      .put(
-        applicationInitialized({
-          email: user.properties.email ?? null,
-          initRouteName: IAuthStackPages.SIGNUP_CONGRATS,
-          carbon: {
-            house: {
-              footprint: null,
-              average: null,
-            },
-            transport: {
-              footprint: null,
-              average: null,
-            },
-            food: {
-              footprint: null,
-              average: null,
-            },
-            fly: {
-              footprint: null,
-              average: null,
-            },
-          },
-        }),
-      )
+      .call(navigate, { route: IUserStackPages.SIGNUP_CONGRATS })
+      .next();
+  });
+
+  it('Should call InvalidPassword action if missing password', () => {
+    const userPrev = User.CreateFromEmail(new Email('test@example.com'));
+
+    testSaga(signupUserGenerator, httpConnection, {
+      type: IUserTypes.FETCH_SIGNUP_USER,
+      payload: {
+        user: userPrev,
+        phoneOtp: mockQueryPhoneOtp.phoneOtp,
+      },
+    })
       .next()
-      .call(navigate, { route: IAuthStackPages.SIGNUP_CONGRATS })
+      .put(initializeSignupStep())
+      .next()
+      .put(showUnknownError(new AuthError.InvalidPassword()))
+      .next();
+  });
+
+  it('Should call InvalidEmailaction if missing email', () => {
+    const userPrev = User.Create({ id: 123, properties: {} });
+
+    testSaga(signupUserGenerator, httpConnection, {
+      type: IUserTypes.FETCH_SIGNUP_USER,
+      payload: {
+        user: userPrev,
+        phoneOtp: mockQueryPhoneOtp.phoneOtp,
+      },
+    })
+      .next()
+      .put(initializeSignupStep())
+      .next()
+      .put(showUnknownError(new AuthError.InvalidEmail()))
       .next();
   });
 
   it('Should call showUnknownError action if 500', () => {
     const userPrev = User.CreateFromEmail(new Email('test@example.com'));
+    userPrev.registerPassword(mockPassword.password);
 
     testSaga(signupUserGenerator, httpConnection, {
-      type: ISignupTypes.FETCH_SIGNUP_USER,
+      type: IUserTypes.FETCH_SIGNUP_USER,
       payload: {
         user: userPrev,
         phoneOtp: mockQueryPhoneOtp.phoneOtp,

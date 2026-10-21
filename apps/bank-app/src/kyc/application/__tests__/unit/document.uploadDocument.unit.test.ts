@@ -4,7 +4,7 @@ import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 import { createMockTask } from '@redux-saga/testing-utils';
 
-import { User } from '@clean-rn/auth/domain';
+import { User } from '@clean-rn/user/domain';
 import {
   Customer,
   DocumentError,
@@ -24,13 +24,13 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 
-import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
-import { refreshSuccess } from '../../../../auth/application/commands/login';
+import { selectAuth, selectUser } from '../../../../auth/application/state-management/selectors';
+import { refreshSuccess } from '../../../../auth/application/commands';
 
 import { uploadDocumentSaga, uploadDocumentSagaGenerator } from '../../usecases/document';
 import { customerDocumentsUpdated } from '../../commands/customer';
 import { IDocumentTypes, documentUploaded, resetDocument, setAbortController } from '../../commands/document';
-import { selectCustomer, selectUserFromLogin } from '../../state-management/selectors';
+import { selectCustomer } from '../../state-management/selectors';
 
 describe('Document - uploadDocument - usecases', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -116,9 +116,9 @@ describe('Document - uploadDocument - usecases', () => {
       },
     })
       .next()
-      .select(selectUserFromLogin)
+      .select(selectUser)
       .next(user)
-      .select(selectAuthFromLogin)
+      .select(selectAuth)
       .next(mockToken)
       .call([authApi, authApi.refresh], mockToken.refreshToken)
       .next(mockToken)
@@ -176,9 +176,9 @@ describe('Document - uploadDocument - usecases', () => {
       },
     })
       .next()
-      .select(selectUserFromLogin)
+      .select(selectUser)
       .next(user)
-      .select(selectAuthFromLogin)
+      .select(selectAuth)
       .next(mockToken)
       .call([authApi, authApi.refresh], mockToken.refreshToken)
       .next(mockToken)
@@ -212,9 +212,9 @@ describe('Document - uploadDocument - usecases', () => {
       },
     })
       .next()
-      .select(selectUserFromLogin)
+      .select(selectUser)
       .next(user)
-      .select(selectAuthFromLogin)
+      .select(selectAuth)
       .next(mockToken)
       .call([authApi, authApi.refresh], mockToken.refreshToken)
       .next(mockToken)
@@ -248,9 +248,9 @@ describe('Document - uploadDocument - usecases', () => {
       },
     })
       .next()
-      .select(selectUserFromLogin)
+      .select(selectUser)
       .next(user)
-      .select(selectAuthFromLogin)
+      .select(selectAuth)
       .next(mockToken)
       .call([authApi, authApi.refresh], mockToken.refreshToken)
       .next(mockToken)
@@ -283,9 +283,9 @@ describe('Document - uploadDocument - usecases', () => {
       },
     })
       .next()
-      .select(selectUserFromLogin)
+      .select(selectUser)
       .next(user)
-      .select(selectAuthFromLogin)
+      .select(selectAuth)
       .next(mockToken)
       .call([authApi, authApi.refresh], mockToken.refreshToken)
       .next(mockToken)

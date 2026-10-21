@@ -4,7 +4,7 @@ import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 import dayjs from 'dayjs';
 
-import { UserApi } from '@clean-rn/auth/infrastructure';
+import { UserApi } from '@clean-rn/user/infrastructure';
 import {
   Customer,
   IDocumentProperties,
@@ -16,7 +16,8 @@ import {
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { KycApi } from '@clean-rn/kyc/infrastructure';
-import { BirthDay, Email, User, Phone, IGender, Country, KYC_REVIEW } from '@clean-rn/auth/domain';
+import { BirthDay, User, Phone, IGender, Country, KYC_REVIEW } from '@clean-rn/user/domain';
+import { Email } from '@clean-rn/auth/domain';
 
 import { IAuthStackPages, IKycStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
@@ -24,11 +25,11 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 
 import { checkCustomerStatusGenerator, checkCustomerStatusSaga } from '../../usecases/customer';
 import { ICustomerTypes, customerStatusChecked, initializeKyc } from '../../commands/customer';
+import { selectUser } from '../../../../auth/application/state-management/selectors';
 
 describe('KYC - CheckCustomerStatus - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
 
-  const userApi = UserApi.getInstance(httpConnection);
   const kycApi = KycApi.getInstance(httpConnection);
   const genObject = checkCustomerStatusSaga(httpConnection);
   const user = User.Create({
@@ -177,7 +178,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
     customer.checkDocumentsStatus([]);
     testSaga(checkCustomerStatusGenerator, httpConnection)
       .next()
-      .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .select(selectUser) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next([])
@@ -199,7 +200,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
     customer.checkDocumentsStatus(mockResponseIncomplete);
     testSaga(checkCustomerStatusGenerator, httpConnection)
       .next()
-      .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .select(selectUser) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponseIncomplete)
@@ -221,7 +222,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
     customer.checkDocumentsStatus(mockResponsePending);
     testSaga(checkCustomerStatusGenerator, httpConnection)
       .next()
-      .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .select(selectUser) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponsePending)
@@ -243,7 +244,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
     customer.checkDocumentsStatus(mockResponseDocumentsValidated);
     testSaga(checkCustomerStatusGenerator, httpConnection)
       .next()
-      .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .select(selectUser) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponseDocumentsValidated)
@@ -265,7 +266,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
     customer.checkDocumentsStatus(mockResponseRefused);
     testSaga(checkCustomerStatusGenerator, httpConnection)
       .next()
-      .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .select(selectUser) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponseRefused)
@@ -291,7 +292,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
 
     testSaga(checkCustomerStatusGenerator, httpConnection)
       .next()
-      .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .select(selectUser) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)
       .put(
         customerStatusChecked({
@@ -318,7 +319,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
 
     testSaga(checkCustomerStatusGenerator, httpConnection)
       .next()
-      .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .select(selectUser) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponsePending)
@@ -336,7 +337,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
 
     testSaga(checkCustomerStatusGenerator, httpConnection)
       .next()
-      .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .select(selectUser) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
@@ -350,7 +351,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
 
     testSaga(checkCustomerStatusGenerator, httpConnection)
       .next()
-      .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .select(selectUser) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
@@ -365,7 +366,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
 
     testSaga(checkCustomerStatusGenerator, httpConnection)
       .next()
-      .call([userApi, userApi.getUser]) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .select(selectUser) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unknown error'))
