@@ -4,10 +4,6 @@ import { call, put, StrictEffect, takeEvery, select, cancel } from 'redux-saga/e
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { IAccount } from '@clean-rn/account/domain';
 import { AccountApi } from '@clean-rn/account/infrastructure';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
-
-import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
-import { refreshSuccess } from '../../../../auth/application/commands/login';
 
 import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
@@ -29,11 +25,6 @@ export function* listAccountsGenerator(httpConnection: HttpConnection): Generato
       yield put(accountsListed(accounts));
       yield call(navigate, { route: IHomeStackPages.ACCOUNTS });
     } else {
-      const authApi = AuthApi.getInstance(httpConnection);
-      const authFromStore = yield select(selectAuthFromLogin);
-      const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
-      yield put(refreshSuccess({ auth }));
-
       const api = AccountApi.getInstance(httpConnection);
       const accounts: IAccount[] = yield call([api, api.getAccounts]);
 

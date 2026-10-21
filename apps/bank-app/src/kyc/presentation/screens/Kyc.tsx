@@ -126,9 +126,9 @@ export const Kyc = () => {
   );
 
   const KycRefused = () => (
-    <View style={[styles.messageContainer, { marginTop: 80 }]}>
+    <View style={[styles.messageContainer, { marginTop: 50 }]}>
       <Text style={[styles.title, theme.bank.text.darkBlue]}>{t('screens.kyc.menu.title')}</Text>
-      <Text style={[theme.bank.text.errors, styles.errorMessage]}>
+      <Text style={[theme.bank.text.errors, styles.errorMessage, { lineHeight: 15, fontSize: 12 }]}>
         {`${t('errors.domain-error.kyc.KYC_REFUSED')}. \n\n`}
         {customer?.properties.kycReviewComment
           ? `${renderLabel(customer.properties.kycReviewComment)}. \n\n`

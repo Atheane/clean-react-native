@@ -159,7 +159,7 @@ export const theme = createTheme({
     text: {
       banner: {
         color: Colors.bank.primary.white,
-        fontSize: 18,
+        fontSize: 16,
         fontFamily: FontNames.MartelSans_700Bold,
         fontWeight: '700',
       },
@@ -170,10 +170,11 @@ export const theme = createTheme({
         lineHeight: 19,
       },
       button: {
-        lineHeight: 24,
-        fontSize: 18,
+        lineHeight: 20,
+        fontSize: 16,
         fontFamily: FontNames.Roboto_700Bold,
         textTransform: 'none',
+        paddingLeft: 12,
       },
       label: {
         textTransform: 'uppercase',
@@ -184,7 +185,7 @@ export const theme = createTheme({
       },
       kpi: {
         fontFamily: FontNames.Roboto_700Bold,
-        fontSize: 36,
+        fontSize: 30,
         color: Colors.bank.primary.darkBlue,
         lineHeight: 48,
         marginLeft: 8,
@@ -196,7 +197,7 @@ export const theme = createTheme({
       },
       legend: {
         fontFamily: FontNames.Roboto_400Regular,
-        fontSize: 11,
+        fontSize: 10,
         color: Colors.bank.primary.grey,
         lineHeight: 15,
         marginTop: 16,

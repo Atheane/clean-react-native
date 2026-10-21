@@ -121,7 +121,6 @@ export const Home = () => {
   useEffect(() => {
     checkVersion().then((version) => {
       if (version?.needsUpdate) {
-        console.log(`||||||||||||||||| App has a ${version.updateType} update pending.`);
         setAppNeedUpdate(version.needsUpdate);
       }
     });

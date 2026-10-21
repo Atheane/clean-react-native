@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import messaging from '@react-native-firebase/messaging';
-import { Logger } from '@clean-rn/logger';
 
 export const useNotification = () => {
   const [notificationEnabled, setNotificationEnabled] = useState<boolean>();
@@ -21,7 +20,6 @@ export const useNotification = () => {
       messaging()
         .getToken()
         .then((token: string) => {
-          Logger.getInstance().info('>>>>>>>>>> Firebase device id >>>>>>>>>>>>>>>>>>>>>>', token);
           setFirebaseToken(token);
         });
     }

@@ -1,18 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { call, put, StrictEffect, takeEvery, cancel, select } from 'redux-saga/effects';
+import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { Customer, IDocumentProperties } from '@clean-rn/kyc/domain';
 import { KycApi } from '@clean-rn/kyc/infrastructure';
-import { AuthApi, UserApi } from '@clean-rn/auth/infrastructure';
+import { UserApi } from '@clean-rn/auth/infrastructure';
 import { KYC_REVIEW } from '@clean-rn/auth/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-
-import { refreshSuccess } from '../../../../auth/application/commands/login';
 
 import { customerStatusChecked, initializeKyc, ICustomerTypes } from '../../commands/customer';
 
@@ -24,11 +21,6 @@ export function* checkCustomerStatusGenerator(
   httpConnection: HttpConnection,
 ): Generator<StrictEffect, any, any> {
   try {
-    const authApi = AuthApi.getInstance(httpConnection);
-    const authFromStore = yield select(selectAuthFromLogin);
-    const refreshedAuth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
-    yield put(refreshSuccess({ auth: refreshedAuth }));
-
     const userApi = UserApi.getInstance(httpConnection);
     const user = yield call([userApi, userApi.getUser]);
     const customerStatus = user.properties.kycReview;
@@ -41,8 +33,6 @@ export function* checkCustomerStatusGenerator(
       yield cancel();
     }
 
-    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
-    yield put(refreshSuccess({ auth }));
     const api = KycApi.getInstance(httpConnection);
     const documents: IDocumentProperties[] = yield call([api, api.getDocuments]);
     const customer = Customer.Create({

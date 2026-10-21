@@ -85,7 +85,9 @@ export const UploadDocumentCard = (props: IProps) => {
       </TouchableOpacity>
       {props.errorMessage && !props.loading && (
         <View style={styles.errorMessageContainer}>
-          <Text style={[theme.bank.text.errors, styles.errorMessage]}>{props.errorMessage}</Text>
+          <Text style={[theme.bank.text.errors, styles.errorMessage, { fontSize: 12, lineHeight: 16 }]}>
+            {props.errorMessage}
+          </Text>
         </View>
       )}
     </View>
@@ -112,7 +114,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 24,
     fontFamily: FontNames.Roboto_400Regular,
-    fontSize: 16,
+    fontSize: 12,
   },
   leftIconContainer: {
     position: 'absolute',
@@ -139,7 +141,7 @@ const styles = StyleSheet.create({
     left: '8%',
   },
   errorMessageContainer: {
-    marginBottom: 24,
+    marginBottom: 0,
     marginLeft: 24,
     width: '90%',
   },

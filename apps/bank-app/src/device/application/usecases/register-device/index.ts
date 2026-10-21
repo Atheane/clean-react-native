@@ -41,14 +41,6 @@ export function* registerDeviceGenerator(
 ): Generator<StrictEffect, any, any> {
   try {
     const user = yield select(selectUserFromLogin);
-    const deviceId = yield call(AsyncStorage.getItem, IStoreKey.DEVICE_ID);
-    Logger.getInstance().info('deviceId', deviceId);
-
-    // refreshToken
-    const authApi = AuthApi.getInstance(httpConnection);
-    const authFromStore = yield select(selectAuthFromLogin);
-    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
-    yield put(refreshSuccess({ auth }));
 
     // call app/device POST endpoint
     const deviceApi = DeviceApi.getInstance(httpConnection);
@@ -56,7 +48,7 @@ export function* registerDeviceGenerator(
       ...payload,
       userId: parseInt(user.id),
     });
-    yield call(AsyncStorage.setItem, IStoreKey.DEVICE_ID, device.id);
+
     yield put(deviceRegistered(device));
   } catch (error: unknown) {
     yield put(initializeDevice());

@@ -12,13 +12,7 @@ export const TouchCardText: FC<IProps> = (props: IProps) => {
 
   return (
     <TouchableOpacity onPress={props.onPress} style={[theme.bank.shadow.card, theme.bank.container.card.kpi]}>
-      <Text
-        style={[
-          styles.textContainer,
-          theme.bank.text.darkBlue,
-          props.text.length > 30 ? { fontSize: 13 } : {},
-        ]}
-      >
+      <Text style={[styles.textContainer, theme.bank.text.darkBlue, { fontSize: 13, lineHeight: 15 }]}>
         {props.text}
       </Text>
     </TouchableOpacity>

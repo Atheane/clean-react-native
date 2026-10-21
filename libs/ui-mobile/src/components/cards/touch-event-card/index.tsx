@@ -36,7 +36,9 @@ export const TouchEventCard = (props: IProps) => {
       >
         <View style={styles.subContainer}>
           <Image style={styles.image} source={props.image} />
-          <Text style={[styles.text, theme.bank.text.grey]}>{props.text}</Text>
+          <Text style={[styles.text, theme.bank.text.grey, { fontSize: 12, lineHeight: 14, paddingTop: 8 }]}>
+            {props.text}
+          </Text>
         </View>
       </TouchableOpacity>
       {props.onDelete && (
@@ -61,6 +63,7 @@ const styles = StyleSheet.create({
     left: -10,
     width: 80,
     height: 80,
+    marginBottom: -30,
   },
   deleteCross: {
     position: 'absolute',
@@ -68,8 +71,7 @@ const styles = StyleSheet.create({
     right: 20,
   },
   text: {
-    top: -16,
+    top: 10,
     left: 6,
-    lineHeight: 18,
   },
 });
