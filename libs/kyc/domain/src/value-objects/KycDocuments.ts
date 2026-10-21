@@ -78,13 +78,17 @@ export class KycDocuments {
   }
 
   get isComplete(): boolean {
-    const requiredDocs = Object.values(this.documents).filter((doc) => doc !== undefined);
+    const requiredDocs = Object.values(this.documents).filter(
+      (doc) =>
+        (doc !== undefined && doc?.properties.status === IDocumentStatus.PENDING) ||
+        doc?.properties.status === IDocumentStatus.VALIDATED,
+    );
     return requiredDocs.length === this.expectedDocumentCount;
   }
 
   get isValid(): boolean {
     const requiredDocs = Object.values(this.documents).filter(
-      (doc) => doc?.properties.status !== IDocumentStatus.VALIDATED,
+      (doc) => doc?.properties.status === IDocumentStatus.VALIDATED,
     );
     return requiredDocs.length === this.expectedDocumentCount;
   }

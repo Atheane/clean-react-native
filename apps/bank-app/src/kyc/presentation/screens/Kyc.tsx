@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@rneui/themed';
 import { useTranslation } from 'react-i18next';
 
+import { KYC_REVIEW } from '@clean-rn/auth/domain';
 import {
   IDocumentType,
   IDocumentCategory,
@@ -28,7 +29,6 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { initializeDocument, cancelUpload } from '../../application/commands/document';
 
 import { W9, SwornStatement, PendingKyc } from '../assets/images';
-import { KYC_REVIEW } from '@clean-rn/auth/domain';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -138,6 +138,13 @@ export const Kyc = () => {
     </View>
   );
 
+  const hasErrorMessage = (documentCategory: IDocumentCategory) => {
+    return (
+      submittedKyc?.documents[documentCategory]?.properties.status === IDocumentStatus.REFUSED &&
+      !!submittedKyc?.documents[documentCategory]?.properties.statusCode
+    );
+  };
+
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
@@ -176,7 +183,7 @@ export const Kyc = () => {
                 loading={pending && document?.properties.category === IDocumentCategory.W9}
                 onCancel={handleOnCancel}
                 errorMessage={
-                  submittedKyc?.documents.W9?.properties.status === IDocumentStatus.REFUSED
+                  hasErrorMessage(IDocumentCategory.W9)
                     ? t(`errors.domain-error.kyc.${submittedKyc?.documents.W9?.properties.statusCode}`)
                     : ''
                 }
@@ -192,7 +199,7 @@ export const Kyc = () => {
               loading={pending && document?.properties.category === IDocumentCategory.ID}
               onCancel={handleOnCancel}
               errorMessage={
-                submittedKyc?.documents.ID?.properties.status === IDocumentStatus.REFUSED
+                hasErrorMessage(IDocumentCategory.ID)
                   ? t(`errors.domain-error.kyc.${submittedKyc?.documents.ID?.properties.statusCode}`)
                   : ''
               }
@@ -226,8 +233,7 @@ export const Kyc = () => {
                 }
                 onCancel={handleOnCancel}
                 errorMessage={
-                  submittedKyc?.documents.RESIDENCE_PROOF_SWORN_STATEMENT?.properties.status ===
-                  IDocumentStatus.REFUSED
+                  hasErrorMessage(IDocumentCategory.RESIDENCE_PROOF_SWORN_STATEMENT)
                     ? t(
                         `errors.domain-error.kyc.${submittedKyc?.documents.RESIDENCE_PROOF_SWORN_STATEMENT?.properties.statusCode}`,
                       )
@@ -246,7 +252,7 @@ export const Kyc = () => {
                 loading={pending && document?.properties.category === IDocumentCategory.RESIDENCE_PROOF_ID}
                 onCancel={handleOnCancel}
                 errorMessage={
-                  submittedKyc?.documents.RESIDENCE_PROOF_ID?.properties.status === IDocumentStatus.REFUSED
+                  hasErrorMessage(IDocumentCategory.RESIDENCE_PROOF_ID)
                     ? t(
                         `errors.domain-error.kyc.${submittedKyc?.documents.RESIDENCE_PROOF_ID?.properties.statusCode}`,
                       )
@@ -273,7 +279,7 @@ export const Kyc = () => {
               loading={pending && document?.properties.category === IDocumentCategory.RESIDENCE_PROOF}
               onCancel={handleOnCancel}
               errorMessage={
-                submittedKyc?.documents.RESIDENCE_PROOF?.properties.status === IDocumentStatus.REFUSED
+                hasErrorMessage(IDocumentCategory.RESIDENCE_PROOF)
                   ? t(
                       `errors.domain-error.kyc.${submittedKyc?.documents.RESIDENCE_PROOF?.properties.statusCode}`,
                     )
@@ -309,7 +315,5 @@ const styles = StyleSheet.create({
   errorMessage: {
     textAlign: 'left',
   },
-  itemContainer: {
-    // height: '100%',
-  },
+  itemContainer: {},
 });

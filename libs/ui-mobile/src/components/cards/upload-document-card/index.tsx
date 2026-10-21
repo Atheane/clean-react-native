@@ -117,8 +117,8 @@ const styles = StyleSheet.create({
   },
   leftIconContainer: {
     position: 'absolute',
-    top: 14,
-    left: 14,
+    top: 16,
+    left: 20,
     backgroundColor: Colors.bank.primary.white,
     borderRadius: 100,
   },
