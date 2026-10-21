@@ -21,7 +21,7 @@ import {
 } from '../../types';
 
 import { AccountStack } from '../../../../account/presentation/navigation';
-import { CarbonStack } from '../../../../carbon/presentation/navigation';
+import { Carbon } from '../../../../carbon/presentation/screens';
 
 import { Transfer } from '../../../../transfer/presentation/screens';
 import { Profile } from '../../../../profile/presentation/screens';
@@ -79,7 +79,7 @@ export const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name={ICarbonStackPages.MENU}
-        component={CarbonStack}
+        component={Carbon}
         options={({ route }) => ({
           title: t('screens.carbon.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>

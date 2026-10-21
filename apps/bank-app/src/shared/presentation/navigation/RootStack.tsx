@@ -8,8 +8,6 @@ import { useNavigationState } from '@react-navigation/native';
 import { Colors, FontNames } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { AuthStack } from '../../../auth/presentation/navigation';
-
 import {
   IAuthStackPages,
   IAuthStackProps,
@@ -20,13 +18,23 @@ import {
   IKycStackPages,
   IKycStackProps,
   HeaderTitleAlign,
+  ICarbonStackPages,
+  ICarbonStackProps,
 } from '../../../shared/presentation/types';
 import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
 import { ScreenModalError, ScreenModalWebview } from '../../../shared/presentation/screens';
+
 import { Login } from '../../../auth/presentation/screens';
+import { AuthStack } from '../../../auth/presentation/navigation';
+
+import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
+import { goBack } from '../../../shared/presentation/navigation/navigationRef';
+
+import { KycStack } from '../../../kyc/presentation/navigation';
+import { Carbon, House, Transport, Food, WarningFood, Fly } from '../../../carbon/presentation/screens';
+import { AccountStatements, AccountStatementsPdf, RibPdf } from '../../../account/presentation/screens';
 
 import { BottomTabNavigator } from './BottomNavigator';
-import { KycStack } from '../../../kyc/presentation/navigation';
 
 export const RootStack = () => {
   const {
@@ -37,7 +45,7 @@ export const RootStack = () => {
 };
 
 const Stack = createNativeStackNavigator<
-  IHomeStackProps & ISharedStackProps & IAuthStackProps & IKycStackProps
+  IHomeStackProps & ISharedStackProps & IAuthStackProps & IKycStackProps & ICarbonStackProps
 >();
 
 export const HomeStack = () => {
@@ -59,6 +67,78 @@ export const HomeStack = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen name={IKycStackPages.MENU} component={KycStack} options={{ headerShown: false }} />
+      <Stack.Screen
+        name={IHomeStackPages.ACCOUNT_STATEMENTS}
+        component={AccountStatements}
+        options={{
+          headerTitle: t('screens.account-statements.title'),
+          ...headersOptions(goBack),
+        }}
+      />
+      <Stack.Screen
+        name={IHomeStackPages.ACCOUNT_STATEMENTS_PDF}
+        component={AccountStatementsPdf}
+        options={{
+          headerTitle: t('screens.account-statements-pdf.title'),
+          ...headersOptions(goBack),
+        }}
+      />
+      <Stack.Screen
+        name={IHomeStackPages.RIB_PDF}
+        component={RibPdf}
+        options={{
+          headerTitle: t('screens.rib-pdf.title'),
+          ...headersOptions(goBack),
+        }}
+      />
+      <Stack.Screen
+        name={ICarbonStackPages.CARBON}
+        component={Carbon}
+        options={{
+          headerTitle: t('screens.carbon.title'),
+          ...headersOptions(),
+        }}
+      />
+      <Stack.Screen
+        name={ICarbonStackPages.HOUSE}
+        component={House}
+        options={{
+          headerTitle: t('screens.carbon-house.title'),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+      />
+      <Stack.Screen
+        name={ICarbonStackPages.TRANSPORT}
+        component={Transport}
+        options={{
+          headerTitle: t('screens.carbon-transport.title'),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+      />
+      <Stack.Screen
+        name={ICarbonStackPages.FOOD}
+        component={Food}
+        options={{
+          headerTitle: t('screens.carbon-food.title'),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+      />
+      <Stack.Screen
+        name={ICarbonStackPages.WARNING_FOOD}
+        component={WarningFood}
+        options={{
+          headerTitle: t('screens.carbon-food.title'),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+      />
+      <Stack.Screen
+        name={ICarbonStackPages.FLY}
+        component={Fly}
+        options={{
+          headerTitle: t('screens.carbon-fly.title'),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+      />
       <Stack.Screen
         options={{
           presentation: 'modal',
