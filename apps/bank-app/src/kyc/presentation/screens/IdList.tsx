@@ -62,7 +62,7 @@ export const IdList = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT }]}>
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
           <View style={[styles.titleContainer]}>
             <Text style={[theme.bank.text.boldDarkBlue, styles.title]}>
               {t('screens.kyc.first-id.instruction')}
@@ -148,8 +148,7 @@ export const IdList = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    marginTop: 120,
+    height: HEIGHT,
   },
   titleContainer: {
     marginBottom: 50,

@@ -15,7 +15,7 @@ export const CardSent = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT }]}>
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
           <Text style={[styles.title, theme.bank.text.boldDarkBlue]}>{t('screens.kyc.card-sent.title')}</Text>
           <View style={styles.subContainer}>
             <Image source={Delivery} style={{ width: 229, height: 86 }} />
@@ -32,8 +32,7 @@ export const CardSent = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 24,
-    alignItems: 'center',
+    height: HEIGHT,
   },
   title: {
     margin: 24,

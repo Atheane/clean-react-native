@@ -61,7 +61,7 @@ export const HostResidenceProofList = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT }]}>
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
           <View style={[styles.instructionContainer]}>
             <Text style={[theme.bank.text.darkBlue, styles.instruction]}>
               {t('screens.kyc.host-residence-proof-list.instruction')}
@@ -120,8 +120,7 @@ export const HostResidenceProofList = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    marginTop: 120,
+    height: HEIGHT,
   },
   iconContainer: { position: 'relative', left: 10, top: 2 },
   instructionContainer: {

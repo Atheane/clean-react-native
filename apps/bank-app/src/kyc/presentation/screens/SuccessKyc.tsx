@@ -29,7 +29,7 @@ export const SuccessKyc = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT }]}>
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
           <Text style={[styles.title, theme.bank.text.boldDarkBlue]}>{t('screens.kyc.success.title')}</Text>
           <Image source={CheckmarkImage} style={{ width: 150, height: 150 }} />
           <Text style={[styles.instruction, theme.bank.text.grey]}>
@@ -58,8 +58,7 @@ export const SuccessKyc = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 24,
-    alignItems: 'center',
+    height: HEIGHT,
   },
   title: {
     margin: 24,

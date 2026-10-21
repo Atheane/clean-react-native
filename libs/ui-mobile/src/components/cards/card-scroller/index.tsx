@@ -92,9 +92,11 @@ export const CardScroller = (props: IProps) => {
 
 const styles = StyleSheet.create({
   containerBullets: {
-    position: 'relative',
-    top: 20,
+    // position: 'relative',
+    // top: 20,
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'center',
+    marginTop: -50,
   },
 });

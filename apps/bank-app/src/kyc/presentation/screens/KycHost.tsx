@@ -59,7 +59,7 @@ export const KycHost = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT }]}>
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
           <View style={[styles.instructionContainer]}>
             <Text style={[theme.bank.text.boldDarkBlue, styles.instruction]}>
               {t('screens.kyc.menu-kyc-host.instruction')}
@@ -109,8 +109,7 @@ export const KycHost = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    marginTop: 120,
+    height: HEIGHT,
   },
   iconContainer: { position: 'relative', left: 10, top: 2 },
   instructionContainer: {

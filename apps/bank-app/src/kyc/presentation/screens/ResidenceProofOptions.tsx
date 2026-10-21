@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '@rneui/themed';
 
 import { Colors, FontNames, SubmitButton, MultipleOptionsCheckBox } from '@clean-rn/ui-mobile';
 import { IKycStackPages } from '../../../shared/presentation/types';
@@ -11,6 +12,8 @@ const HEIGHT = Dimensions.get('window').height;
 
 export const ResidenceProofOptions = () => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
+
   const navigation = useNavigation();
 
   const [choice, setChoice] = useState(IKycStackPages.RESIDENCE_PROOF_LIST as string);
@@ -25,7 +28,7 @@ export const ResidenceProofOptions = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT }]}>
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
           <View style={[styles.itemContainer]}>
             <MultipleOptionsCheckBox
               vertical
@@ -54,8 +57,7 @@ export const ResidenceProofOptions = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    marginTop: 120,
+    height: HEIGHT,
   },
   iconContainer: { position: 'relative', left: 10, top: 2 },
   titleContainer: {

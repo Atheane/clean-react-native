@@ -111,7 +111,7 @@ export const Accounts = () => {
                   };
                 }
               })}
-              height={200}
+              height={260}
               onPress={handleOnPressCard}
               onDelete={handleOnDeleteCard}
             />
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   cardScroller: {
     flex: 1,
     position: 'relative',
-    top: 110,
+    top: 60,
     width: Dimensions.get('window').width,
   },
   decoration: {

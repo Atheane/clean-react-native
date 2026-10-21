@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { View, Text, StyleSheet, Image, StyleProp, ViewStyle, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '@rneui/themed';
 
 import { PrimaryButton, RightChevron, Colors, FontNames } from '@clean-rn/ui-mobile';
 import { ICarbonStackPages } from '../../../shared/presentation/types';
@@ -13,6 +14,8 @@ const HEIGHT = Dimensions.get('window').height;
 
 export const WarningFood = () => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
+
   const navigation = useNavigation();
 
   const handleOnPress = useCallback(() => {
@@ -22,7 +25,7 @@ export const WarningFood = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT }]}>
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
           <Image source={WarningFoodCO2} style={{ width: 250, height: 250 }} />
           <Text style={styles.title}>{t('screens.warning-food.title')}</Text>
           <Text style={styles.text}>{t('screens.warning-food.text')}</Text>
@@ -49,7 +52,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: -40,
+    height: HEIGHT,
   },
   iconContainer: { position: 'relative', right: -75, top: 2 },
   title: {
@@ -68,6 +71,6 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
   },
   buttonContainer: {
-    marginTop: 0,
+    marginTop: 24,
   },
 });

@@ -148,12 +148,7 @@ export const Kyc = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View
-          style={[
-            styles.container,
-            submittedKyc?.expectedDocumentCount === 2 ? { height: HEIGHT * 1 } : { height: HEIGHT * 1.2 },
-          ]}
-        >
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
           {customer?.properties.status === KYC_REVIEW.NONE && !customer?.properties.kyc?.isComplete && (
             <Instructions />
           )}
@@ -296,8 +291,7 @@ export const Kyc = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 24,
-    alignItems: 'center',
+    height: HEIGHT,
   },
   title: {
     margin: 24,

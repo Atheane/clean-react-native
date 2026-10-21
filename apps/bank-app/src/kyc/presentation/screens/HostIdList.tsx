@@ -58,7 +58,7 @@ export const HostIdList = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT }]}>
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
           <View style={[styles.instructionContainer]}>
             <Text style={[theme.bank.text.darkBlue, styles.instruction]}>
               {t('screens.kyc.host-id-list.instruction')}
@@ -117,8 +117,7 @@ export const HostIdList = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    marginTop: 120,
+    height: HEIGHT,
   },
   instructionContainer: {
     marginBottom: 50,

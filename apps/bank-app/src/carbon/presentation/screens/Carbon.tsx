@@ -60,15 +60,6 @@ const HEIGHT = Dimensions.get('window').height;
 
 export const Carbon = () => {
   const { theme } = useTheme();
-  const [visible, setVisible] = useState(false);
-  const refScrollView = useRef<KeyboardAwareScrollView>(null);
-  const handleOnScroll = useCallback((e: NativeSyntheticEvent<NativeScrollEvent>) => {
-    if (e.nativeEvent.contentOffset.y > 0) {
-      setVisible(true);
-    } else {
-      setVisible(false);
-    }
-  }, []);
 
   const { t } = useTranslation();
 
@@ -271,7 +262,7 @@ export const Carbon = () => {
     return (
       <ErrorBoundary t={t}>
         <SafeScrollingView>
-          <View style={styles.container}>
+          <View style={[styles.container, theme.bank.container.centeredItem, { height: HEIGHT }]}>
             <View style={styles.textContainer}>
               <Text style={styles.instructionText}>{t('screens.carbon.instruction')}</Text>
               <View style={styles.kpiContainer}>
@@ -292,66 +283,53 @@ export const Carbon = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeAreaView style={styles.container}>
-        <KeyboardAwareScrollView
-          showsVerticalScrollIndicator={false}
-          ref={refScrollView}
-          onScroll={handleOnScroll}
-        >
-          <View style={styles.container}>
-            <ShareScreen title={t('screens.carbon.title')} message={message} handleError={handleErrorShare}>
-              <View>
-                {visible && (
-                  <View style={styles.titleContainer}>
-                    <Text style={[theme.bank.text.boldDarkBlue, styles.shareTitle]}>
-                      {t('screens.carbon.title')}
-                    </Text>
-                  </View>
-                )}
-                <View style={styles.graphContainer}>
-                  <GraphCO2
-                    headers={
-                      {
-                        [IBANKCategories.BAD]: HeaderBad as ImageSourcePropType,
-                        [IBANKCategories.FRANCE]: HeaderFrance as ImageSourcePropType,
-                        [IBANKCategories.CHAMPION]: HeaderChampion as ImageSourcePropType,
-                        [IBANKCategories.COP21]: HeaderCop21 as ImageSourcePropType,
-                      } as { [key: string]: ImageSourcePropType }
-                    }
-                    bilans={{
-                      FR: {
-                        [IBANKCategories.BAD]: BilanBadFR as ImageSourcePropType,
-                        [IBANKCategories.FRANCE]: BilanFranceFR as ImageSourcePropType,
-                        [IBANKCategories.CHAMPION]: BilanChampionFR as ImageSourcePropType,
-                        [IBANKCategories.COP21]: BilanCop21FR as ImageSourcePropType,
-                      } as { [key: string]: ImageSourcePropType },
-                      GB: {
-                        [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
-                        [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
-                        [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
-                        [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
-                      } as { [key: string]: ImageSourcePropType },
-                      US: {
-                        [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
-                        [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
-                        [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
-                        [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
-                      } as { [key: string]: ImageSourcePropType },
-                    }}
-                    emissions={totalEmissions}
-                  />
-                </View>
-                <Cards />
+      <SafeScrollingView>
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
+          <ShareScreen title={t('screens.carbon.title')} message={message} handleError={handleErrorShare}>
+            <View>
+              <View style={styles.graphContainer}>
+                <GraphCO2
+                  headers={
+                    {
+                      [IBANKCategories.BAD]: HeaderBad as ImageSourcePropType,
+                      [IBANKCategories.FRANCE]: HeaderFrance as ImageSourcePropType,
+                      [IBANKCategories.CHAMPION]: HeaderChampion as ImageSourcePropType,
+                      [IBANKCategories.COP21]: HeaderCop21 as ImageSourcePropType,
+                    } as { [key: string]: ImageSourcePropType }
+                  }
+                  bilans={{
+                    FR: {
+                      [IBANKCategories.BAD]: BilanBadFR as ImageSourcePropType,
+                      [IBANKCategories.FRANCE]: BilanFranceFR as ImageSourcePropType,
+                      [IBANKCategories.CHAMPION]: BilanChampionFR as ImageSourcePropType,
+                      [IBANKCategories.COP21]: BilanCop21FR as ImageSourcePropType,
+                    } as { [key: string]: ImageSourcePropType },
+                    GB: {
+                      [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
+                      [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
+                      [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
+                      [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
+                    } as { [key: string]: ImageSourcePropType },
+                    US: {
+                      [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
+                      [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
+                      [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
+                      [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
+                    } as { [key: string]: ImageSourcePropType },
+                  }}
+                  emissions={totalEmissions}
+                />
               </View>
-            </ShareScreen>
-
-            <View style={styles.row}>
-              <TouchCardText text={t('screens.carbon.reward')} onPress={handleOnPressPremium} />
-              <TouchCardText text={t('screens.carbon.method')} onPress={handleOnPressLearnMore} />
+              <Cards />
             </View>
+          </ShareScreen>
+
+          <View style={styles.row}>
+            <TouchCardText text={t('screens.carbon.reward')} onPress={handleOnPressPremium} />
+            <TouchCardText text={t('screens.carbon.method')} onPress={handleOnPressLearnMore} />
           </View>
-        </KeyboardAwareScrollView>
-      </SafeAreaView>
+        </View>
+      </SafeScrollingView>
     </ErrorBoundary>
   );
 };
@@ -359,6 +337,7 @@ export const Carbon = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.bank.primary.white,
   },
   instructionText: {
     fontFamily: FontNames.MartelSans_400Regular,

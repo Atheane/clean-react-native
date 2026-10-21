@@ -9,6 +9,7 @@ import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/h
 import { BlueBell } from '../assets';
 import { useDispatch } from 'react-redux';
 
+const HEIGHT = Dimensions.get('window').height;
 export const NotificationSettings = () => {
   const { theme } = useTheme();
 
@@ -37,7 +38,7 @@ export const NotificationSettings = () => {
           <View style={styles.iconContainer}>
             <BlueBell />
           </View>
-          <View style={styles.container}>
+          <View style={[styles.container, theme.bank.container.centeredItem]}>
             <View style={styles.rowContainer}>
               <Text style={[theme.bank.text.darkBlue]}>{t('screens.notifications.payment')}</Text>
               <SmallSwitchButton checked={paymentChecked} onToggle={handleTogglePayment} />
@@ -67,10 +68,7 @@ export const NotificationSettings = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    height: Dimensions.get('window').height,
-    alignItems: 'center',
-    marginTop: 50,
+    height: HEIGHT,
   },
   iconContainer: {
     marginTop: 40,
