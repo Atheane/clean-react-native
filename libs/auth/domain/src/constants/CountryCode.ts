@@ -247,4 +247,54 @@ export const COUNTRIES_AVAILABLE = {
     code: 'VA',
     emoji: '🇻🇦',
   },
+  GP: {
+    name: 'Guadeloupe',
+    code: 'GP',
+    emoji: '🇬🇵',
+  },
+  PM: {
+    name: 'Saint Pierre and Miquelon',
+    code: 'PM',
+    emoji: '🇵🇲',
+  },
+  MQ: {
+    name: 'Martinique',
+    code: 'MQ',
+    emoji: '🇲🇶',
+  },
+  GY: {
+    name: 'Guyana',
+    code: 'GY',
+    emoji: '🇬🇾',
+  },
+  GF: {
+    name: 'French Guiana',
+    code: 'GF',
+    emoji: '🇬🇫',
+  },
+  NC: {
+    name: 'New Caledonia',
+    code: 'NC',
+    emoji: '🇳🇨',
+  },
+  WF: {
+    name: 'Wallis and Futuna',
+    code: 'WF',
+    emoji: '🇼🇫',
+  },
+  PF: {
+    name: 'French Polynesia',
+    code: 'PF',
+    emoji: '🇵🇫',
+  },
+  RE: {
+    name: 'Réunion',
+    code: 'RE',
+    emoji: '🇷🇪',
+  },
+  YT: {
+    name: 'Mayotte',
+    code: 'YT',
+    emoji: '🇾🇹',
+  },
 };

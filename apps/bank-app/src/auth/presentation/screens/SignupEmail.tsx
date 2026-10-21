@@ -83,8 +83,8 @@ export const SignupEmail = () => {
             HEIGHT / WIDTH > 2.16
               ? { height: HEIGHT * 0.8, marginTop: 80 }
               : HEIGHT / WIDTH > 2
-              ? { height: HEIGHT, marginTop: 50 }
-              : { marginTop: 24 },
+                ? { height: HEIGHT, marginTop: 50 }
+                : { marginTop: 24 },
           ]}
         >
           <View style={styles.image}>
