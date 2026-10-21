@@ -60,7 +60,7 @@ export const PdfDownloader = (props: IProps) => {
 
   return (
     <View style={styles.container}>
-      <LinkButton onPress={downloadPDF} pressed={false} iconOne={props.icon} />
+      <LinkButton onPress={downloadPDF} iconRight={props.icon} />
     </View>
   );
 };

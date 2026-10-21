@@ -41,12 +41,7 @@ export const LongCard = (props: IProps) => {
       </View>
       {props.icon && (
         <View style={styles.iconContainer}>
-          <LinkButton
-            pressed={false}
-            onPress={props.onPress}
-            iconOne={props.icon}
-            colorOption={LinkButtonColors.BLUE}
-          />
+          <LinkButton onPress={props.onPress} iconRight={props.icon} colorOption={LinkButtonColors.BLUE} />
         </View>
       )}
     </View>

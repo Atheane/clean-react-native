@@ -94,21 +94,18 @@ export const SignupEmail = () => {
               title={t('screens.legal')}
               arrow={false}
               colorOption={LinkButtonColors.BLUE}
-              pressed={false}
               onPress={onPressLegal}
             />
             <LinkButton
               title={t('screens.cgu')}
               arrow={false}
               colorOption={LinkButtonColors.BLUE}
-              pressed={false}
               onPress={onPressCgu}
             />
             <LinkButton
               title={t('screens.cgu-kyc-provider')}
               arrow={false}
               colorOption={LinkButtonColors.BLUE}
-              pressed={false}
               onPress={onPressCguKycProvider}
             />
           </View>

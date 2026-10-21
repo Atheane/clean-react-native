@@ -408,10 +408,6 @@
       "secondary-button": "Ajouter",
       "flight": "trajet"
     },
-    "profile": {
-      "title": "Profil",
-      "tab": "Profil"
-    },
     "kyc": {
       "title": "Vérification de votre identité",
       "send-document": "Envoyer un document",
@@ -567,6 +563,14 @@
         "another-instruction": "Les factures de box internet, électricité, gaz sont les seules acceptées et doivent impérativement avoir moins de 3 mois. ",
         "last-instruction": "Les factures de téléphone mobile ne sont pas valables."
       }
+    },
+    "profile": {
+      "title": "Profil",
+      "tab": "Profil",
+      "notifications": "Notifications"
+    },
+    "notifications": {
+      "title": "Notifications"
     }
   }
 }

@@ -1,2 +1,3 @@
 import { Profile } from './Profile';
-export { Profile };
+import { NotificationSettings } from './NotificationSettings';
+export { Profile, NotificationSettings };

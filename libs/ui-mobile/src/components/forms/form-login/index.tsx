@@ -109,7 +109,6 @@ export const FormLogin = (props: IProps) => {
           <LinkButton
             title={t('login.forgotten-password')}
             colorOption={LinkButtonColors.PINK}
-            pressed={false}
             onPress={props.onPress}
           />
         </View>

@@ -47,9 +47,8 @@ export const WhiteBalance = (props: IProps) => {
         <View style={styles.linkContainer}>
           {props.onPress && (
             <LinkButton
-              iconOne={() => <RightChevron style={{ color: Colors.bank.primary.white }} />}
+              iconRight={() => <RightChevron style={{ color: Colors.bank.primary.white }} />}
               colorOption={LinkButtonColors.WHITE}
-              pressed={false}
               onPress={props.onPress}
             />
           )}

@@ -57,9 +57,8 @@ export const UploadDocumentCard = (props: IProps) => {
           {props.loading && (
             <View style={styles.cancelIcon}>
               <LinkButton
-                pressed={false}
                 onPress={props.onCancel}
-                iconOne={DeleteCrossGradient}
+                iconRight={DeleteCrossGradient}
                 colorOption={LinkButtonColors.BLUE}
               />
             </View>

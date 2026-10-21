@@ -11,8 +11,8 @@ type IProps = {
   colorOption?: LinkButtonColors;
   title?: string;
   arrow?: boolean;
-  iconOne?: React.FC<SvgProps>;
-  pressed: boolean;
+  iconLeft?: React.FC<SvgProps>;
+  iconRight?: React.FC<SvgProps>;
   onPress: () => void;
   inline?: StyleProp<TextStyle>;
 };
@@ -25,12 +25,13 @@ export const LinkButton: FC<IProps> = (props: IProps) => {
         props.title && <Text style={props.inline}>{props.title}</Text>
       ) : (
         <View style={[theme.bank.container.centeredItems, styles.container]}>
+          {props.iconLeft && <props.iconLeft style={styles.iconLeft} />}
           {props.arrow && (
             <View style={styles.iconContainer}>
               <RightArrow
                 width={27}
                 height={16}
-                style={props.colorOption ? { color: getColor(props.colorOption)(props.pressed) } : {}}
+                style={props.colorOption ? { color: getColor(props.colorOption) } : {}}
               />
             </View>
           )}
@@ -40,7 +41,7 @@ export const LinkButton: FC<IProps> = (props: IProps) => {
                 theme.bank.text.link,
                 props.colorOption
                   ? {
-                      color: getColor(props.colorOption)(props.pressed),
+                      color: getColor(props.colorOption),
                     }
                   : {},
               ]}
@@ -48,27 +49,28 @@ export const LinkButton: FC<IProps> = (props: IProps) => {
               {props.title}
             </Text>
           )}
-          {props.iconOne && <props.iconOne />}
+          {props.iconRight && <props.iconRight />}
         </View>
       )}
     </Button>
   );
 };
 
-const getColor = (option: LinkButtonColors) => (isPressed: boolean) => {
+const getColor = (option: LinkButtonColors) => {
   switch (option) {
     case LinkButtonColors.PINK:
-      return isPressed ? Colors.bank.pinkTransparent : Colors.bank.secondary.pink;
+      return Colors.bank.secondary.pink;
     case LinkButtonColors.BLUE:
-      return isPressed ? Colors.bank.primary.lightPurple : Colors.bank.primary.darkBlue;
+      return Colors.bank.primary.darkBlue;
     case LinkButtonColors.WHITE:
-      return isPressed ? Colors.bank.primary.lightGrey : Colors.bank.primary.white;
+      return Colors.bank.primary.white;
     default:
-      return isPressed ? Colors.bank.primary.lightGreen : Colors.bank.primary.darkGreen;
+      return Colors.bank.primary.darkGreen;
   }
 };
 
 const styles = StyleSheet.create({
   container: { marginTop: 16 },
   iconContainer: { marginRight: 10 },
+  iconLeft: { marginRight: 10 },
 });

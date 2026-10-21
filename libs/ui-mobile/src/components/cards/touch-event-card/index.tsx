@@ -41,12 +41,7 @@ export const TouchEventCard = (props: IProps) => {
       </TouchableOpacity>
       {props.onDelete && (
         <View style={styles.deleteCross}>
-          <LinkButton
-            pressed={false}
-            onPress={handleOnDelete}
-            iconOne={DeleteCross}
-            colorOption={LinkButtonColors.BLUE}
-          />
+          <LinkButton onPress={handleOnDelete} iconRight={DeleteCross} colorOption={LinkButtonColors.BLUE} />
         </View>
       )}
     </View>

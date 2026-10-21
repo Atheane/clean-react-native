@@ -44,7 +44,6 @@ export const SuccessKyc = () => {
               {t('screens.kyc.success.instruction-after-card')}
               <LinkButton
                 title={t('screens.kyc.success.link-instruction')}
-                pressed={false}
                 onPress={handleOnPress}
                 inline={[theme.bank.text.darkBlue, { fontSize: 14 }]}
               />

@@ -125,7 +125,6 @@ export const UploadDocument = () => {
                   colorOption={LinkButtonColors.GREEN}
                   title={t('screens.kyc.sworn-statement.example')}
                   onPress={handleShowExample}
-                  pressed={false}
                 />
               </View>
             </View>

@@ -20,6 +20,8 @@ import {
   HeaderTitleAlign,
   ICarbonStackPages,
   ICarbonStackProps,
+  IProfileStackPages,
+  IProfileStackProps,
 } from '../../../shared/presentation/types';
 import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
 import { ScreenModalError, ScreenModalWebview } from '../../../shared/presentation/screens';
@@ -33,7 +35,7 @@ import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 import { KycStack } from '../../../kyc/presentation/navigation';
 import { Carbon, House, Transport, Food, WarningFood, Fly } from '../../../carbon/presentation/screens';
 import { AccountStatements, AccountStatementsPdf, RibPdf } from '../../../account/presentation/screens';
-
+import { NotificationSettings } from '../../../profile/presentation/screens';
 import { BottomTabNavigator } from './BottomNavigator';
 
 export const RootStack = () => {
@@ -44,7 +46,12 @@ export const RootStack = () => {
 };
 
 const Stack = createNativeStackNavigator<
-  IHomeStackProps & ISharedStackProps & IAuthStackProps & IKycStackProps & ICarbonStackProps
+  IHomeStackProps &
+    ISharedStackProps &
+    IAuthStackProps &
+    IKycStackProps &
+    ICarbonStackProps &
+    IProfileStackProps
 >();
 
 export const HomeStack = () => {
@@ -145,6 +152,14 @@ export const HomeStack = () => {
         }}
         name={IAuthStackPages.RESET_PASSWORD}
         component={ResetPassword}
+      />
+      <Stack.Screen
+        name={IProfileStackPages.NOTIFICATON_SETTINGS}
+        component={NotificationSettings}
+        options={{
+          headerTitle: t('screens.notifications.title'),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
       />
       <Stack.Screen
         options={{

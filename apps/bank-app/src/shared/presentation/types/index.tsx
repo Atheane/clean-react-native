@@ -154,9 +154,10 @@ export enum ITransferStackPages {
   TRANSFER = 'Transfer',
 }
 
-export enum IProfileStackPage {
+export enum IProfileStackPages {
   MENU = 'MenuProfile',
   PROFILE = 'Profile',
+  NOTIFICATON_SETTINGS = 'NotificationSettings',
 }
 
 export type ISharedStackProps = {
@@ -225,8 +226,9 @@ export type ITransferStackProps = {
 };
 
 export type IProfileStackProps = {
-  [IProfileStackPage.MENU]: object;
-  [IProfileStackPage.PROFILE]: object;
+  [IProfileStackPages.MENU]: object;
+  [IProfileStackPages.PROFILE]: object;
+  [IProfileStackPages.NOTIFICATON_SETTINGS]: object;
 };
 
 export type IRoutes =
@@ -276,4 +278,6 @@ export type IRoutes =
   | IKycStackPages.HOST_ID_LIST
   | IKycStackPages.HOST_RESIDENCE_PROOF_LIST
   | ITransferStackPages.TRANSFER
-  | IProfileStackPage.PROFILE;
+  | IProfileStackPages.MENU
+  | IProfileStackPages.PROFILE
+  | IProfileStackPages.NOTIFICATON_SETTINGS;

@@ -1,16 +1,34 @@
+import { useCallback } from 'react';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { LinkButton, LinkButtonColors } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { IProfileStackPages } from '../../../shared/presentation/types';
+
+import { Bell } from '../assets';
 
 export const Profile = () => {
   const { t } = useTranslation();
+  const navigation = useNavigation();
+
+  const handlePressApplicationSettings = useCallback(() => {
+    navigation.navigate(IProfileStackPages.NOTIFICATON_SETTINGS as never);
+  }, [navigation]);
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView fixedHeight>
+      <SafeScrollingView>
         <View style={styles.container}>
-          <Text>Profile</Text>
+          <View style={styles.rowContainer}>
+            <LinkButton
+              iconLeft={Bell}
+              colorOption={LinkButtonColors.BLUE}
+              title={t('screens.profile.notifications')}
+              onPress={handlePressApplicationSettings}
+            />
+          </View>
         </View>
       </SafeScrollingView>
     </ErrorBoundary>
@@ -20,8 +38,14 @@ export const Profile = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: (Dimensions.get('window').height - 100) / 2,
-    justifyContent: 'center',
+    height: Dimensions.get('screen').height,
+  },
+  iconContainer: {
+    marginTop: 16,
+  },
+  rowContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
+    marginLeft: 32,
   },
 });

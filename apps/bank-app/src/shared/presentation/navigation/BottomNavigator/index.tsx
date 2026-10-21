@@ -17,7 +17,7 @@ import {
   IHomeStackPages,
   ITransferStackPages,
   ICarbonStackPages,
-  IProfileStackPage,
+  IProfileStackPages,
 } from '../../types';
 
 import { AccountStack } from '../../../../account/presentation/navigation';
@@ -100,9 +100,9 @@ export const BottomTabNavigator = () => {
         })}
       />
       <Tab.Screen
-        name={IProfileStackPage.MENU}
+        name={IProfileStackPages.MENU}
         component={Profile}
-        options={({ navigation }: IRootTabScreenProps<IProfileStackPage.MENU>) => ({
+        options={({ navigation }: IRootTabScreenProps<IProfileStackPages.MENU>) => ({
           title: t('screens.profile.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             focused ? (

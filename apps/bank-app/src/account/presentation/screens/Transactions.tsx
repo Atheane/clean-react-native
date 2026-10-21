@@ -38,12 +38,7 @@ const Top = ({ currentAccount }: { currentAccount?: IAccount }) => {
         {currentAccount && <WhiteBalance account={currentAccount} title={t('screens.account.balance')} />}
       </View>
       <View style={styles.pdf}>
-        <LinkButton
-          pressed={false}
-          onPress={handleOnPressPdf}
-          iconOne={ExportPdf}
-          colorOption={LinkButtonColors.WHITE}
-        />
+        <LinkButton onPress={handleOnPressPdf} iconRight={ExportPdf} colorOption={LinkButtonColors.WHITE} />
       </View>
     </View>
   );
