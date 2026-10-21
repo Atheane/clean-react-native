@@ -11,7 +11,7 @@ import {
   IDocumentStatus,
   IDocumentProperties,
 } from '@clean-rn/kyc/domain';
-import { IconTextItem, KycResidenceProof, KycInvoice, KycIdentification } from '@clean-rn/ui-mobile';
+import { IconTextItem, KycInvoice, KycIdentification, KycSwornStatement } from '@clean-rn/ui-mobile';
 import { IKycStackPages, IRoutes } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { initializeDocument } from '../../application/commands/document';
@@ -66,7 +66,7 @@ export const MenuKycHost = () => {
           </View>
           <View style={[styles.itemContainer]}>
             <IconTextItem
-              icon={KycResidenceProof}
+              icon={KycSwornStatement}
               text={t('screens.kyc.menu-kyc-host.sworn-statement')}
               onPress={() =>
                 handleOnPress(IKycStackPages.UPLOAD_DOCUMENT, {

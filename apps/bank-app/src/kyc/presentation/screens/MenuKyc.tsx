@@ -12,7 +12,14 @@ import {
   IDocumentStatus,
   IDocumentProperties,
 } from '@clean-rn/kyc/domain';
-import { UploadDocumentCard, KycW9, KycIdentification, KycPassport, KycInvoice } from '@clean-rn/ui-mobile';
+import {
+  UploadDocumentCard,
+  KycW9,
+  KycIdentification,
+  KycPassport,
+  KycInvoice,
+  KycSwornStatement,
+} from '@clean-rn/ui-mobile';
 
 import { IKycStackPages, IRoutes } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
@@ -53,17 +60,8 @@ export const MenuKyc = () => {
       },
     ) => {
       if (documentProperties) {
-        dispatch(
-          initializeDocument({
-            documentProperties: {
-              category: IDocumentCategory.W9,
-              typeId: IDocumentType.TAX_CERTIFICATE,
-              name: 'w9.form.recto',
-              status: IDocumentStatus.INIT,
-              createdAt: new Date(),
-            },
-          }),
-        );
+        console.log('documentProperties', documentProperties);
+        dispatch(initializeDocument({ documentProperties }));
       }
       navigation.navigate(
         route as never,
@@ -176,7 +174,7 @@ export const MenuKyc = () => {
               }
             >
               <UploadDocumentCard
-                icon={KycInvoice}
+                icon={KycIdentification}
                 status={submittedKyc?.documents.RESIDENCE_PROOF_FIRST_ID?.properties.status}
                 text={t('screens.kyc.menu.host-id')}
                 onPress={() => navigateTo(IKycStackPages.HOST_ID_LIST as never, {})}
@@ -194,9 +192,9 @@ export const MenuKyc = () => {
               }
             >
               <UploadDocumentCard
-                icon={SwornStatement}
+                icon={KycSwornStatement}
                 status={submittedKyc?.documents.RESIDENCE_PROOF_SWORN_STATEMENT?.properties.status}
-                text={t('screens.kyc.menu.host-residence')}
+                text={t('screens.kyc.menu.sworn-statement')}
                 onPress={() =>
                   navigateTo(IKycStackPages.UPLOAD_DOCUMENT, {
                     instruction: t('screens.kyc.sworn-statement.instruction'),

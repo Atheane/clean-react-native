@@ -104,6 +104,7 @@ import KycResidencePermit from './kyc-residence-permit.svg';
 import KycTaxes from './kyc-taxes.svg';
 import KycW9 from './kyc-w9.svg';
 import KycResidenceProof from './kyc-hosting-proof.svg';
+import KycSwornStatement from './kyc-sworn-statement.svg';
 import Checked from './checked.svg';
 import ImportDocument from './import-document.svg';
 import CarbonFootPrint from './carbon-footprint.svg';
@@ -217,6 +218,7 @@ export {
   KycTaxes,
   KycW9,
   KycResidenceProof,
+  KycSwornStatement,
   Checked,
   ImportDocument,
   CarbonFootPrint,
