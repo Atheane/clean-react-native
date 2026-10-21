@@ -67,9 +67,7 @@ export const Accounts = () => {
     } else {
       initRoute = IKycStackPages.KYC;
     }
-    navigation.navigate(IKycStackPages.MENU as never, {
-      initRoute,
-    });
+    navigation.navigate(IKycStackPages.MENU as never, { initRoute });
   }, [navigation, customer?.properties.status, customer?.properties.kyc?.isEmpty]);
 
   const handleOnDeleteCard = useCallback(

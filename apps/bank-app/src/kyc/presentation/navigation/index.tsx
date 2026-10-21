@@ -25,16 +25,13 @@ const Stack = createNativeStackNavigator<IKycStackProps>();
 export const KycStack = () => {
   const { t } = useTranslation();
   const navigationStack = useNavigationState((state) => state?.routes ?? []);
-  const {
-    params: { initRoute },
-  } = useRoute() as {
+  const { params } = useRoute() as {
     params: {
       initRoute: keyof IKycStackProps | undefined;
     };
   };
-
   return (
-    <Stack.Navigator initialRouteName={initRoute}>
+    <Stack.Navigator initialRouteName={params?.initRoute || IKycStackPages.INIT}>
       <Stack.Screen
         name={IKycStackPages.INIT}
         component={InitKyc}
