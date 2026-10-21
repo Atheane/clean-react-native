@@ -8,7 +8,7 @@ export default {
     orientation: 'portrait',
     icon: './assets/images/logo-bank.png',
     splash: {
-      image: './assets/images/logo-bank.png',
+      image: './assets/images/splash.png',
       resizeMode: 'contain',
       backgroundColor: '#ffffff',
     },
@@ -23,7 +23,7 @@ export default {
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: './assets/images/logo-bank.png',
+        foregroundImage: './assets/images/splash.png',
         backgroundColor: '#FFFFFF',
       },
       package: 'com.clean-rn.bank-appdev',

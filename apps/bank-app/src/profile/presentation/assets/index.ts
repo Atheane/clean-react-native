@@ -1,3 +1,3 @@
 import { Phone } from './svg';
-import { Bell } from './svg';
-export { Phone, Bell };
+import { BlueBell, GradientBell } from './svg';
+export { Phone, BlueBell, GradientBell };

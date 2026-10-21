@@ -7,7 +7,7 @@ import { LinkButton, LinkButtonColors } from '@clean-rn/ui-mobile';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IProfileStackPages } from '../../../shared/presentation/types';
 
-import { Bell } from '../assets';
+import { GradientBell } from '../assets';
 
 export const Profile = () => {
   const { t } = useTranslation();
@@ -23,7 +23,7 @@ export const Profile = () => {
         <View style={styles.container}>
           <View style={styles.rowContainer}>
             <LinkButton
-              iconLeft={Bell}
+              iconLeft={GradientBell}
               colorOption={LinkButtonColors.BLUE}
               title={t('screens.profile.notifications')}
               onPress={handlePressApplicationSettings}

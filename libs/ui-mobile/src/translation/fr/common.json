@@ -570,7 +570,11 @@
       "notifications": "Notifications"
     },
     "notifications": {
-      "title": "Notifications"
+      "title": "Notifications",
+      "payment": "Paiement avec ma carte",
+      "transfer": "Virement reçu",
+      "threshold": "Plafond",
+      "submit": "Mettre à jour"
     }
   }
 }
