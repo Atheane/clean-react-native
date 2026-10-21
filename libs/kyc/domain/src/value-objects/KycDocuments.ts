@@ -82,6 +82,13 @@ export class KycDocuments {
     return requiredDocs.length === this.expectedDocumentCount;
   }
 
+  get isValid(): boolean {
+    const requiredDocs = Object.values(this.documents).filter(
+      (doc) => doc?.properties.status !== IDocumentStatus.VALIDATED,
+    );
+    return requiredDocs.length === this.expectedDocumentCount;
+  }
+
   private setIsEmpty(): boolean {
     return Object.values(this.documents).every((doc) => doc === undefined);
   }

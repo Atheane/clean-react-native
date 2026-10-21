@@ -12,6 +12,7 @@ import W9 from './w9.png';
 import SuccessKyc from './success-kyc.png';
 import PendingKyc from './pending-kyc.png';
 import KycDocumentsValidated from './kyc-documents-validated.png';
+import Delivery from './delivery.png';
 
 export {
   InitKyc,
@@ -28,4 +29,5 @@ export {
   SuccessKyc,
   PendingKyc,
   KycDocumentsValidated,
+  Delivery,
 };

@@ -15,9 +15,10 @@ import {
   KycHost,
   HostIdList,
   UploadDocument,
-  SuccessKyc,
+  KycDocumentsCompleted,
   CardSent,
   HostResidenceProofList,
+  SuccessKyc,
 } from '../screens';
 
 const Stack = createNativeStackNavigator<IKycStackProps>();
@@ -43,6 +44,14 @@ export const KycStack = () => {
       <Stack.Screen
         name={IKycStackPages.KYC}
         component={Kyc}
+        options={{
+          headerTitle: t('screens.kyc.title'),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+      />
+      <Stack.Screen
+        name={IKycStackPages.KYC_DOCUMENTS_COMPLETED}
+        component={KycDocumentsCompleted}
         options={{
           headerTitle: t('screens.kyc.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, StyleProp, TextStyle } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { Button, useTheme } from '@rneui/themed';
 
@@ -14,38 +14,43 @@ type IProps = {
   iconOne?: React.FC<SvgProps>;
   pressed: boolean;
   onPress: () => void;
+  inline?: StyleProp<TextStyle>;
 };
 
 export const LinkButton: FC<IProps> = (props: IProps) => {
   const { theme } = useTheme();
   return (
-    <Button type={'clear'} {...props} onPress={props.onPress}>
-      <View style={[theme.bank.container.centeredItems, styles.container]}>
-        {props.arrow && (
-          <View style={styles.iconContainer}>
-            <RightArrow
-              width={27}
-              height={16}
-              style={props.colorOption ? { color: getColor(props.colorOption)(props.pressed) } : {}}
-            />
-          </View>
-        )}
-        {props.title && (
-          <Text
-            style={[
-              theme.bank.text.link,
-              props.colorOption
-                ? {
-                    color: getColor(props.colorOption)(props.pressed),
-                  }
-                : {},
-            ]}
-          >
-            {props.title}
-          </Text>
-        )}
-        {props.iconOne && <props.iconOne />}
-      </View>
+    <Button type={'clear'} {...props} onPress={props.onPress} containerStyle={{ margin: 0 }}>
+      {props.inline ? (
+        props.title && <Text style={props.inline}>{props.title}</Text>
+      ) : (
+        <View style={[theme.bank.container.centeredItems, styles.container]}>
+          {props.arrow && (
+            <View style={styles.iconContainer}>
+              <RightArrow
+                width={27}
+                height={16}
+                style={props.colorOption ? { color: getColor(props.colorOption)(props.pressed) } : {}}
+              />
+            </View>
+          )}
+          {props.title && (
+            <Text
+              style={[
+                theme.bank.text.link,
+                props.colorOption
+                  ? {
+                      color: getColor(props.colorOption)(props.pressed),
+                    }
+                  : {},
+              ]}
+            >
+              {props.title}
+            </Text>
+          )}
+          {props.iconOne && <props.iconOne />}
+        </View>
+      )}
     </Button>
   );
 };

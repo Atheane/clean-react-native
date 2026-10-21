@@ -144,7 +144,7 @@ export const Kyc = () => {
         <View
           style={[
             styles.container,
-            submittedKyc?.expectedDocumentCount === 2 ? { height: HEIGHT * 1 } : { height: HEIGHT * 1.1 },
+            submittedKyc?.expectedDocumentCount === 2 ? { height: HEIGHT * 1 } : { height: HEIGHT * 1.2 },
           ]}
         >
           {customer?.properties.status === KYC_REVIEW.NONE && !customer?.properties.kyc?.isComplete && (

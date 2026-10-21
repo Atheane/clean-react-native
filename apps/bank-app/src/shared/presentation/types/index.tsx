@@ -137,6 +137,7 @@ export enum IKycStackPages {
   MENU = 'MenuKyc',
   INIT = 'InitKyc',
   KYC = 'Kyc',
+  KYC_DOCUMENTS_COMPLETED = 'KycDocumentsCompleted',
   SUCCESS = 'SuccessKyc',
   CARD_SENT = 'CardSent',
   UPLOAD_DOCUMENT = 'UploadDocument',
@@ -206,6 +207,7 @@ export type IKycStackProps = {
   [IKycStackPages.MENU]: object;
   [IKycStackPages.INIT]: object;
   [IKycStackPages.KYC]: object;
+  [IKycStackPages.KYC_DOCUMENTS_COMPLETED]: object;
   [IKycStackPages.SUCCESS]: object;
   [IKycStackPages.CARD_SENT]: object;
   [IKycStackPages.UPLOAD_DOCUMENT]: object;
@@ -263,6 +265,7 @@ export type IRoutes =
   | IKycStackPages.MENU
   | IKycStackPages.INIT
   | IKycStackPages.KYC
+  | IKycStackPages.KYC_DOCUMENTS_COMPLETED
   | IKycStackPages.SUCCESS
   | IKycStackPages.CARD_SENT
   | IKycStackPages.UPLOAD_DOCUMENT

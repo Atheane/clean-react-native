@@ -64,11 +64,18 @@ export const Accounts = () => {
       initRoute = IKycStackPages.SUCCESS;
     } else if (customer?.properties.kyc?.isEmpty) {
       initRoute = IKycStackPages.INIT;
+    } else if (customer?.properties.kyc?.isValid) {
+      initRoute = IKycStackPages.KYC_DOCUMENTS_COMPLETED;
     } else {
       initRoute = IKycStackPages.KYC;
     }
     navigation.navigate(IKycStackPages.MENU as never, { initRoute });
-  }, [navigation, customer?.properties.status, customer?.properties.kyc?.isEmpty]);
+  }, [
+    navigation,
+    customer?.properties.status,
+    customer?.properties.kyc?.isEmpty,
+    customer?.properties.kyc?.isValid,
+  ]);
 
   const handleOnDeleteCard = useCallback(
     (uid: string) => {

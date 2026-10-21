@@ -94,7 +94,7 @@ export const UploadDocument = () => {
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={[styles.container, { height: HEIGHT }]}>
-          <View>
+          <View style={[styles.instructionText]}>
             <Text style={[theme.bank.text.darkBlue, styles.takePhoto]}>{t('screens.kyc.take-photo')}</Text>
             <Text style={[theme.bank.text.boldDarkBlue, styles.instruction]}>{instruction}</Text>
             <Text style={[theme.bank.text.darkBlue, styles.instruction]}>{anotherInstruction}</Text>
@@ -157,6 +157,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     marginTop: 32,
+  },
+  instructionText: {
+    width: '90%',
+    marginBottom: 30,
   },
   takePhoto: {
     fontSize: 16,

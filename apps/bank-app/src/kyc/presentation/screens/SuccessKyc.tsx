@@ -1,16 +1,30 @@
+import { useCallback } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
+import { LinkButton } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
 import { SuccessKyc as CheckmarkImage } from '../assets/images';
+import { IHomeStackPages } from '../../../shared/presentation/types';
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 const HEIGHT = Dimensions.get('window').height;
 
 export const SuccessKyc = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
+
+  const { accounts } = useSelector((state: IRootState) => state.account.accounts);
+  const navigation = useNavigation();
+  const handleOnPress = useCallback(() => {
+    if (accounts && accounts[0]) {
+      navigation.navigate(IHomeStackPages.TRANSACTIONS, { account: accounts[0] });
+    }
+  }, [accounts, navigation]);
 
   return (
     <ErrorBoundary t={t}>
@@ -26,7 +40,15 @@ export const SuccessKyc = () => {
             <Text style={[styles.instruction, theme.bank.text.boldGrey]}>
               {t('screens.kyc.success.instruction-card')}
             </Text>
-            {t('screens.kyc.success.instruction-after-card')}
+            <Text style={[styles.instruction, theme.bank.text.grey]}>
+              {t('screens.kyc.success.instruction-after-card')}
+              <LinkButton
+                title={t('screens.kyc.success.link-instruction')}
+                pressed={false}
+                onPress={handleOnPress}
+                inline={[theme.bank.text.darkBlue, { fontSize: 14 }]}
+              />
+            </Text>
           </Text>
         </View>
       </SafeScrollingView>

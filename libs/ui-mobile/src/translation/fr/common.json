@@ -419,12 +419,22 @@
         "instruction": "Veuillez prévoir :\n\n- Une pièce d’identité\n- Un justificatif de domicile\n- Un virement sur le Bank App depuis un de vos comptes",
         "check-identity": "Vérifier mon identité"
       },
+      "complete": {
+        "title": "Documents validés",
+        "congrats": "Félicitations vos documents sont validés !\n\n",
+        "instruction": "Dernière étape, vous devez maintenant effectuer un virement sur votre Bank App, à partir d’un de vos comptes situés en France."
+      },
       "success": {
         "title": "Identité validée",
         "congrats": "Félicitations votre identité est validée !\n\n",
         "instruction-before-card": "Nous avons lancé la ",
         "instruction-card": "fabrication de votre Carte CO2",
-        "instruction-after-card": ". Nous vous l’enverrons par courrier dès qu’elle sera prête.\n\nUn peu de patience, vous pouvez en attendant créditer votre compte."
+        "instruction-after-card": ". Nous vous l’enverrons par courrier dès qu’elle sera prête.\n\nUn peu de patience, vous pouvez en attendant ",
+        "link-instruction": " créditer votre compte."
+      },
+      "card-sent": {
+        "title": "Identité validée",
+        "text": "Nous vous avons bien envoyé votre Carte CO2 par courrier."
       },
       "menu": {
         "title": "Documents à transmettre :",
