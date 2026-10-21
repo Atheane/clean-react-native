@@ -23,22 +23,13 @@ export const AccountStatementsPdf = () => {
     auth: { accessToken },
   } = useSelector((state: IRootState) => state.auth.login);
 
-  const [userUnauthenticated, setUserUnauthenticated] = useState<Error>();
   const [unknownError, setUnknownError] = useState<Error>();
 
-  const navigation = useNavigation();
-
   const handleError = (error: unknown) => {
-    if (error instanceof ServerError && error.statusCode === 401) {
-      setUserUnauthenticated(userUnauthenticated);
-      navigation.goBack();
-      navigation.navigate(IAuthStackPages.LOGIN as never);
-    } else {
-      setUnknownError(error as Error);
-    }
+    setUnknownError(error as Error);
   };
 
-  return userUnauthenticated ? null : unknownError ? (
+  return unknownError ? (
     <ModalError error={unknownError} />
   ) : (
     <ErrorBoundary t={t}>

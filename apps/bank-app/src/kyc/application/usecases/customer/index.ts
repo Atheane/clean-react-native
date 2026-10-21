@@ -12,6 +12,7 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 import { customerStatusChecked, initializeKyc, ICustomerTypes } from '../../commands/customer';
 
 import { fetchRefresh } from '../../../../auth/application/commands/login';
+import { IHomeStackPages } from '../../../../../src/shared/presentation/types';
 
 export function* checkCustomerStatusSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(ICustomerTypes.CHECK_CUSTOMER_STATUS, checkCustomerStatusGenerator, httpConnection);

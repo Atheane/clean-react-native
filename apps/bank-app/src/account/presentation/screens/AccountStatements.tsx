@@ -1,7 +1,8 @@
 import { useCallback } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import { IAccount, IStatementsPeriod } from '@clean-rn/account/domain';
 
 import {
@@ -15,6 +16,7 @@ import {
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IHomeStackPages } from '../../../shared/presentation/types';
+import { fetchRefresh } from '../../../auth/application/commands/login';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -23,17 +25,21 @@ export const AccountStatements = () => {
   const {
     params: { account },
   } = useRoute() as { params: { account: IAccount } };
-  const navigation = useNavigation();
 
-  const handleOnDownloadStatements = (period: IStatementsPeriod) => {
-    navigation.navigate(IHomeStackPages.ACCOUNT_STATEMENTS_PDF, { account, period });
-  };
+  const dispatch = useDispatch();
+
+  const handleOnDownloadStatements = useCallback(
+    (period: IStatementsPeriod) => {
+      dispatch(
+        fetchRefresh({ nextRoute: IHomeStackPages.ACCOUNT_STATEMENTS_PDF, params: { account, period } }),
+      );
+    },
+    [account, dispatch],
+  );
 
   const handleOnDownloadRIB = useCallback(() => {
-    navigation.navigate(IHomeStackPages.RIB_PDF, { account });
-  }, [navigation, account]);
-
-  // useHideBottomBar();
+    dispatch(fetchRefresh({ nextRoute: IHomeStackPages.RIB_PDF, params: { account } }));
+  }, [account, dispatch]);
 
   return (
     <ErrorBoundary t={t}>

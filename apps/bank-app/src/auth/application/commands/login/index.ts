@@ -12,14 +12,16 @@ import {
   IFetchRefresh,
   IRefreshSucceded,
 } from './types';
+import { IRoutes } from '../../../../shared/presentation/types';
 
 export const fetchLogin = (payload: ILoginCommand): IFetchLogin => ({
   type: ILoginTypes.FETCH_LOGIN,
   payload,
 });
 
-export const fetchRefresh = (): IFetchRefresh => ({
+export const fetchRefresh = (payload?: { nextRoute: IRoutes; params?: any }): IFetchRefresh => ({
   type: ILoginTypes.FETCH_REFRESH,
+  payload,
 });
 
 export const loginSuccess = (payload: { auth: IAuth; user: User }): ILoginSucceded => ({

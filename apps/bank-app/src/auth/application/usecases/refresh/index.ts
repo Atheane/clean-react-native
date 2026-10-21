@@ -8,17 +8,27 @@ import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 
 import { IStoreKey } from '../../../../shared/application/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { IAuthStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages, IRoutes } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 import { ILoginTypes, refreshSuccess, resetError } from '../../commands/login';
+import { Logger } from '@clean-rn/logger';
 
 export function* refreshSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(ILoginTypes.FETCH_REFRESH, refreshGenerator, httpConnection);
 }
 
-export function* refreshGenerator(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
+export function* refreshGenerator(
+  httpConnection: HttpConnection,
+  {
+    payload,
+  }: {
+    type: string;
+    payload?: { nextRoute: IRoutes; params?: any };
+  },
+): Generator<StrictEffect, any, any> {
   try {
+    Logger.getInstance().info(ILoginTypes.FETCH_REFRESH);
     const authApi = AuthApi.getInstance(httpConnection);
     const refreshToken = yield call(AsyncStorage.getItem, IStoreKey.JWT_REFRESH_TOKEN);
     const auth = yield call([authApi, authApi.refresh], refreshToken);
@@ -27,6 +37,10 @@ export function* refreshGenerator(httpConnection: HttpConnection): Generator<Str
     yield call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, auth.accessToken);
     yield call(AsyncStorage.setItem, IStoreKey.JWT_REFRESH_TOKEN, auth.refreshToken);
     yield put(refreshSuccess({ auth }));
+
+    if (payload) {
+      yield call(navigate, { route: payload.nextRoute, params: payload.params });
+    }
   } catch (error: unknown) {
     yield put(resetError());
     if (error instanceof ServerError && error.statusCode === 401) {

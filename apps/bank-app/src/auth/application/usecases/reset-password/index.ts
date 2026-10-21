@@ -9,6 +9,7 @@ import { AuthApi } from '@clean-rn/auth/infrastructure';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { initializeResetPassword, IResetPasswordTypes, passwordReset } from '../../commands/reset-password';
 import { fetchRefresh } from '../../../../auth/application/commands/login';
+import { IAuthStackPages } from '../../../../shared/presentation/types';
 
 export function* resetPasswordSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IResetPasswordTypes.FETCH_RESET_PASSWORD, resetPasswordGenerator, httpConnection);

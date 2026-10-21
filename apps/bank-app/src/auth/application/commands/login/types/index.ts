@@ -1,6 +1,7 @@
 import { IDomainError } from '@clean-rn/ddd';
 
 import { IAuth, IAuthErrorMessage, IAuthErrorCodes, ILoginCommand, User } from '@clean-rn/auth/domain';
+import { IRoutes } from '../../../../../shared/presentation/types';
 
 export enum ILoginTypes {
   FETCH_LOGIN = 'FETCH_LOGIN',
@@ -19,6 +20,7 @@ export type IFetchLogin = {
 
 export type IFetchRefresh = {
   type: typeof ILoginTypes.FETCH_REFRESH;
+  payload?: { nextRoute: IRoutes; params?: any };
 };
 
 export type IInitializeLogin = {

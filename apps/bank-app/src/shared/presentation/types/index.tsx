@@ -112,6 +112,7 @@ export enum IAuthStackPages {
 
 export enum IHomeStackPages {
   MENU = 'MenuHome',
+  HOME = 'Home',
   ACCOUNTS = 'Accounts',
   HELP = 'Help',
   TRANSACTIONS = 'Transactions',
@@ -179,6 +180,7 @@ export type IAuthStackProps = {
 };
 
 export type IHomeStackProps = {
+  [IHomeStackPages.HOME]: object;
   [IHomeStackPages.MENU]: object;
   [IHomeStackPages.ACCOUNTS]: object;
   [IHomeStackPages.HELP]: object;

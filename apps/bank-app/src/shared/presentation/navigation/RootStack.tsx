@@ -61,12 +61,12 @@ export const HomeStack = () => {
   }, [navigationStack, dispatch]);
   return (
     <Stack.Navigator>
+      <Stack.Screen name={IKycStackPages.MENU} component={KycStack} options={{ headerShown: false }} />
       <Stack.Screen
-        name={IHomeStackPages.ACCOUNTS}
+        name={IHomeStackPages.HOME}
         component={BottomTabNavigator}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name={IKycStackPages.MENU} component={KycStack} options={{ headerShown: false }} />
       <Stack.Screen
         name={IHomeStackPages.ACCOUNT_STATEMENTS}
         component={AccountStatements}

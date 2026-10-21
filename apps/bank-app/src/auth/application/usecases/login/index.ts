@@ -52,7 +52,7 @@ export function* loginGenerator(
 
     yield put(loginSuccess({ auth, user }));
     yield put(checkCustomerStatus());
-    yield call(navigate, { route: IHomeStackPages.ACCOUNTS });
+    yield call(navigate, { route: IHomeStackPages.HOME });
   } catch (error: unknown) {
     if (error instanceof ServerError) {
       switch (error.codeError) {
