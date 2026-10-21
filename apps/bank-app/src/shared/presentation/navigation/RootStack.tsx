@@ -62,7 +62,7 @@ export const HomeStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={IHomeStackPages.MENU}
+        name={IHomeStackPages.ACCOUNTS}
         component={BottomTabNavigator}
         options={{ headerShown: false }}
       />

@@ -21,13 +21,11 @@ export function* checkCustomerStatusGenerator(
   httpConnection: HttpConnection,
 ): Generator<StrictEffect, any, any> {
   try {
-    //todo check customer status in async storage, if VALIDATED, do not call api to avoid one api call
     const userApi = UserApi.getInstance(httpConnection);
 
     const user = yield call([userApi, userApi.getUser]);
     const customerStatus = user.properties.kycReview;
 
-    //todo getUser from to check last status
     if (customerStatus && customerStatus === KYC_REVIEW.VALIDATED) {
       const customer = Customer.Create({
         id: user.id.toString(),

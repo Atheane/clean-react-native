@@ -51,7 +51,7 @@ export function* loginGenerator(
 
     yield put(loginSuccess({ auth, user }));
     yield put(checkCustomerStatus());
-    yield call(navigate, { route: IHomeStackPages.MENU });
+    yield call(navigate, { route: IHomeStackPages.ACCOUNTS });
   } catch (error: unknown) {
     if (error instanceof ServerError) {
       switch (error.codeError) {

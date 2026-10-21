@@ -23,14 +23,14 @@ export function* listAccountsGenerator(httpConnection: HttpConnection): Generato
     if (accountsFromStore) {
       accounts = accountsFromStore;
       yield put(accountsListed(accounts));
-      yield call(navigate, { route: IHomeStackPages.MENU });
+      yield call(navigate, { route: IHomeStackPages.ACCOUNTS });
     } else {
       const api = AccountApi.getInstance(httpConnection);
 
       const accounts: IAccount[] = yield call([api, api.getAccounts]);
 
       yield put(accountsListed(accounts));
-      yield call(navigate, { route: IHomeStackPages.MENU });
+      yield call(navigate, { route: IHomeStackPages.ACCOUNTS });
     }
   } catch (error: unknown) {
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
