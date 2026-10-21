@@ -23,6 +23,7 @@ export type IRootTabParamList = {
   MenuTransfer: undefined;
   MenuCarbon: undefined;
   MenuProfile: undefined;
+  MenuKyc: undefined;
 };
 
 export type ISharedStackParamList = {
@@ -70,8 +71,9 @@ export type ICarbonStackParamList = {
 };
 
 export type IKycStackParamList = {
-  InitKyc: undefined;
   MenuKyc: undefined;
+  InitKyc: undefined;
+  Kyc: undefined;
   SuccessKyc: undefined;
   CardSent: undefined;
 };
@@ -131,8 +133,9 @@ export enum ICarbonStackPages {
 }
 
 export enum IKycStackPages {
-  INIT = 'InitKyc',
   MENU = 'MenuKyc',
+  INIT = 'InitKyc',
+  KYC = 'Kyc',
   SUCCESS = 'SuccessKyc',
   CARD_SENT = 'CardSent',
   UPLOAD_DOCUMENT = 'UploadDocument',
@@ -198,8 +201,9 @@ export type ICarbonStackProps = {
 };
 
 export type IKycStackProps = {
-  [IKycStackPages.INIT]: object;
   [IKycStackPages.MENU]: object;
+  [IKycStackPages.INIT]: object;
+  [IKycStackPages.KYC]: object;
   [IKycStackPages.SUCCESS]: object;
   [IKycStackPages.CARD_SENT]: object;
   [IKycStackPages.UPLOAD_DOCUMENT]: object;
@@ -253,8 +257,9 @@ export type IRoutes =
   | ICarbonStackPages.FOOD
   | ICarbonStackPages.FLY
   | ICarbonStackPages.WARNING_FOOD
-  | IKycStackPages.INIT
   | IKycStackPages.MENU
+  | IKycStackPages.INIT
+  | IKycStackPages.KYC
   | IKycStackPages.SUCCESS
   | IKycStackPages.CARD_SENT
   | IKycStackPages.UPLOAD_DOCUMENT

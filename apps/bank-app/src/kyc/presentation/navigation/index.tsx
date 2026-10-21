@@ -1,7 +1,7 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { useNavigationState } from '@react-navigation/native';
+import { useNavigationState, useRoute } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Colors, FontNames } from '@clean-rn/ui-mobile';
@@ -17,15 +17,15 @@ import {
   IAuthStackProps,
   IAuthStackPages,
   HeaderTitleAlign,
+  IRoutes,
 } from '../../../shared/presentation/types';
 import { ScreenModalError } from '../../../shared/presentation/screens';
 
 import { Login } from '../../../auth/presentation/screens';
 
-import { kycRouteInitialized } from '../../application/commands/customer';
 import {
   InitKyc,
-  MenuKyc,
+  Kyc,
   IdList,
   ResidenceProofOptions,
   ResidenceProofList,
@@ -42,35 +42,30 @@ const Stack = createNativeStackNavigator<IKycStackProps & ISharedStackProps & IA
 export const KycStack = () => {
   const { t } = useTranslation();
   const navigationStack = useNavigationState((state) => state?.routes ?? []);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const isModalErrorInStack = navigationStack.find((route) => route.name === ISharedStackPages.MODAL_ERROR);
-    if (!isModalErrorInStack) {
-      dispatch(initGlobalError());
-    }
-  }, [navigationStack, dispatch]);
-
-  const goHome = useCallback(() => {
-    dispatch(kycRouteInitialized({ initRoute: null }));
-  }, [dispatch]);
+  const {
+    params: { initRoute },
+  } = useRoute() as {
+    params: {
+      initRoute: keyof IKycStackProps | keyof ISharedStackProps | keyof IAuthStackProps | undefined;
+    };
+  };
 
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name={IKycStackPages.MENU}
-        component={MenuKyc}
-        options={{
-          headerTitle: t('screens.kyc.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : goHome),
-        }}
-      />
+    <Stack.Navigator initialRouteName={initRoute}>
       <Stack.Screen
         name={IKycStackPages.INIT}
         component={InitKyc}
         options={{
           headerTitle: t('screens.kyc.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : goHome),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+      />
+      <Stack.Screen
+        name={IKycStackPages.KYC}
+        component={Kyc}
+        options={{
+          headerTitle: t('screens.kyc.title'),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />
       <Stack.Screen
@@ -78,7 +73,7 @@ export const KycStack = () => {
         component={SuccessKyc}
         options={{
           headerTitle: t('screens.kyc.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : goHome),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />
       <Stack.Screen
@@ -86,7 +81,7 @@ export const KycStack = () => {
         component={CardSent}
         options={{
           headerTitle: t('screens.kyc.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : goHome),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />
       <Stack.Screen
@@ -145,7 +140,7 @@ export const KycStack = () => {
           ...headersOptions(goBack),
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         options={{
           presentation: 'modal',
           headerShown: false,
@@ -168,7 +163,7 @@ export const KycStack = () => {
         }}
         name={IAuthStackPages.LOGIN}
         component={Login}
-      />
+      /> */}
     </Stack.Navigator>
   );
 };

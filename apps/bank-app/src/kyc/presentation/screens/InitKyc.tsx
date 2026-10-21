@@ -16,7 +16,7 @@ export const InitKyc = () => {
   const navigation = useNavigation();
 
   const handleOnPress = useCallback(() => {
-    navigation.navigate(IKycStackPages.MENU as never);
+    navigation.navigate(IKycStackPages.KYC as never);
   }, [navigation]);
 
   return (

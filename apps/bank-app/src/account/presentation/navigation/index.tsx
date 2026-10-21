@@ -16,6 +16,8 @@ import {
   IHomeStackProps,
   ISharedStackPages,
   ISharedStackProps,
+  IKycStackPages,
+  IKycStackProps,
   HeaderTitleAlign,
 } from '../../../shared/presentation/types';
 import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
@@ -23,8 +25,11 @@ import { ScreenModalError, ScreenModalWebview } from '../../../shared/presentati
 import { Login } from '../../../auth/presentation/screens';
 
 import { Accounts, Transactions, AccountStatements, AccountStatementsPdf, RibPdf } from '../screens';
+import { KycStack } from '../../../kyc/presentation/navigation';
 
-const Stack = createNativeStackNavigator<IHomeStackProps & ISharedStackProps & IAuthStackProps>();
+const Stack = createNativeStackNavigator<
+  IHomeStackProps & ISharedStackProps & IAuthStackProps & IKycStackProps
+>();
 
 export const HomeStack = () => {
   const { t } = useTranslation();
@@ -103,6 +108,13 @@ export const HomeStack = () => {
         }}
         name={IAuthStackPages.LOGIN}
         component={Login}
+      />
+      <Stack.Screen
+        name={IKycStackPages.MENU}
+        component={KycStack}
+        options={{
+          headerShown: false,
+        }}
       />
     </Stack.Navigator>
   );

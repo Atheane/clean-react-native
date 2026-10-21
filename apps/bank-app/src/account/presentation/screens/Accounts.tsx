@@ -59,16 +59,22 @@ export const Accounts = () => {
   const { customer, pending: kycPending } = useSelector((state: IRootState) => state.kyc.customer);
 
   const handlePressBanner = useCallback(() => {
-    let initKycRoute: IKycStackPages;
-    if (customer?.properties.status === KYC_REVIEW.VALIDATED) {
-      initKycRoute = IKycStackPages.SUCCESS;
-    } else if (customer?.properties.status === KYC_REVIEW.NONE) {
-      initKycRoute = IKycStackPages.INIT;
-    } else {
-      initKycRoute = IKycStackPages.MENU;
+    let initRoute;
+    switch (customer?.properties.status) {
+      case KYC_REVIEW.VALIDATED:
+        initRoute = IKycStackPages.SUCCESS;
+        break;
+      case KYC_REVIEW.NONE:
+        initRoute = IKycStackPages.INIT;
+        break;
+      default:
+        initRoute = IKycStackPages.KYC;
+        break;
     }
-    navigation.navigate(initKycRoute as never);
-  }, [customer?.properties.status, navigation]);
+    navigation.navigate(IKycStackPages.MENU as never, {
+      initRoute,
+    });
+  }, [navigation]);
 
   const handleOnDeleteCard = useCallback(
     (uid: string) => {

@@ -28,10 +28,11 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { initializeDocument, cancelUpload } from '../../application/commands/document';
 
 import { W9, SwornStatement } from '../assets/images';
+import { KYC_REVIEW } from '@clean-rn/auth/domain';
 
 const HEIGHT = Dimensions.get('window').height;
 
-export const MenuKyc = () => {
+export const Kyc = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const dispatch = useDispatch();
@@ -100,7 +101,7 @@ export const MenuKyc = () => {
           <Text style={[styles.instruction, theme.bank.text.grey]}>{`${t(
             'screens.kyc.menu.instruction-before.begin',
           )} ${submittedKyc?.expectedDocumentCount} ${t('screens.kyc.menu.instruction-before.end')}`}</Text>
-          {customer?.properties.status === 'REFUSED' && (
+          {customer?.properties.status === KYC_REVIEW.REFUSED && (
             <View style={styles.errorMessageContainer}>
               <Text style={[theme.bank.text.errors, styles.errorMessage]}>
                 {`${t('errors.domain-error.kyc.KYC_REFUSED')}. `}
