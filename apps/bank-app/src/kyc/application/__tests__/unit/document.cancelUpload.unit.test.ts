@@ -1,36 +1,36 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
-import Constants from 'expo-constants';
-
-import { HttpConnection } from '@clean-rn/shared/infrastructure';
-import { KycApi } from '@clean-rn/kyc/infrastructure';
 
 import { cancelUploadSaga, cancelUploadSagaGenerator } from '../../usecases/document';
 import { IDocumentTypes, resetDocument } from '../../commands/document';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
+import { selectDocument } from '../../state-management/selectors';
 
 describe('Document - cancelUpload - usecases', () => {
-  const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
-
-  const api = KycApi.getInstance(httpConnection);
-  const genObject = cancelUploadSaga(httpConnection);
+  const genObject = cancelUploadSaga();
 
   it('Should wait for CANCEL_UPLOAD action and call cancelUploadSagaGenerator, should be done on next iteration', () => {
     expect(genObject.next().value).toEqual(
-      takeEvery(IDocumentTypes.CANCEL_UPLOAD, cancelUploadSagaGenerator, httpConnection),
+      takeEvery(IDocumentTypes.CANCEL_UPLOAD, cancelUploadSagaGenerator),
     );
     expect(genObject.next().done).toBeTruthy();
   });
 
   it('Should call cancelRequest', async () => {
-    testSaga(cancelUploadSagaGenerator, httpConnection).next().call(api.cancelRequest).next();
+    const abortController = new AbortController();
+    testSaga(cancelUploadSagaGenerator)
+      .next()
+      .select(selectDocument)
+      .next({ abortController })
+      .put(resetDocument())
+      .next();
   });
 
   it('Should call unknown error if another unexpected error', async () => {
-    testSaga(cancelUploadSagaGenerator, httpConnection)
+    testSaga(cancelUploadSagaGenerator)
       .next()
-      .call(api.cancelRequest)
+      .select(selectDocument)
       .throw(new Error('unexpected error'))
       .put(resetDocument())
       .next()

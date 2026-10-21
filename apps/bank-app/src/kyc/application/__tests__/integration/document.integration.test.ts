@@ -14,6 +14,7 @@ import {
   initializeDocument,
   resetDocument,
   cancelUpload,
+  setAbortController,
 } from '../../commands/document';
 import { IDocumentState, documentReducer } from '../../state-management';
 
@@ -55,6 +56,7 @@ describe('Document - integration', () => {
     const initialState: IDocumentState = {
       pending: false,
       document: null,
+      abortController: null,
     };
     sagaTester = new SagaTester({
       initialState,
@@ -74,6 +76,7 @@ describe('Document - integration', () => {
     expect(newState).toEqual({
       pending: false,
       document: null,
+      abortController: null,
     });
   });
 
@@ -84,6 +87,7 @@ describe('Document - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       document,
+      abortController: null,
     });
   });
 
@@ -92,6 +96,7 @@ describe('Document - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       document: null,
+      abortController: null,
     });
   });
 
@@ -104,6 +109,7 @@ describe('Document - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       document,
+      abortController: null,
     });
   });
 
@@ -114,6 +120,7 @@ describe('Document - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       document: null,
+      abortController: null,
     });
   });
 
@@ -124,17 +131,20 @@ describe('Document - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       document: null,
+      abortController: null,
     });
   });
 
   it('Should store correct state if UPLOAD_DOCUMENT', () => {
     const document = new DocumentVO(mockResponse[0]);
+    sagaTester.dispatch(documentInitialized({ document }));
     document.addPage('base64 string');
-
+    sagaTester.dispatch(pageAdded({ document }));
     sagaTester.dispatch(uploadDocument({ document }));
     expect(sagaTester.getState()).toEqual({
       pending: true,
-      document: null,
+      document,
+      abortController: null,
     });
   });
 
@@ -147,6 +157,19 @@ describe('Document - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       document,
+      abortController: null,
+    });
+  });
+
+  it('Should store correct state if SET_ABORT_CONTROLLER', () => {
+    const document = new DocumentVO(mockResponse[0]);
+    sagaTester.dispatch(documentInitialized({ document }));
+    const abortController = new AbortController();
+    sagaTester.dispatch(setAbortController({ controller: abortController }));
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      document,
+      abortController,
     });
   });
 });

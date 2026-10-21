@@ -21,12 +21,7 @@ import {
   resetDocument,
   setAbortController,
 } from '../../commands/document';
-import {
-  selectAbortController,
-  selectCustomer,
-  selectDocument,
-  selectUserFromLogin,
-} from '../../state-management/selectors';
+import { selectCustomer, selectDocument, selectUserFromLogin } from '../../state-management/selectors';
 
 export function* initializeDocumentSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(IDocumentTypes.INITIALIZE_DOCUMENT, initializeDocumentSagaGenerator);
@@ -165,6 +160,7 @@ export function* cancelUploadSagaGenerator(): Generator<StrictEffect, any, any> 
   try {
     const { abortController } = yield select(selectDocument);
     abortController.abort();
+    yield put(resetDocument());
   } catch (error: unknown) {
     yield put(resetDocument());
     // once app is well tested, delete this part and let onError hook manage unexpected errors

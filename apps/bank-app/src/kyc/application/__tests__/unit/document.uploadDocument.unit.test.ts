@@ -19,7 +19,7 @@ import { KycApi } from '@clean-rn/kyc/infrastructure';
 
 import { uploadDocumentSaga, uploadDocumentSagaGenerator } from '../../usecases/document';
 import { customerDocumentsUpdated } from '../../commands/customer';
-import { IDocumentTypes, documentUploaded, resetDocument } from '../../commands/document';
+import { IDocumentTypes, documentUploaded, resetDocument, setAbortController } from '../../commands/document';
 import { selectCustomer, selectUserFromLogin } from '../../state-management/selectors';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
@@ -59,6 +59,16 @@ describe('Document - uploadDocument - usecases', () => {
     path: '/app/document/kyc',
   };
 
+  let mockAbortController: AbortController;
+  beforeEach(() => {
+    mockAbortController = new AbortController();
+    jest.spyOn(window, 'AbortController').mockImplementation(() => mockAbortController);
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it('Should wait for UPLOAD_DOCUMENT action and call uploadDocumentSagaGenerator, should be done on next iteration', () => {
     expect(genObject.next().value).toEqual(
       takeEvery(IDocumentTypes.UPLOAD_DOCUMENT, uploadDocumentSagaGenerator, httpConnection),
@@ -93,7 +103,13 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
-      .spawn([api, api.createDocument], { customerId: user.id, document }) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .put(setAbortController({ controller: mockAbortController }))
+      .next()
+      .spawn([api, api.createDocument], {
+        customerId: user.id,
+        document,
+        abortSignal: mockAbortController.signal,
+      }) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockTask)
       .join(mockTask)
       .next(document)
@@ -141,7 +157,13 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
-      .spawn([api, api.createDocument], { customerId: user.id, document }) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .put(setAbortController({ controller: mockAbortController }))
+      .next()
+      .spawn([api, api.createDocument], {
+        customerId: user.id,
+        document,
+        abortSignal: mockAbortController.signal,
+      }) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
       .put(resetDocument())
       .next()
@@ -165,7 +187,13 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
-      .spawn([api, api.createDocument], { customerId: user.id, document }) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .put(setAbortController({ controller: mockAbortController }))
+      .next()
+      .spawn([api, api.createDocument], {
+        customerId: user.id,
+        document,
+        abortSignal: mockAbortController.signal,
+      }) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
       .put(resetDocument())
       .next()
@@ -189,7 +217,13 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
-      .spawn([api, api.createDocument], { customerId: user.id, document }) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .put(setAbortController({ controller: mockAbortController }))
+      .next()
+      .spawn([api, api.createDocument], {
+        customerId: user.id,
+        document,
+        abortSignal: mockAbortController.signal,
+      }) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new DOMException('The operation was aborted.', 'AbortError'))
       .put(resetDocument())
       .next()
@@ -212,7 +246,13 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUserFromLogin)
       .next(user)
-      .spawn([api, api.createDocument], { customerId: user.id, document }) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .put(setAbortController({ controller: mockAbortController }))
+      .next()
+      .spawn([api, api.createDocument], {
+        customerId: user.id,
+        document,
+        abortSignal: mockAbortController.signal,
+      }) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unexpected error'))
       .put(resetDocument())
       .next()
