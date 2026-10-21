@@ -216,6 +216,14 @@ Now simply start storybook app to display new component in storybook
 npx nx start storybook
 ```
 
+## Create a new lib
+
+For instance, beneficiary/infrastructure
+
+```bash
+npx nx g @nx/expo:lib beneficiary/infrastructure
+```
+
 ## Troubleshooting
 
 1. Error relatives to env variables
