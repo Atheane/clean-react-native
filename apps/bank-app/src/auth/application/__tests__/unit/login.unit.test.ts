@@ -2,13 +2,18 @@
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
-import dayjs from 'dayjs';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
-import { AuthError, Email, Password, User, Phone, BirthDay, Country, IGender } from '@clean-rn/auth/domain';
-import { AuthApi, IUserLoginServerCode, UserApi } from '@clean-rn/auth/infrastructure';
+import { AuthError, Email, Password } from '@clean-rn/auth/domain';
+import {
+  AuthApi,
+  IUserLoginServerCode,
+  UserApi,
+  mapUserServerToUserProperties,
+  USER_STATUS,
+} from '@clean-rn/auth/infrastructure';
 
 import { loginSaga, loginGenerator } from '../../usecases/login';
 import { ILoginTypes, loginSuccess, loginFailure, initializeLogin } from '../../commands/login';
@@ -80,6 +85,8 @@ describe('Login - usecase', () => {
     specifiedUSPerson: 0,
     title: 'M',
     userId: 3952560,
+    status: USER_STATUS.PENDING,
+    kycReviewComment: '',
   };
 
   const mockUserWomanData = {
@@ -92,6 +99,8 @@ describe('Login - usecase', () => {
     specifiedUSPerson: 0,
     title: 'Mme',
     userId: 3952561,
+    status: USER_STATUS.PENDING,
+    kycReviewComment: '',
   };
 
   const mockUserNeutralData = {
@@ -104,6 +113,8 @@ describe('Login - usecase', () => {
     specifiedUSPerson: 0,
     title: 'Mlle',
     userId: 3952561,
+    status: USER_STATUS.VALIDATED,
+    kycReviewComment: '',
   };
 
   it('Should wait for FETCH_LOGIN action and call loginGenerator, should be done on next iteration', () => {
@@ -114,30 +125,7 @@ describe('Login - usecase', () => {
   });
 
   it('Should call loginSuccess if user is a man', async () => {
-    let gender = IGender.NEUTRAL;
-    if (mockUserManData.title === 'Mme') {
-      gender = IGender.WOMAN;
-    } else if (mockUserManData.title === 'M') {
-      gender = IGender.MAN;
-    }
-
-    const user = User.Create({
-      id: mockUserManData.userId,
-      properties: {
-        email: new Email(mockUserManData.email),
-        phone: new Phone(mockUserManData.phone),
-        identity: {
-          gender,
-          firstName: mockUserManData.firstname,
-          lastName: mockUserManData.lastname,
-        },
-        birth: {
-          birthday: new BirthDay(dayjs(mockUserManData.birthday)),
-          nationality: new Country(mockUserManData.nationality),
-        },
-        USPerson: mockUserManData.specifiedUSPerson === 1,
-      },
-    });
+    const user = mapUserServerToUserProperties(mockUserManData);
     testSaga(loginGenerator, httpConnection, {
       type: ILoginTypes.FETCH_LOGIN,
       payload: mockData,
@@ -152,36 +140,14 @@ describe('Login - usecase', () => {
       .call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, mockResponse.accessToken)
       .next()
       .call([userApi, userApi.getUser])
-      .next(mockUserManData)
+      .next(user)
       .put(loginSuccess({ auth: mockResponse, user }))
       .next();
   });
 
   it('Should call loginSuccess if user is a woman', async () => {
-    let gender = IGender.NEUTRAL;
-    if (mockUserWomanData.title === 'Mme') {
-      gender = IGender.WOMAN;
-    } else if (mockUserWomanData.title === 'M') {
-      gender = IGender.MAN;
-    }
+    const user = mapUserServerToUserProperties(mockUserWomanData);
 
-    const user = User.Create({
-      id: mockUserWomanData.userId,
-      properties: {
-        email: new Email(mockUserWomanData.email),
-        phone: new Phone(mockUserWomanData.phone),
-        identity: {
-          gender,
-          firstName: mockUserWomanData.firstname,
-          lastName: mockUserWomanData.lastname,
-        },
-        birth: {
-          birthday: new BirthDay(dayjs(mockUserWomanData.birthday)),
-          nationality: new Country(mockUserWomanData.nationality),
-        },
-        USPerson: mockUserWomanData.specifiedUSPerson === 1,
-      },
-    });
     testSaga(loginGenerator, httpConnection, {
       type: ILoginTypes.FETCH_LOGIN,
       payload: mockData,
@@ -196,36 +162,14 @@ describe('Login - usecase', () => {
       .call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, mockResponse.accessToken)
       .next()
       .call([userApi, userApi.getUser])
-      .next(mockUserWomanData)
+      .next(user)
       .put(loginSuccess({ auth: mockResponse, user }))
       .next();
   });
 
   it('Should call loginSuccess if user is neutral', async () => {
-    let gender = IGender.NEUTRAL;
-    if (mockUserNeutralData.title === 'Mme') {
-      gender = IGender.WOMAN;
-    } else if (mockUserNeutralData.title === 'M') {
-      gender = IGender.MAN;
-    }
+    const user = mapUserServerToUserProperties(mockUserNeutralData);
 
-    const user = User.Create({
-      id: mockUserNeutralData.userId,
-      properties: {
-        email: new Email(mockUserNeutralData.email),
-        phone: new Phone(mockUserNeutralData.phone),
-        identity: {
-          gender,
-          firstName: mockUserNeutralData.firstname,
-          lastName: mockUserNeutralData.lastname,
-        },
-        birth: {
-          birthday: new BirthDay(dayjs(mockUserNeutralData.birthday)),
-          nationality: new Country(mockUserNeutralData.nationality),
-        },
-        USPerson: mockUserNeutralData.specifiedUSPerson === 1,
-      },
-    });
     testSaga(loginGenerator, httpConnection, {
       type: ILoginTypes.FETCH_LOGIN,
       payload: mockData,
@@ -240,7 +184,7 @@ describe('Login - usecase', () => {
       .call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, mockResponse.accessToken)
       .next()
       .call([userApi, userApi.getUser])
-      .next(mockUserNeutralData)
+      .next(user)
       .put(loginSuccess({ auth: mockResponse, user }))
       .next();
   });

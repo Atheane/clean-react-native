@@ -56,33 +56,7 @@ export function* loginGenerator(
     yield call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, auth.accessToken);
 
     const userApi = UserApi.getInstance(httpConnection);
-    const userProps = yield call([userApi, userApi.getUser]);
-
-    // todo: refactor in a mapper
-    let gender = IGender.NEUTRAL;
-    if (userProps.title === 'Mme') {
-      gender = IGender.WOMAN;
-    } else if (userProps.title === 'M') {
-      gender = IGender.MAN;
-    }
-
-    const user = User.Create({
-      id: userProps.userId,
-      properties: {
-        email: new Email(userProps.email),
-        phone: new Phone(userProps.phone),
-        identity: {
-          gender,
-          firstName: userProps.firstname,
-          lastName: userProps.lastname,
-        },
-        birth: {
-          birthday: new BirthDay(dayjs(userProps.birthday)),
-          nationality: new Country(userProps.nationality),
-        },
-        USPerson: userProps.specifiedUSPerson === 1,
-      },
-    });
+    const user = yield call([userApi, userApi.getUser]);
 
     yield put(loginSuccess({ auth, user }));
   } catch (error: unknown) {

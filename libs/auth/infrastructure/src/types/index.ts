@@ -11,7 +11,7 @@ export type IUserPropertiesServer = {
   lastname: string;
   nationality: string;
   phone: string;
-  specifiedUSPerson: 0 | 1;
+  specifiedUSPerson: number;
   title: string;
   status: USER_STATUS;
   userId: number;
