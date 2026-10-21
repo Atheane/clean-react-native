@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
 import Love from './love.svg';
 import Validate from './validate.svg';
 import Logout from './logout.svg';
@@ -20,6 +18,7 @@ import Logo from './logo.svg';
 import Tree from './tree.svg';
 import Meeting from './meeting.svg';
 import DeleteCross from './delete-cross.svg';
+import DeleteCrossGradient from './delete-cross-gradient.svg';
 import Question from './question.svg';
 import GreenEuro from './green-euro.svg';
 import Warning from './warning.svg';
@@ -90,6 +89,28 @@ import TRANSPORT from './t-transport.svg';
 import TRAVEL from './t-travel.svg';
 import VEHICLES from './t-vehicle.svg';
 import HouseCarbon from './house-carbon.svg';
+import GreenValidation from './green-validation.svg';
+import GreyPending from './grey-pending.svg';
+import RedCross from './red-cross.svg';
+import Add from './add.svg';
+import Camera from './camera.svg';
+import KycDrivingLicense from './kyc-driving-license.svg';
+import KycHealthCard from './kyc-health-card.svg';
+import KycIban from './kyc-iban.svg';
+import KycId from './kyc-id.svg';
+import KycIdentification from './kyc-identification.svg';
+import KycInvoice from './kyc-invoice.svg';
+import KycPassport from './kyc-passport.svg';
+import KycResidencePermit from './kyc-residence-permit.svg';
+import KycTaxes from './kyc-taxes.svg';
+import KycW9 from './kyc-w9.svg';
+import KycResidenceProof from './kyc-hosting-proof.svg';
+import KycSwornStatement from './kyc-sworn-statement.svg';
+import Checked from './checked.svg';
+import ImportDocument from './import-document.svg';
+import CarbonFootPrint from './carbon-footprint.svg';
+import Save from './save.svg';
+import Download from './download.svg';
 
 export {
   Love,
@@ -111,6 +132,7 @@ export {
   Logo,
   Tree,
   DeleteCross,
+  DeleteCrossGradient,
   Meeting,
   Question,
   GreenEuro,
@@ -182,4 +204,26 @@ export {
   TRAVEL,
   VEHICLES,
   HouseCarbon,
+  GreenValidation,
+  GreyPending,
+  RedCross,
+  Add,
+  Camera,
+  KycDrivingLicense,
+  KycHealthCard,
+  KycIban,
+  KycId,
+  KycIdentification,
+  KycInvoice,
+  KycPassport,
+  KycResidencePermit,
+  KycTaxes,
+  KycW9,
+  KycResidenceProof,
+  KycSwornStatement,
+  Checked,
+  ImportDocument,
+  CarbonFootPrint,
+  Save,
+  Download,
 };

@@ -31,10 +31,23 @@ exports[`SecondaryButton -  iconOne -  true - renders as before 1`] = `
         {
           "borderRadius": 2,
         },
-        {
-          "borderRadius": 28,
-          "flexDirection": "row",
-        },
+        [
+          {
+            "borderRadius": 28,
+            "flexDirection": "row",
+          },
+          {
+            "borderRadius": 28,
+            "elevation": 50,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 28,
+          },
+        ],
         {
           "backgroundColor": "#fff",
           "overflow": "visible",
@@ -86,6 +99,24 @@ exports[`SecondaryButton -  iconOne -  true - renders as before 1`] = `
       }
     >
       <View
+        colors={
+          [
+            "#D0CF2A",
+            "#9FB100",
+          ]
+        }
+        end={
+          [
+            1,
+            0,
+          ]
+        }
+        start={
+          [
+            0,
+            1,
+          ]
+        }
         style={
           {
             "alignItems": "center",
@@ -93,14 +124,23 @@ exports[`SecondaryButton -  iconOne -  true - renders as before 1`] = `
             "borderColor": "#2089dc",
             "borderRadius": 28,
             "borderWidth": 0,
+            "elevation": 50,
             "flexDirection": "row",
-            "justifyContent": "center",
+            "height": 55,
+            "justifyContent": "space-around",
             "padding": 8,
             "paddingBottom": 11,
             "paddingHorizontal": 10,
             "paddingLeft": 26,
-            "paddingRight": 24,
-            "paddingTop": 12,
+            "paddingRight": 50,
+            "paddingTop": 11,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 28,
           }
         }
       >
@@ -116,32 +156,34 @@ exports[`SecondaryButton -  iconOne -  true - renders as before 1`] = `
           <View
             style={
               {
+                "alignItems": "center",
+                "height": 32,
+                "justifyContent": "center",
                 "marginRight": 15,
+                "paddingHorizontal": 6,
               }
             }
           >
             <SvgMock />
           </View>
-          <View>
-            <Text
-              style={
-                [
-                  {
-                    "fontFamily": "Roboto_700Bold",
-                    "fontSize": 18,
-                    "lineHeight": 24,
-                    "textTransform": "none",
-                  },
-                  {
-                    "color": "#BFD23A",
-                  },
-                  undefined,
-                ]
-              }
-            >
-              Test-title
-            </Text>
-          </View>
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "Roboto_700Bold",
+                  "fontSize": 18,
+                  "lineHeight": 24,
+                  "textTransform": "none",
+                },
+                {
+                  "color": "#BFD23A",
+                },
+                undefined,
+              ]
+            }
+          >
+            Test-title
+          </Text>
         </View>
       </View>
     </View>
@@ -156,7 +198,7 @@ exports[`SecondaryButton -  large -  true - renders as before 1`] = `
       {
         "backgroundColor": "#BFD23A",
         "borderRadius": 32,
-        "width": 600,
+        "width": 562.5,
       },
       {
         "borderRadius": 28,
@@ -181,11 +223,24 @@ exports[`SecondaryButton -  large -  true - renders as before 1`] = `
         {
           "borderRadius": 2,
         },
-        {
-          "backgroundColor": "#BFD23A",
-          "borderRadius": 32,
-          "width": 600,
-        },
+        [
+          {
+            "backgroundColor": "#BFD23A",
+            "borderRadius": 32,
+            "width": 562.5,
+          },
+          {
+            "borderRadius": 28,
+            "elevation": 50,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 28,
+          },
+        ],
         {
           "backgroundColor": "#fff",
           "overflow": "visible",
@@ -237,6 +292,24 @@ exports[`SecondaryButton -  large -  true - renders as before 1`] = `
       }
     >
       <View
+        colors={
+          [
+            "#D0CF2A",
+            "#9FB100",
+          ]
+        }
+        end={
+          [
+            1,
+            0,
+          ]
+        }
+        start={
+          [
+            0,
+            1,
+          ]
+        }
         style={
           {
             "alignItems": "center",
@@ -244,14 +317,23 @@ exports[`SecondaryButton -  large -  true - renders as before 1`] = `
             "borderColor": "#2089dc",
             "borderRadius": 28,
             "borderWidth": 0,
+            "elevation": 50,
             "flexDirection": "row",
-            "justifyContent": "center",
+            "height": 55,
+            "justifyContent": "space-around",
             "padding": 8,
-            "paddingBottom": 11,
+            "paddingBottom": 16,
             "paddingHorizontal": 10,
             "paddingLeft": 26,
             "paddingRight": 24,
-            "paddingTop": 12,
+            "paddingTop": 15,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 28,
           }
         }
       >
@@ -264,26 +346,24 @@ exports[`SecondaryButton -  large -  true - renders as before 1`] = `
             }
           }
         >
-          <View>
-            <Text
-              style={
-                [
-                  {
-                    "fontFamily": "Roboto_700Bold",
-                    "fontSize": 18,
-                    "lineHeight": 24,
-                    "textTransform": "none",
-                  },
-                  {
-                    "color": "#BFD23A",
-                  },
-                  undefined,
-                ]
-              }
-            >
-              Test-title
-            </Text>
-          </View>
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "Roboto_700Bold",
+                  "fontSize": 18,
+                  "lineHeight": 24,
+                  "textTransform": "none",
+                },
+                {
+                  "color": "#BFD23A",
+                },
+                undefined,
+              ]
+            }
+          >
+            Test-title
+          </Text>
         </View>
       </View>
     </View>
@@ -322,10 +402,23 @@ exports[`SecondaryButton -  minimal props -  renders as before 1`] = `
         {
           "borderRadius": 2,
         },
-        {
-          "borderRadius": 28,
-          "flexDirection": "row",
-        },
+        [
+          {
+            "borderRadius": 28,
+            "flexDirection": "row",
+          },
+          {
+            "borderRadius": 28,
+            "elevation": 50,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 28,
+          },
+        ],
         {
           "backgroundColor": "#fff",
           "overflow": "visible",
@@ -377,6 +470,24 @@ exports[`SecondaryButton -  minimal props -  renders as before 1`] = `
       }
     >
       <View
+        colors={
+          [
+            "#D0CF2A",
+            "#9FB100",
+          ]
+        }
+        end={
+          [
+            1,
+            0,
+          ]
+        }
+        start={
+          [
+            0,
+            1,
+          ]
+        }
         style={
           {
             "alignItems": "center",
@@ -384,14 +495,23 @@ exports[`SecondaryButton -  minimal props -  renders as before 1`] = `
             "borderColor": "#2089dc",
             "borderRadius": 28,
             "borderWidth": 0,
+            "elevation": 50,
             "flexDirection": "row",
-            "justifyContent": "center",
+            "height": 55,
+            "justifyContent": "space-around",
             "padding": 8,
-            "paddingBottom": 11,
+            "paddingBottom": 16,
             "paddingHorizontal": 10,
             "paddingLeft": 26,
             "paddingRight": 24,
-            "paddingTop": 12,
+            "paddingTop": 15,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 28,
           }
         }
       >
@@ -404,26 +524,24 @@ exports[`SecondaryButton -  minimal props -  renders as before 1`] = `
             }
           }
         >
-          <View>
-            <Text
-              style={
-                [
-                  {
-                    "fontFamily": "Roboto_700Bold",
-                    "fontSize": 18,
-                    "lineHeight": 24,
-                    "textTransform": "none",
-                  },
-                  {
-                    "color": "#BFD23A",
-                  },
-                  undefined,
-                ]
-              }
-            >
-              Test-title
-            </Text>
-          </View>
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "Roboto_700Bold",
+                  "fontSize": 18,
+                  "lineHeight": 24,
+                  "textTransform": "none",
+                },
+                {
+                  "color": "#BFD23A",
+                },
+                undefined,
+              ]
+            }
+          >
+            Test-title
+          </Text>
         </View>
       </View>
     </View>
@@ -462,10 +580,23 @@ exports[`SecondaryButton -  uppercase -  true - renders as before 1`] = `
         {
           "borderRadius": 2,
         },
-        {
-          "borderRadius": 28,
-          "flexDirection": "row",
-        },
+        [
+          {
+            "borderRadius": 28,
+            "flexDirection": "row",
+          },
+          {
+            "borderRadius": 28,
+            "elevation": 50,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 28,
+          },
+        ],
         {
           "backgroundColor": "#fff",
           "overflow": "visible",
@@ -517,6 +648,24 @@ exports[`SecondaryButton -  uppercase -  true - renders as before 1`] = `
       }
     >
       <View
+        colors={
+          [
+            "#D0CF2A",
+            "#9FB100",
+          ]
+        }
+        end={
+          [
+            1,
+            0,
+          ]
+        }
+        start={
+          [
+            0,
+            1,
+          ]
+        }
         style={
           {
             "alignItems": "center",
@@ -524,14 +673,23 @@ exports[`SecondaryButton -  uppercase -  true - renders as before 1`] = `
             "borderColor": "#2089dc",
             "borderRadius": 28,
             "borderWidth": 0,
+            "elevation": 50,
             "flexDirection": "row",
-            "justifyContent": "center",
+            "height": 55,
+            "justifyContent": "space-around",
             "padding": 8,
-            "paddingBottom": 11,
+            "paddingBottom": 16,
             "paddingHorizontal": 10,
             "paddingLeft": 26,
             "paddingRight": 24,
-            "paddingTop": 12,
+            "paddingTop": 15,
+            "shadowColor": "#707070",
+            "shadowOffset": {
+              "height": 15,
+              "width": 0,
+            },
+            "shadowOpacity": 0.6,
+            "shadowRadius": 28,
           }
         }
       >
@@ -544,28 +702,26 @@ exports[`SecondaryButton -  uppercase -  true - renders as before 1`] = `
             }
           }
         >
-          <View>
-            <Text
-              style={
-                [
-                  {
-                    "fontFamily": "Roboto_700Bold",
-                    "fontSize": 18,
-                    "lineHeight": 24,
-                    "textTransform": "none",
-                  },
-                  {
-                    "color": "#BFD23A",
-                  },
-                  {
-                    "textTransform": "uppercase",
-                  },
-                ]
-              }
-            >
-              Test-title
-            </Text>
-          </View>
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "Roboto_700Bold",
+                  "fontSize": 18,
+                  "lineHeight": 24,
+                  "textTransform": "none",
+                },
+                {
+                  "color": "#BFD23A",
+                },
+                {
+                  "textTransform": "uppercase",
+                },
+              ]
+            }
+          >
+            Test-title
+          </Text>
         </View>
       </View>
     </View>

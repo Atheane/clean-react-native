@@ -51,9 +51,7 @@ declare module '@rneui/themed' {
   }
 }
 
-const WIDTH = Dimensions.get('window').width;
-const HEIGHT = Dimensions.get('window').height;
-const COEFF = HEIGHT / WIDTH > 2.16 ? 0.75 : 0.8;
+const COEFF = 0.75;
 
 const SHORT_CARD_RATIO = 168 / 228;
 const LONG_CARD_RATIO = 85 / 356;
@@ -225,8 +223,9 @@ export const theme = createTheme({
         color: Colors.bank.primary.darkGrey,
       },
       boldGrey: {
+        fontSize: 13,
         fontFamily: FontNames.MartelSans_700Bold,
-        color: Colors.bank.primary.grey,
+        color: Colors.bank.primary.darkGrey,
         fontWeight: 'bold',
       },
       cyan: {

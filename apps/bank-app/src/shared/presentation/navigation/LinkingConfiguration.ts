@@ -7,13 +7,24 @@
 import { LinkingOptions } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
 
-import { IRootStackParamList, IAuthStackParamList, IHomeStackParamList } from '../types';
+import {
+  IRootStackParamList,
+  IAuthStackParamList,
+  IHomeStackParamList,
+  ICarbonStackParamList,
+  IKycStackParamList,
+  ITransferStackParamList,
+  IProfileStackParamList,
+} from '../types';
 
 export const LinkingConfiguration: LinkingOptions<
-  IRootStackParamList | IAuthStackParamList | IHomeStackParamList
-  // | CarbonStackParamList
-  // | TransferStackParamList
-  // | ProfileStackParamList
+  | IRootStackParamList
+  | IAuthStackParamList
+  | IHomeStackParamList
+  | ICarbonStackParamList
+  | IKycStackParamList
+  | ITransferStackParamList
+  | IProfileStackParamList
 > = {
   prefixes: [Linking.createURL('/')],
   config: {
@@ -27,41 +38,46 @@ export const LinkingConfiguration: LinkingOptions<
       SignupAddress: 'SignupAddress',
       Legal: 'Legal',
       Cgu: 'Cgu',
-      Home: {
+      CguKycProvider: 'CguKycProvider',
+      InitKyc: 'InitKyc',
+      MenuKyc: 'MenuKyc',
+      SuccessKyc: 'SuccessKyc',
+      CardSent: 'CardSent',
+      MenuHome: {
         screens: {
           Menu: {
             screens: {
               Home: 'Home',
-              // Account: 'Account',
-              // RestoFlash: 'RestoFlash',
-              // WeFlo: 'WeFlo',
-              // AccountStatements: 'AccountStatements',
-              // AccountStatementsCurrentMonth: 'AccountStatementsCurrentMonth',
-              // AccountStatementsLastThreeMonths: 'AccountStatementsLastThreeMonths',
-              // AccountStatementsAll: 'AccountStatementsAll',
-              // ExportPdfIban: 'ExportPdfIban',
+              Account: 'Account',
+              RestoFlash: 'RestoFlash',
+              WeFlo: 'WeFlo',
+              AccountStatements: 'AccountStatements',
+              AccountStatementsCurrentMonth: 'AccountStatementsCurrentMonth',
+              AccountStatementsLastThreeMonths: 'AccountStatementsLastThreeMonths',
+              AccountStatementsAll: 'AccountStatementsAll',
+              ExportPdfIban: 'ExportPdfIban',
             },
           },
-          //     Transfer: {
-          //       screens: {
-          //         Transfer: 'Transfer',
-          //       },
-          //     },
-          //     Carbon: {
-          //       screens: {
-          //         Carbon: 'Carbon',
-          //         House: 'House',
-          //         Transport: 'Transport',
-          //         Food: 'Food',
-          //         Fly: 'Fly',
-          //         WarningFood: 'WarningFood',
-          //       },
-          //     },
-          //     Profile: {
-          //       screens: {
-          //         Profile: 'Profile',
-          //       },
-          //     },
+          Transfer: {
+            screens: {
+              Transfer: 'Transfer',
+            },
+          },
+          Carbon: {
+            screens: {
+              Carbon: 'Carbon',
+              House: 'House',
+              Transport: 'Transport',
+              Food: 'Food',
+              Fly: 'Fly',
+              WarningFood: 'WarningFood',
+            },
+          },
+          Profile: {
+            screens: {
+              Profile: 'Profile',
+            },
+          },
         },
       },
       Modal: 'modal',

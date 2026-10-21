@@ -1,0 +1,7 @@
+<svg id="icon_IBAN" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="44" height="44" viewBox="0 0 44 44">
+  <image id="bill-residence" width="44" height="44" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="/>
+  <g id="np_bank_3350037_000000" transform="translate(23.76 13.077)">
+    <path id="Tracé_7654" data-name="Tracé 7654" d="M8.07,38.551H7.653l-.1-2.408a.318.318,0,0,0,.3-.316v-.181h.235a.294.294,0,1,0,0-.588H1.9a.294.294,0,0,0,0,.588h.235v.181a.318.318,0,0,0,.295.316l-.1,2.408H1.914a.4.4,0,1,0,0,.8H8.069a.4.4,0,0,0,0-.8ZM6.792,36.143l-.1,2.408H5.471l-.1-2.408a.318.318,0,0,0,.295-.316v-.181H6.5v.181A.318.318,0,0,0,6.792,36.143Zm-3.6,0a.318.318,0,0,0,.295-.316v-.181h.828v.181a.318.318,0,0,0,.295.316l-.1,2.408H3.288Z" transform="translate(-1.516 -32.912)" fill="#b12676"/>
+    <path id="Tracé_7655" data-name="Tracé 7655" d="M9.562,6.947h5.425c.239,0,.269-.1.066-.23l-2.41-1.51a.76.76,0,0,0-.736,0L9.5,6.717c-.2.127-.173.23.066.23Zm2.712-1.292a.489.489,0,1,1-.489.489A.489.489,0,0,1,12.274,5.654Z" transform="translate(-8.799 -5.111)" fill="#b12676"/>
+  </g>
+</svg>

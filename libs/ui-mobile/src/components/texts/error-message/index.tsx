@@ -4,13 +4,27 @@ import { useTranslation } from 'react-i18next';
 import { IDomainError } from '@clean-rn/ddd';
 
 import { IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
+import { IAccountErrorCodes, IAccountErrorMessage } from '@clean-rn/account/domain';
+import { ICarbonErrorCodes, ICarbonErrorMessage } from '@clean-rn/carbon/domain';
+import {
+  ICustomerErrorCodes,
+  ICustomerErrorMessage,
+  IDocumentErrorCodes,
+  IDocumentErrorMessage,
+} from '@clean-rn/kyc/domain';
 
 import { useTheme } from '@rneui/themed';
 
 import { firstLetterCapitalize } from '../../../utils';
 
 type IProps = {
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | null;
+  error:
+    | IDomainError<IAuthErrorCodes, IAuthErrorMessage>
+    | IDomainError<IAccountErrorCodes, IAccountErrorMessage>
+    | IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>
+    | IDomainError<ICustomerErrorCodes, ICustomerErrorMessage>
+    | IDomainError<IDocumentErrorCodes, IDocumentErrorMessage>
+    | null;
 };
 export const ErrorMessage = (props: IProps) => {
   const { theme } = useTheme();
@@ -28,7 +42,47 @@ export const ErrorMessage = (props: IProps) => {
         )}
       {props.error &&
         props.error.code &&
-        !Object.values(IAuthErrorCodes).includes(props.error.code as IAuthErrorCodes) && (
+        Object.values(IAccountErrorCodes).includes(props.error.code as IAccountErrorCodes) && (
+          <View>
+            <Text style={theme.bank.text.errors}>
+              {firstLetterCapitalize(t(`errors.domain-error.account.${props.error.code}`))}
+            </Text>
+          </View>
+        )}
+      {props.error &&
+        props.error.code &&
+        Object.values(ICarbonErrorCodes).includes(props.error.code as ICarbonErrorCodes) && (
+          <View>
+            <Text style={theme.bank.text.errors}>
+              {firstLetterCapitalize(t(`errors.domain-error.carbon.${props.error.code}`))}
+            </Text>
+          </View>
+        )}
+      {props.error &&
+        props.error.code &&
+        Object.values(ICustomerErrorCodes).includes(props.error.code as ICustomerErrorCodes) && (
+          <View>
+            <Text style={theme.bank.text.errors}>
+              {firstLetterCapitalize(t(`errors.domain-error.kyc.${props.error.code}`))}
+            </Text>
+          </View>
+        )}
+      {props.error &&
+        props.error.code &&
+        Object.values(IDocumentErrorCodes).includes(props.error.code as IDocumentErrorCodes) && (
+          <View>
+            <Text style={theme.bank.text.errors}>
+              {firstLetterCapitalize(t(`errors.domain-error.kyc.${props.error.code}`))}
+            </Text>
+          </View>
+        )}
+      {props.error &&
+        props.error.code &&
+        !Object.values(IAuthErrorCodes).includes(props.error.code as IAuthErrorCodes) &&
+        !Object.values(IAccountErrorCodes).includes(props.error.code as IAccountErrorCodes) &&
+        !Object.values(ICarbonErrorCodes).includes(props.error.code as ICarbonErrorCodes) &&
+        !Object.values(ICustomerErrorCodes).includes(props.error.code as ICustomerErrorCodes) &&
+        !Object.values(IDocumentErrorCodes).includes(props.error.code as IDocumentErrorCodes) && (
           <View>
             <Text style={theme.bank.text.errors}>
               {firstLetterCapitalize(t('errors.domain-error.other'))}

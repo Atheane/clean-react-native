@@ -20,6 +20,7 @@ type IProps = {
 
 export const PrimaryButton: FC<IProps> = (props: IProps) => {
   const { theme } = useTheme();
+  const renderLabel = (text: string) => (text.length < 18 ? `${text}` : `${text}`.slice(0, 15) + '...');
 
   return (
     <View
@@ -30,7 +31,13 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
     >
       <Button
         ViewComponent={LinearGradient}
-        buttonStyle={[styles.button, theme.bank.shadow.button]}
+        buttonStyle={[
+          theme.bank.shadow.button,
+          styles.button,
+          (props.iconOne || props.iconTwo) && styles.buttonIcon,
+          props.iconOne && !props.iconTwo && styles.buttonOneIcon,
+          theme.bank.container.centeredItems,
+        ]}
         containerStyle={[
           props.long ? theme.bank.container.button.long : theme.bank.container.button.short,
           theme.bank.shadow.button,
@@ -51,6 +58,7 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
               <props.iconOne />
             </View>
           )}
+
           <Text
             style={[
               theme.bank.text.button,
@@ -58,7 +66,7 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
               props.uppercase && { textTransform: 'uppercase' },
             ]}
           >
-            {firstLetterCapitalize(props.title)}
+            {renderLabel(firstLetterCapitalize(props.title))}
           </Text>
           {props.iconTwo && (
             <View style={styles.iconTwoContainer}>
@@ -72,7 +80,15 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
+  buttonOneIcon: {
+    paddingRight: 50,
+  },
+  buttonIcon: {
+    paddingTop: 11,
+    paddingBottom: 11,
+  },
   button: {
+    height: 55,
     paddingTop: 15,
     paddingRight: 24,
     paddingBottom: 16,
@@ -82,7 +98,15 @@ const styles = StyleSheet.create({
     color: Colors.bank.primary.white,
   },
   iconOneContainer: {
+    height: 32,
+    alignItems: 'center',
+    paddingHorizontal: 6,
+    justifyContent: 'center',
     marginRight: 15,
+  },
+  iconOne: {
+    width: 32,
+    height: 32,
   },
   iconTwoContainer: {
     marginLeft: 15,

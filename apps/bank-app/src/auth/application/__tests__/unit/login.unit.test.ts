@@ -2,25 +2,32 @@
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
-import dayjs from 'dayjs';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
-import { AuthError, Email, Password, User, Phone, BirthDay, Country, IGender } from '@clean-rn/auth/domain';
-import { AuthApi, IUserLoginServerCode } from '@clean-rn/auth/infrastructure';
+import { AuthError, Email, Password, KYC_REVIEW } from '@clean-rn/auth/domain';
+import {
+  AuthApi,
+  IUserLoginServerCode,
+  UserApi,
+  mapUserServerToUserProperties,
+} from '@clean-rn/auth/infrastructure';
 
 import { loginSaga, loginGenerator } from '../../usecases/login';
 import { ILoginTypes, loginSuccess, loginFailure, initializeLogin } from '../../commands/login';
 import { initializeSignupStep } from '../../commands/signup';
 import { IStoreKey } from '../../../../shared/application/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
 
 describe('Login - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
-  const api = AuthApi.getInstance(httpConnection);
+  const authApi = AuthApi.getInstance(httpConnection);
+  const userApi = UserApi.getInstance(httpConnection);
+
   const genObject = loginSaga(httpConnection);
 
   const mockData = {
@@ -78,6 +85,8 @@ describe('Login - usecase', () => {
     specifiedUSPerson: 0,
     title: 'M',
     userId: 3952560,
+    kycReview: KYC_REVIEW.NONE,
+    kycReviewComment: '',
   };
 
   const mockUserWomanData = {
@@ -90,6 +99,8 @@ describe('Login - usecase', () => {
     specifiedUSPerson: 0,
     title: 'Mme',
     userId: 3952561,
+    kycReview: KYC_REVIEW.NONE,
+    kycReviewComment: '',
   };
 
   const mockUserNeutralData = {
@@ -102,6 +113,8 @@ describe('Login - usecase', () => {
     specifiedUSPerson: 0,
     title: 'Mlle',
     userId: 3952561,
+    kycReview: KYC_REVIEW.NONE,
+    kycReviewComment: '',
   };
 
   it('Should wait for FETCH_LOGIN action and call loginGenerator, should be done on next iteration', () => {
@@ -112,30 +125,7 @@ describe('Login - usecase', () => {
   });
 
   it('Should call loginSuccess if user is a man', async () => {
-    let gender = IGender.NEUTRAL;
-    if (mockUserManData.title === 'Mme') {
-      gender = IGender.WOMAN;
-    } else if (mockUserManData.title === 'M') {
-      gender = IGender.MAN;
-    }
-
-    const user = User.Create({
-      id: mockUserManData.userId,
-      properties: {
-        email: new Email(mockUserManData.email),
-        phone: new Phone(mockUserManData.phone),
-        identity: {
-          gender,
-          firstName: mockUserManData.firstname,
-          lastName: mockUserManData.lastname,
-        },
-        birth: {
-          birthday: new BirthDay(dayjs(mockUserManData.birthday)),
-          nationality: new Country(mockUserManData.nationality),
-        },
-        USPerson: mockUserManData.specifiedUSPerson === 1,
-      },
-    });
+    const user = mapUserServerToUserProperties(mockUserManData);
     testSaga(loginGenerator, httpConnection, {
       type: ILoginTypes.FETCH_LOGIN,
       payload: mockData,
@@ -143,43 +133,25 @@ describe('Login - usecase', () => {
       .next()
       .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
       .next('test@example.com')
-      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
       .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next()
       .call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, mockResponse.accessToken)
       .next()
-      .call([api, api.getUser])
-      .next(mockUserManData)
+      .call([userApi, userApi.getUser])
+      .next(user)
       .put(loginSuccess({ auth: mockResponse, user }))
+      .next()
+      .put(checkCustomerStatus())
+      .next()
+      .call(navigate, { route: IHomeStackPages.ACCOUNTS })
       .next();
   });
 
   it('Should call loginSuccess if user is a woman', async () => {
-    let gender = IGender.NEUTRAL;
-    if (mockUserWomanData.title === 'Mme') {
-      gender = IGender.WOMAN;
-    } else if (mockUserWomanData.title === 'M') {
-      gender = IGender.MAN;
-    }
+    const user = mapUserServerToUserProperties(mockUserWomanData);
 
-    const user = User.Create({
-      id: mockUserWomanData.userId,
-      properties: {
-        email: new Email(mockUserWomanData.email),
-        phone: new Phone(mockUserWomanData.phone),
-        identity: {
-          gender,
-          firstName: mockUserWomanData.firstname,
-          lastName: mockUserWomanData.lastname,
-        },
-        birth: {
-          birthday: new BirthDay(dayjs(mockUserWomanData.birthday)),
-          nationality: new Country(mockUserWomanData.nationality),
-        },
-        USPerson: mockUserWomanData.specifiedUSPerson === 1,
-      },
-    });
     testSaga(loginGenerator, httpConnection, {
       type: ILoginTypes.FETCH_LOGIN,
       payload: mockData,
@@ -187,43 +159,25 @@ describe('Login - usecase', () => {
       .next()
       .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
       .next('test@example.com')
-      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
       .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next()
       .call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, mockResponse.accessToken)
       .next()
-      .call([api, api.getUser])
-      .next(mockUserWomanData)
+      .call([userApi, userApi.getUser])
+      .next(user)
       .put(loginSuccess({ auth: mockResponse, user }))
+      .next()
+      .put(checkCustomerStatus())
+      .next()
+      .call(navigate, { route: IHomeStackPages.ACCOUNTS })
       .next();
   });
 
   it('Should call loginSuccess if user is neutral', async () => {
-    let gender = IGender.NEUTRAL;
-    if (mockUserNeutralData.title === 'Mme') {
-      gender = IGender.WOMAN;
-    } else if (mockUserNeutralData.title === 'M') {
-      gender = IGender.MAN;
-    }
+    const user = mapUserServerToUserProperties(mockUserNeutralData);
 
-    const user = User.Create({
-      id: mockUserNeutralData.userId,
-      properties: {
-        email: new Email(mockUserNeutralData.email),
-        phone: new Phone(mockUserNeutralData.phone),
-        identity: {
-          gender,
-          firstName: mockUserNeutralData.firstname,
-          lastName: mockUserNeutralData.lastname,
-        },
-        birth: {
-          birthday: new BirthDay(dayjs(mockUserNeutralData.birthday)),
-          nationality: new Country(mockUserNeutralData.nationality),
-        },
-        USPerson: mockUserNeutralData.specifiedUSPerson === 1,
-      },
-    });
     testSaga(loginGenerator, httpConnection, {
       type: ILoginTypes.FETCH_LOGIN,
       payload: mockData,
@@ -231,15 +185,19 @@ describe('Login - usecase', () => {
       .next()
       .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
       .next('test@example.com')
-      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
       .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next()
       .call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, mockResponse.accessToken)
       .next()
-      .call([api, api.getUser])
-      .next(mockUserNeutralData)
+      .call([userApi, userApi.getUser])
+      .next(user)
       .put(loginSuccess({ auth: mockResponse, user }))
+      .next()
+      .put(checkCustomerStatus())
+      .next()
+      .call(navigate, { route: IHomeStackPages.ACCOUNTS })
       .next();
   });
 
@@ -251,7 +209,7 @@ describe('Login - usecase', () => {
       .next()
       .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
       .next('test@example.com')
-      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401InvalidCredentials))
       .put(
         loginFailure(
@@ -269,7 +227,7 @@ describe('Login - usecase', () => {
       .next()
       .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
       .next('test@example.com')
-      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401UserNotFound))
       .put(loginFailure(new AuthError.LoginFailureUserNotFound(new ServerError(mockError401UserNotFound))))
       .next();
@@ -283,7 +241,7 @@ describe('Login - usecase', () => {
       .next()
       .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
       .next('test@example.com')
-      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401UserPhoneNotValidated))
       .put(initializeSignupStep())
       .next()
@@ -305,7 +263,7 @@ describe('Login - usecase', () => {
       .next()
       .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
       .next('test@example.com')
-      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
       .put(initializeLogin())
       .next()
@@ -323,7 +281,7 @@ describe('Login - usecase', () => {
       .next(null)
       .call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, 'test@example.com')
       .next()
-      .call([api, api.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unknown error'))
       .put(initializeLogin())
       .next()

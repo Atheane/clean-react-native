@@ -24,10 +24,15 @@ export default SecondaryButtonMeta;
 
 type SecondaryButtonStory = ComponentStory<typeof SecondaryButton>;
 
-export const Static: SecondaryButtonStory = (args) => {
+export const Short: SecondaryButtonStory = (args) => {
   const { t } = useTranslation();
   return <SecondaryButton {...args} title={t('screens.login.title')} />;
 };
+export const Long: SecondaryButtonStory = (args) => {
+  const { t } = useTranslation();
+  return <SecondaryButton {...args} title={t('screens.login.title')} long />;
+};
+
 export const Icon: SecondaryButtonStory = (args) => {
   const { t } = useTranslation();
 
@@ -42,6 +47,24 @@ export const Icon: SecondaryButtonStory = (args) => {
         />
       )}
       title={t('screens.login.title')}
+    />
+  );
+};
+
+export const LongText: SecondaryButtonStory = (args) => {
+  return (
+    <SecondaryButton
+      {...args}
+      title={'Importer un document'}
+      uppercase={false}
+      long
+      iconOne={() => (
+        <Logout
+          width={27}
+          height={27}
+          style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
+        />
+      )}
     />
   );
 };

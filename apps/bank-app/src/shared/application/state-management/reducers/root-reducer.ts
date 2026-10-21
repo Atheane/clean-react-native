@@ -6,9 +6,15 @@ import {
   signupReducer,
 } from '../../../../auth/application/state-management';
 
-import { accountsReducer, transactionsReducer } from '../../../../account/application/state-management';
+import {
+  accountsReducer,
+  eventCardsReducer,
+  transactionsReducer,
+} from '../../../../account/application/state-management';
 
 import { carbonReducer } from '../../../../carbon/application/state-management';
+
+import { customerReducer, documentReducer } from '../../../../kyc/application/state-management';
 
 import { initializationReducer } from './initialize-application';
 import { globalErrorReducer } from './manage-global-errors';
@@ -21,8 +27,13 @@ export const rootReducer = combineReducers({
     resetPassword: resetPasswordReducer,
     signup: signupReducer,
   }),
-  account: combineReducers({ accounts: accountsReducer, transactions: transactionsReducer }),
+  account: combineReducers({
+    accounts: accountsReducer,
+    transactions: transactionsReducer,
+    deletedEventCards: eventCardsReducer,
+  }),
   carbon: carbonReducer,
+  kyc: combineReducers({ customer: customerReducer, document: documentReducer }),
 });
 
 export type IRootState = ReturnType<typeof rootReducer>;

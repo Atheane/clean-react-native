@@ -60,13 +60,13 @@ const getStories = () => {
     './stories/buttons/SwitchButton.stories.tsx': require('../stories/buttons/SwitchButton.stories'),
     './stories/buttons/GreenBackButton.stories.tsx': require('../stories/buttons/GreenBackButton.stories'),
     // Cards
-    './stories/cards/EventCardDelete.stories.tsx': require('../stories/cards/EventCardDelete.stories'),
     './stories/cards/TouchEventCard.stories.tsx': require('../stories/cards/TouchEventCard.stories'),
     './stories/cards/LongCard.stories.tsx': require('../stories/cards/LongCard.stories'),
     './stories/cards/CardScroller.stories.tsx': require('../stories/cards/CardScroller.stories'),
     './stories/cards/TransactionsCard.stories.tsx': require('../stories/cards/TransactionsCard.stories'),
     './stories/cards/TouchCardKpi.stories.tsx': require('../stories/cards/TouchCardKpi.stories'),
     './stories/cards/TouchCardText.stories.tsx': require('../stories/cards/TouchCardText.stories'),
+    './stories/cards/UploadDocumentCard.stories.tsx': require('../stories/cards/UploadDocumentCard.stories'),
     // Checkboxes
     './stories/checkboxes/SimpleCheckBox.stories.tsx': require('../stories/checkboxes/SimpleCheckBox.stories'),
     './stories/checkboxes/MultipleOptionsCheckBox.stories.tsx': require('../stories/checkboxes/MultipleOptionsCheckBox.stories'),
@@ -100,11 +100,16 @@ const getStories = () => {
     './stories/lists/WhiteBalanceList.stories.tsx': require('../stories/lists/WhiteBalanceList.stories'),
     // Others
     './stories/others/WebViewer.stories.tsx': require('../stories/others/WebViewer.stories'),
+    './stories/others/PdfViewer.stories.tsx': require('../stories/others/PdfViewer.stories'),
+    './stories/others/PdfDownloader.stories.tsx': require('../stories/others/PdfDownloader.stories'),
     './stories/others/ShareScreen.stories.tsx': require('../stories/others/ShareScreen.stories'),
+    './stories/others/DocumentPicker.stories.tsx': require('../stories/others/DocumentPicker.stories'),
+    './stories/others/DocumentScanner.stories.tsx': require('../stories/others/DocumentScanner.stories'),
     './stories/others/CopyValueClipboard.stories.tsx': require('../stories/others/CopyValueClipboard.stories'),
     './stories/others/TransactionItem.stories.tsx': require('../stories/others/TransactionItem.stories'),
     './stories/others/GraphCO2.stories.tsx': require('../stories/others/GraphCO2.stories'),
     './stories/others/ModalError.stories.tsx': require('../stories/others/ModalError.stories'),
+    './stories/others/IconTextItem.stories.tsx': require('../stories/others/IconTextItem.stories'),
     // Searchboxes
     './stories/searchboxes/SearchModal.stories.tsx': require('../stories/searchboxes/SearchModal.stories'),
     // Texts
