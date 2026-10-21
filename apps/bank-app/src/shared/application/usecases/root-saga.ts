@@ -21,6 +21,8 @@ import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
 import { listAccountsSaga, listTransactionsSaga } from '../../../account/application/usecases';
 
+import { listBeneficiarySaga } from '../../../beneficiary/application/usecases';
+
 import {
   computeHouseEmissionsSaga,
   computeTransportEmissionsSaga,
@@ -53,6 +55,7 @@ export function* rootSaga(httpConnection: HttpConnection) {
     validatePhoneSaga(httpConnection),
     signupUserSaga(httpConnection),
     listAccountsSaga(httpConnection),
+    listBeneficiarySaga(httpConnection),
     listTransactionsSaga(httpConnection),
     computeHouseEmissionsSaga(),
     computeTransportEmissionsSaga(),

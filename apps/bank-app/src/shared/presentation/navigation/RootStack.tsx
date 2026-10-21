@@ -66,6 +66,11 @@ export const HomeStack = () => {
         component={BottomTabNavigator}
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name={IHomeStackPages.BENEFICIARY}
+        component={BottomTabNavigator}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name={IKycStackPages.MENU} component={KycStack} options={{ headerShown: false }} />
       <Stack.Screen
         name={IHomeStackPages.ACCOUNT_STATEMENTS}

@@ -257,6 +257,9 @@
         "article": "Our blog on the banking world and the climate emergency"
       }
     },
+    "beneficiary": {
+      "title": "Manage beneficiaries"
+    },
     "account-statements": {
       "title": "Export",
       "bold": "Export my account statement",

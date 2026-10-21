@@ -287,6 +287,9 @@
         "article": "Notre blog sur le monde bancaire et l’urgence climatique"
       }
     },
+    "beneficiary": {
+      "title": "Gérer mes bénéficiaires"
+    },
     "account-statements": {
       "title": "Export",
       "bold": "Exporter mon relevé de compte",

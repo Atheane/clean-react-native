@@ -51,6 +51,7 @@ export type IAuthStackParamList = {
 export type IHomeStackParamList = {
   MenuHome: undefined;
   Accounts: undefined;
+  Beneficiay: undefined;
   Help: undefined;
   Transactions: undefined;
   RestoFlash: undefined;
@@ -113,6 +114,7 @@ export enum IAuthStackPages {
 export enum IHomeStackPages {
   MENU = 'MenuHome',
   ACCOUNTS = 'Accounts',
+  BENEFICIARY = 'Beneficiary',
   HELP = 'Help',
   TRANSACTIONS = 'Transactions',
   RESTO_FLASH = 'RestoFlash',
@@ -181,6 +183,7 @@ export type IAuthStackProps = {
 export type IHomeStackProps = {
   [IHomeStackPages.MENU]: object;
   [IHomeStackPages.ACCOUNTS]: object;
+  [IHomeStackPages.BENEFICIARY]: object;
   [IHomeStackPages.HELP]: object;
   [IHomeStackPages.TRANSACTIONS]: object;
   [IHomeStackPages.ACCOUNT_STATEMENTS]: object;
@@ -242,6 +245,7 @@ export type IRoutes =
   | IAuthStackPages.CGU
   | IAuthStackPages.CGU_KYC_PROVIDER
   | IHomeStackPages.ACCOUNTS
+  | IHomeStackPages.BENEFICIARY
   | IHomeStackPages.MENU
   | IHomeStackPages.HELP
   | IHomeStackPages.TRANSACTIONS
