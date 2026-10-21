@@ -121,7 +121,7 @@ exports[`LongCard -  minimal props -  renders as before 1`] = `
               "borderColor": "#2089dc",
               "borderRadius": 2,
               "borderWidth": 0,
-              "flexDirection": "row",
+              "flexDirection": "row-reverse",
               "justifyContent": "center",
               "padding": 8,
               "paddingHorizontal": 10,

@@ -93,7 +93,7 @@ exports[`LinkButton -  blue & pressed & arrow - renders as before 1`] = `
             height={16}
             style={
               {
-                "color": "#7887CC",
+                "color": "#113580",
               }
             }
             width={27}
@@ -109,7 +109,7 @@ exports[`LinkButton -  blue & pressed & arrow - renders as before 1`] = `
                 "textAlign": "left",
               },
               {
-                "color": "#7887CC",
+                "color": "#113580",
               },
             ]
           }
@@ -320,7 +320,7 @@ exports[`LinkButton -  green & pressed & arrow - renders as before 1`] = `
             height={16}
             style={
               {
-                "color": "#BFD23A",
+                "color": "#8BBD44",
               }
             }
             width={27}
@@ -336,7 +336,7 @@ exports[`LinkButton -  green & pressed & arrow - renders as before 1`] = `
                 "textAlign": "left",
               },
               {
-                "color": "#BFD23A",
+                "color": "#8BBD44",
               },
             ]
           }
@@ -430,9 +430,7 @@ exports[`LinkButton -  green & unpressed & iconOne - renders as before 1`] = `
             },
           ]
         }
-      >
-        <SvgMock />
-      </View>
+      />
     </View>
   </View>
 </View>
@@ -636,7 +634,7 @@ exports[`LinkButton -  pink & pressed & arrow - renders as before 1`] = `
             height={16}
             style={
               {
-                "color": "rgba(203, 40, 125, 0.6)",
+                "color": "#CB287D",
               }
             }
             width={27}
@@ -652,7 +650,7 @@ exports[`LinkButton -  pink & pressed & arrow - renders as before 1`] = `
                 "textAlign": "left",
               },
               {
-                "color": "rgba(203, 40, 125, 0.6)",
+                "color": "#CB287D",
               },
             ]
           }
