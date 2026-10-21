@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { put, StrictEffect, takeEvery } from 'redux-saga/effects';
 
-import { IRegisterIdentityCommand, Email, User } from '@clean-rn/auth/domain';
+import { Email } from '@clean-rn/auth/domain';
+import { IRegisterIdentityCommand, User } from '@clean-rn/user/domain';
 
 import { showUnknownError } from '../../../../../shared/application/commands/manage-global-errors';
-import { ISignupTypes, identityRegistered, initializeSignupStep } from '../../../commands';
+import { IUserTypes, identityRegistered, initializeSignupStep } from '../../../commands';
 
 export function* registerIdentitySaga(): Generator<StrictEffect, any, any> {
-  yield takeEvery(ISignupTypes.REGISTER_IDENTITY, registerIdentityGenerator);
+  yield takeEvery(IUserTypes.REGISTER_IDENTITY, registerIdentityGenerator);
 }
 
 export function* registerIdentityGenerator({

@@ -19,9 +19,7 @@ import {
 } from '../../../../profile/application/commands';
 import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
 
-import { selectUserFromLogin } from '../../../../kyc/application/state-management/selectors';
-
-import { refreshSuccess } from '../../../../auth/application/commands/login';
+import { refreshSuccess } from '../../../../auth/application/commands';
 
 export function* updateNotificationsSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IProfileTypes.FETCH_UPDATE_NOTIFICATIONS, updateNotificationsGenerator, httpConnection);
@@ -47,10 +45,10 @@ export function* updateNotificationsGenerator(
     yield put(refreshSuccess({ auth }));
 
     const userApi = UserApi.getInstance(httpConnection);
-    yield call([userApi, userApi.updateConfig], {
-      notifFirebaseDisabled: payload.phoneNotificationsDisabled,
-      notifEmailDisabled: payload.emailNotificationsDisabled,
-    });
+    // yield call([userApi, userApi.updateConfig], {
+    //   notifFirebaseDisabled: payload.phoneNotificationsDisabled,
+    //   notifEmailDisabled: payload.emailNotificationsDisabled,
+    // });
 
     yield put(
       notificationUpdated({

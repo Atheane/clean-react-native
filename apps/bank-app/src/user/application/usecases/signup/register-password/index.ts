@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { put, select, StrictEffect, takeEvery } from 'redux-saga/effects';
 
-import { IRegisterPasswordCommand, User } from '@clean-rn/auth/domain';
+import { IRegisterPasswordCommand, User } from '@clean-rn/user/domain';
 
 import { showUnknownError } from '../../../../../shared/application/commands/manage-global-errors';
-import { initializeSignupStep, ISignupTypes, passwordRegistered } from '../../../commands';
+import { initializeSignupStep, IUserTypes, passwordRegistered } from '../../../commands';
 import { selectUserFromSignup, selectEmailFromSignup } from '../../../state-management/selectors';
 
 export function* registerPasswordSaga(): Generator<StrictEffect, any, any> {
-  yield takeEvery(ISignupTypes.REGISTER_PASSWORD, registerPasswordGenerator);
+  yield takeEvery(IUserTypes.REGISTER_PASSWORD, registerPasswordGenerator);
 }
 
 export function* registerPasswordGenerator({

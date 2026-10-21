@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { put, select, StrictEffect, takeEvery } from 'redux-saga/effects';
 
-import { IRegisterAddressCommand, User } from '@clean-rn/auth/domain';
+import { IRegisterAddressCommand, User } from '@clean-rn/user/domain';
 
 import { showUnknownError } from '../../../../../shared/application/commands/manage-global-errors';
-import { ISignupTypes, addressRegistered, fetchSignupUser, initializeSignupStep } from '../../../commands';
+import { IUserTypes, addressRegistered, fetchSignupUser, initializeSignupStep } from '../../../commands';
 import {
   selectUserFromSignup,
   selectEmailFromSignup,
@@ -12,7 +12,7 @@ import {
 } from '../../../state-management/selectors';
 
 export function* registerAddressSaga(): Generator<StrictEffect, any, any> {
-  yield takeEvery(ISignupTypes.REGISTER_ADDRESS, registerAddressGenerator);
+  yield takeEvery(IUserTypes.REGISTER_ADDRESS, registerAddressGenerator);
 }
 export function* registerAddressGenerator({
   payload,

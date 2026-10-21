@@ -13,10 +13,10 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 
 import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
 
-import { ILoginTypes, refreshSuccess, resetError } from '../../commands/login';
+import { IAuthTypes, refreshSuccess, resetError } from '../../commands';
 
 export function* refreshSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(ILoginTypes.FETCH_REFRESH, refreshGenerator, httpConnection);
+  yield takeEvery(IAuthTypes.FETCH_REFRESH, refreshGenerator, httpConnection);
 }
 
 export function* refreshGenerator(
@@ -29,7 +29,7 @@ export function* refreshGenerator(
   },
 ): Generator<StrictEffect, any, any> {
   try {
-    Logger.getInstance().info(ILoginTypes.FETCH_REFRESH);
+    Logger.getInstance().info(IAuthTypes.FETCH_REFRESH);
     const authApi = AuthApi.getInstance(httpConnection);
     const authFromStore = yield select(selectAuthFromLogin);
     const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);

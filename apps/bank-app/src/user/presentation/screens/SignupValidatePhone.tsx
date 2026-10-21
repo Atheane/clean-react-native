@@ -12,12 +12,12 @@ import {
   ISignupValidatePhoneFormData,
   Security,
 } from '@clean-rn/ui-mobile';
-import { PhoneOtp } from '@clean-rn/auth/domain';
+import { PhoneOtp } from '@clean-rn/user/domain';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { SafeScrollingView, ErrorBoundary } from '../../../shared/presentation/hoc';
 
-import { fetchValidatePhone } from '../../../auth/application/commands/signup';
+import { fetchValidatePhone } from '../../../user/application/commands';
 
 const HEIGHT = Dimensions.get('window').height;
 

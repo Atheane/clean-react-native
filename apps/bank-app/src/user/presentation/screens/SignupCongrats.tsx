@@ -11,7 +11,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 
-import { fetchLogin, resetError } from '../../../auth/application/commands/login';
+import { fetchLogin, resetError } from '../../../auth/application/commands';
 import { Congrats } from '../../presentation/assets/images';
 
 const HEIGHT = Dimensions.get('window').height;
@@ -19,8 +19,8 @@ const HEIGHT = Dimensions.get('window').height;
 export const SignupCongrats = () => {
   const { t } = useTranslation();
 
-  const { user } = useSelector((state: IRootState) => state.auth.signup);
-  const { email, password, pending, error } = useSelector((state: IRootState) => state.auth.login);
+  const { user } = useSelector((state: IRootState) => state.user);
+  const { email, password, pending, error } = useSelector((state: IRootState) => state.auth);
 
   const dispatch = useDispatch();
 

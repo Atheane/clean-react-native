@@ -14,7 +14,7 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
-import { refreshSuccess } from '../../../../auth/application/commands/login';
+import { refreshSuccess } from '../../../../auth/application/commands';
 
 import { customerDocumentsUpdated } from '../../commands/customer';
 import {

@@ -29,10 +29,16 @@ export type IRootTabParamList = {
 export type ISharedStackParamList = {
   ModalError: undefined;
   ModalWebView: undefined;
+  Legal: undefined;
+  Cgu: undefined;
+  CguKycProvider: undefined;
 };
 
 export type IAuthStackParamList = {
   Login: undefined;
+};
+
+export type IUserStackParamList = {
   ResetPassword: undefined;
   SignupEmail: undefined;
   SignupIdentityPasswordPhone: undefined;
@@ -42,10 +48,6 @@ export type IAuthStackParamList = {
   SignupCongrats: undefined;
   EmailSent: undefined;
   SignupPhone: undefined;
-  Legal: undefined;
-  Cgu: undefined;
-  CguKycProvider: undefined;
-  ModalError: undefined;
 };
 
 export type IHomeStackParamList = {
@@ -91,10 +93,16 @@ export type IProfileStackParamList = {
 export enum ISharedStackPages {
   MODAL_ERROR = 'ModalError',
   MODAL_WEBVIEW = 'ModalWebview',
+  LEGAL = 'Legal',
+  CGU = 'Cgu',
+  CGU_KYC_PROVIDER = 'CguKycProvider',
 }
 
 export enum IAuthStackPages {
   LOGIN = 'Login',
+}
+
+export enum IUserStackPages {
   RESET_PASSWORD = 'ResetPassword',
   SIGNUP_EMAIL = 'SignupEmail',
   SIGNUP_IDENTITY_PASSWORD_PHONE = 'SignupIdentityPasswordPhone',
@@ -104,10 +112,6 @@ export enum IAuthStackPages {
   SIGNUP_CONGRATS = 'SignupCongrats',
   EMAIL_SENT = 'EmailSent',
   SIGNUP_PHONE = 'SignupPhone',
-  LEGAL = 'Legal',
-  CGU = 'Cgu',
-  CGU_KYC_PROVIDER = 'CguKycProvider',
-  MODAL_ERROR = 'ModalError',
 }
 
 export enum IHomeStackPages {
@@ -163,22 +167,25 @@ export enum IProfileStackPages {
 export type ISharedStackProps = {
   [ISharedStackPages.MODAL_ERROR]: object;
   [ISharedStackPages.MODAL_WEBVIEW]: object;
+  [ISharedStackPages.LEGAL]: object;
+  [ISharedStackPages.CGU]: object;
+  [ISharedStackPages.CGU_KYC_PROVIDER]: object;
 };
 
 export type IAuthStackProps = {
   [IAuthStackPages.LOGIN]: object;
-  [IAuthStackPages.RESET_PASSWORD]: object;
-  [IAuthStackPages.SIGNUP_EMAIL]: object;
-  [IAuthStackPages.SIGNUP_IDENTITY_PASSWORD_PHONE]: object;
-  [IAuthStackPages.SIGNUP_VALIDATE_PHONE]: object;
-  [IAuthStackPages.SIGNUP_BIRTH]: object;
-  [IAuthStackPages.SIGNUP_ADDRESS]: object;
-  [IAuthStackPages.SIGNUP_CONGRATS]: object;
-  [IAuthStackPages.EMAIL_SENT]: object;
-  [IAuthStackPages.SIGNUP_PHONE]: object;
-  [IAuthStackPages.LEGAL]: object;
-  [IAuthStackPages.CGU]: object;
-  [IAuthStackPages.CGU_KYC_PROVIDER]: object;
+};
+
+export type IUserStackProps = {
+  [IUserStackPages.RESET_PASSWORD]: object;
+  [IUserStackPages.SIGNUP_EMAIL]: object;
+  [IUserStackPages.SIGNUP_IDENTITY_PASSWORD_PHONE]: object;
+  [IUserStackPages.SIGNUP_VALIDATE_PHONE]: object;
+  [IUserStackPages.SIGNUP_BIRTH]: object;
+  [IUserStackPages.SIGNUP_ADDRESS]: object;
+  [IUserStackPages.SIGNUP_CONGRATS]: object;
+  [IUserStackPages.EMAIL_SENT]: object;
+  [IUserStackPages.SIGNUP_PHONE]: object;
 };
 
 export type IHomeStackProps = {
@@ -234,19 +241,19 @@ export type IProfileStackProps = {
 export type IRoutes =
   | ISharedStackPages.MODAL_ERROR
   | ISharedStackPages.MODAL_WEBVIEW
+  | ISharedStackPages.LEGAL
+  | ISharedStackPages.CGU
+  | ISharedStackPages.CGU_KYC_PROVIDER
   | IAuthStackPages.LOGIN
-  | IAuthStackPages.RESET_PASSWORD
-  | IAuthStackPages.SIGNUP_EMAIL
-  | IAuthStackPages.SIGNUP_IDENTITY_PASSWORD_PHONE
-  | IAuthStackPages.SIGNUP_VALIDATE_PHONE
-  | IAuthStackPages.SIGNUP_BIRTH
-  | IAuthStackPages.SIGNUP_ADDRESS
-  | IAuthStackPages.SIGNUP_CONGRATS
-  | IAuthStackPages.EMAIL_SENT
-  | IAuthStackPages.SIGNUP_PHONE
-  | IAuthStackPages.LEGAL
-  | IAuthStackPages.CGU
-  | IAuthStackPages.CGU_KYC_PROVIDER
+  | IUserStackPages.RESET_PASSWORD
+  | IUserStackPages.SIGNUP_EMAIL
+  | IUserStackPages.SIGNUP_IDENTITY_PASSWORD_PHONE
+  | IUserStackPages.SIGNUP_VALIDATE_PHONE
+  | IUserStackPages.SIGNUP_BIRTH
+  | IUserStackPages.SIGNUP_ADDRESS
+  | IUserStackPages.SIGNUP_CONGRATS
+  | IUserStackPages.EMAIL_SENT
+  | IUserStackPages.SIGNUP_PHONE
   | IHomeStackPages.ACCOUNTS
   | IHomeStackPages.HOME
   | IHomeStackPages.MENU

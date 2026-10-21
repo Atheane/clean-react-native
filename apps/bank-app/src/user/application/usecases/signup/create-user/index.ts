@@ -2,21 +2,21 @@
 import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { ISignupUserCommand, IUserProperties, PhoneOtp, User } from '@clean-rn/auth/domain';
+import { ISignupUserCommand, IUserProperties, PhoneOtp, User } from '@clean-rn/user/domain';
 
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
-import { UserApi } from '@clean-rn/auth/infrastructure';
+import { UserApi } from '@clean-rn/user/infrastructure';
 
 import { showUnknownError } from '../../../../../shared/application/commands/manage-global-errors';
 import { applicationInitialized } from '../../../../../shared/application/commands/initialize-application';
 import { IStoreKey } from '../../../../../shared/application/types';
 import { navigate } from '../../../../../shared/presentation/navigation/navigationRef';
-import { IAuthStackPages } from '../../../../../shared/presentation/types';
+import { IUserStackPages } from '../../../../../shared/presentation/types';
 
-import { ISignupTypes, initializeSignupStep, userSignedUp } from '../../../commands';
+import { IUserTypes, initializeSignupStep, userSignedUp } from '../../../commands';
 
 export function* signupUserSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(ISignupTypes.FETCH_SIGNUP_USER, signupUserGenerator, httpConnection);
+  yield takeEvery(IUserTypes.FETCH_SIGNUP_USER, signupUserGenerator, httpConnection);
 }
 
 export function* signupUserGenerator(
@@ -40,11 +40,13 @@ export function* signupUserGenerator(
     user.signup({ id: user.id, properties: user.properties as IUserProperties });
     // domain event
     yield put(userSignedUp(user));
-    yield call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, user.properties.email.value);
-    const initRouteName = IAuthStackPages.SIGNUP_CONGRATS;
+    if (user.properties.email) {
+      yield call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, user.properties.email.value);
+    }
+    const initRouteName = IUserStackPages.SIGNUP_CONGRATS;
     yield put(
       applicationInitialized({
-        email: user.properties.email,
+        email: user.properties.email ?? null,
         initRouteName,
         carbon: {
           house: {

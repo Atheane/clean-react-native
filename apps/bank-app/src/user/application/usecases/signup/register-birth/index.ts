@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { put, StrictEffect, takeEvery, select, call } from 'redux-saga/effects';
-import { IRegisterBirthCommand, User } from '@clean-rn/auth/domain';
+import { IRegisterBirthCommand, User } from '@clean-rn/user/domain';
 
-import { ISignupTypes, birthRegistered, initializeSignupStep } from '../../../commands';
+import { IUserTypes, birthRegistered, initializeSignupStep } from '../../../commands';
 import { selectUserFromSignup, selectEmailFromSignup } from '../../../state-management/selectors';
 import { navigate } from '../../../../../shared/presentation/navigation/navigationRef';
-import { IAuthStackPages } from '../../../../../shared/presentation/types';
+import { IUserStackPages } from '../../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../../shared/application/commands/manage-global-errors';
 
 export function* registerBirthSaga(): Generator<StrictEffect, any, any> {
-  yield takeEvery(ISignupTypes.REGISTER_BIRTH, registerBirthGenerator);
+  yield takeEvery(IUserTypes.REGISTER_BIRTH, registerBirthGenerator);
 }
 
 export function* registerBirthGenerator({
@@ -30,7 +30,7 @@ export function* registerBirthGenerator({
 
     // domain event
     yield put(birthRegistered(user));
-    yield call(navigate, { route: IAuthStackPages.SIGNUP_ADDRESS });
+    yield call(navigate, { route: IUserStackPages.SIGNUP_ADDRESS });
   } catch (e: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors
     yield put(initializeSignupStep());

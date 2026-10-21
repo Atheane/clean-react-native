@@ -22,6 +22,7 @@ import {
   ICarbonStackProps,
   IProfileStackPages,
   IProfileStackProps,
+  IUserStackProps,
 } from '../../../shared/presentation/types';
 import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
 import { ScreenModalError, ScreenModalWebview } from '../../../shared/presentation/screens';
@@ -37,18 +38,22 @@ import { Carbon, House, Transport, Food, WarningFood, Fly } from '../../../carbo
 import { AccountStatements, AccountStatementsPdf, RibPdf } from '../../../account/presentation/screens';
 import { NotificationSettings } from '../../../profile/presentation/screens';
 import { BottomTabNavigator } from './BottomNavigator';
+import { UserStack } from '../../../user/presentation/navigation';
 
 export const RootStack = () => {
   const {
     auth: { accessToken },
-  } = useSelector((state: IRootState) => state.auth.login);
-  return accessToken ? <HomeStack /> : <AuthStack />;
+  } = useSelector((state: IRootState) => state.auth);
+  const { email } = useSelector((state: IRootState) => state.initialization);
+
+  return accessToken ? <HomeStack /> : email ? <AuthStack /> : <UserStack />;
 };
 
 const Stack = createNativeStackNavigator<
   IHomeStackProps &
     ISharedStackProps &
     IAuthStackProps &
+    IUserStackProps &
     IKycStackProps &
     ICarbonStackProps &
     IProfileStackProps

@@ -7,7 +7,7 @@ import {
   IStorageLoaded,
   ILoadStorage,
 } from './types';
-import { IAuthStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages, IUserStackPages } from '../../../../shared/presentation/types';
 
 export const initializeApplication = (): IInitialization => ({
   type: IInitializationTypes.INITIALIZE_APPLICATION,
@@ -15,7 +15,7 @@ export const initializeApplication = (): IInitialization => ({
 
 export const applicationInitialized = (payload: {
   email: Email | null;
-  initRouteName: IAuthStackPages;
+  initRouteName: IAuthStackPages | IUserStackPages;
   carbon: {
     house: {
       footprint: number | null;

@@ -12,7 +12,6 @@ import { DeviceApi } from '@clean-rn/device/infrastructure';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IStoreKey } from '../../../../shared/application/types';
 
 import {
   IDeviceTypes,
@@ -20,11 +19,8 @@ import {
   deviceRegistered,
   initializeDevice,
 } from '../../../../device/application/commands';
-import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
 
 import { selectUserFromLogin } from '../../../../kyc/application/state-management/selectors';
-
-import { refreshSuccess } from '../../../../auth/application/commands/login';
 
 export function* registerDeviceSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IDeviceTypes.FETCH_REGISTER_DEVICE, registerDeviceGenerator, httpConnection);

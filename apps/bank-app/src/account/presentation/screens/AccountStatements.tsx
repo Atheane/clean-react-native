@@ -16,7 +16,7 @@ import {
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IHomeStackPages } from '../../../shared/presentation/types';
-import { fetchRefresh } from '../../../auth/application/commands/login';
+import { fetchRefresh } from '../../../auth/application/commands';
 
 const HEIGHT = Dimensions.get('window').height;
 
