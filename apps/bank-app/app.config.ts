@@ -2,8 +2,8 @@ import 'dotenv/config';
 
 export default {
   expo: {
-    name: 'CleanRN BankApp Dev',
-    slug: 'clean-rn-bank-app-dev',
+    name: 'clean-rn',
+    slug: 'clean-rn',
     version: '1.6.2',
     orientation: 'portrait',
     icon: './assets/images/icon.png',
@@ -55,7 +55,7 @@ export default {
       SENTRY_DSN: process.env.SENTRY_DSN,
       SUPPORTED_LANGUAGES_WEBSITE: process.env.SUPPORTED_LANGUAGES_WEBSITE,
       eas: {
-        projectId: 'a7e1acaf-2f79-4e7a-8582-8cd0e216a793',
+        projectId: 'e73d9d48-f9a3-4ee3-8be3-a80db1ebbd32',
       },
     },
   },
