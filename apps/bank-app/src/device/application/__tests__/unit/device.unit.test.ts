@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { Email, User } from '@clean-rn/auth/domain';
 import { DeviceApi } from '@clean-rn/device/infrastructure';
-import { Device } from '@clean-rn/device/domain';
+import { Device, DeviceError } from '@clean-rn/device/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
@@ -16,7 +16,7 @@ import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { selectUserFromLogin } from '../../../../kyc/application/state-management/selectors';
 
 import { registerDeviceGenerator, registerDeviceSaga } from '../../usecases/register-device';
-import { IDeviceTypes, initializeDevice, deviceRegistered } from '../../commands';
+import { IDeviceTypes, initializeDevice, deviceRegistered, deviceAlreadyRegistered } from '../../commands';
 
 describe('Device - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -33,6 +33,18 @@ describe('Device - usecase', () => {
     os: 'android',
     osVersion: '1',
     userId: 100000352,
+  };
+
+  const mockError400 = {
+    statusCode: 400,
+    message: 'Duplicate firebase id',
+    response: {
+      statusCode: 400,
+      message: 'Duplicate firebase id',
+    },
+    timestamp: '2023-10-03T13:20:21.303Z',
+    path: '/app/account',
+    method: 'GET',
   };
 
   const mockError401 = {
@@ -90,6 +102,30 @@ describe('Device - usecase', () => {
       .next(device)
       .put(deviceRegistered(device))
       .next(device);
+  });
+
+  it('Should call deviceAlreadyRegistered if 400', () => {
+    const user = User.Create({
+      id: mockData.userId,
+      properties: {
+        email: new Email('test@test.com'),
+      },
+    });
+
+    testSaga(registerDeviceGenerator, httpConnection, {
+      type: IDeviceTypes.FETCH_REGISTER_DEVICE,
+      payload: mockData,
+    })
+      .next()
+      .select(selectUserFromLogin)
+      .next(user)
+      .call([deviceApi, deviceApi.createDevice], mockData)
+      .throw(new ServerError(mockError400))
+      .put(initializeDevice())
+      .next()
+      .put(deviceAlreadyRegistered({ error: new DeviceError.AlreadyRegistered(mockError400) }))
+      .next()
+      .cancel();
   });
 
   it('Should call showUnknownError action if 401', () => {

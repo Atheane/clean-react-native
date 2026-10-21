@@ -3,10 +3,16 @@ import SagaTester from 'redux-saga-tester';
 import Constants from 'expo-constants';
 
 import { registerDeviceSaga } from '../../usecases/register-device';
-import { IDeviceTypes, fetchRegisterDevice, initializeDevice, deviceRegistered } from '../../commands';
+import {
+  IDeviceTypes,
+  fetchRegisterDevice,
+  initializeDevice,
+  deviceRegistered,
+  deviceAlreadyRegistered,
+} from '../../commands';
 import { deviceReducer } from '../../state-management/reducer';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
-import { Device } from '@clean-rn/device/domain';
+import { Device, DeviceError } from '@clean-rn/device/domain';
 
 const expoConstantsMock = {
   name: 'CleanRN BankApp Test',
@@ -103,6 +109,30 @@ describe('Device - integration', () => {
       pending: false,
       device,
       error: null,
+    });
+  });
+
+  it('Should store correct state in case if DEVICE_ALREADY_REGISTERED', () => {
+    const device = Device.Create({ deviceId: mockData.deviceId, userId: mockData.userId.toString() });
+    device.registerDeviceProperties({
+      brand: mockData.brand,
+      model: mockData.model,
+      os: mockData.os,
+      osVersion: mockData.osVersion,
+    });
+    device.addAppVersion(mockData.appVersion);
+    device.connectToNotifications(mockData.firebaseId);
+
+    sagaTester.start(registerDeviceSaga, httpConnection);
+    sagaTester.dispatch(fetchRegisterDevice(mockData));
+    sagaTester.dispatch(
+      deviceAlreadyRegistered({ error: new DeviceError.AlreadyRegistered('Device already registered') }),
+    );
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      device: null,
+      error: new DeviceError.AlreadyRegistered('Device already registered'),
     });
   });
 });
