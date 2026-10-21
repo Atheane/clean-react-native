@@ -6,6 +6,7 @@ import { IDocumentState } from '../../state/document';
 const initialState: IDocumentState = {
   pending: false,
   document: null,
+  abortController: null,
 };
 
 export const documentReducer = (state = initialState, action: IDocumentActions) => {
@@ -40,6 +41,13 @@ export const documentReducer = (state = initialState, action: IDocumentActions) 
         ...state,
         pending: false,
         document: null,
+      };
+      return newState;
+    case IDocumentTypes.SET_ABORT_CONTROLLER:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        abortController: action.payload.controller,
       };
       return newState;
     case IDocumentTypes.PAGE_ADDED:

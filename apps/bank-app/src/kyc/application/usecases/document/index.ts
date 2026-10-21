@@ -19,8 +19,14 @@ import {
   pageAdded,
   uploadDocument,
   resetDocument,
+  setAbortController,
 } from '../../commands/document';
-import { selectCustomer, selectDocument, selectUserFromLogin } from '../../state-management/selectors';
+import {
+  selectAbortController,
+  selectCustomer,
+  selectDocument,
+  selectUserFromLogin,
+} from '../../state-management/selectors';
 
 export function* initializeDocumentSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(IDocumentTypes.INITIALIZE_DOCUMENT, initializeDocumentSagaGenerator);
@@ -117,9 +123,13 @@ export function* uploadDocumentSagaGenerator(
     const user = yield select(selectUserFromLogin);
     const api = KycApi.getInstance(httpConnection);
 
+    const abortController = new AbortController(); // Créer une nouvelle instance ici
+    yield put(setAbortController({ controller: abortController }));
+
     const createDocumentTask = yield spawn([api, api.createDocument], {
       customerId: user.id,
       document: payload.document,
+      abortSignal: abortController.signal,
     });
     const document: DocumentVO = yield join(createDocumentTask);
 
@@ -147,16 +157,14 @@ export function* uploadDocumentSagaGenerator(
   }
 }
 
-export function* cancelUploadSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(IDocumentTypes.CANCEL_UPLOAD, cancelUploadSagaGenerator, httpConnection);
+export function* cancelUploadSaga(): Generator<StrictEffect, any, any> {
+  yield takeEvery(IDocumentTypes.CANCEL_UPLOAD, cancelUploadSagaGenerator);
 }
 
-export function* cancelUploadSagaGenerator(
-  httpConnection: HttpConnection,
-): Generator<StrictEffect, any, any> {
+export function* cancelUploadSagaGenerator(): Generator<StrictEffect, any, any> {
   try {
-    const api = KycApi.getInstance(httpConnection);
-    yield call(api.cancelRequest);
+    const { abortController } = yield select(selectDocument);
+    abortController.abort();
   } catch (error: unknown) {
     yield put(resetDocument());
     // once app is well tested, delete this part and let onError hook manage unexpected errors

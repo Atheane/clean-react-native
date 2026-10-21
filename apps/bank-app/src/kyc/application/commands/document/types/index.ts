@@ -10,6 +10,7 @@ export enum IDocumentTypes {
   DOCUMENT_UPLOADED = 'DOCUMENT_UPLOADED',
   CANCEL_UPLOAD = 'CANCEL_UPLOAD',
   RESET_DOCUMENT = 'RESET_DOCUMENT',
+  SET_ABORT_CONTROLLER = 'SET_ABORT_CONTROLLER',
 }
 
 export type IInitializeDocument = {
@@ -49,6 +50,13 @@ export type ICancelUpload = {
   type: typeof IDocumentTypes.CANCEL_UPLOAD;
 };
 
+export type ISetAbortController = {
+  type: typeof IDocumentTypes.SET_ABORT_CONTROLLER;
+  payload: {
+    controller: AbortController;
+  };
+};
+
 export type IDocumentInitialized = {
   type: typeof IDocumentTypes.DOCUMENT_INITIALIZED;
   payload: {
@@ -78,4 +86,5 @@ export type IDocumentActions =
   | IResetDocument
   | IDocumentInitialized
   | IPageAdded
-  | IDocumentUploaded;
+  | IDocumentUploaded
+  | ISetAbortController;

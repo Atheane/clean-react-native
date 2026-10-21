@@ -12,12 +12,9 @@ import { IDocumentServer } from '../types';
 export class KycApi implements IDocumentRepository {
   private static instance: KycApi | null = null;
   private connection: HttpConnection;
-  private controller: AbortController;
   // Make the constructor private to prevent direct instantiation
   private constructor(httpConnection: HttpConnection) {
     this.connection = httpConnection;
-    this.cancelRequest = this.cancelRequest.bind(this);
-    this.controller = new AbortController();
     this.getDocuments = this.getDocuments.bind(this);
     this.createOnePageDocument = this.createOnePageDocument.bind(this);
   }
@@ -28,10 +25,6 @@ export class KycApi implements IDocumentRepository {
       this.instance = new KycApi(httpConnection);
     }
     return this.instance;
-  }
-
-  public cancelRequest(): void {
-    this.controller.abort();
   }
 
   async getDocuments(): Promise<IDocumentProperties[]> {
@@ -53,9 +46,11 @@ export class KycApi implements IDocumentRepository {
   async createOnePageDocument({
     customerId,
     document,
+    abortSignal,
   }: {
     customerId: string;
     document: DocumentVO;
+    abortSignal?: AbortSignal;
   }): Promise<DocumentVO> {
     const params = {
       documentContext: document.properties.category,
@@ -65,11 +60,9 @@ export class KycApi implements IDocumentRepository {
       fileContentBase64: document.value.recto,
     };
 
-    const signal = this.controller.signal; // Obtenir la référence au signal
-
     const response = await fetch(
       `${this.connection.baseUrl}/app/document/kyc`,
-      this.connection.options(IHttpVerb.POST, params, signal),
+      this.connection.options(IHttpVerb.POST, params, abortSignal),
     );
 
     await this.connection.handleError(response);
@@ -91,9 +84,11 @@ export class KycApi implements IDocumentRepository {
   async createDocument({
     customerId,
     document,
+    abortSignal,
   }: {
     customerId: string;
     document: DocumentVO;
+    abortSignal?: AbortSignal;
   }): Promise<DocumentVO> {
     const documentRecto = await this.createOnePageDocument({
       customerId,
@@ -107,6 +102,7 @@ export class KycApi implements IDocumentRepository {
       await this.createOnePageDocument({
         customerId,
         document,
+        abortSignal,
       });
       documentRecto.addPage(document.value.verso);
       return documentRecto;

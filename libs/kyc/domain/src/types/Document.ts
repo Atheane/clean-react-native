@@ -8,7 +8,7 @@ export enum IDocumentType {
   DRIVING_LICENSE = 16, // A driving licence
   PASSPORT = 17, // A passport
   TAX_CERTIFICATE = 20, // Official tax certificate
-  TAX_STATEMENT = 24, // Tax Statement
+  TAX_STATEMENT = 24, // Tax Statement, careful KycProvider ask for a residenceId for it, we do not know what it is, prefere TAX_CERTIFICATE instead
   LIVENESS = 26, // Liveness result
   HEALTH_INSURANCE_CARD = 27, // Health insurance card
 }

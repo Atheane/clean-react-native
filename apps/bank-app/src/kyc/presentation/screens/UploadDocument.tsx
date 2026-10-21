@@ -107,7 +107,7 @@ export const UploadDocument = () => {
             </View>
           )}
           {docPickerVisible && (
-            <View style={styles.buttonContainer}>
+            <View style={[styles.buttonContainer]}>
               <DocumentScanner getScan={handleGetDocument} handleError={handleError} />
               <View style={styles.secondButtonContainer}>
                 <DocumentPicker getDocument={handleGetDocument} handleError={handleError} />
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     marginBottom: '30%',
   },
   secondButtonContainer: {
-    marginTop: 24,
+    marginTop: 40,
   },
   iconContainer: { position: 'relative', left: 10, top: 2 },
 });

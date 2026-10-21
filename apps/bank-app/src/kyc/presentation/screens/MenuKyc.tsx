@@ -87,7 +87,7 @@ export const MenuKyc = () => {
           <View style={styles.itemContainer}>
             <UploadDocumentCard
               icon={KycIdentification}
-              status={submittedKyc?.documents.F?.properties.status}
+              status={submittedKyc?.documents.FIRST_ID?.properties.status}
               text={`${t('screens.kyc.menu.first')} ${t('screens.kyc.menu.identity')}`}
               onPress={navigateToFirstIdList}
               loading={pending && document?.properties.category === IDocumentCategory.FIRST_ID}

@@ -10,6 +10,7 @@ import {
   IDocumentUploaded,
   IResetDocument,
   ICancelUpload,
+  ISetAbortController,
 } from './types';
 import { ImageSourcePropType } from 'react-native';
 
@@ -46,6 +47,11 @@ export const resetDocument = (): IResetDocument => ({
 
 export const cancelUpload = (): ICancelUpload => ({
   type: IDocumentTypes.CANCEL_UPLOAD,
+});
+
+export const setAbortController = (payload: { controller: AbortController }): ISetAbortController => ({
+  type: IDocumentTypes.SET_ABORT_CONTROLLER,
+  payload,
 });
 
 // domainEvents

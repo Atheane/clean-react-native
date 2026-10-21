@@ -62,6 +62,6 @@ export function* rootSaga(httpConnection: HttpConnection) {
     initializeDocumentSaga(),
     addPageSaga(),
     uploadDocumentSaga(httpConnection),
-    cancelUploadSaga(httpConnection),
+    cancelUploadSaga(),
   ]);
 }
