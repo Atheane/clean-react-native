@@ -61,8 +61,6 @@ export const UploadDocument = () => {
     [dispatch],
   );
 
-  const navigation = useNavigation();
-
   const handleGetDocument = useCallback(
     (docBase64: string) => {
       dispatch(addPage({ base64: docBase64, nextRouteParams }));
@@ -75,7 +73,15 @@ export const UploadDocument = () => {
     //todo dispatch to upload document usecase
   }, []);
 
-  return (
+  const [loading, setLoading] = useState(false);
+
+  const handleLoading = useCallback((loading: boolean) => {
+    setLoading(loading);
+  }, []);
+
+  return loading ? (
+    <Text> Loading...</Text>
+  ) : (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={[styles.container, { height: HEIGHT }]}>
@@ -89,12 +95,20 @@ export const UploadDocument = () => {
 
           {!docPickerVisible && !showExample && (
             <View style={styles.buttonContainer}>
-              <DocumentScanner getScan={handleGetDocument} handleError={handleError} />
+              <DocumentScanner
+                getScan={handleGetDocument}
+                handleError={handleError}
+                setLoading={handleLoading}
+              />
             </View>
           )}
           {!docPickerVisible && showExample && (
             <View style={styles.buttonContainer}>
-              <DocumentScanner getScan={handleGetDocument} handleError={handleError} />
+              <DocumentScanner
+                getScan={handleGetDocument}
+                handleError={handleError}
+                setLoading={handleLoading}
+              />
               <View style={styles.secondButtonContainer}>
                 <LinkButton
                   colorOption={LinkButtonColors.GREEN}
@@ -107,9 +121,17 @@ export const UploadDocument = () => {
           )}
           {docPickerVisible && (
             <View style={[styles.buttonContainer]}>
-              <DocumentScanner getScan={handleGetDocument} handleError={handleError} />
+              <DocumentScanner
+                getScan={handleGetDocument}
+                handleError={handleError}
+                setLoading={handleLoading}
+              />
               <View style={styles.secondButtonContainer}>
-                <DocumentPicker getDocument={handleGetDocument} handleError={handleError} />
+                <DocumentPicker
+                  getDocument={handleGetDocument}
+                  handleError={handleError}
+                  setLoading={handleLoading}
+                />
               </View>
             </View>
           )}

@@ -101,7 +101,13 @@ export const Kyc = () => {
   }, [dispatch]);
 
   const Instructions = () => (
-    <View style={[styles.messageContainer, { marginTop: 120 }]}>
+    <View
+      style={[
+        styles.messageContainer,
+        submittedKyc?.expectedDocumentCount === 2 ? { marginTop: 80 } : { marginTop: 50 },
+        submittedKyc?.expectedDocumentCount === 2 ? { marginBottom: 75 } : {},
+      ]}
+    >
       <Text style={[styles.title, theme.bank.text.darkBlue]}>{t('screens.kyc.menu.title')}</Text>
     </View>
   );
@@ -138,7 +144,7 @@ export const Kyc = () => {
         <View
           style={[
             styles.container,
-            submittedKyc?.expectedDocumentCount === 2 ? { height: HEIGHT * 1 } : { height: HEIGHT * 1.3 },
+            submittedKyc?.expectedDocumentCount === 2 ? { height: HEIGHT * 1 } : { height: HEIGHT * 1.1 },
           ]}
         >
           {customer?.properties.status === KYC_REVIEW.NONE && !customer?.properties.kyc?.isComplete && (
