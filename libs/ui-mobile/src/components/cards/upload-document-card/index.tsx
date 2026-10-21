@@ -5,18 +5,19 @@ import { Icon, useTheme, LinearProgress } from '@rneui/themed';
 import { IDocumentStatus } from '@clean-rn/kyc/domain';
 
 // import { DeleteGradient, Edit } from '../../../assets';
-import { Edit, GreenValidation } from '../../../assets';
+import { Edit, GreenValidation, DeleteCross } from '../../../assets';
 import { Colors, FontNames } from '../../../constants';
 import { LinkButtonColors } from '../../../types';
 import { LinkButton } from '../../buttons/link-button';
 
 type IProps = {
   icon: FC<SvgProps>;
-  status?: IDocumentStatus;
   text: string;
-  loading?: boolean;
   onPress: () => void;
+  loading?: boolean;
+  status?: IDocumentStatus;
   onEdit?: () => void;
+  onCancel: () => void;
 };
 
 export const UploadDocumentCard = (props: IProps) => {
@@ -39,6 +40,16 @@ export const UploadDocumentCard = (props: IProps) => {
             <props.icon />
           </View>
           <Text style={[theme.bank.text.darkBlue, styles.text]}>{props.text}</Text>
+          {props.loading && (
+            <View style={styles.cancelIcon}>
+              <LinkButton
+                pressed={false}
+                onPress={props.onCancel}
+                iconOne={DeleteCross}
+                colorOption={LinkButtonColors.BLUE}
+              />
+            </View>
+          )}
         </View>
         {props.status && (
           <View style={styles.leftIconContainer}>
@@ -104,6 +115,7 @@ const styles = StyleSheet.create({
     right: 20,
   },
   rightIcon: { backgroundColor: Colors.bank.primary.white, borderRadius: 100 },
+  cancelIcon: { top: 8, right: 12, position: 'absolute' },
   loading: {
     alignItems: 'center',
   },

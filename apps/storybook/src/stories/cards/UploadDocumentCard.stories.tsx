@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
-import { UploadDocumentCard, KycW9, KycW9Disabled } from '@clean-rn/ui-mobile';
+import { UploadDocumentCard, KycW9 } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 import { IDocumentStatus } from '@clean-rn/kyc/domain';
@@ -11,17 +11,17 @@ const UploadDocumentCardMeta: ComponentMeta<typeof UploadDocumentCard> = {
   argTypes: {
     onPress: { action: 'onPress' },
     onEdit: { action: 'onEdit' },
+    onCancel: { action: 'onCancel' },
     status: {
       options: ['VALIDATED', 'PENDING', 'REFUSED'],
       control: { type: 'radio' },
     },
   },
   args: {
-    text: 'Lorem ipsum delatus',
     icon: KycW9,
-    iconDisabled: KycW9Disabled,
-    disabled: true,
+    text: 'Lorem ipsum delatus',
     status: IDocumentStatus.PENDING,
+    loading: false,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
@@ -32,3 +32,6 @@ type UploadDocumentCardStory = ComponentStory<typeof UploadDocumentCard>;
 
 export const Basic: UploadDocumentCardStory = (args) => <UploadDocumentCard {...args} onEdit={undefined} />;
 export const Refused: UploadDocumentCardStory = (args) => <UploadDocumentCard {...args} status="REFUSED" />;
+export const Loading: UploadDocumentCardStory = (args) => (
+  <UploadDocumentCard {...args} status={undefined} loading onEdit={undefined} />
+);
