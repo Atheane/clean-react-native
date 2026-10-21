@@ -10,6 +10,7 @@ import { useChange } from './useChange';
 import { useHideBottomBar } from './useHideBottomBar';
 import { useReduxOverStorageValue } from './useReduxOverStorageValue';
 import { useNotification } from './useNotification';
+import { useDevice } from './useDevice';
 
 export {
   useCleanErrorOnFocus,
@@ -24,4 +25,5 @@ export {
   useHideBottomBar,
   useReduxOverStorageValue,
   useNotification,
+  useDevice,
 };

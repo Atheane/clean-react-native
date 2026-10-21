@@ -11,6 +11,7 @@ import {
   IRegisterAddressCommand,
   ISignupUserCommand,
   Device,
+  IRegisterDeviceCommand,
 } from '@clean-rn/auth/domain';
 import { IDomainError } from '@clean-rn/ddd';
 
@@ -87,6 +88,7 @@ export type IInitializeSignupStep = {
 
 export type IFetchRegisterDevice = {
   type: typeof ISignupTypes.FETCH_REGISTER_DEVICE;
+  payload: IRegisterDeviceCommand & { firebaseId?: string } & { deviceId: string };
 };
 
 // domainEvents

@@ -12,6 +12,7 @@ import {
   User,
   ISignupUserCommand,
   Device,
+  IRegisterDeviceCommand,
 } from '@clean-rn/auth/domain';
 import {
   ISignupActions,
@@ -77,8 +78,11 @@ export const initializeSignupStep = (): IInitializeSignupStep => ({
   type: ISignupTypes.INITIALIZE_SIGNUP_STEP,
 });
 
-export const fetchRegisterDevice = (): IFetchRegisterDevice => ({
+export const fetchRegisterDevice = (
+  payload: IRegisterDeviceCommand & { firebaseId?: string } & { deviceId: string },
+): IFetchRegisterDevice => ({
   type: ISignupTypes.FETCH_REGISTER_DEVICE,
+  payload,
 });
 
 // redux actions that are domain Events

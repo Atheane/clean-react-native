@@ -65,6 +65,7 @@ export default {
       NODE_ENV: process.env.NODE_ENV,
       SENTRY_DSN: process.env.SENTRY_DSN,
       SUPPORTED_LANGUAGES_WEBSITE: process.env.SUPPORTED_LANGUAGES_WEBSITE,
+      APP_VERSION: process.env.APP_VERSION,
       eas: {
         projectId: process.env.PROJECT_ID,
       },

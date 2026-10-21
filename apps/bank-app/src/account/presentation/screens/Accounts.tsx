@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { View, StyleSheet, Dimensions, Text } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
@@ -13,6 +13,8 @@ import {
   Banner,
   BannerColors,
   LoaderSplashScreen,
+  useNotification,
+  useDevice,
 } from '@clean-rn/ui-mobile';
 import { KYC_REVIEW } from '@clean-rn/auth/domain';
 import { IAccount } from '@clean-rn/account/domain';
@@ -20,6 +22,8 @@ import { IAccount } from '@clean-rn/account/domain';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { IKycStackPages, ISharedStackPages } from '../../../shared/presentation/types';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+
+import { fetchRegisterDevice } from '../../../auth/application/commands/signup';
 
 import { listAccounts } from '../../application/commands/accounts';
 import { listTransactions } from '../../application/commands/transactions';
@@ -84,6 +88,22 @@ export const Accounts = () => {
     },
     [dispatch],
   );
+
+  const { firebaseToken, notificationEnabled } = useNotification();
+  const { deviceId, brand, model, os, osVersion } = useDevice();
+
+  useEffect(() => {
+    dispatch(
+      fetchRegisterDevice({
+        deviceId,
+        firebaseId: firebaseToken && notificationEnabled ? firebaseToken : undefined,
+        brand,
+        model,
+        os,
+        osVersion,
+      }),
+    );
+  }, [firebaseToken, notificationEnabled, deviceId, brand, model, os, osVersion, dispatch]);
 
   return accountPending || kycPending ? (
     <LoaderSplashScreen /> // todo replace with loading gif

@@ -20,10 +20,7 @@ export const SignupCongrats = () => {
   const { t } = useTranslation();
 
   const { user } = useSelector((state: IRootState) => state.auth.signup);
-  const { email, password } = useSelector((state: IRootState) => state.auth.login);
-
-  // api call
-  const { pending, error } = useSelector((state: IRootState) => state.auth.login);
+  const { email, password, pending, error } = useSelector((state: IRootState) => state.auth.login);
 
   const dispatch = useDispatch();
 
