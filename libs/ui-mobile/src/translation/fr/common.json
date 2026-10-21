@@ -91,11 +91,21 @@
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Documents KYC manquants",
+        "KYC_REFUSED": "La validation de votre dossier a échoué",
         "MISSING_RECTO": "Recto manquant",
         "MISSING_VERSO": "Verso manquant",
         "DOCUMENT_NOT_READY": "Document pas encore prêt",
         "INVALID_DOCUMENT_TYPE": "Type de document invalide",
-        "DOCUMENT_TOO_LARGE": "Document trop volumineux, 1MB maximum"
+        "DOCUMENT_TOO_LARGE": "Document trop volumineux, 1MB maximum",
+        "REFUSED": "Document refusé",
+        "OUT_OF_SCOPE": "Document hors de portée",
+        "EXPIRED": "Document expiré",
+        "FALSIFIED": "Document falsifié",
+        "ILLEGIBLE": "Document illisible",
+        "TRUNCATED_DOC": "Document tronqué",
+        "TRUNCATED": "Tronqué",
+        "INCOHERENT": "Document incohérent",
+        "OTHER": "Document refusé par KycProvider pour une autre raison"
       },
       "other": "erreur, veuillez contacter l'administrateur"
     },
@@ -432,7 +442,8 @@
         "photo": "Portrait photo",
         "host-id": "Pièce d’identité de l’hébergeur",
         "host-residence": "Justificatif de domicile de l'hébergeur",
-        "sworn-statement": "Attestation de l'hébergeur"
+        "sworn-statement": "Attestation de l'hébergeur",
+        "fix-file": "Merci de corriger les éléments du dossier"
       },
       "first-id": {
         "title": "Pièces d'identité",

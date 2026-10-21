@@ -18,6 +18,7 @@ import Logo from './logo.svg';
 import Tree from './tree.svg';
 import Meeting from './meeting.svg';
 import DeleteCross from './delete-cross.svg';
+import DeleteCrossGradient from './delete-cross-gradient.svg';
 import Question from './question.svg';
 import GreenEuro from './green-euro.svg';
 import Warning from './warning.svg';
@@ -131,6 +132,7 @@ export {
   Logo,
   Tree,
   DeleteCross,
+  DeleteCrossGradient,
   Meeting,
   Question,
   GreenEuro,

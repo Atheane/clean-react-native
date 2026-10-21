@@ -10,6 +10,7 @@ import {
   IDocumentType,
   IDocumentProperties,
   IDocumentStatus,
+  IDocumentStatusCode,
 } from '@clean-rn/kyc/domain';
 import { IconTextItem, KycId, KycPassport, KycResidencePermit } from '@clean-rn/ui-mobile';
 
@@ -93,6 +94,7 @@ export const FirstIdList = () => {
                       name: 'first-id.id.recto',
                       status: IDocumentStatus.INIT,
                       createdAt: new Date(),
+                      statusCode: IDocumentStatusCode.INITIAL,
                     },
                     nextRouteParams: {
                       instruction: t('screens.kyc.id.verso.instruction'),
@@ -117,6 +119,7 @@ export const FirstIdList = () => {
                       name: 'first-id.passport.recto',
                       status: IDocumentStatus.INIT,
                       createdAt: new Date(),
+                      statusCode: IDocumentStatusCode.INITIAL,
                     },
                   })
                 }
@@ -137,6 +140,7 @@ export const FirstIdList = () => {
                       name: 'first-id.residence-permit.recto',
                       status: IDocumentStatus.INIT,
                       createdAt: new Date(),
+                      statusCode: IDocumentStatusCode.INITIAL,
                     },
                     nextRouteParams: {
                       instruction: t('screens.kyc.residence-permit.verso.instruction'),

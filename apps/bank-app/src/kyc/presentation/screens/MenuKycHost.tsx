@@ -10,6 +10,7 @@ import {
   IDocumentCategory,
   IDocumentStatus,
   IDocumentProperties,
+  IDocumentStatusCode,
 } from '@clean-rn/kyc/domain';
 import { IconTextItem, KycInvoice, KycIdentification, KycSwornStatement } from '@clean-rn/ui-mobile';
 import { IKycStackPages, IRoutes } from '../../../shared/presentation/types';
@@ -79,6 +80,7 @@ export const MenuKycHost = () => {
                     name: 'residence-proof.sworn-statement.recto',
                     status: IDocumentStatus.INIT,
                     createdAt: new Date(),
+                    statusCode: IDocumentStatusCode.INITIAL,
                   },
                 })
               }

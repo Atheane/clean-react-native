@@ -21,6 +21,26 @@ export enum IDocumentStatus {
   REFUSED = 'REFUSED', // document is refused
 }
 
+export enum IDocumentStatusCode {
+  INITIAL = 600001, // - Initial status before upload into the container-  PENDING
+  UPLOADED = 600003, // - Successfully uploaded into the container - PENDING
+  SUSPECTED = 600002, // - Suspected fraud or AML/CFT - PENDING
+  CANDELLED_USER = 600004, // - Cancelled by the user - CANCELED
+  CANDELLED_OPERATOR = 600005, // - Cancelled by the operator - CANCELED
+  FAILED_WRITE = 600006, // - Failed to write the document into the container - CANCELED
+  FAILED_READ = 600007, // - Failed to read the document from the container - CANCELED
+  VALIDATED = 600009, // - Validated - VALIDATED
+  REFUSED = 600008, // - Refused - REFUSED
+  OUT_OF_SCOPE = 600010, // - Out of scope - REFUSED
+  EXPIRED = 600011, // - Expired - REFUSED
+  FALSIFIED = 600012, // - Falsified - REFUSED
+  ILLEGIBLE = 600013, // - Illegible - REFUSED
+  TRUNCATED_DOC = 600014, // - Truncated document - REFUSED
+  TRUNCATED = 600015, // - Truncated - REFUSED
+  INCOHERENT = 600016, // - Incoherent - REFUSED
+  OTHER = 600017, // - Other - REFUSED
+}
+
 export enum IDocumentCategory {
   W9 = 'W9',
   FIRST_ID = 'FIRST_ID',
@@ -34,6 +54,7 @@ export type IDocumentProperties = {
   category: IDocumentCategory;
   typeId: IDocumentType;
   status: IDocumentStatus;
+  statusCode: IDocumentStatusCode;
   name: string;
   createdAt: Date;
 };

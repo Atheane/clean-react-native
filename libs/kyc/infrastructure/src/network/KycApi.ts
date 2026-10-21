@@ -6,6 +6,7 @@ import {
   DocumentVO,
   IDocumentStatus,
   IDocumentCategory,
+  IDocumentStatusCode,
 } from '@clean-rn/kyc/domain';
 import { IDocumentServer } from '../types';
 
@@ -33,13 +34,24 @@ export class KycApi implements IDocumentRepository {
       this.connection.options(IHttpVerb.GET),
     );
     await this.connection.handleError(response);
-    const documents = await response.json();
+    // const documents = await response.json();
+    const documents = [
+      {
+        createdAt: '2023-12-04T17:21:37.618Z',
+        documentContext: 'RESIDENCE_PROOF',
+        documentTypeId: 11,
+        documentStatus: 'REFUSED',
+        documentStatusCode: 600014,
+        name: 'residence-proof.host-iban.recto',
+      },
+    ];
     return documents.map((doc: IDocumentServer) => ({
       category: IDocumentCategory[doc.documentContext as keyof typeof IDocumentCategory],
       typeId: doc.documentTypeId,
       status: IDocumentStatus[doc.documentStatus as keyof typeof IDocumentStatus],
       name: doc.name,
       createdAt: new Date(doc.createdAt),
+      statusCode: IDocumentStatusCode[doc.documentStatusCode as keyof typeof IDocumentStatusCode],
     }));
   }
 
@@ -74,6 +86,7 @@ export class KycApi implements IDocumentRepository {
       status: IDocumentStatus[documentServer.documentStatus as keyof typeof IDocumentStatus],
       name: documentServer.name,
       createdAt: new Date(documentServer.createdAt),
+      statusCode: IDocumentStatusCode[documentServer.documentStatusCode as keyof typeof IDocumentStatusCode],
     };
 
     const documentAfterResponse = new DocumentVO(documentProperties);

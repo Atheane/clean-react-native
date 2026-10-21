@@ -10,12 +10,11 @@ const UploadDocumentCardMeta: ComponentMeta<typeof UploadDocumentCard> = {
   component: UploadDocumentCard,
   argTypes: {
     onPress: { action: 'onPress' },
-    onEdit: { action: 'onEdit' },
     onCancel: { action: 'onCancel' },
   },
   args: {
     icon: KycW9,
-    text: 'Lorem ipsum delatus',
+    text: 'Lorem ipsum delatus Lorem ipsum delatus',
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
@@ -25,18 +24,21 @@ export default UploadDocumentCardMeta;
 type UploadDocumentCardStory = ComponentStory<typeof UploadDocumentCard>;
 
 export const Pending: UploadDocumentCardStory = (args) => {
-  return <UploadDocumentCard {...args} status={IDocumentStatus.PENDING} onEdit={undefined} loading={false} />;
+  return <UploadDocumentCard {...args} status={IDocumentStatus.PENDING} loading={false} />;
 };
 
 export const Validated: UploadDocumentCardStory = (args) => {
-  return (
-    <UploadDocumentCard {...args} status={IDocumentStatus.VALIDATED} loading={false} onEdit={undefined} />
-  );
+  return <UploadDocumentCard {...args} status={IDocumentStatus.VALIDATED} loading={false} />;
 };
 
 export const Refused: UploadDocumentCardStory = (args) => (
-  <UploadDocumentCard {...args} status={IDocumentStatus.REFUSED} loading={false} />
+  <UploadDocumentCard
+    {...args}
+    status={IDocumentStatus.REFUSED}
+    loading={false}
+    errorMessage={'Message d’erreur correspondant au STATUS_CODE du document envoyé par KycProvider'}
+  />
 );
 export const Loading: UploadDocumentCardStory = (args) => (
-  <UploadDocumentCard {...args} status={undefined} loading onEdit={undefined} />
+  <UploadDocumentCard {...args} status={undefined} loading />
 );

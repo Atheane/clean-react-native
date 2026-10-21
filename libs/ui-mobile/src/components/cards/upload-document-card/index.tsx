@@ -4,8 +4,7 @@ import { SvgProps } from 'react-native-svg';
 import { Icon, useTheme, LinearProgress } from '@rneui/themed';
 import { IDocumentStatus } from '@clean-rn/kyc/domain';
 
-// import { DeleteGradient, Edit } from '../../../assets';
-import { Edit, GreenValidation, DeleteCross } from '../../../assets';
+import { Edit, GreenValidation, DeleteCrossGradient } from '../../../assets';
 import { Colors, FontNames } from '../../../constants';
 import { LinkButtonColors } from '../../../types';
 import { LinkButton } from '../../buttons/link-button';
@@ -13,15 +12,17 @@ import { LinkButton } from '../../buttons/link-button';
 type IProps = {
   icon: FC<SvgProps>;
   text: string;
+  errorMessage?: string;
   onPress: () => void;
   loading?: boolean;
   status?: IDocumentStatus;
-  onEdit?: () => void;
   onCancel: () => void;
 };
 
 export const UploadDocumentCard = (props: IProps) => {
   const { theme } = useTheme();
+  const renderLabel = (text: string) =>
+    `${text}`.slice(0, props.status === 'REFUSED' || props.loading ? 26 : 30) + '...';
 
   const disabled = props.status === 'PENDING' || props.status === 'VALIDATED' || props.status === 'CANCELED';
   return (
@@ -39,13 +40,13 @@ export const UploadDocumentCard = (props: IProps) => {
           <View style={styles.iconContainer}>
             <props.icon />
           </View>
-          <Text style={[theme.bank.text.darkBlue, styles.text]}>{props.text}</Text>
+          <Text style={[theme.bank.text.darkBlue, styles.text]}>{renderLabel(props.text)}</Text>
           {props.loading && (
             <View style={styles.cancelIcon}>
               <LinkButton
                 pressed={false}
                 onPress={props.onCancel}
-                iconOne={DeleteCross}
+                iconOne={DeleteCrossGradient}
                 colorOption={LinkButtonColors.BLUE}
               />
             </View>
@@ -67,15 +68,15 @@ export const UploadDocumentCard = (props: IProps) => {
           </View>
         )}
         {props.loading && <LinearProgress color={Colors.bank.primary.darkGreen} style={styles.progress} />}
+        {props.status === 'REFUSED' && (
+          <View style={styles.rightIconContainer}>
+            <Edit />
+          </View>
+        )}
       </TouchableOpacity>
-      {props.onEdit && (
-        <View style={styles.rightIconContainer}>
-          <LinkButton
-            pressed={false}
-            onPress={props.onEdit}
-            iconOne={Edit}
-            colorOption={LinkButtonColors.BLUE}
-          />
+      {props.errorMessage && (
+        <View style={styles.errorMessageContainer}>
+          <Text style={[theme.bank.text.errors, styles.errorMessage]}>{props.errorMessage}</Text>
         </View>
       )}
     </View>
@@ -108,14 +109,16 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 14,
     left: 14,
+    backgroundColor: Colors.bank.primary.white,
+    borderRadius: 100,
   },
   rightIconContainer: {
     position: 'absolute',
-    top: 8,
+    top: 26,
     right: 20,
   },
   rightIcon: { backgroundColor: Colors.bank.primary.white, borderRadius: 100 },
-  cancelIcon: { top: 8, right: 12, position: 'absolute' },
+  cancelIcon: { top: 4, right: 8, position: 'absolute' },
   loading: {
     alignItems: 'center',
   },
@@ -125,5 +128,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 4,
     left: '8%',
+  },
+  errorMessageContainer: {
+    marginTop: 8,
+    marginLeft: 24,
+    width: '90%',
+  },
+  errorMessage: {
+    textAlign: 'left',
   },
 });

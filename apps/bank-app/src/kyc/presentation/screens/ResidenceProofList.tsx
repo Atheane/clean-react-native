@@ -9,6 +9,7 @@ import {
   IDocumentCategory,
   IDocumentProperties,
   IDocumentStatus,
+  IDocumentStatusCode,
   IDocumentType,
 } from '@clean-rn/kyc/domain';
 import { Colors, FontNames, IconTextItem, KycIban, KycInvoice, KycTaxes } from '@clean-rn/ui-mobile';
@@ -79,6 +80,7 @@ export const ResidenceProofList = () => {
                     name: 'residence-proof.invoice.recto',
                     status: IDocumentStatus.INIT,
                     createdAt: new Date(),
+                    statusCode: IDocumentStatusCode.INITIAL,
                   },
                 })
               }
@@ -99,6 +101,7 @@ export const ResidenceProofList = () => {
                     name: 'residence-proof.iban.recto',
                     status: IDocumentStatus.INIT,
                     createdAt: new Date(),
+                    statusCode: IDocumentStatusCode.INITIAL,
                   },
                 })
               }
@@ -119,6 +122,7 @@ export const ResidenceProofList = () => {
                     name: 'residence-proof.taxes.recto',
                     status: IDocumentStatus.INIT,
                     createdAt: new Date(),
+                    statusCode: IDocumentStatusCode.INITIAL,
                   },
                 })
               }

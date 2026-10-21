@@ -7,6 +7,15 @@ export enum IDocumentErrorMessage {
   DOCUMENT_NOT_READY = 'Document is not ready',
   INVALID_DOCUMENT_TYPE = 'Invalid document type',
   DOCUMENT_TOO_LARGE = 'Document is too large',
+  REFUSED = 'Document refused',
+  OUT_OF_SCOPE = 'Document out of scope',
+  EXPIRED = 'Document expired',
+  FALSIFIED = 'Document falsified',
+  ILLEGIBLE = 'Document illegible',
+  TRUNCATED_DOC = 'Document truncated',
+  TRUNCATED = 'Truncated',
+  INCOHERENT = 'Document incoherent',
+  OTHER = 'Other error',
 }
 
 export enum IDocumentErrorCodes {
@@ -15,6 +24,15 @@ export enum IDocumentErrorCodes {
   DOCUMENT_NOT_READY = 'DOCUMENT_NOT_READY',
   INVALID_DOCUMENT_TYPE = 'INVALID_DOCUMENT_TYPE',
   DOCUMENT_TOO_LARGE = 'DOCUMENT_TOO_LARGE',
+  REFUSED = 'REFUSED',
+  OUT_OF_SCOPE = 'OUT_OF_SCOPE',
+  EXPIRED = 'EXPIRED',
+  FALSIFIED = 'FALSIFIED',
+  ILLEGIBLE = 'ILLEGIBLE',
+  TRUNCATED_DOC = 'TRUNCATED_DOC',
+  TRUNCATED = 'TRUNCATED',
+  INCOHERENT = 'INCOHERENT',
+  OTHER = 'OTHER',
 }
 
 export namespace DocumentError {
@@ -85,6 +103,94 @@ export namespace DocumentError {
       super();
       this.message = IDocumentErrorMessage.DOCUMENT_TOO_LARGE;
       this.code = IDocumentErrorCodes.DOCUMENT_TOO_LARGE;
+      this.cause = cause;
+    }
+  }
+  export class Refused extends Error implements IDomainError<IDocumentErrorCodes, IDocumentErrorMessage> {
+    code: IDocumentErrorCodes;
+    message: IDocumentErrorMessage;
+    cause?: unknown;
+    constructor(cause?: unknown) {
+      super();
+      this.message = IDocumentErrorMessage.REFUSED;
+      this.code = IDocumentErrorCodes.REFUSED;
+      this.cause = cause;
+    }
+  }
+  export class OutOfScope extends Error implements IDomainError<IDocumentErrorCodes, IDocumentErrorMessage> {
+    code: IDocumentErrorCodes;
+    message: IDocumentErrorMessage;
+    cause?: unknown;
+    constructor(cause?: unknown) {
+      super();
+      this.message = IDocumentErrorMessage.OUT_OF_SCOPE;
+      this.code = IDocumentErrorCodes.OUT_OF_SCOPE;
+      this.cause = cause;
+    }
+  }
+  export class Expired extends Error implements IDomainError<IDocumentErrorCodes, IDocumentErrorMessage> {
+    code: IDocumentErrorCodes;
+    message: IDocumentErrorMessage;
+    cause?: unknown;
+    constructor(cause?: unknown) {
+      super();
+      this.message = IDocumentErrorMessage.EXPIRED;
+      this.code = IDocumentErrorCodes.EXPIRED;
+      this.cause = cause;
+    }
+  }
+  export class Falsified extends Error implements IDomainError<IDocumentErrorCodes, IDocumentErrorMessage> {
+    code: IDocumentErrorCodes;
+    message: IDocumentErrorMessage;
+    cause?: unknown;
+    constructor(cause?: unknown) {
+      super();
+      this.message = IDocumentErrorMessage.FALSIFIED;
+      this.code = IDocumentErrorCodes.FALSIFIED;
+      this.cause = cause;
+    }
+  }
+  export class Illegible extends Error implements IDomainError<IDocumentErrorCodes, IDocumentErrorMessage> {
+    code: IDocumentErrorCodes;
+    message: IDocumentErrorMessage;
+    cause?: unknown;
+    constructor(cause?: unknown) {
+      super();
+      this.message = IDocumentErrorMessage.ILLEGIBLE;
+      this.code = IDocumentErrorCodes.ILLEGIBLE;
+      this.cause = cause;
+    }
+  }
+  export class Truncated extends Error implements IDomainError<IDocumentErrorCodes, IDocumentErrorMessage> {
+    code: IDocumentErrorCodes;
+    message: IDocumentErrorMessage;
+    cause?: unknown;
+    constructor(cause?: unknown) {
+      super();
+      this.message = IDocumentErrorMessage.TRUNCATED;
+      this.code = IDocumentErrorCodes.TRUNCATED;
+      this.cause = cause;
+    }
+  }
+  export class Incoherent extends Error implements IDomainError<IDocumentErrorCodes, IDocumentErrorMessage> {
+    code: IDocumentErrorCodes;
+    message: IDocumentErrorMessage;
+    cause?: unknown;
+    constructor(cause?: unknown) {
+      super();
+      this.message = IDocumentErrorMessage.INCOHERENT;
+      this.code = IDocumentErrorCodes.INCOHERENT;
+      this.cause = cause;
+    }
+  }
+  export class Other extends Error implements IDomainError<IDocumentErrorCodes, IDocumentErrorMessage> {
+    code: IDocumentErrorCodes;
+    message: IDocumentErrorMessage;
+    cause?: unknown;
+    constructor(cause?: unknown) {
+      super();
+      this.message = IDocumentErrorMessage.OTHER;
+      this.code = IDocumentErrorCodes.OTHER;
       this.cause = cause;
     }
   }

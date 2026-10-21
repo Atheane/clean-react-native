@@ -10,6 +10,7 @@ import {
   IDocumentType,
   IDocumentProperties,
   IDocumentStatus,
+  IDocumentStatusCode,
 } from '@clean-rn/kyc/domain';
 import { IconTextItem, KycId, KycPassport } from '@clean-rn/ui-mobile';
 
@@ -77,6 +78,7 @@ export const HostIdList = () => {
                     name: 'host-id.id.recto',
                     status: IDocumentStatus.INIT,
                     createdAt: new Date(),
+                    statusCode: IDocumentStatusCode.INITIAL,
                   },
                   nextRouteParams: {
                     instruction: t('screens.kyc.host-id.verso.instruction'),
@@ -100,6 +102,7 @@ export const HostIdList = () => {
                     name: 'host-id.passport.recto',
                     status: IDocumentStatus.INIT,
                     createdAt: new Date(),
+                    statusCode: IDocumentStatusCode.INITIAL,
                   },
                 })
               }

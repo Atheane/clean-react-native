@@ -11,6 +11,7 @@ import {
   KycDocuments,
   IDocumentStatus,
   IDocumentProperties,
+  IDocumentStatusCode,
 } from '@clean-rn/kyc/domain';
 import {
   UploadDocumentCard,
@@ -92,6 +93,9 @@ export const MenuKyc = () => {
     dispatch(cancelUpload());
   }, [dispatch]);
 
+  console.log('>>>>>>>>>>', customer?.properties.status);
+  const errorMessage =
+    "Le nom de famille indiqué dans le signup et celui de la carte d'identité ne correspondent pas";
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
@@ -100,6 +104,15 @@ export const MenuKyc = () => {
           <Text style={[styles.instruction, theme.bank.text.grey]}>{`${t(
             'screens.kyc.menu.instruction-before.begin',
           )} ${submittedKyc?.expectedDocumentCount} ${t('screens.kyc.menu.instruction-before.end')}`}</Text>
+          {customer?.properties.status === 'REFUSED' && (
+            <View style={styles.errorMessageContainer}>
+              <Text style={[theme.bank.text.errors, styles.errorMessage]}>
+                {`${t('errors.domain-error.kyc.KYC_REFUSED')}. `}
+                {`${errorMessage}. `}
+                {`${t('screens.kyc.menu.fix-file')}. `}
+              </Text>
+            </View>
+          )}
           {user?.properties.USPerson && (
             <View
               style={
@@ -120,12 +133,18 @@ export const MenuKyc = () => {
                       typeId: IDocumentType.TAX_CERTIFICATE,
                       name: 'w9.form.recto',
                       status: IDocumentStatus.INIT,
+                      statusCode: IDocumentStatusCode.INITIAL,
                       createdAt: new Date(),
                     },
                   })
                 }
                 loading={pending && document?.properties.category === IDocumentCategory.W9}
                 onCancel={handleOnCancel}
+                errorMessage={
+                  submittedKyc?.documents.W9?.properties.status === IDocumentStatus.REFUSED
+                    ? t(`errors.domain-error.kyc.${submittedKyc?.documents.W9?.properties.statusCode}`)
+                    : ''
+                }
               />
             </View>
           )}
@@ -139,6 +158,11 @@ export const MenuKyc = () => {
               onPress={() => navigateTo(IKycStackPages.FIRST_ID_LIST as never, {})}
               loading={pending && document?.properties.category === IDocumentCategory.FIRST_ID}
               onCancel={handleOnCancel}
+              errorMessage={
+                submittedKyc?.documents.FIRST_ID?.properties.status === IDocumentStatus.REFUSED
+                  ? t(`errors.domain-error.kyc.${submittedKyc?.documents.FIRST_ID?.properties.statusCode}`)
+                  : ''
+              }
             />
           </View>
           <View
@@ -151,6 +175,11 @@ export const MenuKyc = () => {
               onPress={() => navigateTo(IKycStackPages.SECOND_ID_LIST as never, {})}
               loading={pending && document?.properties.category === IDocumentCategory.SECOND_ID}
               onCancel={handleOnCancel}
+              errorMessage={
+                submittedKyc?.documents.SECOND_ID?.properties.status === IDocumentStatus.REFUSED
+                  ? t(`errors.domain-error.kyc.${submittedKyc?.documents.SECOND_ID?.properties.statusCode}`)
+                  : ''
+              }
             />
           </View>
           <View
@@ -170,6 +199,13 @@ export const MenuKyc = () => {
               }
               loading={pending && document?.properties.category === IDocumentCategory.RESIDENCE_PROOF}
               onCancel={handleOnCancel}
+              errorMessage={
+                submittedKyc?.documents.RESIDENCE_PROOF?.properties.status === IDocumentStatus.REFUSED
+                  ? t(
+                      `errors.domain-error.kyc.${submittedKyc?.documents.RESIDENCE_PROOF?.properties.statusCode}`,
+                    )
+                  : ''
+              }
             />
           </View>
           {submittedKyc?.isHosted && (
@@ -187,6 +223,14 @@ export const MenuKyc = () => {
                   pending && document?.properties.category === IDocumentCategory.RESIDENCE_PROOF_FIRST_ID
                 }
                 onCancel={handleOnCancel}
+                errorMessage={
+                  submittedKyc?.documents.RESIDENCE_PROOF_FIRST_ID?.properties.status ===
+                  IDocumentStatus.REFUSED
+                    ? t(
+                        `errors.domain-error.kyc.${submittedKyc?.documents.RESIDENCE_PROOF_FIRST_ID?.properties.statusCode}`,
+                      )
+                    : ''
+                }
               />
             </View>
           )}
@@ -212,6 +256,7 @@ export const MenuKyc = () => {
                       name: 'residence-proof.sworn-statement.recto',
                       status: IDocumentStatus.INIT,
                       createdAt: new Date(),
+                      statusCode: IDocumentStatusCode.INITIAL,
                     },
                   })
                 }
@@ -220,6 +265,14 @@ export const MenuKyc = () => {
                   document?.properties.category === IDocumentCategory.RESIDENCE_PROOF_SWORN_STATEMENT
                 }
                 onCancel={handleOnCancel}
+                errorMessage={
+                  submittedKyc?.documents.RESIDENCE_PROOF_SWORN_STATEMENT?.properties.status ===
+                  IDocumentStatus.REFUSED
+                    ? t(
+                        `errors.domain-error.kyc.${submittedKyc?.documents.RESIDENCE_PROOF_SWORN_STATEMENT?.properties.statusCode}`,
+                      )
+                    : ''
+                }
               />
             </View>
           )}
@@ -248,5 +301,13 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
     width: '80%',
     marginVertical: 24,
+  },
+  errorMessageContainer: {
+    marginVertical: 6,
+    alignItems: 'center',
+    width: '85%',
+  },
+  errorMessage: {
+    textAlign: 'left',
   },
 });

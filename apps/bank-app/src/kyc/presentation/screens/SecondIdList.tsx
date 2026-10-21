@@ -20,6 +20,7 @@ import {
   IDocumentType,
   IDocumentProperties,
   IDocumentStatus,
+  IDocumentStatusCode,
 } from '@clean-rn/kyc/domain';
 import {
   DrivingLicenseRecto,
@@ -105,6 +106,7 @@ export const SecondIdList = () => {
                       name: 'second-id.id.recto',
                       status: IDocumentStatus.INIT,
                       createdAt: new Date(),
+                      statusCode: IDocumentStatusCode.INITIAL,
                     },
                     nextRouteParams: {
                       instruction: t('screens.kyc.id.verso.instruction'),
@@ -129,6 +131,7 @@ export const SecondIdList = () => {
                       name: 'second-id.passport.recto',
                       status: IDocumentStatus.INIT,
                       createdAt: new Date(),
+                      statusCode: IDocumentStatusCode.INITIAL,
                     },
                   })
                 }
@@ -149,6 +152,7 @@ export const SecondIdList = () => {
                       name: 'second-id.residence-permit.recto',
                       status: IDocumentStatus.INIT,
                       createdAt: new Date(),
+                      statusCode: IDocumentStatusCode.INITIAL,
                     },
                     nextRouteParams: {
                       instruction: t('screens.kyc.residence-permit.verso.instruction'),
@@ -173,6 +177,7 @@ export const SecondIdList = () => {
                       name: 'second-id.driving-license.recto',
                       status: IDocumentStatus.INIT,
                       createdAt: new Date(),
+                      statusCode: IDocumentStatusCode.INITIAL,
                     },
                     nextRouteParams: {
                       instruction: t('screens.kyc.driving-license.verso.instruction'),
@@ -198,6 +203,7 @@ export const SecondIdList = () => {
                       name: 'second-id.health-card.recto',
                       status: IDocumentStatus.INIT,
                       createdAt: new Date(),
+                      statusCode: IDocumentStatusCode.INITIAL,
                     },
                   })
                 }
