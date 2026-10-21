@@ -4,7 +4,7 @@ import { put, select, StrictEffect, takeEvery } from 'redux-saga/effects';
 import { IRegisterPasswordCommand, User } from '@clean-rn/user/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { initializeSignupStep, IUserTypes, passwordRegistered } from '../../commands';
+import { initializeUser, IUserTypes, passwordRegistered } from '../../commands';
 import { selectUserFromSignup, selectEmailFromSignup } from '../../state-management/selectors';
 
 export function* registerPasswordSaga(): Generator<StrictEffect, any, any> {
@@ -33,7 +33,7 @@ export function* registerPasswordGenerator({
     yield put(passwordRegistered(user));
   } catch (e: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors
-    yield put(initializeSignupStep());
+    yield put(initializeUser());
     yield put(showUnknownError(e as Error));
   }
 }

@@ -1,5 +1,5 @@
 import { Dayjs } from 'dayjs';
-import { IGender } from '../types';
+import { IEmailNotifications, IGender, IPhoneNotifications } from '../types';
 import { Phone, PhoneOtp } from '../value-objects';
 import { User } from '../entities';
 
@@ -34,4 +34,9 @@ export type ISendPhoneValidationCommand = {
 export type ISignupUserCommand = {
   user: User;
   phoneOtp: PhoneOtp;
+};
+
+export type IUpdateUserConfigCommand = {
+  notifFirebaseDisabled?: IEmailNotifications[];
+  notifEmailDisabled?: IPhoneNotifications[];
 };

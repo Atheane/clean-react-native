@@ -17,14 +17,14 @@ import {
   IHomeStackPages,
   ITransferStackPages,
   ICarbonStackPages,
-  IProfileStackPages,
+  IUserStackPages,
 } from '../../types';
 
 import { AccountStack } from '../../../../account/presentation/navigation';
 import { Carbon } from '../../../../carbon/presentation/screens';
 
 import { Transfer } from '../../../../transfer/presentation/screens';
-import { Profile } from '../../../../profile/presentation/screens';
+import { Profile } from '../../../../user/presentation/screens';
 
 const Tab = createBottomTabNavigator<IRootTabParamList>();
 
@@ -99,9 +99,9 @@ export const BottomTabNavigator = () => {
         })}
       />
       <Tab.Screen
-        name={IProfileStackPages.MENU}
+        name={IUserStackPages.MENU}
         component={Profile}
-        options={({ navigation }: IRootTabScreenProps<IProfileStackPages.MENU>) => ({
+        options={({ navigation }: IRootTabScreenProps<IUserStackPages.MENU>) => ({
           title: t('screens.profile.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             focused ? (

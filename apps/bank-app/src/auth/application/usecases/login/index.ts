@@ -16,7 +16,7 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
 
 import { loginFailure, IAuthTypes, initializeAuth, loginSuccess, resetError } from '../../commands';
-import { initializeSignupStep } from '../../../../user/application/commands';
+import { initializeUser } from '../../../../user/application/commands';
 
 export function* loginSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IAuthTypes.FETCH_LOGIN, loginGenerator, httpConnection);
@@ -61,7 +61,7 @@ export function* loginGenerator(
           yield cancel();
         case IAuthServerCode.USER_PHONE_NOT_VALIDATED:
           // need to reinit signupReducer if user comes from signup flow (because not store data)
-          yield put(initializeSignupStep());
+          yield put(initializeUser());
           yield put(loginFailure(new AuthError.LoginFailurePhoneNotValidated(error)));
           yield call(navigate, { route: IUserStackPages.SIGNUP_PHONE });
           yield cancel();

@@ -11,7 +11,7 @@ import { IUserStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 import { selectUserFromSignup } from '../../state-management/selectors';
-import { IUserTypes, signupFailed, phoneValidated, initializeSignupStep } from '../../commands';
+import { IUserTypes, signupFailed, phoneValidated, initializeUser } from '../../commands';
 
 export function* validatePhoneSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IUserTypes.FETCH_VALIDATE_PHONE, validatePhoneGenerator, httpConnection);
@@ -50,7 +50,7 @@ export function* validatePhoneGenerator(
     yield call(navigate, { route: IUserStackPages.SIGNUP_BIRTH });
   } catch (e: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors
-    yield put(initializeSignupStep());
+    yield put(initializeUser());
     yield put(showUnknownError(e as Error));
   }
 }

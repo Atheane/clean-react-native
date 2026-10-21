@@ -112,6 +112,9 @@ export enum IUserStackPages {
   SIGNUP_CONGRATS = 'SignupCongrats',
   EMAIL_SENT = 'EmailSent',
   SIGNUP_PHONE = 'SignupPhone',
+  MENU = 'MenuProfile',
+  PROFILE = 'Profile',
+  NOTIFICATON_SETTINGS = 'NotificationSettings',
 }
 
 export enum IHomeStackPages {
@@ -158,12 +161,6 @@ export enum ITransferStackPages {
   TRANSFER = 'Transfer',
 }
 
-export enum IProfileStackPages {
-  MENU = 'MenuProfile',
-  PROFILE = 'Profile',
-  NOTIFICATON_SETTINGS = 'NotificationSettings',
-}
-
 export type ISharedStackProps = {
   [ISharedStackPages.MODAL_ERROR]: object;
   [ISharedStackPages.MODAL_WEBVIEW]: object;
@@ -186,6 +183,9 @@ export type IUserStackProps = {
   [IUserStackPages.SIGNUP_CONGRATS]: object;
   [IUserStackPages.EMAIL_SENT]: object;
   [IUserStackPages.SIGNUP_PHONE]: object;
+  [IUserStackPages.MENU]: object;
+  [IUserStackPages.PROFILE]: object;
+  [IUserStackPages.NOTIFICATON_SETTINGS]: object;
 };
 
 export type IHomeStackProps = {
@@ -232,12 +232,6 @@ export type ITransferStackProps = {
   [ITransferStackPages.TRANSFER]: object;
 };
 
-export type IProfileStackProps = {
-  [IProfileStackPages.MENU]: object;
-  [IProfileStackPages.PROFILE]: object;
-  [IProfileStackPages.NOTIFICATON_SETTINGS]: object;
-};
-
 export type IRoutes =
   | ISharedStackPages.MODAL_ERROR
   | ISharedStackPages.MODAL_WEBVIEW
@@ -254,6 +248,9 @@ export type IRoutes =
   | IUserStackPages.SIGNUP_CONGRATS
   | IUserStackPages.EMAIL_SENT
   | IUserStackPages.SIGNUP_PHONE
+  | IUserStackPages.MENU
+  | IUserStackPages.PROFILE
+  | IUserStackPages.NOTIFICATON_SETTINGS
   | IHomeStackPages.ACCOUNTS
   | IHomeStackPages.HOME
   | IHomeStackPages.MENU
@@ -284,7 +281,4 @@ export type IRoutes =
   | IKycStackPages.KYC_HOST
   | IKycStackPages.HOST_ID_LIST
   | IKycStackPages.HOST_RESIDENCE_PROOF_LIST
-  | ITransferStackPages.TRANSFER
-  | IProfileStackPages.MENU
-  | IProfileStackPages.PROFILE
-  | IProfileStackPages.NOTIFICATON_SETTINGS;
+  | ITransferStackPages.TRANSFER;

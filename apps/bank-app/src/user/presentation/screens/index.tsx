@@ -6,6 +6,8 @@ import { SignupAddress } from './SignupAddress';
 import { SignupCongrats } from './SignupCongrats';
 import { EmailSent } from './EmailSent';
 import { SignupPhone } from './SignupPhone';
+import { Profile } from './Profile';
+import { NotificationSettings } from './NotificationSettings';
 
 export {
   SignupEmail,
@@ -16,4 +18,6 @@ export {
   SignupCongrats,
   EmailSent,
   SignupPhone,
+  Profile,
+  NotificationSettings,
 };

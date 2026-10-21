@@ -20,8 +20,6 @@ import {
   HeaderTitleAlign,
   ICarbonStackPages,
   ICarbonStackProps,
-  IProfileStackPages,
-  IProfileStackProps,
   IUserStackProps,
   IUserStackPages,
 } from '../../../shared/presentation/types';
@@ -37,7 +35,7 @@ import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 import { KycStack } from '../../../kyc/presentation/navigation';
 import { Carbon, House, Transport, Food, WarningFood, Fly } from '../../../carbon/presentation/screens';
 import { AccountStatements, AccountStatementsPdf, RibPdf } from '../../../account/presentation/screens';
-import { NotificationSettings } from '../../../profile/presentation/screens';
+import { NotificationSettings } from '../../../user/presentation/screens';
 import { BottomTabNavigator } from './BottomNavigator';
 import { UserStack } from '../../../user/presentation/navigation';
 import { SignupCongrats } from '../../../user/presentation/screens';
@@ -51,13 +49,7 @@ export const RootStack = () => {
 };
 
 const Stack = createNativeStackNavigator<
-  IHomeStackProps &
-    ISharedStackProps &
-    IAuthStackProps &
-    IUserStackProps &
-    IKycStackProps &
-    ICarbonStackProps &
-    IProfileStackProps
+  IHomeStackProps & ISharedStackProps & IAuthStackProps & IUserStackProps & IKycStackProps & ICarbonStackProps
 >();
 
 export const HomeStack = () => {
@@ -161,7 +153,7 @@ export const HomeStack = () => {
         }}
       />
       <Stack.Screen
-        name={IProfileStackPages.NOTIFICATON_SETTINGS}
+        name={IUserStackPages.NOTIFICATON_SETTINGS}
         component={NotificationSettings}
         options={{
           headerTitle: t('screens.notifications.title'),

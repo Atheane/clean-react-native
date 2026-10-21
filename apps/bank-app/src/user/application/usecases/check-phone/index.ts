@@ -10,7 +10,7 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 import { selectUserFromSignup } from '../../state-management/selectors';
-import { IUserTypes, signupFailed, phoneNotFound, initializeSignupStep, phoneCodeSent } from '../../commands';
+import { IUserTypes, signupFailed, phoneNotFound, initializeUser, phoneCodeSent } from '../../commands';
 
 export function* checkPhoneSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IUserTypes.FETCH_SEARCH_PHONE, checkPhoneGenerator, httpConnection);
@@ -53,7 +53,7 @@ export function* checkPhoneGenerator(
       yield cancel();
     }
     // once app is well tested, delete this part and let onError hook manage unexpected errors
-    yield put(initializeSignupStep());
+    yield put(initializeUser());
     yield put(showUnknownError(e as Error));
   }
 }

@@ -4,7 +4,7 @@ import { put, select, StrictEffect, takeEvery } from 'redux-saga/effects';
 import { IRegisterAddressCommand, User } from '@clean-rn/user/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IUserTypes, addressRegistered, fetchSignupUser, initializeSignupStep } from '../../commands';
+import { IUserTypes, addressRegistered, fetchSignupUser, initializeUser } from '../../commands';
 import {
   selectUserFromSignup,
   selectEmailFromSignup,
@@ -37,7 +37,7 @@ export function* registerAddressGenerator({
     yield put(fetchSignupUser({ user, phoneOtp }));
   } catch (e: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors
-    yield put(initializeSignupStep());
+    yield put(initializeUser());
     yield put(showUnknownError(e as Error));
   }
 }

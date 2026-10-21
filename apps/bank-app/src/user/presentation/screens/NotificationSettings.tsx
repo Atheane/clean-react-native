@@ -1,14 +1,15 @@
 import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
 import { SmallSwitchButton, SubmitButton, useTogglePress } from '@clean-rn/ui-mobile';
 
-import { IPhoneNotifications } from '@clean-rn/profile/domain';
+import { IPhoneNotifications } from '@clean-rn/user/domain';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { BlueBell } from '../assets';
-import { useDispatch } from 'react-redux';
+import { BlueBell } from '../../../user/presentation/assets';
+import { fetchUpdateNotifications } from '../../../user/application/commands';
 
 const HEIGHT = Dimensions.get('window').height;
 export const NotificationSettings = () => {
@@ -22,15 +23,27 @@ export const NotificationSettings = () => {
   const dispatch = useDispatch();
 
   const handleOnSubmit = useCallback(() => {
-    const phoneNotificationsDisabled: IPhoneNotifications[] = [];
+    let phoneNotificationsDisabled: IPhoneNotifications[] = [];
     if (!paymentChecked) {
       phoneNotificationsDisabled.push(IPhoneNotifications.PAYOUT_INITIATED);
+    } else {
+      phoneNotificationsDisabled = phoneNotificationsDisabled.filter(
+        (pn) => pn !== IPhoneNotifications.PAYOUT_INITIATED,
+      );
     }
     if (!transferChecked) {
       phoneNotificationsDisabled.push(IPhoneNotifications.PAYIN_RECEIVED);
+    } else {
+      phoneNotificationsDisabled = phoneNotificationsDisabled.filter(
+        (pn) => pn !== IPhoneNotifications.PAYIN_RECEIVED,
+      );
     }
     if (!thresholdChecked) {
       phoneNotificationsDisabled.push(IPhoneNotifications.CARD_TRANSACTION_MODIFIED);
+    } else {
+      phoneNotificationsDisabled = phoneNotificationsDisabled.filter(
+        (pn) => pn !== IPhoneNotifications.CARD_TRANSACTION_MODIFIED,
+      );
     }
     dispatch(fetchUpdateNotifications({ phoneNotificationsDisabled }));
   }, [dispatch, paymentChecked, transferChecked, thresholdChecked]);

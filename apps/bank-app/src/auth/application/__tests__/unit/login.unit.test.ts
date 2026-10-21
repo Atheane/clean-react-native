@@ -20,7 +20,7 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 import { IHomeStackPages, IUserStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
-import { initializeSignupStep } from '../../../../user/application/commands';
+import { initializeUser } from '../../../../user/application/commands';
 
 describe('Login - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -234,7 +234,7 @@ describe('Login - usecase', () => {
       .next('test@example.com')
       .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401UserPhoneNotValidated))
-      .put(initializeSignupStep())
+      .put(initializeUser())
       .next()
       .put(
         loginFailure(

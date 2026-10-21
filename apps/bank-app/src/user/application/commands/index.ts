@@ -12,6 +12,8 @@ import {
   IRegisterBirthCommand,
   IRegisterAddressCommand,
   ISignupUserCommand,
+  IPhoneNotifications,
+  IEmailNotifications,
 } from '@clean-rn/user/domain';
 import {
   IUserActions,
@@ -21,7 +23,7 @@ import {
   IRegisterBirth,
   IRegisterPassword,
   IRegisterAddress,
-  IInitializeSignupStep,
+  IInitializeUser,
   IIdentityRegistered,
   IBirthRegistered,
   IAddressRegistered,
@@ -35,6 +37,8 @@ import {
   IFetchSignupUser,
   IUserSignedUp,
   IPhoneCodeSent,
+  IFetchUpdateNotifications,
+  INotificationsUpdated,
 } from './types';
 
 // redux actions that are commands
@@ -70,8 +74,16 @@ export const fetchSignupUser = (payload: ISignupUserCommand): IFetchSignupUser =
   payload,
 });
 
-export const initializeSignupStep = (): IInitializeSignupStep => ({
-  type: IUserTypes.INITIALIZE_SIGNUP_STEP,
+export const fetchUpdateNotifications = (payload: {
+  phoneNotificationsDisabled?: IPhoneNotifications[];
+  emailNotificationsDisabled?: IEmailNotifications[];
+}): IFetchUpdateNotifications => ({
+  type: IUserTypes.FETCH_UPDATE_NOTIFICATIONS,
+  payload,
+});
+
+export const initializeUser = (): IInitializeUser => ({
+  type: IUserTypes.INITIALIZE_USER,
 });
 
 // redux actions that are domain Events
@@ -131,6 +143,12 @@ export const phoneValidated = (prospect: User): IPhoneValidated => ({
 export const userSignedUp = (user: User): IUserSignedUp => ({
   type: IUserTypes.USER_SIGNED_UP,
   payload: user,
+});
+
+// redux actions that are domain Events
+export const notificationUpdated = (payload: { user: User }): INotificationsUpdated => ({
+  type: IUserTypes.NOTIFICATIONS_UPDATED,
+  payload,
 });
 
 export { IUserTypes, IUserActions };

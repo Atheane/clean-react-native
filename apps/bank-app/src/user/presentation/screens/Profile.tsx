@@ -2,23 +2,21 @@ import { useCallback } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
-import { useTheme } from '@rneui/themed';
 
 import { LinkButton, LinkButtonColors } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { IProfileStackPages } from '../../../shared/presentation/types';
+import { IUserStackPages } from '../../../shared/presentation/types';
 
-import { GradientBell } from '../assets';
+import { GradientBell } from '../../../user/presentation/assets';
 
 const HEIGHT = Dimensions.get('screen').height;
 export const Profile = () => {
   const { t } = useTranslation();
-  const { theme } = useTheme();
   const navigation = useNavigation();
 
   const handlePressApplicationSettings = useCallback(() => {
-    navigation.navigate(IProfileStackPages.NOTIFICATON_SETTINGS as never);
+    navigation.navigate(IUserStackPages.NOTIFICATON_SETTINGS as never);
   }, [navigation]);
 
   return (

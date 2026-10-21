@@ -57,7 +57,7 @@ import {
   signupFailed,
   userSignedUp,
   fetchSignupUser,
-  initializeSignupStep,
+  initializeUser,
   phoneCodeSent,
   phoneNotFound,
 } from '../../commands';
@@ -277,7 +277,7 @@ describe('Signup - usecase', () => {
       .call([userApi, userApi.searchEmail], mockQueryEmail)
       .next()
       .throw(new ServerError(mockError500))
-      .put(initializeSignupStep())
+      .put(initializeUser())
       .next()
       .put(showUnknownError(new ServerError(mockError500)))
       .next();
@@ -306,7 +306,7 @@ describe('Signup - usecase', () => {
     })
       .next()
       .throw(new Error('unknown error'))
-      .put(initializeSignupStep())
+      .put(initializeUser())
       .next()
       .put(showUnknownError(new Error('unknown error')))
       .next();
@@ -382,7 +382,7 @@ describe('Signup - usecase', () => {
     })
       .next()
       .throw(new Error('unknown error'))
-      .put(initializeSignupStep())
+      .put(initializeUser())
       .next()
       .put(showUnknownError(new Error('unknown error')))
       .next();
@@ -475,7 +475,7 @@ describe('Signup - usecase', () => {
       .call([userApi, userApi.searchPhone], mockQueryPhone)
       .next()
       .throw(new ServerError(mockError500))
-      .put(initializeSignupStep())
+      .put(initializeUser())
       .next()
       .put(showUnknownError(new ServerError(mockError500)))
       .next();
@@ -568,7 +568,7 @@ describe('Signup - usecase', () => {
     })
       .next()
       .throw(new Error('unknown error'))
-      .put(initializeSignupStep())
+      .put(initializeUser())
       .next()
       .put(showUnknownError(new Error('unknown error')))
       .next();
@@ -649,7 +649,7 @@ describe('Signup - usecase', () => {
     })
       .next()
       .throw(new Error('unknown error'))
-      .put(initializeSignupStep())
+      .put(initializeUser())
       .next()
       .put(showUnknownError(new Error('unknown error')))
       .next();
@@ -755,7 +755,7 @@ describe('Signup - usecase', () => {
     })
       .next()
       .throw(new Error('unknown error'))
-      .put(initializeSignupStep())
+      .put(initializeUser())
       .next()
       .put(showUnknownError(new Error('unknown error')))
       .next();
@@ -845,7 +845,7 @@ describe('Signup - usecase', () => {
       },
     })
       .next()
-      .put(initializeSignupStep())
+      .put(initializeUser())
       .next()
       .put(showUnknownError(new AuthError.InvalidPassword()))
       .next();
@@ -862,7 +862,7 @@ describe('Signup - usecase', () => {
       },
     })
       .next()
-      .put(initializeSignupStep())
+      .put(initializeUser())
       .next()
       .put(showUnknownError(new AuthError.InvalidEmail()))
       .next();
@@ -882,7 +882,7 @@ describe('Signup - usecase', () => {
       .next()
       .call([userApi, userApi.createUser], { ...userPrev.properties, phoneOtp: mockQueryPhoneOtp.phoneOtp })
       .throw(new ServerError(mockError500))
-      .put(initializeSignupStep())
+      .put(initializeUser())
       .next()
       .put(showUnknownError(new ServerError(mockError500)))
       .next();

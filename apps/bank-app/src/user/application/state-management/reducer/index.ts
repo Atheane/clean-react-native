@@ -10,6 +10,10 @@ const initialState: IUserState = {
   phoneOtp: null,
   user: null,
   error: null,
+  config: {
+    notifMailDisabled: null,
+    notifFirebaseDisabled: null,
+  },
 };
 
 export const userReducer = (state = initialState, action: IUserActions) => {
@@ -133,7 +137,27 @@ export const userReducer = (state = initialState, action: IUserActions) => {
         error: null,
       };
       return newState;
-    case IUserTypes.INITIALIZE_SIGNUP_STEP:
+    case IUserTypes.FETCH_UPDATE_NOTIFICATIONS:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        config: {
+          ...state.config,
+          notifMailDisabled: action.payload.emailNotificationsDisabled ?? null,
+          notifFirebaseDisabled: action.payload.phoneNotificationsDisabled ?? null,
+        },
+        error: null,
+      };
+      return newState;
+    case IUserTypes.NOTIFICATIONS_UPDATED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        user: action.payload.user,
+        error: null,
+      };
+      return newState;
+    case IUserTypes.INITIALIZE_USER:
       logger.debug(action.type);
       newState = {
         ...state,

@@ -11,6 +11,7 @@ import {
   IValidatePhoneQuery,
   ISuccess,
   ISendPhoneValidationCommand,
+  IUpdateUserConfigCommand,
   // IUpdateUserConfigCommand,
 } from '@clean-rn/user/domain';
 import { mapUserServerToUserProperties } from '../mappers';
@@ -82,16 +83,6 @@ export class UserApi implements IUserRepository, IUserGateway {
     return response.json();
   }
 
-  // async updateUserConfig(cmd: IUpdateUserConfigCommand): Promise<User> {
-  //   const response = await fetch(
-  //     `${this.connection.baseUrl}/app/user/config`,
-  //     this.connection.options(IHttpVerb.PUT, cmd),
-  //   );
-  //   await this.connection.handleError(response);
-  //   const userServer = await response.json();
-  //   return mapUserServerToUserProperties(userServer);
-  // }
-
   async searchEmail(query: ISearchEmailQuery): Promise<ISuccess> {
     //map query to dto
     const params = {
@@ -141,5 +132,18 @@ export class UserApi implements IUserRepository, IUserGateway {
     const response = await fetch(url, this.connection.options(IHttpVerb.GET));
     await this.connection.handleError(response);
     return response.json();
+  }
+
+  async updateConfig(cmd: IUpdateUserConfigCommand): Promise<User> {
+    console.log('updateConfig cmd', cmd);
+
+    const response = await fetch(
+      `${this.connection.baseUrl}/app/user/updateConfig`,
+      this.connection.options(IHttpVerb.PUT, cmd),
+    );
+    await this.connection.handleError(response);
+    const userServer = await response.json();
+    console.log('updateConfig userServer', userServer);
+    return mapUserServerToUserProperties(userServer);
   }
 }

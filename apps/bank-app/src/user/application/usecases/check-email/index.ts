@@ -14,7 +14,7 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 import { IAuthStackPages, IUserStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
-import { IUserTypes, emailNotFound, initializeSignupStep, signupFailed } from '../../commands';
+import { IUserTypes, emailNotFound, initializeUser, signupFailed } from '../../commands';
 
 export function* checkEmailSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IUserTypes.FETCH_SEARCH_EMAIL, checkEmailGenerator, httpConnection);
@@ -53,7 +53,7 @@ export function* checkEmailGenerator(
     }
   } catch (e: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors
-    yield put(initializeSignupStep());
+    yield put(initializeUser());
     yield put(showUnknownError(e as Error));
   }
 }

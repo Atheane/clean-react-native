@@ -1,5 +1,13 @@
 import { Email } from '@clean-rn/auth/domain';
-import { Phone, IUserErrorCodes, IUserErrorMessage, User, PhoneOtp } from '@clean-rn/user/domain';
+import {
+  Phone,
+  IUserErrorCodes,
+  IUserErrorMessage,
+  User,
+  PhoneOtp,
+  IPhoneNotifications,
+  IEmailNotifications,
+} from '@clean-rn/user/domain';
 
 import { IDomainError } from '@clean-rn/ddd';
 
@@ -8,6 +16,10 @@ export interface IUserState {
   email: Email | null;
   phone: Phone | null;
   phoneOtp: PhoneOtp | null;
+  config: {
+    notifMailDisabled: IEmailNotifications[] | null;
+    notifFirebaseDisabled: IPhoneNotifications[] | null;
+  };
   user: User | null;
   error: IDomainError<IUserErrorCodes, IUserErrorMessage> | null;
 }

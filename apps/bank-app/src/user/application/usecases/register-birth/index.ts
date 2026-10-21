@@ -2,7 +2,7 @@
 import { put, StrictEffect, takeEvery, select, call } from 'redux-saga/effects';
 import { IRegisterBirthCommand, User } from '@clean-rn/user/domain';
 
-import { IUserTypes, birthRegistered, initializeSignupStep } from '../../commands';
+import { IUserTypes, birthRegistered, initializeUser } from '../../commands';
 import { selectUserFromSignup, selectEmailFromSignup } from '../../state-management/selectors';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { IUserStackPages } from '../../../../shared/presentation/types';
@@ -33,7 +33,7 @@ export function* registerBirthGenerator({
     yield call(navigate, { route: IUserStackPages.SIGNUP_ADDRESS });
   } catch (e: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors
-    yield put(initializeSignupStep());
+    yield put(initializeUser());
     yield put(showUnknownError(e as Error));
   }
 }

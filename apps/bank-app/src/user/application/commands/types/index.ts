@@ -11,6 +11,8 @@ import {
   IRegisterBirthCommand,
   IRegisterAddressCommand,
   ISignupUserCommand,
+  IPhoneNotifications,
+  IEmailNotifications,
 } from '@clean-rn/user/domain';
 
 export enum IUserTypes {
@@ -23,7 +25,8 @@ export enum IUserTypes {
   REGISTER_BIRTH = 'REGISTER_BIRTH',
   REGISTER_ADDRESS = 'REGISTER_ADDRESS',
   FETCH_SIGNUP_USER = 'FETCH_SIGNUP_USER',
-  INITIALIZE_SIGNUP_STEP = 'INITIALIZE_SIGNUP_STEP',
+  FETCH_UPDATE_NOTIFICATIONS = 'FETCH_UPDATE_NOTIFICATIONS',
+  INITIALIZE_USER = 'INITIALIZE_USER',
   // domain events
   EMAIL_NOT_FOUND = 'EMAIL_NOT_FOUND',
   SIGNUP_FAILED = 'SIGNUP_FAILED',
@@ -35,6 +38,7 @@ export enum IUserTypes {
   BIRTH_REGISTERED = 'BIRTH_REGISTERED',
   ADDRESS_REGISTERED = 'ADDRESS_REGISTERED',
   USER_SIGNED_UP = 'USER_SIGNED_UP',
+  NOTIFICATIONS_UPDATED = 'NOTIFICATIONS_UPDATED',
 }
 
 // commands
@@ -78,8 +82,16 @@ export type IFetchSignupUser = {
   payload: ISignupUserCommand;
 };
 
-export type IInitializeSignupStep = {
-  type: typeof IUserTypes.INITIALIZE_SIGNUP_STEP;
+export type IFetchUpdateNotifications = {
+  type: typeof IUserTypes.FETCH_UPDATE_NOTIFICATIONS;
+  payload: {
+    phoneNotificationsDisabled?: IPhoneNotifications[];
+    emailNotificationsDisabled?: IEmailNotifications[];
+  };
+};
+
+export type IInitializeUser = {
+  type: typeof IUserTypes.INITIALIZE_USER;
 };
 
 // domainEvents
@@ -131,8 +143,15 @@ export type IUserSignedUp = {
   payload: User;
 };
 
+export type INotificationsUpdated = {
+  type: typeof IUserTypes.NOTIFICATIONS_UPDATED;
+  payload: {
+    user: User;
+  };
+};
+
 export type IUserActions =
-  | IInitializeSignupStep
+  | IInitializeUser
   | IFetchSearchEmail
   | IEmailNotFound
   | ISignupFailed
@@ -142,8 +161,10 @@ export type IUserActions =
   | IPhoneNotFound
   | IPhoneCodeSent
   | IFetchValidatePhone
+  | IFetchUpdateNotifications
   | IPhoneValidated
   | IBirthRegistered
   | IAddressRegistered
   | IFetchSignupUser
-  | IUserSignedUp;
+  | IUserSignedUp
+  | INotificationsUpdated;

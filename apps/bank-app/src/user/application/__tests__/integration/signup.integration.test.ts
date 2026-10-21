@@ -47,7 +47,7 @@ import {
   registerPassword,
   registerBirth,
   registerAddress,
-  initializeSignupStep,
+  initializeUser,
   phoneCodeSent,
 } from '../../commands';
 import { IUserState, userReducer } from '../../state-management';
@@ -544,7 +544,7 @@ describe('CheckEmail - integration', () => {
   it('Should store correct state if INITIALIZE_SIGNUP for invalid credentials', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
 
-    sagaTester.dispatch(initializeSignupStep());
+    sagaTester.dispatch(initializeUser());
     expect(sagaTester.getState()).toEqual({
       pending: false,
       email: null,
