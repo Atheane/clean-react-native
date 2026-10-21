@@ -37,8 +37,6 @@
     "@react-native-community/datetimepicker": "*",
     "@sentry/react-native": "*",
     "@rneui/base": "*",
-    "bic": "*",
-    "iban": "*",
     "react-hook-form": "*",
     "fast-sort": "*",
     "@react-native-community/slider": "*",
@@ -67,7 +65,8 @@
     "react-native-share": "*",
     "react-native-blob-util": "*",
     "react-native-pdf": "*",
-    "@redux-saga/testing-utils": "*"
+    "@redux-saga/testing-utils": "*",
+    "ibantools": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp package-lock.json apps/bank-app",
