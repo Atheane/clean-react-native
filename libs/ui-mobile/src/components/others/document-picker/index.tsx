@@ -7,6 +7,8 @@ import * as FileSystem from 'expo-file-system';
 import { SecondaryButton } from '../../buttons/secondary-button';
 import { Colors } from '../../../constants';
 import { ImportDocument } from '../../../assets';
+import { calculateBase64Size } from '../../../utils';
+import { DocumentError } from '@clean-rn/kyc/domain';
 
 type IProps = {
   getDocument: (doc: string) => void;
@@ -15,6 +17,9 @@ type IProps = {
 
 const convertPDFToBase64 = async (uri: string) => {
   const base64 = await FileSystem.readAsStringAsync(uri, { encoding: 'base64' });
+  if (calculateBase64Size(base64) > 1000000) {
+    throw new DocumentError.DocumentTooLarge();
+  }
   return base64;
 };
 
@@ -26,7 +31,19 @@ export const DocumentPicker = (props: IProps) => {
         type: Platform.OS === 'ios' ? 'com.adobe.pdf' : 'application/pdf',
         mode: 'open',
       });
-      const base64String = await convertPDFToBase64(result.uri);
+      // const base64String = await convertPDFToBase64(result.uri);
+      // props.getDocument(base64String);
+      let fileUri = result.uri;
+      if (Platform.OS === 'android' && FileSystem.documentDirectory) {
+        // Copier le fichier dans un emplacement temporaire
+        const newUri = FileSystem.documentDirectory + result.name;
+        await FileSystem.copyAsync({
+          from: fileUri,
+          to: newUri,
+        });
+        fileUri = newUri;
+      }
+      const base64String = await convertPDFToBase64(fileUri);
       props.getDocument(base64String);
     } catch (err) {
       if (!DocumentPickr.isCancel(err)) {

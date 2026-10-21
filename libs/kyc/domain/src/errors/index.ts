@@ -1,3 +1,10 @@
-import { DocumentError } from './Document';
-import { CustomerError } from './Customer';
-export { DocumentError, CustomerError };
+import { DocumentError, IDocumentErrorMessage, IDocumentErrorCodes } from './Document';
+import { CustomerError, ICustomerErrorMessage, ICustomerErrorCodes } from './Customer';
+export {
+  DocumentError,
+  CustomerError,
+  IDocumentErrorMessage,
+  IDocumentErrorCodes,
+  ICustomerErrorMessage,
+  ICustomerErrorCodes,
+};

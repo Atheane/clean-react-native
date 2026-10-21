@@ -5,28 +5,16 @@ import DocumentScan, { ResponseType } from 'react-native-document-scanner-plugin
 import { Image } from 'react-native-compressor';
 import * as FileSystem from 'expo-file-system';
 
+import { Logger } from '@clean-rn/logger';
+
 import { PrimaryButton } from '../../buttons/primary-button';
 import { Colors } from '../../../constants';
 import { Camera as CameraIcon } from '../../../assets';
-import { Logger } from '@clean-rn/logger';
+import { calculateBase64Size } from '../../../utils';
 
 type IProps = {
   getScan: (scannedImg: string) => void;
   handleError: (error: unknown) => void;
-};
-
-const calculateBase64Size = (base64: string) => {
-  // Remplacer les caractères non-Base64 par du vide (pour la sécurité)
-  const cleanedBase64String = base64.replace(/[^A-Za-z0-9+/=]/g, '');
-
-  // Calculer la taille en octets de la chaîne Base64
-  const base64Length = cleanedBase64String.length;
-
-  // Trouver et soustraire le nombre de caractères de remplissage
-  const padding = (cleanedBase64String.match(/=/g) || []).length;
-
-  // Calculer la taille réelle des données binaires
-  return ((base64Length - padding) * 3) / 4;
 };
 
 const compressImage = async (imageURI: string, quality: number, maxMB = 0.95): Promise<string> => {

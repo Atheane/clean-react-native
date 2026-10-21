@@ -6,6 +6,7 @@ export enum IDocumentErrorMessage {
   MISSING_VERSO = 'Missing verso',
   DOCUMENT_NOT_READY = 'Document is not ready',
   INVALID_DOCUMENT_TYPE = 'Invalid document type',
+  DOCUMENT_TOO_LARGE = 'Document is too large',
 }
 
 export enum IDocumentErrorCodes {
@@ -13,6 +14,7 @@ export enum IDocumentErrorCodes {
   MISSING_VERSO = 'MISSING_VERSO',
   DOCUMENT_NOT_READY = 'DOCUMENT_NOT_READY',
   INVALID_DOCUMENT_TYPE = 'INVALID_DOCUMENT_TYPE',
+  DOCUMENT_TOO_LARGE = 'DOCUMENT_TOO_LARGE',
 }
 
 export namespace DocumentError {
@@ -69,6 +71,20 @@ export namespace DocumentError {
       super();
       this.message = IDocumentErrorMessage.INVALID_DOCUMENT_TYPE;
       this.code = IDocumentErrorCodes.INVALID_DOCUMENT_TYPE;
+      this.cause = cause;
+    }
+  }
+  export class DocumentTooLarge
+    extends Error
+    implements IDomainError<IDocumentErrorCodes, IDocumentErrorMessage>
+  {
+    code: IDocumentErrorCodes;
+    message: IDocumentErrorMessage;
+    cause?: unknown;
+    constructor(cause?: unknown) {
+      super();
+      this.message = IDocumentErrorMessage.DOCUMENT_TOO_LARGE;
+      this.code = IDocumentErrorCodes.DOCUMENT_TOO_LARGE;
       this.cause = cause;
     }
   }

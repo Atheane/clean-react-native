@@ -1,11 +1,20 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { View, Text, StyleSheet, Dimensions, Image, ImageSourcePropType } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
-import { DocumentPicker, DocumentScanner, LinkButton, LinkButtonColors } from '@clean-rn/ui-mobile';
+import { IDomainError } from '@clean-rn/ddd';
+import { IDocumentErrorMessage, IDocumentErrorCodes } from '@clean-rn/kyc/domain';
+
+import {
+  DocumentPicker,
+  DocumentScanner,
+  ErrorMessage,
+  LinkButton,
+  LinkButtonColors,
+} from '@clean-rn/ui-mobile';
 
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
@@ -49,11 +58,17 @@ export const UploadDocument = () => {
     };
   };
 
+  const [domainError, setDomainError] = useState<IDomainError<IDocumentErrorCodes, IDocumentErrorMessage>>();
   const dispatch = useDispatch();
 
   const handleError = useCallback(
     (error: unknown) => {
-      dispatch(showUnknownError(error as Error));
+      if (error.code === IDocumentErrorCodes.DOCUMENT_TOO_LARGE) {
+        setDomainError(error as IDomainError<IDocumentErrorCodes, IDocumentErrorMessage>);
+      } else {
+        dispatch(showUnknownError(error as unknown as Error));
+        return;
+      }
     },
     [dispatch],
   );
@@ -88,6 +103,8 @@ export const UploadDocument = () => {
               <Image source={HealthCard} />
             </>
           )}
+          {domainError && <ErrorMessage error={domainError} />}
+
           {!docPickerVisible && !showExample && (
             <View style={styles.buttonContainer}>
               <DocumentScanner getScan={handleGetDocument} handleError={handleError} />

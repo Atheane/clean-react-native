@@ -1,3 +1,4 @@
 import firstLetterCapitalize from './firstLetterCapitalize';
 import { toLocalDateString, todayYear } from './toLocalDateString';
-export { firstLetterCapitalize, toLocalDateString, todayYear };
+import { calculateBase64Size } from './calculateBase64Size';
+export { firstLetterCapitalize, toLocalDateString, todayYear, calculateBase64Size };

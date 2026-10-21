@@ -69,7 +69,33 @@
         "SIGNUP_FAILURE_EMAIL_EXISTS": "cet email est déjà enregistré",
         "SIGNUP_FAILURE_PHONE_EXISTS": "ce téléphone est déjà enregistré",
         "USER_UNAUTHENTICATED": "veuillez vous authentifier",
-        "USER_UNAUTHORIZED": "utilisateur non authorisé"
+        "INVALID_EMAIL": "E-mail invalide",
+        "INVALID_PASSWORD": "Mot de passe invalide",
+        "INVALID_PHONE": "Téléphone invalide",
+        "INVALID_COUNTRY": "Pays invalide",
+        "UNAVAILABLE_COUNTRY": "Pays indisponible",
+        "INVALID_BIRTHDAY": "Date de naissance invalide",
+        "INVALID_6_DIGITS": "6 chiffres invalides"
+      },
+      "account": {
+        "INVALID_IBAN": "IBAN invalide",
+        "INVALID_BIC": "BIC invalide",
+        "UNKNOWN_TRANSACTION_TYPE": "Type de transaction inconnu",
+        "INVALID_TRANSACTION_VALUE": "Valeur de transaction invalide"
+      },
+      "carbon": {
+        "INVALID_HOUSE_PROPS": "Propriétés de maison invalides",
+        "INVALID_TRANSPORT_PROPS": "Propriétés de transport invalides",
+        "INVALID_FOOD_PROPS": "Propriétés alimentaires invalides",
+        "INVALID_FLY_PROPS": "Propriétés de vol invalides"
+      },
+      "kyc": {
+        "MISSING_KYC_DOCUMENTS": "Documents KYC manquants",
+        "MISSING_RECTO": "Recto manquant",
+        "MISSING_VERSO": "Verso manquant",
+        "DOCUMENT_NOT_READY": "Document pas encore prêt",
+        "INVALID_DOCUMENT_TYPE": "Type de document invalide",
+        "DOCUMENT_TOO_LARGE": "Document trop volumineux, 1MB maximum"
       },
       "other": "erreur, veuillez contacter l'administrateur"
     },
