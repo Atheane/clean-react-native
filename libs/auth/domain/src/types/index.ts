@@ -39,3 +39,5 @@ export enum IGender {
 export type ISuccess = {
   success: boolean;
 };
+
+export type USER_STATUS = 'PENDING' | 'VALIDATED';

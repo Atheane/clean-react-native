@@ -14,7 +14,7 @@ import {
   User,
   Country,
 } from '@clean-rn/auth/domain';
-import { AuthApi, IUserLoginServerCode } from '@clean-rn/auth/infrastructure';
+import { AuthApi, IUserLoginServerCode, UserApi } from '@clean-rn/auth/infrastructure';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 
 import { loginFailure, ILoginTypes, initializeLogin, loginSuccess } from '../../commands/login';
@@ -47,15 +47,16 @@ export function* loginGenerator(
     }
 
     // api call
-    const api = AuthApi.getInstance(httpConnection);
-    const auth = yield call([api, api.login], payload);
+    const authApi = AuthApi.getInstance(httpConnection);
+    const auth = yield call([authApi, authApi.login], payload);
     //attachBearerToken to httpConnection
     yield call(httpConnection.attachBearerToken, auth.accessToken);
 
     // store token and email in async storage
     yield call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, auth.accessToken);
 
-    const userProps = yield call([api, api.getUser]);
+    const userApi = UserApi.getInstance(httpConnection);
+    const userProps = yield call([userApi, userApi.getUser]);
 
     // todo: refactor in a mapper
     let gender = IGender.NEUTRAL;

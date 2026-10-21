@@ -1,5 +1,5 @@
 import { Entity } from '@clean-rn/ddd';
-import { IAddress, IIdentity, IBirth } from '../types';
+import { IAddress, IIdentity, IBirth, USER_STATUS } from '../types';
 import { Email, Phone, Password, Country, BirthDay } from '../value-objects';
 import { AuthError } from '../errors';
 import { IRegisterAddressCommand, IRegisterBirthCommand, IRegisterIdentityCommand } from '../commands';
@@ -9,10 +9,12 @@ export interface IUserProperties {
   email: Email;
   phone: Phone;
   password?: Password;
-  identity: IIdentity;
-  birth: IBirth;
-  address?: IAddress;
-  USPerson: boolean;
+  identity: IIdentity; // should be in Customer in back-end ?
+  birth: IBirth; // should be in Customer in back-end ?
+  address?: IAddress; // should be in Customer in back-end ?
+  status?: USER_STATUS; // should be in Customer in back-end ?
+  kycReviewComment?: string; // should be in Customer in back-end ?
+  USPerson: boolean; // should be in Customer in back-end ?
 }
 
 export class User extends Entity<IUserProperties> {

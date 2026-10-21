@@ -93,9 +93,6 @@ export const MenuKyc = () => {
     dispatch(cancelUpload());
   }, [dispatch]);
 
-  console.log('>>>>>>>>>>', customer?.properties.status);
-  const errorMessage =
-    "Le nom de famille indiqué dans le signup et celui de la carte d'identité ne correspondent pas";
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
@@ -108,7 +105,7 @@ export const MenuKyc = () => {
             <View style={styles.errorMessageContainer}>
               <Text style={[theme.bank.text.errors, styles.errorMessage]}>
                 {`${t('errors.domain-error.kyc.KYC_REFUSED')}. `}
-                {`${errorMessage}. `}
+                {customer?.properties.kycReviewComment ? `${customer.properties.kycReviewComment}. ` : ''}
                 {`${t('screens.kyc.menu.fix-file')}. `}
               </Text>
             </View>

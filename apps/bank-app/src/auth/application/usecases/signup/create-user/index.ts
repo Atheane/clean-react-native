@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ISignupUserCommand, IUserProperties, PhoneOtp } from '@clean-rn/auth/domain';
 
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
+import { UserApi } from '@clean-rn/auth/infrastructure';
 
 import { showUnknownError } from '../../../../../shared/application/commands/manage-global-errors';
 import { applicationInitialized } from '../../../../../shared/application/commands/initialize-application';
@@ -31,7 +31,7 @@ export function* signupUserGenerator(
   try {
     const { user, phoneOtp } = payload;
 
-    const api = AuthApi.getInstance(httpConnection);
+    const api = UserApi.getInstance(httpConnection);
     const { uid } = yield call([api, api.createUser], { ...user.properties, phoneOtp } as IUserProperties & {
       phoneOtp: PhoneOtp;
     });
