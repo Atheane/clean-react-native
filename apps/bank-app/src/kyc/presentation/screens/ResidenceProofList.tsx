@@ -16,7 +16,7 @@ import { Colors, FontNames, IconTextItem, KycIban, KycInvoice, KycTaxes } from '
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
-import { initializeDocument } from '../../../kyc/application/commands/document';
+import { initializeDocument } from '../../application/commands/document';
 
 import { BillEdf, Iban, Taxes } from '../assets/images';
 

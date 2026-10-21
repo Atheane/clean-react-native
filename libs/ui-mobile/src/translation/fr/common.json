@@ -396,7 +396,10 @@
         "second": "Seconde",
         "identity": "pièce d'identité",
         "address": "Justificatif de domicile",
-        "photo": "Portrait photo"
+        "photo": "Portrait photo",
+        "host-id": "Pièce d’identité de l’hébergeur",
+        "host-residence": "Justificatif de domicile de l'hébergeur",
+        "sworn-statement": "Attestation de l'hébergeur"
       },
       "first-id": {
         "title": "Pièces d'identité",
@@ -439,7 +442,7 @@
           "title": "Permis de conduire - Verso",
           "instruction": "du verso de votre permis de conduire"
         }
-      }, 
+      },
       "health-card": {
         "title": "Carte vitale",
         "instruction": "de votre carte vitale en cachant les cinq derniers chiffres",

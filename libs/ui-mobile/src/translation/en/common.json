@@ -400,7 +400,10 @@
         "second": "Second",
         "identity": "identification document",
         "address": "Proof of residence",
-        "photo": "Photo portrait"
+        "photo": "Photo portrait",
+        "host-id": "Host's ID",
+        "host-residence": "Host's Proof of Residence",
+        "sworn-statement": "Host's Sworn Statement"
       },
       "first-id": {
         "title": "Identification documents",
@@ -539,7 +542,7 @@
         "title": "Your Host's Invoice",
         "instruction": "of the front side of the host's invoice.",
         "another-instruction": "Only internet, electricity, and gas bills are accepted and must be no older than 3 months. Mobile phone bills are not valid."
-      }    
+      }
     }
   }
 }

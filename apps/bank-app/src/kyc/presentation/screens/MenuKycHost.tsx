@@ -1,12 +1,20 @@
 import { useCallback } from 'react';
 import { View, Text, StyleSheet, Dimensions, ImageSourcePropType } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
+import {
+  IDocumentType,
+  IDocumentCategory,
+  IDocumentStatus,
+  IDocumentProperties,
+} from '@clean-rn/kyc/domain';
 import { IconTextItem, KycResidenceProof, KycInvoice, KycIdentification } from '@clean-rn/ui-mobile';
 import { IKycStackPages, IRoutes } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { initializeDocument } from '../../application/commands/document';
 import { SwornStatement } from '../assets/images';
 
 const HEIGHT = Dimensions.get('window').height;
@@ -15,6 +23,7 @@ export const MenuKycHost = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
   const { theme } = useTheme();
+  const dispatch = useDispatch();
 
   const handleOnPress = useCallback(
     (
@@ -23,8 +32,21 @@ export const MenuKycHost = () => {
         instruction,
         imageSource,
         showExample,
-      }: { instruction?: string; imageSource?: ImageSourcePropType; showExample?: boolean } = {},
+        documentProperties,
+      }: {
+        instruction?: string;
+        imageSource?: ImageSourcePropType;
+        showExample?: boolean;
+        documentProperties?: IDocumentProperties;
+      } = {},
     ) => {
+      if (documentProperties) {
+        dispatch(
+          initializeDocument({
+            documentProperties,
+          }),
+        );
+      }
       navigation.navigate(
         route as never,
         route === IKycStackPages.UPLOAD_DOCUMENT ? { instruction, imageSource, showExample } : {},
@@ -51,6 +73,13 @@ export const MenuKycHost = () => {
                   instruction: t('screens.kyc.sworn-statement.instruction'),
                   imageSource: SwornStatement,
                   showExample: true,
+                  documentProperties: {
+                    category: IDocumentCategory.RESIDENCE_PROOF_SWORN_STATEMENT,
+                    typeId: IDocumentType.SWORN_STATEMENT,
+                    name: 'residence-proof.sworn-statement.recto',
+                    status: IDocumentStatus.INIT,
+                    createdAt: new Date(),
+                  },
                 })
               }
             />

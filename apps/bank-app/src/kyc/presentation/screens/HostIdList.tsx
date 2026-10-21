@@ -1,14 +1,24 @@
 import { useCallback } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ImageSourcePropType } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
-import { IDocumentType } from '@clean-rn/kyc/domain';
+import {
+  IDocumentCategory,
+  IDocumentType,
+  IDocumentProperties,
+  IDocumentStatus,
+} from '@clean-rn/kyc/domain';
 import { IconTextItem, KycId, KycPassport } from '@clean-rn/ui-mobile';
+
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { IDCardRecto } from '../assets/images';
+
+import { initializeDocument } from '../../application/commands/document';
+
+import { IDCardRecto, IDCardVerso, Passport } from '../assets/images';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -17,14 +27,31 @@ export const HostIdList = () => {
   const navigation = useNavigation();
   const { theme } = useTheme();
 
+  const dispatch = useDispatch();
+
   const handleOnPress = useCallback(
-    ({ instruction, imageSource }: { instruction: string; imageSource: ImageSourcePropType }) => {
+    ({
+      instruction,
+      imageSource,
+      documentProperties,
+      nextRouteParams,
+    }: {
+      instruction: string;
+      imageSource: ImageSourcePropType;
+      documentProperties: IDocumentProperties;
+      nextRouteParams?: {
+        instruction: string;
+        imageSource: ImageSourcePropType;
+      };
+    }) => {
+      dispatch(initializeDocument({ documentProperties }));
       navigation.navigate(IKycStackPages.UPLOAD_DOCUMENT as never, {
         instruction,
         imageSource,
+        nextRouteParams,
       });
     },
-    [navigation],
+    [navigation, dispatch],
   );
 
   return (
@@ -44,6 +71,17 @@ export const HostIdList = () => {
                 handleOnPress({
                   instruction: t('screens.kyc.host-id.recto.instruction'),
                   imageSource: IDCardRecto,
+                  documentProperties: {
+                    category: IDocumentCategory.FIRST_ID,
+                    typeId: IDocumentType.ID,
+                    name: 'host-id.id.recto',
+                    status: IDocumentStatus.INIT,
+                    createdAt: new Date(),
+                  },
+                  nextRouteParams: {
+                    instruction: t('screens.kyc.id.verso.instruction'),
+                    imageSource: IDCardVerso,
+                  },
                 })
               }
             />
@@ -55,7 +93,14 @@ export const HostIdList = () => {
               onPress={() =>
                 handleOnPress({
                   instruction: t('screens.kyc.host-passport.instruction'),
-                  imageSource: IDCardRecto,
+                  imageSource: Passport,
+                  documentProperties: {
+                    category: IDocumentCategory.FIRST_ID,
+                    typeId: IDocumentType.PASSPORT,
+                    name: 'host-id.passport.recto',
+                    status: IDocumentStatus.INIT,
+                    createdAt: new Date(),
+                  },
                 })
               }
             />

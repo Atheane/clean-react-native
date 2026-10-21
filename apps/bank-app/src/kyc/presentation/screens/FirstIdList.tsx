@@ -5,17 +5,19 @@ import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
-import { IconTextItem, KycId, KycPassport, KycResidencePermit } from '@clean-rn/ui-mobile';
 import {
   IDocumentCategory,
   IDocumentType,
   IDocumentProperties,
   IDocumentStatus,
 } from '@clean-rn/kyc/domain';
+import { IconTextItem, KycId, KycPassport, KycResidencePermit } from '@clean-rn/ui-mobile';
 
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
+import { initializeDocument } from '../../application/commands/document';
 import {
   IDCardRecto,
   IDCardVerso,
@@ -23,8 +25,6 @@ import {
   ResidencePermitRecto,
   ResidencePermitVerso,
 } from '../assets/images';
-import { initializeDocument } from '../../../kyc/application/commands/document';
-import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 const HEIGHT = Dimensions.get('window').height;
 

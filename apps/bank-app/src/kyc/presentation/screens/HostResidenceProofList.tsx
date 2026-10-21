@@ -1,12 +1,23 @@
 import { useCallback } from 'react';
 import { View, Text, StyleSheet, Dimensions, ImageSourcePropType } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
+import {
+  IDocumentCategory,
+  IDocumentProperties,
+  IDocumentStatus,
+  IDocumentType,
+} from '@clean-rn/kyc/domain';
 import { IconTextItem, KycIban, KycInvoice, KycTaxes } from '@clean-rn/ui-mobile';
+
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+
+import { initializeDocument } from '../../application/commands/document';
+
 import { BillEdf, Iban, Taxes } from '../assets/images';
 
 const HEIGHT = Dimensions.get('window').height;
@@ -16,18 +27,23 @@ export const HostResidenceProofList = () => {
   const navigation = useNavigation();
   const { theme } = useTheme();
 
+  const dispatch = useDispatch();
+
   const handleOnPress = useCallback(
     ({
       instruction,
       imageSource,
       anotherInstruction,
       docPickerVisible,
+      documentProperties,
     }: {
       instruction: string;
       imageSource: ImageSourcePropType;
       anotherInstruction?: string;
       docPickerVisible?: boolean;
+      documentProperties: IDocumentProperties;
     }) => {
+      dispatch(initializeDocument({ documentProperties }));
       navigation.navigate(IKycStackPages.UPLOAD_DOCUMENT as never, {
         instruction,
         imageSource,
@@ -35,7 +51,7 @@ export const HostResidenceProofList = () => {
         docPickerVisible,
       });
     },
-    [navigation],
+    [navigation, dispatch],
   );
 
   return (
@@ -57,6 +73,13 @@ export const HostResidenceProofList = () => {
                   imageSource: BillEdf,
                   anotherInstruction: t('screens.kyc.host-invoice.another-instruction'),
                   docPickerVisible: true,
+                  documentProperties: {
+                    category: IDocumentCategory.RESIDENCE_PROOF,
+                    typeId: IDocumentType.INVOICE,
+                    name: 'residence-proof.host-invoice.recto',
+                    status: IDocumentStatus.INIT,
+                    createdAt: new Date(),
+                  },
                 })
               }
             />
@@ -70,6 +93,13 @@ export const HostResidenceProofList = () => {
                   instruction: t('screens.kyc.host-iban.instruction'),
                   imageSource: Iban,
                   docPickerVisible: true,
+                  documentProperties: {
+                    category: IDocumentCategory.RESIDENCE_PROOF,
+                    typeId: IDocumentType.BANK_ID,
+                    name: 'residence-proof.host-iban.recto',
+                    status: IDocumentStatus.INIT,
+                    createdAt: new Date(),
+                  },
                 })
               }
             />
@@ -83,6 +113,13 @@ export const HostResidenceProofList = () => {
                   instruction: t('screens.kyc.host-taxes.instruction'),
                   imageSource: Taxes,
                   docPickerVisible: true,
+                  documentProperties: {
+                    category: IDocumentCategory.RESIDENCE_PROOF,
+                    typeId: IDocumentType.TAX_CERTIFICATE,
+                    name: 'residence-proof.host-taxes.recto',
+                    status: IDocumentStatus.INIT,
+                    createdAt: new Date(),
+                  },
                 })
               }
             />
