@@ -106,8 +106,8 @@ const styles = StyleSheet.create({
   },
   leftIconContainer: {
     position: 'absolute',
-    top: 8,
-    left: 10,
+    top: 14,
+    left: 14,
   },
   rightIconContainer: {
     position: 'absolute',

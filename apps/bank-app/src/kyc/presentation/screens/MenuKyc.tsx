@@ -162,7 +162,14 @@ export const MenuKyc = () => {
               icon={KycInvoice}
               status={submittedKyc?.documents.RESIDENCE_PROOF?.properties.status}
               text={t('screens.kyc.menu.address')}
-              onPress={() => navigateTo(IKycStackPages.RESIDENCE_PROOF_OPTIONS as never, {})}
+              onPress={() =>
+                navigateTo(
+                  submittedKyc?.isHosted
+                    ? IKycStackPages.MENU_KYC_HOST
+                    : (IKycStackPages.RESIDENCE_PROOF_OPTIONS as never),
+                  {},
+                )
+              }
               loading={pending && document?.properties.category === IDocumentCategory.RESIDENCE_PROOF}
               onCancel={handleOnCancel}
             />

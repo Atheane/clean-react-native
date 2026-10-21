@@ -69,13 +69,17 @@ export const Accounts = () => {
       return;
     }
     let initKycRoute;
-    if (!customer.properties.documents?.isComplete) {
-      initKycRoute = IKycStackPages.INIT;
-    } else if (customer.properties.status === 'VALIDATED') {
+    if (customer.properties.status === 'VALIDATED') {
       initKycRoute = IKycStackPages.SUCCESS;
-    } else {
+    } else if (
+      customer.properties.kyc?.documents &&
+      Object.values(customer.properties.kyc.documents).filter((doc) => doc !== undefined).length > 0
+    ) {
       initKycRoute = IKycStackPages.MENU;
+    } else {
+      initKycRoute = IKycStackPages.INIT;
     }
+
     dispatch(kycRouteInitialized({ initRoute: initKycRoute }));
   }, [dispatch, customer]);
 
