@@ -1,17 +1,30 @@
-import { useCallback } from 'react';
-import { View, StyleSheet, Image, Text, Dimensions, ScrollView, SafeAreaView } from 'react-native';
+import { useCallback, useState } from 'react';
+import { Tab, TabView } from '@rneui/themed';
+import {
+  View,
+  StyleSheet,
+  StyleProp,
+  ViewStyle,
+  Image,
+  Text,
+  Dimensions,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
 import { useSelector } from 'react-redux';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 
-import { IAccount } from '@clean-rn/account/domain';
+import { IBeneficiary } from '@clean-rn/beneficiary/domain';
 import {
+  CO2,
+  PrimaryButton,
   LinkButton,
   LinkButtonColors,
   Bic as BicIcon,
   ExportPdf,
+  BeneficiaryAdd,
   Iban as IbanIcon,
-  TopBackground,
   CopyValueClipboard,
   TransactionsCardsList,
   WhiteBalance,
@@ -19,89 +32,109 @@ import {
   FontNames,
 } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { IHomeStackPages } from '../../../shared/presentation/types';
-import { Oups } from '../assets/images';
+import { IBeneficiaryStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
-const Top = ({ currentAccount }: { currentAccount?: IAccount }) => {
-  const { t } = useTranslation();
-
-  const navigation = useNavigation();
-
-  const handleOnPressPdf = useCallback(() => {
-    //navigation.navigate(IHomeStackPages.ACCOUNT_STATEMENTS, { account: currentAccount });
-  }, [navigation, currentAccount]);
-
-  return (
-    <View style={styles.row}>
-      <View style={styles.whiteBalance}>
-        {currentAccount && <WhiteBalance account={currentAccount} title={t('screens.account.balance')} />}
-      </View>
-      <View style={styles.pdf}>
+/* 
+<View style={styles.addBeneficiary}>
         <LinkButton
           pressed={false}
-          onPress={handleOnPressPdf}
+          onPress={handleOnPressAdd}
           iconOne={ExportPdf}
-          colorOption={LinkButtonColors.WHITE}
+          colorOption={LinkButtonColors.GREEN}
+        />
+      </View> */
+
+const ContentNoBeneficiary = () => {
+  const { t } = useTranslation();
+  const navigation = useNavigation();
+
+  const handleOnPressAdd = useCallback(() => {
+    navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_ADD);
+  }, [navigation]);
+
+  return (
+    <>
+      <View style={styles.btnAddContainer}>
+        <PrimaryButton
+          title={t('screens.beneficiary.add-beneficiary')}
+          onPress={handleOnPressAdd}
+          iconOne={() => (
+            <View style={{ height: 23, marginLeft: -60, justifyContent: 'center' }}>
+              <ExportPdf style={{ marginTop: 30 } as StyleProp<ViewStyle>} />
+            </View>
+          )}
+          long
         />
       </View>
-    </View>
+    </>
   );
 };
 
-const ContentNoTransactions = ({ currentAccount }: { currentAccount?: IAccount }) => {
+const TabMenu = () => {
   const { t } = useTranslation();
+  const navigation = useNavigation();
+
+  const handleOnPressAdd = useCallback(() => {
+    navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_ADD);
+  }, [navigation]);
+
+  const [index, setIndex] = useState(0);
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollNoTransactions} showsVerticalScrollIndicator={false}>
-      <Image source={Oups} style={styles.oupsImage} />
-      <View style={styles.textContainer}>
-        <Text style={styles.oupsText}>{t('screens.account.oups')}</Text>
+    <>
+      <View style={styles.row}>
+        <Tab
+          value={index}
+          onChange={(e) => setIndex(e)}
+          indicatorStyle={{
+            backgroundColor: 'white',
+            height: 3,
+          }}
+          variant="primary"
+        >
+          <Tab.Item
+            title="Recent"
+            titleStyle={{ fontSize: 12 }}
+            icon={{ name: 'business-outline', type: 'ionicon', color: 'white' }}
+          >
+            Bank
+          </Tab.Item>
+          <Tab.Item
+            title="cart"
+            titleStyle={{ fontSize: 12 }}
+            icon={{ name: 'people-outline', type: 'ionicon', color: 'white' }}
+          >
+            Contacts
+          </Tab.Item>
+        </Tab>
       </View>
-      {currentAccount && (
-        <View>
-          <CopyValueClipboard value={currentAccount.iban.value} icon={IbanIcon} />
-          <CopyValueClipboard value={currentAccount.bic.value} icon={BicIcon} />
-        </View>
-      )}
-    </ScrollView>
+
+      <View style={styles.tabContent}>
+        <TabView value={index} onChange={setIndex} animationType="spring">
+          <TabView.Item style={{ backgroundColor: 'red', width: '100%' }}>
+            <ContentNoBeneficiary />
+          </TabView.Item>
+          <TabView.Item style={{ backgroundColor: 'blue', width: '100%' }}>
+            <Text>Favorite</Text>
+          </TabView.Item>
+        </TabView>
+      </View>
+    </>
   );
 };
 
 export const BeneficiaryList = () => {
-  const { transactions } = useSelector((state: IRootState) => state.account.transactions);
-  const hasTransactions = transactions && transactions?.length > 0;
+  const { beneficiaries } = useSelector((state: IRootState) => state.beneficiary.beneficiary);
+  const hasBeneficiary = beneficiaries && beneficiaries?.length > 0;
   const { t } = useTranslation();
-
-  const {
-    params: { account },
-  } = useRoute() as { params: { account: IAccount } };
 
   return (
     <ErrorBoundary t={t}>
-      {!hasTransactions && (
+      {!hasBeneficiary && (
         <>
-          <SafeScrollingView>
-            <View style={styles.noContent}>
-              <ContentNoTransactions currentAccount={account} />
-            </View>
-          </SafeScrollingView>
-          <TopBackground />
-          <View style={styles.top}>
-            <Top currentAccount={account} />
-          </View>
-        </>
-      )}
-      {hasTransactions && (
-        <>
-          <SafeAreaView style={styles.container}>
-            <View style={styles.content}>
-              <TransactionsCardsList data={transactions} />
-            </View>
-          </SafeAreaView>
-          <TopBackground />
-          <View style={styles.top}>
-            <Top currentAccount={account} />
+          <View style={styles.container}>
+            <TabMenu />
           </View>
         </>
       )}
@@ -109,60 +142,36 @@ export const BeneficiaryList = () => {
   );
 };
 
-const OUPS_SIZE = {
-  width: 250,
-  height: 250,
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.bank.primary.white,
+    marginTop: 0,
   },
+  row: {},
   top: {
     position: 'absolute',
-    top: 20,
-    left: -30,
-  },
-  row: {
-    flexDirection: 'row',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-  },
-  whiteBalance: {
-    position: 'relative',
     top: 30,
-    left: 50,
+    left: 150,
+    backgroundColor: Colors.bank.primary.darkBlue,
   },
-  pdf: {
+  addBeneficiary: {
     position: 'relative',
     top: 0,
-    right: 40,
+    right: 0,
   },
-  textContainer: {
-    position: 'relative',
-    marginTop: -20,
+  btnAddContainer: {
+    alignItems: 'center',
+    marginTop: 50,
   },
-  oupsImage: {
-    ...OUPS_SIZE,
-  },
-  oupsText: {
-    width: Dimensions.get('window').width * 0.8,
-    fontSize: 22,
-    fontFamily: FontNames.Roboto_400Regular,
-    color: Colors.bank.primary.darkBlue,
-    textAlign: 'center',
-    lineHeight: 29,
-  },
-  noContent: {
-    marginTop: 200,
-    height: Dimensions.get('window').height,
+
+  tabContent: {
+    marginTop: 50,
   },
   content: {
     marginTop: 60,
   },
-  scrollNoTransactions: {
+  scrollNoBeneficiary: {
     alignItems: 'center',
   },
 });

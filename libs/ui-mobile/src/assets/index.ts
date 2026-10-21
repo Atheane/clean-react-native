@@ -17,6 +17,7 @@ import {
   TopLeavesBg,
   Logo,
   Tree,
+  BeneficiaryAdd,
   DeleteCross,
   DeleteCrossGradient,
   Meeting,

@@ -258,7 +258,8 @@
       }
     },
     "beneficiary": {
-      "title": "Manage beneficiaries"
+      "title": "Manage beneficiaries",
+      "add-beneficiary": "Add"
     },
     "account-statements": {
       "title": "Export",

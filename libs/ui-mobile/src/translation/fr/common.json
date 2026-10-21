@@ -288,7 +288,8 @@
       }
     },
     "beneficiary": {
-      "title": "Gérer mes bénéficiaires"
+      "title": "Gérer mes bénéficiaires",
+      "add-beneficiary": "Ajouter"
     },
     "account-statements": {
       "title": "Export",

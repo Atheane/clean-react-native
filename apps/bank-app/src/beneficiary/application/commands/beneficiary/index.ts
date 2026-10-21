@@ -1,24 +1,24 @@
 import { IBeneficiary } from '@clean-rn/beneficiary/domain';
 import {
   IBeneficiaryTypes,
-  IListBeneficiary,
-  IBeneficiaryListed,
-  IInitializeBeneficiaryList,
+  IBeneficiaryList,
+  IBeneficiaryListDone,
+  IBeneficiaryListInit,
   IBeneficiaryActions,
 } from './types';
 
 // commands
-export const listBeneficiary = (): IListBeneficiary => ({
-  type: IBeneficiaryTypes.LIST_BENEFICIARY,
+export const beneficiaryList = (): IBeneficiaryList => ({
+  type: IBeneficiaryTypes.BENEFICIARY_LIST,
 });
 
-export const initializeBeneficiaryList = (): IInitializeBeneficiaryList => ({
-  type: IBeneficiaryTypes.INITIALIZE_BENEFICIARY_LIST,
+export const beneficiaryListInit = (): IBeneficiaryListInit => ({
+  type: IBeneficiaryTypes.BENEFICIARY_LIST_INIT,
 });
 
 // domainEvents
-export const beneficiaryListed = (payload: IBeneficiary[]): IBeneficiaryListed => ({
-  type: IBeneficiaryTypes.BENEFICIARY_LISTED,
+export const beneficiaryListed = (payload: IBeneficiary[]): IBeneficiaryListDone => ({
+  type: IBeneficiaryTypes.BENEFICIARY_LIST_DONE,
   payload,
 });
 
