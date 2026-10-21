@@ -32,11 +32,6 @@ describe('ListAccounts - usecase', () => {
     },
   ];
 
-  const mockToken = {
-    accessToken: 'fake-access-token',
-    refreshToken: 'fake-refresh-token',
-  };
-
   const mockError401 = {
     statusCode: 401,
     message: 'Unauthorized',

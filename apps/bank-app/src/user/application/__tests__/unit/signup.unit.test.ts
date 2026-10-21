@@ -806,6 +806,34 @@ describe('Signup - usecase', () => {
       .next();
   });
 
+  it('should save email if not in storage', () => {
+    const userPrev = User.CreateFromEmail(new Email('test@example.com'));
+    userPrev.registerIdentity(mockIdentity);
+    userPrev.registerPassword(mockPassword.password);
+    userPrev.validatePhone(mockQueryPhoneOtp);
+    userPrev.registerBirth(mockBirth);
+    userPrev.registerAddress(mockAddress);
+
+    const user = userPrev;
+    const uid = '123';
+    user.signup({ id: uid, properties: user.properties as IUserProperties });
+
+    testSaga(signupUserGenerator, httpConnection, {
+      type: IUserTypes.FETCH_SIGNUP_USER,
+      payload: {
+        user: userPrev,
+        phoneOtp: mockQueryPhoneOtp.phoneOtp,
+      },
+    })
+      .next()
+      .call([userApi, userApi.createUser], { ...userPrev.properties, phoneOtp: mockQueryPhoneOtp.phoneOtp })
+      .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next(null)
+      .call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, userPrev.properties.email?.value)
+      .next(userPrev.properties.email?.value);
+  });
+
   it('Should call InvalidPassword action if missing password', () => {
     const userPrev = User.CreateFromEmail(new Email('test@example.com'));
 
