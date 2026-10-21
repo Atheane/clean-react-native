@@ -19,7 +19,7 @@ import { KycApi } from '@clean-rn/kyc/infrastructure';
 
 import { uploadDocumentSaga, uploadDocumentSagaGenerator } from '../../usecases/document';
 import { customerDocumentsUpdated } from '../../commands/customer';
-import { IDocumentTypes, documentUploaded } from '../../commands/document';
+import { IDocumentTypes, cancelUpload, documentUploaded } from '../../commands/document';
 import { selectCustomer, selectUserFromLogin } from '../../state-management/selectors';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
@@ -120,6 +120,8 @@ describe('Document - uploadDocument - usecases', () => {
       },
     })
       .next()
+      .put(cancelUpload())
+      .next()
       .put(showUnknownError(new DocumentError.DocumentNotReady('Document is not ready')))
       .next();
   });
@@ -141,6 +143,8 @@ describe('Document - uploadDocument - usecases', () => {
       .next(user)
       .spawn([api, api.createDocument], { customerId: user.id, document }) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
+      .put(cancelUpload())
+      .next()
       .call(navigate, { route: IAuthStackPages.LOGIN })
       .next()
       .cancel();
@@ -163,6 +167,8 @@ describe('Document - uploadDocument - usecases', () => {
       .next(user)
       .spawn([api, api.createDocument], { customerId: user.id, document }) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
+      .put(cancelUpload())
+      .next()
       .put(showUnknownError(new ServerError(mockError500)))
       .next();
   });
@@ -185,6 +191,8 @@ describe('Document - uploadDocument - usecases', () => {
       .next(user)
       .spawn([api, api.createDocument], { customerId: user.id, document }) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unexpected error'))
+      .put(cancelUpload())
+      .next()
       .put(showUnknownError(new Error('unexpected error')))
       .next();
   });

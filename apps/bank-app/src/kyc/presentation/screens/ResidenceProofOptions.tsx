@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     marginVertical: 32,
+    alignItems: 'center',
   },
   title: {
     fontSize: 16,
@@ -78,5 +79,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 80,
+    alignItems: 'center',
   },
 });

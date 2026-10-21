@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SvgProps } from 'react-native-svg';
-import { Icon, useTheme } from '@rneui/themed';
+import { Icon, useTheme, LinearProgress } from '@rneui/themed';
 import { IDocumentStatus } from '@clean-rn/kyc/domain';
 
 // import { DeleteGradient, Edit } from '../../../assets';
@@ -14,6 +14,7 @@ type IProps = {
   icon: FC<SvgProps>;
   status?: IDocumentStatus;
   text: string;
+  loading?: boolean;
   onPress: () => void;
   onEdit?: () => void;
 };
@@ -54,6 +55,7 @@ export const UploadDocumentCard = (props: IProps) => {
             )}
           </View>
         )}
+        {props.loading && <LinearProgress color={Colors.bank.primary.darkGreen} style={styles.progress} />}
       </TouchableOpacity>
       {props.onEdit && (
         <View style={styles.rightIconContainer}>
@@ -102,4 +104,14 @@ const styles = StyleSheet.create({
     right: 20,
   },
   rightIcon: { backgroundColor: Colors.bank.primary.white, borderRadius: 100 },
+  loading: {
+    alignItems: 'center',
+  },
+  progress: {
+    width: '84%',
+    height: 6,
+    position: 'absolute',
+    bottom: 4,
+    left: '8%',
+  },
 });

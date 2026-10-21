@@ -8,19 +8,13 @@ export enum IDocumentTypes {
   PAGE_ADDED = 'PAGE_ADDED',
   UPLOAD_DOCUMENT = 'UPLOAD_DOCUMENT',
   DOCUMENT_UPLOADED = 'DOCUMENT_UPLOADED',
+  CANCEL_UPLOAD = 'CANCEL_UPLOAD',
 }
 
 export type IInitializeDocument = {
   type: typeof IDocumentTypes.INITIALIZE_DOCUMENT;
   payload: {
     documentProperties: IDocumentProperties;
-  };
-};
-
-export type IDocumentInitialized = {
-  type: typeof IDocumentTypes.DOCUMENT_INITIALIZED;
-  payload: {
-    document: DocumentVO;
   };
 };
 
@@ -39,15 +33,26 @@ export type IAddPage = {
   };
 };
 
-export type IPageAdded = {
-  type: typeof IDocumentTypes.PAGE_ADDED;
+export type IUploadDocument = {
+  type: typeof IDocumentTypes.UPLOAD_DOCUMENT;
   payload: {
     document: DocumentVO;
   };
 };
 
-export type IUploadDocument = {
-  type: typeof IDocumentTypes.UPLOAD_DOCUMENT;
+export type ICancelUpload = {
+  type: typeof IDocumentTypes.CANCEL_UPLOAD;
+};
+
+export type IDocumentInitialized = {
+  type: typeof IDocumentTypes.DOCUMENT_INITIALIZED;
+  payload: {
+    document: DocumentVO;
+  };
+};
+
+export type IPageAdded = {
+  type: typeof IDocumentTypes.PAGE_ADDED;
   payload: {
     document: DocumentVO;
   };
@@ -64,6 +69,7 @@ export type IDocumentActions =
   | IInitializeDocument
   | IAddPage
   | IUploadDocument
+  | ICancelUpload
   | IDocumentInitialized
   | IPageAdded
   | IDocumentUploaded;

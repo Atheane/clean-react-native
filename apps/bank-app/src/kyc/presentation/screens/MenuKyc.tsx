@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import { UploadDocumentCard, KycW9, KycIdentification, KycPassport, KycInvoice } from '@clean-rn/ui-mobile';
-import { IDocumentType, KycDocuments } from '@clean-rn/kyc/domain';
+import { IDocumentType, IDocumentCategory, KycDocuments } from '@clean-rn/kyc/domain';
 
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
@@ -46,8 +46,8 @@ export const MenuKyc = () => {
     [navigation],
   );
 
-  // docuemnts status
   const { customer } = useSelector((state: IRootState) => state.kyc.customer);
+  const { document, pending } = useSelector((state: IRootState) => state.kyc.document);
 
   const [submittedKyc, setSubmittedKyc] = useState<KycDocuments>();
 
@@ -72,23 +72,26 @@ export const MenuKyc = () => {
                 status={submittedKyc?.documents.W9?.properties.status}
                 text={t('screens.kyc.menu.w9-form')}
                 onPress={navigateToUploadW9}
+                loading={pending && document.properties.category === IDocumentCategory.W9}
               />
             </View>
           )}
           <View style={styles.itemContainer}>
             <UploadDocumentCard
               icon={KycIdentification}
-              status={submittedKyc?.documents.a?.properties.status}
+              status={submittedKyc?.documents.F?.properties.status}
               text={`${t('screens.kyc.menu.first')} ${t('screens.kyc.menu.identity')}`}
               onPress={navigateToFirstIdList}
+              loading={pending && document.properties.category === IDocumentCategory.FIRST_ID}
             />
           </View>
           <View style={styles.itemContainer}>
             <UploadDocumentCard
               icon={KycPassport}
-              status={submittedKyc?.documents.b?.properties.status}
+              status={submittedKyc?.documents.SECOND_ID?.properties.status}
               text={`${t('screens.kyc.menu.second')} ${t('screens.kyc.menu.identity')}`}
               onPress={navigateToSecondIdList}
+              loading={pending && document.properties.category === IDocumentCategory.SECOND_ID}
             />
           </View>
           <View style={styles.itemContainer}>
@@ -97,6 +100,7 @@ export const MenuKyc = () => {
               status={submittedKyc?.documents.RESIDENCE_PROOF?.properties.status}
               text={t('screens.kyc.menu.address')}
               onPress={navigateToResidenceProofIdList}
+              loading={pending && document.properties.category === IDocumentCategory.RESIDENCE_PROOF}
             />
           </View>
         </View>

@@ -26,6 +26,14 @@ export const documentReducer = (state = initialState, action: IDocumentActions) 
     case IDocumentTypes.ADD_PAGE:
       logger.debug(action.type);
       return state;
+    case IDocumentTypes.CANCEL_UPLOAD:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        document: null,
+      };
+      return newState;
     case IDocumentTypes.PAGE_ADDED:
       logger.debug(action.type);
       newState = {

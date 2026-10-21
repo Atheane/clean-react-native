@@ -8,6 +8,7 @@ import {
   IDocumentInitialized,
   IPageAdded,
   IDocumentUploaded,
+  ICancelUpload,
 } from './types';
 import { ImageSourcePropType } from 'react-native';
 
@@ -36,6 +37,10 @@ export const addPage = (payload: {
 export const uploadDocument = (payload: { document: DocumentVO }): IUploadDocument => ({
   type: IDocumentTypes.UPLOAD_DOCUMENT,
   payload,
+});
+
+export const cancelUpload = (): ICancelUpload => ({
+  type: IDocumentTypes.CANCEL_UPLOAD,
 });
 
 // domainEvents

@@ -18,6 +18,7 @@ import {
   IDocumentTypes,
   pageAdded,
   uploadDocument,
+  cancelUpload,
 } from '../../commands/document';
 import { selectCustomer, selectDocument, selectUserFromLogin } from '../../state-management/selectors';
 
@@ -134,6 +135,8 @@ export function* uploadDocumentSagaGenerator(
 
     yield put(customerDocumentsUpdated({ customer }));
   } catch (error: unknown) {
+    yield put(cancelUpload());
+
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {
       yield call(navigate, { route: IAuthStackPages.LOGIN });
