@@ -1,14 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
+import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { ISignupUserCommand, IUserProperties, PhoneOtp } from '@clean-rn/auth/domain';
 
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
+import { showUnknownError } from '../../../../../shared/application/commands/manage-global-errors';
+import { applicationInitialized } from '../../../../../shared/application/commands/initialize-application';
+import { IStoreKey } from '../../../../../shared/application/types';
 import { navigate } from '../../../../../shared/presentation/navigation/navigationRef';
 import { IAuthStackPages } from '../../../../../shared/presentation/types';
-import { showUnknownError } from '../../../../../shared/application/commands/manage-global-errors';
 
 import { ISignupTypes, initializeSignupStep, userSignedUp } from '../../../commands/signup';
 
@@ -36,7 +39,33 @@ export function* signupUserGenerator(
     user.signup({ id: uid, properties: user.properties as IUserProperties });
     // domain event
     yield put(userSignedUp(user));
-    yield call(navigate, { route: IAuthStackPages.SIGNUP_CONGRATS });
+    yield call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, user.properties.email.value);
+    const initRouteName = IAuthStackPages.SIGNUP_CONGRATS;
+    yield put(
+      applicationInitialized({
+        email: user.properties.email,
+        initRouteName,
+        carbon: {
+          house: {
+            footprint: null,
+            average: null,
+          },
+          transport: {
+            footprint: null,
+            average: null,
+          },
+          food: {
+            footprint: null,
+            average: null,
+          },
+          fly: {
+            footprint: null,
+            average: null,
+          },
+        },
+      }),
+    );
+    yield call(navigate, { route: initRouteName });
   } catch (e: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors
     yield put(initializeSignupStep());

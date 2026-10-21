@@ -21,6 +21,8 @@ import {
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AuthApi, IUserSearchServerCode } from '@clean-rn/auth/infrastructure';
 
+import { applicationInitialized } from '../../../../shared/application/commands/initialize-application';
+
 import {
   checkEmailGenerator,
   checkEmailSaga,
@@ -749,6 +751,33 @@ describe('Signup - usecase', () => {
       .next({ uid })
       .put(userSignedUp(user))
       .next(user)
+      .call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, user.properties.email?.value)
+      .next(userPrev.properties.email?.value)
+      .put(
+        applicationInitialized({
+          email: user.properties.email ?? null,
+          initRouteName: IAuthStackPages.SIGNUP_CONGRATS,
+          carbon: {
+            house: {
+              footprint: null,
+              average: null,
+            },
+            transport: {
+              footprint: null,
+              average: null,
+            },
+            food: {
+              footprint: null,
+              average: null,
+            },
+            fly: {
+              footprint: null,
+              average: null,
+            },
+          },
+        }),
+      )
+      .next()
       .call(navigate, { route: IAuthStackPages.SIGNUP_CONGRATS })
       .next();
   });

@@ -30,7 +30,6 @@ export const DocumentPicker = (props: IProps) => {
       props.getDocument(base64String);
     } catch (err) {
       if (!DocumentPickr.isCancel(err)) {
-        console.log('DocumentPicker Error:----->', err);
         props.handleError(err);
         return;
       }
