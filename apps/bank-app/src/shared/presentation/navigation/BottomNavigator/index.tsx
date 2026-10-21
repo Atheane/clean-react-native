@@ -30,7 +30,6 @@ const Tab = createBottomTabNavigator<IRootTabParamList>();
 
 export const BottomTabNavigator = () => {
   const { t } = useTranslation();
-  console.log('BottomTabNavigator');
   return (
     <Tab.Navigator
       initialRouteName={IHomeStackPages.MENU}

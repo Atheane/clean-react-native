@@ -23,7 +23,7 @@ export default {
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: './assets/images/logo-bank.png',
+        foregroundImage: './assets/images/android-logo-bank.png',
         backgroundColor: '#FFFFFF',
       },
       package: 'com.clean-rn.bank-appdev',

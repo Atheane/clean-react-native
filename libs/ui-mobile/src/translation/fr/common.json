@@ -267,7 +267,8 @@
         "noaccounts": "Aucun compte"
       },
       "banner": {
-        "validation-identity": "Validez votre identité"
+        "validation-identity": "Validez votre identité",
+        "update-needed": "Mise à jour à faire"
       }
     },
     "account": {

@@ -42,7 +42,6 @@ export const RootStack = () => {
   const {
     auth: { accessToken },
   } = useSelector((state: IRootState) => state.auth.login);
-  console.log('accessToken', accessToken);
   return accessToken ? <HomeStack /> : <AuthStack />;
 };
 
@@ -56,8 +55,6 @@ const Stack = createNativeStackNavigator<
 >();
 
 export const HomeStack = () => {
-  console.log('HomeStack', HomeStack);
-
   const navigationStack = useNavigationState((state) => state?.routes ?? []);
   const { t } = useTranslation();
 

@@ -1,8 +1,9 @@
-import { useCallback, useEffect } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { useCallback, useEffect, useState } from 'react';
+import { View, StyleSheet, Dimensions, Linking, Platform } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
+import { checkVersion } from 'react-native-check-version';
 
 import {
   TopRightFlowersBg,
@@ -30,9 +31,9 @@ import { listAccounts } from '../../application/commands/accounts';
 import { listTransactions } from '../../application/commands/transactions';
 import { deleteEventCard } from '../../application/commands/event-cards';
 
-import { eventsCardsContent } from '../constants';
+import { APPLE_STORE_LINK, GOOGLE_PLAY_LINK, eventsCardsContent } from '../constants';
 
-export const Accounts = () => {
+export const Home = () => {
   // translation
   const { t } = useTranslation();
   const { pending: loginPending } = useSelector((state: IRootState) => state.auth.login);
@@ -116,10 +117,32 @@ export const Accounts = () => {
     }
   }, [firebaseToken, notificationEnabled, deviceId, brand, model, os, osVersion, dispatch]);
 
+  const [appNeedUpdate, setAppNeedUpdate] = useState(true);
+  useEffect(() => {
+    checkVersion().then((version) => {
+      if (version?.needsUpdate) {
+        console.log(`||||||||||||||||| App has a ${version.updateType} update pending.`);
+        setAppNeedUpdate(version.needsUpdate);
+      }
+    });
+  }, []);
+
+  const handleUpdateNeeded = useCallback(() => {
+    Linking.openURL(Platform.OS === 'ios' ? APPLE_STORE_LINK : GOOGLE_PLAY_LINK);
+  }, []);
+
   return accountPending || kycPending ? (
     <LoaderSplashScreen /> // todo replace with loading gif
   ) : (
     <ErrorBoundary t={t}>
+      {appNeedUpdate && (
+        <Banner
+          title={t('screens.home.banner.update-needed')}
+          colorBanner={BannerColors.PINK}
+          rightIcon
+          onPressRightIcon={handleUpdateNeeded}
+        />
+      )}
       {customer && (
         <Banner
           title={t('screens.home.banner.validation-identity')}

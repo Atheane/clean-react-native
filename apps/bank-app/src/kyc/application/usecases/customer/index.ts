@@ -26,13 +26,12 @@ export function* checkCustomerStatusGenerator(
   try {
     const authApi = AuthApi.getInstance(httpConnection);
     const authFromStore = yield select(selectAuthFromLogin);
-    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
-    yield put(refreshSuccess({ auth }));
-    const userApi = UserApi.getInstance(httpConnection);
+    const refreshedAuth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
+    yield put(refreshSuccess({ auth: refreshedAuth }));
 
+    const userApi = UserApi.getInstance(httpConnection);
     const user = yield call([userApi, userApi.getUser]);
     const customerStatus = user.properties.kycReview;
-
     if (customerStatus && customerStatus === KYC_REVIEW.VALIDATED) {
       const customer = Customer.Create({
         id: user.id.toString(),
@@ -41,6 +40,9 @@ export function* checkCustomerStatusGenerator(
       yield put(customerStatusChecked({ customer }));
       yield cancel();
     }
+
+    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
+    yield put(refreshSuccess({ auth }));
     const api = KycApi.getInstance(httpConnection);
     const documents: IDocumentProperties[] = yield call([api, api.getDocuments]);
     const customer = Customer.Create({

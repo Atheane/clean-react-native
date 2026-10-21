@@ -15,7 +15,6 @@ import { useNavigation } from '@react-navigation/native';
 import { getLocales } from 'expo-localization';
 import Constants from 'expo-constants';
 import { useTheme } from '@rneui/themed';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import {
   Car,
