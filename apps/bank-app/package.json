@@ -60,7 +60,6 @@
     "@react-navigation/bottom-tabs": "*",
     "expo-file-system": "*",
     "react-native-view-shot": "*",
-    "expo-sharing": "*",
     "react-native-document-picker": "*",
     "react-native-document-scanner-plugin": "*",
     "react-native-compressor": "*",
