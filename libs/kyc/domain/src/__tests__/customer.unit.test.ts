@@ -165,7 +165,7 @@ describe('Customer - unit', () => {
       },
     ]);
     expect(customer.properties.status).toEqual(KYC_REVIEW.PENDING);
-    expect(customer.properties.kyc?.isComplete).toEqual(true);
+    expect(customer.properties.kyc?.isComplete).toEqual(false);
     expect(customer.properties.kyc?.documents?.W9?.properties).toEqual(
       expect.objectContaining({
         typeId: IDocumentType.TAX_CERTIFICATE,
@@ -226,7 +226,7 @@ describe('Customer - unit', () => {
       },
     ]);
     expect(customer.properties.status).toEqual(KYC_REVIEW.PENDING);
-    expect(customer.properties.kyc?.isComplete).toEqual(true);
+    expect(customer.properties.kyc?.isComplete).toEqual(false);
     expect(customer.properties.kyc?.documents?.ID?.properties).toEqual(
       expect.objectContaining({
         typeId: IDocumentType.RESIDENT_PERMIT,

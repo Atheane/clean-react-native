@@ -67,7 +67,7 @@
     "react-native-blob-util": "*",
     "react-native-pdf": "*",
     "@redux-saga/testing-utils": "*",
-    "lottie-react-native": "*"
+    "lottie-react-native": "~5.1.4"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp package-lock.json apps/bank-app",

@@ -61,7 +61,7 @@
     "react-native-share": "*",
     "react-native-blob-util": "*",
     "react-native-pdf": "*",
-    "lottie-react-native": "*"
+    "lottie-react-native": "~5.1.4"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/storybook && cp package-lock.json apps/storybook",

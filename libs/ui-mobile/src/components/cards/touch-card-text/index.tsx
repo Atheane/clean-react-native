@@ -16,7 +16,7 @@ export const TouchCardText: FC<IProps> = (props: IProps) => {
         style={[
           styles.textContainer,
           theme.bank.text.darkBlue,
-          props.text.length > 30 ? { fontSize: 14 } : {},
+          props.text.length > 30 ? { fontSize: 13 } : {},
         ]}
       >
         {props.text}
