@@ -33,7 +33,6 @@ export const UploadDocumentCard = (props: IProps) => {
     }
     return text;
   };
-
   const disabled = props.status === 'PENDING' || props.status === 'VALIDATED' || props.status === 'CANCELED';
   return (
     <View>
@@ -51,7 +50,7 @@ export const UploadDocumentCard = (props: IProps) => {
           <View style={styles.iconContainer}>
             <props.icon />
           </View>
-          <Text style={[!props.status ? theme.bank.text.darkBlue : theme.bank.text.grey, styles.text]}>
+          <Text style={[disabled ? theme.bank.text.grey : theme.bank.text.darkBlue, styles.text]}>
             {renderLabel(props.text)}
           </Text>
 

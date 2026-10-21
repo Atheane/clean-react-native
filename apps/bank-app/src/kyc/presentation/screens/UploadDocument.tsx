@@ -28,7 +28,15 @@ export const UploadDocument = () => {
   const { theme } = useTheme();
 
   const {
-    params: { instruction, imageSource, anotherInstruction, docPickerVisible, showExample, nextRouteParams },
+    params: {
+      instruction,
+      imageSource,
+      anotherInstruction,
+      docPickerVisible,
+      showExample,
+      lastInstruction,
+      nextRouteParams,
+    },
   } = useRoute() as {
     params: {
       instruction: string;
@@ -36,6 +44,7 @@ export const UploadDocument = () => {
       anotherInstruction?: string;
       docPickerVisible?: boolean;
       showExample?: boolean;
+      lastInstruction?: string;
       nextRouteParams?: {
         instruction: string;
         imageSource: ImageSourcePropType;
@@ -89,6 +98,7 @@ export const UploadDocument = () => {
             <Text style={[theme.bank.text.darkBlue, styles.takePhoto]}>{t('screens.kyc.take-photo')}</Text>
             <Text style={[theme.bank.text.boldDarkBlue, styles.instruction]}>{instruction}</Text>
             <Text style={[theme.bank.text.darkBlue, styles.instruction]}>{anotherInstruction}</Text>
+            <Text style={[theme.bank.text.boldDarkBlue, styles.instruction]}>{lastInstruction}</Text>
           </View>
           <Image source={imageSource} />
           {domainError && <ErrorMessage error={domainError} />}

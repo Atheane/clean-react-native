@@ -41,7 +41,7 @@
     "react": "*",
     "react-hook-form": "*",
     "react-i18next": "*",
-    "react-native": "*",
+    "react-native": "0.72.4",
     "react-native-keyboard-aware-scroll-view": "*",
     "react-native-numeric-input": "*",
     "react-native-safe-area-context": "*",

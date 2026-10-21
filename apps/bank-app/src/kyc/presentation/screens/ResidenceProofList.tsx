@@ -35,12 +35,14 @@ export const ResidenceProofList = () => {
       instruction,
       imageSource,
       anotherInstruction,
+      lastInstruction,
       docPickerVisible,
       documentProperties,
     }: {
       instruction: string;
       imageSource: ImageSourcePropType;
       anotherInstruction?: string;
+      lastInstruction?: string;
       docPickerVisible?: boolean;
       documentProperties: IDocumentProperties;
     }) => {
@@ -49,6 +51,7 @@ export const ResidenceProofList = () => {
         instruction,
         imageSource,
         anotherInstruction,
+        lastInstruction,
         docPickerVisible,
       });
     },
@@ -73,6 +76,7 @@ export const ResidenceProofList = () => {
                   instruction: t('screens.kyc.invoice.instruction'),
                   imageSource: BillEdf,
                   anotherInstruction: t('screens.kyc.invoice.another-instruction'),
+                  lastInstruction: t('screens.kyc.invoice.last-instruction'),
                   docPickerVisible: true,
                   documentProperties: {
                     category: IDocumentCategory.RESIDENCE_PROOF,

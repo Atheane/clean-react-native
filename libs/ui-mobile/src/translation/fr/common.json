@@ -490,7 +490,8 @@
       "invoice": {
         "title": "Facture",
         "instruction": "de la face avant de votre facture.",
-        "another-instruction": "Les factures de box internet, électricité, gaz sont les seules acceptées et doivent impérativement avoir moins de 3 mois. Les factures de téléphone mobile ne sont pas valables."
+        "another-instruction": "Les factures de box internet, électricité, gaz sont les seules acceptées et doivent impérativement avoir moins de 3 mois. ",
+        "last-instruction": "Les factures de téléphone mobile ne sont pas valables."
       },
       "w9": {
         "title": "Résident américain - W-9",
@@ -553,7 +554,8 @@
       "host-invoice": {
         "title": "Facture de votre hébergeur",
         "instruction": "de la face avant de la facture de la personne qui vous héberge.",
-        "another-instruction": "Les factures de box internet, électricité, gaz sont les seules acceptées et doivent impérativement avoir moins de 3 mois. Les factures de téléphone mobile ne sont pas valables."
+        "another-instruction": "Les factures de box internet, électricité, gaz sont les seules acceptées et doivent impérativement avoir moins de 3 mois. ",
+        "last-instruction": "Les factures de téléphone mobile ne sont pas valables."
       }
     }
   }
