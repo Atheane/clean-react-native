@@ -6,9 +6,9 @@ export default {
     slug: process.env.SLUG_NAME_BANK_APP,
     version: '1.6.4',
     orientation: 'portrait',
-    icon: './assets/images/icon.png',
+    icon: './assets/images/logo-bank.png',
     splash: {
-      image: './assets/images/splash.png',
+      image: './assets/images/logo-bank.png',
       resizeMode: 'contain',
       backgroundColor: '#ffffff',
     },
@@ -18,17 +18,19 @@ export default {
     assetBundlePatterns: ['**/*'],
     ios: {
       bundleIdentifier: 'com.clean-rn.bank-appdev',
-      supportsTablet: true,
+      googleServicesFile: './GoogleService-Info.plist',
+      supportsTablet: false,
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: './assets/images/adaptive-icon.png',
+        foregroundImage: './assets/images/logo-bank.png',
         backgroundColor: '#FFFFFF',
       },
       package: 'com.clean-rn.bank-appdev',
+      googleServicesFile: './google-services.json',
     },
     web: {
-      favicon: './assets/images/favicon.png',
+      favicon: './assets/images/logo-bank.png',
       bundler: 'metro',
     },
     plugins: [
@@ -46,6 +48,15 @@ export default {
         },
       ],
       ['react-native-compressor'],
+      ['@react-native-firebase/app'],
+      [
+        'expo-build-properties',
+        {
+          ios: {
+            useFrameworks: 'static',
+          },
+        },
+      ],
     ],
     scheme: 'com.clean-rn.bank-appdev',
     extra: {
