@@ -118,6 +118,19 @@ describe('Signup - usecase', () => {
     success: false,
   };
 
+  const mockError400 = {
+    statusCode: 400,
+    message: 'Bad Request Exception',
+    response: {
+      message: ['phone must be a phone number'],
+      error: 'Bad Request',
+      statusCode: 400,
+    },
+    timestamp: '2023-12-18T17:29:21.281Z',
+    path: '/app/user/search?phone=3197010517282',
+    method: 'GET',
+  };
+
   const mockError500 = {
     message: 'Core::AuthService::Auth - Server Error',
     statusCode: 500,
@@ -398,6 +411,19 @@ describe('Signup - usecase', () => {
       .select(selectUserFromSignup)
       .next(user)
       .put(signupFailed(new AuthError.SignupFailurePhoneExists()))
+      .next()
+      .cancel();
+  });
+
+  it('should call signupFailed action if signup flow phone receive 400 from back-end', () => {
+    testSaga(checkPhoneGenerator, httpConnection, {
+      type: ISignupTypes.FETCH_SEARCH_PHONE,
+      payload: mockQueryPhone,
+    })
+      .next()
+      .call([authApi, authApi.searchPhone], mockQueryPhone)
+      .throw(new ServerError(mockError400))
+      .put(signupFailed(new AuthError.InvalidPhone()))
       .next()
       .cancel();
   });
