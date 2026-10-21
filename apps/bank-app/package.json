@@ -6,7 +6,7 @@
     "@testing-library/jest-native": "*",
     "@testing-library/react-native": "*",
     "metro-config": "*",
-    "react-native": "*",
+    "react-native": "0.72.4",
     "expo": "*",
     "react-native-svg": "*",
     "react-native-web": "*",
@@ -60,13 +60,13 @@
     "@react-navigation/bottom-tabs": "*",
     "expo-file-system": "*",
     "react-native-view-shot": "*",
-    "expo-sharing": "*",
     "react-native-document-picker": "*",
     "react-native-document-scanner-plugin": "*",
     "react-native-compressor": "*",
     "react-native-share": "*",
     "react-native-blob-util": "*",
-    "react-native-pdf": "*"
+    "react-native-pdf": "*",
+    "@redux-saga/testing-utils": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp package-lock.json apps/bank-app",
