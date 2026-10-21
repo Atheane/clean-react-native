@@ -43,6 +43,7 @@ export const UploadDocumentCard = (props: IProps) => {
           theme.bank.container.card.long,
           !disabled && theme.bank.shadow.card,
           disabled && styles.disabled,
+          { marginVertical: 16 },
         ]}
         disabled={disabled}
       >

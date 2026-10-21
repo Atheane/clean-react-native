@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, ImageSourcePropType } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ImageSourcePropType, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@rneui/themed';
@@ -27,7 +27,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 
 import { initializeDocument, cancelUpload } from '../../application/commands/document';
 
-import { W9, SwornStatement } from '../assets/images';
+import { W9, SwornStatement, PendingKyc } from '../assets/images';
 import { KYC_REVIEW } from '@clean-rn/auth/domain';
 
 const HEIGHT = Dimensions.get('window').height;
@@ -93,23 +93,46 @@ export const Kyc = () => {
     dispatch(cancelUpload());
   }, [dispatch]);
 
+  const Instructions = () => (
+    <View style={[styles.messageContainer, { marginTop: 80 }]}>
+      <Text style={[styles.title, theme.bank.text.darkBlue]}>{t('screens.kyc.menu.title')}</Text>
+      <Text style={[styles.instruction, theme.bank.text.grey]}>{`${t(
+        'screens.kyc.menu.instruction-before.begin',
+      )} ${submittedKyc?.expectedDocumentCount} ${t('screens.kyc.menu.instruction-before.end')}`}</Text>
+    </View>
+  );
+
+  const KycPending = () => (
+    <View style={[styles.messageContainer, { marginTop: 20 }]}>
+      <Image source={PendingKyc} style={{ width: 115, height: 115 }} />
+      <Text style={[styles.instruction, theme.bank.text.grey]}>
+        {t('screens.kyc.menu.instruction-after.begin')}
+        <Text style={[styles.instruction, theme.bank.text.boldGrey]}>
+          {t('screens.kyc.menu.instruction-after.bold')}
+        </Text>
+        {t('screens.kyc.menu.instruction-after.end')}
+      </Text>
+    </View>
+  );
+
+  const KycRefused = () => (
+    <View style={[styles.messageContainer, { marginTop: 80 }]}>
+      <Text style={[styles.title, theme.bank.text.darkBlue]}>{t('screens.kyc.menu.title')}</Text>
+      <Text style={[theme.bank.text.errors, styles.errorMessage]}>
+        {`${t('errors.domain-error.kyc.KYC_REFUSED')}. `}
+        {customer?.properties.kycReviewComment ? `${customer.properties.kycReviewComment}. ` : ''}
+        {`${t('screens.kyc.menu.fix-file')}. `}
+      </Text>
+    </View>
+  );
+
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={[styles.container, { height: HEIGHT * 1.1 }]}>
-          <Text style={[styles.title, theme.bank.text.darkBlue]}>{t('screens.kyc.menu.title')}</Text>
-          <Text style={[styles.instruction, theme.bank.text.grey]}>{`${t(
-            'screens.kyc.menu.instruction-before.begin',
-          )} ${submittedKyc?.expectedDocumentCount} ${t('screens.kyc.menu.instruction-before.end')}`}</Text>
-          {customer?.properties.status === KYC_REVIEW.REFUSED && (
-            <View style={styles.errorMessageContainer}>
-              <Text style={[theme.bank.text.errors, styles.errorMessage]}>
-                {`${t('errors.domain-error.kyc.KYC_REFUSED')}. `}
-                {customer?.properties.kycReviewComment ? `${customer.properties.kycReviewComment}. ` : ''}
-                {`${t('screens.kyc.menu.fix-file')}. `}
-              </Text>
-            </View>
-          )}
+          {customer?.properties.status === KYC_REVIEW.NONE && <Instructions />}
+          {customer?.properties.status === KYC_REVIEW.PENDING && <KycPending />}
+          {customer?.properties.status === KYC_REVIEW.REFUSED && <KycRefused />}
           {user?.properties.USPerson && (
             <View
               style={
@@ -279,10 +302,10 @@ const styles = StyleSheet.create({
     width: '80%',
     marginVertical: 24,
   },
-  errorMessageContainer: {
+  messageContainer: {
     marginVertical: 6,
     alignItems: 'center',
-    width: '85%',
+    width: '100%',
   },
   errorMessage: {
     textAlign: 'left',

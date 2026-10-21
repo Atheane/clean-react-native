@@ -97,15 +97,14 @@
         "DOCUMENT_NOT_READY": "Document pas encore prêt",
         "INVALID_DOCUMENT_TYPE": "Type de document invalide",
         "DOCUMENT_TOO_LARGE": "Document trop volumineux, 1MB maximum",
-        "REFUSED": "Document refusé",
-        "OUT_OF_SCOPE": "Document hors de portée",
-        "EXPIRED": "Document expiré",
-        "FALSIFIED": "Document falsifié",
-        "ILLEGIBLE": "Document illisible",
-        "TRUNCATED_DOC": "Document tronqué",
-        "TRUNCATED": "Tronqué",
-        "INCOHERENT": "Document incohérent",
-        "OTHER": "Document refusé par KycProvider pour une autre raison"
+        "REFUSED": "Le document n'a pas pu être validé, merci de le renvoyer",
+        "OUT_OF_SCOPE": "Merci de joindre un document issu de l'Espace Economique Européen ou un titre de séjour",
+        "EXPIRED": "Merci de joindre un document en cours de validité",
+        "ILLEGIBLE": "Merci de joindre un justificatif de domicile valide",
+        "TRUNCATED_DOC": "Merci de joindre un document en couleur, lisible, et entier (non tronqué)",
+        "TRUNCATED": "Merci de joindre un document en couleur, lisible, et entier (non tronqué)",
+        "INCOHERENT": "Merci de joindre un document en cohérence avec les informations renseignées",
+        "OTHER": "Le document n'a pas pu être validé, merci de le renvoyer"
       },
       "other": "erreur, veuillez contacter l'administrateur"
     },

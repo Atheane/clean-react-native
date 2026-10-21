@@ -10,7 +10,6 @@ export enum IDocumentErrorMessage {
   REFUSED = 'Document refused',
   OUT_OF_SCOPE = 'Document out of scope',
   EXPIRED = 'Document expired',
-  FALSIFIED = 'Document falsified',
   ILLEGIBLE = 'Document illegible',
   TRUNCATED_DOC = 'Document truncated',
   TRUNCATED = 'Truncated',
@@ -27,7 +26,6 @@ export enum IDocumentErrorCodes {
   REFUSED = 'REFUSED',
   OUT_OF_SCOPE = 'OUT_OF_SCOPE',
   EXPIRED = 'EXPIRED',
-  FALSIFIED = 'FALSIFIED',
   ILLEGIBLE = 'ILLEGIBLE',
   TRUNCATED_DOC = 'TRUNCATED_DOC',
   TRUNCATED = 'TRUNCATED',
@@ -136,17 +134,6 @@ export namespace DocumentError {
       super();
       this.message = IDocumentErrorMessage.EXPIRED;
       this.code = IDocumentErrorCodes.EXPIRED;
-      this.cause = cause;
-    }
-  }
-  export class Falsified extends Error implements IDomainError<IDocumentErrorCodes, IDocumentErrorMessage> {
-    code: IDocumentErrorCodes;
-    message: IDocumentErrorMessage;
-    cause?: unknown;
-    constructor(cause?: unknown) {
-      super();
-      this.message = IDocumentErrorMessage.FALSIFIED;
-      this.code = IDocumentErrorCodes.FALSIFIED;
       this.cause = cause;
     }
   }

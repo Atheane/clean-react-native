@@ -6,6 +6,6 @@ export { UploadDocument } from './UploadDocument';
 export { IdList } from './IdList';
 export { ResidenceProofOptions } from './ResidenceProofOptions';
 export { ResidenceProofList } from './ResidenceProofList';
-export { MenuKycHost } from './MenuKycHost';
+export { KycHost } from './KycHost';
 export { HostIdList } from './HostIdList';
 export { HostResidenceProofList } from './HostResidenceProofList';

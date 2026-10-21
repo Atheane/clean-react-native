@@ -1,27 +1,10 @@
-import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import { useNavigationState, useRoute } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { Colors, FontNames } from '@clean-rn/ui-mobile';
-
-import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
-import {
-  IKycStackPages,
-  IKycStackProps,
-  ISharedStackPages,
-  ISharedStackProps,
-  IAuthStackProps,
-  IAuthStackPages,
-  HeaderTitleAlign,
-  IRoutes,
-} from '../../../shared/presentation/types';
-import { ScreenModalError } from '../../../shared/presentation/screens';
-
-import { Login } from '../../../auth/presentation/screens';
+import { IKycStackPages, IKycStackProps } from '../../../shared/presentation/types';
 
 import {
   InitKyc,
@@ -29,7 +12,7 @@ import {
   IdList,
   ResidenceProofOptions,
   ResidenceProofList,
-  MenuKycHost,
+  KycHost,
   HostIdList,
   UploadDocument,
   SuccessKyc,
@@ -37,7 +20,7 @@ import {
   HostResidenceProofList,
 } from '../screens';
 
-const Stack = createNativeStackNavigator<IKycStackProps & ISharedStackProps & IAuthStackProps>();
+const Stack = createNativeStackNavigator<IKycStackProps>();
 
 export const KycStack = () => {
   const { t } = useTranslation();
@@ -46,7 +29,7 @@ export const KycStack = () => {
     params: { initRoute },
   } = useRoute() as {
     params: {
-      initRoute: keyof IKycStackProps | keyof ISharedStackProps | keyof IAuthStackProps | undefined;
+      initRoute: keyof IKycStackProps | undefined;
     };
   };
 
@@ -117,8 +100,8 @@ export const KycStack = () => {
         }}
       />
       <Stack.Screen
-        name={IKycStackPages.MENU_KYC_HOST}
-        component={MenuKycHost}
+        name={IKycStackPages.KYC_HOST}
+        component={KycHost}
         options={{
           headerTitle: t('screens.kyc.menu-kyc-host.title'),
           ...headersOptions(goBack),
@@ -140,30 +123,6 @@ export const KycStack = () => {
           ...headersOptions(goBack),
         }}
       />
-      {/* <Stack.Screen
-        options={{
-          presentation: 'modal',
-          headerShown: false,
-          headerBackVisible: false,
-        }}
-        name={ISharedStackPages.MODAL_ERROR}
-        component={ScreenModalError}
-      />
-      <Stack.Screen
-        options={{
-          presentation: 'modal',
-          headerTitle: t('modal.login.title'),
-          headerTitleAlign: 'center' as HeaderTitleAlign,
-          headerTitleStyle: {
-            color: Colors.bank.primary.darkBlue,
-            fontSize: 19,
-            fontFamily: FontNames.MartelSans_600SemiBold,
-          },
-          headerBackVisible: false,
-        }}
-        name={IAuthStackPages.LOGIN}
-        component={Login}
-      /> */}
     </Stack.Navigator>
   );
 };

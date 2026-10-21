@@ -20,7 +20,7 @@ import { SwornStatement } from '../assets/images';
 
 const HEIGHT = Dimensions.get('window').height;
 
-export const MenuKycHost = () => {
+export const KycHost = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
   const { theme } = useTheme();
@@ -53,7 +53,7 @@ export const MenuKycHost = () => {
         route === IKycStackPages.UPLOAD_DOCUMENT ? { instruction, imageSource, showExample } : {},
       );
     },
-    [navigation],
+    [navigation, dispatch],
   );
 
   return (

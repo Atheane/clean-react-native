@@ -142,7 +142,7 @@ export enum IKycStackPages {
   ID_LIST = 'IdList',
   RESIDENCE_PROOF_OPTIONS = 'ResidenceProofOptions',
   RESIDENCE_PROOF_LIST = 'ResidenceProofList',
-  MENU_KYC_HOST = 'MenuKycHost',
+  KYC_HOST = 'KycHost',
   HOST_ID_LIST = 'HostIdList',
   HOST_RESIDENCE_PROOF_LIST = 'HostResidenceProofList',
 }
@@ -210,7 +210,7 @@ export type IKycStackProps = {
   [IKycStackPages.ID_LIST]: object;
   [IKycStackPages.RESIDENCE_PROOF_OPTIONS]: object;
   [IKycStackPages.RESIDENCE_PROOF_LIST]: object;
-  [IKycStackPages.MENU_KYC_HOST]: object;
+  [IKycStackPages.KYC_HOST]: object;
   [IKycStackPages.HOST_ID_LIST]: object;
   [IKycStackPages.HOST_RESIDENCE_PROOF_LIST]: object;
 };
@@ -266,7 +266,7 @@ export type IRoutes =
   | IKycStackPages.ID_LIST
   | IKycStackPages.RESIDENCE_PROOF_OPTIONS
   | IKycStackPages.RESIDENCE_PROOF_LIST
-  | IKycStackPages.MENU_KYC_HOST
+  | IKycStackPages.KYC_HOST
   | IKycStackPages.HOST_ID_LIST
   | IKycStackPages.HOST_RESIDENCE_PROOF_LIST
   | ITransferStackPages.TRANSFER
