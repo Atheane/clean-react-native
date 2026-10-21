@@ -6,18 +6,21 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { UploadDocumentCard, KycW9, KycIdentification, KycPassport, KycInvoice } from '@clean-rn/ui-mobile';
-import { IDocumentType, IDocumentCategory, KycDocuments } from '@clean-rn/kyc/domain';
+import { IDocumentType, IDocumentCategory, KycDocuments, IDocumentStatus } from '@clean-rn/kyc/domain';
 
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { cancelUpload } from '../../../kyc/application/commands/document';
+import { initializeDocument, cancelUpload } from '../../../kyc/application/commands/document';
+
+import { W9 } from '../assets/images';
 
 const HEIGHT = Dimensions.get('window').height;
 
 export const MenuKyc = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
+  const dispatch = useDispatch();
 
   // w9 or not ?
   const { user } = useSelector((state: IRootState) => state.auth.login);
@@ -27,10 +30,23 @@ export const MenuKyc = () => {
   const navigation = useNavigation();
 
   const navigateToUploadW9 = useCallback(() => {
+    dispatch(
+      initializeDocument({
+        documentProperties: {
+          category: IDocumentCategory.W9,
+          typeId: IDocumentType.TAX_CERTIFICATE,
+          name: 'w9.form.recto',
+          status: IDocumentStatus.INIT,
+          createdAt: new Date(),
+        },
+      }),
+    );
     navigation.navigate(IKycStackPages.UPLOAD_DOCUMENT, {
-      documentType: IDocumentType.TAX_CERTIFICATE,
+      instruction: t('screens.kyc.w9.instruction'),
+      imageSource: W9,
+      docPickerVisible: true,
     });
-  }, [navigation]);
+  }, [dispatch, navigation, t]);
 
   const navigateToFirstIdList = useCallback(
     () => navigation.navigate(IKycStackPages.FIRST_ID_LIST as never),
@@ -54,11 +70,10 @@ export const MenuKyc = () => {
 
   useEffect(() => {
     if (customer?.properties.kyc) {
+      // console.log('customer?.properties.kyc', customer?.properties.kyc.isComplete);
       setSubmittedKyc(customer.properties.kyc);
     }
   }, [customer?.properties.kyc]);
-
-  const dispatch = useDispatch();
 
   const handleOnCancel = useCallback(() => {
     dispatch(cancelUpload());
@@ -73,7 +88,7 @@ export const MenuKyc = () => {
             'screens.kyc.menu.instruction-before.begin',
           )} ${documentsNumber} ${t('screens.kyc.menu.instruction-before.end')}`}</Text>
           {user?.properties.USPerson && (
-            <View style={styles.itemContainer}>
+            <View style={documentsNumber === 3 ? styles.itemContainer3 : styles.itemContainer4}>
               <UploadDocumentCard
                 icon={KycW9}
                 status={submittedKyc?.documents.W9?.properties.status}
@@ -84,7 +99,7 @@ export const MenuKyc = () => {
               />
             </View>
           )}
-          <View style={styles.itemContainer}>
+          <View style={documentsNumber === 3 ? styles.itemContainer3 : styles.itemContainer4}>
             <UploadDocumentCard
               icon={KycIdentification}
               status={submittedKyc?.documents.FIRST_ID?.properties.status}
@@ -94,7 +109,7 @@ export const MenuKyc = () => {
               onCancel={handleOnCancel}
             />
           </View>
-          <View style={styles.itemContainer}>
+          <View style={documentsNumber === 3 ? styles.itemContainer3 : styles.itemContainer4}>
             <UploadDocumentCard
               icon={KycPassport}
               status={submittedKyc?.documents.SECOND_ID?.properties.status}
@@ -104,7 +119,7 @@ export const MenuKyc = () => {
               onCancel={handleOnCancel}
             />
           </View>
-          <View style={styles.itemContainer}>
+          <View style={documentsNumber === 3 ? styles.itemContainer3 : styles.itemContainer4}>
             <UploadDocumentCard
               icon={KycInvoice}
               status={submittedKyc?.documents.RESIDENCE_PROOF?.properties.status}
@@ -129,8 +144,11 @@ const styles = StyleSheet.create({
   title: {
     margin: 24,
   },
-  itemContainer: {
+  itemContainer3: {
     marginVertical: 16,
+  },
+  itemContainer4: {
+    marginVertical: 8,
   },
   instruction: {
     textAlign: 'justify',
