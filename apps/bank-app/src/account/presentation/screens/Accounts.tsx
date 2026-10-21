@@ -18,6 +18,7 @@ import {
 } from '@clean-rn/ui-mobile';
 import { KYC_REVIEW } from '@clean-rn/auth/domain';
 import { IAccount } from '@clean-rn/account/domain';
+import Constants from 'expo-constants';
 
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { IKycStackPages, ISharedStackPages } from '../../../shared/presentation/types';
@@ -109,6 +110,7 @@ export const Accounts = () => {
           model,
           os,
           osVersion,
+          appVersion: Constants.expoConfig?.extra?.APP_VERSION,
         }),
       );
     }

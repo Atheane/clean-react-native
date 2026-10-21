@@ -17,6 +17,7 @@ export const deviceReducer = (state = initialState, action: IDeviceActions) => {
       newState = {
         ...state,
         pending: true,
+        device: null,
       };
       return newState;
     case IDeviceTypes.INITIALIZE_DEVICE:

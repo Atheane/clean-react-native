@@ -16,7 +16,7 @@ export type IInitializeDevice = {
 
 export type IFetchRegisterDevice = {
   type: typeof IDeviceTypes.FETCH_REGISTER_DEVICE;
-  payload: IRegisterDeviceCommand & { firebaseId?: string } & { deviceId: string };
+  payload: IRegisterDeviceCommand & { firebaseId?: string; deviceId: string; appVersion: string };
 };
 
 // domainEvents

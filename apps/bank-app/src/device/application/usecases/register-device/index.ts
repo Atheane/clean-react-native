@@ -2,7 +2,6 @@
 /* eslint-disable no-fallthrough */
 import { call, put, StrictEffect, takeEvery, cancel, select } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Constants from 'expo-constants';
 
 import { Logger } from '@clean-rn/logger';
 import { IRegisterDeviceCommand } from '@clean-rn/device/domain';
@@ -15,7 +14,7 @@ import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IStoreKey } from '../../../../shared/application/types';
 
-import { IDeviceTypes, deviceRegistered } from '../../../../device/application/commands';
+import { IDeviceTypes, deviceRegistered, initializeDevice } from '../../../../device/application/commands';
 import { selectAuthFromLogin } from '../../../../auth/application/state-management/selectors';
 
 import { selectUserFromLogin } from '../../../../kyc/application/state-management/selectors';
@@ -32,7 +31,7 @@ export function* registerDeviceGenerator(
     payload,
   }: {
     type: string;
-    payload: IRegisterDeviceCommand & { deviceId: string } & { firebaseToken?: string };
+    payload: IRegisterDeviceCommand & { deviceId: string; firebaseId?: string; appVersion: string };
   },
 ): Generator<StrictEffect, any, any> {
   try {
@@ -40,23 +39,24 @@ export function* registerDeviceGenerator(
     const deviceId = yield call(AsyncStorage.getItem, IStoreKey.DEVICE_ID);
     Logger.getInstance().info('deviceId', deviceId);
 
-    const authApi = AuthApi.getInstance(httpConnection);
-    const authFromStore = yield select(selectAuthFromLogin);
-    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
-    yield put(refreshSuccess({ auth }));
-
     if (!deviceId) {
+      // refreshToken
+      const authApi = AuthApi.getInstance(httpConnection);
+      const authFromStore = yield select(selectAuthFromLogin);
+      const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
+      yield put(refreshSuccess({ auth }));
+
+      // call app/device POST endpoint
       const deviceApi = DeviceApi.getInstance(httpConnection);
       const device = yield call([deviceApi, deviceApi.createDevice], {
         ...payload,
         userId: parseInt(user.id),
-        appVersion: Constants.expoConfig?.extra?.APP_VERSION,
       });
       yield call(AsyncStorage.setItem, IStoreKey.DEVICE_ID, device.id);
       yield put(deviceRegistered(device));
     }
   } catch (error: unknown) {
-    yield put(resetError());
+    yield put(initializeDevice());
     if (error instanceof ServerError && error.statusCode === 401) {
       yield call(navigate, { route: IAuthStackPages.LOGIN });
       yield cancel();

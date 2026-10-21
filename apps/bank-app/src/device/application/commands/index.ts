@@ -13,7 +13,7 @@ export const initializeDevice = (): IInitializeDevice => ({
 });
 
 export const fetchRegisterDevice = (
-  payload: IRegisterDeviceCommand & { firebaseId?: string; deviceId: string },
+  payload: IRegisterDeviceCommand & { firebaseId?: string; deviceId: string; appVersion: string },
 ): IFetchRegisterDevice => ({
   type: IDeviceTypes.FETCH_REGISTER_DEVICE,
   payload,
