@@ -6,7 +6,6 @@ import { ICustomerTypes, ICustomerActions } from '../../../commands/customer';
 const initialState: ICustomerState = {
   pending: false,
   customer: null,
-  initRoute: null,
 };
 
 export const customerReducer = (state = initialState, action: ICustomerActions) => {
@@ -28,20 +27,12 @@ export const customerReducer = (state = initialState, action: ICustomerActions) 
         customer: action.payload.customer,
       };
       return newState;
-    case ICustomerTypes.KYC_ROUTE_INITIALIZED:
-      logger.debug(action.type);
-      newState = {
-        ...state,
-        initRoute: action.payload.initRoute,
-      };
-      return newState;
     case ICustomerTypes.INITIALIZE_KYC:
       logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
         customer: null,
-        initRoute: null,
       };
       return newState;
     case ICustomerTypes.CUSTOMER_DOCUMENTS_UPDATED:

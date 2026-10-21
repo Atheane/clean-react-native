@@ -2,7 +2,7 @@
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 
-import { DocumentVO, IDocumentCategory, IDocumentStatus } from '@clean-rn/kyc/domain';
+import { DocumentVO, IDocumentCategory, IDocumentStatus, IDocumentStatusCode } from '@clean-rn/kyc/domain';
 
 import { addPageSaga, addPageSagaGenerator } from '../../usecases/document';
 import { IDocumentTypes, pageAdded, uploadDocument } from '../../commands/document';
@@ -15,10 +15,11 @@ import { IDCardVerso } from '../../../presentation/assets/images';
 describe('Document - addPage - usecases', () => {
   const documentProperties = {
     typeId: 9,
-    category: IDocumentCategory.FIRST_ID,
+    category: IDocumentCategory.ID,
     status: IDocumentStatus.PENDING,
     name: 'test-mock',
     createdAt: new Date('2023-10-03T13:20:21.303Z'),
+    statusCode: IDocumentStatusCode.INITIAL,
   };
 
   const genObject = addPageSaga();
@@ -82,7 +83,7 @@ describe('Document - addPage - usecases', () => {
         }),
       )
       .next(documentAfter)
-      .call(navigate, { route: IKycStackPages.MENU })
+      .call(navigate, { route: IKycStackPages.KYC })
       .next()
       .cancel();
   });

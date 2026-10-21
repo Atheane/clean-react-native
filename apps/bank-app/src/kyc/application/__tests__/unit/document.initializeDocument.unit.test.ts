@@ -2,7 +2,7 @@
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 
-import { DocumentVO, IDocumentCategory, IDocumentStatus } from '@clean-rn/kyc/domain';
+import { DocumentVO, IDocumentCategory, IDocumentStatus, IDocumentStatusCode } from '@clean-rn/kyc/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
@@ -12,10 +12,11 @@ import { IDocumentTypes, documentInitialized } from '../../commands/document';
 describe('Document - initializeDocument - usecases', () => {
   const documentProperties = {
     typeId: 9,
-    category: IDocumentCategory.FIRST_ID,
+    category: IDocumentCategory.ID,
     status: IDocumentStatus.PENDING,
     name: 'test-mock',
     createdAt: new Date('2023-10-03T13:20:21.303Z'),
+    statusCode: IDocumentStatusCode.INITIAL,
   };
 
   const genObject = initializeDocumentSaga();
@@ -49,10 +50,11 @@ describe('Document - initializeDocument - usecases', () => {
       payload: {
         documentProperties: {
           typeId: 9,
-          category: IDocumentCategory.SWORN_STATEMENT,
+          category: IDocumentCategory.RESIDENCE_PROOF_SWORN_STATEMENT,
           status: IDocumentStatus.PENDING,
           name: 'test-mock',
           createdAt: new Date('2023-10-03T13:20:21.303Z'),
+          statusCode: IDocumentStatusCode.INITIAL,
         },
       },
     })

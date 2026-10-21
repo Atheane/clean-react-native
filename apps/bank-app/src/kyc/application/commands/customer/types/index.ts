@@ -5,7 +5,6 @@ export enum ICustomerTypes {
   CHECK_CUSTOMER_STATUS = 'CHECK_CUSTOMER_STATUS',
   CUSTOMER_STATUS_CHECKED = 'CUSTOMER_STATUS_CHECKED',
   INITIALIZE_KYC = 'INITIALIZE_KYC',
-  KYC_ROUTE_INITIALIZED = 'KYC_ROUTE_INITIALIZED',
   CUSTOMER_DOCUMENTS_UPDATED = 'CUSTOMER_DOCUMENTS_UPDATED',
 }
 
@@ -24,13 +23,6 @@ export type IInitializeKyc = {
   type: typeof ICustomerTypes.INITIALIZE_KYC;
 };
 
-export type IKycRouteInitialized = {
-  type: typeof ICustomerTypes.KYC_ROUTE_INITIALIZED;
-  payload: {
-    initRoute: IRoutes | null;
-  };
-};
-
 export type ICustomerDocumentsUpdated = {
   type: typeof ICustomerTypes.CUSTOMER_DOCUMENTS_UPDATED;
   payload: {
@@ -42,5 +34,4 @@ export type ICustomerActions =
   | ICheckCustomerStatus
   | ICustomerStatusChecked
   | IInitializeKyc
-  | IKycRouteInitialized
   | ICustomerDocumentsUpdated;

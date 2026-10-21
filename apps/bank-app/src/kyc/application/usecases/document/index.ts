@@ -85,7 +85,7 @@ export function* addPageSagaGenerator({
     if (document.isReady) {
       yield put(uploadDocument({ document }));
 
-      yield call(navigate, { route: IKycStackPages.MENU });
+      yield call(navigate, { route: IKycStackPages.KYC });
       yield cancel();
     } else {
       yield put(pageAdded({ document }));

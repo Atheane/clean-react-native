@@ -19,12 +19,10 @@ import {
   customerDocumentsUpdated,
   customerStatusChecked,
   initializeKyc,
-  kycRouteInitialized,
 } from '../../commands/customer';
 import { ICustomerState, customerReducer } from '../../state-management';
 
 import { checkCustomerStatusSaga } from '../../usecases/customer';
-import { IKycStackPages } from '../../../../shared/presentation/types';
 
 const expoConstantsMock = {
   name: 'CleanRN BankApp Test',
@@ -67,7 +65,6 @@ describe('KYC - integration', () => {
     const initialState: ICustomerState = {
       pending: false,
       customer: null,
-      initRoute: null,
     };
     sagaTester = new SagaTester({
       initialState,
@@ -83,7 +80,6 @@ describe('KYC - integration', () => {
     expect(newState).toEqual({
       pending: true,
       customer: null,
-      initRoute: null,
     });
   });
 
@@ -101,7 +97,6 @@ describe('KYC - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       customer,
-      initRoute: null,
     });
   });
 
@@ -111,18 +106,6 @@ describe('KYC - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       customer: null,
-      initRoute: null,
-    });
-  });
-
-  it('Should store correct state if KYC_ROUTE_INITIALIZED', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, checkCustomerStatusSaga, httpConnection);
-    sagaTester.dispatch(kycRouteInitialized({ initRoute: IKycStackPages.MENU }));
-
-    expect(sagaTester.getState()).toEqual({
-      pending: false,
-      customer: null,
-      initRoute: IKycStackPages.MENU,
     });
   });
 
@@ -146,7 +129,6 @@ describe('KYC - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       customer,
-      initRoute: null,
     });
   });
 });

@@ -71,6 +71,8 @@ export const Accounts = () => {
         initRoute = IKycStackPages.KYC;
         break;
     }
+    console.log('customer?.properties.status', customer?.properties.status);
+    console.log('initRoute', initRoute);
     navigation.navigate(IKycStackPages.MENU as never, {
       initRoute,
     });
