@@ -26,7 +26,7 @@ import {
 import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
 import { ScreenModalError, ScreenModalWebview } from '../../../shared/presentation/screens';
 
-import { Login, ResetPassword } from '../../../auth/presentation/screens';
+import { Login } from '../../../auth/presentation/screens';
 import { AuthStack } from '../../../auth/presentation/navigation';
 
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
@@ -42,6 +42,7 @@ export const RootStack = () => {
   const {
     auth: { accessToken },
   } = useSelector((state: IRootState) => state.auth.login);
+  console.log('accessToken', accessToken);
   return accessToken ? <HomeStack /> : <AuthStack />;
 };
 
@@ -55,6 +56,8 @@ const Stack = createNativeStackNavigator<
 >();
 
 export const HomeStack = () => {
+  console.log('HomeStack', HomeStack);
+
   const navigationStack = useNavigationState((state) => state?.routes ?? []);
   const { t } = useTranslation();
 
@@ -144,14 +147,6 @@ export const HomeStack = () => {
           headerTitle: t('screens.carbon-fly.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
-      />
-      <Stack.Screen
-        options={{
-          headerTitle: t('screens.reset-password.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
-        }}
-        name={IAuthStackPages.RESET_PASSWORD}
-        component={ResetPassword}
       />
       <Stack.Screen
         name={IProfileStackPages.NOTIFICATON_SETTINGS}

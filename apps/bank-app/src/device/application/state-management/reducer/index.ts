@@ -6,6 +6,7 @@ import { IDeviceState } from '../state';
 const initialState: IDeviceState = {
   pending: false,
   device: null,
+  error: null,
 };
 
 export const deviceReducer = (state = initialState, action: IDeviceActions) => {
@@ -34,6 +35,14 @@ export const deviceReducer = (state = initialState, action: IDeviceActions) => {
         ...state,
         pending: false,
         device: action.payload,
+      };
+      return newState;
+    case IDeviceTypes.DEVICE_ALREADY_REGISTERED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        error: action.payload.error,
       };
       return newState;
     default:

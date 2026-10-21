@@ -7,6 +7,7 @@ import { Accounts, Transactions } from '../screens';
 const Stack = createNativeStackNavigator<IHomeStackProps>();
 
 export const AccountStack = () => {
+  console.log('AccountStack');
   return (
     <Stack.Navigator>
       <Stack.Screen name={IHomeStackPages.ACCOUNTS} component={Accounts} options={{ headerShown: false }} />

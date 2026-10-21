@@ -1,10 +1,17 @@
-import { Device, IRegisterDeviceCommand } from '@clean-rn/device/domain';
+import { IDomainError } from '@clean-rn/ddd';
+import {
+  Device,
+  IDeviceErrorCodes,
+  IDeviceErrorMessage,
+  IRegisterDeviceCommand,
+} from '@clean-rn/device/domain';
 
 export enum IDeviceTypes {
   // commands
   FETCH_REGISTER_DEVICE = 'FETCH_REGISTER_DEVICE',
   INITIALIZE_DEVICE = 'INITIALIZE_DEVICE',
   // domain events
+  DEVICE_ALREADY_REGISTERED = 'DEVICE_ALREADY_REGISTERED',
   DEVICE_REGISTERED = 'DEVICE_REGISTERED',
 }
 
@@ -25,4 +32,15 @@ export type IDeviceRegistered = {
   payload: Device;
 };
 
-export type IDeviceActions = IInitializeDevice | IFetchRegisterDevice | IDeviceRegistered;
+export type IDeviceAlreadyRegistered = {
+  type: typeof IDeviceTypes.DEVICE_ALREADY_REGISTERED;
+  payload: {
+    error: IDomainError<IDeviceErrorCodes, IDeviceErrorMessage>;
+  };
+};
+
+export type IDeviceActions =
+  | IInitializeDevice
+  | IFetchRegisterDevice
+  | IDeviceRegistered
+  | IDeviceAlreadyRegistered;

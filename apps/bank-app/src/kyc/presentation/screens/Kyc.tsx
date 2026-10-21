@@ -113,7 +113,7 @@ export const Kyc = () => {
   );
 
   const KycPending = () => (
-    <View style={[styles.messageContainer, { marginTop: 20 }]}>
+    <View style={[styles.messageContainer, { marginTop: -120 }]}>
       <Image source={PendingKyc} style={{ width: 115, height: 115 }} />
       <Text style={[styles.instruction, theme.bank.text.grey]}>
         {t('screens.kyc.menu.instruction-after.begin')}
@@ -154,7 +154,7 @@ export const Kyc = () => {
           )}
           {customer?.properties.kyc?.isComplete && <KycPending />}
           {customer?.properties.status === KYC_REVIEW.REFUSED && <KycRefused />}
-          {user?.properties.USPerson && (
+          {!customer?.properties.kyc?.isComplete && user?.properties.USPerson && (
             <View style={styles.itemContainer}>
               <UploadDocumentCard
                 icon={KycW9}
@@ -185,22 +185,24 @@ export const Kyc = () => {
               />
             </View>
           )}
-          <View style={styles.itemContainer}>
-            <UploadDocumentCard
-              icon={KycIdentification}
-              status={submittedKyc?.documents.ID?.properties.status}
-              text={t('screens.kyc.menu.identity')}
-              onPress={() => navigateTo(IKycStackPages.ID_LIST as never, {})}
-              loading={pending && document?.properties.category === IDocumentCategory.ID}
-              onCancel={handleOnCancel}
-              errorMessage={
-                hasErrorMessage(IDocumentCategory.ID)
-                  ? t(`errors.domain-error.kyc.${submittedKyc?.documents.ID?.properties.statusCode}`)
-                  : ''
-              }
-            />
-          </View>
-          {submittedKyc?.isHosted && (
+          {!customer?.properties.kyc?.isComplete && (
+            <View style={styles.itemContainer}>
+              <UploadDocumentCard
+                icon={KycIdentification}
+                status={submittedKyc?.documents.ID?.properties.status}
+                text={t('screens.kyc.menu.identity')}
+                onPress={() => navigateTo(IKycStackPages.ID_LIST as never, {})}
+                loading={pending && document?.properties.category === IDocumentCategory.ID}
+                onCancel={handleOnCancel}
+                errorMessage={
+                  hasErrorMessage(IDocumentCategory.ID)
+                    ? t(`errors.domain-error.kyc.${submittedKyc?.documents.ID?.properties.statusCode}`)
+                    : ''
+                }
+              />
+            </View>
+          )}
+          {!customer?.properties.kyc?.isComplete && submittedKyc?.isHosted && (
             <View style={styles.itemContainer}>
               <UploadDocumentCard
                 icon={KycSwornStatement}
@@ -237,7 +239,7 @@ export const Kyc = () => {
               />
             </View>
           )}
-          {submittedKyc?.isHosted && (
+          {!customer?.properties.kyc?.isComplete && submittedKyc?.isHosted && (
             <View style={styles.itemContainer}>
               <UploadDocumentCard
                 icon={KycIdentification}
@@ -256,32 +258,36 @@ export const Kyc = () => {
               />
             </View>
           )}
-          <View style={styles.itemContainer}>
-            <UploadDocumentCard
-              icon={KycInvoice}
-              status={submittedKyc?.documents.RESIDENCE_PROOF?.properties.status}
-              text={
-                submittedKyc?.isHosted ? t('screens.kyc.menu.host-residence') : t('screens.kyc.menu.address')
-              }
-              onPress={() =>
-                navigateTo(
+          {!customer?.properties.kyc?.isComplete && (
+            <View style={styles.itemContainer}>
+              <UploadDocumentCard
+                icon={KycInvoice}
+                status={submittedKyc?.documents.RESIDENCE_PROOF?.properties.status}
+                text={
                   submittedKyc?.isHosted
-                    ? (IKycStackPages.HOST_RESIDENCE_PROOF_LIST as never)
-                    : (IKycStackPages.RESIDENCE_PROOF_OPTIONS as never),
-                  {},
-                )
-              }
-              loading={pending && document?.properties.category === IDocumentCategory.RESIDENCE_PROOF}
-              onCancel={handleOnCancel}
-              errorMessage={
-                hasErrorMessage(IDocumentCategory.RESIDENCE_PROOF)
-                  ? t(
-                      `errors.domain-error.kyc.${submittedKyc?.documents.RESIDENCE_PROOF?.properties.statusCode}`,
-                    )
-                  : ''
-              }
-            />
-          </View>
+                    ? t('screens.kyc.menu.host-residence')
+                    : t('screens.kyc.menu.address')
+                }
+                onPress={() =>
+                  navigateTo(
+                    submittedKyc?.isHosted
+                      ? (IKycStackPages.HOST_RESIDENCE_PROOF_LIST as never)
+                      : (IKycStackPages.RESIDENCE_PROOF_OPTIONS as never),
+                    {},
+                  )
+                }
+                loading={pending && document?.properties.category === IDocumentCategory.RESIDENCE_PROOF}
+                onCancel={handleOnCancel}
+                errorMessage={
+                  hasErrorMessage(IDocumentCategory.RESIDENCE_PROOF)
+                    ? t(
+                        `errors.domain-error.kyc.${submittedKyc?.documents.RESIDENCE_PROOF?.properties.statusCode}`,
+                      )
+                    : ''
+                }
+              />
+            </View>
+          )}
         </View>
       </SafeScrollingView>
     </ErrorBoundary>
@@ -302,7 +308,6 @@ const styles = StyleSheet.create({
     marginVertical: 24,
   },
   messageContainer: {
-    marginVertical: 6,
     alignItems: 'center',
     width: '100%',
   },

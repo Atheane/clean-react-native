@@ -31,6 +31,7 @@ import {
   SignupCongrats,
   EmailSent,
   SignupPhone,
+  ResetPassword,
 } from '../screens';
 
 const locales = getLocales();
@@ -72,6 +73,14 @@ export const AuthStack = () => {
         }}
         name={IAuthStackPages.LOGIN}
         component={Login}
+      />
+      <Stack.Screen
+        options={{
+          headerTitle: t('screens.reset-password.title'),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+        name={IAuthStackPages.RESET_PASSWORD}
+        component={ResetPassword}
       />
       <Stack.Screen
         options={{
