@@ -285,8 +285,8 @@ export const Carbon = () => {
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={[styles.container, theme.bank.container.centeredItem]}>
-          <ShareScreen title={t('screens.carbon.title')} message={message} handleError={handleErrorShare}>
-            <View>
+          <ShareScreen message={message} handleError={handleErrorShare}>
+            <View collapsable={false}>
               <View style={styles.graphContainer}>
                 <GraphCO2
                   headers={

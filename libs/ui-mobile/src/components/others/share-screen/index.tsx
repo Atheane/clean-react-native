@@ -9,12 +9,11 @@ import { Logger } from '@clean-rn/logger';
 
 type IProps = {
   children: React.ReactElement;
-  title: string;
   message: string;
   handleError: (error: unknown) => void;
 };
 
-export const ShareScreen = ({ children, title, handleError, message }: IProps) => {
+export const ShareScreen = ({ children, handleError, message }: IProps) => {
   const { t } = useTranslation();
 
   const viewShot = useRef<ViewShot | null>(null);
@@ -23,7 +22,6 @@ export const ShareScreen = ({ children, title, handleError, message }: IProps) =
     try {
       const options = {
         url: uri,
-        // title: t('screens.carbon.title'),
         message,
       } as ShareSingleOptions;
       // https://github.com/react-native-share/react-native-share/issues/861
@@ -54,7 +52,7 @@ export const ShareScreen = ({ children, title, handleError, message }: IProps) =
 
   return (
     <View>
-      <ViewShot options={{ format: 'png', quality: 0.8 }} ref={viewShot}>
+      <ViewShot options={{ format: 'png', quality: 0.8 }} ref={viewShot} collapsable={false}>
         {children}
       </ViewShot>
 
