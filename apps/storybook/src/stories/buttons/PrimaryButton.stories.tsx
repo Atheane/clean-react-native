@@ -45,6 +45,19 @@ export const OneIcon: PrimaryButtonStory = (args) => {
     />
   );
 };
+
+export const LongText: PrimaryButtonStory = (args) => {
+  return (
+    <PrimaryButton
+      {...args}
+      title={'Importer un document'}
+      uppercase={false}
+      iconOne={() => (
+        <Love width={23} height={23} style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+      )}
+    />
+  );
+};
 export const TwoIcons: PrimaryButtonStory = (args) => {
   const { t } = useTranslation();
 
