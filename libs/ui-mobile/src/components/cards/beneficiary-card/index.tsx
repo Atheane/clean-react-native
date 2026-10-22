@@ -19,7 +19,7 @@ export const BeneficiaryCard = (props: IProps) => {
     <View
       style={props.idx % 2 ? styles.beneficiaryContainer : [styles.beneficiaryContainer, styles.oddContainer]}
     >
-      <View key={props.data.beneficiaryId}>
+      <View>
         <BeneficiaryItem
           icon={props.data.icon ? props.data.icon : BankBgGradient}
           beneficiaryId={props.data.beneficiaryId}

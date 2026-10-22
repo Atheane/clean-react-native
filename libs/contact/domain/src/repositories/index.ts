@@ -1,5 +1,7 @@
 import { IContact } from '../entities';
+import { IAddContactCommand } from '../commands';
 
 export interface IContactRepository {
-  getContact(): Promise<IContact[]>;
+  getContacts(): Promise<IContact[]>;
+  addContact(contact: IAddContactCommand): Promise<IContact>;
 }

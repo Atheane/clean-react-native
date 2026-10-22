@@ -13,27 +13,53 @@ export const contactReducer = (state = initialState, action: IContactActions) =>
   const logger = Logger.getInstance();
   let newState: IContactState;
   switch (action.type) {
-    case IContactTypes.CONTACT_LIST:
+    case IContactTypes.ADD_CONTACT:
       logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
       };
       return newState;
-    case IContactTypes.CONTACT_LIST_DONE:
+    case IContactTypes.LIST_CONTACT:
       logger.debug(action.type);
       newState = {
         ...state,
-        pending: false,
-        contacts: action.payload,
+        pending: true,
       };
       return newState;
-    case IContactTypes.CONTACT_LIST_INIT:
+    case IContactTypes.INIT_CONTACT:
       logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
         contacts: null,
+      };
+      return newState;
+    case IContactTypes.CONTACT_ADDED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        contacts:
+          state.contacts && state.contacts.length > 0
+            ? [...state.contacts, action.payload]
+            : [action.payload],
+      };
+      return newState;
+    case IContactTypes.CONTACT_ADD_FAILED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        error: action.payload,
+      };
+      return newState;
+    case IContactTypes.CONTACT_LISTED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        contacts: action.payload,
       };
       return newState;
     default:

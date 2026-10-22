@@ -85,7 +85,7 @@
         "USER_UNAUTHENTICATED": "veuillez vous authentifier"
       },
       "user": {
-        "INVALID_PHONE": "Téléphone invalide",
+        "INVALID_PHONE": "Numéro de téléphone mobile invalide",
         "INVALID_COUNTRY": "Pays invalide",
         "UNAVAILABLE_COUNTRY": "Pays indisponible",
         "INVALID_BIRTHDAY": "Date de naissance invalide",
@@ -104,7 +104,14 @@
       "beneficiary": {
         "INVALID_IBAN": "IBAN invalide",
         "INVALID_BIC": "BIC invalide",
-        "INVALID_NAME": "Nom invalide"
+        "INVALID_NAME": "Nom invalide",
+        "BENEFICIARY_ALREADY_EXISTS": "Ce destinataire existe déjà",
+        "BENEFICIARY_UNKNOWN": "Beneficiaire inconnu"
+      },
+      "contact": {
+        "INVALID_NAME": "Format du nom invalide",
+        "INVALID_PHONE": "Numéro de téléphone mobile invalide",
+        "CONTACT_ALREADY_EXISTS": "Ce contact existe déjà"
       },
       "carbon": {
         "INVALID_HOUSE_PROPS": "Propriétés de maison invalides",
@@ -176,11 +183,11 @@
     },
     "first-name": {
       "label": "prénom",
-      "placeholder": "prénom"
+      "placeholder": "John"
     },
     "last-name": {
       "label": "nom",
-      "placeholder": "nom"
+      "placeholder": "Doe"
     }
   },
   "signup-phone": {
@@ -189,7 +196,7 @@
     },
     "phone": {
       "label": "numéro de téléphone",
-      "placeholder": "Numéro de téléphone"
+      "placeholder": "0607080910"
     }
   },
   "signup-birth": {

@@ -1,27 +1,49 @@
 import { IDomainError } from '@clean-rn/ddd';
 import {
   IBeneficiary,
-  IBeneficiaryAddCommand,
-  IBeneficiaryDeleteCommand,
+  IAddBeneficiaryCommand,
+  IDeleteBeneficiaryCommand,
   IBeneficiaryErrorMessage,
   IBeneficiaryErrorCodes,
 } from '@clean-rn/beneficiary/domain';
 //
 import {
   IBeneficiaryTypes,
-  IBeneficiaryAdd,
+  IAddBeneficiary,
+  IDeleteBeneficiary,
+  IListBeneficiary,
+  IInitBeneficiary,
   IBeneficiaryAddFailed,
-  IBeneficiaryDelete,
   IBeneficiaryDeleteFailed,
-  IBeneficiaryList,
-  IBeneficiaryListDone,
-  IBeneficiaryListInit,
+  IBeneficiaryListed,
   IBeneficiaryActions,
+  IBeneficiaryAdded,
+  IBeneficiaryDeleted,
 } from './types';
 
 // commands
-export const beneficiaryAdd = (payload: IBeneficiaryAddCommand): IBeneficiaryAdd => ({
-  type: IBeneficiaryTypes.BENEFICIARY_ADD,
+export const addBeneficiary = (payload: IAddBeneficiaryCommand): IAddBeneficiary => ({
+  type: IBeneficiaryTypes.ADD_BENEFICIARY,
+  payload,
+});
+
+export const deleteBeneficiary = (payload: IDeleteBeneficiaryCommand): IDeleteBeneficiary => ({
+  type: IBeneficiaryTypes.DELETE_BENEFICIARY,
+  payload,
+});
+
+export const listBeneficiaries = (): IListBeneficiary => ({
+  type: IBeneficiaryTypes.LIST_BENEFICIARIES,
+});
+
+export const initBeneficiary = (): IInitBeneficiary => ({
+  type: IBeneficiaryTypes.INIT_BENEFICIARY,
+});
+
+// domainEvents
+
+export const beneficiaryAdded = (payload: IBeneficiary): IBeneficiaryAdded => ({
+  type: IBeneficiaryTypes.BENEFICIARY_ADDED,
   payload,
 });
 
@@ -32,8 +54,8 @@ export const beneficiaryAddFailure = (
   payload,
 });
 
-export const beneficiaryDelete = (payload: IBeneficiaryDeleteCommand): IBeneficiaryDelete => ({
-  type: IBeneficiaryTypes.BENEFICIARY_DELETE,
+export const beneficiaryDeleted = (payload: IBeneficiary): IBeneficiaryDeleted => ({
+  type: IBeneficiaryTypes.BENEFICIARY_DELETED,
   payload,
 });
 
@@ -44,17 +66,8 @@ export const beneficiaryDeleteFailure = (
   payload,
 });
 
-export const beneficiaryList = (): IBeneficiaryList => ({
-  type: IBeneficiaryTypes.BENEFICIARY_LIST,
-});
-
-export const beneficiaryListInit = (): IBeneficiaryListInit => ({
-  type: IBeneficiaryTypes.BENEFICIARY_LIST_INIT,
-});
-
-// domainEvents
-export const beneficiaryListed = (payload: IBeneficiary[]): IBeneficiaryListDone => ({
-  type: IBeneficiaryTypes.BENEFICIARY_LIST_DONE,
+export const beneficiariesListed = (payload: IBeneficiary[]): IBeneficiaryListed => ({
+  type: IBeneficiaryTypes.BENEFICIARIES_LISTED,
   payload,
 });
 

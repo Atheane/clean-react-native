@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Tab, TabView } from '@rneui/themed';
 import { View, StyleSheet, Dimensions, SafeAreaView, StyleProp, ViewStyle } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 import { IconNode } from '@rneui/base';
@@ -25,8 +25,8 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { IBeneficiaryStackPages, ITransferStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 
-import { beneficiaryDelete, beneficiaryList } from '../../application/commands/beneficiary';
-import { contactList } from '../../application/commands/contact';
+import { listBeneficiaries } from '../../application/commands/beneficiary';
+import { listContact } from '../../application/commands/contact';
 
 const ContentNoBeneficiary = () => {
   const { t } = useTranslation();
@@ -79,7 +79,6 @@ const ContentNoContact = () => {
 
 const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
   const navigation = useNavigation();
-  const dispatch = useDispatch();
   const { theme } = useTheme();
 
   const handleOnPressAdd = useCallback(() => {
@@ -91,7 +90,7 @@ const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
       console.log('handleOnPress', beneficiaryId);
       navigation.navigate(ITransferStackPages.MENU, { beneficiaryId });
     },
-    [dispatch],
+    [navigation],
   );
   // const handleOnPressDelete = useCallback(
   //   (beneficiaryId: number) => {
@@ -147,47 +146,26 @@ const ContentContact = (props: { data: IContact[] }) => {
   );
 };
 
-const Beneficiary = ({ beneficiaries }: { beneficiaries: IBeneficiary[] | null }) => {
-  const hasBeneficiary = beneficiaries && beneficiaries.length > 0;
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(beneficiaryList());
-  }, [dispatch]);
-
-  return (
-    <>
-      {!hasBeneficiary && <ContentNoBeneficiary />}
-      {hasBeneficiary && <ContentBeneficiary data={beneficiaries} />}
-    </>
-  );
-};
-
-// TODO Refactor after UX review
-const Contact = ({ contacts }: { contacts: IContact[] | null }) => {
-  const hasContact = contacts && contacts.length > 0;
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(contactList());
-  }, [dispatch]);
-
-  return (
-    <>
-      {!hasContact && <ContentNoContact />}
-      {hasContact && <ContentContact data={contacts} />}
-    </>
-  );
-};
-
 export const BeneficiaryList = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
 
-  const [index, setIndex] = useState<0 | 1>(0);
-  const handleOnChangeTab = useCallback((index: 0 | 1) => {
-    setIndex(index);
-  }, []);
+  const { params } = useRoute() as { params: { idx: number } };
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(listBeneficiaries());
+    dispatch(listContact());
+  }, [dispatch]);
+
+  const [index, setIndex] = useState<number>(params?.idx || 0);
+  const handleOnChangeTab = useCallback(
+    (index: number) => {
+      setIndex(index);
+    },
+    [params],
+  );
 
   const { beneficiaries, pending: beneficiaryPending } = useSelector(
     (state: IRootState) => state.beneficiary.beneficiaries,
@@ -195,11 +173,13 @@ export const BeneficiaryList = () => {
   const { contacts, pending: contactPending } = useSelector(
     (state: IRootState) => state.beneficiary.contacts,
   );
-  console.log('BeneficiaryList', beneficiaryPending, contactPending);
-  // return beneficiaryPending || contactPending ? (
-  //   <LoaderSplashScreen />
-  // ) :
-  return (
+
+  const hasBeneficiary = beneficiaries && beneficiaries.length > 0;
+  const hasContact = contacts && contacts.length > 0;
+
+  return beneficiaryPending || contactPending ? (
+    <LoaderSplashScreen />
+  ) : (
     <ErrorBoundary t={t}>
       <View style={styles.container}>
         <View style={styles.row}>
@@ -236,7 +216,7 @@ export const BeneficiaryList = () => {
         <View style={styles.tabContent}>
           <TabView
             value={index}
-            onChange={setIndex}
+            onChange={handleOnChangeTab}
             animationType="spring"
             containerStyle={{ backgroundColor: Colors.bank.primary.white }}
           >
@@ -246,7 +226,10 @@ export const BeneficiaryList = () => {
                 { width: '100%' },
               ]}
             >
-              <Beneficiary beneficiaries={beneficiaries} />
+              <>
+                {!hasBeneficiary && <ContentNoBeneficiary />}
+                {hasBeneficiary && <ContentBeneficiary data={beneficiaries} />}
+              </>
             </TabView.Item>
             <TabView.Item
               style={[
@@ -254,7 +237,10 @@ export const BeneficiaryList = () => {
                 { width: '100%' },
               ]}
             >
-              <Contact contacts={contacts} />
+              <>
+                {!hasContact && <ContentNoContact />}
+                {hasContact && <ContentContact data={contacts} />}
+              </>
             </TabView.Item>
           </TabView>
         </View>

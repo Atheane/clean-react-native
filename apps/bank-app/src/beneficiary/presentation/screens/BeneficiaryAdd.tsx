@@ -8,9 +8,8 @@ import { useCleanErrorOnFocus, FormBeneficiary, IBeneficiaryFormData, Colors } f
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 
-import { beneficiaryAdd } from '../../application/commands/beneficiary';
+import { addBeneficiary } from '../../application/commands/beneficiary';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -33,8 +32,7 @@ export const BeneficiaryAdd = () => {
   const dispatch = useDispatch();
   const onSubmit = useCallback(
     (formData: IBeneficiaryFormData) => {
-      console.log('formData', formData);
-      dispatch(beneficiaryAdd(formData));
+      dispatch(addBeneficiary(formData));
     },
     [dispatch],
   );
@@ -60,7 +58,6 @@ export const BeneficiaryAdd = () => {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     backgroundColor: Colors.bank.primary.white,
   },
 });

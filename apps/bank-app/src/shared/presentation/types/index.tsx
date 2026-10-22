@@ -124,11 +124,6 @@ export enum IHomeStackPages {
   MENU = 'MenuHome',
   HOME = 'Home',
   ACCOUNTS = 'Accounts',
-  // TODO Move
-  BENEFICIARY_LIST = 'BeneficiaryList',
-  BENEFICIARY_ADD = 'BeneficiaryAdd',
-  CONTACT_ADD = 'ContactAdd',
-  // TODO END
   HELP = 'Help',
   TRANSACTIONS = 'Transactions',
   RESTO_FLASH = 'RestoFlash',
@@ -209,9 +204,6 @@ export type IHomeStackProps = {
   [IHomeStackPages.MENU]: object;
   [IHomeStackPages.HOME]: object;
   [IHomeStackPages.ACCOUNTS]: object;
-  [IHomeStackPages.BENEFICIARY_LIST]: object;
-  [IHomeStackPages.BENEFICIARY_ADD]: object;
-  [IHomeStackPages.CONTACT_ADD]: object;
   [IHomeStackPages.HELP]: object;
   [IHomeStackPages.TRANSACTIONS]: object;
   [IHomeStackPages.ACCOUNT_STATEMENTS]: object;
@@ -281,9 +273,6 @@ export type IRoutes =
   | IUserStackPages.PROFILE
   | IUserStackPages.NOTIFICATON_SETTINGS
   | IHomeStackPages.ACCOUNTS
-  | IHomeStackPages.BENEFICIARY_ADD
-  | IHomeStackPages.BENEFICIARY_LIST
-  | IHomeStackPages.CONTACT_ADD
   | IHomeStackPages.MENU
   | IHomeStackPages.HOME
   | IHomeStackPages.HELP

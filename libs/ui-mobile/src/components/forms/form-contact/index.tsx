@@ -63,7 +63,7 @@ export const FormContact = (props: IProps) => {
   );
 
   return (
-    <View style={theme.bank.container.centeredItem}>
+    <View style={[styles.container, theme.bank.container.centeredItem]}>
       <View style={styles.input}>
         <Controller
           control={props.control}
@@ -211,12 +211,11 @@ export const FormContact = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    marginTop: '20%',
+  },
   input: {
     marginTop: 40,
-  },
-  formSubmit: {
-    marginTop: 80,
-    marginBottom: 120,
   },
   errorPhoneContainer: {
     marginTop: 10,
@@ -241,5 +240,8 @@ const styles = StyleSheet.create({
   selectButton: {
     width: 100,
     alignItems: 'center',
+  },
+  formSubmit: {
+    marginTop: '30%',
   },
 });

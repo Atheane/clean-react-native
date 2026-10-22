@@ -5,12 +5,16 @@ export enum IBeneficiaryErrorMessage {
   INVALID_IBAN = 'Invalid IBAN',
   INVALID_BIC = 'Invalid BIC',
   INVALID_NAME = 'Invalid name format',
+  BENEFICIARY_ALREADY_EXISTS = 'Beneficiary already exists',
+  BENEFICIARY_UNKNOWN = 'Beneficiary unknown',
 }
 
 export enum IBeneficiaryErrorCodes {
   INVALID_IBAN = 'INVALID_IBAN',
   INVALID_BIC = 'INVALID_BIC',
   INVALID_NAME = 'INVALID_NAME',
+  BENEFICIARY_ALREADY_EXISTS = 'BENEFICIARY_ALREADY_EXISTS',
+  BENEFICIARY_UNKNOWN = 'BENEFICIARY_UNKNOWN',
 }
 
 export namespace BeneficiaryError {
@@ -56,6 +60,34 @@ export namespace BeneficiaryError {
       super();
       this.message = IBeneficiaryErrorMessage.INVALID_NAME;
       this.code = IBeneficiaryErrorCodes.INVALID_NAME;
+      this.cause = cause;
+    }
+  }
+  export class BeneficiaryAlreadyExists
+    extends Error
+    implements IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>
+  {
+    code: IBeneficiaryErrorCodes;
+    message: IBeneficiaryErrorMessage;
+    cause?: unknown;
+    constructor(cause?: unknown) {
+      super();
+      this.message = IBeneficiaryErrorMessage.BENEFICIARY_ALREADY_EXISTS;
+      this.code = IBeneficiaryErrorCodes.BENEFICIARY_ALREADY_EXISTS;
+      this.cause = cause;
+    }
+  }
+  export class BeneficiaryUnknown
+    extends Error
+    implements IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>
+  {
+    code: IBeneficiaryErrorCodes;
+    message: IBeneficiaryErrorMessage;
+    cause?: unknown;
+    constructor(cause?: unknown) {
+      super();
+      this.message = IBeneficiaryErrorMessage.BENEFICIARY_UNKNOWN;
+      this.code = IBeneficiaryErrorCodes.BENEFICIARY_UNKNOWN;
       this.cause = cause;
     }
   }

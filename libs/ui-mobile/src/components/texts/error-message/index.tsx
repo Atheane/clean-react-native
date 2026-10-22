@@ -18,6 +18,7 @@ import {
 import { useTheme } from '@rneui/themed';
 
 import { firstLetterCapitalize } from '../../../utils';
+import { IContactErrorCodes, IContactErrorMessage } from '@clean-rn/contact/domain';
 
 type IProps = {
   error:
@@ -25,6 +26,7 @@ type IProps = {
     | IDomainError<IUserErrorCodes, IUserErrorMessage>
     | IDomainError<IAccountErrorCodes, IAccountErrorMessage>
     | IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>
+    | IDomainError<IContactErrorCodes, IContactErrorMessage>
     | IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>
     | IDomainError<ICustomerErrorCodes, ICustomerErrorMessage>
     | IDomainError<IDocumentErrorCodes, IDocumentErrorMessage>
@@ -69,6 +71,15 @@ export const ErrorMessage = (props: IProps) => {
         )}
       {props.error &&
         props.error.code &&
+        Object.values(IContactErrorCodes).includes(props.error.code as IContactErrorCodes) && (
+          <View>
+            <Text style={theme.bank.text.errors}>
+              {firstLetterCapitalize(t(`errors.domain-error.contact.${props.error.code}`))}
+            </Text>
+          </View>
+        )}
+      {props.error &&
+        props.error.code &&
         Object.values(ICarbonErrorCodes).includes(props.error.code as ICarbonErrorCodes) && (
           <View>
             <Text style={theme.bank.text.errors}>
@@ -96,6 +107,8 @@ export const ErrorMessage = (props: IProps) => {
         !Object.values(IAuthErrorCodes).includes(props.error.code as IAuthErrorCodes) &&
         !Object.values(IUserErrorCodes).includes(props.error.code as IUserErrorCodes) &&
         !Object.values(IAccountErrorCodes).includes(props.error.code as IAccountErrorCodes) &&
+        !Object.values(IBeneficiaryErrorCodes).includes(props.error.code as IBeneficiaryErrorCodes) &&
+        !Object.values(IContactErrorCodes).includes(props.error.code as IContactErrorCodes) &&
         !Object.values(ICarbonErrorCodes).includes(props.error.code as ICarbonErrorCodes) &&
         !Object.values(ICustomerErrorCodes).includes(props.error.code as ICustomerErrorCodes) &&
         !Object.values(IDocumentErrorCodes).includes(props.error.code as IDocumentErrorCodes) && (

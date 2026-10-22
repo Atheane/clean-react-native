@@ -11,11 +11,11 @@ type IProps = {
 
 export const ContactCard = (props: IProps) => {
   return (
-    <View style={props.idx % 2 ? styles.contactContainer : [styles.contactContainer, styles.oddContainer]}>
-      <View key={props.data.name}>
+    <View style={props.idx % 2 ? [styles.contactContainer, styles.oddContainer] : styles.contactContainer}>
+      <View>
         {props.data.phone.length > 0 && (
           <ContactItem
-            icon={props.idx % 2 ? PhoneGradientGreyBg : PhoneGradientWhiteBg}
+            icon={props.idx % 2 ? PhoneGradientWhiteBg : PhoneGradientGreyBg}
             name={props.data.name}
             phone={props.data.phone}
           />

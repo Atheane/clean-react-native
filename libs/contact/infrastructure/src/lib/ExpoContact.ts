@@ -1,7 +1,7 @@
 import * as Contacts from 'expo-contacts';
 //
-import { Phone } from '@clean-rn/auth/domain';
-import { IContact, IContactAddCommand, IContactRepository } from '@clean-rn/contact/domain';
+import { Phone } from '@clean-rn/user/domain';
+import { IContact, IAddContactCommand, IContactRepository, ContactError } from '@clean-rn/contact/domain';
 //
 import { mapContactExpoToContact } from '../mappers';
 
@@ -10,7 +10,7 @@ export class ExpoContact implements IContactRepository {
 
   // Make the constructor private to prevent direct instantiation
   private constructor() {
-    this.getContact = this.getContact.bind(this);
+    this.getContacts = this.getContacts.bind(this);
   }
 
   // Public method to provide access to the singleton instance
@@ -19,7 +19,7 @@ export class ExpoContact implements IContactRepository {
     return this.instance;
   }
 
-  async getContact(): Promise<IContact[]> {
+  async getContacts(): Promise<IContact[]> {
     const { status } = await Contacts.requestPermissionsAsync();
     const sortType = Contacts.SortTypes.FirstName;
 
@@ -35,7 +35,7 @@ export class ExpoContact implements IContactRepository {
     return [];
   }
 
-  async addContact(contact: IContactAddCommand): Promise<IContact> {
+  async addContact(contact: IAddContactCommand): Promise<IContact> {
     const phone = new Phone(contact.phone, contact.countryCode);
     const newContact = {
       [Contacts.Fields.ContactType]: Contacts.ContactTypes.Person,
@@ -50,6 +50,11 @@ export class ExpoContact implements IContactRepository {
         },
       ],
     };
+
+    const contacts = await this.getContacts();
+    if (contacts.find((c: IContact) => c.phone === phone.valueInternational))
+      throw new ContactError.ContactAlreadyExists();
+
     await Contacts.addContactAsync(newContact);
 
     return {

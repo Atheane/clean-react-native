@@ -1,4 +1,4 @@
-export type IContactAddCommand = {
+export type IAddContactCommand = {
   firstname: string;
   lastname: string;
   phone: string;
