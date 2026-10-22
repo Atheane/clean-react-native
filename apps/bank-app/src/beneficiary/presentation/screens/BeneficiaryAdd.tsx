@@ -19,7 +19,7 @@ export const BeneficiaryAdd = () => {
   const { t } = useTranslation();
 
   // api call
-  const { pending, error } = useSelector((state: IRootState) => state.beneficiary.beneficiary);
+  const { pending, error } = useSelector((state: IRootState) => state.beneficiary.beneficiaries);
 
   // internal state
   const {

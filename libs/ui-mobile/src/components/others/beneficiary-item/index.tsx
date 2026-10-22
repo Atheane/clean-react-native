@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
-import { Colors } from '../../../constants';
+import { Colors, FontNames } from '../../../constants';
 
 type IProps = {
   icon?: React.FC<SvgProps>;
@@ -24,28 +24,30 @@ export const BeneficiaryItem = (props: IProps) => {
 
   return (
     <View style={theme.bank.container.justifiedItems}>
-      <View style={theme.bank.container.leftItems}>
-        {props.icon && <props.icon />}
-        <View style={styles.textContainer}>
-          <Text style={theme.bank.text.grey}>{cleanText()}</Text>
-        </View>
-      </View>
+      <View style={theme.bank.container.leftItems}>{props.icon && <props.icon />}</View>
 
-      <Text style={[theme.bank.text.boldGrey]}>{props.iban}</Text>
+      <View style={styles.textContainer}>
+        <Text style={styles.textName}>{cleanText()}</Text>
+        <Text style={styles.textIban}>{props.iban}</Text>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   textContainer: {
-    marginLeft: 0,
+    flex: 1,
+    justifyContent: 'center',
+    paddingLeft: 25,
   },
-  amountPositive: {
-    textAlign: 'right',
-    color: Colors.bank.primary.lightGreen,
+  textName: {
+    fontFamily: FontNames.Roboto_700Bold,
+    fontSize: 18,
+    color: Colors.bank.primary.darkGrey,
   },
-  amountNegative: {
-    textAlign: 'right',
+  textIban: {
     color: Colors.bank.primary.grey,
+    fontSize: 14,
+    marginTop: 5,
   },
 });

@@ -1,11 +1,10 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { Card, Divider } from '@rneui/base';
-import { useTheme } from '@rneui/themed';
-import { SvgProps } from 'react-native-svg';
-
-import { IBeneficiary, IBeneficiaryCategory } from '@clean-rn/beneficiary/domain';
+import { StyleSheet, View } from 'react-native';
+import { Card } from '@rneui/base';
+//
+import { IBeneficiary } from '@clean-rn/beneficiary/domain';
+//
+import { Colors } from '../../../constants';
 import { BeneficiaryItem } from '../../others/beneficiary-item';
-
 import { BANK } from '../../../assets';
 
 type IProps = {
@@ -13,18 +12,15 @@ type IProps = {
   idx: number;
 };
 
-//const BeneficiaryIcons = {
-//  [IBeneficiaryCategory.BANK]: BANK,
-//} as { [key: string]: React.FC<SvgProps> };
-
 export const BeneficiaryCard = (props: IProps) => {
-  //icon={BeneficiaryIcons['BANK']}
-  console.log('BENEFICIARY CARD', props);
-  const { theme } = useTheme();
   return (
-    <Card containerStyle={styles.beneficiaryContainer}>
+    <Card
+      containerStyle={
+        props.idx % 2 ? styles.beneficiaryContainer : [styles.beneficiaryContainer, styles.oddContainer]
+      }
+    >
       <View key={props.data.beneficiaryId}>
-        <BeneficiaryItem name={props.data.name} iban={props.data.iban} />
+        <BeneficiaryItem icon={BANK} name={props.data.name} iban={props.data.iban} />
       </View>
     </Card>
   );
@@ -33,6 +29,10 @@ export const BeneficiaryCard = (props: IProps) => {
 const styles = StyleSheet.create({
   beneficiaryContainer: {
     marginHorizontal: 0,
-    height: 80,
+    marginVertical: 0,
+    height: 70,
+  },
+  oddContainer: {
+    backgroundColor: Colors.bank.primary.lightGrey,
   },
 });

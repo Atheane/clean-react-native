@@ -21,7 +21,7 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
       };
       return newState;
     case IBeneficiaryTypes.BENEFICIARY_LIST_DONE:
-      logger.debug(action.type);
+      logger.debug(action.type, action.payload);
       newState = {
         ...state,
         pending: false,

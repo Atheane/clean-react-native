@@ -36,18 +36,15 @@ export function* addBeneficiaryGenerator(
   },
 ): Generator<StrictEffect, any, any> {
   try {
-    console.log('ADD BENEFICIARIES USECASE', payload);
     // api call - add beneficiary
     const api = BeneficiaryApi.getInstance(httpConnection);
     const beneficiary = yield call([api, api.addBeneficiary], payload);
 
     // update store
     const { beneficiaries: beneficiariesFromStore } = yield select(selectBeneficiary);
-    let beneficiaries;
     if (beneficiariesFromStore) {
-      beneficiaries = beneficiariesFromStore;
-      beneficiaries.push(beneficiary);
-      yield put(beneficiaryListed(beneficiaries));
+      beneficiariesFromStore.push(beneficiary);
+      yield put(beneficiaryListed(beneficiariesFromStore));
     } else {
       yield put(beneficiaryListed([beneficiary]));
     }
@@ -72,12 +69,9 @@ export function* addBeneficiaryGenerator(
 
 export function* listBeneficiaryGenerator(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   try {
-    console.log('GET BENEFICIARIES USECASE');
     const { beneficiaries: beneficiariesFromStore } = yield select(selectBeneficiary);
-    let beneficiaries;
     if (beneficiariesFromStore) {
-      beneficiaries = beneficiariesFromStore;
-      yield put(beneficiaryListed(beneficiaries));
+      yield put(beneficiaryListed(beneficiariesFromStore));
       yield call(navigate, { route: IHomeStackPages.BENEFICIARY_LIST });
     } else {
       const api = BeneficiaryApi.getInstance(httpConnection);

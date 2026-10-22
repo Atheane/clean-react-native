@@ -16,8 +16,8 @@ import { ErrorMessage } from '../../texts/error-message';
 
 export type IBeneficiaryFormData = {
   name: string;
-  IBAN: string;
-  BIC: string;
+  iban: string;
+  bic: string;
 };
 
 type IProps = {
@@ -64,7 +64,7 @@ export const FormBeneficiary = (props: IProps) => {
       <View style={styles.inputContainer}>
         <Controller
           control={props.control}
-          name="IBAN"
+          name="iban"
           rules={{
             required: true,
             validate: (value) => IBAN.validate(value),
@@ -81,12 +81,12 @@ export const FormBeneficiary = (props: IProps) => {
           )}
         />
       </View>
-      {props.errors?.IBAN && props.errors.IBAN.type === 'required' && (
+      {props.errors?.iban && props.errors.iban.type === 'required' && (
         <View style={styles.errorContainer}>
           <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.IBAN.required'))}</Text>
         </View>
       )}
-      {props.errors?.IBAN && props.errors.IBAN.type === 'validate' && (
+      {props.errors?.iban && props.errors.iban.type === 'validate' && (
         <View style={styles.errorContainer}>
           <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.IBAN.invalid'))}</Text>
         </View>
@@ -94,7 +94,7 @@ export const FormBeneficiary = (props: IProps) => {
       <View style={styles.inputContainer}>
         <Controller
           control={props.control}
-          name="BIC"
+          name="bic"
           rules={{
             required: true,
             //            validate: (value) => BIC.validate(value),
@@ -111,12 +111,12 @@ export const FormBeneficiary = (props: IProps) => {
           )}
         />
       </View>
-      {props.errors?.BIC && props.errors.BIC.type === 'required' && (
+      {props.errors?.bic && props.errors.bic.type === 'required' && (
         <View style={styles.errorContainer}>
           <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.BIC.required'))}</Text>
         </View>
       )}
-      {props.errors?.BIC && props.errors.BIC.type === 'validate' && (
+      {props.errors?.bic && props.errors.bic.type === 'validate' && (
         <View style={styles.errorContainer}>
           <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.BIC.invalid'))}</Text>
         </View>

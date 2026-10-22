@@ -34,7 +34,7 @@ export const rootReducer = combineReducers({
     transactions: transactionsReducer,
     deletedEventCards: eventCardsReducer,
   }),
-  beneficiary: combineReducers({ beneficiary: beneficiaryReducer }),
+  beneficiary: combineReducers({ beneficiaries: beneficiaryReducer }),
   carbon: carbonReducer,
   kyc: combineReducers({ customer: customerReducer, document: documentReducer }),
 });

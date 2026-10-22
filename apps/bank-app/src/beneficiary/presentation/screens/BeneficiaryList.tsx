@@ -1,38 +1,23 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Tab, TabView } from '@rneui/themed';
-import {
-  View,
-  StyleSheet,
-  StyleProp,
-  ViewStyle,
-  Text,
-  Dimensions,
-  ScrollView,
-  SafeAreaView,
-} from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle, Text, Dimensions, SafeAreaView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import * as Contacts from 'expo-contacts';
 
 import { IBeneficiary } from '@clean-rn/beneficiary/domain';
 import {
-  CO2,
   PrimaryButton,
   LinkButton,
   LinkButtonColors,
-  Bic as BicIcon,
   BeneficiaryAdd,
-  Iban as IbanIcon,
-  CopyValueClipboard,
   BeneficiaryCardList,
-  WhiteBalance,
   Colors,
-  FontNames,
 } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IBeneficiaryStackPages } from '../../../shared/presentation/types';
-import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { ErrorBoundary } from '../../../shared/presentation/hoc';
 
 import { beneficiaryList } from '../../application/commands/beneficiary';
 
@@ -45,20 +30,18 @@ const ContentNoBeneficiary = () => {
   }, [navigation]);
 
   return (
-    <>
-      <View style={styles.btnAddContainer}>
-        <PrimaryButton
-          title={t('screens.beneficiary.add-beneficiary')}
-          onPress={handleOnPressAdd}
-          iconOne={() => (
-            <View style={{ height: 23, marginLeft: -80, justifyContent: 'center' }}>
-              <BeneficiaryAdd style={{ marginTop: 15 } as StyleProp<ViewStyle>} />
-            </View>
-          )}
-          long
-        />
-      </View>
-    </>
+    <View style={styles.btnAddContainer}>
+      <PrimaryButton
+        title={t('screens.beneficiary.add-beneficiary')}
+        onPress={handleOnPressAdd}
+        iconOne={() => (
+          <View style={{ height: 23, marginLeft: -80, justifyContent: 'center' }}>
+            <BeneficiaryAdd style={{ marginTop: 15 } as StyleProp<ViewStyle>} />
+          </View>
+        )}
+        long
+      />
+    </View>
   );
 };
 
@@ -108,7 +91,7 @@ const ContactList = () => {
         }
       }
     })();
-  }, []);
+  }, [contacts]);
 
   return (
     <View style={styles.container}>
@@ -118,15 +101,13 @@ const ContactList = () => {
 };
 
 const Beneficiary = () => {
-  const { beneficiaries } = useSelector((state: IRootState) => state.beneficiary.beneficiary);
+  const { beneficiaries } = useSelector((state: IRootState) => state.beneficiary.beneficiaries);
   const hasBeneficiary = beneficiaries && beneficiaries?.length > 0;
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(beneficiaryList());
   }, [dispatch]);
-
-  console.log('beneficiaires', beneficiaries);
 
   return (
     <>
@@ -148,22 +129,21 @@ export const BeneficiaryList = () => {
             value={index}
             onChange={(e) => setIndex(e)}
             indicatorStyle={{
-              backgroundColor: 'white',
+              backgroundColor: 'green',
               height: 3,
             }}
-            variant="primary"
           >
             <Tab.Item
-              title="Recent"
-              titleStyle={{ fontSize: 12 }}
-              icon={{ name: 'business-outline', type: 'ionicon', color: 'white' }}
+              title="Bank"
+              titleStyle={{ fontSize: 12, color: Colors.bank.primary.green }}
+              icon={{ name: 'business-outline', type: 'ionicon', color: Colors.bank.primary.green }}
             >
               Bank
             </Tab.Item>
             <Tab.Item
-              title="cart"
-              titleStyle={{ fontSize: 12 }}
-              icon={{ name: 'people-outline', type: 'ionicon', color: 'white' }}
+              title="Contact"
+              titleStyle={{ fontSize: 12, color: Colors.bank.primary.green }}
+              icon={{ name: 'people-outline', type: 'ionicon', color: Colors.bank.primary.green }}
             >
               Contacts
             </Tab.Item>
@@ -172,10 +152,10 @@ export const BeneficiaryList = () => {
 
         <View style={styles.tabContent}>
           <TabView value={index} onChange={setIndex} animationType="spring">
-            <TabView.Item style={{ backgroundColor: 'red', width: '100%' }}>
+            <TabView.Item style={{ backgroundColor: 'white', width: '100%' }}>
               <Beneficiary />
             </TabView.Item>
-            <TabView.Item style={{ backgroundColor: 'blue', width: '100%' }}>
+            <TabView.Item style={{ backgroundColor: 'white', width: '100%' }}>
               <ContactList />
             </TabView.Item>
           </TabView>
@@ -188,7 +168,7 @@ export const BeneficiaryList = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.bank.primary.darkBlue,
+    backgroundColor: Colors.bank.primary.white,
     marginTop: 0,
   },
   row: {},
@@ -212,8 +192,7 @@ const styles = StyleSheet.create({
   },
   content: {
     marginTop: 30,
-    backgroundColor: Colors.bank.primary.green,
-    height: Dimensions.get('window').height - 350,
+    height: Dimensions.get('window').height - 300,
   },
   scrollNoBeneficiary: {
     alignItems: 'center',
