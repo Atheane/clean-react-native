@@ -19,6 +19,7 @@ export function* listAccountsSaga(httpConnection: HttpConnection): Generator<Str
 export function* listAccountsGenerator(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   try {
     const { accounts: accountsFromStore } = yield select(selectAccounts);
+
     let accounts;
     if (accountsFromStore) {
       accounts = accountsFromStore;
