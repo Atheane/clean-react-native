@@ -2,6 +2,7 @@ import { IDomainError } from '@clean-rn/ddd';
 import {
   IBeneficiary,
   IBeneficiaryAddCommand,
+  IBeneficiaryDeleteCommand,
   IBeneficiaryErrorMessage,
   IBeneficiaryErrorCodes,
 } from '@clean-rn/beneficiary/domain';
@@ -27,8 +28,13 @@ export type IBeneficiaryAddFailed = {
 };
 
 export type IBeneficiaryDelete = {
-  type: typeof IBeneficiaryTypes.BENEFICIARY_ADD;
-  payload: IBeneficiaryAddCommand;
+  type: typeof IBeneficiaryTypes.BENEFICIARY_DELETE;
+  payload: IBeneficiaryDeleteCommand;
+};
+
+export type IBeneficiaryDeleteFailed = {
+  type: typeof IBeneficiaryTypes.BENEFICIARY_DELETE_FAILED;
+  payload: IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>;
 };
 
 export type IBeneficiaryList = {
@@ -47,6 +53,8 @@ export type IBeneficiaryListInit = {
 export type IBeneficiaryActions =
   | IBeneficiaryAdd
   | IBeneficiaryAddFailed
+  | IBeneficiaryDelete
+  | IBeneficiaryDeleteFailed
   | IBeneficiaryList
   | IBeneficiaryListDone
   | IBeneficiaryListInit;
