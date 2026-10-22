@@ -11,24 +11,26 @@ import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentatio
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { selectBeneficiary } from '../../state-management/selectors';
-import { listBeneficiaryGenerator, listBeneficiarySaga } from '../../usecases/beneficiary';
+import { addBeneficiaryGenerator, addBeneficiarySaga } from '../../usecases/beneficiary';
 import { IBeneficiaryTypes, beneficiaryListed, beneficiaryListInit } from '../../commands/beneficiary';
 
-describe('ListBeneficiary - usecase', () => {
+describe('AddBeneficiary - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
 
   const api = BeneficiaryApi.getInstance(httpConnection);
-  const genObject = listBeneficiarySaga(httpConnection);
+  const addBeneficiarySage = addBeneficiarySaga(httpConnection);
 
-  const mockResponse = [
-    {
-      beneficiaryId: 4004318954,
-      iban: 'FR7616798000010000242599449',
-      bic: 'TRZOFR21XXX',
-      name: 'BENFMOCK',
-    },
-  ];
-
+  const mockRequest = {
+    iban: 'FR7616798000010000242599449',
+    bic: 'TRZOFR21XXX',
+    name: 'BENFMOCK',
+  };
+  const mockResponse = {
+    beneficiaryId: 4004318954,
+    iban: 'FR7616798000010000242599449',
+    bic: 'TRZOFR21XXX',
+    name: 'BENFMOCK',
+  };
   const mockError401 = {
     statusCode: 401,
     message: 'Unauthorized',
@@ -38,7 +40,7 @@ describe('ListBeneficiary - usecase', () => {
     },
     timestamp: '2023-10-03T13:20:21.303Z',
     path: '/app/beneficiary',
-    method: 'GET',
+    method: 'POST',
   };
 
   const mockError500 = {
@@ -49,43 +51,31 @@ describe('ListBeneficiary - usecase', () => {
     path: '/app/beneficiary',
   };
 
-  it('Should wait for LIST_BENEFICIARY action and call listBeneficiaryGenerator, should be done on next iteration', () => {
-    expect(genObject.next().value).toEqual(
-      takeEvery(IBeneficiaryTypes.BENEFICIARY_LIST, listBeneficiaryGenerator, httpConnection),
-    );
-    expect(genObject.next().done).toBeTruthy();
-  });
-
-  it('Should call beneficiaryListed if no cached data', async () => {
-    testSaga(listBeneficiaryGenerator, httpConnection)
+  it('Should call beneficiaryListed with added data', async () => {
+    testSaga(addBeneficiaryGenerator, httpConnection, {
+      type: IBeneficiaryTypes.BENEFICIARY_ADD,
+      payload: mockRequest,
+    })
       .next()
-      .select(selectBeneficiary)
+      .select(addBeneficiaryGenerator)
       .next({ beneficiaries: null })
-      .call([api, api.getBeneficiary]) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([api, api.addBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
-      .put(beneficiaryListed(mockResponse))
-      .next()
-      .call(navigate, { route: IHomeStackPages.BENEFICIARY_LIST })
-      .next();
-  });
-
-  it('Should call beneficiaryListed if beneficiaries cached', async () => {
-    testSaga(listBeneficiaryGenerator, httpConnection)
-      .next()
-      .select(selectBeneficiary)
-      .next({ beneficiaries: mockResponse })
-      .put(beneficiaryListed(mockResponse))
+      .put(beneficiaryListed([mockResponse]))
       .next()
       .call(navigate, { route: IHomeStackPages.BENEFICIARY_LIST })
       .next();
   });
 
   it('Should call navigate to Login modale if 401 from Server', () => {
-    testSaga(listBeneficiaryGenerator, httpConnection)
+    testSaga(addBeneficiaryGenerator, httpConnection, {
+      type: IBeneficiaryTypes.BENEFICIARY_ADD,
+      payload: mockRequest,
+    })
       .next()
       .select(selectBeneficiary)
       .next({ beneficiaries: null })
-      .call([api, api.getBeneficiary]) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([api, api.addBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
       .call(navigate, { route: IAuthStackPages.LOGIN })
       .next()
@@ -93,11 +83,14 @@ describe('ListBeneficiary - usecase', () => {
   });
 
   it('Should call showUnknownError action if 500 from Server', () => {
-    testSaga(listBeneficiaryGenerator, httpConnection)
+    testSaga(addBeneficiaryGenerator, httpConnection, {
+      type: IBeneficiaryTypes.BENEFICIARY_ADD,
+      payload: mockRequest,
+    })
       .next()
       .select(selectBeneficiary)
       .next({ beneficiaries: null })
-      .call([api, api.getBeneficiary]) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([api, api.addBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
       .put(beneficiaryListInit())
       .next()
@@ -106,11 +99,14 @@ describe('ListBeneficiary - usecase', () => {
   });
 
   it('Should call showUnknownError action if unknown error', () => {
-    testSaga(listBeneficiaryGenerator, httpConnection)
+    testSaga(addBeneficiaryGenerator, httpConnection, {
+      type: IBeneficiaryTypes.BENEFICIARY_ADD,
+      payload: mockRequest,
+    })
       .next()
       .select(selectBeneficiary)
       .next({ beneficiaries: null })
-      .call([api, api.getBeneficiary]) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([api, api.addBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unknown error'))
       .put(beneficiaryListInit())
       .next()

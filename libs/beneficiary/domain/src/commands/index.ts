@@ -1,8 +1,8 @@
 import { BIC, IBAN } from '../value-objects';
 
 export type IBeneficiaryAddCommand = {
-  bic: BIC;
-  iban: IBAN;
+  bic: string;
+  iban: string;
   name: string;
 };
 
