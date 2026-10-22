@@ -98,6 +98,7 @@ const getStories = () => {
     './stories/forms/TransportForm.stories.tsx': require('../stories/forms/TransportForm.stories'),
     './stories/forms/FormBeneficiary.stories.tsx': require('../stories/forms/FormBeneficiary.stories'),
     './stories/forms/FormContact.stories.tsx': require('../stories/forms/FormContact.stories'),
+    './stories/forms/FormTransfer.stories.tsx': require('../stories/forms/FormTransfer.stories'),
     // Inputs
     './stories/inputs/TextInput.stories.tsx': require('../stories/inputs/TextInput.stories'),
     './stories/inputs/EmailInput.stories.tsx': require('../stories/inputs/EmailInput.stories'),

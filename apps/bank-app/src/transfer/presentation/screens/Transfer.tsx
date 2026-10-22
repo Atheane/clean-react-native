@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { useSelector } from 'react-redux';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 
 import { IAccount } from '@clean-rn/account/domain';
@@ -21,7 +21,6 @@ import { ITransferStackPages } from '../../../shared/presentation/types';
 
 import { BankLogoCO2 } from '../assets/images';
 import { Decoration } from '../assets/svg';
-import { IBeneficiary } from '@clean-rn/beneficiary/domain';
 
 type IData = {
   key: string;
@@ -102,7 +101,7 @@ export const Transfer = () => {
             <View style={styles.decorationContainer}>
               <Decoration />
             </View>
-            <View style={styles.amountContainer}>
+            <View style={styles.formContainer}>
               <TextInput
                 numeric
                 placeholder={t('screens.transfer.amount')}
@@ -145,6 +144,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-start',
   },
+  formContainer: {
+    marginTop: 40,
+  },
   itemContainer: {
     marginTop: 20,
   },
@@ -152,9 +154,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 180,
     right: -20,
-  },
-  amountContainer: {
-    marginTop: 80,
   },
   labelContainer: {
     marginTop: 40,

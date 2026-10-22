@@ -12,7 +12,6 @@ import {
   ISuccess,
   ISendPhoneValidationCommand,
   IUpdateUserConfigCommand,
-  // IUpdateUserConfigCommand,
 } from '@clean-rn/user/domain';
 import { mapUserServerToUserProperties } from '../mappers';
 import { IAuth } from '@clean-rn/auth/domain';

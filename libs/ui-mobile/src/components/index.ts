@@ -50,6 +50,7 @@ import { FlyForm } from './forms/fly-form';
 import { FoodForm } from './forms/food-form';
 import { HouseForm } from './forms/house-form';
 import { TransportForm } from './forms/transport-form';
+import { FormTransfer, ITransferFormData } from './forms/form-transfer';
 // Inputs
 import { TextInput } from './inputs/text-input';
 import { EmailInput } from './inputs/email-input';
@@ -146,6 +147,8 @@ export {
   FoodForm,
   HouseForm,
   TransportForm,
+  FormTransfer,
+  ITransferFormData,
   // Inputs
   TextInput,
   EmailInput,
