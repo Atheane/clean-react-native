@@ -13,6 +13,7 @@ export type IRootStackParamList = {
   MenuProfile: NavigatorScreenParams<IRootTabParamList> | undefined;
   MenuTransfer: NavigatorScreenParams<IRootTabParamList> | undefined;
   MenuKyc: NavigatorScreenParams<IRootTabParamList> | undefined;
+  MenuCard: NavigatorScreenParams<IRootTabParamList> | undefined;
   ModalError: undefined;
   ModalWebView: undefined;
   Legal: undefined;
@@ -34,6 +35,7 @@ export type IRootTabParamList = {
   MenuProfile: undefined;
   MenuTransfer: undefined;
   MenuKyc: undefined;
+  MenuCard: undefined;
 };
 
 export type ISharedStackParamList = {
@@ -119,6 +121,17 @@ export type ITransferStackParamList = {
   TransferSuccess: undefined;
 };
 
+export type ICardStackParamLimit = {
+  MenuCard: undefined;
+  Card: undefined;
+  CardLimits: undefined;
+  ChangePin: undefined;
+  ChangePinSuccess: undefined;
+  ShowPin: undefined;
+  LockCard: undefined;
+  LockCardSuccess: undefined;
+};
+
 export enum ISharedStackPages {
   HOME = 'Home',
   MODAL_ERROR = 'ModalError',
@@ -200,6 +213,17 @@ export enum IKycStackPages {
   KYC_HOST = 'KycHost',
   HOST_ID_LIST = 'HostIdList',
   HOST_RESIDENCE_PROOF_LIST = 'HostResidenceProofList',
+}
+
+export enum ICardStackPages {
+  MENU = 'MenuCard',
+  CARD = 'Card',
+  CARD_LIMITS = 'CardLimits',
+  CHANGE_PIN = 'ChangePin',
+  CHANGE_PIN_SUCCESS = 'ChangePinSuccess',
+  SHOW_PIN = 'ShowPin',
+  LOCK_CARD = 'LockCard',
+  LOCK_CARD_SUCCESS = 'LockCardSuccess',
 }
 
 export type ISharedStackProps = {
@@ -285,6 +309,17 @@ export type IBeneficiaryStackProps = {
   [IBeneficiaryStackPages.CONTACT_ADD]: object;
 };
 
+export type ICardStackProps = {
+  [ICardStackPages.MENU]: object;
+  [ICardStackPages.CARD]: object;
+  [ICardStackPages.CARD_LIMITS]: object;
+  [ICardStackPages.CHANGE_PIN]: object;
+  [ICardStackPages.CHANGE_PIN_SUCCESS]: object;
+  [ICardStackPages.SHOW_PIN]: object;
+  [ICardStackPages.LOCK_CARD]: object;
+  [ICardStackPages.LOCK_CARD_SUCCESS]: object;
+};
+
 export type IRoutes =
   | ISharedStackPages.HOME
   | ISharedStackPages.MODAL_ERROR
@@ -337,4 +372,12 @@ export type IRoutes =
   | IBeneficiaryStackPages.MENU
   | IBeneficiaryStackPages.BENEFICIARY_LIST
   | IBeneficiaryStackPages.BENEFICIARY_ADD
-  | IBeneficiaryStackPages.CONTACT_ADD;
+  | IBeneficiaryStackPages.CONTACT_ADD
+  | ICardStackPages.MENU
+  | ICardStackPages.CARD
+  | ICardStackPages.CARD_LIMITS
+  | ICardStackPages.CHANGE_PIN
+  | ICardStackPages.CHANGE_PIN_SUCCESS
+  | ICardStackPages.SHOW_PIN
+  | ICardStackPages.LOCK_CARD
+  | ICardStackPages.LOCK_CARD_SUCCESS;

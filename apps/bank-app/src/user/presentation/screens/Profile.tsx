@@ -6,9 +6,9 @@ import { useNavigation } from '@react-navigation/native';
 import { LinkButton, LinkButtonColors } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { IProfileStackPages } from '../../../shared/presentation/types';
+import { ICardStackPages, IProfileStackPages } from '../../../shared/presentation/types';
 
-import { GradientBell } from '../../../user/presentation/assets';
+import { GradientBell, GradientCO2Card } from '../../../user/presentation/assets';
 
 const HEIGHT = Dimensions.get('screen').height;
 export const Profile = () => {
@@ -19,10 +19,22 @@ export const Profile = () => {
     navigation.navigate(IProfileStackPages.NOTIFICATON_SETTINGS as never);
   }, [navigation]);
 
+  const handlePressCardParameters = useCallback(() => {
+    navigation.navigate(ICardStackPages.MENU as never);
+  }, [navigation]);
+
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={styles.container}>
+          <View style={styles.rowContainer}>
+            <LinkButton
+              iconLeft={GradientCO2Card}
+              colorOption={LinkButtonColors.BLUE}
+              title={t('screens.profile.card-settings')}
+              onPress={handlePressCardParameters}
+            />
+          </View>
           <View style={styles.rowContainer}>
             <LinkButton
               iconLeft={GradientBell}

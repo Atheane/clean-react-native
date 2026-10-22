@@ -19,6 +19,7 @@ import {
   IProfileStackParamList,
   IUserStackParamList,
   ITransferStackParamList,
+  ICardStackParamLimit,
 } from '../types';
 
 export const LinkingConfiguration: LinkingOptions<
@@ -33,6 +34,7 @@ export const LinkingConfiguration: LinkingOptions<
   | IProfileStackParamList
   | ITransferStackParamList
   | IUserStackParamList
+  | ICardStackParamLimit
 > = {
   prefixes: [Linking.createURL('/')],
   config: {
@@ -113,6 +115,17 @@ export const LinkingConfiguration: LinkingOptions<
               HostResidenceProofList: 'HostResidenceProofList',
               SuccessKyc: 'SuccessKyc',
               CardSent: 'CardSent',
+            },
+          },
+          MenuCard: {
+            screens: {
+              Card: 'Card',
+              CardLimits: 'CardLimits',
+              ChangePin: 'ChangePin',
+              ChangePinSuccess: 'ChangePinSuccess',
+              ShowPin: 'ShowPin',
+              LockCard: 'LockCard',
+              LockCardSuccess: 'LockCardSuccess',
             },
           },
         },

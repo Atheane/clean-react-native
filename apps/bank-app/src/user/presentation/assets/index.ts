@@ -1,3 +1,2 @@
-import { Phone } from './svg';
-import { BlueBell, GradientBell } from './svg';
-export { Phone, BlueBell, GradientBell };
+import { Phone, BlueBell, GradientBell, GradientCO2Card } from './svg';
+export { Phone, BlueBell, GradientBell, GradientCO2Card };

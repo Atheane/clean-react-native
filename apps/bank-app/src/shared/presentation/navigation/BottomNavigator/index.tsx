@@ -22,6 +22,7 @@ import {
   ITransactionStackPages,
   IProfileStackPages,
   ITransferStackPages,
+  ICardStackPages,
 } from '../../types';
 
 import { AccountStack } from '../../../../account/presentation/navigation';
@@ -30,6 +31,7 @@ import { ProfileStack } from '../../../../user/presentation/navigation';
 import { KycStack } from '../../../../kyc/presentation/navigation';
 import { BeneficiaryStack } from '../../../../beneficiary/presentation/navigation';
 import { TransactionStack, TransferStack } from '../../../../transaction/presentation/navigation';
+import { CardStack } from '../../../../card/presentation/navigation';
 
 const Tab = createBottomTabNavigator<IRootTabParamList>();
 
@@ -122,6 +124,13 @@ export const BottomTabNavigator = () => {
       <Tab.Screen
         name={IKycStackPages.MENU}
         component={KycStack}
+        options={{
+          tabBarButton: () => null,
+        }}
+      />
+      <Tab.Screen
+        name={ICardStackPages.MENU}
+        component={CardStack}
         options={{
           tabBarButton: () => null,
         }}

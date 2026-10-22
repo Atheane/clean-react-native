@@ -652,7 +652,52 @@
     "profile": {
       "title": "Profil",
       "tab": "Profil",
+      "card-settings": "Paramètrer ma carte",
       "notifications": "Notifications"
+    },
+    "card": {
+      "menu": {
+        "title": "Paramètrer ma carte",
+        "limits": "Modifier mes plafonds",
+        "lock": "Bloquer ma carte",
+        "unlock": "Débloquer ma carte",
+        "change-pin": "Modifier mon code PIN",
+        "show-pin": "Voir mon code PIN"
+      },
+      "limits": {
+        "title": "Modifier mes plafonds",
+        "instruction-top": "Définir des plafonds est un moyen simple de sécuriser votre Compte",
+        "day-limit": "Montant journalier",
+        "week-limit": "Montant hebdomadaire",
+        "month-limit": "Montant mensuel",
+        "instruction-bottom": "Pour tout achat exceptionnel, contactez nous"
+      },
+      "lock": {
+        "title": "Bloquer ma carte",
+        "instruction": "Cette fonction vous permet de bloquer votre carte, N’hésitez pas à l’activer en cas de perte ou de vol. Votre carte peut être réactivée à tout moment.",
+        "block": "Bloquer"
+      },
+      "lock-success": {
+        "title": "Félicitations",
+        "message": "Votre carte a bien été bloquée",
+        "ok": "ok"
+      },
+      "change-pin": {
+        "title": "Modifier mon code PIN",
+        "instruction-top": "Vous pouvez choisir de définir vous-même le code de votre Carte CO2.",
+        "instruction-bottom-static": "Attention, vous ne pourrez modifier au maximum que 3 fois votre code.",
+        "instruction-bottom-dynamic": "/3 nombre de modifications"
+      },
+      "change-pin-success": {
+        "title": "Valider mon code PIN",
+        "instruction": "Votre code PIN a été modifié.\n\nAfin que le réseau MasterCard reconnaisse votre nouveau PIN, vous devez vous rendre dans un distributeur de billets de banque, et saisir ce nouveau PIN.\nVous ne pourrez pas retirer d’espèces, mais votre nouveau PIN sera enregistré sur le réseau",
+        "ok": "ok"
+      },
+      "show-pin": {
+        "title": "Voir mon code PIN",
+        "instruction": "Voici le code secret de ma Carte CO2",
+        "see-my-pin": "Voir mon code"
+      }
     },
     "notifications": {
       "title": "Notifications",
