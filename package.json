@@ -5,7 +5,7 @@
   "scripts": {
     "prepare": "husky install",
     "commit": "cz",
-    "clean": "watchman watch-del-all && rm -rf node_modules package-lock.json apps/bank-app/node_modules apps/bank-app/package-lock.json ios android apps/storybook/node_modules apps/storybook/package-lock.json apps/storybook/ios apps/storybook/android",
+    "clean": "watchman watch-del-all && rm -rf node_modules package-lock.json apps/bank-app/node_modules apps/bank-app/package-lock.json apps/bank-app/ios apps/bank-app/android apps/storybook/node_modules apps/storybook/package-lock.json apps/storybook/ios apps/storybook/android",
     "test": "npx nx run-many --all --target=test --parallel"
   },
   "private": true,
