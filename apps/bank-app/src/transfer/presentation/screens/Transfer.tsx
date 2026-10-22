@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+
 import { IAccount } from '@clean-rn/account/domain';
 import {
   Colors,
@@ -11,8 +12,8 @@ import {
   TextInput,
   TransferCard,
   Validate,
-  firstLetterCapitalize,
 } from '@clean-rn/ui-mobile';
+import { firstLetterCapitalize } from '@clean-rn/utils';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
@@ -20,6 +21,7 @@ import { ITransferStackPages } from '../../../shared/presentation/types';
 
 import { BankLogoCO2 } from '../assets/images';
 import { Decoration } from '../assets/svg';
+import { IBeneficiary } from '@clean-rn/beneficiary/domain';
 
 type IData = {
   key: string;
@@ -31,6 +33,8 @@ const HEIGHT = Dimensions.get('window').height;
 export const Transfer = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
+
+  const { selectedBeneficiary } = useSelector((state: IRootState) => state.beneficiary.beneficiaries);
 
   const { accounts } = useSelector((state: IRootState) => state.account.accounts);
 
@@ -72,6 +76,8 @@ export const Transfer = () => {
     console.log(item);
   }, []);
 
+  console.log('Transfer selectedBeneficiary', selectedBeneficiary);
+
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
@@ -89,7 +95,7 @@ export const Transfer = () => {
             <View style={styles.itemContainer}>
               <TransferCard
                 arrow={false}
-                text={'Ali\nDupond'} //todo from react navigation
+                text={selectedBeneficiary?.name as string} //todo from react navigation
                 image={BankLogoCO2}
               />
             </View>

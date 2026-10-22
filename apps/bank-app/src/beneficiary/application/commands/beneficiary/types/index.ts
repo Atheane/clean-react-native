@@ -13,12 +13,14 @@ export enum IBeneficiaryTypes {
   DELETE_BENEFICIARY = 'DELETE_BENEFICIARY',
   LIST_BENEFICIARIES = 'LIST_BENEFICIARIES',
   INIT_BENEFICIARY = 'INIT_BENEFICIARY',
+  SELECT_BENEFICIARY = 'SELECT_BENEFICIARY',
   // domainEvents
   BENEFICIARY_ADDED = 'BENEFICIARY_ADDED',
   BENEFICIARY_ADD_FAILED = 'BENEFICIARY_ADD_FAILED',
   BENEFICIARY_DELETED = 'BENEFICIARY_DELETED',
   BENEFICIARY_DELETE_FAILED = 'BENEFICIARY_DELETE_FAILED',
   BENEFICIARIES_LISTED = 'BENEFICIARIES_LISTED',
+  BENEFICIARY_SELECTED = 'BENEFICIARY_SELECTED',
 }
 
 // commands
@@ -35,6 +37,13 @@ export type IListBeneficiary = {
 };
 export type IInitBeneficiary = {
   type: typeof IBeneficiaryTypes.INIT_BENEFICIARY;
+};
+
+export type ISelectBeneficiary = {
+  type: typeof IBeneficiaryTypes.SELECT_BENEFICIARY;
+  payload: {
+    beneficiaryId: number;
+  };
 };
 
 // domain Events
@@ -63,13 +72,20 @@ export type IBeneficiaryListed = {
   payload: IBeneficiary[];
 };
 
+export type IBeneficiarySelected = {
+  type: typeof IBeneficiaryTypes.BENEFICIARY_SELECTED;
+  payload: IBeneficiary;
+};
+
 export type IBeneficiaryActions =
   | IAddBeneficiary
   | IDeleteBeneficiary
   | IListBeneficiary
   | IInitBeneficiary
+  | ISelectBeneficiary
   | IBeneficiaryAdded
   | IBeneficiaryAddFailed
   | IBeneficiaryDeleted
   | IBeneficiaryDeleteFailed
-  | IBeneficiaryListed;
+  | IBeneficiaryListed
+  | IBeneficiarySelected;

@@ -31,6 +31,7 @@ import {
   addBeneficiarySaga,
   deleteBeneficiarySaga,
   listBeneficiarySaga,
+  selectBeneficiarySaga,
 } from '../../../beneficiary/application/usecases';
 import { addContactSaga, listContactSaga } from '../../../beneficiary/application/usecases';
 
@@ -72,6 +73,7 @@ export function* rootSaga(httpConnection: HttpConnection) {
     addBeneficiarySaga(httpConnection),
     deleteBeneficiarySaga(httpConnection),
     listBeneficiarySaga(httpConnection),
+    selectBeneficiarySaga(),
     addContactSaga(),
     listContactSaga(),
     listTransactionsSaga(httpConnection),

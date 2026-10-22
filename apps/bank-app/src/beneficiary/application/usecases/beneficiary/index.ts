@@ -19,8 +19,13 @@ import {
   beneficiaryAdded,
   beneficiaryDeleteFailed,
   beneficiaryDeleted,
+  beneficiarySelected,
 } from '../../commands/beneficiary';
-import { IAuthStackPages, IBeneficiaryStackPages } from '../../../../shared/presentation/types';
+import {
+  IAuthStackPages,
+  IBeneficiaryStackPages,
+  ITransferStackPages,
+} from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { selectBeneficiary } from '../../state-management/selectors';
@@ -35,6 +40,10 @@ export function* deleteBeneficiarySaga(httpConnection: HttpConnection): Generato
 
 export function* listBeneficiarySaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IBeneficiaryTypes.LIST_BENEFICIARIES, listBeneficiaryGenerator, httpConnection);
+}
+
+export function* selectBeneficiarySaga(): Generator<StrictEffect, any, any> {
+  yield takeEvery(IBeneficiaryTypes.SELECT_BENEFICIARY, selectBeneficiaryGenerator);
 }
 
 export function* addBeneficiaryGenerator(
@@ -124,4 +133,23 @@ export function* listBeneficiaryGenerator(httpConnection: HttpConnection): Gener
     yield put(initBeneficiary());
     yield put(showUnknownError(error as Error));
   }
+}
+
+export function* selectBeneficiaryGenerator({
+  payload,
+}: {
+  type: string;
+  payload: { beneficiaryId: number };
+}): Generator<StrictEffect, any, any> {
+  const { beneficiaries: beneficiariesFromStore } = yield select(selectBeneficiary);
+  const beneficiary = beneficiariesFromStore.find(
+    (beneficiary: IBeneficiary) => payload.beneficiaryId === beneficiary.beneficiaryId,
+  );
+  if (!beneficiary) {
+    yield cancel();
+  }
+  yield put(beneficiarySelected(beneficiary));
+  yield call(navigate, {
+    route: ITransferStackPages.MENU,
+  });
 }

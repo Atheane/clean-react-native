@@ -22,11 +22,11 @@ import {
   LoaderSplashScreen,
 } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { IBeneficiaryStackPages, ITransferStackPages } from '../../../shared/presentation/types';
+import { IBeneficiaryStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 
-import { listBeneficiaries } from '../../application/commands/beneficiary';
-import { listContact } from '../../application/commands/contact';
+import { listBeneficiaries, selectBeneficiary } from '../../application/commands/beneficiary';
+import { listContacts } from '../../application/commands/contact';
 
 const ContentNoBeneficiary = () => {
   const { t } = useTranslation();
@@ -81,17 +81,19 @@ const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
   const navigation = useNavigation();
   const { theme } = useTheme();
 
+  const dispatch = useDispatch();
   const handleOnPressAdd = useCallback(() => {
     navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_ADD as never);
   }, [navigation]);
 
   const handleOnPress = useCallback(
     (beneficiaryId: number) => {
-      console.log('handleOnPress', beneficiaryId);
-      navigation.navigate(ITransferStackPages.MENU, { beneficiaryId });
+      console.log('selectBeneficiary', beneficiaryId);
+      dispatch(selectBeneficiary({ beneficiaryId }));
     },
-    [navigation],
+    [dispatch],
   );
+
   // const handleOnPressDelete = useCallback(
   //   (beneficiaryId: number) => {
   //     dispatch(beneficiaryDelete({ beneficiaryId }));
@@ -156,15 +158,22 @@ export const BeneficiaryList = () => {
 
   useEffect(() => {
     dispatch(listBeneficiaries());
-    dispatch(listContact());
+    dispatch(listContacts());
   }, [dispatch]);
 
   const [index, setIndex] = useState<number>(params?.idx || 0);
+
+  // https://github.com/react-native-elements/react-native-elements/issues/3784
+  const [indicatorX, setIndicatorX] = useState(0);
+  const windowWidth = Dimensions.get('window').width;
+  const tabWidth = windowWidth / 2; // Specify your tabs amount
+
   const handleOnChangeTab = useCallback(
     (index: number) => {
       setIndex(index);
+      setIndicatorX(index * tabWidth); // Setting the right translateX value
     },
-    [params],
+    [tabWidth],
   );
 
   const { beneficiaries, pending: beneficiaryPending } = useSelector(
@@ -191,6 +200,7 @@ export const BeneficiaryList = () => {
               backgroundColor: Colors.bank.primary.lightGreen,
               height: 3,
               width: Dimensions.get('window').width / 2,
+              transform: [{ translateX: indicatorX }], // Overriding the buggy string from the source
             }}
             buttonStyle={{ width: Dimensions.get('window').width / 2 }}
           >
