@@ -1,12 +1,5 @@
 import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
-import {
-  IBeneficiary,
-  IBeneficiaryAddCommand,
-  IBeneficiaryRepository,
-  IBAN,
-  BIC,
-} from '@clean-rn/beneficiary/domain';
-import { IBeneficiaryServer } from '../types';
+import { IBeneficiary, IBeneficiaryAddCommand, IBeneficiaryRepository } from '@clean-rn/beneficiary/domain';
 
 export class BeneficiaryApi implements IBeneficiaryRepository {
   private static instance: BeneficiaryApi | null = null;
@@ -33,7 +26,6 @@ export class BeneficiaryApi implements IBeneficiaryRepository {
     );
     await this.connection.handleError(response);
     const beneficiaries = await response.json();
-    console.log('GET BENEFICIARIES', beneficiaries);
     return beneficiaries;
   }
 

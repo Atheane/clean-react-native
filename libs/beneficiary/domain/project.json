@@ -1,7 +1,7 @@
 {
-  "name": "account-domain",
+  "name": "beneficiary-domain",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/account/domain/src",
+  "sourceRoot": "libs/beneficiary/domain/src",
   "projectType": "library",
   "tags": [],
   "targets": {
@@ -9,28 +9,22 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": ["bash -c tsc"],
-        "cwd": "libs/account/domain",
+        "cwd": "libs/beneficiary/domain",
         "forwardAllArgs": false
       }
     },
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/account/domain/**/*.{ts,tsx,js,jsx}"
-        ]
+        "lintFilePatterns": ["libs/beneficiary/domain/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/account/domain/jest.config.ts",
+        "jestConfig": "libs/beneficiary/domain/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {

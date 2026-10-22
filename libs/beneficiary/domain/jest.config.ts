@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'account-domain',
+  displayName: 'beneficiary-domain',
   resolver: '@nx/jest/plugins/resolver',
   preset: 'jest-expo',
   transformIgnorePatterns: [
