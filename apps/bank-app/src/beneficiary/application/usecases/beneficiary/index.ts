@@ -168,9 +168,6 @@ export function* selectBeneficiaryGenerator(
     const beneficiary = beneficiariesFromStore.find(
       (beneficiary: IBeneficiary) => payload.beneficiaryId === beneficiary.beneficiaryId,
     );
-    if (!beneficiary) {
-      yield cancel();
-    }
     yield put(beneficiarySelected(beneficiary));
     yield call(navigate, { route: ITransferStackPages.MENU });
   } catch (error: unknown) {

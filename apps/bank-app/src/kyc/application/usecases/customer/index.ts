@@ -29,15 +29,11 @@ export function* checkCustomerStatusGenerator(
 ): Generator<StrictEffect, any, any> {
   try {
     const { user } = payload;
-    if (user.properties.USPerson === undefined) {
-      yield cancel();
-      return;
-    }
     const customerStatus = user.properties.kycReview;
     if (customerStatus && customerStatus === KYC_REVIEW.VALIDATED) {
       const customer = Customer.Create({
         id: parseInt(user.id),
-        properties: { status: customerStatus, USPerson: user.properties.USPerson },
+        properties: { status: customerStatus, USPerson: user.properties.USPerson as boolean },
       });
       yield put(customerStatusChecked({ customer, initRoute: IKycStackPages.SUCCESS }));
       yield cancel();
@@ -47,7 +43,7 @@ export function* checkCustomerStatusGenerator(
     const documents: IDocumentProperties[] = yield call([api, api.getDocuments]);
     const customer = Customer.Create({
       id: parseInt(user.id),
-      properties: { status: customerStatus, USPerson: user.properties.USPerson },
+      properties: { status: customerStatus, USPerson: user.properties.USPerson as boolean },
     });
     if (user.properties.kycReviewComment && user.properties.kycReviewComment.length > 0) {
       customer.addKycReviewComment(user.properties.kycReviewComment);

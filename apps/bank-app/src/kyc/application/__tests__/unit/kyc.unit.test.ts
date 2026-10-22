@@ -383,15 +383,4 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
       .put(showUnknownError(new Error('unknown error')))
       .next();
   });
-
-  it('Should cancel if user has no USPerson', () => {
-    const user = User.Create({ id: 123, properties: {} });
-
-    testSaga(checkCustomerStatusGenerator, httpConnection, {
-      type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
-      payload: { user },
-    })
-      .next()
-      .cancel();
-  });
 });
