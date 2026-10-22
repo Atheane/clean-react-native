@@ -157,3 +157,22 @@ nx build <your-app-name>
 cli will guide you on Android and ios
 
 On free expo tier, you may have 1 or 2h of delay. You will find .aab on expo platform (url will be display by eas-cli).
+
+## Rebuild & Relinks dependencies 
+
+```
+cd apps/bank-app &&
+rm -rf node_modules package-lock.json ios &&
+cd ../.. &&
+rm -rf node_modules package-lock.json &&
+npm i &&
+cd apps/bank-app &&
+npx expo run:ios
+```
+
+Stop application
+
+```
+cd ../..
+npx nx start bank-app --dev-client
+```
