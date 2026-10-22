@@ -10,60 +10,80 @@ import * as Linking from 'expo-linking';
 import {
   IRootStackParamList,
   IAuthStackParamList,
-  IHomeStackParamList,
+  ISharedStackParamList,
+  IAccountStackParamList,
   ICarbonStackParamList,
   IKycStackParamList,
-  ITransferStackParamList,
+  ITransactionStackParamList,
+  IBeneficiaryStackParamList,
   IProfileStackParamList,
+  IUserStackParamList,
+  ITransferStackParamList,
 } from '../types';
 
 export const LinkingConfiguration: LinkingOptions<
   | IRootStackParamList
   | IAuthStackParamList
-  | IHomeStackParamList
+  | ISharedStackParamList
+  | IAccountStackParamList
   | ICarbonStackParamList
   | IKycStackParamList
-  | ITransferStackParamList
+  | ITransactionStackParamList
+  | IBeneficiaryStackParamList
   | IProfileStackParamList
+  | ITransferStackParamList
+  | IUserStackParamList
 > = {
   prefixes: [Linking.createURL('/')],
   config: {
     screens: {
+      // auth
       Login: 'Login',
       ResetPassword: 'ResetPassword',
+      // shared
+      Legal: 'Legal',
+      Cgu: 'Cgu',
+      CguKycProvider: 'CguKycProvider',
+      ModalError: 'ModalError',
+      ModalWebView: 'ModalWebView',
+      // userStack
       SignupEmail: 'SignupEmail',
       SignupIdentityPasswordPhone: 'SignupIdentityPasswordPhone',
       SignupValidatePhone: 'SignupValidatePhone',
       SignupBirth: 'SignupBirth',
       SignupAddress: 'SignupAddress',
-      Legal: 'Legal',
-      Cgu: 'Cgu',
-      CguKycProvider: 'CguKycProvider',
-      InitKyc: 'InitKyc',
-      MenuKyc: 'MenuKyc',
-      SuccessKyc: 'SuccessKyc',
-      CardSent: 'CardSent',
-      MenuHome: {
+      SignupCongrats: 'SignupCongrats',
+      EmailSent: 'EmailSent',
+      SignupPhone: 'SignupPhone',
+      Home: {
         screens: {
-          Menu: {
+          MenuAccount: {
             screens: {
-              Home: 'Home',
-              Account: 'Account',
-              RestoFlash: 'RestoFlash',
-              WeFlo: 'WeFlo',
-              AccountStatements: 'AccountStatements',
-              AccountStatementsCurrentMonth: 'AccountStatementsCurrentMonth',
-              AccountStatementsLastThreeMonths: 'AccountStatementsLastThreeMonths',
-              AccountStatementsAll: 'AccountStatementsAll',
-              ExportPdfIban: 'ExportPdfIban',
+              Accounts: 'Accounts',
+              RibPdf: 'RibPdf',
             },
           },
-          Transfer: {
+          MenuTransaction: {
+            screens: {
+              Transactions: 'Transactions',
+              AccountStatements: 'AccountStatements',
+              AccountStatementsPdf: 'AccountStatementsPdf',
+            },
+          },
+          MenuTransfer: {
             screens: {
               Transfer: 'Transfer',
+              TransferSuccess: 'TransferSuccess',
             },
           },
-          Carbon: {
+          MenuBeneficiary: {
+            screens: {
+              BeneficiaryList: 'BeneficiaryList',
+              BeneficiaryAdd: 'BeneficiaryAdd',
+              ContactAdd: 'ContactAdd',
+            },
+          },
+          MenuCarbon: {
             screens: {
               Carbon: 'Carbon',
               House: 'House',
@@ -73,15 +93,30 @@ export const LinkingConfiguration: LinkingOptions<
               WarningFood: 'WarningFood',
             },
           },
-          Profile: {
+          MenuProfile: {
             screens: {
               Profile: 'Profile',
+              NotificationSettings: 'NotificationSettings',
+            },
+          },
+          MenuKyc: {
+            screens: {
+              InitKyc: 'InitKyc',
+              Kyc: 'Kyc',
+              KycDocumentsValidated: 'KycDocumentsValidated',
+              IdList: 'IdList',
+              UploadDocument: 'UploadDocument',
+              ResidenceProofOptions: 'ResidenceProofOptions',
+              ResidenceProofList: 'ResidenceProofList',
+              KycHost: 'KycHost',
+              HostIdList: 'HostIdList',
+              HostResidenceProofList: 'HostResidenceProofList',
+              SuccessKyc: 'SuccessKyc',
+              CardSent: 'CardSent',
             },
           },
         },
       },
-      Modal: 'modal',
-      NotFound: '*',
     },
   },
 };

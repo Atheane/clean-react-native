@@ -4,7 +4,7 @@ import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
 import { firstLetterCapitalize } from '@clean-rn/utils';
-import { Amount, ITransactionType } from '@clean-rn/account/domain';
+import { Amount, ITransactionType } from '@clean-rn/transaction/domain';
 import { IDomainError } from '@clean-rn/ddd';
 
 import { GreenEuroAmount } from '../../../assets';
@@ -26,6 +26,7 @@ type IProps = {
   error: IDomainError<any, any> | null;
   //   error: IDomainError<ITransferErrorCode, ITransferErrorMessage> | null;
   onSubmit: () => void;
+  onFocus: () => void;
 };
 
 export const FormTransfer = (props: IProps) => {
@@ -57,7 +58,10 @@ export const FormTransfer = (props: IProps) => {
               labelColor={Colors.bank.primary.grey}
               short
               IconRight={GreenEuroAmount}
-              onChange={onChange}
+              onChange={(value: string) => {
+                props.onFocus();
+                onChange(value);
+              }}
               value={value}
             />
           )}

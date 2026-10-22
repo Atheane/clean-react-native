@@ -7,8 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { PrimaryButton, FontNames, Colors, ErrorMessage } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
-import { IHomeStackPages } from '../../../shared/presentation/types';
+import { IAccountStackPages, ISharedStackPages } from '../../../shared/presentation/types';
 import { applicationInitialized } from '../../../shared/application/commands/initialize-application';
 
 import { Congrats } from '../../presentation/assets/images';
@@ -29,7 +28,7 @@ export const SignupCongrats = () => {
     dispatch(
       applicationInitialized({
         email: user?.properties.email ?? null,
-        initRouteName: IHomeStackPages.HOME,
+        initRouteName: ISharedStackPages.HOME,
         carbon: {
           house: {
             footprint: null,
@@ -50,7 +49,7 @@ export const SignupCongrats = () => {
         },
       }),
     );
-    navigate(IHomeStackPages.HOME as never);
+    navigate(ISharedStackPages.HOME as never);
   }, [dispatch, user, navigate]);
 
   return (

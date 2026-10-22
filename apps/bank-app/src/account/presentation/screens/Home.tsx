@@ -28,7 +28,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { fetchRegisterDevice } from '../../../device/application/commands';
 
 import { listAccounts } from '../../application/commands/accounts';
-import { listTransactions } from '../../application/commands/transactions';
+import { listTransactions } from '../../../transaction/application/commands';
 import { deleteEventCard } from '../../application/commands/event-cards';
 
 import { APPLE_STORE_LINK, GOOGLE_PLAY_LINK, eventsCardsContent } from '../constants';

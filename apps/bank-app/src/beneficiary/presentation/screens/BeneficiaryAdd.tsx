@@ -1,8 +1,9 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
+import { useNavigation } from '@react-navigation/native';
 
 import { useCleanErrorOnFocus, FormBeneficiary, IBeneficiaryFormData, Colors } from '@clean-rn/ui-mobile';
 
@@ -10,6 +11,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
 import { addBeneficiary } from '../../application/commands/beneficiary';
+import { IBeneficiaryStackPages } from '../../../shared/presentation/types';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -18,7 +20,9 @@ export const BeneficiaryAdd = () => {
   const { t } = useTranslation();
 
   // api call
-  const { pending, error } = useSelector((state: IRootState) => state.beneficiary.beneficiaries);
+  const { pending, error, addedBeneficiary } = useSelector(
+    (state: IRootState) => state.beneficiary.beneficiaries,
+  );
 
   // internal state
   const {
@@ -29,6 +33,7 @@ export const BeneficiaryAdd = () => {
     defaultValues: {},
   });
 
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const onSubmit = useCallback(
     (formData: IBeneficiaryFormData) => {
@@ -36,6 +41,13 @@ export const BeneficiaryAdd = () => {
     },
     [dispatch],
   );
+
+  useEffect(() => {
+    if (addedBeneficiary) {
+      navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_LIST as never, { params: { idx: 0 } });
+    }
+  }, [addedBeneficiary, navigation]);
+
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
   return (

@@ -75,6 +75,15 @@
       "@clean-rn/shared/infrastructure": [
         "libs/shared/infrastructure/src/index.ts"
       ],
+      "@clean-rn/transaction": [
+        "libs/transaction/src/index.ts"
+      ],
+      "@clean-rn/transaction/domain": [
+        "libs/transaction/domain/src/index.ts"
+      ],
+      "@clean-rn/transaction/infrastructure": [
+        "libs/transaction/infrastructure/src/index.ts"
+      ],
       "@clean-rn/ui-mobile": [
         "libs/ui-mobile/src/index.ts"
       ],

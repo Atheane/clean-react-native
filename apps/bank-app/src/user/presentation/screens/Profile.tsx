@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { LinkButton, LinkButtonColors } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { IUserStackPages } from '../../../shared/presentation/types';
+import { IProfileStackPages } from '../../../shared/presentation/types';
 
 import { GradientBell } from '../../../user/presentation/assets';
 
@@ -16,7 +16,7 @@ export const Profile = () => {
   const navigation = useNavigation();
 
   const handlePressApplicationSettings = useCallback(() => {
-    navigation.navigate(IUserStackPages.NOTIFICATON_SETTINGS as never);
+    navigation.navigate(IProfileStackPages.NOTIFICATON_SETTINGS as never);
   }, [navigation]);
 
   return (

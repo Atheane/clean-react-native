@@ -3,7 +3,7 @@ import { Card, Divider } from '@rneui/base';
 import { useTheme } from '@rneui/themed';
 import { SvgProps } from 'react-native-svg';
 
-import { ITransaction, ITransactionCategory, TransactionCategory } from '@clean-rn/account/domain';
+import { ITransaction, ITransactionCategory } from '@clean-rn/transaction/domain';
 
 import {
   ALCOHOL,

@@ -6,11 +6,18 @@ export type HeaderTitleAlign = 'center' | 'left' | undefined;
 
 export type IRootStackParamList = {
   MenuHome: NavigatorScreenParams<IRootTabParamList> | undefined;
-  MenuTransfer: NavigatorScreenParams<IRootTabParamList> | undefined;
+  MenuAccount: NavigatorScreenParams<IRootTabParamList> | undefined;
+  MenuTransaction: NavigatorScreenParams<IRootTabParamList> | undefined;
+  MenuBeneficiary: NavigatorScreenParams<IRootTabParamList> | undefined;
   MenuCarbon: NavigatorScreenParams<IRootTabParamList> | undefined;
   MenuProfile: NavigatorScreenParams<IRootTabParamList> | undefined;
-  Modal: undefined;
-  NotFound: undefined;
+  MenuTransfer: NavigatorScreenParams<IRootTabParamList> | undefined;
+  MenuKyc: NavigatorScreenParams<IRootTabParamList> | undefined;
+  ModalError: undefined;
+  ModalWebView: undefined;
+  Legal: undefined;
+  Cgu: undefined;
+  CguKycProvider: undefined;
 };
 
 export type IRootTabScreenProps<Screen extends keyof IRootTabParamList> = CompositeScreenProps<
@@ -20,14 +27,17 @@ export type IRootTabScreenProps<Screen extends keyof IRootTabParamList> = Compos
 
 export type IRootTabParamList = {
   MenuHome: undefined;
-  MenuTransfer: undefined;
+  MenuAccount: undefined;
+  MenuTransaction: undefined;
+  MenuBeneficiary: undefined;
   MenuCarbon: undefined;
   MenuProfile: undefined;
+  MenuTransfer: undefined;
   MenuKyc: undefined;
-  MenuBeneficiary: undefined;
 };
 
 export type ISharedStackParamList = {
+  Home: undefined;
   ModalError: undefined;
   ModalWebView: undefined;
   Legal: undefined;
@@ -51,18 +61,17 @@ export type IUserStackParamList = {
   SignupPhone: undefined;
 };
 
-export type IHomeStackParamList = {
-  MenuHome: undefined;
-  Home: undefined;
+export type IAccountStackParamList = {
+  MenuAccount: undefined;
   Accounts: undefined;
-  Beneficiay: undefined;
-  Help: undefined;
+  RibPdf: undefined;
+};
+
+export type ITransactionStackParamList = {
+  MenuTransaction: undefined;
   Transactions: undefined;
-  RestoFlash: undefined;
-  Weflo: undefined;
   AccountStatements: undefined;
   AccountStatementsPdf: undefined;
-  RibPdf: undefined;
 };
 
 export type ICarbonStackParamList = {
@@ -79,21 +88,39 @@ export type IKycStackParamList = {
   MenuKyc: undefined;
   InitKyc: undefined;
   Kyc: undefined;
+  KycDocumentsValidated: undefined;
   SuccessKyc: undefined;
   CardSent: undefined;
+  IdList: undefined;
+  UploadDocument: undefined;
+  ResidenceProofOptions: undefined;
+  ResidenceProofList: undefined;
+  KycHost: undefined;
+  HostIdList: undefined;
+  HostResidenceProofList: undefined;
 };
 
-export type ITransferStackParamList = {
-  MenuTransfer: undefined;
-  Transfer: undefined;
+export type IBeneficiaryStackParamList = {
+  MenuBeneficiary: undefined;
+  BeneficiaryList: undefined;
+  BeneficiaryAdd: undefined;
+  ContactAdd: undefined;
 };
 
 export type IProfileStackParamList = {
   MenuProfile: undefined;
   Profile: undefined;
+  NotificationSettings: undefined;
+};
+
+export type ITransferStackParamList = {
+  MenuTransfer: undefined;
+  Transfer: undefined;
+  TransferSuccess: undefined;
 };
 
 export enum ISharedStackPages {
+  HOME = 'Home',
   MODAL_ERROR = 'ModalError',
   MODAL_WEBVIEW = 'ModalWebview',
   LEGAL = 'Legal',
@@ -112,25 +139,34 @@ export enum IUserStackPages {
   SIGNUP_VALIDATE_PHONE = 'SignupValidatePhone',
   SIGNUP_BIRTH = 'SignupBirth',
   SIGNUP_ADDRESS = 'SignupAddress',
-  SIGNUP_CONGRATS = 'SignupCongrats',
   EMAIL_SENT = 'EmailSent',
   SIGNUP_PHONE = 'SignupPhone',
+  SIGNUP_CONGRATS = 'SignupCongrats',
+}
+
+export enum IProfileStackPages {
   MENU = 'MenuProfile',
   PROFILE = 'Profile',
   NOTIFICATON_SETTINGS = 'NotificationSettings',
 }
 
-export enum IHomeStackPages {
-  MENU = 'MenuHome',
-  HOME = 'Home',
+export enum IAccountStackPages {
+  MENU = 'MenuAccount',
   ACCOUNTS = 'Accounts',
-  HELP = 'Help',
+  RIB_PDF = 'RibPdf',
+}
+
+export enum ITransactionStackPages {
+  MENU = 'MenuTransaction',
   TRANSACTIONS = 'Transactions',
-  RESTO_FLASH = 'RestoFlash',
-  WEFLO = 'Weflo',
   ACCOUNT_STATEMENTS = 'AccountStatements',
   ACCOUNT_STATEMENTS_PDF = 'AccountStatementsPdf',
-  RIB_PDF = 'RibPdf',
+}
+
+export enum ITransferStackPages {
+  MENU = 'MenuTransfer',
+  TRANSFER = 'Transfer',
+  TRANSFER_SUCCESS = 'TransferSuccess',
 }
 
 export enum IBeneficiaryStackPages {
@@ -166,14 +202,8 @@ export enum IKycStackPages {
   HOST_RESIDENCE_PROOF_LIST = 'HostResidenceProofList',
 }
 
-export enum ITransferStackPages {
-  MENU = 'MenuTransfer',
-  BENEFICIARIES = 'Beneficiaries',
-  TRANSFER = 'Transfer',
-  TRANSFER_SUCCESS = 'TransferSuccess',
-}
-
 export type ISharedStackProps = {
+  [ISharedStackPages.HOME]: object;
   [ISharedStackPages.MODAL_ERROR]: object;
   [ISharedStackPages.MODAL_WEBVIEW]: object;
   [ISharedStackPages.LEGAL]: object;
@@ -195,22 +225,31 @@ export type IUserStackProps = {
   [IUserStackPages.SIGNUP_CONGRATS]: object;
   [IUserStackPages.EMAIL_SENT]: object;
   [IUserStackPages.SIGNUP_PHONE]: object;
-  [IUserStackPages.MENU]: object;
-  [IUserStackPages.PROFILE]: object;
-  [IUserStackPages.NOTIFICATON_SETTINGS]: object;
 };
 
-export type IHomeStackProps = {
-  [IHomeStackPages.MENU]: object;
-  [IHomeStackPages.HOME]: object;
-  [IHomeStackPages.ACCOUNTS]: object;
-  [IHomeStackPages.HELP]: object;
-  [IHomeStackPages.TRANSACTIONS]: object;
-  [IHomeStackPages.ACCOUNT_STATEMENTS]: object;
-  [IHomeStackPages.ACCOUNT_STATEMENTS_PDF]: object;
-  [IHomeStackPages.RIB_PDF]: object;
-  [IHomeStackPages.RESTO_FLASH]: object;
-  [IHomeStackPages.WEFLO]: object;
+export type IProfileStackProps = {
+  [IProfileStackPages.MENU]: object;
+  [IProfileStackPages.PROFILE]: object;
+  [IProfileStackPages.NOTIFICATON_SETTINGS]: object;
+};
+
+export type IAccountStackProps = {
+  [IAccountStackPages.MENU]: object;
+  [IAccountStackPages.ACCOUNTS]: object;
+  [IAccountStackPages.RIB_PDF]: object;
+};
+
+export type ITransactionStackProps = {
+  [ITransactionStackPages.MENU]: object;
+  [ITransactionStackPages.TRANSACTIONS]: object;
+  [ITransactionStackPages.ACCOUNT_STATEMENTS]: object;
+  [ITransactionStackPages.ACCOUNT_STATEMENTS_PDF]: object;
+};
+
+export type ITransferStackProps = {
+  [ITransferStackPages.MENU]: object;
+  [ITransferStackPages.TRANSFER]: object;
+  [ITransferStackPages.TRANSFER_SUCCESS]: object;
 };
 
 export type ICarbonStackProps = {
@@ -239,13 +278,6 @@ export type IKycStackProps = {
   [IKycStackPages.HOST_RESIDENCE_PROOF_LIST]: object;
 };
 
-export type ITransferStackProps = {
-  [ITransferStackPages.MENU]: object;
-  [ITransferStackPages.BENEFICIARIES]: object;
-  [ITransferStackPages.TRANSFER]: object;
-  [ITransferStackPages.TRANSFER_SUCCESS]: object;
-};
-
 export type IBeneficiaryStackProps = {
   [IBeneficiaryStackPages.MENU]: object;
   [IBeneficiaryStackPages.BENEFICIARY_LIST]: object;
@@ -254,6 +286,7 @@ export type IBeneficiaryStackProps = {
 };
 
 export type IRoutes =
+  | ISharedStackPages.HOME
   | ISharedStackPages.MODAL_ERROR
   | ISharedStackPages.MODAL_WEBVIEW
   | ISharedStackPages.LEGAL
@@ -269,19 +302,18 @@ export type IRoutes =
   | IUserStackPages.SIGNUP_CONGRATS
   | IUserStackPages.EMAIL_SENT
   | IUserStackPages.SIGNUP_PHONE
-  | IUserStackPages.MENU
-  | IUserStackPages.PROFILE
-  | IUserStackPages.NOTIFICATON_SETTINGS
-  | IHomeStackPages.ACCOUNTS
-  | IHomeStackPages.MENU
-  | IHomeStackPages.HOME
-  | IHomeStackPages.HELP
-  | IHomeStackPages.TRANSACTIONS
-  | IHomeStackPages.RESTO_FLASH
-  | IHomeStackPages.WEFLO
-  | IHomeStackPages.ACCOUNT_STATEMENTS
-  | IHomeStackPages.ACCOUNT_STATEMENTS_PDF
-  | IHomeStackPages.RIB_PDF
+  | IProfileStackPages.MENU
+  | IProfileStackPages.PROFILE
+  | IProfileStackPages.NOTIFICATON_SETTINGS
+  | IAccountStackPages.MENU
+  | IAccountStackPages.ACCOUNTS
+  | IAccountStackPages.RIB_PDF
+  | ITransactionStackPages.MENU
+  | ITransactionStackPages.TRANSACTIONS
+  | ITransactionStackPages.ACCOUNT_STATEMENTS
+  | ITransactionStackPages.ACCOUNT_STATEMENTS_PDF
+  | ITransferStackPages.TRANSFER
+  | ITransferStackPages.TRANSFER_SUCCESS
   | ICarbonStackPages.MENU
   | ICarbonStackPages.CARBON
   | ICarbonStackPages.HOUSE
@@ -302,10 +334,6 @@ export type IRoutes =
   | IKycStackPages.KYC_HOST
   | IKycStackPages.HOST_ID_LIST
   | IKycStackPages.HOST_RESIDENCE_PROOF_LIST
-  | ITransferStackPages.TRANSFER
-  | ITransferStackPages.BENEFICIARIES
-  | ITransferStackPages.MENU
-  | ITransferStackPages.TRANSFER_SUCCESS
   | IBeneficiaryStackPages.MENU
   | IBeneficiaryStackPages.BENEFICIARY_LIST
   | IBeneficiaryStackPages.BENEFICIARY_ADD

@@ -4,11 +4,9 @@ import { authReducer } from '../../../../auth/application/state-management';
 
 import { userReducer } from '../../../../user/application/state-management';
 
-import {
-  accountsReducer,
-  eventCardsReducer,
-  transactionsReducer,
-} from '../../../../account/application/state-management';
+import { accountsReducer, eventCardsReducer } from '../../../../account/application/state-management';
+
+import { transactionsReducer } from '../../../../transaction/application/state-management';
 
 import { beneficiaryReducer, contactReducer } from '../../../../beneficiary/application/state-management';
 
@@ -27,9 +25,9 @@ export const rootReducer = combineReducers({
   user: userReducer,
   account: combineReducers({
     accounts: accountsReducer,
-    transactions: transactionsReducer,
     deletedEventCards: eventCardsReducer,
   }),
+  transaction: transactionsReducer,
   beneficiary: combineReducers({ beneficiaries: beneficiaryReducer, contacts: contactReducer }),
   carbon: carbonReducer,
   kyc: combineReducers({ customer: customerReducer, document: documentReducer }),

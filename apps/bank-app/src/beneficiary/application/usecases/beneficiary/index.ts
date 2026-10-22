@@ -21,11 +21,7 @@ import {
   beneficiaryDeleted,
   beneficiarySelected,
 } from '../../commands/beneficiary';
-import {
-  IAuthStackPages,
-  IBeneficiaryStackPages,
-  ITransferStackPages,
-} from '../../../../shared/presentation/types';
+import { IAuthStackPages, IBeneficiaryStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { selectBeneficiary } from '../../state-management/selectors';
@@ -61,7 +57,7 @@ export function* addBeneficiaryGenerator(
     const beneficiary = yield call([api, api.addBeneficiary], payload);
     yield put(beneficiaryAdded(beneficiary));
     // nav back to beneficiary list
-    yield call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 0 } });
+    yield call(navigate, { route: IBeneficiaryStackPages.MENU, params: { idx: 0 } });
   } catch (error: unknown) {
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {
@@ -92,9 +88,6 @@ export function* deleteBeneficiaryGenerator(
     const beneficiary = yield call([api, api.deleteBeneficiary], payload);
 
     yield put(beneficiaryDeleted(beneficiary));
-
-    // nav back to beneficiary list
-    yield call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 0 } });
   } catch (error: unknown) {
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {
@@ -116,12 +109,11 @@ export function* listBeneficiaryGenerator(httpConnection: HttpConnection): Gener
 
     if (beneficiariesFromStore) {
       yield put(beneficiariesListed(beneficiariesFromStore));
-      yield call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 0 } });
+      yield call(navigate, { route: IBeneficiaryStackPages.MENU });
     } else {
       const api = BeneficiaryApi.getInstance(httpConnection);
       const beneficiaries: IBeneficiary[] = yield call([api, api.getBeneficiary]);
       yield put(beneficiariesListed(beneficiaries));
-      yield call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 0 } });
     }
   } catch (error: unknown) {
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
@@ -149,7 +141,4 @@ export function* selectBeneficiaryGenerator({
     yield cancel();
   }
   yield put(beneficiarySelected(beneficiary));
-  yield call(navigate, {
-    route: ITransferStackPages.MENU,
-  });
 }

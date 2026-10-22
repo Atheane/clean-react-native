@@ -10,7 +10,7 @@ import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 
 import { IStoreKey } from '../../../../shared/application/types';
 import { goBack, navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { IHomeStackPages, IUserStackPages } from '../../../../shared/presentation/types';
+import { ISharedStackPages, IUserStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
@@ -51,7 +51,7 @@ export function* loginGenerator(
     yield put(userSaved(user));
 
     yield put(checkCustomerStatus({ user }));
-    yield call(navigate, { route: IHomeStackPages.HOME });
+    yield call(navigate, { route: ISharedStackPages.HOME });
   } catch (error: unknown) {
     if (error instanceof ServerError) {
       switch (error.codeError) {

@@ -12,7 +12,7 @@ import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentatio
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { selectAccounts } from '../../state-management/selectors';
-import { listAccountsGenerator, listAccountsSaga } from '../../usecases/account';
+import { listAccountsGenerator, listAccountsSaga } from '../../usecases';
 import { IAccountsTypes, accountsListed, initializeAccountsList } from '../../commands/accounts';
 
 describe('ListAccounts - usecase', () => {

@@ -1,4 +1,4 @@
-import { IAccountType, ITransactionType } from '@clean-rn/account/domain';
+import { IAccountType } from '@clean-rn/account/domain';
 
 export type IAccountServer = {
   accountId: number;
@@ -6,13 +6,4 @@ export type IAccountServer = {
   authorizedBalance: number;
   iban: string;
   bic: string;
-};
-
-export type ITransactionServer = {
-  transactionId: number;
-  amount: number;
-  label: string;
-  mccCode?: number;
-  updatedAt: string;
-  transactionType: ITransactionType;
 };

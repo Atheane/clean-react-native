@@ -15,20 +15,21 @@ import {
 } from '@clean-rn/ui-mobile';
 import {
   IRootTabParamList,
-  IHomeStackPages,
-  ITransferStackPages,
+  IAccountStackPages,
   ICarbonStackPages,
-  IUserStackPages,
   IKycStackPages,
   IBeneficiaryStackPages,
+  ITransactionStackPages,
+  IProfileStackPages,
+  ITransferStackPages,
 } from '../../types';
 
 import { AccountStack } from '../../../../account/presentation/navigation';
 import { CarbonStack } from '../../../../carbon/presentation/navigation';
-import { TransferStack } from '../../../../transfer/presentation/navigation'; //TODO
 import { ProfileStack } from '../../../../user/presentation/navigation';
 import { KycStack } from '../../../../kyc/presentation/navigation';
 import { BeneficiaryStack } from '../../../../beneficiary/presentation/navigation';
+import { TransactionStack, TransferStack } from '../../../../transaction/presentation/navigation';
 
 const Tab = createBottomTabNavigator<IRootTabParamList>();
 
@@ -36,14 +37,14 @@ export const BottomTabNavigator = () => {
   const { t } = useTranslation();
   return (
     <Tab.Navigator
-      initialRouteName={IHomeStackPages.MENU}
+      initialRouteName={IAccountStackPages.MENU}
       screenOptions={{
         tabBarActiveTintColor: Colors.bank.primary.white,
         headerShown: false,
       }}
     >
       <Tab.Screen
-        name={IHomeStackPages.MENU}
+        name={IAccountStackPages.MENU}
         component={AccountStack}
         options={() => ({
           title: t('screens.home.title'),
@@ -56,6 +57,20 @@ export const BottomTabNavigator = () => {
           tabBarLabel: ({ focused }: { focused: boolean }) =>
             focused ? <Text style={styles.tab}> {t('screens.home.tab')}</Text> : '',
         })}
+      />
+      <Tab.Screen
+        name={ITransactionStackPages.MENU}
+        component={TransactionStack}
+        options={{
+          tabBarButton: () => null,
+        }}
+      />
+      <Tab.Screen
+        name={ITransferStackPages.MENU}
+        component={TransferStack}
+        options={{
+          tabBarButton: () => null,
+        }}
       />
       <Tab.Screen
         name={IBeneficiaryStackPages.MENU}
@@ -89,7 +104,7 @@ export const BottomTabNavigator = () => {
         })}
       />
       <Tab.Screen
-        name={IUserStackPages.MENU}
+        name={IProfileStackPages.MENU}
         component={ProfileStack}
         options={() => ({
           title: t('screens.profile.title'),
@@ -108,14 +123,6 @@ export const BottomTabNavigator = () => {
         name={IKycStackPages.MENU}
         component={KycStack}
         options={{
-          tabBarButton: () => null,
-        }}
-      />
-      <Tab.Screen
-        name={ITransferStackPages.MENU}
-        component={TransferStack}
-        options={{
-          title: t('screens.transfer.title'),
           tabBarButton: () => null,
         }}
       />

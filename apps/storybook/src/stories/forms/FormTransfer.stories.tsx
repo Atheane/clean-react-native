@@ -11,6 +11,7 @@ const FormTransferMeta: ComponentMeta<typeof FormTransfer> = {
   component: FormTransfer,
   argTypes: {
     onSubmit: { action: 'onSubmit' },
+    onFocus: { action: 'onFocus' },
   },
   decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
 };

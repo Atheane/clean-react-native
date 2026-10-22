@@ -2,16 +2,9 @@
 import SagaTester from 'redux-saga-tester';
 import Constants from 'expo-constants';
 
-import {
-  IAccountType,
-  Iban,
-  Bic,
-  Amount,
-  TransactionCategory,
-  ITransactionType,
-  ITransaction,
-} from '@clean-rn/account/domain';
-import { ITransactionServer } from '@clean-rn/account/infrastructure';
+import { IAccountType, Iban, Bic } from '@clean-rn/account/domain';
+import { Amount, TransactionCategory, ITransactionType, ITransaction } from '@clean-rn/transaction/domain';
+import { ITransactionServer } from '@clean-rn/transaction/infrastructure';
 
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
 

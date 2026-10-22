@@ -9,7 +9,7 @@ import { LinkButton } from '@clean-rn/ui-mobile';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
 import { SuccessKyc as CheckmarkImage } from '../assets/images';
-import { IHomeStackPages } from '../../../shared/presentation/types';
+import { ITransactionStackPages } from '../../../shared/presentation/types';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 const HEIGHT = Dimensions.get('window').height;
@@ -22,7 +22,7 @@ export const SuccessKyc = () => {
   const navigation = useNavigation();
   const handleOnPress = useCallback(() => {
     if (accounts && accounts[0]) {
-      navigation.navigate(IHomeStackPages.TRANSACTIONS, { account: accounts[0] });
+      navigation.navigate(ITransactionStackPages.TRANSACTIONS, { account: accounts[0] });
     }
   }, [accounts, navigation]);
 

@@ -11,14 +11,11 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import {
   IAuthStackPages,
   IAuthStackProps,
-  IHomeStackPages,
-  IHomeStackProps,
   ISharedStackPages,
   ISharedStackProps,
   HeaderTitleAlign,
   IUserStackPages,
   IUserStackProps,
-  ITransferStackProps,
 } from '../../../shared/presentation/types';
 import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
 import { ScreenModalError, ScreenModalWebview } from '../../../shared/presentation/screens';
@@ -39,9 +36,7 @@ export const RootStack = () => {
   return accessToken ? <HomeStack /> : email ? <AuthStack /> : <UserStack />;
 };
 
-const Stack = createNativeStackNavigator<
-  IHomeStackProps & ISharedStackProps & IAuthStackProps & IUserStackProps & ITransferStackProps
->();
+const Stack = createNativeStackNavigator<ISharedStackProps & IAuthStackProps & IUserStackProps>();
 
 export const HomeStack = () => {
   const navigationStack = useNavigationState((state) => state?.routes ?? []);
@@ -58,15 +53,15 @@ export const HomeStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
+        name={IUserStackPages.SIGNUP_CONGRATS}
+        component={SignupCongrats}
         options={{
           headerTitle: t(`screens.signup-congrats.title`),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
-        name={IUserStackPages.SIGNUP_CONGRATS}
-        component={SignupCongrats}
       />
       <Stack.Screen
-        name={IHomeStackPages.HOME}
+        name={ISharedStackPages.HOME}
         component={BottomTabNavigator}
         options={{ headerShown: false }}
       />

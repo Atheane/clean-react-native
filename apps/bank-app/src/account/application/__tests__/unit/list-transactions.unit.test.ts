@@ -3,19 +3,12 @@ import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 
-import {
-  IAccountType,
-  Iban,
-  Bic,
-  Amount,
-  TransactionCategory,
-  ITransactionType,
-  ITransaction,
-} from '@clean-rn/account/domain';
-import { ITransactionServer } from '@clean-rn/account/infrastructure';
+import { IAccountType, Iban, Bic } from '@clean-rn/account/domain';
+import { Amount, TransactionCategory, ITransactionType, ITransaction } from '@clean-rn/transaction/domain';
+import { ITransactionServer } from '@clean-rn/transaction/infrastructure';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
-import { TransactionApi } from '@clean-rn/account/infrastructure';
+import { TransactionApi } from '@clean-rn/transaction/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';

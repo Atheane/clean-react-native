@@ -14,7 +14,7 @@ import {
 } from '../../commands/accounts';
 import { IAccountsState, accountsReducer } from '../../state-management';
 
-import { listAccountsSaga } from '../../usecases/account';
+import { listAccountsSaga } from '../../usecases';
 
 const expoConstantsMock = {
   name: 'CleanRN BankApp Test',

@@ -3,7 +3,6 @@ import { call, put, StrictEffect, takeEvery, select, cancel } from 'redux-saga/e
 
 import { IContact, IAddContactCommand, ContactError } from '@clean-rn/contact/domain';
 
-import { ServerError } from '@clean-rn/shared/infrastructure';
 import { ExpoContact } from '@clean-rn/contact/infrastructure';
 
 import {
@@ -13,7 +12,7 @@ import {
   contactAdded,
   contactAddedFailed,
 } from '../../commands/contact';
-import { IAuthStackPages, IBeneficiaryStackPages } from '../../../../shared/presentation/types';
+import { IBeneficiaryStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { selectContact } from '../../state-management/selectors';
@@ -40,7 +39,6 @@ export function* addContactGenerator({
     yield put(contactAdded(contact));
 
     // nav back to contact list
-    yield call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 1 } });
   } catch (error: unknown) {
     if (error instanceof ContactError.ContactAlreadyExists) {
       yield put(contactAddedFailed(error));
@@ -56,12 +54,11 @@ export function* listContactGenerator(): Generator<StrictEffect, any, any> {
     const { contacts: contactsFromStore } = yield select(selectContact);
     if (contactsFromStore) {
       yield put(contactsListed(contactsFromStore));
-      yield call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 1 } });
+      yield call(navigate, { route: IBeneficiaryStackPages.MENU });
     } else {
       const api = ExpoContact.getInstance();
       const contacts: IContact[] = yield call([api, api.getContacts]);
       yield put(contactsListed(contacts));
-      yield call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 1 } });
     }
   } catch (error: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors

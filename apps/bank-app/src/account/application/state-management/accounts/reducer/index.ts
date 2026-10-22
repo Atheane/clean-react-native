@@ -6,6 +6,7 @@ import { IAccountsState } from '../state';
 const initialState: IAccountsState = {
   pending: false,
   accounts: null,
+  selectedAccount: null,
 };
 
 export const accountsReducer = (state = initialState, action: IAccountsActions) => {
@@ -25,6 +26,13 @@ export const accountsReducer = (state = initialState, action: IAccountsActions) 
         ...state,
         pending: false,
         accounts: action.payload,
+      };
+      return newState;
+    case IAccountsTypes.ACCOUNT_SELECTED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        selectedAccount: action.payload,
       };
       return newState;
     case IAccountsTypes.INITIALIZE_ACCOUNTS_LIST:
