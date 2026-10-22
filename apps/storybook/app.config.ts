@@ -40,6 +40,12 @@ export default {
         },
       ],
       [
+        'expo-contacts',
+        {
+          contactsPermission: 'Allow BANK to access your contacts.',
+        },
+      ],
+      [
         'react-native-document-scanner-plugin',
         {
           cameraPermission: 'Cette application nécessite un accès à la caméra, pour les scans de documents.',
@@ -51,7 +57,7 @@ export default {
       NODE_ENV: process.env.NODE_ENV,
       SENTRY_DSN: process.env.SENTRY_DSN,
       eas: {
-        projectId: '81d27718-8c2e-42f6-911b-8d4af2c80097',
+        projectId: '732bad57-a0ef-4996-92bb-14a613d41d4d',
       },
     },
   },

@@ -1,13 +1,19 @@
 {
   "expo": {
     "name": "@clean-rn/source",
-    "slug": "@clean-rnsource",
+    "slug": "clean-rn",
     "version": "0.0.0",
     "sdkVersion": "49.0.0",
     "platforms": [
       "ios",
       "android",
       "web"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "e73d9d48-f9a3-4ee3-8be3-a80db1ebbd32"
+      }
+    },
+    "owner": "hybesis"
   }
 }
