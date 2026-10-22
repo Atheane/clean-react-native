@@ -1,11 +1,10 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import SagaTester from 'redux-saga-tester';
 import Constants from 'expo-constants';
-import dayjs from 'dayjs';
 
 import { AuthError, Email, Password } from '@clean-rn/auth/domain';
 
-import { User, Phone, BirthDay, Country, IGender, KYC_REVIEW } from '@clean-rn/user/domain';
+import { IGender, KYC_REVIEW } from '@clean-rn/user/domain';
 
 import { loginSaga } from '../../usecases/login';
 import { refreshSaga } from '../../usecases/refresh';
