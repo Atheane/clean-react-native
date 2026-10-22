@@ -11,20 +11,19 @@ import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentatio
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { selectBeneficiary } from '../../state-management/selectors';
-import { addBeneficiaryGenerator, addBeneficiarySaga } from '../../usecases/beneficiary';
+import { addBeneficiaryGenerator } from '../../usecases/beneficiary';
 import { IBeneficiaryTypes, beneficiaryListed, beneficiaryListInit } from '../../commands/beneficiary';
 
 describe('AddBeneficiary - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
-
   const api = BeneficiaryApi.getInstance(httpConnection);
-  const addBeneficiarySage = addBeneficiarySaga(httpConnection);
 
   const mockRequest = {
     iban: 'FR7616798000010000242599449',
     bic: 'TRZOFR21XXX',
     name: 'BENFMOCK',
   };
+
   const mockResponse = {
     beneficiaryId: 4004318954,
     iban: 'FR7616798000010000242599449',
@@ -43,6 +42,14 @@ describe('AddBeneficiary - usecase', () => {
     method: 'POST',
   };
 
+  const mockError400 = {
+    message: 'Core::BeneficiaryService::Create - Bad Request',
+    statusCode: 400,
+    response: 'Core::BeneficiaryService::Create - Bad Request',
+    timestamp: '2024-01-07T15:28:04.657Z',
+    path: '/app/beneficiary',
+  };
+
   const mockError500 = {
     message: 'Core::BeneficiaryService::Create - Server Error',
     statusCode: 500,
@@ -57,14 +64,10 @@ describe('AddBeneficiary - usecase', () => {
       payload: mockRequest,
     })
       .next()
-      .select(addBeneficiaryGenerator)
-      .next({ beneficiaries: null })
       .call([api, api.addBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
-      .put(beneficiaryListed([mockResponse]))
-      .next()
-      .call(navigate, { route: IHomeStackPages.BENEFICIARY_LIST })
-      .next();
+      .select(selectBeneficiary)
+      .next({ beneficiaries: [mockResponse] });
   });
 
   it('Should call navigate to Login modale if 401 from Server', () => {
@@ -73,8 +76,6 @@ describe('AddBeneficiary - usecase', () => {
       payload: mockRequest,
     })
       .next()
-      .select(selectBeneficiary)
-      .next({ beneficiaries: null })
       .call([api, api.addBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
       .call(navigate, { route: IAuthStackPages.LOGIN })
@@ -88,12 +89,8 @@ describe('AddBeneficiary - usecase', () => {
       payload: mockRequest,
     })
       .next()
-      .select(selectBeneficiary)
-      .next({ beneficiaries: null })
       .call([api, api.addBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
-      .put(beneficiaryListInit())
-      .next()
       .put(showUnknownError(new ServerError(mockError500)))
       .next();
   });
@@ -104,12 +101,8 @@ describe('AddBeneficiary - usecase', () => {
       payload: mockRequest,
     })
       .next()
-      .select(selectBeneficiary)
-      .next({ beneficiaries: null })
       .call([api, api.addBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unknown error'))
-      .put(beneficiaryListInit())
-      .next()
       .put(showUnknownError(new Error('unknown error')))
       .next();
   });

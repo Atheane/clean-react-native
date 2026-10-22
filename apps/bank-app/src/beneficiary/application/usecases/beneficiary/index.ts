@@ -57,13 +57,15 @@ export function* addBeneficiaryGenerator(
     // update store
     const { beneficiaries: beneficiariesFromStore } = yield select(selectBeneficiary);
     if (beneficiariesFromStore) {
+      console.log('IF', beneficiariesFromStore);
       beneficiariesFromStore.push(beneficiary);
 
       // Sort - TODO binary insertion to optimize
       sortByName(beneficiariesFromStore);
-
+      console.log('IF', beneficiariesFromStore);
       yield put(beneficiaryListed(beneficiariesFromStore));
     } else {
+      console.log('ELSE', [beneficiary]);
       yield put(beneficiaryListed([beneficiary]));
     }
 
@@ -80,7 +82,6 @@ export function* addBeneficiaryGenerator(
       yield cancel();
     }
     // once app is well tested, delete this part and let onError hook manage unexpected errors
-    yield put(beneficiaryAdd(payload));
     yield put(showUnknownError(error as Error));
   }
 }
@@ -119,12 +120,7 @@ export function* deleteBeneficiaryGenerator(
       yield call(navigate, { route: IAuthStackPages.LOGIN });
       yield cancel();
     }
-    if (error instanceof ServerError && error.statusCode === 400) {
-      yield put(beneficiaryAddFailure(new BeneficiaryError.InvalidIBAN(error)));
-      yield cancel();
-    }
     // once app is well tested, delete this part and let onError hook manage unexpected errors
-    yield put(beneficiaryAdd(payload));
     yield put(showUnknownError(error as Error));
   }
 }
