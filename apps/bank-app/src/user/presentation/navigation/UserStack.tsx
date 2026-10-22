@@ -29,7 +29,6 @@ import {
   SignupAddress,
   EmailSent,
   SignupPhone,
-  SignupCongrats,
 } from '../screens';
 
 const locales = getLocales();
@@ -121,14 +120,6 @@ export const UserStack = () => {
         }}
         name={IUserStackPages.SIGNUP_PHONE}
         component={SignupPhone}
-      />
-      <Stack.Screen
-        options={{
-          headerTitle: t(`screens.signup-congrats.title`),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
-        }}
-        name={IUserStackPages.SIGNUP_CONGRATS}
-        component={SignupCongrats}
       />
       <Stack.Screen
         options={{
