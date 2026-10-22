@@ -82,6 +82,12 @@
         "USER_UNAUTHENTICATED": "please authenticate",
         "USER_UNAUTHORIZED": "unauthorized user"
       },
+      "beneficiary": {
+        "INVALID_IBAN": "Invalid IBAN",
+        "INVALID_BIC": "Invalid BIC",
+        "INVALID_NAME": "Invalid  Name"
+      },
+
       "other": "error, please contact the administrator"
     },
     "other": "error, please contact the administrator"

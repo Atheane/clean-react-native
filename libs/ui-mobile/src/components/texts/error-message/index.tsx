@@ -53,6 +53,15 @@ export const ErrorMessage = (props: IProps) => {
         )}
       {props.error &&
         props.error.code &&
+        Object.values(IBeneficiaryErrorCodes).includes(props.error.code as IBeneficiaryErrorCodes) && (
+          <View>
+            <Text style={theme.bank.text.errors}>
+              {firstLetterCapitalize(t(`errors.domain-error.beneficiary.${props.error.code}`))}
+            </Text>
+          </View>
+        )}
+      {props.error &&
+        props.error.code &&
         Object.values(ICarbonErrorCodes).includes(props.error.code as ICarbonErrorCodes) && (
           <View>
             <Text style={theme.bank.text.errors}>

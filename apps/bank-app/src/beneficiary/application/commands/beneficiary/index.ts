@@ -9,9 +9,9 @@ import {
 } from './types';
 
 // commands
-export const beneficiaryAdd = (payload: IBeneficiary): IBeneficiaryAdd => ({
+export const beneficiaryAdd = (payload: IBeneficiaryAddCommand): IBeneficiaryAdd => ({
   type: IBeneficiaryTypes.BENEFICIARY_ADD,
-  payload: IBeneficiaryAddCommand,
+  payload,
 });
 
 export const beneficiaryList = (): IBeneficiaryList => ({

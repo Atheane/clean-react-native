@@ -6,6 +6,7 @@ import { IBeneficiaryState } from '../state';
 const initialState: IBeneficiaryState = {
   pending: false,
   beneficiaries: null,
+  error: null,
 };
 
 export const beneficiaryReducer = (state = initialState, action: IBeneficiaryActions) => {

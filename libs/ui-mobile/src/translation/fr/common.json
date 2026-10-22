@@ -94,6 +94,11 @@
         "UNKNOWN_TRANSACTION_TYPE": "Type de transaction inconnu",
         "INVALID_TRANSACTION_VALUE": "Valeur de transaction invalide"
       },
+      "beneficiary": {
+        "INVALID_IBAN": "IBAN invalide",
+        "INVALID_BIC": "BIC invalide",
+        "INVALID_NAME": "Nom invalide"
+      },
       "carbon": {
         "INVALID_HOUSE_PROPS": "Propriétés de maison invalides",
         "INVALID_TRANSPORT_PROPS": "Propriétés de transport invalides",
