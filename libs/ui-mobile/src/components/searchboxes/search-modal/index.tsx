@@ -75,7 +75,7 @@ export const SearchModal = (props: IProps) => {
     [props],
   );
 
-  const renderLabel = (item: IData) => `${item.key} - ${item.value}`.slice(0, 29) + '...';
+  const renderLabel = (item: IData) => `${item.key} - ${item.value}`.slice(0, 25) + '...';
 
   const handleOnPress = useCallback(() => {
     clearSearch();
@@ -96,7 +96,7 @@ export const SearchModal = (props: IProps) => {
       <TextInput
         placeholder={props.placeholder}
         label={props.label}
-        icon={props.icon}
+        IconLeft={props.icon}
         lowerCase
         value={selectedItem ? renderLabel(selectedItem) : ''}
         onFocus={handleOnPress}
@@ -112,7 +112,7 @@ export const SearchModal = (props: IProps) => {
           <TextInput
             placeholder={props.placeholder}
             label={props.label}
-            icon={props.icon}
+            IconLeft={props.icon}
             lowerCase
             value={searchQuery}
             onChange={handleSearchQuery}

@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Dropdown -  defaultValue -  renders as before 1`] = `
-<View>
+<View
+  style={{}}
+>
   <View
     style={
       {
@@ -135,7 +137,9 @@ exports[`Dropdown -  defaultValue -  renders as before 1`] = `
 `;
 
 exports[`Dropdown -  labelColor -  renders as before 1`] = `
-<View>
+<View
+  style={{}}
+>
   <View
     style={
       {
@@ -269,7 +273,9 @@ exports[`Dropdown -  labelColor -  renders as before 1`] = `
 `;
 
 exports[`Dropdown -  minimal props -  renders as before 1`] = `
-<View>
+<View
+  style={{}}
+>
   <View
     style={
       {

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { SvgProps } from 'react-native-svg';
-import { Input, useTheme } from '@rneui/themed';
+import { Input, useTheme, Theme } from '@rneui/themed';
 
 import { Colors } from '../../../constants';
 
@@ -24,7 +24,7 @@ type IProps = {
 };
 
 const Label = React.memo(
-  ({ label, labelColor, theme }: { label?: string; labelColor?: string; theme: any }) =>
+  ({ label, labelColor, theme }: { label?: string; labelColor?: string; theme: Theme }) =>
     label ? (
       <Text style={[theme.bank.text.label, { color: labelColor ?? Colors.bank.secondary.pink }]}>
         {label}

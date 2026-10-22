@@ -62,3 +62,7 @@ export const GreenEuroAmountPinkLabel: TextInputStory = (args) => {
     />
   );
 };
+
+export const Short: TextInputStory = (args) => {
+  return <TextInput {...args} short />;
+};
