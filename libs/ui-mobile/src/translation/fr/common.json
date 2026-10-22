@@ -9,6 +9,14 @@
     }
   },
   "errors": {
+    "card-limits": {
+      "min": "Le montant doit être supérieur à 100",
+      "max": {
+        "day": "Le montant doit être inférieur à 3000",
+        "week": "Le montant doit être inférieur à 6000",
+        "month": "Le montant doit être inférieur à 9000"
+      }
+    },
     "BIC": {
       "required": "BIC requis",
       "invalid": "BIC invalide"

@@ -129,6 +129,7 @@ import {
   RightChevronGradient,
   IbanGreenGradient,
   BicGreenGradient,
+  GreenGradientSpeedLimit,
 } from './svg';
 import { DefaultImage, PlaneEmpty } from './image';
 import { Loader } from './lottie';
@@ -266,4 +267,5 @@ export {
   RightChevronGradient,
   IbanGreenGradient,
   BicGreenGradient,
+  GreenGradientSpeedLimit,
 };

@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { PrimaryButton, FontNames, Colors, ErrorMessage } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { IAccountStackPages, ISharedStackPages } from '../../../shared/presentation/types';
+import { ISharedStackPages } from '../../../shared/presentation/types';
 import { applicationInitialized } from '../../../shared/application/commands/initialize-application';
 
 import { Congrats } from '../../presentation/assets/images';
