@@ -17,6 +17,7 @@ import {
   COUNTRIES_AVAILABLE,
   IUserErrorCodes,
   IUserErrorMessage,
+  Name,
 } from '@clean-rn/user/domain';
 import { Person, Phone as PhoneIcon } from '../../../assets';
 import { Colors } from '../../../constants';
@@ -93,7 +94,7 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
         <Controller
           control={props.control}
           name="firstName"
-          rules={{ required: true }}
+          rules={{ required: true, pattern: Name.pattern }}
           render={({ field: { onChange, value } }) => (
             <TextInput
               label={t('signup-identity.first-name.label')}
@@ -112,12 +113,19 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
             </Text>
           </View>
         )}
+        {props.errors?.firstName && props.errors.firstName.type === 'pattern' && (
+          <View style={styles.errorContainer}>
+            <Text style={theme.bank.text.errors}>
+              {firstLetterCapitalize(t('errors.first-name.invalid'))}
+            </Text>
+          </View>
+        )}
       </View>
       <View style={styles.input}>
         <Controller
           control={props.control}
           name="lastName"
-          rules={{ required: true }}
+          rules={{ required: true, pattern: Name.pattern }}
           render={({ field: { onChange, value } }) => (
             <TextInput
               label={t('signup-identity.last-name.label')}
@@ -134,6 +142,11 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
             <Text style={theme.bank.text.errors}>
               {firstLetterCapitalize(t('errors.last-name.required'))}
             </Text>
+          </View>
+        )}
+        {props.errors?.lastName && props.errors.lastName.type === 'pattern' && (
+          <View style={styles.errorContainer}>
+            <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.last-name.invalid'))}</Text>
           </View>
         )}
       </View>

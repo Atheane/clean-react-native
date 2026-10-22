@@ -34,10 +34,12 @@
       "invalid": "date de naissance invalide, 18 ans minimum"
     },
     "first-name": {
-      "required": "prénom requis"
+      "required": "prénom requis",
+      "invalid": "format du prénom invalide"
     },
     "last-name": {
-      "required": "nom requis"
+      "required": "nom requis",
+      "invalid": "format du nom invalide"
     },
     "birth-country": {
       "required": "pays de naissance requis"

@@ -18,6 +18,7 @@ export default {
     assetBundlePatterns: ['**/*'],
     ios: {
       bundleIdentifier: 'com.example.storybookdev',
+      googleServicesFile: './GoogleService-Info.plist',
       supportsTablet: true,
     },
     android: {
@@ -26,6 +27,7 @@ export default {
         backgroundColor: '#FFFFFF',
       },
       package: 'com.example.storybookdev',
+      googleServicesFile: './google-services.json',
     },
     web: {
       favicon: './assets/images/favicon.png',
@@ -39,6 +41,7 @@ export default {
           subdomains: '*',
         },
       ],
+      ['@react-native-firebase/app'],
       [
         'react-native-document-scanner-plugin',
         {
@@ -46,6 +49,14 @@ export default {
         },
       ],
       ['react-native-compressor'],
+      [
+        'expo-build-properties',
+        {
+          ios: {
+            useFrameworks: 'static',
+          },
+        },
+      ],
     ],
     extra: {
       NODE_ENV: process.env.NODE_ENV,

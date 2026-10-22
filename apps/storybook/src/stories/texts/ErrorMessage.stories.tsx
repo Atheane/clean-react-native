@@ -3,13 +3,13 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { ErrorMessage } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus } from '../../wrappers';
-import { AuthError } from '@clean-rn/auth/domain';
+import { UserError } from '@clean-rn/user/domain';
 
 const ErrorMessageMeta: ComponentMeta<typeof ErrorMessage> = {
   title: 'Texts/ErrorMessage',
   component: ErrorMessage,
   args: {
-    error: new AuthError.ValidatePhoneIncorrectPhoneCode(),
+    error: new UserError.ValidatePhoneIncorrectPhoneCode(),
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };

@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { getLocales } from 'expo-localization';
 
 import { Logger } from '@clean-rn/logger';
-import { IGender } from '@clean-rn/auth/domain';
+import { IGender } from '@clean-rn/user/domain';
 import {
   FormSignupIdentityPasswordPhone,
   ISignupIdentityPasswordPhoneFormData,

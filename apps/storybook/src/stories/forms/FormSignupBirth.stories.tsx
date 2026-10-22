@@ -7,7 +7,7 @@ import { Logger } from '@clean-rn/logger';
 
 import { FormSignupBirth, ISignupBirthFormData } from '@clean-rn/ui-mobile';
 
-import { COUNTRIES_AVAILABLE } from '@clean-rn/auth/domain';
+import { COUNTRIES_AVAILABLE } from '@clean-rn/user/domain';
 import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../../wrappers';
 
 const locales = getLocales();

@@ -14,7 +14,6 @@
     "@react-native-community/slider": "*",
     "@rneui/base": "*",
     "@rneui/themed": "*",
-    "@sentry/react-native": "*",
     "@storybook/addon-actions": "*",
     "@storybook/addon-ondevice-actions": "*",
     "@storybook/addon-ondevice-controls": "*",
@@ -63,7 +62,9 @@
     "react-native-pdf": "*",
     "lottie-react-native": "~5.1.4",
     "react-native-device-info": "*",
-    "@react-native-firebase/messaging": "*"
+    "@sentry/react-native": "*",
+    "@react-native-firebase/messaging": "*",
+    "@react-native-firebase/app": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/storybook && cp package-lock.json apps/storybook",
