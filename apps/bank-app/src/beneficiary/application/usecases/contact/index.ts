@@ -18,6 +18,16 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { selectContact } from '../../state-management/selectors';
 
+const sortByName = (beneficiaries: IContact[]) => {
+  beneficiaries.sort((a: IContact, b: IContact) => {
+    const nameA = a.name.toLowerCase(); // ignore upper and lowercase
+    const nameB = b.name.toLowerCase(); // ignore upper and lowercase
+    if (nameA < nameB) return -1;
+    if (nameA > nameB) return 1;
+    return 0;
+  });
+};
+
 export function* addContactSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(IContactTypes.CONTACT_ADD, addContactGenerator);
 }
@@ -41,6 +51,9 @@ export function* addContactGenerator({
     const { contacts: contactsFromStore } = yield select(selectContact);
     if (contactsFromStore) {
       contactsFromStore.push(contact);
+      // Sort
+      // TODO do binary insertion to optimize
+      sortByName(contactsFromStore);
       yield put(contactListed(contactsFromStore));
     } else {
       yield put(contactListed([contact]));
@@ -69,6 +82,7 @@ export function* listContactGenerator(): Generator<StrictEffect, any, any> {
     } else {
       const api = ExpoContact.getInstance();
       const contacts: IContact[] = yield call([api, api.getContact]);
+      sortByName(contacts);
       yield put(contactListed(contacts));
       yield call(navigate, { route: IHomeStackPages.BENEFICIARY_LIST });
     }

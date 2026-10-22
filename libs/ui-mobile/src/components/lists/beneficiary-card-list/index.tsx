@@ -8,15 +8,11 @@ type IProps = {
 };
 
 export const BeneficiaryCardList = (props: IProps) => {
-  const sortedBeneficiaries = props.data.sort((a, b) => {
-    return a.name < b.name ? 1 : 0;
-  });
-
   return (
     <FlatList
       showsVerticalScrollIndicator={false}
       pinchGestureEnabled
-      data={sortedBeneficiaries}
+      data={props.data}
       contentContainerStyle={{ padding: 0 }}
       keyExtractor={(item) => item.name}
       renderItem={({ item, index }: { item: IBeneficiary; index: number }) => (

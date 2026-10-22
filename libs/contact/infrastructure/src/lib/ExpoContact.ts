@@ -1,5 +1,6 @@
 import * as Contacts from 'expo-contacts';
 //
+import { Phone } from '@clean-rn/auth/domain';
 import { IContact, IContactAddCommand, IContactRepository } from '@clean-rn/contact/domain';
 //
 import { mapContactExpoToContact } from '../mappers';
@@ -35,6 +36,7 @@ export class ExpoContact implements IContactRepository {
   }
 
   async addContact(contact: IContactAddCommand): Promise<IContact> {
+    const phone = new Phone(contact.phone, contact.countryCode);
     const newContact = {
       [Contacts.Fields.ContactType]: Contacts.ContactTypes.Person,
       [Contacts.Fields.FirstName]: contact.firstname,
@@ -43,7 +45,8 @@ export class ExpoContact implements IContactRepository {
       [Contacts.Fields.PhoneNumbers]: [
         {
           label: 'mobile',
-          number: contact.phone,
+          number: phone.valueInternational,
+          countryCode: contact.countryCode,
         },
       ],
     };
@@ -51,7 +54,7 @@ export class ExpoContact implements IContactRepository {
 
     return {
       name: `${contact.firstname} ${contact.lastname}`,
-      phone: contact.phone,
+      phone: phone.valueInternational,
     };
   }
 }

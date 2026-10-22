@@ -18,6 +18,16 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { selectBeneficiary } from '../../state-management/selectors';
 
+const sortByName = (beneficiaries: IBeneficiary[]) => {
+  beneficiaries.sort((a: IBeneficiary, b: IBeneficiary) => {
+    const nameA = a.name.toLowerCase(); // ignore upper and lowercase
+    const nameB = b.name.toLowerCase(); // ignore upper and lowercase
+    if (nameA < nameB) return -1;
+    if (nameA > nameB) return 1;
+    return 0;
+  });
+};
+
 export function* addBeneficiarySaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IBeneficiaryTypes.BENEFICIARY_ADD, addBeneficiaryGenerator, httpConnection);
 }
@@ -44,6 +54,10 @@ export function* addBeneficiaryGenerator(
     const { beneficiaries: beneficiariesFromStore } = yield select(selectBeneficiary);
     if (beneficiariesFromStore) {
       beneficiariesFromStore.push(beneficiary);
+
+      // Sort - TODO binary insertion to optimize
+      sortByName(beneficiariesFromStore);
+
       yield put(beneficiaryListed(beneficiariesFromStore));
     } else {
       yield put(beneficiaryListed([beneficiary]));
@@ -76,7 +90,7 @@ export function* listBeneficiaryGenerator(httpConnection: HttpConnection): Gener
     } else {
       const api = BeneficiaryApi.getInstance(httpConnection);
       const beneficiaries: IBeneficiary[] = yield call([api, api.getBeneficiary]);
-
+      sortByName(beneficiaries);
       yield put(beneficiaryListed(beneficiaries));
       yield call(navigate, { route: IHomeStackPages.BENEFICIARY_LIST });
     }

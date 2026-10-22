@@ -14,6 +14,7 @@ import {
   BeneficiaryAdd,
   BeneficiaryCardList,
   ContactCardList,
+  BANK,
   Colors,
 } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
@@ -182,7 +183,7 @@ export const BeneficiaryList = () => {
               title="Bank"
               active={true}
               titleStyle={{ fontSize: 12, color: Colors.bank.primary.green }}
-              icon={{ name: 'business-outline', type: 'ionicon', color: Colors.bank.primary.green }}
+              icon={BANK}
             >
               Bank
             </Tab.Item>
