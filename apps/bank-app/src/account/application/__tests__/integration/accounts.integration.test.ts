@@ -26,7 +26,7 @@ const expoConstantsMock = {
 };
 jest.mock('expo-constants', () => expoConstantsMock);
 
-describe('ListAccounts - integration', () => {
+describe('Accounts - integration', () => {
   let sagaTester: SagaTester;
   let httpConnection: HttpConnection;
 

@@ -15,9 +15,9 @@ import {
   beneficiariesListed,
   IBeneficiaryTypes,
   initBeneficiary,
-  beneficiaryAddFailure,
+  beneficiaryAddFailed,
   beneficiaryAdded,
-  beneficiaryDeleteFailure,
+  beneficiaryDeleteFailed,
   beneficiaryDeleted,
 } from '../../commands/beneficiary';
 import { IAuthStackPages, IBeneficiaryStackPages } from '../../../../shared/presentation/types';
@@ -70,7 +70,7 @@ export function* addBeneficiaryGenerator(
       yield cancel();
     }
     if (error instanceof ServerError && error.statusCode === 400) {
-      yield put(beneficiaryAddFailure(new BeneficiaryError.BeneficiaryAlreadyExists(error.message)));
+      yield put(beneficiaryAddFailed(new BeneficiaryError.BeneficiaryAlreadyExists(error.message)));
       yield cancel();
     }
     yield put(initBeneficiary());
@@ -103,7 +103,7 @@ export function* deleteBeneficiaryGenerator(
       yield cancel();
     }
     if (error instanceof ServerError && error.statusCode === 400) {
-      yield put(beneficiaryDeleteFailure(new BeneficiaryError.BeneficiaryUnknown(error.message)));
+      yield put(beneficiaryDeleteFailed(new BeneficiaryError.BeneficiaryUnknown(error.message)));
       yield cancel();
     }
     yield put(initBeneficiary());
@@ -117,7 +117,7 @@ export function* listBeneficiaryGenerator(httpConnection: HttpConnection): Gener
 
     if (beneficiariesFromStore) {
       yield put(beneficiariesListed(beneficiariesFromStore));
-      yield call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST });
+      yield call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 0 } });
     } else {
       const api = BeneficiaryApi.getInstance(httpConnection);
       const beneficiaries: IBeneficiary[] = yield call([api, api.getBeneficiary]);

@@ -47,7 +47,7 @@ export const beneficiaryAdded = (payload: IBeneficiary): IBeneficiaryAdded => ({
   payload,
 });
 
-export const beneficiaryAddFailure = (
+export const beneficiaryAddFailed = (
   payload: IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>,
 ): IBeneficiaryAddFailed => ({
   type: IBeneficiaryTypes.BENEFICIARY_ADD_FAILED,
@@ -59,7 +59,7 @@ export const beneficiaryDeleted = (payload: IBeneficiary): IBeneficiaryDeleted =
   payload,
 });
 
-export const beneficiaryDeleteFailure = (
+export const beneficiaryDeleteFailed = (
   payload: IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>,
 ): IBeneficiaryDeleteFailed => ({
   type: IBeneficiaryTypes.BENEFICIARY_DELETE_FAILED,
