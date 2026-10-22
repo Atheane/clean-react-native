@@ -14,6 +14,7 @@ import {
   BeneficiaryAdd,
   BeneficiaryCardList,
   ContactCardList,
+  DeleteCrossGradient,
   BANK,
   Colors,
 } from '@clean-rn/ui-mobile';
@@ -80,11 +81,14 @@ const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
     navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_ADD);
   }, [navigation]);
 
+  const handleOnPressDelete = useCallback((beneficiaryId: number) => {
+    console.log('DELETE BENEFICIARY', beneficiaryId);
+  }, []);
   return (
     <>
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
-          <BeneficiaryCardList data={props.data} />
+          <BeneficiaryCardList data={props.data} deleteCallback={handleOnPressDelete} />
         </View>
       </SafeAreaView>
       <View style={styles.top}>

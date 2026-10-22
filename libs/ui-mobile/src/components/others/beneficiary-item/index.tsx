@@ -1,12 +1,35 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
+//
+import { LinkButton } from '../../buttons/link-button';
+import { DeleteCrossGradient } from '../../../assets';
 import { Colors, FontNames } from '../../../constants';
+import { LinkButtonColors } from '../../../types';
+//
 
 type IProps = {
   icon?: React.FC<SvgProps>;
   name: string;
   iban: string;
+  beneficiaryId: number;
+  deleteCallback?: (beneficiaryId: number) => void | undefined;
+};
+
+type IPropsDeleteBtn = {
+  beneficiaryId: number;
+  deleteCallback: (beneficiaryId: number) => void | undefined;
+};
+
+const BeneficiaryDeleteBtn = (props: IPropsDeleteBtn) => {
+  return (
+    <LinkButton
+      pressed={false}
+      onPress={() => props.deleteCallback(props.beneficiaryId)}
+      iconOne={DeleteCrossGradient}
+      colorOption={LinkButtonColors.WHITE}
+    />
+  );
 };
 
 export const BeneficiaryItem = (props: IProps) => {
@@ -30,6 +53,11 @@ export const BeneficiaryItem = (props: IProps) => {
         <Text style={styles.textName}>{cleanText()}</Text>
         <Text style={styles.textIban}>{props.iban}</Text>
       </View>
+      <View style={styles.deleteBtn}>
+        {props.deleteCallback && (
+          <BeneficiaryDeleteBtn deleteCallback={props.deleteCallback} beneficiaryId={props.beneficiaryId} />
+        )}
+      </View>
     </View>
   );
 };
@@ -49,5 +77,8 @@ const styles = StyleSheet.create({
     color: Colors.bank.primary.grey,
     fontSize: 14,
     marginTop: 5,
+  },
+  deleteBtn: {
+    marginTop: -10,
   },
 });

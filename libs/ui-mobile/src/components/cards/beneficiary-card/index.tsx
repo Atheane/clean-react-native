@@ -10,6 +10,7 @@ import { BANK } from '../../../assets';
 type IProps = {
   data: IBeneficiary;
   idx: number;
+  deleteCallback?: (beneficiary: number) => void;
 };
 
 export const BeneficiaryCard = (props: IProps) => {
@@ -20,7 +21,13 @@ export const BeneficiaryCard = (props: IProps) => {
       }
     >
       <View key={props.data.beneficiaryId}>
-        <BeneficiaryItem icon={BANK} name={props.data.name} iban={props.data.iban} />
+        <BeneficiaryItem
+          icon={BANK}
+          beneficiaryId={props.data.beneficiaryId}
+          name={props.data.name}
+          iban={props.data.iban}
+          deleteCallback={props.deleteCallback}
+        />
       </View>
     </Card>
   );
