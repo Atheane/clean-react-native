@@ -10,7 +10,8 @@ declare module 'i18next' {
   }
 }
 
-const lng = getLocales()[0].languageCode;
+const locales = getLocales();
+const lng = locales && locales.length > 0 ? locales[0].languageCode : 'en';
 
 i18n.use(initReactI18next).init({
   compatibilityJSON: 'v3', // necessary for Android compatibility

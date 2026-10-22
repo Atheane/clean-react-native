@@ -9,13 +9,13 @@ import { IDomainError } from '@clean-rn/ddd';
 export enum IContactTypes {
   //commands
   ADD_CONTACT = 'ADD_CONTACT',
-  LIST_CONTACT = 'LIST_CONTACT',
+  LIST_CONTACTS = 'LIST_CONTACTS',
   INIT_CONTACT = 'INIT_CONTACT',
 
   // domain Events
   CONTACT_ADDED = 'CONTACT_ADDED',
   CONTACT_ADD_FAILED = 'CONTACT_ADD_FAILED',
-  CONTACT_LISTED = 'CONTACT_LISTED',
+  CONTACTS_LISTED = 'CONTACTS_LISTED',
 }
 
 // commands
@@ -24,8 +24,8 @@ export type IAddContact = {
   payload: IAddContactCommand;
 };
 
-export type IListContact = {
-  type: typeof IContactTypes.LIST_CONTACT;
+export type IListContacts = {
+  type: typeof IContactTypes.LIST_CONTACTS;
 };
 
 export type IInitContact = {
@@ -43,15 +43,15 @@ export type IContactAddedFailed = {
   payload: IDomainError<IContactErrorCodes, IContactErrorMessage>;
 };
 
-export type IContactListed = {
-  type: typeof IContactTypes.CONTACT_LISTED;
+export type IContactsListed = {
+  type: typeof IContactTypes.CONTACTS_LISTED;
   payload: IContact[];
 };
 
 export type IContactActions =
   | IAddContact
-  | IListContact
+  | IListContacts
   | IInitContact
   | IContactAdded
   | IContactAddedFailed
-  | IContactListed;
+  | IContactsListed;

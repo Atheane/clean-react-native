@@ -16,7 +16,6 @@ const LinkButtonMeta: ComponentMeta<typeof LinkButton> = {
     },
   },
   args: {
-    arrow: true,
     colorOption: LinkButtonColors.GREEN,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
@@ -27,6 +26,11 @@ export default LinkButtonMeta;
 export const NoIcon: ComponentStory<typeof LinkButton> = (args) => {
   const { t } = useTranslation();
   return <LinkButton {...args} title={t('login.forgotten-password')} />;
+};
+
+export const Arrow: ComponentStory<typeof LinkButton> = (args) => {
+  const { t } = useTranslation();
+  return <LinkButton {...args} title={t('login.forgotten-password')} arrow={true} />;
 };
 
 export const IconLeft: ComponentStory<typeof LinkButton> = (args) => {

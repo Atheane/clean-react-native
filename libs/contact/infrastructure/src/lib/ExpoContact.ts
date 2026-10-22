@@ -1,6 +1,8 @@
 import * as Contacts from 'expo-contacts';
 //
 import { Phone } from '@clean-rn/user/domain';
+import { inplaceSortByName } from '@clean-rn/ui-mobile';
+
 import { IContact, IAddContactCommand, IContactRepository, ContactError } from '@clean-rn/contact/domain';
 //
 import { mapContactExpoToContact } from '../mappers';
@@ -29,7 +31,11 @@ export class ExpoContact implements IContactRepository {
         sort: sortType,
       });
 
-      if (data.length > 0) return data.map((contact: any) => mapContactExpoToContact(contact));
+      if (data.length > 0) {
+        const contacts = data.map((contact: any) => mapContactExpoToContact(contact));
+        inplaceSortByName(contacts);
+        return contacts;
+      }
     }
 
     return [];

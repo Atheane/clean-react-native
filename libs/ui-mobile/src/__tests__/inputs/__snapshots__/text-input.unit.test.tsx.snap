@@ -46,6 +46,7 @@ exports[`TextInput -  icon -  renders as before 1`] = `
           autoCorrect={false}
           editable={true}
           keyboardType="default"
+          multiline={false}
           placeholder="placeolder"
           placeholderTextColor="#838383"
           style={
@@ -53,7 +54,7 @@ exports[`TextInput -  icon -  renders as before 1`] = `
               "color": "#CB287D",
               "flex": 1,
               "fontFamily": "Roboto_400Regular",
-              "fontSize": 14,
+              "fontSize": 13,
               "minHeight": 40,
               "textAlign": "left",
             }
@@ -140,6 +141,7 @@ exports[`TextInput -  label -  renders as before 1`] = `
           autoCorrect={false}
           editable={true}
           keyboardType="default"
+          multiline={false}
           placeholder="placeolder"
           placeholderTextColor="#838383"
           style={
@@ -147,7 +149,7 @@ exports[`TextInput -  label -  renders as before 1`] = `
               "color": "#CB287D",
               "flex": 1,
               "fontFamily": "Roboto_400Regular",
-              "fontSize": 14,
+              "fontSize": 13,
               "minHeight": 40,
               "textAlign": "left",
             }
@@ -234,6 +236,7 @@ exports[`TextInput -  labelColor -  renders as before 1`] = `
           autoCorrect={false}
           editable={true}
           keyboardType="default"
+          multiline={false}
           placeholder="placeolder"
           placeholderTextColor="#838383"
           style={
@@ -241,7 +244,7 @@ exports[`TextInput -  labelColor -  renders as before 1`] = `
               "color": "#CB287D",
               "flex": 1,
               "fontFamily": "Roboto_400Regular",
-              "fontSize": 14,
+              "fontSize": 13,
               "minHeight": 40,
               "textAlign": "left",
             }
@@ -311,6 +314,7 @@ exports[`TextInput -  lowerCase & icon -  renders as before 1`] = `
           autoCorrect={false}
           editable={true}
           keyboardType="default"
+          multiline={false}
           placeholder="placeolder"
           placeholderTextColor="#838383"
           style={
@@ -318,7 +322,7 @@ exports[`TextInput -  lowerCase & icon -  renders as before 1`] = `
               "color": "#CB287D",
               "flex": 1,
               "fontFamily": "Roboto_400Regular",
-              "fontSize": 14,
+              "fontSize": 13,
               "minHeight": 40,
               "textAlign": "left",
             }
@@ -388,6 +392,7 @@ exports[`TextInput -  lowerCase -  renders as before 1`] = `
           autoCorrect={false}
           editable={true}
           keyboardType="default"
+          multiline={false}
           placeholder="placeolder"
           placeholderTextColor="#838383"
           style={
@@ -395,7 +400,7 @@ exports[`TextInput -  lowerCase -  renders as before 1`] = `
               "color": "#CB287D",
               "flex": 1,
               "fontFamily": "Roboto_400Regular",
-              "fontSize": 14,
+              "fontSize": 13,
               "minHeight": 40,
               "textAlign": "left",
             }
@@ -464,6 +469,7 @@ exports[`TextInput -  minimal props -  renders as before 1`] = `
           autoCorrect={false}
           editable={true}
           keyboardType="default"
+          multiline={false}
           placeholder="placeolder"
           placeholderTextColor="#838383"
           style={
@@ -471,7 +477,7 @@ exports[`TextInput -  minimal props -  renders as before 1`] = `
               "color": "#CB287D",
               "flex": 1,
               "fontFamily": "Roboto_400Regular",
-              "fontSize": 14,
+              "fontSize": 13,
               "minHeight": 40,
               "textAlign": "left",
             }

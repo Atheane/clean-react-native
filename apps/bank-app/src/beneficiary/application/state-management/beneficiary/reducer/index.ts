@@ -2,6 +2,8 @@ import { Logger } from '@clean-rn/logger';
 
 import { IBeneficiaryTypes, IBeneficiaryActions } from '../../../commands/beneficiary';
 import { IBeneficiaryState } from '../state';
+import { IBeneficiary } from '@clean-rn/beneficiary/domain';
+import { inplaceSortByName } from '@clean-rn/ui-mobile';
 
 const initialState: IBeneficiaryState = {
   pending: false,
@@ -12,6 +14,8 @@ const initialState: IBeneficiaryState = {
 export const beneficiaryReducer = (state = initialState, action: IBeneficiaryActions) => {
   const logger = Logger.getInstance();
   let newState: IBeneficiaryState;
+  let beneficiaries: IBeneficiary[];
+
   switch (action.type) {
     case IBeneficiaryTypes.ADD_BENEFICIARY:
       logger.debug(action.type);
@@ -45,13 +49,16 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
       return newState;
     case IBeneficiaryTypes.BENEFICIARY_ADDED:
       logger.debug(action.type);
+      if (state.beneficiaries && state.beneficiaries.length > 0) {
+        beneficiaries = [...state.beneficiaries, action.payload];
+        inplaceSortByName(beneficiaries);
+      } else {
+        beneficiaries = [action.payload];
+      }
       newState = {
         ...state,
         pending: false,
-        beneficiaries:
-          state.beneficiaries && state.beneficiaries.length > 0
-            ? [...state.beneficiaries, action.payload]
-            : [action.payload],
+        beneficiaries: beneficiaries,
       };
       return newState;
     case IBeneficiaryTypes.BENEFICIARY_ADD_FAILED:

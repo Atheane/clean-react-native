@@ -59,5 +59,5 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
   textContainer: { marginLeft: 30, marginVertical: 14 },
-  iconContainer: { position: 'absolute', right: 12, top: 0 },
+  iconContainer: { position: 'absolute', right: 12 },
 });

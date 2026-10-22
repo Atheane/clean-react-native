@@ -1,10 +1,11 @@
 import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
 import {
   IBeneficiary,
-  IBeneficiaryAddCommand,
-  IBeneficiaryDeleteCommand,
+  IAddBeneficiaryCommand,
+  IDeleteBeneficiaryCommand,
   IBeneficiaryRepository,
 } from '@clean-rn/beneficiary/domain';
+import { inplaceSortByName } from '@clean-rn/ui-mobile';
 
 export class BeneficiaryApi implements IBeneficiaryRepository {
   private static instance: BeneficiaryApi | null = null;
@@ -31,10 +32,11 @@ export class BeneficiaryApi implements IBeneficiaryRepository {
     );
     await this.connection.handleError(response);
     const beneficiaries = await response.json();
+    inplaceSortByName(beneficiaries);
     return beneficiaries;
   }
 
-  async addBeneficiary(beneficiary: IBeneficiaryAddCommand): Promise<IBeneficiary> {
+  async addBeneficiary(beneficiary: IAddBeneficiaryCommand): Promise<IBeneficiary> {
     const response = await fetch(
       `${this.connection.baseUrl}/app/beneficiary`,
       this.connection.options(IHttpVerb.POST, beneficiary),
@@ -43,7 +45,7 @@ export class BeneficiaryApi implements IBeneficiaryRepository {
     return response.json();
   }
 
-  async deleteBeneficiary(beneficiary: IBeneficiaryDeleteCommand): Promise<IBeneficiary> {
+  async deleteBeneficiary(beneficiary: IDeleteBeneficiaryCommand): Promise<IBeneficiary> {
     const response = await fetch(
       `${this.connection.baseUrl}/app/beneficiary/${beneficiary.beneficiaryId}`,
       this.connection.options(IHttpVerb.DELETE),

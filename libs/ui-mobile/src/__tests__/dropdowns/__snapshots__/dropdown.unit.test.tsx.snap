@@ -123,7 +123,7 @@ exports[`Dropdown -  defaultValue -  renders as before 1`] = `
             "color": "#CB287D",
             "flex": 1,
             "fontFamily": "Roboto_400Regular",
-            "fontSize": 14,
+            "fontSize": 13,
             "marginHorizontal": 8,
             "textAlign": "left",
           }
@@ -259,7 +259,7 @@ exports[`Dropdown -  labelColor -  renders as before 1`] = `
             "color": "#CB287D",
             "flex": 1,
             "fontFamily": "Roboto_400Regular",
-            "fontSize": 14,
+            "fontSize": 13,
             "marginHorizontal": 8,
             "textAlign": "left",
           }
@@ -395,7 +395,7 @@ exports[`Dropdown -  minimal props -  renders as before 1`] = `
             "color": "#CB287D",
             "flex": 1,
             "fontFamily": "Roboto_400Regular",
-            "fontSize": 14,
+            "fontSize": 13,
             "marginHorizontal": 8,
             "textAlign": "left",
           }

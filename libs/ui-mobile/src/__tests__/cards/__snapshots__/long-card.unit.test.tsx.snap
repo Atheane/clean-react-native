@@ -57,7 +57,6 @@ exports[`LongCard -  minimal props -  renders as before 1`] = `
       {
         "position": "absolute",
         "right": 12,
-        "top": 0,
       }
     }
   >
@@ -137,7 +136,7 @@ exports[`LongCard -  minimal props -  renders as before 1`] = `
                   "justifyContent": "space-around",
                 },
                 {
-                  "marginTop": 16,
+                  "marginVertical": 8,
                 },
               ]
             }

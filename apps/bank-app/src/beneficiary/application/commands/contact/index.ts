@@ -8,11 +8,11 @@ import {
 import {
   IContactTypes,
   IAddContact,
-  IListContact,
+  IListContacts,
   IContactActions,
   IContactAdded,
   IInitContact,
-  IContactListed,
+  IContactsListed,
   IContactAddedFailed,
 } from './types';
 import { IDomainError } from '@clean-rn/ddd';
@@ -23,8 +23,8 @@ export const addContact = (payload: IAddContactCommand): IAddContact => ({
   payload,
 });
 
-export const listContact = (): IListContact => ({
-  type: IContactTypes.LIST_CONTACT,
+export const listContacts = (): IListContacts => ({
+  type: IContactTypes.LIST_CONTACTS,
 });
 
 export const initContact = (): IInitContact => ({
@@ -44,8 +44,8 @@ export const contactAddedFailed = (
   payload,
 });
 
-export const contactListed = (payload: IContact[]): IContactListed => ({
-  type: IContactTypes.CONTACT_LISTED,
+export const contactsListed = (payload: IContact[]): IContactsListed => ({
+  type: IContactTypes.CONTACTS_LISTED,
   payload,
 });
 
