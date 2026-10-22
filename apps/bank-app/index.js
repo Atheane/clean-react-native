@@ -1,13 +1,12 @@
 import { registerRootComponent } from 'expo';
 import * as Sentry from '@sentry/react-native';
 import Constants from 'expo-constants';
-import * as firebase from 'firebase/app';
-
 import App from './src/shared/presentation/App';
+import firebase from '@react-native-firebase/app';
 
 const firebaseConfig = {
   apiKey: Constants.expoConfig?.extra?.FIREBASE_API_KEY,
-  authDomain: Constants.expoConfig?.extra?.FIREBASE_AUTH_DOMAIN,
+  databaseURL: Constants.expoConfig?.extra?.FIREBASE_AUTH_DOMAIN, //maybe a hack, careful if firebase bug
   projectId: Constants.expoConfig?.extra?.FIREBASE_PROJECT_ID,
   storageBucket: Constants.expoConfig?.extra?.FIREBASE_STORAGE_BUCKET,
   messagingSenderId: Constants.expoConfig?.extra?.FIREBASE_MESSAGING_SENDER_ID,
@@ -15,9 +14,9 @@ const firebaseConfig = {
   measurementId: Constants.expoConfig?.extra?.FIREBASE_MEASUREMENT_ID,
 };
 
-console.log('>>>>>>>>>>>>>> firebaseConfig', firebaseConfig);
-
-firebase.initializeApp(firebaseConfig);
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 if (Constants.expoConfig?.extra?.NODE_ENV !== 'development') {
   Sentry.init({
