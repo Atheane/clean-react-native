@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Tab, TabView } from '@rneui/themed';
-import { View, StyleSheet, StyleProp, ViewStyle, Dimensions, SafeAreaView } from 'react-native';
+import { View, StyleSheet, Dimensions, SafeAreaView, StyleProp, ViewStyle } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -16,6 +16,7 @@ import {
   ContactCardList,
   BANK,
   Colors,
+  theme,
 } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IBeneficiaryStackPages } from '../../../shared/presentation/types';
@@ -38,8 +39,8 @@ const ContentNoBeneficiary = () => {
         title={t('screens.beneficiary.add-beneficiary')}
         onPress={handleOnPressAdd}
         iconOne={() => (
-          <View style={{ height: 23, marginLeft: -80, justifyContent: 'center' }}>
-            <BeneficiaryAdd style={{ marginTop: 15 } as StyleProp<ViewStyle>} />
+          <View style={styles.iconContainer}>
+            <BeneficiaryAdd style={{ marginTop: 15 }} />
           </View>
         )}
         long
@@ -60,14 +61,14 @@ const ContentNoContact = () => {
   return (
     <View style={styles.btnAddContainer}>
       <PrimaryButton
+        long
         title={t('screens.beneficiary.add-beneficiary')}
         onPress={handleOnPressAdd}
         iconOne={() => (
-          <View style={{ height: 23, marginLeft: -80, justifyContent: 'center' }}>
-            <BeneficiaryAdd style={{ marginTop: 15 } as StyleProp<ViewStyle>} />
+          <View style={styles.iconContainer}>
+            <BeneficiaryAdd style={{ marginTop: 15 }} />
           </View>
         )}
-        long
       />
     </View>
   );
@@ -134,9 +135,8 @@ const ContentContact = (props: { data: IContact[] }) => {
   );
 };
 
-const Beneficiary = () => {
-  const { beneficiaries } = useSelector((state: IRootState) => state.beneficiary.beneficiaries);
-  const hasBeneficiary = beneficiaries && beneficiaries?.length > 0;
+const Beneficiary = ({ beneficiaries }: { beneficiaries: IBeneficiary[] | null }) => {
+  const hasBeneficiary = beneficiaries && beneficiaries.length > 0;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -152,9 +152,9 @@ const Beneficiary = () => {
 };
 
 // TODO Refactor after UX review
-const Contact = () => {
-  const { contacts } = useSelector((state: IRootState) => state.beneficiary.contacts);
-  const hasContact = contacts && contacts?.length > 0;
+const Contact = ({ contacts }: { contacts: IContact[] | null }) => {
+  const hasContact = contacts && contacts.length > 0;
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(contactList());
@@ -171,6 +171,9 @@ const Contact = () => {
 export const BeneficiaryList = () => {
   const { t } = useTranslation();
   const [index, setIndex] = useState(0);
+
+  const { beneficiaries } = useSelector((state: IRootState) => state.beneficiary.beneficiaries);
+  const { contacts } = useSelector((state: IRootState) => state.beneficiary.contacts);
 
   return (
     <ErrorBoundary t={t}>
@@ -203,12 +206,27 @@ export const BeneficiaryList = () => {
         </View>
 
         <View style={styles.tabContent}>
-          <TabView value={index} onChange={setIndex} animationType="spring">
-            <TabView.Item style={{ backgroundColor: 'white', width: '100%' }}>
-              <Beneficiary />
+          <TabView
+            value={index}
+            onChange={setIndex}
+            animationType="spring"
+            containerStyle={{ backgroundColor: Colors.bank.primary.white }}
+          >
+            <TabView.Item
+              style={[
+                beneficiaries?.length === 0 && (theme.bank?.shadow?.button as StyleProp<ViewStyle>),
+                { width: '100%' },
+              ]}
+            >
+              <Beneficiary beneficiaries={beneficiaries} />
             </TabView.Item>
-            <TabView.Item style={{ backgroundColor: 'white', width: '100%' }}>
-              <Contact />
+            <TabView.Item
+              style={[
+                contacts?.length === 0 && (theme.bank?.shadow?.button as StyleProp<ViewStyle>),
+                { width: '100%' },
+              ]}
+            >
+              <Contact contacts={contacts} />
             </TabView.Item>
           </TabView>
         </View>
@@ -238,7 +256,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 50,
   },
-
+  iconContainer: { height: 23, marginLeft: -80, justifyContent: 'center' },
   tabContent: {
     marginTop: 50,
   },
