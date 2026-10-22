@@ -3,8 +3,6 @@ import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IBeneficiaryStackPages } from '../../../../shared/presentation/types';
-import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { listContactGenerator, listContactSaga } from '../../usecases/contact';
 import { IContactTypes, contactsListed, initContact } from '../../commands/contact';
@@ -40,8 +38,6 @@ describe('ListContact - usecase', () => {
       .call([api, api.getContacts])
       .next(mockResponse)
       .put(contactsListed(mockResponse))
-      .next()
-      .call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 1 } })
       .next();
   });
 
@@ -51,8 +47,6 @@ describe('ListContact - usecase', () => {
       .select(selectContact)
       .next({ contacts: mockResponse })
       .put(contactsListed(mockResponse))
-      .next()
-      .call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 1 } })
       .next();
   });
 

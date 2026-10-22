@@ -4,6 +4,5 @@ import { IDomainError } from '@clean-rn/ddd';
 export interface IContactState {
   pending: boolean;
   contacts: IContact[] | null;
-  addedContact: IContact | null;
   error: IDomainError<IContactErrorCodes, IContactErrorMessage> | null;
 }

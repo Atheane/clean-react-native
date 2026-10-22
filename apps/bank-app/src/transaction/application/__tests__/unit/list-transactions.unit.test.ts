@@ -12,19 +12,17 @@ import { TransactionApi } from '@clean-rn/transaction/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages, ITransactionStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { selectAuth } from '../../../../auth/application/state-management/selectors';
 import { refreshSuccess } from '../../../../auth/application/commands';
 
+import { accountSelected } from '../../../../account/application/commands/accounts';
+
 import { selectTransactions } from '../../selectors';
-import { listTransactionsGenerator, listTransactionsSaga } from '../../usecases/transactions';
-import {
-  ITransactionsTypes,
-  transactionsListed,
-  initializeTransactionsList,
-} from '../../commands/transactions';
+import { listTransactionsGenerator, listTransactionsSaga } from '../../usecases';
+import { ITransactionsTypes, transactionsListed, initializeTransactionsList } from '../../commands';
 
 describe('ListTransactions - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -119,7 +117,9 @@ describe('ListTransactions - usecase', () => {
       .next(mockResponse)
       .put(transactionsListed(mockResponse))
       .next()
-      .call(navigate, { route: IHomeStackPages.TRANSACTIONS, params: { account } })
+      .put(accountSelected(account))
+      .next()
+      .call(navigate, { route: ITransactionStackPages.MENU })
       .next();
   });
 
@@ -133,7 +133,9 @@ describe('ListTransactions - usecase', () => {
       .next({ transactions: mockResponse })
       .put(transactionsListed(mockResponse))
       .next()
-      .call(navigate, { route: IHomeStackPages.TRANSACTIONS, params: { account } })
+      .put(accountSelected(account))
+      .next()
+      .call(navigate, { route: ITransactionStackPages.MENU })
       .next();
   });
 

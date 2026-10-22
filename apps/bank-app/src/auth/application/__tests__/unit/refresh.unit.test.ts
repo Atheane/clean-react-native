@@ -9,7 +9,7 @@ import { AuthApi } from '@clean-rn/auth/infrastructure';
 import { refreshSaga, refreshGenerator } from '../../usecases/refresh';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages, ISharedStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { selectAuth } from '../../../../auth/application/state-management/selectors';
 import { IAuthTypes, refreshSuccess, resetError } from '../../commands';
@@ -69,7 +69,7 @@ describe('Refresh - usecase', () => {
     testSaga(refreshGenerator, httpConnection, {
       type: IAuthTypes.FETCH_REFRESH,
       payload: {
-        nextRoute: IHomeStackPages.HOME,
+        nextRoute: ISharedStackPages.HOME,
       },
     })
       .next()
@@ -79,7 +79,7 @@ describe('Refresh - usecase', () => {
       .next(mockResponse)
       .put(refreshSuccess({ auth: mockResponse }))
       .next()
-      .call(navigate, { route: IHomeStackPages.HOME, params: undefined })
+      .call(navigate, { route: ISharedStackPages.HOME, params: undefined })
       .next();
   });
 

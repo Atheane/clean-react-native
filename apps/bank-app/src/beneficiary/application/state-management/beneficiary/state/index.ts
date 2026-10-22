@@ -10,6 +10,5 @@ export interface IBeneficiaryState {
   pending: boolean;
   beneficiaries: IBeneficiary[] | null;
   selectedBeneficiary: IBeneficiary | null;
-  addedBeneficiary: IBeneficiary | null;
   error: IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage> | null;
 }

@@ -7,7 +7,7 @@ import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { BeneficiaryApi } from '@clean-rn/beneficiary/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages, IBeneficiaryStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { selectBeneficiary } from '../../state-management/selectors';
@@ -64,8 +64,6 @@ describe('ListBeneficiary - usecase', () => {
       .call([api, api.getBeneficiary]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
       .put(beneficiariesListed(mockResponse))
-      .next()
-      .call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 0 } })
       .next();
   });
 
@@ -75,8 +73,6 @@ describe('ListBeneficiary - usecase', () => {
       .select(selectBeneficiary)
       .next({ beneficiaries: mockResponse })
       .put(beneficiariesListed(mockResponse))
-      .next()
-      .call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 0 } })
       .next();
   });
 

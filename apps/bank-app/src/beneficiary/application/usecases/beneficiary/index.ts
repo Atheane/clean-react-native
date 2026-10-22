@@ -57,7 +57,7 @@ export function* addBeneficiaryGenerator(
     const beneficiary = yield call([api, api.addBeneficiary], payload);
     yield put(beneficiaryAdded(beneficiary));
     // nav back to beneficiary list
-    yield call(navigate, { route: IBeneficiaryStackPages.MENU, params: { idx: 0 } });
+    yield call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 0 } });
   } catch (error: unknown) {
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {
@@ -88,6 +88,7 @@ export function* deleteBeneficiaryGenerator(
     const beneficiary = yield call([api, api.deleteBeneficiary], payload);
 
     yield put(beneficiaryDeleted(beneficiary));
+    yield call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 0 } });
   } catch (error: unknown) {
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {

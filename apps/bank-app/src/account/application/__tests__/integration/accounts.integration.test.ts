@@ -56,6 +56,7 @@ describe('Accounts - integration', () => {
     const initialState: IAccountsState = {
       pending: false,
       accounts: null,
+      selectedAccount: null,
     };
     sagaTester = new SagaTester({
       initialState,
@@ -71,6 +72,7 @@ describe('Accounts - integration', () => {
     expect(newState).toEqual({
       pending: true,
       accounts: null,
+      selectedAccount: null,
     });
   });
 
@@ -82,6 +84,7 @@ describe('Accounts - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       accounts: mockResponse,
+      selectedAccount: null,
     });
   });
 
@@ -92,6 +95,7 @@ describe('Accounts - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       accounts: null,
+      selectedAccount: null,
     });
   });
 });

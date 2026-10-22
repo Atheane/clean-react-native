@@ -6,11 +6,11 @@ import { ExpoContact } from '@clean-rn/contact/infrastructure';
 import { ContactError } from '@clean-rn/contact/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IBeneficiaryStackPages } from '../../../../shared/presentation/types';
-import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { addContactGenerator, addContactSaga } from '../../usecases/contact';
 import { IContactTypes, contactAdded, contactAddedFailed, initContact } from '../../commands/contact';
+import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+import { IBeneficiaryStackPages } from '../../../../shared/presentation/types';
 
 describe('AddContact - usecase', () => {
   const api = ExpoContact.getInstance();
@@ -44,8 +44,7 @@ describe('AddContact - usecase', () => {
       .next(mockResponse)
       .put(contactAdded(mockResponse))
       .next()
-      .call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 1 } })
-      .next();
+      .call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 1 } });
   });
 
   it('Should call contactAddedFailed if contact already exists', () => {

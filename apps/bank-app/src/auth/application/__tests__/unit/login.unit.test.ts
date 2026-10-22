@@ -17,7 +17,7 @@ import { loginSaga, loginGenerator } from '../../usecases/login';
 import { IAuthTypes, loginSuccess, loginFailure, initializeAuth } from '../../commands';
 import { IStoreKey } from '../../../../shared/application/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IHomeStackPages, IUserStackPages } from '../../../../shared/presentation/types';
+import { ISharedStackPages, IUserStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
 import { initializeUser, userSaved } from '../../../../user/application/commands';
@@ -142,7 +142,7 @@ describe('Login - usecase', () => {
       .next()
       .put(checkCustomerStatus({ user }))
       .next()
-      .call(navigate, { route: IHomeStackPages.HOME })
+      .call(navigate, { route: ISharedStackPages.HOME })
       .next();
   });
 
@@ -168,7 +168,7 @@ describe('Login - usecase', () => {
       .next()
       .put(checkCustomerStatus({ user }))
       .next()
-      .call(navigate, { route: IHomeStackPages.HOME })
+      .call(navigate, { route: ISharedStackPages.HOME })
       .next();
   });
 
@@ -194,7 +194,7 @@ describe('Login - usecase', () => {
       .next()
       .put(checkCustomerStatus({ user }))
       .next()
-      .call(navigate, { route: IHomeStackPages.HOME })
+      .call(navigate, { route: ISharedStackPages.HOME })
       .next();
   });
 

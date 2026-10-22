@@ -8,7 +8,7 @@ import { IAccountType, Iban, Bic } from '@clean-rn/account/domain';
 import { AccountApi } from '@clean-rn/account/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages, ISharedStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { selectAccounts } from '../../state-management/selectors';
@@ -68,7 +68,7 @@ describe('ListAccounts - usecase', () => {
       .next(mockResponse)
       .put(accountsListed(mockResponse))
       .next()
-      .call(navigate, { route: IHomeStackPages.HOME })
+      .call(navigate, { route: ISharedStackPages.HOME })
       .next();
   });
 
@@ -79,7 +79,7 @@ describe('ListAccounts - usecase', () => {
       .next({ accounts: mockResponse })
       .put(accountsListed(mockResponse))
       .next()
-      .call(navigate, { route: IHomeStackPages.HOME })
+      .call(navigate, { route: ISharedStackPages.HOME })
       .next();
   });
 

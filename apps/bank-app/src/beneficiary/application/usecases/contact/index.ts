@@ -37,6 +37,7 @@ export function* addContactGenerator({
     const contact = yield call([api, api.addContact], payload);
 
     yield put(contactAdded(contact));
+    yield call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 1 } });
 
     // nav back to contact list
   } catch (error: unknown) {
@@ -54,7 +55,6 @@ export function* listContactGenerator(): Generator<StrictEffect, any, any> {
     const { contacts: contactsFromStore } = yield select(selectContact);
     if (contactsFromStore) {
       yield put(contactsListed(contactsFromStore));
-      yield call(navigate, { route: IBeneficiaryStackPages.MENU });
     } else {
       const api = ExpoContact.getInstance();
       const contacts: IContact[] = yield call([api, api.getContacts]);
