@@ -3,12 +3,21 @@ import { Logger } from '@clean-rn/logger';
 import { IBeneficiaryTypes, IBeneficiaryActions } from '../../../commands/beneficiary';
 import { IBeneficiaryState } from '../state';
 import { IBeneficiary } from '@clean-rn/beneficiary/domain';
-import { inplaceSortByName } from '@clean-rn/ui-mobile';
 
 const initialState: IBeneficiaryState = {
   pending: false,
   beneficiaries: null,
   error: null,
+};
+
+const inplaceSortByName = (contacts: any[]) => {
+  contacts.sort((a: any, b: any) => {
+    const nameA = a.name.toLowerCase(); // ignore upper and lowercase
+    const nameB = b.name.toLowerCase(); // ignore upper and lowercase
+    if (nameA < nameB) return -1;
+    if (nameA > nameB) return 1;
+    return 0;
+  });
 };
 
 export const beneficiaryReducer = (state = initialState, action: IBeneficiaryActions) => {
