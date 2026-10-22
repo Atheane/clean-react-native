@@ -14,6 +14,7 @@ import { NavigationUI } from './navigation';
 import { IRootState } from '../../shared/application/state-management/reducers/root-reducer';
 import { initializeApplication } from '../../shared/application/commands/initialize-application';
 
+// Initialize Firebase
 const App: () => JSX.Element = () => {
   const [fontsLoaded] = useFonts(Fonts);
   const dispatch = useDispatch();
