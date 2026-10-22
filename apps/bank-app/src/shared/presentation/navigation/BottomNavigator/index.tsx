@@ -1,6 +1,5 @@
-import { Pressable, StyleSheet, Text, StyleProp, ViewStyle } from 'react-native';
+import { StyleSheet, Text, StyleProp, ViewStyle } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { FontAwesome } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import {
   Colors,
@@ -16,17 +15,17 @@ import {
 } from '@clean-rn/ui-mobile';
 import {
   IRootTabParamList,
-  IRootTabScreenProps,
   IHomeStackPages,
   ITransferStackPages,
   ICarbonStackPages,
   IUserStackPages,
   IKycStackPages,
+  IBeneficiaryStackPages,
 } from '../../types';
 
 import { AccountStack } from '../../../../account/presentation/navigation';
 import { CarbonStack } from '../../../../carbon/presentation/navigation';
-// import { TransferStack } from '../../../../transfer/presentation/navigation'; //TODO
+import { TransferStack } from '../../../../transfer/presentation/navigation'; //TODO
 import { ProfileStack } from '../../../../user/presentation/navigation';
 import { KycStack } from '../../../../kyc/presentation/navigation';
 import { BeneficiaryStack } from '../../../../beneficiary/presentation/navigation';
@@ -59,7 +58,7 @@ export const BottomTabNavigator = () => {
         })}
       />
       <Tab.Screen
-        name={ITransferStackPages.MENU}
+        name={IBeneficiaryStackPages.MENU}
         component={BeneficiaryStack}
         options={() => ({
           title: t('screens.transfer.title'),
@@ -92,7 +91,7 @@ export const BottomTabNavigator = () => {
       <Tab.Screen
         name={IUserStackPages.MENU}
         component={ProfileStack}
-        options={({ navigation }: IRootTabScreenProps<IUserStackPages.MENU>) => ({
+        options={() => ({
           title: t('screens.profile.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             focused ? (
@@ -103,22 +102,20 @@ export const BottomTabNavigator = () => {
 
           tabBarLabel: ({ focused }: { focused: boolean }) =>
             focused ? <Text style={styles.tab}> {t('screens.profile.tab')}</Text> : '',
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}
-            >
-              <FontAwesome name="info-circle" size={25} color={Colors.bank.tab} style={{ marginRight: 15 }} />
-            </Pressable>
-          ),
         })}
       />
       <Tab.Screen
         name={IKycStackPages.MENU}
         component={KycStack}
         options={{
+          tabBarButton: () => null,
+        }}
+      />
+      <Tab.Screen
+        name={ITransferStackPages.MENU}
+        component={TransferStack}
+        options={{
+          title: t('screens.transfer.title'),
           tabBarButton: () => null,
         }}
       />

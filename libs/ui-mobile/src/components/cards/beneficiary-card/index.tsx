@@ -11,6 +11,7 @@ type IProps = {
   data: IBeneficiary & { icon?: React.FC<SvgProps> };
   idx: number;
   onDelete?: (beneficiary: number) => void;
+  onPress?: (beneficiary: number) => void;
 };
 
 export const BeneficiaryCard = (props: IProps) => {
@@ -25,6 +26,7 @@ export const BeneficiaryCard = (props: IProps) => {
           name={props.data.name}
           iban={props.data.iban}
           onDelete={props.onDelete}
+          onPress={props.onPress}
         />
       </View>
     </View>

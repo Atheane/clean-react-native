@@ -21,7 +21,7 @@ import {
   Group2,
 } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { IBeneficiaryStackPages } from '../../../shared/presentation/types';
+import { IBeneficiaryStackPages, ITransferStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 
 import { beneficiaryDelete, beneficiaryList } from '../../application/commands/beneficiary';
@@ -79,26 +79,34 @@ const ContentNoContact = () => {
 const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const { theme } = useTheme();
 
   const handleOnPressAdd = useCallback(() => {
     navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_ADD as never);
   }, [navigation]);
 
-  const handleOnPressDelete = useCallback(
+  const handleOnPress = useCallback(
     (beneficiaryId: number) => {
-      dispatch(beneficiaryDelete({ beneficiaryId }));
+      console.log('handleOnPress', beneficiaryId);
+      navigation.navigate(ITransferStackPages.MENU, { beneficiaryId });
     },
     [dispatch],
   );
+  // const handleOnPressDelete = useCallback(
+  //   (beneficiaryId: number) => {
+  //     dispatch(beneficiaryDelete({ beneficiaryId }));
+  //   },
+  //   [dispatch],
+  // );
   return (
     <>
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
-          <BeneficiaryCardList data={props.data} onDelete={handleOnPressDelete} />
+          <BeneficiaryCardList data={props.data} onPress={handleOnPress} />
         </View>
       </SafeAreaView>
       <View style={styles.top}>
-        <View style={styles.addBeneficiary}>
+        <View style={[styles.addBeneficiary, theme.bank.shadow.button]}>
           <LinkButton
             onPress={handleOnPressAdd}
             iconLeft={BeneficiaryAdd}
@@ -246,7 +254,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.bank.primary.white,
     marginTop: 0,
   },
-  row: {},
+  row: {
+    width: Dimensions.get('window').width,
+  },
   top: {
     position: 'absolute',
     top: -60,

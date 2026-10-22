@@ -3,7 +3,7 @@ import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
 //
 import { LinkButton } from '../../buttons/link-button';
-import { Trash } from '../../../assets';
+import { RightChevronGradient, Trash } from '../../../assets';
 import { Colors, FontNames } from '../../../constants';
 import { LinkButtonColors } from '../../../types';
 //
@@ -14,6 +14,7 @@ type IProps = {
   iban: string;
   beneficiaryId: number;
   onDelete?: (beneficiaryId: number) => void;
+  onPress?: (beneficiaryId: number) => void;
 };
 
 export const BeneficiaryItem = (props: IProps) => {
@@ -39,10 +40,12 @@ export const BeneficiaryItem = (props: IProps) => {
       </View>
       <View style={styles.btnContainer}>
         {props.onDelete && (
+          <LinkButton onPress={() => props.onDelete(props.beneficiaryId)} iconLeft={Trash} />
+        )}
+        {props.onPress && (
           <LinkButton
-            onPress={() => props.onDelete(props.beneficiaryId)}
-            iconLeft={Trash}
-            colorOption={LinkButtonColors.WHITE}
+            onPress={() => props.onPress(props.beneficiaryId)}
+            iconLeft={() => <RightChevronGradient width={18} height={18} />}
           />
         )}
       </View>
@@ -66,6 +69,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   btnContainer: {
-    marginLeft: 50,
+    marginLeft: 30,
   },
 });

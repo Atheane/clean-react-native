@@ -53,19 +53,15 @@ export function* addBeneficiaryGenerator(
     // api call - add beneficiary
     const api = BeneficiaryApi.getInstance(httpConnection);
     const beneficiary = yield call([api, api.addBeneficiary], payload);
-
     // update store
     const { beneficiaries: beneficiariesFromStore } = yield select(selectBeneficiary);
     if (beneficiariesFromStore) {
-      console.log('IF', beneficiariesFromStore);
       beneficiariesFromStore.push(beneficiary);
 
-      // Sort - TODO binary insertion to optimize
+      // Sort - TODO binary insertion to optimizeCRLYFRPP
       sortByName(beneficiariesFromStore);
-      console.log('IF', beneficiariesFromStore);
       yield put(beneficiaryListed(beneficiariesFromStore));
     } else {
-      console.log('ELSE', [beneficiary]);
       yield put(beneficiaryListed([beneficiary]));
     }
 

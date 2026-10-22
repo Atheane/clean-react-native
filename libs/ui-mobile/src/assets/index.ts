@@ -126,6 +126,7 @@ import {
   PhoneGradientWhiteBg,
   Trash,
   BankBgGradient,
+  RightChevronGradient,
 } from './svg';
 import { DefaultImage, PlaneEmpty } from './image';
 import { Loader } from './lottie';
@@ -260,4 +261,5 @@ export {
   PhoneGradientWhiteBg,
   Trash,
   BankBgGradient,
+  RightChevronGradient,
 };

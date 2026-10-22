@@ -24,6 +24,7 @@ export type IRootTabParamList = {
   MenuCarbon: undefined;
   MenuProfile: undefined;
   MenuKyc: undefined;
+  MenuBeneficiary: undefined;
 };
 
 export type ISharedStackParamList = {
@@ -138,6 +139,7 @@ export enum IHomeStackPages {
 }
 
 export enum IBeneficiaryStackPages {
+  MENU = 'MenuBeneficiary',
   BENEFICIARY_LIST = 'BeneficiaryList',
   BENEFICIARY_ADD = 'BeneficiaryAdd',
   CONTACT_ADD = 'ContactAdd',
@@ -252,6 +254,13 @@ export type ITransferStackProps = {
   [ITransferStackPages.TRANSFER_SUCCESS]: object;
 };
 
+export type IBeneficiaryStackProps = {
+  [IBeneficiaryStackPages.MENU]: object;
+  [IBeneficiaryStackPages.BENEFICIARY_LIST]: object;
+  [IBeneficiaryStackPages.BENEFICIARY_ADD]: object;
+  [IBeneficiaryStackPages.CONTACT_ADD]: object;
+};
+
 export type IRoutes =
   | ISharedStackPages.MODAL_ERROR
   | ISharedStackPages.MODAL_WEBVIEW
@@ -307,4 +316,8 @@ export type IRoutes =
   | ITransferStackPages.TRANSFER
   | ITransferStackPages.BENEFICIARIES
   | ITransferStackPages.MENU
-  | ITransferStackPages.TRANSFER_SUCCESS;
+  | ITransferStackPages.TRANSFER_SUCCESS
+  | IBeneficiaryStackPages.MENU
+  | IBeneficiaryStackPages.BENEFICIARY_LIST
+  | IBeneficiaryStackPages.BENEFICIARY_ADD
+  | IBeneficiaryStackPages.CONTACT_ADD;

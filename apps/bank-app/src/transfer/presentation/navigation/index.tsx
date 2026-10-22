@@ -1,34 +1,36 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
+import { Colors, FontNames } from '@clean-rn/ui-mobile';
 
-import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 import {
   HeaderTitleAlign,
+  IBeneficiaryStackPages,
   ITransferStackPages,
   ITransferStackProps,
 } from '../../../shared/presentation/types';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
-import { Beneficiaries, Transfer, TransferSuccess } from '../screens';
-import { Colors, FontNames } from '@clean-rn/ui-mobile';
+import { Transfer, TransferSuccess } from '../screens';
 
 const Stack = createNativeStackNavigator<ITransferStackProps>();
 
 export const TransferStack = () => {
   const { t } = useTranslation();
+  const navigation = useNavigation();
 
   return (
     <Stack.Navigator>
-      <Stack.Screen
+      {/* <Stack.Screen
         name={ITransferStackPages.BENEFICIARIES}
         component={Beneficiaries}
         options={{ headerShown: false }}
-      />
+      /> */}
       <Stack.Screen
         name={ITransferStackPages.TRANSFER}
         component={Transfer}
         options={{
           headerTitle: t('screens.transfer.title'),
-          ...headersOptions(goBack),
+          ...headersOptions(() => navigation.navigate(IBeneficiaryStackPages.MENU as never)),
         }}
       />
       <Stack.Screen

@@ -33,11 +33,8 @@ export const BeneficiaryAdd = () => {
   const dispatch = useDispatch();
   const onSubmit = useCallback(
     (formData: IBeneficiaryFormData) => {
-      try {
-        dispatch(beneficiaryAdd(formData));
-      } catch (e: unknown) {
-        dispatch(showUnknownError(e as Error));
-      }
+      console.log('formData', formData);
+      dispatch(beneficiaryAdd(formData));
     },
     [dispatch],
   );
