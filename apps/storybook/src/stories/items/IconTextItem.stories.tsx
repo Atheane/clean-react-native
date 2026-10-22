@@ -5,7 +5,7 @@ import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 import { useTranslation } from 'react-i18next';
 
 const IconTextItemMeta: ComponentMeta<typeof IconTextItem> = {
-  title: 'Others/IconTextItem',
+  title: 'Items/IconTextItem',
   component: IconTextItem,
   argTypes: {
     onPress: {

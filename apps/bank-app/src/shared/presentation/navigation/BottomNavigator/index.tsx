@@ -1,8 +1,7 @@
-import { Pressable, StyleSheet, Text, StyleProp, ViewStyle, Platform } from 'react-native';
+import { Pressable, StyleSheet, Text, StyleProp, ViewStyle } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import {
   Colors,
   FontNames,
@@ -23,9 +22,10 @@ import {
 
 import { AccountStack } from '../../../../account/presentation/navigation';
 import { CarbonStack } from '../../../../carbon/presentation/navigation';
-import { TransferStack } from '../../../../transfer/presentation/navigation';
+// import { TransferStack } from '../../../../transfer/presentation/navigation'; //TODO
 import { ProfileStack } from '../../../../user/presentation/navigation';
 import { KycStack } from '../../../../kyc/presentation/navigation';
+import { BeneficiaryStack } from '../../../../beneficiary/presentation/navigation';
 
 const Tab = createBottomTabNavigator<IRootTabParamList>();
 
@@ -56,7 +56,7 @@ export const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name={ITransferStackPages.MENU}
-        component={TransferStack}
+        component={BeneficiaryStack}
         options={() => ({
           title: t('screens.transfer.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>

@@ -1,10 +1,8 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useNavigationState } from '@react-navigation/native';
 
-import { IDomainError } from '@clean-rn/ddd';
-
-export const useCleanErrorOnFocus = (error: IDomainError<any, any> | null) => {
-  const [domainError, setDomainError] = useState<IDomainError<any, any> | null>(null);
+export const useCleanErrorOnFocus = (error: any) => {
+  const [domainError, setDomainError] = useState<any>(null);
 
   useEffect(() => {
     setDomainError(error);

@@ -23,6 +23,7 @@ import { TouchCardKpi } from './cards/touch-card-kpi';
 import { TouchCardText } from './cards/touch-card-text';
 import { UploadDocumentCard } from './cards/upload-document-card';
 import { TransferCard } from './cards/transfer-card';
+import { BeneficiaryCard } from './cards/beneficiary-card';
 // Checkboxes
 import { MultipleOptionsCheckBox } from './checkboxes/multiple-options-checkBox';
 import { SimpleCheckBox } from './checkboxes/simple-checkbox';
@@ -31,6 +32,8 @@ import { Dropdown } from './dropdowns/dropdown';
 import { CountryPicker } from './dropdowns/country-picker';
 import { DateTimePicker } from './dropdowns/datetime-picker';
 // Forms
+import { IBeneficiaryFormData, FormBeneficiary } from './forms/form-beneficiary';
+import { IContactFormData, FormContact } from './forms/form-contact';
 import { ILoginFormData, FormLogin } from './forms/form-login';
 import { IResetPasswordFormData, FormResetPassword } from './forms/form-reset-password';
 import { ISignupEmailFormData, FormSignupEmail } from './forms/form-signup-email';
@@ -54,7 +57,14 @@ import { SelectNumber } from './inputs/select-number';
 import { PhoneSecurityPinInput } from './inputs/phone-security-pin-input';
 import { PhoneValidationCodeInput } from './inputs/phone-validation-code-input';
 import { Slider } from './inputs/slider';
+// Items
+import { IconTextItem } from './items/icon-text-item';
+import { TransactionItem } from './items/transaction-item';
+import { BeneficiaryItem } from './items/beneficiary-item';
+import { ContactItem } from './items/contact-item';
 // Lists
+import { BeneficiaryCardList } from './lists/beneficiary-card-list';
+import { ContactCardList } from './lists/contact-card-list';
 import { TransactionsCardsList } from './lists/transactions-cards-list';
 import { WhiteBalanceList } from './lists/white-balance-list';
 // Others
@@ -65,10 +75,8 @@ import { DocumentPicker } from './others/document-picker';
 import { PdfViewer } from './others/pdf-viewer';
 import { PdfDownloader } from './others/pdf-downloader';
 import { CopyValueClipboard } from './others/copy-value-clipboard';
-import { TransactionItem } from './others/transaction-item';
 import { GraphCO2 } from './others/graph-co2';
 import { ModalError } from './others/modal-error';
-import { IconTextItem } from './others/icon-text-item';
 import { LoaderSplashScreen } from './others/loader-splash-screen';
 // Searchboxes
 import { SearchModal } from './searchboxes/search-modal';
@@ -103,6 +111,7 @@ export {
   TouchCardText,
   UploadDocumentCard,
   TransferCard,
+  BeneficiaryCard,
   // Checkboxes
   MultipleOptionsCheckBox,
   SimpleCheckBox,
@@ -111,6 +120,8 @@ export {
   CountryPicker,
   DateTimePicker,
   // Forms
+  IBeneficiaryFormData,
+  IContactFormData,
   ILoginFormData,
   IResetPasswordFormData,
   ISignupEmailFormData,
@@ -119,6 +130,8 @@ export {
   ISignupBirthFormData,
   ISignupAddressFormData,
   ISignupPhoneFormData,
+  FormBeneficiary,
+  FormContact,
   FormLogin,
   FormResetPassword,
   FormSignupEmail,
@@ -139,7 +152,14 @@ export {
   PhoneSecurityPinInput,
   PhoneValidationCodeInput,
   Slider,
+  // Items
+  TransactionItem,
+  BeneficiaryItem,
+  ContactItem,
+  IconTextItem,
   // Lists
+  BeneficiaryCardList,
+  ContactCardList,
   TransactionsCardsList,
   WhiteBalanceList,
   // Others
@@ -150,10 +170,8 @@ export {
   PdfViewer,
   PdfDownloader,
   CopyValueClipboard,
-  TransactionItem,
   GraphCO2,
   ModalError,
-  IconTextItem,
   LoaderSplashScreen,
   // Searchboxes
   SearchModal,

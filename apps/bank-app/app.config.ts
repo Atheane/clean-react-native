@@ -2,7 +2,7 @@ import 'dotenv/config';
 
 export default {
   expo: {
-    name: 'CleanRN BankApp Dev',
+    name: process.env.APP_NAME_BANK_APP,
     slug: process.env.SLUG_NAME_BANK_APP,
     version: process.env.APP_VERSION,
     orientation: 'portrait',
@@ -39,6 +39,12 @@ export default {
         {
           skipProguard: false,
           subdomains: '*',
+        },
+      ],
+      [
+        'expo-contacts',
+        {
+          contactsPermission: 'Allow BANK to access your contacts.',
         },
       ],
       [

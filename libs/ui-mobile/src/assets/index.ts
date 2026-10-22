@@ -17,6 +17,7 @@ import {
   TopLeavesBg,
   Logo,
   Tree,
+  BeneficiaryAdd,
   DeleteCross,
   DeleteCrossGradient,
   Meeting,
@@ -114,6 +115,7 @@ import {
   GreenEuroAmount,
   BackgroundCardArrow,
   BackgroundCardGrey,
+  BankLogoCA,
 } from './svg';
 import { DefaultImage, PlaneEmpty } from './image';
 import { Loader } from './lottie';
@@ -146,6 +148,7 @@ export {
   ExportPdf,
   Iban,
   Bic,
+  BeneficiaryAdd,
   Copy,
   Restaurant,
   TransferTransaction,
@@ -236,4 +239,5 @@ export {
   GreenEuroAmount,
   BackgroundCardArrow,
   BackgroundCardGrey,
+  BankLogoCA,
 };

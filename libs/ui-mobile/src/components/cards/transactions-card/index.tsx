@@ -34,7 +34,7 @@ import {
   VEHICLES,
 } from '../../../assets';
 
-import { TransactionItem } from '../../others/transaction-item';
+import { TransactionItem } from '../../items/transaction-item';
 
 type IProps = {
   date: string;

@@ -30,14 +30,13 @@
     "google-libphonenumber": "*",
     "country-flag-emoji": "*",
     "i18next": "*",
+    "expo-contacts": "*",
     "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
     "@babel/core": "*",
     "@react-native-community/datetimepicker": "*",
     "@sentry/react-native": "*",
     "@rneui/base": "*",
-    "bic": "*",
-    "iban": "*",
     "react-hook-form": "*",
     "fast-sort": "*",
     "@react-native-community/slider": "*",
@@ -72,7 +71,8 @@
     "@react-native-firebase/app": "*",
     "expo-notifications": "*",
     "react-native-device-info": "*",
-    "react-native-check-version": "*"
+    "react-native-check-version": "*",
+    "ibantools": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp package-lock.json apps/bank-app",

@@ -25,7 +25,7 @@ export class HttpConnection {
   }
 
   public options(httpVerb: IHttpVerb, params?: any, signal?: AbortSignal): RequestInit {
-    if (httpVerb === IHttpVerb.GET || httpVerb === IHttpVerb.DELETE) {
+    if (httpVerb === IHttpVerb.GET) {
       return {
         method: httpVerb,
         headers: this.getDefaultHeaders(),
@@ -34,7 +34,7 @@ export class HttpConnection {
     return {
       method: httpVerb,
       headers: this.getDefaultHeaders(),
-      body: JSON.stringify(params),
+      body: params ? JSON.stringify(params) : JSON.stringify({}),
       signal,
     };
   }

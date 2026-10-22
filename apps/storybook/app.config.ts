@@ -43,6 +43,12 @@ export default {
       ],
       ['@react-native-firebase/app'],
       [
+        'expo-contacts',
+        {
+          contactsPermission: 'Allow BANK to access your contacts.',
+        },
+      ],
+      [
         'react-native-document-scanner-plugin',
         {
           cameraPermission: 'Cette application nécessite un accès à la caméra, pour les scans de documents.',

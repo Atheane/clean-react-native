@@ -8,7 +8,7 @@ import { Colors, Love, TransactionItem } from '@clean-rn/ui-mobile';
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
 const TransactionItemMeta: ComponentMeta<typeof TransactionItem> = {
-  title: 'Others/TransactionItem',
+  title: 'Items/TransactionItem',
   component: TransactionItem,
   args: {
     icon: () => (

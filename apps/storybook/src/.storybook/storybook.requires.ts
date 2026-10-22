@@ -47,6 +47,11 @@ try {
 
 const getStories = () => {
   return {
+    // Items
+    './stories/items/BeneficiaryItem.stories.tsx': require('../stories/items/BeneficiaryItem.stories'),
+    './stories/items/ContactItem.stories.tsx': require('../stories/items/ContactItem.stories'),
+    './stories/items/IconTextItem.stories.tsx': require('../stories/items/IconTextItem.stories'),
+    './stories/items/TransactionItem.stories.tsx': require('../stories/items/TransactionItem.stories'),
     // Banners
     './stories/banners/Banner.stories.tsx': require('../stories/banners/Banner.stories'),
     // Backgrounds
@@ -69,6 +74,7 @@ const getStories = () => {
     './stories/cards/TouchCardText.stories.tsx': require('../stories/cards/TouchCardText.stories'),
     './stories/cards/UploadDocumentCard.stories.tsx': require('../stories/cards/UploadDocumentCard.stories'),
     './stories/cards/TransferCard.stories.tsx': require('../stories/cards/TransferCard.stories'),
+    './stories/cards/BeneficiaryCard.stories.tsx': require('../stories/cards/BeneficiaryCard.stories'),
     // Checkboxes
     './stories/checkboxes/SimpleCheckBox.stories.tsx': require('../stories/checkboxes/SimpleCheckBox.stories'),
     './stories/checkboxes/MultipleOptionsCheckBox.stories.tsx': require('../stories/checkboxes/MultipleOptionsCheckBox.stories'),
@@ -108,10 +114,8 @@ const getStories = () => {
     './stories/others/DocumentPicker.stories.tsx': require('../stories/others/DocumentPicker.stories'),
     './stories/others/DocumentScanner.stories.tsx': require('../stories/others/DocumentScanner.stories'),
     './stories/others/CopyValueClipboard.stories.tsx': require('../stories/others/CopyValueClipboard.stories'),
-    './stories/others/TransactionItem.stories.tsx': require('../stories/others/TransactionItem.stories'),
     './stories/others/GraphCO2.stories.tsx': require('../stories/others/GraphCO2.stories'),
     './stories/others/ModalError.stories.tsx': require('../stories/others/ModalError.stories'),
-    './stories/others/IconTextItem.stories.tsx': require('../stories/others/IconTextItem.stories'),
     './stories/others/LoaderSplashScreen.stories.tsx': require('../stories/others/LoaderSplashScreen.stories'),
     // Searchboxes
     './stories/searchboxes/SearchModal.stories.tsx': require('../stories/searchboxes/SearchModal.stories'),

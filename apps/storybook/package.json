@@ -20,7 +20,6 @@
     "@storybook/react-native": "*",
     "@testing-library/jest-native": "*",
     "@testing-library/react-native": "*",
-    "bic": "*",
     "country-flag-emoji": "*",
     "dayjs": "*",
     "dotenv": "*",
@@ -35,7 +34,7 @@
     "fast-sort": "*",
     "google-libphonenumber": "*",
     "i18next": "*",
-    "iban": "*",
+    "ibantools": "*",
     "metro-config": "*",
     "react": "*",
     "react-hook-form": "*",
@@ -57,14 +56,14 @@
     "react-native-document-picker": "*",
     "react-native-compressor": "*",
     "expo-file-system": "*",
-    "react-native-share": "*",
     "react-native-blob-util": "*",
     "react-native-pdf": "*",
     "lottie-react-native": "~5.1.4",
     "react-native-device-info": "*",
     "@sentry/react-native": "*",
     "@react-native-firebase/messaging": "*",
-    "@react-native-firebase/app": "*"
+    "@react-native-firebase/app": "*",
+    "react-native-share": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/storybook && cp package-lock.json apps/storybook",

@@ -9,12 +9,23 @@
     }
   },
   "errors": {
+    "BIC": {
+      "required": "BIC requis",
+      "invalid": "BIC invalide"
+    },
+    "consent": {
+      "required": "consentement requis"
+    },
     "email": {
       "required": "email requis",
       "invalid": "email invalide"
     },
-    "consent": {
-      "required": "consentement requis"
+    "IBAN": {
+      "required": "IBAN requis",
+      "invalid": "IBAN invalide"
+    },
+    "name": {
+      "required": "nom requis"
     },
     "password": {
       "required": "mot de passe requis",
@@ -87,6 +98,11 @@
         "UNKNOWN_TRANSACTION_TYPE": "Type de transaction inconnu",
         "INVALID_TRANSACTION_VALUE": "Valeur de transaction invalide"
       },
+      "beneficiary": {
+        "INVALID_IBAN": "IBAN invalide",
+        "INVALID_BIC": "BIC invalide",
+        "INVALID_NAME": "Nom invalide"
+      },
       "carbon": {
         "INVALID_HOUSE_PROPS": "Propriétés de maison invalides",
         "INVALID_TRANSPORT_PROPS": "Propriétés de transport invalides",
@@ -131,6 +147,7 @@
     "label": "password"
   },
   "button": {
+    "add": "ajouter",
     "share": "partager",
     "submit": "valider",
     "photo": "Prendre une photo",
@@ -290,6 +307,38 @@
         "green-euro": "Comment fonctionnent les euros-verts ?",
         "currency": "Nos objectifs et nos limites",
         "article": "Notre blog sur le monde bancaire et l’urgence climatique"
+      }
+    },
+    "beneficiary": {
+      "title": "Gérer mes bénéficiaires",
+      "add-beneficiary": "Ajouter",
+      "new-beneficiary": {
+        "title": "Ajouter un bénéficiaire",
+
+        "BIC": {
+          "label": "BIC",
+          "placeholder": "TRZOFR21XXX"
+        },
+        "IBAN": {
+          "label": "IBAN",
+          "placeholder": "FR76 1679 0000 0000 0000 0000 000"
+        },
+        "name": {
+          "label": "nom",
+          "placeholder": "nom"
+        }
+      },
+      "new-contact": {
+        "title": "Ajouter un contact",
+
+        "firstname": {
+          "label": "prénom",
+          "placeholder": "prénom"
+        },
+        "lastname": {
+          "label": "nom",
+          "placeholder": "nom"
+        }
       }
     },
     "account-statements": {

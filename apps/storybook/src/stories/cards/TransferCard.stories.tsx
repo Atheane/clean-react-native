@@ -25,7 +25,7 @@ const TransferCardMeta: ComponentMeta<typeof TransferCard> = {
       },
     ],
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING), WithCenterView],
 };
 
 export default TransferCardMeta;

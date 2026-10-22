@@ -9,9 +9,20 @@
     }
   },
   "errors": {
+    "BIC": {
+      "required": "BIC requis",
+      "invalid": "BIC invalide"
+    },
     "email": {
       "required": "e-mail required",
       "invalid": "invalid email"
+    },
+    "IBAN": {
+      "required": "IBAN requis",
+      "invalid": "IBAN invalide"
+    },
+    "name": {
+      "required": "nom requis"
     },
     "consent": {
       "required": "consent required"
@@ -71,6 +82,12 @@
         "USER_UNAUTHENTICATED": "please authenticate",
         "USER_UNAUTHORIZED": "unauthorized user"
       },
+      "beneficiary": {
+        "INVALID_IBAN": "Invalid IBAN",
+        "INVALID_BIC": "Invalid BIC",
+        "INVALID_NAME": "Invalid  Name"
+      },
+
       "other": "error, please contact the administrator"
     },
     "other": "error, please contact the administrator"
@@ -84,6 +101,7 @@
     "placeholder": "Select a country"
   },
   "button": {
+    "add": "add",
     "share": "share",
     "submit": "validate",
     "photo": "Take a photo",
@@ -256,6 +274,38 @@
         "green-euro": "How do green euros work?",
         "currency": "Our objectives and our limits",
         "article": "Our blog on the banking world and the climate emergency"
+      }
+    },
+    "beneficiary": {
+      "title": "Manage beneficiaries",
+      "add-beneficiary": "Add",
+      "new-beneficiary": {
+        "title": "Add beneficiary",
+
+        "BIC": {
+          "label": "BIC",
+          "placeholder": "TRZOFR21XXX"
+        },
+        "IBAN": {
+          "label": "IBAN",
+          "placeholder": "FR76 1679 0000 0000 0000 0000 000"
+        },
+        "name": {
+          "label": "name",
+          "placeholder": "name"
+        }
+      },
+      "new-contact": {
+        "title": "Add contact",
+
+        "firstname": {
+          "label": "firstname",
+          "placeholder": "firstname"
+        },
+        "lastname": {
+          "label": "lastname",
+          "placeholder": "lastname"
+        }
       }
     },
     "account-statements": {

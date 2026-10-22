@@ -1,5 +1,5 @@
 import { AccountError } from '../errors';
-import BIC from 'bic';
+import * as ibantools from 'ibantools';
 
 export class Bic {
   private readonly bic: string;
@@ -12,7 +12,7 @@ export class Bic {
   }
 
   private validate(bicString: string): boolean {
-    return BIC.isValid(bicString);
+    return ibantools.isValidBIC(bicString);
   }
 
   get value(): string {

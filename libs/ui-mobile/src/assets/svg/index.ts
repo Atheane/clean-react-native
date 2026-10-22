@@ -13,6 +13,7 @@ import Home from './home.svg';
 import TopBlueBg from './top-blue-bg.svg';
 import TopRightFlowersBg from './top-right-flowers-bg.svg';
 import TopLeavesBg from './top-leaves-bg.svg';
+import BeneficiaryAdd from './beneficiary-add.svg';
 import BottomLeavesBg from './bottom-leaves-bg.svg';
 import Logo from './logo.svg';
 import Tree from './tree.svg';
@@ -113,6 +114,8 @@ import Download from './download.svg';
 import GreenEuroAmount from './green-euro-amount.svg';
 import BackgroundCardArrow from './background-card-arrow.svg';
 import BackgroundCardGrey from './background-card-grey.svg';
+import BankLogoCA from './bank-logo-ca.svg';
+
 export {
   Love,
   Validate,
@@ -140,6 +143,7 @@ export {
   Warning,
   Transfer,
   ExportPdf,
+  BeneficiaryAdd,
   Iban,
   Bic,
   Copy,
@@ -229,4 +233,5 @@ export {
   GreenEuroAmount,
   BackgroundCardArrow,
   BackgroundCardGrey,
+  BankLogoCA,
 };
