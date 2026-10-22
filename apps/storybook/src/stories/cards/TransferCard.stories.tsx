@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { TransferCard } from '@clean-rn/ui-mobile';
-import { BankLogoCA } from '../../../assets/images';
+import { BankLogoCA, BankLogoCO2 } from '../../../assets/images';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
@@ -33,9 +33,9 @@ export default TransferCardMeta;
 type TransferCardStory = ComponentStory<typeof TransferCard>;
 
 export const TransferFrom: TransferCardStory = (args) => {
-  return <TransferCard {...args} />;
+  return <TransferCard {...args} image={BankLogoCO2} />;
 };
 
 export const TransferTo: TransferCardStory = (args) => {
-  return <TransferCard {...args} arrow={false} />;
+  return <TransferCard {...args} arrow={false} image={BankLogoCA} />;
 };

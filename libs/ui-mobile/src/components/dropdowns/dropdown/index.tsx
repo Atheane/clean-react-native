@@ -35,10 +35,10 @@ export const Dropdown = (props: IProps) => {
   const { theme } = useTheme();
 
   // Custom function to render the selected item
-  const renderSelectedItem = (item: IData) => {
+  const renderSelectedItem = (value: string) => {
     return (
       <View style={styles.selectedItemContainer}>
-        <Text style={styles.selectedItemText}>{item.value}</Text>
+        <Text style={styles.selectedItemText}>{value}</Text>
       </View>
     );
   };
@@ -62,7 +62,7 @@ export const Dropdown = (props: IProps) => {
           data={props.data}
           onSelect={handleOnSelect}
           buttonTextAfterSelection={
-            props.multiline ? (item: IData) => renderSelectedItem(item) : (item: IData) => item.value
+            props.multiline ? (item: IData) => renderSelectedItem(item.value) : (item: IData) => item.value
           }
           buttonStyle={[
             styles.buttonContainer,
@@ -83,7 +83,13 @@ export const Dropdown = (props: IProps) => {
               <Text style={styles.rowText}>{row.value}</Text>
             </View>
           )}
-          defaultButtonText={props.defaultValue ?? props.placeholder}
+          defaultButtonText={
+            props.defaultValue
+              ? props.multiline
+                ? (renderSelectedItem(props.defaultValue) as string)
+                : props.defaultValue
+              : props.placeholder
+          }
         />
       </View>
     </View>

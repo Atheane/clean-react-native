@@ -4,38 +4,39 @@ import { BackgroundCardArrow, BackgroundCardGrey } from '../../../assets';
 import { Dropdown } from '../../dropdowns/dropdown';
 
 type IData = {
-  key: any;
+  key: string;
   value: string;
 };
 
 type IProps = {
   image: ImageSourcePropType;
   text: string;
-  data: IData[];
-  onSelect: () => void;
+  data?: IData[];
+  onSelect?: (item: IData) => void;
   arrow: boolean;
 };
 
 export const TransferCard = (props: IProps) => {
   const { theme } = useTheme();
   return (
-    <View style={styles.container}>
+    <View>
       <View style={styles.backgroundContainer}>
         {props.arrow && <BackgroundCardArrow />}
         {!props.arrow && <BackgroundCardGrey />}
         <View style={[styles.textContainer, { width: props.arrow ? 80 : 150 }]}>
-          <Text style={[theme.bank.text.boldDarkBlue, { fontSize: 12 }]}>
+          <Text style={[theme.bank.text.boldDarkBlue, { fontSize: 12, lineHeight: 19 }]}>
             {props.arrow ? props.text.slice(0, 12) : props.text}
           </Text>
         </View>
         {props.arrow && (
           <View style={styles.dropdownContainer}>
             <Dropdown
-              data={props.data}
+              data={props.data ?? []}
               short
               shortWidth={174}
-              defaultValue={props.data[0].value}
-              onSelect={props.onSelect}
+              defaultValue={props.data && props.data.length > 0 ? props.data[0].value : undefined}
+              multiline
+              onSelect={props?.onSelect}
               placeholder=""
             />
           </View>
@@ -47,16 +48,14 @@ export const TransferCard = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   backgroundContainer: {
     position: 'relative',
   },
   textContainer: {
     position: 'absolute',
-    top: 16,
-    left: 62,
+    top: 20,
+    left: 70,
+    height: 40,
   },
   dropdownContainer: {
     position: 'absolute',

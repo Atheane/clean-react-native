@@ -312,7 +312,11 @@
     "transfer": {
       "title": "Virement",
       "tab": "Virement",
-      "button": "Valider"
+      "button": "Valider",
+      "main": "Bank App",
+      "amount": "Montant",
+      "label": "Libellé du virement",
+      "placeholder": "Reboursement restaurant"
     },
     "transfer-success": {
       "title": "Virement",
