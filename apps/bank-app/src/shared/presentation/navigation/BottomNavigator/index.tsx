@@ -5,10 +5,14 @@ import { useTranslation } from 'react-i18next';
 import {
   Colors,
   FontNames,
+  HomeGradient,
   Home as HomeIcon,
   Transfer as TransferIcon,
+  TransferGradient,
   Carbon as CarbontIcon,
+  CarbonGradient,
   Profile as ProfileIcon,
+  ProfileGradient,
 } from '@clean-rn/ui-mobile';
 import {
   IRootTabParamList,
@@ -46,7 +50,7 @@ export const BottomTabNavigator = () => {
           title: t('screens.home.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             focused ? (
-              <HomeIcon style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />
+              <HomeGradient />
             ) : (
               <HomeIcon style={{ color: Colors.bank.primary.grey } as StyleProp<ViewStyle>} />
             ),
@@ -61,7 +65,7 @@ export const BottomTabNavigator = () => {
           title: t('screens.transfer.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             focused ? (
-              <TransferIcon style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />
+              <TransferGradient style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />
             ) : (
               <TransferIcon style={{ color: Colors.bank.primary.grey } as StyleProp<ViewStyle>} />
             ),
@@ -77,7 +81,7 @@ export const BottomTabNavigator = () => {
           title: t('screens.carbon.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             focused ? (
-              <CarbontIcon style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />
+              <CarbonGradient style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />
             ) : (
               <CarbontIcon style={{ color: Colors.bank.primary.grey } as StyleProp<ViewStyle>} />
             ),
@@ -92,7 +96,7 @@ export const BottomTabNavigator = () => {
           title: t('screens.profile.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             focused ? (
-              <ProfileIcon style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />
+              <ProfileGradient style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />
             ) : (
               <ProfileIcon style={{ color: Colors.bank.primary.grey } as StyleProp<ViewStyle>} />
             ),

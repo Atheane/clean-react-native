@@ -9,7 +9,7 @@ import Pill from './pill.svg';
 import Search from './search.svg';
 import Close from './close.svg';
 import RightArrow from './right-arrow.svg';
-import Home from './home.svg';
+import HomeGradient from './home-gradient.svg';
 import TopBlueBg from './top-blue-bg.svg';
 import TopRightFlowersBg from './top-right-flowers-bg.svg';
 import TopLeavesBg from './top-leaves-bg.svg';
@@ -23,7 +23,7 @@ import DeleteCrossGradient from './delete-cross-gradient.svg';
 import Question from './question.svg';
 import GreenEuro from './green-euro.svg';
 import Warning from './warning.svg';
-import Transfer from './transfer.svg';
+import TransferGradient from './transfer-gradient.svg';
 import ExportPdf from './export-pdf.svg';
 import Iban from './iban.svg';
 import Bic from './bic.svg';
@@ -34,7 +34,7 @@ import Fuel from './fuel.svg';
 import Cart from './cart.svg';
 import ExportPdfGradient from './export-pdf-gradient.svg';
 import Ibanv2 from './ibanv2.svg';
-import Carbon from './carbon.svg';
+import CarbonGradient from './carbon-gradient.svg';
 import Car from './car.svg';
 import House from './house.svg';
 import Food from './food.svg';
@@ -61,7 +61,7 @@ import Shield from './shield.svg';
 import Delete from './delete.svg';
 import Right from './right.svg';
 import Gasoline from './gasoline.svg';
-import Profile from './profile.svg';
+import ProfileGradient from './profile-gradient.svg';
 import ALCOHOL from './t-alcohol.svg';
 import ART from './t-art.svg';
 import ASSURANCES from './t-assurance.svg';
@@ -117,6 +117,10 @@ import BackgroundCardGrey from './background-card-grey.svg';
 import BankLogoCA from './bank-logo-ca.svg';
 import BankBuilding from './bank-building.svg';
 import Group2 from './group-2.svg';
+import Home from './home.svg';
+import Transfer from './transfer.svg';
+import Carbon from './carbon.svg';
+import Profile from './profile.svg';
 export {
   Love,
   Validate,
@@ -130,6 +134,7 @@ export {
   Close,
   RightArrow,
   Home,
+  HomeGradient,
   TopBlueBg,
   TopRightFlowersBg,
   BottomLeavesBg,
@@ -143,6 +148,7 @@ export {
   GreenEuro,
   Warning,
   Transfer,
+  TransferGradient,
   ExportPdf,
   BeneficiaryAdd,
   Iban,
@@ -154,6 +160,7 @@ export {
   ExportPdfGradient,
   Ibanv2,
   Carbon,
+  CarbonGradient,
   Car,
   House,
   Food,
@@ -182,6 +189,7 @@ export {
   Right,
   Gasoline,
   Profile,
+  ProfileGradient,
   ALCOHOL,
   ART,
   ASSURANCES,

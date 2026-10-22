@@ -118,6 +118,10 @@ import {
   BankLogoCA,
   BankBuilding,
   Group2,
+  HomeGradient,
+  ProfileGradient,
+  CarbonGradient,
+  TransferGradient,
 } from './svg';
 import { DefaultImage, PlaneEmpty } from './image';
 import { Loader } from './lottie';
@@ -244,4 +248,8 @@ export {
   BankLogoCA,
   BankBuilding,
   Group2,
+  HomeGradient,
+  ProfileGradient,
+  CarbonGradient,
+  TransferGradient,
 };

@@ -192,7 +192,7 @@ export const BeneficiaryList = () => {
             }}
           >
             <Tab.Item
-              title={t('screens.beneficiary.bank')}
+              title="bank"
               active={true}
               titleStyle={{ fontSize: 13, color: Colors.bank.primary.lightGreen, marginTop: 8 }}
               icon={() => (
@@ -201,14 +201,14 @@ export const BeneficiaryList = () => {
                 </View>
               )}
             >
-              Bank
+              {t('screens.beneficiary.bank')}
             </Tab.Item>
             <Tab.Item
-              title={t('screens.beneficiary.contact')}
+              title="contact"
               titleStyle={{ fontSize: 13, color: Colors.bank.primary.lightGreen, marginTop: 8 }}
               icon={Group2 as IconNode}
             >
-              Contacts
+              {t('screens.beneficiary.contacts')}
             </Tab.Item>
           </Tab>
         </View>
