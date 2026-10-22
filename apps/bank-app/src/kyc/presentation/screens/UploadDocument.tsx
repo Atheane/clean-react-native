@@ -173,11 +173,11 @@ const styles = StyleSheet.create({
     marginLeft: 6,
   },
   buttonContainer: {
-    marginTop: 50,
-    marginBottom: '30%',
+    marginTop: 20,
+    marginBottom: '40%',
   },
   secondButtonContainer: {
-    marginTop: 40,
+    marginTop: 20,
   },
   iconContainer: { position: 'relative', left: 10, top: 2 },
 });

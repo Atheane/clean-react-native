@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.bank.primary.white,
     height: HEIGHT,
+    marginTop: -20,
   },
   image: {
     width: HEIGHT * 0.25,

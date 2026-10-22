@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: HEIGHT,
+    marginTop: -50,
   },
   iconContainer: { position: 'relative', left: 10, top: 2 },
   titleContainer: {

@@ -69,7 +69,7 @@ describe('Refresh - usecase', () => {
     testSaga(refreshGenerator, httpConnection, {
       type: IAuthTypes.FETCH_REFRESH,
       payload: {
-        nextRoute: IHomeStackPages.HOME,
+        nextRoute: IHomeStackPages.MENU,
       },
     })
       .next()
@@ -79,7 +79,7 @@ describe('Refresh - usecase', () => {
       .next(mockResponse)
       .put(refreshSuccess({ auth: mockResponse }))
       .next()
-      .call(navigate, { route: IHomeStackPages.HOME, params: undefined })
+      .call(navigate, { route: IHomeStackPages.MENU, params: undefined })
       .next();
   });
 

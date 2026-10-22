@@ -19,7 +19,7 @@ export type IRootTabScreenProps<Screen extends keyof IRootTabParamList> = Compos
 >;
 
 export type IRootTabParamList = {
-  MenuHome: undefined;
+  Accounts: undefined;
   MenuTransfer: undefined;
   MenuCarbon: undefined;
   MenuProfile: undefined;
@@ -119,7 +119,6 @@ export enum IUserStackPages {
 
 export enum IHomeStackPages {
   MENU = 'MenuHome',
-  HOME = 'Home',
   ACCOUNTS = 'Accounts',
   HELP = 'Help',
   TRANSACTIONS = 'Transactions',
@@ -158,7 +157,9 @@ export enum IKycStackPages {
 
 export enum ITransferStackPages {
   MENU = 'MenuTransfer',
+  BENEFICIARIES = 'Beneficiaries',
   TRANSFER = 'Transfer',
+  TRANSFER_SUCCESS = 'TransferSuccess',
 }
 
 export type ISharedStackProps = {
@@ -189,7 +190,6 @@ export type IUserStackProps = {
 };
 
 export type IHomeStackProps = {
-  [IHomeStackPages.HOME]: object;
   [IHomeStackPages.MENU]: object;
   [IHomeStackPages.ACCOUNTS]: object;
   [IHomeStackPages.HELP]: object;
@@ -229,7 +229,9 @@ export type IKycStackProps = {
 
 export type ITransferStackProps = {
   [ITransferStackPages.MENU]: object;
+  [ITransferStackPages.BENEFICIARIES]: object;
   [ITransferStackPages.TRANSFER]: object;
+  [ITransferStackPages.TRANSFER_SUCCESS]: object;
 };
 
 export type IRoutes =
@@ -252,7 +254,6 @@ export type IRoutes =
   | IUserStackPages.PROFILE
   | IUserStackPages.NOTIFICATON_SETTINGS
   | IHomeStackPages.ACCOUNTS
-  | IHomeStackPages.HOME
   | IHomeStackPages.MENU
   | IHomeStackPages.HELP
   | IHomeStackPages.TRANSACTIONS
@@ -281,4 +282,7 @@ export type IRoutes =
   | IKycStackPages.KYC_HOST
   | IKycStackPages.HOST_ID_LIST
   | IKycStackPages.HOST_RESIDENCE_PROOF_LIST
-  | ITransferStackPages.TRANSFER;
+  | ITransferStackPages.TRANSFER
+  | ITransferStackPages.BENEFICIARIES
+  | ITransferStackPages.MENU
+  | ITransferStackPages.TRANSFER_SUCCESS;

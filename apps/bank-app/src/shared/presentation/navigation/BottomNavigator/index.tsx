@@ -24,7 +24,7 @@ import {
 import { AccountStack } from '../../../../account/presentation/navigation';
 import { CarbonStack } from '../../../../carbon/presentation/navigation';
 
-import { Transfer } from '../../../../transfer/presentation/screens';
+import { TransferStack } from '../../../../transfer/presentation/navigation';
 import { ProfileStack } from '../../../../user/presentation/navigation';
 import { KycStack } from '../../../../kyc/presentation/navigation';
 
@@ -34,14 +34,14 @@ export const BottomTabNavigator = () => {
   const { t } = useTranslation();
   return (
     <Tab.Navigator
-      initialRouteName={IHomeStackPages.MENU}
+      initialRouteName={IHomeStackPages.ACCOUNTS}
       screenOptions={{
         tabBarActiveTintColor: Colors.bank.primary.white,
         headerShown: false,
       }}
     >
       <Tab.Screen
-        name={IHomeStackPages.MENU}
+        name={IHomeStackPages.ACCOUNTS}
         component={AccountStack}
         options={({ route }) => ({
           title: t('screens.home.title'),
@@ -64,7 +64,7 @@ export const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name={ITransferStackPages.MENU}
-        component={Transfer}
+        component={TransferStack}
         options={() => ({
           title: t('screens.transfer.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>

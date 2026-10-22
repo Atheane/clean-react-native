@@ -261,7 +261,9 @@ export const Carbon = () => {
     return (
       <ErrorBoundary t={t}>
         <SafeScrollingView>
-          <View style={[styles.container, theme.bank.container.centeredItem, { height: HEIGHT }]}>
+          <View
+            style={[styles.container, theme.bank.container.centeredItem, { height: HEIGHT, marginTop: -80 }]}
+          >
             <View style={styles.textContainer}>
               <Text style={styles.instructionText}>{t('screens.carbon.instruction')}</Text>
               <View style={styles.kpiContainer}>

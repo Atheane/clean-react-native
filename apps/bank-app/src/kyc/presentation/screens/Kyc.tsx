@@ -302,9 +302,10 @@ export const Kyc = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: -80,
   },
   title: {
-    margin: 24,
+    margin: 60,
   },
   instruction: {
     textAlign: 'justify',

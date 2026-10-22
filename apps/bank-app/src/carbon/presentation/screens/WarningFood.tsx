@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: HEIGHT,
+    marginTop: -60,
   },
   iconContainer: { position: 'relative', right: -75, top: 2 },
   title: {
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
     color: Colors.bank.primary.darkBlue,
   },
   text: {
-    textAlign: 'justify',
+    textAlign: 'center',
     fontFamily: FontNames.MartelSans_400Regular,
     fontSize: 16,
     color: Colors.bank.primary.darkGrey,

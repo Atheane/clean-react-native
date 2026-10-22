@@ -30,7 +30,7 @@ export const SignupCongrats = () => {
       dispatch(
         applicationInitialized({
           email: user?.properties.email ?? null,
-          initRouteName: IHomeStackPages.HOME,
+          initRouteName: IHomeStackPages.MENU,
           carbon: {
             house: {
               footprint: null,
@@ -51,7 +51,7 @@ export const SignupCongrats = () => {
           },
         }),
       );
-      navigate(IHomeStackPages.HOME as never);
+      navigate(IHomeStackPages.MENU as never);
     } catch (e: unknown) {
       dispatch(showUnknownError(e as Error));
     }

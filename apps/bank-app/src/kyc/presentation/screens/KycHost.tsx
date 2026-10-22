@@ -110,6 +110,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: HEIGHT,
+    marginTop: -80,
   },
   iconContainer: { position: 'relative', left: 10, top: 2 },
   instructionContainer: {

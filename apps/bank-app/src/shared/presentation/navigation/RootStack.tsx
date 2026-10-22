@@ -18,6 +18,8 @@ import {
   HeaderTitleAlign,
   IUserStackPages,
   IUserStackProps,
+  ITransferStackPages,
+  ITransferStackProps,
 } from '../../../shared/presentation/types';
 import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
 import { ScreenModalError, ScreenModalWebview } from '../../../shared/presentation/screens';
@@ -30,6 +32,7 @@ import { AuthStack } from '../../../auth/presentation/navigation';
 import { BottomTabNavigator } from './BottomNavigator';
 import { UserStack } from '../../../user/presentation/navigation';
 import { SignupCongrats } from '../../../user/presentation/screens';
+import { TransferSuccess } from '../../../transfer/presentation/screens';
 export const RootStack = () => {
   const {
     auth: { accessToken },
@@ -39,7 +42,7 @@ export const RootStack = () => {
 };
 
 const Stack = createNativeStackNavigator<
-  IHomeStackProps & ISharedStackProps & IAuthStackProps & IUserStackProps
+  IHomeStackProps & ISharedStackProps & IAuthStackProps & IUserStackProps & ITransferStackProps
 >();
 
 export const HomeStack = () => {
@@ -65,9 +68,24 @@ export const HomeStack = () => {
         component={SignupCongrats}
       />
       <Stack.Screen
-        name={IHomeStackPages.HOME}
+        name={IHomeStackPages.MENU}
         component={BottomTabNavigator}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        options={{
+          presentation: 'modal',
+          headerTitle: t('screens.transfer.title'),
+          headerTitleAlign: 'center' as HeaderTitleAlign,
+          headerTitleStyle: {
+            color: Colors.bank.primary.darkBlue,
+            fontSize: 19,
+            fontFamily: FontNames.MartelSans_600SemiBold,
+          },
+          headerBackVisible: false,
+        }}
+        name={ITransferStackPages.TRANSFER_SUCCESS}
+        component={TransferSuccess}
       />
       <Stack.Screen
         options={{

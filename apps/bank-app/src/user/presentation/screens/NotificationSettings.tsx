@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: HEIGHT,
+    marginTop: -80,
   },
   iconContainer: {
     marginTop: 40,

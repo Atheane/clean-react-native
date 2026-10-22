@@ -311,7 +311,12 @@
     },
     "transfer": {
       "title": "Virement",
-      "tab": "Virement"
+      "tab": "Virement",
+      "button": "Valider"
+    },
+    "transfer-success": {
+      "title": "Virement",
+      "button": "Retour à l'accueil"
     },
     "carbon": {
       "title": "Mon bilan carbone",
