@@ -23,8 +23,8 @@ export const ContactItem = (props: IProps) => {
   };
 
   return (
-    <View style={theme.bank.container.justifiedItems}>
-      <View style={theme.bank.container.leftItems}>{props.icon && <props.icon />}</View>
+    <View style={theme.bank.container.centeredItems}>
+      <View style={[theme.bank.container.leftItems, { marginLeft: 20 }]}>{props.icon && <props.icon />}</View>
 
       <View style={styles.textContainer}>
         <Text style={styles.textName}>{cleanText()}</Text>
@@ -36,8 +36,6 @@ export const ContactItem = (props: IProps) => {
 
 const styles = StyleSheet.create({
   textContainer: {
-    flex: 1,
-    justifyContent: 'center',
     paddingLeft: 25,
   },
   textName: {

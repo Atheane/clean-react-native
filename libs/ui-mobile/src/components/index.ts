@@ -24,6 +24,7 @@ import { TouchCardText } from './cards/touch-card-text';
 import { UploadDocumentCard } from './cards/upload-document-card';
 import { TransferCard } from './cards/transfer-card';
 import { BeneficiaryCard } from './cards/beneficiary-card';
+import { ContactCard } from './cards/contact-card';
 // Checkboxes
 import { MultipleOptionsCheckBox } from './checkboxes/multiple-options-checkBox';
 import { SimpleCheckBox } from './checkboxes/simple-checkbox';
@@ -112,6 +113,7 @@ export {
   UploadDocumentCard,
   TransferCard,
   BeneficiaryCard,
+  ContactCard,
   // Checkboxes
   MultipleOptionsCheckBox,
   SimpleCheckBox,

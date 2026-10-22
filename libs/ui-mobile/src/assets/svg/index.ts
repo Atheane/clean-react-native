@@ -121,6 +121,9 @@ import Home from './home.svg';
 import Transfer from './transfer.svg';
 import Carbon from './carbon.svg';
 import Profile from './profile.svg';
+import PhoneGradientGreyBg from './phone-gradient-grey-bg.svg';
+import PhoneGradientWhiteBg from './phone-gradient-white-bg.svg';
+
 export {
   Love,
   Validate,
@@ -245,4 +248,6 @@ export {
   BankLogoCA,
   BankBuilding,
   Group2,
+  PhoneGradientGreyBg,
+  PhoneGradientWhiteBg,
 };

@@ -122,6 +122,8 @@ import {
   ProfileGradient,
   CarbonGradient,
   TransferGradient,
+  PhoneGradientGreyBg,
+  PhoneGradientWhiteBg,
 } from './svg';
 import { DefaultImage, PlaneEmpty } from './image';
 import { Loader } from './lottie';
@@ -252,4 +254,6 @@ export {
   ProfileGradient,
   CarbonGradient,
   TransferGradient,
+  PhoneGradientGreyBg,
+  PhoneGradientWhiteBg,
 };

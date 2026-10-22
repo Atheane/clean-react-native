@@ -112,6 +112,7 @@ const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
 
 const ContentContact = (props: { data: IContact[] }) => {
   const navigation = useNavigation();
+  const { theme } = useTheme();
 
   const handleOnPressAdd = useCallback(() => {
     navigation.navigate(IBeneficiaryStackPages.CONTACT_ADD as never);
@@ -125,7 +126,7 @@ const ContentContact = (props: { data: IContact[] }) => {
         </View>
       </SafeAreaView>
       <View style={styles.top}>
-        <View style={styles.addBeneficiary}>
+        <View style={[styles.addBeneficiary, theme.bank.shadow.button]}>
           <LinkButton
             onPress={handleOnPressAdd}
             iconLeft={BeneficiaryAdd}
@@ -187,7 +188,7 @@ export const BeneficiaryList = () => {
             value={index}
             onChange={(e) => setIndex(e)}
             indicatorStyle={{
-              backgroundColor: Colors.bank.primary.green,
+              backgroundColor: Colors.bank.primary.lightGreen,
               height: 3,
             }}
           >
@@ -195,11 +196,7 @@ export const BeneficiaryList = () => {
               title="bank"
               active={true}
               titleStyle={{ fontSize: 13, color: Colors.bank.primary.lightGreen, marginTop: 8 }}
-              icon={() => (
-                <View style={{ marginTop: 12 }}>
-                  <BankBuilding />
-                </View>
-              )}
+              icon={BankBuilding as IconNode}
             >
               {t('screens.beneficiary.bank')}
             </Tab.Item>
