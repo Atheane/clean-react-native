@@ -9,7 +9,7 @@ import { IUserStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
-import { selectUserFromSignup } from '../../state-management/selectors';
+import { selectUser } from '../../state-management/selectors';
 import { IUserTypes, signupFailed, phoneNotFound, initializeUser, phoneCodeSent } from '../../commands';
 
 export function* checkPhoneSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
@@ -29,7 +29,7 @@ export function* checkPhoneGenerator(
     const api = UserApi.getInstance(httpConnection);
     // api call
     const response: number = yield call([api, api.searchPhone], payload);
-    const user = yield select(selectUserFromSignup);
+    const user = yield select(selectUser);
     if (!user && response === IUserSearchServerCode.NOT_FOUND) {
       // user comes from login -> check phone flow as in migration flow (phone number must exists)
       yield put(phoneNotFound(new UserError.ValidatePhoneFailurePhoneNotFound()));

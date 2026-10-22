@@ -76,25 +76,6 @@ describe('Login - integration', () => {
     gender = IGender.MAN;
   }
 
-  const user = User.Create({
-    id: mockUserData.userId,
-    properties: {
-      email: new Email(mockUserData.email),
-      phone: new Phone(mockUserData.phone),
-      identity: {
-        gender,
-        firstName: mockUserData.firstname,
-        lastName: mockUserData.lastname,
-      },
-      birth: {
-        birthday: new BirthDay(dayjs(mockUserData.birthday)),
-        nationality: new Country(mockUserData.nationality),
-      },
-      USPerson: mockUserData.specifiedUSPerson === 1,
-      kycReview: KYC_REVIEW.NONE,
-    },
-  });
-
   beforeAll(() => {
     Constants.expoConfig = {
       name: 'CleanRN BankApp Test',
@@ -114,7 +95,6 @@ describe('Login - integration', () => {
         accessToken: null,
         refreshToken: null,
       },
-      user: null,
       email: null,
       password: null,
       error: null,
@@ -139,7 +119,6 @@ describe('Login - integration', () => {
         refreshToken: null,
       },
       email: mockData.email,
-      user: null,
       password: mockData.password,
       error: null,
       success: null,
@@ -157,7 +136,6 @@ describe('Login - integration', () => {
         accessToken: null,
         refreshToken: null,
       },
-      user: null,
       error: null,
       email: mockData.email,
       password: mockData.password,
@@ -174,7 +152,6 @@ describe('Login - integration', () => {
         accessToken: null,
         refreshToken: null,
       },
-      user: null,
       error: null,
       email: null,
       password: null,
@@ -185,12 +162,11 @@ describe('Login - integration', () => {
   it('Should store correct state if LOGIN_SUCCESS', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, loginSaga, httpConnection);
     sagaTester.dispatch(fetchLogin(mockData));
-    sagaTester.dispatch(loginSuccess({ auth: mockResponse, user }));
+    sagaTester.dispatch(loginSuccess({ auth: mockResponse }));
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
       auth: mockResponse,
-      user,
       error: null,
       email: mockData.email,
       password: mockData.password,
@@ -209,7 +185,6 @@ describe('Login - integration', () => {
         accessToken: null,
         refreshToken: null,
       },
-      user: null,
       email: mockData.email,
       password: mockData.password,
       error: new AuthError.LoginFailureInvalidCredentials(),
@@ -224,7 +199,6 @@ describe('Login - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       auth: mockResponse,
-      user: null,
       error: null,
       email: null,
       password: null,
@@ -243,7 +217,6 @@ describe('Login - integration', () => {
         accessToken: null,
         refreshToken: null,
       },
-      user: null,
       email: null,
       password: null,
       error: null,
@@ -263,7 +236,6 @@ describe('Login - integration', () => {
         accessToken: null,
         refreshToken: null,
       },
-      user: null,
       email: null,
       password: null,
       error: null,
@@ -282,7 +254,6 @@ describe('Login - integration', () => {
         accessToken: null,
         refreshToken: null,
       },
-      user: null,
       email: null,
       password: null,
       error: null,
@@ -301,7 +272,6 @@ describe('Login - integration', () => {
         accessToken: null,
         refreshToken: null,
       },
-      user: null,
       email: null,
       password: null,
       error: null,

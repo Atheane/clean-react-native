@@ -47,10 +47,10 @@ export function* loginGenerator(
     const userApi = UserApi.getInstance(httpConnection);
     const user = yield call([userApi, userApi.getUser]);
 
-    yield put(loginSuccess({ auth, user }));
+    yield put(loginSuccess({ auth }));
     yield put(userSaved(user));
 
-    yield put(checkCustomerStatus());
+    yield put(checkCustomerStatus({ user }));
     yield call(navigate, { route: IHomeStackPages.HOME });
   } catch (error: unknown) {
     if (error instanceof ServerError) {

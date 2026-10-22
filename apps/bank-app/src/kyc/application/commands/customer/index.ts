@@ -1,4 +1,6 @@
 import { Customer } from '@clean-rn/kyc/domain';
+import { User } from '@clean-rn/user/domain';
+
 import {
   ICustomerTypes,
   ICheckCustomerStatus,
@@ -10,8 +12,9 @@ import {
 import { IRoutes } from '../../../../shared/presentation/types';
 
 // commands
-export const checkCustomerStatus = (): ICheckCustomerStatus => ({
+export const checkCustomerStatus = (payload: { user: User }): ICheckCustomerStatus => ({
   type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
+  payload,
 });
 
 export const initializeKyc = (): IInitializeKyc => ({

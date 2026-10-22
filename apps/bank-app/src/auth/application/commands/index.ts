@@ -39,7 +39,7 @@ export const fetchResetPassword = (payload: IResetPasswordCommand): IFetchResetP
   payload,
 });
 
-export const loginSuccess = (payload: { auth: IAuth; user: User }): ILoginSucceded => ({
+export const loginSuccess = (payload: { auth: IAuth }): ILoginSucceded => ({
   type: IAuthTypes.LOGIN_SUCCEDED,
   payload,
 });

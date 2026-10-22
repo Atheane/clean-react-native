@@ -50,7 +50,6 @@ export type ILoginSucceded = {
   type: typeof IAuthTypes.LOGIN_SUCCEDED;
   payload: {
     auth: IAuth;
-    user: User;
   };
 };
 

@@ -24,7 +24,8 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 
-import { selectAuth, selectUser } from '../../../../auth/application/state-management/selectors';
+import { selectAuth } from '../../../../auth/application/state-management/selectors';
+import { selectUser } from '../../../../user/application/state-management/selectors';
 import { refreshSuccess } from '../../../../auth/application/commands';
 
 import { uploadDocumentSaga, uploadDocumentSagaGenerator } from '../../usecases/document';

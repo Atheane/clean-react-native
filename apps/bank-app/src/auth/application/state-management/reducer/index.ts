@@ -7,7 +7,6 @@ const initialState: IAuthState = {
   pending: false,
   email: null,
   password: null,
-  user: null,
   auth: {
     accessToken: null,
     refreshToken: null,
@@ -35,7 +34,6 @@ export const authReducer = (state = initialState, action: IAuthActions) => {
         ...state,
         pending: false,
         auth: action.payload.auth,
-        user: action.payload.user,
       };
       return newState;
     case IAuthTypes.REFRESH_SUCCEDED:

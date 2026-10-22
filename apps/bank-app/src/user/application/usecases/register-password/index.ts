@@ -5,7 +5,7 @@ import { IRegisterPasswordCommand, User } from '@clean-rn/user/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { initializeUser, IUserTypes, passwordRegistered } from '../../commands';
-import { selectUserFromSignup, selectEmailFromSignup } from '../../state-management/selectors';
+import { selectUser, selectEmail } from '../../state-management/selectors';
 
 export function* registerPasswordSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(IUserTypes.REGISTER_PASSWORD, registerPasswordGenerator);
@@ -20,10 +20,10 @@ export function* registerPasswordGenerator({
   try {
     const { password } = payload;
     // retrieve user from redux store
-    let user = yield select(selectUserFromSignup);
+    let user = yield select(selectUser);
 
     if (!user) {
-      const email = yield select(selectEmailFromSignup);
+      const email = yield select(selectEmail);
       user = User.CreateFromEmail(email);
     }
     // add password property to prospect instance

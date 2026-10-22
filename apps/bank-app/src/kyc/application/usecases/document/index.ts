@@ -13,8 +13,10 @@ import { IAuthStackPages, IKycStackPages } from '../../../../shared/presentation
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
-import { selectAuth, selectUser } from '../../../../auth/application/state-management/selectors';
+import { selectAuth } from '../../../../auth/application/state-management/selectors';
 import { refreshSuccess } from '../../../../auth/application/commands';
+
+import { selectUser } from '../../../../user/application/state-management/selectors';
 
 import { customerDocumentsUpdated } from '../../commands/customer';
 import {

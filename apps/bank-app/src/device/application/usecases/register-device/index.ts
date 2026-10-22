@@ -17,7 +17,7 @@ import {
   initializeDevice,
 } from '../../../../device/application/commands';
 
-import { selectUser } from '../../../../auth/application/state-management/selectors';
+import { selectUser } from '../../../../user/application/state-management/selectors';
 
 export function* registerDeviceSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IDeviceTypes.FETCH_REGISTER_DEVICE, registerDeviceGenerator, httpConnection);

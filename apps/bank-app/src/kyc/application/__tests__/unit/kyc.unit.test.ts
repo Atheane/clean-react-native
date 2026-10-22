@@ -4,7 +4,6 @@ import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 import dayjs from 'dayjs';
 
-import { UserApi } from '@clean-rn/user/infrastructure';
 import {
   Customer,
   IDocumentProperties,
@@ -25,7 +24,6 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 
 import { checkCustomerStatusGenerator, checkCustomerStatusSaga } from '../../usecases/customer';
 import { ICustomerTypes, customerStatusChecked, initializeKyc } from '../../commands/customer';
-import { selectUser } from '../../../../auth/application/state-management/selectors';
 
 describe('KYC - CheckCustomerStatus - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -176,10 +174,11 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
     });
 
     customer.checkDocumentsStatus([]);
-    testSaga(checkCustomerStatusGenerator, httpConnection)
+    testSaga(checkCustomerStatusGenerator, httpConnection, {
+      type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
+      payload: { user },
+    })
       .next()
-      .select(selectUser) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next([])
       .put(
@@ -198,10 +197,11 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
     });
 
     customer.checkDocumentsStatus(mockResponseIncomplete);
-    testSaga(checkCustomerStatusGenerator, httpConnection)
+    testSaga(checkCustomerStatusGenerator, httpConnection, {
+      type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
+      payload: { user },
+    })
       .next()
-      .select(selectUser) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponseIncomplete)
       .put(
@@ -220,10 +220,11 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
     });
 
     customer.checkDocumentsStatus(mockResponsePending);
-    testSaga(checkCustomerStatusGenerator, httpConnection)
+    testSaga(checkCustomerStatusGenerator, httpConnection, {
+      type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
+      payload: { user },
+    })
       .next()
-      .select(selectUser) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponsePending)
       .put(
@@ -242,10 +243,11 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
     });
 
     customer.checkDocumentsStatus(mockResponseDocumentsValidated);
-    testSaga(checkCustomerStatusGenerator, httpConnection)
+    testSaga(checkCustomerStatusGenerator, httpConnection, {
+      type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
+      payload: { user },
+    })
       .next()
-      .select(selectUser) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponseDocumentsValidated)
       .put(
@@ -264,10 +266,11 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
     });
 
     customer.checkDocumentsStatus(mockResponseRefused);
-    testSaga(checkCustomerStatusGenerator, httpConnection)
+    testSaga(checkCustomerStatusGenerator, httpConnection, {
+      type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
+      payload: { user },
+    })
       .next()
-      .select(selectUser) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponseRefused)
       .put(
@@ -290,10 +293,11 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
       properties: { status: KYC_REVIEW.VALIDATED, USPerson: false },
     });
 
-    testSaga(checkCustomerStatusGenerator, httpConnection)
+    testSaga(checkCustomerStatusGenerator, httpConnection, {
+      type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
+      payload: { user },
+    })
       .next()
-      .select(selectUser) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .next(user)
       .put(
         customerStatusChecked({
           customer,
@@ -317,10 +321,11 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
     customer.addKycReviewComment('test');
     customer.checkDocumentsStatus(mockResponsePending);
 
-    testSaga(checkCustomerStatusGenerator, httpConnection)
+    testSaga(checkCustomerStatusGenerator, httpConnection, {
+      type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
+      payload: { user },
+    })
       .next()
-      .select(selectUser) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponsePending)
       .put(
@@ -333,12 +338,13 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
   });
 
   it('Should call navigate to Login modale if 401 from Server', () => {
-    const user = User.Create({ id: 123, properties: {} });
+    const user = User.Create({ id: 123, properties: { USPerson: false } });
 
-    testSaga(checkCustomerStatusGenerator, httpConnection)
+    testSaga(checkCustomerStatusGenerator, httpConnection, {
+      type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
+      payload: { user },
+    })
       .next()
-      .select(selectUser) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
       .call(navigate, { route: IAuthStackPages.LOGIN })
@@ -347,12 +353,13 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
   });
 
   it('Should call showUnknownError action if 500 from Server', () => {
-    const user = User.Create({ id: 123, properties: {} });
+    const user = User.Create({ id: 123, properties: { USPerson: false } });
 
-    testSaga(checkCustomerStatusGenerator, httpConnection)
+    testSaga(checkCustomerStatusGenerator, httpConnection, {
+      type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
+      payload: { user },
+    })
       .next()
-      .select(selectUser) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
       .put(initializeKyc())
@@ -362,17 +369,29 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
   });
 
   it('Should call showUnknownError action if unknown error', () => {
-    const user = User.Create({ id: 123, properties: {} });
+    const user = User.Create({ id: 123, properties: { USPerson: false } });
 
-    testSaga(checkCustomerStatusGenerator, httpConnection)
+    testSaga(checkCustomerStatusGenerator, httpConnection, {
+      type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
+      payload: { user },
+    })
       .next()
-      .select(selectUser) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .next(user)
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unknown error'))
       .put(initializeKyc())
       .next()
       .put(showUnknownError(new Error('unknown error')))
       .next();
+  });
+
+  it('Should cancel if user has no USPerson', () => {
+    const user = User.Create({ id: 123, properties: {} });
+
+    testSaga(checkCustomerStatusGenerator, httpConnection, {
+      type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
+      payload: { user },
+    })
+      .next()
+      .cancel();
   });
 });

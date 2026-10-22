@@ -40,11 +40,7 @@ import {
   signupUserSaga,
   signupUserGenerator,
 } from '../../usecases';
-import {
-  selectUserFromSignup,
-  selectEmailFromSignup,
-  selectPhoneOtpFromSignup,
-} from '../../state-management/selectors';
+import { selectUser, selectEmail, selectPhoneOtp } from '../../state-management/selectors';
 
 import {
   IUserTypes,
@@ -68,7 +64,6 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 import { loginSuccess } from '../../../../auth/application/commands';
-import { selectUser } from '../../../../auth/application/state-management/selectors';
 
 import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
 
@@ -327,7 +322,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectUserFromSignup,
+              selector: selectUser,
             }),
           }),
         );
@@ -351,7 +346,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectUserFromSignup,
+              selector: selectUser,
             }),
           }),
         );
@@ -363,7 +358,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectEmailFromSignup,
+              selector: selectEmail,
             }),
           }),
         );
@@ -397,7 +392,7 @@ describe('Signup - usecase', () => {
       .next()
       .call([userApi, userApi.searchPhone], mockQueryPhone)
       .next(IUserSearchServerCode.NOT_FOUND)
-      .select(selectUserFromSignup)
+      .select(selectUser)
       .next(user)
       .call([userApi, userApi.sendPhoneValidation], mockQueryPhone)
       .next(mockSuccessTrue)
@@ -415,7 +410,7 @@ describe('Signup - usecase', () => {
       .next()
       .call([userApi, userApi.searchPhone], mockQueryPhone)
       .next(IUserSearchServerCode.PHONE_EXISTS)
-      .select(selectUserFromSignup)
+      .select(selectUser)
       .next(user)
       .put(signupFailed(new UserError.SignupFailurePhoneExists()))
       .next()
@@ -443,7 +438,7 @@ describe('Signup - usecase', () => {
       .next()
       .call([userApi, userApi.searchPhone], mockQueryPhone)
       .next(IUserSearchServerCode.PHONE_EXISTS)
-      .select(selectUserFromSignup)
+      .select(selectUser)
       .next(null)
       .call([userApi, userApi.sendPhoneValidation], mockQueryPhone)
       .next(mockSuccessTrue)
@@ -459,7 +454,7 @@ describe('Signup - usecase', () => {
       .next()
       .call([userApi, userApi.searchPhone], mockQueryPhone)
       .next(IUserSearchServerCode.NOT_FOUND)
-      .select(selectUserFromSignup)
+      .select(selectUser)
       .next(null)
       .put(phoneNotFound(new UserError.ValidatePhoneFailurePhoneNotFound()))
       .next()
@@ -500,7 +495,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectUserFromSignup,
+              selector: selectUser,
             }),
           }),
         );
@@ -529,7 +524,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectUserFromSignup,
+              selector: selectUser,
             }),
           }),
         );
@@ -590,7 +585,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectUserFromSignup,
+              selector: selectUser,
             }),
           }),
         );
@@ -617,7 +612,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectUserFromSignup,
+              selector: selectUser,
             }),
           }),
         );
@@ -629,7 +624,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectEmailFromSignup,
+              selector: selectEmail,
             }),
           }),
         );
@@ -671,7 +666,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectUserFromSignup,
+              selector: selectUser,
             }),
           }),
         );
@@ -685,7 +680,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectPhoneOtpFromSignup,
+              selector: selectPhoneOtp,
             }),
           }),
         );
@@ -710,7 +705,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectUserFromSignup,
+              selector: selectUser,
             }),
           }),
         );
@@ -722,7 +717,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectEmailFromSignup,
+              selector: selectEmail,
             }),
           }),
         );
@@ -736,7 +731,7 @@ describe('Signup - usecase', () => {
           expect.objectContaining({
             type: 'SELECT',
             payload: expect.objectContaining({
-              selector: selectPhoneOtpFromSignup,
+              selector: selectPhoneOtp,
             }),
           }),
         );
@@ -794,14 +789,12 @@ describe('Signup - usecase', () => {
       .next()
       .call([userApi, userApi.getUser])
       .next(user)
-      .put(loginSuccess({ auth: mockAuth, user }))
-      .next()
-      .put(checkCustomerStatus())
-      .next()
-      .select(selectUser)
-      .next(user)
       .put(userSignedUp(user))
       .next(user)
+      .put(loginSuccess({ auth: mockAuth }))
+      .next()
+      .put(checkCustomerStatus({ user }))
+      .next()
       .call(navigate, { route: IUserStackPages.SIGNUP_CONGRATS })
       .next();
   });

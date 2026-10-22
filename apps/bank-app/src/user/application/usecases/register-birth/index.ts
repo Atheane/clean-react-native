@@ -3,7 +3,7 @@ import { put, StrictEffect, takeEvery, select, call } from 'redux-saga/effects';
 import { IRegisterBirthCommand, User } from '@clean-rn/user/domain';
 
 import { IUserTypes, birthRegistered, initializeUser } from '../../commands';
-import { selectUserFromSignup, selectEmailFromSignup } from '../../state-management/selectors';
+import { selectUser, selectEmail } from '../../state-management/selectors';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { IUserStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
@@ -19,10 +19,10 @@ export function* registerBirthGenerator({
   payload: IRegisterBirthCommand;
 }): Generator<StrictEffect, any, any> {
   try {
-    let user = yield select(selectUserFromSignup);
+    let user = yield select(selectUser);
 
     if (!user) {
-      const email = yield select(selectEmailFromSignup);
+      const email = yield select(selectEmail);
       user = User.CreateFromEmail(email);
     }
     // add password property to user instance

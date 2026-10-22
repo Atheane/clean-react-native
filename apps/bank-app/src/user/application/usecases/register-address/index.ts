@@ -5,11 +5,7 @@ import { IRegisterAddressCommand, User } from '@clean-rn/user/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IUserTypes, addressRegistered, fetchSignupUser, initializeUser } from '../../commands';
-import {
-  selectUserFromSignup,
-  selectEmailFromSignup,
-  selectPhoneOtpFromSignup,
-} from '../../state-management/selectors';
+import { selectUser, selectEmail, selectPhoneOtp } from '../../state-management/selectors';
 
 export function* registerAddressSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(IUserTypes.REGISTER_ADDRESS, registerAddressGenerator);
@@ -21,10 +17,10 @@ export function* registerAddressGenerator({
   payload: IRegisterAddressCommand;
 }): Generator<StrictEffect, any, any> {
   try {
-    let user = yield select(selectUserFromSignup);
+    let user = yield select(selectUser);
 
     if (!user) {
-      const email = yield select(selectEmailFromSignup);
+      const email = yield select(selectEmail);
       user = User.CreateFromEmail(email);
     }
     // add password property to user instance
@@ -33,7 +29,7 @@ export function* registerAddressGenerator({
     // domain event
     yield put(addressRegistered(user));
 
-    const phoneOtp = yield select(selectPhoneOtpFromSignup);
+    const phoneOtp = yield select(selectPhoneOtp);
     yield put(fetchSignupUser({ user, phoneOtp }));
   } catch (e: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors

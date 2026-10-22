@@ -10,7 +10,7 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 import { IUserStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
-import { selectUserFromSignup } from '../../state-management/selectors';
+import { selectUser } from '../../state-management/selectors';
 import { IUserTypes, signupFailed, phoneValidated, initializeUser } from '../../commands';
 
 export function* validatePhoneSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
@@ -35,7 +35,7 @@ export function* validatePhoneGenerator(
       yield cancel();
     }
 
-    const user = yield select(selectUserFromSignup);
+    const user = yield select(selectUser);
 
     if (!user) {
       // user comes from login -> check phone flow (ex: already signup, and uses a new phone, or migration flow)

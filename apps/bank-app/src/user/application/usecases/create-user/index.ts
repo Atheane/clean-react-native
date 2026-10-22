@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { call, put, select, StrictEffect, takeEvery } from 'redux-saga/effects';
+import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { AuthError } from '@clean-rn/auth/domain';
@@ -16,7 +16,6 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 import { IUserStackPages } from '../../../../shared/presentation/types';
 
 import { loginSuccess } from '../../../../auth/application/commands';
-import { selectUser } from '../../../../auth/application/state-management/selectors';
 
 import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
 
@@ -70,15 +69,14 @@ export function* signupUserGenerator(
 
     const userApi = UserApi.getInstance(httpConnection);
     const user = yield call([userApi, userApi.getUser]);
+    user.signup({ id: user.id, properties: user.properties as IUserProperties });
+    yield put(userSignedUp(user));
 
-    yield put(loginSuccess({ auth, user }));
-    yield put(checkCustomerStatus());
+    yield put(loginSuccess({ auth }));
 
-    const userFromAuth = yield select(selectUser);
-    userFromAuth.signup({ id: userFromAuth.id, properties: userFromAuth.properties as IUserProperties });
+    yield put(checkCustomerStatus({ user }));
 
     // domain event
-    yield put(userSignedUp(userFromAuth));
 
     yield call(navigate, { route: IUserStackPages.SIGNUP_CONGRATS });
   } catch (e: unknown) {

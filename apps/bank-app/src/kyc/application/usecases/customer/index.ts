@@ -4,14 +4,13 @@ import { call, put, StrictEffect, takeEvery, cancel, select } from 'redux-saga/e
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { Customer, IDocumentProperties, IKycState } from '@clean-rn/kyc/domain';
 import { KycApi } from '@clean-rn/kyc/infrastructure';
-import { KYC_REVIEW } from '@clean-rn/user/domain';
+import { KYC_REVIEW, User } from '@clean-rn/user/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IAuthStackPages, IKycStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { customerStatusChecked, initializeKyc, ICustomerTypes } from '../../commands/customer';
-import { selectUser } from '../../../../auth/application/state-management/selectors';
 
 export function* checkCustomerStatusSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(ICustomerTypes.CHECK_CUSTOMER_STATUS, checkCustomerStatusGenerator, httpConnection);
@@ -19,13 +18,24 @@ export function* checkCustomerStatusSaga(httpConnection: HttpConnection): Genera
 
 export function* checkCustomerStatusGenerator(
   httpConnection: HttpConnection,
+  {
+    payload,
+  }: {
+    type: string;
+    payload: {
+      user: User;
+    };
+  },
 ): Generator<StrictEffect, any, any> {
   try {
-    const user = yield select(selectUser);
+    const { user } = payload;
+    if (user.properties.USPerson === undefined) {
+      yield cancel();
+    }
     const customerStatus = user.properties.kycReview;
     if (customerStatus && customerStatus === KYC_REVIEW.VALIDATED) {
       const customer = Customer.Create({
-        id: user.id.toString(),
+        id: parseInt(user.id),
         properties: { status: customerStatus, USPerson: user.properties.USPerson },
       });
       yield put(customerStatusChecked({ customer, initRoute: IKycStackPages.SUCCESS }));
@@ -35,7 +45,7 @@ export function* checkCustomerStatusGenerator(
     const api = KycApi.getInstance(httpConnection);
     const documents: IDocumentProperties[] = yield call([api, api.getDocuments]);
     const customer = Customer.Create({
-      id: user.id.toString(),
+      id: parseInt(user.id),
       properties: { status: customerStatus, USPerson: user.properties.USPerson },
     });
     if (user.properties.kycReviewComment && user.properties.kycReviewComment.length > 0) {
