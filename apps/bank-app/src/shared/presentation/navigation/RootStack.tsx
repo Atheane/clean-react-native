@@ -15,13 +15,7 @@ import {
   IHomeStackProps,
   ISharedStackPages,
   ISharedStackProps,
-  IKycStackPages,
-  IKycStackProps,
   HeaderTitleAlign,
-  ICarbonStackPages,
-  ICarbonStackProps,
-  IUserStackProps,
-  IUserStackPages,
 } from '../../../shared/presentation/types';
 import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
 import { ScreenModalError, ScreenModalWebview } from '../../../shared/presentation/screens';
@@ -29,13 +23,8 @@ import { ScreenModalError, ScreenModalWebview } from '../../../shared/presentati
 import { Login } from '../../../auth/presentation/screens';
 import { AuthStack } from '../../../auth/presentation/navigation';
 
-import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
-import { goBack } from '../../../shared/presentation/navigation/navigationRef';
-
-import { KycStack } from '../../../kyc/presentation/navigation';
 import { BottomTabNavigator } from './BottomNavigator';
 import { UserStack } from '../../../user/presentation/navigation';
-import { SignupCongrats } from '../../../user/presentation/screens';
 
 export const RootStack = () => {
   const {
@@ -45,9 +34,7 @@ export const RootStack = () => {
   return accessToken ? <HomeStack /> : email ? <AuthStack /> : <UserStack />;
 };
 
-const Stack = createNativeStackNavigator<
-  IHomeStackProps & ISharedStackProps & IAuthStackProps & IUserStackProps & IKycStackProps & ICarbonStackProps
->();
+const Stack = createNativeStackNavigator<IHomeStackProps & ISharedStackProps & IAuthStackProps>();
 
 export const HomeStack = () => {
   const navigationStack = useNavigationState((state) => state?.routes ?? []);
@@ -64,19 +51,10 @@ export const HomeStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        options={{
-          headerTitle: t(`screens.signup-congrats.title`),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
-        }}
-        name={IUserStackPages.SIGNUP_CONGRATS}
-        component={SignupCongrats}
-      />
-      <Stack.Screen
         name={IHomeStackPages.HOME}
         component={BottomTabNavigator}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name={IKycStackPages.MENU} component={KycStack} options={{ headerShown: false }} />
       <Stack.Screen
         options={{
           presentation: 'modal',

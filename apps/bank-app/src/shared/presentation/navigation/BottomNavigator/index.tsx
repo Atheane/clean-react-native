@@ -18,6 +18,7 @@ import {
   ITransferStackPages,
   ICarbonStackPages,
   IUserStackPages,
+  IKycStackPages,
 } from '../../types';
 
 import { AccountStack } from '../../../../account/presentation/navigation';
@@ -25,6 +26,7 @@ import { CarbonStack } from '../../../../carbon/presentation/navigation';
 
 import { Transfer } from '../../../../transfer/presentation/screens';
 import { ProfileStack } from '../../../../user/presentation/navigation';
+import { KycStack } from '../../../../kyc/presentation/navigation';
 
 const Tab = createBottomTabNavigator<IRootTabParamList>();
 
@@ -123,6 +125,13 @@ export const BottomTabNavigator = () => {
             </Pressable>
           ),
         })}
+      />
+      <Tab.Screen
+        name={IKycStackPages.MENU}
+        component={KycStack}
+        options={{
+          tabBarButton: () => null,
+        }}
       />
     </Tab.Navigator>
   );

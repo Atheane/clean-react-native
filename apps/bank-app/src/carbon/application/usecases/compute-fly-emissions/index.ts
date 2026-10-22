@@ -38,7 +38,7 @@ export function* computeFlyEmissionsGenerator({
     );
     yield call(AsyncStorage.setItem, IStoreKey.FLY_EMISSION, flyCarbonFootprint.toFixed(2));
     yield call(AsyncStorage.setItem, IStoreKey.AVERAGE_FLY_EMISSION, avgFlyCarbonFootprint.toFixed(2));
-    yield call(navigate, { route: ICarbonStackPages.MENU });
+    yield call(navigate, { route: ICarbonStackPages.CARBON });
   } catch (error: unknown) {
     yield put(initializeFlyEmissions());
     yield put(showUnknownError(error as Error));
