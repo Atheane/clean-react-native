@@ -4,7 +4,7 @@ import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 import { createMockTask } from '@redux-saga/testing-utils';
 
-import { User } from '@clean-rn/auth/domain';
+import { User } from '@clean-rn/user/domain';
 import {
   Customer,
   DocumentError,
@@ -18,14 +18,20 @@ import {
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { KycApi } from '@clean-rn/kyc/infrastructure';
+import { AuthApi } from '@clean-rn/auth/infrastructure';
+
+import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
+import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+import { IAuthStackPages } from '../../../../shared/presentation/types';
+
+import { selectAuth } from '../../../../auth/application/state-management/selectors';
+import { selectUser } from '../../../../user/application/state-management/selectors';
+import { refreshSuccess } from '../../../../auth/application/commands';
 
 import { uploadDocumentSaga, uploadDocumentSagaGenerator } from '../../usecases/document';
 import { customerDocumentsUpdated } from '../../commands/customer';
 import { IDocumentTypes, documentUploaded, resetDocument, setAbortController } from '../../commands/document';
-import { selectCustomer, selectUserFromLogin } from '../../state-management/selectors';
-import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { IAuthStackPages } from '../../../../shared/presentation/types';
+import { selectCustomer } from '../../state-management/selectors';
 
 describe('Document - uploadDocument - usecases', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -40,7 +46,14 @@ describe('Document - uploadDocument - usecases', () => {
   };
 
   const api = KycApi.getInstance(httpConnection);
+  const authApi = AuthApi.getInstance(httpConnection);
+
   const genObject = uploadDocumentSaga(httpConnection);
+
+  const mockToken = {
+    accessToken: 'fake-access-token',
+    refreshToken: 'fake-refresh-token',
+  };
 
   const mockError401 = {
     statusCode: 401,
@@ -104,8 +117,14 @@ describe('Document - uploadDocument - usecases', () => {
       },
     })
       .next()
-      .select(selectUserFromLogin)
+      .select(selectUser)
       .next(user)
+      .select(selectAuth)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
+      .next()
       .put(setAbortController({ controller: mockAbortController }))
       .next()
       .spawn([api, api.createDocument], {
@@ -158,8 +177,14 @@ describe('Document - uploadDocument - usecases', () => {
       },
     })
       .next()
-      .select(selectUserFromLogin)
+      .select(selectUser)
       .next(user)
+      .select(selectAuth)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
+      .next()
       .put(setAbortController({ controller: mockAbortController }))
       .next()
       .spawn([api, api.createDocument], {
@@ -188,8 +213,14 @@ describe('Document - uploadDocument - usecases', () => {
       },
     })
       .next()
-      .select(selectUserFromLogin)
+      .select(selectUser)
       .next(user)
+      .select(selectAuth)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
+      .next()
       .put(setAbortController({ controller: mockAbortController }))
       .next()
       .spawn([api, api.createDocument], {
@@ -218,8 +249,14 @@ describe('Document - uploadDocument - usecases', () => {
       },
     })
       .next()
-      .select(selectUserFromLogin)
+      .select(selectUser)
       .next(user)
+      .select(selectAuth)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
+      .next()
       .put(setAbortController({ controller: mockAbortController }))
       .next()
       .spawn([api, api.createDocument], {
@@ -247,8 +284,14 @@ describe('Document - uploadDocument - usecases', () => {
       },
     })
       .next()
-      .select(selectUserFromLogin)
+      .select(selectUser)
       .next(user)
+      .select(selectAuth)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
+      .next()
       .put(setAbortController({ controller: mockAbortController }))
       .next()
       .spawn([api, api.createDocument], {

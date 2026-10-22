@@ -60,6 +60,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     position: 'relative',
-    bottom: '25%',
+    bottom: '30%',
   },
 });

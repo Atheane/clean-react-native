@@ -46,7 +46,7 @@ export const EmailInput = (props: Props & State) => {
     <TextInput
       label={t('email-input.label')}
       labelColor={Colors.bank.primary.grey}
-      icon={() => <Mail style={{ color: Colors.bank.primary.lightGreen }} />}
+      IconLeft={() => <Mail style={{ color: Colors.bank.primary.lightGreen }} />}
       value={props.value}
       lowerCase
       onChange={handleOnChange}

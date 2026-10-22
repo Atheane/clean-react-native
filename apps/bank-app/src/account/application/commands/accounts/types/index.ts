@@ -4,6 +4,7 @@ export enum IAccountsTypes {
   LIST_ACCOUNTS = 'LIST_ACCOUNTS',
   ACCOUNTS_LISTED = 'ACCOUNTS_LISTED',
   INITIALIZE_ACCOUNTS_LIST = 'INITIALIZE_ACCOUNTS_LIST',
+  ACCOUNT_SELECTED = 'ACCOUNT_SELECTED',
 }
 
 export type IListAccounts = {
@@ -19,4 +20,9 @@ export type IInitializeAccountsList = {
   type: typeof IAccountsTypes.INITIALIZE_ACCOUNTS_LIST;
 };
 
-export type IAccountsActions = IListAccounts | IAccountsListed | IInitializeAccountsList;
+export type IAccountSelected = {
+  type: typeof IAccountsTypes.ACCOUNT_SELECTED;
+  payload: IAccount;
+};
+
+export type IAccountsActions = IListAccounts | IAccountsListed | IInitializeAccountsList | IAccountSelected;

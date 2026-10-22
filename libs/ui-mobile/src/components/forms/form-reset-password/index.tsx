@@ -5,7 +5,7 @@ import { useTheme } from '@rneui/themed';
 
 import { Email } from '@clean-rn/auth/domain';
 
-import { firstLetterCapitalize } from '../../../utils';
+import { firstLetterCapitalize } from '@clean-rn/utils';
 
 import { SubmitButton } from '../../buttons/submit-button';
 import { EmailInput } from '../../inputs/email-input';

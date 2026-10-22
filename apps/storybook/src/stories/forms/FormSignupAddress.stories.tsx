@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { getLocales } from 'expo-localization';
 
 import { Logger } from '@clean-rn/logger';
-import { COUNTRIES_AVAILABLE } from '@clean-rn/auth/domain';
+import { COUNTRIES_AVAILABLE } from '@clean-rn/user/domain';
 import { FormSignupAddress, ISignupAddressFormData } from '@clean-rn/ui-mobile';
 import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../../wrappers';
 
@@ -25,7 +25,7 @@ const FormSignupAddressMeta: ComponentMeta<typeof FormSignupAddress> = {
   args: {
     defaultCountry,
   },
-  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
+  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };
 
 export default FormSignupAddressMeta;

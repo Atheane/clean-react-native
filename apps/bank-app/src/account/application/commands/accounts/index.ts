@@ -5,6 +5,7 @@ import {
   IAccountsListed,
   IInitializeAccountsList,
   IAccountsActions,
+  IAccountSelected,
 } from './types';
 
 // commands
@@ -19,6 +20,11 @@ export const initializeAccountsList = (): IInitializeAccountsList => ({
 // domainEvents
 export const accountsListed = (payload: IAccount[]): IAccountsListed => ({
   type: IAccountsTypes.ACCOUNTS_LISTED,
+  payload,
+});
+
+export const accountSelected = (payload: IAccount): IAccountSelected => ({
+  type: IAccountsTypes.ACCOUNT_SELECTED,
   payload,
 });
 

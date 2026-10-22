@@ -1,8 +1,9 @@
 import { useRef } from 'react';
-import { View, StyleSheet, StyleProp, ViewStyle, SafeAreaView } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle, SafeAreaView, Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useTheme } from '@rneui/themed';
 
 import { FlightI } from '@bank/carbon-weight/dist';
 
@@ -21,6 +22,7 @@ const formattedAirports = airports.map((airport) => ({
 
 export const Fly = () => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
 
   // init values with previous stored values
   const { data } = useSelector((state: IRootState) => state.carbon.fly);
@@ -38,26 +40,28 @@ export const Fly = () => {
     <ErrorBoundary t={t}>
       <SafeAreaView style={styles.container}>
         <KeyboardAwareScrollView showsVerticalScrollIndicator={false} ref={scrollViewRef}>
-          <FlyForm
-            airports={formattedAirports}
-            flight={flight}
-            flights={flights}
-            onChangeField={handleChangeField}
-            onAddFlight={handleOnAddFlight}
-            onRemoveFlight={handleRemoveFlight}
-            scrollViewRef={scrollViewRef}
-          />
-          <View style={styles.buttonContainer}>
-            <PrimaryButton
-              title={t('screens.carbon.compute')}
-              onPress={handleOnPress}
-              iconOne={() => (
-                <View style={{ height: 23, justifyContent: 'center' }}>
-                  <CO2 style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
-                </View>
-              )}
-              long
+          <View style={theme.bank.container.centeredItem}>
+            <FlyForm
+              airports={formattedAirports}
+              flight={flight}
+              flights={flights}
+              onChangeField={handleChangeField}
+              onAddFlight={handleOnAddFlight}
+              onRemoveFlight={handleRemoveFlight}
+              scrollViewRef={scrollViewRef}
             />
+            <View style={styles.buttonContainer}>
+              <PrimaryButton
+                title={t('screens.carbon.compute')}
+                onPress={handleOnPress}
+                iconOne={() => (
+                  <View style={{ height: 23, justifyContent: 'center' }}>
+                    <CO2 style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+                  </View>
+                )}
+                long
+              />
+            </View>
           </View>
         </KeyboardAwareScrollView>
       </SafeAreaView>
@@ -67,9 +71,8 @@ export const Fly = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.bank.primary.white,
-    alignItems: 'center',
     flex: 1,
+    backgroundColor: Colors.bank.primary.white,
   },
   buttonContainer: {
     marginVertical: 50,

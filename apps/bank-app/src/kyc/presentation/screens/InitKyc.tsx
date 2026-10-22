@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { View, Text, StyleSheet, Image, StyleProp, ViewStyle, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '@rneui/themed';
 
 import { PrimaryButton, Colors, FontNames, Add } from '@clean-rn/ui-mobile';
 import { IKycStackPages } from '../../../shared/presentation/types';
@@ -14,6 +15,7 @@ const HEIGHT = Dimensions.get('window').height;
 export const InitKyc = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
+  const { theme } = useTheme();
 
   const handleOnPress = useCallback(() => {
     navigation.navigate(IKycStackPages.KYC as never);
@@ -22,7 +24,7 @@ export const InitKyc = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT }]}>
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
           <Image source={InitKycImg} style={{ width: 250, height: 250 }} />
           <Text style={styles.text}>{t('screens.kyc.init.instruction')}</Text>
           <View style={styles.buttonContainer}>
@@ -46,9 +48,8 @@ export const InitKyc = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: -40,
+    height: HEIGHT,
+    marginTop: -80,
   },
   iconContainer: { position: 'relative', left: 10, top: 2 },
   text: {

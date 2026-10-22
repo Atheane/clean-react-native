@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '@rneui/themed';
 
 import { FoodE } from '@bank/carbon-weight/dist';
 
@@ -26,6 +27,7 @@ type IFood = {
 
 export const FoodForm = (props: IProps) => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
 
   // sliders
   const [slider, setSlider] = useState<IFood>(
@@ -74,7 +76,7 @@ export const FoodForm = (props: IProps) => {
     });
   };
 
-  return <View style={styles.container}>{SliderList()}</View>;
+  return <View style={[styles.container, theme.bank.container.centeredItem]}>{SliderList()}</View>;
 };
 
 const styles = StyleSheet.create({
@@ -82,7 +84,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   sliderContainer: {
-    width: Dimensions.get('window').width * 0.95,
+    width: Dimensions.get('window').width * 0.9,
     marginVertical: 8,
+    marginLeft: 12,
   },
 });

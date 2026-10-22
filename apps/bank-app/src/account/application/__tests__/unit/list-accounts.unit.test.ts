@@ -3,23 +3,23 @@ import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 
-import { IAccountType, Iban, Bic } from '@clean-rn/account/domain';
-
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
+import { IAccountType, Iban, Bic } from '@clean-rn/account/domain';
 import { AccountApi } from '@clean-rn/account/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages, ISharedStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { selectAccounts } from '../../state-management/selectors';
-import { listAccountsGenerator, listAccountsSaga } from '../../usecases/account';
+import { listAccountsGenerator, listAccountsSaga } from '../../usecases';
 import { IAccountsTypes, accountsListed, initializeAccountsList } from '../../commands/accounts';
 
 describe('ListAccounts - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
 
   const api = AccountApi.getInstance(httpConnection);
+
   const genObject = listAccountsSaga(httpConnection);
 
   const mockResponse = [
@@ -68,7 +68,7 @@ describe('ListAccounts - usecase', () => {
       .next(mockResponse)
       .put(accountsListed(mockResponse))
       .next()
-      .call(navigate, { route: IHomeStackPages.ACCOUNTS })
+      .call(navigate, { route: ISharedStackPages.HOME })
       .next();
   });
 
@@ -79,7 +79,7 @@ describe('ListAccounts - usecase', () => {
       .next({ accounts: mockResponse })
       .put(accountsListed(mockResponse))
       .next()
-      .call(navigate, { route: IHomeStackPages.ACCOUNTS })
+      .call(navigate, { route: ISharedStackPages.HOME })
       .next();
   });
 

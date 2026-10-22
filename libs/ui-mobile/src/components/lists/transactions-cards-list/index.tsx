@@ -1,7 +1,7 @@
 import { FlatList, View, StyleSheet } from 'react-native';
 import { ITransaction } from '@clean-rn/account/domain';
 
-import { firstLetterCapitalize, toLocalDateString } from '../../../utils';
+import { firstLetterCapitalize, toLocalDateString } from '@clean-rn/utils';
 
 import { TransactionsCard } from '../../cards/transactions-card';
 

@@ -8,9 +8,8 @@ import { useCleanErrorOnFocus, FormContact, IContactFormData, Colors } from '@cl
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 
-import { contactAdd } from '../../application/commands/contact';
+import { addContact } from '../../application/commands/contact';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -33,11 +32,7 @@ export const ContactAdd = () => {
   const dispatch = useDispatch();
   const onSubmit = useCallback(
     (formData: IContactFormData) => {
-      try {
-        dispatch(contactAdd(formData));
-      } catch (e: unknown) {
-        dispatch(showUnknownError(e as Error));
-      }
+      dispatch(addContact(formData));
     },
     [dispatch],
   );
@@ -63,7 +58,6 @@ export const ContactAdd = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: Colors.bank.primary.white,
   },
 });

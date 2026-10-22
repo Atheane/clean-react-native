@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { View, Text, StyleSheet, Dimensions, ImageSourcePropType } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
@@ -14,7 +14,6 @@ import {
 } from '@clean-rn/kyc/domain';
 import { IconTextItem, KycId, KycPassport, KycResidencePermit } from '@clean-rn/ui-mobile';
 
-import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
@@ -60,16 +59,10 @@ export const IdList = () => {
     [navigation, dispatch],
   );
 
-  const { customer } = useSelector((state: IRootState) => state.kyc.customer);
-
-  const isAlreadySubmitted = (typeId: number) =>
-    customer?.properties?.kyc?.documents.ID?.properties?.typeId === typeId &&
-    customer?.properties?.kyc?.documents.ID?.properties?.status === IDocumentStatus.PENDING;
-
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT }]}>
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
           <View style={[styles.titleContainer]}>
             <Text style={[theme.bank.text.boldDarkBlue, styles.title]}>
               {t('screens.kyc.first-id.instruction')}
@@ -81,7 +74,6 @@ export const IdList = () => {
               <IconTextItem
                 icon={KycId}
                 text={t('screens.kyc.first-id.id')}
-                validated={isAlreadySubmitted(IDocumentType.ID)}
                 onPress={() =>
                   handleOnPress({
                     instruction: t('screens.kyc.id.recto.instruction'),
@@ -106,7 +98,6 @@ export const IdList = () => {
               <IconTextItem
                 icon={KycPassport}
                 text={t('screens.kyc.first-id.passport')}
-                validated={isAlreadySubmitted(IDocumentType.PASSPORT)}
                 onPress={() =>
                   handleOnPress({
                     instruction: t('screens.kyc.passport.instruction'),
@@ -127,7 +118,6 @@ export const IdList = () => {
               <IconTextItem
                 icon={KycResidencePermit}
                 text={t('screens.kyc.first-id.residence-permit')}
-                validated={isAlreadySubmitted(IDocumentType.RESIDENT_PERMIT)}
                 onPress={() =>
                   handleOnPress({
                     instruction: t('screens.kyc.residence-permit.recto.instruction'),
@@ -158,8 +148,8 @@ export const IdList = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    marginTop: 120,
+    height: HEIGHT,
+    marginTop: -50,
   },
   titleContainer: {
     marginBottom: 50,

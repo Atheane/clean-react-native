@@ -1,25 +1,55 @@
 import { IDomainError } from '@clean-rn/ddd';
 import {
   IBeneficiary,
-  IBeneficiaryAddCommand,
-  IBeneficiaryDeleteCommand,
+  IAddBeneficiaryCommand,
+  IDeleteBeneficiaryCommand,
   IBeneficiaryErrorMessage,
   IBeneficiaryErrorCodes,
 } from '@clean-rn/beneficiary/domain';
 
 export enum IBeneficiaryTypes {
-  BENEFICIARY_ADD = 'BENEFICIARY_ADD',
+  // commands
+  ADD_BENEFICIARY = 'ADD_BENEFICIARY',
+  DELETE_BENEFICIARY = 'DELETE_BENEFICIARY',
+  LIST_BENEFICIARIES = 'LIST_BENEFICIARIES',
+  INIT_BENEFICIARY = 'INIT_BENEFICIARY',
+  SELECT_BENEFICIARY = 'SELECT_BENEFICIARY',
+  // domainEvents
+  BENEFICIARY_ADDED = 'BENEFICIARY_ADDED',
   BENEFICIARY_ADD_FAILED = 'BENEFICIARY_ADD_FAILED',
-  BENEFICIARY_DELETE = 'BENEFICIARY_DELETE',
+  BENEFICIARY_DELETED = 'BENEFICIARY_DELETED',
   BENEFICIARY_DELETE_FAILED = 'BENEFICIARY_DELETE_FAILED',
-  BENEFICIARY_LIST = 'BENEFICIARY_LIST',
-  BENEFICIARY_LIST_DONE = 'BENEFICIARY_LIST_DONE',
-  BENEFICIARY_LIST_INIT = 'INITIALIZE_BENEFICIARY_LIST',
+  BENEFICIARIES_LISTED = 'BENEFICIARIES_LISTED',
+  BENEFICIARY_SELECTED = 'BENEFICIARY_SELECTED',
 }
 
-export type IBeneficiaryAdd = {
-  type: typeof IBeneficiaryTypes.BENEFICIARY_ADD;
-  payload: IBeneficiaryAddCommand;
+// commands
+export type IAddBeneficiary = {
+  type: typeof IBeneficiaryTypes.ADD_BENEFICIARY;
+  payload: IAddBeneficiaryCommand;
+};
+export type IDeleteBeneficiary = {
+  type: typeof IBeneficiaryTypes.DELETE_BENEFICIARY;
+  payload: IDeleteBeneficiaryCommand;
+};
+export type IListBeneficiary = {
+  type: typeof IBeneficiaryTypes.LIST_BENEFICIARIES;
+};
+export type IInitBeneficiary = {
+  type: typeof IBeneficiaryTypes.INIT_BENEFICIARY;
+};
+
+export type ISelectBeneficiary = {
+  type: typeof IBeneficiaryTypes.SELECT_BENEFICIARY;
+  payload: {
+    beneficiaryId: number;
+  };
+};
+
+// domain Events
+export type IBeneficiaryAdded = {
+  type: typeof IBeneficiaryTypes.BENEFICIARY_ADDED;
+  payload: IBeneficiary;
 };
 
 export type IBeneficiaryAddFailed = {
@@ -27,9 +57,9 @@ export type IBeneficiaryAddFailed = {
   payload: IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>;
 };
 
-export type IBeneficiaryDelete = {
-  type: typeof IBeneficiaryTypes.BENEFICIARY_DELETE;
-  payload: IBeneficiaryDeleteCommand;
+export type IBeneficiaryDeleted = {
+  type: typeof IBeneficiaryTypes.BENEFICIARY_DELETED;
+  payload: IBeneficiary;
 };
 
 export type IBeneficiaryDeleteFailed = {
@@ -37,24 +67,25 @@ export type IBeneficiaryDeleteFailed = {
   payload: IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>;
 };
 
-export type IBeneficiaryList = {
-  type: typeof IBeneficiaryTypes.BENEFICIARY_LIST;
-};
-
-export type IBeneficiaryListDone = {
-  type: typeof IBeneficiaryTypes.BENEFICIARY_LIST_DONE;
+export type IBeneficiaryListed = {
+  type: typeof IBeneficiaryTypes.BENEFICIARIES_LISTED;
   payload: IBeneficiary[];
 };
 
-export type IBeneficiaryListInit = {
-  type: typeof IBeneficiaryTypes.BENEFICIARY_LIST_INIT;
+export type IBeneficiarySelected = {
+  type: typeof IBeneficiaryTypes.BENEFICIARY_SELECTED;
+  payload: IBeneficiary;
 };
 
 export type IBeneficiaryActions =
-  | IBeneficiaryAdd
+  | IAddBeneficiary
+  | IDeleteBeneficiary
+  | IListBeneficiary
+  | IInitBeneficiary
+  | ISelectBeneficiary
+  | IBeneficiaryAdded
   | IBeneficiaryAddFailed
-  | IBeneficiaryDelete
+  | IBeneficiaryDeleted
   | IBeneficiaryDeleteFailed
-  | IBeneficiaryList
-  | IBeneficiaryListDone
-  | IBeneficiaryListInit;
+  | IBeneficiaryListed
+  | IBeneficiarySelected;

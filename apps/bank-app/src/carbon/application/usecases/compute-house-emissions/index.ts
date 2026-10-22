@@ -36,7 +36,7 @@ export function* computeHouseEmissionsGenerator({
       IStoreKey.AVERAGE_HOUSE_EMISSION,
       houseCarbonFootprint.valueAverage.toFixed(2),
     );
-    yield call(navigate, { route: ICarbonStackPages.MENU });
+    yield call(navigate, { route: ICarbonStackPages.CARBON });
   } catch (error: any) {
     yield put(initializeHouseEmissions());
     yield put(showUnknownError(error as Error));

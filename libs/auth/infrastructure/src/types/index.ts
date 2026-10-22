@@ -1,4 +1,4 @@
-import { KYC_REVIEW } from '@clean-rn/auth/domain';
+import { KYC_REVIEW } from '@clean-rn/user/domain';
 
 export type IUserPropertiesServer = {
   birthday: string;

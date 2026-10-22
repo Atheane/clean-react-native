@@ -1,21 +1,8 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useNavigationState } from '@react-navigation/native';
 
-import { IDomainError } from '@clean-rn/ddd';
-import { IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
-import { IBeneficiaryErrorCodes, IBeneficiaryErrorMessage } from '@clean-rn/beneficiary/domain';
-
-export const useCleanErrorOnFocus = (
-  error:
-    | IDomainError<IAuthErrorCodes, IAuthErrorMessage>
-    | IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>
-    | null,
-) => {
-  const [domainError, setDomainError] = useState<
-    | IDomainError<IAuthErrorCodes, IAuthErrorMessage>
-    | IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>
-    | null
-  >(null);
+export const useCleanErrorOnFocus = (error: any) => {
+  const [domainError, setDomainError] = useState<any>(null);
 
   useEffect(() => {
     setDomainError(error);

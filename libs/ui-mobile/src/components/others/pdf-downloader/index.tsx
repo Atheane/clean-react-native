@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { View, StyleSheet, Platform, Dimensions } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import ReactNativeBlobUtil from 'react-native-blob-util';
-import Share from 'react-native-share';
+import * as Sharing from 'expo-sharing'; // Importation modifiée
 
 import { LinkButton } from '../../buttons/link-button';
 import { Colors } from '../../../constants';
@@ -41,18 +41,15 @@ export const PdfDownloader = (props: IProps) => {
       },
     })
       .fetch('GET', props.uri, props.headers)
-      .then((res) => {
+      .then(async (res) => {
         // in iOS, we want to save our files by opening up the saveToFiles bottom sheet action.
         // whereas in android, the download manager is handling the download for us.
         if (Platform.OS === 'ios') {
           const filePath = res.path();
-          const options = {
-            type: 'application/pdf',
-            url: filePath,
-            title: props.fileName,
-            saveToFiles: true,
-          };
-          Share.open(options).catch(handleError);
+          const isAvailable = await Sharing.isAvailableAsync();
+          if (isAvailable) {
+            await Sharing.shareAsync(filePath).catch(handleError);
+          }
         }
       })
       .catch(props.handleError);
@@ -60,7 +57,7 @@ export const PdfDownloader = (props: IProps) => {
 
   return (
     <View style={styles.container}>
-      <LinkButton onPress={downloadPDF} pressed={false} iconOne={props.icon} />
+      <LinkButton onPress={downloadPDF} iconRight={props.icon} />
     </View>
   );
 };

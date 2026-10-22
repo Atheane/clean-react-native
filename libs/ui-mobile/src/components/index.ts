@@ -13,6 +13,7 @@ import { SubmitButton } from './buttons/submit-button';
 import { LinkButton } from './buttons/link-button';
 import { SwitchButton } from './buttons/switch-button';
 import { GreenBackButton } from './buttons/green-back-button';
+import { SmallSwitchButton } from './buttons/small-switch-button';
 // Cards
 import { TouchEventCard } from './cards/touch-event-card';
 import { LongCard } from './cards/long-card';
@@ -21,6 +22,9 @@ import { TransactionsCard } from './cards/transactions-card';
 import { TouchCardKpi } from './cards/touch-card-kpi';
 import { TouchCardText } from './cards/touch-card-text';
 import { UploadDocumentCard } from './cards/upload-document-card';
+import { TransferCard } from './cards/transfer-card';
+import { BeneficiaryCard } from './cards/beneficiary-card';
+import { ContactCard } from './cards/contact-card';
 // Checkboxes
 import { MultipleOptionsCheckBox } from './checkboxes/multiple-options-checkBox';
 import { SimpleCheckBox } from './checkboxes/simple-checkbox';
@@ -46,6 +50,7 @@ import { FlyForm } from './forms/fly-form';
 import { FoodForm } from './forms/food-form';
 import { HouseForm } from './forms/house-form';
 import { TransportForm } from './forms/transport-form';
+import { FormTransfer, ITransferFormData } from './forms/form-transfer';
 // Inputs
 import { TextInput } from './inputs/text-input';
 import { EmailInput } from './inputs/email-input';
@@ -54,6 +59,11 @@ import { SelectNumber } from './inputs/select-number';
 import { PhoneSecurityPinInput } from './inputs/phone-security-pin-input';
 import { PhoneValidationCodeInput } from './inputs/phone-validation-code-input';
 import { Slider } from './inputs/slider';
+// Items
+import { IconTextItem } from './items/icon-text-item';
+import { TransactionItem } from './items/transaction-item';
+import { BeneficiaryItem } from './items/beneficiary-item';
+import { ContactItem } from './items/contact-item';
 // Lists
 import { BeneficiaryCardList } from './lists/beneficiary-card-list';
 import { ContactCardList } from './lists/contact-card-list';
@@ -67,12 +77,9 @@ import { DocumentPicker } from './others/document-picker';
 import { PdfViewer } from './others/pdf-viewer';
 import { PdfDownloader } from './others/pdf-downloader';
 import { CopyValueClipboard } from './others/copy-value-clipboard';
-import { TransactionItem } from './others/transaction-item';
-import { BeneficiaryItem } from './others/beneficiary-item';
-import { ContactItem } from './others/contact-item';
 import { GraphCO2 } from './others/graph-co2';
 import { ModalError } from './others/modal-error';
-import { IconTextItem } from './others/icon-text-item';
+import { LoaderSplashScreen } from './others/loader-splash-screen';
 // Searchboxes
 import { SearchModal } from './searchboxes/search-modal';
 // Texts
@@ -96,6 +103,7 @@ export {
   LinkButton,
   SwitchButton,
   GreenBackButton,
+  SmallSwitchButton,
   // Cards
   TouchEventCard,
   LongCard,
@@ -104,6 +112,9 @@ export {
   TouchCardKpi,
   TouchCardText,
   UploadDocumentCard,
+  TransferCard,
+  BeneficiaryCard,
+  ContactCard,
   // Checkboxes
   MultipleOptionsCheckBox,
   SimpleCheckBox,
@@ -136,6 +147,8 @@ export {
   FoodForm,
   HouseForm,
   TransportForm,
+  FormTransfer,
+  ITransferFormData,
   // Inputs
   TextInput,
   EmailInput,
@@ -144,6 +157,11 @@ export {
   PhoneSecurityPinInput,
   PhoneValidationCodeInput,
   Slider,
+  // Items
+  TransactionItem,
+  BeneficiaryItem,
+  ContactItem,
+  IconTextItem,
   // Lists
   BeneficiaryCardList,
   ContactCardList,
@@ -154,16 +172,12 @@ export {
   ShareScreen,
   DocumentScanner,
   DocumentPicker,
-  // PdfViewer,
   PdfViewer,
   PdfDownloader,
   CopyValueClipboard,
-  TransactionItem,
-  BeneficiaryItem,
-  ContactItem,
   GraphCO2,
   ModalError,
-  IconTextItem,
+  LoaderSplashScreen,
   // Searchboxes
   SearchModal,
   // Texts

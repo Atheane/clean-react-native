@@ -35,12 +35,14 @@ export const ResidenceProofList = () => {
       instruction,
       imageSource,
       anotherInstruction,
+      lastInstruction,
       docPickerVisible,
       documentProperties,
     }: {
       instruction: string;
       imageSource: ImageSourcePropType;
       anotherInstruction?: string;
+      lastInstruction?: string;
       docPickerVisible?: boolean;
       documentProperties: IDocumentProperties;
     }) => {
@@ -49,6 +51,7 @@ export const ResidenceProofList = () => {
         instruction,
         imageSource,
         anotherInstruction,
+        lastInstruction,
         docPickerVisible,
       });
     },
@@ -58,7 +61,7 @@ export const ResidenceProofList = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT }]}>
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
           <View style={[styles.titleContainer]}>
             <Text style={[theme.bank.text.boldDarkBlue, styles.title]}>
               {t('screens.kyc.residence-proof-list.instruction')}
@@ -73,6 +76,7 @@ export const ResidenceProofList = () => {
                   instruction: t('screens.kyc.invoice.instruction'),
                   imageSource: BillEdf,
                   anotherInstruction: t('screens.kyc.invoice.another-instruction'),
+                  lastInstruction: t('screens.kyc.invoice.last-instruction'),
                   docPickerVisible: true,
                   documentProperties: {
                     category: IDocumentCategory.RESIDENCE_PROOF,
@@ -116,8 +120,8 @@ export const ResidenceProofList = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    marginTop: 120,
+    height: HEIGHT,
+    marginTop: -50,
   },
   iconContainer: { position: 'relative', left: 10, top: 2 },
   titleContainer: {

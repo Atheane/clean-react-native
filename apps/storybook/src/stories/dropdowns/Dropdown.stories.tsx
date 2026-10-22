@@ -79,3 +79,24 @@ export const Departments: DropdownStory = (args) => {
     />
   );
 };
+
+const accounts = [
+  { key: 'bank', value: 'Bank App\n3 297,55 €' },
+  { key: 'flash', value: 'Flash Mob\n98,44 €' },
+  { key: 'restoflash', value: 'Restoflash\n151,55 €' },
+  { key: 'vacances', value: 'Chèques vacances\n203,12 €' },
+];
+
+export const MultilineShortDropdown: DropdownStory = (args) => {
+  return (
+    <Dropdown
+      {...args}
+      placeholder={'Compte'}
+      label={undefined}
+      short
+      multiline
+      data={accounts}
+      icon={undefined}
+    />
+  );
+};

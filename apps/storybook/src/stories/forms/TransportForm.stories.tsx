@@ -10,7 +10,7 @@ const TransportFormMeta: ComponentMeta<typeof TransportForm> = {
     onChangeForm: { action: 'onChangeForm' },
     onChangeField: { action: 'onChangeField' },
   },
-  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
+  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };
 
 export default TransportFormMeta;
@@ -18,6 +18,6 @@ export default TransportFormMeta;
 type TransportFormStory = ComponentStory<typeof TransportForm>;
 
 export const Dynamic: TransportFormStory = () => {
-  const { resetFormData, handleFormData } = useTransportFormData();
-  return <TransportForm onChangeForm={resetFormData} onChangeField={handleFormData} />;
+  const { resetFormData, handleFormData } = useTransportFormData(null);
+  return <TransportForm onChangeForm={resetFormData} onChangeField={handleFormData} initialValues={null} />;
 };

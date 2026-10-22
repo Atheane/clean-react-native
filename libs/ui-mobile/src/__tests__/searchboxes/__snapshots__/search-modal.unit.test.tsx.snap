@@ -51,6 +51,7 @@ exports[`SearchModal -  minimal props -  renders as before 1`] = `
               "borderColor": "#86939e",
               "flexDirection": "row",
               "marginBottom": -15,
+              "marginLeft": 20,
               "marginTop": 10,
               "transform": [
                 {
@@ -67,7 +68,8 @@ exports[`SearchModal -  minimal props -  renders as before 1`] = `
                 "borderBottomWidth": 0,
                 "height": 40,
                 "justifyContent": "center",
-                "marginHorizontal": 10,
+                "marginLeft": -10,
+                "marginRight": 10,
                 "marginVertical": 4,
                 "paddingRight": 4,
               }
@@ -80,15 +82,16 @@ exports[`SearchModal -  minimal props -  renders as before 1`] = `
             autoCorrect={false}
             editable={true}
             keyboardType="default"
+            multiline={false}
             onFocus={[Function]}
             placeholder="string"
-            placeholderTextColor="#86939e"
+            placeholderTextColor="#838383"
             style={
               {
                 "color": "#CB287D",
                 "flex": 1,
                 "fontFamily": "Roboto_400Regular",
-                "fontSize": 14,
+                "fontSize": 13,
                 "minHeight": 40,
                 "textAlign": "left",
               }

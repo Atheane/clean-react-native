@@ -9,12 +9,12 @@ import { FlightSeatE as SeatE, FlightI } from '@bank/carbon-weight/dist';
 import { Logger } from '@clean-rn/logger';
 import { FlyEmissions } from '@clean-rn/carbon/domain';
 
-import { FlyFrom, FlyTo, PlaneEmpty } from '../../../assets';
+import { Add, FlyFrom, FlyTo, PlaneEmpty } from '../../../assets';
 import { Colors } from '../../../constants';
 
 import { SecondaryButton } from '../../buttons/secondary-button';
 import { SwitchButton } from '../../buttons/switch-button';
-import { CardScroller, ICardType } from '../../cards/card-scroller';
+import { CardScroller } from '../../cards/card-scroller';
 import { SelectNumber } from '../../inputs/select-number';
 import { SearchModal } from '../../searchboxes/search-modal';
 
@@ -106,7 +106,7 @@ export const FlyForm = (props: IProps) => {
         return {
           uid: `${nbPassengers}_${fromIATA}_${toIATA}_${seatType}_${roundTrip}`,
           text: `${nbPassengers} ${travelType}${plural} ${fromIATA} / ${toIATA} ${seat}`,
-          icon: PlaneEmpty,
+          image: PlaneEmpty,
         };
       })
       .filter((value, index, self) => {
@@ -181,6 +181,7 @@ export const FlyForm = (props: IProps) => {
       </View>
       <View style={styles.buttonContainer}>
         <SecondaryButton
+          iconOne={Add}
           title={t('screens.carbon-fly.secondary-button')}
           onPress={handleOnAddFlight}
           disabled={disabled}

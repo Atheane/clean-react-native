@@ -20,12 +20,13 @@
       "required": "email requis",
       "invalid": "email invalide"
     },
+    "label": {
+      "required": "Le libellé est requis",
+      "invalid": "140 caractères maximum"
+    },
     "IBAN": {
       "required": "IBAN requis",
       "invalid": "IBAN invalide"
-    },
-    "name": {
-      "required": "nom requis"
     },
     "password": {
       "required": "mot de passe requis",
@@ -45,10 +46,12 @@
       "invalid": "date de naissance invalide, 18 ans minimum"
     },
     "first-name": {
-      "required": "prénom requis"
+      "required": "prénom requis",
+      "invalid": "format du prénom invalide"
     },
     "last-name": {
-      "required": "nom requis"
+      "required": "nom requis",
+      "invalid": "format du nom de famille invalide"
     },
     "birth-country": {
       "required": "pays de naissance requis"
@@ -70,23 +73,32 @@
       "invalid": "pays invalide",
       "unvailable": "ce pays n'est pas disponible"
     },
+    "country-code": {
+      "required": "code pays requis"
+    },
+    "amount": {
+      "required": "montant requis",
+      "invalid": "montant invalide"
+    },
     "domain-error": {
       "auth": {
-        "LOGIN_FAILURE_INVALID_CREDENTIALS": "Email ou mot de passe incorrect",
-        "LOGIN_FAILURE_USER_NOT_FOUND": "le compte n'existe pas",
-        "LOGIN_FAILURE_USER_PHONE_NOT_VALIDATED": "le numéro de téléphone n'est pas valide",
-        "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "code incorrect",
-        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "numéro de téléphone inconnu",
-        "SIGNUP_FAILURE_EMAIL_EXISTS": "cet email est déjà enregistré",
-        "SIGNUP_FAILURE_PHONE_EXISTS": "ce téléphone est déjà enregistré",
-        "USER_UNAUTHENTICATED": "veuillez vous authentifier",
         "INVALID_EMAIL": "E-mail invalide",
         "INVALID_PASSWORD": "Mot de passe invalide",
-        "INVALID_PHONE": "Téléphone invalide",
+        "LOGIN_FAILURE_USER_NOT_FOUND": "le compte n'existe pas",
+        "LOGIN_FAILURE_INVALID_CREDENTIALS": "Email ou mot de passe incorrect",
+        "LOGIN_FAILURE_USER_PHONE_NOT_VALIDATED": "le numéro de téléphone n'est pas valide",
+        "USER_UNAUTHENTICATED": "veuillez vous authentifier"
+      },
+      "user": {
+        "INVALID_PHONE": "Numéro de téléphone mobile invalide",
         "INVALID_COUNTRY": "Pays invalide",
         "UNAVAILABLE_COUNTRY": "Pays indisponible",
         "INVALID_BIRTHDAY": "Date de naissance invalide",
-        "INVALID_6_DIGITS": "6 chiffres invalides"
+        "INVALID_6_DIGITS": "6 chiffres invalides",
+        "SIGNUP_FAILURE_EMAIL_EXISTS": "cet email est déjà enregistré",
+        "SIGNUP_FAILURE_PHONE_EXISTS": "ce téléphone est déjà enregistré",
+        "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "code incorrect",
+        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "numéro de téléphone inconnu"
       },
       "account": {
         "INVALID_IBAN": "IBAN invalide",
@@ -97,7 +109,14 @@
       "beneficiary": {
         "INVALID_IBAN": "IBAN invalide",
         "INVALID_BIC": "BIC invalide",
-        "INVALID_NAME": "Nom invalide"
+        "INVALID_NAME": "Nom invalide",
+        "BENEFICIARY_ALREADY_EXISTS": "Ce destinataire existe déjà",
+        "BENEFICIARY_UNKNOWN": "Beneficiaire inconnu"
+      },
+      "contact": {
+        "INVALID_NAME": "Format du nom invalide",
+        "INVALID_PHONE": "Numéro de téléphone mobile invalide",
+        "CONTACT_ALREADY_EXISTS": "Ce contact existe déjà"
       },
       "carbon": {
         "INVALID_HOUSE_PROPS": "Propriétés de maison invalides",
@@ -121,6 +140,12 @@
         "TRUNCATED": "Merci de joindre un document en couleur, lisible, et entier (non tronqué)",
         "INCOHERENT": "Merci de joindre un document en cohérence avec les informations renseignées",
         "OTHER": "Le document n'a pas pu être validé, merci de le renvoyer"
+      },
+      "transaction": {
+        "INVALID_AMOUNT": "Montant invalide",
+        "UNKNOWN_TRANSACTION_TYPE": "Type de transaction inconnu",
+        "INVALID_TRANSACTION_VALUE": "Valeur de transaction invalide",
+        "TRANSFER_AMOUNT_TOO_HIGH": "Montant de transfert supérieur au solde"
       },
       "other": "erreur, veuillez contacter l'administrateur"
     },
@@ -169,11 +194,11 @@
     },
     "first-name": {
       "label": "prénom",
-      "placeholder": "prénom"
+      "placeholder": "John"
     },
     "last-name": {
       "label": "nom",
-      "placeholder": "nom"
+      "placeholder": "Doe"
     }
   },
   "signup-phone": {
@@ -182,7 +207,7 @@
     },
     "phone": {
       "label": "numéro de téléphone",
-      "placeholder": "numéro de téléphone"
+      "placeholder": "0607080910"
     }
   },
   "signup-birth": {
@@ -284,7 +309,8 @@
         "noaccounts": "Aucun compte"
       },
       "banner": {
-        "validation-identity": "Validation identité"
+        "validation-identity": "Validez votre identité",
+        "update-needed": "Mise à jour à faire"
       }
     },
     "account": {
@@ -306,21 +332,22 @@
     },
     "beneficiary": {
       "title": "Gérer mes bénéficiaires",
+      "bank": "Banque",
+      "contacts": "Contacts",
       "add-beneficiary": "Ajouter",
       "new-beneficiary": {
         "title": "Ajouter un bénéficiaire",
-
         "BIC": {
           "label": "BIC",
           "placeholder": "TRZOFR21XXX"
         },
         "IBAN": {
           "label": "IBAN",
-          "placeholder": "FR76 1679 0000 0000 0000 0000 000"
+          "placeholder": "FR7616790000000000000000XXX"
         },
         "name": {
           "label": "nom",
-          "placeholder": "nom"
+          "placeholder": "Nom"
         }
       },
       "new-contact": {
@@ -355,7 +382,16 @@
     },
     "transfer": {
       "title": "Virement",
-      "tab": "Virement"
+      "tab": "Virement",
+      "button": "Valider",
+      "main": "Bank App",
+      "amount": "Montant",
+      "label": "Libellé du virement",
+      "placeholder": "Remboursement restaurant"
+    },
+    "transfer-success": {
+      "title": "Virement",
+      "button": "Retour à l'accueil"
     },
     "carbon": {
       "title": "Mon bilan carbone",
@@ -363,8 +399,8 @@
       "instruction": "Appuyer sur une catégorie pour démarrer",
       "zero-carbon": "0 tC02",
       "average": "Moyenne Française",
-      "ton": "tonne",
-      "tons": "tonnes",
+      "ton": "t",
+      "tons": "t",
       "share": "Partager",
       "reward": "Etre récompensé par la prime CO2",
       "method": "En savoir plus sur la méthode de calcul",
@@ -457,26 +493,32 @@
       "secondary-button": "Ajouter",
       "flight": "trajet"
     },
-    "profile": {
-      "title": "Profil",
-      "tab": "Profil"
-    },
     "kyc": {
       "title": "Vérification de votre identité",
       "send-document": "Envoyer un document",
       "init": {
-        "instruction": "Pour aller plus loin, \nmerci de valider votre Bank App, pour cela nous devons vérifier votre identité. Veuillez prévoir :\n\n- Une pièce d’identité\n- Un justificatif de domicile\n- Un virement sur le Bank App depuis un de vos comptes",
+        "instruction": "Veuillez prévoir :\n\n- Une pièce d’identité\n- Un justificatif de domicile\n- Un virement sur le Bank App depuis un de vos comptes",
         "check-identity": "Vérifier mon identité"
+      },
+      "complete": {
+        "title": "Documents validés",
+        "congrats": "Félicitations vos documents sont validés !\n\n",
+        "instruction": "Dernière étape, vous devez maintenant effectuer un virement sur votre Bank App, à partir d’un de vos comptes situés en France."
       },
       "success": {
         "title": "Identité validée",
         "congrats": "Félicitations votre identité est validée !\n\n",
         "instruction-before-card": "Nous avons lancé la ",
         "instruction-card": "fabrication de votre Carte CO2",
-        "instruction-after-card": ". Nous vous l’enverrons par courrier dès qu’elle sera prête.\n\nUn peu de patience, vous pouvez en attendant créditer votre compte."
+        "instruction-after-card": ". Nous vous l’enverrons par courrier dès qu’elle sera prête.\n\nUn peu de patience, vous pouvez en attendant ",
+        "link-instruction": " créditer votre compte."
+      },
+      "card-sent": {
+        "title": "Identité validée",
+        "text": "Nous vous avons bien envoyé votre Carte CO2 par courrier."
       },
       "menu": {
-        "title": "Documents à transmettre",
+        "title": "Documents à transmettre :",
         "instruction-before": {
           "begin": "Une fois les",
           "end": "documents transférés, la vérification se lancera automatiquement."
@@ -539,7 +581,8 @@
       "invoice": {
         "title": "Facture",
         "instruction": "de la face avant de votre facture.",
-        "another-instruction": "Les factures de box internet, électricité, gaz sont les seules acceptées et doivent impérativement avoir moins de 3 mois. Les factures de téléphone mobile ne sont pas valables."
+        "another-instruction": "Les factures de box internet, électricité, gaz sont les seules acceptées et doivent impérativement avoir moins de 3 mois. ",
+        "last-instruction": "Les factures de téléphone mobile ne sont pas valables."
       },
       "w9": {
         "title": "Résident américain - W-9",
@@ -602,8 +645,21 @@
       "host-invoice": {
         "title": "Facture de votre hébergeur",
         "instruction": "de la face avant de la facture de la personne qui vous héberge.",
-        "another-instruction": "Les factures de box internet, électricité, gaz sont les seules acceptées et doivent impérativement avoir moins de 3 mois. Les factures de téléphone mobile ne sont pas valables."
+        "another-instruction": "Les factures de box internet, électricité, gaz sont les seules acceptées et doivent impérativement avoir moins de 3 mois. ",
+        "last-instruction": "Les factures de téléphone mobile ne sont pas valables."
       }
+    },
+    "profile": {
+      "title": "Profil",
+      "tab": "Profil",
+      "notifications": "Notifications"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "payment": "Paiement avec ma carte",
+      "transfer": "Virement reçu",
+      "threshold": "Plafond",
+      "submit": "Mettre à jour"
     }
   }
 }

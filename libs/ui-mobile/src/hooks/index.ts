@@ -7,8 +7,9 @@ import { useSecure } from './useSecure';
 import { useTogglePress } from './useTogglePress';
 import { useTransportFormData } from './useTransportFormData';
 import { useChange } from './useChange';
-import { useHideBottomBar } from './useHideBottomBar';
 import { useReduxOverStorageValue } from './useReduxOverStorageValue';
+import { useNotification } from './useNotification';
+import { useDevice } from './useDevice';
 
 export {
   useCleanErrorOnFocus,
@@ -20,6 +21,7 @@ export {
   useTransportFormData,
   useTogglePress,
   useChange,
-  useHideBottomBar,
   useReduxOverStorageValue,
+  useNotification,
+  useDevice,
 };

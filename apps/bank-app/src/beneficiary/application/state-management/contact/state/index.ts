@@ -1,6 +1,5 @@
-import { IDomainError } from '@clean-rn/ddd';
-
 import { IContact, IContactErrorCodes, IContactErrorMessage } from '@clean-rn/contact/domain';
+import { IDomainError } from '@clean-rn/ddd';
 
 export interface IContactState {
   pending: boolean;

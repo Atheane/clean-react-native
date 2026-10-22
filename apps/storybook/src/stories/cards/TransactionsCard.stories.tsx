@@ -1,7 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { useTranslation } from 'react-i18next';
 
-import { ITransactionType, Amount, TransactionCategory } from '@clean-rn/account/domain';
+import { ITransactionType, Amount, TransactionCategory } from '@clean-rn/transaction/domain';
 import { TransactionsCard } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
@@ -27,7 +27,7 @@ export const Static: TransactionsCardStory = (args) => {
   const data = [
     {
       id: 18709769758746,
-      amount: new Amount(131),
+      amount: new Amount('131'),
       label: t('screens.account.transfer') + ' Marie Dupond',
       category: new TransactionCategory(ITransactionType.PAYIN),
       date: new Date('2023-06-14T10:02:24.138Z'),
@@ -35,7 +35,7 @@ export const Static: TransactionsCardStory = (args) => {
     },
     {
       id: 18709769758747,
-      amount: new Amount(-32.45),
+      amount: new Amount('-32.45'),
       label: 'Carrefour Saint-Serge',
       category: new TransactionCategory(ITransactionType.CARD_TRANSACTION, 122),
       date: new Date('2023-06-14T10:02:24.139Z'),
@@ -43,7 +43,7 @@ export const Static: TransactionsCardStory = (args) => {
     },
     {
       id: 18709769758748,
-      amount: new Amount(-75.64),
+      amount: new Amount('-75.64'),
       label: 'Station Total Brest',
       category: new TransactionCategory(ITransactionType.CARD_TRANSACTION, 122),
       date: new Date('2023-06-14T10:02:24.140Z'),

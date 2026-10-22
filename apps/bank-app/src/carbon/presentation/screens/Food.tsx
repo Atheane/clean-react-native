@@ -1,6 +1,7 @@
-import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle, Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '@rneui/themed';
 
 import { FoodConsumptionT } from '@bank/carbon-weight/dist';
 
@@ -12,6 +13,7 @@ import { computeFoodEmissions } from '../../application/commands';
 
 export const Food = () => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
 
   // init values with previous stored values
   const { data } = useSelector((state: IRootState) => state.carbon.food);
@@ -26,7 +28,7 @@ export const Food = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={styles.container}>
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
           <FoodForm initialValues={data} onChangeForm={handleFormData} />
 
           <View style={styles.buttonContainer}>
@@ -51,11 +53,9 @@ export const Food = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 30,
-    marginVertical: 40,
-    alignItems: 'center',
+    marginTop: 60,
   },
   buttonContainer: {
-    marginTop: 50,
+    marginVertical: 100,
   },
 });

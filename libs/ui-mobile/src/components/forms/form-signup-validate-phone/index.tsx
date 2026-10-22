@@ -4,11 +4,10 @@ import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
 import { IDomainError } from '@clean-rn/ddd';
-import { IAuthErrorCodes, IAuthErrorMessage, PhoneOtp } from '@clean-rn/auth/domain';
+import { IUserErrorCodes, IUserErrorMessage, PhoneOtp } from '@clean-rn/user/domain';
 
-import { firstLetterCapitalize } from '../../../utils';
+import { firstLetterCapitalize } from '@clean-rn/utils';
 
-import { SubmitButton } from '../../buttons/submit-button';
 import { PhoneValidationCodeInput } from '../../inputs/phone-validation-code-input';
 import { ErrorMessage } from '../../texts/error-message';
 
@@ -17,7 +16,7 @@ type IProps = {
   onSubmit: () => void;
   control: Control<ISignupValidatePhoneFormData>;
   errors: FieldErrors<ISignupValidatePhoneFormData>;
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | null;
+  error: IDomainError<IUserErrorCodes, IUserErrorMessage> | null;
   onFocus: () => void;
 };
 
@@ -37,7 +36,14 @@ export const FormSignupValidatePhone = (props: IProps) => {
           name="code"
           rules={{ required: true, pattern: PhoneOtp.pattern, minLength: 6 }}
           render={({ field: { onChange, value } }) => {
-            return <PhoneValidationCodeInput value={value} onChange={onChange} onFocus={props.onFocus} />;
+            return (
+              <PhoneValidationCodeInput
+                value={value}
+                onChange={onChange}
+                onFocus={props.onFocus}
+                onFullfill={props.onSubmit}
+              />
+            );
           }}
         />
       </View>
@@ -62,14 +68,6 @@ export const FormSignupValidatePhone = (props: IProps) => {
       <View style={styles.domainErrorContainer}>
         <ErrorMessage error={props.error} />
       </View>
-      <View style={[styles.formSubmit, theme.bank.container.centeredItem]}>
-        <SubmitButton
-          title={t('button.submit')}
-          uppercase={false}
-          onSubmit={props.onSubmit}
-          loading={props.loading}
-        />
-      </View>
     </View>
   );
 };
@@ -84,8 +82,5 @@ const styles = StyleSheet.create({
   },
   domainErrorContainer: {
     marginTop: 16,
-  },
-  formSubmit: {
-    marginTop: 120,
   },
 });

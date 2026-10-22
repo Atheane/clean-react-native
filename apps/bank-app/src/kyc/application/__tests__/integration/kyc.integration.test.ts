@@ -13,6 +13,8 @@ import {
 
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
 
+import { IKycStackPages } from '../../../../shared/presentation/types';
+import { checkCustomerStatusSaga } from '../../usecases/customer';
 import {
   ICustomerTypes,
   checkCustomerStatus,
@@ -21,8 +23,7 @@ import {
   initializeKyc,
 } from '../../commands/customer';
 import { ICustomerState, customerReducer } from '../../state-management';
-
-import { checkCustomerStatusSaga } from '../../usecases/customer';
+import { User } from '@clean-rn/user/domain';
 
 const expoConstantsMock = {
   name: 'CleanRN BankApp Test',
@@ -65,6 +66,7 @@ describe('KYC - integration', () => {
     const initialState: ICustomerState = {
       pending: false,
       customer: null,
+      initRoute: IKycStackPages.INIT,
     };
     sagaTester = new SagaTester({
       initialState,
@@ -75,28 +77,33 @@ describe('KYC - integration', () => {
   it('Should store correct initial state if not initial state is provided', () => {
     const newState = customerReducer(undefined, {
       type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
+      payload: { user: User.Create({ id: 123, properties: { USPerson: false } }) },
     });
 
     expect(newState).toEqual({
       pending: true,
       customer: null,
+      initRoute: IKycStackPages.INIT,
     });
   });
 
   it('Should store correct state if CUSTOMER_STATUS_CHECKED', () => {
+    const user = User.Create({ id: 123, properties: { USPerson: false } });
     const customer = Customer.Create({ id: 123, properties: { USPerson: false } });
     customer.checkDocumentsStatus(mockResponse);
     sagaTester.start(wrapSagaHidingNotFoundError, checkCustomerStatusSaga, httpConnection);
-    sagaTester.dispatch(checkCustomerStatus());
+    sagaTester.dispatch(checkCustomerStatus({ user }));
     sagaTester.dispatch(
       customerStatusChecked({
         customer,
+        initRoute: IKycStackPages.KYC,
       }),
     );
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
       customer,
+      initRoute: IKycStackPages.KYC,
     });
   });
 
@@ -106,6 +113,7 @@ describe('KYC - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       customer: null,
+      initRoute: IKycStackPages.INIT,
     });
   });
 
@@ -129,6 +137,7 @@ describe('KYC - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       customer,
+      initRoute: IKycStackPages.INIT,
     });
   });
 });

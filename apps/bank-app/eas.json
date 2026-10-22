@@ -14,13 +14,6 @@
       "distribution": "internal",
       "ios": {
         "simulator": true
-      },
-      "env": {
-        "BASE_URL" :"https://www.example.com",
-        "BASE_URL_API":"https://sandbox.example.com",
-        "NODE_ENV":"development",
-        "SENTRY_DSN":"https://524e4f782ba5cfafe68ec4cc9fe3d808@o231473.ingest.sentry.io/4505743473246208",
-        "SUPPORTED_LANGUAGES_WEBSITE":"['en', 'fr']"
       }
     },
     "preview": {

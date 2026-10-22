@@ -35,12 +35,14 @@ export const HostResidenceProofList = () => {
       instruction,
       imageSource,
       anotherInstruction,
+      lastInstruction,
       docPickerVisible,
       documentProperties,
     }: {
       instruction: string;
       imageSource: ImageSourcePropType;
       anotherInstruction?: string;
+      lastInstruction?: string;
       docPickerVisible?: boolean;
       documentProperties: IDocumentProperties;
     }) => {
@@ -49,6 +51,7 @@ export const HostResidenceProofList = () => {
         instruction,
         imageSource,
         anotherInstruction,
+        lastInstruction,
         docPickerVisible,
       });
     },
@@ -58,7 +61,7 @@ export const HostResidenceProofList = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT }]}>
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
           <View style={[styles.instructionContainer]}>
             <Text style={[theme.bank.text.darkBlue, styles.instruction]}>
               {t('screens.kyc.host-residence-proof-list.instruction')}
@@ -73,6 +76,7 @@ export const HostResidenceProofList = () => {
                   instruction: t('screens.kyc.host-invoice.instruction'),
                   imageSource: BillEdf,
                   anotherInstruction: t('screens.kyc.host-invoice.another-instruction'),
+                  lastInstruction: t('screens.kyc.host-invoice.last-instruction'),
                   docPickerVisible: true,
                   documentProperties: {
                     category: IDocumentCategory.RESIDENCE_PROOF,
@@ -116,8 +120,8 @@ export const HostResidenceProofList = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    marginTop: 120,
+    height: HEIGHT,
+    marginTop: -80,
   },
   iconContainer: { position: 'relative', left: 10, top: 2 },
   instructionContainer: {

@@ -14,6 +14,7 @@ import {
   ErrorMessage,
   LinkButton,
   LinkButtonColors,
+  LoaderSplashScreen,
 } from '@clean-rn/ui-mobile';
 
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
@@ -28,7 +29,15 @@ export const UploadDocument = () => {
   const { theme } = useTheme();
 
   const {
-    params: { instruction, imageSource, anotherInstruction, docPickerVisible, showExample, nextRouteParams },
+    params: {
+      instruction,
+      imageSource,
+      anotherInstruction,
+      docPickerVisible,
+      showExample,
+      lastInstruction,
+      nextRouteParams,
+    },
   } = useRoute() as {
     params: {
       instruction: string;
@@ -36,6 +45,7 @@ export const UploadDocument = () => {
       anotherInstruction?: string;
       docPickerVisible?: boolean;
       showExample?: boolean;
+      lastInstruction?: string;
       nextRouteParams?: {
         instruction: string;
         imageSource: ImageSourcePropType;
@@ -73,41 +83,65 @@ export const UploadDocument = () => {
     //todo dispatch to upload document usecase
   }, []);
 
-  return (
+  const [loading, setLoading] = useState(false);
+
+  const handleLoading = useCallback((loading: boolean) => {
+    setLoading(loading);
+  }, []);
+
+  return loading ? (
+    <LoaderSplashScreen />
+  ) : (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT }]}>
-          <View>
+        <View style={styles.container}>
+          <View style={[styles.instructionText]}>
             <Text style={[theme.bank.text.darkBlue, styles.takePhoto]}>{t('screens.kyc.take-photo')}</Text>
             <Text style={[theme.bank.text.boldDarkBlue, styles.instruction]}>{instruction}</Text>
             <Text style={[theme.bank.text.darkBlue, styles.instruction]}>{anotherInstruction}</Text>
+            <Text style={[theme.bank.text.boldDarkBlue, styles.instruction]}>{lastInstruction}</Text>
           </View>
           <Image source={imageSource} />
           {domainError && <ErrorMessage error={domainError} />}
 
           {!docPickerVisible && !showExample && (
             <View style={styles.buttonContainer}>
-              <DocumentScanner getScan={handleGetDocument} handleError={handleError} />
+              <DocumentScanner
+                getScan={handleGetDocument}
+                handleError={handleError}
+                setLoading={handleLoading}
+              />
             </View>
           )}
           {!docPickerVisible && showExample && (
             <View style={styles.buttonContainer}>
-              <DocumentScanner getScan={handleGetDocument} handleError={handleError} />
+              <DocumentScanner
+                getScan={handleGetDocument}
+                handleError={handleError}
+                setLoading={handleLoading}
+              />
               <View style={styles.secondButtonContainer}>
                 <LinkButton
                   colorOption={LinkButtonColors.GREEN}
                   title={t('screens.kyc.sworn-statement.example')}
                   onPress={handleShowExample}
-                  pressed={false}
                 />
               </View>
             </View>
           )}
           {docPickerVisible && (
             <View style={[styles.buttonContainer]}>
-              <DocumentScanner getScan={handleGetDocument} handleError={handleError} />
+              <DocumentScanner
+                getScan={handleGetDocument}
+                handleError={handleError}
+                setLoading={handleLoading}
+              />
               <View style={styles.secondButtonContainer}>
-                <DocumentPicker getDocument={handleGetDocument} handleError={handleError} />
+                <DocumentPicker
+                  getDocument={handleGetDocument}
+                  handleError={handleError}
+                  setLoading={handleLoading}
+                />
               </View>
             </View>
           )}
@@ -122,7 +156,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-around',
-    marginTop: 32,
+    height: HEIGHT,
+    marginTop: 30,
+  },
+  instructionText: {
+    width: '90%',
+    marginBottom: 30,
   },
   takePhoto: {
     fontSize: 16,
@@ -135,11 +174,11 @@ const styles = StyleSheet.create({
     marginLeft: 6,
   },
   buttonContainer: {
-    marginTop: 50,
-    marginBottom: '30%',
+    marginTop: 20,
+    marginBottom: '40%',
   },
   secondButtonContainer: {
-    marginTop: 40,
+    marginTop: 20,
   },
   iconContainer: { position: 'relative', left: 10, top: 2 },
 });

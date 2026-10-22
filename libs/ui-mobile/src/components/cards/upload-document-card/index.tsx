@@ -33,7 +33,6 @@ export const UploadDocumentCard = (props: IProps) => {
     }
     return text;
   };
-
   const disabled = props.status === 'PENDING' || props.status === 'VALIDATED' || props.status === 'CANCELED';
   return (
     <View>
@@ -51,13 +50,15 @@ export const UploadDocumentCard = (props: IProps) => {
           <View style={styles.iconContainer}>
             <props.icon />
           </View>
-          <Text style={[theme.bank.text.darkBlue, styles.text]}>{renderLabel(props.text)}</Text>
+          <Text style={[disabled ? theme.bank.text.grey : theme.bank.text.darkBlue, styles.text]}>
+            {renderLabel(props.text)}
+          </Text>
+
           {props.loading && (
             <View style={styles.cancelIcon}>
               <LinkButton
-                pressed={false}
                 onPress={props.onCancel}
-                iconOne={DeleteCrossGradient}
+                iconRight={DeleteCrossGradient}
                 colorOption={LinkButtonColors.BLUE}
               />
             </View>
@@ -69,9 +70,6 @@ export const UploadDocumentCard = (props: IProps) => {
               <View style={styles.rightIcon}>
                 <GreenValidation />
               </View>
-            )}
-            {props.status === 'PENDING' && !props.loading && (
-              <Icon name="clockcircleo" type="ant-design" color="grey" style={styles.rightIcon} />
             )}
             {props.status === 'REFUSED' && !props.loading && (
               <Icon name="closecircleo" type="ant-design" color="red" style={styles.rightIcon} />
@@ -87,7 +85,9 @@ export const UploadDocumentCard = (props: IProps) => {
       </TouchableOpacity>
       {props.errorMessage && !props.loading && (
         <View style={styles.errorMessageContainer}>
-          <Text style={[theme.bank.text.errors, styles.errorMessage]}>{props.errorMessage}</Text>
+          <Text style={[theme.bank.text.errors, styles.errorMessage, { fontSize: 12, lineHeight: 16 }]}>
+            {props.errorMessage}
+          </Text>
         </View>
       )}
     </View>
@@ -114,12 +114,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 24,
     fontFamily: FontNames.Roboto_400Regular,
-    fontSize: 16,
+    fontSize: 12,
   },
   leftIconContainer: {
     position: 'absolute',
-    top: 14,
-    left: 14,
+    top: 16,
+    left: 20,
     backgroundColor: Colors.bank.primary.white,
     borderRadius: 100,
   },
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     left: '8%',
   },
   errorMessageContainer: {
-    marginBottom: 24,
+    marginBottom: 0,
     marginLeft: 24,
     width: '90%',
   },

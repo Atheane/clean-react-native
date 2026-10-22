@@ -57,7 +57,6 @@ exports[`LongCard -  minimal props -  renders as before 1`] = `
       {
         "position": "absolute",
         "right": 12,
-        "top": 0,
       }
     }
   >
@@ -70,7 +69,9 @@ exports[`LongCard -  minimal props -  renders as before 1`] = `
           {
             "borderRadius": 2,
           },
-          undefined,
+          {
+            "margin": 0,
+          },
           false,
         ]
       }
@@ -119,7 +120,7 @@ exports[`LongCard -  minimal props -  renders as before 1`] = `
               "borderColor": "#2089dc",
               "borderRadius": 2,
               "borderWidth": 0,
-              "flexDirection": "row",
+              "flexDirection": "row-reverse",
               "justifyContent": "center",
               "padding": 8,
               "paddingHorizontal": 10,
@@ -135,7 +136,7 @@ exports[`LongCard -  minimal props -  renders as before 1`] = `
                   "justifyContent": "space-around",
                 },
                 {
-                  "marginTop": 16,
+                  "marginVertical": 8,
                 },
               ]
             }

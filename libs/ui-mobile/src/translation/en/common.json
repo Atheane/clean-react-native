@@ -255,7 +255,8 @@
         "noaccounts": "No accounts"
       },
       "banner": {
-        "validation-identity": "Identity validation"
+        "validation-identity": "Identity validation",
+        "update-needed": "Update application"
       }
     },
     "account": {

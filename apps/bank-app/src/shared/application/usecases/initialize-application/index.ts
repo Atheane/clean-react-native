@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Email } from '@clean-rn/auth/domain';
 
 import { IStoreKey } from '../../../../shared/application/types';
-import { IAuthStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages, IUserStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
@@ -19,7 +19,7 @@ export function* initializeApplicationGenerator(): Generator<StrictEffect, any, 
   // retireve data from async storage
   try {
     const emailString = yield call(AsyncStorage.getItem, IStoreKey.USER_EMAIL);
-    const initRouteName = emailString ? IAuthStackPages.LOGIN : IAuthStackPages.SIGNUP_EMAIL;
+    const initRouteName = emailString ? IAuthStackPages.LOGIN : IUserStackPages.SIGNUP_EMAIL;
 
     const houseEmissions = yield call(AsyncStorage.getItem, IStoreKey.HOUSE_EMISSION);
     const averageHouseEmissions = yield call(AsyncStorage.getItem, IStoreKey.AVERAGE_HOUSE_EMISSION);

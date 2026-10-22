@@ -3,12 +3,19 @@ import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
-import { IDomainError } from '@clean-rn/ddd';
-import { BIC, IBeneficiaryErrorCodes, IBeneficiaryErrorMessage, IBAN } from '@clean-rn/beneficiary/domain';
+import { firstLetterCapitalize } from '@clean-rn/utils';
 
-import { Bic as BicIcon, Iban as IbanIcon, Person } from '../../../assets';
+import { IDomainError } from '@clean-rn/ddd';
+import {
+  BIC,
+  IBeneficiaryErrorCodes,
+  IBeneficiaryErrorMessage,
+  IBAN,
+  LastName,
+} from '@clean-rn/beneficiary/domain';
+
+import { ProfileGradient, BicGreenGradient, IbanGreenGradient } from '../../../assets';
 import { Colors } from '../../../constants';
-import { firstLetterCapitalize } from '../../../utils';
 
 import { SubmitButton } from '../../buttons/submit-button';
 import { TextInput } from '../../inputs/text-input';
@@ -43,13 +50,14 @@ export const FormBeneficiary = (props: IProps) => {
             required: true,
             minLength: 3,
             maxLength: 140,
+            validate: LastName.validate,
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
               label={t('screens.beneficiary.new-beneficiary.name.label')}
               labelColor={Colors.bank.primary.grey}
               value={value}
-              icon={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
+              IconLeft={ProfileGradient}
               placeholder={t('screens.beneficiary.new-beneficiary.name.placeholder')}
               onChange={onChange}
             />
@@ -58,7 +66,12 @@ export const FormBeneficiary = (props: IProps) => {
       </View>
       {props.errors?.name && props.errors.name.type === 'required' && (
         <View style={styles.errorContainer}>
-          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.name.required'))}</Text>
+          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.last-name.required'))}</Text>
+        </View>
+      )}
+      {props.errors?.name && props.errors.name.type === 'validate' && (
+        <View style={styles.errorContainer}>
+          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.last-name.invalid'))}</Text>
         </View>
       )}
       <View style={styles.inputContainer}>
@@ -67,14 +80,14 @@ export const FormBeneficiary = (props: IProps) => {
           name="iban"
           rules={{
             required: true,
-            validate: (value) => IBAN.validate(value),
+            validate: IBAN.validate,
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
               label={t('screens.beneficiary.new-beneficiary.IBAN.label')}
               labelColor={Colors.bank.primary.grey}
               value={value}
-              icon={() => <IbanIcon style={{ color: Colors.bank.primary.lightGreen }} />}
+              IconLeft={IbanGreenGradient}
               placeholder={t('screens.beneficiary.new-beneficiary.IBAN.placeholder')}
               onChange={onChange}
             />
@@ -97,14 +110,14 @@ export const FormBeneficiary = (props: IProps) => {
           name="bic"
           rules={{
             required: true,
-            validate: (value) => BIC.validate(value),
+            validate: BIC.validate,
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
               label={t('screens.beneficiary.new-beneficiary.BIC.label')}
               labelColor={Colors.bank.primary.grey}
               value={value}
-              icon={() => <BicIcon style={{ color: Colors.bank.primary.lightGreen }} />}
+              IconLeft={BicGreenGradient}
               placeholder={t('screens.beneficiary.new-beneficiary.BIC.placeholder')}
               onChange={onChange}
             />
@@ -126,7 +139,6 @@ export const FormBeneficiary = (props: IProps) => {
       </View>
       <View style={styles.formSubmit}>
         <SubmitButton
-          disabled={false}
           title={t('button.add')}
           uppercase={false}
           onSubmit={props.onSubmit}
@@ -139,18 +151,16 @@ export const FormBeneficiary = (props: IProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginTop: -150,
+    marginTop: '20%',
   },
-  inputContainer: { marginTop: 30 },
+  inputContainer: { marginTop: 40 },
   errorContainer: {
     marginTop: 24,
   },
   domainErrorContainer: {
-    marginTop: 16,
+    marginTop: 24,
   },
   formSubmit: {
-    marginTop: 50,
-    marginBottom: 100,
+    marginTop: '30%',
   },
 });

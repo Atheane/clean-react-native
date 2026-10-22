@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { SafeAreaView, StyleSheet, Text } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { I18nextProvider } from 'react-i18next';
 import { useFonts } from 'expo-font';
@@ -7,13 +7,14 @@ import { StatusBar } from 'expo-status-bar';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@rneui/themed';
 
-import { Fonts, theme, i18n } from '@clean-rn/ui-mobile';
+import { Fonts, theme, i18n, LoaderSplashScreen } from '@clean-rn/ui-mobile';
 
 import { store } from '../application/state-management/state/store';
 import { NavigationUI } from './navigation';
 import { IRootState } from '../../shared/application/state-management/reducers/root-reducer';
 import { initializeApplication } from '../../shared/application/commands/initialize-application';
 
+// Initialize Firebase
 const App: () => JSX.Element = () => {
   const [fontsLoaded] = useFonts(Fonts);
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const App: () => JSX.Element = () => {
     </ThemeProvider>
   ) : (
     <SafeAreaView style={styles.container}>
-      <Text>Loading ...</Text>
+      <LoaderSplashScreen />
     </SafeAreaView>
   );
 };

@@ -5,11 +5,18 @@ import { ImageSourcePropType } from 'react-native';
 import { Logger } from '@clean-rn/logger';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { Customer, DocumentError, DocumentVO, IDocumentProperties } from '@clean-rn/kyc/domain';
+import { AuthApi } from '@clean-rn/auth/infrastructure';
+
 import { KycApi } from '@clean-rn/kyc/infrastructure';
 
 import { IAuthStackPages, IKycStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
+
+import { selectAuth } from '../../../../auth/application/state-management/selectors';
+import { refreshSuccess } from '../../../../auth/application/commands';
+
+import { selectUser } from '../../../../user/application/state-management/selectors';
 
 import { customerDocumentsUpdated } from '../../commands/customer';
 import {
@@ -21,7 +28,7 @@ import {
   resetDocument,
   setAbortController,
 } from '../../commands/document';
-import { selectCustomer, selectDocument, selectUserFromLogin } from '../../state-management/selectors';
+import { selectCustomer, selectDocument } from '../../state-management/selectors';
 
 export function* initializeDocumentSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(IDocumentTypes.INITIALIZE_DOCUMENT, initializeDocumentSagaGenerator);
@@ -84,7 +91,6 @@ export function* addPageSagaGenerator({
 
     if (document.isReady) {
       yield put(uploadDocument({ document }));
-
       yield call(navigate, { route: IKycStackPages.KYC });
       yield cancel();
     } else {
@@ -116,9 +122,14 @@ export function* uploadDocumentSagaGenerator(
     if (!payload.document.isReady) {
       throw new DocumentError.DocumentNotReady();
     }
-    const user = yield select(selectUserFromLogin);
-    const api = KycApi.getInstance(httpConnection);
+    const user = yield select(selectUser);
 
+    const authApi = AuthApi.getInstance(httpConnection);
+    const authFromStore = yield select(selectAuth);
+    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
+    yield put(refreshSuccess({ auth }));
+
+    const api = KycApi.getInstance(httpConnection);
     const abortController = new AbortController(); // Créer une nouvelle instance ici
     yield put(setAbortController({ controller: abortController }));
 
@@ -139,8 +150,6 @@ export function* uploadDocumentSagaGenerator(
     yield put(customerDocumentsUpdated({ customer }));
   } catch (error: any) {
     yield put(resetDocument());
-
-    // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {
       yield call(navigate, { route: IAuthStackPages.LOGIN });
       yield cancel();

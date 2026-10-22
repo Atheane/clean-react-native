@@ -15,12 +15,15 @@ type IData = {
 
 type IProps = {
   labelColor?: string;
-  label: string;
+  label?: string;
   placeholder: string;
   data: IData[];
-  icon: FC<SvgProps>;
+  icon?: FC<SvgProps>;
   defaultValue?: string;
   value?: string;
+  short?: boolean;
+  shortWidth?: number;
+  multiline?: boolean;
   onSelect: ({ key, value }: { key: string; value: string }) => void;
 };
 
@@ -31,22 +34,42 @@ export const Dropdown = (props: IProps) => {
 
   const { theme } = useTheme();
 
-  return (
-    <View>
-      <View style={styles.labelContainer}>
-        <Text style={[theme.bank.text.label, { color: props.labelColor ?? Colors.bank.secondary.pink }]}>
-          {props.label.toLocaleUpperCase()}
-        </Text>
+  // Custom function to render the selected item
+  const renderSelectedItem = (value: string) => {
+    return (
+      <View style={styles.selectedItemContainer}>
+        <Text style={styles.selectedItemText}>{value}</Text>
       </View>
-      <View style={theme.bank.container.centeredItems}>
-        <View style={[styles.leftIconContainer, theme.bank.container.centeredItem]}>
-          <props.icon />
+    );
+  };
+
+  return (
+    <View style={props.short ? { width: props.shortWidth ?? Dimensions.get('window').width * 0.5 } : {}}>
+      {props.label && (
+        <View style={styles.labelContainer}>
+          <Text style={[theme.bank.text.label, { color: props.labelColor ?? Colors.bank.secondary.pink }]}>
+            {props.label.toLocaleUpperCase()}
+          </Text>
         </View>
+      )}
+      <View style={theme.bank.container.centeredItems}>
+        {props.icon && (
+          <View style={[styles.leftIconContainer, theme.bank.container.centeredItem]}>
+            <props.icon />
+          </View>
+        )}
         <SelectDropdown
           data={props.data}
           onSelect={handleOnSelect}
-          buttonTextAfterSelection={(item: IData) => item.value}
-          buttonStyle={styles.buttonContainer}
+          buttonTextAfterSelection={
+            props.multiline ? (item: IData) => renderSelectedItem(item.value) : (item: IData) => item.value
+          }
+          buttonStyle={[
+            styles.buttonContainer,
+            props.short
+              ? { width: props.shortWidth ?? Dimensions.get('window').width * 0.5 }
+              : { width: Dimensions.get('window').width * 0.65 },
+          ]}
           rowTextForSelection={(item: IData) => item.value}
           buttonTextStyle={theme.bank.text.input}
           rowTextStyle={styles.rowText}
@@ -55,7 +78,18 @@ export const Dropdown = (props: IProps) => {
               <DropDownChevron style={{ color: Colors.bank.primary.lightGreen }} />
             </View>
           )}
-          defaultButtonText={props.defaultValue ?? props.placeholder}
+          renderCustomizedRowChild={(row: any) => (
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20 }}>
+              <Text style={styles.rowText}>{row.value}</Text>
+            </View>
+          )}
+          defaultButtonText={
+            props.defaultValue
+              ? props.multiline
+                ? (renderSelectedItem(props.defaultValue) as string)
+                : props.defaultValue
+              : props.placeholder
+          }
         />
       </View>
     </View>
@@ -77,10 +111,20 @@ const styles = StyleSheet.create({
   buttonContainer: {
     borderRadius: 8,
     paddingVertical: 8,
-    width: Dimensions.get('window').width * 0.65,
     height: 55,
   },
   dropdownIcon: {
     marginRight: 16,
+  },
+  selectedItemContainer: {
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    paddingTop: 4,
+    paddingLeft: 4,
+  },
+  selectedItemText: {
+    color: Colors.bank.secondary.pink,
+    textAlign: 'left',
+    flexWrap: 'wrap',
   },
 });

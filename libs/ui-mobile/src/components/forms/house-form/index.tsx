@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { sort } from 'fast-sort';
 import { getLocales } from 'expo-localization';
 
+import { todayYear } from '@clean-rn/utils';
+
 import { HouseHeaterE as HeaterE, HouseT, HouseYearE } from '@bank/carbon-weight/dist';
 import { YearE } from '@bank/carbon-weight/dist/house/types';
 
@@ -11,7 +13,6 @@ import { IDepartment, departmentsFR, OLD_BUILDING_YEAR } from '@clean-rn/carbon/
 
 import { Department, Flame, Surface } from '../../../assets';
 import { Colors } from '../../../constants';
-import { todayYear } from '../../../utils';
 
 import { Dropdown } from '../../dropdowns/dropdown';
 import { SelectNumber } from '../../inputs/select-number';

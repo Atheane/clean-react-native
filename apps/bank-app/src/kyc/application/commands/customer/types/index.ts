@@ -1,3 +1,4 @@
+import { User } from '@clean-rn/user/domain';
 import { Customer } from '@clean-rn/kyc/domain';
 import { IRoutes } from '../../../../../shared/presentation/types';
 
@@ -10,12 +11,16 @@ export enum ICustomerTypes {
 
 export type ICheckCustomerStatus = {
   type: typeof ICustomerTypes.CHECK_CUSTOMER_STATUS;
+  payload: {
+    user: User;
+  };
 };
 
 export type ICustomerStatusChecked = {
   type: typeof ICustomerTypes.CUSTOMER_STATUS_CHECKED;
   payload: {
     customer: Customer;
+    initRoute: IRoutes;
   };
 };
 

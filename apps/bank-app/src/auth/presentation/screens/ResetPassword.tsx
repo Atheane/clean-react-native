@@ -11,7 +11,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 
-import { fetchResetPassword } from '../../application/commands/reset-password';
+import { fetchResetPassword } from '../../application/commands';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -29,7 +29,7 @@ export const ResetPassword = () => {
   } = useForm<IResetPasswordFormData>();
 
   // api call
-  const { pending, success } = useSelector((state: IRootState) => state.auth.resetPassword);
+  const { pending, success } = useSelector((state: IRootState) => state.auth);
 
   const dispatch = useDispatch();
 

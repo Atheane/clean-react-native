@@ -11,7 +11,7 @@ type IProps = {
   uid: string;
   text: string;
   onDelete?: (uid: string) => void;
-  onPress: (uid: string) => void;
+  onPress?: (uid: string) => void;
 };
 
 export const TouchEventCard = (props: IProps) => {
@@ -24,7 +24,8 @@ export const TouchEventCard = (props: IProps) => {
   }, [props]);
 
   const handleOnPress = useCallback(() => {
-    props.onPress(props.uid);
+    if (props.onPress) props.onPress(props.uid);
+    return;
   }, [props]);
 
   return show ? (
@@ -36,17 +37,14 @@ export const TouchEventCard = (props: IProps) => {
       >
         <View style={styles.subContainer}>
           <Image style={styles.image} source={props.image} />
-          <Text style={[styles.text, theme.bank.text.grey]}>{props.text}</Text>
+          <Text style={[styles.text, theme.bank.text.grey, { fontSize: 12, lineHeight: 14, paddingTop: 8 }]}>
+            {props.text}
+          </Text>
         </View>
       </TouchableOpacity>
       {props.onDelete && (
         <View style={styles.deleteCross}>
-          <LinkButton
-            pressed={false}
-            onPress={handleOnDelete}
-            iconOne={DeleteCross}
-            colorOption={LinkButtonColors.BLUE}
-          />
+          <LinkButton onPress={handleOnDelete} iconRight={DeleteCross} colorOption={LinkButtonColors.BLUE} />
         </View>
       )}
     </View>
@@ -66,15 +64,15 @@ const styles = StyleSheet.create({
     left: -10,
     width: 80,
     height: 80,
+    marginBottom: -30,
   },
   deleteCross: {
     position: 'absolute',
-    top: 8,
+    top: 16,
     right: 20,
   },
   text: {
-    top: -16,
+    top: 10,
     left: 6,
-    lineHeight: 18,
   },
 });

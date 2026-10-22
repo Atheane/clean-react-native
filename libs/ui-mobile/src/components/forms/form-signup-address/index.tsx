@@ -3,12 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
+import { firstLetterCapitalize } from '@clean-rn/utils';
+
 import { IDomainError } from '@clean-rn/ddd';
-import { ICountry, COUNTRIES_AVAILABLE, IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
+import { ICountry, COUNTRIES_AVAILABLE, IUserErrorCodes, IUserErrorMessage } from '@clean-rn/user/domain';
 
 import { House } from '../../../assets';
 import { Colors } from '../../../constants';
-import { firstLetterCapitalize } from '../../../utils';
 
 import { SubmitButton } from '../../buttons/submit-button';
 import { MultipleOptionsCheckBox } from '../../checkboxes/multiple-options-checkBox';
@@ -21,7 +22,7 @@ type IProps = {
   loading: boolean;
   control: Control<ISignupAddressFormData>;
   errors: FieldErrors<ISignupAddressFormData>;
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | null;
+  error: IDomainError<IUserErrorCodes, IUserErrorMessage> | null;
   onSubmit: () => void;
   onFocus: () => void;
 };
@@ -52,7 +53,7 @@ export const FormSignupAddress = (props: IProps) => {
               label={t('signup-address.street.label')}
               labelColor={Colors.bank.primary.grey}
               value={value}
-              icon={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
+              IconLeft={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
               placeholder={t('signup-address.street.placeholder')}
               onChange={onChange}
             />
@@ -76,7 +77,7 @@ export const FormSignupAddress = (props: IProps) => {
               label={t('signup-address.city.label')}
               labelColor={Colors.bank.primary.grey}
               value={value}
-              icon={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
+              IconLeft={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
               placeholder={t('signup-address.city.placeholder')}
               onChange={onChange}
             />
@@ -100,7 +101,7 @@ export const FormSignupAddress = (props: IProps) => {
               label={t('signup-address.zip.label')}
               labelColor={Colors.bank.primary.grey}
               value={value}
-              icon={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
+              IconLeft={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
               placeholder={t('signup-address.zip.placeholder')}
               onChange={onChange}
               numeric
@@ -175,12 +176,12 @@ const styles = StyleSheet.create({
   inputContainer: { marginTop: 30 },
   errorContainer: {
     marginTop: 24,
+    marginBottom: -24,
   },
   domainErrorContainer: {
     marginTop: 16,
   },
   formSubmit: {
-    marginTop: 20,
-    marginBottom: 100,
+    marginVertical: '10%',
   },
 });

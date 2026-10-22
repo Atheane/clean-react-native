@@ -47,6 +47,11 @@ try {
 
 const getStories = () => {
   return {
+    // Items
+    './stories/items/BeneficiaryItem.stories.tsx': require('../stories/items/BeneficiaryItem.stories'),
+    './stories/items/ContactItem.stories.tsx': require('../stories/items/ContactItem.stories'),
+    './stories/items/IconTextItem.stories.tsx': require('../stories/items/IconTextItem.stories'),
+    './stories/items/TransactionItem.stories.tsx': require('../stories/items/TransactionItem.stories'),
     // Banners
     './stories/banners/Banner.stories.tsx': require('../stories/banners/Banner.stories'),
     // Backgrounds
@@ -59,6 +64,7 @@ const getStories = () => {
     './stories/buttons/LinkButton.stories.tsx': require('../stories/buttons/LinkButton.stories'),
     './stories/buttons/SwitchButton.stories.tsx': require('../stories/buttons/SwitchButton.stories'),
     './stories/buttons/GreenBackButton.stories.tsx': require('../stories/buttons/GreenBackButton.stories'),
+    './stories/buttons/SmallSwitchButton.stories.tsx': require('../stories/buttons/SmallSwitchButton.stories'),
     // Cards
     './stories/cards/TouchEventCard.stories.tsx': require('../stories/cards/TouchEventCard.stories'),
     './stories/cards/LongCard.stories.tsx': require('../stories/cards/LongCard.stories'),
@@ -67,6 +73,9 @@ const getStories = () => {
     './stories/cards/TouchCardKpi.stories.tsx': require('../stories/cards/TouchCardKpi.stories'),
     './stories/cards/TouchCardText.stories.tsx': require('../stories/cards/TouchCardText.stories'),
     './stories/cards/UploadDocumentCard.stories.tsx': require('../stories/cards/UploadDocumentCard.stories'),
+    './stories/cards/TransferCard.stories.tsx': require('../stories/cards/TransferCard.stories'),
+    './stories/cards/BeneficiaryCard.stories.tsx': require('../stories/cards/BeneficiaryCard.stories'),
+    './stories/cards/ContactCard.stories.tsx': require('../stories/cards/ContactCard.stories'),
     // Checkboxes
     './stories/checkboxes/SimpleCheckBox.stories.tsx': require('../stories/checkboxes/SimpleCheckBox.stories'),
     './stories/checkboxes/MultipleOptionsCheckBox.stories.tsx': require('../stories/checkboxes/MultipleOptionsCheckBox.stories'),
@@ -87,6 +96,9 @@ const getStories = () => {
     './stories/forms/FoodForm.stories.tsx': require('../stories/forms/FoodForm.stories'),
     './stories/forms/HouseForm.stories.tsx': require('../stories/forms/HouseForm.stories'),
     './stories/forms/TransportForm.stories.tsx': require('../stories/forms/TransportForm.stories'),
+    './stories/forms/FormBeneficiary.stories.tsx': require('../stories/forms/FormBeneficiary.stories'),
+    './stories/forms/FormContact.stories.tsx': require('../stories/forms/FormContact.stories'),
+    './stories/forms/FormTransfer.stories.tsx': require('../stories/forms/FormTransfer.stories'),
     // Inputs
     './stories/inputs/TextInput.stories.tsx': require('../stories/inputs/TextInput.stories'),
     './stories/inputs/EmailInput.stories.tsx': require('../stories/inputs/EmailInput.stories'),
@@ -98,6 +110,8 @@ const getStories = () => {
     // Lists
     './stories/lists/TransactionsCardsList.stories.tsx': require('../stories/lists/TransactionsCardsList.stories'),
     './stories/lists/WhiteBalanceList.stories.tsx': require('../stories/lists/WhiteBalanceList.stories'),
+    './stories/lists/ContactCardList.stories.tsx': require('../stories/lists/ContactCardList.stories'),
+    './stories/lists/BeneficiaryCardList.stories.tsx': require('../stories/lists/BeneficiaryCardList.stories'),
     // Others
     './stories/others/WebViewer.stories.tsx': require('../stories/others/WebViewer.stories'),
     './stories/others/PdfViewer.stories.tsx': require('../stories/others/PdfViewer.stories'),
@@ -106,10 +120,9 @@ const getStories = () => {
     './stories/others/DocumentPicker.stories.tsx': require('../stories/others/DocumentPicker.stories'),
     './stories/others/DocumentScanner.stories.tsx': require('../stories/others/DocumentScanner.stories'),
     './stories/others/CopyValueClipboard.stories.tsx': require('../stories/others/CopyValueClipboard.stories'),
-    './stories/others/TransactionItem.stories.tsx': require('../stories/others/TransactionItem.stories'),
     './stories/others/GraphCO2.stories.tsx': require('../stories/others/GraphCO2.stories'),
     './stories/others/ModalError.stories.tsx': require('../stories/others/ModalError.stories'),
-    './stories/others/IconTextItem.stories.tsx': require('../stories/others/IconTextItem.stories'),
+    './stories/others/LoaderSplashScreen.stories.tsx': require('../stories/others/LoaderSplashScreen.stories'),
     // Searchboxes
     './stories/searchboxes/SearchModal.stories.tsx': require('../stories/searchboxes/SearchModal.stories'),
     // Texts

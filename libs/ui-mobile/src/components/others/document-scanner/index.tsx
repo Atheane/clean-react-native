@@ -6,13 +6,14 @@ import { Image } from 'react-native-compressor';
 import * as FileSystem from 'expo-file-system';
 
 import { Logger } from '@clean-rn/logger';
+import { calculateBase64Size } from '@clean-rn/utils';
 
 import { PrimaryButton } from '../../buttons/primary-button';
 import { Colors } from '../../../constants';
 import { Camera as CameraIcon } from '../../../assets';
-import { calculateBase64Size } from '../../../utils';
 
 type IProps = {
+  setLoading: (loading: boolean) => void;
   getScan: (scannedImg: string) => void;
   handleError: (error: unknown) => void;
 };
@@ -38,7 +39,9 @@ const compressImage = async (imageURI: string, quality: number, maxMB = 0.95): P
 
 export const DocumentScanner = (props: IProps) => {
   const { t } = useTranslation();
+
   const scanDocument = async () => {
+    props.setLoading(true);
     // start the document scanner
     try {
       const { scannedImages: scannedImagesURI } = await DocumentScan.scanDocument({
@@ -56,14 +59,19 @@ export const DocumentScanner = (props: IProps) => {
         if (imageSizeMB > 1000000) {
           const compressedImageURI = await compressImage(lastScannedImageURI, 0.9, 1);
           const base64 = await FileSystem.readAsStringAsync(compressedImageURI, { encoding: 'base64' });
+          props.setLoading(false);
           props.getScan(base64);
         } else {
           const base64 = await FileSystem.readAsStringAsync(lastScannedImageURI, { encoding: 'base64' });
+          props.setLoading(false);
           props.getScan(base64);
         }
       }
     } catch (error: unknown) {
+      props.setLoading(false);
       props.handleError(error);
+    } finally {
+      props.setLoading(false);
     }
   };
 

@@ -4,8 +4,9 @@ import { SvgProps } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Button, useTheme } from '@rneui/themed';
 
+import { firstLetterCapitalize } from '@clean-rn/utils';
+
 import { Colors } from '../../../constants';
-import { firstLetterCapitalize } from '../../../utils';
 
 type IProps = {
   title: string;
@@ -20,7 +21,7 @@ type IProps = {
 
 export const PrimaryButton: FC<IProps> = (props: IProps) => {
   const { theme } = useTheme();
-  const renderLabel = (text: string) => (text.length < 18 ? `${text}` : `${text}`.slice(0, 15) + '...');
+  const renderLabel = (text: string) => (text.length < 20 ? `${text}` : `${text}`.slice(0, 20) + '...');
 
   return (
     <View
@@ -34,8 +35,8 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
         buttonStyle={[
           theme.bank.shadow.button,
           styles.button,
-          (props.iconOne || props.iconTwo) && styles.buttonIcon,
-          props.iconOne && !props.iconTwo && styles.buttonOneIcon,
+          (props.iconOne || props.iconTwo) && !props.loading && styles.buttonIcon,
+          props.iconOne && !props.iconTwo && !props.loading && styles.buttonOneIcon,
           theme.bank.container.centeredItems,
         ]}
         containerStyle={[

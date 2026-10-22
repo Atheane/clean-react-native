@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { getLocales } from 'expo-localization';
 
 import { Logger } from '@clean-rn/logger';
-import { IGender } from '@clean-rn/auth/domain';
+import { IGender } from '@clean-rn/user/domain';
 import {
   FormSignupIdentityPasswordPhone,
   ISignupIdentityPasswordPhoneFormData,
@@ -27,7 +27,7 @@ const FormSignupIdentityPasswordPhoneMeta: ComponentMeta<typeof FormSignupIdenti
     defaultCountry,
     securedPassword: true,
   },
-  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
+  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };
 
 export default FormSignupIdentityPasswordPhoneMeta;

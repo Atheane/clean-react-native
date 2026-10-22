@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Tab, TabView } from '@rneui/themed';
-import { View, StyleSheet, StyleProp, ViewStyle, Dimensions, SafeAreaView } from 'react-native';
+import { View, StyleSheet, Dimensions, SafeAreaView, StyleProp, ViewStyle } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '@rneui/themed';
+import { IconNode } from '@rneui/base';
 
 import { IBeneficiary } from '@clean-rn/beneficiary/domain';
 import { IContact } from '@clean-rn/contact/domain';
@@ -14,22 +16,24 @@ import {
   BeneficiaryAdd,
   BeneficiaryCardList,
   ContactCardList,
-  BANK,
+  BankBuilding,
   Colors,
+  Group2,
+  LoaderSplashScreen,
 } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IBeneficiaryStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 
-import { beneficiaryDelete, beneficiaryList } from '../../application/commands/beneficiary';
-import { contactList } from '../../application/commands/contact';
+import { listBeneficiaries, selectBeneficiary } from '../../application/commands/beneficiary';
+import { listContacts } from '../../application/commands/contact';
 
 const ContentNoBeneficiary = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
 
   const handleOnPressAdd = useCallback(() => {
-    navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_ADD);
+    navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_ADD as never);
   }, [navigation]);
 
   return (
@@ -38,8 +42,8 @@ const ContentNoBeneficiary = () => {
         title={t('screens.beneficiary.add-beneficiary')}
         onPress={handleOnPressAdd}
         iconOne={() => (
-          <View style={{ height: 23, marginLeft: -80, justifyContent: 'center' }}>
-            <BeneficiaryAdd style={{ marginTop: 15 } as StyleProp<ViewStyle>} />
+          <View style={styles.iconContainer}>
+            <BeneficiaryAdd style={{ marginTop: 15 }} />
           </View>
         )}
         long
@@ -54,20 +58,20 @@ const ContentNoContact = () => {
   const navigation = useNavigation();
 
   const handleOnPressAdd = useCallback(() => {
-    navigation.navigate(IBeneficiaryStackPages.CONTACT_ADD);
+    navigation.navigate(IBeneficiaryStackPages.CONTACT_ADD as never);
   }, [navigation]);
 
   return (
     <View style={styles.btnAddContainer}>
       <PrimaryButton
+        long
         title={t('screens.beneficiary.add-beneficiary')}
         onPress={handleOnPressAdd}
         iconOne={() => (
-          <View style={{ height: 23, marginLeft: -80, justifyContent: 'center' }}>
-            <BeneficiaryAdd style={{ marginTop: 15 } as StyleProp<ViewStyle>} />
+          <View style={styles.iconContainer}>
+            <BeneficiaryAdd style={{ marginTop: 15 }} />
           </View>
         )}
-        long
       />
     </View>
   );
@@ -75,28 +79,39 @@ const ContentNoContact = () => {
 
 const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
   const navigation = useNavigation();
-  const dispatch = useDispatch();
+  const { theme } = useTheme();
 
+  const dispatch = useDispatch();
   const handleOnPressAdd = useCallback(() => {
-    navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_ADD);
+    navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_ADD as never);
   }, [navigation]);
 
-  const handleOnPressDelete = useCallback((beneficiaryId: number) => {
-    dispatch(beneficiaryDelete({ beneficiaryId }));
-  }, []);
+  const handleOnPress = useCallback(
+    (beneficiaryId: number) => {
+      console.log('selectBeneficiary', beneficiaryId);
+      dispatch(selectBeneficiary({ beneficiaryId }));
+    },
+    [dispatch],
+  );
+
+  // const handleOnPressDelete = useCallback(
+  //   (beneficiaryId: number) => {
+  //     dispatch(beneficiaryDelete({ beneficiaryId }));
+  //   },
+  //   [dispatch],
+  // );
   return (
     <>
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
-          <BeneficiaryCardList data={props.data} deleteCallback={handleOnPressDelete} />
+          <BeneficiaryCardList data={props.data} onPress={handleOnPress} />
         </View>
       </SafeAreaView>
       <View style={styles.top}>
-        <View style={styles.addBeneficiary}>
+        <View style={[styles.addBeneficiary, theme.bank.shadow.button]}>
           <LinkButton
-            pressed={false}
             onPress={handleOnPressAdd}
-            iconOne={BeneficiaryAdd}
+            iconLeft={BeneficiaryAdd}
             colorOption={LinkButtonColors.WHITE}
           />
         </View>
@@ -107,9 +122,10 @@ const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
 
 const ContentContact = (props: { data: IContact[] }) => {
   const navigation = useNavigation();
+  const { theme } = useTheme();
 
   const handleOnPressAdd = useCallback(() => {
-    navigation.navigate(IBeneficiaryStackPages.CONTACT_ADD);
+    navigation.navigate(IBeneficiaryStackPages.CONTACT_ADD as never);
   }, [navigation]);
 
   return (
@@ -120,11 +136,10 @@ const ContentContact = (props: { data: IContact[] }) => {
         </View>
       </SafeAreaView>
       <View style={styles.top}>
-        <View style={styles.addBeneficiary}>
+        <View style={[styles.addBeneficiary, theme.bank.shadow.button]}>
           <LinkButton
-            pressed={false}
             onPress={handleOnPressAdd}
-            iconOne={BeneficiaryAdd}
+            iconLeft={BeneficiaryAdd}
             colorOption={LinkButtonColors.WHITE}
           />
         </View>
@@ -133,81 +148,109 @@ const ContentContact = (props: { data: IContact[] }) => {
   );
 };
 
-const Beneficiary = () => {
-  const { beneficiaries } = useSelector((state: IRootState) => state.beneficiary.beneficiaries);
-  const hasBeneficiary = beneficiaries && beneficiaries?.length > 0;
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(beneficiaryList());
-  }, [dispatch]);
-
-  return (
-    <>
-      {!hasBeneficiary && <ContentNoBeneficiary />}
-      {hasBeneficiary && <ContentBeneficiary data={beneficiaries} />}
-    </>
-  );
-};
-
-// TODO Refactor after UX review
-const Contact = () => {
-  const { contacts } = useSelector((state: IRootState) => state.beneficiary.contacts);
-  const hasContact = contacts && contacts?.length > 0;
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(contactList());
-  }, [dispatch]);
-
-  return (
-    <>
-      {!hasContact && <ContentNoContact />}
-      {hasContact && <ContentContact data={contacts} />}
-    </>
-  );
-};
-
 export const BeneficiaryList = () => {
   const { t } = useTranslation();
-  const [index, setIndex] = useState(0);
+  const { theme } = useTheme();
 
-  return (
+  const { params } = useRoute() as { params: { idx: number } };
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(listBeneficiaries());
+    dispatch(listContacts());
+  }, [dispatch]);
+
+  const [index, setIndex] = useState<number>(params?.idx || 0);
+
+  // https://github.com/react-native-elements/react-native-elements/issues/3784
+  const [indicatorX, setIndicatorX] = useState(0);
+  const windowWidth = Dimensions.get('window').width;
+  const tabWidth = windowWidth / 2; // Specify your tabs amount
+
+  const handleOnChangeTab = useCallback(
+    (index: number) => {
+      setIndex(index);
+      setIndicatorX(index * tabWidth); // Setting the right translateX value
+    },
+    [tabWidth],
+  );
+
+  const { beneficiaries, pending: beneficiaryPending } = useSelector(
+    (state: IRootState) => state.beneficiary.beneficiaries,
+  );
+  const { contacts, pending: contactPending } = useSelector(
+    (state: IRootState) => state.beneficiary.contacts,
+  );
+
+  const hasBeneficiary = beneficiaries && beneficiaries.length > 0;
+  const hasContact = contacts && contacts.length > 0;
+
+  return beneficiaryPending || contactPending ? (
+    <LoaderSplashScreen />
+  ) : (
     <ErrorBoundary t={t}>
       <View style={styles.container}>
         <View style={styles.row}>
           <Tab
             value={index}
-            onChange={(e) => setIndex(e)}
+            onChange={handleOnChangeTab}
+            scrollable
             indicatorStyle={{
-              backgroundColor: 'green',
+              backgroundColor: Colors.bank.primary.lightGreen,
               height: 3,
+              width: Dimensions.get('window').width / 2,
+              transform: [{ translateX: indicatorX }], // Overriding the buggy string from the source
             }}
+            buttonStyle={{ width: Dimensions.get('window').width / 2 }}
           >
             <Tab.Item
-              title="Bank"
-              active={true}
-              titleStyle={{ fontSize: 12, color: Colors.bank.primary.green }}
-              icon={BANK}
+              title="bank"
+              active={index === 0}
+              titleStyle={{ fontSize: 13, color: Colors.bank.primary.lightGreen, marginTop: 8 }}
+              icon={BankBuilding as IconNode}
             >
-              Bank
+              {t('screens.beneficiary.bank')}
             </Tab.Item>
             <Tab.Item
-              title="Contact"
-              titleStyle={{ fontSize: 12, color: Colors.bank.primary.green }}
-              icon={{ name: 'people-outline', type: 'ionicon', color: Colors.bank.primary.green }}
+              title="contact"
+              active={index === 1}
+              titleStyle={{ fontSize: 13, color: Colors.bank.primary.lightGreen, marginTop: 8 }}
+              icon={Group2 as IconNode}
             >
-              Contacts
+              {t('screens.beneficiary.contacts')}
             </Tab.Item>
           </Tab>
         </View>
 
         <View style={styles.tabContent}>
-          <TabView value={index} onChange={setIndex} animationType="spring">
-            <TabView.Item style={{ backgroundColor: 'white', width: '100%' }}>
-              <Beneficiary />
+          <TabView
+            value={index}
+            onChange={handleOnChangeTab}
+            animationType="spring"
+            containerStyle={{ backgroundColor: Colors.bank.primary.white }}
+          >
+            <TabView.Item
+              style={[
+                beneficiaries?.length === 0 && (theme.bank.shadow.button as StyleProp<ViewStyle>),
+                { width: '100%' },
+              ]}
+            >
+              <>
+                {!hasBeneficiary && <ContentNoBeneficiary />}
+                {hasBeneficiary && <ContentBeneficiary data={beneficiaries} />}
+              </>
             </TabView.Item>
-            <TabView.Item style={{ backgroundColor: 'white', width: '100%' }}>
-              <Contact />
+            <TabView.Item
+              style={[
+                contacts?.length === 0 && (theme.bank.shadow.button as StyleProp<ViewStyle>),
+                { width: '100%' },
+              ]}
+            >
+              <>
+                {!hasContact && <ContentNoContact />}
+                {hasContact && <ContentContact data={contacts} />}
+              </>
             </TabView.Item>
           </TabView>
         </View>
@@ -222,7 +265,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.bank.primary.white,
     marginTop: 0,
   },
-  row: {},
+  row: {
+    width: Dimensions.get('window').width,
+  },
   top: {
     position: 'absolute',
     top: -60,
@@ -237,13 +282,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 50,
   },
-
+  iconContainer: { height: 23, marginLeft: -80, justifyContent: 'center' },
   tabContent: {
+    flex: 1,
     marginTop: 50,
   },
   content: {
+    flex: 1,
     marginTop: 30,
-    height: Dimensions.get('window').height - 300,
+    height: Dimensions.get('window').height,
   },
   scrollNoBeneficiary: {
     alignItems: 'center',

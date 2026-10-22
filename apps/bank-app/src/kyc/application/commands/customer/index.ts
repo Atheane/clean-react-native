@@ -1,4 +1,6 @@
 import { Customer } from '@clean-rn/kyc/domain';
+import { User } from '@clean-rn/user/domain';
+
 import {
   ICustomerTypes,
   ICheckCustomerStatus,
@@ -7,10 +9,12 @@ import {
   ICustomerStatusChecked,
   ICustomerDocumentsUpdated,
 } from './types';
+import { IRoutes } from '../../../../shared/presentation/types';
 
 // commands
-export const checkCustomerStatus = (): ICheckCustomerStatus => ({
+export const checkCustomerStatus = (payload: { user: User }): ICheckCustomerStatus => ({
   type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
+  payload,
 });
 
 export const initializeKyc = (): IInitializeKyc => ({
@@ -18,7 +22,10 @@ export const initializeKyc = (): IInitializeKyc => ({
 });
 
 // domainEvent
-export const customerStatusChecked = (payload: { customer: Customer }): ICustomerStatusChecked => ({
+export const customerStatusChecked = (payload: {
+  customer: Customer;
+  initRoute: IRoutes;
+}): ICustomerStatusChecked => ({
   type: ICustomerTypes.CUSTOMER_STATUS_CHECKED,
   payload,
 });

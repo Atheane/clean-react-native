@@ -6,11 +6,18 @@ export type HeaderTitleAlign = 'center' | 'left' | undefined;
 
 export type IRootStackParamList = {
   MenuHome: NavigatorScreenParams<IRootTabParamList> | undefined;
-  MenuTransfer: NavigatorScreenParams<IRootTabParamList> | undefined;
+  MenuAccount: NavigatorScreenParams<IRootTabParamList> | undefined;
+  MenuTransaction: NavigatorScreenParams<IRootTabParamList> | undefined;
+  MenuBeneficiary: NavigatorScreenParams<IRootTabParamList> | undefined;
   MenuCarbon: NavigatorScreenParams<IRootTabParamList> | undefined;
   MenuProfile: NavigatorScreenParams<IRootTabParamList> | undefined;
-  Modal: undefined;
-  NotFound: undefined;
+  MenuTransfer: NavigatorScreenParams<IRootTabParamList> | undefined;
+  MenuKyc: NavigatorScreenParams<IRootTabParamList> | undefined;
+  ModalError: undefined;
+  ModalWebView: undefined;
+  Legal: undefined;
+  Cgu: undefined;
+  CguKycProvider: undefined;
 };
 
 export type IRootTabScreenProps<Screen extends keyof IRootTabParamList> = CompositeScreenProps<
@@ -20,20 +27,30 @@ export type IRootTabScreenProps<Screen extends keyof IRootTabParamList> = Compos
 
 export type IRootTabParamList = {
   MenuHome: undefined;
-  MenuTransfer: undefined;
+  MenuAccount: undefined;
+  MenuTransaction: undefined;
+  MenuBeneficiary: undefined;
   MenuCarbon: undefined;
   MenuProfile: undefined;
+  MenuTransfer: undefined;
   MenuKyc: undefined;
 };
 
 export type ISharedStackParamList = {
+  Home: undefined;
   ModalError: undefined;
   ModalWebView: undefined;
+  Legal: undefined;
+  Cgu: undefined;
+  CguKycProvider: undefined;
 };
 
 export type IAuthStackParamList = {
   Login: undefined;
   ResetPassword: undefined;
+};
+
+export type IUserStackParamList = {
   SignupEmail: undefined;
   SignupIdentityPasswordPhone: undefined;
   SignupValidatePhone: undefined;
@@ -42,23 +59,19 @@ export type IAuthStackParamList = {
   SignupCongrats: undefined;
   EmailSent: undefined;
   SignupPhone: undefined;
-  Legal: undefined;
-  Cgu: undefined;
-  CguKycProvider: undefined;
-  ModalError: undefined;
 };
 
-export type IHomeStackParamList = {
-  MenuHome: undefined;
+export type IAccountStackParamList = {
+  MenuAccount: undefined;
   Accounts: undefined;
-  Beneficiay: undefined;
-  Help: undefined;
+  RibPdf: undefined;
+};
+
+export type ITransactionStackParamList = {
+  MenuTransaction: undefined;
   Transactions: undefined;
-  RestoFlash: undefined;
-  Weflo: undefined;
   AccountStatements: undefined;
   AccountStatementsPdf: undefined;
-  RibPdf: undefined;
 };
 
 export type ICarbonStackParamList = {
@@ -75,60 +88,89 @@ export type IKycStackParamList = {
   MenuKyc: undefined;
   InitKyc: undefined;
   Kyc: undefined;
+  KycDocumentsValidated: undefined;
   SuccessKyc: undefined;
   CardSent: undefined;
+  IdList: undefined;
+  UploadDocument: undefined;
+  ResidenceProofOptions: undefined;
+  ResidenceProofList: undefined;
+  KycHost: undefined;
+  HostIdList: undefined;
+  HostResidenceProofList: undefined;
 };
 
-export type ITransferStackParamList = {
-  MenuTransfer: undefined;
-  Transfer: undefined;
+export type IBeneficiaryStackParamList = {
+  MenuBeneficiary: undefined;
+  BeneficiaryList: undefined;
+  BeneficiaryAdd: undefined;
+  ContactAdd: undefined;
 };
 
 export type IProfileStackParamList = {
   MenuProfile: undefined;
   Profile: undefined;
+  NotificationSettings: undefined;
+};
+
+export type ITransferStackParamList = {
+  MenuTransfer: undefined;
+  Transfer: undefined;
+  TransferSuccess: undefined;
 };
 
 export enum ISharedStackPages {
+  HOME = 'Home',
   MODAL_ERROR = 'ModalError',
   MODAL_WEBVIEW = 'ModalWebview',
+  LEGAL = 'Legal',
+  CGU = 'Cgu',
+  CGU_KYC_PROVIDER = 'CguKycProvider',
 }
 
 export enum IAuthStackPages {
   LOGIN = 'Login',
   RESET_PASSWORD = 'ResetPassword',
+}
+
+export enum IUserStackPages {
   SIGNUP_EMAIL = 'SignupEmail',
   SIGNUP_IDENTITY_PASSWORD_PHONE = 'SignupIdentityPasswordPhone',
   SIGNUP_VALIDATE_PHONE = 'SignupValidatePhone',
   SIGNUP_BIRTH = 'SignupBirth',
   SIGNUP_ADDRESS = 'SignupAddress',
-  SIGNUP_CONGRATS = 'SignupCongrats',
   EMAIL_SENT = 'EmailSent',
   SIGNUP_PHONE = 'SignupPhone',
-  LEGAL = 'Legal',
-  CGU = 'Cgu',
-  CGU_KYC_PROVIDER = 'CguKycProvider',
-  MODAL_ERROR = 'ModalError',
+  SIGNUP_CONGRATS = 'SignupCongrats',
 }
 
-export enum IHomeStackPages {
-  MENU = 'MenuHome',
+export enum IProfileStackPages {
+  MENU = 'MenuProfile',
+  PROFILE = 'Profile',
+  NOTIFICATON_SETTINGS = 'NotificationSettings',
+}
+
+export enum IAccountStackPages {
+  MENU = 'MenuAccount',
   ACCOUNTS = 'Accounts',
-  // TODO Move
-  BENEFICIARY_LIST = 'BeneficiaryList',
-  BENEFICIARY_ADD = 'BeneficiaryAdd',
-  CONTACT_ADD = 'ContactAdd',
-  // TODO END
-  HELP = 'Help',
-  TRANSACTIONS = 'Transactions',
-  RESTO_FLASH = 'RestoFlash',
-  WEFLO = 'Weflo',
-  ACCOUNT_STATEMENTS = 'AccountStatements',
-  ACCOUNT_STATEMENTS_PDF = 'AccountStatementsPdf',
   RIB_PDF = 'RibPdf',
 }
 
+export enum ITransactionStackPages {
+  MENU = 'MenuTransaction',
+  TRANSACTIONS = 'Transactions',
+  ACCOUNT_STATEMENTS = 'AccountStatements',
+  ACCOUNT_STATEMENTS_PDF = 'AccountStatementsPdf',
+}
+
+export enum ITransferStackPages {
+  MENU = 'MenuTransfer',
+  TRANSFER = 'Transfer',
+  TRANSFER_SUCCESS = 'TransferSuccess',
+}
+
 export enum IBeneficiaryStackPages {
+  MENU = 'MenuBeneficiary',
   BENEFICIARY_LIST = 'BeneficiaryList',
   BENEFICIARY_ADD = 'BeneficiaryAdd',
   CONTACT_ADD = 'ContactAdd',
@@ -148,6 +190,7 @@ export enum IKycStackPages {
   MENU = 'MenuKyc',
   INIT = 'InitKyc',
   KYC = 'Kyc',
+  DOCUMENTS_VALIDATED = 'KycDocumentsValidated',
   SUCCESS = 'SuccessKyc',
   CARD_SENT = 'CardSent',
   UPLOAD_DOCUMENT = 'UploadDocument',
@@ -159,50 +202,54 @@ export enum IKycStackPages {
   HOST_RESIDENCE_PROOF_LIST = 'HostResidenceProofList',
 }
 
-export enum ITransferStackPages {
-  MENU = 'MenuTransfer',
-  TRANSFER = 'Transfer',
-}
-
-export enum IProfileStackPage {
-  MENU = 'MenuProfile',
-  PROFILE = 'Profile',
-}
-
 export type ISharedStackProps = {
+  [ISharedStackPages.HOME]: object;
   [ISharedStackPages.MODAL_ERROR]: object;
   [ISharedStackPages.MODAL_WEBVIEW]: object;
+  [ISharedStackPages.LEGAL]: object;
+  [ISharedStackPages.CGU]: object;
+  [ISharedStackPages.CGU_KYC_PROVIDER]: object;
 };
 
 export type IAuthStackProps = {
   [IAuthStackPages.LOGIN]: object;
   [IAuthStackPages.RESET_PASSWORD]: object;
-  [IAuthStackPages.SIGNUP_EMAIL]: object;
-  [IAuthStackPages.SIGNUP_IDENTITY_PASSWORD_PHONE]: object;
-  [IAuthStackPages.SIGNUP_VALIDATE_PHONE]: object;
-  [IAuthStackPages.SIGNUP_BIRTH]: object;
-  [IAuthStackPages.SIGNUP_ADDRESS]: object;
-  [IAuthStackPages.SIGNUP_CONGRATS]: object;
-  [IAuthStackPages.EMAIL_SENT]: object;
-  [IAuthStackPages.SIGNUP_PHONE]: object;
-  [IAuthStackPages.LEGAL]: object;
-  [IAuthStackPages.CGU]: object;
-  [IAuthStackPages.CGU_KYC_PROVIDER]: object;
 };
 
-export type IHomeStackProps = {
-  [IHomeStackPages.MENU]: object;
-  [IHomeStackPages.ACCOUNTS]: object;
-  [IHomeStackPages.BENEFICIARY_LIST]: object;
-  [IHomeStackPages.BENEFICIARY_ADD]: object;
-  [IHomeStackPages.CONTACT_ADD]: object;
-  [IHomeStackPages.HELP]: object;
-  [IHomeStackPages.TRANSACTIONS]: object;
-  [IHomeStackPages.ACCOUNT_STATEMENTS]: object;
-  [IHomeStackPages.ACCOUNT_STATEMENTS_PDF]: object;
-  [IHomeStackPages.RIB_PDF]: object;
-  [IHomeStackPages.RESTO_FLASH]: object;
-  [IHomeStackPages.WEFLO]: object;
+export type IUserStackProps = {
+  [IUserStackPages.SIGNUP_EMAIL]: object;
+  [IUserStackPages.SIGNUP_IDENTITY_PASSWORD_PHONE]: object;
+  [IUserStackPages.SIGNUP_VALIDATE_PHONE]: object;
+  [IUserStackPages.SIGNUP_BIRTH]: object;
+  [IUserStackPages.SIGNUP_ADDRESS]: object;
+  [IUserStackPages.SIGNUP_CONGRATS]: object;
+  [IUserStackPages.EMAIL_SENT]: object;
+  [IUserStackPages.SIGNUP_PHONE]: object;
+};
+
+export type IProfileStackProps = {
+  [IProfileStackPages.MENU]: object;
+  [IProfileStackPages.PROFILE]: object;
+  [IProfileStackPages.NOTIFICATON_SETTINGS]: object;
+};
+
+export type IAccountStackProps = {
+  [IAccountStackPages.MENU]: object;
+  [IAccountStackPages.ACCOUNTS]: object;
+  [IAccountStackPages.RIB_PDF]: object;
+};
+
+export type ITransactionStackProps = {
+  [ITransactionStackPages.MENU]: object;
+  [ITransactionStackPages.TRANSACTIONS]: object;
+  [ITransactionStackPages.ACCOUNT_STATEMENTS]: object;
+  [ITransactionStackPages.ACCOUNT_STATEMENTS_PDF]: object;
+};
+
+export type ITransferStackProps = {
+  [ITransferStackPages.MENU]: object;
+  [ITransferStackPages.TRANSFER]: object;
+  [ITransferStackPages.TRANSFER_SUCCESS]: object;
 };
 
 export type ICarbonStackProps = {
@@ -219,6 +266,7 @@ export type IKycStackProps = {
   [IKycStackPages.MENU]: object;
   [IKycStackPages.INIT]: object;
   [IKycStackPages.KYC]: object;
+  [IKycStackPages.DOCUMENTS_VALIDATED]: object;
   [IKycStackPages.SUCCESS]: object;
   [IKycStackPages.CARD_SENT]: object;
   [IKycStackPages.UPLOAD_DOCUMENT]: object;
@@ -230,44 +278,42 @@ export type IKycStackProps = {
   [IKycStackPages.HOST_RESIDENCE_PROOF_LIST]: object;
 };
 
-export type ITransferStackProps = {
-  [ITransferStackPages.MENU]: object;
-  [ITransferStackPages.TRANSFER]: object;
-};
-
-export type IProfileStackProps = {
-  [IProfileStackPage.MENU]: object;
-  [IProfileStackPage.PROFILE]: object;
+export type IBeneficiaryStackProps = {
+  [IBeneficiaryStackPages.MENU]: object;
+  [IBeneficiaryStackPages.BENEFICIARY_LIST]: object;
+  [IBeneficiaryStackPages.BENEFICIARY_ADD]: object;
+  [IBeneficiaryStackPages.CONTACT_ADD]: object;
 };
 
 export type IRoutes =
+  | ISharedStackPages.HOME
   | ISharedStackPages.MODAL_ERROR
   | ISharedStackPages.MODAL_WEBVIEW
+  | ISharedStackPages.LEGAL
+  | ISharedStackPages.CGU
+  | ISharedStackPages.CGU_KYC_PROVIDER
   | IAuthStackPages.LOGIN
   | IAuthStackPages.RESET_PASSWORD
-  | IAuthStackPages.SIGNUP_EMAIL
-  | IAuthStackPages.SIGNUP_IDENTITY_PASSWORD_PHONE
-  | IAuthStackPages.SIGNUP_VALIDATE_PHONE
-  | IAuthStackPages.SIGNUP_BIRTH
-  | IAuthStackPages.SIGNUP_ADDRESS
-  | IAuthStackPages.SIGNUP_CONGRATS
-  | IAuthStackPages.EMAIL_SENT
-  | IAuthStackPages.SIGNUP_PHONE
-  | IAuthStackPages.LEGAL
-  | IAuthStackPages.CGU
-  | IAuthStackPages.CGU_KYC_PROVIDER
-  | IHomeStackPages.ACCOUNTS
-  | IHomeStackPages.BENEFICIARY_ADD
-  | IHomeStackPages.BENEFICIARY_LIST
-  | IHomeStackPages.CONTACT_ADD
-  | IHomeStackPages.MENU
-  | IHomeStackPages.HELP
-  | IHomeStackPages.TRANSACTIONS
-  | IHomeStackPages.RESTO_FLASH
-  | IHomeStackPages.WEFLO
-  | IHomeStackPages.ACCOUNT_STATEMENTS
-  | IHomeStackPages.ACCOUNT_STATEMENTS_PDF
-  | IHomeStackPages.RIB_PDF
+  | IUserStackPages.SIGNUP_EMAIL
+  | IUserStackPages.SIGNUP_IDENTITY_PASSWORD_PHONE
+  | IUserStackPages.SIGNUP_VALIDATE_PHONE
+  | IUserStackPages.SIGNUP_BIRTH
+  | IUserStackPages.SIGNUP_ADDRESS
+  | IUserStackPages.SIGNUP_CONGRATS
+  | IUserStackPages.EMAIL_SENT
+  | IUserStackPages.SIGNUP_PHONE
+  | IProfileStackPages.MENU
+  | IProfileStackPages.PROFILE
+  | IProfileStackPages.NOTIFICATON_SETTINGS
+  | IAccountStackPages.MENU
+  | IAccountStackPages.ACCOUNTS
+  | IAccountStackPages.RIB_PDF
+  | ITransactionStackPages.MENU
+  | ITransactionStackPages.TRANSACTIONS
+  | ITransactionStackPages.ACCOUNT_STATEMENTS
+  | ITransactionStackPages.ACCOUNT_STATEMENTS_PDF
+  | ITransferStackPages.TRANSFER
+  | ITransferStackPages.TRANSFER_SUCCESS
   | ICarbonStackPages.MENU
   | ICarbonStackPages.CARBON
   | ICarbonStackPages.HOUSE
@@ -278,6 +324,7 @@ export type IRoutes =
   | IKycStackPages.MENU
   | IKycStackPages.INIT
   | IKycStackPages.KYC
+  | IKycStackPages.DOCUMENTS_VALIDATED
   | IKycStackPages.SUCCESS
   | IKycStackPages.CARD_SENT
   | IKycStackPages.UPLOAD_DOCUMENT
@@ -287,5 +334,7 @@ export type IRoutes =
   | IKycStackPages.KYC_HOST
   | IKycStackPages.HOST_ID_LIST
   | IKycStackPages.HOST_RESIDENCE_PROOF_LIST
-  | ITransferStackPages.TRANSFER
-  | IProfileStackPage.PROFILE;
+  | IBeneficiaryStackPages.MENU
+  | IBeneficiaryStackPages.BENEFICIARY_LIST
+  | IBeneficiaryStackPages.BENEFICIARY_ADD
+  | IBeneficiaryStackPages.CONTACT_ADD;

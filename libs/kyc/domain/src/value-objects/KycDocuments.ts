@@ -1,6 +1,6 @@
 import { arrayIsEmpty } from '@clean-rn/shared/domain';
 
-import { IDocumentCategory, IDocumentProperties, IDocumentStatus, IDocumentType } from '../types';
+import { IDocumentCategory, IDocumentProperties, IDocumentStatus, IDocumentType, IKycState } from '../types';
 import { ALLOWED_DOCUMENT_TYPES, EXPECTED_DOCUMENTS_NUMBER } from '../constants';
 import { DocumentError } from '../errors';
 
@@ -55,6 +55,7 @@ export class KycDocuments {
   };
   isUSPerson: boolean;
   isHosted: boolean;
+  state: IKycState;
   expectedDocumentCount: number;
 
   constructor(docsProps: IDocumentProperties[], USPerson?: boolean) {
@@ -65,6 +66,7 @@ export class KycDocuments {
     this.isUSPerson = !!USPerson;
     this.isHosted = this.setIsHosted();
     this.expectedDocumentCount = this.setExpectedDocumentCount();
+    this.state = this.computeState();
   }
 
   addDocument(document: DocumentVO): void {
@@ -72,11 +74,26 @@ export class KycDocuments {
     this.documents[document.properties.category] = document;
     this.isHosted = this.setIsHosted();
     this.expectedDocumentCount = this.setExpectedDocumentCount();
+    this.state = this.computeState();
   }
 
-  get isComplete(): boolean {
-    const requiredDocs = Object.values(this.documents).filter((doc) => doc !== undefined);
-    return requiredDocs.length === this.expectedDocumentCount;
+  private computeState(): IKycState {
+    const pendingDocs = Object.values(this.documents).filter(
+      (doc) =>
+        doc?.properties.status === IDocumentStatus.PENDING ||
+        doc?.properties.status === IDocumentStatus.VALIDATED,
+    );
+    const validatedDocs = Object.values(this.documents).filter(
+      (doc) => doc?.properties.status === IDocumentStatus.VALIDATED,
+    );
+    const refusedDocs = Object.values(this.documents).some(
+      (doc) => doc?.properties.status === IDocumentStatus.REFUSED,
+    );
+    if (Object.values(this.documents).every((doc) => doc === undefined)) return IKycState.INIT;
+    else if (validatedDocs.length === this.expectedDocumentCount) return IKycState.DOCUMENTS_VALIDATED;
+    else if (refusedDocs) return IKycState.REFUSED;
+    else if (pendingDocs.length === this.expectedDocumentCount) return IKycState.PENDING;
+    else return IKycState.INCOMPLETE;
   }
 
   private setIsHosted(): boolean {

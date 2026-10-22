@@ -6,6 +6,8 @@ import { Input, useTheme } from '@rneui/themed';
 import SelectDropdown from 'react-native-select-dropdown';
 import { PhoneNumberUtil } from 'google-libphonenumber';
 
+import { firstLetterCapitalize } from '@clean-rn/utils';
+
 import { IDomainError } from '@clean-rn/ddd';
 import { Logger } from '@clean-rn/logger';
 
@@ -14,12 +16,11 @@ import {
   Phone,
   ICountry,
   COUNTRIES_AVAILABLE,
-  IAuthErrorCodes,
-  IAuthErrorMessage,
-} from '@clean-rn/auth/domain';
+  IUserErrorCodes,
+  IUserErrorMessage,
+} from '@clean-rn/user/domain';
 import { Phone as PhoneIcon } from '../../../assets';
 import { Colors } from '../../../constants';
-import { firstLetterCapitalize } from '../../../utils';
 
 import { SubmitButton } from '../../buttons/submit-button';
 import { ErrorMessage } from '../../texts/error-message';
@@ -30,7 +31,7 @@ type IProps = {
   onSubmit: () => void;
   control: Control<ISignupPhoneFormData>;
   errors: FieldErrors<ISignupPhoneFormData>;
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | null;
+  error: IDomainError<IUserErrorCodes, IUserErrorMessage> | null;
   onFocus: () => void;
 };
 

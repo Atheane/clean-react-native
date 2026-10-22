@@ -4,7 +4,7 @@ export default {
   expo: {
     name: 'CleanRN Storybook Dev',
     slug: 'clean-rn-storybook-dev',
-    version: '1.6.2',
+    version: process.env.APP_VERSION,
     orientation: 'portrait',
     icon: './assets/images/icon.png',
     splash: {
@@ -18,6 +18,7 @@ export default {
     assetBundlePatterns: ['**/*'],
     ios: {
       bundleIdentifier: 'com.example.storybookdev',
+      googleServicesFile: './GoogleService-Info.plist',
       supportsTablet: true,
     },
     android: {
@@ -26,6 +27,7 @@ export default {
         backgroundColor: '#FFFFFF',
       },
       package: 'com.example.storybookdev',
+      googleServicesFile: './google-services.json',
     },
     web: {
       favicon: './assets/images/favicon.png',
@@ -39,6 +41,7 @@ export default {
           subdomains: '*',
         },
       ],
+      ['@react-native-firebase/app'],
       [
         'expo-contacts',
         {
@@ -52,12 +55,20 @@ export default {
         },
       ],
       ['react-native-compressor'],
+      [
+        'expo-build-properties',
+        {
+          ios: {
+            useFrameworks: 'static',
+          },
+        },
+      ],
     ],
     extra: {
       NODE_ENV: process.env.NODE_ENV,
       SENTRY_DSN: process.env.SENTRY_DSN,
       eas: {
-        projectId: '732bad57-a0ef-4996-92bb-14a613d41d4d',
+        projectId: process.env.PROJECT_ID,
       },
     },
   },

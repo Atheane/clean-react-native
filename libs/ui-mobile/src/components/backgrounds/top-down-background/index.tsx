@@ -21,7 +21,7 @@ export const TopDownBackground = () => {
 const styles = StyleSheet.create({
   top: {
     position: 'absolute',
-    top: -232,
+    top: -280,
     left: 0,
   },
   logo: {

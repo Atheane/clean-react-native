@@ -1,15 +1,5 @@
 import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
-import {
-  IAuthGateway,
-  IAuth,
-  ILoginCommand,
-  IResetPasswordCommand,
-  ISearchEmailQuery,
-  ISuccess,
-  ISearchPhoneQuery,
-  IValidatePhoneQuery,
-  ISendPhoneValidationCommand,
-} from '@clean-rn/auth/domain';
+import { IAuthGateway, IAuth, ILoginCommand, IResetPasswordCommand, ISuccess } from '@clean-rn/auth/domain';
 
 export class AuthApi implements IAuthGateway {
   private static instance: AuthApi | null = null;
@@ -19,11 +9,7 @@ export class AuthApi implements IAuthGateway {
   private constructor(httpConnection: HttpConnection) {
     this.connection = httpConnection;
     this.login = this.login.bind(this);
-    this.resetPassword = this.resetPassword.bind(this);
-    this.searchEmail = this.searchEmail.bind(this);
-    this.searchPhone = this.searchPhone.bind(this);
-    this.sendPhoneValidation = this.sendPhoneValidation.bind(this);
-    this.checkPhoneValidation = this.checkPhoneValidation.bind(this);
+    this.refresh = this.refresh.bind(this);
   }
 
   // Public method to provide access to the singleton instance
@@ -32,6 +18,18 @@ export class AuthApi implements IAuthGateway {
       this.instance = new AuthApi(httpConnection);
     }
     return this.instance;
+  }
+
+  async refresh(refreshToken: string): Promise<IAuth> {
+    this.connection.attachBearerToken(refreshToken);
+    const response = await fetch(
+      `${this.connection.baseUrl}/auth/refresh`,
+      this.connection.options(IHttpVerb.GET),
+    );
+    await this.connection.handleError(response);
+    const auth = await response.json();
+    this.connection.attachBearerToken(auth.accessToken);
+    return auth;
   }
 
   async login(cmd: ILoginCommand): Promise<IAuth> {
@@ -57,57 +55,6 @@ export class AuthApi implements IAuthGateway {
       `${this.connection.baseUrl}/app/user/resetPassword`,
       this.connection.options(IHttpVerb.PUT, params),
     );
-    await this.connection.handleError(response);
-    return response.json();
-  }
-
-  async searchEmail(query: ISearchEmailQuery): Promise<ISuccess> {
-    //map query to dto
-    const params = {
-      email: query.email.value,
-    };
-    const url = `${this.connection.baseUrl}/app/user/search?` + new URLSearchParams(params);
-    const response = await fetch(url, this.connection.options(IHttpVerb.GET));
-    await this.connection.handleError(response);
-    return response.json();
-  }
-
-  async searchPhone(query: ISearchPhoneQuery): Promise<ISuccess> {
-    //map query to dto
-    const params = {
-      phone: query.phone.value,
-    };
-
-    const url = `${this.connection.baseUrl}/app/user/search?` + new URLSearchParams(params);
-
-    const response = await fetch(url, this.connection.options(IHttpVerb.GET));
-    await this.connection.handleError(response);
-    return response.json();
-  }
-
-  async sendPhoneValidation(query: ISendPhoneValidationCommand): Promise<ISuccess> {
-    //map cmd to dto
-    const params = {
-      phone: query.phone.valueInternational,
-    };
-    const response = await fetch(
-      `${this.connection.baseUrl}/app/user/sendPhoneValidationCode`,
-      this.connection.options(IHttpVerb.POST, params),
-    );
-    await this.connection.handleError(response);
-    return response.json();
-  }
-
-  async checkPhoneValidation(query: IValidatePhoneQuery): Promise<ISuccess> {
-    //map query to dto
-    const params = {
-      phone: query.phone.value,
-      code: query.phoneOtp.value,
-    };
-
-    const url = `${this.connection.baseUrl}/app/user/checkPhoneValidationCode?` + new URLSearchParams(params);
-
-    const response = await fetch(url, this.connection.options(IHttpVerb.GET));
     await this.connection.handleError(response);
     return response.json();
   }

@@ -6,6 +6,8 @@ import { Input, useTheme } from '@rneui/themed';
 import SelectDropdown from 'react-native-select-dropdown';
 import { PhoneNumberUtil } from 'google-libphonenumber';
 
+import { firstLetterCapitalize } from '@clean-rn/utils';
+
 import { IDomainError } from '@clean-rn/ddd';
 import { Logger } from '@clean-rn/logger';
 
@@ -14,12 +16,11 @@ import {
   Phone,
   ICountry,
   COUNTRIES_AVAILABLE,
-  IAuthErrorCodes,
-  IAuthErrorMessage,
-} from '@clean-rn/auth/domain';
-import { Person } from '../../../assets';
+  IUserErrorCodes,
+  IUserErrorMessage,
+} from '@clean-rn/user/domain';
+import { ProfileGradient } from '../../../assets';
 import { Colors } from '../../../constants';
-import { firstLetterCapitalize } from '../../../utils';
 
 import { SubmitButton } from '../../buttons/submit-button';
 import { ErrorMessage } from '../../texts/error-message';
@@ -31,7 +32,7 @@ type IProps = {
   onSubmit: () => void;
   control: Control<IContactFormData>;
   errors: FieldErrors<IContactFormData>;
-  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | null;
+  error: IDomainError<IUserErrorCodes, IUserErrorMessage> | null;
   onFocus: () => void;
 };
 
@@ -63,7 +64,7 @@ export const FormContact = (props: IProps) => {
   );
 
   return (
-    <View style={theme.bank.container.centeredItem}>
+    <View style={[styles.container, theme.bank.container.centeredItem]}>
       <View style={styles.input}>
         <Controller
           control={props.control}
@@ -74,7 +75,7 @@ export const FormContact = (props: IProps) => {
               label={t('signup-identity.first-name.label')}
               labelColor={Colors.bank.primary.grey}
               placeholder={firstLetterCapitalize(t('signup-identity.first-name.placeholder'))}
-              icon={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
+              IconLeft={ProfileGradient}
               value={value}
               onChange={onChange}
             />
@@ -98,7 +99,7 @@ export const FormContact = (props: IProps) => {
               label={t('signup-identity.last-name.label')}
               labelColor={Colors.bank.primary.grey}
               placeholder={firstLetterCapitalize(t('signup-identity.last-name.placeholder'))}
-              icon={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
+              IconLeft={ProfileGradient}
               value={value}
               onChange={onChange}
             />
@@ -211,12 +212,11 @@ export const FormContact = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
-  input: {
-    marginTop: 30,
+  container: {
+    marginTop: '20%',
   },
-  formSubmit: {
-    marginTop: 80,
-    marginBottom: 120,
+  input: {
+    marginTop: 40,
   },
   errorPhoneContainer: {
     marginTop: 10,
@@ -241,5 +241,8 @@ const styles = StyleSheet.create({
   selectButton: {
     width: 100,
     alignItems: 'center',
+  },
+  formSubmit: {
+    marginTop: '30%',
   },
 });

@@ -41,12 +41,7 @@ export const LongCard = (props: IProps) => {
       </View>
       {props.icon && (
         <View style={styles.iconContainer}>
-          <LinkButton
-            pressed={false}
-            onPress={props.onPress}
-            iconOne={props.icon}
-            colorOption={LinkButtonColors.BLUE}
-          />
+          <LinkButton onPress={props.onPress} iconRight={props.icon} colorOption={LinkButtonColors.BLUE} />
         </View>
       )}
     </View>
@@ -64,5 +59,5 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
   textContainer: { marginLeft: 30, marginVertical: 14 },
-  iconContainer: { position: 'absolute', right: 12, top: 0 },
+  iconContainer: { position: 'absolute', right: 12 },
 });

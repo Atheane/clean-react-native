@@ -7,5 +7,4 @@ export * from './components';
 export * from './hooks';
 export * from './types';
 export * from './translation';
-export * from './utils';
 export { i18n };

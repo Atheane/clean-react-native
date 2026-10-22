@@ -10,7 +10,7 @@ const headersOptions = (onPressBackButton?: () => void) =>
         headerTitleAlign: 'center' as HeaderTitleAlign,
         headerTitleStyle: {
           color: Colors.bank.primary.darkBlue,
-          fontSize: 19,
+          fontSize: 16,
           fontFamily: FontNames.MartelSans_600SemiBold,
         },
       }
@@ -18,7 +18,7 @@ const headersOptions = (onPressBackButton?: () => void) =>
         headerTitleAlign: 'center' as HeaderTitleAlign,
         headerTitleStyle: {
           color: Colors.bank.primary.darkBlue,
-          fontSize: 19,
+          fontSize: 16,
           fontFamily: FontNames.MartelSans_600SemiBold,
         },
       };

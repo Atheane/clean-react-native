@@ -2,10 +2,12 @@ import { Logger } from '@clean-rn/logger';
 
 import { ICustomerState } from '../../state/customer';
 import { ICustomerTypes, ICustomerActions } from '../../../commands/customer';
+import { IKycStackPages } from '../../../../../shared/presentation/types';
 
 const initialState: ICustomerState = {
   pending: false,
   customer: null,
+  initRoute: IKycStackPages.INIT,
 };
 
 export const customerReducer = (state = initialState, action: ICustomerActions) => {
@@ -25,6 +27,7 @@ export const customerReducer = (state = initialState, action: ICustomerActions) 
         ...state,
         pending: false,
         customer: action.payload.customer,
+        initRoute: action.payload.initRoute,
       };
       return newState;
     case ICustomerTypes.INITIALIZE_KYC:
@@ -33,6 +36,7 @@ export const customerReducer = (state = initialState, action: ICustomerActions) 
         ...state,
         pending: false,
         customer: null,
+        initRoute: IKycStackPages.INIT,
       };
       return newState;
     case ICustomerTypes.CUSTOMER_DOCUMENTS_UPDATED:

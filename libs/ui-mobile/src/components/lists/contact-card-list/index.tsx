@@ -14,10 +14,11 @@ export const ContactCardList = (props: IProps) => {
       pinchGestureEnabled
       data={props.data}
       contentContainerStyle={{ padding: 0 }}
-      keyExtractor={(item) => item.name}
-      renderItem={({ item, index }: { item: IContact; index: number }) => (
-        <ContactCard data={item} idx={index} />
-      )}
+      keyExtractor={(item) => item.name + item.phone}
+      renderItem={({ item, index }: { item: IContact; index: number }) => {
+        if (item.phone.length === 0) return null;
+        return <ContactCard data={item} idx={index} />;
+      }}
     />
   );
 };

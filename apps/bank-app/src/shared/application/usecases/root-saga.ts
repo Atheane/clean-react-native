@@ -7,7 +7,11 @@ import { showUnknownErrorSaga } from './manage-global-errors';
 import {
   loginSaga,
   closeLoginModalSaga,
+  refreshSaga,
   resetPasswordSaga,
+} from '../../../auth/application/usecases';
+
+import {
   checkEmailSaga,
   registerIdentitySaga,
   registerPasswordSaga,
@@ -16,15 +20,19 @@ import {
   registerAddressSaga,
   validatePhoneSaga,
   signupUserSaga,
-} from '../../../auth/application/usecases';
+  updateNotificationsSaga,
+} from '../../../user/application/usecases';
+
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
-import { listAccountsSaga, listTransactionsSaga } from '../../../account/application/usecases';
+import { listAccountsSaga } from '../../../account/application/usecases';
+import { listTransactionsSaga, sendTransferSaga } from '../../../transaction/application/usecases';
 
 import {
   addBeneficiarySaga,
   deleteBeneficiarySaga,
   listBeneficiarySaga,
+  selectBeneficiarySaga,
 } from '../../../beneficiary/application/usecases';
 import { addContactSaga, listContactSaga } from '../../../beneficiary/application/usecases';
 
@@ -42,6 +50,7 @@ import {
   uploadDocumentSaga,
   cancelUploadSaga,
 } from '../../../kyc/application/usecases/document';
+import { registerDeviceSaga } from '../../../device/application/usecases/register-device';
 
 export function* rootSaga(httpConnection: HttpConnection) {
   yield all([
@@ -49,6 +58,7 @@ export function* rootSaga(httpConnection: HttpConnection) {
     loadStorageSaga(),
     showUnknownErrorSaga(),
     loginSaga(httpConnection),
+    refreshSaga(httpConnection),
     closeLoginModalSaga(),
     resetPasswordSaga(httpConnection),
     checkEmailSaga(httpConnection),
@@ -60,9 +70,11 @@ export function* rootSaga(httpConnection: HttpConnection) {
     validatePhoneSaga(httpConnection),
     signupUserSaga(httpConnection),
     listAccountsSaga(httpConnection),
+    registerDeviceSaga(httpConnection),
     addBeneficiarySaga(httpConnection),
     deleteBeneficiarySaga(httpConnection),
     listBeneficiarySaga(httpConnection),
+    selectBeneficiarySaga(httpConnection),
     addContactSaga(),
     listContactSaga(),
     listTransactionsSaga(httpConnection),
@@ -75,5 +87,7 @@ export function* rootSaga(httpConnection: HttpConnection) {
     addPageSaga(),
     uploadDocumentSaga(httpConnection),
     cancelUploadSaga(),
+    updateNotificationsSaga(httpConnection),
+    sendTransferSaga(httpConnection),
   ]);
 }

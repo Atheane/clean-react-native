@@ -3,10 +3,7 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "jsx": "react-native",
-    "lib": [
-      "dom",
-      "esnext"
-    ],
+    "lib": ["dom", "esnext"],
     "moduleResolution": "node",
     "skipLibCheck": true,
     "resolveJsonModule": true,
@@ -15,9 +12,7 @@
     "composite": true
   },
   "files": [],
-  "include": [
-    "declaration.d.ts"
-  ],
+  "include": ["declaration.d.ts"],
   "references": [
     {
       "path": "./tsconfig.app.json"

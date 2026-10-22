@@ -31,20 +31,18 @@ export const Banner = (props: IProps) => {
         <View style={styles.rightIcon}>
           {props.onPressRightIcon ? (
             <LinkButton
-              pressed={false}
               onPress={props.onPressRightIcon}
-              iconOne={() => (
+              iconRight={() => (
                 <RightChevron width={16} height={26} style={{ color: Colors.bank.primary.white }} />
               )}
               colorOption={LinkButtonColors.WHITE}
             />
           ) : (
             <LinkButton
-              pressed={false}
               onPress={() => {
                 return null;
               }}
-              iconOne={() => (
+              iconRight={() => (
                 <RightChevron width={16} height={26} style={{ color: Colors.bank.primary.white }} />
               )}
               colorOption={LinkButtonColors.WHITE}
@@ -77,11 +75,12 @@ export const Banner = (props: IProps) => {
       rightComponent={
         <View style={styles.rightIcon}>
           <LinkButton
-            pressed={false}
             onPress={() => {
               return null;
             }}
-            iconOne={() => <RightChevron width={16} height={26} style={{ color: Colors.bank.transparent }} />}
+            iconRight={() => (
+              <RightChevron width={16} height={26} style={{ color: Colors.bank.transparent }} />
+            )}
             colorOption={LinkButtonColors.WHITE}
           />
         </View>

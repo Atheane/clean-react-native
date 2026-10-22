@@ -1,31 +1,29 @@
 import { useTranslation } from 'react-i18next';
-import { useNavigationState } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 
-import { IHomeStackPages, IHomeStackProps } from '../../../shared/presentation/types';
+import { IBeneficiaryStackPages, IBeneficiaryStackProps } from '../../../shared/presentation/types';
 
 import { BeneficiaryAdd, BeneficiaryList, ContactAdd } from '../screens';
 
-const Stack = createNativeStackNavigator<IHomeStackProps>();
+const Stack = createNativeStackNavigator<IBeneficiaryStackProps>();
 
 export const BeneficiaryStack = () => {
   const { t } = useTranslation();
-  const navigationStack = useNavigationState((state) => state?.routes ?? []);
 
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={IHomeStackPages.BENEFICIARY_LIST}
+        name={IBeneficiaryStackPages.BENEFICIARY_LIST}
         component={BeneficiaryList}
         options={{
-          headerTitle: t('screens.beneficiary.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+          headerTitle: t('screens.transfer.title'),
+          ...headersOptions(),
         }}
       />
       <Stack.Screen
-        name={IHomeStackPages.BENEFICIARY_ADD}
+        name={IBeneficiaryStackPages.BENEFICIARY_ADD}
         component={BeneficiaryAdd}
         options={{
           headerTitle: t('screens.beneficiary.new-beneficiary.title'),
@@ -33,7 +31,7 @@ export const BeneficiaryStack = () => {
         }}
       />
       <Stack.Screen
-        name={IHomeStackPages.CONTACT_ADD}
+        name={IBeneficiaryStackPages.CONTACT_ADD}
         component={ContactAdd}
         options={{
           headerTitle: t('screens.beneficiary.new-contact.title'),

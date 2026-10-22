@@ -1,17 +1,14 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import Constants from 'expo-constants';
 
-import { ServerError } from '@clean-rn/shared/infrastructure';
 import { IAccount } from '@clean-rn/account/domain';
 import { ModalError, PdfViewer, PdfDownloader, Download } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-
-import { IAuthStackPages } from '../../../shared/presentation/types';
 
 export const RibPdf = () => {
   const { t } = useTranslation();
@@ -20,24 +17,15 @@ export const RibPdf = () => {
   } = useRoute() as { params: { account: IAccount } };
   const {
     auth: { accessToken },
-  } = useSelector((state: IRootState) => state.auth.login);
-
-  const [userUnauthenticated, setUserUnauthenticated] = useState<Error>();
+  } = useSelector((state: IRootState) => state.auth);
 
   const [unknownError, setUnknownError] = useState<Error>();
 
-  const navigation = useNavigation();
   const handleError = (error: unknown) => {
-    if (error instanceof ServerError && error.statusCode === 401) {
-      setUserUnauthenticated(userUnauthenticated);
-      navigation.goBack();
-      navigation.navigate(IAuthStackPages.LOGIN as never);
-    } else {
-      setUnknownError(error as Error);
-    }
+    setUnknownError(error as Error);
   };
 
-  return userUnauthenticated ? null : unknownError ? (
+  return unknownError ? (
     <ModalError error={unknownError} />
   ) : (
     <ErrorBoundary t={t}>

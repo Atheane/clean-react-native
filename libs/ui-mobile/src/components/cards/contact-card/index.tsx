@@ -1,11 +1,8 @@
-import { StyleSheet, View } from 'react-native';
-import { Card } from '@rneui/base';
-//
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { IContact } from '@clean-rn/contact/domain';
-//
 import { Colors } from '../../../constants';
-import { ContactItem } from '../../others/contact-item';
-import { Phone } from '../../../assets';
+import { ContactItem } from '../../items/contact-item';
+import { PhoneGradientGreyBg, PhoneGradientWhiteBg } from '../../../assets';
 
 type IProps = {
   data: IContact;
@@ -14,26 +11,26 @@ type IProps = {
 
 export const ContactCard = (props: IProps) => {
   return (
-    <Card
-      containerStyle={
-        props.idx % 2 ? styles.contactContainer : [styles.contactContainer, styles.oddContainer]
-      }
-    >
-      <View key={props.data.name}>
+    <View style={props.idx % 2 ? [styles.contactContainer, styles.oddContainer] : styles.contactContainer}>
+      <View>
         {props.data.phone.length > 0 && (
-          <ContactItem icon={Phone} name={props.data.name} phone={props.data.phone} />
+          <ContactItem
+            icon={props.idx % 2 ? PhoneGradientWhiteBg : PhoneGradientGreyBg}
+            name={props.data.name}
+            phone={props.data.phone}
+          />
         )}
-        {!props.data.phone.length && <ContactItem name={props.data.name} phone={props.data.phone} />}
       </View>
-    </Card>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   contactContainer: {
-    marginHorizontal: 0,
-    marginVertical: 0,
-    height: 70,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    height: 72,
+    width: Dimensions.get('window').width,
   },
   oddContainer: {
     backgroundColor: Colors.bank.primary.lightGrey,

@@ -1,43 +1,44 @@
-import { StyleSheet, View } from 'react-native';
-import { Card } from '@rneui/base';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import { SvgProps } from 'react-native-svg';
 //
 import { IBeneficiary } from '@clean-rn/beneficiary/domain';
 //
 import { Colors } from '../../../constants';
-import { BeneficiaryItem } from '../../others/beneficiary-item';
-import { BANK } from '../../../assets';
+import { BeneficiaryItem } from '../../items/beneficiary-item';
+import { BankBgGradient } from '../../../assets';
 
 type IProps = {
-  data: IBeneficiary;
+  data: IBeneficiary & { icon?: React.FC<SvgProps> };
   idx: number;
-  deleteCallback?: (beneficiary: number) => void;
+  onDelete?: (beneficiary: number) => void;
+  onPress?: (beneficiary: number) => void;
 };
 
 export const BeneficiaryCard = (props: IProps) => {
   return (
-    <Card
-      containerStyle={
-        props.idx % 2 ? styles.beneficiaryContainer : [styles.beneficiaryContainer, styles.oddContainer]
-      }
+    <View
+      style={props.idx % 2 ? styles.beneficiaryContainer : [styles.beneficiaryContainer, styles.oddContainer]}
     >
-      <View key={props.data.beneficiaryId}>
+      <View>
         <BeneficiaryItem
-          icon={BANK}
+          icon={props.data.icon ? props.data.icon : BankBgGradient}
           beneficiaryId={props.data.beneficiaryId}
           name={props.data.name}
           iban={props.data.iban}
-          deleteCallback={props.deleteCallback}
+          onDelete={props.onDelete}
+          onPress={props.onPress}
         />
       </View>
-    </Card>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   beneficiaryContainer: {
-    marginHorizontal: 0,
-    marginVertical: 0,
-    height: 70,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    height: 72,
+    width: Dimensions.get('window').width,
   },
   oddContainer: {
     backgroundColor: Colors.bank.primary.lightGrey,

@@ -9,6 +9,7 @@ const DocumentPickerMeta: ComponentMeta<typeof DocumentPicker> = {
   argTypes: {
     handleError: { action: 'handleError' },
     getDocument: { action: 'getDocument' },
+    setLoading: { action: 'setLoading' },
   },
   decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
 };

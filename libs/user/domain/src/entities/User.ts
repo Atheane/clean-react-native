@@ -1,0 +1,100 @@
+import { Entity } from '@clean-rn/ddd';
+import { AuthError, Email, Password } from '@clean-rn/auth/domain';
+import { IAddress, IIdentity, IBirth, KYC_REVIEW, IPhoneNotifications, IEmailNotifications } from '../types';
+import { Phone, Country, BirthDay } from '../value-objects';
+import { IRegisterAddressCommand, IRegisterBirthCommand, IRegisterIdentityCommand } from '../commands';
+import { IValidatePhoneQuery } from '../queries';
+
+export interface IUserProperties {
+  email: Email;
+  phone: Phone;
+  password?: Password;
+  identity: IIdentity; // should be in Customer in back-end ?
+  birth: IBirth; // should be in Customer in back-end ?
+  address?: IAddress; // should be in Customer in back-end ?
+  kycReview: KYC_REVIEW; // should be in Customer in back-end ?
+  kycReviewComment?: string; // should be in Customer in back-end ?
+  USPerson: boolean; // should be in Customer in back-end ?
+  config?: {
+    lang: string;
+    notifFirebaseDisabled: IPhoneNotifications[];
+    notifMailDisabled: IEmailNotifications[];
+  };
+}
+
+export class User extends Entity<IUserProperties> {
+  private constructor({ id, properties }: { id?: string } & { properties: Partial<IUserProperties> }) {
+    super({ id, properties });
+  }
+
+  static Create({ id, properties }: { id: number; properties: Partial<IUserProperties> }): User {
+    return new User({ id: id.toString(), properties });
+  }
+
+  static CreateFromEmail(email: Email): User {
+    if (!email) {
+      throw new AuthError.InvalidEmail('Email is required');
+    }
+    return new User({ id: email.value, properties: { email } });
+  }
+
+  signup({ id, properties }: { id: string; properties: IUserProperties }): User {
+    this.properties = properties;
+    this.id = id;
+    return this;
+  }
+
+  registerPassword(passwordString: string): void {
+    const password = new Password(passwordString);
+    this.properties.password = password;
+  }
+
+  registerIdentity(cmd: IRegisterIdentityCommand): void {
+    const { gender, firstName, lastName } = cmd;
+    this.properties.identity = {
+      gender,
+      firstName,
+      lastName,
+    };
+  }
+
+  validatePhone(cmd: IValidatePhoneQuery): void {
+    const { phone } = cmd;
+    this.properties.phone = phone;
+  }
+
+  registerBirth(cmd: IRegisterBirthCommand): void {
+    const { birthday, birthCountry, nationality } = cmd;
+    this.properties.birth = {
+      birthday: new BirthDay(birthday),
+      birthCountry: new Country(birthCountry),
+      nationality: new Country(nationality),
+    };
+  }
+
+  registerAddress(cmd: IRegisterAddressCommand): void {
+    const { str, city, zip, country, USPerson } = cmd;
+    this.properties.address = {
+      str,
+      city,
+      zip,
+      country: new Country(country),
+    };
+    this.properties.USPerson = USPerson;
+  }
+
+  setConfig(config: {
+    lang?: string;
+    notifFirebaseDisabled?: IPhoneNotifications[];
+    notifMailDisabled?: IEmailNotifications[];
+  }): void {
+    if (!config.lang && !config.notifFirebaseDisabled && !config.notifMailDisabled) {
+      return;
+    }
+    this.properties.config = {
+      lang: config.lang || 'en',
+      notifFirebaseDisabled: config.notifFirebaseDisabled ?? [],
+      notifMailDisabled: config.notifMailDisabled ?? [],
+    };
+  }
+}

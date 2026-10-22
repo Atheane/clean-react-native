@@ -1,11 +1,9 @@
-import { BIC, IBAN } from '../value-objects';
-
-export type IBeneficiaryAddCommand = {
+export type IAddBeneficiaryCommand = {
   bic: string;
   iban: string;
   name: string;
 };
 
-export type IBeneficiaryDeleteCommand = {
+export type IDeleteBeneficiaryCommand = {
   beneficiaryId: number;
 };

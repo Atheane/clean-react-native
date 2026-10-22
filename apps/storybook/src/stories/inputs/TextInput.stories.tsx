@@ -1,8 +1,7 @@
 import { StyleProp, ViewStyle } from 'react-native';
-import { useTranslation } from 'react-i18next';
 
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
-import { TextInput, Love, Colors } from '@clean-rn/ui-mobile';
+import { TextInput, Love, Colors, GreenEuroAmount } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
@@ -23,13 +22,14 @@ const TextInputMeta: ComponentMeta<typeof TextInput> = {
   args: {
     label: 'Label',
     lowerCase: false,
-    icon: () => (
+    IconLeft: () => (
       <Love
         width={27}
         height={27}
         style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
       />
     ),
+    short: false,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
@@ -47,4 +47,22 @@ export const TextGreyLabel: TextInputStory = (args) => {
 
 export const NumericPinkLabel: TextInputStory = (args) => {
   return <TextInput {...args} numeric />;
+};
+
+export const GreenEuroAmountPinkLabel: TextInputStory = (args) => {
+  return (
+    <TextInput
+      {...args}
+      label={'Amount'}
+      labelColor={Colors.bank.primary.grey}
+      numeric
+      IconRight={GreenEuroAmount}
+      IconLeft={undefined}
+      short={true}
+    />
+  );
+};
+
+export const Short: TextInputStory = (args) => {
+  return <TextInput {...args} short />;
 };

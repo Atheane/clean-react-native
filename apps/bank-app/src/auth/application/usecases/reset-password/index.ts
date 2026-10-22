@@ -4,13 +4,13 @@ import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
 import { IResetPasswordCommand } from '@clean-rn/auth/domain';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { initializeResetPassword, IResetPasswordTypes, passwordReset } from '../../commands/reset-password';
+import { IAuthTypes, passwordReset, initializeAuth } from '../../commands';
+import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 export function* resetPasswordSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(IResetPasswordTypes.FETCH_RESET_PASSWORD, resetPasswordGenerator, httpConnection);
+  yield takeEvery(IAuthTypes.FETCH_RESET_PASSWORD, resetPasswordGenerator, httpConnection);
 }
 export function* resetPasswordGenerator(
   httpConnection: HttpConnection,
@@ -33,9 +33,9 @@ export function* resetPasswordGenerator(
         success,
       }),
     );
-  } catch (e: unknown) {
+  } catch (error: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors
-    yield put(initializeResetPassword());
-    yield put(showUnknownError(e as Error));
+    yield put(initializeAuth());
+    yield put(showUnknownError(error as Error));
   }
 }

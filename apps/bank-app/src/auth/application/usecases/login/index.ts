@@ -4,21 +4,22 @@ import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { AuthError, ILoginCommand } from '@clean-rn/auth/domain';
-import { AuthApi, IUserLoginServerCode, UserApi } from '@clean-rn/auth/infrastructure';
+import { AuthApi, IAuthServerCode } from '@clean-rn/auth/infrastructure';
+import { UserApi } from '@clean-rn/user/infrastructure';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 
 import { IStoreKey } from '../../../../shared/application/types';
 import { goBack, navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
+import { ISharedStackPages, IUserStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
 
-import { loginFailure, ILoginTypes, initializeLogin, loginSuccess, resetError } from '../../commands/login';
-import { initializeSignupStep } from '../../commands/signup';
+import { loginFailure, IAuthTypes, initializeAuth, loginSuccess, resetError } from '../../commands';
+import { initializeUser, userSaved } from '../../../../user/application/commands';
 
 export function* loginSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(ILoginTypes.FETCH_LOGIN, loginGenerator, httpConnection);
+  yield takeEvery(IAuthTypes.FETCH_LOGIN, loginGenerator, httpConnection);
 }
 
 export function* loginGenerator(
@@ -43,39 +44,38 @@ export function* loginGenerator(
     //attachBearerToken to httpConnection
     yield call(httpConnection.attachBearerToken, auth.accessToken);
 
-    // store token and email in async storage
-    yield call(AsyncStorage.setItem, IStoreKey.JWT_ACCESS_TOKEN, auth.accessToken);
-
     const userApi = UserApi.getInstance(httpConnection);
     const user = yield call([userApi, userApi.getUser]);
 
-    yield put(loginSuccess({ auth, user }));
-    yield put(checkCustomerStatus());
-    yield call(navigate, { route: IHomeStackPages.ACCOUNTS });
+    yield put(loginSuccess({ auth }));
+    yield put(userSaved(user));
+
+    yield put(checkCustomerStatus({ user }));
+    yield call(navigate, { route: ISharedStackPages.HOME });
   } catch (error: unknown) {
     if (error instanceof ServerError) {
       switch (error.codeError) {
-        case IUserLoginServerCode.USER_INVALID_CREDENTIAL:
+        case IAuthServerCode.USER_INVALID_CREDENTIAL:
           yield put(loginFailure(new AuthError.LoginFailureInvalidCredentials(error)));
           yield cancel();
-        case IUserLoginServerCode.USER_NOT_FOUND:
+        case IAuthServerCode.USER_NOT_FOUND:
           yield put(loginFailure(new AuthError.LoginFailureUserNotFound(error)));
           yield cancel();
-        case IUserLoginServerCode.USER_PHONE_NOT_VALIDATED:
+        case IAuthServerCode.USER_PHONE_NOT_VALIDATED:
           // need to reinit signupReducer if user comes from signup flow (because not store data)
-          yield put(initializeSignupStep());
+          yield put(initializeUser());
           yield put(loginFailure(new AuthError.LoginFailurePhoneNotValidated(error)));
-          yield call(navigate, { route: IAuthStackPages.SIGNUP_PHONE });
+          yield call(navigate, { route: IUserStackPages.SIGNUP_PHONE });
           yield cancel();
       }
     }
-    yield put(initializeLogin());
+    yield put(initializeAuth());
     yield put(showUnknownError(error as Error));
   }
 }
 
 export function* closeLoginModalSaga(): Generator<StrictEffect, any, any> {
-  yield takeEvery(ILoginTypes.LOGIN_SUCCEDED, closeLoginModalGenerator);
+  yield takeEvery(IAuthTypes.LOGIN_SUCCEDED, closeLoginModalGenerator);
 }
 
 export function* closeLoginModalGenerator(): Generator<StrictEffect, any, any> {

@@ -1,3 +1,4 @@
 import { IBAN } from './Iban';
 import { BIC } from './Bic';
-export { IBAN, BIC };
+import { LastName } from './LastName';
+export { IBAN, BIC, LastName };

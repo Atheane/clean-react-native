@@ -1,43 +1,53 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, put, StrictEffect, takeEvery, select, cancel } from 'redux-saga/effects';
 
-import { BeneficiaryError, IBeneficiary, IBeneficiaryAddCommand } from '@clean-rn/beneficiary/domain';
+import {
+  BeneficiaryError,
+  IBeneficiary,
+  IAddBeneficiaryCommand,
+  IDeleteBeneficiaryCommand,
+} from '@clean-rn/beneficiary/domain';
+
+import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { BeneficiaryApi } from '@clean-rn/beneficiary/infrastructure';
 
 import {
-  beneficiaryListed,
+  beneficiariesListed,
   IBeneficiaryTypes,
-  beneficiaryListInit,
-  beneficiaryAdd,
-  beneficiaryAddFailure,
+  initBeneficiary,
+  beneficiaryAddFailed,
+  beneficiaryAdded,
+  beneficiaryDeleteFailed,
+  beneficiaryDeleted,
+  beneficiarySelected,
 } from '../../commands/beneficiary';
-import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';
+import {
+  IAuthStackPages,
+  IBeneficiaryStackPages,
+  ITransferStackPages,
+} from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { selectBeneficiary } from '../../state-management/selectors';
-
-const sortByName = (beneficiaries: IBeneficiary[]) => {
-  beneficiaries.sort((a: IBeneficiary, b: IBeneficiary) => {
-    const nameA = a.name.toLowerCase(); // ignore upper and lowercase
-    const nameB = b.name.toLowerCase(); // ignore upper and lowercase
-    if (nameA < nameB) return -1;
-    if (nameA > nameB) return 1;
-    return 0;
-  });
-};
+import { selectAuth } from '../../../../auth/application/state-management/selectors';
+import { refreshSuccess } from '../../../../auth/application/commands';
 
 export function* addBeneficiarySaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(IBeneficiaryTypes.BENEFICIARY_ADD, addBeneficiaryGenerator, httpConnection);
+  yield takeEvery(IBeneficiaryTypes.ADD_BENEFICIARY, addBeneficiaryGenerator, httpConnection);
 }
 
 export function* deleteBeneficiarySaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(IBeneficiaryTypes.BENEFICIARY_DELETE, deleteBeneficiaryGenerator, httpConnection);
+  yield takeEvery(IBeneficiaryTypes.DELETE_BENEFICIARY, deleteBeneficiaryGenerator, httpConnection);
 }
 
 export function* listBeneficiarySaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(IBeneficiaryTypes.BENEFICIARY_LIST, listBeneficiaryGenerator, httpConnection);
+  yield takeEvery(IBeneficiaryTypes.LIST_BENEFICIARIES, listBeneficiaryGenerator, httpConnection);
+}
+
+export function* selectBeneficiarySaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
+  yield takeEvery(IBeneficiaryTypes.SELECT_BENEFICIARY, selectBeneficiaryGenerator, httpConnection);
 }
 
 export function* addBeneficiaryGenerator(
@@ -46,31 +56,20 @@ export function* addBeneficiaryGenerator(
     payload,
   }: {
     type: string;
-    payload: IBeneficiaryAddCommand;
+    payload: IAddBeneficiaryCommand;
   },
 ): Generator<StrictEffect, any, any> {
   try {
+    const authApi = AuthApi.getInstance(httpConnection);
+    const authFromStore = yield select(selectAuth);
+    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
+    yield put(refreshSuccess({ auth }));
     // api call - add beneficiary
     const api = BeneficiaryApi.getInstance(httpConnection);
     const beneficiary = yield call([api, api.addBeneficiary], payload);
-
-    // update store
-    const { beneficiaries: beneficiariesFromStore } = yield select(selectBeneficiary);
-    if (beneficiariesFromStore) {
-      console.log('IF', beneficiariesFromStore);
-      beneficiariesFromStore.push(beneficiary);
-
-      // Sort - TODO binary insertion to optimize
-      sortByName(beneficiariesFromStore);
-      console.log('IF', beneficiariesFromStore);
-      yield put(beneficiaryListed(beneficiariesFromStore));
-    } else {
-      console.log('ELSE', [beneficiary]);
-      yield put(beneficiaryListed([beneficiary]));
-    }
-
+    yield put(beneficiaryAdded(beneficiary));
     // nav back to beneficiary list
-    yield call(navigate, { route: IHomeStackPages.BENEFICIARY_LIST });
+    yield call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 0 } });
   } catch (error: unknown) {
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {
@@ -78,10 +77,10 @@ export function* addBeneficiaryGenerator(
       yield cancel();
     }
     if (error instanceof ServerError && error.statusCode === 400) {
-      yield put(beneficiaryAddFailure(new BeneficiaryError.InvalidIBAN(error)));
+      yield put(beneficiaryAddFailed(new BeneficiaryError.BeneficiaryAlreadyExists(error.message)));
       yield cancel();
     }
-    // once app is well tested, delete this part and let onError hook manage unexpected errors
+    yield put(initBeneficiary());
     yield put(showUnknownError(error as Error));
   }
 }
@@ -92,51 +91,51 @@ export function* deleteBeneficiaryGenerator(
     payload,
   }: {
     type: string;
-    payload: IBeneficiaryAddCommand;
+    payload: IDeleteBeneficiaryCommand;
   },
 ): Generator<StrictEffect, any, any> {
   try {
+    const authApi = AuthApi.getInstance(httpConnection);
+    const authFromStore = yield select(selectAuth);
+    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
+    yield put(refreshSuccess({ auth }));
     // api call - delete beneficiary
     const api = BeneficiaryApi.getInstance(httpConnection);
     const beneficiary = yield call([api, api.deleteBeneficiary], payload);
 
-    // update store - Remove from list
-    const { beneficiaries: beneficiariesFromStore } = yield select(selectBeneficiary);
-    if (beneficiariesFromStore) {
-      const index = beneficiariesFromStore
-        .map((beneficiary: IBeneficiary) => beneficiary.beneficiaryId)
-        .indexOf(beneficiary.beneficiaryId);
-      beneficiariesFromStore.splice(index, 1);
-      yield put(beneficiaryListed(beneficiariesFromStore));
-    } else {
-      yield put(beneficiaryListed([beneficiary]));
-    }
-
-    // nav back to beneficiary list
-    yield call(navigate, { route: IHomeStackPages.BENEFICIARY_LIST });
+    yield put(beneficiaryDeleted(beneficiary));
+    yield call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 0 } });
   } catch (error: unknown) {
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {
       yield call(navigate, { route: IAuthStackPages.LOGIN });
       yield cancel();
     }
-    // once app is well tested, delete this part and let onError hook manage unexpected errors
+    if (error instanceof ServerError && error.statusCode === 400) {
+      yield put(beneficiaryDeleteFailed(new BeneficiaryError.BeneficiaryUnknown(error.message)));
+      yield cancel();
+    }
+    yield put(initBeneficiary());
     yield put(showUnknownError(error as Error));
   }
 }
 
 export function* listBeneficiaryGenerator(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   try {
+    const authApi = AuthApi.getInstance(httpConnection);
+    const authFromStore = yield select(selectAuth);
+    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
+    yield put(refreshSuccess({ auth }));
+
     const { beneficiaries: beneficiariesFromStore } = yield select(selectBeneficiary);
+
     if (beneficiariesFromStore) {
-      yield put(beneficiaryListed(beneficiariesFromStore));
-      yield call(navigate, { route: IHomeStackPages.BENEFICIARY_LIST });
+      yield put(beneficiariesListed(beneficiariesFromStore));
+      yield call(navigate, { route: IBeneficiaryStackPages.MENU });
     } else {
       const api = BeneficiaryApi.getInstance(httpConnection);
       const beneficiaries: IBeneficiary[] = yield call([api, api.getBeneficiary]);
-      sortByName(beneficiaries);
-      yield put(beneficiaryListed(beneficiaries));
-      yield call(navigate, { route: IHomeStackPages.BENEFICIARY_LIST });
+      yield put(beneficiariesListed(beneficiaries));
     }
   } catch (error: unknown) {
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
@@ -145,7 +144,38 @@ export function* listBeneficiaryGenerator(httpConnection: HttpConnection): Gener
       yield cancel();
     }
     // once app is well tested, delete this part and let onError hook manage unexpected errors
-    yield put(beneficiaryListInit());
+    yield put(initBeneficiary());
+    yield put(showUnknownError(error as Error));
+  }
+}
+
+export function* selectBeneficiaryGenerator(
+  httpConnection: HttpConnection,
+  {
+    payload,
+  }: {
+    type: string;
+    payload: { beneficiaryId: number };
+  },
+): Generator<StrictEffect, any, any> {
+  try {
+    const authApi = AuthApi.getInstance(httpConnection);
+    const authFromStore = yield select(selectAuth);
+    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
+    yield put(refreshSuccess({ auth }));
+
+    const { beneficiaries: beneficiariesFromStore } = yield select(selectBeneficiary);
+    const beneficiary = beneficiariesFromStore.find(
+      (beneficiary: IBeneficiary) => payload.beneficiaryId === beneficiary.beneficiaryId,
+    );
+    yield put(beneficiarySelected(beneficiary));
+    yield call(navigate, { route: ITransferStackPages.MENU });
+  } catch (error: unknown) {
+    if (error instanceof ServerError && error.statusCode === 401) {
+      yield call(navigate, { route: IAuthStackPages.LOGIN });
+      yield cancel();
+    }
+    // Gestion des erreurs non attendues
     yield put(showUnknownError(error as Error));
   }
 }

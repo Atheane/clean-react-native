@@ -4,13 +4,15 @@ import { useTranslation } from 'react-i18next';
 import DocumentPickr from 'react-native-document-picker';
 import * as FileSystem from 'expo-file-system';
 
+import { calculateBase64Size } from '@clean-rn/utils';
+import { DocumentError } from '@clean-rn/kyc/domain';
+
 import { SecondaryButton } from '../../buttons/secondary-button';
 import { Colors } from '../../../constants';
 import { ImportDocument } from '../../../assets';
-import { calculateBase64Size } from '../../../utils';
-import { DocumentError } from '@clean-rn/kyc/domain';
 
 type IProps = {
+  setLoading: (loading: boolean) => void;
   getDocument: (doc: string) => void;
   handleError: (error: unknown) => void;
 };
@@ -26,13 +28,13 @@ const convertPDFToBase64 = async (uri: string) => {
 export const DocumentPicker = (props: IProps) => {
   const { t } = useTranslation();
   const selectPDF = async (): Promise<void> => {
+    props.setLoading(true);
+
     try {
       const result = await DocumentPickr.pickSingle({
-        type: Platform.OS === 'ios' ? 'com.adobe.pdf' : 'application/pdf',
+        type: Platform.OS === 'ios' ? ['com.adobe.pdf', 'public.image'] : ['application/pdf', 'image/*'],
         mode: 'open',
       });
-      // const base64String = await convertPDFToBase64(result.uri);
-      // props.getDocument(base64String);
       let fileUri = result.uri;
       if (Platform.OS === 'android' && FileSystem.documentDirectory) {
         // Copier le fichier dans un emplacement temporaire
@@ -45,12 +47,17 @@ export const DocumentPicker = (props: IProps) => {
       }
       const base64String = await convertPDFToBase64(fileUri);
       props.getDocument(base64String);
+      props.setLoading(false);
     } catch (err) {
+      props.setLoading(false);
+
       if (!DocumentPickr.isCancel(err)) {
         props.handleError(err);
         return;
       }
       console.log('User cancelled the picker');
+    } finally {
+      props.setLoading(false);
     }
   };
 
