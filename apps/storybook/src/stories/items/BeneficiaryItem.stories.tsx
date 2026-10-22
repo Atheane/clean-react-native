@@ -8,6 +8,7 @@ const BeneficiaryItemMeta: ComponentMeta<typeof BeneficiaryItem> = {
   component: BeneficiaryItem,
   argTypes: {
     onDelete: { action: 'onDelete' },
+    onPress: { action: 'onPress' },
   },
   args: {
     icon: BankLogoCA,
@@ -23,9 +24,13 @@ export default BeneficiaryItemMeta;
 type BeneficiaryItemStory = ComponentStory<typeof BeneficiaryItem>;
 
 export const Static: BeneficiaryItemStory = (args) => {
-  return <BeneficiaryItem {...args} onDelete={undefined} />;
+  return <BeneficiaryItem {...args} onDelete={undefined} onPress={undefined} />;
 };
 
 export const Delete: BeneficiaryItemStory = (args) => {
-  return <BeneficiaryItem {...args} />;
+  return <BeneficiaryItem {...args} onPress={undefined} />;
+};
+
+export const Chevron: BeneficiaryItemStory = (args) => {
+  return <BeneficiaryItem {...args} onDelete={undefined} />;
 };

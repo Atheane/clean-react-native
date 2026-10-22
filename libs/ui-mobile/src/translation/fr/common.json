@@ -72,6 +72,9 @@
       "invalid": "pays invalide",
       "unvailable": "ce pays n'est pas disponible"
     },
+    "country-code": {
+      "required": "code pays requis"
+    },
     "domain-error": {
       "auth": {
         "INVALID_EMAIL": "E-mail invalide",
@@ -186,7 +189,7 @@
     },
     "phone": {
       "label": "numéro de téléphone",
-      "placeholder": "numéro de téléphone"
+      "placeholder": "Numéro de téléphone"
     }
   },
   "signup-birth": {

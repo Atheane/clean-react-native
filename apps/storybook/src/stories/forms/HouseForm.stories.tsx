@@ -10,7 +10,7 @@ const HouseFormMeta: ComponentMeta<typeof HouseForm> = {
     onChangeForm: { action: 'onChangeForm' },
     onChangeField: { action: 'onChangeField' },
   },
-  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
+  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };
 
 export default HouseFormMeta;
@@ -18,6 +18,6 @@ export default HouseFormMeta;
 type HouseFormStory = ComponentStory<typeof HouseForm>;
 
 export const Dynamic: HouseFormStory = () => {
-  const { resetFormData, handleFormData } = useHouseFormData();
-  return <HouseForm onChangeForm={resetFormData} onChangeField={handleFormData} />;
+  const { resetFormData, handleFormData } = useHouseFormData(null);
+  return <HouseForm onChangeForm={resetFormData} onChangeField={handleFormData} initialValues={null} />;
 };

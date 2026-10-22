@@ -9,7 +9,7 @@ const FoodFormMeta: ComponentMeta<typeof FoodForm> = {
   argTypes: {
     onChangeForm: { action: 'onChangeForm' },
   },
-  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
+  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };
 
 export default FoodFormMeta;

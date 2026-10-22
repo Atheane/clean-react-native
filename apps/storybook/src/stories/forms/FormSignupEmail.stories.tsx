@@ -10,9 +10,9 @@ const FormSignupEmailMeta: ComponentMeta<typeof FormSignupEmail> = {
   title: 'Forms/FormSignupEmail',
   component: FormSignupEmail,
   argTypes: {
-    onSubmit: { action: 'onSubmit' },
+    onFocus: { action: 'onFocus' },
   },
-  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
+  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };
 
 export default FormSignupEmailMeta;
@@ -21,7 +21,7 @@ type FormSignupEmailStory = ComponentStory<typeof FormSignupEmail>;
 
 export const Dynamic: FormSignupEmailStory = (args) => {
   const onSubmit = useCallback(() => {
-    Logger.getInstance().info('onSubmit');
+    Logger.getInstance().info('onFocus');
   }, []);
 
   const {
@@ -30,5 +30,5 @@ export const Dynamic: FormSignupEmailStory = (args) => {
     formState: { errors },
   } = useForm<ISignupEmailFormData>();
 
-  return <FormSignupEmail {...args} control={control} errors={errors} onSubmit={handleSubmit(onSubmit)} />;
+  return <FormSignupEmail {...args} control={control} errors={errors} onFocus={handleSubmit(onSubmit)} />;
 };

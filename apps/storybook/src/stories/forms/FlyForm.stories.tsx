@@ -24,7 +24,7 @@ const FlyFormMeta: ComponentMeta<typeof FlyForm> = {
   args: {
     airports: formattedAirports,
   },
-  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
+  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };
 
 export default FlyFormMeta;

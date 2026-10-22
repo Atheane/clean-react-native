@@ -17,7 +17,7 @@ import {
   IUserErrorCodes,
   IUserErrorMessage,
 } from '@clean-rn/user/domain';
-import { Person } from '../../../assets';
+import { ProfileGradient } from '../../../assets';
 import { Colors } from '../../../constants';
 import { firstLetterCapitalize } from '../../../utils';
 
@@ -74,7 +74,7 @@ export const FormContact = (props: IProps) => {
               label={t('signup-identity.first-name.label')}
               labelColor={Colors.bank.primary.grey}
               placeholder={firstLetterCapitalize(t('signup-identity.first-name.placeholder'))}
-              IconLeft={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
+              IconLeft={ProfileGradient}
               value={value}
               onChange={onChange}
             />
@@ -98,7 +98,7 @@ export const FormContact = (props: IProps) => {
               label={t('signup-identity.last-name.label')}
               labelColor={Colors.bank.primary.grey}
               placeholder={firstLetterCapitalize(t('signup-identity.last-name.placeholder'))}
-              IconLeft={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
+              IconLeft={ProfileGradient}
               value={value}
               onChange={onChange}
             />
@@ -212,7 +212,7 @@ export const FormContact = (props: IProps) => {
 
 const styles = StyleSheet.create({
   input: {
-    marginTop: 30,
+    marginTop: 40,
   },
   formSubmit: {
     marginTop: 80,

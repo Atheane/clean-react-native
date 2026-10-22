@@ -8,6 +8,7 @@ const BeneficiaryCardMeta: ComponentMeta<typeof BeneficiaryCard> = {
   component: BeneficiaryCard,
   argTypes: {
     onDelete: { action: 'onDelete' },
+    onPress: { action: 'onPress' },
   },
   args: {
     data: {
@@ -27,7 +28,7 @@ export default BeneficiaryCardMeta;
 type BeneficiaryCardStory = ComponentStory<typeof BeneficiaryCard>;
 
 export const Even: BeneficiaryCardStory = (args) => {
-  return <BeneficiaryCard {...args} onDelete={undefined} />;
+  return <BeneficiaryCard {...args} onDelete={undefined} onPress={undefined} />;
 };
 
 export const Odd: BeneficiaryCardStory = (args) => {
@@ -35,5 +36,9 @@ export const Odd: BeneficiaryCardStory = (args) => {
 };
 
 export const EvenDelete: BeneficiaryCardStory = (args) => {
-  return <BeneficiaryCard {...args} />;
+  return <BeneficiaryCard {...args} onPress={undefined} />;
+};
+
+export const OddPress: BeneficiaryCardStory = (args) => {
+  return <BeneficiaryCard {...args} idx={1} onDelete={undefined} />;
 };

@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: '20%',
   },
-  inputContainer: { marginTop: 30 },
+  inputContainer: { marginTop: 40 },
   errorContainer: {
     marginTop: 24,
   },

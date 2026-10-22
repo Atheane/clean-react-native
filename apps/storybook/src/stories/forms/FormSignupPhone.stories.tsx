@@ -20,7 +20,7 @@ const FormSignupPhoneMeta: ComponentMeta<typeof FormSignupPhone> = {
   args: {
     defaultCountry,
   },
-  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
+  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };
 
 export default FormSignupPhoneMeta;

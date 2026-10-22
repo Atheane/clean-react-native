@@ -25,7 +25,7 @@ const FormSignupAddressMeta: ComponentMeta<typeof FormSignupAddress> = {
   args: {
     defaultCountry,
   },
-  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
+  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };
 
 export default FormSignupAddressMeta;

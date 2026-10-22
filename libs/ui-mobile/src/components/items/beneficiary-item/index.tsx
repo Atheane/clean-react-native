@@ -5,7 +5,6 @@ import { useTheme } from '@rneui/themed';
 import { LinkButton } from '../../buttons/link-button';
 import { RightChevronGradient, Trash } from '../../../assets';
 import { Colors, FontNames } from '../../../constants';
-import { LinkButtonColors } from '../../../types';
 //
 
 type IProps = {
@@ -69,6 +68,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   btnContainer: {
-    marginLeft: 30,
+    position: 'absolute',
+    right: 16,
   },
 });

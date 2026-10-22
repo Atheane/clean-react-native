@@ -27,7 +27,7 @@ const FormSignupIdentityPasswordPhoneMeta: ComponentMeta<typeof FormSignupIdenti
     defaultCountry,
     securedPassword: true,
   },
-  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
+  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };
 
 export default FormSignupIdentityPasswordPhoneMeta;
