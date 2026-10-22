@@ -137,6 +137,48 @@ describe('Beneficiary - integration', () => {
     });
   });
 
+  it('Should store correct state if BENEFICIARY_ADDED when a beneficiary already exists', () => {
+    const mockBeneficiaries = [
+      {
+        beneficiaryId: 4004318954,
+        iban: 'FR7616798000010000242599449',
+        bic: 'TRZOFR21XXX',
+        name: 'MOCKBENEFICIARY',
+      },
+    ];
+
+    sagaTester = new SagaTester({
+      initialState: {
+        pending: false,
+        beneficiaries: mockBeneficiaries,
+        error: null,
+      },
+      reducers: beneficiaryReducer,
+    });
+
+    const mockRequest = {
+      iban: 'FR7616798000010000242599450',
+      bic: 'TRZOFR21XXX',
+      name: 'BENFMOCK',
+    };
+    const mockResponse = {
+      beneficiaryId: 4004318955,
+      iban: 'FR7616798000010000242599450',
+      bic: 'TRZOFR21XXX',
+      name: 'BENFMOCK',
+    };
+
+    sagaTester.start(wrapSagaHidingNotFoundError, addBeneficiarySaga, httpConnection);
+    sagaTester.dispatch(addBeneficiary(mockRequest));
+    sagaTester.dispatch(beneficiaryAdded(mockResponse));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      beneficiaries: [mockResponse, ...mockBeneficiaries], // ordered by name
+      error: null,
+    });
+  });
+
   it('Should store correct state if BENEFICIARY_ADDED_FAILED', () => {
     const mockRequest = {
       iban: 'FR7616798000010000242599449',
@@ -176,6 +218,29 @@ describe('Beneficiary - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       beneficiaries: [],
+      error: null,
+    });
+  });
+
+  it('Should store correct state if BENEFICIARY_DELETED if no beneficiaries', () => {
+    const mockRequest = {
+      beneficiaryId: 4004318954,
+    };
+    const mockResponse = {
+      beneficiaryId: 4004318954,
+      iban: 'FR7616798000010000242599449',
+      bic: 'TRZOFR21XXX',
+      name: 'BENFMOCK',
+    };
+
+    sagaTester.start(wrapSagaHidingNotFoundError, deleteBeneficiarySaga, httpConnection);
+    sagaTester.dispatch(beneficiariesListed([]));
+    sagaTester.dispatch(deleteBeneficiary(mockRequest));
+    sagaTester.dispatch(beneficiaryDeleted(mockResponse));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      beneficiaries: null,
       error: null,
     });
   });

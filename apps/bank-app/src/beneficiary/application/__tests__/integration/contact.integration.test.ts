@@ -110,6 +110,45 @@ describe('Contact - integration', () => {
     });
   });
 
+  it('Should store correct state if CONTACT_ADDED when a contact already exists', () => {
+    const mockContacts = [
+      {
+        name: 'John Doe',
+        phone: '+33607080910',
+      },
+    ];
+
+    const mockRequest = {
+      firstname: 'Jane',
+      lastname: 'Doe',
+      phone: '0607080911',
+      countryCode: 'FR',
+    };
+
+    const mockResponse = {
+      name: 'Jane Doe',
+      phone: '+33607080911',
+    };
+
+    sagaTester = new SagaTester({
+      initialState: {
+        pending: false,
+        contacts: mockContacts,
+        error: null,
+      },
+      reducers: contactReducer,
+    });
+
+    sagaTester.dispatch(addContact(mockRequest));
+    sagaTester.dispatch(contactAdded(mockResponse));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      contacts: [mockResponse, ...mockContacts],
+      error: null,
+    });
+  });
+
   it('Should store correct state if CONTACT_ADDED_FAILED', () => {
     const mockRequest = {
       firstname: 'John',
