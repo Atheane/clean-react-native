@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     top: 20,
     left: 70,
     height: 40,
+    justifyContent: 'center',
   },
   dropdownContainer: {
     position: 'absolute',

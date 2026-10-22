@@ -8,6 +8,8 @@ import {
   IDeleteBeneficiaryCommand,
 } from '@clean-rn/beneficiary/domain';
 
+import { AuthApi } from '@clean-rn/auth/infrastructure';
+
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { BeneficiaryApi } from '@clean-rn/beneficiary/infrastructure';
 
@@ -29,6 +31,8 @@ import {
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { selectBeneficiary } from '../../state-management/selectors';
+import { selectAuth } from '../../../../auth/application/state-management/selectors';
+import { refreshSuccess } from '../../../../auth/application/commands';
 
 export function* addBeneficiarySaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IBeneficiaryTypes.ADD_BENEFICIARY, addBeneficiaryGenerator, httpConnection);
@@ -42,8 +46,8 @@ export function* listBeneficiarySaga(httpConnection: HttpConnection): Generator<
   yield takeEvery(IBeneficiaryTypes.LIST_BENEFICIARIES, listBeneficiaryGenerator, httpConnection);
 }
 
-export function* selectBeneficiarySaga(): Generator<StrictEffect, any, any> {
-  yield takeEvery(IBeneficiaryTypes.SELECT_BENEFICIARY, selectBeneficiaryGenerator);
+export function* selectBeneficiarySaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
+  yield takeEvery(IBeneficiaryTypes.SELECT_BENEFICIARY, selectBeneficiaryGenerator, httpConnection);
 }
 
 export function* addBeneficiaryGenerator(
@@ -56,6 +60,10 @@ export function* addBeneficiaryGenerator(
   },
 ): Generator<StrictEffect, any, any> {
   try {
+    const authApi = AuthApi.getInstance(httpConnection);
+    const authFromStore = yield select(selectAuth);
+    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
+    yield put(refreshSuccess({ auth }));
     // api call - add beneficiary
     const api = BeneficiaryApi.getInstance(httpConnection);
     const beneficiary = yield call([api, api.addBeneficiary], payload);
@@ -87,6 +95,10 @@ export function* deleteBeneficiaryGenerator(
   },
 ): Generator<StrictEffect, any, any> {
   try {
+    const authApi = AuthApi.getInstance(httpConnection);
+    const authFromStore = yield select(selectAuth);
+    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
+    yield put(refreshSuccess({ auth }));
     // api call - delete beneficiary
     const api = BeneficiaryApi.getInstance(httpConnection);
     const beneficiary = yield call([api, api.deleteBeneficiary], payload);
@@ -110,6 +122,11 @@ export function* deleteBeneficiaryGenerator(
 
 export function* listBeneficiaryGenerator(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   try {
+    const authApi = AuthApi.getInstance(httpConnection);
+    const authFromStore = yield select(selectAuth);
+    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
+    yield put(refreshSuccess({ auth }));
+
     const { beneficiaries: beneficiariesFromStore } = yield select(selectBeneficiary);
 
     if (beneficiariesFromStore) {
@@ -132,19 +149,36 @@ export function* listBeneficiaryGenerator(httpConnection: HttpConnection): Gener
   }
 }
 
-export function* selectBeneficiaryGenerator({
-  payload,
-}: {
-  type: string;
-  payload: { beneficiaryId: number };
-}): Generator<StrictEffect, any, any> {
-  const { beneficiaries: beneficiariesFromStore } = yield select(selectBeneficiary);
-  const beneficiary = beneficiariesFromStore.find(
-    (beneficiary: IBeneficiary) => payload.beneficiaryId === beneficiary.beneficiaryId,
-  );
-  if (!beneficiary) {
-    yield cancel();
+export function* selectBeneficiaryGenerator(
+  httpConnection: HttpConnection,
+  {
+    payload,
+  }: {
+    type: string;
+    payload: { beneficiaryId: number };
+  },
+): Generator<StrictEffect, any, any> {
+  try {
+    const authApi = AuthApi.getInstance(httpConnection);
+    const authFromStore = yield select(selectAuth);
+    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
+    yield put(refreshSuccess({ auth }));
+
+    const { beneficiaries: beneficiariesFromStore } = yield select(selectBeneficiary);
+    const beneficiary = beneficiariesFromStore.find(
+      (beneficiary: IBeneficiary) => payload.beneficiaryId === beneficiary.beneficiaryId,
+    );
+    if (!beneficiary) {
+      yield cancel();
+    }
+    yield put(beneficiarySelected(beneficiary));
+    yield call(navigate, { route: ITransferStackPages.MENU });
+  } catch (error: unknown) {
+    if (error instanceof ServerError && error.statusCode === 401) {
+      yield call(navigate, { route: IAuthStackPages.LOGIN });
+      yield cancel();
+    }
+    // Gestion des erreurs non attendues
+    yield put(showUnknownError(error as Error));
   }
-  yield put(beneficiarySelected(beneficiary));
-  yield call(navigate, { route: ITransferStackPages.MENU });
 }

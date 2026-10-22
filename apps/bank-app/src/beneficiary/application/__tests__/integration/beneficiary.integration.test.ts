@@ -151,17 +151,6 @@ describe('Beneficiary - integration', () => {
         name: 'MOCKBENEFICIARY',
       },
     ];
-
-    sagaTester = new SagaTester({
-      initialState: {
-        pending: false,
-        beneficiaries: mockBeneficiaries,
-        selectedBeneficiary: null,
-        error: null,
-      },
-      reducers: beneficiaryReducer,
-    });
-
     const mockRequest = {
       iban: 'FR7616798000010000242599450',
       bic: 'TRZOFR21XXX',
@@ -176,6 +165,7 @@ describe('Beneficiary - integration', () => {
 
     sagaTester.start(wrapSagaHidingNotFoundError, addBeneficiarySaga, httpConnection);
     sagaTester.dispatch(addBeneficiary(mockRequest));
+    sagaTester.dispatch(beneficiaryAdded(mockBeneficiaries[0]));
     sagaTester.dispatch(beneficiaryAdded(mockResponse));
 
     expect(sagaTester.getState()).toEqual({
@@ -225,7 +215,7 @@ describe('Beneficiary - integration', () => {
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      beneficiaries: [],
+      beneficiaries: null,
       selectedBeneficiary: null,
       error: null,
     });
@@ -261,7 +251,6 @@ describe('Beneficiary - integration', () => {
     };
 
     sagaTester.start(wrapSagaHidingNotFoundError, deleteBeneficiarySaga, httpConnection);
-    sagaTester.dispatch(beneficiariesListed(mockBeneficiaries));
     sagaTester.dispatch(deleteBeneficiary(mockRequest));
     sagaTester.dispatch(
       beneficiaryDeleteFailed(new BeneficiaryError.BeneficiaryUnknown(mockError400.message)),
@@ -269,7 +258,7 @@ describe('Beneficiary - integration', () => {
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      beneficiaries: mockBeneficiaries,
+      beneficiaries: null,
       selectedBeneficiary: null,
       error: new BeneficiaryError.BeneficiaryUnknown(mockError400.message),
     });

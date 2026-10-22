@@ -110,13 +110,14 @@ export function* sendTransferGenerator(
 
     const api = TransactionApi.getInstance(httpConnection);
     const transaction = yield call([api, api.sendTransfer], payload);
-    console.log('transaction', transaction);
 
     yield put(transferSent(transaction));
     yield call(navigate, {
       route: ITransferStackPages.TRANSFER_SUCCESS,
     });
   } catch (error: unknown) {
+    yield put(initTransfer());
+
     if (error instanceof ServerError && error.statusCode === 401) {
       yield call(navigate, { route: IAuthStackPages.LOGIN });
       yield cancel();
@@ -125,7 +126,6 @@ export function* sendTransferGenerator(
       yield put(transferFailed(new TransactionError.TransferAmountTooHigh(error)));
       yield cancel();
     }
-    yield put(initTransfer());
     // Gestion des erreurs non attendues
     yield put(showUnknownError(error as Error));
   }

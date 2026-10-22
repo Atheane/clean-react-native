@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { call, put, StrictEffect, takeEvery, cancel, select } from 'redux-saga/effects';
+import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { Customer, IDocumentProperties, IKycState } from '@clean-rn/kyc/domain';
@@ -31,6 +31,7 @@ export function* checkCustomerStatusGenerator(
     const { user } = payload;
     if (user.properties.USPerson === undefined) {
       yield cancel();
+      return;
     }
     const customerStatus = user.properties.kycReview;
     if (customerStatus && customerStatus === KYC_REVIEW.VALIDATED) {

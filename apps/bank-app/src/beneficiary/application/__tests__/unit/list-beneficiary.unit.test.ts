@@ -6,9 +6,14 @@ import Constants from 'expo-constants';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { BeneficiaryApi } from '@clean-rn/beneficiary/infrastructure';
 
+import { AuthApi } from '@clean-rn/auth/infrastructure';
+
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+
+import { selectAuth } from '../../../../auth/application/state-management/selectors';
+import { refreshSuccess } from '../../../../auth/application/commands';
 
 import { selectBeneficiary } from '../../state-management/selectors';
 import { listBeneficiaryGenerator, listBeneficiarySaga } from '../../usecases/beneficiary';
@@ -18,6 +23,8 @@ describe('ListBeneficiary - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
 
   const api = BeneficiaryApi.getInstance(httpConnection);
+  const authApi = AuthApi.getInstance(httpConnection);
+
   const genObject = listBeneficiarySaga(httpConnection);
 
   const mockResponse = [
@@ -28,6 +35,11 @@ describe('ListBeneficiary - usecase', () => {
       name: 'BENFMOCK',
     },
   ];
+
+  const mockToken = {
+    accessToken: 'fake-access-token',
+    refreshToken: 'fake-refresh-token',
+  };
 
   const mockError401 = {
     statusCode: 401,
@@ -59,6 +71,12 @@ describe('ListBeneficiary - usecase', () => {
   it('Should call beneficiaryListed if no cached data', async () => {
     testSaga(listBeneficiaryGenerator, httpConnection)
       .next()
+      .select(selectAuth)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
+      .next()
       .select(selectBeneficiary)
       .next({ beneficiaries: null })
       .call([api, api.getBeneficiary]) // <- Utilisez cette syntaxe pour spécifier le contexte.
@@ -70,6 +88,12 @@ describe('ListBeneficiary - usecase', () => {
   it('Should call beneficiaryListed if beneficiaries cached', async () => {
     testSaga(listBeneficiaryGenerator, httpConnection)
       .next()
+      .select(selectAuth)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
+      .next()
       .select(selectBeneficiary)
       .next({ beneficiaries: mockResponse })
       .put(beneficiariesListed(mockResponse))
@@ -78,6 +102,12 @@ describe('ListBeneficiary - usecase', () => {
 
   it('Should call navigate to Login modale if 401 from Server', () => {
     testSaga(listBeneficiaryGenerator, httpConnection)
+      .next()
+      .select(selectAuth)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .select(selectBeneficiary)
       .next({ beneficiaries: null })
@@ -91,6 +121,12 @@ describe('ListBeneficiary - usecase', () => {
   it('Should call showUnknownError action if 500 from Server', () => {
     testSaga(listBeneficiaryGenerator, httpConnection)
       .next()
+      .select(selectAuth)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
+      .next()
       .select(selectBeneficiary)
       .next({ beneficiaries: null })
       .call([api, api.getBeneficiary]) // <- Utilisez cette syntaxe pour spécifier le contexte.
@@ -103,6 +139,12 @@ describe('ListBeneficiary - usecase', () => {
 
   it('Should call showUnknownError action if unknown error', () => {
     testSaga(listBeneficiaryGenerator, httpConnection)
+      .next()
+      .select(selectAuth)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .select(selectBeneficiary)
       .next({ beneficiaries: null })

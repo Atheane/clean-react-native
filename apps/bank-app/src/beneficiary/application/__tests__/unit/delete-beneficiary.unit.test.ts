@@ -5,6 +5,7 @@ import Constants from 'expo-constants';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { BeneficiaryApi } from '@clean-rn/beneficiary/infrastructure';
+import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IAuthStackPages, IBeneficiaryStackPages } from '../../../../shared/presentation/types';
@@ -18,10 +19,13 @@ import {
   initBeneficiary,
 } from '../../commands/beneficiary';
 import { BeneficiaryError } from '@clean-rn/beneficiary/domain';
+import { refreshSuccess } from '../../../../auth/application/commands';
+import { selectAuth } from '../../../../auth/application/state-management/selectors';
 
 describe('DeleteBeneficiary - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
   const api = BeneficiaryApi.getInstance(httpConnection);
+  const authApi = AuthApi.getInstance(httpConnection);
 
   const mockRequest = {
     beneficiaryId: 4004318954,
@@ -32,6 +36,11 @@ describe('DeleteBeneficiary - usecase', () => {
     iban: 'FR7616798000010000242599449',
     bic: 'TRZOFR21XXX',
     name: 'BENFMOCK',
+  };
+
+  const mockToken = {
+    accessToken: 'fake-access-token',
+    refreshToken: 'fake-refresh-token',
   };
 
   const mockError401 = {
@@ -77,6 +86,12 @@ describe('DeleteBeneficiary - usecase', () => {
       payload: mockRequest,
     })
       .next()
+      .select(selectAuth)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
+      .next()
       .call([api, api.deleteBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
       .put(beneficiaryDeleted(mockResponse))
@@ -91,6 +106,12 @@ describe('DeleteBeneficiary - usecase', () => {
       payload: mockRequest,
     })
       .next()
+      .select(selectAuth)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
+      .next()
       .call([api, api.deleteBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError400))
       .put(beneficiaryDeleteFailed(new BeneficiaryError.BeneficiaryUnknown(mockError400.message)))
@@ -103,6 +124,12 @@ describe('DeleteBeneficiary - usecase', () => {
       type: IBeneficiaryTypes.DELETE_BENEFICIARY,
       payload: mockRequest,
     })
+      .next()
+      .select(selectAuth)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .call([api, api.deleteBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
@@ -117,6 +144,12 @@ describe('DeleteBeneficiary - usecase', () => {
       payload: mockRequest,
     })
       .next()
+      .select(selectAuth)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
+      .next()
       .call([api, api.deleteBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
       .put(initBeneficiary())
@@ -130,6 +163,12 @@ describe('DeleteBeneficiary - usecase', () => {
       type: IBeneficiaryTypes.DELETE_BENEFICIARY,
       payload: mockRequest,
     })
+      .next()
+      .select(selectAuth)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
       .next()
       .call([api, api.deleteBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unknown error'))

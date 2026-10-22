@@ -284,9 +284,11 @@ const styles = StyleSheet.create({
   },
   iconContainer: { height: 23, marginLeft: -80, justifyContent: 'center' },
   tabContent: {
+    flex: 1,
     marginTop: 50,
   },
   content: {
+    flex: 1,
     marginTop: 30,
     height: Dimensions.get('window').height,
   },

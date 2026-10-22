@@ -61,7 +61,7 @@ export const Transfer = () => {
     setUserName(name);
   }, [user]);
 
-  const { pending, error, transfer } = useSelector((state: IRootState) => state.transaction);
+  const { pending, error } = useSelector((state: IRootState) => state.transaction);
 
   const {
     control,
@@ -129,7 +129,7 @@ export const Transfer = () => {
             <View style={styles.decorationContainer}>
               <Decoration />
             </View>
-            <View>
+            <View style={styles.formContainer}>
               <FormTransfer
                 loading={pending}
                 control={control}
@@ -157,7 +157,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   formContainer: {
-    marginTop: 40,
+    marginTop: 0,
+    width: Dimensions.get('screen').width * 0.85,
+    alignItems: 'center',
   },
   itemContainer: {
     marginTop: 20,

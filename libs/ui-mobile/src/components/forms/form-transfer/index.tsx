@@ -34,7 +34,7 @@ export const FormTransfer = (props: IProps) => {
   const { t } = useTranslation();
 
   return (
-    <View style={[theme.bank.container.centeredItem, styles.container]}>
+    <View style={[styles.container]}>
       <View style={styles.inputContainer}>
         <Controller
           control={props.control}
@@ -139,5 +139,6 @@ const styles = StyleSheet.create({
   },
   formSubmit: {
     marginTop: '30%',
+    alignItems: 'center', // Ajoutez cette ligne
   },
 });

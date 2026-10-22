@@ -16,31 +16,28 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
   const logger = Logger.getInstance();
   let newState: IBeneficiaryState;
   let beneficiaries: IBeneficiary[];
+  logger.debug(action.type);
 
   switch (action.type) {
     case IBeneficiaryTypes.ADD_BENEFICIARY:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
       };
       return newState;
     case IBeneficiaryTypes.DELETE_BENEFICIARY:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
       };
       return newState;
     case IBeneficiaryTypes.LIST_BENEFICIARIES:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
       };
       return newState;
     case IBeneficiaryTypes.INIT_BENEFICIARY:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -48,11 +45,6 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
         error: null,
       };
       return newState;
-    case IBeneficiaryTypes.SELECT_BENEFICIARY:
-      logger.debug(action.type);
-      return {
-        ...state,
-      };
     case IBeneficiaryTypes.BENEFICIARY_SELECTED:
       logger.debug(action.type);
       newState = {
@@ -62,6 +54,7 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
       return newState;
     case IBeneficiaryTypes.BENEFICIARY_ADDED:
       logger.debug(action.type);
+      console.log('-----------', state.beneficiaries);
       if (state.beneficiaries && state.beneficiaries.length > 0) {
         beneficiaries = [...state.beneficiaries, action.payload];
         inplaceSortByName(beneficiaries);

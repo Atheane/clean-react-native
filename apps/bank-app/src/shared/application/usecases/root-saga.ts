@@ -74,7 +74,7 @@ export function* rootSaga(httpConnection: HttpConnection) {
     addBeneficiarySaga(httpConnection),
     deleteBeneficiarySaga(httpConnection),
     listBeneficiarySaga(httpConnection),
-    selectBeneficiarySaga(),
+    selectBeneficiarySaga(httpConnection),
     addContactSaga(),
     listContactSaga(),
     listTransactionsSaga(httpConnection),

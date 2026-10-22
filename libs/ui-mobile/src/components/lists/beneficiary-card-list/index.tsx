@@ -15,7 +15,7 @@ export const BeneficiaryCardList = (props: IProps) => {
       showsVerticalScrollIndicator={false}
       pinchGestureEnabled
       data={props.data}
-      contentContainerStyle={{ flex: 1 }}
+      contentContainerStyle={{ padding: 0 }}
       keyExtractor={(item) => item.iban}
       renderItem={({ item, index }: { item: IBeneficiary; index: number }) => (
         <BeneficiaryCard data={item} idx={index} onDelete={props.onDelete} onPress={props.onPress} />
