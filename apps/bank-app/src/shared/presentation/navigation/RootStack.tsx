@@ -33,9 +33,6 @@ import { headersOptions } from '../../../shared/presentation/navigation/headersO
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 
 import { KycStack } from '../../../kyc/presentation/navigation';
-import { Carbon, House, Transport, Food, WarningFood, Fly } from '../../../carbon/presentation/screens';
-import { AccountStatements, AccountStatementsPdf, RibPdf } from '../../../account/presentation/screens';
-import { NotificationSettings } from '../../../user/presentation/screens';
 import { BottomTabNavigator } from './BottomNavigator';
 import { UserStack } from '../../../user/presentation/navigation';
 import { SignupCongrats } from '../../../user/presentation/screens';
@@ -80,86 +77,6 @@ export const HomeStack = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen name={IKycStackPages.MENU} component={KycStack} options={{ headerShown: false }} />
-      <Stack.Screen
-        name={IHomeStackPages.ACCOUNT_STATEMENTS}
-        component={AccountStatements}
-        options={{
-          headerTitle: t('screens.account-statements.title'),
-          ...headersOptions(goBack),
-        }}
-      />
-      <Stack.Screen
-        name={IHomeStackPages.ACCOUNT_STATEMENTS_PDF}
-        component={AccountStatementsPdf}
-        options={{
-          headerTitle: t('screens.account-statements-pdf.title'),
-          ...headersOptions(goBack),
-        }}
-      />
-      <Stack.Screen
-        name={IHomeStackPages.RIB_PDF}
-        component={RibPdf}
-        options={{
-          headerTitle: t('screens.rib-pdf.title'),
-          ...headersOptions(goBack),
-        }}
-      />
-      <Stack.Screen
-        name={ICarbonStackPages.CARBON}
-        component={Carbon}
-        options={{
-          headerTitle: t('screens.carbon.title'),
-          ...headersOptions(),
-        }}
-      />
-      <Stack.Screen
-        name={ICarbonStackPages.HOUSE}
-        component={House}
-        options={{
-          headerTitle: t('screens.carbon-house.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
-        }}
-      />
-      <Stack.Screen
-        name={ICarbonStackPages.TRANSPORT}
-        component={Transport}
-        options={{
-          headerTitle: t('screens.carbon-transport.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
-        }}
-      />
-      <Stack.Screen
-        name={ICarbonStackPages.FOOD}
-        component={Food}
-        options={{
-          headerTitle: t('screens.carbon-food.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
-        }}
-      />
-      <Stack.Screen
-        name={ICarbonStackPages.WARNING_FOOD}
-        component={WarningFood}
-        options={{
-          headerTitle: t('screens.carbon-food.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
-        }}
-      />
-      <Stack.Screen
-        name={ICarbonStackPages.FLY}
-        component={Fly}
-        options={{
-          headerTitle: t('screens.carbon-fly.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
-        }}
-      />
-      <Stack.Screen
-        name={IUserStackPages.NOTIFICATON_SETTINGS}
-        component={NotificationSettings}
-        options={{
-          headerTitle: t('screens.notifications.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
-        }}
-      />
       <Stack.Screen
         options={{
           presentation: 'modal',
