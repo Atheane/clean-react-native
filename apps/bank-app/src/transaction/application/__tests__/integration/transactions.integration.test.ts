@@ -3,7 +3,13 @@ import SagaTester from 'redux-saga-tester';
 import Constants from 'expo-constants';
 
 import { IAccountType, Iban, Bic } from '@clean-rn/account/domain';
-import { Amount, TransactionCategory, ITransactionType, ITransaction } from '@clean-rn/transaction/domain';
+import {
+  Amount,
+  TransactionCategory,
+  ITransactionType,
+  ITransaction,
+  TransactionError,
+} from '@clean-rn/transaction/domain';
 import { ITransactionServer } from '@clean-rn/transaction/infrastructure';
 
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
@@ -13,10 +19,14 @@ import {
   listTransactions,
   transactionsListed,
   initializeTransactionsList,
+  fetchSendTransfer,
+  transferSent,
+  transferFailed,
+  initTransfer,
 } from '../../commands';
 import { ITransactionsState, transactionsReducer } from '../../state-management';
 
-import { listTransactionsSaga } from '../../usecases';
+import { listTransactionsSaga, sendTransferSaga } from '../../usecases';
 
 const expoConstantsMock = {
   name: 'CleanRN BankApp Test',
@@ -124,6 +134,76 @@ describe('Transactions - integration', () => {
   it('Should store correct state if INITIALIZE_LIST_TRANSACTIONS', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, listTransactionsSaga, httpConnection);
     sagaTester.dispatch(initializeTransactionsList());
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      transactions: null,
+      transfer: null,
+      error: null,
+    });
+  });
+
+  it('Should store correct state if TRANSFER_SENT', () => {
+    const transfer = {
+      accountId: 4004318954,
+      beneficiaryId: 5004318954,
+      amount: new Amount('10.00', ITransactionType.TRANSFER_OUT),
+      iban: new Iban('FR7616798000010000242599449'),
+      label: 'Payin Generated from UTs on User Test',
+    };
+    const mockResponse: ITransaction = {
+      amount: new Amount('10.00', ITransactionType.TRANSFER_OUT),
+      label: 'Payin Generated from UTs on User Test',
+      id: 1686814688829,
+      type: ITransactionType.TRANSFER_OUT,
+      date: new Date('2023-06-15T07:38:09.217Z'),
+    };
+    sagaTester.start(wrapSagaHidingNotFoundError, sendTransferSaga, httpConnection);
+    sagaTester.dispatch(fetchSendTransfer(transfer));
+    sagaTester.dispatch(transferSent(mockResponse));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      transactions: null,
+      transfer: mockResponse,
+      error: null,
+    });
+  });
+
+  it('Should store correct state if TRANSFER_FAILED', () => {
+    const transfer = {
+      accountId: 4004318954,
+      beneficiaryId: 5004318954,
+      amount: new Amount('10.00', ITransactionType.TRANSFER_OUT),
+      iban: new Iban('FR7616798000010000242599449'),
+      label: 'Payin Generated from UTs on User Test',
+    };
+    const mockError403 = {
+      statusCode: 403,
+      message: 'Unauthorized',
+      response: {
+        statusCode: 403,
+        message: 'Unauthorized',
+      },
+      timestamp: '2023-10-03T13:20:21.303Z',
+      path: '/app/transaction/transfer',
+      method: 'POST',
+    };
+    sagaTester.start(wrapSagaHidingNotFoundError, sendTransferSaga, httpConnection);
+    sagaTester.dispatch(fetchSendTransfer(transfer));
+    sagaTester.dispatch(transferFailed(new TransactionError.TransferAmountTooHigh(mockError403)));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      transactions: null,
+      transfer: null,
+      error: new TransactionError.TransferAmountTooHigh(mockError403),
+    });
+  });
+
+  it('Should store correct state if INIT_TRANSFER', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, sendTransferSaga, httpConnection);
+    sagaTester.dispatch(initTransfer());
 
     expect(sagaTester.getState()).toEqual({
       pending: false,

@@ -49,7 +49,7 @@ export type ITransactionsListed = {
 
 export type ITransferSent = {
   type: typeof ITransactionsTypes.TRANSFER_SENT;
-  payload: ITransfer;
+  payload: ITransaction;
 };
 
 export type ITransferFailed = {

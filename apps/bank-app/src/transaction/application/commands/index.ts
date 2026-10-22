@@ -45,7 +45,7 @@ export const transactionsListed = (payload: ITransaction[]): ITransactionsListed
   payload,
 });
 
-export const transferSent = (payload: ITransfer): ITransferSent => ({
+export const transferSent = (payload: ITransaction): ITransferSent => ({
   type: ITransactionsTypes.TRANSFER_SENT,
   payload,
 });

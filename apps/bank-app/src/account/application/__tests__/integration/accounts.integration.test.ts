@@ -11,6 +11,7 @@ import {
   listAccounts,
   accountsListed,
   initializeAccountsList,
+  accountSelected,
 } from '../../commands/accounts';
 import { IAccountsState, accountsReducer } from '../../state-management';
 
@@ -96,6 +97,17 @@ describe('Accounts - integration', () => {
       pending: false,
       accounts: null,
       selectedAccount: null,
+    });
+  });
+
+  it('Should store correct state if ACCOUNT_SELECTED', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, listAccountsSaga, httpConnection);
+    sagaTester.dispatch(accountSelected(mockResponse[0]));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      accounts: null,
+      selectedAccount: mockResponse[0],
     });
   });
 });
