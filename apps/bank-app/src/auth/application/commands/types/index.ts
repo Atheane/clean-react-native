@@ -8,7 +8,6 @@ import {
   IResetPasswordCommand,
   ISuccess,
 } from '@clean-rn/auth/domain';
-import { User } from '@clean-rn/user/domain';
 import { IRoutes } from '../../../../shared/presentation/types';
 
 export enum IAuthTypes {

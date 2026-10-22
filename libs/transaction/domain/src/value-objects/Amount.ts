@@ -5,24 +5,28 @@ export class Amount {
   private readonly rawAmount: number;
   private readonly transactionType?: ITransactionType;
 
-  constructor(rawAmount: number, transactionType?: ITransactionType) {
-    this.validate(rawAmount, transactionType);
-    this.rawAmount = rawAmount;
+  constructor(rawAmount: string, transactionType?: ITransactionType) {
+    this.rawAmount = this.validate(rawAmount, transactionType);
     if (transactionType) {
       this.transactionType = transactionType;
     }
   }
 
-  private validate(rawAmount: number, transactionType?: ITransactionType): void {
-    if (!transactionType) return;
-    if (!ITransactionType[transactionType]) {
+  private validate(rawAmount: string, transactionType?: ITransactionType): number {
+    if (isNaN(parseFloat(rawAmount.replace(',', '.')))) {
+      throw new TransactionError.InvalidTransactionAmount('Amount must be a number');
+    }
+    if (transactionType && !ITransactionType[transactionType]) {
       throw new TransactionError.UnknownTransactionType();
     }
-    if (rawAmount < 0 && transactionType !== ITransactionType.CARD_TRANSACTION) {
-      throw new TransactionError.InvalidTransactionAmount(
-        `Amount cannot be negative for transaction type ${transactionType}`,
-      );
+    if (
+      parseFloat(rawAmount.replace(',', '.')) < 0 &&
+      transactionType &&
+      transactionType !== ITransactionType.CARD_TRANSACTION
+    ) {
+      throw new TransactionError.InvalidTransactionAmount(`Amount cannot be negative`);
     }
+    return parseFloat(rawAmount.replace(',', '.'));
   }
 
   get value(): number {

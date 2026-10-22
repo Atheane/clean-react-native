@@ -1,3 +1,5 @@
+import { Amount } from '../value-objects';
+
 export enum ITransactionType {
   CARD_TRANSACTION = 'CARD_TRANSACTION',
   PAYIN = 'PAYIN',
@@ -41,3 +43,10 @@ export enum IStatementsPeriod {
   LAST_TRIMESTER = 'trimester',
   ALL = 'all',
 }
+
+export type ITransfer = {
+  amount: Amount;
+  label: string;
+  mccCode: number;
+  transactionType: ITransactionType;
+};

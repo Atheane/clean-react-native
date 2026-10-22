@@ -1,7 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { useTranslation } from 'react-i18next';
 
-import { ITransactionType, Amount, TransactionCategory } from '@clean-rn/account/domain';
+import { ITransactionType, Amount, TransactionCategory } from '@clean-rn/transaction/domain';
 import { TransactionsCardsList } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
@@ -25,7 +25,7 @@ export const Static: TransactionsCardsListStory = (args) => {
   const data = [
     {
       id: 18709769758746,
-      amount: new Amount(131),
+      amount: new Amount('131'),
       label: t('screens.account.transfer') + ' Marie Dupond',
       category: new TransactionCategory(ITransactionType.PAYIN),
       date: new Date('2023-06-14T10:02:24.138Z'),
@@ -33,7 +33,7 @@ export const Static: TransactionsCardsListStory = (args) => {
     },
     {
       id: 18709769758747,
-      amount: new Amount(-32.45),
+      amount: new Amount('32.45', ITransactionType.CARD_TRANSACTION),
       label: 'Carrefour Saint-Serge',
       category: new TransactionCategory(ITransactionType.CARD_TRANSACTION, 122),
       date: new Date('2023-06-14T10:02:24.139Z'),
@@ -41,7 +41,7 @@ export const Static: TransactionsCardsListStory = (args) => {
     },
     {
       id: 187097658748,
-      amount: new Amount(-75.64),
+      amount: new Amount('75.64', ITransactionType.CARD_TRANSACTION),
       label: 'Station Total Brest',
       category: new TransactionCategory(ITransactionType.CARD_TRANSACTION, 122),
       date: new Date('2023-06-13T10:02:24.140Z'),
@@ -49,7 +49,7 @@ export const Static: TransactionsCardsListStory = (args) => {
     },
     {
       id: 187069758746,
-      amount: new Amount(131),
+      amount: new Amount('131', ITransactionType.PAYIN),
       label: t('screens.account.transfer') + ' Marie Dupond',
       category: new TransactionCategory(ITransactionType.PAYIN),
       date: new Date('2023-06-13T10:02:24.138Z'),
@@ -57,14 +57,14 @@ export const Static: TransactionsCardsListStory = (args) => {
     },
     {
       id: 187097697587,
-      amount: new Amount(-32.45),
+      amount: new Amount('32.45', ITransactionType.CARD_TRANSACTION),
       category: new TransactionCategory(ITransactionType.CARD_TRANSACTION, 122),
       date: new Date('2023-06-13T10:02:24.139Z'),
       type: ITransactionType.CARD_TRANSACTION,
     },
     {
       id: 1879869758748,
-      amount: new Amount(-75.64),
+      amount: new Amount('75.64', ITransactionType.CARD_TRANSACTION),
       label: 'Station Total Brest',
       category: new TransactionCategory(ITransactionType.CARD_TRANSACTION, 122),
       date: new Date('2023-06-11T10:02:24.140Z'),

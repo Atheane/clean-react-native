@@ -6,7 +6,13 @@ import { useTheme } from '@rneui/themed';
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
 import { IDomainError } from '@clean-rn/ddd';
-import { BIC, IBeneficiaryErrorCodes, IBeneficiaryErrorMessage, IBAN } from '@clean-rn/beneficiary/domain';
+import {
+  BIC,
+  IBeneficiaryErrorCodes,
+  IBeneficiaryErrorMessage,
+  IBAN,
+  LastName,
+} from '@clean-rn/beneficiary/domain';
 
 import { ProfileGradient, BicGreenGradient, IbanGreenGradient } from '../../../assets';
 import { Colors } from '../../../constants';
@@ -44,6 +50,7 @@ export const FormBeneficiary = (props: IProps) => {
             required: true,
             minLength: 3,
             maxLength: 140,
+            validate: LastName.validate,
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
@@ -59,7 +66,12 @@ export const FormBeneficiary = (props: IProps) => {
       </View>
       {props.errors?.name && props.errors.name.type === 'required' && (
         <View style={styles.errorContainer}>
-          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.name.required'))}</Text>
+          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.last-name.required'))}</Text>
+        </View>
+      )}
+      {props.errors?.name && props.errors.name.type === 'validate' && (
+        <View style={styles.errorContainer}>
+          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.last-name.invalid'))}</Text>
         </View>
       )}
       <View style={styles.inputContainer}>
@@ -68,7 +80,7 @@ export const FormBeneficiary = (props: IProps) => {
           name="iban"
           rules={{
             required: true,
-            validate: (value) => IBAN.validate(value),
+            validate: IBAN.validate,
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
@@ -98,7 +110,7 @@ export const FormBeneficiary = (props: IProps) => {
           name="bic"
           rules={{
             required: true,
-            validate: (value) => BIC.validate(value),
+            validate: BIC.validate,
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
@@ -146,7 +158,7 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   domainErrorContainer: {
-    marginTop: 16,
+    marginTop: 24,
   },
   formSubmit: {
     marginTop: '30%',

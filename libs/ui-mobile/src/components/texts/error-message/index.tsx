@@ -20,6 +20,7 @@ import {
 import { useTheme } from '@rneui/themed';
 
 import { IContactErrorCodes, IContactErrorMessage } from '@clean-rn/contact/domain';
+import { ITransactionErrorCodes, ITransactionErrorMessage } from '@clean-rn/transaction/domain';
 
 type IProps = {
   error:
@@ -31,6 +32,7 @@ type IProps = {
     | IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>
     | IDomainError<ICustomerErrorCodes, ICustomerErrorMessage>
     | IDomainError<IDocumentErrorCodes, IDocumentErrorMessage>
+    | IDomainError<ITransactionErrorCodes, ITransactionErrorMessage>
     | null;
 };
 export const ErrorMessage = (props: IProps) => {
@@ -105,6 +107,14 @@ export const ErrorMessage = (props: IProps) => {
           </View>
         )}
       {props.error?.code &&
+        Object.values(ITransactionErrorCodes).includes(props.error.code as ITransactionErrorCodes) && (
+          <View>
+            <Text style={theme.bank.text.errors}>
+              {firstLetterCapitalize(t(`errors.domain-error.transaction.${props.error.code}`))}
+            </Text>
+          </View>
+        )}
+      {props.error?.code &&
         !Object.values(IAuthErrorCodes).includes(props.error.code as IAuthErrorCodes) &&
         !Object.values(IUserErrorCodes).includes(props.error.code as IUserErrorCodes) &&
         !Object.values(IAccountErrorCodes).includes(props.error.code as IAccountErrorCodes) &&
@@ -112,7 +122,8 @@ export const ErrorMessage = (props: IProps) => {
         !Object.values(IContactErrorCodes).includes(props.error.code as IContactErrorCodes) &&
         !Object.values(ICarbonErrorCodes).includes(props.error.code as ICarbonErrorCodes) &&
         !Object.values(ICustomerErrorCodes).includes(props.error.code as ICustomerErrorCodes) &&
-        !Object.values(IDocumentErrorCodes).includes(props.error.code as IDocumentErrorCodes) && (
+        !Object.values(IDocumentErrorCodes).includes(props.error.code as IDocumentErrorCodes) &&
+        !Object.values(ITransactionErrorCodes).includes(props.error.code as ITransactionErrorCodes) && (
           <View>
             <Text style={theme.bank.text.errors}>
               {firstLetterCapitalize(t('errors.domain-error.other'))}

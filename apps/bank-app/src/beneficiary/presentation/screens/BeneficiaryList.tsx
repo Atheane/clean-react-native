@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
   },
   content: {
     marginTop: 30,
-    height: Dimensions.get('window').height - 300,
+    height: Dimensions.get('window').height,
   },
   scrollNoBeneficiary: {
     alignItems: 'center',

@@ -14,6 +14,8 @@ import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/h
 
 import { BankLogoCO2 } from '../assets/images';
 import { Decoration } from '../assets/svg';
+import { fetchSendTransfer } from '../../application/commands';
+import { Amount, ITransactionType } from '@clean-rn/transaction/domain';
 
 type IData = {
   key: string;
@@ -59,10 +61,8 @@ export const Transfer = () => {
     setUserName(name);
   }, [user]);
 
-  // api call
-  const { pending, error } = useSelector((state: IRootState) => state.beneficiary.beneficiaries);
+  const { pending, error, transfer } = useSelector((state: IRootState) => state.transaction);
 
-  // internal state
   const {
     control,
     handleSubmit,
@@ -71,19 +71,39 @@ export const Transfer = () => {
     defaultValues: {},
   });
 
+  const [selectedAccount, setSelectedAccount] = useState<IAccount | undefined>(
+    (accounts && accounts.length > 0 && accounts[0]) || undefined,
+  );
+  const handleOnSelect = useCallback(
+    (item: IData) => {
+      const account = accounts?.find((account) => account.accountType === item.key);
+      if (!account) {
+        return;
+      }
+      setSelectedAccount(account);
+    },
+    [accounts],
+  );
+
   const dispatch = useDispatch();
+  // api call
   const onSubmit = useCallback(
     (formData: ITransferFormData) => {
-      console.log('onSubmit formData', formData);
-      dispatch(fetchTransfer(formData));
+      if (!selectedAccount || !selectedBeneficiary) {
+        return;
+      }
+      dispatch(
+        fetchSendTransfer({
+          accountId: selectedAccount.accountId,
+          beneficiaryId: selectedBeneficiary.beneficiaryId,
+          amount: new Amount(formData.amount, ITransactionType.TRANSFER_OUT),
+          label: formData.label,
+        }),
+      );
     },
-    [dispatch],
+    [dispatch, selectedAccount, selectedBeneficiary],
   );
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
-
-  const handleOnSelect = useCallback((item: IData) => {
-    console.log(item);
-  }, []);
 
   return (
     <ErrorBoundary t={t}>

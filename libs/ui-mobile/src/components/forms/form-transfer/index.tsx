@@ -42,10 +42,14 @@ export const FormTransfer = (props: IProps) => {
           rules={{
             required: true,
             validate: (value: string) => {
+              console.log(value);
+              console.log(parseFloat(value.replace(',', '.')));
+              console.log(new Amount(value, ITransactionType.TRANSFER_OUT));
               try {
-                new Amount(parseFloat(value.replace(',', '.')), ITransactionType.TRANSFER_OUT);
+                new Amount(value, ITransactionType.TRANSFER_OUT);
                 return true;
               } catch (error: unknown) {
+                console.log(error);
                 return false;
               }
             },
@@ -81,6 +85,10 @@ export const FormTransfer = (props: IProps) => {
         <Controller
           control={props.control}
           name="label"
+          rules={{
+            required: true,
+            maxLength: 140,
+          }}
           render={({ field: { onChange, value } }) => (
             <TextInput
               placeholder={t('screens.transfer.placeholder')}
@@ -92,6 +100,16 @@ export const FormTransfer = (props: IProps) => {
           )}
         />
       </View>
+      {props.errors?.label && props.errors.label.type === 'required' && (
+        <View style={styles.errorContainer}>
+          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.label.required'))}</Text>
+        </View>
+      )}
+      {props.errors?.label && props.errors.label.type === 'maxLength' && (
+        <View style={styles.errorContainer}>
+          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.label.invalid'))}</Text>
+        </View>
+      )}
       <View style={styles.domainErrorContainer}>
         <ErrorMessage error={props.error} />
       </View>
@@ -114,10 +132,10 @@ const styles = StyleSheet.create({
   },
   inputContainer: { marginTop: 40 },
   errorContainer: {
-    marginTop: 24,
+    marginTop: 16,
   },
   domainErrorContainer: {
-    marginTop: 16,
+    marginTop: 24,
   },
   formSubmit: {
     marginTop: '30%',

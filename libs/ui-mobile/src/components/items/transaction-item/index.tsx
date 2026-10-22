@@ -22,7 +22,7 @@ export const TransactionItem = (props: IProps) => {
     return props.label;
   };
   return (
-    <View style={theme.bank.container.justifiedItems}>
+    <View style={[theme.bank.container.justifiedItems]}>
       <View style={theme.bank.container.leftItems}>
         <props.icon />
         <View style={styles.textContainer}>

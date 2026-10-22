@@ -20,12 +20,13 @@
       "required": "email requis",
       "invalid": "email invalide"
     },
+    "label": {
+      "required": "Le libellé est requis",
+      "invalid": "140 caractères maximum"
+    },
     "IBAN": {
       "required": "IBAN requis",
       "invalid": "IBAN invalide"
-    },
-    "name": {
-      "required": "nom requis"
     },
     "password": {
       "required": "mot de passe requis",
@@ -50,7 +51,7 @@
     },
     "last-name": {
       "required": "nom requis",
-      "invalid": "format du nom invalide"
+      "invalid": "format du nom de famille invalide"
     },
     "birth-country": {
       "required": "pays de naissance requis"
@@ -74,6 +75,10 @@
     },
     "country-code": {
       "required": "code pays requis"
+    },
+    "amount": {
+      "required": "montant requis",
+      "invalid": "montant invalide"
     },
     "domain-error": {
       "auth": {
@@ -135,6 +140,12 @@
         "TRUNCATED": "Merci de joindre un document en couleur, lisible, et entier (non tronqué)",
         "INCOHERENT": "Merci de joindre un document en cohérence avec les informations renseignées",
         "OTHER": "Le document n'a pas pu être validé, merci de le renvoyer"
+      },
+      "transaction": {
+        "INVALID_AMOUNT": "Montant invalide",
+        "UNKNOWN_TRANSACTION_TYPE": "Type de transaction inconnu",
+        "INVALID_TRANSACTION_VALUE": "Valeur de transaction invalide",
+        "TRANSFER_AMOUNT_TOO_HIGH": "Montant de transfert supérieur au solde"
       },
       "other": "erreur, veuillez contacter l'administrateur"
     },
@@ -376,7 +387,7 @@
       "main": "Bank App",
       "amount": "Montant",
       "label": "Libellé du virement",
-      "placeholder": "Reboursement restaurant"
+      "placeholder": "Remboursement restaurant"
     },
     "transfer-success": {
       "title": "Virement",

@@ -50,7 +50,7 @@ describe('ListTransactions - usecase', () => {
     },
   ].map((item: ITransactionServer) => ({
     id: item.transactionId,
-    amount: new Amount(item.amount, item.transactionType as ITransactionType),
+    amount: new Amount(item.amount.toString(), item.transactionType as ITransactionType),
     label: item.label,
     category: item.mccCode
       ? new TransactionCategory(item.transactionType as ITransactionType, item.mccCode)

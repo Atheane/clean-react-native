@@ -50,7 +50,7 @@ describe('Transactions - integration', () => {
     },
   ].map((item: ITransactionServer) => ({
     id: item.transactionId,
-    amount: new Amount(item.amount, item.transactionType as ITransactionType),
+    amount: new Amount(item.amount.toString(), item.transactionType as ITransactionType),
     label: item.label,
     category: item.mccCode
       ? new TransactionCategory(item.transactionType as ITransactionType, item.mccCode)
@@ -83,6 +83,8 @@ describe('Transactions - integration', () => {
     const initialState: ITransactionsState = {
       pending: false,
       transactions: null,
+      transfer: null,
+      error: null,
     };
     sagaTester = new SagaTester({
       initialState,
@@ -101,6 +103,8 @@ describe('Transactions - integration', () => {
     expect(newState).toEqual({
       pending: true,
       transactions: null,
+      transfer: null,
+      error: null,
     });
   });
 
@@ -112,6 +116,8 @@ describe('Transactions - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       transactions: mockResponse,
+      transfer: null,
+      error: null,
     });
   });
 
@@ -122,6 +128,8 @@ describe('Transactions - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       transactions: null,
+      transfer: null,
+      error: null,
     });
   });
 });

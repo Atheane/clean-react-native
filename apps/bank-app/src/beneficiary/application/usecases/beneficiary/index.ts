@@ -21,7 +21,11 @@ import {
   beneficiaryDeleted,
   beneficiarySelected,
 } from '../../commands/beneficiary';
-import { IAuthStackPages, IBeneficiaryStackPages } from '../../../../shared/presentation/types';
+import {
+  IAuthStackPages,
+  IBeneficiaryStackPages,
+  ITransferStackPages,
+} from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { selectBeneficiary } from '../../state-management/selectors';
@@ -142,4 +146,5 @@ export function* selectBeneficiaryGenerator({
     yield cancel();
   }
   yield put(beneficiarySelected(beneficiary));
+  yield call(navigate, { route: ITransferStackPages.MENU });
 }
