@@ -8,7 +8,7 @@ import { AuthApi } from '@clean-rn/auth/infrastructure';
 import { UserApi } from '@clean-rn/user/infrastructure';
 
 import { goBack, navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { IAuthStackPages, IUserStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 import { selectAuth } from '../../../../auth/application/state-management/selectors';

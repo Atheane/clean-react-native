@@ -5,8 +5,7 @@ import {
   IUserErrorMessage,
   User,
   PhoneOtp,
-  IPhoneNotifications,
-  IEmailNotifications,
+  IUpdateUserConfigCommand,
 } from '@clean-rn/user/domain';
 
 import { IDomainError } from '@clean-rn/ddd';
@@ -16,10 +15,7 @@ export interface IUserState {
   email: Email | null;
   phone: Phone | null;
   phoneOtp: PhoneOtp | null;
-  config: {
-    notifEmailDisabled: IEmailNotifications[] | null;
-    notifFirebaseDisabled: IPhoneNotifications[] | null;
-  };
+  config: IUpdateUserConfigCommand | null;
   user: User | null;
   error: IDomainError<IUserErrorCodes, IUserErrorMessage> | null;
 }

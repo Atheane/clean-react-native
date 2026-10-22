@@ -64,7 +64,7 @@ const expoConstantsMock = {
 
 jest.mock('expo-constants', () => expoConstantsMock);
 
-describe('CheckEmail - integration', () => {
+describe('User - integration', () => {
   let sagaTester: SagaTester;
   let httpConnection: HttpConnection;
 
@@ -119,6 +119,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: null,
       user: null,
       error: null,
+      config: null,
     };
     sagaTester = new SagaTester({
       initialState,
@@ -141,6 +142,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: null,
       user: null,
       error: null,
+      config: null,
     });
   });
 
@@ -155,6 +157,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: null,
       user: null,
       error: null,
+      config: null,
     });
   });
 
@@ -205,6 +208,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: null,
       user: null,
       error: null,
+      config: null,
     });
   });
 
@@ -221,6 +225,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: new PhoneOtp('123456'),
       user: null,
       error: null,
+      config: null,
     });
   });
 
@@ -239,6 +244,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: new PhoneOtp('123456'),
       user,
       error: null,
+      config: null,
     };
 
     sagaTester = new SagaTester({
@@ -256,6 +262,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: new PhoneOtp('123456'),
       user,
       error: null,
+      config: null,
     });
   });
 
@@ -271,6 +278,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: null,
       user: null,
       error: null,
+      config: null,
     });
   });
 
@@ -286,6 +294,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: null,
       user: null,
       error: new UserError.SignupFailureEmailExists(),
+      config: null,
     });
   });
 
@@ -297,6 +306,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: null,
       user: null,
       error: null,
+      config: null,
     };
 
     sagaTester = new SagaTester({
@@ -315,6 +325,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: null,
       user: null,
       error: null,
+      config: null,
     });
   });
 
@@ -326,6 +337,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: new PhoneOtp('123456'),
       user: null,
       error: null,
+      config: null,
     };
 
     sagaTester = new SagaTester({
@@ -348,6 +360,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: new PhoneOtp('123456'),
       user,
       error: null,
+      config: null,
     });
   });
 
@@ -359,6 +372,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: null,
       user: null,
       error: null,
+      config: null,
     };
 
     sagaTester = new SagaTester({
@@ -379,6 +393,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: null,
       user,
       error: null,
+      config: null,
     });
   });
 
@@ -392,6 +407,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: null,
       user,
       error: null,
+      config: null,
     };
 
     sagaTester = new SagaTester({
@@ -410,6 +426,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: null,
       user,
       error: null,
+      config: null,
     });
   });
 
@@ -423,6 +440,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: null,
       user,
       error: null,
+      config: null,
     };
 
     sagaTester = new SagaTester({
@@ -441,6 +459,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: null,
       user,
       error: null,
+      config: null,
     });
   });
 
@@ -454,6 +473,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: null,
       user: null,
       error: null,
+      config: null,
     };
 
     sagaTester = new SagaTester({
@@ -472,6 +492,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: null,
       user,
       error: null,
+      config: null,
     });
   });
 
@@ -490,6 +511,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: new PhoneOtp('123456'),
       user: null,
       error: null,
+      config: null,
     };
 
     sagaTester = new SagaTester({
@@ -511,6 +533,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: new PhoneOtp('123456'),
       user,
       error: null,
+      config: null,
     });
   });
 
@@ -522,6 +545,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: null,
       user: null,
       error: null,
+      config: null,
     };
 
     sagaTester = new SagaTester({
@@ -538,6 +562,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: null,
       user: null,
       error: new UserError.ValidatePhoneFailurePhoneNotFound('test'),
+      config: null,
     });
   });
 
@@ -552,6 +577,7 @@ describe('CheckEmail - integration', () => {
       phoneOtp: null,
       user: null,
       error: null,
+      config: null,
     });
   });
 });

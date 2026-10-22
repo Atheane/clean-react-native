@@ -12,7 +12,7 @@ export type IUserPropertiesServer = {
   kycReviewComment: string;
   kycReview: KYC_REVIEW;
   userId: number;
-  config: {
+  config?: {
     lang: string;
     notifFirebaseDisabled: IPhoneNotifications[];
     notifMailDisabled: IEmailNotifications[];

@@ -20,7 +20,7 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 import { IHomeStackPages, IUserStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
-import { initializeUser } from '../../../../user/application/commands';
+import { initializeUser, userSaved } from '../../../../user/application/commands';
 
 describe('Login - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -138,6 +138,8 @@ describe('Login - usecase', () => {
       .next(user)
       .put(loginSuccess({ auth: mockResponse, user }))
       .next()
+      .put(userSaved(user))
+      .next()
       .put(checkCustomerStatus())
       .next()
       .call(navigate, { route: IHomeStackPages.HOME })
@@ -162,6 +164,8 @@ describe('Login - usecase', () => {
       .next(user)
       .put(loginSuccess({ auth: mockResponse, user }))
       .next()
+      .put(userSaved(user))
+      .next()
       .put(checkCustomerStatus())
       .next()
       .call(navigate, { route: IHomeStackPages.HOME })
@@ -185,6 +189,8 @@ describe('Login - usecase', () => {
       .call([userApi, userApi.getUser])
       .next(user)
       .put(loginSuccess({ auth: mockResponse, user }))
+      .next()
+      .put(userSaved(user))
       .next()
       .put(checkCustomerStatus())
       .next()

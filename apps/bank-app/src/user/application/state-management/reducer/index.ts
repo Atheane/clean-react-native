@@ -10,10 +10,7 @@ const initialState: IUserState = {
   phoneOtp: null,
   user: null,
   error: null,
-  config: {
-    notifEmailDisabled: null,
-    notifFirebaseDisabled: null,
-  },
+  config: null,
 };
 
 export const userReducer = (state = initialState, action: IUserActions) => {
@@ -143,8 +140,8 @@ export const userReducer = (state = initialState, action: IUserActions) => {
         ...state,
         config: {
           ...state.config,
-          notifEmailDisabled: action.payload.notifEmailDisabled ?? null,
-          notifFirebaseDisabled: action.payload.notifFirebaseDisabled ?? null,
+          notifEmailDisabled: action.payload.notifEmailDisabled,
+          notifFirebaseDisabled: action.payload.notifFirebaseDisabled,
         },
         error: null,
       };
