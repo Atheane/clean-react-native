@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@expo/config-plugins": "*",
     "@expo/metro-runtime": "^3.1.1",
     "@babel/core": "*",
     "@bank/carbon-weight": "*",
