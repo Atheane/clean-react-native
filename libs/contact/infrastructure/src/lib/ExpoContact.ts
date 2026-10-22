@@ -19,10 +19,12 @@ export class ExpoContact implements IContactRepository {
   }
 
   async getContact(): Promise<IContact[]> {
+    console.log('-- GET CONTACTS --');
     const { status } = await Contacts.requestPermissionsAsync();
     const sortType = Contacts.SortTypes.FirstName;
 
     if (status === 'granted') {
+      console.log('-- GET CONTACTS -- CONTACTS GRANTED');
       const { data } = await Contacts.getContactsAsync({
         fields: [Contacts.Fields.PhoneNumbers, Contacts.Fields.FirstName, Contacts.Fields.Name],
         sort: sortType,
@@ -34,6 +36,7 @@ export class ExpoContact implements IContactRepository {
       }
     }
 
+    console.log('-- GET CONTACTS -- CONTACTS NOT GRANTED');
     return [];
   }
 

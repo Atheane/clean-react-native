@@ -1,4 +1,5 @@
 export type IContactAddCommand = {
-  name: string;
+  firstname: string;
+  lastname: string;
   phone: string;
 };

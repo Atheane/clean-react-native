@@ -30,6 +30,7 @@ import { CountryPicker } from './dropdowns/country-picker';
 import { DateTimePicker } from './dropdowns/datetime-picker';
 // Forms
 import { IBeneficiaryFormData, FormBeneficiary } from './forms/form-beneficiary';
+import { IContactFormData, FormContact } from './forms/form-contact';
 import { ILoginFormData, FormLogin } from './forms/form-login';
 import { IResetPasswordFormData, FormResetPassword } from './forms/form-reset-password';
 import { ISignupEmailFormData, FormSignupEmail } from './forms/form-signup-email';
@@ -112,6 +113,7 @@ export {
   DateTimePicker,
   // Forms
   IBeneficiaryFormData,
+  IContactFormData,
   ILoginFormData,
   IResetPasswordFormData,
   ISignupEmailFormData,
@@ -121,6 +123,7 @@ export {
   ISignupAddressFormData,
   ISignupPhoneFormData,
   FormBeneficiary,
+  FormContact,
   FormLogin,
   FormResetPassword,
   FormSignupEmail,

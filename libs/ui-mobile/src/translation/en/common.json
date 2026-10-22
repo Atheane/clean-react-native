@@ -293,6 +293,18 @@
           "label": "name",
           "placeholder": "name"
         }
+      },
+      "new-contact": {
+        "title": "Add contact",
+
+        "firstname": {
+          "label": "firstname",
+          "placeholder": "firstname"
+        },
+        "lastname": {
+          "label": "lastname",
+          "placeholder": "lastname"
+        }
       }
     },
     "account-statements": {

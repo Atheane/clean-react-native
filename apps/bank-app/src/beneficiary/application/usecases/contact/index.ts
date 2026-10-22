@@ -23,19 +23,22 @@ import { selectContact } from '../../state-management/selectors';
 //}
 
 export function* listContactSaga(): Generator<StrictEffect, any, any> {
+  console.log('LIST CONTACT SAGA');
   yield takeEvery(IContactTypes.CONTACT_LIST, listContactGenerator);
 }
 
 export function* listContactGenerator(): Generator<StrictEffect, any, any> {
+  console.log('LIST CONTACT GENERATOR');
   try {
     const { contacts: contactsFromStore } = yield select(selectContact);
     if (contactsFromStore) {
       yield put(contactListed(contactsFromStore));
       yield call(navigate, { route: IHomeStackPages.BENEFICIARY_LIST });
     } else {
+      console.log('LIST CONTACT GENERATOR - GET INSTANCE');
       const api = ExpoContact.getInstance();
       const contacts: IContact[] = yield call([api, api.getContact]);
-
+      console.log('LIST CONTACT ', contacts);
       yield put(contactListed(contacts));
       yield call(navigate, { route: IHomeStackPages.BENEFICIARY_LIST });
     }

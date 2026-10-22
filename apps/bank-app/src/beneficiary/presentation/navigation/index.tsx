@@ -6,7 +6,7 @@ import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 
 import { IHomeStackPages, IHomeStackProps } from '../../../shared/presentation/types';
 
-import { BeneficiaryAdd, BeneficiaryList } from '../screens';
+import { BeneficiaryAdd, BeneficiaryList, ContactAdd } from '../screens';
 
 const Stack = createNativeStackNavigator<IHomeStackProps>();
 
@@ -29,6 +29,14 @@ export const BeneficiaryStack = () => {
         component={BeneficiaryAdd}
         options={{
           headerTitle: t('screens.beneficiary.new-beneficiary.title'),
+          ...headersOptions(goBack),
+        }}
+      />
+      <Stack.Screen
+        name={IHomeStackPages.CONTACT_ADD}
+        component={ContactAdd}
+        options={{
+          headerTitle: t('screens.beneficiary.new-contact.title'),
           ...headersOptions(goBack),
         }}
       />

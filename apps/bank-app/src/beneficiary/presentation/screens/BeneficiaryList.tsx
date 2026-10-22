@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import * as Contacts from 'expo-contacts';
 
 import { IBeneficiary } from '@clean-rn/beneficiary/domain';
+import { IContact } from '@clean-rn/contact/domain';
 import {
   PrimaryButton,
   LinkButton,
@@ -21,6 +22,7 @@ import { IBeneficiaryStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 
 import { beneficiaryList } from '../../application/commands/beneficiary';
+import { contactList } from '../../application/commands/contact';
 
 const ContentNoBeneficiary = () => {
   const { t } = useTranslation();
@@ -28,6 +30,31 @@ const ContentNoBeneficiary = () => {
 
   const handleOnPressAdd = useCallback(() => {
     navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_ADD);
+  }, [navigation]);
+
+  return (
+    <View style={styles.btnAddContainer}>
+      <PrimaryButton
+        title={t('screens.beneficiary.add-beneficiary')}
+        onPress={handleOnPressAdd}
+        iconOne={() => (
+          <View style={{ height: 23, marginLeft: -80, justifyContent: 'center' }}>
+            <BeneficiaryAdd style={{ marginTop: 15 } as StyleProp<ViewStyle>} />
+          </View>
+        )}
+        long
+      />
+    </View>
+  );
+};
+
+// TODO Refactor
+const ContentNoContact = () => {
+  const { t } = useTranslation();
+  const navigation = useNavigation();
+
+  const handleOnPressAdd = useCallback(() => {
+    navigation.navigate(IBeneficiaryStackPages.CONTACT_ADD);
   }, [navigation]);
 
   return (
@@ -74,30 +101,31 @@ const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
   );
 };
 
-const ContactList = () => {
-  const [contacts, setContacts] = useState([]);
-  const sortType = Contacts.SortTypes.FirstName;
-  useEffect(() => {
-    (async () => {
-      const { status } = await Contacts.requestPermissionsAsync();
-      if (status === 'granted') {
-        const { data } = await Contacts.getContactsAsync({
-          fields: [Contacts.Fields.PhoneNumbers, Contacts.Fields.Emails],
-          sort: sortType,
-        });
+const ContentContact = (props: { data: IContact[] }) => {
+  const navigation = useNavigation();
 
-        if (data.length > 0) {
-          console.log(data);
-          setContacts(data);
-        }
-      }
-    })();
-  }, [contacts]);
+  const handleOnPressAdd = useCallback(() => {
+    navigation.navigate(IBeneficiaryStackPages.CONTACT_ADD);
+  }, [navigation]);
 
   return (
-    <View style={styles.container}>
-      <Text>Contacts Module Example</Text>
-    </View>
+    <>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.content}>
+          <ContactCardList data={props.data} />
+        </View>
+      </SafeAreaView>
+      <View style={styles.top}>
+        <View style={styles.addBeneficiary}>
+          <LinkButton
+            pressed={false}
+            onPress={handleOnPressAdd}
+            iconOne={BeneficiaryAdd}
+            colorOption={LinkButtonColors.WHITE}
+          />
+        </View>
+      </View>
+    </>
   );
 };
 
@@ -114,6 +142,38 @@ const Beneficiary = () => {
     <>
       {!hasBeneficiary && <ContentNoBeneficiary />}
       {hasBeneficiary && <ContentBeneficiary data={beneficiaries} />}
+    </>
+  );
+};
+
+// TODO Refactor
+const Contact = () => {
+  const { contacts } = useSelector((state: IRootState) => state.beneficiary.contacts);
+  const hasContact = contacts && contacts?.length > 0;
+  const dispatch = useDispatch();
+  console.log('contacts', contacts);
+  useEffect(() => {
+    console.log('DISPATCH', contacts);
+    (async () => {
+      const { status } = await Contacts.requestPermissionsAsync();
+      if (status === 'granted') {
+        const { data } = await Contacts.getContactsAsync({
+          fields: [Contacts.Fields.Emails],
+        });
+
+        if (data.length > 0) {
+          const contact = data[0];
+          console.log(contact);
+        }
+      }
+    })();
+    dispatch(contactList());
+  }, [dispatch]);
+
+  return (
+    <>
+      {!hasContact && <ContentNoContact />}
+      {hasContact && <ContentContact data={contacts} />}
     </>
   );
 };
@@ -136,6 +196,7 @@ export const BeneficiaryList = () => {
           >
             <Tab.Item
               title="Bank"
+              active={true}
               titleStyle={{ fontSize: 12, color: Colors.bank.primary.green }}
               icon={{ name: 'business-outline', type: 'ionicon', color: Colors.bank.primary.green }}
             >
@@ -157,7 +218,7 @@ export const BeneficiaryList = () => {
               <Beneficiary />
             </TabView.Item>
             <TabView.Item style={{ backgroundColor: 'white', width: '100%' }}>
-              <ContactList />
+              <Contact />
             </TabView.Item>
           </TabView>
         </View>

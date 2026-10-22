@@ -117,6 +117,7 @@ export enum IHomeStackPages {
   // TODO Move
   BENEFICIARY_LIST = 'BeneficiaryList',
   BENEFICIARY_ADD = 'BeneficiaryAdd',
+  CONTACT_ADD = 'ContactAdd',
   // TODO END
   HELP = 'Help',
   TRANSACTIONS = 'Transactions',
@@ -130,6 +131,7 @@ export enum IHomeStackPages {
 export enum IBeneficiaryStackPages {
   BENEFICIARY_LIST = 'BeneficiaryList',
   BENEFICIARY_ADD = 'BeneficiaryAdd',
+  CONTACT_ADD = 'ContactAdd',
 }
 
 export enum ICarbonStackPages {
@@ -193,6 +195,7 @@ export type IHomeStackProps = {
   [IHomeStackPages.ACCOUNTS]: object;
   [IHomeStackPages.BENEFICIARY_LIST]: object;
   [IHomeStackPages.BENEFICIARY_ADD]: object;
+  [IHomeStackPages.CONTACT_ADD]: object;
   [IHomeStackPages.HELP]: object;
   [IHomeStackPages.TRANSACTIONS]: object;
   [IHomeStackPages.ACCOUNT_STATEMENTS]: object;
@@ -256,6 +259,7 @@ export type IRoutes =
   | IHomeStackPages.ACCOUNTS
   | IHomeStackPages.BENEFICIARY_ADD
   | IHomeStackPages.BENEFICIARY_LIST
+  | IHomeStackPages.CONTACT_ADD
   | IHomeStackPages.MENU
   | IHomeStackPages.HELP
   | IHomeStackPages.TRANSACTIONS

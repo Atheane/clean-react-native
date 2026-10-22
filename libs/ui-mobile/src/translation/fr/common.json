@@ -322,6 +322,18 @@
           "label": "nom",
           "placeholder": "nom"
         }
+      },
+      "new-contact": {
+        "title": "Ajouter un contact",
+
+        "firstname": {
+          "label": "prénom",
+          "placeholder": "prénom"
+        },
+        "lastname": {
+          "label": "nom",
+          "placeholder": "nom"
+        }
       }
     },
     "account-statements": {
