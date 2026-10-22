@@ -8,19 +8,22 @@ type IProps = {
 };
 
 export const BeneficiaryCardList = (props: IProps) => {
+  console.log('BENEFICIARY CARD LIST', props.data);
   const sortedBeneficiaries = props.data.sort((a, b) => {
     return a.name < b.name ? 1 : 0;
   });
+
+  console.log('BENEFICIARY CARD LIST', props.data, sortedBeneficiaries);
 
   return (
     <FlatList
       showsVerticalScrollIndicator={false}
       pinchGestureEnabled
       data={sortedBeneficiaries}
-      renderItem={({ item, index }: { item: { date: string; data: IBeneficiary[] }; index: number }) => (
-        <View style={index === 0 ? styles.container : styles.containerNoMargin}>
-          <BeneficiaryCard {...item} />
-        </View>
+      contentContainerStyle={{ padding: 0 }}
+      keyExtractor={(item) => item.name}
+      renderItem={({ item, index }: { item: IBeneficiary; index: number }) => (
+        <BeneficiaryCard data={item} idx={index} />
       )}
     />
   );
@@ -28,7 +31,8 @@ export const BeneficiaryCardList = (props: IProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 140,
+    marginTop: 0,
+    backgroundColor: 'yellow',
   },
   containerNoMargin: {
     marginTop: 0,

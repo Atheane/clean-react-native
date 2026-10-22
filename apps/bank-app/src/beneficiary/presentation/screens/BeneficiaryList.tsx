@@ -25,7 +25,7 @@ import {
   BeneficiaryAdd,
   Iban as IbanIcon,
   CopyValueClipboard,
-  TransactionsCardsList,
+  BeneficiaryCardList,
   WhiteBalance,
   Colors,
   FontNames,
@@ -62,8 +62,7 @@ const ContentNoBeneficiary = () => {
   );
 };
 
-const ContentBeneficiary = () => {
-  const { t } = useTranslation();
+const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
   const navigation = useNavigation();
 
   const handleOnPressAdd = useCallback(() => {
@@ -74,9 +73,19 @@ const ContentBeneficiary = () => {
     <>
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
-          <TransactionsCardsList data={beneficiaries} />
+          <BeneficiaryCardList data={props.data} />
         </View>
       </SafeAreaView>
+      <View style={styles.top}>
+        <View style={styles.addBeneficiary}>
+          <LinkButton
+            pressed={false}
+            onPress={handleOnPressAdd}
+            iconOne={BeneficiaryAdd}
+            colorOption={LinkButtonColors.WHITE}
+          />
+        </View>
+      </View>
     </>
   );
 };
@@ -108,56 +117,9 @@ const ContactList = () => {
   );
 };
 
-const TabMenu = () => {
-  const [index, setIndex] = useState(0);
-
-  return (
-    <>
-      <View style={styles.row}>
-        <Tab
-          value={index}
-          onChange={(e) => setIndex(e)}
-          indicatorStyle={{
-            backgroundColor: 'white',
-            height: 3,
-          }}
-          variant="primary"
-        >
-          <Tab.Item
-            title="Recent"
-            titleStyle={{ fontSize: 12 }}
-            icon={{ name: 'business-outline', type: 'ionicon', color: 'white' }}
-          >
-            Bank
-          </Tab.Item>
-          <Tab.Item
-            title="cart"
-            titleStyle={{ fontSize: 12 }}
-            icon={{ name: 'people-outline', type: 'ionicon', color: 'white' }}
-          >
-            Contacts
-          </Tab.Item>
-        </Tab>
-      </View>
-
-      <View style={styles.tabContent}>
-        <TabView value={index} onChange={setIndex} animationType="spring">
-          <TabView.Item style={{ backgroundColor: 'red', width: '100%' }}>
-            <ContentNoBeneficiary />
-          </TabView.Item>
-          <TabView.Item style={{ backgroundColor: 'blue', width: '100%' }}>
-            <ContactList />
-          </TabView.Item>
-        </TabView>
-      </View>
-    </>
-  );
-};
-
-export const BeneficiaryList = () => {
+const Beneficiary = () => {
   const { beneficiaries } = useSelector((state: IRootState) => state.beneficiary.beneficiary);
   const hasBeneficiary = beneficiaries && beneficiaries?.length > 0;
-  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -167,9 +129,57 @@ export const BeneficiaryList = () => {
   console.log('beneficiaires', beneficiaries);
 
   return (
+    <>
+      {!hasBeneficiary && <ContentNoBeneficiary />}
+      {hasBeneficiary && <ContentBeneficiary data={beneficiaries} />}
+    </>
+  );
+};
+
+export const BeneficiaryList = () => {
+  const { t } = useTranslation();
+  const [index, setIndex] = useState(0);
+
+  return (
     <ErrorBoundary t={t}>
       <View style={styles.container}>
-        <TabMenu />
+        <View style={styles.row}>
+          <Tab
+            value={index}
+            onChange={(e) => setIndex(e)}
+            indicatorStyle={{
+              backgroundColor: 'white',
+              height: 3,
+            }}
+            variant="primary"
+          >
+            <Tab.Item
+              title="Recent"
+              titleStyle={{ fontSize: 12 }}
+              icon={{ name: 'business-outline', type: 'ionicon', color: 'white' }}
+            >
+              Bank
+            </Tab.Item>
+            <Tab.Item
+              title="cart"
+              titleStyle={{ fontSize: 12 }}
+              icon={{ name: 'people-outline', type: 'ionicon', color: 'white' }}
+            >
+              Contacts
+            </Tab.Item>
+          </Tab>
+        </View>
+
+        <View style={styles.tabContent}>
+          <TabView value={index} onChange={setIndex} animationType="spring">
+            <TabView.Item style={{ backgroundColor: 'red', width: '100%' }}>
+              <Beneficiary />
+            </TabView.Item>
+            <TabView.Item style={{ backgroundColor: 'blue', width: '100%' }}>
+              <ContactList />
+            </TabView.Item>
+          </TabView>
+        </View>
       </View>
     </ErrorBoundary>
   );
@@ -178,15 +188,14 @@ export const BeneficiaryList = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.bank.primary.darkBlue,
     marginTop: 0,
   },
   row: {},
   top: {
     position: 'absolute',
-    top: 30,
-    left: 150,
-    backgroundColor: Colors.bank.primary.darkBlue,
+    top: -60,
+    right: 0,
   },
   addBeneficiary: {
     position: 'relative',
@@ -202,7 +211,9 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   content: {
-    marginTop: 60,
+    marginTop: 30,
+    backgroundColor: Colors.bank.primary.green,
+    height: Dimensions.get('window').height - 350,
   },
   scrollNoBeneficiary: {
     alignItems: 'center',

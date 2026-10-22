@@ -6,7 +6,7 @@ import { Colors } from '../../../constants';
 type IProps = {
   icon?: React.FC<SvgProps>;
   name: string;
-  iban: number;
+  iban: string;
 };
 
 export const BeneficiaryItem = (props: IProps) => {
@@ -31,14 +31,14 @@ export const BeneficiaryItem = (props: IProps) => {
         </View>
       </View>
 
-      <Text style={[theme.bank.text.boldGrey]}>{'D'}</Text>
+      <Text style={[theme.bank.text.boldGrey]}>{props.iban}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   textContainer: {
-    marginLeft: 10,
+    marginLeft: 0,
   },
   amountPositive: {
     textAlign: 'right',

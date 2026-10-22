@@ -9,30 +9,22 @@ import { BeneficiaryItem } from '../../others/beneficiary-item';
 import { BANK } from '../../../assets';
 
 type IProps = {
-  data: IBeneficiary[];
+  data: IBeneficiary;
+  idx: number;
 };
 
-const BeneficiaryIcons = {
-  [IBeneficiaryCategory.BANK]: BANK,
-} as { [key: string]: React.FC<SvgProps> };
+//const BeneficiaryIcons = {
+//  [IBeneficiaryCategory.BANK]: BANK,
+//} as { [key: string]: React.FC<SvgProps> };
 
 export const BeneficiaryCard = (props: IProps) => {
+  //icon={BeneficiaryIcons['BANK']}
+  console.log('BENEFICIARY CARD', props);
   const { theme } = useTheme();
   return (
-    <Card containerStyle={[theme.bank.container.card.long, theme.bank.shadow.card]}>
-      <View style={styles.beneficiaryContainer}>
-        {props.data.map((data: IBeneficiary, index: number) => {
-          return (
-            <View key={data.beneficiaryId}>
-              <BeneficiaryItem icon={BeneficiaryIcons[BANK]} name={data.name} iban={data.iban} />
-              {index !== props.data.length - 1 && (
-                <View style={styles.divider}>
-                  <Divider />
-                </View>
-              )}
-            </View>
-          );
-        })}
+    <Card containerStyle={styles.beneficiaryContainer}>
+      <View key={props.data.beneficiaryId}>
+        <BeneficiaryItem name={props.data.name} iban={props.data.iban} />
       </View>
     </Card>
   );
@@ -40,9 +32,7 @@ export const BeneficiaryCard = (props: IProps) => {
 
 const styles = StyleSheet.create({
   beneficiaryContainer: {
-    marginTop: 16,
-  },
-  divider: {
-    marginVertical: 10,
+    marginHorizontal: 0,
+    height: 80,
   },
 });

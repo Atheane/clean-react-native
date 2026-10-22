@@ -54,6 +54,7 @@ import { PhoneSecurityPinInput } from './inputs/phone-security-pin-input';
 import { PhoneValidationCodeInput } from './inputs/phone-validation-code-input';
 import { Slider } from './inputs/slider';
 // Lists
+import { BeneficiaryCardList } from './lists/beneficiary-card-list';
 import { TransactionsCardsList } from './lists/transactions-cards-list';
 import { WhiteBalanceList } from './lists/white-balance-list';
 // Others
@@ -138,6 +139,7 @@ export {
   PhoneValidationCodeInput,
   Slider,
   // Lists
+  BeneficiaryCardList,
   TransactionsCardsList,
   WhiteBalanceList,
   // Others
