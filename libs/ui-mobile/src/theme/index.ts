@@ -238,7 +238,7 @@ export const theme = createTheme({
       input: {
         color: Colors.bank.secondary.pink,
         fontFamily: FontNames.Roboto_400Regular,
-        fontSize: 14,
+        fontSize: 13,
         textAlign: 'left',
       },
       inputNumber: {

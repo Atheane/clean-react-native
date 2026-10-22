@@ -322,11 +322,11 @@
         },
         "IBAN": {
           "label": "IBAN",
-          "placeholder": "FR76 1679 0000 0000 0000 0000 000"
+          "placeholder": "FR7616790000000000000000XXX"
         },
         "name": {
           "label": "nom",
-          "placeholder": "nom"
+          "placeholder": "Nom"
         }
       },
       "new-contact": {

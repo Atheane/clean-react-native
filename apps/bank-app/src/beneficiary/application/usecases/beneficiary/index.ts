@@ -10,7 +10,6 @@ import {
   beneficiaryListed,
   IBeneficiaryTypes,
   beneficiaryListInit,
-  beneficiaryAdd,
   beneficiaryAddFailure,
 } from '../../commands/beneficiary';
 import { IAuthStackPages, IHomeStackPages } from '../../../../shared/presentation/types';

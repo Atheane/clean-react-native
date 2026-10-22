@@ -127,6 +127,8 @@ import {
   Trash,
   BankBgGradient,
   RightChevronGradient,
+  IbanGreenGradient,
+  BicGreenGradient,
 } from './svg';
 import { DefaultImage, PlaneEmpty } from './image';
 import { Loader } from './lottie';
@@ -262,4 +264,6 @@ export {
   Trash,
   BankBgGradient,
   RightChevronGradient,
+  IbanGreenGradient,
+  BicGreenGradient,
 };

@@ -20,11 +20,6 @@ export const TransferStack = () => {
 
   return (
     <Stack.Navigator>
-      {/* <Stack.Screen
-        name={ITransferStackPages.BENEFICIARIES}
-        component={Beneficiaries}
-        options={{ headerShown: false }}
-      /> */}
       <Stack.Screen
         name={ITransferStackPages.TRANSFER}
         component={Transfer}

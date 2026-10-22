@@ -6,7 +6,7 @@ import { useTheme } from '@rneui/themed';
 import { IDomainError } from '@clean-rn/ddd';
 import { BIC, IBeneficiaryErrorCodes, IBeneficiaryErrorMessage, IBAN } from '@clean-rn/beneficiary/domain';
 
-import { Bic as BicIcon, Iban as IbanIcon, Person } from '../../../assets';
+import { ProfileGradient, BicGreenGradient, IbanGreenGradient } from '../../../assets';
 import { Colors } from '../../../constants';
 import { firstLetterCapitalize } from '../../../utils';
 
@@ -49,7 +49,7 @@ export const FormBeneficiary = (props: IProps) => {
               label={t('screens.beneficiary.new-beneficiary.name.label')}
               labelColor={Colors.bank.primary.grey}
               value={value}
-              IconLeft={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
+              IconLeft={ProfileGradient}
               placeholder={t('screens.beneficiary.new-beneficiary.name.placeholder')}
               onChange={onChange}
             />
@@ -74,7 +74,7 @@ export const FormBeneficiary = (props: IProps) => {
               label={t('screens.beneficiary.new-beneficiary.IBAN.label')}
               labelColor={Colors.bank.primary.grey}
               value={value}
-              IconLeft={() => <IbanIcon style={{ color: Colors.bank.primary.lightGreen }} />}
+              IconLeft={IbanGreenGradient}
               placeholder={t('screens.beneficiary.new-beneficiary.IBAN.placeholder')}
               onChange={onChange}
             />
@@ -104,7 +104,7 @@ export const FormBeneficiary = (props: IProps) => {
               label={t('screens.beneficiary.new-beneficiary.BIC.label')}
               labelColor={Colors.bank.primary.grey}
               value={value}
-              IconLeft={() => <BicIcon style={{ color: Colors.bank.primary.lightGreen }} />}
+              IconLeft={BicGreenGradient}
               placeholder={t('screens.beneficiary.new-beneficiary.BIC.placeholder')}
               onChange={onChange}
             />
@@ -126,7 +126,6 @@ export const FormBeneficiary = (props: IProps) => {
       </View>
       <View style={styles.formSubmit}>
         <SubmitButton
-          disabled={false}
           title={t('button.add')}
           uppercase={false}
           onSubmit={props.onSubmit}
@@ -139,8 +138,7 @@ export const FormBeneficiary = (props: IProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginTop: -150,
+    marginTop: '20%',
   },
   inputContainer: { marginTop: 30 },
   errorContainer: {
@@ -150,7 +148,6 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   formSubmit: {
-    marginTop: 50,
-    marginBottom: 100,
+    marginTop: '30%',
   },
 });

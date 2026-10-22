@@ -1,0 +1,9 @@
+<svg id="credit" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="27.467" viewBox="0 0 35 27.467">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#cfce29"/>
+      <stop offset="1" stop-color="#a1b201"/>
+    </linearGradient>
+  </defs>
+  <path id="credit-2" data-name="credit" d="M31.55,13.887H3.042a.666.666,0,0,1-.669-.669.682.682,0,0,1,.3-.561L16.931,3.4a.68.68,0,0,1,.73,0l14.255,9.256a.666.666,0,0,1,.2.925.682.682,0,0,1-.561.3ZM5.291,12.548h24L17.3,4.76l-12,7.789ZM31.55,28.383H3.042A.669.669,0,1,1,3,27.046H31.55a.669.669,0,1,1,.04,1.337h-.041Zm2.37,2.378H.671a.669.669,0,1,1-.04-1.337h33.3a.675.675,0,0,1,.649.689.688.688,0,0,1-.655.649ZM5.94,15.839H7.27v9.5H5.94Zm7.519,0h1.331v9.5H13.458Zm7.526,0h1.331v9.5H20.985v-9.5Zm7.519,0h1.331v9.5H28.5Z" transform="translate(0.018 -3.295)" fill="url(#linear-gradient)"/>
+</svg>

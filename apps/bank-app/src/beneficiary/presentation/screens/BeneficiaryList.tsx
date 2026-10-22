@@ -19,6 +19,7 @@ import {
   BankBuilding,
   Colors,
   Group2,
+  LoaderSplashScreen,
 } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IBeneficiaryStackPages, ITransferStackPages } from '../../../shared/presentation/types';
@@ -183,26 +184,39 @@ export const BeneficiaryList = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
 
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState<0 | 1>(0);
+  const handleOnChangeTab = useCallback((index: 0 | 1) => {
+    setIndex(index);
+  }, []);
 
-  const { beneficiaries } = useSelector((state: IRootState) => state.beneficiary.beneficiaries);
-  const { contacts } = useSelector((state: IRootState) => state.beneficiary.contacts);
-
+  const { beneficiaries, pending: beneficiaryPending } = useSelector(
+    (state: IRootState) => state.beneficiary.beneficiaries,
+  );
+  const { contacts, pending: contactPending } = useSelector(
+    (state: IRootState) => state.beneficiary.contacts,
+  );
+  console.log('BeneficiaryList', beneficiaryPending, contactPending);
+  // return beneficiaryPending || contactPending ? (
+  //   <LoaderSplashScreen />
+  // ) :
   return (
     <ErrorBoundary t={t}>
       <View style={styles.container}>
         <View style={styles.row}>
           <Tab
             value={index}
-            onChange={(e) => setIndex(e)}
+            onChange={handleOnChangeTab}
+            scrollable
             indicatorStyle={{
               backgroundColor: Colors.bank.primary.lightGreen,
               height: 3,
+              width: Dimensions.get('window').width / 2,
             }}
+            buttonStyle={{ width: Dimensions.get('window').width / 2 }}
           >
             <Tab.Item
               title="bank"
-              active={true}
+              active={index === 0}
               titleStyle={{ fontSize: 13, color: Colors.bank.primary.lightGreen, marginTop: 8 }}
               icon={BankBuilding as IconNode}
             >
@@ -210,6 +224,7 @@ export const BeneficiaryList = () => {
             </Tab.Item>
             <Tab.Item
               title="contact"
+              active={index === 1}
               titleStyle={{ fontSize: 13, color: Colors.bank.primary.lightGreen, marginTop: 8 }}
               icon={Group2 as IconNode}
             >

@@ -60,7 +60,7 @@ export const BeneficiaryAdd = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: Colors.bank.primary.white,
   },
 });

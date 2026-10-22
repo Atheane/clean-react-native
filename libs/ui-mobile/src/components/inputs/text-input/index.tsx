@@ -86,6 +86,7 @@ export const TextInput = ({
           onBlur={onBlur}
           autoFocus={autoFocus}
           clearTextOnFocus={clearTextOnFocus}
+          multiline={false}
         />
       </View>
     </View>

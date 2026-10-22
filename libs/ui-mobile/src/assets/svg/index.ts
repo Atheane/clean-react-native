@@ -126,7 +126,8 @@ import PhoneGradientWhiteBg from './phone-gradient-white-bg.svg';
 import Trash from './trash.svg';
 import BankBgGradient from './bank-bg-gradient.svg';
 import RightChevronGradient from './right-chevron-gradient';
-
+import IbanGreenGradient from './iban-green-gradient';
+import BicGreenGradient from './bic-green-gradient';
 export {
   Love,
   Validate,
@@ -256,4 +257,6 @@ export {
   Trash,
   BankBgGradient,
   RightChevronGradient,
+  IbanGreenGradient,
+  BicGreenGradient,
 };
