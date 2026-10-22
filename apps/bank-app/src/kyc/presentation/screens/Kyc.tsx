@@ -302,6 +302,7 @@ export const Kyc = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: HEIGHT,
     marginTop: -80,
   },
   title: {
