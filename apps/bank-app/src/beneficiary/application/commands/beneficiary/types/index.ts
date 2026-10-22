@@ -9,6 +9,8 @@ import {
 export enum IBeneficiaryTypes {
   BENEFICIARY_ADD = 'BENEFICIARY_ADD',
   BENEFICIARY_ADD_FAILED = 'BENEFICIARY_ADD_FAILED',
+  BENEFICIARY_DELETE = 'BENEFICIARY_DELETE',
+  BENEFICIARY_DELETE_FAILED = 'BENEFICIARY_DELETE_FAILED',
   BENEFICIARY_LIST = 'BENEFICIARY_LIST',
   BENEFICIARY_LIST_DONE = 'BENEFICIARY_LIST_DONE',
   BENEFICIARY_LIST_INIT = 'INITIALIZE_BENEFICIARY_LIST',
@@ -22,6 +24,11 @@ export type IBeneficiaryAdd = {
 export type IBeneficiaryAddFailed = {
   type: typeof IBeneficiaryTypes.BENEFICIARY_ADD_FAILED;
   payload: IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>;
+};
+
+export type IBeneficiaryDelete = {
+  type: typeof IBeneficiaryTypes.BENEFICIARY_ADD;
+  payload: IBeneficiaryAddCommand;
 };
 
 export type IBeneficiaryList = {

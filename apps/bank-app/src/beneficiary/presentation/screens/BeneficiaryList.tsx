@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Tab, TabView } from '@rneui/themed';
-import { View, StyleSheet, StyleProp, ViewStyle, Text, Dimensions, SafeAreaView } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle, Dimensions, SafeAreaView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -14,7 +14,6 @@ import {
   BeneficiaryAdd,
   BeneficiaryCardList,
   ContactCardList,
-  DeleteCrossGradient,
   BANK,
   Colors,
 } from '@clean-rn/ui-mobile';
@@ -22,7 +21,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { IBeneficiaryStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 
-import { beneficiaryList } from '../../application/commands/beneficiary';
+import { beneficiaryDelete, beneficiaryList } from '../../application/commands/beneficiary';
 import { contactList } from '../../application/commands/contact';
 
 const ContentNoBeneficiary = () => {
@@ -76,13 +75,14 @@ const ContentNoContact = () => {
 
 const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const handleOnPressAdd = useCallback(() => {
     navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_ADD);
   }, [navigation]);
 
   const handleOnPressDelete = useCallback((beneficiaryId: number) => {
-    console.log('DELETE BENEFICIARY', beneficiaryId);
+    dispatch(beneficiaryDelete({ beneficiaryId }));
   }, []);
   return (
     <>

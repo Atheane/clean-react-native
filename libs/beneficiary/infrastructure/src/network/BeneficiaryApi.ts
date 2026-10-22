@@ -1,5 +1,10 @@
 import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
-import { IBeneficiary, IBeneficiaryAddCommand, IBeneficiaryRepository } from '@clean-rn/beneficiary/domain';
+import {
+  IBeneficiary,
+  IBeneficiaryAddCommand,
+  IBeneficiaryDeleteCommand,
+  IBeneficiaryRepository,
+} from '@clean-rn/beneficiary/domain';
 
 export class BeneficiaryApi implements IBeneficiaryRepository {
   private static instance: BeneficiaryApi | null = null;
@@ -33,6 +38,15 @@ export class BeneficiaryApi implements IBeneficiaryRepository {
     const response = await fetch(
       `${this.connection.baseUrl}/app/beneficiary`,
       this.connection.options(IHttpVerb.POST, beneficiary),
+    );
+    await this.connection.handleError(response);
+    return response.json();
+  }
+
+  async deleteBeneficiary(beneficiary: IBeneficiaryDeleteCommand): Promise<IBeneficiary> {
+    const response = await fetch(
+      `${this.connection.baseUrl}/app/beneficiary/${beneficiary.beneficiaryId}`,
+      this.connection.options(IHttpVerb.DELETE),
     );
     await this.connection.handleError(response);
     return response.json();

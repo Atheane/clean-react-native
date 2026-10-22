@@ -21,7 +21,11 @@ import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
 import { listAccountsSaga, listTransactionsSaga } from '../../../account/application/usecases';
 
-import { addBeneficiarySaga, listBeneficiarySaga } from '../../../beneficiary/application/usecases';
+import {
+  addBeneficiarySaga,
+  deleteBeneficiarySaga,
+  listBeneficiarySaga,
+} from '../../../beneficiary/application/usecases';
 import { addContactSaga, listContactSaga } from '../../../beneficiary/application/usecases';
 
 import {
@@ -57,6 +61,7 @@ export function* rootSaga(httpConnection: HttpConnection) {
     signupUserSaga(httpConnection),
     listAccountsSaga(httpConnection),
     addBeneficiarySaga(httpConnection),
+    deleteBeneficiarySaga(httpConnection),
     listBeneficiarySaga(httpConnection),
     addContactSaga(),
     listContactSaga(),

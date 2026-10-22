@@ -5,3 +5,7 @@ export type IBeneficiaryAddCommand = {
   iban: IBAN;
   name: string;
 };
+
+export type IBeneficiaryDeleteCommand = {
+  beneficiaryId: number;
+};

@@ -2,6 +2,7 @@ import { IDomainError } from '@clean-rn/ddd';
 import {
   IBeneficiary,
   IBeneficiaryAddCommand,
+  IBeneficiaryDeleteCommand,
   IBeneficiaryErrorMessage,
   IBeneficiaryErrorCodes,
 } from '@clean-rn/beneficiary/domain';
@@ -10,6 +11,8 @@ import {
   IBeneficiaryTypes,
   IBeneficiaryAdd,
   IBeneficiaryAddFailed,
+  IBeneficiaryDelete,
+  IBeneficiaryDeleteFailed,
   IBeneficiaryList,
   IBeneficiaryListDone,
   IBeneficiaryListInit,
@@ -26,6 +29,18 @@ export const beneficiaryAddFailure = (
   payload: IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>,
 ): IBeneficiaryAddFailed => ({
   type: IBeneficiaryTypes.BENEFICIARY_ADD_FAILED,
+  payload,
+});
+
+export const beneficiaryDelete = (payload: IBeneficiaryDeleteCommand): IBeneficiaryDelete => ({
+  type: IBeneficiaryTypes.BENEFICIARY_DELETE,
+  payload,
+});
+
+export const beneficiaryDeleteFailure = (
+  payload: IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>,
+): IBeneficiaryDeleteFailed => ({
+  type: IBeneficiaryTypes.BENEFICIARY_DELETE_FAILED,
   payload,
 });
 
