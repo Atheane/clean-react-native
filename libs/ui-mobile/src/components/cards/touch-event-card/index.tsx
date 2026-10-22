@@ -11,7 +11,7 @@ type IProps = {
   uid: string;
   text: string;
   onDelete?: (uid: string) => void;
-  onPress: (uid: string) => void;
+  onPress?: (uid: string) => void;
 };
 
 export const TouchEventCard = (props: IProps) => {
@@ -24,7 +24,8 @@ export const TouchEventCard = (props: IProps) => {
   }, [props]);
 
   const handleOnPress = useCallback(() => {
-    props.onPress(props.uid);
+    if (props.onPress) props.onPress(props.uid);
+    return;
   }, [props]);
 
   return show ? (
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
   },
   deleteCross: {
     position: 'absolute',
-    top: 8,
+    top: 16,
     right: 20,
   },
   text: {

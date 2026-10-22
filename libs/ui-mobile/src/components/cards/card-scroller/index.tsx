@@ -15,7 +15,7 @@ type IProps = {
   data: IPropsTouchEventCard[];
   height?: number;
   cardScrollRef?: React.RefObject<ScrollView>;
-  onPress: (uid: string) => void;
+  onPress?: (uid: string) => void;
   onDelete?: (uid: string) => void;
 };
 

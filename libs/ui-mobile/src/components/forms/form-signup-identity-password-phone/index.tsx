@@ -100,7 +100,7 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
               label={t('signup-identity.first-name.label')}
               labelColor={Colors.bank.primary.grey}
               placeholder={firstLetterCapitalize(t('signup-identity.first-name.placeholder'))}
-              icon={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
+              IconLeft={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
               value={value}
               onChange={onChange}
             />
@@ -131,7 +131,7 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
               label={t('signup-identity.last-name.label')}
               labelColor={Colors.bank.primary.grey}
               placeholder={firstLetterCapitalize(t('signup-identity.last-name.placeholder'))}
-              icon={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
+              IconLeft={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
               value={value}
               onChange={onChange}
             />

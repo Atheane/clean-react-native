@@ -9,7 +9,7 @@ import { FlightSeatE as SeatE, FlightI } from '@bank/carbon-weight/dist';
 import { Logger } from '@clean-rn/logger';
 import { FlyEmissions } from '@clean-rn/carbon/domain';
 
-import { FlyFrom, FlyTo, PlaneEmpty } from '../../../assets';
+import { Add, FlyFrom, FlyTo, PlaneEmpty } from '../../../assets';
 import { Colors } from '../../../constants';
 
 import { SecondaryButton } from '../../buttons/secondary-button';
@@ -181,6 +181,7 @@ export const FlyForm = (props: IProps) => {
       </View>
       <View style={styles.buttonContainer}>
         <SecondaryButton
+          iconOne={Add}
           title={t('screens.carbon-fly.secondary-button')}
           onPress={handleOnAddFlight}
           disabled={disabled}

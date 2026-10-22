@@ -52,7 +52,7 @@ export const FormSignupAddress = (props: IProps) => {
               label={t('signup-address.street.label')}
               labelColor={Colors.bank.primary.grey}
               value={value}
-              icon={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
+              IconLeft={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
               placeholder={t('signup-address.street.placeholder')}
               onChange={onChange}
             />
@@ -76,7 +76,7 @@ export const FormSignupAddress = (props: IProps) => {
               label={t('signup-address.city.label')}
               labelColor={Colors.bank.primary.grey}
               value={value}
-              icon={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
+              IconLeft={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
               placeholder={t('signup-address.city.placeholder')}
               onChange={onChange}
             />
@@ -100,7 +100,7 @@ export const FormSignupAddress = (props: IProps) => {
               label={t('signup-address.zip.label')}
               labelColor={Colors.bank.primary.grey}
               value={value}
-              icon={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
+              IconLeft={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
               placeholder={t('signup-address.zip.placeholder')}
               onChange={onChange}
               numeric
