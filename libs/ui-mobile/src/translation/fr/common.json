@@ -311,10 +311,11 @@
     },
     "beneficiary": {
       "title": "Gérer mes bénéficiaires",
+      "bank": "Banque",
+      "contacts": "Contacts",
       "add-beneficiary": "Ajouter",
       "new-beneficiary": {
         "title": "Ajouter un bénéficiaire",
-
         "BIC": {
           "label": "BIC",
           "placeholder": "TRZOFR21XXX"

@@ -115,7 +115,8 @@ import GreenEuroAmount from './green-euro-amount.svg';
 import BackgroundCardArrow from './background-card-arrow.svg';
 import BackgroundCardGrey from './background-card-grey.svg';
 import BankLogoCA from './bank-logo-ca.svg';
-
+import BankBuilding from './bank-building.svg';
+import Group2 from './group-2.svg';
 export {
   Love,
   Validate,
@@ -234,4 +235,6 @@ export {
   BackgroundCardArrow,
   BackgroundCardGrey,
   BankLogoCA,
+  BankBuilding,
+  Group2,
 };

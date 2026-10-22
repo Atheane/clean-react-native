@@ -116,6 +116,8 @@ import {
   BackgroundCardArrow,
   BackgroundCardGrey,
   BankLogoCA,
+  BankBuilding,
+  Group2,
 } from './svg';
 import { DefaultImage, PlaneEmpty } from './image';
 import { Loader } from './lottie';
@@ -240,4 +242,6 @@ export {
   BackgroundCardArrow,
   BackgroundCardGrey,
   BankLogoCA,
+  BankBuilding,
+  Group2,
 };

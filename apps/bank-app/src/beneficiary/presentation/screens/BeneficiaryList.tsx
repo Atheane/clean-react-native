@@ -1,9 +1,11 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Tab, TabView } from '@rneui/themed';
 import { View, StyleSheet, Dimensions, SafeAreaView, StyleProp, ViewStyle } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '@rneui/themed';
+import { IconNode } from '@rneui/base';
 
 import { IBeneficiary } from '@clean-rn/beneficiary/domain';
 import { IContact } from '@clean-rn/contact/domain';
@@ -14,9 +16,9 @@ import {
   BeneficiaryAdd,
   BeneficiaryCardList,
   ContactCardList,
-  BANK,
+  BankBuilding,
   Colors,
-  theme,
+  Group2,
 } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IBeneficiaryStackPages } from '../../../shared/presentation/types';
@@ -170,6 +172,8 @@ const Contact = ({ contacts }: { contacts: IContact[] | null }) => {
 
 export const BeneficiaryList = () => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
+
   const [index, setIndex] = useState(0);
 
   const { beneficiaries } = useSelector((state: IRootState) => state.beneficiary.beneficiaries);
@@ -183,22 +187,26 @@ export const BeneficiaryList = () => {
             value={index}
             onChange={(e) => setIndex(e)}
             indicatorStyle={{
-              backgroundColor: 'green',
+              backgroundColor: Colors.bank.primary.green,
               height: 3,
             }}
           >
             <Tab.Item
-              title="Bank"
+              title={t('screens.beneficiary.bank')}
               active={true}
-              titleStyle={{ fontSize: 12, color: Colors.bank.primary.green }}
-              icon={BANK}
+              titleStyle={{ fontSize: 13, color: Colors.bank.primary.lightGreen, marginTop: 8 }}
+              icon={() => (
+                <View style={{ marginTop: 12 }}>
+                  <BankBuilding />
+                </View>
+              )}
             >
               Bank
             </Tab.Item>
             <Tab.Item
-              title="Contact"
-              titleStyle={{ fontSize: 12, color: Colors.bank.primary.green }}
-              icon={{ name: 'people-outline', type: 'ionicon', color: Colors.bank.primary.green }}
+              title={t('screens.beneficiary.contact')}
+              titleStyle={{ fontSize: 13, color: Colors.bank.primary.lightGreen, marginTop: 8 }}
+              icon={Group2 as IconNode}
             >
               Contacts
             </Tab.Item>
@@ -214,7 +222,7 @@ export const BeneficiaryList = () => {
           >
             <TabView.Item
               style={[
-                beneficiaries?.length === 0 && (theme.bank?.shadow?.button as StyleProp<ViewStyle>),
+                beneficiaries?.length === 0 && (theme.bank.shadow.button as StyleProp<ViewStyle>),
                 { width: '100%' },
               ]}
             >
@@ -222,7 +230,7 @@ export const BeneficiaryList = () => {
             </TabView.Item>
             <TabView.Item
               style={[
-                contacts?.length === 0 && (theme.bank?.shadow?.button as StyleProp<ViewStyle>),
+                contacts?.length === 0 && (theme.bank.shadow.button as StyleProp<ViewStyle>),
                 { width: '100%' },
               ]}
             >
