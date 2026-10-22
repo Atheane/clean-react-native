@@ -12,7 +12,7 @@ import {
   transactionsReducer,
 } from '../../../../account/application/state-management';
 
-import { beneficiaryReducer } from '../../../../beneficiary/application/state-management';
+import { beneficiaryReducer, contactReducer } from '../../../../beneficiary/application/state-management';
 
 import { carbonReducer } from '../../../../carbon/application/state-management';
 
@@ -34,7 +34,7 @@ export const rootReducer = combineReducers({
     transactions: transactionsReducer,
     deletedEventCards: eventCardsReducer,
   }),
-  beneficiary: combineReducers({ beneficiaries: beneficiaryReducer }),
+  beneficiary: combineReducers({ beneficiaries: beneficiaryReducer, contacts: contactReducer }),
   carbon: carbonReducer,
   kyc: combineReducers({ customer: customerReducer, document: documentReducer }),
 });

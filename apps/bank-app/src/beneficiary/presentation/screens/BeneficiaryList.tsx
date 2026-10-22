@@ -13,6 +13,7 @@ import {
   LinkButtonColors,
   BeneficiaryAdd,
   BeneficiaryCardList,
+  ContactCardList,
   Colors,
 } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
@@ -86,7 +87,7 @@ const ContactList = () => {
         });
 
         if (data.length > 0) {
-          console.log(data[0]);
+          console.log(data);
           setContacts(data);
         }
       }
