@@ -1,4 +1,5 @@
-import { Card, IChangeCardLimitsCommand } from '@clean-rn/card/domain';
+import { Card, ICardErrorCodes, ICardErrorMessage, IChangeCardLimitsCommand } from '@clean-rn/card/domain';
+import { IDomainError } from '@clean-rn/ddd';
 
 export enum ICardTypes {
   // commands
@@ -6,6 +7,7 @@ export enum ICardTypes {
   FETCH_CHANGE_CARD_LIMITS = 'FETCH_CHANGE_CARD_LIMITS',
   // domain events
   CARD_GET_SUCCESS = 'CARD_GET_SUCCESS',
+  CARD_NOT_FOUND = 'CARD_NOT_FOUND',
   CARD_LIMITS_CHANGED = 'CARD_LIMITS_CHANGED',
   INIT_CARD = 'INIT_CARD',
 }
@@ -30,6 +32,11 @@ export type ICardGetSuccess = {
   payload: Card;
 };
 
+export type ICardNotFound = {
+  type: typeof ICardTypes.CARD_NOT_FOUND;
+  payload: IDomainError<ICardErrorCodes, ICardErrorMessage>;
+};
+
 export type IInitCard = {
   type: typeof ICardTypes.INIT_CARD;
 };
@@ -38,5 +45,6 @@ export type ICardActions =
   | IFetchChangeCardLimits
   | IFetchGetCard
   | ICardLimitsChanged
+  | ICardNotFound
   | IInitCard
   | ICardGetSuccess;

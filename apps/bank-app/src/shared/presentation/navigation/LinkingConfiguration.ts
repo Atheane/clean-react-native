@@ -120,6 +120,8 @@ export const LinkingConfiguration: LinkingOptions<
           MenuCard: {
             screens: {
               Card: 'Card',
+              KycMissing: 'KYCMissing',
+              WaitingCard: 'WaitingCard',
               CardLimits: 'CardLimits',
               ChangePin: 'ChangePin',
               ChangePinSuccess: 'ChangePinSuccess',

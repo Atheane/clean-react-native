@@ -1,5 +1,11 @@
 import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
-import { Card, IChangeCardLimitsCommand, ICardRepository, ICardStatuses } from '@clean-rn/card/domain';
+import {
+  Card,
+  IChangeCardLimitsCommand,
+  ICardRepository,
+  ICardStatuses,
+  CardError,
+} from '@clean-rn/card/domain';
 import { ICardServer } from '../types';
 
 export class CardApi implements ICardRepository {
@@ -10,6 +16,7 @@ export class CardApi implements ICardRepository {
   private constructor(httpConnection: HttpConnection) {
     this.connection = httpConnection;
     this.getCard = this.getCard.bind(this);
+    this.changeCardLimits = this.changeCardLimits.bind(this);
   }
 
   // Public method to provide access to the singleton instance
@@ -27,6 +34,9 @@ export class CardApi implements ICardRepository {
     );
     await this.connection.handleError(response);
     const cardFromServer: ICardServer = await response.json();
+    if (!cardFromServer || !cardFromServer.cardId) {
+      throw new CardError.NotFound();
+    }
     const card = Card.Create({
       cardId: cardFromServer.cardId,
       statusCode: cardFromServer.statusCode,

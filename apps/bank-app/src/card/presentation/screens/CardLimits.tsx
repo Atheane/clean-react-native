@@ -1,22 +1,23 @@
 import { useCallback } from 'react';
-import { View, StyleSheet, Dimensions, Text } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 import { useTranslation } from 'react-i18next';
 
-import { useCleanErrorOnFocus, FormCardLimits, ICardLimitsFormData } from '@clean-rn/ui-mobile';
+import { FormCardLimits, ICardLimitsFormData } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { fetchChangeCardLimits } from '../../application/commands';
 
 const HEIGHT = Dimensions.get('screen').height;
 export const CardLimits = () => {
   const { t } = useTranslation();
 
   // api call
-  const { pending, error } = useSelector((state: IRootState) => state.beneficiary.beneficiaries);
+  const { pending, card } = useSelector((state: IRootState) => state.card);
 
   // internal state
   const {
@@ -30,12 +31,22 @@ export const CardLimits = () => {
   const dispatch = useDispatch();
   const onSubmit = useCallback(
     (formData: ICardLimitsFormData) => {
-      // dispatch(changeCardLimits(formData));
+      if (!card) return;
+      dispatch(
+        fetchChangeCardLimits({
+          card,
+          limits: {
+            day: formData.limitPaymentDay,
+            week: formData.limitPaymentWeek,
+            month: formData.limitPaymentMonth,
+          },
+        }),
+      );
     },
-    [dispatch],
+    [dispatch, card],
   );
 
-  const { domainError, onFocus } = useCleanErrorOnFocus(error);
+  console.log('--------- > card?.id', card?.id);
 
   return (
     <ErrorBoundary t={t}>
@@ -45,9 +56,7 @@ export const CardLimits = () => {
             loading={pending}
             control={control}
             errors={errors}
-            error={domainError}
             onSubmit={handleSubmit(onSubmit)}
-            onFocus={onFocus}
           />
         </View>
       </SafeScrollingView>

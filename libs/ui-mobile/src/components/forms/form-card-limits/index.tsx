@@ -5,9 +5,6 @@ import { useTheme } from '@rneui/themed';
 
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
-import { IDomainError } from '@clean-rn/ddd';
-import { ICardErrorCodes, ICardErrorMessage } from '@clean-rn/card/domain';
-
 import { GreenGradientSpeedLimit } from '../../../assets';
 import { Colors, FontNames } from '../../../constants';
 
@@ -25,9 +22,7 @@ type IProps = {
   loading: boolean;
   control: Control<ICardLimitsFormData>;
   errors: FieldErrors<ICardLimitsFormData>;
-  error: IDomainError<ICardErrorCodes, ICardErrorMessage> | null;
   onSubmit: () => void;
-  onFocus: () => void;
 };
 
 export const FormCardLimits = (props: IProps) => {
@@ -136,9 +131,6 @@ export const FormCardLimits = (props: IProps) => {
           </Text>
         </View>
       )}
-      <View style={styles.domainErrorContainer}>
-        <ErrorMessage error={props.error} />
-      </View>
       <View style={styles.textContainer}>
         <Text style={styles.instructionText}>{t('screens.card.limits.instruction-bottom')}</Text>
       </View>

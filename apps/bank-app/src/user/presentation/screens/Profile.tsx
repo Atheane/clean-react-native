@@ -1,27 +1,31 @@
 import { useCallback } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 
 import { LinkButton, LinkButtonColors } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { ICardStackPages, IProfileStackPages } from '../../../shared/presentation/types';
+import { IProfileStackPages } from '../../../shared/presentation/types';
 
 import { GradientBell, GradientCO2Card } from '../../../user/presentation/assets';
+import { fetchGetCard } from '../../../card/application/commands';
 
 const HEIGHT = Dimensions.get('screen').height;
 export const Profile = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
 
+  const dispatch = useDispatch();
+
   const handlePressApplicationSettings = useCallback(() => {
     navigation.navigate(IProfileStackPages.NOTIFICATON_SETTINGS as never);
   }, [navigation]);
 
   const handlePressCardParameters = useCallback(() => {
-    navigation.navigate(ICardStackPages.MENU as never);
-  }, [navigation]);
+    dispatch(fetchGetCard());
+  }, [dispatch]);
 
   return (
     <ErrorBoundary t={t}>

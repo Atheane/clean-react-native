@@ -6,6 +6,7 @@ import { ICardState } from '../state';
 const initialState: ICardState = {
   pending: false,
   card: null,
+  error: null,
 };
 
 export const cardReducer = (state = initialState, action: ICardActions) => {
@@ -31,6 +32,13 @@ export const cardReducer = (state = initialState, action: ICardActions) => {
         ...state,
         pending: false,
         card: action.payload,
+      };
+      return newState;
+    case ICardTypes.CARD_NOT_FOUND:
+      newState = {
+        ...state,
+        pending: false,
+        error: action.payload,
       };
       return newState;
     case ICardTypes.CARD_LIMITS_CHANGED:

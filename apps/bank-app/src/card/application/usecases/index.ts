@@ -8,18 +8,20 @@ import {
   ICreateCardCommand,
   ILimits,
 } from '@clean-rn/card/domain';
-
+import { Customer } from '@clean-rn/kyc/domain';
+import { KYC_REVIEW } from '@clean-rn/user/domain';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { CardApi } from '@clean-rn/card/infrastructure';
 
-import { cardLimitsChanged, initCard, ICardTypes, cardGetSuccess } from '../commands';
+import { cardLimitsChanged, initCard, ICardTypes, cardGetSuccess, cardNotFound } from '../commands';
 import { IAuthStackPages, ICardStackPages } from '../../../shared/presentation/types';
 import { navigate } from '../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 import { selectAuth } from '../../../auth/application/state-management/selectors';
 import { refreshSuccess } from '../../../auth/application/commands';
+import { selectCustomer } from '../../../kyc/application/state-management/selectors';
 
 export function* getCardSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(ICardTypes.FETCH_GET_CARD, getCardGenerator, httpConnection);
@@ -42,6 +44,20 @@ export function* getCardGenerator(httpConnection: HttpConnection): Generator<Str
   } catch (error: unknown) {
     if (error instanceof ServerError && error.statusCode === 401) {
       yield call(navigate, { route: IAuthStackPages.LOGIN });
+      yield cancel();
+    }
+    if (error instanceof CardError.NotFound) {
+      yield put(cardNotFound(error));
+      const { customer: customerFromRedux } = yield select(selectCustomer);
+      const customer = Customer.Create(customerFromRedux);
+      if (customer.properties.status !== KYC_REVIEW.VALIDATED) {
+        yield call(navigate, {
+          route: ICardStackPages.MENU,
+          params: { screen: ICardStackPages.KYC_MISSING },
+        });
+        yield cancel();
+      }
+      yield call(navigate, { route: ICardStackPages.MENU, params: { screen: ICardStackPages.WAITING_CARD } });
       yield cancel();
     }
     yield put(initCard());

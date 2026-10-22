@@ -11,11 +11,12 @@ import {
   initCard,
   fetchGetCard,
   cardGetSuccess,
+  cardNotFound,
 } from '../../commands';
 import { ICardState, cardReducer } from '../../state-management';
 
 import { changeCardLimitsSaga } from '../../usecases';
-import { Card, ICardStatuses, IChangeCardLimitsCommand } from '@clean-rn/card/domain';
+import { Card, CardError, ICardStatuses, IChangeCardLimitsCommand } from '@clean-rn/card/domain';
 
 const expoConstantsMock = {
   name: 'CleanRN BankApp Test',
@@ -65,6 +66,7 @@ describe('Card - integration', () => {
     const initialState: ICardState = {
       pending: false,
       card: null,
+      error: null,
     };
     sagaTester = new SagaTester({
       initialState,
@@ -91,6 +93,7 @@ describe('Card - integration', () => {
     expect(newState).toEqual({
       pending: true,
       card: null,
+      error: null,
     });
   });
 
@@ -112,6 +115,7 @@ describe('Card - integration', () => {
     expect(newState).toEqual({
       pending: true,
       card: null,
+      error: null,
     });
   });
 
@@ -123,6 +127,19 @@ describe('Card - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       card,
+      error: null,
+    });
+  });
+
+  it('Should store correct state if CARD_NOT_FOUND', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, changeCardLimitsSaga, httpConnection);
+    sagaTester.dispatch(fetchGetCard());
+    sagaTester.dispatch(cardNotFound(new CardError.NotFound()));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      card: null,
+      error: new CardError.NotFound(),
     });
   });
 
@@ -144,6 +161,7 @@ describe('Card - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       card,
+      error: null,
     });
   });
 
@@ -165,6 +183,7 @@ describe('Card - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       card: null,
+      error: null,
     });
   });
 });

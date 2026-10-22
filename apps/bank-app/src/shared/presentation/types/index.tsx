@@ -124,6 +124,8 @@ export type ITransferStackParamList = {
 export type ICardStackParamLimit = {
   MenuCard: undefined;
   Card: undefined;
+  KycMissing: undefined;
+  WaitingCard: undefined;
   CardLimits: undefined;
   ChangePin: undefined;
   ChangePinSuccess: undefined;
@@ -218,6 +220,8 @@ export enum IKycStackPages {
 export enum ICardStackPages {
   MENU = 'MenuCard',
   CARD = 'Card',
+  KYC_MISSING = 'KycMissing',
+  WAITING_CARD = 'WaitingCard',
   CARD_LIMITS = 'CardLimits',
   CHANGE_PIN = 'ChangePin',
   CHANGE_PIN_SUCCESS = 'ChangePinSuccess',
@@ -312,6 +316,8 @@ export type IBeneficiaryStackProps = {
 export type ICardStackProps = {
   [ICardStackPages.MENU]: object;
   [ICardStackPages.CARD]: object;
+  [ICardStackPages.KYC_MISSING]: object;
+  [ICardStackPages.WAITING_CARD]: object;
   [ICardStackPages.CARD_LIMITS]: object;
   [ICardStackPages.CHANGE_PIN]: object;
   [ICardStackPages.CHANGE_PIN_SUCCESS]: object;
@@ -375,6 +381,8 @@ export type IRoutes =
   | IBeneficiaryStackPages.CONTACT_ADD
   | ICardStackPages.MENU
   | ICardStackPages.CARD
+  | ICardStackPages.KYC_MISSING
+  | ICardStackPages.WAITING_CARD
   | ICardStackPages.CARD_LIMITS
   | ICardStackPages.CHANGE_PIN
   | ICardStackPages.CHANGE_PIN_SUCCESS

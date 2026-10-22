@@ -5,17 +5,20 @@ import Constants from 'expo-constants';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
+import { CardApi } from '@clean-rn/card/infrastructure';
+import { Customer } from '@clean-rn/kyc/domain';
+import { Card, CardError, ICardStatuses } from '@clean-rn/card/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IAuthStackPages, ICardStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { getCardGenerator, getCardSaga } from '../../usecases';
-import { ICardTypes, cardGetSuccess, initCard } from '../../commands';
+import { ICardTypes, cardGetSuccess, cardNotFound, initCard } from '../../commands';
 import { selectAuth } from '../../../../auth/application/state-management/selectors';
 import { refreshSuccess } from '../../../../auth/application/commands';
-import { Card, ICardStatuses } from '@clean-rn/card/domain';
-import { CardApi } from '@clean-rn/card/infrastructure';
+import { selectCustomer } from '../../../../kyc/application/state-management/selectors';
+import { KYC_REVIEW } from '@clean-rn/user/domain';
 
 describe('GetCard - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -105,6 +108,64 @@ describe('GetCard - usecase', () => {
       .next()
       .call(navigate, { route: ICardStackPages.MENU })
       .next();
+  });
+
+  it('Should call cardNotFound and navigate to KYC_MISSING if kyc NOT validated', async () => {
+    const customer = Customer.Create({
+      id: 123,
+      properties: { USPerson: false },
+    });
+
+    customer.checkDocumentsStatus([]);
+    testSaga(getCardGenerator, httpConnection)
+      .next()
+      .select(selectAuth)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
+      .next({ auth: mockToken })
+      .call([api, api.getCard])
+      .throw(new CardError.NotFound())
+      .put(cardNotFound(new CardError.NotFound()))
+      .next()
+      .select(selectCustomer)
+      .next({ customer })
+      .call(navigate, {
+        route: ICardStackPages.MENU,
+        params: { screen: ICardStackPages.KYC_MISSING },
+      })
+      .next()
+      .cancel();
+  });
+
+  it('Should call cardNotFound and navigate to KYC_MISSING if kyc VALIDATED', async () => {
+    const customer = Customer.Create({
+      id: 123,
+      properties: { USPerson: false, status: KYC_REVIEW.VALIDATED },
+    });
+
+    customer.checkDocumentsStatus([]);
+    testSaga(getCardGenerator, httpConnection)
+      .next()
+      .select(selectAuth)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
+      .next({ auth: mockToken })
+      .call([api, api.getCard])
+      .throw(new CardError.NotFound())
+      .put(cardNotFound(new CardError.NotFound()))
+      .next()
+      .select(selectCustomer)
+      .next({ customer })
+      .call(navigate, {
+        route: ICardStackPages.MENU,
+        params: { screen: ICardStackPages.WAITING_CARD },
+      })
+      .next()
+      .cancel();
   });
 
   it('Should call navigate to Login modale if 401 from Server', () => {

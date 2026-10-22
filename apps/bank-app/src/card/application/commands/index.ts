@@ -1,4 +1,4 @@
-import { Card, IChangeCardLimitsCommand } from '@clean-rn/card/domain';
+import { Card, ICardErrorCodes, ICardErrorMessage, IChangeCardLimitsCommand } from '@clean-rn/card/domain';
 
 import {
   ICardTypes,
@@ -8,7 +8,9 @@ import {
   IFetchChangeCardLimits,
   IFetchGetCard,
   ICardGetSuccess,
+  ICardNotFound,
 } from './types';
+import { IDomainError } from '@clean-rn/ddd';
 
 // commands
 export const fetchChangeCardLimits = (payload: IChangeCardLimitsCommand): IFetchChangeCardLimits => ({
@@ -21,6 +23,11 @@ export const fetchGetCard = (): IFetchGetCard => ({
 });
 
 // domain events
+export const cardNotFound = (payload: IDomainError<ICardErrorCodes, ICardErrorMessage>): ICardNotFound => ({
+  type: ICardTypes.CARD_NOT_FOUND,
+  payload,
+});
+
 export const cardLimitsChanged = (payload: Card): ICardLimitsChanged => ({
   type: ICardTypes.CARD_LIMITS_CHANGED,
   payload,

@@ -17,6 +17,7 @@ import { deviceReducer } from '../../../../device/application/state-management/r
 
 import { initializationReducer } from './initialize-application';
 import { globalErrorReducer } from './manage-global-errors';
+import { cardReducer } from '../../../../card/application/state-management';
 
 export const rootReducer = combineReducers({
   initialization: initializationReducer,
@@ -32,6 +33,7 @@ export const rootReducer = combineReducers({
   carbon: carbonReducer,
   kyc: combineReducers({ customer: customerReducer, document: documentReducer }),
   device: deviceReducer,
+  card: cardReducer,
 });
 
 export type IRootState = ReturnType<typeof rootReducer>;

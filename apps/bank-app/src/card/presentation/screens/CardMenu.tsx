@@ -1,5 +1,6 @@
-import { useCallback } from 'react';
+import { useEffect } from 'react';
 import { View, StyleSheet, Dimensions, Image } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 
@@ -15,12 +16,17 @@ import {
   BlueGradientShowPin,
   CB,
 } from '../assets';
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 const HEIGHT = Dimensions.get('screen').height;
 export const CardMenu = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
   //todo: lock / unlock logic in state
+
+  const { pending, card, error } = useSelector((state: IRootState) => state.card);
+
+  console.log('---------> error', error);
 
   return (
     <ErrorBoundary t={t}>

@@ -672,6 +672,17 @@
         "change-pin": "Modifier mon code PIN",
         "show-pin": "Voir mon code PIN"
       },
+      "kyc-missing": {
+        "title": "Justificatifs manquants"
+      },
+      "waiting-card": {
+        "title": "Carte en cours d'envoi",
+        "congrats": "Félicitations votre identité est validée !\n\n",
+        "instruction-before-card": "Nous avons lancé la ",
+        "instruction-card": "fabrication de votre Carte CO2",
+        "instruction-after-card": ". Nous vous l’enverrons par courrier dès qu’elle sera prête.\n\nUn peu de patience, vous pouvez en attendant ",
+        "link-instruction": " créditer votre compte."
+      },
       "limits": {
         "title": "Modifier mes plafonds",
         "instruction-top": "Définir des plafonds est un moyen simple de sécuriser votre Compte",

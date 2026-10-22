@@ -13,6 +13,8 @@ import {
   ChangePinSuccess,
   ShowPin,
   LockCardSuccess,
+  KycMissing,
+  WaitingCard,
 } from '../screens';
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 
@@ -29,6 +31,22 @@ export const CardStack = () => {
         component={CardMenu}
         options={{
           headerTitle: t('screens.card.menu.title'),
+          ...headersOptions(() => navigation.navigate(IProfileStackPages.MENU as never)),
+        }}
+      />
+      <Stack.Screen
+        name={ICardStackPages.KYC_MISSING}
+        component={KycMissing}
+        options={{
+          headerTitle: t('screens.card.kyc-missing.title'),
+          ...headersOptions(() => navigation.navigate(IProfileStackPages.MENU as never)),
+        }}
+      />
+      <Stack.Screen
+        name={ICardStackPages.WAITING_CARD}
+        component={WaitingCard}
+        options={{
+          headerTitle: t('screens.card.waiting-card.title'),
           ...headersOptions(() => navigation.navigate(IProfileStackPages.MENU as never)),
         }}
       />
