@@ -66,6 +66,8 @@ import { PdfViewer } from './others/pdf-viewer';
 import { PdfDownloader } from './others/pdf-downloader';
 import { CopyValueClipboard } from './others/copy-value-clipboard';
 import { TransactionItem } from './others/transaction-item';
+import { BeneficiaryItem } from './others/beneficiary-item';
+import { ContactItem } from './others/contact-item';
 import { GraphCO2 } from './others/graph-co2';
 import { ModalError } from './others/modal-error';
 import { IconTextItem } from './others/icon-text-item';
@@ -152,6 +154,8 @@ export {
   PdfDownloader,
   CopyValueClipboard,
   TransactionItem,
+  BeneficiaryItem,
+  ContactItem,
   GraphCO2,
   ModalError,
   IconTextItem,
