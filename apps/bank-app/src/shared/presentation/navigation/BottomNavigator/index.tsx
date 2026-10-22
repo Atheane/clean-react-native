@@ -21,9 +21,10 @@ import {
 } from '../../types';
 
 import { AccountStack } from '../../../../account/presentation/navigation';
+import { BeneficiaryStack } from '../../../../beneficiary/presentation/navigation';
 import { Carbon } from '../../../../carbon/presentation/screens';
 
-import { Transfer } from '../../../../transfer/presentation/screens';
+//import { Transfer } from '../../../../transfer/presentation/screens';
 import { Profile } from '../../../../profile/presentation/screens';
 
 const Tab = createBottomTabNavigator<IRootTabParamList>();
@@ -63,7 +64,7 @@ export const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name={ITransferStackPages.MENU}
-        component={Transfer}
+        component={BeneficiaryStack}
         options={() => ({
           title: t('screens.transfer.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>

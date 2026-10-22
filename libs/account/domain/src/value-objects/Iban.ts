@@ -1,5 +1,5 @@
 import { AccountError } from '../errors';
-import IBAN from 'iban';
+import * as ibantools from 'ibantools';
 
 export class Iban {
   private readonly iban: string;
@@ -12,7 +12,7 @@ export class Iban {
   }
 
   private validate(ibanString: string): boolean {
-    return IBAN.isValid(ibanString);
+    return ibantools.isValidIBAN(ibanString);
   }
 
   get value(): string {

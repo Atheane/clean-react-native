@@ -51,6 +51,7 @@ export type IAuthStackParamList = {
 export type IHomeStackParamList = {
   MenuHome: undefined;
   Accounts: undefined;
+  Beneficiay: undefined;
   Help: undefined;
   Transactions: undefined;
   RestoFlash: undefined;
@@ -113,6 +114,11 @@ export enum IAuthStackPages {
 export enum IHomeStackPages {
   MENU = 'MenuHome',
   ACCOUNTS = 'Accounts',
+  // TODO Move
+  BENEFICIARY_LIST = 'BeneficiaryList',
+  BENEFICIARY_ADD = 'BeneficiaryAdd',
+  CONTACT_ADD = 'ContactAdd',
+  // TODO END
   HELP = 'Help',
   TRANSACTIONS = 'Transactions',
   RESTO_FLASH = 'RestoFlash',
@@ -120,6 +126,12 @@ export enum IHomeStackPages {
   ACCOUNT_STATEMENTS = 'AccountStatements',
   ACCOUNT_STATEMENTS_PDF = 'AccountStatementsPdf',
   RIB_PDF = 'RibPdf',
+}
+
+export enum IBeneficiaryStackPages {
+  BENEFICIARY_LIST = 'BeneficiaryList',
+  BENEFICIARY_ADD = 'BeneficiaryAdd',
+  CONTACT_ADD = 'ContactAdd',
 }
 
 export enum ICarbonStackPages {
@@ -181,6 +193,9 @@ export type IAuthStackProps = {
 export type IHomeStackProps = {
   [IHomeStackPages.MENU]: object;
   [IHomeStackPages.ACCOUNTS]: object;
+  [IHomeStackPages.BENEFICIARY_LIST]: object;
+  [IHomeStackPages.BENEFICIARY_ADD]: object;
+  [IHomeStackPages.CONTACT_ADD]: object;
   [IHomeStackPages.HELP]: object;
   [IHomeStackPages.TRANSACTIONS]: object;
   [IHomeStackPages.ACCOUNT_STATEMENTS]: object;
@@ -242,6 +257,9 @@ export type IRoutes =
   | IAuthStackPages.CGU
   | IAuthStackPages.CGU_KYC_PROVIDER
   | IHomeStackPages.ACCOUNTS
+  | IHomeStackPages.BENEFICIARY_ADD
+  | IHomeStackPages.BENEFICIARY_LIST
+  | IHomeStackPages.CONTACT_ADD
   | IHomeStackPages.MENU
   | IHomeStackPages.HELP
   | IHomeStackPages.TRANSACTIONS

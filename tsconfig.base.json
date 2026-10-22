@@ -10,54 +10,28 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@clean-rn/account/domain": [
-        "libs/account/domain/src/index.ts"
-      ],
-      "@clean-rn/account/infrastructure": [
-        "libs/account/infrastructure/src/index.ts"
-      ],
-      "@clean-rn/auth/domain": [
-        "libs/auth/domain/src/index.ts"
-      ],
-      "@clean-rn/auth/infrastructure": [
-        "libs/auth/infrastructure/src/index.ts"
-      ],
-      "@clean-rn/carbon/domain": [
-        "libs/carbon/domain/src/index.ts"
-      ],
-      "@clean-rn/ddd": [
-        "libs/ddd/src/index.ts"
-      ],
-      "@clean-rn/kyc/domain": [
-        "libs/kyc/domain/src/index.ts"
-      ],
-      "@clean-rn/kyc/infrastructure": [
-        "libs/kyc/infrastructure/src/index.ts"
-      ],
-      "@clean-rn/logger": [
-        "libs/logger/src/index.ts"
-      ],
-      "@clean-rn/shared/domain": [
-        "libs/shared/domain/src/index.ts"
-      ],
-      "@clean-rn/shared/infrastructure": [
-        "libs/shared/infrastructure/src/index.ts"
-      ],
-      "@clean-rn/ui-mobile": [
-        "libs/ui-mobile/src/index.ts"
-      ]
+      "@clean-rn/account/domain": ["libs/account/domain/src/index.ts"],
+      "@clean-rn/account/infrastructure": ["libs/account/infrastructure/src/index.ts"],
+      "@clean-rn/beneficiary/domain": ["libs/beneficiary/domain/src/index.ts"],
+      "@clean-rn/beneficiary/infrastructure": ["libs/beneficiary/infrastructure/src/index.ts"],
+      "@clean-rn/contact/domain": ["libs/contact/domain/src/index.ts"],
+      "@clean-rn/contact/infrastructure": ["libs/contact/infrastructure/src/index.ts"],
+      "@clean-rn/auth/domain": ["libs/auth/domain/src/index.ts"],
+      "@clean-rn/auth/infrastructure": ["libs/auth/infrastructure/src/index.ts"],
+      "@clean-rn/carbon/domain": ["libs/carbon/domain/src/index.ts"],
+      "@clean-rn/ddd": ["libs/ddd/src/index.ts"],
+      "@clean-rn/kyc/domain": ["libs/kyc/domain/src/index.ts"],
+      "@clean-rn/kyc/infrastructure": ["libs/kyc/infrastructure/src/index.ts"],
+      "@clean-rn/logger": ["libs/logger/src/index.ts"],
+      "@clean-rn/shared/domain": ["libs/shared/domain/src/index.ts"],
+      "@clean-rn/shared/infrastructure": ["libs/shared/infrastructure/src/index.ts"],
+      "@clean-rn/ui-mobile": ["libs/ui-mobile/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

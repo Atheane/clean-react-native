@@ -13,6 +13,7 @@ import Home from './home.svg';
 import TopBlueBg from './top-blue-bg.svg';
 import TopRightFlowersBg from './top-right-flowers-bg.svg';
 import TopLeavesBg from './top-leaves-bg.svg';
+import BeneficiaryAdd from './beneficiary-add.svg';
 import BottomLeavesBg from './bottom-leaves-bg.svg';
 import Logo from './logo.svg';
 import Tree from './tree.svg';
@@ -139,6 +140,7 @@ export {
   Warning,
   Transfer,
   ExportPdf,
+  BeneficiaryAdd,
   Iban,
   Bic,
   Copy,

@@ -5,6 +5,7 @@ import { IDomainError } from '@clean-rn/ddd';
 
 import { IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
 import { IAccountErrorCodes, IAccountErrorMessage } from '@clean-rn/account/domain';
+import { IBeneficiaryErrorCodes, IBeneficiaryErrorMessage } from '@clean-rn/beneficiary/domain';
 import { ICarbonErrorCodes, ICarbonErrorMessage } from '@clean-rn/carbon/domain';
 import {
   ICustomerErrorCodes,
@@ -21,6 +22,7 @@ type IProps = {
   error:
     | IDomainError<IAuthErrorCodes, IAuthErrorMessage>
     | IDomainError<IAccountErrorCodes, IAccountErrorMessage>
+    | IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>
     | IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>
     | IDomainError<ICustomerErrorCodes, ICustomerErrorMessage>
     | IDomainError<IDocumentErrorCodes, IDocumentErrorMessage>
@@ -46,6 +48,15 @@ export const ErrorMessage = (props: IProps) => {
           <View>
             <Text style={theme.bank.text.errors}>
               {firstLetterCapitalize(t(`errors.domain-error.account.${props.error.code}`))}
+            </Text>
+          </View>
+        )}
+      {props.error &&
+        props.error.code &&
+        Object.values(IBeneficiaryErrorCodes).includes(props.error.code as IBeneficiaryErrorCodes) && (
+          <View>
+            <Text style={theme.bank.text.errors}>
+              {firstLetterCapitalize(t(`errors.domain-error.beneficiary.${props.error.code}`))}
             </Text>
           </View>
         )}

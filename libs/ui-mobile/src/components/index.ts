@@ -29,6 +29,8 @@ import { Dropdown } from './dropdowns/dropdown';
 import { CountryPicker } from './dropdowns/country-picker';
 import { DateTimePicker } from './dropdowns/datetime-picker';
 // Forms
+import { IBeneficiaryFormData, FormBeneficiary } from './forms/form-beneficiary';
+import { IContactFormData, FormContact } from './forms/form-contact';
 import { ILoginFormData, FormLogin } from './forms/form-login';
 import { IResetPasswordFormData, FormResetPassword } from './forms/form-reset-password';
 import { ISignupEmailFormData, FormSignupEmail } from './forms/form-signup-email';
@@ -53,6 +55,8 @@ import { PhoneSecurityPinInput } from './inputs/phone-security-pin-input';
 import { PhoneValidationCodeInput } from './inputs/phone-validation-code-input';
 import { Slider } from './inputs/slider';
 // Lists
+import { BeneficiaryCardList } from './lists/beneficiary-card-list';
+import { ContactCardList } from './lists/contact-card-list';
 import { TransactionsCardsList } from './lists/transactions-cards-list';
 import { WhiteBalanceList } from './lists/white-balance-list';
 // Others
@@ -64,6 +68,8 @@ import { PdfViewer } from './others/pdf-viewer';
 import { PdfDownloader } from './others/pdf-downloader';
 import { CopyValueClipboard } from './others/copy-value-clipboard';
 import { TransactionItem } from './others/transaction-item';
+import { BeneficiaryItem } from './others/beneficiary-item';
+import { ContactItem } from './others/contact-item';
 import { GraphCO2 } from './others/graph-co2';
 import { ModalError } from './others/modal-error';
 import { IconTextItem } from './others/icon-text-item';
@@ -106,6 +112,8 @@ export {
   CountryPicker,
   DateTimePicker,
   // Forms
+  IBeneficiaryFormData,
+  IContactFormData,
   ILoginFormData,
   IResetPasswordFormData,
   ISignupEmailFormData,
@@ -114,6 +122,8 @@ export {
   ISignupBirthFormData,
   ISignupAddressFormData,
   ISignupPhoneFormData,
+  FormBeneficiary,
+  FormContact,
   FormLogin,
   FormResetPassword,
   FormSignupEmail,
@@ -135,6 +145,8 @@ export {
   PhoneValidationCodeInput,
   Slider,
   // Lists
+  BeneficiaryCardList,
+  ContactCardList,
   TransactionsCardsList,
   WhiteBalanceList,
   // Others
@@ -147,6 +159,8 @@ export {
   PdfDownloader,
   CopyValueClipboard,
   TransactionItem,
+  BeneficiaryItem,
+  ContactItem,
   GraphCO2,
   ModalError,
   IconTextItem,
