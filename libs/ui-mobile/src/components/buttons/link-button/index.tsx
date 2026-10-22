@@ -70,7 +70,7 @@ const getColor = (option: LinkButtonColors) => {
 };
 
 const styles = StyleSheet.create({
-  container: { marginTop: 16 },
+  container: { marginVertical: 8 },
   iconContainer: { marginRight: 10 },
   iconLeft: { marginRight: 10 },
 });

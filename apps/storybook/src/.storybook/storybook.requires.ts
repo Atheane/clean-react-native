@@ -107,6 +107,8 @@ const getStories = () => {
     // Lists
     './stories/lists/TransactionsCardsList.stories.tsx': require('../stories/lists/TransactionsCardsList.stories'),
     './stories/lists/WhiteBalanceList.stories.tsx': require('../stories/lists/WhiteBalanceList.stories'),
+    './stories/lists/ContactCardList.stories.tsx': require('../stories/lists/ContactCardList.stories'),
+    './stories/lists/BeneficiaryCardList.stories.tsx': require('../stories/lists/BeneficiaryCardList.stories'),
     // Others
     './stories/others/WebViewer.stories.tsx': require('../stories/others/WebViewer.stories'),
     './stories/others/PdfViewer.stories.tsx': require('../stories/others/PdfViewer.stories'),

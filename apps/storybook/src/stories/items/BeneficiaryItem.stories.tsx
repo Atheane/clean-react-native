@@ -23,5 +23,9 @@ export default BeneficiaryItemMeta;
 type BeneficiaryItemStory = ComponentStory<typeof BeneficiaryItem>;
 
 export const Static: BeneficiaryItemStory = (args) => {
+  return <BeneficiaryItem {...args} onDelete={undefined} />;
+};
+
+export const Delete: BeneficiaryItemStory = (args) => {
   return <BeneficiaryItem {...args} />;
 };

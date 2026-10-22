@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
 import { Colors, FontNames } from '../../../constants';
@@ -23,7 +23,7 @@ export const ContactItem = (props: IProps) => {
   };
 
   return (
-    <View style={theme.bank.container.centeredItems}>
+    <View style={[theme.bank.container.leftItems, { width: Dimensions.get('window').width, height: 72 }]}>
       <View style={[theme.bank.container.leftItems, { marginLeft: 20 }]}>{props.icon && <props.icon />}</View>
 
       <View style={styles.textContainer}>
@@ -36,7 +36,7 @@ export const ContactItem = (props: IProps) => {
 
 const styles = StyleSheet.create({
   textContainer: {
-    paddingLeft: 25,
+    marginLeft: 30,
   },
   textName: {
     fontFamily: FontNames.Roboto_700Bold,

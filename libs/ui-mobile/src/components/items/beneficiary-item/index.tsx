@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
 //
 import { LinkButton } from '../../buttons/link-button';
-import { DeleteCrossGradient } from '../../../assets';
+import { Trash } from '../../../assets';
 import { Colors, FontNames } from '../../../constants';
 import { LinkButtonColors } from '../../../types';
 //
@@ -30,22 +30,18 @@ export const BeneficiaryItem = (props: IProps) => {
   };
 
   return (
-    <View style={theme.bank.container.justifiedItems}>
-      {props.icon && (
-        <View style={theme.bank.container.leftItems}>
-          <props.icon />
-        </View>
-      )}
+    <View style={[theme.bank.container.leftItems, { width: Dimensions.get('window').width, height: 72 }]}>
+      <View style={[theme.bank.container.leftItems, { marginLeft: 20 }]}>{props.icon && <props.icon />}</View>
 
       <View style={styles.textContainer}>
         <Text style={styles.textName}>{cleanText()}</Text>
         <Text style={styles.textIban}>{props.iban}</Text>
       </View>
-      <View style={styles.deleteBtn}>
+      <View style={styles.btnContainer}>
         {props.onDelete && (
           <LinkButton
             onPress={() => props.onDelete(props.beneficiaryId)}
-            iconLeft={DeleteCrossGradient}
+            iconLeft={Trash}
             colorOption={LinkButtonColors.WHITE}
           />
         )}
@@ -56,8 +52,8 @@ export const BeneficiaryItem = (props: IProps) => {
 
 const styles = StyleSheet.create({
   textContainer: {
-    justifyContent: 'center',
-    paddingLeft: 25,
+    justifyContent: 'flex-start',
+    marginLeft: 30,
   },
   textName: {
     fontFamily: FontNames.Roboto_700Bold,
@@ -69,7 +65,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: 5,
   },
-  deleteBtn: {
-    marginTop: -10,
+  btnContainer: {
+    marginLeft: 50,
   },
 });
