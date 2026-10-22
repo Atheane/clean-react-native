@@ -11,7 +11,7 @@ const initialState: IUserState = {
   user: null,
   error: null,
   config: {
-    notifMailDisabled: null,
+    notifEmailDisabled: null,
     notifFirebaseDisabled: null,
   },
 };
@@ -143,8 +143,8 @@ export const userReducer = (state = initialState, action: IUserActions) => {
         ...state,
         config: {
           ...state.config,
-          notifMailDisabled: action.payload.emailNotificationsDisabled ?? null,
-          notifFirebaseDisabled: action.payload.phoneNotificationsDisabled ?? null,
+          notifEmailDisabled: action.payload.notifEmailDisabled ?? null,
+          notifFirebaseDisabled: action.payload.notifFirebaseDisabled ?? null,
         },
         error: null,
       };
@@ -154,6 +154,14 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       newState = {
         ...state,
         user: action.payload.user,
+        error: null,
+      };
+      return newState;
+    case IUserTypes.USER_SAVED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        user: action.payload,
         error: null,
       };
       return newState;

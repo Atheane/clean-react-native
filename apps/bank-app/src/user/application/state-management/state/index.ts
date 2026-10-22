@@ -17,7 +17,7 @@ export interface IUserState {
   phone: Phone | null;
   phoneOtp: PhoneOtp | null;
   config: {
-    notifMailDisabled: IEmailNotifications[] | null;
+    notifEmailDisabled: IEmailNotifications[] | null;
     notifFirebaseDisabled: IPhoneNotifications[] | null;
   };
   user: User | null;

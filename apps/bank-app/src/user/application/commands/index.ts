@@ -38,6 +38,7 @@ import {
   IPhoneCodeSent,
   IFetchUpdateNotifications,
   INotificationsUpdated,
+  IUserSaved,
 } from './types';
 
 // redux actions that are commands
@@ -144,6 +145,11 @@ export const userSignedUp = (user: User): IUserSignedUp => ({
 // redux actions that are domain Events
 export const notificationUpdated = (payload: { user: User }): INotificationsUpdated => ({
   type: IUserTypes.NOTIFICATIONS_UPDATED,
+  payload,
+});
+
+export const userSaved = (payload: User): IUserSaved => ({
+  type: IUserTypes.USER_SAVED,
   payload,
 });
 

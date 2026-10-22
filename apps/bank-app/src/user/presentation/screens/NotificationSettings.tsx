@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
@@ -10,15 +10,28 @@ import { IPhoneNotifications } from '@clean-rn/user/domain';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { BlueBell } from '../../../user/presentation/assets';
 import { fetchUpdateNotifications } from '../../../user/application/commands';
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 const HEIGHT = Dimensions.get('window').height;
 export const NotificationSettings = () => {
   const { theme } = useTheme();
-
   const { t } = useTranslation();
-  const { pressed: paymentChecked, onPress: handleTogglePayment } = useTogglePress(true);
-  const { pressed: transferChecked, onPress: handleToggleTransfer } = useTogglePress(true);
-  const { pressed: thresholdChecked, onPress: handleToggleThreshold } = useTogglePress(true);
+
+  const { user, pending } = useSelector((state: IRootState) => state.user);
+
+  const hasPhoneNotification = (notif: IPhoneNotifications) => {
+    return !user?.properties.config?.notifFirebaseDisabled.includes(notif);
+  };
+
+  const { pressed: paymentChecked, onPress: handleTogglePayment } = useTogglePress(
+    hasPhoneNotification(IPhoneNotifications.PAYOUT_INITIATED),
+  );
+  const { pressed: transferChecked, onPress: handleToggleTransfer } = useTogglePress(
+    hasPhoneNotification(IPhoneNotifications.PAYIN_RECEIVED),
+  );
+  const { pressed: thresholdChecked, onPress: handleToggleThreshold } = useTogglePress(
+    hasPhoneNotification(IPhoneNotifications.CARD_TRANSACTION_MODIFIED),
+  );
 
   const dispatch = useDispatch();
 
@@ -70,6 +83,7 @@ export const NotificationSettings = () => {
               <SubmitButton
                 title={t('screens.notifications.submit')}
                 uppercase={false}
+                loading={pending}
                 onSubmit={handleOnSubmit}
               />
             </View>

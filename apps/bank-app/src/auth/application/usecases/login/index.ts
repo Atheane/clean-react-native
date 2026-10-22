@@ -16,7 +16,7 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
 
 import { loginFailure, IAuthTypes, initializeAuth, loginSuccess, resetError } from '../../commands';
-import { initializeUser } from '../../../../user/application/commands';
+import { initializeUser, userSaved } from '../../../../user/application/commands';
 
 export function* loginSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IAuthTypes.FETCH_LOGIN, loginGenerator, httpConnection);
@@ -48,6 +48,8 @@ export function* loginGenerator(
     const user = yield call([userApi, userApi.getUser]);
 
     yield put(loginSuccess({ auth, user }));
+    yield put(userSaved(user));
+
     yield put(checkCustomerStatus());
     yield call(navigate, { route: IHomeStackPages.HOME });
   } catch (error: unknown) {

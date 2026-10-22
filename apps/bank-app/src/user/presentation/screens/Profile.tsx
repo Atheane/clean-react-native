@@ -50,5 +50,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 32,
+    marginTop: 50,
   },
 });

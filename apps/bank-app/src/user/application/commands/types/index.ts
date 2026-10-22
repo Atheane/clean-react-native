@@ -38,6 +38,7 @@ export enum IUserTypes {
   ADDRESS_REGISTERED = 'ADDRESS_REGISTERED',
   USER_SIGNED_UP = 'USER_SIGNED_UP',
   NOTIFICATIONS_UPDATED = 'NOTIFICATIONS_UPDATED',
+  USER_SAVED = 'USER_SAVED',
 }
 
 // commands
@@ -146,6 +147,11 @@ export type INotificationsUpdated = {
   };
 };
 
+export type IUserSaved = {
+  type: typeof IUserTypes.USER_SAVED;
+  payload: User;
+};
+
 export type IUserActions =
   | IInitializeUser
   | IFetchSearchEmail
@@ -163,4 +169,5 @@ export type IUserActions =
   | IAddressRegistered
   | IFetchSignupUser
   | IUserSignedUp
-  | INotificationsUpdated;
+  | INotificationsUpdated
+  | IUserSaved;
