@@ -1,11 +1,11 @@
 import { Entity } from '@clean-rn/ddd';
-import { ILimits } from '../types';
+import { ILimits, ICardStatuses } from '../types';
 import { CardPinCode } from '../value-objects';
 import { ICreateCardCommand } from '../commands';
 
 export interface ICardProperties {
   cardId: string;
-  unLocked: boolean;
+  status: ICardStatuses;
   pin: CardPinCode;
   pinChange: number;
   expiryDate: Date;
@@ -31,7 +31,7 @@ export class Card extends Entity<ICardProperties> {
     return new Card({
       id: cardId.toString(),
       properties: {
-        unLocked: statusCode === 'UNLOCK',
+        status: statusCode,
         pin: new CardPinCode(pinString),
         pinChange,
         expiryDate,

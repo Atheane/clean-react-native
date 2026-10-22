@@ -1,13 +1,14 @@
-import { ILimits } from '../types';
+import { Card } from '../entities';
+import { ILimits, ICardStatuses } from '../types';
 
 export type IChangeCardLimitsCommand = {
-  cardId: string;
+  card: Card;
   limits: ILimits;
 };
 
 export type ICreateCardCommand = {
   cardId: number;
-  statusCode: 'LOCKED' | 'UNLOCK';
+  statusCode: ICardStatuses;
   pinString: string;
   pinChange: number;
   expiryDate: Date;
