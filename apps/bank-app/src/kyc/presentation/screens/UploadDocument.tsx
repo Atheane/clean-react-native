@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     height: HEIGHT,
+    marginTop: 30,
   },
   instructionText: {
     width: '90%',

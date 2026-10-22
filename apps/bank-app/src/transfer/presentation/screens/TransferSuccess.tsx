@@ -15,7 +15,7 @@ export const TransferSuccess = () => {
   const handleOnPress = useCallback(() => {
     navigation.reset({
       index: 0,
-      routes: [{ name: IHomeStackPages.MENU }] as never, // IHomeStackPages.MENU,
+      routes: [{ name: IHomeStackPages.HOME }] as never,
     });
   }, [navigation]);
   return (

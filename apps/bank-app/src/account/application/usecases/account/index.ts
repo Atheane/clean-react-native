@@ -24,13 +24,13 @@ export function* listAccountsGenerator(httpConnection: HttpConnection): Generato
     if (accountsFromStore) {
       accounts = accountsFromStore;
       yield put(accountsListed(accounts));
-      yield call(navigate, { route: IHomeStackPages.MENU });
+      yield call(navigate, { route: IHomeStackPages.HOME });
     } else {
       const api = AccountApi.getInstance(httpConnection);
       const accounts: IAccount[] = yield call([api, api.getAccounts]);
 
       yield put(accountsListed(accounts));
-      yield call(navigate, { route: IHomeStackPages.MENU });
+      yield call(navigate, { route: IHomeStackPages.HOME });
     }
   } catch (error: unknown) {
     if (error instanceof ServerError && error.statusCode === 401) {

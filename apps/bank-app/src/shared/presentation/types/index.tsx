@@ -19,7 +19,7 @@ export type IRootTabScreenProps<Screen extends keyof IRootTabParamList> = Compos
 >;
 
 export type IRootTabParamList = {
-  Accounts: undefined;
+  MenuHome: undefined;
   MenuTransfer: undefined;
   MenuCarbon: undefined;
   MenuProfile: undefined;
@@ -52,6 +52,7 @@ export type IUserStackParamList = {
 
 export type IHomeStackParamList = {
   MenuHome: undefined;
+  Home: undefined;
   Accounts: undefined;
   Help: undefined;
   Transactions: undefined;
@@ -119,6 +120,7 @@ export enum IUserStackPages {
 
 export enum IHomeStackPages {
   MENU = 'MenuHome',
+  HOME = 'Home',
   ACCOUNTS = 'Accounts',
   HELP = 'Help',
   TRANSACTIONS = 'Transactions',
@@ -191,6 +193,7 @@ export type IUserStackProps = {
 
 export type IHomeStackProps = {
   [IHomeStackPages.MENU]: object;
+  [IHomeStackPages.HOME]: object;
   [IHomeStackPages.ACCOUNTS]: object;
   [IHomeStackPages.HELP]: object;
   [IHomeStackPages.TRANSACTIONS]: object;
@@ -255,6 +258,7 @@ export type IRoutes =
   | IUserStackPages.NOTIFICATON_SETTINGS
   | IHomeStackPages.ACCOUNTS
   | IHomeStackPages.MENU
+  | IHomeStackPages.HOME
   | IHomeStackPages.HELP
   | IHomeStackPages.TRANSACTIONS
   | IHomeStackPages.RESTO_FLASH

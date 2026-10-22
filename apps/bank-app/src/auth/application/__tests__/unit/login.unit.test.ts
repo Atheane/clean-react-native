@@ -142,7 +142,7 @@ describe('Login - usecase', () => {
       .next()
       .put(checkCustomerStatus({ user }))
       .next()
-      .call(navigate, { route: IHomeStackPages.MENU })
+      .call(navigate, { route: IHomeStackPages.HOME })
       .next();
   });
 
@@ -168,7 +168,7 @@ describe('Login - usecase', () => {
       .next()
       .put(checkCustomerStatus({ user }))
       .next()
-      .call(navigate, { route: IHomeStackPages.MENU })
+      .call(navigate, { route: IHomeStackPages.HOME })
       .next();
   });
 
@@ -194,7 +194,7 @@ describe('Login - usecase', () => {
       .next()
       .put(checkCustomerStatus({ user }))
       .next()
-      .call(navigate, { route: IHomeStackPages.MENU })
+      .call(navigate, { route: IHomeStackPages.HOME })
       .next();
   });
 

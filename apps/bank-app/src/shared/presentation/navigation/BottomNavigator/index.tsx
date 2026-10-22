@@ -23,7 +23,6 @@ import {
 
 import { AccountStack } from '../../../../account/presentation/navigation';
 import { CarbonStack } from '../../../../carbon/presentation/navigation';
-
 import { TransferStack } from '../../../../transfer/presentation/navigation';
 import { ProfileStack } from '../../../../user/presentation/navigation';
 import { KycStack } from '../../../../kyc/presentation/navigation';
@@ -34,16 +33,16 @@ export const BottomTabNavigator = () => {
   const { t } = useTranslation();
   return (
     <Tab.Navigator
-      initialRouteName={IHomeStackPages.ACCOUNTS}
+      initialRouteName={IHomeStackPages.MENU}
       screenOptions={{
         tabBarActiveTintColor: Colors.bank.primary.white,
         headerShown: false,
       }}
     >
       <Tab.Screen
-        name={IHomeStackPages.ACCOUNTS}
+        name={IHomeStackPages.MENU}
         component={AccountStack}
-        options={({ route }) => ({
+        options={() => ({
           title: t('screens.home.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             focused ? (
@@ -53,13 +52,6 @@ export const BottomTabNavigator = () => {
             ),
           tabBarLabel: ({ focused }: { focused: boolean }) =>
             focused ? <Text style={styles.tab}> {t('screens.home.tab')}</Text> : '',
-          tabBarStyle: ((route) => {
-            const routeName = getFocusedRouteNameFromRoute(route) ?? '';
-            if (Platform.OS === 'android' && !['Accounts', 'Transactions'].includes(routeName)) {
-              return { display: 'none' };
-            }
-            return;
-          })(route),
         })}
       />
       <Tab.Screen
@@ -81,7 +73,7 @@ export const BottomTabNavigator = () => {
       <Tab.Screen
         name={ICarbonStackPages.MENU}
         component={CarbonStack}
-        options={({ route }) => ({
+        options={() => ({
           title: t('screens.carbon.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             focused ? (
@@ -91,13 +83,6 @@ export const BottomTabNavigator = () => {
             ),
           tabBarLabel: ({ focused }: { focused: boolean }) =>
             focused ? <Text style={styles.tab}> {t('screens.carbon.tab')}</Text> : '',
-          tabBarStyle: ((route) => {
-            const routeName = getFocusedRouteNameFromRoute(route) ?? '';
-            if (Platform.OS === 'android' && routeName !== 'Carbon') {
-              return { display: 'none' };
-            }
-            return;
-          })(route),
         })}
       />
       <Tab.Screen
