@@ -6,8 +6,7 @@
     "sdkVersion": "49.0.0",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "plugins": [
       "expo-localization"
