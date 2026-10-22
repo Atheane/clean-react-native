@@ -2,10 +2,9 @@ import { useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import ViewShot from 'react-native-view-shot';
-import Share, { ShareSingleOptions } from 'react-native-share'; // allow sharing images on ios AND android
+import * as Sharing from 'expo-sharing'; // Import expo-sharing
 
 import { PrimaryButton } from '../../buttons/primary-button';
-import { Logger } from '@clean-rn/logger';
 
 type IProps = {
   children: React.ReactElement;
@@ -15,36 +14,31 @@ type IProps = {
 
 export const ShareScreen = ({ children, handleError, message }: IProps) => {
   const { t } = useTranslation();
-
   const viewShot = useRef<ViewShot | null>(null);
 
   const shareImage = async (uri: string) => {
     try {
-      const options = {
-        url: uri,
-        message,
-      } as ShareSingleOptions;
-      // https://github.com/react-native-share/react-native-share/issues/861
-      // seul le message est envoyé sur whatsapp ios
-      // await Share.open(options);
-
-      await Share.open(options);
-    } catch (error: unknown) {
-      if (error instanceof Error && !!error.message && error.message.includes('User did not share')) {
-        Logger.getInstance().info('User did not share');
-        return;
+      if (!(await Sharing.isAvailableAsync())) {
+        throw new Error('Sharing is not available on this platform');
       }
+
+      await Sharing.shareAsync(uri, {
+        mimeType: 'image/png', // Or the correct mime type for your file
+        dialogTitle: message,
+        UTI: 'public.png', // For iOS
+      });
+    } catch (error: unknown) {
       handleError(error);
     }
   };
+
   const captureAndShareScreenshot = async () => {
     try {
       const uri = await viewShot?.current?.capture();
-      // Sharing.shareAsync('file://' + uri);
       if (!uri) {
-        throw new Error('uri is undefined');
+        throw new Error('URI is undefined');
       }
-      await shareImage('file://' + uri);
+      await shareImage(uri);
     } catch (error: unknown) {
       handleError(error);
     }

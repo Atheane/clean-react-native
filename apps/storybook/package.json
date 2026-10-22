@@ -63,7 +63,7 @@
     "@sentry/react-native": "*",
     "@react-native-firebase/messaging": "*",
     "@react-native-firebase/app": "*",
-    "react-native-share": "*"
+    "expo-sharing": "~11.5.0"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/storybook && cp package-lock.json apps/storybook",
