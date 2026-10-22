@@ -19,26 +19,39 @@ export class ExpoContact implements IContactRepository {
   }
 
   async getContact(): Promise<IContact[]> {
-    console.log('-- GET CONTACTS --');
     const { status } = await Contacts.requestPermissionsAsync();
     const sortType = Contacts.SortTypes.FirstName;
 
     if (status === 'granted') {
-      console.log('-- GET CONTACTS -- CONTACTS GRANTED');
       const { data } = await Contacts.getContactsAsync({
         fields: [Contacts.Fields.PhoneNumbers, Contacts.Fields.FirstName, Contacts.Fields.Name],
         sort: sortType,
       });
 
-      if (data.length > 0) {
-        console.log(data[0]);
-        return data.map((contact: any) => mapContactExpoToContact(contact));
-      }
+      if (data.length > 0) return data.map((contact: any) => mapContactExpoToContact(contact));
     }
 
-    console.log('-- GET CONTACTS -- CONTACTS NOT GRANTED');
     return [];
   }
 
-  // async addContact(contact: IContactAddCommand): Promise<IContact> {}
+  async addContact(contact: IContactAddCommand): Promise<IContact> {
+    const newContact = {
+      [Contacts.Fields.ContactType]: Contacts.ContactTypes.Person,
+      [Contacts.Fields.FirstName]: contact.firstname,
+      [Contacts.Fields.LastName]: contact.lastname,
+      [Contacts.Fields.Name]: `${contact.firstname} ${contact.lastname}`,
+      [Contacts.Fields.PhoneNumbers]: [
+        {
+          label: 'mobile',
+          number: contact.phone,
+        },
+      ],
+    };
+    await Contacts.addContactAsync(newContact);
+
+    return {
+      name: `${contact.firstname} ${contact.lastname}`,
+      phone: contact.phone,
+    };
+  }
 }

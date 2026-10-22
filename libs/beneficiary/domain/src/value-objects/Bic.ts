@@ -12,7 +12,6 @@ export class BIC {
   }
 
   static validate(bicString: string): boolean {
-    console.log('VALIDATE BIC', bicString, ibantools.isValidBIC(bicString));
     return ibantools.isValidBIC(bicString);
   }
 

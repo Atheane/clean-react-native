@@ -19,8 +19,11 @@ export const ContactCard = (props: IProps) => {
         props.idx % 2 ? styles.contactContainer : [styles.contactContainer, styles.oddContainer]
       }
     >
-      <View key={props.data.contactId}>
-        <ContactItem icon={Phone} name={props.data.name} phone={props.data.phone} />
+      <View key={props.data.name}>
+        {props.data.phone.length > 0 && (
+          <ContactItem icon={Phone} name={props.data.name} phone={props.data.phone} />
+        )}
+        {!props.data.phone.length && <ContactItem name={props.data.name} phone={props.data.phone} />}
       </View>
     </Card>
   );

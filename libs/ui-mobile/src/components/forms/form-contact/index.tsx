@@ -1,74 +1,206 @@
+import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
-import { useTheme } from '@rneui/themed';
+import { Input, useTheme } from '@rneui/themed';
+import SelectDropdown from 'react-native-select-dropdown';
+import { PhoneNumberUtil } from 'google-libphonenumber';
 
 import { IDomainError } from '@clean-rn/ddd';
-import { IContactErrorCodes, IContactErrorMessage } from '@clean-rn/contact/domain';
+import { Logger } from '@clean-rn/logger';
 
-import { Bic as BicIcon, Iban as IbanIcon, Person } from '../../../assets';
+import {
+  Country,
+  Phone,
+  ICountry,
+  COUNTRIES_AVAILABLE,
+  IAuthErrorCodes,
+  IAuthErrorMessage,
+} from '@clean-rn/auth/domain';
+import { Person } from '../../../assets';
 import { Colors } from '../../../constants';
 import { firstLetterCapitalize } from '../../../utils';
 
 import { SubmitButton } from '../../buttons/submit-button';
-import { TextInput } from '../../inputs/text-input';
 import { ErrorMessage } from '../../texts/error-message';
+import { TextInput } from '../../inputs/text-input';
+
+type IProps = {
+  defaultCountry?: string;
+  loading: boolean;
+  onSubmit: () => void;
+  control: Control<IContactFormData>;
+  errors: FieldErrors<IContactFormData>;
+  error: IDomainError<IAuthErrorCodes, IAuthErrorMessage> | null;
+  onFocus: () => void;
+};
 
 export type IContactFormData = {
   firstname: string;
   lastname: string;
+  countryCode: string;
   phone: string;
-};
-
-type IProps = {
-  loading: boolean;
-  control: Control<IContactFormData>;
-  errors: FieldErrors<IContactFormData>;
-  error: IDomainError<IContactErrorCodes, IContactErrorMessage> | null;
-  onSubmit: () => void;
-  onFocus: () => void;
 };
 
 export const FormContact = (props: IProps) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
 
+  const [countryCode, setCountryCode] = useState<string>();
+
+  useEffect(() => {
+    try {
+      if (props.defaultCountry) setCountryCode(new Country(props.defaultCountry).value);
+    } catch (error) {
+      Logger.getInstance().error(error);
+    }
+  }, [props.defaultCountry]);
+
+  const availableCountriesSortedByExtension = Object.values(COUNTRIES_AVAILABLE).sort(
+    (a: ICountry, b: ICountry) =>
+      PhoneNumberUtil.getInstance().getCountryCodeForRegion(a.code) -
+      PhoneNumberUtil.getInstance().getCountryCodeForRegion(b.code),
+  );
+
   return (
-    <View style={[styles.container, theme.bank.container.centeredItem]}>
-      <View style={styles.inputContainer}>
+    <View style={theme.bank.container.centeredItem}>
+      <View style={styles.input}>
         <Controller
           control={props.control}
           name="firstname"
-          rules={{
-            required: true,
-            minLength: 3,
-            maxLength: 140,
-          }}
+          rules={{ required: true }}
           render={({ field: { onChange, value } }) => (
             <TextInput
-              label={t('screens.beneficiary.new-contact.firstname.label')}
+              label={t('signup-identity.first-name.label')}
               labelColor={Colors.bank.primary.grey}
-              value={value}
+              placeholder={firstLetterCapitalize(t('signup-identity.first-name.placeholder'))}
               icon={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
-              placeholder={t('screens.beneficiary.new-contact.firstname.placeholder')}
+              value={value}
               onChange={onChange}
             />
           )}
         />
+        {props.errors?.firstname && props.errors.firstname.type === 'required' && (
+          <View style={styles.errorContainer}>
+            <Text style={theme.bank.text.errors}>
+              {firstLetterCapitalize(t('errors.first-name.required'))}
+            </Text>
+          </View>
+        )}
       </View>
-      {props.errors?.firstname && props.errors.firstname.type === 'required' && (
-        <View style={styles.errorContainer}>
-          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.firstname.required'))}</Text>
+      <View style={styles.input}>
+        <Controller
+          control={props.control}
+          name="lastname"
+          rules={{ required: true }}
+          render={({ field: { onChange, value } }) => (
+            <TextInput
+              label={t('signup-identity.last-name.label')}
+              labelColor={Colors.bank.primary.grey}
+              placeholder={firstLetterCapitalize(t('signup-identity.last-name.placeholder'))}
+              icon={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
+              value={value}
+              onChange={onChange}
+            />
+          )}
+        />
+        {props.errors?.lastname && props.errors.lastname.type === 'required' && (
+          <View style={styles.errorContainer}>
+            <Text style={theme.bank.text.errors}>
+              {firstLetterCapitalize(t('errors.last-name.required'))}
+            </Text>
+          </View>
+        )}
+      </View>
+      <View style={styles.input}>
+        <Text style={[theme.bank.text.label, { marginBottom: 0, color: Colors.bank.primary.grey }]}>
+          {t('signup-phone.phone.label')}
+        </Text>
+        <View style={[theme.bank.container.input, { marginBottom: 0 }]}>
+          <View style={styles.subContainer}>
+            <View style={[styles.selectContainer, theme.bank.container.centeredItem]}>
+              <Controller
+                control={props.control}
+                name="countryCode"
+                rules={{ required: true }}
+                render={({ field: { onChange } }) => (
+                  <SelectDropdown
+                    data={availableCountriesSortedByExtension.map(
+                      (country: ICountry) =>
+                        `${country.emoji} +${PhoneNumberUtil.getInstance().getCountryCodeForRegion(
+                          country.code,
+                        )}`,
+                    )}
+                    onSelect={(text: string, index: number) => {
+                      props.onFocus();
+                      const countryCode = availableCountriesSortedByExtension.map(
+                        (country: ICountry) => country.code,
+                      )[index];
+                      setCountryCode(countryCode);
+                      onChange(countryCode);
+                    }}
+                    buttonStyle={styles.selectButton}
+                    buttonTextStyle={theme.bank.text.input}
+                    searchPlaceHolder=""
+                    defaultValue={countryCode ? new Country(countryCode).valueFlagAndExtension : undefined}
+                  />
+                )}
+              />
+            </View>
+            <Controller
+              control={props.control}
+              name="phone"
+              rules={{
+                required: true,
+                validate: (value: string) => {
+                  try {
+                    if (!countryCode) return false;
+                    new Phone(value, countryCode);
+                    return true;
+                  } catch (e) {
+                    return false;
+                  }
+                },
+              }}
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  inputContainerStyle={[theme.bank.container.input, { width: '50%' }]}
+                  inputStyle={theme.bank.text.input}
+                  onChangeText={onChange}
+                  value={value}
+                  placeholder={t('signup-phone.phone.placeholder')}
+                  onFocus={props.onFocus}
+                  keyboardType={'phone-pad'}
+                />
+              )}
+            />
+          </View>
         </View>
-      )}
-
-      <View style={styles.domainErrorContainer}>
-        <ErrorMessage error={props.error} />
+        {props.errors?.countryCode && props.errors.countryCode.type === 'required' && (
+          <View style={styles.errorPhoneContainer}>
+            <Text style={theme.bank.text.errors}>
+              {firstLetterCapitalize(t('errors.country-code.required'))}
+            </Text>
+          </View>
+        )}
+        {props.errors?.phone && props.errors.phone.type === 'required' && (
+          <View style={styles.errorPhoneContainer}>
+            <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.phone.required'))}</Text>
+          </View>
+        )}
+        {props.errors?.phone && props.errors.phone.type === 'validate' && (
+          <View style={styles.errorPhoneContainer}>
+            <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.phone.invalid'))}</Text>
+          </View>
+        )}
+        <View style={styles.domainErrorContainer}>
+          <ErrorMessage error={props.error} />
+        </View>
       </View>
-      <View style={styles.formSubmit}>
+
+      <View style={[theme.bank.container.centeredItem, styles.formSubmit]}>
         <SubmitButton
-          disabled={false}
-          title={t('button.add')}
+          title={t('button.submit')}
           uppercase={false}
           onSubmit={props.onSubmit}
           loading={props.loading}
@@ -79,19 +211,35 @@ export const FormContact = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: -150,
+  input: {
+    marginTop: 30,
   },
-  inputContainer: { marginTop: 30 },
+  formSubmit: {
+    marginTop: 80,
+    marginBottom: 120,
+  },
+  errorPhoneContainer: {
+    marginTop: 10,
+  },
   errorContainer: {
     marginTop: 24,
   },
   domainErrorContainer: {
     marginTop: 16,
   },
-  formSubmit: {
-    marginTop: 50,
-    marginBottom: 100,
+  iconContainer: {
+    marginLeft: 20,
+    justifyContent: 'center',
+  },
+  subContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  selectContainer: {
+    marginRight: -30,
+  },
+  selectButton: {
+    width: 100,
+    alignItems: 'center',
   },
 });

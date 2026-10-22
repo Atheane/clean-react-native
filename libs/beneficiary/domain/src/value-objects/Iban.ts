@@ -12,7 +12,6 @@ export class IBAN {
   }
 
   static validate(ibanString: string): boolean {
-    console.log('VALIDATE IABN', ibanString, ibantools.isValidIBAN(ibanString));
     return ibantools.isValidIBAN(ibanString);
   }
 

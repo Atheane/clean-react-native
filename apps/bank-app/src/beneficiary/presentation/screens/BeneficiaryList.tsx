@@ -4,7 +4,6 @@ import { View, StyleSheet, StyleProp, ViewStyle, Text, Dimensions, SafeAreaView 
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import * as Contacts from 'expo-contacts';
 
 import { IBeneficiary } from '@clean-rn/beneficiary/domain';
 import { IContact } from '@clean-rn/contact/domain';
@@ -48,7 +47,7 @@ const ContentNoBeneficiary = () => {
   );
 };
 
-// TODO Refactor
+// TODO Refactor  after UX review
 const ContentNoContact = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
@@ -146,27 +145,12 @@ const Beneficiary = () => {
   );
 };
 
-// TODO Refactor
+// TODO Refactor after UX review
 const Contact = () => {
   const { contacts } = useSelector((state: IRootState) => state.beneficiary.contacts);
   const hasContact = contacts && contacts?.length > 0;
   const dispatch = useDispatch();
-  console.log('contacts', contacts);
   useEffect(() => {
-    console.log('DISPATCH', contacts);
-    (async () => {
-      const { status } = await Contacts.requestPermissionsAsync();
-      if (status === 'granted') {
-        const { data } = await Contacts.getContactsAsync({
-          fields: [Contacts.Fields.Emails],
-        });
-
-        if (data.length > 0) {
-          const contact = data[0];
-          console.log(contact);
-        }
-      }
-    })();
     dispatch(contactList());
   }, [dispatch]);
 

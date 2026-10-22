@@ -18,27 +18,57 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { selectContact } from '../../state-management/selectors';
 
-//export function* addContactSaga(): Generator<StrictEffect, any, any> {
-//  yield takeEvery(IContactTypes.CONTACT_ADD, addContactGenerator, null);
-//}
+export function* addContactSaga(): Generator<StrictEffect, any, any> {
+  yield takeEvery(IContactTypes.CONTACT_ADD, addContactGenerator);
+}
 
 export function* listContactSaga(): Generator<StrictEffect, any, any> {
-  console.log('LIST CONTACT SAGA');
   yield takeEvery(IContactTypes.CONTACT_LIST, listContactGenerator);
 }
 
+export function* addContactGenerator({
+  payload,
+}: {
+  type: string;
+  payload: IContactAddCommand;
+}): Generator<StrictEffect, any, any> {
+  try {
+    // api call - add contact
+    const api = ExpoContact.getInstance();
+    const contact = yield call([api, api.addContact], payload);
+
+    // update store
+    const { contacts: contactsFromStore } = yield select(selectContact);
+    if (contactsFromStore) {
+      contactsFromStore.push(contact);
+      yield put(contactListed(contactsFromStore));
+    } else {
+      yield put(contactListed([contact]));
+    }
+
+    // nav back to contact list
+    yield call(navigate, { route: IHomeStackPages.BENEFICIARY_LIST });
+  } catch (error: unknown) {
+    // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
+    if (error instanceof ServerError && error.statusCode === 401) {
+      yield call(navigate, { route: IAuthStackPages.LOGIN });
+      yield cancel();
+    }
+    // once app is well tested, delete this part and let onError hook manage unexpected errors
+    yield put(contactAdd(payload));
+    yield put(showUnknownError(error as Error));
+  }
+}
+
 export function* listContactGenerator(): Generator<StrictEffect, any, any> {
-  console.log('LIST CONTACT GENERATOR');
   try {
     const { contacts: contactsFromStore } = yield select(selectContact);
     if (contactsFromStore) {
       yield put(contactListed(contactsFromStore));
       yield call(navigate, { route: IHomeStackPages.BENEFICIARY_LIST });
     } else {
-      console.log('LIST CONTACT GENERATOR - GET INSTANCE');
       const api = ExpoContact.getInstance();
       const contacts: IContact[] = yield call([api, api.getContact]);
-      console.log('LIST CONTACT ', contacts);
       yield put(contactListed(contacts));
       yield call(navigate, { route: IHomeStackPages.BENEFICIARY_LIST });
     }

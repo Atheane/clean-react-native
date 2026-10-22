@@ -21,7 +21,7 @@ export const contactReducer = (state = initialState, action: IContactActions) =>
       };
       return newState;
     case IContactTypes.CONTACT_LIST_DONE:
-      logger.debug(action.type, action.payload);
+      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
