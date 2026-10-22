@@ -1,69 +1,19 @@
-import { IDomainError } from '@clean-rn/ddd';
-import {
-  IAuth,
-  ILoginCommand,
-  IAuthErrorMessage,
-  IAuthErrorCodes,
-  IResetPasswordCommand,
-  ISuccess,
-} from '@clean-rn/auth/domain';
+import { Card, IChangeCardLimitsCommand } from '@clean-rn/card/domain';
 
-import {
-  IAuthTypes,
-  IFetchLogin,
-  ILoginSucceded,
-  ILoginFailed,
-  IAuthActions,
-  IResetError,
-  IFetchRefresh,
-  IRefreshSucceded,
-  IFetchResetPassword,
-  IPasswordReset,
-  IInitializeAuth,
-} from './types';
-import { IRoutes } from '../../../shared/presentation/types';
+import { ICardTypes, ICardActions, ICardLimitsChanged, IInitCard, IFetchChangeCardLimits } from './types';
 
-export const fetchLogin = (payload: ILoginCommand): IFetchLogin => ({
-  type: IAuthTypes.FETCH_LOGIN,
+export const fetchChangeCardLimits = (payload: IChangeCardLimitsCommand): IFetchChangeCardLimits => ({
+  type: ICardTypes.FETCH_CHANGE_CARD_LIMITS,
   payload,
 });
 
-export const fetchRefresh = (payload?: { nextRoute: IRoutes; params?: any }): IFetchRefresh => ({
-  type: IAuthTypes.FETCH_REFRESH,
+export const cardLimitsChanged = (payload: Card): ICardLimitsChanged => ({
+  type: ICardTypes.CARD_LIMITS_CHANGED,
   payload,
 });
 
-export const fetchResetPassword = (payload: IResetPasswordCommand): IFetchResetPassword => ({
-  type: IAuthTypes.FETCH_RESET_PASSWORD,
-  payload,
+export const initCard = (): IInitCard => ({
+  type: ICardTypes.INIT_CARD,
 });
 
-export const loginSuccess = (payload: { auth: IAuth }): ILoginSucceded => ({
-  type: IAuthTypes.LOGIN_SUCCEDED,
-  payload,
-});
-
-export const refreshSuccess = (payload: { auth: IAuth }): IRefreshSucceded => ({
-  type: IAuthTypes.REFRESH_SUCCEDED,
-  payload,
-});
-
-export const loginFailure = (payload: IDomainError<IAuthErrorCodes, IAuthErrorMessage>): ILoginFailed => ({
-  type: IAuthTypes.LOGIN_FAILED,
-  payload,
-});
-
-export const passwordReset = (payload: ISuccess): IPasswordReset => ({
-  type: IAuthTypes.PASSWORD_RESET,
-  payload,
-});
-
-export const initializeAuth = (): IInitializeAuth => ({
-  type: IAuthTypes.INITIALIZE_AUTH,
-});
-
-export const resetError = (): IResetError => ({
-  type: IAuthTypes.RESET_ERROR,
-});
-
-export { IAuthTypes, IAuthActions };
+export { ICardTypes, ICardActions };

@@ -1,86 +1,37 @@
 import { Logger } from '@clean-rn/logger';
 
-import { IAuthTypes, IAuthActions } from '../../commands/types';
-import { IAuthState } from '../state';
+import { ICardTypes, ICardActions } from '../../commands';
+import { ICardState } from '../state';
 
-const initialState: IAuthState = {
+const initialState: ICardState = {
   pending: false,
-  email: null,
-  password: null,
-  auth: {
-    accessToken: null,
-    refreshToken: null,
-  },
-  error: null,
-  success: null,
+  card: null,
 };
 
-export const authReducer = (state = initialState, action: IAuthActions) => {
+export const cardReducer = (state = initialState, action: ICardActions) => {
   const logger = Logger.getInstance();
-  let newState: IAuthState;
+  let newState: ICardState;
+  logger.debug(action.type);
+
   switch (action.type) {
-    case IAuthTypes.FETCH_LOGIN:
-      logger.debug(action.type);
+    case ICardTypes.FETCH_CHANGE_CARD_LIMITS:
       newState = {
         ...state,
         pending: true,
-        email: action.payload.email,
-        password: action.payload.password,
       };
       return newState;
-    case IAuthTypes.LOGIN_SUCCEDED:
-      logger.debug(action.type);
+    case ICardTypes.INIT_CARD:
       newState = {
         ...state,
         pending: false,
-        auth: action.payload.auth,
+        card: null,
       };
       return newState;
-    case IAuthTypes.REFRESH_SUCCEDED:
-      logger.debug(action.type);
+    case ICardTypes.CARD_LIMITS_CHANGED:
       newState = {
         ...state,
         pending: false,
-        auth: action.payload.auth,
-      };
-      return newState;
-    case IAuthTypes.LOGIN_FAILED:
-      logger.debug(action.type);
-      newState = {
-        ...state,
-        pending: false,
-        error: action.payload,
-      };
-      return newState;
-    case IAuthTypes.FETCH_RESET_PASSWORD:
-      logger.debug(action.type);
-      newState = {
-        ...state,
-        pending: true,
-        success: null,
-      };
-      return newState;
-    case IAuthTypes.PASSWORD_RESET:
-      logger.debug(action.type);
-      newState = {
-        ...state,
-        pending: false,
-        success: action.payload.success,
-      };
-      return newState;
-    case IAuthTypes.INITIALIZE_AUTH:
-      logger.debug(action.type);
-      newState = {
-        ...state,
-        ...initialState,
-      };
-      return newState;
-    case IAuthTypes.RESET_ERROR:
-      logger.debug(action.type);
-      newState = {
-        ...state,
-        pending: false,
-        error: null,
+        card: action.payload,
       };
       return newState;
     default:

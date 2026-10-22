@@ -54,7 +54,6 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
       return newState;
     case IBeneficiaryTypes.BENEFICIARY_ADDED:
       logger.debug(action.type);
-      console.log('-----------', state.beneficiaries);
       if (state.beneficiaries && state.beneficiaries.length > 0) {
         beneficiaries = [...state.beneficiaries, action.payload];
         inplaceSortByName(beneficiaries);
