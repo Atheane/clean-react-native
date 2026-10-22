@@ -138,6 +138,7 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       logger.debug(action.type);
       newState = {
         ...state,
+        pending: true,
         config: {
           ...state.config,
           notifEmailDisabled: action.payload.notifEmailDisabled,
@@ -150,6 +151,7 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       logger.debug(action.type);
       newState = {
         ...state,
+        pending: false,
         user: action.payload.user,
         error: null,
       };

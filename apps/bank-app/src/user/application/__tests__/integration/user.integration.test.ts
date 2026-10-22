@@ -14,6 +14,8 @@ import {
   User,
   IUserProperties,
   UserError,
+  IUpdateUserConfigCommand,
+  IPhoneNotifications,
 } from '@clean-rn/user/domain';
 
 import { Email } from '@clean-rn/auth/domain';
@@ -49,6 +51,9 @@ import {
   registerAddress,
   initializeUser,
   phoneCodeSent,
+  fetchUpdateNotifications,
+  notificationUpdated,
+  userSaved,
 } from '../../commands';
 import { IUserState, userReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
@@ -95,6 +100,10 @@ describe('User - integration', () => {
   const mockQueryPhoneOtp = {
     phoneOtp: new PhoneOtp('123456'),
     phone: new Phone('0616804613', 'FR'),
+  };
+
+  const mockUpdateNotifications: IUpdateUserConfigCommand = {
+    notifFirebaseDisabled: [IPhoneNotifications.PAYOUT_INITIATED],
   };
 
   let initialState: IUserState;
@@ -263,6 +272,19 @@ describe('User - integration', () => {
       user,
       error: null,
       config: null,
+    });
+  });
+
+  it('Should store correct state in case if FETCH_UPDATE_NOTIFICATIONS', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, fetchUpdateNotifications, httpConnection);
+
+    sagaTester.dispatch(fetchUpdateNotifications(mockUpdateNotifications));
+    expect(sagaTester.getState()).toEqual({
+      ...initialState,
+      pending: true,
+      config: {
+        ...mockUpdateNotifications,
+      },
     });
   });
 
@@ -566,7 +588,88 @@ describe('User - integration', () => {
     });
   });
 
-  it('Should store correct state if INITIALIZE_SIGNUP for invalid credentials', () => {
+  it('Should store correct state if FETCH_UPDATE_NOTIFICATIONS', () => {
+    const initialState: IUserState = {
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+
+    sagaTester.dispatch(fetchUpdateNotifications(mockUpdateNotifications));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: true,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: mockUpdateNotifications,
+    });
+  });
+
+  it('Should store correct state if NOTIFICATIONS_UPDATED', () => {
+    const initialState: IUserState = {
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: null,
+    };
+    const user = User.CreateFromEmail(new Email('test@example.com'));
+    user.setConfig(mockUpdateNotifications);
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+
+    sagaTester.dispatch(fetchUpdateNotifications(mockUpdateNotifications));
+    sagaTester.dispatch(notificationUpdated({ user }));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user,
+      error: null,
+      config: mockUpdateNotifications,
+    });
+  });
+
+  it('Should store correct state in case if USER_SAVED', () => {
+    const user = User.CreateFromEmail(new Email('test@example.com'));
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+
+    sagaTester.dispatch(userSaved(user));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user,
+      error: null,
+      config: null,
+    });
+  });
+
+  it('Should store correct state if INITIALIZE_USER for invalid credentials', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
 
     sagaTester.dispatch(initializeUser());

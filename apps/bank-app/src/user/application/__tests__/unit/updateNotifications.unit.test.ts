@@ -1,4 +1,4 @@
-import { SelectEffectDescriptor, SimpleEffect, takeEvery } from 'redux-saga/effects';
+import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 import dayjs from 'dayjs';
@@ -7,9 +7,7 @@ import { Email } from '@clean-rn/auth/domain';
 import {
   Phone,
   IGender,
-  UserError,
   User,
-  IUserProperties,
   KYC_REVIEW,
   BirthDay,
   Country,
@@ -17,39 +15,18 @@ import {
   IPhoneNotifications,
 } from '@clean-rn/user/domain';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
-import { IUserSearchServerCode, UserApi } from '@clean-rn/user/infrastructure';
+import { UserApi } from '@clean-rn/user/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
-import {
-  checkEmailGenerator,
-  checkEmailSaga,
-  registerIdentityGenerator,
-  registerIdentitySaga,
-  checkPhoneGenerator,
-  checkPhoneSaga,
-  registerPasswordGenerator,
-  registerPasswordSaga,
-  registerBirthGenerator,
-  registerBirthSaga,
-  registerAddressSaga,
-  registerAddressGenerator,
-  validatePhoneGenerator,
-  validatePhoneSaga,
-  signupUserSaga,
-  signupUserGenerator,
-  updateNotificationsSaga,
-  updateNotificationsGenerator,
-} from '../../usecases';
-import { selectUserFromSignup } from '../../state-management/selectors';
-
-import { IUserTypes, initializeUser, notificationUpdated } from '../../commands';
-import { IStoreKey } from '../../../../shared/application/types';
-import { IAuthStackPages, IUserStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { goBack, navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
-import { selectAuth, selectUser } from '../../../../auth/application/state-management/selectors';
+import { selectAuth } from '../../../../auth/application/state-management/selectors';
 import { refreshSuccess } from '../../../../auth/application/commands';
+
+import { updateNotificationsSaga, updateNotificationsGenerator } from '../../usecases';
+import { IUserTypes, initializeUser, notificationUpdated } from '../../commands';
 
 describe('Update Notifications - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
