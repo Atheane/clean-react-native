@@ -3,6 +3,7 @@ import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 
+import { BeneficiaryError } from '@clean-rn/beneficiary/domain';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { BeneficiaryApi } from '@clean-rn/beneficiary/infrastructure';
 
@@ -17,7 +18,6 @@ import {
   beneficiaryAdded,
   initBeneficiary,
 } from '../../commands/beneficiary';
-import { BeneficiaryError } from '@clean-rn/beneficiary/domain';
 
 describe('AddBeneficiary - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
