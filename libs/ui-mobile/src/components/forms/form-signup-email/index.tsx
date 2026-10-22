@@ -7,7 +7,7 @@ import { IDomainError } from '@clean-rn/ddd';
 import { Email } from '@clean-rn/auth/domain';
 import { IUserErrorCodes, IUserErrorMessage } from '@clean-rn/user/domain';
 
-import { firstLetterCapitalize } from '../../../utils';
+import { firstLetterCapitalize } from '@clean-rn/utils';
 
 import { EmailInput } from '../../inputs/email-input';
 import { ErrorMessage } from '../../texts/error-message';

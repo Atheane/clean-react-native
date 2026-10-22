@@ -1,5 +1,6 @@
 import { Logger } from '@clean-rn/logger';
 import { IContact } from '@clean-rn/contact/domain';
+import { inplaceSortByName } from '@clean-rn/utils';
 
 import { IContactTypes, IContactActions } from '../../../commands/contact';
 import { IContactState } from '../state';
@@ -8,16 +9,6 @@ const initialState: IContactState = {
   pending: false,
   contacts: null,
   error: null,
-};
-
-const inplaceSortByName = (contacts: any[]) => {
-  contacts.sort((a: any, b: any) => {
-    const nameA = a.name.toLowerCase(); // ignore upper and lowercase
-    const nameB = b.name.toLowerCase(); // ignore upper and lowercase
-    if (nameA < nameB) return -1;
-    if (nameA > nameB) return 1;
-    return 0;
-  });
 };
 
 export const contactReducer = (state = initialState, action: IContactActions) => {

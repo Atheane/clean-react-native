@@ -2,7 +2,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useTheme } from '@rneui/themed';
 import { useTranslation } from 'react-i18next';
 
-import { firstLetterCapitalize } from '../../../utils';
+import { firstLetterCapitalize } from '@clean-rn/utils';
 import { ServerError } from '@clean-rn/shared/infrastructure';
 import { Colors } from '../../../constants';
 

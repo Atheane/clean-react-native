@@ -1,20 +1,11 @@
 import * as Contacts from 'expo-contacts';
 //
 import { Phone } from '@clean-rn/user/domain';
+import { inplaceSortByName } from '@clean-rn/utils';
 
 import { IContact, IAddContactCommand, IContactRepository, ContactError } from '@clean-rn/contact/domain';
 //
 import { mapContactExpoToContact } from '../mappers';
-
-const inplaceSortByName = (contacts: any[]) => {
-  contacts.sort((a: any, b: any) => {
-    const nameA = a.name.toLowerCase(); // ignore upper and lowercase
-    const nameB = b.name.toLowerCase(); // ignore upper and lowercase
-    if (nameA < nameB) return -1;
-    if (nameA > nameB) return 1;
-    return 0;
-  });
-};
 
 export class ExpoContact implements IContactRepository {
   private static instance: ExpoContact | null = null;

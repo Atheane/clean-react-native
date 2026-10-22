@@ -3,12 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
+import { firstLetterCapitalize } from '@clean-rn/utils';
+
 import { IDomainError } from '@clean-rn/ddd';
 import { BIC, IBeneficiaryErrorCodes, IBeneficiaryErrorMessage, IBAN } from '@clean-rn/beneficiary/domain';
 
 import { ProfileGradient, BicGreenGradient, IbanGreenGradient } from '../../../assets';
 import { Colors } from '../../../constants';
-import { firstLetterCapitalize } from '../../../utils';
 
 import { SubmitButton } from '../../buttons/submit-button';
 import { TextInput } from '../../inputs/text-input';

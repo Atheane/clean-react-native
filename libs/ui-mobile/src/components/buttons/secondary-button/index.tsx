@@ -3,8 +3,9 @@ import { View, Text, StyleSheet } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { Button, useTheme } from '@rneui/themed';
 
+import { firstLetterCapitalize } from '@clean-rn/utils';
+
 import { Colors } from '../../../constants';
-import { firstLetterCapitalize } from '../../../utils';
 
 type IProps = {
   title: string;

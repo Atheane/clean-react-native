@@ -4,8 +4,9 @@ import { SvgProps } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Button, useTheme } from '@rneui/themed';
 
+import { firstLetterCapitalize } from '@clean-rn/utils';
+
 import { Colors } from '../../../constants';
-import { firstLetterCapitalize } from '../../../utils';
 
 type IProps = {
   title: string;

@@ -6,6 +6,8 @@ import { Input, useTheme } from '@rneui/themed';
 import SelectDropdown from 'react-native-select-dropdown';
 import { PhoneNumberUtil } from 'google-libphonenumber';
 
+import { firstLetterCapitalize } from '@clean-rn/utils';
+
 import { IDomainError } from '@clean-rn/ddd';
 import { Logger } from '@clean-rn/logger';
 
@@ -21,7 +23,6 @@ import {
 } from '@clean-rn/user/domain';
 import { Person, Phone as PhoneIcon } from '../../../assets';
 import { Colors } from '../../../constants';
-import { firstLetterCapitalize } from '../../../utils';
 
 import { PasswordInput } from '../../inputs/password-input';
 import { SubmitButton } from '../../buttons/submit-button';

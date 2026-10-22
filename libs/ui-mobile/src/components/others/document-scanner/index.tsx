@@ -6,11 +6,11 @@ import { Image } from 'react-native-compressor';
 import * as FileSystem from 'expo-file-system';
 
 import { Logger } from '@clean-rn/logger';
+import { calculateBase64Size } from '@clean-rn/utils';
 
 import { PrimaryButton } from '../../buttons/primary-button';
 import { Colors } from '../../../constants';
 import { Camera as CameraIcon } from '../../../assets';
-import { calculateBase64Size } from '../../../utils';
 
 type IProps = {
   setLoading: (loading: boolean) => void;

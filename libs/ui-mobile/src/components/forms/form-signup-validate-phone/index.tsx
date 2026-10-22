@@ -6,7 +6,7 @@ import { useTheme } from '@rneui/themed';
 import { IDomainError } from '@clean-rn/ddd';
 import { IUserErrorCodes, IUserErrorMessage, PhoneOtp } from '@clean-rn/user/domain';
 
-import { firstLetterCapitalize } from '../../../utils';
+import { firstLetterCapitalize } from '@clean-rn/utils';
 
 import { PhoneValidationCodeInput } from '../../inputs/phone-validation-code-input';
 import { ErrorMessage } from '../../texts/error-message';

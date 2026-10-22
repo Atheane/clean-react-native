@@ -4,11 +4,12 @@ import { useTranslation } from 'react-i18next';
 import DocumentPickr from 'react-native-document-picker';
 import * as FileSystem from 'expo-file-system';
 
+import { calculateBase64Size } from '@clean-rn/utils';
+import { DocumentError } from '@clean-rn/kyc/domain';
+
 import { SecondaryButton } from '../../buttons/secondary-button';
 import { Colors } from '../../../constants';
 import { ImportDocument } from '../../../assets';
-import { calculateBase64Size } from '../../../utils';
-import { DocumentError } from '@clean-rn/kyc/domain';
 
 type IProps = {
   setLoading: (loading: boolean) => void;

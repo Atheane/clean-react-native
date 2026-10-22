@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 
 import { IDomainError } from '@clean-rn/ddd';
 
+import { firstLetterCapitalize } from '@clean-rn/utils';
+
 import { IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
 import { IUserErrorCodes, IUserErrorMessage } from '@clean-rn/user/domain';
 import { IAccountErrorCodes, IAccountErrorMessage } from '@clean-rn/account/domain';
@@ -17,7 +19,6 @@ import {
 
 import { useTheme } from '@rneui/themed';
 
-import { firstLetterCapitalize } from '../../../utils';
 import { IContactErrorCodes, IContactErrorMessage } from '@clean-rn/contact/domain';
 
 type IProps = {

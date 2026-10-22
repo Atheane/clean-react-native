@@ -7,7 +7,7 @@ import countryFlagEmoji from 'country-flag-emoji';
 
 import { IDomainError } from '@clean-rn/ddd';
 import { IUserErrorCodes, IUserErrorMessage, BirthDay } from '@clean-rn/user/domain';
-import { firstLetterCapitalize } from '../../../utils';
+import { firstLetterCapitalize } from '@clean-rn/utils';
 
 import { SubmitButton } from '../../buttons/submit-button';
 import { CountryPicker } from '../../dropdowns/country-picker';
