@@ -112,6 +112,8 @@ import {
   Save,
   Download,
   GreenEuroAmount,
+  BackgroundCardArrow,
+  BackgroundCardGrey,
 } from './svg';
 import { DefaultImage, PlaneEmpty } from './image';
 import { Loader } from './lottie';
@@ -232,4 +234,6 @@ export {
   Download,
   Loader,
   GreenEuroAmount,
+  BackgroundCardArrow,
+  BackgroundCardGrey,
 };

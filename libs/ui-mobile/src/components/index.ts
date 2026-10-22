@@ -22,6 +22,7 @@ import { TransactionsCard } from './cards/transactions-card';
 import { TouchCardKpi } from './cards/touch-card-kpi';
 import { TouchCardText } from './cards/touch-card-text';
 import { UploadDocumentCard } from './cards/upload-document-card';
+import { TransferCard } from './cards/transfer-card';
 // Checkboxes
 import { MultipleOptionsCheckBox } from './checkboxes/multiple-options-checkBox';
 import { SimpleCheckBox } from './checkboxes/simple-checkbox';
@@ -101,6 +102,7 @@ export {
   TouchCardKpi,
   TouchCardText,
   UploadDocumentCard,
+  TransferCard,
   // Checkboxes
   MultipleOptionsCheckBox,
   SimpleCheckBox,

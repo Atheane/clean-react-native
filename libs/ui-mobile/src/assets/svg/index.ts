@@ -111,7 +111,8 @@ import CarbonFootPrint from './carbon-footprint.svg';
 import Save from './save.svg';
 import Download from './download.svg';
 import GreenEuroAmount from './green-euro-amount.svg';
-
+import BackgroundCardArrow from './background-card-arrow.svg';
+import BackgroundCardGrey from './background-card-grey.svg';
 export {
   Love,
   Validate,
@@ -226,4 +227,6 @@ export {
   Save,
   Download,
   GreenEuroAmount,
+  BackgroundCardArrow,
+  BackgroundCardGrey,
 };
