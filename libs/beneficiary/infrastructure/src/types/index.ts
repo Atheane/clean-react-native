@@ -1,6 +1,6 @@
 export type IBeneficiaryServer = {
   beneficiaryId: number;
   name: string;
-  iban: string;
-  bic: string;
+  IBAN: string;
+  BIC: string;
 };

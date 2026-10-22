@@ -1,7 +1,14 @@
-import { IBeneficiary, IBeneficiaryAddCommand } from '@clean-rn/beneficiary/domain';
+import { IDomainError } from '@clean-rn/ddd';
+import {
+  IBeneficiary,
+  IBeneficiaryAddCommand,
+  IBeneficiaryErrorMessage,
+  IBeneficiaryErrorCodes,
+} from '@clean-rn/beneficiary/domain';
 import {
   IBeneficiaryTypes,
   IBeneficiaryAdd,
+  IBeneficiaryAddFailed,
   IBeneficiaryList,
   IBeneficiaryListDone,
   IBeneficiaryListInit,
@@ -11,6 +18,13 @@ import {
 // commands
 export const beneficiaryAdd = (payload: IBeneficiaryAddCommand): IBeneficiaryAdd => ({
   type: IBeneficiaryTypes.BENEFICIARY_ADD,
+  payload,
+});
+
+export const beneficiaryAddFailure = (
+  payload: IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>,
+): IBeneficiaryAddFailed => ({
+  type: IBeneficiaryTypes.BENEFICIARY_ADD_FAILED,
   payload,
 });
 

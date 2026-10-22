@@ -62,6 +62,25 @@ const ContentNoBeneficiary = () => {
   );
 };
 
+const ContentBeneficiary = () => {
+  const { t } = useTranslation();
+  const navigation = useNavigation();
+
+  const handleOnPressAdd = useCallback(() => {
+    navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_ADD);
+  }, [navigation]);
+
+  return (
+    <>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.content}>
+          <TransactionsCardsList data={beneficiaries} />
+        </View>
+      </SafeAreaView>
+    </>
+  );
+};
+
 const ContactList = () => {
   const [contacts, setContacts] = useState([]);
   const sortType = Contacts.SortTypes.FirstName;
@@ -149,13 +168,9 @@ export const BeneficiaryList = () => {
 
   return (
     <ErrorBoundary t={t}>
-      {!hasBeneficiary && (
-        <>
-          <View style={styles.container}>
-            <TabMenu />
-          </View>
-        </>
-      )}
+      <View style={styles.container}>
+        <TabMenu />
+      </View>
     </ErrorBoundary>
   );
 };

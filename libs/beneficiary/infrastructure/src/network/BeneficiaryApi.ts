@@ -33,20 +33,22 @@ export class BeneficiaryApi implements IBeneficiaryRepository {
     );
     await this.connection.handleError(response);
     const beneficiaries = await response.json();
+    console.log('GET BENEFICIARIES', beneficiaries);
     return beneficiaries.map((beneficiary: IBeneficiaryServer) => ({
       beneficiaryId: beneficiary.beneficiaryId,
       name: beneficiary.name,
-      iban: new IBAN(beneficiary.iban),
-      bic: new BIC(beneficiary.bic),
+      IBAN: beneficiary.iban,
+      BIC: beneficiary.bic,
     }));
   }
 
   async addBeneficiary(beneficiary: IBeneficiaryAddCommand): Promise<IBeneficiary> {
     const params = {
+      bic: beneficiary.BIC,
+      iban: beneficiary.IBAN,
       name: beneficiary.name,
-      bic: beneficiary.bic.value,
-      iban: beneficiary.iban.value,
     };
+
     const response = await fetch(
       `${this.connection.baseUrl}/app/beneficiary`,
       this.connection.options(IHttpVerb.POST, params),

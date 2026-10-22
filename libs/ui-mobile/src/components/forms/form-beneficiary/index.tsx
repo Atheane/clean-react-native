@@ -97,7 +97,7 @@ export const FormBeneficiary = (props: IProps) => {
           name="BIC"
           rules={{
             required: true,
-            validate: (value) => BIC.validate(value),
+            //            validate: (value) => BIC.validate(value),
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
