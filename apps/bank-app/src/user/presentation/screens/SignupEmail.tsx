@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { View, Image, StyleSheet, Dimensions, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
@@ -15,12 +15,11 @@ import {
   useCleanErrorOnFocus,
   SubmitButton,
 } from '@clean-rn/ui-mobile';
-import { Email } from '@clean-rn/auth/domain';
+import { AuthError, Email } from '@clean-rn/auth/domain';
 
 import { Welcome } from '../../../auth/presentation/assets/images';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 import { ISharedStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
@@ -44,6 +43,7 @@ export const SignupEmail = () => {
   const dispatch = useDispatch();
   const { pending, error } = useSelector((state: IRootState) => state.user);
 
+  const [authError, setAuthError] = useState<AuthError.InvalidEmail>();
   const onSubmit = useCallback(
     (formData: ISignupEmailFormData) => {
       try {
@@ -52,7 +52,12 @@ export const SignupEmail = () => {
         };
         dispatch(fetchSearchEmail(payload));
       } catch (e: unknown) {
-        dispatch(showUnknownError(e as Error));
+        ///todo replace with a domainError
+        if (e instanceof AuthError.InvalidEmail) {
+          setAuthError(e);
+          return;
+        }
+        throw e;
       }
     },
     [dispatch],
@@ -74,7 +79,7 @@ export const SignupEmail = () => {
   }, [navigation]);
 
   // clean domainError onFocus
-  const { domainError, onFocus } = useCleanErrorOnFocus(error);
+  const { domainError, onFocus } = useCleanErrorOnFocus(authError || error);
 
   return (
     <ErrorBoundary t={t}>

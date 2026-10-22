@@ -43,17 +43,13 @@ export const SignupAddress = () => {
 
   const onSubmit = useCallback(
     (formData: ISignupAddressFormData) => {
-      try {
-        dispatch(
-          registerAddress({
-            ...formData,
-            str: formData.street,
-            USPerson: formData.specifiedUSPerson === '1',
-          }),
-        );
-      } catch (e: unknown) {
-        dispatch(showUnknownError(e as Error));
-      }
+      dispatch(
+        registerAddress({
+          ...formData,
+          str: formData.street,
+          USPerson: formData.specifiedUSPerson === '1',
+        }),
+      );
     },
     [dispatch],
   );

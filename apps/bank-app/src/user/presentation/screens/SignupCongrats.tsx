@@ -26,35 +26,31 @@ export const SignupCongrats = () => {
   const { navigate } = useNavigation();
 
   const onPress = useCallback(() => {
-    try {
-      dispatch(
-        applicationInitialized({
-          email: user?.properties.email ?? null,
-          initRouteName: IHomeStackPages.HOME,
-          carbon: {
-            house: {
-              footprint: null,
-              average: null,
-            },
-            transport: {
-              footprint: null,
-              average: null,
-            },
-            food: {
-              footprint: null,
-              average: null,
-            },
-            fly: {
-              footprint: null,
-              average: null,
-            },
+    dispatch(
+      applicationInitialized({
+        email: user?.properties.email ?? null,
+        initRouteName: IHomeStackPages.HOME,
+        carbon: {
+          house: {
+            footprint: null,
+            average: null,
           },
-        }),
-      );
-      navigate(IHomeStackPages.HOME as never);
-    } catch (e: unknown) {
-      dispatch(showUnknownError(e as Error));
-    }
+          transport: {
+            footprint: null,
+            average: null,
+          },
+          food: {
+            footprint: null,
+            average: null,
+          },
+          fly: {
+            footprint: null,
+            average: null,
+          },
+        },
+      }),
+    );
+    navigate(IHomeStackPages.HOME as never);
   }, [dispatch, user, navigate]);
 
   return (
