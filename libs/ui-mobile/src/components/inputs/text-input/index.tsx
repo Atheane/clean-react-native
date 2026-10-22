@@ -1,4 +1,5 @@
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useMemo } from 'react';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { Input, useTheme } from '@rneui/themed';
 
@@ -9,7 +10,8 @@ type IProps = {
   numeric?: boolean;
   label?: string;
   labelColor?: string;
-  icon?: React.FC<SvgProps>;
+  IconLeft?: React.FC<SvgProps>;
+  IconRight?: React.FC<SvgProps>;
   lowerCase?: boolean;
   autoFocus?: boolean;
   clearTextOnFocus?: boolean;
@@ -18,54 +20,73 @@ type IProps = {
   onChange?: (text: string) => void;
   onFocus?: () => void;
   onBlur?: () => void;
+  short?: boolean;
 };
 
-export const TextInput = (props: IProps) => {
+const Label = React.memo(
+  ({ label, labelColor, theme }: { label?: string; labelColor?: string; theme: any }) =>
+    label ? (
+      <Text style={[theme.bank.text.label, { color: labelColor ?? Colors.bank.secondary.pink }]}>
+        {label}
+      </Text>
+    ) : null,
+);
+
+export const TextInput = ({
+  placeholder,
+  numeric,
+  label,
+  labelColor,
+  IconLeft,
+  IconRight,
+  lowerCase,
+  autoFocus,
+  clearTextOnFocus,
+  clearButtonMode,
+  value,
+  onChange,
+  onFocus,
+  onBlur,
+  short,
+}: IProps) => {
   const { theme } = useTheme();
+
+  const inputStyle = useMemo(
+    () => ({
+      autoCapitalize: lowerCase ? 'none' : undefined,
+      autoCorrect: false,
+      keyboardType: numeric ? 'number-pad' : 'default',
+      placeholderTextColor: Colors.bank.primary.grey,
+    }),
+    [lowerCase, numeric],
+  );
+
   return (
     <View>
-      {props.label && (
-        <Text style={[theme.bank.text.label, { color: props.labelColor ?? Colors.bank.secondary.pink }]}>
-          {props.label}
-        </Text>
-      )}
-      <View style={theme.bank.container.input}>
-        {props.lowerCase ? (
-          <Input
-            autoCapitalize="none"
-            autoCorrect={false}
-            inputContainerStyle={styles.inputContainer}
-            inputStyle={theme.bank.text.input}
-            leftIcon={props.icon ? <props.icon /> : undefined}
-            leftIconContainerStyle={styles.leftIconContainer}
-            onChangeText={props.onChange}
-            placeholder={props.placeholder}
-            value={props.value}
-            clearButtonMode={props.clearButtonMode}
-            onFocus={props.onFocus}
-            onBlur={props.onBlur}
-            autoFocus={props.autoFocus}
-            clearTextOnFocus={props.clearTextOnFocus}
-            keyboardType={props.numeric ? 'number-pad' : 'default'}
-          />
-        ) : (
-          <Input
-            autoCorrect={false}
-            inputContainerStyle={styles.inputContainer}
-            inputStyle={theme.bank.text.input}
-            leftIcon={props.icon ? <props.icon /> : undefined}
-            leftIconContainerStyle={styles.leftIconContainer}
-            onChangeText={props.onChange}
-            placeholder={props.placeholder}
-            value={props.value}
-            clearButtonMode={props.clearButtonMode}
-            onFocus={props.onFocus}
-            onBlur={props.onBlur}
-            autoFocus={props.autoFocus}
-            clearTextOnFocus
-            keyboardType={props.numeric ? 'number-pad' : 'default'}
-          />
-        )}
+      <Label label={label} labelColor={labelColor} theme={theme} />
+      <View
+        style={
+          short
+            ? [theme.bank.container.input, { width: Dimensions.get('window').width * 0.5 }]
+            : theme.bank.container.input
+        }
+      >
+        <Input
+          {...inputStyle}
+          inputContainerStyle={styles.inputContainer}
+          inputStyle={theme.bank.text.input}
+          leftIcon={IconLeft ? <IconLeft /> : undefined}
+          leftIconContainerStyle={styles.leftIconContainer}
+          rightIcon={IconRight ? <IconRight /> : undefined}
+          onChangeText={onChange}
+          placeholder={placeholder}
+          value={value}
+          clearButtonMode={clearButtonMode}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          autoFocus={autoFocus}
+          clearTextOnFocus={clearTextOnFocus}
+        />
       </View>
     </View>
   );
@@ -77,11 +98,13 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginTop: 10,
+    marginLeft: 20,
     marginBottom: -15, // override of default input bottomMargin
     borderBottomWidth: 0,
   },
   leftIconContainer: {
-    marginHorizontal: 10,
+    marginLeft: -10,
+    marginRight: 10,
     borderBottomWidth: 0,
   },
 });

@@ -111,6 +111,7 @@ import {
   CarbonFootPrint,
   Save,
   Download,
+  GreenEuroAmount,
 } from './svg';
 import { DefaultImage, PlaneEmpty } from './image';
 import { Loader } from './lottie';
@@ -230,4 +231,5 @@ export {
   Save,
   Download,
   Loader,
+  GreenEuroAmount,
 };

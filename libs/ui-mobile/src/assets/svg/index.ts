@@ -110,6 +110,7 @@ import ImportDocument from './import-document.svg';
 import CarbonFootPrint from './carbon-footprint.svg';
 import Save from './save.svg';
 import Download from './download.svg';
+import GreenEuroAmount from './green-euro-amount.svg';
 
 export {
   Love,
@@ -224,4 +225,5 @@ export {
   CarbonFootPrint,
   Save,
   Download,
+  GreenEuroAmount,
 };
