@@ -19,6 +19,8 @@
       "@clean-rn/account/infrastructure": ["libs/account/infrastructure/src/index.ts"],
       "@clean-rn/beneficiary/domain": ["libs/beneficiary/domain/src/index.ts"],
       "@clean-rn/beneficiary/infrastructure": ["libs/beneficiary/infrastructure/src/index.ts"],
+      "@clean-rn/contact/domain": ["libs/contact/domain/src/index.ts"],
+      "@clean-rn/contact/infrastructure": ["libs/contact/infrastructure/src/index.ts"],
       "@clean-rn/auth/domain": ["libs/auth/domain/src/index.ts"],
       "@clean-rn/auth/infrastructure": ["libs/auth/infrastructure/src/index.ts"],
       "@clean-rn/carbon/domain": ["libs/carbon/domain/src/index.ts"],
