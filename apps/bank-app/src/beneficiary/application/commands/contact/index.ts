@@ -14,8 +14,6 @@ import {
   IInitContact,
   IContactsListed,
   IContactAddedFailed,
-  ISelectContact,
-  IContactSelected,
 } from './types';
 import { IDomainError } from '@clean-rn/ddd';
 
@@ -33,11 +31,6 @@ export const initContact = (): IInitContact => ({
   type: IContactTypes.INIT_CONTACT,
 });
 
-export const selectContact = (payload: IContact): ISelectContact => ({
-  type: IContactTypes.SELECT_CONTACT,
-  payload,
-});
-
 // domain Events
 export const contactAdded = (payload: IContact): IContactAdded => ({
   type: IContactTypes.CONTACT_ADDED,
@@ -53,11 +46,6 @@ export const contactAddedFailed = (
 
 export const contactsListed = (payload: IContact[]): IContactsListed => ({
   type: IContactTypes.CONTACTS_LISTED,
-  payload,
-});
-
-export const contactSelected = (payload: IContact): IContactSelected => ({
-  type: IContactTypes.CONTACT_SELECTED,
   payload,
 });
 

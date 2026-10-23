@@ -30,8 +30,16 @@ export const Transfer = () => {
 
   // select beneficiary
   const {
-    params: { beneficiaryId, beneficiaryName },
-  } = useRoute() as { params: { beneficiaryId: number; beneficiaryName: string } };
+    params: { beneficiaryId, beneficiaryName, phoneNumber },
+  } = useRoute() as { params: { beneficiaryId?: number; beneficiaryName?: string; phoneNumber?: string } };
+  console.log(
+    'beneficiaryId: ',
+    beneficiaryId,
+    'beneficiaryName: ',
+    beneficiaryName,
+    'phoneNumber: ',
+    phoneNumber,
+  );
 
   // select account
   const { accounts } = useSelector((state: IRootState) => state.account.accounts);
@@ -72,9 +80,7 @@ export const Transfer = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<ITransferFormData>({
-    defaultValues: {},
-  });
+  } = useForm<ITransferFormData>();
 
   const [selectedAccount, setSelectedAccount] = useState<IAccount | undefined>(
     (accounts && accounts.length > 0 && accounts[0]) || undefined,
@@ -91,23 +97,36 @@ export const Transfer = () => {
   );
 
   const dispatch = useDispatch();
-  // api call
   const onSubmit = useCallback(
     (formData: ITransferFormData) => {
-      if (!selectedAccount || !beneficiaryId) {
+      // api call for transfer
+      if (selectedAccount && beneficiaryId) {
+        dispatch(
+          fetchSendTransfer({
+            accountId: selectedAccount.accountId,
+            beneficiaryId,
+            amount: new Amount(formData.amount, ITransactionType.TRANSFER_OUT),
+            label: formData.label,
+          }),
+        );
         return;
       }
-      dispatch(
-        fetchSendTransfer({
-          accountId: selectedAccount.accountId,
-          beneficiaryId,
-          amount: new Amount(formData.amount, ITransactionType.TRANSFER_OUT),
-          label: formData.label,
-        }),
-      );
+      if (selectedAccount && phoneNumber) {
+        console.log('should dispatch fetchSendTransferWaiting');
+        // dispatch(
+        //   fetchSendTransferWaiting({
+        //     accountId: selectedAccount.accountId,
+        //     phone: phoneNumber,
+        //     amount: new Amount(formData.amount, ITransactionType.TRANSFER_OUT),
+        //     label: formData.label,
+        //   }),
+        // );
+        return;
+      }
     },
-    [dispatch, selectedAccount, beneficiaryId],
+    [dispatch, selectedAccount, beneficiaryId, phoneNumber],
   );
+
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
   return (

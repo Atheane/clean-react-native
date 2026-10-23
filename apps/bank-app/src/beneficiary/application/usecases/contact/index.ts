@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, put, StrictEffect, takeEvery, select, cancel } from 'redux-saga/effects';
 
-import { IContact, IAddContactCommand, ContactError, Phone } from '@clean-rn/contact/domain';
+import { IContact, IAddContactCommand, ContactError } from '@clean-rn/contact/domain';
 
 import { ExpoContact } from '@clean-rn/contact/infrastructure';
-import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import {
   contactsListed,
@@ -13,15 +11,11 @@ import {
   initContact,
   contactAdded,
   contactAddedFailed,
-  contactSelected,
 } from '../../commands/contact';
-import { IAuthStackPages, IBeneficiaryStackPages } from '../../../../shared/presentation/types';
+import { IBeneficiaryStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { selectContact } from '../../state-management/selectors';
-
-import { selectAuth } from '../../../../auth/application/state-management/selectors';
-import { refreshSuccess } from '../../../../auth/application/commands';
 
 export function* addContactSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(IContactTypes.ADD_CONTACT, addContactGenerator);

@@ -133,17 +133,23 @@ const ContentContact = (props: { data: IContact[] }) => {
   const navigation = useNavigation();
   const { theme } = useTheme();
 
+  const { contacts } = useSelector((state: IRootState) => state.beneficiary.contacts);
+
   // const dispatch = useDispatch();
   const handleOnPress = useCallback(
     (phone: Phone) => {
-      // todo
-      // dispatch(selectContact({ phone }));
+      if (!contacts) {
+        return;
+      }
+      const contact = contacts.find(
+        (contact: IContact) => contact.phone.valueInternational === phone.valueInternational,
+      );
       navigation.navigate(IBeneficiaryStackPages.TRANSFER, {
-        phone: phone.valueInternational,
-        name: phone.label,
+        phoneNumber: phone.valueInternational,
+        beneficiaryName: contact?.name,
       });
     },
-    [navigation],
+    [navigation, contacts],
   );
 
   const handleOnPressAdd = useCallback(() => {
