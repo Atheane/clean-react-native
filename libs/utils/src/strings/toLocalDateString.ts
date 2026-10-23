@@ -10,10 +10,11 @@ const options: Intl.DateTimeFormatOptions = {
 };
 
 export const toLocalDateString = (date: Date) => {
-  if (locales && locales.length > 0 && locales[0].regionCode) {
-    return date.toLocaleDateString(locales[0].regionCode, options);
+  try {
+    return date.toLocaleDateString(locales[0].languageCode, options);
+  } catch (e: unknown) {
+    return date.toLocaleDateString('fr', options);
   }
-  return null;
 };
 
 export const todayYear = () => new Date().getFullYear();
