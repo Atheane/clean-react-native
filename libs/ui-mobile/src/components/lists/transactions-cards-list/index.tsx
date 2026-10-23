@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { FlatList, View, StyleSheet } from 'react-native';
 import { ITransaction } from '@clean-rn/transaction/domain';
+import { getLocales, Locale } from 'expo-localization';
 
 import { firstLetterCapitalize, toLocalDateString } from '@clean-rn/utils';
 
@@ -10,12 +11,14 @@ type IProps = {
   data: ITransaction[];
 };
 
+const locales: Locale[] = getLocales();
+
 export const TransactionsCardsList = (props: IProps) => {
   const transactionsByDateObject = useMemo(
     () =>
       props.data
         .map((transaction: ITransaction) => {
-          const dateString = toLocalDateString(transaction.date);
+          const dateString = toLocalDateString(transaction.date, locales);
           return {
             ...transaction,
             date: dateString ? firstLetterCapitalize(dateString) : null,

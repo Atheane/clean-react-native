@@ -11,7 +11,6 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 import { IAuthStackPages, ISharedStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
-import { selectAccounts } from '../../state-management/selectors';
 import { listAccountsGenerator, listAccountsSaga } from '../../usecases';
 import { IAccountsTypes, accountsListed, initializeAccountsList } from '../../commands/accounts';
 
@@ -62,21 +61,8 @@ describe('ListAccounts - usecase', () => {
   it('Should call accountsListed if no cached data', async () => {
     testSaga(listAccountsGenerator, httpConnection)
       .next()
-      .select(selectAccounts)
-      .next({ accounts: null })
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
-      .put(accountsListed(mockResponse))
-      .next()
-      .call(navigate, { route: ISharedStackPages.HOME })
-      .next();
-  });
-
-  it('Should call accountsListed if accounts cached', async () => {
-    testSaga(listAccountsGenerator, httpConnection)
-      .next()
-      .select(selectAccounts)
-      .next({ accounts: mockResponse })
       .put(accountsListed(mockResponse))
       .next()
       .call(navigate, { route: ISharedStackPages.HOME })
@@ -86,8 +72,6 @@ describe('ListAccounts - usecase', () => {
   it('Should call navigate to Login modale if 401 from Server', () => {
     testSaga(listAccountsGenerator, httpConnection)
       .next()
-      .select(selectAccounts)
-      .next({ accounts: null })
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
       .call(navigate, { route: IAuthStackPages.LOGIN })
@@ -98,8 +82,6 @@ describe('ListAccounts - usecase', () => {
   it('Should call showUnknownError action if 500 from Server', () => {
     testSaga(listAccountsGenerator, httpConnection)
       .next()
-      .select(selectAccounts)
-      .next({ accounts: null })
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
       .put(initializeAccountsList())
@@ -111,8 +93,6 @@ describe('ListAccounts - usecase', () => {
   it('Should call showUnknownError action if unknown error', () => {
     testSaga(listAccountsGenerator, httpConnection)
       .next()
-      .select(selectAccounts)
-      .next({ accounts: null })
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unknown error'))
       .put(initializeAccountsList())

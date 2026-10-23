@@ -10,6 +10,7 @@ import {
   TransactionError,
   ITransactionWaitingCommand,
 } from '@clean-rn/transaction/domain';
+import { Phone } from '@clean-rn/contact/domain';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { TransactionApi } from '@clean-rn/transaction/infrastructure';
@@ -22,14 +23,13 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 import { selectAuth } from '../../../../auth/application/state-management/selectors';
 import { refreshSuccess } from '../../../../auth/application/commands';
 
-import { transactionWaitingGenerator, transactionWaitingSaga, transferGenerator } from '../../usecases';
+import { transactionWaitingGenerator, transactionWaitingSaga } from '../../usecases';
 import {
   ITransactionsTypes,
   initTransaction,
   transactionFailed,
   transactionWaitingSucceded,
 } from '../../commands';
-import { Phone } from '@clean-rn/contact/domain';
 
 describe('TransactionWaiting - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);

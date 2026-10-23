@@ -3,11 +3,9 @@ import { useForm } from 'react-hook-form';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { getLocales } from 'expo-localization';
 
-import { Logger } from '@clean-rn/logger';
-
 import { FormSignupBirth, ISignupBirthFormData } from '@clean-rn/ui-mobile';
 
-import { COUNTRIES_AVAILABLE } from '@clean-rn/utils';
+import { COUNTRIES_AVAILABLE } from '@clean-rn/contact/domain';
 import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../../wrappers';
 
 const locales = getLocales();
@@ -48,7 +46,7 @@ export const Dynamic: FormSignupBirthStory = (args) => {
   });
 
   const onSubmit = useCallback((formData: ISignupBirthFormData) => {
-    Logger.getInstance().debug(formData);
+    console.log(formData);
   }, []);
 
   return <FormSignupBirth {...args} control={control} errors={errors} onSubmit={handleSubmit(onSubmit)} />;

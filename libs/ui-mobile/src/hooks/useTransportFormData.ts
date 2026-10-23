@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { VehicleFuelE as FuelE, VehicleConsumptionT } from '@bank/carbon-weight/dist';
 
-import { Logger } from '@clean-rn/logger';
 import { TransportEmissions } from '@clean-rn/carbon/domain';
 
 export const useTransportFormData = (initialValues: VehicleConsumptionT | null) => {
@@ -43,7 +42,7 @@ export const useTransportFormData = (initialValues: VehicleConsumptionT | null) 
       new TransportEmissions(formData as VehicleConsumptionT);
       setDisabled(false);
     } catch (e: unknown) {
-      Logger.getInstance().debug(e);
+      console.log(e);
     }
   }, [formData]);
 

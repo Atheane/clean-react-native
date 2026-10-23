@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { getLocales } from 'expo-localization';
 
 import { CountryPicker } from '@clean-rn/ui-mobile';
-import { ICountry } from '@clean-rn/auth/domain';
+import { ICountry } from '@clean-rn/user/domain';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 

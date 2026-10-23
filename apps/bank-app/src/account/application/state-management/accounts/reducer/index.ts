@@ -1,5 +1,3 @@
-import { Logger } from '@clean-rn/logger';
-
 import { IAccountsTypes, IAccountsActions } from '../../../commands/accounts';
 import { IAccountsState } from '../state';
 
@@ -10,18 +8,15 @@ const initialState: IAccountsState = {
 };
 
 export const accountsReducer = (state = initialState, action: IAccountsActions) => {
-  const logger = Logger.getInstance();
   let newState: IAccountsState;
   switch (action.type) {
     case IAccountsTypes.LIST_ACCOUNTS:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
       };
       return newState;
     case IAccountsTypes.ACCOUNTS_LISTED:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -29,14 +24,12 @@ export const accountsReducer = (state = initialState, action: IAccountsActions) 
       };
       return newState;
     case IAccountsTypes.ACCOUNT_SELECTED:
-      logger.debug(action.type);
       newState = {
         ...state,
         selectedAccount: action.payload,
       };
       return newState;
     case IAccountsTypes.INITIALIZE_ACCOUNTS_LIST:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,

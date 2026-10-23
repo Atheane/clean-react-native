@@ -119,7 +119,6 @@ export const Home = () => {
 
   // show identity banner if customer not validated and if no card
   const { customer, pending: kycPending } = useSelector((state: IRootState) => state.kyc.customer);
-  const { card, pending: cardPending } = useSelector((state: IRootState) => state.card);
 
   const dataEventCards = useMemo(
     () =>
@@ -136,7 +135,7 @@ export const Home = () => {
     [deletedCards, t],
   );
 
-  return accountPending || kycPending || cardPending ? (
+  return accountPending || kycPending ? (
     <LoaderSplashScreen />
   ) : (
     <ErrorBoundary t={t}>
@@ -148,7 +147,7 @@ export const Home = () => {
           onPressRightIcon={handleUpdateNeeded}
         />
       )}
-      {customer && !card && (
+      {customer && customer.properties.status !== KYC_REVIEW.PENDING && (
         <Banner
           title={
             customer.properties.status === KYC_REVIEW.VALIDATED

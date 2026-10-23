@@ -528,7 +528,7 @@
       "title": "Verify your identity",
       "send-document": "Send a document",
       "init": {
-        "instruction": "Please prepare:\n\n- An ID\n- A proof of address\n- A transfer to the CO2 Account from one of your accounts",
+        "instruction": "3 steps:\n\n1. Attach proof of identity\n\n2. Attach proof of address\n\n3. Transfer 1 euro from one of your bank accounts to your CO2 Account",
         "check-identity": "Check my identity"
       },
       "complete": {

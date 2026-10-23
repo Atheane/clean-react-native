@@ -1,7 +1,3 @@
-import { getLocales, Locale } from 'expo-localization';
-
-const locales: Locale[] = getLocales();
-
 const options: Intl.DateTimeFormatOptions = {
   weekday: 'long',
   year: 'numeric',
@@ -9,7 +5,7 @@ const options: Intl.DateTimeFormatOptions = {
   day: 'numeric',
 };
 
-export const toLocalDateString = (date: Date) => {
+export const toLocalDateString = (date: Date, locales: any) => {
   try {
     return date.toLocaleDateString(locales[0].languageCode, options);
   } catch (e: unknown) {

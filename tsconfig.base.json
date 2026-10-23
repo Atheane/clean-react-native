@@ -31,7 +31,6 @@
       "@clean-rn/device/infrastructure": ["libs/device/infrastructure/src/index.ts"],
       "@clean-rn/kyc/domain": ["libs/kyc/domain/src/index.ts"],
       "@clean-rn/kyc/infrastructure": ["libs/kyc/infrastructure/src/index.ts"],
-      "@clean-rn/logger": ["libs/logger/src/index.ts"],
       "@clean-rn/profile/domain": ["libs/profile/domain/src/index.ts"],
       "@clean-rn/profile/infrastructure": ["libs/profile/infrastructure/src/index.ts"],
       "@clean-rn/shared/domain": ["libs/shared/domain/src/index.ts"],

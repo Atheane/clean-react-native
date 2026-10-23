@@ -2,8 +2,6 @@
 /* eslint-disable no-fallthrough */
 import { call, put, StrictEffect, takeEvery, cancel, select } from 'redux-saga/effects';
 
-import { Logger } from '@clean-rn/logger';
-
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 
@@ -29,7 +27,7 @@ export function* refreshGenerator(
   },
 ): Generator<StrictEffect, any, any> {
   try {
-    Logger.getInstance().info(IAuthTypes.FETCH_REFRESH);
+    console.log(IAuthTypes.FETCH_REFRESH);
     const authApi = AuthApi.getInstance(httpConnection);
     const authFromStore = yield select(selectAuth);
     const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);

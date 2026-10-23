@@ -6,7 +6,6 @@ import { useTheme } from '@rneui/themed';
 
 import { FlightSeatE as SeatE, FlightI } from '@bank/carbon-weight/dist';
 
-import { Logger } from '@clean-rn/logger';
 import { FlyEmissions } from '@clean-rn/carbon/domain';
 
 import { Add, FlyFrom, FlyTo, PlaneEmpty } from '../../../assets';
@@ -55,7 +54,7 @@ export const FlyForm = (props: IProps) => {
       new FlyEmissions(props.flight as FlightI);
       setDisabled(false);
     } catch (e: unknown) {
-      Logger.getInstance().info(e);
+      console.log(e);
     }
   }, [props.flight]);
 

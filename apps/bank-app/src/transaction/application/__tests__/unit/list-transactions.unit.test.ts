@@ -20,7 +20,6 @@ import { refreshSuccess } from '../../../../auth/application/commands';
 
 import { accountSelected } from '../../../../account/application/commands/accounts';
 
-import { selectTransactions } from '../../selectors';
 import { listTransactionsGenerator, listTransactionsSaga } from '../../usecases';
 import { ITransactionsTypes, transactionsListed, initializeTransactionsList } from '../../commands';
 
@@ -105,8 +104,6 @@ describe('ListTransactions - usecase', () => {
       payload: { account },
     })
       .next()
-      .select(selectTransactions)
-      .next({ transactions: null })
       .select(selectAuth)
       .next(mockToken)
       .call([authApi, authApi.refresh], mockToken.refreshToken)
@@ -123,30 +120,12 @@ describe('ListTransactions - usecase', () => {
       .next();
   });
 
-  it('Should call transactionsListed if accounts cached', async () => {
-    testSaga(listTransactionsGenerator, httpConnection, {
-      type: ITransactionsTypes.LIST_TRANSACTIONS,
-      payload: { account },
-    })
-      .next()
-      .select(selectTransactions)
-      .next({ transactions: mockResponse })
-      .put(transactionsListed(mockResponse))
-      .next()
-      .put(accountSelected(account))
-      .next()
-      .call(navigate, { route: ITransactionStackPages.MENU })
-      .next();
-  });
-
   it('Should call navigate to Login modale action if 401 from Server', () => {
     testSaga(listTransactionsGenerator, httpConnection, {
       type: ITransactionsTypes.LIST_TRANSACTIONS,
       payload: { account },
     })
       .next()
-      .select(selectTransactions)
-      .next({ transactions: null })
       .select(selectAuth)
       .next(mockToken)
       .call([authApi, authApi.refresh], mockToken.refreshToken)
@@ -166,8 +145,6 @@ describe('ListTransactions - usecase', () => {
       payload: { account },
     })
       .next()
-      .select(selectTransactions)
-      .next({ transactions: null })
       .select(selectAuth)
       .next(mockToken)
       .call([authApi, authApi.refresh], mockToken.refreshToken)
@@ -188,9 +165,13 @@ describe('ListTransactions - usecase', () => {
       payload: { account },
     })
       .next()
-      .select(selectTransactions)
-      .next({ transactions: mockResponse })
-      .put(transactionsListed(mockResponse))
+      .select(selectAuth)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
+      .next()
+      .call([api, api.getTransactions], account.accountId)
       .throw(new Error('unknown error'))
       .put(initializeTransactionsList())
       .next()
