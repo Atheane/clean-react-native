@@ -23,6 +23,7 @@ module.exports = {
     './apps/bank-app/src/account/application/state-management/selectors/index.ts',
     './apps/bank-app/src/beneficiary/application/state-management/selectors/index.ts',
     './apps/bank-app/src/kyc/application/state-management/selectors/index.ts',
+    './apps/bank-app/src/card/application/state-management/selectors/index.ts',
   ],
   coverageThreshold: {
     global: {

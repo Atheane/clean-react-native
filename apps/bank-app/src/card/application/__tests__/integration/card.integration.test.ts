@@ -13,11 +13,19 @@ import {
   cardGetSuccess,
   cardNotFound,
   cardForbidden,
+  fetchToggleLock,
+  cardLockToggled,
 } from '../../commands';
 import { ICardState, cardReducer } from '../../state-management';
 
-import { changeCardLimitsSaga, getCardSaga } from '../../usecases';
-import { Card, CardError, ICardStatuses, IChangeCardLimitsCommand } from '@clean-rn/card/domain';
+import { changeCardLimitsSaga, getCardSaga, toggleCardLockSaga } from '../../usecases';
+import {
+  Card,
+  CardError,
+  ICardStatuses,
+  IChangeCardLimitsCommand,
+  IToggleCardLockCommand,
+} from '@clean-rn/card/domain';
 
 const expoConstantsMock = {
   name: 'CleanRN BankApp Test',
@@ -105,12 +113,28 @@ describe('Card - integration', () => {
         week: 500,
         day: 200,
       },
-      card,
     };
 
     const newState = cardReducer(undefined, {
       type: ICardTypes.FETCH_CHANGE_CARD_LIMITS,
       payload: changeCardLimitsCmd,
+    });
+
+    expect(newState).toEqual({
+      pending: true,
+      card: null,
+      error: null,
+    });
+  });
+
+  it('Should store correct initial state if FETCH_TOGGLE_LOCK', () => {
+    const isLocked: IToggleCardLockCommand = {
+      lock: true,
+    };
+
+    const newState = cardReducer(undefined, {
+      type: ICardTypes.FETCH_TOGGLE_LOCK,
+      payload: isLocked,
     });
 
     expect(newState).toEqual({
@@ -163,7 +187,6 @@ describe('Card - integration', () => {
         week: 500,
         day: 200,
       },
-      card,
     };
 
     sagaTester.start(wrapSagaHidingNotFoundError, changeCardLimitsSaga, httpConnection);
@@ -178,6 +201,18 @@ describe('Card - integration', () => {
     });
   });
 
+  it('Should store correct state if CARD_LOCK_TOGGLED', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, toggleCardLockSaga, httpConnection);
+    sagaTester.dispatch(fetchToggleLock());
+    card.updateStatus(ICardStatuses.LOCK);
+    sagaTester.dispatch(cardLockToggled(card));
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      card,
+      error: null,
+    });
+  });
+
   it('Should store correct state if INIT_CARD', () => {
     const changeCardLimitsCmd: IChangeCardLimitsCommand = {
       limits: {
@@ -185,7 +220,6 @@ describe('Card - integration', () => {
         week: 500,
         day: 200,
       },
-      card,
     };
     sagaTester.start(wrapSagaHidingNotFoundError, changeCardLimitsSaga, httpConnection);
     sagaTester.dispatch(fetchChangeCardLimits(changeCardLimitsCmd));

@@ -1,4 +1,10 @@
-import { Card, ICardErrorCodes, ICardErrorMessage, IChangeCardLimitsCommand } from '@clean-rn/card/domain';
+import {
+  Card,
+  ICardErrorCodes,
+  ICardErrorMessage,
+  IChangeCardLimitsCommand,
+  IToggleCardLockCommand,
+} from '@clean-rn/card/domain';
 
 import {
   ICardTypes,
@@ -7,9 +13,11 @@ import {
   IInitCard,
   IFetchChangeCardLimits,
   IFetchGetCard,
+  IFetchToggleLock,
   ICardGetSuccess,
   ICardNotFound,
   ICardForbidden,
+  ICardLockToggled,
 } from './types';
 import { IDomainError } from '@clean-rn/ddd';
 
@@ -21,6 +29,11 @@ export const fetchChangeCardLimits = (payload: IChangeCardLimitsCommand): IFetch
 
 export const fetchGetCard = (): IFetchGetCard => ({
   type: ICardTypes.FETCH_GET_CARD,
+});
+
+export const fetchToggleLock = (payload: IToggleCardLockCommand): IFetchToggleLock => ({
+  type: ICardTypes.FETCH_TOGGLE_LOCK,
+  payload,
 });
 
 // domain events
@@ -41,6 +54,11 @@ export const cardGetSuccess = (payload: Card): ICardGetSuccess => ({
 
 export const cardForbidden = (payload: IDomainError<ICardErrorCodes, ICardErrorMessage>): ICardForbidden => ({
   type: ICardTypes.CARD_FORBIDDEN,
+  payload,
+});
+
+export const cardLockToggled = (payload: Card): ICardLockToggled => ({
+  type: ICardTypes.CARD_LOCK_TOGGLED,
   payload,
 });
 

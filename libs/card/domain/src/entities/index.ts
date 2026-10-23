@@ -51,4 +51,8 @@ export class Card extends Entity<ICardProperties> {
       ...limits,
     };
   }
+
+  updateStatus(status: ICardStatuses): void {
+    this.properties.status = status;
+  }
 }

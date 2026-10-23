@@ -16,6 +16,7 @@ import { selectAuth } from '../../../../auth/application/state-management/select
 import { refreshSuccess } from '../../../../auth/application/commands';
 import { Card, ICardStatuses, IChangeCardLimitsCommand } from '@clean-rn/card/domain';
 import { CardApi } from '@clean-rn/card/infrastructure';
+import { selectCard } from '../../state-management/selectors';
 
 describe('ChangeCardLimits - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -56,7 +57,6 @@ describe('ChangeCardLimits - usecase', () => {
       week: 500,
       day: 200,
     },
-    card,
   };
 
   const mockToken = {
@@ -100,7 +100,6 @@ describe('ChangeCardLimits - usecase', () => {
   });
 
   it('Should call cardLimitsChanged', async () => {
-    card.changeCardLimits(changeCardLimitsCmd.limits);
     testSaga(changeCardLimitsGenerator, httpConnection, {
       type: ICardTypes.FETCH_CHANGE_CARD_LIMITS,
       payload: changeCardLimitsCmd,
@@ -112,7 +111,9 @@ describe('ChangeCardLimits - usecase', () => {
       .next(mockToken)
       .put(refreshSuccess({ auth: mockToken }))
       .next({ auth: mockToken })
-      .call([api, api.changeCardLimits], changeCardLimitsCmd) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .select(selectCard)
+      .next(card)
+      .call([api, api.changeCardLimits], card, changeCardLimitsCmd) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(card)
       .put(cardLimitsChanged(card))
       .next()
@@ -147,7 +148,9 @@ describe('ChangeCardLimits - usecase', () => {
       .next(mockToken)
       .put(refreshSuccess({ auth: mockToken }))
       .next({ auth: mockToken })
-      .call([api, api.changeCardLimits], changeCardLimitsCmd) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .select(selectCard)
+      .next(card)
+      .call([api, api.changeCardLimits], card, changeCardLimitsCmd)
       .throw(new ServerError(mockError500))
       .put(initCard())
       .next()
@@ -167,7 +170,9 @@ describe('ChangeCardLimits - usecase', () => {
       .next(mockToken)
       .put(refreshSuccess({ auth: mockToken }))
       .next({ auth: mockToken })
-      .call([api, api.changeCardLimits], changeCardLimitsCmd) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .select(selectCard)
+      .next(card)
+      .call([api, api.changeCardLimits], card, changeCardLimitsCmd)
       .throw(new Error('unknown error'))
       .put(initCard())
       .next()

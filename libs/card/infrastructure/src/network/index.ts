@@ -3,8 +3,9 @@ import {
   Card,
   IChangeCardLimitsCommand,
   ICardRepository,
-  ICardStatuses,
   CardError,
+  IToggleCardLockCommand,
+  ICardStatuses,
 } from '@clean-rn/card/domain';
 import { ICardServer } from '../types';
 
@@ -51,7 +52,7 @@ export class CardApi implements ICardRepository {
     return card;
   }
 
-  async changeCardLimits(cmd: IChangeCardLimitsCommand): Promise<Card> {
+  async changeCardLimits(card: Card, cmd: IChangeCardLimitsCommand): Promise<Card> {
     const params = {
       limitPaymentYear: cmd.limits.year,
       limitPaymentMonth: cmd.limits.month,
@@ -59,17 +60,30 @@ export class CardApi implements ICardRepository {
       limitPaymentDay: cmd.limits.day,
     };
     const response = await fetch(
-      `${this.connection.baseUrl}/app/card/${cmd.card.id}/limits`,
+      `${this.connection.baseUrl}/app/card/${card.id}/limits`,
       this.connection.options(IHttpVerb.PUT, params),
     );
     await this.connection.handleError(response);
     const cardFromServer: ICardServer = await response.json();
-    cmd.card.changeCardLimits({
+    card.changeCardLimits({
       year: cardFromServer.limitPaymentYear,
       month: cardFromServer.limitPaymentMonth,
       week: cardFromServer.limitPaymentWeek,
       day: cardFromServer.limitPaymentDay,
     });
-    return cmd.card;
+    return card;
+  }
+  async toggleLock(card: Card, cmd: IToggleCardLockCommand): Promise<Card> {
+    const params = {
+      lockStatus: cmd.lock ? 1 : 0,
+    };
+    const response = await fetch(
+      `${this.connection.baseUrl}/app/card/${card.id}/lockUnlock`,
+      this.connection.options(IHttpVerb.PUT, params),
+    );
+    await this.connection.handleError(response);
+    const cardFromServer: ICardServer = await response.json();
+    card.updateStatus(cardFromServer.statusCode);
+    return card;
   }
 }

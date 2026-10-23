@@ -1,8 +1,6 @@
-import { Card } from '../entities';
 import { ILimits, ICardStatuses } from '../types';
 
 export type IChangeCardLimitsCommand = {
-  card: Card;
   limits: ILimits;
 };
 
@@ -16,4 +14,8 @@ export type ICreateCardCommand = {
   limitPaymentMonth: number;
   limitPaymentWeek: number;
   limitPaymentDay: number;
+};
+
+export type IToggleCardLockCommand = {
+  lock: boolean;
 };
