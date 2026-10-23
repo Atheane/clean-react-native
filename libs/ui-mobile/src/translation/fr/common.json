@@ -159,7 +159,7 @@
         "INVALID_AMOUNT": "Montant invalide",
         "UNKNOWN_TRANSACTION_TYPE": "Type de transaction inconnu",
         "INVALID_TRANSACTION_VALUE": "Valeur de transaction invalide",
-        "TRANSFER_AMOUNT_TOO_HIGH": "Montant de transfert supérieur au solde"
+        "TRANSFER_AMOUNT_TOO_HIGH": "Solde insuffisant"
       },
       "card": {
         "INVALID_PIN_FORMAT": "Format du code PIN invalide",

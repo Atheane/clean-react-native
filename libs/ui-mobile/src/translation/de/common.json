@@ -158,7 +158,7 @@
         "INVALID_AMOUNT": "Ungültiger Betrag",
         "UNKNOWN_TRANSACTION_TYPE": "Unbekannter Transaktionstyp",
         "INVALID_TRANSACTION_VALUE": "Ungültiger Transaktionswert",
-        "TRANSFER_AMOUNT_TOO_HIGH": "Überweisungsbetrag höher als das Guthaben"
+        "TRANSFER_AMOUNT_TOO_HIGH": "Unzureichendes Guthaben"
       },
       "card": {
         "INVALID_PIN_FORMAT": "Ungültiges PIN-Format",

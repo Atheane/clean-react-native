@@ -158,7 +158,7 @@
         "INVALID_AMOUNT": "Importo non valido",
         "UNKNOWN_TRANSACTION_TYPE": "Tipo di transazione sconosciuto",
         "INVALID_TRANSACTION_VALUE": "Valore della transazione non valido",
-        "TRANSFER_AMOUNT_TOO_HIGH": "Importo del trasferimento superiore al saldo"
+        "TRANSFER_AMOUNT_TOO_HIGH": "Saldo insufficiente"
       },
       "card": {
         "INVALID_PIN_FORMAT": "Formato del codice PIN non valido",
