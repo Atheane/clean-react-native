@@ -3,7 +3,7 @@ import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 
 import { ExpoContact } from '@clean-rn/contact/infrastructure';
-import { ContactError } from '@clean-rn/contact/domain';
+import { ContactError, Phone } from '@clean-rn/contact/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
@@ -23,8 +23,9 @@ describe('AddContact - usecase', () => {
   };
 
   const mockResponse = {
+    id: 'id',
     name: 'John Doe',
-    phone: '+33607080910',
+    phone: new Phone('+33607080910'),
   };
 
   const genObject = addContactSaga();
@@ -55,6 +56,8 @@ describe('AddContact - usecase', () => {
       .next()
       .call([api, api.addContact], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ContactError.ContactAlreadyExists())
+      .put(initContact())
+      .next()
       .put(contactAddedFailed(new ContactError.ContactAlreadyExists()))
       .next()
       .cancel();

@@ -62,6 +62,7 @@ export function* addBeneficiaryGenerator(
     // nav back to beneficiary list
     yield call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 0 } });
   } catch (error: unknown) {
+    yield put(initBeneficiary());
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {
       yield call(navigate, { route: IAuthStackPages.LOGIN });
@@ -71,7 +72,6 @@ export function* addBeneficiaryGenerator(
       yield put(beneficiaryAddFailed(new BeneficiaryError.BeneficiaryAlreadyExists(error.message)));
       yield cancel();
     }
-    yield put(initBeneficiary());
     yield put(showUnknownError(error as Error));
   }
 }
@@ -97,6 +97,7 @@ export function* deleteBeneficiaryGenerator(
     yield put(beneficiaryDeleted(beneficiary));
     yield call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 0 } });
   } catch (error: unknown) {
+    yield put(initBeneficiary());
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {
       yield call(navigate, { route: IAuthStackPages.LOGIN });
@@ -106,7 +107,6 @@ export function* deleteBeneficiaryGenerator(
       yield put(beneficiaryDeleteFailed(new BeneficiaryError.BeneficiaryUnknown(error.message)));
       yield cancel();
     }
-    yield put(initBeneficiary());
     yield put(showUnknownError(error as Error));
   }
 }
@@ -129,13 +129,13 @@ export function* listBeneficiaryGenerator(httpConnection: HttpConnection): Gener
       yield put(beneficiariesListed(beneficiaries));
     }
   } catch (error: unknown) {
+    yield put(initBeneficiary());
     // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
     if (error instanceof ServerError && error.statusCode === 401) {
       yield call(navigate, { route: IAuthStackPages.LOGIN });
       yield cancel();
     }
     // once app is well tested, delete this part and let onError hook manage unexpected errors
-    yield put(initBeneficiary());
     yield put(showUnknownError(error as Error));
   }
 }

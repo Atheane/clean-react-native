@@ -112,7 +112,7 @@ describe('Beneficiary - integration', () => {
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      beneficiaries: null,
+      beneficiaries: mockBeneficiaries,
       tab: 0,
       error: null,
     });

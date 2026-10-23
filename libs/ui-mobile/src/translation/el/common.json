@@ -158,7 +158,7 @@
         "INVALID_AMOUNT": "Μη έγκυρο ποσό",
         "UNKNOWN_TRANSACTION_TYPE": "Άγνωστος τύπος συναλλαγής",
         "INVALID_TRANSACTION_VALUE": "Μη έγκυρη αξία συναλλαγής",
-        "TRANSFER_AMOUNT_TOO_HIGH": "Το ποσό μεταφοράς υπερβαίνει το υπόλοιπο"
+        "TRANSFER_AMOUNT_TOO_HIGH": "Ανεπαρκές υπόλοιπο"
       },
       "card": {
         "INVALID_PIN_FORMAT": "Μη έγκυρη μορφή PIN",
