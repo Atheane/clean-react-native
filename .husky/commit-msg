@@ -1,6 +1,10 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+# This loads nvm.sh and sets the correct PATH before running hook
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
 npx commitlint --edit $1 ||
 (
   echo '✍📤 It seems that the format of the commit does not follow the conventional commit convention. You can also try committing with the "npm run commit" command.';
