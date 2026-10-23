@@ -146,15 +146,13 @@ const ContentContact = (props: { data: IContact[] }) => {
 
   // const dispatch = useDispatch();
   const handleOnPress = useCallback(
-    (phone: Phone) => {
+    (phoneString: string) => {
       if (!contacts) {
         return;
       }
-      const contact = contacts.find(
-        (contact: IContact) => contact.phone.valueInternational === phone.valueInternational,
-      );
+      const contact = contacts.find((contact: IContact) => contact.phone.valueInternational === phoneString);
       navigation.navigate(IBeneficiaryStackPages.TRANSFER, {
-        phoneNumber: phone.valueInternational,
+        phoneNumber: phoneString,
         beneficiaryName: contact?.name,
       });
     },
