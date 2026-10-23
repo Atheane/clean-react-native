@@ -24,17 +24,13 @@ export const CardLimits = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<ICardLimitsFormData>({
-    defaultValues: {},
-  });
+  } = useForm<ICardLimitsFormData>();
 
   const dispatch = useDispatch();
   const onSubmit = useCallback(
     (formData: ICardLimitsFormData) => {
-      if (!card) return;
       dispatch(
         fetchChangeCardLimits({
-          card,
           limits: {
             day: formData.limitPaymentDay ? parseInt(formData.limitPaymentDay) : undefined,
             week: formData.limitPaymentWeek ? parseInt(formData.limitPaymentWeek) : undefined,
@@ -43,7 +39,7 @@ export const CardLimits = () => {
         }),
       );
     },
-    [dispatch, card],
+    [dispatch],
   );
 
   return (

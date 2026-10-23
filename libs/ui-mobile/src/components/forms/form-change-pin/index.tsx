@@ -10,11 +10,9 @@ import { firstLetterCapitalize } from '@clean-rn/utils';
 
 import { DigitsInput } from '../../inputs/digits-input';
 import { ErrorMessage } from '../../texts/error-message';
-import { SubmitButton } from '../../buttons/submit-button';
 
 type IProps = {
-  loading: boolean;
-  onSubmit: () => void;
+  initialValues?: IChangePinFormData;
   control: Control<IChangePinFormData>;
   errors: FieldErrors<IChangePinFormData>;
   error: IDomainError<ICardErrorCodes, ICardErrorMessage> | null;
@@ -38,7 +36,15 @@ export const FormChangePin = (props: IProps) => {
           name="code"
           rules={{ required: true, pattern: CardPinCode.pattern, minLength: 4 }}
           render={({ field: { onChange, value } }) => {
-            return <DigitsInput value={value} onChange={onChange} onFocus={props.onFocus} numberDigits={4} />;
+            return (
+              <DigitsInput
+                value={value}
+                onChange={onChange}
+                onFocus={props.onFocus}
+                numberDigits={4}
+                defaultValue={props.initialValues?.code}
+              />
+            );
           }}
         />
       </View>
@@ -64,14 +70,6 @@ export const FormChangePin = (props: IProps) => {
       <View style={styles.textContainer}>
         <Text style={theme.bank.text.grey}>{props.text}</Text>
       </View>
-      <View style={styles.formSubmit}>
-        <SubmitButton
-          title={t('button.submit')}
-          uppercase={false}
-          onSubmit={props.onSubmit}
-          loading={props.loading}
-        />
-      </View>
     </View>
   );
 };
@@ -86,9 +84,6 @@ const styles = StyleSheet.create({
   },
   domainErrorContainer: {
     marginTop: 16,
-  },
-  formSubmit: {
-    marginTop: '10%',
   },
   textContainer: {
     marginTop: 24,

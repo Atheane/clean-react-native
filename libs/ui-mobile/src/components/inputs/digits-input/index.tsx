@@ -9,11 +9,12 @@ type Props = {
   onChange: (code: string) => void;
   onFocus: () => void;
   onFullfill?: () => void;
+  defaultValue?: string;
 };
 
 export const DigitsInput = (props: Props) => {
   const { theme } = useTheme();
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState(props.defaultValue || '');
   const codeDigitsArray = new Array(props.numberDigits).fill('');
   const [containerIsFocused, setContainerIsFocused] = useState(false);
 
@@ -76,6 +77,7 @@ export const DigitsInput = (props: Props) => {
         maxLength={props.numberDigits}
         style={styles.hiddenCodeInput}
         onFocus={props.onFocus}
+        defaultValue={props.defaultValue}
       />
     </SafeAreaView>
   );

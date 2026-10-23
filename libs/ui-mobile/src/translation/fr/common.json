@@ -728,7 +728,7 @@
         "title": "Modifier mon code PIN",
         "instruction-top": "Vous pouvez choisir de définir vous-même le code de votre Carte CO2.",
         "instruction-bottom-static": "Attention, vous ne pourrez modifier au maximum que 3 fois votre code.",
-        "instruction-bottom-dynamic": "/3 nombre de modifications"
+        "instruction-bottom-dynamic": "/ 3 nombre de modifications"
       },
       "change-pin-success": {
         "title": "Valider mon code PIN",
