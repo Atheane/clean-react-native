@@ -7,6 +7,7 @@ import {
   ILoginCommand,
   IResetPasswordCommand,
   ISuccess,
+  ILogPhoneCommand,
 } from '@clean-rn/auth/domain';
 import { IRoutes } from '../../../../shared/presentation/types';
 

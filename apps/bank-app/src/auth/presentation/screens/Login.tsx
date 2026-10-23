@@ -48,7 +48,7 @@ export const Login = () => {
           email: email ? email : new Email(formData.email),
           password: new Password(formData.password),
         };
-        const locale = getLocales()[0]?.languageCode;
+        const locale = getLocales()[0]?.languageCode || 'fr';
 
         dispatch(fetchLogin({ ...payload, locale }));
       } catch (e: unknown) {

@@ -1,3 +1,4 @@
+import { IContactErrorCodes, IContactErrorMessage } from '@clean-rn/contact/domain';
 import { IDomainError } from '@clean-rn/ddd';
 import {
   User,
@@ -104,7 +105,7 @@ export type IEmailNotFound = {
 
 export type ISignupFailed = {
   type: typeof IUserTypes.SIGNUP_FAILED;
-  payload: IDomainError<IUserErrorCodes, IUserErrorMessage>;
+  payload: IDomainError<IUserErrorCodes | IContactErrorCodes, IUserErrorMessage | IContactErrorMessage>;
 };
 
 export type IIdentityRegistered = {

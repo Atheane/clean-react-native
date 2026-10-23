@@ -10,10 +10,9 @@ import { firstLetterCapitalize } from '@clean-rn/utils';
 
 import { IDomainError } from '@clean-rn/ddd';
 import { Logger } from '@clean-rn/logger';
-
+import { Phone } from '@clean-rn/contact/domain';
 import {
   Country,
-  Phone,
   ICountry,
   IGender,
   IUserErrorCodes,

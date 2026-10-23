@@ -7,7 +7,8 @@ import { getLocales } from 'expo-localization';
 import { useTheme } from '@rneui/themed';
 
 import { Email } from '@clean-rn/auth/domain';
-import { IGender, IRegisterIdentityCommand, Phone } from '@clean-rn/user/domain';
+import { Phone } from '@clean-rn/contact/domain';
+import { IGender, IRegisterIdentityCommand } from '@clean-rn/user/domain';
 import {
   useCleanErrorOnFocus,
   FormSignupIdentityPasswordPhone,

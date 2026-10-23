@@ -63,7 +63,7 @@ export function* loginGenerator(
       Logger.getInstance().info(error);
     }
 
-    if (user.properties.config.lang !== payload.locale) {
+    if (user.properties.config && user.properties.config.lang !== payload.locale) {
       user = yield call([userApi, userApi.updateConfig], {
         lang: payload.locale,
       });
@@ -86,10 +86,12 @@ export function* loginGenerator(
           yield put(loginFailure(new AuthError.LoginFailureUserNotFound(error)));
           yield cancel();
         case IAuthServerCode.USER_PHONE_NOT_VALIDATED:
-          // need to reinit signupReducer if user comes from signup flow (because not store data)
+          // need to reinit userReducer if user comes from signup flow (because not store data)
           yield put(initializeUser());
           yield put(loginFailure(new AuthError.LoginFailurePhoneNotValidated(error)));
-          yield call(navigate, { route: IUserStackPages.SIGNUP_PHONE });
+          yield call(navigate, {
+            route: IUserStackPages.SIGNUP_PHONE,
+          });
           yield cancel();
       }
     }

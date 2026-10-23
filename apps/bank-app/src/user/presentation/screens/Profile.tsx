@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { View, StyleSheet, Dimensions, Text, Linking, Platform } from 'react-native';
+import { View, StyleSheet, Text, Linking, Platform } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
@@ -92,6 +92,11 @@ export const Profile = () => {
             {email && (
               <View style={styles.textContainer}>
                 <Text style={[theme.bank.text.darkBlue]}>{email.value}</Text>
+              </View>
+            )}
+            {!email && user?.properties.email && (
+              <View style={styles.textContainer}>
+                <Text style={[theme.bank.text.darkBlue]}>{user.properties.email?.value}</Text>
               </View>
             )}
           </View>

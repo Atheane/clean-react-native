@@ -14,7 +14,6 @@ import {
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 
 import { registerAddress } from '../../application/commands';
 

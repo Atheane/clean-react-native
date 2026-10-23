@@ -94,7 +94,8 @@
     "redux-saga": "^1.2.3",
     "redux-saga-tester": "^1.0.874",
     "short-unique-id": "^5.0.2",
-    "uuidjs": "^5.0.1"
+    "uuidjs": "^5.0.1",
+    "@nx/linter": "16.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -102,7 +103,6 @@
     "@nx/detox": "16.6.0",
     "@nx/eslint-plugin": "16.6.0",
     "@nx/jest": "^16.6.0",
-    "@nx/linter": "16.6.0",
     "@nx/workspace": "16.6.0",
     "@redux-saga/testing-utils": "^1.1.5",
     "@storybook/addon-actions": "^6.5.3",

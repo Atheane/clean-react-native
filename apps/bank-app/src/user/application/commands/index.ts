@@ -42,6 +42,7 @@ import {
   IFetchDeleteUserAccount,
   IUserAccountDeleted,
 } from './types';
+import { IContactErrorCodes, IContactErrorMessage } from '@clean-rn/contact/domain';
 
 // redux actions that are commands
 export const fetchSearchEmail = (payload: ISearchEmailQuery): IFetchSearchEmail => ({
@@ -94,7 +95,9 @@ export const emailNotFound = (): IEmailNotFound => ({
   type: IUserTypes.EMAIL_NOT_FOUND,
 });
 
-export const signupFailed = (payload: IDomainError<IUserErrorCodes, IUserErrorMessage>): ISignupFailed => ({
+export const signupFailed = (
+  payload: IDomainError<IUserErrorCodes | IContactErrorCodes, IUserErrorMessage | IContactErrorMessage>,
+): ISignupFailed => ({
   type: IUserTypes.SIGNUP_FAILED,
   payload,
 });
