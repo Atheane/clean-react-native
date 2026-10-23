@@ -39,6 +39,8 @@ import {
   IFetchUpdateNotifications,
   INotificationsUpdated,
   IUserSaved,
+  IFetchDeleteUserAccount,
+  IUserAccountDeleted,
 } from './types';
 
 // redux actions that are commands
@@ -81,6 +83,10 @@ export const fetchUpdateNotifications = (payload: IUpdateUserConfigCommand): IFe
 
 export const initializeUser = (): IInitializeUser => ({
   type: IUserTypes.INITIALIZE_USER,
+});
+
+export const fetchDeleteUserAccount = (): IFetchDeleteUserAccount => ({
+  type: IUserTypes.FETCH_DELETE_USER_ACCOUNT,
 });
 
 // redux actions that are domain Events
@@ -150,6 +156,11 @@ export const notificationUpdated = (payload: { user: User }): INotificationsUpda
 
 export const userSaved = (payload: User): IUserSaved => ({
   type: IUserTypes.USER_SAVED,
+  payload,
+});
+
+export const userAccountDeleted = (payload: User): IUserAccountDeleted => ({
+  type: IUserTypes.USER_ACCOUNT_DELETED,
   payload,
 });
 

@@ -25,6 +25,12 @@ export class UserApi implements IUserRepository, IUserGateway {
     this.connection = httpConnection;
     this.getUser = this.getUser.bind(this);
     this.createUser = this.createUser.bind(this);
+    this.searchEmail = this.searchEmail.bind(this);
+    this.searchPhone = this.searchPhone.bind(this);
+    this.sendPhoneValidation = this.sendPhoneValidation.bind(this);
+    this.checkPhoneValidation = this.checkPhoneValidation.bind(this);
+    this.updateConfig = this.updateConfig.bind(this);
+    this.deleteUserAccount = this.deleteUserAccount.bind(this);
   }
 
   // Public method to provide access to the singleton instance
@@ -141,5 +147,14 @@ export class UserApi implements IUserRepository, IUserGateway {
     await this.connection.handleError(response);
     const userServer = await response.json();
     return mapUserServerToUserProperties(userServer);
+  }
+
+  async deleteUserAccount(): Promise<ISuccess> {
+    const response = await fetch(
+      `${this.connection.baseUrl}/app/user/unsubscribe`,
+      this.connection.options(IHttpVerb.PUT),
+    );
+    await this.connection.handleError(response);
+    return response.json();
   }
 }

@@ -1,13 +1,12 @@
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { StyleSheet, View, Text, Dimensions } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 import { Colors, PrimaryButton, Validate } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { IProfileStackPages } from '../../../shared/presentation/types';
+import { fetchDeleteUserAccount } from '../../application/commands';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -18,12 +17,10 @@ export const DeleteAccount = () => {
   // css theme
   const { theme } = useTheme();
 
-  const navigation = useNavigation();
   const dispatch = useDispatch();
   const handleOnPress = useCallback(() => {
-    console.log('dispatch(deleteUserAccount())');
-    navigation.navigate(IProfileStackPages.GOODBYE as never);
-  }, [navigation]);
+    dispatch(fetchDeleteUserAccount());
+  }, [dispatch]);
 
   return (
     <ErrorBoundary t={t}>

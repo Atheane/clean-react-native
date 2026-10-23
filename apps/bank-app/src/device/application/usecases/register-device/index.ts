@@ -44,7 +44,6 @@ export function* registerDeviceGenerator(
 
     yield put(deviceRegistered(device));
   } catch (error: unknown) {
-    yield put(initializeDevice());
     if (error instanceof ServerError && error.statusCode === 400) {
       yield put(deviceAlreadyRegistered({ error: new DeviceError.AlreadyRegistered(error) }));
       yield cancel();
@@ -52,6 +51,7 @@ export function* registerDeviceGenerator(
       yield call(navigate, { route: IAuthStackPages.LOGIN });
       yield cancel();
     }
+    yield put(initializeDevice());
     yield put(showUnknownError(error as Error));
   }
 }

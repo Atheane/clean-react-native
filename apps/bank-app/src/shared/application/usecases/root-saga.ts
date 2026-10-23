@@ -21,6 +21,7 @@ import {
   validatePhoneSaga,
   signupUserSaga,
   updateNotificationsSaga,
+  deleteUserAccountSaga,
 } from '../../../user/application/usecases';
 
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
@@ -105,5 +106,6 @@ export function* rootSaga(httpConnection: HttpConnection) {
     changeCardLimitsSaga(httpConnection),
     toggleCardLockSaga(httpConnection),
     changeCardPINSaga(httpConnection),
+    deleteUserAccountSaga(httpConnection),
   ]);
 }
