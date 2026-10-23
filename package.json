@@ -82,7 +82,7 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.6.7",
-    "@config-plugins/detox": "~6.0.0",
+    "@config-plugins/detox": "6.0.0",
     "@expo/cli": "~0.10.10",
     "@nx/detox": "16.6.0",
     "@nx/eslint-plugin": "16.6.0",
