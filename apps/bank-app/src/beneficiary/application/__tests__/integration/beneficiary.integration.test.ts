@@ -15,8 +15,6 @@ import {
   beneficiaryAddFailed,
   beneficiaryDeleted,
   beneficiaryDeleteFailed,
-  selectBeneficiary,
-  beneficiarySelected,
 } from '../../commands/beneficiary';
 import { IBeneficiaryState, beneficiaryReducer } from '../../state-management';
 
@@ -70,7 +68,6 @@ describe('Beneficiary - integration', () => {
     const initialState: IBeneficiaryState = {
       pending: false,
       beneficiaries: null,
-      selectedBeneficiary: null,
       error: null,
     };
     sagaTester = new SagaTester({
@@ -87,7 +84,6 @@ describe('Beneficiary - integration', () => {
     expect(newState).toEqual({
       pending: true,
       beneficiaries: null,
-      selectedBeneficiary: null,
       error: null,
     });
   });
@@ -100,7 +96,6 @@ describe('Beneficiary - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       beneficiaries: mockBeneficiaries,
-      selectedBeneficiary: null,
       error: null,
     });
   });
@@ -114,7 +109,6 @@ describe('Beneficiary - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       beneficiaries: null,
-      selectedBeneficiary: null,
       error: null,
     });
   });
@@ -139,7 +133,6 @@ describe('Beneficiary - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       beneficiaries: [mockResponse],
-      selectedBeneficiary: null,
       error: null,
     });
   });
@@ -173,7 +166,6 @@ describe('Beneficiary - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       beneficiaries: [mockResponse, ...mockBeneficiaries], // ordered by name
-      selectedBeneficiary: null,
       error: null,
     });
   });
@@ -194,7 +186,6 @@ describe('Beneficiary - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       beneficiaries: null,
-      selectedBeneficiary: null,
       error: new BeneficiaryError.BeneficiaryAlreadyExists(mockError400.message),
     });
   });
@@ -214,7 +205,6 @@ describe('Beneficiary - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       beneficiaries: [],
-      selectedBeneficiary: null,
       error: null,
     });
   });
@@ -238,7 +228,6 @@ describe('Beneficiary - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       beneficiaries: null,
-      selectedBeneficiary: null,
       error: null,
     });
   });
@@ -257,7 +246,6 @@ describe('Beneficiary - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       beneficiaries: null,
-      selectedBeneficiary: null,
       error: new BeneficiaryError.BeneficiaryUnknown(mockError400.message),
     });
   });

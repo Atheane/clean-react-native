@@ -19,14 +19,19 @@ import {
   listTransactions,
   transactionsListed,
   initializeTransactionsList,
-  fetchSendTransfer,
-  transferSent,
-  transferFailed,
-  initTransfer,
+  fetchPayout,
+  payoutSucceded,
+  fetchTransfer,
+  transferSucceded,
+  fetchTransactionWaiting,
+  transactionWaitingSucceded,
+  transactionFailed,
+  initTransaction,
 } from '../../commands';
 import { ITransactionsState, transactionsReducer } from '../../state-management';
 
-import { listTransactionsSaga, sendTransferSaga } from '../../usecases';
+import { listTransactionsSaga, payoutSaga, transferSaga, transactionWaitingSaga } from '../../usecases';
+import { Phone } from '@clean-rn/contact/domain';
 
 const expoConstantsMock = {
   name: 'CleanRN BankApp Test',
@@ -93,7 +98,7 @@ describe('Transactions - integration', () => {
     const initialState: ITransactionsState = {
       pending: false,
       transactions: null,
-      transfer: null,
+      transaction: null,
       error: null,
     };
     sagaTester = new SagaTester({
@@ -113,7 +118,7 @@ describe('Transactions - integration', () => {
     expect(newState).toEqual({
       pending: true,
       transactions: null,
-      transfer: null,
+      transaction: null,
       error: null,
     });
   });
@@ -126,7 +131,7 @@ describe('Transactions - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       transactions: mockResponse,
-      transfer: null,
+      transaction: null,
       error: null,
     });
   });
@@ -138,15 +143,42 @@ describe('Transactions - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       transactions: null,
-      transfer: null,
+      transaction: null,
       error: null,
     });
   });
 
-  it('Should store correct state if TRANSFER_SENT', () => {
-    const transfer = {
+  it('Should store correct state if PAYOUT_SUCCEDED', () => {
+    const payout = {
       accountId: 4004318954,
       beneficiaryId: 5004318954,
+      amount: new Amount('10.00', ITransactionType.PAYOUT),
+      iban: new Iban('FR7616798000010000242599449'),
+      label: 'Payin Generated from UTs on User Test',
+    };
+    const mockResponse: ITransaction = {
+      amount: new Amount('10.00', ITransactionType.PAYOUT),
+      label: 'Payin Generated from UTs on User Test',
+      id: 1686814688829,
+      type: ITransactionType.PAYOUT,
+      date: new Date('2023-06-15T07:38:09.217Z'),
+    };
+    sagaTester.start(wrapSagaHidingNotFoundError, payoutSaga, httpConnection);
+    sagaTester.dispatch(fetchPayout(payout));
+    sagaTester.dispatch(payoutSucceded(mockResponse));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      transactions: null,
+      transaction: mockResponse,
+      error: null,
+    });
+  });
+
+  it('Should store correct state if TRANSFER_SUCCEDED', () => {
+    const transfer = {
+      accountId: 4004318954,
+      beneficiaryAccountId: 5004318954,
       amount: new Amount('10.00', ITransactionType.TRANSFER_OUT),
       iban: new Iban('FR7616798000010000242599449'),
       label: 'Payin Generated from UTs on User Test',
@@ -158,20 +190,47 @@ describe('Transactions - integration', () => {
       type: ITransactionType.TRANSFER_OUT,
       date: new Date('2023-06-15T07:38:09.217Z'),
     };
-    sagaTester.start(wrapSagaHidingNotFoundError, sendTransferSaga, httpConnection);
-    sagaTester.dispatch(fetchSendTransfer(transfer));
-    sagaTester.dispatch(transferSent(mockResponse));
+    sagaTester.start(wrapSagaHidingNotFoundError, transferSaga, httpConnection);
+    sagaTester.dispatch(fetchTransfer(transfer));
+    sagaTester.dispatch(transferSucceded(mockResponse));
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
       transactions: null,
-      transfer: mockResponse,
+      transaction: mockResponse,
       error: null,
     });
   });
 
-  it('Should store correct state if TRANSFER_FAILED', () => {
-    const transfer = {
+  it('Should store correct state if TRANSACTION_WAITING_SUCCEDED', () => {
+    const transactionWaiting = {
+      accountId: 4004318954,
+      phone: new Phone('+33612345678'),
+      amount: new Amount('10.00', ITransactionType.PAYOUT),
+      iban: new Iban('FR7616798000010000242599449'),
+      label: 'Payin Generated from UTs on User Test',
+    };
+    const mockResponse: ITransaction = {
+      amount: new Amount('10.00', ITransactionType.PAYOUT),
+      label: 'Payin Generated from UTs on User Test',
+      id: 1686814688829,
+      type: ITransactionType.TRANSFER_OUT,
+      date: new Date('2023-06-15T07:38:09.217Z'),
+    };
+    sagaTester.start(wrapSagaHidingNotFoundError, transactionWaitingSaga, httpConnection);
+    sagaTester.dispatch(fetchTransactionWaiting(transactionWaiting));
+    sagaTester.dispatch(transactionWaitingSucceded(mockResponse));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      transactions: null,
+      transaction: mockResponse,
+      error: null,
+    });
+  });
+
+  it('Should store correct state if TRANSACTION_FAILED', () => {
+    const transaction = {
       accountId: 4004318954,
       beneficiaryId: 5004318954,
       amount: new Amount('10.00', ITransactionType.TRANSFER_OUT),
@@ -186,29 +245,29 @@ describe('Transactions - integration', () => {
         message: 'Unauthorized',
       },
       timestamp: '2023-10-03T13:20:21.303Z',
-      path: '/app/transaction/transfer',
+      path: '/app/transaction/payout',
       method: 'POST',
     };
-    sagaTester.start(wrapSagaHidingNotFoundError, sendTransferSaga, httpConnection);
-    sagaTester.dispatch(fetchSendTransfer(transfer));
-    sagaTester.dispatch(transferFailed(new TransactionError.TransferAmountTooHigh(mockError403)));
+    sagaTester.start(wrapSagaHidingNotFoundError, payoutSaga, httpConnection);
+    sagaTester.dispatch(fetchPayout(transaction));
+    sagaTester.dispatch(transactionFailed(new TransactionError.TransferAmountTooHigh(mockError403)));
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
       transactions: null,
-      transfer: null,
+      transaction: null,
       error: new TransactionError.TransferAmountTooHigh(mockError403),
     });
   });
 
   it('Should store correct state if INIT_TRANSFER', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, sendTransferSaga, httpConnection);
-    sagaTester.dispatch(initTransfer());
+    sagaTester.start(wrapSagaHidingNotFoundError, transferSaga, httpConnection);
+    sagaTester.dispatch(initTransaction());
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
       transactions: null,
-      transfer: null,
+      transaction: null,
       error: null,
     });
   });

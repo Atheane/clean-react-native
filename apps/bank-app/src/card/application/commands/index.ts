@@ -21,6 +21,7 @@ import {
   ICardLockToggled,
   IFetchChangePIN,
   ICardPINChanged,
+  ICardPINChangedFailed,
 } from './types';
 import { IDomainError } from '@clean-rn/ddd';
 
@@ -72,6 +73,13 @@ export const cardLockToggled = (payload: Card): ICardLockToggled => ({
 
 export const cardPINChanged = (payload: Card): ICardPINChanged => ({
   type: ICardTypes.CARD_PIN_CHANGED,
+  payload,
+});
+
+export const cardPINChangedFailed = (
+  payload: IDomainError<ICardErrorCodes, ICardErrorMessage>,
+): ICardPINChangedFailed => ({
+  type: ICardTypes.CARD_PIN_CHANGED_FAILED,
   payload,
 });
 

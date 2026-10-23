@@ -23,6 +23,7 @@ import {
   cardForbidden,
   cardLockToggled,
   cardPINChanged,
+  cardPINChangedFailed,
 } from '../commands';
 import { IAuthStackPages, ICardStackPages } from '../../../shared/presentation/types';
 import { navigate } from '../../../shared/presentation/navigation/navigationRef';
@@ -45,12 +46,12 @@ export function* changeCardPINGenerator(
     payload: IChangeCardPINCommand;
   },
 ): Generator<StrictEffect, any, any> {
-  const cardFromStore = yield select(selectCard);
   try {
     const authApi = AuthApi.getInstance(httpConnection);
     const authFromStore = yield select(selectAuth);
     const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
     yield put(refreshSuccess({ auth }));
+    const cardFromStore = yield select(selectCard);
     const cardApi = CardApi.getInstance(httpConnection);
     const card = yield call([cardApi, cardApi.changeCardPIN], cardFromStore, payload);
     yield put(cardPINChanged(card));
@@ -61,7 +62,7 @@ export function* changeCardPINGenerator(
       yield cancel();
     }
     if (error instanceof ServerError && error.statusCode === 403) {
-      yield put(cardForbidden(new CardError.MaxNumberOfPinChangesReached()));
+      yield put(cardPINChangedFailed(new CardError.MaxNumberOfPinChangesReached()));
       yield cancel();
     }
     yield put(initCard());

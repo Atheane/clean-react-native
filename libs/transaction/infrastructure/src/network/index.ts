@@ -5,11 +5,14 @@ import {
   Amount,
   TransactionCategory,
   ITransactionType,
-  ISendTransferCommand,
+  ITransactionGateway,
+  IPayoutCommand,
+  ITransferCommand,
+  ITransactionWaitingCommand,
 } from '@clean-rn/transaction/domain';
 import { ITransactionServer } from '../types';
 
-export class TransactionApi implements ITransactionRepository {
+export class TransactionApi implements ITransactionRepository, ITransactionGateway {
   private static instance: TransactionApi | null = null;
   private connection: HttpConnection;
 
@@ -17,7 +20,7 @@ export class TransactionApi implements ITransactionRepository {
   private constructor(httpConnection: HttpConnection) {
     this.connection = httpConnection;
     this.getTransactions = this.getTransactions.bind(this);
-    this.sendTransfer = this.sendTransfer.bind(this);
+    this.payout = this.payout.bind(this);
   }
 
   // Public method to provide access to the singleton instance
@@ -47,16 +50,66 @@ export class TransactionApi implements ITransactionRepository {
     }));
   }
 
-  async sendTransfer(cmd: ISendTransferCommand): Promise<ITransaction> {
+  async payout(cmd: IPayoutCommand): Promise<ITransaction> {
     const params = {
       accountId: cmd.accountId,
-      beneficiaryAccountId: cmd.beneficiaryId,
+      beneficiaryId: cmd.beneficiaryId,
+      amount: Math.abs(cmd.amount.value),
+      label: cmd.label,
+    };
+
+    const response = await fetch(
+      `${this.connection.baseUrl}/app/transaction/payout`,
+      this.connection.options(IHttpVerb.POST, params),
+    );
+
+    await this.connection.handleError(response);
+    const transaction = await response.json();
+    return {
+      id: transaction.transactionId,
+      amount: new Amount(transaction.amount.toString(), transaction.transactionType as ITransactionType),
+      label: transaction.label,
+      category: new TransactionCategory(transaction.transactionType as ITransactionType),
+      date: new Date(transaction.updatedAt),
+      type: transaction.transactionType as ITransactionType,
+    };
+  }
+
+  async transfer(cmd: ITransferCommand): Promise<ITransaction> {
+    const params = {
+      accountId: cmd.accountId,
+      beneficiaryAccountId: cmd.beneficiaryAccountId,
       amount: Math.abs(cmd.amount.value),
       label: cmd.label,
     };
 
     const response = await fetch(
       `${this.connection.baseUrl}/app/transaction/transfer`,
+      this.connection.options(IHttpVerb.POST, params),
+    );
+
+    await this.connection.handleError(response);
+    const transaction = await response.json();
+    return {
+      id: transaction.transactionId,
+      amount: new Amount(transaction.amount.toString(), transaction.transactionType as ITransactionType),
+      label: transaction.label,
+      category: new TransactionCategory(transaction.transactionType as ITransactionType),
+      date: new Date(transaction.updatedAt),
+      type: transaction.transactionType as ITransactionType,
+    };
+  }
+
+  async sendTransactionWaiting(cmd: ITransactionWaitingCommand): Promise<ITransaction> {
+    const params = {
+      accountId: cmd.accountId,
+      phone: cmd.phone.valueInternational,
+      amount: Math.abs(cmd.amount.value),
+      label: cmd.label,
+    };
+
+    const response = await fetch(
+      `${this.connection.baseUrl}/app/transaction/waitingTransaction`,
       this.connection.options(IHttpVerb.POST, params),
     );
 

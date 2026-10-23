@@ -3,8 +3,13 @@ import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 
-import { Iban } from '@clean-rn/account/domain';
-import { Amount, ITransactionType, ITransaction, TransactionError } from '@clean-rn/transaction/domain';
+import {
+  Amount,
+  ITransactionType,
+  ITransaction,
+  TransactionError,
+  ITransferCommand,
+} from '@clean-rn/transaction/domain';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { TransactionApi } from '@clean-rn/transaction/infrastructure';
@@ -17,16 +22,16 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 import { selectAuth } from '../../../../auth/application/state-management/selectors';
 import { refreshSuccess } from '../../../../auth/application/commands';
 
-import { sendTransferGenerator, sendTransferSaga } from '../../usecases';
-import { ITransactionsTypes, transferSent, initTransfer, transferFailed } from '../../commands';
+import { transferGenerator, transferSaga } from '../../usecases';
+import { ITransactionsTypes, transferSucceded, initTransaction, transactionFailed } from '../../commands';
 
-describe('ListTransactions - usecase', () => {
+describe('Transfer - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
 
   const api = TransactionApi.getInstance(httpConnection);
   const authApi = AuthApi.getInstance(httpConnection);
 
-  const genObject = sendTransferSaga(httpConnection);
+  const genObject = transferSaga(httpConnection);
 
   const mockResponse: ITransaction = {
     amount: new Amount('10.00', ITransactionType.TRANSFER_OUT),
@@ -73,24 +78,23 @@ describe('ListTransactions - usecase', () => {
     refreshToken: 'fake-refresh-token',
   };
 
-  const payload = {
+  const payload: ITransferCommand = {
     accountId: 4004318954,
-    beneficiaryId: 5004318954,
+    beneficiaryAccountId: 5004318954,
     amount: new Amount('10.00', ITransactionType.TRANSFER_OUT),
-    iban: new Iban('FR7616798000010000242599449'),
     label: 'Payin Generated from UTs on User Test',
   };
 
-  it('Should wait for FETCH_SEND_TRANSFER action and call listTransactionsGenerator, should be done on next iteration', () => {
+  it('Should wait for FETCH_TRANSFER action and call transferGenerator, should be done on next iteration', () => {
     expect(genObject.next().value).toEqual(
-      takeEvery(ITransactionsTypes.FETCH_SEND_TRANSFER, sendTransferGenerator, httpConnection),
+      takeEvery(ITransactionsTypes.FETCH_TRANSFER, transferGenerator, httpConnection),
     );
     expect(genObject.next().done).toBeTruthy();
   });
 
-  it('Should call transactionsListed if no cached data', async () => {
-    testSaga(sendTransferGenerator, httpConnection, {
-      type: ITransactionsTypes.FETCH_SEND_TRANSFER,
+  it('Should call transferWaitingSent if no cached data', async () => {
+    testSaga(transferGenerator, httpConnection, {
+      type: ITransactionsTypes.FETCH_TRANSFER,
       payload,
     })
       .next()
@@ -100,17 +104,20 @@ describe('ListTransactions - usecase', () => {
       .next(mockToken)
       .put(refreshSuccess({ auth: mockToken }))
       .next()
-      .call([api, api.sendTransfer], payload) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([api, api.transfer], payload) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
-      .put(transferSent(mockResponse))
+      .put(transferSucceded(mockResponse))
       .next()
-      .call(navigate, { route: IBeneficiaryStackPages.TRANSFER_SUCCESS })
+      .call(navigate, {
+        route: IBeneficiaryStackPages.MENU,
+        params: { screen: IBeneficiaryStackPages.TRANSFER_SUCCESS },
+      })
       .next();
   });
 
   it('Should call navigate to Login modale action if 401 from Server', () => {
-    testSaga(sendTransferGenerator, httpConnection, {
-      type: ITransactionsTypes.FETCH_SEND_TRANSFER,
+    testSaga(transferGenerator, httpConnection, {
+      type: ITransactionsTypes.FETCH_TRANSFER,
       payload,
     })
       .next()
@@ -124,8 +131,8 @@ describe('ListTransactions - usecase', () => {
   });
 
   it('Should call transferFailed if 403 from Server', () => {
-    testSaga(sendTransferGenerator, httpConnection, {
-      type: ITransactionsTypes.FETCH_SEND_TRANSFER,
+    testSaga(transferGenerator, httpConnection, {
+      type: ITransactionsTypes.FETCH_TRANSFER,
       payload,
     })
       .next()
@@ -133,14 +140,14 @@ describe('ListTransactions - usecase', () => {
       .next(mockToken)
       .call([authApi, authApi.refresh], mockToken.refreshToken)
       .throw(new ServerError(mockError403))
-      .put(transferFailed(new TransactionError.TransferAmountTooHigh(mockError403)))
+      .put(transactionFailed(new TransactionError.TransferAmountTooHigh(mockError403)))
       .next()
       .cancel();
   });
 
   it('Should call showUnknownError action if 500 from Server', () => {
-    testSaga(sendTransferGenerator, httpConnection, {
-      type: ITransactionsTypes.FETCH_SEND_TRANSFER,
+    testSaga(transferGenerator, httpConnection, {
+      type: ITransactionsTypes.FETCH_TRANSFER,
       payload,
     })
       .next()
@@ -148,15 +155,15 @@ describe('ListTransactions - usecase', () => {
       .next(mockToken)
       .call([authApi, authApi.refresh], mockToken.refreshToken)
       .throw(new ServerError(mockError500))
-      .put(initTransfer())
+      .put(initTransaction())
       .next()
       .put(showUnknownError(new ServerError(mockError500)))
       .next();
   });
 
   it('Should call showUnknownError action if unknown error', () => {
-    testSaga(sendTransferGenerator, httpConnection, {
-      type: ITransactionsTypes.FETCH_SEND_TRANSFER,
+    testSaga(transferGenerator, httpConnection, {
+      type: ITransactionsTypes.FETCH_TRANSFER,
       payload,
     })
       .next()
@@ -164,7 +171,7 @@ describe('ListTransactions - usecase', () => {
       .next(mockToken)
       .call([authApi, authApi.refresh], mockToken.refreshToken)
       .throw(new Error('unknown error'))
-      .put(initTransfer())
+      .put(initTransaction())
       .next()
       .put(showUnknownError(new Error('unknown error')))
       .next();
