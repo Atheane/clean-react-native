@@ -1,8 +1,21 @@
+import { useCallback } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {
+  Colors,
+  FontNames,
+  LinkButton,
+  LinkButtonColors,
+  BeneficiaryAdd as AddButton,
+} from '@clean-rn/ui-mobile';
+import { useTheme } from '@rneui/themed';
+import { useSelector } from 'react-redux';
+
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
-
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import {
   HeaderTitleAlign,
   IBeneficiaryStackPages,
@@ -10,12 +23,24 @@ import {
 } from '../../../shared/presentation/types';
 
 import { BeneficiaryAdd, BeneficiaryList, ContactAdd, Transfer, TransferSuccess } from '../screens';
-import { Colors, FontNames } from '@clean-rn/ui-mobile';
 
 const Stack = createNativeStackNavigator<IBeneficiaryStackProps>();
 
 export const BeneficiaryStack = () => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
+
+  const navigation = useNavigation();
+
+  const { tab } = useSelector((state: IRootState) => state.beneficiary.beneficiaries);
+
+  const handleOnPressAdd = useCallback(() => {
+    if (tab === 1) {
+      navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_ADD as never);
+    } else {
+      navigation.navigate(IBeneficiaryStackPages.CONTACT_ADD as never);
+    }
+  }, [navigation, tab]);
 
   return (
     <Stack.Navigator>
@@ -25,6 +50,15 @@ export const BeneficiaryStack = () => {
         options={{
           headerTitle: t('screens.transfer.title'),
           ...headersOptions(),
+          headerRight: () => (
+            <View style={[theme.bank.shadow.button, styles.addButton]}>
+              <LinkButton
+                onPress={handleOnPressAdd}
+                iconLeft={AddButton}
+                colorOption={LinkButtonColors.WHITE}
+              />
+            </View>
+          ),
         }}
       />
       <Stack.Screen
@@ -69,3 +103,9 @@ export const BeneficiaryStack = () => {
     </Stack.Navigator>
   );
 };
+
+const HEADER_HEIGHT = 44;
+
+const styles = StyleSheet.create({
+  addButton: { position: 'absolute', top: -HEADER_HEIGHT, right: -30 },
+});

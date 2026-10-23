@@ -12,6 +12,8 @@ import CardWorkflow from './workflow.png';
 import BankLogoCO2 from './bank-logo.png';
 import BankLogoGeneric from './bank-logo-generic.png';
 import SuccessTransfer from './success-transfer.png';
+import NoBeneficiary from './no-beneficiary.png';
+import NoContact from './no-contact.png';
 
 export {
   Oups,
@@ -28,4 +30,6 @@ export {
   BankLogoCO2,
   SuccessTransfer,
   BankLogoGeneric,
+  NoBeneficiary,
+  NoContact,
 };

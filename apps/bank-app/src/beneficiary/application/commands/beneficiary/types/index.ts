@@ -13,6 +13,7 @@ export enum IBeneficiaryTypes {
   DELETE_BENEFICIARY = 'DELETE_BENEFICIARY',
   LIST_BENEFICIARIES = 'LIST_BENEFICIARIES',
   INIT_BENEFICIARY = 'INIT_BENEFICIARY',
+  CHANGE_TAB = 'CHANGE_TAB',
   // domainEvents
   BENEFICIARY_ADDED = 'BENEFICIARY_ADDED',
   BENEFICIARY_ADD_FAILED = 'BENEFICIARY_ADD_FAILED',
@@ -35,6 +36,13 @@ export type IListBeneficiary = {
 };
 export type IInitBeneficiary = {
   type: typeof IBeneficiaryTypes.INIT_BENEFICIARY;
+};
+
+export type IChangeTab = {
+  type: typeof IBeneficiaryTypes.CHANGE_TAB;
+  payload: {
+    idx: number;
+  };
 };
 
 // domain Events
@@ -68,6 +76,7 @@ export type IBeneficiaryActions =
   | IDeleteBeneficiary
   | IListBeneficiary
   | IInitBeneficiary
+  | IChangeTab
   | IBeneficiaryAdded
   | IBeneficiaryAddFailed
   | IBeneficiaryDeleted
