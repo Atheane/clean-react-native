@@ -72,7 +72,7 @@
     "production": {
       "android": {
         "serviceAccountKeyPath": "./bank-app-03f43d317e35.json",
-        "track": "internal"
+        "track": "production"
       },
       "ios": {
         "appleId": "dev1@example.com",
