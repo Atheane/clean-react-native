@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { call, StrictEffect, takeEvery } from 'redux-saga/effects';
+import { call, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
 import * as Sentry from '@sentry/react-native';
 import { ServerError } from '@clean-rn/shared/infrastructure';
 
@@ -17,6 +17,10 @@ export function* showUnknownErrorGenerator({
   type: string;
   payload: ServerError | Error;
 }): Generator<StrictEffect, any, any> {
+  if (payload.message === 'Network request failed') {
+    yield cancel();
+  }
   yield call(Sentry.captureException, payload);
+
   yield call(navigate, { route: ISharedStackPages.MODAL_ERROR, params: { error: payload } });
 }

@@ -95,7 +95,6 @@ export function* loginGenerator(
           yield cancel();
       }
     }
-
     yield put(initializeAuth());
     yield put(showUnknownError(error as Error));
   }
