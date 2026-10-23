@@ -2,6 +2,7 @@ import 'dotenv/config';
 
 export default {
   expo: {
+    owner: '450',
     name: process.env.APP_NAME_BANK_APP,
     slug: process.env.SLUG_NAME_BANK_APP,
     version: process.env.APP_VERSION,
@@ -17,7 +18,7 @@ export default {
     },
     assetBundlePatterns: ['**/*'],
     ios: {
-      bundleIdentifier: 'com.clean-rn.bank-appdev',
+      bundleIdentifier: process.env.BUNDLE_IDENTIFIER,
       googleServicesFile: './GoogleService-Info.plist',
       supportsTablet: false,
     },
@@ -26,7 +27,7 @@ export default {
         foregroundImage: './assets/images/android-logo-bank.png',
         backgroundColor: '#FFFFFF',
       },
-      package: 'com.clean-rn.bank-appdev',
+      package: process.env.BUNDLE_IDENTIFIER,
       googleServicesFile: './google-services.json',
     },
     web: {
@@ -82,7 +83,6 @@ export default {
       FIREBASE_STORAGE_BUCKET: process.env.FIREBASE_STORAGE_BUCKET,
       FIREBASE_MESSAGING_SENDER_ID: process.env.FIREBASE_MESSAGING_SENDER_ID,
       FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
-      FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
     },
   },
 };
