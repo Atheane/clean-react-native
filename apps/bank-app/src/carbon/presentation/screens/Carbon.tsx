@@ -1,14 +1,5 @@
-import { useEffect, useState, useCallback, useRef } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  ImageSourcePropType,
-  Dimensions,
-  SafeAreaView,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
-} from 'react-native';
+import { useEffect, useState, useCallback } from 'react';
+import { StyleSheet, View, Text, ImageSourcePropType, Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
@@ -23,7 +14,6 @@ import {
   Plane,
   TouchCardKpi,
   GraphCO2,
-  TouchCardText,
   Colors,
   FontNames,
   useReduxOverStorageValue,
@@ -31,10 +21,11 @@ import {
 } from '@clean-rn/ui-mobile';
 import { IBANKCategories } from '@clean-rn/carbon/domain';
 
+import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IRoutes, ICarbonStackPages, ISharedStackPages } from '../../../shared/presentation/types';
-import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
+import { CardPremium, CardCarbonFootPrint } from '../../../shared/presentation/assets/svg';
 
 import {
   HeaderBad,
@@ -326,8 +317,28 @@ export const Carbon = () => {
           </ShareScreen>
 
           <View style={styles.row}>
-            <TouchCardText text={t('screens.carbon.reward')} onPress={handleOnPressPremium} />
-            <TouchCardText text={t('screens.carbon.method')} onPress={handleOnPressLearnMore} />
+            <TouchCardKpi
+              data={{
+                text: t('screens.carbon.reward'),
+              }}
+              icon={() => (
+                <View style={{ margin: -15 }}>
+                  <CardPremium width={60} height={60} />
+                </View>
+              )}
+              onPress={handleOnPressPremium}
+            />
+            <TouchCardKpi
+              data={{
+                text: t('screens.carbon.method'),
+              }}
+              icon={() => (
+                <View style={{ margin: -15 }}>
+                  <CardCarbonFootPrint width={60} height={60} />
+                </View>
+              )}
+              onPress={handleOnPressLearnMore}
+            />
           </View>
         </View>
       </SafeScrollingView>

@@ -31,8 +31,11 @@ import { listAccounts } from '../../application/commands/accounts';
 import { listTransactions } from '../../../transaction/application/commands';
 import { deleteEventCard } from '../../application/commands/event-cards';
 
-import { eventsCardsContent } from '../constants';
-import { APPLE_STORE_LINK, GOOGLE_PLAY_LINK } from '../../../shared/presentation/constants';
+import {
+  APPLE_STORE_LINK,
+  GOOGLE_PLAY_LINK,
+  eventsCardsContent,
+} from '../../../shared/presentation/constants';
 
 export const Home = () => {
   // translation
