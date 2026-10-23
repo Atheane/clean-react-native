@@ -4,7 +4,12 @@ import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
 import { firstLetterCapitalize } from '@clean-rn/utils';
-import { Amount, ITransactionType } from '@clean-rn/transaction/domain';
+import {
+  Amount,
+  ITransactionErrorCodes,
+  ITransactionErrorMessage,
+  ITransactionType,
+} from '@clean-rn/transaction/domain';
 import { IDomainError } from '@clean-rn/ddd';
 
 import { GreenEuroAmount } from '../../../assets';
@@ -23,8 +28,7 @@ type IProps = {
   loading: boolean;
   control: Control<ITransferFormData>;
   errors: FieldErrors<ITransferFormData>;
-  error: IDomainError<any, any> | null;
-  //   error: IDomainError<ITransferErrorCode, ITransferErrorMessage> | null;
+  error: IDomainError<ITransactionErrorCodes, ITransactionErrorMessage> | null;
   onSubmit: () => void;
   onFocus: () => void;
 };
@@ -111,7 +115,7 @@ export const FormTransfer = (props: IProps) => {
       </View>
       <View style={styles.formSubmit}>
         <SubmitButton
-          title={t('button.add')}
+          title={t('screens.transfer.button')}
           uppercase={false}
           onSubmit={props.onSubmit}
           loading={props.loading}

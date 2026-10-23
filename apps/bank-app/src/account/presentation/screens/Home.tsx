@@ -114,10 +114,12 @@ export const Home = () => {
     Linking.openURL(Platform.OS === 'ios' ? APPLE_STORE_LINK : GOOGLE_PLAY_LINK);
   }, []);
 
+  // show identity banner if customer not validated and if no card
   const { customer, pending: kycPending } = useSelector((state: IRootState) => state.kyc.customer);
+  const { card, pending: cardPending } = useSelector((state: IRootState) => state.card);
 
-  return accountPending || kycPending ? (
-    <LoaderSplashScreen /> // todo replace with loading gif
+  return accountPending || kycPending || cardPending ? (
+    <LoaderSplashScreen />
   ) : (
     <ErrorBoundary t={t}>
       {appNeedUpdate && (
@@ -128,11 +130,15 @@ export const Home = () => {
           onPressRightIcon={handleUpdateNeeded}
         />
       )}
-      {customer && (
+      {customer && !card && (
         <Banner
-          title={t('screens.home.banner.validation-identity')}
+          title={
+            customer.properties.status === KYC_REVIEW.VALIDATED
+              ? t('screens.home.banner.identity-validated')
+              : t('screens.home.banner.validation-identity')
+          }
           colorBanner={
-            customer?.properties.status === KYC_REVIEW.REFUSED ? BannerColors.PINK : BannerColors.PURPLE
+            customer.properties.status === KYC_REVIEW.REFUSED ? BannerColors.PINK : BannerColors.PURPLE
           }
           rightIcon
           onPressRightIcon={handlePressBanner}

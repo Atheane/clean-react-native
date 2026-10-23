@@ -41,7 +41,7 @@ npm install
 7. Install eas-cli: necessary to build, or start expo server in developement mode
 
 ```
-npm install -g eas-cli
+npm install -g eas-cli@7.2.0
 ```
 
 8. Login in eas-cli
@@ -258,7 +258,7 @@ cli will guide you on Android and ios
 
 On free expo tier, you may have 1 or 2h of delay. You will find .aab on expo platform (url will be display by eas-cli).
 
-## Rebuild & Relinks dependencies 
+## Rebuild & Relinks dependencies
 
 ```
 cd apps/bank-app &&

@@ -11,7 +11,8 @@ import { firstLetterCapitalize } from '@clean-rn/utils';
 import { IDomainError } from '@clean-rn/ddd';
 import { Logger } from '@clean-rn/logger';
 
-import { Country, ICountry, COUNTRIES_AVAILABLE } from '@clean-rn/user/domain';
+import { COUNTRIES_AVAILABLE } from '@clean-rn/utils';
+import { Country, ICountry } from '@clean-rn/user/domain';
 import { IContactErrorCodes, Phone, IContactErrorMessage } from '@clean-rn/contact/domain';
 import { ProfileGradient } from '../../../assets';
 import { Colors } from '../../../constants';

@@ -45,11 +45,12 @@ export function* updateNotificationsGenerator(
     );
     yield call(goBack);
   } catch (error: unknown) {
+    yield put(initializeUser()); // pending : false in reducer, user is actually kept.
+
     if (error instanceof ServerError && error.statusCode === 401) {
       yield call(navigate, { route: IAuthStackPages.LOGIN });
       yield cancel();
     }
-    yield put(initializeUser());
     yield put(showUnknownError(error as Error));
   }
 }

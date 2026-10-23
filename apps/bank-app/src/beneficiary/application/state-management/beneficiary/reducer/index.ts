@@ -8,6 +8,7 @@ import { IBeneficiaryState } from '../state';
 const initialState: IBeneficiaryState = {
   pending: false,
   beneficiaries: null,
+  tab: 0,
   error: null,
 };
 
@@ -35,6 +36,13 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
       newState = {
         ...state,
         pending: true,
+      };
+      return newState;
+    case IBeneficiaryTypes.CHANGE_TAB:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        tab: action.payload.idx,
       };
       return newState;
     case IBeneficiaryTypes.BENEFICIARY_ADDED:

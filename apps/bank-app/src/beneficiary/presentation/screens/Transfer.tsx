@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useRoute } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 
 import { IAccount } from '@clean-rn/account/domain';
@@ -10,25 +11,24 @@ import {
   ITransferFormData,
   TransferCard,
   useCleanErrorOnFocus,
+  PhoneGradientWhiteBg,
   BankBgGradient,
+  BankAltLogo,
+  LoaderSplashScreen,
 } from '@clean-rn/ui-mobile';
-
+import { Amount, ITransactionType } from '@clean-rn/transaction/domain';
+import { Phone } from '@clean-rn/contact/domain';
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-
-import { BankLogoCO2, BankLogoGeneric } from '../assets/images';
-import { Decoration } from '../assets/svg';
 import {
   fetchPayout,
   fetchTransactionWaiting,
   fetchTransfer,
 } from '../../../transaction/application/commands';
-import { Amount, ITransactionType } from '@clean-rn/transaction/domain';
-import { useRoute } from '@react-navigation/native';
-import { Phone } from '@clean-rn/contact/domain';
-import { Logger } from '@clean-rn/logger';
+
+import { Decoration } from '../assets/svg';
 
 type IData = {
   key: string;
@@ -51,19 +51,9 @@ export const Transfer = () => {
       beneficiaryAccountId?: number;
     };
   };
-  Logger.getInstance().info(
-    'beneficiaryId: ',
-    beneficiaryId,
-    'beneficiaryName: ',
-    beneficiaryName,
-    'phoneNumber: ',
-    phoneNumber,
-    'beneficiaryAccountId: ',
-    beneficiaryAccountId,
-  );
 
   // select account
-  const { accounts } = useSelector((state: IRootState) => state.account.accounts);
+  const { accounts, pending: pendingAccounts } = useSelector((state: IRootState) => state.account.accounts);
 
   const [data, setData] = useState<IData[]>([]);
   useEffect(() => {
@@ -81,7 +71,7 @@ export const Transfer = () => {
     setData(data);
   }, [t, accounts]);
 
-  const user = useSelector((state: IRootState) => state.user.user);
+  const { user, pending: pendingUser } = useSelector((state: IRootState) => state.user);
 
   const [userName, setUserName] = useState('');
   useEffect(() => {
@@ -165,16 +155,27 @@ export const Transfer = () => {
 
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
-  return (
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 200);
+  }, []);
+
+  return loading || pendingAccounts || pendingUser ? (
+    <LoaderSplashScreen />
+  ) : (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={[styles.container, { height: HEIGHT }]}>
           <View style={styles.subContainer}>
             <View style={styles.itemContainer}>
               <TransferCard
-                arrow={true}
+                arrow
+                uniqueAccount
                 text={userName}
-                image={BankLogoCO2}
+                icon={BankAltLogo}
                 data={data}
                 onSelect={handleOnSelect}
               />
@@ -184,7 +185,7 @@ export const Transfer = () => {
                 <TransferCard
                   arrow={false}
                   text={beneficiaryName}
-                  image={beneficiaryAccountId ? BankLogoCO2 : BankLogoGeneric}
+                  icon={beneficiaryAccountId ? BankAltLogo : phoneNumber ? PhoneGradientWhiteBg : BankBgGradient}
                 />
               </View>
             )}

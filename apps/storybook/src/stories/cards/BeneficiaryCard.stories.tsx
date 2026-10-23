@@ -27,16 +27,41 @@ export default BeneficiaryCardMeta;
 
 type BeneficiaryCardStory = ComponentStory<typeof BeneficiaryCard>;
 
-export const Even: BeneficiaryCardStory = (args) => {
+export const EvenLogo: BeneficiaryCardStory = (args) => {
   return <BeneficiaryCard {...args} idx={2} onDelete={undefined} onPress={undefined} />;
 };
 
-export const EvenPress: BeneficiaryCardStory = (args) => {
-  return <BeneficiaryCard {...args} idx={4} onDelete={undefined} />;
+export const EvenGenericPress: BeneficiaryCardStory = (args) => {
+  return (
+    <BeneficiaryCard
+      {...args}
+      data={{
+        beneficiaryId: 1,
+        name: 'John Doe',
+        iban: 'ES6621000418450200051332',
+        bic: 'BCITESMMXXX',
+      }}
+      idx={4}
+      onDelete={undefined}
+    />
+  );
 };
 
-export const EvenDelete: BeneficiaryCardStory = (args) => {
-  return <BeneficiaryCard {...args} idx={6} onPress={undefined} />;
+export const EvenCO2Delete: BeneficiaryCardStory = (args) => {
+  return (
+    <BeneficiaryCard
+      {...args}
+      data={{
+        beneficiaryId: 1,
+        name: 'John Doe',
+        iban: 'ES6621000418450200051332',
+        bic: 'BCITESMMXXX',
+        accountId: 1,
+      }}
+      idx={6}
+      onPress={undefined}
+    />
+  );
 };
 
 export const Odd: BeneficiaryCardStory = (args) => {

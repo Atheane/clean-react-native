@@ -1,4 +1,5 @@
-import { View, Text, StyleSheet, Image, ImageSourcePropType } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
 import { BackgroundCardArrow, BackgroundCardGrey } from '../../../assets';
 import { Dropdown } from '../../dropdowns/dropdown';
@@ -9,8 +10,9 @@ type IData = {
 };
 
 type IProps = {
-  image: ImageSourcePropType;
+  icon: React.FC<SvgProps>;
   text: string;
+  uniqueAccount?: boolean;
   data?: IData[];
   onSelect?: (item: IData) => void;
   arrow: boolean;
@@ -23,17 +25,17 @@ export const TransferCard = (props: IProps) => {
       <View style={styles.backgroundContainer}>
         {props.arrow && <BackgroundCardArrow />}
         {!props.arrow && <BackgroundCardGrey />}
-        <View style={[styles.textContainer, { width: props.arrow ? 80 : 150 }]}>
+        <View style={[styles.textContainer, { width: props.arrow ? 150 : 150 }]}>
           <Text style={[theme.bank.text.boldDarkBlue, { fontSize: 12, lineHeight: 19 }]}>
-            {props.arrow ? props.text.slice(0, 12) : props.text}
+            {props.arrow ? props.text.slice(0, 19) : props.text}
           </Text>
         </View>
-        {props.arrow && (
+        {props.arrow && !props.uniqueAccount && (
           <View style={styles.dropdownContainer}>
             <Dropdown
               data={props.data ?? []}
               short
-              shortWidth={174}
+              shortWidth={120}
               defaultValue={props.data && props.data.length > 0 ? props.data[0].value : undefined}
               multiline
               onSelect={props?.onSelect}
@@ -41,7 +43,14 @@ export const TransferCard = (props: IProps) => {
             />
           </View>
         )}
-        <Image source={props.image} style={styles.imageStyle} />
+        {props.arrow && props.uniqueAccount && props.data && props.data.length > 0 && (
+          <View style={[styles.uniqueAccountContainer, theme.bank.container.input, { width: 120 }]}>
+            <Text style={theme.bank.text.input}>{props.data[0].value}</Text>
+          </View>
+        )}
+        <View style={styles.iconStyle}>
+          <props.icon />
+        </View>
       </View>
     </View>
   );
@@ -54,7 +63,7 @@ const styles = StyleSheet.create({
   textContainer: {
     position: 'absolute',
     top: 20,
-    left: 70,
+    left: 60,
     height: 40,
     justifyContent: 'center',
   },
@@ -63,7 +72,13 @@ const styles = StyleSheet.create({
     top: 12,
     right: 12,
   },
-  imageStyle: {
+  uniqueAccountContainer: {
+    position: 'absolute',
+    top: 2,
+    right: 17,
+    padding: 10,
+  },
+  iconStyle: {
     position: 'absolute',
     // Adjust top, left, right, bottom as needed
     top: 20,

@@ -1,10 +1,11 @@
 import * as Contacts from 'expo-contacts';
-//
+import { UUID } from 'uuidjs';
+
 import { Phone } from '@clean-rn/contact/domain';
 import { inplaceSortByName } from '@clean-rn/utils';
 
 import { IContact, IAddContactCommand, IContactRepository, ContactError } from '@clean-rn/contact/domain';
-//
+
 import { mapContactExpoToContact } from '../mappers';
 
 export class ExpoContact implements IContactRepository {
@@ -67,8 +68,10 @@ export class ExpoContact implements IContactRepository {
       throw new ContactError.ContactAlreadyExists();
 
     await Contacts.addContactAsync(newContact);
+    const id = UUID.generate();
 
     return {
+      id,
       name: `${contact.firstname} ${contact.lastname}`,
       phone,
     };
