@@ -511,6 +511,8 @@ describe('Signup - usecase', () => {
         phone: mockQueryPhoneOtp.phone,
       })
       .next(mockAuth)
+      .put(loginSuccess({ auth: mockAuth }))
+      .next()
       .call(httpConnection.attachBearerToken, mockAuth.accessToken)
       .next()
       .call([userApi, userApi.getUser])

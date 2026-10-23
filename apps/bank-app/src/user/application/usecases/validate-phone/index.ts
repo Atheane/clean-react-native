@@ -17,6 +17,7 @@ import { selectEmail, selectPassword } from '../../../../auth/application/state-
 
 import { selectUser } from '../../state-management/selectors';
 import { IUserTypes, signupFailed, phoneValidated, initializeUser } from '../../commands';
+import { loginSuccess } from 'apps/bank-app/src/auth/application/commands';
 
 export function* validatePhoneSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IUserTypes.FETCH_VALIDATE_PHONE, validatePhoneGenerator, httpConnection);
@@ -61,6 +62,8 @@ export function* validatePhoneGenerator(
       password,
       phone: payload.phone,
     });
+    yield put(loginSuccess({ auth }));
+
     yield call(httpConnection.attachBearerToken, auth.accessToken);
 
     user = yield call([userApi, userApi.getUser]);

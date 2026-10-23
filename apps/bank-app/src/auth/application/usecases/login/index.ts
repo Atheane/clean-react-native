@@ -89,7 +89,9 @@ export function* loginGenerator(
           // need to reinit userReducer if user comes from signup flow (because not store data)
           yield put(initializeUser());
           yield put(loginFailure(new AuthError.LoginFailurePhoneNotValidated(error)));
-          yield call(navigate, { route: IUserStackPages.SIGNUP_PHONE });
+          yield call(navigate, {
+            route: IUserStackPages.SIGNUP_PHONE,
+          });
           yield cancel();
       }
     }
