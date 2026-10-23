@@ -60,6 +60,9 @@ export default {
           ios: {
             useFrameworks: 'static',
           },
+          android: {
+            usesCleartextTraffic: false,
+          },
         },
       ],
       [
