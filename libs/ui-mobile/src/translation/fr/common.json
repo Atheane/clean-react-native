@@ -701,15 +701,16 @@
         "month-limit": "Montant mensuel",
         "instruction-bottom": "Pour tout achat exceptionnel, contactez nous"
       },
-      "lock": {
+      "toggle-lock": {
         "title": "Bloquer ma carte",
         "instruction": "Cette fonction vous permet de bloquer votre carte. N’hésitez pas à l’activer en cas de perte ou de vol. Votre carte peut être réactivée à tout moment.",
         "lock": "Bloquer",
         "button": "Valider"
       },
-      "lock-success": {
+      "toggle-lock-success": {
         "title": "Félicitations",
-        "message": "Votre carte a bien été bloquée",
+        "lock": "Votre carte a bien été bloquée",
+        "unlock": "Votre carte a bien été débloquée",
         "ok": "ok"
       },
       "change-pin": {

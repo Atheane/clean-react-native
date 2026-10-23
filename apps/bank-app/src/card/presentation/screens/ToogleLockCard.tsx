@@ -9,9 +9,10 @@ import { SmallSwitchButton, SubmitButton, useTogglePress } from '@clean-rn/ui-mo
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { fetchToggleLock } from '../../application/commands';
 
 const HEIGHT = Dimensions.get('screen').height;
-export const LockCard = () => {
+export const ToggleLockCard = () => {
   const { theme } = useTheme();
   const { t } = useTranslation();
 
@@ -24,7 +25,7 @@ export const LockCard = () => {
   const dispatch = useDispatch();
 
   const handleOnSubmit = useCallback(() => {
-    console.log('dispatch(fetchLockUnLockCard(isLocked))', isLocked);
+    dispatch(fetchToggleLock({ lock: isLocked }));
   }, [dispatch, isLocked]);
 
   return (
@@ -32,15 +33,15 @@ export const LockCard = () => {
       <SafeScrollingView>
         <View style={[styles.container, { height: HEIGHT }]}>
           <View style={styles.rowContainer}>
-            <Text style={[theme.bank.text.darkBlue]}>{t('screens.card.lock.instruction')}</Text>
+            <Text style={[theme.bank.text.darkBlue]}>{t('screens.card.toggle-lock.instruction')}</Text>
           </View>
           <View style={styles.rowContainer}>
-            <Text style={[theme.bank.text.darkBlue]}>{t('screens.card.lock.lock')}</Text>
+            <Text style={[theme.bank.text.darkBlue]}>{t('screens.card.toggle-lock.lock')}</Text>
             <SmallSwitchButton checked={isLocked} onToggle={handleToggleCard} />
           </View>
           <View style={styles.buttonContainer}>
             <SubmitButton
-              title={t('screens.card.lock.button')}
+              title={t('screens.card.toggle-lock.button')}
               uppercase
               loading={pending}
               onSubmit={handleOnSubmit}

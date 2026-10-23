@@ -1,21 +1,21 @@
 import { CardMenu } from './CardMenu';
 import { CardLimits } from './CardLimits';
-import { LockCard } from './LockCard';
+import { ToggleLockCard } from './ToogleLockCard';
 import { ChangePin } from './ChangePin';
 import { ChangePinSuccess } from './ChangePinSuccess';
 import { ShowPin } from './ShowPin';
-import { LockCardSuccess } from './LockCardSuccess';
+import { ToggleLockCardSuccess } from './ToggleLockCardSuccess';
 import { KycMissing } from './KycMissing';
 import { WaitingCard } from './WaitingCard';
 
 export {
   CardMenu,
   CardLimits,
-  LockCard,
+  ToggleLockCard,
+  ToggleLockCardSuccess,
   ChangePin,
   ChangePinSuccess,
   ShowPin,
-  LockCardSuccess,
   KycMissing,
   WaitingCard,
 };

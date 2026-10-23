@@ -1,2 +1,3 @@
 import CB from './CB.png';
-export { CB };
+import Success from './Success.png';
+export { CB, Success };

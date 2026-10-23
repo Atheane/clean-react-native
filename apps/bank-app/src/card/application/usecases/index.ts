@@ -135,7 +135,7 @@ export function* toggleCardLockGenerator(
     const card = yield call([cardApi, cardApi.toggleLock], cardFromStore, payload);
     console.log('card', card);
     yield put(cardLockToggled(card));
-    yield call(navigate, { route: ICardStackPages.MENU });
+    yield call(navigate, { route: ICardStackPages.LOCK_CARD_SUCCESS });
   } catch (error: unknown) {
     if (error instanceof ServerError && error.statusCode === 401) {
       yield call(navigate, { route: IAuthStackPages.LOGIN });

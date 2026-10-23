@@ -16,28 +16,30 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
   const logger = Logger.getInstance();
   let newState: IBeneficiaryState;
   let beneficiaries: IBeneficiary[];
-  logger.debug(action.type);
-
   switch (action.type) {
     case IBeneficiaryTypes.ADD_BENEFICIARY:
+      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
       };
       return newState;
     case IBeneficiaryTypes.DELETE_BENEFICIARY:
+      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
       };
       return newState;
     case IBeneficiaryTypes.LIST_BENEFICIARIES:
+      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
       };
       return newState;
     case IBeneficiaryTypes.INIT_BENEFICIARY:
+      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,

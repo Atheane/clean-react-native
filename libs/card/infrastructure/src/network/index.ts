@@ -5,7 +5,6 @@ import {
   ICardRepository,
   CardError,
   IToggleCardLockCommand,
-  ICardStatuses,
 } from '@clean-rn/card/domain';
 import { ICardServer } from '../types';
 

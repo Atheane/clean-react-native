@@ -1,7 +1,15 @@
 import BlueGradientSpeedmeter from './blue-gradient-speedmeter.svg';
-import BlueGradientLock from './blue-gradient-lock.svg';
+import BlueGradientLocked from './blue-gradient-locked.svg';
+import BlueGradientUnLocked from './blue-gradient-unlocked.svg';
 import BlueGradientChangePin from './blue-gradient-change-pin.svg';
 import BlueGradientShowPin from './blue-gradient-show-pin.svg';
 import WhiteEye from './white-eye.svg';
 
-export { BlueGradientSpeedmeter, BlueGradientLock, BlueGradientChangePin, BlueGradientShowPin, WhiteEye };
+export {
+  BlueGradientSpeedmeter,
+  BlueGradientLocked,
+  BlueGradientUnLocked,
+  BlueGradientChangePin,
+  BlueGradientShowPin,
+  WhiteEye,
+};

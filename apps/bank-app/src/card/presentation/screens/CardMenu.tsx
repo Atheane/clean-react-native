@@ -11,7 +11,8 @@ import { ICardStackPages } from '../../../shared/presentation/types';
 
 import {
   BlueGradientSpeedmeter,
-  BlueGradientLock,
+  BlueGradientLocked,
+  BlueGradientUnLocked,
   BlueGradientChangePin,
   BlueGradientShowPin,
   CB,
@@ -59,9 +60,25 @@ export const CardMenu = () => {
             </View>
             <View style={styles.rowContainer}>
               <LinkButton
-                iconLeft={BlueGradientLock}
+                iconLeft={
+                  card?.properties.status === ICardStatuses.LOCK
+                    ? () => (
+                        <View style={{ marginRight: 6 }}>
+                          <BlueGradientUnLocked width={styles.icon.width} height={styles.icon.height} />
+                        </View>
+                      )
+                    : () => (
+                        <View style={{ marginRight: 8 }}>
+                          <BlueGradientLocked width={styles.icon.width} height={styles.icon.height} />
+                        </View>
+                      )
+                }
                 colorOption={LinkButtonColors.BLUE}
-                title={t('screens.card.menu.lock')}
+                title={
+                  card?.properties.status === ICardStatuses.LOCK
+                    ? t('screens.card.menu.unlock')
+                    : t('screens.card.menu.lock')
+                }
                 onPress={() => navigation.navigate(ICardStackPages.LOCK_CARD as never)}
                 disabled={(error && error instanceof CardError.Forbidden) as boolean}
               />
@@ -102,6 +119,10 @@ const styles = StyleSheet.create({
     flex: 1,
     height: HEIGHT,
     justifyContent: 'center',
+  },
+  icon: {
+    width: 27,
+    height: 27,
   },
   imageContainer: {
     marginTop: 40,

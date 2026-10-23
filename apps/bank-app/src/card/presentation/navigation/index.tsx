@@ -8,11 +8,11 @@ import { ICardStackPages, ICardStackProps, IProfileStackPages } from '../../../s
 import {
   CardMenu,
   CardLimits,
-  LockCard,
+  ToggleLockCard,
   ChangePin,
   ChangePinSuccess,
   ShowPin,
-  LockCardSuccess,
+  ToggleLockCardSuccess,
   KycMissing,
   WaitingCard,
 } from '../screens';
@@ -60,17 +60,17 @@ export const CardStack = () => {
       />
       <Stack.Screen
         name={ICardStackPages.LOCK_CARD}
-        component={LockCard}
+        component={ToggleLockCard}
         options={{
-          headerTitle: t('screens.card.lock.title'),
+          headerTitle: t('screens.card.toggle-lock.title'),
           ...headersOptions(goBack),
         }}
       />
       <Stack.Screen
         name={ICardStackPages.LOCK_CARD_SUCCESS}
-        component={LockCardSuccess}
+        component={ToggleLockCardSuccess}
         options={{
-          headerTitle: t('screens.card.lock-success.title'),
+          headerTitle: t('screens.card.toggle-lock-success.title'),
           ...headersOptions(goBack),
         }}
       />
