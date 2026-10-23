@@ -55,7 +55,7 @@ export const TextInput = ({
     () => ({
       autoCapitalize: lowerCase ? 'none' : undefined,
       autoCorrect: false,
-      keyboardType: numeric ? 'number-pad' : 'default',
+      keyboardType: numeric ? 'numeric' : 'default',
       placeholderTextColor: Colors.bank.primary.grey,
     }),
     [lowerCase, numeric],

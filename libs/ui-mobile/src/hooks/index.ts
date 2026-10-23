@@ -10,6 +10,7 @@ import { useChange } from './useChange';
 import { useReduxOverStorageValue } from './useReduxOverStorageValue';
 import { useNotification } from './useNotification';
 import { useDevice } from './useDevice';
+import { useDeepLink } from './useDeepLink';
 
 export {
   useCleanErrorOnFocus,
@@ -24,4 +25,5 @@ export {
   useReduxOverStorageValue,
   useNotification,
   useDevice,
+  useDeepLink,
 };
