@@ -3,8 +3,8 @@ import 'dotenv/config';
 export default {
   expo: {
     owner: '450',
-    name: 'Bank App',
-    slug: 'bank-app',
+    name: process.env.APP_NAME_BANK_APP || 'Bank App',
+    slug: process.env.SLUG_NAME_BANK_APP || 'bank-app',
     version: process.env.APP_VERSION,
     orientation: 'portrait',
     icon: './assets/images/logo-bank.png',
@@ -21,16 +21,17 @@ export default {
       bundleIdentifier: process.env.BUNDLE_IDENTIFIER || 'com.example.bankapp',
       googleServicesFile: process.env.GOOGLE_PLIST || './GoogleService-Info.plist',
       supportsTablet: false,
-      versionCode: process.env.APP_VERSION || '1.0.3',
+      versionCode: process.env.APP_VERSION || '1.0.4',
     },
     android: {
       adaptiveIcon: {
         foregroundImage: './assets/images/android-logo-bank.png',
         backgroundColor: '#FFFFFF',
       },
+      supportsTablet: false,
       package: process.env.BUNDLE_IDENTIFIER || 'com.example.bankapp',
       googleServicesFile: process.env.GOOGLE_SERVICES || './google-services.json',
-      versionCode: process.env.APP_VERSION_ANDROID || '103',
+      versionCode: process.env.APP_VERSION_ANDROID || '104',
     },
     web: {
       favicon: './assets/images/logo-bank.png',
@@ -41,13 +42,14 @@ export default {
       [
         'expo-contacts',
         {
-          contactsPermission: 'Allow BANK to access your contacts.',
+          contactsPermission:
+            'Transfer your €G directly to mobile numbers. Example: you send a transfer of €G10 to 06 01 01 01 01 rather than FR76 0001 XO01 XO01 XO01 XO01 X11.',
         },
       ],
       [
         'react-native-document-scanner-plugin',
         {
-          cameraPermission: 'Cette application nécessite un accès à la caméra, pour les scans de documents.',
+          cameraPermission: 'The application requires access to the camera for document scans.',
         },
       ],
       ['react-native-compressor'],
