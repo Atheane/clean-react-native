@@ -19,6 +19,9 @@ export function* showUnknownErrorGenerator({
 }): Generator<StrictEffect, any, any> {
   if (payload.message === 'Network request failed') {
     yield cancel();
+  } else if (payload instanceof ServerError && payload.statusCode === 401) {
+    yield call(Sentry.captureException, payload);
+    yield cancel();
   }
   yield call(Sentry.captureException, payload);
 
