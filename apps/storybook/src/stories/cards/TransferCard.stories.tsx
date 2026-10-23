@@ -31,7 +31,11 @@ export default TransferCardMeta;
 
 type TransferCardStory = ComponentStory<typeof TransferCard>;
 
-export const TransferFrom: TransferCardStory = (args) => {
+export const TransferFromUniqueAccount: TransferCardStory = (args) => {
+  return <TransferCard {...args} uniqueAccount icon={BankAltLogo} />;
+};
+
+export const TransferFromMultiAccount: TransferCardStory = (args) => {
   return <TransferCard {...args} icon={BankAltLogo} />;
 };
 

@@ -161,7 +161,8 @@ export const Transfer = () => {
           <View style={styles.subContainer}>
             <View style={styles.itemContainer}>
               <TransferCard
-                arrow={true}
+                arrow
+                uniqueAccount
                 text={userName}
                 icon={BankAltLogo}
                 data={data}
