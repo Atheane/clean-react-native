@@ -116,7 +116,7 @@ describe('ChangeCardLimits - usecase', () => {
       .next(card)
       .put(cardLimitsChanged(card))
       .next()
-      .call(navigate, { route: ICardStackPages.MENU })
+      .call(navigate, { route: ICardStackPages.CARD })
       .next();
   });
 

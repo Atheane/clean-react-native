@@ -95,7 +95,7 @@ export function* changeCardLimitsGenerator(
     const cardApi = CardApi.getInstance(httpConnection);
     const card = yield call([cardApi, cardApi.changeCardLimits], payload);
     yield put(cardLimitsChanged(card));
-    yield call(navigate, { route: ICardStackPages.MENU });
+    yield call(navigate, { route: ICardStackPages.CARD });
   } catch (error: unknown) {
     if (error instanceof ServerError && error.statusCode === 401) {
       yield call(navigate, { route: IAuthStackPages.LOGIN });

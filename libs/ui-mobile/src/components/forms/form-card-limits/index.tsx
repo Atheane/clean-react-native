@@ -12,12 +12,13 @@ import { SubmitButton } from '../../buttons/submit-button';
 import { TextInput } from '../../inputs/text-input';
 
 export type ICardLimitsFormData = {
-  limitPaymentMonth: number;
-  limitPaymentWeek: number;
-  limitPaymentDay: number;
+  limitPaymentMonth?: string;
+  limitPaymentWeek?: string;
+  limitPaymentDay?: string;
 };
 
 type IProps = {
+  initialValues: ICardLimitsFormData;
   loading: boolean;
   control: Control<ICardLimitsFormData>;
   errors: FieldErrors<ICardLimitsFormData>;
@@ -41,7 +42,8 @@ export const FormCardLimits = (props: IProps) => {
             min: 100,
             max: 3000,
           }}
-          render={({ field: { onChange, value } }) => (
+          defaultValue={props.initialValues.limitPaymentDay}
+          render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               numeric
               label={t('screens.card.limits.day-limit')}
@@ -50,6 +52,7 @@ export const FormCardLimits = (props: IProps) => {
               IconLeft={GreenGradientSpeedLimit}
               placeholder={'2000'}
               onChange={onChange}
+              onBlur={onBlur}
             />
           )}
         />
@@ -72,6 +75,7 @@ export const FormCardLimits = (props: IProps) => {
             min: 100,
             max: 6000,
           }}
+          defaultValue={props.initialValues.limitPaymentWeek}
           render={({ field: { onChange, value } }) => (
             <TextInput
               numeric
@@ -105,6 +109,7 @@ export const FormCardLimits = (props: IProps) => {
             min: 100,
             max: 9000,
           }}
+          defaultValue={props.initialValues.limitPaymentMonth}
           render={({ field: { onChange, value } }) => (
             <TextInput
               numeric

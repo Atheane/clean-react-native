@@ -11,7 +11,13 @@ const FormCardLimitsMeta: ComponentMeta<typeof FormCardLimits> = {
   component: FormCardLimits,
   argTypes: {
     onSubmit: { action: 'onSubmit' },
-    onFocus: { action: 'onFocus' },
+  },
+  args: {
+    initialValues: {
+      limitPaymentDay: '2000',
+      limitPaymentWeek: '3000',
+      limitPaymentMonth: '6000',
+    },
   },
   decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
 };

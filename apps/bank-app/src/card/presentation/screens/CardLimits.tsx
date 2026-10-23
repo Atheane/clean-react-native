@@ -36,9 +36,9 @@ export const CardLimits = () => {
         fetchChangeCardLimits({
           card,
           limits: {
-            day: formData.limitPaymentDay,
-            week: formData.limitPaymentWeek,
-            month: formData.limitPaymentMonth,
+            day: formData.limitPaymentDay ? parseInt(formData.limitPaymentDay) : undefined,
+            week: formData.limitPaymentWeek ? parseInt(formData.limitPaymentWeek) : undefined,
+            month: formData.limitPaymentMonth ? parseInt(formData.limitPaymentMonth) : undefined,
           },
         }),
       );
@@ -46,13 +46,16 @@ export const CardLimits = () => {
     [dispatch, card],
   );
 
-  console.log('--------- > card?.id', card?.id);
-
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={styles.container}>
           <FormCardLimits
+            initialValues={{
+              limitPaymentDay: card?.properties?.limits?.day?.toString(),
+              limitPaymentWeek: card?.properties?.limits?.week?.toString(),
+              limitPaymentMonth: card?.properties?.limits?.month?.toString(),
+            }}
             loading={pending}
             control={control}
             errors={errors}
