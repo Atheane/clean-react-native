@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet, View } from 'react-native';
-import { IContact } from '@clean-rn/contact/domain';
+import { IContact, Phone } from '@clean-rn/contact/domain';
 import { Colors } from '../../../constants';
 import { ContactItem } from '../../items/contact-item';
 import { PhoneGradientGreyBg, PhoneGradientWhiteBg } from '../../../assets';
@@ -7,17 +7,25 @@ import { PhoneGradientGreyBg, PhoneGradientWhiteBg } from '../../../assets';
 type IProps = {
   data: IContact;
   idx: number;
+  onPress?: (phoneNumber: Phone) => void;
 };
 
 export const ContactCard = (props: IProps) => {
   return (
-    <View style={props.idx % 2 ? [styles.contactContainer, styles.oddContainer] : styles.contactContainer}>
+    <View
+      style={
+        props.idx % 2 === 0
+          ? [styles.contactContainer, styles.evenContainer]
+          : [styles.contactContainer, styles.oddContainer]
+      }
+    >
       <View>
-        {props.data.phone.length > 0 && (
+        {props.data.phone && (
           <ContactItem
-            icon={props.idx % 2 ? PhoneGradientWhiteBg : PhoneGradientGreyBg}
+            icon={props.idx % 2 === 0 ? PhoneGradientWhiteBg : PhoneGradientGreyBg}
             name={props.data.name}
-            phone={props.data.phone}
+            phone={props.data.phone.valueInternational}
+            onPress={props.onPress ? () => props.onPress(props.data.phone) : undefined}
           />
         )}
       </View>
@@ -32,7 +40,10 @@ const styles = StyleSheet.create({
     height: 72,
     width: Dimensions.get('window').width,
   },
-  oddContainer: {
+  evenContainer: {
     backgroundColor: Colors.bank.primary.lightGrey,
+  },
+  oddContainer: {
+    backgroundColor: Colors.bank.primary.white,
   },
 });

@@ -26,13 +26,17 @@ import {
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
 import { listAccountsSaga } from '../../../account/application/usecases';
-import { listTransactionsSaga, sendTransferSaga } from '../../../transaction/application/usecases';
+import {
+  listTransactionsSaga,
+  transferSaga,
+  payoutSaga,
+  transactionWaitingSaga,
+} from '../../../transaction/application/usecases';
 
 import {
   addBeneficiarySaga,
   deleteBeneficiarySaga,
   listBeneficiarySaga,
-  selectBeneficiarySaga,
 } from '../../../beneficiary/application/usecases';
 import { addContactSaga, listContactSaga } from '../../../beneficiary/application/usecases';
 
@@ -81,7 +85,6 @@ export function* rootSaga(httpConnection: HttpConnection) {
     addBeneficiarySaga(httpConnection),
     deleteBeneficiarySaga(httpConnection),
     listBeneficiarySaga(httpConnection),
-    selectBeneficiarySaga(httpConnection),
     addContactSaga(),
     listContactSaga(),
     listTransactionsSaga(httpConnection),
@@ -95,7 +98,9 @@ export function* rootSaga(httpConnection: HttpConnection) {
     uploadDocumentSaga(httpConnection),
     cancelUploadSaga(),
     updateNotificationsSaga(httpConnection),
-    sendTransferSaga(httpConnection),
+    transferSaga(httpConnection),
+    payoutSaga(httpConnection),
+    transactionWaitingSaga(httpConnection),
     getCardSaga(httpConnection),
     changeCardLimitsSaga(httpConnection),
     toggleCardLockSaga(httpConnection),

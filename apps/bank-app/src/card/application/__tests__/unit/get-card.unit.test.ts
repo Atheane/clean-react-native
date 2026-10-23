@@ -118,7 +118,7 @@ describe('GetCard - usecase', () => {
       .next(card)
       .put(cardGetSuccess(card))
       .next()
-      .call(navigate, { route: ICardStackPages.MENU })
+      .call(navigate, { route: ICardStackPages.MENU, params: { screen: ICardStackPages.CARD } })
       .next();
   });
 

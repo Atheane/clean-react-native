@@ -19,8 +19,6 @@ import {
   IBeneficiaryActions,
   IBeneficiaryAdded,
   IBeneficiaryDeleted,
-  ISelectBeneficiary,
-  IBeneficiarySelected,
 } from './types';
 
 // commands
@@ -40,11 +38,6 @@ export const listBeneficiaries = (): IListBeneficiary => ({
 
 export const initBeneficiary = (): IInitBeneficiary => ({
   type: IBeneficiaryTypes.INIT_BENEFICIARY,
-});
-
-export const selectBeneficiary = (payload: { beneficiaryId: number }): ISelectBeneficiary => ({
-  type: IBeneficiaryTypes.SELECT_BENEFICIARY,
-  payload,
 });
 
 // domainEvents
@@ -75,11 +68,6 @@ export const beneficiaryDeleteFailed = (
 
 export const beneficiariesListed = (payload: IBeneficiary[]): IBeneficiaryListed => ({
   type: IBeneficiaryTypes.BENEFICIARIES_LISTED,
-  payload,
-});
-
-export const beneficiarySelected = (payload: IBeneficiary): IBeneficiarySelected => ({
-  type: IBeneficiaryTypes.BENEFICIARY_SELECTED,
   payload,
 });
 

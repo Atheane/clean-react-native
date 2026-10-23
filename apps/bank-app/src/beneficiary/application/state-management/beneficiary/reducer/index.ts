@@ -8,7 +8,6 @@ import { IBeneficiaryState } from '../state';
 const initialState: IBeneficiaryState = {
   pending: false,
   beneficiaries: null,
-  selectedBeneficiary: null,
   error: null,
 };
 
@@ -36,22 +35,6 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
       newState = {
         ...state,
         pending: true,
-      };
-      return newState;
-    case IBeneficiaryTypes.INIT_BENEFICIARY:
-      logger.debug(action.type);
-      newState = {
-        ...state,
-        pending: false,
-        beneficiaries: null,
-        error: null,
-      };
-      return newState;
-    case IBeneficiaryTypes.BENEFICIARY_SELECTED:
-      logger.debug(action.type);
-      newState = {
-        ...state,
-        selectedBeneficiary: action.payload,
       };
       return newState;
     case IBeneficiaryTypes.BENEFICIARY_ADDED:
@@ -103,6 +86,15 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
         ...state,
         pending: false,
         beneficiaries: action.payload,
+      };
+      return newState;
+    case IBeneficiaryTypes.INIT_BENEFICIARY:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        beneficiaries: null,
+        error: null,
       };
       return newState;
     default:

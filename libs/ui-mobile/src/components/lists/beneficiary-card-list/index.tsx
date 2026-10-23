@@ -5,8 +5,8 @@ import { BeneficiaryCard } from '../../cards/beneficiary-card';
 
 type IProps = {
   data: IBeneficiary[];
-  onDelete?: (beneficiary: number) => void | undefined;
-  onPress?: (beneficiary: number) => void | undefined;
+  onDelete?: (beneficiaryId: number) => void | undefined;
+  onPress?: (beneficiaryId: number) => void | undefined;
 };
 
 export const BeneficiaryCardList = (props: IProps) => {

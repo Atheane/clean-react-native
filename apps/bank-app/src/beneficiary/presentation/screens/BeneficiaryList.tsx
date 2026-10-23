@@ -8,7 +8,7 @@ import { useTheme } from '@rneui/themed';
 import { IconNode } from '@rneui/base';
 
 import { IBeneficiary } from '@clean-rn/beneficiary/domain';
-import { IContact } from '@clean-rn/contact/domain';
+import { IContact, Phone } from '@clean-rn/contact/domain';
 import {
   PrimaryButton,
   LinkButton,
@@ -25,7 +25,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { IBeneficiaryStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 
-import { listBeneficiaries, selectBeneficiary } from '../../application/commands/beneficiary';
+import { listBeneficiaries } from '../../application/commands/beneficiary';
 import { listContacts } from '../../application/commands/contact';
 
 const ContentNoBeneficiary = () => {
@@ -81,17 +81,35 @@ const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
   const navigation = useNavigation();
   const { theme } = useTheme();
 
-  const dispatch = useDispatch();
+  const { beneficiaries } = useSelector((state: IRootState) => state.beneficiary.beneficiaries);
+
   const handleOnPressAdd = useCallback(() => {
     navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_ADD as never);
   }, [navigation]);
 
+  //todo refactorize
   const handleOnPress = useCallback(
     (beneficiaryId: number) => {
-      console.log('selectBeneficiary', beneficiaryId);
-      dispatch(selectBeneficiary({ beneficiaryId }));
+      if (!beneficiaries) {
+        return;
+      }
+      const beneficiary = beneficiaries.find(
+        (beneficiary: IBeneficiary) => beneficiary.beneficiaryId === beneficiaryId,
+      );
+      navigation.navigate(
+        IBeneficiaryStackPages.TRANSFER,
+        beneficiary?.accountId
+          ? {
+              beneficiaryAccountId: beneficiary?.accountId,
+              beneficiaryName: beneficiary?.name,
+            }
+          : {
+              beneficiaryId,
+              beneficiaryName: beneficiary?.name,
+            },
+      );
     },
-    [dispatch],
+    [navigation, beneficiaries],
   );
 
   // const handleOnPressDelete = useCallback(
@@ -124,6 +142,25 @@ const ContentContact = (props: { data: IContact[] }) => {
   const navigation = useNavigation();
   const { theme } = useTheme();
 
+  const { contacts } = useSelector((state: IRootState) => state.beneficiary.contacts);
+
+  // const dispatch = useDispatch();
+  const handleOnPress = useCallback(
+    (phone: Phone) => {
+      if (!contacts) {
+        return;
+      }
+      const contact = contacts.find(
+        (contact: IContact) => contact.phone.valueInternational === phone.valueInternational,
+      );
+      navigation.navigate(IBeneficiaryStackPages.TRANSFER, {
+        phoneNumber: phone.valueInternational,
+        beneficiaryName: contact?.name,
+      });
+    },
+    [navigation, contacts],
+  );
+
   const handleOnPressAdd = useCallback(() => {
     navigation.navigate(IBeneficiaryStackPages.CONTACT_ADD as never);
   }, [navigation]);
@@ -132,7 +169,7 @@ const ContentContact = (props: { data: IContact[] }) => {
     <>
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
-          <ContactCardList data={props.data} />
+          <ContactCardList data={props.data} onPress={handleOnPress} />
         </View>
       </SafeAreaView>
       <View style={styles.top}>

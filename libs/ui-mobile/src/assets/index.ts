@@ -131,6 +131,7 @@ import {
   IbanGreenGradient,
   BicGreenGradient,
   GreenGradientSpeedLimit,
+  BankAltLogo,
 } from './svg';
 import { DefaultImage, PlaneEmpty } from './image';
 import { Loader } from './lottie';
@@ -270,4 +271,5 @@ export {
   IbanGreenGradient,
   BicGreenGradient,
   GreenGradientSpeedLimit,
+  BankAltLogo,
 };

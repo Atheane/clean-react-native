@@ -1,6 +1,6 @@
 import * as Contacts from 'expo-contacts';
 //
-import { Phone } from '@clean-rn/user/domain';
+import { Phone } from '@clean-rn/contact/domain';
 import { inplaceSortByName } from '@clean-rn/utils';
 
 import { IContact, IAddContactCommand, IContactRepository, ContactError } from '@clean-rn/contact/domain';
@@ -13,6 +13,7 @@ export class ExpoContact implements IContactRepository {
   // Make the constructor private to prevent direct instantiation
   private constructor() {
     this.getContacts = this.getContacts.bind(this);
+    this.addContact = this.addContact.bind(this);
   }
 
   // Public method to provide access to the singleton instance
@@ -32,7 +33,9 @@ export class ExpoContact implements IContactRepository {
       });
 
       if (data.length > 0) {
-        const contacts = data.map((contact: any) => mapContactExpoToContact(contact));
+        const contacts = data
+          .map(mapContactExpoToContact)
+          .filter((contact) => contact !== undefined) as IContact[];
         inplaceSortByName(contacts);
         return contacts;
       }
@@ -43,6 +46,7 @@ export class ExpoContact implements IContactRepository {
 
   async addContact(contact: IAddContactCommand): Promise<IContact> {
     const phone = new Phone(contact.phone, contact.countryCode);
+
     const newContact = {
       [Contacts.Fields.ContactType]: Contacts.ContactTypes.Person,
       [Contacts.Fields.FirstName]: contact.firstname,
@@ -52,20 +56,21 @@ export class ExpoContact implements IContactRepository {
         {
           label: 'mobile',
           number: phone.valueInternational,
-          countryCode: contact.countryCode,
+          countryCode: phone.countryCode,
         },
       ],
     };
 
     const contacts = await this.getContacts();
-    if (contacts.find((c: IContact) => c.phone === phone.valueInternational))
+
+    if (contacts.find((c: IContact) => c.phone.valueInternational === phone.valueInternational))
       throw new ContactError.ContactAlreadyExists();
 
     await Contacts.addContactAsync(newContact);
 
     return {
       name: `${contact.firstname} ${contact.lastname}`,
-      phone: phone.valueInternational,
+      phone,
     };
   }
 }

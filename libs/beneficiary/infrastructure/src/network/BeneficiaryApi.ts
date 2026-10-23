@@ -15,6 +15,8 @@ export class BeneficiaryApi implements IBeneficiaryRepository {
   private constructor(httpConnection: HttpConnection) {
     this.connection = httpConnection;
     this.getBeneficiary = this.getBeneficiary.bind(this);
+    this.addBeneficiary = this.addBeneficiary.bind(this);
+    this.deleteBeneficiary = this.deleteBeneficiary.bind(this);
   }
 
   // Public method to provide access to the singleton instance

@@ -6,7 +6,7 @@ import { ITransactionsState } from '../state';
 const initialState: ITransactionsState = {
   pending: false,
   transactions: null,
-  transfer: null,
+  transaction: null,
   error: null,
 };
 
@@ -21,7 +21,21 @@ export const transactionsReducer = (state = initialState, action: ITransactionsA
         pending: true,
       };
       return newState;
-    case ITransactionsTypes.FETCH_SEND_TRANSFER:
+    case ITransactionsTypes.FETCH_PAYOUT:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: true,
+      };
+      return newState;
+    case ITransactionsTypes.FETCH_TRANSFER:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: true,
+      };
+      return newState;
+    case ITransactionsTypes.FETCH_TRANSACTION_WAITING:
       logger.debug(action.type);
       newState = {
         ...state,
@@ -36,15 +50,31 @@ export const transactionsReducer = (state = initialState, action: ITransactionsA
         transactions: action.payload,
       };
       return newState;
-    case ITransactionsTypes.TRANSFER_SENT:
+    case ITransactionsTypes.PAYOUT_SUCCEDED:
       logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
-        transfer: action.payload,
+        transaction: action.payload,
       };
       return newState;
-    case ITransactionsTypes.TRANSFER_FAILED:
+    case ITransactionsTypes.TRANSFER_SUCCEDED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        transaction: action.payload,
+      };
+      return newState;
+    case ITransactionsTypes.TRANSACTION_WAITING_SUCCEDED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        transaction: action.payload,
+      };
+      return newState;
+    case ITransactionsTypes.TRANSACTION_FAILED:
       logger.debug(action.type);
       newState = {
         ...state,
@@ -60,12 +90,12 @@ export const transactionsReducer = (state = initialState, action: ITransactionsA
         transactions: null,
       };
       return newState;
-    case ITransactionsTypes.INIT_TRANSFER:
+    case ITransactionsTypes.INIT_TRANSACTION:
       logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
-        transfer: null,
+        transaction: null,
       };
       return newState;
     default:

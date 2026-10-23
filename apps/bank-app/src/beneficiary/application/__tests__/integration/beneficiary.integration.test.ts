@@ -15,17 +15,10 @@ import {
   beneficiaryAddFailed,
   beneficiaryDeleted,
   beneficiaryDeleteFailed,
-  selectBeneficiary,
-  beneficiarySelected,
 } from '../../commands/beneficiary';
 import { IBeneficiaryState, beneficiaryReducer } from '../../state-management';
 
-import {
-  addBeneficiarySaga,
-  deleteBeneficiarySaga,
-  listBeneficiarySaga,
-  selectBeneficiarySaga,
-} from '../../usecases/beneficiary';
+import { addBeneficiarySaga, deleteBeneficiarySaga, listBeneficiarySaga } from '../../usecases/beneficiary';
 import { BeneficiaryError } from '@clean-rn/beneficiary/domain';
 
 const expoConstantsMock = {
@@ -75,7 +68,6 @@ describe('Beneficiary - integration', () => {
     const initialState: IBeneficiaryState = {
       pending: false,
       beneficiaries: null,
-      selectedBeneficiary: null,
       error: null,
     };
     sagaTester = new SagaTester({
@@ -92,7 +84,6 @@ describe('Beneficiary - integration', () => {
     expect(newState).toEqual({
       pending: true,
       beneficiaries: null,
-      selectedBeneficiary: null,
       error: null,
     });
   });
@@ -105,7 +96,6 @@ describe('Beneficiary - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       beneficiaries: mockBeneficiaries,
-      selectedBeneficiary: null,
       error: null,
     });
   });
@@ -119,7 +109,6 @@ describe('Beneficiary - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       beneficiaries: null,
-      selectedBeneficiary: null,
       error: null,
     });
   });
@@ -144,7 +133,6 @@ describe('Beneficiary - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       beneficiaries: [mockResponse],
-      selectedBeneficiary: null,
       error: null,
     });
   });
@@ -178,7 +166,6 @@ describe('Beneficiary - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       beneficiaries: [mockResponse, ...mockBeneficiaries], // ordered by name
-      selectedBeneficiary: null,
       error: null,
     });
   });
@@ -199,7 +186,6 @@ describe('Beneficiary - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       beneficiaries: null,
-      selectedBeneficiary: null,
       error: new BeneficiaryError.BeneficiaryAlreadyExists(mockError400.message),
     });
   });
@@ -219,7 +205,6 @@ describe('Beneficiary - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       beneficiaries: [],
-      selectedBeneficiary: null,
       error: null,
     });
   });
@@ -243,7 +228,6 @@ describe('Beneficiary - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       beneficiaries: null,
-      selectedBeneficiary: null,
       error: null,
     });
   });
@@ -262,27 +246,7 @@ describe('Beneficiary - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       beneficiaries: null,
-      selectedBeneficiary: null,
       error: new BeneficiaryError.BeneficiaryUnknown(mockError400.message),
-    });
-  });
-
-  it('Should store correct state if BENEFICIARY_SELECTED', () => {
-    const mockBeneficiary = {
-      beneficiaryId: 4004318954,
-      iban: 'FR7616798000010000242599449',
-      bic: 'TRZOFR21XXX',
-      name: 'MOCKBENEFICIARY',
-    };
-    sagaTester.start(wrapSagaHidingNotFoundError, selectBeneficiarySaga, httpConnection);
-    sagaTester.dispatch(selectBeneficiary({ beneficiaryId: 4004318954 }));
-    sagaTester.dispatch(beneficiarySelected(mockBeneficiary));
-
-    expect(sagaTester.getState()).toEqual({
-      pending: false,
-      beneficiaries: null,
-      selectedBeneficiary: mockBeneficiary,
-      error: null,
     });
   });
 });

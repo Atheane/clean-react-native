@@ -1,22 +1,27 @@
 import { IAccount } from '@clean-rn/account/domain';
 import {
-  ISendTransferCommand,
+  ITransferCommand,
+  ITransactionWaitingCommand,
+  IPayoutCommand,
   ITransaction,
   ITransactionErrorCodes,
   ITransactionErrorMessage,
-  ITransfer,
 } from '@clean-rn/transaction/domain';
 
 import {
   ITransactionsTypes,
   ITransactionsActions,
   IListTransactions,
-  IFetchSendTransfer,
+  IFetchTransfer,
+  IFetchPayout,
+  IFetchTransactionWaiting,
+  ITransferSucceded,
+  IPayoutSucceded,
+  ITransactionWaitingSucceded,
+  ITransactionFailed,
   IInitializeTransactionsList,
   ITransactionsListed,
-  ITransferSent,
-  ITransferFailed,
-  IInitTransfer,
+  IInitTransaction,
 } from './types';
 import { IDomainError } from '@clean-rn/ddd';
 
@@ -26,17 +31,19 @@ export const listTransactions = (payload: { account: IAccount }): IListTransacti
   payload,
 });
 
-export const initializeTransactionsList = (): IInitializeTransactionsList => ({
-  type: ITransactionsTypes.INITIALIZE_TRANSACTIONS_LIST,
-});
-
-export const fetchSendTransfer = (payload: ISendTransferCommand): IFetchSendTransfer => ({
-  type: ITransactionsTypes.FETCH_SEND_TRANSFER,
+export const fetchTransfer = (payload: ITransferCommand): IFetchTransfer => ({
+  type: ITransactionsTypes.FETCH_TRANSFER,
   payload,
 });
 
-export const initTransfer = (): IInitTransfer => ({
-  type: ITransactionsTypes.INIT_TRANSFER,
+export const fetchPayout = (payload: IPayoutCommand): IFetchPayout => ({
+  type: ITransactionsTypes.FETCH_PAYOUT,
+  payload,
+});
+
+export const fetchTransactionWaiting = (payload: ITransactionWaitingCommand): IFetchTransactionWaiting => ({
+  type: ITransactionsTypes.FETCH_TRANSACTION_WAITING,
+  payload,
 });
 
 // domainEvents
@@ -45,16 +52,34 @@ export const transactionsListed = (payload: ITransaction[]): ITransactionsListed
   payload,
 });
 
-export const transferSent = (payload: ITransaction): ITransferSent => ({
-  type: ITransactionsTypes.TRANSFER_SENT,
+export const transferSucceded = (payload: ITransaction): ITransferSucceded => ({
+  type: ITransactionsTypes.TRANSFER_SUCCEDED,
   payload,
 });
 
-export const transferFailed = (
-  payload: IDomainError<ITransactionErrorCodes, ITransactionErrorMessage>,
-): ITransferFailed => ({
-  type: ITransactionsTypes.TRANSFER_FAILED,
+export const payoutSucceded = (payload: ITransaction): IPayoutSucceded => ({
+  type: ITransactionsTypes.PAYOUT_SUCCEDED,
   payload,
+});
+
+export const transactionWaitingSucceded = (payload: ITransaction): ITransactionWaitingSucceded => ({
+  type: ITransactionsTypes.TRANSACTION_WAITING_SUCCEDED,
+  payload,
+});
+
+export const transactionFailed = (
+  payload: IDomainError<ITransactionErrorCodes, ITransactionErrorMessage>,
+): ITransactionFailed => ({
+  type: ITransactionsTypes.TRANSACTION_FAILED,
+  payload,
+});
+
+export const initTransaction = (): IInitTransaction => ({
+  type: ITransactionsTypes.INIT_TRANSACTION,
+});
+
+export const initializeTransactionsList = (): IInitializeTransactionsList => ({
+  type: ITransactionsTypes.INITIALIZE_TRANSACTIONS_LIST,
 });
 
 export { ITransactionsTypes, ITransactionsActions };

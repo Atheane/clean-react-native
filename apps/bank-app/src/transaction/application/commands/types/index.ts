@@ -4,20 +4,25 @@ import {
   ITransaction,
   ITransactionErrorCodes,
   ITransactionErrorMessage,
-  ITransfer,
-  ISendTransferCommand,
+  ITransferCommand,
+  ITransactionWaitingCommand,
+  IPayoutCommand,
 } from '@clean-rn/transaction/domain';
 
 export enum ITransactionsTypes {
   //commands
   LIST_TRANSACTIONS = 'LIST_TRANSACTIONS',
-  FETCH_SEND_TRANSFER = 'FETCH_SEND_TRANSFER',
-  INITIALIZE_TRANSACTIONS_LIST = 'INITIALIZE_TRANSACTIONS_LIST',
-  INIT_TRANSFER = 'INIT_TRANSFER',
+  FETCH_PAYOUT = 'FETCH_PAYOUT',
+  FETCH_TRANSFER = 'FETCH_TRANSFER',
+  FETCH_TRANSACTION_WAITING = 'FETCH_TRANSACTION_WAITING',
   //domain Events
   TRANSACTIONS_LISTED = 'TRANSACTIONS_LISTED',
-  TRANSFER_SENT = 'TRANSFER_SENT',
-  TRANSFER_FAILED = 'TRANSFER_FAILED',
+  PAYOUT_SUCCEDED = 'PAYOUT_SUCCEDED',
+  TRANSFER_SUCCEDED = 'TRANSFER_SUCCEDED',
+  TRANSACTION_WAITING_SUCCEDED = 'TRANSACTION_WAITING_SUCCEDED',
+  TRANSACTION_FAILED = 'TRANSACTION_FAILED',
+  INITIALIZE_TRANSACTIONS_LIST = 'INITIALIZE_TRANSACTIONS_LIST',
+  INIT_TRANSACTION = 'INIT_TRANSACTION',
 }
 
 //commands
@@ -28,17 +33,27 @@ export type IListTransactions = {
   };
 };
 
-export type IFetchSendTransfer = {
-  type: typeof ITransactionsTypes.FETCH_SEND_TRANSFER;
-  payload: ISendTransferCommand;
+export type IFetchTransfer = {
+  type: typeof ITransactionsTypes.FETCH_TRANSFER;
+  payload: ITransferCommand;
+};
+
+export type IFetchTransactionWaiting = {
+  type: typeof ITransactionsTypes.FETCH_TRANSACTION_WAITING;
+  payload: ITransactionWaitingCommand;
+};
+
+export type IFetchPayout = {
+  type: typeof ITransactionsTypes.FETCH_PAYOUT;
+  payload: IPayoutCommand;
 };
 
 export type IInitializeTransactionsList = {
   type: typeof ITransactionsTypes.INITIALIZE_TRANSACTIONS_LIST;
 };
 
-export type IInitTransfer = {
-  type: typeof ITransactionsTypes.INIT_TRANSFER;
+export type IInitTransaction = {
+  type: typeof ITransactionsTypes.INIT_TRANSACTION;
 };
 
 //domain Events
@@ -47,21 +62,35 @@ export type ITransactionsListed = {
   payload: ITransaction[];
 };
 
-export type ITransferSent = {
-  type: typeof ITransactionsTypes.TRANSFER_SENT;
+export type IPayoutSucceded = {
+  type: typeof ITransactionsTypes.PAYOUT_SUCCEDED;
   payload: ITransaction;
 };
 
-export type ITransferFailed = {
-  type: typeof ITransactionsTypes.TRANSFER_FAILED;
+export type ITransferSucceded = {
+  type: typeof ITransactionsTypes.TRANSFER_SUCCEDED;
+  payload: ITransaction;
+};
+
+export type ITransactionWaitingSucceded = {
+  type: typeof ITransactionsTypes.TRANSACTION_WAITING_SUCCEDED;
+  payload: ITransaction;
+};
+
+export type ITransactionFailed = {
+  type: typeof ITransactionsTypes.TRANSACTION_FAILED;
   payload: IDomainError<ITransactionErrorCodes, ITransactionErrorMessage>;
 };
 
 export type ITransactionsActions =
   | IListTransactions
-  | IFetchSendTransfer
-  | IInitializeTransactionsList
-  | IInitTransfer
+  | IFetchTransfer
+  | IFetchTransactionWaiting
+  | IFetchPayout
   | ITransactionsListed
-  | ITransferSent
-  | ITransferFailed;
+  | ITransferSucceded
+  | ITransactionWaitingSucceded
+  | IPayoutSucceded
+  | ITransactionFailed
+  | IInitTransaction
+  | IInitializeTransactionsList;

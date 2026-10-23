@@ -5,17 +5,30 @@ import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 
 import { IAccount } from '@clean-rn/account/domain';
-import { FormTransfer, ITransferFormData, TransferCard, useCleanErrorOnFocus } from '@clean-rn/ui-mobile';
+import {
+  FormTransfer,
+  ITransferFormData,
+  TransferCard,
+  useCleanErrorOnFocus,
+  BankBgGradient,
+} from '@clean-rn/ui-mobile';
 
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
-import { BankLogoCO2 } from '../assets/images';
+import { BankLogoCO2, BankLogoGeneric } from '../assets/images';
 import { Decoration } from '../assets/svg';
-import { fetchSendTransfer } from '../../application/commands';
+import {
+  fetchPayout,
+  fetchTransactionWaiting,
+  fetchTransfer,
+} from '../../../transaction/application/commands';
 import { Amount, ITransactionType } from '@clean-rn/transaction/domain';
+import { useRoute } from '@react-navigation/native';
+import { Phone } from '@clean-rn/contact/domain';
+import { Logger } from '@clean-rn/logger';
 
 type IData = {
   key: string;
@@ -27,8 +40,29 @@ const HEIGHT = Dimensions.get('window').height;
 export const Transfer = () => {
   const { t } = useTranslation();
 
-  const { selectedBeneficiary } = useSelector((state: IRootState) => state.beneficiary.beneficiaries);
+  // select beneficiary
+  const {
+    params: { beneficiaryId, beneficiaryName, phoneNumber, beneficiaryAccountId },
+  } = useRoute() as {
+    params: {
+      beneficiaryId?: number;
+      beneficiaryName?: string;
+      phoneNumber?: string;
+      beneficiaryAccountId?: number;
+    };
+  };
+  Logger.getInstance().info(
+    'beneficiaryId: ',
+    beneficiaryId,
+    'beneficiaryName: ',
+    beneficiaryName,
+    'phoneNumber: ',
+    phoneNumber,
+    'beneficiaryAccountId: ',
+    beneficiaryAccountId,
+  );
 
+  // select account
   const { accounts } = useSelector((state: IRootState) => state.account.accounts);
 
   const [data, setData] = useState<IData[]>([]);
@@ -67,9 +101,7 @@ export const Transfer = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<ITransferFormData>({
-    defaultValues: {},
-  });
+  } = useForm<ITransferFormData>();
 
   const [selectedAccount, setSelectedAccount] = useState<IAccount | undefined>(
     (accounts && accounts.length > 0 && accounts[0]) || undefined,
@@ -86,23 +118,51 @@ export const Transfer = () => {
   );
 
   const dispatch = useDispatch();
-  // api call
   const onSubmit = useCallback(
     (formData: ITransferFormData) => {
-      if (!selectedAccount || !selectedBeneficiary) {
+      if (!selectedAccount) {
         return;
       }
-      dispatch(
-        fetchSendTransfer({
-          accountId: selectedAccount.accountId,
-          beneficiaryId: selectedBeneficiary.beneficiaryId,
-          amount: new Amount(formData.amount, ITransactionType.TRANSFER_OUT),
-          label: formData.label,
-        }),
-      );
+      // api call for transfer
+      if (beneficiaryAccountId) {
+        dispatch(
+          fetchTransfer({
+            accountId: selectedAccount.accountId,
+            beneficiaryAccountId: beneficiaryAccountId,
+            amount: new Amount(formData.amount, ITransactionType.TRANSFER_OUT),
+            label: formData.label,
+          }),
+        );
+        return;
+      }
+      // api call for payout
+      if (beneficiaryId) {
+        dispatch(
+          fetchPayout({
+            accountId: selectedAccount.accountId,
+            beneficiaryId,
+            amount: new Amount(formData.amount, ITransactionType.TRANSFER_OUT),
+            label: formData.label,
+          }),
+        );
+        return;
+      }
+      // api call for transactionWaiting
+      if (phoneNumber) {
+        dispatch(
+          fetchTransactionWaiting({
+            accountId: selectedAccount.accountId,
+            phone: new Phone(phoneNumber),
+            amount: new Amount(formData.amount, ITransactionType.TRANSFER_OUT),
+            label: formData.label,
+          }),
+        );
+        return;
+      }
     },
-    [dispatch, selectedAccount, selectedBeneficiary],
+    [dispatch, selectedAccount, beneficiaryId, phoneNumber, beneficiaryAccountId],
   );
+
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
   return (
@@ -119,13 +179,15 @@ export const Transfer = () => {
                 onSelect={handleOnSelect}
               />
             </View>
-            <View style={styles.itemContainer}>
-              <TransferCard
-                arrow={false}
-                text={selectedBeneficiary?.name as string} //todo from react navigation
-                image={BankLogoCO2}
-              />
-            </View>
+            {beneficiaryName && (
+              <View style={styles.itemContainer}>
+                <TransferCard
+                  arrow={false}
+                  text={beneficiaryName}
+                  image={beneficiaryAccountId ? BankLogoCO2 : BankLogoGeneric}
+                />
+              </View>
+            )}
             <View style={styles.decorationContainer}>
               <Decoration />
             </View>

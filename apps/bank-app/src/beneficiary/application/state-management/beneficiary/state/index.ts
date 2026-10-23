@@ -9,6 +9,5 @@ import {
 export interface IBeneficiaryState {
   pending: boolean;
   beneficiaries: IBeneficiary[] | null;
-  selectedBeneficiary: IBeneficiary | null;
   error: IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage> | null;
 }

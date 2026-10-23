@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@rneui/themed';
-import { LinkButton, PrimaryButton, Validate } from '@clean-rn/ui-mobile';
+import { PrimaryButton, Validate } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { ICardStackPages } from '../../../shared/presentation/types';

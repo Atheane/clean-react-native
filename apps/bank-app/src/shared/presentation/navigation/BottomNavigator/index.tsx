@@ -21,7 +21,6 @@ import {
   IBeneficiaryStackPages,
   ITransactionStackPages,
   IProfileStackPages,
-  ITransferStackPages,
   ICardStackPages,
 } from '../../types';
 
@@ -30,7 +29,7 @@ import { CarbonStack } from '../../../../carbon/presentation/navigation';
 import { ProfileStack } from '../../../../user/presentation/navigation';
 import { KycStack } from '../../../../kyc/presentation/navigation';
 import { BeneficiaryStack } from '../../../../beneficiary/presentation/navigation';
-import { TransactionStack, TransferStack } from '../../../../transaction/presentation/navigation';
+import { TransactionStack } from '../../../../transaction/presentation/navigation';
 import { CardStack } from '../../../../card/presentation/navigation';
 
 const Tab = createBottomTabNavigator<IRootTabParamList>();
@@ -63,13 +62,6 @@ export const BottomTabNavigator = () => {
       <Tab.Screen
         name={ITransactionStackPages.MENU}
         component={TransactionStack}
-        options={{
-          tabBarButton: () => null,
-        }}
-      />
-      <Tab.Screen
-        name={ITransferStackPages.MENU}
-        component={TransferStack}
         options={{
           tabBarButton: () => null,
         }}

@@ -5,23 +5,27 @@ import { IBeneficiary } from '@clean-rn/beneficiary/domain';
 //
 import { Colors } from '../../../constants';
 import { BeneficiaryItem } from '../../items/beneficiary-item';
-import { BankBgGradient } from '../../../assets';
+import { BankBgGradient, BankAltLogo } from '../../../assets';
 
 type IProps = {
   data: IBeneficiary & { icon?: React.FC<SvgProps> };
   idx: number;
-  onDelete?: (beneficiary: number) => void;
-  onPress?: (beneficiary: number) => void;
+  onDelete?: (beneficiaryId: number) => void;
+  onPress?: (beneficiaryId: number) => void;
 };
 
 export const BeneficiaryCard = (props: IProps) => {
   return (
     <View
-      style={props.idx % 2 ? styles.beneficiaryContainer : [styles.beneficiaryContainer, styles.oddContainer]}
+      style={
+        props.idx % 2 === 0
+          ? [styles.beneficiaryContainer, styles.evenContainer]
+          : [styles.beneficiaryContainer, styles.oddContainer]
+      }
     >
       <View>
         <BeneficiaryItem
-          icon={props.data.icon ? props.data.icon : BankBgGradient}
+          icon={props.data.icon ? props.data.icon : props.data.accountId ? BankAltLogo : BankBgGradient}
           beneficiaryId={props.data.beneficiaryId}
           name={props.data.name}
           iban={props.data.iban}
@@ -40,7 +44,10 @@ const styles = StyleSheet.create({
     height: 72,
     width: Dimensions.get('window').width,
   },
-  oddContainer: {
+  evenContainer: {
     backgroundColor: Colors.bank.primary.lightGrey,
+  },
+  oddContainer: {
+    backgroundColor: Colors.bank.primary.white,
   },
 });

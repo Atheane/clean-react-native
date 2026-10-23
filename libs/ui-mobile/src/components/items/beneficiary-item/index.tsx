@@ -1,11 +1,10 @@
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
-//
+
 import { LinkButton } from '../../buttons/link-button';
 import { RightChevronGradient, Trash } from '../../../assets';
 import { Colors, FontNames } from '../../../constants';
-//
 
 type IProps = {
   icon?: React.FC<SvgProps>;

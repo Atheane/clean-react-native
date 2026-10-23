@@ -11,14 +11,8 @@ import { firstLetterCapitalize } from '@clean-rn/utils';
 import { IDomainError } from '@clean-rn/ddd';
 import { Logger } from '@clean-rn/logger';
 
-import {
-  Country,
-  Phone,
-  ICountry,
-  COUNTRIES_AVAILABLE,
-  IUserErrorCodes,
-  IUserErrorMessage,
-} from '@clean-rn/user/domain';
+import { Country, ICountry, COUNTRIES_AVAILABLE } from '@clean-rn/user/domain';
+import { IContactErrorCodes, Phone, IContactErrorMessage } from '@clean-rn/contact/domain';
 import { ProfileGradient } from '../../../assets';
 import { Colors } from '../../../constants';
 
@@ -32,7 +26,7 @@ type IProps = {
   onSubmit: () => void;
   control: Control<IContactFormData>;
   errors: FieldErrors<IContactFormData>;
-  error: IDomainError<IUserErrorCodes, IUserErrorMessage> | null;
+  error: IDomainError<IContactErrorCodes, IContactErrorMessage> | null;
   onFocus: () => void;
 };
 

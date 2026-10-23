@@ -12,9 +12,6 @@ const FormChangePinMeta: ComponentMeta<typeof FormChangePin> = {
   },
   args: {
     text: '',
-    initialValues: {
-      code: '1234',
-    },
   },
   decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
 };
@@ -36,9 +33,7 @@ export const WithText: FormChangePinStory = (args) => {
   const {
     control,
     formState: { errors },
-  } = useForm<IChangePinFormData>({
-    defaultValues: args.initialValues,
-  });
+  } = useForm<IChangePinFormData>();
 
   return <FormChangePin {...args} control={control} text={'textajkzdjkbaz jakzbelkjbaz'} errors={errors} />;
 };

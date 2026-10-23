@@ -3,10 +3,7 @@ import { call, put, StrictEffect, takeEvery, select, cancel } from 'redux-saga/e
 
 import {
   CardError,
-  Card,
   IChangeCardLimitsCommand,
-  ICreateCardCommand,
-  ILimits,
   IToggleCardLockCommand,
   IChangeCardPINCommand,
 } from '@clean-rn/card/domain';
@@ -26,6 +23,7 @@ import {
   cardForbidden,
   cardLockToggled,
   cardPINChanged,
+  cardPINChangedFailed,
 } from '../commands';
 import { IAuthStackPages, ICardStackPages } from '../../../shared/presentation/types';
 import { navigate } from '../../../shared/presentation/navigation/navigationRef';
@@ -57,14 +55,14 @@ export function* changeCardPINGenerator(
     const cardApi = CardApi.getInstance(httpConnection);
     const card = yield call([cardApi, cardApi.changeCardPIN], cardFromStore, payload);
     yield put(cardPINChanged(card));
-    yield call(navigate, { route: ICardStackPages.CARD });
+    yield call(navigate, { route: ICardStackPages.CHANGE_PIN_SUCCESS });
   } catch (error: unknown) {
     if (error instanceof ServerError && error.statusCode === 401) {
       yield call(navigate, { route: IAuthStackPages.LOGIN });
       yield cancel();
     }
     if (error instanceof ServerError && error.statusCode === 403) {
-      yield put(cardForbidden(new CardError.MaxNumberOfPinChangesReached()));
+      yield put(cardPINChangedFailed(new CardError.MaxNumberOfPinChangesReached()));
       yield cancel();
     }
     yield put(initCard());
@@ -86,7 +84,10 @@ export function* getCardGenerator(httpConnection: HttpConnection): Generator<Str
     const cardApi = CardApi.getInstance(httpConnection);
     const card = yield call([cardApi, cardApi.getCard]);
     yield put(cardGetSuccess(card));
-    yield call(navigate, { route: ICardStackPages.MENU });
+    yield call(navigate, {
+      route: ICardStackPages.MENU,
+      params: { screen: ICardStackPages.CARD },
+    });
   } catch (error: unknown) {
     if (error instanceof ServerError && error.statusCode === 401) {
       yield call(navigate, { route: IAuthStackPages.LOGIN });

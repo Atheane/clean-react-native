@@ -130,6 +130,7 @@ import RightChevronGradient from './right-chevron-gradient.svg';
 import IbanGreenGradient from './iban-green-gradient.svg';
 import BicGreenGradient from './bic-green-gradient.svg';
 import GreenGradientSpeedLimit from './green-gradient-speedlimit.svg';
+import BankAltLogo from './co2-bank.svg';
 export {
   Love,
   Validate,
@@ -263,4 +264,5 @@ export {
   IbanGreenGradient,
   BicGreenGradient,
   GreenGradientSpeedLimit,
+  BankAltLogo,
 };

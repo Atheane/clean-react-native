@@ -11,7 +11,6 @@ export type IRootStackParamList = {
   MenuBeneficiary: NavigatorScreenParams<IRootTabParamList> | undefined;
   MenuCarbon: NavigatorScreenParams<IRootTabParamList> | undefined;
   MenuProfile: NavigatorScreenParams<IRootTabParamList> | undefined;
-  MenuTransfer: NavigatorScreenParams<IRootTabParamList> | undefined;
   MenuKyc: NavigatorScreenParams<IRootTabParamList> | undefined;
   MenuCard: NavigatorScreenParams<IRootTabParamList> | undefined;
   ModalError: undefined;
@@ -107,18 +106,14 @@ export type IBeneficiaryStackParamList = {
   BeneficiaryList: undefined;
   BeneficiaryAdd: undefined;
   ContactAdd: undefined;
+  Transfer: undefined;
+  TransferSuccess: undefined;
 };
 
 export type IProfileStackParamList = {
   MenuProfile: undefined;
   Profile: undefined;
   NotificationSettings: undefined;
-};
-
-export type ITransferStackParamList = {
-  MenuTransfer: undefined;
-  Transfer: undefined;
-  TransferSuccess: undefined;
 };
 
 export type ICardStackParamLimit = {
@@ -178,17 +173,13 @@ export enum ITransactionStackPages {
   ACCOUNT_STATEMENTS_PDF = 'AccountStatementsPdf',
 }
 
-export enum ITransferStackPages {
-  MENU = 'MenuTransfer',
-  TRANSFER = 'Transfer',
-  TRANSFER_SUCCESS = 'TransferSuccess',
-}
-
 export enum IBeneficiaryStackPages {
   MENU = 'MenuBeneficiary',
   BENEFICIARY_LIST = 'BeneficiaryList',
   BENEFICIARY_ADD = 'BeneficiaryAdd',
   CONTACT_ADD = 'ContactAdd',
+  TRANSFER = 'Transfer',
+  TRANSFER_SUCCESS = 'TransferSuccess',
 }
 
 export enum ICarbonStackPages {
@@ -274,12 +265,6 @@ export type ITransactionStackProps = {
   [ITransactionStackPages.ACCOUNT_STATEMENTS_PDF]: object;
 };
 
-export type ITransferStackProps = {
-  [ITransferStackPages.MENU]: object;
-  [ITransferStackPages.TRANSFER]: object;
-  [ITransferStackPages.TRANSFER_SUCCESS]: object;
-};
-
 export type ICarbonStackProps = {
   [ICarbonStackPages.MENU]: object;
   [ICarbonStackPages.CARBON]: object;
@@ -311,6 +296,8 @@ export type IBeneficiaryStackProps = {
   [IBeneficiaryStackPages.BENEFICIARY_LIST]: object;
   [IBeneficiaryStackPages.BENEFICIARY_ADD]: object;
   [IBeneficiaryStackPages.CONTACT_ADD]: object;
+  [IBeneficiaryStackPages.TRANSFER]: object;
+  [IBeneficiaryStackPages.TRANSFER_SUCCESS]: object;
 };
 
 export type ICardStackProps = {
@@ -353,8 +340,6 @@ export type IRoutes =
   | ITransactionStackPages.TRANSACTIONS
   | ITransactionStackPages.ACCOUNT_STATEMENTS
   | ITransactionStackPages.ACCOUNT_STATEMENTS_PDF
-  | ITransferStackPages.TRANSFER
-  | ITransferStackPages.TRANSFER_SUCCESS
   | ICarbonStackPages.MENU
   | ICarbonStackPages.CARBON
   | ICarbonStackPages.HOUSE
@@ -379,6 +364,8 @@ export type IRoutes =
   | IBeneficiaryStackPages.BENEFICIARY_LIST
   | IBeneficiaryStackPages.BENEFICIARY_ADD
   | IBeneficiaryStackPages.CONTACT_ADD
+  | IBeneficiaryStackPages.TRANSFER
+  | IBeneficiaryStackPages.TRANSFER_SUCCESS
   | ICardStackPages.MENU
   | ICardStackPages.CARD
   | ICardStackPages.KYC_MISSING

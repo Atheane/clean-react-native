@@ -92,6 +92,14 @@ export const cardReducer = (state = initialState, action: ICardActions) => {
         card: action.payload,
       };
       return newState;
+    case ICardTypes.CARD_PIN_CHANGED_FAILED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        error: action.payload,
+      };
+      return newState;
     case ICardTypes.INIT_CARD:
       logger.debug(action.type);
       newState = {

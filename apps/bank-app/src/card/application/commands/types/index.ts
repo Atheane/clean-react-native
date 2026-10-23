@@ -21,6 +21,7 @@ export enum ICardTypes {
   CARD_LIMITS_CHANGED = 'CARD_LIMITS_CHANGED',
   CARD_LOCK_TOGGLED = 'CARD_LOCK_TOGGLED',
   CARD_PIN_CHANGED = 'CARD_PIN_CHANGED',
+  CARD_PIN_CHANGED_FAILED = 'CARD_PIN_CHANGED_FAILED',
   INIT_CARD = 'INIT_CARD',
 }
 
@@ -74,6 +75,11 @@ export type ICardPINChanged = {
   payload: Card;
 };
 
+export type ICardPINChangedFailed = {
+  type: typeof ICardTypes.CARD_PIN_CHANGED_FAILED;
+  payload: IDomainError<ICardErrorCodes, ICardErrorMessage>;
+};
+
 export type IInitCard = {
   type: typeof ICardTypes.INIT_CARD;
 };
@@ -90,4 +96,5 @@ export type ICardActions =
   | ICardForbidden
   | ICardGetSuccess
   | ICardLockToggled
-  | ICardPINChanged;
+  | ICardPINChanged
+  | ICardPINChangedFailed;

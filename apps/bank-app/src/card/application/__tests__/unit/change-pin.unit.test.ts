@@ -6,16 +6,16 @@ import Constants from 'expo-constants';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 import { Card, CardError, CardPinCode, ICardStatuses, IChangeCardPINCommand } from '@clean-rn/card/domain';
+import { CardApi } from '@clean-rn/card/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IAuthStackPages, ICardStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { changeCardPINGenerator, changeCardPINSaga } from '../../usecases';
-import { ICardTypes, cardForbidden, cardPINChanged, initCard } from '../../commands';
+import { ICardTypes, cardForbidden, cardPINChanged, cardPINChangedFailed, initCard } from '../../commands';
 import { selectAuth } from '../../../../auth/application/state-management/selectors';
 import { refreshSuccess } from '../../../../auth/application/commands';
-import { CardApi } from '@clean-rn/card/infrastructure';
 import { selectCard } from '../../state-management/selectors';
 
 describe('ChangePIN - usecase', () => {
@@ -123,7 +123,7 @@ describe('ChangePIN - usecase', () => {
       .next(card)
       .put(cardPINChanged(card))
       .next()
-      .call(navigate, { route: ICardStackPages.CARD })
+      .call(navigate, { route: ICardStackPages.CHANGE_PIN_SUCCESS })
       .next();
   });
 
@@ -158,7 +158,7 @@ describe('ChangePIN - usecase', () => {
       .next(card)
       .call([api, api.changeCardPIN], card, changeCardPINCmd)
       .throw(new ServerError(mockError403))
-      .put(cardForbidden(new CardError.MaxNumberOfPinChangesReached()))
+      .put(cardPINChangedFailed(new CardError.MaxNumberOfPinChangesReached()))
       .next();
   });
 
