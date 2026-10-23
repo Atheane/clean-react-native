@@ -130,10 +130,8 @@ export function* toggleCardLockGenerator(
     const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
     yield put(refreshSuccess({ auth }));
     const cardFromStore = yield select(selectCard);
-    console.log('cardFromStore', cardFromStore);
     const cardApi = CardApi.getInstance(httpConnection);
     const card = yield call([cardApi, cardApi.toggleLock], cardFromStore, payload);
-    console.log('card', card);
     yield put(cardLockToggled(card));
     yield call(navigate, { route: ICardStackPages.LOCK_CARD_SUCCESS });
   } catch (error: unknown) {

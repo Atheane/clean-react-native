@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -45,6 +45,10 @@ export const ToggleLockCard = () => {
               uppercase
               loading={pending}
               onSubmit={handleOnSubmit}
+              disabled={
+                (card?.properties.status === ICardStatuses.LOCK && isLocked) ||
+                (card?.properties.status === ICardStatuses.UNLOCK && !isLocked)
+              }
             />
           </View>
         </View>
