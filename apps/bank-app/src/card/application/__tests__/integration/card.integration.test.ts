@@ -17,6 +17,7 @@ import {
   cardLockToggled,
   fetchChangePIN,
   cardPINChanged,
+  cardPINChangedFailed,
 } from '../../commands';
 import { ICardState, cardReducer } from '../../state-management';
 
@@ -201,6 +202,18 @@ describe('Card - integration', () => {
     });
   });
 
+  it('Should store correct state if CARD_PIN_CHANGED_FAILED', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, changeCardPINSaga, httpConnection);
+    sagaTester.dispatch(fetchChangePIN({ pin: new CardPinCode('1234') }));
+    sagaTester.dispatch(cardPINChangedFailed(new CardError.MaxNumberOfPinChangesReached()));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      card: null,
+      error: new CardError.MaxNumberOfPinChangesReached(),
+    });
+  });
+
   it('Should store correct state if CARD_LIMITS_CHANGED', () => {
     const changeCardLimitsCmd: IChangeCardLimitsCommand = {
       limits: {
@@ -237,7 +250,7 @@ describe('Card - integration', () => {
   it('Should store correct state if CARD_PIN_CHANGED', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, changeCardPINSaga, httpConnection);
     sagaTester.dispatch(fetchChangePIN({ pin: new CardPinCode('1234') }));
-    card.updatePin('1234');
+    card.updatePin('1234', 1);
     sagaTester.dispatch(cardPINChanged(card));
     expect(sagaTester.getState()).toEqual({
       pending: false,
