@@ -25,7 +25,7 @@ export enum IUserTypes {
   REGISTER_ADDRESS = 'REGISTER_ADDRESS',
   FETCH_SIGNUP_USER = 'FETCH_SIGNUP_USER',
   FETCH_UPDATE_NOTIFICATIONS = 'FETCH_UPDATE_NOTIFICATIONS',
-  INITIALIZE_USER = 'INITIALIZE_USER',
+  FETCH_DELETE_USER_ACCOUNT = 'FETCH_DELETE_USER_ACCOUNT',
   // domain events
   EMAIL_NOT_FOUND = 'EMAIL_NOT_FOUND',
   SIGNUP_FAILED = 'SIGNUP_FAILED',
@@ -39,6 +39,8 @@ export enum IUserTypes {
   USER_SIGNED_UP = 'USER_SIGNED_UP',
   NOTIFICATIONS_UPDATED = 'NOTIFICATIONS_UPDATED',
   USER_SAVED = 'USER_SAVED',
+  USER_ACCOUNT_DELETED = 'USER_ACCOUNT_DELETED',
+  INITIALIZE_USER = 'INITIALIZE_USER',
 }
 
 // commands
@@ -89,6 +91,10 @@ export type IFetchUpdateNotifications = {
 
 export type IInitializeUser = {
   type: typeof IUserTypes.INITIALIZE_USER;
+};
+
+export type IFetchDeleteUserAccount = {
+  type: typeof IUserTypes.FETCH_DELETE_USER_ACCOUNT;
 };
 
 // domainEvents
@@ -152,6 +158,11 @@ export type IUserSaved = {
   payload: User;
 };
 
+export type IUserAccountDeleted = {
+  type: typeof IUserTypes.USER_ACCOUNT_DELETED;
+  payload: User;
+};
+
 export type IUserActions =
   | IInitializeUser
   | IFetchSearchEmail
@@ -160,6 +171,7 @@ export type IUserActions =
   | IIdentityRegistered
   | IPasswordRegistered
   | IFetchSearchPhone
+  | IFetchDeleteUserAccount
   | IPhoneNotFound
   | IPhoneCodeSent
   | IFetchValidatePhone
@@ -170,4 +182,5 @@ export type IUserActions =
   | IFetchSignupUser
   | IUserSignedUp
   | INotificationsUpdated
-  | IUserSaved;
+  | IUserSaved
+  | IUserAccountDeleted;

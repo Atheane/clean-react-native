@@ -7,7 +7,10 @@ const ContactEmailMeta: ComponentMeta<typeof ContactEmail> = {
   title: 'Others/ContactEmail',
   component: ContactEmail,
   argTypes: {},
-  args: {},
+  args: {
+    subject: 'subject',
+    body: 'body',
+  },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING), WithCenterView],
 };
 
@@ -15,4 +18,4 @@ export default ContactEmailMeta;
 
 type ContactEmailStory = ComponentStory<typeof ContactEmail>;
 
-export const Basic: ContactEmailStory = () => <ContactEmail />;
+export const Basic: ContactEmailStory = (args) => <ContactEmail {...args} />;

@@ -3,7 +3,7 @@ import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
 
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
-import { IResetPasswordCommand } from '@clean-rn/auth/domain';
+import { AuthError, IResetPasswordCommand } from '@clean-rn/auth/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IAuthTypes, passwordReset, initializeAuth } from '../../commands';
@@ -24,8 +24,11 @@ export function* resetPasswordGenerator(
   try {
     // api call
     const api = AuthApi.getInstance(httpConnection);
-    const response = yield call([api, api.resetPassword], { email: payload.email });
-    const success = response.success;
+    const { success } = yield call([api, api.resetPassword], { email: payload.email });
+
+    if (!success) {
+      throw new AuthError.PasswordResetFailure();
+    }
 
     // dispatch action to the store
     yield put(

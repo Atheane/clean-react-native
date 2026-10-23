@@ -125,6 +125,14 @@ export const userReducer = (state = initialState, action: IUserActions) => {
         error: null,
       };
       return newState;
+    case IUserTypes.FETCH_DELETE_USER_ACCOUNT:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: true,
+        error: null,
+      };
+      return newState;
     case IUserTypes.USER_SIGNED_UP:
       logger.debug(action.type);
       newState = {
@@ -161,6 +169,15 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       newState = {
         ...state,
         user: action.payload,
+        error: null,
+      };
+      return newState;
+    case IUserTypes.USER_ACCOUNT_DELETED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        user: null,
         error: null,
       };
       return newState;

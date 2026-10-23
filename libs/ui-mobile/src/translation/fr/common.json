@@ -185,8 +185,14 @@
   "contact-email": {
     "label": "PAR EMAIL",
     "bank": "contact@example.com",
-    "subject": "Commander une carte CO2",
-    "body": "Bonjour,\nL'application CO2 m'indique que ma carte CO2 n'est plus accessible, et je souhaite la renouveler.\n\nCordialement"
+    "subject": {
+      "unavailable-card": "Demande de renouvellement de carte",
+      "contact": "Contact depuis l'application CO2"
+    },
+    "body": {
+      "unavailable-card": "Bonjour,\nL'application CO2 m'indique que ma carte CO2 n'est plus accessible, et je souhaite la renouveler.\n\nCordialement",
+      "contact": "Bonjour,\n"
+    }
   },
   "password-input": {
     "placeholder": "******",
@@ -675,10 +681,26 @@
       }
     },
     "profile": {
-      "title": "Profil",
-      "tab": "Profil",
-      "card-settings": "Paramètrer ma carte",
-      "notifications": "Notifications"
+      "menu": {
+        "title": "Mon profil",
+        "tab": "Profil",
+        "personal-info": "Informations personnelles",
+        "my-parameters": "Mes paramètres",
+        "card-settings": "Paramètrer ma carte",
+        "notifications": "Notifications",
+        "love": "Soutenez-nous sur l’App Store",
+        "contact-us": "Nous contacter",
+        "legal": "Données personnelles",
+        "cgu": "CGU",
+        "cgu-kyc-provider": "CGU KycProvider",
+        "delete-account": "Se désinscrire"
+      },
+      "delete-account": {
+        "title": "Se désinscrire",
+        "description": "Nous sommes très tristes de cette nouvelle.\n\nNous l’avons bien prise en compte malgré tout.\n\nEn confirmant votre choix, nous supprimons votre compte utilisateur.\n\n",
+        "button": "Confirmer",
+        "goodbye": "Au revoir !"
+      }
     },
     "card": {
       "menu": {

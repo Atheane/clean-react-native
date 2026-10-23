@@ -11,17 +11,22 @@ import {
 import { IRoutes } from '../../../../shared/presentation/types';
 
 export enum IAuthTypes {
+  // commands
   FETCH_LOGIN = 'FETCH_LOGIN',
+  FETCH_REFRESH = 'FETCH_REFRESH',
+  FETCH_RESET_PASSWORD = 'FETCH_RESET_PASSWORD',
+  FETCH_LOGOUT = 'FETCH_LOGOUT',
+  // domain events
   LOGIN_SUCCEDED = 'LOGIN_SUCCEDED',
   LOGIN_FAILED = 'LOGIN_FAILED',
-  RESET_ERROR = 'RESET_ERROR',
-  FETCH_REFRESH = 'FETCH_REFRESH',
   REFRESH_SUCCEDED = 'REFRESH_SUCCEDED',
-  FETCH_RESET_PASSWORD = 'FETCH_RESET_PASSWORD',
   PASSWORD_RESET = 'PASSWORD_RESET',
+  LOGGED_OUT = 'LOGGED_OUT',
+  RESET_ERROR = 'RESET_ERROR',
   INITIALIZE_AUTH = 'INITIALIZE_AUTH',
 }
 
+// commands
 export type IFetchLogin = {
   type: typeof IAuthTypes.FETCH_LOGIN;
   payload: ILoginCommand;
@@ -32,19 +37,16 @@ export type IFetchRefresh = {
   payload?: { nextRoute: IRoutes; params?: any };
 };
 
-export type IResetError = {
-  type: typeof IAuthTypes.RESET_ERROR;
-};
-
 export type IFetchResetPassword = {
   type: typeof IAuthTypes.FETCH_RESET_PASSWORD;
   payload: IResetPasswordCommand;
 };
 
-export type IInitializeAuth = {
-  type: typeof IAuthTypes.INITIALIZE_AUTH;
+export type IFetchLogout = {
+  type: typeof IAuthTypes.FETCH_LOGOUT;
 };
 
+// domain events
 export type ILoginSucceded = {
   type: typeof IAuthTypes.LOGIN_SUCCEDED;
   payload: {
@@ -69,13 +71,27 @@ export type IPasswordReset = {
   payload: ISuccess;
 };
 
+export type ILoggedOut = {
+  type: typeof IAuthTypes.LOGGED_OUT;
+};
+
+export type IInitializeAuth = {
+  type: typeof IAuthTypes.INITIALIZE_AUTH;
+};
+
+export type IResetError = {
+  type: typeof IAuthTypes.RESET_ERROR;
+};
+
 export type IAuthActions =
   | IFetchLogin
   | IFetchRefresh
+  | IFetchLogout
   | ILoginSucceded
   | ILoginFailed
   | IResetError
   | IRefreshSucceded
   | IFetchResetPassword
   | IPasswordReset
-  | IInitializeAuth;
+  | IInitializeAuth
+  | ILoggedOut;

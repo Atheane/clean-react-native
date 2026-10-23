@@ -1,4 +1,5 @@
 import Love from './love.svg';
+import LoveBlueGradient from './love-blue-gradient.svg';
 import Validate from './validate.svg';
 import Logout from './logout.svg';
 import DropDownChevron from './dropdown-chevron.svg';
@@ -51,9 +52,11 @@ import Lock from './lock.svg';
 import Eye from './remove_red_eye_48px.svg';
 import Blind from './icon_eye-invisible.svg';
 import BlueMail from './blue-mail.svg';
+import BlueGradientMail from './blue-gradient-mail.svg';
 import GreenGradientMail from './green-gradient-mail.svg';
 import Edit from './edit.svg';
 import Phone from './phone.svg';
+import PhoneBlueGradient from './phone-blue-gradient.svg';
 import Person from './person.svg';
 import Security from './security.svg';
 import CheckBox from './checkbox.svg';
@@ -131,8 +134,11 @@ import IbanGreenGradient from './iban-green-gradient.svg';
 import BicGreenGradient from './bic-green-gradient.svg';
 import GreenGradientSpeedLimit from './green-gradient-speedlimit.svg';
 import BankAltLogo from './co2-bank.svg';
+import CertificateBlueGradient from './certificate-blue-gradient.svg';
+import OffBlueGradient from './off-blue-gradient.svg';
 export {
   Love,
+  LoveBlueGradient,
   Validate,
   Logout,
   DropDownChevron,
@@ -191,6 +197,7 @@ export {
   BlueMail,
   Edit,
   Phone,
+  PhoneBlueGradient,
   Person,
   Security,
   CheckBox,
@@ -265,4 +272,7 @@ export {
   BicGreenGradient,
   GreenGradientSpeedLimit,
   BankAltLogo,
+  BlueGradientMail,
+  CertificateBlueGradient,
+  OffBlueGradient,
 };

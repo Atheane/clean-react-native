@@ -54,6 +54,8 @@ import {
   fetchUpdateNotifications,
   notificationUpdated,
   userSaved,
+  fetchDeleteUserAccount,
+  userAccountDeleted,
 } from '../../commands';
 import { IUserState, userReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
@@ -664,6 +666,27 @@ describe('User - integration', () => {
       phone: null,
       phoneOtp: null,
       user,
+      error: null,
+      config: null,
+    });
+  });
+
+  it('Should store correct state in case if USER_ACCOUNT_DELETED', () => {
+    const user = User.CreateFromEmail(new Email('test@example.com'));
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+
+    sagaTester.dispatch(fetchDeleteUserAccount());
+    sagaTester.dispatch(userAccountDeleted(user));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
       error: null,
       config: null,
     });

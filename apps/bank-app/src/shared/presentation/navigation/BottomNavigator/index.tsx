@@ -22,6 +22,7 @@ import {
   ITransactionStackPages,
   IProfileStackPages,
   ICardStackPages,
+  ISharedStackPages,
 } from '../../types';
 
 import { AccountStack } from '../../../../account/presentation/navigation';

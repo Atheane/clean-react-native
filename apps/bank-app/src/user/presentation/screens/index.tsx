@@ -8,6 +8,8 @@ import { EmailSent } from './EmailSent';
 import { SignupPhone } from './SignupPhone';
 import { Profile } from './Profile';
 import { NotificationSettings } from './NotificationSettings';
+import { DeleteAccount } from './DeleteAccount';
+import { GoodBye } from './GoodBye';
 
 export {
   SignupEmail,
@@ -20,4 +22,6 @@ export {
   SignupPhone,
   Profile,
   NotificationSettings,
+  DeleteAccount,
+  GoodBye,
 };

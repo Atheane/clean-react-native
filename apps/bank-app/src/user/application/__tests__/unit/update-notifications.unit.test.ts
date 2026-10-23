@@ -122,8 +122,6 @@ describe('Update Notifications - usecase', () => {
       .next(mockAuth)
       .call([authApi, authApi.refresh], mockAuth.refreshToken)
       .throw(new ServerError(mockError401))
-      .put(initializeUser())
-      .next()
       .call(navigate, { route: IAuthStackPages.LOGIN })
       .next()
       .cancel();

@@ -4,7 +4,7 @@ import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
-import { Email } from '@clean-rn/auth/domain';
+import { AuthError, Email } from '@clean-rn/auth/domain';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { resetPasswordGenerator, resetPasswordSaga } from '../../usecases/reset-password';
@@ -40,19 +40,33 @@ describe('ResetPassword - usecase', () => {
     expect(genObject.next().done).toBeTruthy();
   });
 
-  it('should call resetPasswordSuccess actions', () => {
+  it('should call passwordReset if success true from api', () => {
     testSaga(resetPasswordGenerator, httpConnection, {
       type: IAuthTypes.FETCH_RESET_PASSWORD,
       payload: mockData,
     })
       .next()
       .call([api, api.resetPassword], mockData)
-      .next(mockResponse)
+      .next({ success: true })
       .put(
         passwordReset({
-          success: mockResponse.success,
+          success: true,
         }),
       )
+      .next();
+  });
+
+  it('should throw PasswordResetFailure if success false from api', () => {
+    testSaga(resetPasswordGenerator, httpConnection, {
+      type: IAuthTypes.FETCH_RESET_PASSWORD,
+      payload: mockData,
+    })
+      .next()
+      .call([api, api.resetPassword], mockData)
+      .next({ success: false })
+      .put(initializeAuth())
+      .next()
+      .put(showUnknownError(new AuthError.PasswordResetFailure()))
       .next();
   });
 

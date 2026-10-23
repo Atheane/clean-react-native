@@ -121,8 +121,6 @@ describe('Device - usecase', () => {
       .next(user)
       .call([deviceApi, deviceApi.createDevice], mockData)
       .throw(new ServerError(mockError400))
-      .put(initializeDevice())
-      .next()
       .put(deviceAlreadyRegistered({ error: new DeviceError.AlreadyRegistered(mockError400) }))
       .next()
       .cancel();
@@ -145,8 +143,6 @@ describe('Device - usecase', () => {
       .next(user)
       .call([deviceApi, deviceApi.createDevice], mockData)
       .throw(new ServerError(mockError401))
-      .put(initializeDevice())
-      .next()
       .call(navigate, { route: IAuthStackPages.LOGIN })
       .next();
   });

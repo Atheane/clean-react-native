@@ -5,16 +5,19 @@ import { useTranslation } from 'react-i18next';
 import { BlueMail } from '../../../assets';
 import { Colors } from '../../../constants';
 
-export const ContactEmail = () => {
+type IProps = {
+  subject: string;
+  body: string;
+};
+
+export const ContactEmail = (props: IProps) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
 
   return (
     <TouchableOpacity
       onPress={() =>
-        Linking.openURL(
-          `mailto:contact@example.com?subject=${t('contact-email.subject')}&body=${t('contact-email.body')}`,
-        )
+        Linking.openURL(`mailto:contact@example.com?subject=${props.subject}&body=${props.body}`)
       }
     >
       <View style={styles.rowContainer}>

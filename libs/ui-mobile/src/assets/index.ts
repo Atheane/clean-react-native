@@ -1,5 +1,6 @@
 import {
   Love,
+  LoveBlueGradient,
   Validate,
   Logout,
   DropDownChevron,
@@ -132,11 +133,16 @@ import {
   BicGreenGradient,
   GreenGradientSpeedLimit,
   BankAltLogo,
+  BlueGradientMail,
+  PhoneBlueGradient,
+  CertificateBlueGradient,
+  OffBlueGradient,
 } from './svg';
 import { DefaultImage, PlaneEmpty } from './image';
 import { Loader } from './lottie';
 export {
   Love,
+  LoveBlueGradient,
   Validate,
   Logout,
   DropDownChevron,
@@ -263,6 +269,7 @@ export {
   ProfileGradient,
   CarbonGradient,
   TransferGradient,
+  PhoneBlueGradient,
   PhoneGradientGreyBg,
   PhoneGradientWhiteBg,
   Trash,
@@ -272,4 +279,7 @@ export {
   BicGreenGradient,
   GreenGradientSpeedLimit,
   BankAltLogo,
+  BlueGradientMail,
+  CertificateBlueGradient,
+  OffBlueGradient,
 };

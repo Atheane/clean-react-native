@@ -9,6 +9,7 @@ import { IGender, KYC_REVIEW } from '@clean-rn/user/domain';
 import { loginSaga } from '../../usecases/login';
 import { refreshSaga } from '../../usecases/refresh';
 import { resetPasswordSaga } from '../../usecases/reset-password';
+import { logoutSaga } from '../../usecases/logout';
 
 import {
   loginSuccess,
@@ -21,6 +22,8 @@ import {
   refreshSuccess,
   fetchResetPassword,
   passwordReset,
+  fetchLogout,
+  loggedOut,
 } from '../../commands';
 import { IAuthState, authReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
@@ -275,6 +278,24 @@ describe('Login - integration', () => {
       password: null,
       error: null,
       success: mockSuccess.success,
+    });
+  });
+
+  it('Should store correct state if LOGGED_OUT', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, logoutSaga, httpConnection);
+    sagaTester.dispatch(fetchLogout());
+    sagaTester.dispatch(loggedOut());
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      auth: {
+        accessToken: null,
+        refreshToken: null,
+      },
+      email: null,
+      password: null,
+      error: null,
+      success: null,
     });
   });
 });
