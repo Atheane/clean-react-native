@@ -2,7 +2,6 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
 
-import { LinkButton } from '../../buttons/link-button';
 import { RightChevronGradient, Trash } from '../../../assets';
 import { Colors, FontNames } from '../../../constants';
 
@@ -37,15 +36,8 @@ export const BeneficiaryItem = (props: IProps) => {
         <Text style={styles.textIban}>{props.iban}</Text>
       </View>
       <View style={styles.btnContainer}>
-        {props.onDelete && (
-          <LinkButton onPress={() => props.onDelete(props.beneficiaryId)} iconLeft={Trash} />
-        )}
-        {props.onPress && (
-          <LinkButton
-            onPress={() => props.onPress(props.beneficiaryId)}
-            iconLeft={() => <RightChevronGradient width={18} height={18} />}
-          />
-        )}
+        {props.onDelete && <Trash width={18} height={18} />}
+        {props.onPress && <RightChevronGradient width={18} height={18} />}
       </View>
     </View>
   );

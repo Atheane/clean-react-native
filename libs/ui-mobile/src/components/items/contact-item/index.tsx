@@ -35,12 +35,7 @@ export const ContactItem = (props: IProps) => {
         <Text style={styles.textIban}>{props.phone}</Text>
       </View>
       <View style={styles.btnContainer}>
-        {props.onPress && (
-          <LinkButton
-            onPress={() => props.onPress(props.phone)}
-            iconLeft={() => <RightChevronGradient width={18} height={18} />}
-          />
-        )}
+        {props.onPress && <RightChevronGradient width={18} height={18} />}
       </View>
     </View>
   );

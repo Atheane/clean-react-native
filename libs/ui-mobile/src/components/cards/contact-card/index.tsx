@@ -1,5 +1,5 @@
 import React, { memo, useCallback } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { IContact } from '@clean-rn/contact/domain';
 import { Colors } from '../../../constants';
 import { ContactItem } from '../../items/contact-item';
@@ -19,8 +19,8 @@ export const ContactCard = memo(({ data, idx, onPress }: IProps) => {
     [onPress],
   );
 
-  return (
-    <View style={containerStyle}>
+  return onPress ? (
+    <TouchableOpacity style={containerStyle} onPress={() => onPress(data.phone.valueInternational)}>
       {data.phone && (
         <ContactItem
           icon={icon}
@@ -29,6 +29,10 @@ export const ContactCard = memo(({ data, idx, onPress }: IProps) => {
           onPress={handlePress}
         />
       )}
+    </TouchableOpacity>
+  ) : (
+    <View style={containerStyle}>
+      {data.phone && <ContactItem icon={icon} name={data.name} phone={data.phone.valueInternational} />}
     </View>
   );
 });

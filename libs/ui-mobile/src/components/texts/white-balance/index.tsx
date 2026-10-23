@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { IAccount, IAccountType } from '@clean-rn/account/domain';
@@ -35,7 +35,7 @@ export const WhiteBalance = (props: IProps) => {
   };
 
   return (
-    <View>
+    <TouchableOpacity onPress={props.onPress}>
       <Text style={styles.title}>{props.title ?? title(props.account.accountType)}</Text>
       <View style={[styles.widgetContainer, theme.bank.container.justifiedItems]}>
         <View style={theme.bank.container.centeredItems}>
@@ -45,16 +45,10 @@ export const WhiteBalance = (props: IProps) => {
           <GreenEuro />
         </View>
         <View style={styles.linkContainer}>
-          {props.onPress && (
-            <LinkButton
-              iconRight={() => <RightChevron style={{ color: Colors.bank.primary.white }} />}
-              colorOption={LinkButtonColors.WHITE}
-              onPress={props.onPress}
-            />
-          )}
+          <RightChevron style={{ color: Colors.bank.primary.white }} />
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

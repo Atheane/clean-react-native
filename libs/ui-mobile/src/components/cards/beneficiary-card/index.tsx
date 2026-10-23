@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 
 import { IBeneficiary } from '@clean-rn/beneficiary/domain';
@@ -15,7 +15,41 @@ type IProps = {
 };
 
 export const BeneficiaryCard = (props: IProps) => {
-  return (
+  return props.onPress ? (
+    <TouchableOpacity
+      style={
+        props.idx % 2 === 0
+          ? [styles.beneficiaryContainer, styles.evenContainer]
+          : [styles.beneficiaryContainer, styles.oddContainer]
+      }
+      onPress={() => props.onPress && props.onPress(props.data.beneficiaryId)}
+    >
+      <BeneficiaryItem
+        icon={props.data.icon ? props.data.icon : props.data.accountId ? BankAltLogo : BankBgGradient}
+        beneficiaryId={props.data.beneficiaryId}
+        name={props.data.name}
+        iban={props.data.iban}
+        onPress={props.onPress}
+      />
+    </TouchableOpacity>
+  ) : props.onDelete ? (
+    <TouchableOpacity
+      style={
+        props.idx % 2 === 0
+          ? [styles.beneficiaryContainer, styles.evenContainer]
+          : [styles.beneficiaryContainer, styles.oddContainer]
+      }
+      onPress={() => props.onDelete && props.onDelete(props.data.beneficiaryId)}
+    >
+      <BeneficiaryItem
+        icon={props.data.icon ? props.data.icon : props.data.accountId ? BankAltLogo : BankBgGradient}
+        beneficiaryId={props.data.beneficiaryId}
+        name={props.data.name}
+        iban={props.data.iban}
+        onDelete={props.onDelete}
+      />
+    </TouchableOpacity>
+  ) : (
     <View
       style={
         props.idx % 2 === 0
@@ -23,16 +57,12 @@ export const BeneficiaryCard = (props: IProps) => {
           : [styles.beneficiaryContainer, styles.oddContainer]
       }
     >
-      <View>
-        <BeneficiaryItem
-          icon={props.data.icon ? props.data.icon : props.data.accountId ? BankAltLogo : BankBgGradient}
-          beneficiaryId={props.data.beneficiaryId}
-          name={props.data.name}
-          iban={props.data.iban}
-          onDelete={props.onDelete}
-          onPress={props.onPress}
-        />
-      </View>
+      <BeneficiaryItem
+        icon={props.data.icon ? props.data.icon : props.data.accountId ? BankAltLogo : BankBgGradient}
+        beneficiaryId={props.data.beneficiaryId}
+        name={props.data.name}
+        iban={props.data.iban}
+      />
     </View>
   );
 };
