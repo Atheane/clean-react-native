@@ -82,6 +82,7 @@ import { GraphCO2 } from './others/graph-co2';
 import { ModalError } from './others/modal-error';
 import { LoaderSplashScreen } from './others/loader-splash-screen';
 import { ContactEmail } from './others/contact-email';
+import { Secured4Digits } from './others/secured-4digits';
 // Searchboxes
 import { SearchModal } from './searchboxes/search-modal';
 // Texts
@@ -183,6 +184,7 @@ export {
   ModalError,
   LoaderSplashScreen,
   ContactEmail,
+  Secured4Digits,
   // Searchboxes
   SearchModal,
   // Texts

@@ -15,4 +15,4 @@ export default ContactEmailMeta;
 
 type ContactEmailStory = ComponentStory<typeof ContactEmail>;
 
-export const Basic: ContactEmailStory = (args) => <ContactEmail {...args} />;
+export const Basic: ContactEmailStory = () => <ContactEmail />;
