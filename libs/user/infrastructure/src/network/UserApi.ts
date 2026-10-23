@@ -102,7 +102,7 @@ export class UserApi implements IUserRepository, IUserGateway {
   async searchPhone(query: ISearchPhoneQuery): Promise<ISuccess> {
     //map query to dto
     const params = {
-      phone: query.phone.value,
+      phone: query.phone.valueInternational.replace('+', ''),
     };
 
     const url = `${this.connection.baseUrl}/app/user/search?` + new URLSearchParams(params);
@@ -128,7 +128,7 @@ export class UserApi implements IUserRepository, IUserGateway {
   async checkPhoneValidation(query: IValidatePhoneQuery): Promise<ISuccess> {
     //map query to dto
     const params = {
-      phone: query.phone.value,
+      phone: query.phone.valueInternational.replace('+', ''),
       code: query.phoneOtp.value,
     };
 

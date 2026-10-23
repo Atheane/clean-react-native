@@ -1,5 +1,12 @@
 import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
-import { IAuthGateway, IAuth, ILoginCommand, IResetPasswordCommand, ISuccess } from '@clean-rn/auth/domain';
+import {
+  IAuthGateway,
+  IAuth,
+  ILoginCommand,
+  IResetPasswordCommand,
+  ISuccess,
+  ILogPhoneCommand,
+} from '@clean-rn/auth/domain';
 
 export class AuthApi implements IAuthGateway {
   private static instance: AuthApi | null = null;
@@ -42,6 +49,21 @@ export class AuthApi implements IAuthGateway {
     };
     const response = await fetch(
       `${this.connection.baseUrl}/auth/login`,
+      this.connection.options(IHttpVerb.POST, params),
+    );
+    await this.connection.handleError(response);
+    return response.json();
+  }
+
+  async logPhone(cmd: ILogPhoneCommand): Promise<IAuth> {
+    //map cmd to dto
+    const params = {
+      email: cmd.email.value,
+      password: cmd.password.value,
+      phone: cmd.phone.valueInternational,
+    };
+    const response = await fetch(
+      `${this.connection.baseUrl}/auth/logPhone`,
       this.connection.options(IHttpVerb.POST, params),
     );
     await this.connection.handleError(response);

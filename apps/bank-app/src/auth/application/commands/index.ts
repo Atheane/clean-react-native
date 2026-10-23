@@ -6,6 +6,7 @@ import {
   IAuthErrorCodes,
   IResetPasswordCommand,
   ISuccess,
+  ILogPhoneCommand,
 } from '@clean-rn/auth/domain';
 
 import {
@@ -43,6 +44,8 @@ export const fetchResetPassword = (payload: IResetPasswordCommand): IFetchResetP
 export const fetchLogout = (): IFetchLogout => ({
   type: IAuthTypes.FETCH_LOGOUT,
 });
+
+// Domain Events
 
 export const loginSuccess = (payload: { auth: IAuth }): ILoginSucceded => ({
   type: IAuthTypes.LOGIN_SUCCEDED,
