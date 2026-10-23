@@ -9,27 +9,23 @@ const initialState: ICardState = {
 
 export const cardReducer = (state = initialState, action: ICardActions) => {
   let newState: ICardState;
-
   switch (action.type) {
     case ICardTypes.FETCH_CHANGE_CARD_LIMITS:
       newState = {
         ...state,
         pending: true,
-        error: null,
       };
       return newState;
     case ICardTypes.FETCH_TOGGLE_LOCK:
       newState = {
         ...state,
         pending: true,
-        error: null,
       };
       return newState;
     case ICardTypes.FETCH_CHANGE_CARD_PIN:
       newState = {
         ...state,
         pending: true,
-        error: null,
       };
       return newState;
     case ICardTypes.CARD_GET_SUCCESS:
@@ -37,7 +33,6 @@ export const cardReducer = (state = initialState, action: ICardActions) => {
         ...state,
         pending: false,
         card: action.payload,
-        error: null,
       };
       return newState;
     case ICardTypes.CARD_NOT_FOUND:
@@ -45,14 +40,12 @@ export const cardReducer = (state = initialState, action: ICardActions) => {
         ...state,
         pending: false,
         error: action.payload,
-        card: null,
       };
       return newState;
     case ICardTypes.CARD_LIMITS_CHANGED:
       newState = {
         ...state,
         pending: false,
-        error: null,
         card: action.payload,
       };
       return newState;
@@ -61,7 +54,6 @@ export const cardReducer = (state = initialState, action: ICardActions) => {
         ...state,
         pending: false,
         error: action.payload,
-        card: null,
       };
       return newState;
     case ICardTypes.CARD_LOCK_TOGGLED:
@@ -69,7 +61,6 @@ export const cardReducer = (state = initialState, action: ICardActions) => {
         ...state,
         pending: false,
         card: action.payload,
-        error: null,
       };
       return newState;
     case ICardTypes.CARD_PIN_CHANGED:
@@ -77,7 +68,6 @@ export const cardReducer = (state = initialState, action: ICardActions) => {
         ...state,
         pending: false,
         card: action.payload,
-        error: null,
       };
       return newState;
     case ICardTypes.CARD_PIN_CHANGED_FAILED:

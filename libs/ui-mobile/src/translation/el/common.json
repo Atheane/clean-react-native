@@ -397,6 +397,11 @@
           "label": "Επώνυμο",
           "placeholder": "Επώνυμο"
         }
+      },
+      "kyc-missing": {
+        "instruction": "Για να έχετε πρόσβαση σε αυτή τη λειτουργία, πρέπει πρώτα ",
+        "instruction-bold": "να επαληθεύσετε την ταυτότητά σας",
+        "link-instruction": "Επαλήθευση της ταυτότητάς μου"
       }
     },
     "account-statements": {

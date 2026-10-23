@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Tab, TabView } from '@rneui/themed';
-import { View, StyleSheet, Dimensions, SafeAreaView, Image } from 'react-native';
+import { View, StyleSheet, Dimensions, SafeAreaView, Image, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +9,7 @@ import { IconNode } from '@rneui/base';
 
 import { IBeneficiary } from '@clean-rn/beneficiary/domain';
 import { IContact } from '@clean-rn/contact/domain';
+import { KYC_REVIEW } from '@clean-rn/user/domain';
 import {
   BeneficiaryCardList,
   ContactCardList,
@@ -16,15 +17,18 @@ import {
   Colors,
   Group2,
   LoaderSplashScreen,
+  SafeScrollingView,
+  LinkButton,
 } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { IBeneficiaryStackPages } from '../../../shared/presentation/types';
+import { IBeneficiaryStackPages, IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 
 import { changeTab, listBeneficiaries } from '../../application/commands/beneficiary';
 import { listContacts } from '../../application/commands/contact';
 
 import { NoBeneficiary, NoContact } from '../../presentation/assets/images';
+import { InitKyc } from '../../../kyc/presentation/assets/images';
 
 const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
   const navigation = useNavigation();
@@ -103,6 +107,8 @@ export const BeneficiaryList = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
 
+  const { customer, pending: customerPending } = useSelector((state: IRootState) => state.kyc.customer);
+
   const { params } = useRoute() as { params: { idx: number } };
 
   const dispatch = useDispatch();
@@ -130,10 +136,13 @@ export const BeneficiaryList = () => {
 
   const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  }, [loading]);
+    setTimeout(
+      () => {
+        setLoading(false);
+      },
+      customer?.properties.status === KYC_REVIEW.VALIDATED ? 3000 : 0,
+    );
+  }, [customer?.properties.status]);
 
   const { beneficiaries, pending: beneficiaryPending } = useSelector(
     (state: IRootState) => state.beneficiary.beneficiaries,
@@ -145,9 +154,15 @@ export const BeneficiaryList = () => {
   const hasBeneficiary = beneficiaries && beneficiaries.length > 0;
   const hasContact = contacts && contacts.length > 0;
 
-  return loading || beneficiaryPending || contactPending ? (
+  const navigation = useNavigation();
+
+  const handleOnPress = useCallback(() => {
+    navigation.navigate(IKycStackPages.MENU as never);
+  }, [navigation]);
+
+  return loading || beneficiaryPending || contactPending || customerPending ? (
     <LoaderSplashScreen />
-  ) : (
+  ) : customer?.properties.status === KYC_REVIEW.VALIDATED ? (
     <ErrorBoundary t={t}>
       <View style={styles.container}>
         <View style={styles.row}>
@@ -213,6 +228,25 @@ export const BeneficiaryList = () => {
         </View>
       </View>
     </ErrorBoundary>
+  ) : (
+    <ErrorBoundary t={t}>
+      <SafeScrollingView>
+        <View style={[styles.containerKYCMissing, theme.bank.container.centeredItem]}>
+          <Image source={InitKyc} style={{ width: 250, height: 250 }} />
+          <Text style={[styles.instruction, theme.bank.text.grey, { fontSize: 16 }]}>
+            {t('screens.beneficiary.kyc-missing.instruction')}
+            <Text style={[styles.instruction, theme.bank.text.boldGrey, { fontSize: 16 }]}>
+              {t('screens.beneficiary.kyc-missing.instruction-bold')}
+            </Text>
+          </Text>
+          <LinkButton
+            title={t('screens.beneficiary.kyc-missing.link-instruction')}
+            onPress={handleOnPress}
+            inline={[theme.bank.text.darkBlue, { fontSize: 16 }]}
+          />
+        </View>
+      </SafeScrollingView>
+    </ErrorBoundary>
   );
 };
 
@@ -244,5 +278,16 @@ const styles = StyleSheet.create({
   },
   scrollNoBeneficiary: {
     alignItems: 'center',
+  },
+  instruction: {
+    textAlign: 'justify',
+    width: '85%',
+    marginVertical: 24,
+  },
+  containerKYCMissing: {
+    flex: 1,
+    backgroundColor: Colors.bank.primary.white,
+    height: Dimensions.get('window').height,
+    marginTop: -100,
   },
 });

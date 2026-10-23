@@ -396,6 +396,11 @@
           "label": "Nachname",
           "placeholder": "Nachname"
         }
+      },
+      "kyc-missing": {
+        "instruction": "Um auf diese Funktion zugreifen zu können, müssen Sie zunächst ",
+        "instruction-bold": "Ihre Identität verifizieren",
+        "link-instruction": "Meine Identität verifizieren"
       }
     },
     "account-statements": {

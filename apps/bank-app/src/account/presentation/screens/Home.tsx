@@ -148,7 +148,8 @@ export const Home = () => {
         />
       )}
       {customer &&
-        (customer.properties.kyc?.state === IKycState.INIT || // kyc.state is updated without additional call to backend
+        (customer.properties.kyc?.state === IKycState.INIT ||
+          customer.properties.kyc?.state === IKycState.INCOMPLETE ||
           customer.properties.kyc?.state === IKycState.REFUSED) && (
           <Banner
             title={t('screens.home.banner.validation-identity')}
