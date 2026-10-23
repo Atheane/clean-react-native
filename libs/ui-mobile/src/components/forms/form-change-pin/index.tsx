@@ -12,7 +12,6 @@ import { DigitsInput } from '../../inputs/digits-input';
 import { ErrorMessage } from '../../texts/error-message';
 
 type IProps = {
-  initialValues?: IChangePinFormData;
   control: Control<IChangePinFormData>;
   errors: FieldErrors<IChangePinFormData>;
   error: IDomainError<ICardErrorCodes, ICardErrorMessage> | null;
@@ -36,15 +35,7 @@ export const FormChangePin = (props: IProps) => {
           name="code"
           rules={{ required: true, pattern: CardPinCode.pattern, minLength: 4 }}
           render={({ field: { onChange, value } }) => {
-            return (
-              <DigitsInput
-                value={value}
-                onChange={onChange}
-                onFocus={props.onFocus}
-                numberDigits={4}
-                defaultValue={props.initialValues?.code}
-              />
-            );
+            return <DigitsInput value={value} onChange={onChange} onFocus={props.onFocus} numberDigits={4} />;
           }}
         />
       </View>

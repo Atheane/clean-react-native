@@ -90,7 +90,9 @@ export class CardApi implements ICardRepository {
 
   async changeCardPIN(card: Card, cmd: IChangeCardPINCommand): Promise<Card> {
     const params = {
-      pin: cmd.pin.value,
+      currentPIN: card.properties.pin?.value,
+      newPIN: cmd.pin.value,
+      confirmPIN: cmd.pin.value,
     };
     const response = await fetch(
       `${this.connection.baseUrl}/app/card/${card.id}/changePIN`,
@@ -98,7 +100,7 @@ export class CardApi implements ICardRepository {
     );
     await this.connection.handleError(response);
     const cardFromServer: ICardServer = await response.json();
-    card.updatePin(cardFromServer.pin);
+    card.updatePin(cardFromServer.pin, cardFromServer.pinChange);
     return card;
   }
 }

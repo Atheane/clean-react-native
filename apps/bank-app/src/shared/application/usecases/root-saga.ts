@@ -52,7 +52,12 @@ import {
 } from '../../../kyc/application/usecases/document';
 import { registerDeviceSaga } from '../../../device/application/usecases/register-device';
 
-import { getCardSaga, changeCardLimitsSaga, toggleCardLockSaga } from '../../../card/application/usecases';
+import {
+  getCardSaga,
+  changeCardLimitsSaga,
+  toggleCardLockSaga,
+  changeCardPINSaga,
+} from '../../../card/application/usecases';
 
 export function* rootSaga(httpConnection: HttpConnection) {
   yield all([
@@ -94,5 +99,6 @@ export function* rootSaga(httpConnection: HttpConnection) {
     getCardSaga(httpConnection),
     changeCardLimitsSaga(httpConnection),
     toggleCardLockSaga(httpConnection),
+    changeCardPINSaga(httpConnection),
   ]);
 }

@@ -164,7 +164,7 @@
         "INVALID_PIN_FORMAT": "Format du code PIN invalide",
         "CARD_NOT_FOUND": "Carte non trouvée",
         "CARD_FORBIDDEN": "Carte non autorisée",
-        "MAX_NUMBER_OF_PIN_CHANGES_REACHED": "Nombre maximum de modification du code PIN atteint"
+        "MAX_NUMBER_OF_PIN_CHANGES_REACHED": "Nombre maximum de modifications du code PIN atteint"
       },
       "other": "erreur, veuillez contacter l'administrateur"
     },
@@ -727,7 +727,7 @@
       "change-pin": {
         "title": "Modifier mon code PIN",
         "instruction-top": "Vous pouvez choisir de définir vous-même le code de votre Carte CO2.",
-        "instruction-bottom-static": "Attention, vous ne pourrez modifier au maximum que 3 fois votre code.",
+        "instruction-bottom-static": "Attention, vous ne pouvez modifier au maximum que 3 fois votre code.",
         "instruction-bottom-dynamic": "/ 3 nombre de modifications"
       },
       "change-pin-success": {

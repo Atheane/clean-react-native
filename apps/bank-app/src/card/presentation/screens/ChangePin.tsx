@@ -1,16 +1,25 @@
 import { useCallback } from 'react';
 import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
-import { FormChangePin, IChangePinFormData, useCleanErrorOnFocus, SubmitButton } from '@clean-rn/ui-mobile';
+import { CardPinCode } from '@clean-rn/card/domain';
+
+import {
+  FormChangePin,
+  IChangePinFormData,
+  useCleanErrorOnFocus,
+  SubmitButton,
+  Colors,
+} from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { fetchChangePIN } from '../../../card/application/commands';
+import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 
 const HEIGHT = Dimensions.get('screen').height;
 export const ChangePin = () => {
@@ -24,20 +33,25 @@ export const ChangePin = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<IChangePinFormData>({
-    defaultValues: {
-      code: card?.properties?.pin?.value,
-    },
-  });
+    watch,
+  } = useForm<IChangePinFormData>();
 
   const dispatch = useDispatch();
+
+  const codeValue = watch('code');
+  const isCodeValid = codeValue?.length === 4;
+
   const onSubmit = useCallback(
     (formData: IChangePinFormData) => {
-      dispatch(
-        fetchChangePin({
-          pin: formData.code,
-        }),
-      );
+      try {
+        dispatch(
+          fetchChangePIN({
+            pin: new CardPinCode(formData.code),
+          }),
+        );
+      } catch (e: unknown) {
+        dispatch(showUnknownError(e as Error));
+      }
     },
     [dispatch],
   );
@@ -51,29 +65,32 @@ export const ChangePin = () => {
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={[styles.container]}>
-          <View style={[theme.bank.container.centeredItem, styles.textContainer, { marginTop: 50 }]}>
+          <View style={[theme.bank.container.centeredItem, styles.textContainer, { marginTop: 100 }]}>
             <Text style={[theme.bank.text.grey, styles.text]}>
               {t('screens.card.change-pin.instruction-top')}
             </Text>
           </View>
           <View style={styles.formContainer}>
-            <FormChangePin
-              initialValues={card?.properties?.pin?.value ? { code: card.properties.pin.value } : undefined}
-              control={control}
-              errors={errors}
-              error={domainError}
-              onFocus={onFocus}
-            />
+            <FormChangePin control={control} errors={errors} error={domainError} onFocus={onFocus} />
           </View>
-
           <View style={[theme.bank.container.centeredItem, styles.textContainer]}>
             <Text style={[theme.bank.text.grey, styles.text]}>
               {t('screens.card.change-pin.instruction-bottom-static')}
             </Text>
           </View>
           <View style={[theme.bank.container.centeredItem, styles.textContainer, { marginTop: 50 }]}>
-            <Text style={[theme.bank.text.grey, styles.text]}>
-              {card?.properties?.pinChange + ' ' + t('screens.card.change-pin.instruction-bottom-dynamic')}
+            <Text
+              style={[
+                theme.bank.text.grey,
+                styles.text,
+                (card?.properties?.pinChange === undefined || card?.properties?.pinChange === 3) && {
+                  color: Colors.bank.secondary.salmon,
+                },
+              ]}
+            >
+              {(card?.properties?.pinChange ?? '3') +
+                ' ' +
+                t('screens.card.change-pin.instruction-bottom-dynamic')}
             </Text>
           </View>
           <View style={styles.buttonContainer}>
@@ -82,6 +99,7 @@ export const ChangePin = () => {
               uppercase={false}
               onSubmit={handleSubmit(onSubmit)}
               loading={pending}
+              disabled={!isCodeValid}
             />
           </View>
         </View>
@@ -102,7 +120,7 @@ const styles = StyleSheet.create({
   formContainer: { height: HEIGHT * 0.15, marginTop: 50 },
   buttonContainer: {
     justifyContent: 'center',
-    marginTop: 150,
+    marginTop: 80,
     marginHorizontal: '12.5%',
   },
 });
