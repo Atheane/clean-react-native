@@ -73,6 +73,7 @@
     "ios": "expo run:ios"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "@config-plugins/detox": "6.0.0"
   }
 }
