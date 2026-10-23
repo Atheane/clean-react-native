@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet, Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { I18nextProvider } from 'react-i18next';
 import { useFonts } from 'expo-font';
@@ -7,7 +7,9 @@ import { StatusBar } from 'expo-status-bar';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@rneui/themed';
 
-import { Fonts, theme, i18n, LoaderSplashScreen, useDeepLink } from '@clean-rn/ui-mobile';
+import SplashScreen from '../../../assets/images/splash.png';
+
+import { Fonts, theme, i18n, useDeepLink } from '@clean-rn/ui-mobile';
 
 import { store } from '../application/state-management/state/store';
 import { NavigationUI } from './navigation';
@@ -35,8 +37,8 @@ const App: () => JSX.Element = () => {
       </I18nextProvider>
     </ThemeProvider>
   ) : (
-    <SafeAreaView style={styles.container}>
-      <LoaderSplashScreen />
+    <SafeAreaView style={[styles.container, { marginBottom: 30, marginLeft: 10 }]}>
+      <Image source={SplashScreen} style={{ width: 250, height: 500 }} />
     </SafeAreaView>
   );
 };
