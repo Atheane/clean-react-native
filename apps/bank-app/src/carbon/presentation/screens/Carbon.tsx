@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { getLocales } from 'expo-localization';
-import Constants from 'expo-constants';
 import { useTheme } from '@rneui/themed';
 
 import {
@@ -26,6 +25,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IRoutes, ICarbonStackPages, ISharedStackPages } from '../../../shared/presentation/types';
 import { CardPremium, CardCarbonFootPrint } from '../../../shared/presentation/assets/svg';
+import { SUPPORTED_LANGUAGES_WEBSITE } from '../../../shared/presentation/constants';
 
 import {
   HeaderBad,
@@ -141,7 +141,7 @@ export const Carbon = () => {
   // handle learn more
 
   let lng = locales[0]?.languageCode ?? 'fr';
-  if (!Constants.expoConfig?.extra?.SUPPORTED_LANGUAGES_WEBSITE.includes(lng)) {
+  if (!SUPPORTED_LANGUAGES_WEBSITE.includes(lng)) {
     lng = 'fr';
   }
 

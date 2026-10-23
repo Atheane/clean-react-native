@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigationState } from '@react-navigation/native';
-import Constants from 'expo-constants';
 import { getLocales } from 'expo-localization';
 
 import { Colors, FontNames, WebViewer } from '@clean-rn/ui-mobile';
@@ -39,7 +38,7 @@ import {
 } from '../../../user/presentation/screens';
 import { CguPdf } from '../../../shared/presentation/screens';
 
-import { pdfUrls } from '../../../shared/presentation/constants';
+import { SUPPORTED_LANGUAGES_WEBSITE, pdfUrls } from '../../../shared/presentation/constants';
 
 const locales = getLocales();
 
@@ -69,7 +68,7 @@ export const HomeStack = () => {
   };
 
   let lng = locales[0]?.languageCode ?? 'fr';
-  if (!Constants.expoConfig?.extra?.SUPPORTED_LANGUAGES_WEBSITE.includes(lng)) {
+  if (!SUPPORTED_LANGUAGES_WEBSITE.includes(lng)) {
     lng = 'fr';
   }
 
@@ -173,7 +172,7 @@ export const AuthStack = () => {
   };
 
   let lng = locales[0]?.languageCode ?? 'fr';
-  if (!Constants.expoConfig?.extra?.SUPPORTED_LANGUAGES_WEBSITE.includes(lng)) {
+  if (!SUPPORTED_LANGUAGES_WEBSITE.includes(lng)) {
     lng = 'fr';
   }
 
