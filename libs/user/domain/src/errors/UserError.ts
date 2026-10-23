@@ -3,7 +3,6 @@ import { IDomainError } from '@clean-rn/ddd';
 
 export enum IUserErrorMessage {
   INVALID_NAME = 'Invalid name',
-  INVALID_PHONE = 'Invalid phone',
   INVALID_COUNTRY = 'Invalid country',
   UNAVAILABLE_COUNTRY = 'Unavailable country',
   INVALID_BIRTHDAY = 'Invalid birthday',
@@ -16,7 +15,6 @@ export enum IUserErrorMessage {
 
 export enum IUserErrorCodes {
   INVALID_NAME = 'INVALID_NAME',
-  INVALID_PHONE = 'INVALID_PHONE',
   INVALID_COUNTRY = 'INVALID_COUNTRY',
   UNAVAILABLE_COUNTRY = 'UNAVAILABLE_COUNTRY',
   INVALID_BIRTHDAY = 'INVALID_BIRTHDAY',
@@ -36,17 +34,6 @@ export namespace UserError {
       super();
       this.code = IUserErrorCodes.INVALID_NAME;
       this.message = IUserErrorMessage.INVALID_NAME;
-      this.cause = cause;
-    }
-  }
-  export class InvalidPhone extends Error implements IDomainError<IUserErrorCodes, IUserErrorMessage> {
-    code: IUserErrorCodes;
-    message: IUserErrorMessage;
-    cause?: unknown;
-    constructor(cause?: unknown) {
-      super();
-      this.code = IUserErrorCodes.INVALID_PHONE;
-      this.message = IUserErrorMessage.INVALID_PHONE;
       this.cause = cause;
     }
   }

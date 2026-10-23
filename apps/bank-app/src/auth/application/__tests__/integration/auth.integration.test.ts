@@ -43,6 +43,7 @@ describe('Login - integration', () => {
   const mockData = {
     email: new Email('test@example.com'),
     password: new Password('123456'),
+    locale: 'fr',
   };
 
   let sagaTester: SagaTester;

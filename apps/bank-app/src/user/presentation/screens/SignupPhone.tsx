@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { getLocales } from 'expo-localization';
 import { useTheme } from '@rneui/themed';
 
-import { Phone } from '@clean-rn/user/domain';
+import { Phone } from '@clean-rn/contact/domain';
 import {
   useCleanErrorOnFocus,
   ISignupPhoneFormData,

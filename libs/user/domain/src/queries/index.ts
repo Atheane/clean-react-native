@@ -1,5 +1,6 @@
 import { Email } from '@clean-rn/auth/domain';
-import { Phone, PhoneOtp } from '../value-objects';
+import { Phone } from '@clean-rn/contact/domain';
+import { PhoneOtp } from '../value-objects';
 
 export type ISearchEmailQuery = {
   email: Email;

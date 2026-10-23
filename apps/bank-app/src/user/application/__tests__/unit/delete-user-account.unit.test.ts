@@ -4,7 +4,8 @@ import Constants from 'expo-constants';
 import dayjs from 'dayjs';
 
 import { Email } from '@clean-rn/auth/domain';
-import { Phone, IGender, User, KYC_REVIEW, BirthDay, Country } from '@clean-rn/user/domain';
+import { Phone } from '@clean-rn/contact/domain';
+import { IGender, User, KYC_REVIEW, BirthDay, Country } from '@clean-rn/user/domain';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { UserApi } from '@clean-rn/user/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';

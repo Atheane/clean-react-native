@@ -3,8 +3,8 @@ import SagaTester from 'redux-saga-tester';
 import Constants from 'expo-constants';
 import dayjs from 'dayjs';
 
+import { Phone } from '@clean-rn/contact/domain';
 import {
-  Phone,
   IGender,
   IRegisterAddressCommand,
   IRegisterBirthCommand,

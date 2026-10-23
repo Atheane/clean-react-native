@@ -12,6 +12,7 @@ import { applicationInitialized } from '../../../shared/application/commands/ini
 
 import { Congrats } from '../../presentation/assets/images';
 import { useNavigation } from '@react-navigation/native';
+import { Email } from '@clean-rn/auth/domain';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -27,7 +28,7 @@ export const SignupCongrats = () => {
   const onPress = useCallback(() => {
     dispatch(
       applicationInitialized({
-        email: user?.properties.email ?? null,
+        email: user?.properties.email as Email,
         initRouteName: ISharedStackPages.HOME,
         carbon: {
           house: {
