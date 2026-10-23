@@ -16,11 +16,11 @@ import {
   Phone,
   ICountry,
   IGender,
-  COUNTRIES_AVAILABLE,
   IUserErrorCodes,
   IUserErrorMessage,
   Name,
 } from '@clean-rn/user/domain';
+import { COUNTRIES_AVAILABLE } from '@clean-rn/utils';
 import { Person, Phone as PhoneIcon } from '../../../assets';
 import { Colors } from '../../../constants';
 

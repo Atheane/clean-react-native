@@ -13,20 +13,28 @@ export class Amount {
   }
 
   private validate(rawAmount: string, transactionType?: ITransactionType): number {
-    if (isNaN(parseFloat(rawAmount.replace(',', '.')))) {
+    const amount = rawAmount.replace(',', '.');
+    if (isNaN(parseFloat(amount))) {
       throw new TransactionError.InvalidTransactionAmount('Amount must be a number');
     }
+
+    // Vérification du type de transaction
     if (transactionType && !ITransactionType[transactionType]) {
       throw new TransactionError.UnknownTransactionType();
     }
-    if (
-      parseFloat(rawAmount.replace(',', '.')) < 0 &&
-      transactionType &&
-      transactionType !== ITransactionType.CARD_TRANSACTION
-    ) {
+
+    const parsedAmount = parseFloat(amount);
+    if (parsedAmount < 0 && transactionType && transactionType !== ITransactionType.CARD_TRANSACTION) {
       throw new TransactionError.InvalidTransactionAmount(`Amount cannot be negative`);
     }
-    return parseFloat(rawAmount.replace(',', '.'));
+
+    // Vérification du nombre de chiffres après la virgule
+    const parts = amount.split('.');
+    if (parts.length > 1 && parts[1].length > 2) {
+      throw new TransactionError.InvalidTransactionAmount(`Amount cannot have more than two decimal places`);
+    }
+
+    return parsedAmount;
   }
 
   get value(): number {
