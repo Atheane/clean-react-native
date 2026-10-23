@@ -17,7 +17,7 @@ import { selectEmail, selectPassword } from '../../../../auth/application/state-
 
 import { selectUser } from '../../state-management/selectors';
 import { IUserTypes, signupFailed, phoneValidated, initializeUser } from '../../commands';
-import { loginSuccess } from 'apps/bank-app/src/auth/application/commands';
+import { loginSuccess } from '../../../../auth/application/commands';
 
 export function* validatePhoneSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IUserTypes.FETCH_VALIDATE_PHONE, validatePhoneGenerator, httpConnection);
