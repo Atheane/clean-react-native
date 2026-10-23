@@ -26,7 +26,15 @@ if (Constants.expoConfig?.extra?.NODE_ENV !== 'development') {
     // We recommend adjusting this value in production.
     tracesSampleRate: 1.0,
   });
+  console.log = () => {
+    return;
+  };
 }
+
+console.warn = () => {
+  return;
+};
+console.disableYellowBox = true;
 
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);
 // It also ensures that whether you load the app in Expo Go or in a native build,
