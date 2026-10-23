@@ -6,10 +6,17 @@ import { IGlobalErrorTypes } from '../../commands/manage-global-errors';
 import { showUnknownErrorGenerator, showUnknownErrorSaga } from '../../usecases/manage-global-errors';
 import { ISharedStackPages } from '../../../presentation/types';
 import { navigate } from '../../../presentation/navigation/navigationRef';
+import { ServerError } from '@clean-rn/shared/infrastructure';
 
 describe('Manage Global Errors - usecase', () => {
   const genObject = showUnknownErrorSaga();
-
+  const mockError401 = {
+    message: 'Core::AuthService::Unauthorized - Unauthorized',
+    statusCode: 401,
+    response: 'Core::AuthService::Unauthorized - Unauthorized',
+    timestamp: '2024-01-07T15:28:04.657Z',
+    path: '/app/account',
+  };
   it('Should wait for SHOW_UNKNOWN_ERROR action and call showUnknownErrorSaga, should be done on next iteration', () => {
     expect(genObject.next().value).toEqual(
       takeEvery(IGlobalErrorTypes.SHOW_UNKNOWN_ERROR, showUnknownErrorGenerator),
@@ -22,6 +29,17 @@ describe('Manage Global Errors - usecase', () => {
       type: IGlobalErrorTypes.SHOW_UNKNOWN_ERROR,
       payload: new Error('Network request failed'),
     })
+      .next()
+      .cancel();
+  });
+
+  it('Should cancel if 401', async () => {
+    testSaga(showUnknownErrorGenerator, {
+      type: IGlobalErrorTypes.SHOW_UNKNOWN_ERROR,
+      payload: new ServerError(mockError401),
+    })
+      .next()
+      .call(Sentry.captureException, new ServerError(mockError401))
       .next()
       .cancel();
   });
