@@ -7,7 +7,7 @@ echo '🔍🎨 Formating and checking staged files before committing!'
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-npx lint-staged --concurrent false --relative ||
+nvm use v18.14.2 && npx lint-staged --concurrent false --relative ||
 (
   echo '💀❌ Ooops! Formating and checking process has failed!';
   false;
