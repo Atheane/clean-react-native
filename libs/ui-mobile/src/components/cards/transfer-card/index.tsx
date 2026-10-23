@@ -1,7 +1,8 @@
-import { View, Text, StyleSheet, Image, ImageSourcePropType } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useTheme } from '@rneui/themed';
 import { BackgroundCardArrow, BackgroundCardGrey } from '../../../assets';
 import { Dropdown } from '../../dropdowns/dropdown';
+import { SvgProps } from 'react-native-svg';
 
 type IData = {
   key: string;
@@ -9,7 +10,7 @@ type IData = {
 };
 
 type IProps = {
-  image: ImageSourcePropType;
+  icon: React.FC<SvgProps>;
   text: string;
   data?: IData[];
   onSelect?: (item: IData) => void;
@@ -41,7 +42,9 @@ export const TransferCard = (props: IProps) => {
             />
           </View>
         )}
-        <Image source={props.image} style={styles.imageStyle} />
+        <View style={styles.imageStyle}>
+          <props.icon />
+        </View>
       </View>
     </View>
   );

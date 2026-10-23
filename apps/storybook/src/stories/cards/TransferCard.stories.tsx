@@ -1,6 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
-import { TransferCard } from '@clean-rn/ui-mobile';
-import { BankLogoCA, BankLogoCO2 } from '../../../assets/images';
+import { TransferCard, BankLogoCA, BankAltLogo, PhoneGradientWhiteBg } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
@@ -11,7 +10,7 @@ const TransferCardMeta: ComponentMeta<typeof TransferCard> = {
     onSelect: { action: 'onSelect' },
   },
   args: {
-    image: BankLogoCA,
+    icon: BankLogoCA,
     text: 'Mmmmmm\nMmmmmmmmmmm',
     arrow: true,
     data: [
@@ -33,9 +32,17 @@ export default TransferCardMeta;
 type TransferCardStory = ComponentStory<typeof TransferCard>;
 
 export const TransferFrom: TransferCardStory = (args) => {
-  return <TransferCard {...args} image={BankLogoCO2} />;
+  return <TransferCard {...args} icon={BankAltLogo} />;
 };
 
-export const TransferTo: TransferCardStory = (args) => {
-  return <TransferCard {...args} arrow={false} image={BankLogoCA} />;
+export const PayoutOut: TransferCardStory = (args) => {
+  return <TransferCard {...args} arrow={false} icon={BankLogoCA} />;
+};
+
+export const TransferOut: TransferCardStory = (args) => {
+  return <TransferCard {...args} arrow={false} icon={BankAltLogo} />;
+};
+
+export const WaitingTransaction: TransferCardStory = (args) => {
+  return <TransferCard {...args} arrow={false} icon={PhoneGradientWhiteBg} />;
 };
