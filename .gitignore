@@ -67,3 +67,7 @@ tsconfig.tsbuildinfo
 
 build*
 .env*
+
+apps/bank-app/package-lock.json
+apps/storybook/package-lock.json
+

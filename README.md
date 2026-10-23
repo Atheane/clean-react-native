@@ -276,3 +276,27 @@ Stop application
 cd ../..
 npx nx start bank-app --dev-client
 ```
+
+## Fix package incompatibility
+
+In a Expo, it is recommended to install package with `npx expo install <my_lib>`.
+How we do in a monorepo? `npm i <my_lib>` at the root repo.
+It may install versions incompatibles with expo. So clean up the incompatibilities as follow for instance for BankApp:
+
+```
+cd apps/bank-app
+npm run eas-build-re-install
+npx expo-doctor
+npx expo install --fix
+```
+
+and copy back apps/bank-app/package.json to package.json
+
+Yes I know, monorepo and expo are not entirely mature yet. But this is the way to maintain healthy and compatible versions that won't explode once you launch a build on eas (eas often change version or their cloud tools so, freeze you version and maintain compatible version this way).
+
+By the way, you can check eas build on your own infra this way (this is faster and cheaper):
+
+```
+cd apps/bank-app
+eas build --platform=android --local
+```

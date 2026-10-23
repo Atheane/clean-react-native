@@ -34,13 +34,7 @@ export default {
       bundler: 'metro',
     },
     plugins: [
-      [
-        '@config-plugins/detox',
-        {
-          skipProguard: false,
-          subdomains: '*',
-        },
-      ],
+      'expo-localization',
       [
         'expo-contacts',
         {
@@ -61,6 +55,13 @@ export default {
           ios: {
             useFrameworks: 'static',
           },
+        },
+      ],
+      [
+        '@config-plugins/detox',
+        {
+          skipProguard: false,
+          subdomains: '*',
         },
       ],
     ],
