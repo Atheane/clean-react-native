@@ -247,7 +247,7 @@
       "placeholder": "DD/MM/YYYY"
     },
     "birth-country": {
-      "label": Pays de naissance",
+      "label": "Pays de naissance",
       "placeholder": "Pays de naissance"
     },
     "nationality": {
