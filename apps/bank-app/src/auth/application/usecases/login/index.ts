@@ -4,9 +4,12 @@ import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { AuthError, ILoginCommand } from '@clean-rn/auth/domain';
+import { CardError } from '@clean-rn/card/domain';
+
 import { AuthApi, IAuthServerCode } from '@clean-rn/auth/infrastructure';
 import { UserApi } from '@clean-rn/user/infrastructure';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
+import { CardApi } from '@clean-rn/card/infrastructure';
 
 import { IStoreKey } from '../../../../shared/application/types';
 import { goBack, navigate } from '../../../../shared/presentation/navigation/navigationRef';
@@ -17,6 +20,7 @@ import { checkCustomerStatus } from '../../../../kyc/application/commands/custom
 
 import { loginFailure, IAuthTypes, initializeAuth, loginSuccess, resetError } from '../../commands';
 import { initializeUser, userSaved } from '../../../../user/application/commands';
+import { cardGetSuccess, cardNotFound } from '../../../../card/application/commands';
 
 export function* loginSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IAuthTypes.FETCH_LOGIN, loginGenerator, httpConnection);
@@ -47,10 +51,20 @@ export function* loginGenerator(
     const userApi = UserApi.getInstance(httpConnection);
     const user = yield call([userApi, userApi.getUser]);
 
+    try {
+      const cardApi = CardApi.getInstance(httpConnection);
+      const card = yield call([cardApi, cardApi.getCard]);
+      yield put(cardGetSuccess(card));
+    } catch (error: unknown) {
+      if (error instanceof CardError.NotFound) {
+        yield put(cardNotFound(error));
+      }
+    }
+
     yield put(loginSuccess({ auth }));
     yield put(userSaved(user));
-
     yield put(checkCustomerStatus({ user }));
+
     yield call(navigate, { route: ISharedStackPages.HOME });
   } catch (error: unknown) {
     if (error instanceof ServerError) {

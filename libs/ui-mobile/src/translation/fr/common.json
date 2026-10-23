@@ -341,6 +341,7 @@
       },
       "banner": {
         "validation-identity": "Validez votre identité",
+        "identity-validated": "Identité validee",
         "update-needed": "Mise à jour à faire"
       }
     },
