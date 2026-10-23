@@ -1,14 +1,12 @@
 import { useEffect } from 'react';
-import { StyleSheet, View, Dimensions, Image } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { Colors } from '@clean-rn/ui-mobile';
 import { fetchLogout } from '../../../auth/application/commands';
-import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { GoodBye as GoodByeImg } from '../assets/images';
 import { useDispatch } from 'react-redux';
-
-const HEIGHT = Dimensions.get('window').height;
 
 export const GoodBye = () => {
   // translations
@@ -24,13 +22,11 @@ export const GoodBye = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView>
-        <View style={styles.container}>
-          <View style={styles.imageContainer}>
-            <Image style={{ width: 200, height: 200 }} source={GoodByeImg} />
-          </View>
+      <View style={styles.container}>
+        <View style={styles.imageContainer}>
+          <Image style={{ width: 200, height: 200 }} source={GoodByeImg} />
         </View>
-      </SafeScrollingView>
+      </View>
     </ErrorBoundary>
   );
 };
@@ -41,9 +37,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.bank.primary.white,
-    height: HEIGHT + 260,
   },
   imageContainer: {
-    marginTop: -260,
+    marginTop: -100,
   },
 });
