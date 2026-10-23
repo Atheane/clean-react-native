@@ -136,9 +136,10 @@ const styles = StyleSheet.create({
   },
   domainErrorContainer: {
     marginTop: 24,
+    width: '95%',
   },
   formSubmit: {
-    marginTop: '30%',
+    marginTop: '15%',
     alignItems: 'center', // Ajoutez cette ligne
   },
 });

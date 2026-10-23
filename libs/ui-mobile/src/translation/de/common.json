@@ -128,7 +128,8 @@
         "INVALID_BIC": "BIC ungültig",
         "INVALID_NAME": "Ungültiger Name",
         "BENEFICIARY_ALREADY_EXISTS": "Dieser Empfänger existiert bereits",
-        "BENEFICIARY_UNKNOWN": "Unbekannter Empfänger"
+        "BENEFICIARY_UNKNOWN": "Unbekannter Empfänger",
+        "BENEFICIARY_MUST_DIFFER_FROM_ACCOUNT": "Sie können keine Überweisung auf Ihre Telefonnummer durchführen."
       },
       "contact": {
         "INVALID_NAME": "Ungültiges Namensformat",
