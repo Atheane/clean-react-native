@@ -13,7 +13,6 @@ import {
   ICardLimitsChanged,
   IInitCard,
   IFetchChangeCardLimits,
-  IFetchGetCard,
   IFetchToggleLock,
   ICardGetSuccess,
   ICardNotFound,
@@ -29,10 +28,6 @@ import { IDomainError } from '@clean-rn/ddd';
 export const fetchChangeCardLimits = (payload: IChangeCardLimitsCommand): IFetchChangeCardLimits => ({
   type: ICardTypes.FETCH_CHANGE_CARD_LIMITS,
   payload,
-});
-
-export const fetchGetCard = (): IFetchGetCard => ({
-  type: ICardTypes.FETCH_GET_CARD,
 });
 
 export const fetchToggleLock = (payload: IToggleCardLockCommand): IFetchToggleLock => ({

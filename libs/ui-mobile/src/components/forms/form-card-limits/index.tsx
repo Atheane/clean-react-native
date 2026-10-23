@@ -140,7 +140,7 @@ export const FormCardLimits = (props: IProps) => {
       </View>
       <View style={styles.formSubmit}>
         <SubmitButton
-          title={t('button.add')}
+          title={t('button.submit')}
           uppercase={false}
           onSubmit={props.onSubmit}
           loading={props.loading}

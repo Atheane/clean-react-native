@@ -2,8 +2,6 @@ import { Component, ErrorInfo, ReactNode } from 'react';
 import * as Sentry from '@sentry/react-native';
 import { TFunction } from 'i18next';
 
-import { Logger } from '@clean-rn/logger';
-
 import { ModalError } from '@clean-rn/ui-mobile';
 
 type IProps = {
@@ -29,7 +27,7 @@ export class ErrorBoundary extends Component<IProps, IState> {
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     error.stack = errorInfo.componentStack;
     this.setState({ hasError: true, error });
-    Logger.getInstance().error(error);
+    console.error(error);
     Sentry.captureException(error);
   }
 

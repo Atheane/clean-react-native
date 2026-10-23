@@ -3,8 +3,7 @@ import { useForm } from 'react-hook-form';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { getLocales } from 'expo-localization';
 
-import { Logger } from '@clean-rn/logger';
-import { COUNTRIES_AVAILABLE } from '@clean-rn/utils';
+import { COUNTRIES_AVAILABLE } from '@clean-rn/contact/domain';
 import { FormSignupAddress, ISignupAddressFormData } from '@clean-rn/ui-mobile';
 import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../../wrappers';
 
@@ -44,7 +43,7 @@ export const Dynamic: FormSignupAddressStory = (args) => {
   });
 
   const onSubmit = useCallback((formData: ISignupAddressFormData) => {
-    Logger.getInstance().debug(formData);
+    console.log(formData);
   }, []);
 
   return <FormSignupAddress {...args} control={control} errors={errors} onSubmit={handleSubmit(onSubmit)} />;

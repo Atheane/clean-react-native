@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import { FoodConsumptionT } from '@bank/carbon-weight/dist';
-import { Logger } from '@clean-rn/logger';
 import { FoodEmissions } from '@clean-rn/carbon/domain';
 
 type IFood = {
@@ -42,7 +41,7 @@ export const useFoodFormData = (initialValues: FoodConsumptionT | null) => {
       new FoodEmissions(formData as IFood);
       setDisabled(false);
     } catch (e: unknown) {
-      Logger.getInstance().debug(e);
+      console.log(e);
     }
   }, [formData]);
 

@@ -1,4 +1,3 @@
-import { Logger } from '@clean-rn/logger';
 import { inplaceSortByName } from '@clean-rn/utils';
 import { IBeneficiary } from '@clean-rn/beneficiary/domain';
 
@@ -13,40 +12,34 @@ const initialState: IBeneficiaryState = {
 };
 
 export const beneficiaryReducer = (state = initialState, action: IBeneficiaryActions) => {
-  const logger = Logger.getInstance();
   let newState: IBeneficiaryState;
   let beneficiaries: IBeneficiary[];
   switch (action.type) {
     case IBeneficiaryTypes.ADD_BENEFICIARY:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
       };
       return newState;
     case IBeneficiaryTypes.DELETE_BENEFICIARY:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
       };
       return newState;
     case IBeneficiaryTypes.LIST_BENEFICIARIES:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
       };
       return newState;
     case IBeneficiaryTypes.CHANGE_TAB:
-      logger.debug(action.type);
       newState = {
         ...state,
         tab: action.payload.idx,
       };
       return newState;
     case IBeneficiaryTypes.BENEFICIARY_ADDED:
-      logger.debug(action.type);
       if (state.beneficiaries && state.beneficiaries.length > 0) {
         beneficiaries = [...state.beneficiaries, action.payload];
         inplaceSortByName(beneficiaries);
@@ -60,7 +53,6 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
       };
       return newState;
     case IBeneficiaryTypes.BENEFICIARY_ADD_FAILED:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -68,7 +60,6 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
       };
       return newState;
     case IBeneficiaryTypes.BENEFICIARY_DELETED:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -81,7 +72,6 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
       };
       return newState;
     case IBeneficiaryTypes.BENEFICIARY_DELETE_FAILED:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -89,7 +79,6 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
       };
       return newState;
     case IBeneficiaryTypes.BENEFICIARIES_LISTED:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -97,7 +86,6 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
       };
       return newState;
     case IBeneficiaryTypes.INIT_BENEFICIARY:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,

@@ -1,5 +1,3 @@
-import { Logger } from '@clean-rn/logger';
-
 import { IUserActions, IUserTypes } from '../../commands';
 import { IUserState } from '../state';
 
@@ -14,11 +12,9 @@ const initialState: IUserState = {
 };
 
 export const userReducer = (state = initialState, action: IUserActions) => {
-  const logger = Logger.getInstance();
   let newState: IUserState;
   switch (action.type) {
     case IUserTypes.FETCH_SEARCH_EMAIL:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
@@ -27,7 +23,6 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       };
       return newState;
     case IUserTypes.EMAIL_NOT_FOUND:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -35,7 +30,6 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       };
       return newState;
     case IUserTypes.SIGNUP_FAILED:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -43,7 +37,6 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       };
       return newState;
     case IUserTypes.FETCH_SEARCH_PHONE:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
@@ -52,7 +45,6 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       };
       return newState;
     case IUserTypes.PHONE_NOT_FOUND:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -60,14 +52,12 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       };
       return newState;
     case IUserTypes.PHONE_CODE_SENT:
-      logger.debug(action.type);
       return {
         ...state,
         pending: false,
         error: null,
       };
     case IUserTypes.FETCH_VALIDATE_PHONE:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
@@ -76,7 +66,6 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       };
       return newState;
     case IUserTypes.PHONE_VALIDATED:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -85,7 +74,6 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       };
       return newState;
     case IUserTypes.IDENTITY_REGISTERED:
-      logger.debug(action.type);
       newState = {
         ...state,
         user: action.payload,
@@ -93,7 +81,6 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       };
       return newState;
     case IUserTypes.PASSWORD_REGISTERED:
-      logger.debug(action.type);
       newState = {
         ...state,
         user: action.payload,
@@ -101,7 +88,6 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       };
       return newState;
     case IUserTypes.BIRTH_REGISTERED:
-      logger.debug(action.type);
       newState = {
         ...state,
         user: action.payload,
@@ -109,7 +95,6 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       };
       return newState;
     case IUserTypes.ADDRESS_REGISTERED:
-      logger.debug(action.type);
       newState = {
         ...state,
         user: action.payload,
@@ -118,7 +103,6 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       return newState;
 
     case IUserTypes.FETCH_SIGNUP_USER:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
@@ -126,7 +110,6 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       };
       return newState;
     case IUserTypes.FETCH_DELETE_USER_ACCOUNT:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
@@ -134,7 +117,6 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       };
       return newState;
     case IUserTypes.USER_SIGNED_UP:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -143,7 +125,6 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       };
       return newState;
     case IUserTypes.FETCH_UPDATE_NOTIFICATIONS:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
@@ -156,7 +137,6 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       };
       return newState;
     case IUserTypes.NOTIFICATIONS_UPDATED:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -165,7 +145,6 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       };
       return newState;
     case IUserTypes.USER_SAVED:
-      logger.debug(action.type);
       newState = {
         ...state,
         user: action.payload,
@@ -173,7 +152,6 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       };
       return newState;
     case IUserTypes.USER_ACCOUNT_DELETED:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -182,7 +160,6 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       };
       return newState;
     case IUserTypes.INITIALIZE_USER:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,

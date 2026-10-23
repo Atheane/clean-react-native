@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import { FlightI, FlightSeatE as SeatE } from '@bank/carbon-weight/dist';
-import { Logger } from '@clean-rn/logger';
 import { FlyEmissions } from '@clean-rn/carbon/domain';
 
 export const useFlyFormData = (initialValues: FlightI[] | null) => {
@@ -21,7 +20,7 @@ export const useFlyFormData = (initialValues: FlightI[] | null) => {
       new FlyEmissions(flight as FlightI);
       setFlights((flights: FlightI[]) => [...flights, flight as FlightI]);
     } catch (e: unknown) {
-      Logger.getInstance().info(e);
+      console.log(e);
     }
   }, [flight]);
 

@@ -17,6 +17,8 @@ if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
 }
 
+console.log('ENVIRONMENT', Constants.expoConfig?.extra?.NODE_ENV);
+
 if (Constants.expoConfig?.extra?.NODE_ENV !== 'development') {
   Sentry.init({
     dsn: Constants.expoConfig?.extra?.SENTRY_DSN,

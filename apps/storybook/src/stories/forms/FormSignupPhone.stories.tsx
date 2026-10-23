@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { getLocales } from 'expo-localization';
 
-import { Logger } from '@clean-rn/logger';
 import { FormSignupPhone, ISignupPhoneFormData } from '@clean-rn/ui-mobile';
 import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../../wrappers';
 
@@ -40,7 +39,7 @@ export const Dynamic: FormSignupPhoneStory = (args) => {
   });
 
   const onSubmit = useCallback((formData: ISignupPhoneFormData) => {
-    Logger.getInstance().debug(formData);
+    console.log(formData);
   }, []);
 
   return <FormSignupPhone {...args} control={control} errors={errors} onSubmit={handleSubmit(onSubmit)} />;

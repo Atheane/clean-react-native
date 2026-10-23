@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
-import { View, StyleSheet, Text, Linking, Platform } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { View, StyleSheet, Text, Platform, Linking } from 'react-native';
+import * as ExpoLinking from 'expo-linking';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@rneui/themed';
@@ -16,39 +17,57 @@ import {
 } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { IProfileStackPages, ISharedStackPages } from '../../../shared/presentation/types';
+import { ICardStackPages, IProfileStackPages, ISharedStackPages } from '../../../shared/presentation/types';
 
 import { GradientBell, GradientCO2Card } from '../../../user/presentation/assets';
-import { fetchGetCard } from '../../../card/application/commands';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 import { APPLE_STORE_LINK, GOOGLE_PLAY_LINK } from '../../../shared/presentation/constants';
 import { firstLetterCapitalize } from '@clean-rn/utils';
+import { CardError } from '@clean-rn/card/domain';
+import { KYC_REVIEW } from '@clean-rn/user/domain';
+import { ServerError } from '@clean-rn/shared/infrastructure';
 
 export const Profile = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
   const { theme } = useTheme();
 
-  const dispatch = useDispatch();
-
   const handlePressApplicationSettings = useCallback(() => {
     navigation.navigate(IProfileStackPages.NOTIFICATON_SETTINGS as never);
   }, [navigation]);
 
+  const { error } = useSelector((state: IRootState) => state.card);
+  const { customer } = useSelector((state: IRootState) => state.kyc.customer);
+
   const handlePressCardParameters = useCallback(() => {
-    dispatch(fetchGetCard());
-  }, [dispatch]);
+    // it won't happen
+    if (!customer) {
+      return;
+    }
+    if (error instanceof CardError.NotFound) {
+      if (customer.properties.status !== KYC_REVIEW.VALIDATED) {
+        navigation.navigate(ICardStackPages.MENU, { screen: ICardStackPages.KYC_MISSING });
+      } else {
+        navigation.navigate(ICardStackPages.MENU, { screen: ICardStackPages.WAITING_CARD });
+      }
+    }
+    if (error instanceof ServerError && error.statusCode === 403) {
+      navigation.navigate(ICardStackPages.MENU as never);
+    }
+  }, [navigation, customer, error]);
 
   const handlePressLove = useCallback(() => {
     Linking.openURL(Platform.OS === 'ios' ? APPLE_STORE_LINK : GOOGLE_PLAY_LINK);
   }, []);
 
   const handlePressContact = useCallback(() => {
-    Linking.openURL(
-      `mailto:contact@example.com?subject=${t('contact-email.subject.contact')}&body=${t('contact-email.body.contact')}`,
-    );
-  }, [t]);
+    if (Platform.OS === 'ios') {
+      ExpoLinking.openURL(`mailto:contact@example.com`);
+    } else {
+      Linking.openURL(`mailto:contact@example.com`);
+    }
+  }, []);
 
   const onPressLegal = useCallback(() => {
     navigation.navigate(ISharedStackPages.LEGAL as never);

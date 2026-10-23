@@ -3,8 +3,6 @@ import { Contact } from 'expo-contacts';
 import { getLocales } from 'expo-localization';
 import { UUID } from 'uuidjs';
 
-import { Logger } from '@clean-rn/logger';
-
 const locales = getLocales();
 
 export const mapContactExpoToContact = (contact: Contact): IContact | undefined => {
@@ -22,7 +20,7 @@ export const mapContactExpoToContact = (contact: Contact): IContact | undefined 
       };
     }
   } catch (error: unknown) {
-    Logger.getInstance().info(error);
+    console.log(error);
     return;
   }
 };

@@ -5,7 +5,6 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { FormLogin, ILoginFormData, useTogglePress, useSecure } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../../wrappers';
-import { Logger } from '@clean-rn/logger';
 
 const FormLoginMeta: ComponentMeta<typeof FormLogin> = {
   title: 'Forms/FormLogin',
@@ -31,7 +30,7 @@ export const Dynamic: FormLoginStory = (args) => {
   const { onPress } = useTogglePress(false);
 
   const onSubmit = useCallback(() => {
-    Logger.getInstance().info('onSubmit');
+    console.log('onSubmit');
   }, []);
 
   const {

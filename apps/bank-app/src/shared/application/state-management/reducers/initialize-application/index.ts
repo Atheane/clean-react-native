@@ -1,5 +1,3 @@
-import { Logger } from '@clean-rn/logger';
-
 import { IInitializationTypes, IInitializationActions } from '../../../commands/initialize-application/types';
 import { IInitializationState } from '../../state/initialize-application';
 
@@ -28,18 +26,16 @@ const initialState: IInitializationState = {
 };
 
 export const initializationReducer = (state = initialState, action: IInitializationActions) => {
-  const logger = Logger.getInstance();
   let newState: IInitializationState;
+  console.log(action.type);
   switch (action.type) {
     case IInitializationTypes.INITIALIZE_APPLICATION:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
       };
       return newState;
     case IInitializationTypes.APPLICATION_INITIALIZED:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -51,14 +47,12 @@ export const initializationReducer = (state = initialState, action: IInitializat
       };
       return newState;
     case IInitializationTypes.LOAD_STORAGE:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
       };
       return newState;
     case IInitializationTypes.STORAGE_LOADED:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,

@@ -529,7 +529,7 @@
       "title": "Verifica della tua identità",
       "send-document": "Invia un documento",
       "init": {
-        "instruction": "Si prega di preparare:\n\n- Un documento d'identità\n- Una prova di residenza\n- Un bonifico sul Conto CO2 da uno dei tuoi conti",
+        "instruction": "3 fasi:\n\n1. Allegare un documento di identità\n\n2. Allegare un documento di indirizzo\n\n3. Trasferire 1 euro da uno dei vostri conti bancari al vostro Conto CO2",
         "check-identity": "Verifica la mia identità"
       },
       "complete": {

@@ -9,7 +9,6 @@ import { AuthApi, IAuthServerCode } from '@clean-rn/auth/infrastructure';
 import { UserApi } from '@clean-rn/user/infrastructure';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { CardApi } from '@clean-rn/card/infrastructure';
-import { Logger } from '@clean-rn/logger';
 
 import { IStoreKey } from '../../../../shared/application/types';
 import { goBack, navigate } from '../../../../shared/presentation/navigation/navigationRef';
@@ -20,7 +19,7 @@ import { checkCustomerStatus } from '../../../../kyc/application/commands/custom
 
 import { loginFailure, IAuthTypes, initializeAuth, loginSuccess, resetError } from '../../commands';
 import { initializeUser, userSaved } from '../../../../user/application/commands';
-import { cardGetSuccess, cardNotFound } from '../../../../card/application/commands';
+import { cardForbidden, cardGetSuccess, cardNotFound } from '../../../../card/application/commands';
 
 export function* loginSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IAuthTypes.FETCH_LOGIN, loginGenerator, httpConnection);
@@ -57,10 +56,13 @@ export function* loginGenerator(
 
       yield put(cardGetSuccess(card));
     } catch (error: unknown) {
+      if (error instanceof ServerError && error.statusCode === 403) {
+        yield put(cardForbidden(new CardError.Forbidden(error)));
+      }
       if (error instanceof CardError.NotFound) {
         yield put(cardNotFound(error));
       }
-      Logger.getInstance().info(error);
+      console.log(error);
     }
 
     if (user.properties.config && user.properties.config.lang !== payload.locale) {
@@ -75,7 +77,7 @@ export function* loginGenerator(
 
     yield call(navigate, { route: ISharedStackPages.HOME });
   } catch (error: unknown) {
-    Logger.getInstance().info(error);
+    console.log(error);
 
     if (error instanceof ServerError) {
       switch (error.codeError) {

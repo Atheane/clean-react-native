@@ -9,9 +9,8 @@ import { PhoneNumberUtil } from 'google-libphonenumber';
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
 import { IDomainError } from '@clean-rn/ddd';
-import { Logger } from '@clean-rn/logger';
 
-import { COUNTRIES_AVAILABLE } from '@clean-rn/utils';
+import { COUNTRIES_AVAILABLE } from '@clean-rn/contact/domain';
 import { Country, ICountry } from '@clean-rn/user/domain';
 import { IContactErrorCodes, Phone, IContactErrorMessage } from '@clean-rn/contact/domain';
 import { ProfileGradient } from '../../../assets';
@@ -48,7 +47,7 @@ export const FormContact = (props: IProps) => {
     try {
       if (props.defaultCountry) setCountryCode(new Country(props.defaultCountry).value);
     } catch (error) {
-      Logger.getInstance().error(error);
+      console.error(error);
     }
   }, [props.defaultCountry]);
 

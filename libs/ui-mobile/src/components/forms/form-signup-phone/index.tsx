@@ -9,11 +9,10 @@ import { PhoneNumberUtil } from 'google-libphonenumber';
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
 import { IDomainError } from '@clean-rn/ddd';
-import { Logger } from '@clean-rn/logger';
 
 import { Phone } from '@clean-rn/contact/domain';
 import { Country, ICountry, IUserErrorCodes, IUserErrorMessage } from '@clean-rn/user/domain';
-import { COUNTRIES_AVAILABLE } from '@clean-rn/utils';
+import { COUNTRIES_AVAILABLE } from '@clean-rn/contact/domain';
 import { Phone as PhoneIcon } from '../../../assets';
 import { Colors } from '../../../constants';
 
@@ -45,7 +44,7 @@ export const FormSignupPhone = (props: IProps) => {
     try {
       if (props.defaultCountry) setCountryCode(new Country(props.defaultCountry).value);
     } catch (error) {
-      Logger.getInstance().error(error);
+      console.log(error);
     }
   }, [props.defaultCountry]);
 

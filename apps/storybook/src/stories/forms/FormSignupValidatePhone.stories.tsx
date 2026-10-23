@@ -2,7 +2,6 @@ import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
-import { Logger } from '@clean-rn/logger';
 import { FormSignupValidatePhone, ISignupValidatePhoneFormData } from '@clean-rn/ui-mobile';
 import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../../wrappers';
 
@@ -28,7 +27,7 @@ export const Dynamic: FormSignupValidatePhoneStory = (args) => {
   } = useForm<ISignupValidatePhoneFormData>();
 
   const onSubmit = useCallback((formData: ISignupValidatePhoneFormData) => {
-    Logger.getInstance().debug(formData);
+    console.log(formData);
   }, []);
 
   return (

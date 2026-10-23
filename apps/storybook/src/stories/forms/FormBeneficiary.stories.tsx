@@ -5,7 +5,6 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
 import { FormBeneficiary, IBeneficiaryFormData } from '@clean-rn/ui-mobile';
 import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../../wrappers';
-import { Logger } from '@clean-rn/logger';
 
 const FormBeneficiaryMeta: ComponentMeta<typeof FormBeneficiary> = {
   title: 'Forms/FormBeneficiary',
@@ -23,7 +22,7 @@ type FormBeneficiaryStory = ComponentStory<typeof FormBeneficiary>;
 
 export const Dynamic: FormBeneficiaryStory = (args) => {
   const onSubmit = useCallback(() => {
-    Logger.getInstance().info('onSubmit');
+    console.log('onSubmit');
   }, []);
   const {
     control,

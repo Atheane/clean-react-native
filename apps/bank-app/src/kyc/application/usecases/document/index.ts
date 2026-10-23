@@ -2,7 +2,6 @@
 import { call, put, StrictEffect, takeEvery, cancel, select, spawn, join } from 'redux-saga/effects';
 import { ImageSourcePropType } from 'react-native';
 
-import { Logger } from '@clean-rn/logger';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { Customer, DocumentError, DocumentVO, IDocumentProperties } from '@clean-rn/kyc/domain';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
@@ -140,7 +139,7 @@ export function* uploadDocumentSagaGenerator(
     });
     const document: DocumentVO = yield join(createDocumentTask);
 
-    Logger.getInstance().info(document.properties.status);
+    console.log(document.properties.status);
     yield put(documentUploaded({ document }));
 
     const { customer: customerFromRedux } = yield select(selectCustomer);
@@ -154,7 +153,7 @@ export function* uploadDocumentSagaGenerator(
       yield call(navigate, { route: IAuthStackPages.LOGIN });
       yield cancel();
     } else if (error.name === 'AbortError') {
-      Logger.getInstance().info(error);
+      console.log(error);
       yield cancel();
     }
     // once app is well tested, delete this part and let onError hook manage unexpected errors

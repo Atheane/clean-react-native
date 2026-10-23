@@ -528,7 +528,7 @@
       "title": "Verificación de su identidad",
       "send-document": "Enviar un documento",
       "init": {
-        "instruction": "Por favor tenga a mano:\n\n- Un documento de identidad\n- Un justificante de domicilio\n- Una transferencia al Cuenta CO2 desde una de sus cuentas",
+        "instruction": "3 pasos:\n\n1. Adjuntar prueba de identidad\n\n2. Adjuntar un justificante de domicilio\n\n3. Transfiera 1 euro de una de sus cuentas bancarias a su Cuenta CO2",
         "check-identity": "Verificar mi identidad"
       },
       "complete": {
