@@ -24,6 +24,7 @@ import {
   IInitTransaction,
 } from './types';
 import { IDomainError } from '@clean-rn/ddd';
+import { IBeneficiaryErrorCodes, IBeneficiaryErrorMessage } from '@clean-rn/beneficiary/domain';
 
 // commands
 export const listTransactions = (payload: { account: IAccount }): IListTransactions => ({
@@ -68,7 +69,9 @@ export const transactionWaitingSucceded = (payload: ITransaction): ITransactionW
 });
 
 export const transactionFailed = (
-  payload: IDomainError<ITransactionErrorCodes, ITransactionErrorMessage>,
+  payload:
+    | IDomainError<ITransactionErrorCodes, ITransactionErrorMessage>
+    | IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>,
 ): ITransactionFailed => ({
   type: ITransactionsTypes.TRANSACTION_FAILED,
   payload,

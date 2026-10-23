@@ -128,7 +128,8 @@
         "INVALID_BIC": "BIC non valido",
         "INVALID_NAME": "Nome non valido",
         "BENEFICIARY_ALREADY_EXISTS": "Questo beneficiario esiste già",
-        "BENEFICIARY_UNKNOWN": "Beneficiario sconosciuto"
+        "BENEFICIARY_UNKNOWN": "Beneficiario sconosciuto",
+        "BENEFICIARY_MUST_DIFFER_FROM_ACCOUNT": "Non è possibile effettuare un bonifico sul proprio numero di telefono."
       },
       "contact": {
         "INVALID_NAME": "Formato del nome non valido",

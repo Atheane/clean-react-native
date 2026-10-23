@@ -159,6 +159,7 @@ const styles = StyleSheet.create({
   },
   domainErrorContainer: {
     marginTop: 24,
+    width: '90%',
   },
   formSubmit: {
     marginTop: '30%',

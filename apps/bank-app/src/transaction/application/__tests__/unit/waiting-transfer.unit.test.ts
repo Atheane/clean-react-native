@@ -27,6 +27,7 @@ import {
   transactionWaitingSucceded,
 } from '../../commands';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
+import { BeneficiaryError } from '@clean-rn/beneficiary/domain';
 
 describe('TransactionWaiting - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -41,6 +42,18 @@ describe('TransactionWaiting - usecase', () => {
     id: 1686814688829,
     type: ITransactionType.PAYOUT,
     date: new Date('2023-06-15T07:38:09.217Z'),
+  };
+
+  const mockError400 = {
+    statusCode: 400,
+    message: 'Wallet id must differ from user wallet id',
+    response: {
+      statusCode: 400,
+      message: 'Wallet id must differ from user wallet id',
+    },
+    timestamp: '2023-10-03T13:20:21.303Z',
+    path: '/app/transaction/waitingTransaction',
+    method: 'POST',
   };
 
   const mockError403 = {
@@ -94,6 +107,22 @@ describe('TransactionWaiting - usecase', () => {
         params: { screen: IBeneficiaryStackPages.TRANSFER_SUCCESS },
       })
       .next();
+  });
+
+  it('Should call transferFailed if 400 from Server', () => {
+    testSaga(transactionWaitingGenerator, httpConnection, {
+      type: ITransactionsTypes.FETCH_TRANSACTION_WAITING,
+      payload,
+    })
+      .next()
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
+      .throw(new ServerError(mockError400))
+      .put(initTransaction())
+      .next()
+      .put(transactionFailed(new BeneficiaryError.BeneficiaryMustDifferFromAccount(mockError400)))
+      .next()
+      .cancel();
   });
 
   it('Should call transferFailed if 403 from Server', () => {

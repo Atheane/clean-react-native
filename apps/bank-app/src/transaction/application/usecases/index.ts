@@ -30,6 +30,7 @@ import {
   transactionWaitingSucceded,
 } from '../commands';
 import { ensureTokenRefreshed } from '../../../shared/application/usecases/ensureTokenRefreshed';
+import { BeneficiaryError } from '@clean-rn/beneficiary/domain';
 
 export function* listTransactionsSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(ITransactionsTypes.LIST_TRANSACTIONS, listTransactionsGenerator, httpConnection);
@@ -96,7 +97,10 @@ export function* transactionWaitingGenerator(
     });
   } catch (error: unknown) {
     yield put(initTransaction());
-    if (error instanceof ServerError && error.statusCode === 403) {
+    if (error instanceof ServerError && error.statusCode === 400) {
+      yield put(transactionFailed(new BeneficiaryError.BeneficiaryMustDifferFromAccount(error)));
+      yield cancel();
+    } else if (error instanceof ServerError && error.statusCode === 403) {
       yield put(transactionFailed(new TransactionError.TransferAmountTooHigh(error)));
       yield cancel();
     }

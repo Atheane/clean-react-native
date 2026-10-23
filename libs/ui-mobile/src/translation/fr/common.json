@@ -129,7 +129,8 @@
         "INVALID_BIC": "BIC invalide",
         "INVALID_NAME": "Nom invalide",
         "BENEFICIARY_ALREADY_EXISTS": "Ce destinataire existe déjà",
-        "BENEFICIARY_UNKNOWN": "Béneficiaire inconnu"
+        "BENEFICIARY_UNKNOWN": "Béneficiaire inconnu",
+        "BENEFICIARY_MUST_DIFFER_FROM_ACCOUNT": "Vous ne pouvez pas faire un virement sur votre numéro de téléphone"
       },
       "contact": {
         "INVALID_NAME": "Format du nom invalide",

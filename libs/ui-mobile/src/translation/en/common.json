@@ -128,7 +128,8 @@
         "INVALID_BIC": "Invalid BIC",
         "INVALID_NAME": "Invalid name",
         "BENEFICIARY_ALREADY_EXISTS": "This beneficiary already exists",
-        "BENEFICIARY_UNKNOWN": "Unknown beneficiary"
+        "BENEFICIARY_UNKNOWN": "Unknown beneficiary",
+        "BENEFICIARY_MUST_DIFFER_FROM_ACCOUNT": "You cannot make a transfer to your phone number."
       },
       "contact": {
         "INVALID_NAME": "Invalid name format",
