@@ -5,6 +5,7 @@ import {
   ICardRepository,
   CardError,
   IToggleCardLockCommand,
+  IChangeCardPINCommand,
 } from '@clean-rn/card/domain';
 import { ICardServer } from '../types';
 
@@ -17,6 +18,7 @@ export class CardApi implements ICardRepository {
     this.connection = httpConnection;
     this.getCard = this.getCard.bind(this);
     this.changeCardLimits = this.changeCardLimits.bind(this);
+    this.toggleCardLock = this.toggleCardLock.bind(this);
   }
 
   // Public method to provide access to the singleton instance
@@ -72,7 +74,7 @@ export class CardApi implements ICardRepository {
     });
     return card;
   }
-  async toggleLock(card: Card, cmd: IToggleCardLockCommand): Promise<Card> {
+  async toggleCardLock(card: Card, cmd: IToggleCardLockCommand): Promise<Card> {
     const params = {
       lockStatus: cmd.lock ? 1 : 0,
     };
@@ -83,6 +85,20 @@ export class CardApi implements ICardRepository {
     await this.connection.handleError(response);
     const cardFromServer: ICardServer = await response.json();
     card.updateStatus(cardFromServer.statusCode);
+    return card;
+  }
+
+  async changeCardPIN(card: Card, cmd: IChangeCardPINCommand): Promise<Card> {
+    const params = {
+      pin: cmd.pin.value,
+    };
+    const response = await fetch(
+      `${this.connection.baseUrl}/app/card/${card.id}/changePIN`,
+      this.connection.options(IHttpVerb.PUT, params),
+    );
+    await this.connection.handleError(response);
+    const cardFromServer: ICardServer = await response.json();
+    card.updatePin(cardFromServer.pin);
     return card;
   }
 }

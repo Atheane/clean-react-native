@@ -35,6 +35,13 @@ export const cardReducer = (state = initialState, action: ICardActions) => {
         pending: true,
       };
       return newState;
+    case ICardTypes.FETCH_CHANGE_CARD_PIN:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: true,
+      };
+      return newState;
     case ICardTypes.CARD_GET_SUCCESS:
       logger.debug(action.type);
       newState = {
@@ -70,6 +77,14 @@ export const cardReducer = (state = initialState, action: ICardActions) => {
       };
       return newState;
     case ICardTypes.CARD_LOCK_TOGGLED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        card: action.payload,
+      };
+      return newState;
+    case ICardTypes.CARD_PIN_CHANGED:
       logger.debug(action.type);
       newState = {
         ...state,

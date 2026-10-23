@@ -18,7 +18,7 @@ import { selectAuth } from '../../../../auth/application/state-management/select
 import { refreshSuccess } from '../../../../auth/application/commands';
 import { selectCard } from '../../state-management/selectors';
 
-describe('Lock UnLock - usecase', () => {
+describe('Toggle Card lock - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
   const api = CardApi.getInstance(httpConnection);
   const authApi = AuthApi.getInstance(httpConnection);
@@ -107,7 +107,7 @@ describe('Lock UnLock - usecase', () => {
       .next({ auth: mockToken })
       .select(selectCard)
       .next(card)
-      .call([api, api.toggleLock], card, { lock: true })
+      .call([api, api.toggleCardLock], card, { lock: true })
       .next(card)
       .put(cardLockToggled(card))
       .next()
@@ -148,7 +148,7 @@ describe('Lock UnLock - usecase', () => {
       .next({ auth: mockToken })
       .select(selectCard)
       .next(card)
-      .call([api, api.toggleLock], card, { lock: true })
+      .call([api, api.toggleCardLock], card, { lock: true })
       .throw(new ServerError(mockError500))
       .put(initCard())
       .next()
@@ -172,7 +172,7 @@ describe('Lock UnLock - usecase', () => {
       .next({ auth: mockToken })
       .select(selectCard)
       .next(card)
-      .call([api, api.toggleLock], card, { lock: true })
+      .call([api, api.toggleCardLock], card, { lock: true })
       .throw(new Error('unknown error'))
       .put(initCard())
       .next()

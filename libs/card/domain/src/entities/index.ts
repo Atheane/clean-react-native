@@ -55,4 +55,8 @@ export class Card extends Entity<ICardProperties> {
   updateStatus(status: ICardStatuses): void {
     this.properties.status = status;
   }
+
+  updatePin(pin: string): void {
+    this.properties.pin = new CardPinCode(pin);
+  }
 }

@@ -15,15 +15,19 @@ import {
   cardForbidden,
   fetchToggleLock,
   cardLockToggled,
+  fetchChangePIN,
+  cardPINChanged,
 } from '../../commands';
 import { ICardState, cardReducer } from '../../state-management';
 
-import { changeCardLimitsSaga, getCardSaga, toggleCardLockSaga } from '../../usecases';
+import { changeCardLimitsSaga, changeCardPINSaga, getCardSaga, toggleCardLockSaga } from '../../usecases';
 import {
   Card,
   CardError,
+  CardPinCode,
   ICardStatuses,
   IChangeCardLimitsCommand,
+  IChangeCardPINCommand,
   IToggleCardLockCommand,
 } from '@clean-rn/card/domain';
 
@@ -144,6 +148,23 @@ describe('Card - integration', () => {
     });
   });
 
+  it('Should store correct initial state if FETCH_CHANGE_CARD_PIN', () => {
+    const pin: IChangeCardPINCommand = {
+      pin: new CardPinCode('1234'),
+    };
+
+    const newState = cardReducer(undefined, {
+      type: ICardTypes.FETCH_CHANGE_CARD_PIN,
+      payload: pin,
+    });
+
+    expect(newState).toEqual({
+      pending: true,
+      card: null,
+      error: null,
+    });
+  });
+
   it('Should store correct state if CARD_GET_SUCCESS', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, changeCardLimitsSaga, httpConnection);
     sagaTester.dispatch(fetchGetCard());
@@ -203,9 +224,21 @@ describe('Card - integration', () => {
 
   it('Should store correct state if CARD_LOCK_TOGGLED', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, toggleCardLockSaga, httpConnection);
-    sagaTester.dispatch(fetchToggleLock());
+    sagaTester.dispatch(fetchToggleLock({ lock: true }));
     card.updateStatus(ICardStatuses.LOCK);
     sagaTester.dispatch(cardLockToggled(card));
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      card,
+      error: null,
+    });
+  });
+
+  it('Should store correct state if CARD_PIN_CHANGED', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, changeCardPINSaga, httpConnection);
+    sagaTester.dispatch(fetchChangePIN({ pin: new CardPinCode('1234') }));
+    card.updatePin('1234');
+    sagaTester.dispatch(cardPINChanged(card));
     expect(sagaTester.getState()).toEqual({
       pending: false,
       card,

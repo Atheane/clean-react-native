@@ -4,6 +4,7 @@ import {
   ICardErrorMessage,
   IChangeCardLimitsCommand,
   IToggleCardLockCommand,
+  IChangeCardPINCommand,
 } from '@clean-rn/card/domain';
 
 import {
@@ -18,6 +19,8 @@ import {
   ICardNotFound,
   ICardForbidden,
   ICardLockToggled,
+  IFetchChangePIN,
+  ICardPINChanged,
 } from './types';
 import { IDomainError } from '@clean-rn/ddd';
 
@@ -33,6 +36,11 @@ export const fetchGetCard = (): IFetchGetCard => ({
 
 export const fetchToggleLock = (payload: IToggleCardLockCommand): IFetchToggleLock => ({
   type: ICardTypes.FETCH_TOGGLE_LOCK,
+  payload,
+});
+
+export const fetchChangePIN = (payload: IChangeCardPINCommand): IFetchChangePIN => ({
+  type: ICardTypes.FETCH_CHANGE_CARD_PIN,
   payload,
 });
 
@@ -59,6 +67,11 @@ export const cardForbidden = (payload: IDomainError<ICardErrorCodes, ICardErrorM
 
 export const cardLockToggled = (payload: Card): ICardLockToggled => ({
   type: ICardTypes.CARD_LOCK_TOGGLED,
+  payload,
+});
+
+export const cardPINChanged = (payload: Card): ICardPINChanged => ({
+  type: ICardTypes.CARD_PIN_CHANGED,
   payload,
 });
 

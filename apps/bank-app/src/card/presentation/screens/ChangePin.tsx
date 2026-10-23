@@ -33,11 +33,11 @@ export const ChangePin = () => {
   const dispatch = useDispatch();
   const onSubmit = useCallback(
     (formData: IChangePinFormData) => {
-      // dispatch(
-      //   fetchChangePin({
-      //     pin: formData.code,
-      //   }),
-      // );
+      dispatch(
+        fetchChangePin({
+          pin: formData.code,
+        }),
+      );
     },
     [dispatch],
   );

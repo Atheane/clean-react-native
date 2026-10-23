@@ -8,6 +8,7 @@ import {
   ICreateCardCommand,
   ILimits,
   IToggleCardLockCommand,
+  IChangeCardPINCommand,
 } from '@clean-rn/card/domain';
 import { Customer } from '@clean-rn/kyc/domain';
 import { KYC_REVIEW } from '@clean-rn/user/domain';
@@ -24,6 +25,7 @@ import {
   cardNotFound,
   cardForbidden,
   cardLockToggled,
+  cardPINChanged,
 } from '../commands';
 import { IAuthStackPages, ICardStackPages } from '../../../shared/presentation/types';
 import { navigate } from '../../../shared/presentation/navigation/navigationRef';
@@ -32,6 +34,44 @@ import { selectAuth } from '../../../auth/application/state-management/selectors
 import { refreshSuccess } from '../../../auth/application/commands';
 import { selectCustomer } from '../../../kyc/application/state-management/selectors';
 import { selectCard } from '../state-management/selectors';
+
+export function* changeCardPINSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
+  yield takeEvery(ICardTypes.FETCH_CHANGE_CARD_PIN, changeCardPINGenerator, httpConnection);
+}
+
+export function* changeCardPINGenerator(
+  httpConnection: HttpConnection,
+  {
+    payload,
+  }: {
+    type: string;
+    payload: IChangeCardPINCommand;
+  },
+): Generator<StrictEffect, any, any> {
+  try {
+    const authApi = AuthApi.getInstance(httpConnection);
+    const authFromStore = yield select(selectAuth);
+    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
+    yield put(refreshSuccess({ auth }));
+    const cardFromStore = yield select(selectCard);
+    const cardApi = CardApi.getInstance(httpConnection);
+    const card = yield call([cardApi, cardApi.changeCardPIN], cardFromStore, payload);
+    yield put(cardPINChanged(card));
+    yield call(navigate, { route: ICardStackPages.CARD });
+  } catch (error: unknown) {
+    if (error instanceof ServerError && error.statusCode === 401) {
+      yield call(navigate, { route: IAuthStackPages.LOGIN });
+      yield cancel();
+    }
+    if (error instanceof ServerError && error.statusCode === 403) {
+      yield put(cardForbidden(new CardError.MaxNumberOfPinChangesReached()));
+      yield cancel();
+    }
+    yield put(initCard());
+    // Gestion des erreurs non attendues
+    yield put(showUnknownError(error as Error));
+  }
+}
 
 export function* getCardSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(ICardTypes.FETCH_GET_CARD, getCardGenerator, httpConnection);
@@ -131,7 +171,7 @@ export function* toggleCardLockGenerator(
     yield put(refreshSuccess({ auth }));
     const cardFromStore = yield select(selectCard);
     const cardApi = CardApi.getInstance(httpConnection);
-    const card = yield call([cardApi, cardApi.toggleLock], cardFromStore, payload);
+    const card = yield call([cardApi, cardApi.toggleCardLock], cardFromStore, payload);
     yield put(cardLockToggled(card));
     yield call(navigate, { route: ICardStackPages.LOCK_CARD_SUCCESS });
   } catch (error: unknown) {

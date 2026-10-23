@@ -1,4 +1,5 @@
 import { ILimits, ICardStatuses } from '../types';
+import { CardPinCode } from '../value-objects';
 
 export type IChangeCardLimitsCommand = {
   limits: ILimits;
@@ -18,4 +19,8 @@ export type ICreateCardCommand = {
 
 export type IToggleCardLockCommand = {
   lock: boolean;
+};
+
+export type IChangeCardPINCommand = {
+  pin: CardPinCode;
 };
