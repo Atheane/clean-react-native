@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
 import { View, StyleSheet, Dimensions, Image, Text } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@rneui/themed';
@@ -18,7 +17,7 @@ import {
   CB,
 } from '../assets';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { CardError } from '@clean-rn/card/domain';
+import { CardError, ICardStatuses } from '@clean-rn/card/domain';
 
 const HEIGHT = Dimensions.get('screen').height;
 export const CardMenu = () => {
@@ -27,8 +26,6 @@ export const CardMenu = () => {
   const { theme } = useTheme();
 
   const { pending, card, error } = useSelector((state: IRootState) => state.card);
-
-  console.log('---------> error', error);
 
   return pending ? (
     <LoaderSplashScreen />
@@ -47,15 +44,17 @@ export const CardMenu = () => {
               <ContactEmail />
             </View>
           )}
-          <View
-            style={[styles.subContainer, error && error instanceof CardError.Forbidden && { opacity: 0.3 }]}
-          >
+          <View style={[styles.subContainer]}>
             <View style={styles.rowContainer}>
               <LinkButton
                 iconLeft={BlueGradientSpeedmeter}
                 colorOption={LinkButtonColors.BLUE}
                 title={t('screens.card.menu.limits')}
                 onPress={() => navigation.navigate(ICardStackPages.CARD_LIMITS as never)}
+                disabled={
+                  (error && error instanceof CardError.Forbidden) ||
+                  ((card && card.properties.status === ICardStatuses.LOCK) as boolean)
+                }
               />
             </View>
             <View style={styles.rowContainer}>
@@ -64,6 +63,7 @@ export const CardMenu = () => {
                 colorOption={LinkButtonColors.BLUE}
                 title={t('screens.card.menu.lock')}
                 onPress={() => navigation.navigate(ICardStackPages.LOCK_CARD as never)}
+                disabled={error && ((error instanceof CardError.Forbidden) as boolean)}
               />
             </View>
             <View style={[styles.rowContainer, { marginLeft: 4 }]}>
@@ -72,6 +72,10 @@ export const CardMenu = () => {
                 colorOption={LinkButtonColors.BLUE}
                 title={t('screens.card.menu.change-pin')}
                 onPress={() => navigation.navigate(ICardStackPages.CHANGE_PIN as never)}
+                disabled={
+                  (error && error instanceof CardError.Forbidden) ||
+                  ((card && card.properties.status === ICardStatuses.LOCK) as boolean)
+                }
               />
             </View>
             <View style={[styles.rowContainer, { marginLeft: 2 }]}>
@@ -80,6 +84,10 @@ export const CardMenu = () => {
                 colorOption={LinkButtonColors.BLUE}
                 title={t('screens.card.menu.show-pin')}
                 onPress={() => navigation.navigate(ICardStackPages.SHOW_PIN as never)}
+                disabled={
+                  (error && error instanceof CardError.Forbidden) ||
+                  ((card && card.properties.status === ICardStatuses.LOCK) as boolean)
+                }
               />
             </View>
           </View>

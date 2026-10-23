@@ -15,12 +15,19 @@ type IProps = {
   iconRight?: React.FC<SvgProps>;
   onPress: () => void;
   inline?: StyleProp<TextStyle>;
+  disabled?: boolean;
 };
 
 export const LinkButton: FC<IProps> = (props: IProps) => {
   const { theme } = useTheme();
   return (
-    <Button type={'clear'} {...props} onPress={props.onPress} containerStyle={{ margin: 0 }}>
+    <Button
+      type={'clear'}
+      {...props}
+      onPress={props.onPress}
+      containerStyle={props.disabled ? { opacity: 0.3, margin: 0 } : { margin: 0 }}
+      disabled={props.disabled}
+    >
       {props.inline ? (
         props.title && <Text style={props.inline}>{props.title}</Text>
       ) : (
