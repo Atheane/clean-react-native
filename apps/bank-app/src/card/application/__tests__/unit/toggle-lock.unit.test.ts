@@ -111,7 +111,7 @@ describe('Lock UnLock - usecase', () => {
       .next(card)
       .put(cardLockToggled(card))
       .next()
-      .call(navigate, { route: ICardStackPages.MENU })
+      .call(navigate, { route: ICardStackPages.LOCK_CARD_SUCCESS })
       .next();
   });
 
