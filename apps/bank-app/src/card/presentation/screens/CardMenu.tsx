@@ -63,7 +63,7 @@ export const CardMenu = () => {
                 colorOption={LinkButtonColors.BLUE}
                 title={t('screens.card.menu.lock')}
                 onPress={() => navigation.navigate(ICardStackPages.LOCK_CARD as never)}
-                disabled={error && ((error instanceof CardError.Forbidden) as boolean)}
+                disabled={(error && error instanceof CardError.Forbidden) as boolean}
               />
             </View>
             <View style={[styles.rowContainer, { marginLeft: 4 }]}>

@@ -1,3 +1,9 @@
-import { BlueGradientSpeedmeter, BlueGradientLock, BlueGradientChangePin, BlueGradientShowPin } from './svg';
+import {
+  BlueGradientSpeedmeter,
+  BlueGradientLock,
+  BlueGradientChangePin,
+  BlueGradientShowPin,
+  WhiteEye,
+} from './svg';
 import { CB } from './images';
-export { BlueGradientSpeedmeter, BlueGradientLock, BlueGradientChangePin, BlueGradientShowPin, CB };
+export { BlueGradientSpeedmeter, BlueGradientLock, BlueGradientChangePin, BlueGradientShowPin, CB, WhiteEye };
