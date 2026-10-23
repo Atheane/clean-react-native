@@ -11,6 +11,11 @@ describe('AmountVO - unit', () => {
       new TransactionError.InvalidTransactionAmount('Invalid transaction value'),
     );
   });
+  it('should return throw a AccountError.InvalidTransactionAmount 2 digits precision max', () => {
+    expect(() => new Amount('20,001', ITransactionType.PAYIN)).toThrow(
+      new TransactionError.InvalidTransactionAmount('Amount cannot have more than two decimal places'),
+    );
+  });
   it('should return correct value if no transaction type is given', () => {
     expect(new Amount('20').value).toEqual(20);
   });
