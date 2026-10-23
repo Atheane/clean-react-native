@@ -694,6 +694,12 @@
         "cgu": "CGU",
         "cgu-kyc-provider": "CGU KycProvider",
         "delete-account": "Se désinscrire"
+      },
+      "delete-account": {
+        "title": "Se désinscrire",
+        "description": "Nous sommes très tristes de cette nouvelle.\n\nNous l’avons bien prise en compte malgré tout.\n\nEn confirmant votre choix, nous supprimons votre compte utilisateur.\n\n",
+        "button": "Confirmer",
+        "goodbye": "Au revoir !"
       }
     },
     "card": {

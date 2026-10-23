@@ -11,7 +11,7 @@ import {
 } from '../../../shared/presentation/types';
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 
-import { NotificationSettings, Profile } from '../screens';
+import { NotificationSettings, Profile, DeleteAccount, GoodBye } from '../screens';
 import { LinkButton, LinkButtonColors, OffBlueGradient } from '@clean-rn/ui-mobile';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
@@ -52,6 +52,22 @@ export const ProfileStack = () => {
         component={NotificationSettings}
         options={{
           headerTitle: t('screens.notifications.title'),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+      />
+      <Stack.Screen
+        name={IProfileStackPages.DELETE_ACCOUNT}
+        component={DeleteAccount}
+        options={{
+          headerTitle: t('screens.profile.delete-account.title'),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+      />
+      <Stack.Screen
+        name={IProfileStackPages.GOODBYE}
+        component={GoodBye}
+        options={{
+          headerTitle: t('screens.profile.delete-account.goodbye'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />
