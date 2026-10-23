@@ -8,7 +8,7 @@ import { useTheme } from '@rneui/themed';
 import { IconNode } from '@rneui/base';
 
 import { IBeneficiary } from '@clean-rn/beneficiary/domain';
-import { IContact } from '@clean-rn/contact/domain';
+import { IContact, Phone } from '@clean-rn/contact/domain';
 import {
   PrimaryButton,
   LinkButton,
@@ -88,7 +88,6 @@ const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
 
   const handleOnPress = useCallback(
     (beneficiaryId: number) => {
-      console.log('selectBeneficiary', beneficiaryId);
       dispatch(selectBeneficiary({ beneficiaryId }));
     },
     [dispatch],
@@ -124,6 +123,15 @@ const ContentContact = (props: { data: IContact[] }) => {
   const navigation = useNavigation();
   const { theme } = useTheme();
 
+  const dispatch = useDispatch();
+  const handleOnPress = useCallback(
+    (phone: Phone) => {
+      // todo
+      // dispatch(selectContact({ phone }));
+    },
+    [dispatch],
+  );
+
   const handleOnPressAdd = useCallback(() => {
     navigation.navigate(IBeneficiaryStackPages.CONTACT_ADD as never);
   }, [navigation]);
@@ -132,7 +140,7 @@ const ContentContact = (props: { data: IContact[] }) => {
     <>
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
-          <ContactCardList data={props.data} />
+          <ContactCardList data={props.data} onPress={handleOnPress} />
         </View>
       </SafeAreaView>
       <View style={styles.top}>

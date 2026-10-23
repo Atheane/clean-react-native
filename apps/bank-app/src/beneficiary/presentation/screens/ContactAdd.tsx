@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { getLocales } from 'expo-localization';
 import { useForm } from 'react-hook-form';
 
 import { useCleanErrorOnFocus, FormContact, IContactFormData, Colors } from '@clean-rn/ui-mobile';
@@ -10,6 +11,8 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
 import { addContact } from '../../application/commands/contact';
+
+const locales = getLocales();
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -21,12 +24,16 @@ export const ContactAdd = () => {
   const { pending, error } = useSelector((state: IRootState) => state.beneficiary.contacts);
 
   // internal state
+  const defaultCountry = locales[0]?.regionCode || undefined;
+
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<IContactFormData>({
-    defaultValues: {},
+    defaultValues: {
+      countryCode: defaultCountry,
+    },
   });
 
   const dispatch = useDispatch();
@@ -49,6 +56,7 @@ export const ContactAdd = () => {
             error={domainError}
             onSubmit={handleSubmit(onSubmit)}
             onFocus={onFocus}
+            defaultCountry={defaultCountry}
           />
         </View>
       </SafeScrollingView>

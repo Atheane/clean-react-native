@@ -1,5 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
+import { Phone } from '@clean-rn/contact/domain';
 import { ContactCardList } from '@clean-rn/ui-mobile';
 
 import { ValidationStatus, WithCenterView, WithStatus } from '../../wrappers';
@@ -7,19 +8,26 @@ import { ValidationStatus, WithCenterView, WithStatus } from '../../wrappers';
 const ContactCardListMeta: ComponentMeta<typeof ContactCardList> = {
   title: 'Lists/ContactCardList',
   component: ContactCardList,
+  argTypes: {
+    onPress: { action: 'onPress' },
+  },
   args: {
     data: [
       {
         name: 'John Doe',
-        phone: '0612345678',
+        phone: new Phone('+33612345678'),
       },
       {
         name: 'Marie Jeanne',
-        phone: '0708091011',
+        phone: new Phone('+4593705821'),
       },
       {
         name: 'Jeanne Durut',
-        phone: '0708070807',
+        phone: new Phone('+3584573988222'),
+      },
+      {
+        name: 'John Doe2',
+        phone: new Phone('+12013514000'), // US phone number, should not be shown in list
       },
     ],
   },
@@ -30,4 +38,4 @@ export default ContactCardListMeta;
 
 type ContactCardListStory = ComponentStory<typeof ContactCardList>;
 
-export const Static: ContactCardListStory = (args) => <ContactCardList {...args} />;
+export const OnPress: ContactCardListStory = (args) => <ContactCardList {...args} />;

@@ -28,17 +28,25 @@ export default BeneficiaryCardMeta;
 type BeneficiaryCardStory = ComponentStory<typeof BeneficiaryCard>;
 
 export const Even: BeneficiaryCardStory = (args) => {
-  return <BeneficiaryCard {...args} onDelete={undefined} onPress={undefined} />;
+  return <BeneficiaryCard {...args} idx={2} onDelete={undefined} onPress={undefined} />;
 };
 
-export const Odd: BeneficiaryCardStory = (args) => {
-  return <BeneficiaryCard {...args} idx={1} onDelete={undefined} />;
+export const EvenPress: BeneficiaryCardStory = (args) => {
+  return <BeneficiaryCard {...args} idx={4} onDelete={undefined} />;
 };
 
 export const EvenDelete: BeneficiaryCardStory = (args) => {
-  return <BeneficiaryCard {...args} onPress={undefined} />;
+  return <BeneficiaryCard {...args} idx={6} onPress={undefined} />;
+};
+
+export const Odd: BeneficiaryCardStory = (args) => {
+  return <BeneficiaryCard {...args} idx={1} onDelete={undefined} onPress={undefined} />;
 };
 
 export const OddPress: BeneficiaryCardStory = (args) => {
-  return <BeneficiaryCard {...args} idx={1} onDelete={undefined} />;
+  return <BeneficiaryCard {...args} idx={3} onDelete={undefined} />;
+};
+
+export const OddDelete: BeneficiaryCardStory = (args) => {
+  return <BeneficiaryCard {...args} idx={5} onPress={undefined} />;
 };

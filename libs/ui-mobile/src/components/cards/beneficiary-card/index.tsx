@@ -17,7 +17,11 @@ type IProps = {
 export const BeneficiaryCard = (props: IProps) => {
   return (
     <View
-      style={props.idx % 2 ? styles.beneficiaryContainer : [styles.beneficiaryContainer, styles.oddContainer]}
+      style={
+        props.idx % 2 === 0
+          ? [styles.beneficiaryContainer, styles.evenContainer]
+          : [styles.beneficiaryContainer, styles.oddContainer]
+      }
     >
       <View>
         <BeneficiaryItem
@@ -40,7 +44,10 @@ const styles = StyleSheet.create({
     height: 72,
     width: Dimensions.get('window').width,
   },
-  oddContainer: {
+  evenContainer: {
     backgroundColor: Colors.bank.primary.lightGrey,
+  },
+  oddContainer: {
+    backgroundColor: Colors.bank.primary.white,
   },
 });
