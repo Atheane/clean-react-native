@@ -52,13 +52,14 @@ import { HouseForm } from './forms/house-form';
 import { TransportForm } from './forms/transport-form';
 import { FormTransfer, ITransferFormData } from './forms/form-transfer';
 import { FormCardLimits, ICardLimitsFormData } from './forms/form-card-limits';
+import { FormChangePin, IChangePinFormData } from './forms/form-change-pin';
 // Inputs
 import { TextInput } from './inputs/text-input';
 import { EmailInput } from './inputs/email-input';
 import { PasswordInput } from './inputs/password-input';
 import { SelectNumber } from './inputs/select-number';
 import { PhoneSecurityPinInput } from './inputs/phone-security-pin-input';
-import { PhoneValidationCodeInput } from './inputs/phone-validation-code-input';
+import { DigitsInput } from './inputs/digits-input';
 import { Slider } from './inputs/slider';
 // Items
 import { IconTextItem } from './items/icon-text-item';
@@ -154,13 +155,15 @@ export {
   ITransferFormData,
   FormCardLimits,
   ICardLimitsFormData,
+  FormChangePin,
+  IChangePinFormData,
   // Inputs
   TextInput,
   EmailInput,
   PasswordInput,
   SelectNumber,
   PhoneSecurityPinInput,
-  PhoneValidationCodeInput,
+  DigitsInput,
   Slider,
   // Items
   TransactionItem,

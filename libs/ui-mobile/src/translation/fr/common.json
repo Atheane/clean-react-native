@@ -50,6 +50,11 @@
       "invalid": "code invalide",
       "min-length": "doit contenir au minimum 6 chiffres"
     },
+    "card-pin": {
+      "required": "code à 4 chiffres requis",
+      "invalid": "code invalide",
+      "min-length": "doit contenir au minimum 4 chiffres"
+    },
     "birthday": {
       "invalid": "date de naissance invalide, 18 ans minimum"
     },
@@ -154,6 +159,12 @@
         "UNKNOWN_TRANSACTION_TYPE": "Type de transaction inconnu",
         "INVALID_TRANSACTION_VALUE": "Valeur de transaction invalide",
         "TRANSFER_AMOUNT_TOO_HIGH": "Montant de transfert supérieur au solde"
+      },
+      "card": {
+        "INVALID_PIN_FORMAT": "Format du code PIN invalide",
+        "CARD_NOT_FOUND": "Carte non trouvée",
+        "CARD_FORBIDDEN": "Carte non autorisée",
+        "MAX_NUMBER_OF_PIN_CHANGES_REACHED": "Nombre maximum de modification du code PIN atteint"
       },
       "other": "erreur, veuillez contacter l'administrateur"
     },

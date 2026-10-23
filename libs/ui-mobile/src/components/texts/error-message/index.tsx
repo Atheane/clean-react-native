@@ -21,6 +21,7 @@ import { useTheme } from '@rneui/themed';
 
 import { IContactErrorCodes, IContactErrorMessage } from '@clean-rn/contact/domain';
 import { ITransactionErrorCodes, ITransactionErrorMessage } from '@clean-rn/transaction/domain';
+import { ICardErrorCodes, ICardErrorMessage } from '@clean-rn/card/domain';
 
 type IProps = {
   error:
@@ -33,6 +34,7 @@ type IProps = {
     | IDomainError<ICustomerErrorCodes, ICustomerErrorMessage>
     | IDomainError<IDocumentErrorCodes, IDocumentErrorMessage>
     | IDomainError<ITransactionErrorCodes, ITransactionErrorMessage>
+    | IDomainError<ICardErrorCodes, ICardErrorMessage>
     | null;
 };
 export const ErrorMessage = (props: IProps) => {
@@ -114,6 +116,13 @@ export const ErrorMessage = (props: IProps) => {
             </Text>
           </View>
         )}
+      {props.error?.code && Object.values(ICardErrorCodes).includes(props.error.code as ICardErrorCodes) && (
+        <View>
+          <Text style={theme.bank.text.errors}>
+            {firstLetterCapitalize(t(`errors.domain-error.card.${props.error.code}`))}
+          </Text>
+        </View>
+      )}
       {props.error?.code &&
         !Object.values(IAuthErrorCodes).includes(props.error.code as IAuthErrorCodes) &&
         !Object.values(IUserErrorCodes).includes(props.error.code as IUserErrorCodes) &&
@@ -123,7 +132,8 @@ export const ErrorMessage = (props: IProps) => {
         !Object.values(ICarbonErrorCodes).includes(props.error.code as ICarbonErrorCodes) &&
         !Object.values(ICustomerErrorCodes).includes(props.error.code as ICustomerErrorCodes) &&
         !Object.values(IDocumentErrorCodes).includes(props.error.code as IDocumentErrorCodes) &&
-        !Object.values(ITransactionErrorCodes).includes(props.error.code as ITransactionErrorCodes) && (
+        !Object.values(ITransactionErrorCodes).includes(props.error.code as ITransactionErrorCodes) &&
+        !Object.values(ICardErrorCodes).includes(props.error.code as ICardErrorCodes) && (
           <View>
             <Text style={theme.bank.text.errors}>
               {firstLetterCapitalize(t('errors.domain-error.other'))}

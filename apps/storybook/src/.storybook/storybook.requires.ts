@@ -100,13 +100,14 @@ const getStories = () => {
     './stories/forms/FormContact.stories.tsx': require('../stories/forms/FormContact.stories'),
     './stories/forms/FormTransfer.stories.tsx': require('../stories/forms/FormTransfer.stories'),
     './stories/forms/FormCardLimits.stories.tsx': require('../stories/forms/FormCardLimits.stories'),
+    './stories/forms/FormChangePin.stories.tsx': require('../stories/forms/FormChangePin.stories'),
     // Inputs
     './stories/inputs/TextInput.stories.tsx': require('../stories/inputs/TextInput.stories'),
     './stories/inputs/EmailInput.stories.tsx': require('../stories/inputs/EmailInput.stories'),
     './stories/inputs/PasswordInput.stories.tsx': require('../stories/inputs/PasswordInput.stories'),
     './stories/inputs/SelectNumber.stories.tsx': require('../stories/inputs/SelectNumber.stories'),
     './stories/inputs/PhoneSecurityPinInput.stories.tsx': require('../stories/inputs/PhoneSecurityPinInput.stories'),
-    './stories/inputs/PhoneValidationCodeInput.stories.tsx': require('../stories/inputs/PhoneValidationCodeInput.stories'),
+    './stories/inputs/DigitsInput.stories.tsx': require('../stories/inputs/DigitsInput.stories'),
     './stories/inputs/Slider.stories.tsx': require('../stories/inputs/Slider.stories'),
     // Lists
     './stories/lists/TransactionsCardsList.stories.tsx': require('../stories/lists/TransactionsCardsList.stories'),
