@@ -27,7 +27,7 @@ export const KycMissing = () => {
         <View style={[styles.container, theme.bank.container.centeredItem]}>
           <Image source={InitKyc} style={{ width: 250, height: 250 }} />
           <Text style={[styles.instruction, theme.bank.text.grey, { fontSize: 16 }]}>
-            {t('screens.card.menu.instruction')}
+            {t('screens.card.kyc-missing.instruction')}
             <Text style={[styles.instruction, theme.bank.text.boldGrey, { fontSize: 16 }]}>
               {t('screens.card.kyc-missing.instruction-bold')}
             </Text>
@@ -46,7 +46,7 @@ export const KycMissing = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: HEIGHT,
+    height: HEIGHT + 150,
     justifyContent: 'flex-start',
     marginTop: -150,
   },

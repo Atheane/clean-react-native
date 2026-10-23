@@ -18,9 +18,10 @@ import {
   IBeneficiaryStackParamList,
   IProfileStackParamList,
   IUserStackParamList,
-  ITransferStackParamList,
   ICardStackParamLimit,
 } from '../types';
+
+const prefix = Linking.createURL('');
 
 export const LinkingConfiguration: LinkingOptions<
   | IRootStackParamList
@@ -32,102 +33,101 @@ export const LinkingConfiguration: LinkingOptions<
   | ITransactionStackParamList
   | IBeneficiaryStackParamList
   | IProfileStackParamList
-  | ITransferStackParamList
   | IUserStackParamList
   | ICardStackParamLimit
 > = {
-  prefixes: [Linking.createURL('/')],
+  prefixes: [prefix],
   config: {
     screens: {
       // auth
-      Login: 'Login',
-      ResetPassword: 'ResetPassword',
+      Login: 'login',
+      ResetPassword: 'reset-password',
       // shared
-      Legal: 'Legal',
-      Cgu: 'Cgu',
-      CguKycProvider: 'CguKycProvider',
-      ModalError: 'ModalError',
-      ModalWebView: 'ModalWebView',
+      Legal: 'legal',
+      Cgu: 'cgu',
+      CguKycProvider: 'cgu-kyc-provider',
+      ModalError: 'modal-error',
+      ModalWebView: 'modal-webview',
       // userStack
-      SignupEmail: 'SignupEmail',
-      SignupIdentityPasswordPhone: 'SignupIdentityPasswordPhone',
-      SignupValidatePhone: 'SignupValidatePhone',
-      SignupBirth: 'SignupBirth',
-      SignupAddress: 'SignupAddress',
-      SignupCongrats: 'SignupCongrats',
-      EmailSent: 'EmailSent',
-      SignupPhone: 'SignupPhone',
+      SignupEmail: 'signup-email',
+      SignupIdentityPasswordPhone: 'signup-identity-password-phone',
+      SignupValidatePhone: 'signup-validate-phone',
+      SignupBirth: 'signup-birth',
+      SignupAddress: 'signup-address',
+      SignupCongrats: 'signup-congrats',
+      EmailSent: 'email-sent',
+      SignupPhone: 'signup-phone',
       Home: {
         screens: {
           MenuAccount: {
             screens: {
-              Accounts: 'Accounts',
-              RibPdf: 'RibPdf',
+              Accounts: 'accounts',
+              RibPdf: 'rib-pdf',
             },
           },
           MenuTransaction: {
             screens: {
-              Transactions: 'Transactions',
-              AccountStatements: 'AccountStatements',
-              AccountStatementsPdf: 'AccountStatementsPdf',
+              Transactions: 'transactions',
+              AccountStatements: 'account-statements',
+              AccountStatementsPdf: 'account-statements-pdf',
             },
           },
           MenuTransfer: {
             screens: {
-              Transfer: 'Transfer',
-              TransferSuccess: 'TransferSuccess',
+              Transfer: 'transfer',
+              TransferSuccess: 'transfer-success',
             },
           },
           MenuBeneficiary: {
             screens: {
-              BeneficiaryList: 'BeneficiaryList',
-              BeneficiaryAdd: 'BeneficiaryAdd',
-              ContactAdd: 'ContactAdd',
+              BeneficiaryList: 'beneficiary-list',
+              BeneficiaryAdd: 'beneficiary-add',
+              ContactAdd: 'contact-add',
             },
           },
           MenuCarbon: {
             screens: {
-              Carbon: 'Carbon',
-              House: 'House',
-              Transport: 'Transport',
-              Food: 'Food',
-              Fly: 'Fly',
-              WarningFood: 'WarningFood',
+              Carbon: 'carbon',
+              House: 'house',
+              Transport: 'transport',
+              Food: 'food',
+              Fly: 'fly',
+              WarningFood: 'warning-food',
             },
           },
           MenuProfile: {
             screens: {
-              Profile: 'Profile',
-              NotificationSettings: 'NotificationSettings',
+              Profile: 'profile',
+              NotificationSettings: 'notification-settings',
             },
           },
           MenuKyc: {
             screens: {
-              InitKyc: 'InitKyc',
-              Kyc: 'Kyc',
-              KycDocumentsValidated: 'KycDocumentsValidated',
-              IdList: 'IdList',
-              UploadDocument: 'UploadDocument',
-              ResidenceProofOptions: 'ResidenceProofOptions',
-              ResidenceProofList: 'ResidenceProofList',
-              KycHost: 'KycHost',
-              HostIdList: 'HostIdList',
-              HostResidenceProofList: 'HostResidenceProofList',
-              SuccessKyc: 'SuccessKyc',
-              CardSent: 'CardSent',
+              InitKyc: 'init-kyc',
+              Kyc: 'kyc',
+              KycDocumentsValidated: 'kyc-documents-validated',
+              IdList: 'id-list',
+              UploadDocument: 'upload-document',
+              ResidenceProofOptions: 'residence-proof-options',
+              ResidenceProofList: 'residence-proof-list',
+              KycHost: 'kyc-host',
+              HostIdList: 'host-id-list',
+              HostResidenceProofList: 'host-residence-proof-list',
+              SuccessKyc: 'success-kyc',
+              CardSent: 'card-sent',
             },
           },
           MenuCard: {
             screens: {
-              Card: 'Card',
-              KycMissing: 'KYCMissing',
-              WaitingCard: 'WaitingCard',
-              CardLimits: 'CardLimits',
-              ChangePin: 'ChangePin',
-              ChangePinSuccess: 'ChangePinSuccess',
-              ShowPin: 'ShowPin',
-              LockCard: 'LockCard',
-              LockCardSuccess: 'LockCardSuccess',
+              Card: 'card',
+              KycMissing: 'kyc-missing',
+              WaitingCard: 'waiting-card',
+              CardLimits: 'card-limits',
+              ChangePin: 'change-pin',
+              ChangePinSuccess: 'change-pin-success',
+              ShowPin: 'show-pin',
+              LockCard: 'lock-card',
+              LockCardSuccess: 'lock-card-success',
             },
           },
         },

@@ -42,14 +42,10 @@ export const FormTransfer = (props: IProps) => {
           rules={{
             required: true,
             validate: (value: string) => {
-              console.log(value);
-              console.log(parseFloat(value.replace(',', '.')));
-              console.log(new Amount(value, ITransactionType.TRANSFER_OUT));
               try {
                 new Amount(value, ITransactionType.TRANSFER_OUT);
                 return true;
               } catch (error: unknown) {
-                console.log(error);
                 return false;
               }
             },

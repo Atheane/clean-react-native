@@ -7,7 +7,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@rneui/themed';
 
-import { Fonts, theme, i18n, LoaderSplashScreen } from '@clean-rn/ui-mobile';
+import { Fonts, theme, i18n, LoaderSplashScreen, useDeepLink } from '@clean-rn/ui-mobile';
 
 import { store } from '../application/state-management/state/store';
 import { NavigationUI } from './navigation';
@@ -22,6 +22,8 @@ const App: () => JSX.Element = () => {
   useEffect(() => {
     dispatch(initializeApplication());
   }, [dispatch]);
+
+  useDeepLink();
 
   const { pending } = useSelector((state: IRootState) => state.initialization);
 
