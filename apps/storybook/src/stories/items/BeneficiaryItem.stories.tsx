@@ -23,7 +23,7 @@ export default BeneficiaryItemMeta;
 
 type BeneficiaryItemStory = ComponentStory<typeof BeneficiaryItem>;
 
-export const Static: BeneficiaryItemStory = (args) => {
+export const Simple: BeneficiaryItemStory = (args) => {
   return <BeneficiaryItem {...args} onDelete={undefined} onPress={undefined} />;
 };
 

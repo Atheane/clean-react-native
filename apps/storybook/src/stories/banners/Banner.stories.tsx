@@ -29,7 +29,7 @@ export const UpdateNeeded: BannerStory = (args) => {
 };
 export const ErrorMessage: BannerStory = (args) => {
   const error = new AccountError.InvalidIban('Invalid IBAN');
-  return <Banner {...args} title={error.message} rightIcon={false} />;
+  return <Banner {...args} title={error.message} onPressRightIcon={undefined} />;
 };
 export const IdentityValidation: BannerStory = (args) => {
   const { t } = useTranslation();
