@@ -1,8 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# This loads nvm.sh and sets the correct PATH before running hook
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-nvm use v18.14.2 && npx nx run-many --all --target=test --parallel
+npm run test
