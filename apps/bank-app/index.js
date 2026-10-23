@@ -11,7 +11,6 @@ const firebaseConfig = {
   storageBucket: Constants.expoConfig?.extra?.FIREBASE_STORAGE_BUCKET,
   messagingSenderId: Constants.expoConfig?.extra?.FIREBASE_MESSAGING_SENDER_ID,
   appId: Constants.expoConfig?.extra?.FIREBASE_APP_ID,
-  measurementId: Constants.expoConfig?.extra?.FIREBASE_MEASUREMENT_ID,
 };
 
 if (firebase.apps.length === 0) {
