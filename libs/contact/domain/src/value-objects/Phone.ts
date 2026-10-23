@@ -8,24 +8,29 @@ export class Phone {
   private numberProto: any;
   public countryCode: string;
 
-  constructor(phone: string, countryCode: string) {
+  constructor(phone: string, countryCode?: string) {
     this.phoneUtil = PhoneNumberUtil.getInstance();
-    this.countryCode = countryCode;
+    const regionCode = this.parseRegionCodeFromNumber(phone);
+    this.countryCode = (regionCode || countryCode) as string;
     this.parseNumber(phone);
     this.validate();
   }
 
-  private parseNumber(phone: string) {
+  private parseRegionCodeFromNumber(phone: string): string | undefined {
     try {
       this.numberProto = this.phoneUtil.parse(phone);
-      const regionCode = this.phoneUtil.getRegionCodeForNumber(this.numberProto);
-      // vérifier regionCode === countryCode ...
-      if (regionCode) {
-        this.countryCode = regionCode;
-      }
+      return this.phoneUtil.getRegionCodeForNumber(this.numberProto) as string;
     } catch (e: unknown) {
       // missing international extension in phone number
+      return;
+    }
+  }
+
+  private parseNumber(phone: string): void {
+    try {
       this.numberProto = this.phoneUtil.parse(phone, this.countryCode);
+    } catch (e: unknown) {
+      throw new ContactError.InvalidCountryCode('Invalid country code');
     }
   }
 

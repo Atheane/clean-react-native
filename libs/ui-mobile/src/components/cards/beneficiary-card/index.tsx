@@ -1,11 +1,11 @@
 import { Dimensions, StyleSheet, View } from 'react-native';
 import { SvgProps } from 'react-native-svg';
-//
+
 import { IBeneficiary } from '@clean-rn/beneficiary/domain';
-//
-import { Colors } from '../../../constants';
+
 import { BeneficiaryItem } from '../../items/beneficiary-item';
 import { BankBgGradient, BankAltLogo } from '../../../assets';
+import { Colors } from '../../../constants';
 
 type IProps = {
   data: IBeneficiary & { icon?: React.FC<SvgProps> };

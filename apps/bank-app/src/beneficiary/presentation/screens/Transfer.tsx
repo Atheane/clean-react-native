@@ -2,26 +2,32 @@ import { useCallback, useEffect, useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useRoute } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 
 import { IAccount } from '@clean-rn/account/domain';
-import { FormTransfer, ITransferFormData, TransferCard, useCleanErrorOnFocus } from '@clean-rn/ui-mobile';
-
+import {
+  FormTransfer,
+  ITransferFormData,
+  TransferCard,
+  useCleanErrorOnFocus,
+  PhoneGradientWhiteBg,
+  BankBgGradient,
+  BankAltLogo,
+} from '@clean-rn/ui-mobile';
+import { Amount, ITransactionType } from '@clean-rn/transaction/domain';
+import { Phone } from '@clean-rn/contact/domain';
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-
-import { BankLogoCO2, BankLogoGeneric } from '../assets/images';
-import { Decoration } from '../assets/svg';
 import {
   fetchPayout,
   fetchTransactionWaiting,
   fetchTransfer,
 } from '../../../transaction/application/commands';
-import { Amount, ITransactionType } from '@clean-rn/transaction/domain';
-import { useRoute } from '@react-navigation/native';
-import { Phone } from '@clean-rn/contact/domain';
+
+import { Decoration } from '../assets/svg';
 
 type IData = {
   key: string;
@@ -157,7 +163,7 @@ export const Transfer = () => {
               <TransferCard
                 arrow={true}
                 text={userName}
-                image={BankLogoCO2}
+                icon={BankAltLogo}
                 data={data}
                 onSelect={handleOnSelect}
               />
@@ -167,7 +173,7 @@ export const Transfer = () => {
                 <TransferCard
                   arrow={false}
                   text={beneficiaryName}
-                  image={beneficiaryAccountId ? BankLogoCO2 : BankLogoGeneric}
+                  icon={beneficiaryAccountId ? BankAltLogo : phoneNumber ? PhoneGradientWhiteBg : BankBgGradient}
                 />
               </View>
             )}
