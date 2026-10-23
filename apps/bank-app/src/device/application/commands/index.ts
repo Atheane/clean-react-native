@@ -12,18 +12,23 @@ import {
   IDeviceTypes,
   IDeviceActions,
   IDeviceAlreadyRegistered,
+  IResetError,
 } from './types';
 
 // redux actions that are commands
-export const initializeDevice = (): IInitializeDevice => ({
-  type: IDeviceTypes.INITIALIZE_DEVICE,
-});
-
 export const fetchRegisterDevice = (
   payload: IRegisterDeviceCommand & { firebaseId?: string; deviceId: string; appVersion: string },
 ): IFetchRegisterDevice => ({
   type: IDeviceTypes.FETCH_REGISTER_DEVICE,
   payload,
+});
+
+export const initializeDevice = (): IInitializeDevice => ({
+  type: IDeviceTypes.INITIALIZE_DEVICE,
+});
+
+export const resetError = (): IResetError => ({
+  type: IDeviceTypes.RESET_ERROR,
 });
 
 // redux actions that are domain Events

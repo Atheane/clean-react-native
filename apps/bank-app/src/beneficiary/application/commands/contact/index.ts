@@ -14,6 +14,7 @@ import {
   IInitContact,
   IContactsListed,
   IContactAddedFailed,
+  IResetError,
 } from './types';
 import { IDomainError } from '@clean-rn/ddd';
 
@@ -29,6 +30,10 @@ export const listContacts = (): IListContacts => ({
 
 export const initContact = (): IInitContact => ({
   type: IContactTypes.INIT_CONTACT,
+});
+
+export const resetError = (): IResetError => ({
+  type: IContactTypes.RESET_ERROR,
 });
 
 // domain Events

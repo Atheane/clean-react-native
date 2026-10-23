@@ -9,7 +9,6 @@ const initialState: ICardState = {
 
 export const cardReducer = (state = initialState, action: ICardActions) => {
   let newState: ICardState;
-
   switch (action.type) {
     case ICardTypes.FETCH_CHANGE_CARD_LIMITS:
       newState = {
@@ -41,7 +40,6 @@ export const cardReducer = (state = initialState, action: ICardActions) => {
         ...state,
         pending: false,
         error: action.payload,
-        card: null,
       };
       return newState;
     case ICardTypes.CARD_LIMITS_CHANGED:
@@ -56,7 +54,6 @@ export const cardReducer = (state = initialState, action: ICardActions) => {
         ...state,
         pending: false,
         error: action.payload,
-        card: null,
       };
       return newState;
     case ICardTypes.CARD_LOCK_TOGGLED:
@@ -80,10 +77,17 @@ export const cardReducer = (state = initialState, action: ICardActions) => {
         error: action.payload,
       };
       return newState;
-    case ICardTypes.INIT_CARD:
+    case ICardTypes.RESET_ERROR:
       newState = {
         ...state,
         pending: false,
+        error: null,
+      };
+      return newState;
+    case ICardTypes.INIT_CARD:
+      newState = {
+        ...state,
+        ...initialState,
       };
       return newState;
     default:

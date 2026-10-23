@@ -21,6 +21,7 @@ import {
   IFetchChangePIN,
   ICardPINChanged,
   ICardPINChangedFailed,
+  IResetError,
 } from './types';
 import { IDomainError } from '@clean-rn/ddd';
 
@@ -38,6 +39,14 @@ export const fetchToggleLock = (payload: IToggleCardLockCommand): IFetchToggleLo
 export const fetchChangePIN = (payload: IChangeCardPINCommand): IFetchChangePIN => ({
   type: ICardTypes.FETCH_CHANGE_CARD_PIN,
   payload,
+});
+
+export const initCard = (): IInitCard => ({
+  type: ICardTypes.INIT_CARD,
+});
+
+export const resetError = (): IResetError => ({
+  type: ICardTypes.RESET_ERROR,
 });
 
 // domain events
@@ -76,10 +85,6 @@ export const cardPINChangedFailed = (
 ): ICardPINChangedFailed => ({
   type: ICardTypes.CARD_PIN_CHANGED_FAILED,
   payload,
-});
-
-export const initCard = (): IInitCard => ({
-  type: ICardTypes.INIT_CARD,
 });
 
 export { ICardTypes, ICardActions };

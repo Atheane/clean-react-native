@@ -2,18 +2,14 @@
 import { call, put, StrictEffect, takeEvery, cancel, select, spawn, join } from 'redux-saga/effects';
 import { ImageSourcePropType } from 'react-native';
 
-import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { Customer, DocumentError, DocumentVO, IDocumentProperties } from '@clean-rn/kyc/domain';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { KycApi } from '@clean-rn/kyc/infrastructure';
 
-import { IAuthStackPages, IKycStackPages } from '../../../../shared/presentation/types';
+import { IKycStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-
-import { selectAuth } from '../../../../auth/application/state-management/selectors';
-import { refreshSuccess } from '../../../../auth/application/commands';
 
 import { selectUser } from '../../../../user/application/state-management/selectors';
 
@@ -28,6 +24,7 @@ import {
   setAbortController,
 } from '../../commands/document';
 import { selectCustomer, selectDocument } from '../../state-management/selectors';
+import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
 export function* initializeDocumentSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(IDocumentTypes.INITIALIZE_DOCUMENT, initializeDocumentSagaGenerator);
@@ -123,11 +120,7 @@ export function* uploadDocumentSagaGenerator(
     }
     const user = yield select(selectUser);
 
-    const authApi = AuthApi.getInstance(httpConnection);
-    const authFromStore = yield select(selectAuth);
-    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
-    yield put(refreshSuccess({ auth }));
-
+    yield call(ensureTokenRefreshed, httpConnection);
     const api = KycApi.getInstance(httpConnection);
     const abortController = new AbortController(); // Créer une nouvelle instance ici
     yield put(setAbortController({ controller: abortController }));
@@ -149,10 +142,7 @@ export function* uploadDocumentSagaGenerator(
     yield put(customerDocumentsUpdated({ customer }));
   } catch (error: any) {
     yield put(resetDocument());
-    if (error instanceof ServerError && error.statusCode === 401) {
-      yield call(navigate, { route: IAuthStackPages.LOGIN });
-      yield cancel();
-    } else if (error.name === 'AbortError') {
+    if (error.name === 'AbortError') {
       console.log(error);
       yield cancel();
     }

@@ -5,32 +5,21 @@ import Constants from 'expo-constants';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
+import { AuthError } from '@clean-rn/auth/domain';
 
 import { logoutSaga, logoutGenerator } from '../../usecases/logout';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { IAuthTypes, loggedOut } from '../../commands';
-import { AuthError } from '@clean-rn/auth/domain';
+import { IAuthTypes, loggedOut, resetError } from '../../commands';
+import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
 describe('Loggout - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
   const authApi = AuthApi.getInstance(httpConnection);
 
   const genObject = logoutSaga(httpConnection);
-
-  const mockError401 = {
-    statusCode: 401,
-    message: 'Unauthorized',
-    response: {
-      statusCode: 401,
-      message: 'Unauthorized',
-    },
-    timestamp: '2023-10-03T13:20:21.303Z',
-    path: '/auth/logout',
-    method: 'GET',
-  };
 
   const mockError500 = {
     message: 'Core::AuthService::Auth - Server Error',
@@ -50,6 +39,8 @@ describe('Loggout - usecase', () => {
   it('Should call loggedOut if api return success true', async () => {
     testSaga(logoutGenerator, httpConnection)
       .next()
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .call([authApi, authApi.logout]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next({
         success: true,
@@ -63,31 +54,27 @@ describe('Loggout - usecase', () => {
   it('Should throw LogoutFailure if api return success false', async () => {
     testSaga(logoutGenerator, httpConnection)
       .next()
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .call([authApi, authApi.logout]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next({
         success: false,
       })
+      .put(resetError())
+      .next()
       .put(showUnknownError(new AuthError.LogoutFailure()))
       .next();
-  });
-
-  it('Should call loggedOut action if 401 from Server', () => {
-    testSaga(logoutGenerator, httpConnection)
-      .next()
-      .call([authApi, authApi.logout]) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .throw(new ServerError(mockError401))
-      .put(loggedOut())
-      .next()
-      .call(navigate, { route: IAuthStackPages.LOGIN })
-      .next()
-      .cancel();
   });
 
   it('Should call showUnknownError action if 500 from Server', () => {
     testSaga(logoutGenerator, httpConnection)
       .next()
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .call([authApi, authApi.logout]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
+      .put(resetError())
+      .next()
       .put(showUnknownError(new ServerError(mockError500)))
       .next();
   });
@@ -95,8 +82,12 @@ describe('Loggout - usecase', () => {
   it('Should call showUnknownError action if unknown error', () => {
     testSaga(logoutGenerator, httpConnection)
       .next()
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .call([authApi, authApi.logout]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unknown error'))
+      .put(resetError())
+      .next()
       .put(showUnknownError(new Error('unknown error')))
       .next();
   });

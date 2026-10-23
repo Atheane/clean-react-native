@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Header, useTheme } from '@rneui/themed';
 
 import { RightChevron, Warning } from '../../../assets';
@@ -15,51 +15,31 @@ type IProps = {
 
 export const Banner = (props: IProps) => {
   const { theme } = useTheme();
-  return props.rightIcon ? (
-    <Header
-      leftComponent={
-        <View style={styles.leftIcon}>
-          <Warning />
-        </View>
-      }
-      centerComponent={
-        <View style={theme.bank.container.centeredItem}>
-          <Text style={theme.bank.text.banner}>{props.title}</Text>
-        </View>
-      }
-      rightComponent={
-        <View style={styles.rightIcon}>
-          {props.onPressRightIcon ? (
-            <LinkButton
-              onPress={props.onPressRightIcon}
-              iconRight={() => (
-                <RightChevron width={16} height={26} style={{ color: Colors.bank.primary.white }} />
-              )}
-              colorOption={LinkButtonColors.WHITE}
-            />
-          ) : (
-            <LinkButton
-              onPress={() => {
-                return null;
-              }}
-              iconRight={() => (
-                <RightChevron width={16} height={26} style={{ color: Colors.bank.primary.white }} />
-              )}
-              colorOption={LinkButtonColors.WHITE}
-            />
-          )}
-        </View>
-      }
-      containerStyle={[
-        theme.bank.container.centeredItem,
-        {
-          backgroundColor:
-            props.colorBanner === BannerColors.PINK
-              ? Colors.bank.secondary.salmon
-              : Colors.bank.primary.lightPurple,
-        },
-      ]}
-    />
+  return props.onPressRightIcon ? (
+    <TouchableOpacity onPress={props.onPressRightIcon}>
+      <Header
+        leftComponent={
+          <View style={styles.leftIcon}>
+            <Warning />
+          </View>
+        }
+        centerComponent={
+          <View style={theme.bank.container.centeredItem}>
+            <Text style={theme.bank.text.banner}>{props.title}</Text>
+          </View>
+        }
+        rightComponent={<RightChevron width={16} height={20} style={{ color: Colors.bank.primary.white }} />}
+        containerStyle={[
+          theme.bank.container.centeredItem,
+          {
+            backgroundColor:
+              props.colorBanner === BannerColors.PINK
+                ? Colors.bank.secondary.salmon
+                : Colors.bank.primary.lightPurple,
+          },
+        ]}
+      />
+    </TouchableOpacity>
   ) : (
     <Header
       leftComponent={

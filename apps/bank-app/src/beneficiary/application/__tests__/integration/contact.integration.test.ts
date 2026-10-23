@@ -12,6 +12,7 @@ import {
   contactsListed,
   contactAdded,
   contactAddedFailed,
+  resetError,
 } from '../../commands/contact';
 import { IContactState, contactReducer } from '../../state-management';
 
@@ -175,6 +176,30 @@ describe('Contact - integration', () => {
     sagaTester.dispatch(addContact(mockRequest));
     sagaTester.dispatch(contactAdded(mockResponse));
     sagaTester.dispatch(initContact());
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      contacts: null,
+      error: null,
+    });
+  });
+
+  it('Should store correct state if RESET_ERROR', () => {
+    const mockRequest = {
+      firstname: 'John',
+      lastname: 'Doe',
+      phone: '0607080910',
+      countryCode: 'FR',
+    };
+
+    const mockResponse = {
+      id: 'id3',
+      name: 'John Doe',
+      phone: new Phone('+33607080910'),
+    };
+    sagaTester.dispatch(addContact(mockRequest));
+    sagaTester.dispatch(contactAdded(mockResponse));
+    sagaTester.dispatch(resetError());
 
     expect(sagaTester.getState()).toEqual({
       pending: false,

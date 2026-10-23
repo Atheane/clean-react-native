@@ -104,10 +104,13 @@ export const Home = () => {
     }
   }, [firebaseToken, notificationEnabled, deviceId, brand, model, os, osVersion, dispatch]);
 
-  const [appNeedUpdate, setAppNeedUpdate] = useState(true);
+  const [appNeedUpdate, setAppNeedUpdate] = useState(false);
   useEffect(() => {
-    checkVersion().then((version) => {
-      if (version?.needsUpdate) {
+    checkVersion({
+      currentVersion: Constants.expoConfig?.extra?.APP_VERSION,
+      bundleId: Constants.expoConfig?.extra?.BUNDLE_IDENTIFIER,
+    }).then((version) => {
+      if (version.needsUpdate !== undefined || version.needsUpdate !== null) {
         setAppNeedUpdate(version.needsUpdate);
       }
     });
@@ -148,7 +151,8 @@ export const Home = () => {
         />
       )}
       {customer &&
-        (customer.properties.kyc?.state === IKycState.INIT || // kyc.state is updated without additional call to backend
+        (customer.properties.kyc?.state === IKycState.INIT ||
+          customer.properties.kyc?.state === IKycState.INCOMPLETE ||
           customer.properties.kyc?.state === IKycState.REFUSED) && (
           <Banner
             title={t('screens.home.banner.validation-identity')}

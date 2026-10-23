@@ -25,19 +25,17 @@ export const customerReducer = (state = initialState, action: ICustomerActions) 
         initRoute: action.payload.initRoute,
       };
       return newState;
-    case ICustomerTypes.INITIALIZE_KYC:
-      newState = {
-        ...state,
-        pending: false,
-        customer: null,
-        initRoute: IKycStackPages.INIT,
-      };
-      return newState;
     case ICustomerTypes.CUSTOMER_DOCUMENTS_UPDATED:
       newState = {
         ...state,
         pending: false,
         customer: action.payload.customer,
+      };
+      return newState;
+    case ICustomerTypes.INITIALIZE_KYC:
+      newState = {
+        ...state,
+        ...initialState,
       };
       return newState;
     default:

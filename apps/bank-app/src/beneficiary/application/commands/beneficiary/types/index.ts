@@ -14,6 +14,7 @@ export enum IBeneficiaryTypes {
   LIST_BENEFICIARIES = 'LIST_BENEFICIARIES',
   INIT_BENEFICIARY = 'INIT_BENEFICIARY',
   CHANGE_TAB = 'CHANGE_TAB',
+  RESET_ERROR = 'RESET_ERROR',
   // domainEvents
   BENEFICIARY_ADDED = 'BENEFICIARY_ADDED',
   BENEFICIARY_ADD_FAILED = 'BENEFICIARY_ADD_FAILED',
@@ -43,6 +44,10 @@ export type IChangeTab = {
   payload: {
     idx: number;
   };
+};
+
+export type IResetError = {
+  type: typeof IBeneficiaryTypes.RESET_ERROR;
 };
 
 // domain Events
@@ -77,6 +82,7 @@ export type IBeneficiaryActions =
   | IListBeneficiary
   | IInitBeneficiary
   | IChangeTab
+  | IResetError
   | IBeneficiaryAdded
   | IBeneficiaryAddFailed
   | IBeneficiaryDeleted

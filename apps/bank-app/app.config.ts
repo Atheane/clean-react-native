@@ -61,7 +61,7 @@ export default {
             useFrameworks: 'static',
           },
           android: {
-            usesCleartextTraffic: false,
+            usesClearTextTraffic: false,
           },
         },
       ],

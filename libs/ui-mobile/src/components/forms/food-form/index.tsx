@@ -3,7 +3,7 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
-import { FoodE } from '@bank/carbon-weight/dist';
+// import { FoodE } from '@bank/carbon-weight/dist';
 
 import { Slider } from '../../inputs/slider';
 
@@ -13,17 +13,29 @@ type IProps = {
 };
 
 type IFood = {
-  alcohol: number;
-  bread: number;
-  cheese: number;
-  fish: number;
-  harvestExotic: number;
-  harvestLocal: number;
   meatRed: number;
   meatWhite: number;
+  fish: number;
+  cheese: number;
+  harvestLocal: number;
+  harvestExotic: number;
   rice: number;
+  bread: number;
+  alcohol: number;
   soft: number;
 };
+enum FoodE {
+  meatRed = 'meatRed',
+  meatWhite = 'meatWhite',
+  fish = 'fish',
+  cheese = 'cheese',
+  harvestLocal = 'harvestLocal',
+  harvestExotic = 'harvestExotic',
+  rice = 'rice',
+  bread = 'bread',
+  alcohol = 'alcohol',
+  soft = 'soft',
+}
 
 export const FoodForm = (props: IProps) => {
   const { t } = useTranslation();
@@ -32,15 +44,15 @@ export const FoodForm = (props: IProps) => {
   // sliders
   const [slider, setSlider] = useState<IFood>(
     props.initialValues ?? {
-      alcohol: 7,
-      bread: 7,
-      cheese: 7,
-      fish: 7,
-      harvestExotic: 7,
-      harvestLocal: 7,
       meatRed: 7,
       meatWhite: 7,
+      fish: 7,
+      cheese: 7,
+      harvestLocal: 7,
+      harvestExotic: 7,
       rice: 7,
+      bread: 7,
+      alcohol: 7,
       soft: 7,
     },
   );

@@ -14,14 +14,10 @@ import { Phone } from '@clean-rn/contact/domain';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { TransactionApi } from '@clean-rn/transaction/infrastructure';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages, IBeneficiaryStackPages } from '../../../../shared/presentation/types';
+import { IBeneficiaryStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-
-import { selectAuth } from '../../../../auth/application/state-management/selectors';
-import { refreshSuccess } from '../../../../auth/application/commands';
 
 import { transactionWaitingGenerator, transactionWaitingSaga } from '../../usecases';
 import {
@@ -30,12 +26,13 @@ import {
   transactionFailed,
   transactionWaitingSucceded,
 } from '../../commands';
+import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
+import { BeneficiaryError } from '@clean-rn/beneficiary/domain';
 
 describe('TransactionWaiting - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
 
   const api = TransactionApi.getInstance(httpConnection);
-  const authApi = AuthApi.getInstance(httpConnection);
 
   const genObject = transactionWaitingSaga(httpConnection);
 
@@ -47,12 +44,12 @@ describe('TransactionWaiting - usecase', () => {
     date: new Date('2023-06-15T07:38:09.217Z'),
   };
 
-  const mockError401 = {
-    statusCode: 401,
-    message: 'Unauthenticated',
+  const mockError400 = {
+    statusCode: 400,
+    message: 'Wallet id must differ from user wallet id',
     response: {
-      statusCode: 401,
-      message: 'Unauthenticated',
+      statusCode: 400,
+      message: 'Wallet id must differ from user wallet id',
     },
     timestamp: '2023-10-03T13:20:21.303Z',
     path: '/app/transaction/waitingTransaction',
@@ -79,11 +76,6 @@ describe('TransactionWaiting - usecase', () => {
     path: '/app/transaction/waitingTransaction',
   };
 
-  const mockToken = {
-    accessToken: 'fake-access-token',
-    refreshToken: 'fake-refresh-token',
-  };
-
   const payload: ITransactionWaitingCommand = {
     accountId: 4004318954,
     phone: new Phone('+33612345678'),
@@ -104,11 +96,7 @@ describe('TransactionWaiting - usecase', () => {
       payload,
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
+      .call(ensureTokenRefreshed, httpConnection)
       .next()
       .call([api, api.sendTransactionWaiting], payload) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
@@ -121,17 +109,18 @@ describe('TransactionWaiting - usecase', () => {
       .next();
   });
 
-  it('Should call navigate to Login modale action if 401 from Server', () => {
+  it('Should call transferFailed if 400 from Server', () => {
     testSaga(transactionWaitingGenerator, httpConnection, {
       type: ITransactionsTypes.FETCH_TRANSACTION_WAITING,
       payload,
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .throw(new ServerError(mockError401))
-      .call(navigate, { route: IAuthStackPages.LOGIN })
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
+      .throw(new ServerError(mockError400))
+      .put(initTransaction())
+      .next()
+      .put(transactionFailed(new BeneficiaryError.BeneficiaryMustDifferFromAccount(mockError400)))
       .next()
       .cancel();
   });
@@ -142,10 +131,11 @@ describe('TransactionWaiting - usecase', () => {
       payload,
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .throw(new ServerError(mockError403))
+      .put(initTransaction())
+      .next()
       .put(transactionFailed(new TransactionError.TransferAmountTooHigh(mockError403)))
       .next()
       .cancel();
@@ -157,9 +147,8 @@ describe('TransactionWaiting - usecase', () => {
       payload,
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .throw(new ServerError(mockError500))
       .put(initTransaction())
       .next()
@@ -173,9 +162,8 @@ describe('TransactionWaiting - usecase', () => {
       payload,
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .throw(new Error('unknown error'))
       .put(initTransaction())
       .next()

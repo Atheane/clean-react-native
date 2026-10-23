@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
 
-import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { Customer, IDocumentProperties, IKycState } from '@clean-rn/kyc/domain';
 import { KycApi } from '@clean-rn/kyc/infrastructure';
 import { KYC_REVIEW, User } from '@clean-rn/user/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages, IKycStackPages } from '../../../../shared/presentation/types';
-import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+import { IKycStackPages } from '../../../../shared/presentation/types';
 
 import { customerStatusChecked, initializeKyc, ICustomerTypes } from '../../commands/customer';
 
@@ -62,11 +61,6 @@ export function* checkCustomerStatusGenerator(
 
     yield put(customerStatusChecked({ customer, initRoute }));
   } catch (error: unknown) {
-    // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
-    if (error instanceof ServerError && error.statusCode === 401) {
-      yield call(navigate, { route: IAuthStackPages.LOGIN });
-      yield cancel();
-    }
     // once app is well tested, delete this part and let onError hook manage unexpected errors
     yield put(initializeKyc());
     yield put(showUnknownError(error as Error));

@@ -21,10 +21,6 @@ describe('ResetPassword - usecase', () => {
     email: new Email('test@example.com'),
   };
 
-  const mockResponse = {
-    success: true,
-  };
-
   const mockError500 = {
     message: 'Core::AuthService::Auth - Server Error',
     statusCode: 500,

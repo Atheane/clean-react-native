@@ -18,12 +18,14 @@ export const contactReducer = (state = initialState, action: IContactActions) =>
       newState = {
         ...state,
         pending: true,
+        error: null,
       };
       return newState;
     case IContactTypes.LIST_CONTACTS:
       newState = {
         ...state,
         pending: true,
+        error: null,
       };
       return newState;
     case IContactTypes.CONTACT_ADDED:
@@ -36,6 +38,7 @@ export const contactReducer = (state = initialState, action: IContactActions) =>
       newState = {
         ...state,
         pending: false,
+        error: null,
         contacts: contacts,
       };
       return newState;
@@ -50,13 +53,21 @@ export const contactReducer = (state = initialState, action: IContactActions) =>
       newState = {
         ...state,
         pending: false,
+        error: null,
         contacts: action.payload,
+      };
+      return newState;
+    case IContactTypes.RESET_ERROR:
+      newState = {
+        ...state,
+        pending: false,
+        error: null,
       };
       return newState;
     case IContactTypes.INIT_CONTACT:
       newState = {
         ...state,
-        pending: false,
+        ...initialState,
       };
       return newState;
     default:

@@ -9,6 +9,7 @@ import {
   initializeDevice,
   deviceRegistered,
   deviceAlreadyRegistered,
+  resetError,
 } from '../../commands';
 import { deviceReducer } from '../../state-management/reducer';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
@@ -78,18 +79,6 @@ describe('Device - integration', () => {
     });
   });
 
-  it('Should store correct state if INITIALIZE_DEVICE', () => {
-    sagaTester.start(registerDeviceSaga, httpConnection);
-    sagaTester.dispatch(fetchRegisterDevice(mockData));
-    sagaTester.dispatch(initializeDevice());
-
-    expect(sagaTester.getState()).toEqual({
-      pending: false,
-      device: null,
-      error: null,
-    });
-  });
-
   it('Should store correct state in case if DEVICE_REGISTERED', () => {
     const device = Device.Create({ deviceId: mockData.deviceId, userId: mockData.userId.toString() });
     device.registerDeviceProperties({
@@ -133,6 +122,41 @@ describe('Device - integration', () => {
       pending: false,
       device: null,
       error: new DeviceError.AlreadyRegistered('Device already registered'),
+    });
+  });
+
+  it('Should store correct state if INITIALIZE_DEVICE', () => {
+    sagaTester.start(registerDeviceSaga, httpConnection);
+    sagaTester.dispatch(fetchRegisterDevice(mockData));
+    sagaTester.dispatch(initializeDevice());
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      device: null,
+      error: null,
+    });
+  });
+
+  it('Should store correct state if RESET_ERROR', () => {
+    const device = Device.Create({ deviceId: mockData.deviceId, userId: mockData.userId.toString() });
+    device.registerDeviceProperties({
+      brand: mockData.brand,
+      model: mockData.model,
+      os: mockData.os,
+      osVersion: mockData.osVersion,
+    });
+    device.addAppVersion(mockData.appVersion);
+    device.connectToNotifications(mockData.firebaseId);
+
+    sagaTester.start(registerDeviceSaga, httpConnection);
+    sagaTester.dispatch(fetchRegisterDevice(mockData));
+    sagaTester.dispatch(deviceRegistered(device));
+    sagaTester.dispatch(resetError());
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      device,
+      error: null,
     });
   });
 });

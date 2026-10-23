@@ -1,4 +1,5 @@
 import { IAccount } from '@clean-rn/account/domain';
+import { IBeneficiaryErrorCodes, IBeneficiaryErrorMessage } from '@clean-rn/beneficiary/domain';
 import { IDomainError } from '@clean-rn/ddd';
 import {
   ITransaction,
@@ -79,7 +80,9 @@ export type ITransactionWaitingSucceded = {
 
 export type ITransactionFailed = {
   type: typeof ITransactionsTypes.TRANSACTION_FAILED;
-  payload: IDomainError<ITransactionErrorCodes, ITransactionErrorMessage>;
+  payload:
+    | IDomainError<ITransactionErrorCodes, ITransactionErrorMessage>
+    | IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>;
 };
 
 export type ITransactionsActions =

@@ -55,7 +55,7 @@ import {
   notificationUpdated,
   userSaved,
   fetchDeleteUserAccount,
-  userAccountDeleted,
+  resetError,
 } from '../../commands';
 import { IUserState, userReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
@@ -672,14 +672,13 @@ describe('User - integration', () => {
   });
 
   it('Should store correct state in case if USER_ACCOUNT_DELETED', () => {
-    const user = User.CreateFromEmail(new Email('test@example.com'));
     sagaTester = new SagaTester({
       initialState,
       reducers: userReducer,
     });
 
     sagaTester.dispatch(fetchDeleteUserAccount());
-    sagaTester.dispatch(userAccountDeleted(user));
+    sagaTester.dispatch(initializeUser());
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
@@ -692,16 +691,19 @@ describe('User - integration', () => {
     });
   });
 
-  it('Should store correct state if INITIALIZE_USER for invalid credentials', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
+  it('Should store correct state if RESET_ERROR for invalid credentials', () => {
+    const user = User.CreateFromEmail(new Email('test@example.com'));
 
-    sagaTester.dispatch(initializeUser());
+    sagaTester.start(wrapSagaHidingNotFoundError, checkEmailSaga, httpConnection);
+    sagaTester.dispatch(userSaved(user));
+
+    sagaTester.dispatch(resetError());
     expect(sagaTester.getState()).toEqual({
       pending: false,
       email: null,
       phone: null,
       phoneOtp: null,
-      user: null,
+      user,
       error: null,
       config: null,
     });

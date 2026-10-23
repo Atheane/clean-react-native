@@ -4,24 +4,21 @@ import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
 import { CardApi } from '@clean-rn/card/infrastructure';
 import { Card, ICardStatuses } from '@clean-rn/card/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages, ICardStackPages } from '../../../../shared/presentation/types';
+import { ICardStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { toggleCardLockSaga, toggleCardLockGenerator } from '../../usecases';
-import { ICardTypes, cardLockToggled, initCard } from '../../commands';
-import { selectAuth } from '../../../../auth/application/state-management/selectors';
-import { refreshSuccess } from '../../../../auth/application/commands';
+import { ICardTypes, cardLockToggled, resetError } from '../../commands';
 import { selectCard } from '../../state-management/selectors';
+import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
 describe('Toggle Card lock - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
   const api = CardApi.getInstance(httpConnection);
-  const authApi = AuthApi.getInstance(httpConnection);
 
   const mockCardServeur = {
     cardId: 999826250,
@@ -56,18 +53,6 @@ describe('Toggle Card lock - usecase', () => {
     refreshToken: 'fake-refresh-token',
   };
 
-  const mockError401 = {
-    statusCode: 401,
-    message: 'Unauthorized',
-    response: {
-      message: 'Unauthorized',
-      statusCode: 401,
-    },
-    timestamp: '2024-01-30T16:43:19.792Z',
-    path: '/app/card/999826250/limits',
-    method: 'PUT',
-  };
-
   const mockError500 = {
     statusCode: 500,
     message: "Cannot read properties of null (reading 'cardId')",
@@ -99,12 +84,8 @@ describe('Toggle Card lock - usecase', () => {
       },
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
-      .next({ auth: mockToken })
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .select(selectCard)
       .next(card)
       .call([api, api.toggleCardLock], card, { lock: true })
@@ -115,23 +96,6 @@ describe('Toggle Card lock - usecase', () => {
       .next();
   });
 
-  it('Should call navigate to Login modale if 401 from Server', () => {
-    testSaga(toggleCardLockGenerator, httpConnection, {
-      type: ICardTypes.FETCH_TOGGLE_LOCK,
-      payload: {
-        lock: true,
-      },
-    })
-      .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .throw(new ServerError(mockError401))
-      .call(navigate, { route: IAuthStackPages.LOGIN })
-      .next()
-      .cancel();
-  });
-
   it('Should call showUnknownError action if 500 from Server', () => {
     testSaga(toggleCardLockGenerator, httpConnection, {
       type: ICardTypes.FETCH_TOGGLE_LOCK,
@@ -140,17 +104,13 @@ describe('Toggle Card lock - usecase', () => {
       },
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
-      .next({ auth: mockToken })
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .select(selectCard)
       .next(card)
       .call([api, api.toggleCardLock], card, { lock: true })
       .throw(new ServerError(mockError500))
-      .put(initCard())
+      .put(resetError())
       .next()
       .put(showUnknownError(new ServerError(mockError500)))
       .next();
@@ -164,17 +124,13 @@ describe('Toggle Card lock - usecase', () => {
       },
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
-      .next({ auth: mockToken })
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .select(selectCard)
       .next(card)
       .call([api, api.toggleCardLock], card, { lock: true })
       .throw(new Error('unknown error'))
-      .put(initCard())
+      .put(resetError())
       .next()
       .put(showUnknownError(new Error('unknown error')))
       .next();

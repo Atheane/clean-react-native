@@ -15,24 +15,28 @@ export const transactionsReducer = (state = initialState, action: ITransactionsA
       newState = {
         ...state,
         pending: true,
+        error: null,
       };
       return newState;
     case ITransactionsTypes.FETCH_PAYOUT:
       newState = {
         ...state,
         pending: true,
+        error: null,
       };
       return newState;
     case ITransactionsTypes.FETCH_TRANSFER:
       newState = {
         ...state,
         pending: true,
+        error: null,
       };
       return newState;
     case ITransactionsTypes.FETCH_TRANSACTION_WAITING:
       newState = {
         ...state,
         pending: true,
+        error: null,
       };
       return newState;
     case ITransactionsTypes.TRANSACTIONS_LISTED:
@@ -40,6 +44,7 @@ export const transactionsReducer = (state = initialState, action: ITransactionsA
         ...state,
         pending: false,
         transactions: action.payload,
+        error: null,
       };
       return newState;
     case ITransactionsTypes.PAYOUT_SUCCEDED:
@@ -47,6 +52,7 @@ export const transactionsReducer = (state = initialState, action: ITransactionsA
         ...state,
         pending: false,
         transaction: action.payload,
+        error: null,
       };
       return newState;
     case ITransactionsTypes.TRANSFER_SUCCEDED:
@@ -54,6 +60,7 @@ export const transactionsReducer = (state = initialState, action: ITransactionsA
         ...state,
         pending: false,
         transaction: action.payload,
+        error: null,
       };
       return newState;
     case ITransactionsTypes.TRANSACTION_WAITING_SUCCEDED:
@@ -61,6 +68,7 @@ export const transactionsReducer = (state = initialState, action: ITransactionsA
         ...state,
         pending: false,
         transaction: action.payload,
+        error: null,
       };
       return newState;
     case ITransactionsTypes.TRANSACTION_FAILED:
@@ -75,6 +83,7 @@ export const transactionsReducer = (state = initialState, action: ITransactionsA
         ...state,
         pending: false,
         transactions: null,
+        error: null,
       };
       return newState;
     case ITransactionsTypes.INIT_TRANSACTION:
@@ -82,6 +91,7 @@ export const transactionsReducer = (state = initialState, action: ITransactionsA
         ...state,
         pending: false,
         transaction: null,
+        error: null,
       };
       return newState;
     default:

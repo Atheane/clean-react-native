@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: HEIGHT,
-    marginTop: -100,
+    marginTop: -40,
   },
   title: {
     margin: 24,

@@ -15,13 +15,7 @@ export const deviceReducer = (state = initialState, action: IDeviceActions) => {
         ...state,
         pending: true,
         device: null,
-      };
-      return newState;
-    case IDeviceTypes.INITIALIZE_DEVICE:
-      newState = {
-        ...state,
-        pending: false,
-        device: null,
+        error: null,
       };
       return newState;
     case IDeviceTypes.DEVICE_REGISTERED:
@@ -29,6 +23,7 @@ export const deviceReducer = (state = initialState, action: IDeviceActions) => {
         ...state,
         pending: false,
         device: action.payload,
+        error: null,
       };
       return newState;
     case IDeviceTypes.DEVICE_ALREADY_REGISTERED:
@@ -36,6 +31,19 @@ export const deviceReducer = (state = initialState, action: IDeviceActions) => {
         ...state,
         pending: false,
         error: action.payload.error,
+      };
+      return newState;
+    case IDeviceTypes.RESET_ERROR:
+      newState = {
+        ...state,
+        pending: false,
+        error: null,
+      };
+      return newState;
+    case IDeviceTypes.INITIALIZE_DEVICE:
+      newState = {
+        ...state,
+        ...initialState,
       };
       return newState;
     default:

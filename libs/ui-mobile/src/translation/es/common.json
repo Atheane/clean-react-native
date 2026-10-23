@@ -128,7 +128,8 @@
         "INVALID_BIC": "BIC inválido",
         "INVALID_NAME": "Nombre inválido",
         "BENEFICIARY_ALREADY_EXISTS": "Este beneficiario ya existe",
-        "BENEFICIARY_UNKNOWN": "Beneficiario desconocido"
+        "BENEFICIARY_UNKNOWN": "Beneficiario desconocido",
+        "BENEFICIARY_MUST_DIFFER_FROM_ACCOUNT": "No puede hacer una transferencia a su número de teléfono."
       },
       "contact": {
         "INVALID_NAME": "Formato del nombre inválido",
@@ -290,7 +291,8 @@
   "modal-error": {
     "code": "Código de error ",
     "details": "Mensaje ",
-    "stack": "Detalles "
+    "stack": "Detalles ",
+    "network": "Sin conexión a internet"
   },
   "screens": {
     "legal": "Datos personales",
@@ -396,6 +398,11 @@
           "label": "Apellido",
           "placeholder": "Apellido"
         }
+      },
+      "kyc-missing": {
+        "instruction": "Para acceder a esta función, primero debe ",
+        "instruction-bold": "verificar su identidad",
+        "link-instruction": "Verificar mi identidad"
       }
     },
     "account-statements": {

@@ -44,7 +44,7 @@ export function* loginGenerator(
     // api call
     const authApi = AuthApi.getInstance(httpConnection);
     const auth = yield call([authApi, authApi.login], payload);
-    //attachBearerToken to httpConnection
+    // 2 min token expiration
     yield call(httpConnection.attachBearerToken, auth.accessToken);
 
     const userApi = UserApi.getInstance(httpConnection);
@@ -77,8 +77,6 @@ export function* loginGenerator(
 
     yield call(navigate, { route: ISharedStackPages.HOME });
   } catch (error: unknown) {
-    console.log(error);
-
     if (error instanceof ServerError) {
       switch (error.codeError) {
         case IAuthServerCode.USER_INVALID_CREDENTIAL:
@@ -97,7 +95,6 @@ export function* loginGenerator(
           yield cancel();
       }
     }
-
     yield put(initializeAuth());
     yield put(showUnknownError(error as Error));
   }

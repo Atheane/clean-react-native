@@ -7,6 +7,7 @@ export enum IBeneficiaryErrorMessage {
   INVALID_NAME = 'Invalid name format',
   BENEFICIARY_ALREADY_EXISTS = 'Beneficiary already exists',
   BENEFICIARY_UNKNOWN = 'Beneficiary unknown',
+  BENEFICIARY_MUST_DIFFER_FROM_ACCOUNT = 'Beneficiary must differ from account',
 }
 
 export enum IBeneficiaryErrorCodes {
@@ -15,6 +16,7 @@ export enum IBeneficiaryErrorCodes {
   INVALID_NAME = 'INVALID_NAME',
   BENEFICIARY_ALREADY_EXISTS = 'BENEFICIARY_ALREADY_EXISTS',
   BENEFICIARY_UNKNOWN = 'BENEFICIARY_UNKNOWN',
+  BENEFICIARY_MUST_DIFFER_FROM_ACCOUNT = 'BENEFICIARY_MUST_DIFFER_FROM_ACCOUNT',
 }
 
 export namespace BeneficiaryError {
@@ -88,6 +90,20 @@ export namespace BeneficiaryError {
       super();
       this.message = IBeneficiaryErrorMessage.BENEFICIARY_UNKNOWN;
       this.code = IBeneficiaryErrorCodes.BENEFICIARY_UNKNOWN;
+      this.cause = cause;
+    }
+  }
+  export class BeneficiaryMustDifferFromAccount
+    extends Error
+    implements IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>
+  {
+    code: IBeneficiaryErrorCodes;
+    message: IBeneficiaryErrorMessage;
+    cause?: unknown;
+    constructor(cause?: unknown) {
+      super();
+      this.message = IBeneficiaryErrorMessage.BENEFICIARY_MUST_DIFFER_FROM_ACCOUNT;
+      this.code = IBeneficiaryErrorCodes.BENEFICIARY_MUST_DIFFER_FROM_ACCOUNT;
       this.cause = cause;
     }
   }

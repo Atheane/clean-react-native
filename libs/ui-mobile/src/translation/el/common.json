@@ -128,7 +128,8 @@
         "INVALID_BIC": "Μη έγκυρο BIC",
         "INVALID_NAME": "Μη έγκυρο όνομα",
         "BENEFICIARY_ALREADY_EXISTS": "Ο παραλήπτης υπάρχει ήδη",
-        "BENEFICIARY_UNKNOWN": "Άγνωστος παραλήπτης"
+        "BENEFICIARY_UNKNOWN": "Άγνωστος παραλήπτης",
+        "BENEFICIARY_MUST_DIFFER_FROM_ACCOUNT": "Δεν μπορείτε να πραγματοποιήσετε μεταφορά στον αριθμό τηλεφώνου σας."
       },
       "contact": {
         "INVALID_NAME": "Μη έγκυρη μορφή ονόματος",
@@ -290,7 +291,8 @@
   "modal-error": {
     "code": "Κωδικός σφάλματος ",
     "details": "Μήνυμα ",
-    "stack": "Λεπτομέρειες "
+    "stack": "Λεπτομέρειες ",
+    "network": "Δεν υπάρχει σύνδεση στο διαδίκτυο"
   },
   "screens": {
     "legal": "Προσωπικά δεδομένα",
@@ -397,6 +399,11 @@
           "label": "Επώνυμο",
           "placeholder": "Επώνυμο"
         }
+      },
+      "kyc-missing": {
+        "instruction": "Για να έχετε πρόσβαση σε αυτή τη λειτουργία, πρέπει πρώτα ",
+        "instruction-bold": "να επαληθεύσετε την ταυτότητά σας",
+        "link-instruction": "Επαλήθευση της ταυτότητάς μου"
       }
     },
     "account-statements": {
