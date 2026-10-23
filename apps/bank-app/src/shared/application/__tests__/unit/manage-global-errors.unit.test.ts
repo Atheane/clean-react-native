@@ -2,11 +2,13 @@ import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import * as Sentry from '@sentry/react-native';
 
+import { ServerError } from '@clean-rn/shared/infrastructure';
+
 import { IGlobalErrorTypes } from '../../commands/manage-global-errors';
 import { showUnknownErrorGenerator, showUnknownErrorSaga } from '../../usecases/manage-global-errors';
-import { ISharedStackPages } from '../../../presentation/types';
+import { IAuthStackPages, ISharedStackPages } from '../../../presentation/types';
 import { navigate } from '../../../presentation/navigation/navigationRef';
-import { ServerError } from '@clean-rn/shared/infrastructure';
+import { loggedOut } from '../../../../auth/application/commands';
 
 describe('Manage Global Errors - usecase', () => {
   const genObject = showUnknownErrorSaga();
@@ -40,6 +42,10 @@ describe('Manage Global Errors - usecase', () => {
     })
       .next()
       .call(Sentry.captureException, new ServerError(mockError401))
+      .next()
+      .put(loggedOut())
+      .next()
+      .call(navigate, { route: IAuthStackPages.LOGIN })
       .next()
       .cancel();
   });
