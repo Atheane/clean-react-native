@@ -1,7 +1,8 @@
 {
   "banners": {
     "update-application": "Mise à jour disponible",
-    "identity-validation": "Validation de l'identité"
+    "identity-validation": "Validation de l'identité",
+    "identity-validated": "Identité validée"
   },
   "modal": {
     "login": {
@@ -341,7 +342,8 @@
       },
       "banner": {
         "validation-identity": "Validez votre identité",
-        "update-needed": "Mise à jour à faire"
+        "update-needed": "Mise à jour à faire",
+        "identity-validated": "Identité validée"
       }
     },
     "account": {

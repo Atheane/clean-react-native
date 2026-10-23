@@ -10,6 +10,7 @@ import { DocumentError } from '@clean-rn/kyc/domain';
 import { SecondaryButton } from '../../buttons/secondary-button';
 import { Colors } from '../../../constants';
 import { ImportDocument } from '../../../assets';
+import { Logger } from '@clean-rn/logger';
 
 type IProps = {
   setLoading: (loading: boolean) => void;
@@ -55,7 +56,7 @@ export const DocumentPicker = (props: IProps) => {
         props.handleError(err);
         return;
       }
-      console.log('User cancelled the picker');
+      Logger.getInstance().info('User cancelled the picker');
     } finally {
       props.setLoading(false);
     }
