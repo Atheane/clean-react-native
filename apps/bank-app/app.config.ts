@@ -3,8 +3,8 @@ import 'dotenv/config';
 export default {
   expo: {
     owner: '450',
-    name: process.env.APP_NAME_BANK_APP || 'Bank App',
-    slug: process.env.SLUG_NAME_BANK_APP || 'bank-app',
+    name: 'Bank App',
+    slug: process.env.SLUG_NAME_BANK_APP,
     version: process.env.APP_VERSION,
     orientation: 'portrait',
     icon: './assets/images/logo-bank.png',
@@ -21,7 +21,7 @@ export default {
       bundleIdentifier: process.env.BUNDLE_IDENTIFIER || 'com.example.bankapp',
       googleServicesFile: process.env.GOOGLE_PLIST || './GoogleService-Info.plist',
       supportsTablet: false,
-      versionCode: process.env.APP_VERSION || '1.0.4',
+      versionCode: process.env.APP_VERSION,
     },
     android: {
       adaptiveIcon: {
@@ -31,7 +31,7 @@ export default {
       supportsTablet: false,
       package: process.env.BUNDLE_IDENTIFIER || 'com.example.bankapp',
       googleServicesFile: process.env.GOOGLE_SERVICES || './google-services.json',
-      versionCode: process.env.APP_VERSION_ANDROID || '104',
+      versionCode: process.env.APP_VERSION_ANDROID,
     },
     web: {
       favicon: './assets/images/logo-bank.png',
@@ -86,10 +86,9 @@ export default {
       FIREBASE_STORAGE_BUCKET: process.env.FIREBASE_STORAGE_BUCKET,
       NODE_ENV: process.env.NODE_ENV,
       eas: {
-        projectId: process.env.PROJECT_ID,
+        projectId: '00000000-0000-0000-0000-000000000000',
       },
       SENTRY_DSN: process.env.SENTRY_DSN,
-      SUPPORTED_LANGUAGES_WEBSITE: process.env.SUPPORTED_LANGUAGES_WEBSITE,
     },
   },
 };

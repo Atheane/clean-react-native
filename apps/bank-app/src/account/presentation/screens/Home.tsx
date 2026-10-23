@@ -17,7 +17,6 @@ import {
   useNotification,
   useDevice,
 } from '@clean-rn/ui-mobile';
-import { KYC_REVIEW } from '@clean-rn/user/domain';
 import { IAccount } from '@clean-rn/account/domain';
 import Constants from 'expo-constants';
 
@@ -36,6 +35,7 @@ import {
   GOOGLE_PLAY_LINK,
   eventsCardsContent,
 } from '../../../shared/presentation/constants';
+import { IKycState } from '@clean-rn/kyc/domain';
 
 export const Home = () => {
   // translation
@@ -147,20 +147,18 @@ export const Home = () => {
           onPressRightIcon={handleUpdateNeeded}
         />
       )}
-      {customer && customer.properties.status !== KYC_REVIEW.PENDING && (
-        <Banner
-          title={
-            customer.properties.status === KYC_REVIEW.VALIDATED
-              ? t('screens.home.banner.identity-validated')
-              : t('screens.home.banner.validation-identity')
-          }
-          colorBanner={
-            customer.properties.status === KYC_REVIEW.REFUSED ? BannerColors.PINK : BannerColors.PURPLE
-          }
-          rightIcon
-          onPressRightIcon={handlePressBanner}
-        />
-      )}
+      {customer &&
+        (customer.properties.kyc?.state === IKycState.INIT || // kyc.state is updated without additional call to backend
+          customer.properties.kyc?.state === IKycState.REFUSED) && (
+          <Banner
+            title={t('screens.home.banner.validation-identity')}
+            colorBanner={
+              customer.properties.kyc?.state === IKycState.REFUSED ? BannerColors.PINK : BannerColors.PURPLE
+            }
+            rightIcon
+            onPressRightIcon={handlePressBanner}
+          />
+        )}
       <View style={styles.container}>
         <ScrollBackground background={TopDownBackground} initialScroll={-20} window={1.2}>
           <View style={styles.cardScroller}>

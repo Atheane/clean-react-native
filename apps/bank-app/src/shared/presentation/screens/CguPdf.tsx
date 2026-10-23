@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Constants from 'expo-constants';
 import { getLocales } from 'expo-localization';
 
 import { ModalError, PdfDownloader, PdfViewer, Download } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary } from '../hoc';
-import { pdfUrls } from '../constants';
+import { SUPPORTED_LANGUAGES_WEBSITE, pdfUrls } from '../constants';
 
 export const CguPdf = () => {
   const { t } = useTranslation();
@@ -14,7 +13,7 @@ export const CguPdf = () => {
   const locales = getLocales();
 
   let lng = locales[0]?.languageCode ?? 'fr';
-  if (!Constants.expoConfig?.extra?.SUPPORTED_LANGUAGES_WEBSITE.includes(lng)) {
+  if (!SUPPORTED_LANGUAGES_WEBSITE.includes(lng)) {
     lng = 'fr';
   }
 

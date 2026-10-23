@@ -4,6 +4,7 @@ import { getLocales } from 'expo-localization';
 import Constants from 'expo-constants';
 
 import { WebViewer, ModalError } from '@clean-rn/ui-mobile';
+import { SUPPORTED_LANGUAGES_WEBSITE } from '../constants';
 
 const locales = getLocales();
 
@@ -13,7 +14,7 @@ export const ScreenModalWebview = () => {
   } = useRoute() as { params: { uid: string } };
 
   let lng = locales[0]?.languageCode ?? 'fr';
-  if (!Constants.expoConfig?.extra?.SUPPORTED_LANGUAGES_WEBSITE.includes(lng)) {
+  if (!SUPPORTED_LANGUAGES_WEBSITE.includes(lng)) {
     lng = 'fr';
   }
 
