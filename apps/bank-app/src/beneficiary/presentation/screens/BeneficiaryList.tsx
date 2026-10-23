@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Tab, TabView } from '@rneui/themed';
-import { View, StyleSheet, Dimensions, SafeAreaView, StyleProp, ViewStyle } from 'react-native';
+import { View, StyleSheet, Dimensions, SafeAreaView, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -8,12 +8,8 @@ import { useTheme } from '@rneui/themed';
 import { IconNode } from '@rneui/base';
 
 import { IBeneficiary } from '@clean-rn/beneficiary/domain';
-import { IContact, Phone } from '@clean-rn/contact/domain';
+import { IContact } from '@clean-rn/contact/domain';
 import {
-  PrimaryButton,
-  LinkButton,
-  LinkButtonColors,
-  BeneficiaryAdd,
   BeneficiaryCardList,
   ContactCardList,
   BankBuilding,
@@ -25,67 +21,15 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { IBeneficiaryStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 
-import { listBeneficiaries } from '../../application/commands/beneficiary';
+import { changeTab, listBeneficiaries } from '../../application/commands/beneficiary';
 import { listContacts } from '../../application/commands/contact';
 
-const ContentNoBeneficiary = () => {
-  const { t } = useTranslation();
-  const navigation = useNavigation();
-
-  const handleOnPressAdd = useCallback(() => {
-    navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_ADD as never);
-  }, [navigation]);
-
-  return (
-    <View style={styles.btnAddContainer}>
-      <PrimaryButton
-        title={t('screens.beneficiary.add-beneficiary')}
-        onPress={handleOnPressAdd}
-        iconOne={() => (
-          <View style={styles.iconContainer}>
-            <BeneficiaryAdd style={{ marginTop: 15 }} />
-          </View>
-        )}
-        long
-      />
-    </View>
-  );
-};
-
-// TODO Refactor  after UX review
-const ContentNoContact = () => {
-  const { t } = useTranslation();
-  const navigation = useNavigation();
-
-  const handleOnPressAdd = useCallback(() => {
-    navigation.navigate(IBeneficiaryStackPages.CONTACT_ADD as never);
-  }, [navigation]);
-
-  return (
-    <View style={styles.btnAddContainer}>
-      <PrimaryButton
-        long
-        title={t('screens.beneficiary.add-beneficiary')}
-        onPress={handleOnPressAdd}
-        iconOne={() => (
-          <View style={styles.iconContainer}>
-            <BeneficiaryAdd style={{ marginTop: 15 }} />
-          </View>
-        )}
-      />
-    </View>
-  );
-};
+import { NoBeneficiary, NoContact } from '../../presentation/assets/images';
 
 const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
   const navigation = useNavigation();
-  const { theme } = useTheme();
 
   const { beneficiaries } = useSelector((state: IRootState) => state.beneficiary.beneficiaries);
-
-  const handleOnPressAdd = useCallback(() => {
-    navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_ADD as never);
-  }, [navigation]);
 
   //todo refactorize
   const handleOnPress = useCallback(
@@ -119,32 +63,19 @@ const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
   //   [dispatch],
   // );
   return (
-    <>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.content}>
-          <BeneficiaryCardList data={props.data} onPress={handleOnPress} />
-        </View>
-      </SafeAreaView>
-      <View style={styles.top}>
-        <View style={[styles.addBeneficiary, theme.bank.shadow.button]}>
-          <LinkButton
-            onPress={handleOnPressAdd}
-            iconLeft={BeneficiaryAdd}
-            colorOption={LinkButtonColors.WHITE}
-          />
-        </View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.content}>
+        <BeneficiaryCardList data={props.data} onPress={handleOnPress} />
       </View>
-    </>
+    </SafeAreaView>
   );
 };
 
 const ContentContact = (props: { data: IContact[] }) => {
   const navigation = useNavigation();
-  const { theme } = useTheme();
 
   const { contacts } = useSelector((state: IRootState) => state.beneficiary.contacts);
 
-  // const dispatch = useDispatch();
   const handleOnPress = useCallback(
     (phoneString: string) => {
       if (!contacts) {
@@ -159,27 +90,12 @@ const ContentContact = (props: { data: IContact[] }) => {
     [navigation, contacts],
   );
 
-  const handleOnPressAdd = useCallback(() => {
-    navigation.navigate(IBeneficiaryStackPages.CONTACT_ADD as never);
-  }, [navigation]);
-
   return (
-    <>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.content}>
-          <ContactCardList data={props.data} onPress={handleOnPress} />
-        </View>
-      </SafeAreaView>
-      <View style={styles.top}>
-        <View style={[styles.addBeneficiary, theme.bank.shadow.button]}>
-          <LinkButton
-            onPress={handleOnPressAdd}
-            iconLeft={BeneficiaryAdd}
-            colorOption={LinkButtonColors.WHITE}
-          />
-        </View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.content}>
+        <ContactCardList data={props.data} onPress={handleOnPress} />
       </View>
-    </>
+    </SafeAreaView>
   );
 };
 
@@ -207,8 +123,9 @@ export const BeneficiaryList = () => {
     (index: number) => {
       setIndex(index);
       setIndicatorX(index * tabWidth); // Setting the right translateX value
+      dispatch(changeTab({ idx: index }));
     },
-    [tabWidth],
+    [tabWidth, dispatch],
   );
 
   const { beneficiaries, pending: beneficiaryPending } = useSelector(
@@ -240,51 +157,49 @@ export const BeneficiaryList = () => {
             buttonStyle={{ width: Dimensions.get('window').width / 2 }}
           >
             <Tab.Item
-              title="bank"
-              active={index === 0}
-              titleStyle={{ fontSize: 13, color: Colors.bank.primary.lightGreen, marginTop: 8 }}
-              icon={BankBuilding as IconNode}
-            >
-              {t('screens.beneficiary.bank')}
-            </Tab.Item>
-            <Tab.Item
               title="contact"
-              active={index === 1}
+              active={index === 0}
               titleStyle={{ fontSize: 13, color: Colors.bank.primary.lightGreen, marginTop: 8 }}
               icon={Group2 as IconNode}
             >
               {t('screens.beneficiary.contacts')}
             </Tab.Item>
+            <Tab.Item
+              title="bank"
+              active={index === 1}
+              titleStyle={{ fontSize: 13, color: Colors.bank.primary.lightGreen, marginTop: 8 }}
+              icon={BankBuilding as IconNode}
+            >
+              {t('screens.beneficiary.bank')}
+            </Tab.Item>
           </Tab>
         </View>
 
-        <View style={styles.tabContent}>
+        <View style={[styles.tabContent, { marginTop: 10 }]}>
           <TabView
             value={index}
             onChange={handleOnChangeTab}
             animationType="spring"
             containerStyle={{ backgroundColor: Colors.bank.primary.white }}
           >
-            <TabView.Item
-              style={[
-                beneficiaries?.length === 0 && (theme.bank.shadow.button as StyleProp<ViewStyle>),
-                { width: '100%' },
-              ]}
-            >
+            <TabView.Item style={[{ width: '100%' }]}>
               <>
-                {!hasBeneficiary && <ContentNoBeneficiary />}
-                {hasBeneficiary && <ContentBeneficiary data={beneficiaries} />}
+                {!hasContact && (
+                  <View style={theme.bank.container.centeredItem}>
+                    <Image source={NoContact} style={{ width: 250, height: 250 }} />
+                  </View>
+                )}
+                {hasContact && <ContentContact data={contacts} />}
               </>
             </TabView.Item>
-            <TabView.Item
-              style={[
-                contacts?.length === 0 && (theme.bank.shadow.button as StyleProp<ViewStyle>),
-                { width: '100%' },
-              ]}
-            >
+            <TabView.Item style={[{ width: '100%' }]}>
               <>
-                {!hasContact && <ContentNoContact />}
-                {hasContact && <ContentContact data={contacts} />}
+                {!hasBeneficiary && (
+                  <View style={theme.bank.container.centeredItem}>
+                    <Image source={NoBeneficiary} style={{ width: 250, height: 250 }} />
+                  </View>
+                )}
+                {hasBeneficiary && <ContentBeneficiary data={beneficiaries} />}
               </>
             </TabView.Item>
           </TabView>
@@ -303,11 +218,6 @@ const styles = StyleSheet.create({
   row: {
     width: Dimensions.get('window').width,
   },
-  top: {
-    position: 'absolute',
-    top: -60,
-    right: 0,
-  },
   addBeneficiary: {
     position: 'relative',
     top: 0,
@@ -320,7 +230,6 @@ const styles = StyleSheet.create({
   iconContainer: { height: 23, marginLeft: -80, justifyContent: 'center' },
   tabContent: {
     flex: 1,
-    marginTop: 50,
   },
   content: {
     flex: 1,

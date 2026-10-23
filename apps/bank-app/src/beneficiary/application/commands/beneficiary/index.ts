@@ -19,6 +19,7 @@ import {
   IBeneficiaryActions,
   IBeneficiaryAdded,
   IBeneficiaryDeleted,
+  IChangeTab,
 } from './types';
 
 // commands
@@ -38,6 +39,11 @@ export const listBeneficiaries = (): IListBeneficiary => ({
 
 export const initBeneficiary = (): IInitBeneficiary => ({
   type: IBeneficiaryTypes.INIT_BENEFICIARY,
+});
+
+export const changeTab = (payload: { idx: number }): IChangeTab => ({
+  type: IBeneficiaryTypes.CHANGE_TAB,
+  payload,
 });
 
 // domainEvents
