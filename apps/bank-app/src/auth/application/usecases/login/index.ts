@@ -2,7 +2,6 @@
 /* eslint-disable no-fallthrough */
 import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import { AuthError, ILoginCommand } from '@clean-rn/auth/domain';
 import { CardError } from '@clean-rn/card/domain';
 
@@ -10,6 +9,7 @@ import { AuthApi, IAuthServerCode } from '@clean-rn/auth/infrastructure';
 import { UserApi } from '@clean-rn/user/infrastructure';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { CardApi } from '@clean-rn/card/infrastructure';
+import { Logger } from '@clean-rn/logger';
 
 import { IStoreKey } from '../../../../shared/application/types';
 import { goBack, navigate } from '../../../../shared/presentation/navigation/navigationRef';
@@ -21,7 +21,6 @@ import { checkCustomerStatus } from '../../../../kyc/application/commands/custom
 import { loginFailure, IAuthTypes, initializeAuth, loginSuccess, resetError } from '../../commands';
 import { initializeUser, userSaved } from '../../../../user/application/commands';
 import { cardGetSuccess, cardNotFound } from '../../../../card/application/commands';
-import { Logger } from '@clean-rn/logger';
 
 export function* loginSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IAuthTypes.FETCH_LOGIN, loginGenerator, httpConnection);
@@ -33,7 +32,7 @@ export function* loginGenerator(
     payload,
   }: {
     type: string;
-    payload: ILoginCommand;
+    payload: ILoginCommand & { locale: string };
   },
 ): Generator<StrictEffect, any, any> {
   try {
@@ -50,11 +49,12 @@ export function* loginGenerator(
     yield call(httpConnection.attachBearerToken, auth.accessToken);
 
     const userApi = UserApi.getInstance(httpConnection);
-    const user = yield call([userApi, userApi.getUser]);
+    let user = yield call([userApi, userApi.getUser]);
 
     try {
       const cardApi = CardApi.getInstance(httpConnection);
       const card = yield call([cardApi, cardApi.getCard]);
+
       yield put(cardGetSuccess(card));
     } catch (error: unknown) {
       if (error instanceof CardError.NotFound) {
@@ -63,12 +63,20 @@ export function* loginGenerator(
       Logger.getInstance().info(error);
     }
 
+    if (user.properties.config.lang !== payload.locale) {
+      user = yield call([userApi, userApi.updateConfig], {
+        lang: payload.locale,
+      });
+    }
+
     yield put(loginSuccess({ auth }));
     yield put(userSaved(user));
     yield put(checkCustomerStatus({ user }));
 
     yield call(navigate, { route: ISharedStackPages.HOME });
   } catch (error: unknown) {
+    Logger.getInstance().info(error);
+
     if (error instanceof ServerError) {
       switch (error.codeError) {
         case IAuthServerCode.USER_INVALID_CREDENTIAL:
@@ -85,6 +93,7 @@ export function* loginGenerator(
           yield cancel();
       }
     }
+
     yield put(initializeAuth());
     yield put(showUnknownError(error as Error));
   }
