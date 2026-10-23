@@ -290,8 +290,8 @@
   },
   "screens": {
     "legal": "Personal data",
-    "cgu": "Terms and Conditions",
-    "cgu-kyc-provider": "Terms and Conditions (KycProvider)",
+    "cgu": "T&C",
+    "cgu-kyc-provider": "T&C (KycProvider)",
     "modal-error": "Error",
     "login": {
       "title": "Login"
