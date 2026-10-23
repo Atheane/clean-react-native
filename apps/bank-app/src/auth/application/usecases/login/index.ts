@@ -69,17 +69,6 @@ export function* loginGenerator(
       });
     }
 
-    try {
-      const cardApi = CardApi.getInstance(httpConnection);
-      const card = yield call([cardApi, cardApi.getCard]);
-      yield put(cardGetSuccess(card));
-    } catch (error: unknown) {
-      if (error instanceof CardError.NotFound) {
-        yield put(cardNotFound(error));
-      }
-      Logger.getInstance().info(error);
-    }
-
     yield put(loginSuccess({ auth }));
     yield put(userSaved(user));
     yield put(checkCustomerStatus({ user }));
