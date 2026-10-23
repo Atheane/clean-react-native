@@ -1,21 +1,50 @@
 import { useCallback } from 'react';
 import { View, StyleSheet, Dimensions, Text } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
+import { useTheme } from '@rneui/themed';
+import { ICardStatuses } from '@clean-rn/card/domain';
+
+import { SmallSwitchButton, SubmitButton, useTogglePress } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 const HEIGHT = Dimensions.get('screen').height;
 export const LockCard = () => {
+  const { theme } = useTheme();
   const { t } = useTranslation();
-  const navigation = useNavigation();
+
+  const { card, pending } = useSelector((state: IRootState) => state.card);
+
+  const { pressed: isLocked, onPress: handleToggleCard } = useTogglePress(
+    card?.properties.status === ICardStatuses.LOCK,
+  );
+
+  const dispatch = useDispatch();
+
+  const handleOnSubmit = useCallback(() => {
+    console.log('dispatch(fetchLockUnLockCard(isLocked))', isLocked);
+  }, [dispatch, isLocked]);
 
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={styles.container}>
+        <View style={[styles.container, { height: HEIGHT }]}>
           <View style={styles.rowContainer}>
-            <Text>{t('screens.card.lock.title')}</Text>
+            <Text style={[theme.bank.text.darkBlue]}>{t('screens.card.lock.instruction')}</Text>
+          </View>
+          <View style={styles.rowContainer}>
+            <Text style={[theme.bank.text.darkBlue]}>{t('screens.card.lock.lock')}</Text>
+            <SmallSwitchButton checked={isLocked} onToggle={handleToggleCard} />
+          </View>
+          <View style={styles.buttonContainer}>
+            <SubmitButton
+              title={t('screens.card.lock.button')}
+              uppercase
+              loading={pending}
+              onSubmit={handleOnSubmit}
+            />
           </View>
         </View>
       </SafeScrollingView>
@@ -26,8 +55,8 @@ export const LockCard = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: HEIGHT,
-    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginTop: '10%',
   },
   iconContainer: {
     marginTop: 16,
@@ -35,7 +64,12 @@ const styles = StyleSheet.create({
   rowContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: 32,
+    justifyContent: 'space-between',
     marginTop: 50,
+    width: '85%',
+  },
+  buttonContainer: {
+    position: 'relative',
+    bottom: '-35%',
   },
 });

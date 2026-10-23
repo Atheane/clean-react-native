@@ -703,8 +703,9 @@
       },
       "lock": {
         "title": "Bloquer ma carte",
-        "instruction": "Cette fonction vous permet de bloquer votre carte, N’hésitez pas à l’activer en cas de perte ou de vol. Votre carte peut être réactivée à tout moment.",
-        "block": "Bloquer"
+        "instruction": "Cette fonction vous permet de bloquer votre carte. N’hésitez pas à l’activer en cas de perte ou de vol. Votre carte peut être réactivée à tout moment.",
+        "lock": "Bloquer",
+        "button": "Valider"
       },
       "lock-success": {
         "title": "Félicitations",
