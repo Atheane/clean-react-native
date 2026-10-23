@@ -19,7 +19,7 @@ import { loginSuccess } from '../../../../auth/application/commands';
 
 import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
 
-import { IUserTypes, initializeUser, resetError, userSignedUp } from '../../commands';
+import { IUserTypes, resetError, userSignedUp } from '../../commands';
 
 export function* signupUserSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IUserTypes.FETCH_SIGNUP_USER, signupUserGenerator, httpConnection);

@@ -29,6 +29,8 @@ export function* logoutGenerator(httpConnection: HttpConnection): Generator<Stri
     yield put(loggedOut());
     yield call(navigate, { route: IAuthStackPages.LOGIN });
   } catch (error: unknown) {
+    console.log('LOGOUT error', error);
+
     yield put(resetError());
     yield put(showUnknownError(error as Error));
   }

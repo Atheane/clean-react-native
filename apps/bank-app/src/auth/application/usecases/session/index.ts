@@ -9,7 +9,7 @@ export function* sessionSaga(): Generator<StrictEffect, any, any> {
 }
 
 export function* sessionGenerator(): Generator<StrictEffect, any, any> {
-  yield delay(58 * 5 * 1000); // 58s to be able to logout (logout needs refresh token)
+  yield delay(50 * 5 * 1000); // 58s to be able to logout (logout needs refresh token)
   console.log('Session expired, fetching logout');
   // Exécuter l'action LOGOUT après 5 minutes
   yield put(fetchLogout());

@@ -37,6 +37,8 @@ export function* refreshGenerator(
       yield call(navigate, { route: payload.nextRoute, params: payload.params });
     }
   } catch (error: unknown) {
+    console.log('REFRESH error', error);
+
     yield put(resetError());
     yield put(showUnknownError(error as Error));
   }
