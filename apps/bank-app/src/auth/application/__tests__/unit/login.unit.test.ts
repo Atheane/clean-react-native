@@ -35,6 +35,7 @@ describe('Login - usecase', () => {
   const mockData = {
     email: new Email('test@example.com'),
     password: new Password('123123'),
+    locale: 'fr',
   };
 
   const mockResponse = {
@@ -154,6 +155,8 @@ describe('Login - usecase', () => {
 
   it('Should call loginSuccess if user is a man', async () => {
     const user = mapUserServerToUserProperties(mockUserManData);
+    user.setConfig({ lang: 'fr' });
+
     testSaga(loginGenerator, httpConnection, {
       type: IAuthTypes.FETCH_LOGIN,
       payload: mockData,
@@ -181,8 +184,9 @@ describe('Login - usecase', () => {
       .next();
   });
 
-  it('Should call loginSuccess if user is a woman', async () => {
+  it('Should call loginSuccess if user is a woman and locales differs from user config', async () => {
     const user = mapUserServerToUserProperties(mockUserWomanData);
+    user.setConfig({ lang: 'en' });
 
     testSaga(loginGenerator, httpConnection, {
       type: IAuthTypes.FETCH_LOGIN,
@@ -201,6 +205,10 @@ describe('Login - usecase', () => {
       .throw(new CardError.NotFound())
       .put(cardNotFound(new CardError.NotFound()))
       .next()
+      .call([userApi, userApi.updateConfig], {
+        lang: 'fr',
+      })
+      .next(user)
       .put(loginSuccess({ auth: mockResponse }))
       .next()
       .put(userSaved(user))
@@ -213,6 +221,7 @@ describe('Login - usecase', () => {
 
   it('Should call loginSuccess if user is neutral', async () => {
     const user = mapUserServerToUserProperties(mockUserNeutralData);
+    user.setConfig({ lang: 'fr' });
 
     testSaga(loginGenerator, httpConnection, {
       type: IAuthTypes.FETCH_LOGIN,
