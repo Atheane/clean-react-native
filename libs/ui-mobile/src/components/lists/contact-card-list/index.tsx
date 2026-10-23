@@ -15,12 +15,8 @@ export const ContactCardList = (props: IProps) => {
       pinchGestureEnabled
       data={props.data}
       contentContainerStyle={{ padding: 0 }}
-      keyExtractor={(item) => item.name + item.phone}
+      keyExtractor={(item) => item.id}
       renderItem={({ item, index }: { item: IContact; index: number }) => {
-        //todo: filter only UE contacts
-        if (!item.phone.countryIsAvalaible) {
-          return null;
-        }
         return <ContactCard data={item} idx={index} onPress={props.onPress} />;
       }}
     />
