@@ -238,7 +238,7 @@
     },
     "phone": {
       "label": "Número de teléfono",
-      "placeholder": "0607080910"
+      "placeholder": "666123123"
     }
   },
   "signup-birth": {
@@ -341,7 +341,8 @@
       },
       "banner": {
         "validation-identity": "Valide su identidad",
-        "update-needed": "Actualización necesaria"
+        "update-needed": "Actualización necesaria",
+        "identity-validated": "Identidad validada"
       }
     },
     "account": {
@@ -436,7 +437,7 @@
       "method": "Más información sobre el método de cálculo",
       "compute": "Calcular",
       "consumption": "Consumo",
-      "message-part-one": "Hola,\n\nAcabo de hacer mi balance de carbono en dos minutos. Muy interesante.\n\nMi huella de carbono es de ",
+      "message-part-one": "Hola,\n\nAcabo de hacer mi huella de carbono en dos minutos. Muy interesante.\n\nMi huella de carbono es de ",
       "message-part-two": "¡Descubre la tuya también y dime cuánto pesas!\n\nEn iOS:\n\nhttps://apps.apple.com/fr/app/bank-app/id0000000000?l=fr-FR\n\n en Android:\n\nhttps://play.google.com/store/apps/details?id=com.example.energyapp"
     },
     "carbon-house": {
@@ -448,7 +449,7 @@
         "electric": "Electricidad",
         "coal": "Carbón",
         "gas": "Gas de ciudad",
-        "fuelOil": "Fuelóleo",
+        "fuelOil": "gasóleo de calefacción",
         "urban": "Red de calor urbana",
         "wood": "Madera",
         "heatPump": "Bomba de calor",

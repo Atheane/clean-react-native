@@ -341,7 +341,8 @@
       },
       "banner": {
         "validation-identity": "Validate your identity",
-        "update-needed": "Update needed"
+        "update-needed": "Update needed",
+        "identity-validated": "Identity validated"
       }
     },
     "account": {

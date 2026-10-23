@@ -238,7 +238,7 @@
     },
     "phone": {
       "label": "Telefonnummer",
-      "placeholder": "0607080910"
+      "placeholder": "1231231234"
     }
   },
   "signup-birth": {
@@ -341,7 +341,8 @@
       },
       "banner": {
         "validation-identity": "Bestätigen Sie Ihre Identität",
-        "update-needed": "Aktualisierung erforderlich"
+        "update-needed": "Aktualisierung erforderlich",
+        "identity-validated": "Identität bestätigt"
       }
     },
     "account": {
@@ -448,7 +449,7 @@
         "electric": "Elektrizität",
         "coal": "Kohle",
         "gas": "Stadtgas",
-        "fuelOil": "Heizöl",
+        "fuelOil": "Öl",
         "urban": "Städtisches Fernwärmenetz",
         "wood": "Holz",
         "heatPump": "Wärmepumpe",

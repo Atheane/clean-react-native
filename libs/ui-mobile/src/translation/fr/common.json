@@ -1,7 +1,8 @@
 {
   "banners": {
     "update-application": "Mise à jour disponible",
-    "identity-validation": "Validation de l'identité"
+    "identity-validation": "Validation de l'identité",
+    "identity-validated": "Identité validée"
   },
   "modal": {
     "login": {
@@ -247,7 +248,7 @@
       "placeholder": "DD/MM/YYYY"
     },
     "birth-country": {
-      "label": Pays de naissance",
+      "label": "Pays de naissance",
       "placeholder": "Pays de naissance"
     },
     "nationality": {
@@ -341,7 +342,8 @@
       },
       "banner": {
         "validation-identity": "Validez votre identité",
-        "update-needed": "Mise à jour à faire"
+        "update-needed": "Mise à jour à faire",
+        "identity-validated": "Identité validée"
       }
     },
     "account": {

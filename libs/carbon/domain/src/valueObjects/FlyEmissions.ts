@@ -37,9 +37,7 @@ export class FlyEmissions {
   }
 
   private calculate(): void {
-    console.log('VALUE', this.props);
     this.emission = this.calculator.getEmissionEstimated(this.props, 1);
-    console.log('RESULT', this.emission);
   }
 
   get value(): number {
