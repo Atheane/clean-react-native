@@ -3,10 +3,10 @@ import {
   CardContract,
   CardEG,
   CardLoanHeater,
-  CardPremium,
   CardRocket,
   CardTeam,
   CardWorkflow,
+  CardPremium,
 } from '../assets/images';
 
 export const eventsCardsContent = [

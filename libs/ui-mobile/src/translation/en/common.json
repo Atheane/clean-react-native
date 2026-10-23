@@ -158,7 +158,7 @@
         "INVALID_AMOUNT": "Invalid amount",
         "UNKNOWN_TRANSACTION_TYPE": "Unknown transaction type",
         "INVALID_TRANSACTION_VALUE": "Invalid transaction value",
-        "TRANSFER_AMOUNT_TOO_HIGH": "Transfer amount exceeds balance"
+        "TRANSFER_AMOUNT_TOO_HIGH": "Insufficient balance"
       },
       "card": {
         "INVALID_PIN_FORMAT": "Invalid PIN format",
@@ -290,8 +290,8 @@
   },
   "screens": {
     "legal": "Personal data",
-    "cgu": "Terms and Conditions",
-    "cgu-kyc-provider": "Terms and Conditions (KycProvider)",
+    "cgu": "T&C",
+    "cgu-kyc-provider": "T&C (KycProvider)",
     "modal-error": "Error",
     "login": {
       "title": "Login"
@@ -341,7 +341,8 @@
       },
       "banner": {
         "validation-identity": "Validate your identity",
-        "update-needed": "Update needed"
+        "update-needed": "Update needed",
+        "identity-validated": "Identity validated"
       }
     },
     "account": {

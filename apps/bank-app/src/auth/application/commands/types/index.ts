@@ -29,7 +29,7 @@ export enum IAuthTypes {
 // commands
 export type IFetchLogin = {
   type: typeof IAuthTypes.FETCH_LOGIN;
-  payload: ILoginCommand;
+  payload: ILoginCommand & { locale: string };
 };
 
 export type IFetchRefresh = {

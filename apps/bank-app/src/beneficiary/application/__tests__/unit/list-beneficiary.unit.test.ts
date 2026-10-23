@@ -113,6 +113,8 @@ describe('ListBeneficiary - usecase', () => {
       .next({ beneficiaries: null })
       .call([api, api.getBeneficiary]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
+      .put(initBeneficiary())
+      .next()
       .call(navigate, { route: IAuthStackPages.LOGIN })
       .next()
       .cancel();

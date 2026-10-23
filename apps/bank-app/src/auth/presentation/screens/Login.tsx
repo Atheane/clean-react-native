@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
+import { getLocales } from 'expo-localization';
 
 import { Colors, useSecure, useCleanErrorOnFocus, FormLogin, ILoginFormData } from '@clean-rn/ui-mobile';
 
@@ -47,7 +48,9 @@ export const Login = () => {
           email: email ? email : new Email(formData.email),
           password: new Password(formData.password),
         };
-        dispatch(fetchLogin(payload));
+        const locale = getLocales()[0]?.languageCode;
+
+        dispatch(fetchLogin({ ...payload, locale }));
       } catch (e: unknown) {
         dispatch(showUnknownError(e as Error));
       }

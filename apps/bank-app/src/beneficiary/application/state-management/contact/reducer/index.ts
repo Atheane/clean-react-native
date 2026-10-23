@@ -30,14 +30,6 @@ export const contactReducer = (state = initialState, action: IContactActions) =>
         pending: true,
       };
       return newState;
-    case IContactTypes.INIT_CONTACT:
-      logger.debug(action.type);
-      newState = {
-        ...state,
-        pending: false,
-        contacts: null,
-      };
-      return newState;
     case IContactTypes.CONTACT_ADDED:
       logger.debug(action.type);
       if (state.contacts && state.contacts.length > 0) {
@@ -66,6 +58,13 @@ export const contactReducer = (state = initialState, action: IContactActions) =>
         ...state,
         pending: false,
         contacts: action.payload,
+      };
+      return newState;
+    case IContactTypes.INIT_CONTACT:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
       };
       return newState;
     default:

@@ -2,7 +2,7 @@
 import SagaTester from 'redux-saga-tester';
 import Constants from 'expo-constants';
 //
-import { ContactError } from '@clean-rn/contact/domain';
+import { ContactError, Phone } from '@clean-rn/contact/domain';
 
 import {
   IContactTypes,
@@ -20,12 +20,14 @@ describe('Contact - integration', () => {
 
   const mockContacts = [
     {
+      id: 'id1',
       name: 'John Doe',
-      phone: '+33607080910',
+      phone: new Phone('+33607080910'),
     },
     {
+      id: 'id2',
       name: 'Jane Doe',
-      phone: '+33607080911',
+      phone: new Phone('+33607080911'),
     },
   ];
 
@@ -75,18 +77,6 @@ describe('Contact - integration', () => {
     });
   });
 
-  it('Should store correct state if INIT_CONTACT', () => {
-    sagaTester.dispatch(listContacts());
-    sagaTester.dispatch(contactsListed(mockContacts));
-    sagaTester.dispatch(initContact());
-
-    expect(sagaTester.getState()).toEqual({
-      pending: false,
-      contacts: null,
-      error: null,
-    });
-  });
-
   it('Should store correct state if CONTACT_ADDED', () => {
     const mockRequest = {
       firstname: 'John',
@@ -96,8 +86,9 @@ describe('Contact - integration', () => {
     };
 
     const mockResponse = {
+      id: 'id3',
       name: 'John Doe',
-      phone: '+33607080910',
+      phone: new Phone('+33607080910'),
     };
 
     sagaTester.dispatch(addContact(mockRequest));
@@ -126,8 +117,9 @@ describe('Contact - integration', () => {
     };
 
     const mockResponse = {
+      id: 'id3',
       name: 'Jane Doe',
-      phone: '+33607080911',
+      phone: new Phone('+33607080911'),
     };
 
     sagaTester = new SagaTester({
@@ -164,6 +156,30 @@ describe('Contact - integration', () => {
       pending: false,
       contacts: null,
       error: new ContactError.ContactAlreadyExists(),
+    });
+  });
+
+  it('Should store correct state if INIT_CONTACT', () => {
+    const mockRequest = {
+      firstname: 'John',
+      lastname: 'Doe',
+      phone: '0607080910',
+      countryCode: 'FR',
+    };
+
+    const mockResponse = {
+      id: 'id3',
+      name: 'John Doe',
+      phone: new Phone('+33607080910'),
+    };
+    sagaTester.dispatch(addContact(mockRequest));
+    sagaTester.dispatch(contactAdded(mockResponse));
+    sagaTester.dispatch(initContact());
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      contacts: [mockResponse],
+      error: null,
     });
   });
 });
