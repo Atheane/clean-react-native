@@ -6,7 +6,6 @@ import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@rneui/themed';
-
 import SplashScreen from '../../../assets/images/splash.png';
 
 import { Fonts, theme, i18n, useDeepLink } from '@clean-rn/ui-mobile';

@@ -1,4 +1,8 @@
 {
+  "permissions": {
+    "contacts": "Überweisen Sie Ihre €G direkt auf Handynummern. Beispiel: Sie schicken eine Überweisung von 10 €G an 06 01 01 01 statt an FR76 0001 XO01 XO01 XO01 XO01 X11.",
+    "camera": "Die Anwendung erfordert für das Scannen von Dokumenten einen Zugriff auf die Kamera."
+  },
   "banners": {
     "update-application": "Update verfügbar",
     "identity-validation": "Identitätsprüfung"
