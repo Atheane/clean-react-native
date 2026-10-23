@@ -13,6 +13,8 @@ export enum ICardTypes {
   FETCH_CHANGE_CARD_LIMITS = 'FETCH_CHANGE_CARD_LIMITS',
   FETCH_TOGGLE_LOCK = 'FETCH_TOGGLE_LOCK',
   FETCH_CHANGE_CARD_PIN = 'FETCH_CHANGE_CARD_PIN',
+  RESET_ERROR = 'RESET_ERROR',
+  INIT_CARD = 'INIT_CARD',
   // domain events
   CARD_GET_SUCCESS = 'CARD_GET_SUCCESS',
   CARD_NOT_FOUND = 'CARD_NOT_FOUND',
@@ -21,7 +23,6 @@ export enum ICardTypes {
   CARD_LOCK_TOGGLED = 'CARD_LOCK_TOGGLED',
   CARD_PIN_CHANGED = 'CARD_PIN_CHANGED',
   CARD_PIN_CHANGED_FAILED = 'CARD_PIN_CHANGED_FAILED',
-  INIT_CARD = 'INIT_CARD',
 }
 
 // commands
@@ -38,6 +39,14 @@ export type IFetchToggleLock = {
 export type IFetchChangePIN = {
   type: typeof ICardTypes.FETCH_CHANGE_CARD_PIN;
   payload: IChangeCardPINCommand;
+};
+
+export type IInitCard = {
+  type: typeof ICardTypes.INIT_CARD;
+};
+
+export type IResetError = {
+  type: typeof ICardTypes.RESET_ERROR;
 };
 
 // domain events
@@ -76,17 +85,14 @@ export type ICardPINChangedFailed = {
   payload: IDomainError<ICardErrorCodes, ICardErrorMessage>;
 };
 
-export type IInitCard = {
-  type: typeof ICardTypes.INIT_CARD;
-};
-
 export type ICardActions =
   | IFetchChangeCardLimits
   | IFetchToggleLock
   | IFetchChangePIN
+  | IInitCard
+  | IResetError
   | ICardLimitsChanged
   | ICardNotFound
-  | IInitCard
   | ICardGetSuccess
   | ICardForbidden
   | ICardGetSuccess

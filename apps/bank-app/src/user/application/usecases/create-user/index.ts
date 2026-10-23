@@ -19,7 +19,7 @@ import { loginSuccess } from '../../../../auth/application/commands';
 
 import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
 
-import { IUserTypes, initializeUser, userSignedUp } from '../../commands';
+import { IUserTypes, initializeUser, resetError, userSignedUp } from '../../commands';
 
 export function* signupUserSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IUserTypes.FETCH_SIGNUP_USER, signupUserGenerator, httpConnection);
@@ -81,7 +81,7 @@ export function* signupUserGenerator(
     yield call(navigate, { route: IUserStackPages.SIGNUP_CONGRATS });
   } catch (e: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors
-    yield put(initializeUser());
+    yield put(resetError());
     yield put(showUnknownError(e as Error));
   }
 }

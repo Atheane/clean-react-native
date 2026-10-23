@@ -17,6 +17,7 @@ import {
   fetchChangePIN,
   cardPINChanged,
   cardPINChangedFailed,
+  resetError,
 } from '../../commands';
 import { ICardState, cardReducer } from '../../state-management';
 
@@ -256,6 +257,27 @@ describe('Card - integration', () => {
     card.changeCardLimits(changeCardLimitsCmd.limits);
     sagaTester.dispatch(cardLimitsChanged(card));
     sagaTester.dispatch(initCard());
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      card: null,
+      error: null,
+    });
+  });
+
+  it('Should store correct state if RESET_ERROR', () => {
+    const changeCardLimitsCmd: IChangeCardLimitsCommand = {
+      limits: {
+        month: 8000,
+        week: 500,
+        day: 200,
+      },
+    };
+    sagaTester.start(wrapSagaHidingNotFoundError, changeCardLimitsSaga, httpConnection);
+    sagaTester.dispatch(fetchChangeCardLimits(changeCardLimitsCmd));
+    card.changeCardLimits(changeCardLimitsCmd.limits);
+    sagaTester.dispatch(cardLimitsChanged(card));
+    sagaTester.dispatch(resetError());
 
     expect(sagaTester.getState()).toEqual({
       pending: false,

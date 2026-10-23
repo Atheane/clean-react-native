@@ -6,10 +6,9 @@ import Constants from 'expo-constants';
 import { BeneficiaryError } from '@clean-rn/beneficiary/domain';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { BeneficiaryApi } from '@clean-rn/beneficiary/infrastructure';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages, IBeneficiaryStackPages } from '../../../../shared/presentation/types';
+import { IBeneficiaryStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { addBeneficiaryGenerator, addBeneficiarySaga } from '../../usecases/beneficiary';
@@ -17,15 +16,13 @@ import {
   IBeneficiaryTypes,
   beneficiaryAddFailed,
   beneficiaryAdded,
-  initBeneficiary,
+  resetError,
 } from '../../commands/beneficiary';
-import { selectAuth } from '../../../../auth/application/state-management/selectors';
-import { refreshSuccess } from '../../../../auth/application/commands';
+import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
 describe('AddBeneficiary - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
   const api = BeneficiaryApi.getInstance(httpConnection);
-  const authApi = AuthApi.getInstance(httpConnection);
 
   const mockRequest = {
     iban: 'FR7616798000010000242599449',
@@ -38,23 +35,6 @@ describe('AddBeneficiary - usecase', () => {
     iban: 'FR7616798000010000242599449',
     bic: 'TRZOFR21XXX',
     name: 'BENFMOCK',
-  };
-
-  const mockToken = {
-    accessToken: 'fake-access-token',
-    refreshToken: 'fake-refresh-token',
-  };
-
-  const mockError401 = {
-    statusCode: 401,
-    message: 'Unauthorized',
-    response: {
-      statusCode: 401,
-      message: 'Unauthorized',
-    },
-    timestamp: '2023-10-03T13:20:21.303Z',
-    path: '/app/beneficiary',
-    method: 'POST',
   };
 
   const mockError400 = {
@@ -88,11 +68,7 @@ describe('AddBeneficiary - usecase', () => {
       payload: mockRequest,
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
+      .call(ensureTokenRefreshed, httpConnection)
       .next()
       .call([api, api.addBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
@@ -108,38 +84,13 @@ describe('AddBeneficiary - usecase', () => {
       payload: mockRequest,
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
+      .call(ensureTokenRefreshed, httpConnection)
       .next()
       .call([api, api.addBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError400))
-      .put(initBeneficiary())
+      .put(resetError())
       .next()
       .put(beneficiaryAddFailed(new BeneficiaryError.BeneficiaryAlreadyExists(mockError400.message)))
-      .next()
-      .cancel();
-  });
-
-  it('Should call navigate to Login modale if 401 from Server', () => {
-    testSaga(addBeneficiaryGenerator, httpConnection, {
-      type: IBeneficiaryTypes.ADD_BENEFICIARY,
-      payload: mockRequest,
-    })
-      .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
-      .next()
-      .call([api, api.addBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .throw(new ServerError(mockError401))
-      .put(initBeneficiary())
-      .next()
-      .call(navigate, { route: IAuthStackPages.LOGIN })
       .next()
       .cancel();
   });
@@ -150,15 +101,11 @@ describe('AddBeneficiary - usecase', () => {
       payload: mockRequest,
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
+      .call(ensureTokenRefreshed, httpConnection)
       .next()
       .call([api, api.addBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
-      .put(initBeneficiary())
+      .put(resetError())
       .next()
       .put(showUnknownError(new ServerError(mockError500)))
       .next();
@@ -170,15 +117,11 @@ describe('AddBeneficiary - usecase', () => {
       payload: mockRequest,
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
+      .call(ensureTokenRefreshed, httpConnection)
       .next()
       .call([api, api.addBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unknown error'))
-      .put(initBeneficiary())
+      .put(resetError())
       .next()
       .put(showUnknownError(new Error('unknown error')))
       .next();

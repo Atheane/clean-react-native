@@ -6,7 +6,6 @@ import {
   IAuthErrorCodes,
   IResetPasswordCommand,
   ISuccess,
-  ILogPhoneCommand,
 } from '@clean-rn/auth/domain';
 
 import {

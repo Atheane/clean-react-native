@@ -19,9 +19,8 @@ import { Phone } from '@clean-rn/contact/domain';
 import { BirthDay, User, IGender, Country, KYC_REVIEW } from '@clean-rn/user/domain';
 import { Email } from '@clean-rn/auth/domain';
 
-import { IAuthStackPages, IKycStackPages } from '../../../../shared/presentation/types';
+import { IKycStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { checkCustomerStatusGenerator, checkCustomerStatusSaga } from '../../usecases/customer';
 import { ICustomerTypes, customerStatusChecked, initializeKyc } from '../../commands/customer';
@@ -140,18 +139,6 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
       statusCode: IDocumentStatusCode.INITIAL,
     },
   ];
-
-  const mockError401 = {
-    statusCode: 401,
-    message: 'Unauthorized',
-    response: {
-      statusCode: 401,
-      message: 'Unauthorized',
-    },
-    timestamp: '2023-10-03T13:20:21.303Z',
-    path: '/app/document/kyc',
-    method: 'GET',
-  };
 
   const mockError500 = {
     message: 'Core::DocumentService::Document - Server Error',
@@ -336,21 +323,6 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
         }),
       )
       .next({ customer });
-  });
-
-  it('Should call navigate to Login modale if 401 from Server', () => {
-    const user = User.Create({ id: 123, properties: { USPerson: false } });
-
-    testSaga(checkCustomerStatusGenerator, httpConnection, {
-      type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
-      payload: { user },
-    })
-      .next()
-      .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .throw(new ServerError(mockError401))
-      .call(navigate, { route: IAuthStackPages.LOGIN })
-      .next()
-      .cancel();
   });
 
   it('Should call showUnknownError action if 500 from Server', () => {

@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
+import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
 
-import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 import { AuthError } from '@clean-rn/auth/domain';
 
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthTypes, loggedOut } from '../../commands';
+import { IAuthTypes, loggedOut, resetError } from '../../commands';
 
 import { IAuthStackPages } from '../../../../shared/presentation/types';
+import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
 export function* logoutSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IAuthTypes.FETCH_LOGOUT, logoutGenerator, httpConnection);
@@ -17,6 +18,8 @@ export function* logoutSaga(httpConnection: HttpConnection): Generator<StrictEff
 export function* logoutGenerator(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   try {
     // api call
+    yield call(ensureTokenRefreshed, httpConnection);
+
     const api = AuthApi.getInstance(httpConnection);
     const { success } = yield call([api, api.logout]);
     if (!success) {
@@ -26,12 +29,7 @@ export function* logoutGenerator(httpConnection: HttpConnection): Generator<Stri
     yield put(loggedOut());
     yield call(navigate, { route: IAuthStackPages.LOGIN });
   } catch (error: unknown) {
-    if (error instanceof ServerError && error.statusCode === 401) {
-      yield put(loggedOut());
-      yield call(navigate, { route: IAuthStackPages.LOGIN });
-      yield cancel();
-    }
-    // once app is well tested, delete this part and let onError hook manage unexpected errors
+    yield put(resetError());
     yield put(showUnknownError(error as Error));
   }
 }

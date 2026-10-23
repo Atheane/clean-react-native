@@ -10,13 +10,11 @@ import { DeviceApi } from '@clean-rn/device/infrastructure';
 import { Device, DeviceError } from '@clean-rn/device/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { IAuthStackPages } from '../../../../shared/presentation/types';
 
 import { selectUser } from '../../../../user/application/state-management/selectors';
 
 import { registerDeviceGenerator, registerDeviceSaga } from '../../usecases/register-device';
-import { IDeviceTypes, initializeDevice, deviceRegistered, deviceAlreadyRegistered } from '../../commands';
+import { IDeviceTypes, deviceRegistered, deviceAlreadyRegistered, resetError } from '../../commands';
 
 describe('Device - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -41,18 +39,6 @@ describe('Device - usecase', () => {
     response: {
       statusCode: 400,
       message: 'Duplicate firebase id',
-    },
-    timestamp: '2023-10-03T13:20:21.303Z',
-    path: '/app/account',
-    method: 'GET',
-  };
-
-  const mockError401 = {
-    statusCode: 401,
-    message: 'Unauthorized',
-    response: {
-      statusCode: 401,
-      message: 'Unauthorized',
     },
     timestamp: '2023-10-03T13:20:21.303Z',
     path: '/app/account',
@@ -121,30 +107,11 @@ describe('Device - usecase', () => {
       .next(user)
       .call([deviceApi, deviceApi.createDevice], mockData)
       .throw(new ServerError(mockError400))
+      .put(resetError())
+      .next()
       .put(deviceAlreadyRegistered({ error: new DeviceError.AlreadyRegistered(mockError400) }))
       .next()
       .cancel();
-  });
-
-  it('Should call showUnknownError action if 401', () => {
-    const user = User.Create({
-      id: mockData.userId,
-      properties: {
-        email: new Email('test@test.com'),
-      },
-    });
-
-    testSaga(registerDeviceGenerator, httpConnection, {
-      type: IDeviceTypes.FETCH_REGISTER_DEVICE,
-      payload: mockData,
-    })
-      .next()
-      .select(selectUser)
-      .next(user)
-      .call([deviceApi, deviceApi.createDevice], mockData)
-      .throw(new ServerError(mockError401))
-      .call(navigate, { route: IAuthStackPages.LOGIN })
-      .next();
   });
 
   it('Should call showUnknownError action if 500', () => {
@@ -164,7 +131,7 @@ describe('Device - usecase', () => {
       .next(user)
       .call([deviceApi, deviceApi.createDevice], mockData)
       .throw(new ServerError(mockError500))
-      .put(initializeDevice())
+      .put(resetError())
       .next()
       .put(showUnknownError(new ServerError(mockError500)))
       .next();

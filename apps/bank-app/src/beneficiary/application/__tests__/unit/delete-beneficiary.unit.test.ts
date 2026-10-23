@@ -16,16 +16,14 @@ import {
   IBeneficiaryTypes,
   beneficiaryDeleteFailed,
   beneficiaryDeleted,
-  initBeneficiary,
+  resetError,
 } from '../../commands/beneficiary';
 import { BeneficiaryError } from '@clean-rn/beneficiary/domain';
-import { refreshSuccess } from '../../../../auth/application/commands';
-import { selectAuth } from '../../../../auth/application/state-management/selectors';
+import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
 describe('DeleteBeneficiary - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
   const api = BeneficiaryApi.getInstance(httpConnection);
-  const authApi = AuthApi.getInstance(httpConnection);
 
   const mockRequest = {
     beneficiaryId: 4004318954,
@@ -36,23 +34,6 @@ describe('DeleteBeneficiary - usecase', () => {
     iban: 'FR7616798000010000242599449',
     bic: 'TRZOFR21XXX',
     name: 'BENFMOCK',
-  };
-
-  const mockToken = {
-    accessToken: 'fake-access-token',
-    refreshToken: 'fake-refresh-token',
-  };
-
-  const mockError401 = {
-    statusCode: 401,
-    message: 'Unauthorized',
-    response: {
-      statusCode: 401,
-      message: 'Unauthorized',
-    },
-    timestamp: '2023-10-03T13:20:21.303Z',
-    path: '/app/beneficiary',
-    method: 'POST',
   };
 
   const mockError400 = {
@@ -86,11 +67,7 @@ describe('DeleteBeneficiary - usecase', () => {
       payload: mockRequest,
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
+      .call(ensureTokenRefreshed, httpConnection)
       .next()
       .call([api, api.deleteBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
@@ -106,38 +83,13 @@ describe('DeleteBeneficiary - usecase', () => {
       payload: mockRequest,
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
+      .call(ensureTokenRefreshed, httpConnection)
       .next()
       .call([api, api.deleteBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError400))
-      .put(initBeneficiary())
+      .put(resetError())
       .next()
       .put(beneficiaryDeleteFailed(new BeneficiaryError.BeneficiaryUnknown(mockError400.message)))
-      .next()
-      .cancel();
-  });
-
-  it('Should call navigate to Login modale if 401 from Server', () => {
-    testSaga(deleteBeneficiaryGenerator, httpConnection, {
-      type: IBeneficiaryTypes.DELETE_BENEFICIARY,
-      payload: mockRequest,
-    })
-      .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
-      .next()
-      .call([api, api.deleteBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .throw(new ServerError(mockError401))
-      .put(initBeneficiary())
-      .next()
-      .call(navigate, { route: IAuthStackPages.LOGIN })
       .next()
       .cancel();
   });
@@ -148,15 +100,11 @@ describe('DeleteBeneficiary - usecase', () => {
       payload: mockRequest,
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
+      .call(ensureTokenRefreshed, httpConnection)
       .next()
       .call([api, api.deleteBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
-      .put(initBeneficiary())
+      .put(resetError())
       .next()
       .put(showUnknownError(new ServerError(mockError500)))
       .next();
@@ -168,15 +116,11 @@ describe('DeleteBeneficiary - usecase', () => {
       payload: mockRequest,
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
+      .call(ensureTokenRefreshed, httpConnection)
       .next()
       .call([api, api.deleteBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unknown error'))
-      .put(initBeneficiary())
+      .put(resetError())
       .next()
       .put(showUnknownError(new Error('unknown error')))
       .next();

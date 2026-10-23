@@ -9,7 +9,7 @@ import { AuthApi } from '@clean-rn/auth/infrastructure';
 import { refreshSaga, refreshGenerator } from '../../usecases/refresh';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages, ISharedStackPages } from '../../../../shared/presentation/types';
+import { ISharedStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { selectAuth } from '../../../../auth/application/state-management/selectors';
 import { IAuthTypes, refreshSuccess, resetError } from '../../commands';
@@ -23,18 +23,6 @@ describe('Refresh - usecase', () => {
   const mockResponse = {
     accessToken: 'fake-access-token',
     refreshToken: 'fake-refresh-token',
-  };
-
-  const mockError401 = {
-    statusCode: 401,
-    message: 'Unauthorized',
-    response: {
-      statusCode: 401,
-      message: 'Unauthorized',
-    },
-    timestamp: '2023-10-03T13:20:21.303Z',
-    path: '/app/account',
-    method: 'GET',
   };
 
   const mockError500 = {
@@ -81,22 +69,6 @@ describe('Refresh - usecase', () => {
       .next()
       .call(navigate, { route: ISharedStackPages.HOME, params: undefined })
       .next();
-  });
-
-  it('Should call showUnknownError action if 401 from Server', () => {
-    testSaga(refreshGenerator, httpConnection, {
-      type: IAuthTypes.FETCH_REFRESH,
-    })
-      .next()
-      .select(selectAuth)
-      .next(mockResponse)
-      .call([authApi, authApi.refresh], mockResponse.refreshToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .throw(new ServerError(mockError401))
-      .put(resetError())
-      .next()
-      .call(navigate, { route: IAuthStackPages.LOGIN })
-      .next()
-      .cancel();
   });
 
   it('Should call showUnknownError action if 500 from Server', () => {

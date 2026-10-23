@@ -19,24 +19,28 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
       newState = {
         ...state,
         pending: true,
+        error: null,
       };
       return newState;
     case IBeneficiaryTypes.DELETE_BENEFICIARY:
       newState = {
         ...state,
         pending: true,
+        error: null,
       };
       return newState;
     case IBeneficiaryTypes.LIST_BENEFICIARIES:
       newState = {
         ...state,
         pending: true,
+        error: null,
       };
       return newState;
     case IBeneficiaryTypes.CHANGE_TAB:
       newState = {
         ...state,
         tab: action.payload.idx,
+        error: null,
       };
       return newState;
     case IBeneficiaryTypes.BENEFICIARY_ADDED:
@@ -49,6 +53,7 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
       newState = {
         ...state,
         pending: false,
+        error: null,
         beneficiaries: beneficiaries,
       };
       return newState;
@@ -63,6 +68,7 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
       newState = {
         ...state,
         pending: false,
+        error: null,
         beneficiaries:
           state.beneficiaries && state.beneficiaries.length > 0
             ? state.beneficiaries.filter(
@@ -82,10 +88,17 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
       newState = {
         ...state,
         pending: false,
+        error: null,
         beneficiaries: action.payload,
       };
       return newState;
     case IBeneficiaryTypes.INIT_BENEFICIARY:
+      newState = {
+        ...state,
+        ...initialState,
+      };
+      return newState;
+    case IBeneficiaryTypes.RESET_ERROR:
       newState = {
         ...state,
         pending: false,

@@ -11,6 +11,7 @@ export enum IContactTypes {
   ADD_CONTACT = 'ADD_CONTACT',
   LIST_CONTACTS = 'LIST_CONTACTS',
   INIT_CONTACT = 'INIT_CONTACT',
+  RESET_ERROR = 'RESET_ERROR',
   // domain Events
   CONTACT_ADDED = 'CONTACT_ADDED',
   CONTACT_ADD_FAILED = 'CONTACT_ADD_FAILED',
@@ -29,6 +30,10 @@ export type IListContacts = {
 
 export type IInitContact = {
   type: typeof IContactTypes.INIT_CONTACT;
+};
+
+export type IResetError = {
+  type: typeof IContactTypes.RESET_ERROR;
 };
 
 //domain Events
@@ -51,6 +56,7 @@ export type IContactActions =
   | IAddContact
   | IListContacts
   | IInitContact
+  | IResetError
   | IContactAdded
   | IContactAddedFailed
   | IContactsListed;

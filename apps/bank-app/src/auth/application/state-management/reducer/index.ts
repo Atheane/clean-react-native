@@ -20,6 +20,7 @@ export const authReducer = (state = initialState, action: IAuthActions) => {
       newState = {
         ...state,
         pending: true,
+        error: null,
         email: action.payload.email,
         password: action.payload.password,
       };
@@ -28,6 +29,7 @@ export const authReducer = (state = initialState, action: IAuthActions) => {
       newState = {
         ...state,
         pending: false,
+        error: null,
         auth: action.payload.auth,
       };
       return newState;
@@ -35,6 +37,7 @@ export const authReducer = (state = initialState, action: IAuthActions) => {
       newState = {
         ...state,
         pending: false,
+        error: null,
         auth: action.payload.auth,
       };
       return newState;
@@ -50,6 +53,7 @@ export const authReducer = (state = initialState, action: IAuthActions) => {
         ...state,
         pending: true,
         success: null,
+        error: null,
       };
       return newState;
     case IAuthTypes.FETCH_LOGOUT:
@@ -57,12 +61,14 @@ export const authReducer = (state = initialState, action: IAuthActions) => {
         ...state,
         pending: true,
         success: null,
+        error: null,
       };
       return newState;
     case IAuthTypes.PASSWORD_RESET:
       newState = {
         ...state,
         pending: false,
+        error: null,
         success: action.payload.success,
       };
       return newState;
@@ -71,6 +77,7 @@ export const authReducer = (state = initialState, action: IAuthActions) => {
         ...state,
         success: null,
         pending: false,
+        error: null,
         auth: {
           accessToken: null,
           refreshToken: null,
