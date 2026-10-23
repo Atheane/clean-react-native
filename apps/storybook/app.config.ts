@@ -34,6 +34,7 @@ export default {
       bundler: 'metro',
     },
     plugins: [
+      'expo-localization',
       [
         '@config-plugins/detox',
         {

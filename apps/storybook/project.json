@@ -58,8 +58,15 @@
       }
     },
     "sync-deps": {
-      "executor": "@nx/expo:sync-deps",
-      "options": {}
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "npm run eas-build-pre-install"
+          }
+        ],
+        "cwd": "apps/bank-app"
+      }
     },
     "ensure-symlink": {
       "executor": "@nx/expo:ensure-symlink",
