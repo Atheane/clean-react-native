@@ -673,7 +673,10 @@
         "show-pin": "Voir mon code PIN"
       },
       "kyc-missing": {
-        "title": "Justificatifs manquants"
+        "title": "Justificatifs manquants",
+        "instruction": "Votre carte n’a pas encore été créée. Vous devez d’abord ",
+        "instruction-bold": "valider votre identité.",
+        "link-instruction": "Valider mon identité"
       },
       "waiting-card": {
         "title": "Carte en cours d'envoi",

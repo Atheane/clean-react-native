@@ -10,7 +10,6 @@ import { Colors, FontNames } from '../../../constants';
 
 import { SubmitButton } from '../../buttons/submit-button';
 import { TextInput } from '../../inputs/text-input';
-import { ErrorMessage } from '../../texts/error-message';
 
 export type ICardLimitsFormData = {
   limitPaymentMonth: number;
