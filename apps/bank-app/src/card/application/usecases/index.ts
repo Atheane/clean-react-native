@@ -15,7 +15,14 @@ import { AuthApi } from '@clean-rn/auth/infrastructure';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { CardApi } from '@clean-rn/card/infrastructure';
 
-import { cardLimitsChanged, initCard, ICardTypes, cardGetSuccess, cardNotFound } from '../commands';
+import {
+  cardLimitsChanged,
+  initCard,
+  ICardTypes,
+  cardGetSuccess,
+  cardNotFound,
+  cardForbidden,
+} from '../commands';
 import { IAuthStackPages, ICardStackPages } from '../../../shared/presentation/types';
 import { navigate } from '../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
@@ -58,6 +65,11 @@ export function* getCardGenerator(httpConnection: HttpConnection): Generator<Str
         yield cancel();
       }
       yield call(navigate, { route: ICardStackPages.MENU, params: { screen: ICardStackPages.WAITING_CARD } });
+      yield cancel();
+    }
+    if (error instanceof ServerError && error.statusCode === 403) {
+      yield put(cardForbidden(new CardError.Forbidden()));
+      yield call(navigate, { route: ICardStackPages.MENU });
       yield cancel();
     }
     yield put(initCard());

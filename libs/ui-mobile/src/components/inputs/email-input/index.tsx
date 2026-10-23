@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Input, useTheme } from '@rneui/themed';
 
-import { Mail } from '../../../assets';
+import { GreenGradientMail } from '../../../assets';
 import { Colors } from '../../../constants';
 
 import { TextInput } from '../../inputs/text-input';
@@ -37,7 +37,7 @@ export const EmailInput = (props: Props & State) => {
       autoCapitalize="none"
       inputContainerStyle={[theme.bank.container.input, styles.inputContainer]}
       inputStyle={[theme.bank.text.input, styles.input]}
-      leftIcon={<Mail style={{ color: Colors.bank.primary.lightGreen }} />}
+      leftIcon={<GreenGradientMail style={{ color: Colors.bank.primary.lightGreen }} />}
       leftIconContainerStyle={styles.leftIconContainer}
       value={props.email?.trim()}
       caretHidden={true}
@@ -46,7 +46,7 @@ export const EmailInput = (props: Props & State) => {
     <TextInput
       label={t('email-input.label')}
       labelColor={Colors.bank.primary.grey}
-      IconLeft={() => <Mail style={{ color: Colors.bank.primary.lightGreen }} />}
+      IconLeft={() => <GreenGradientMail style={{ color: Colors.bank.primary.lightGreen }} />}
       value={props.value}
       lowerCase
       onChange={handleOnChange}

@@ -50,7 +50,8 @@ import PlaneTo from './planeTo.svg';
 import Lock from './lock.svg';
 import Eye from './remove_red_eye_48px.svg';
 import Blind from './icon_eye-invisible.svg';
-import Mail from './mail.svg';
+import BlueMail from './blue-mail.svg';
+import GreenGradientMail from './green-gradient-mail.svg';
 import Edit from './edit.svg';
 import Phone from './phone.svg';
 import Person from './person.svg';
@@ -185,7 +186,8 @@ export {
   Lock,
   Eye,
   Blind,
-  Mail,
+  GreenGradientMail,
+  BlueMail,
   Edit,
   Phone,
   Person,

@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
-import { View, StyleSheet, Dimensions, Image } from 'react-native';
+import { View, StyleSheet, Dimensions, Image, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
+import { useTheme } from '@rneui/themed';
 
-import { LinkButton, LinkButtonColors } from '@clean-rn/ui-mobile';
+import { ContactEmail, LinkButton, LinkButtonColors, LoaderSplashScreen } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { ICardStackPages } from '../../../shared/presentation/types';
@@ -17,26 +18,38 @@ import {
   CB,
 } from '../assets';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { CardError } from '@clean-rn/card/domain';
 
 const HEIGHT = Dimensions.get('screen').height;
 export const CardMenu = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
-  //todo: lock / unlock logic in state
+  const { theme } = useTheme();
 
   const { pending, card, error } = useSelector((state: IRootState) => state.card);
 
   console.log('---------> error', error);
 
-  return (
+  return pending ? (
+    <LoaderSplashScreen />
+  ) : (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={styles.container}>
           <View style={styles.imageContainer}>
             <Image source={CB} style={{ width: 150, height: 300 }} />
           </View>
-
-          <View style={styles.linksContainer}>
+          {error && error instanceof CardError.Forbidden && (
+            <View style={styles.contactEmailContainer}>
+              <Text style={[styles.instruction, theme.bank.text.grey, { fontSize: 14, textAlign: 'center' }]}>
+                {t('screens.card.menu.unavailable-card')}
+              </Text>
+              <ContactEmail />
+            </View>
+          )}
+          <View
+            style={[styles.subContainer, error && error instanceof CardError.Forbidden && { opacity: 0.3 }]}
+          >
             <View style={styles.rowContainer}>
               <LinkButton
                 iconLeft={BlueGradientSpeedmeter}
@@ -86,11 +99,21 @@ const styles = StyleSheet.create({
     marginTop: 40,
     alignItems: 'center',
   },
-  linksContainer: {
+  subContainer: {
     flex: 1,
     marginLeft: 32,
   },
   rowContainer: {
     flexDirection: 'row',
+  },
+  contactEmailContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 24,
+  },
+  instruction: {
+    textAlign: 'center',
+    width: '85%',
+    marginVertical: 24,
   },
 });

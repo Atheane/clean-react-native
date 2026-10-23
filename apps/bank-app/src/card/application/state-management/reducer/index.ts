@@ -39,6 +39,7 @@ export const cardReducer = (state = initialState, action: ICardActions) => {
         ...state,
         pending: false,
         error: action.payload,
+        card: null,
       };
       return newState;
     case ICardTypes.CARD_LIMITS_CHANGED:
@@ -46,6 +47,14 @@ export const cardReducer = (state = initialState, action: ICardActions) => {
         ...state,
         pending: false,
         card: action.payload,
+      };
+      return newState;
+    case ICardTypes.CARD_FORBIDDEN:
+      newState = {
+        ...state,
+        pending: false,
+        error: action.payload,
+        card: null,
       };
       return newState;
     case ICardTypes.INIT_CARD:

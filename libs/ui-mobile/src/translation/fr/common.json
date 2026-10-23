@@ -171,6 +171,12 @@
     "label": "email",
     "placeholder": "votre@email.com"
   },
+  "contact-email": {
+    "label": "PAR EMAIL",
+    "bank": "contact@example.com",
+    "subject": "Commander une carte CO2",
+    "body": "Bonjour,\nL'application CO2 m'indique que ma carte CO2 n'est plus accessible, et je souhaite la renouveler.\n\nCordialement"
+  },
   "password-input": {
     "placeholder": "******",
     "label": "password"
@@ -666,6 +672,7 @@
     "card": {
       "menu": {
         "title": "Paramètrer ma carte",
+        "unavailable-card": "Cette carte n’est plus accessible. Veuillez en commander une nouvelle :",
         "limits": "Modifier mes plafonds",
         "lock": "Bloquer ma carte",
         "unlock": "Débloquer ma carte",

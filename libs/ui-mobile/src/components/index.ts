@@ -81,6 +81,7 @@ import { CopyValueClipboard } from './others/copy-value-clipboard';
 import { GraphCO2 } from './others/graph-co2';
 import { ModalError } from './others/modal-error';
 import { LoaderSplashScreen } from './others/loader-splash-screen';
+import { ContactEmail } from './others/contact-email';
 // Searchboxes
 import { SearchModal } from './searchboxes/search-modal';
 // Texts
@@ -181,6 +182,7 @@ export {
   GraphCO2,
   ModalError,
   LoaderSplashScreen,
+  ContactEmail,
   // Searchboxes
   SearchModal,
   // Texts

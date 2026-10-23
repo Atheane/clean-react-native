@@ -46,6 +46,7 @@ declare module '@rneui/themed' {
         errors: StyleProp<TextStyle>;
         white: StyleProp<TextStyle>;
         whiteGraphTitle: StyleProp<TextStyle>;
+        purple: StyleProp<TextStyle>;
       };
     };
   }
@@ -203,6 +204,11 @@ export const theme = createTheme({
         marginTop: 16,
         marginLeft: 8,
         textAlign: 'center',
+      },
+      purple: {
+        fontFamily: FontNames.Roboto_400Regular,
+        color: Colors.bank.secondary.purple,
+        lineHeight: 19,
       },
       darkBlue: {
         fontFamily: FontNames.MartelSans_400Regular,

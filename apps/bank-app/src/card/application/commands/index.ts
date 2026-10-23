@@ -9,6 +9,7 @@ import {
   IFetchGetCard,
   ICardGetSuccess,
   ICardNotFound,
+  ICardForbidden,
 } from './types';
 import { IDomainError } from '@clean-rn/ddd';
 
@@ -35,6 +36,11 @@ export const cardLimitsChanged = (payload: Card): ICardLimitsChanged => ({
 
 export const cardGetSuccess = (payload: Card): ICardGetSuccess => ({
   type: ICardTypes.CARD_GET_SUCCESS,
+  payload,
+});
+
+export const cardForbidden = (payload: IDomainError<ICardErrorCodes, ICardErrorMessage>): ICardForbidden => ({
+  type: ICardTypes.CARD_FORBIDDEN,
   payload,
 });
 
