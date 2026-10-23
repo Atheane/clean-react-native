@@ -29,11 +29,10 @@ export const accountsReducer = (state = initialState, action: IAccountsActions) 
         selectedAccount: action.payload,
       };
       return newState;
-    case IAccountsTypes.INITIALIZE_ACCOUNTS_LIST:
+    case IAccountsTypes.INITIALIZE_ACCOUNTS:
       newState = {
         ...state,
-        pending: false,
-        accounts: null,
+        ...initialState,
       };
       return newState;
     default:

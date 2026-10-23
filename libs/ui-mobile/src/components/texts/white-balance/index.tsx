@@ -34,7 +34,7 @@ export const WhiteBalance = (props: IProps) => {
     }
   };
 
-  return (
+  return props.onPress ? (
     <TouchableOpacity onPress={props.onPress}>
       <Text style={styles.title}>{props.title ?? title(props.account.accountType)}</Text>
       <View style={[styles.widgetContainer, theme.bank.container.justifiedItems]}>
@@ -44,11 +44,24 @@ export const WhiteBalance = (props: IProps) => {
           </Text>
           <GreenEuro />
         </View>
+
         <View style={styles.linkContainer}>
           <RightChevron style={{ color: Colors.bank.primary.white }} />
         </View>
       </View>
     </TouchableOpacity>
+  ) : (
+    <View>
+      <Text style={styles.title}>{props.title ?? title(props.account.accountType)}</Text>
+      <View style={[styles.widgetContainer, theme.bank.container.justifiedItems]}>
+        <View style={theme.bank.container.centeredItems}>
+          <Text style={[theme.bank.text.white, styles.balance]}>
+            {props.account.authorizedBalance.toString().replace('.', ',')}
+          </Text>
+          <GreenEuro />
+        </View>
+      </View>
+    </View>
   );
 };
 

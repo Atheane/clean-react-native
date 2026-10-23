@@ -15,18 +15,21 @@ export const cardReducer = (state = initialState, action: ICardActions) => {
       newState = {
         ...state,
         pending: true,
+        error: null,
       };
       return newState;
     case ICardTypes.FETCH_TOGGLE_LOCK:
       newState = {
         ...state,
         pending: true,
+        error: null,
       };
       return newState;
     case ICardTypes.FETCH_CHANGE_CARD_PIN:
       newState = {
         ...state,
         pending: true,
+        error: null,
       };
       return newState;
     case ICardTypes.CARD_GET_SUCCESS:
@@ -34,6 +37,7 @@ export const cardReducer = (state = initialState, action: ICardActions) => {
         ...state,
         pending: false,
         card: action.payload,
+        error: null,
       };
       return newState;
     case ICardTypes.CARD_NOT_FOUND:
@@ -48,6 +52,7 @@ export const cardReducer = (state = initialState, action: ICardActions) => {
       newState = {
         ...state,
         pending: false,
+        error: null,
         card: action.payload,
       };
       return newState;
@@ -64,6 +69,7 @@ export const cardReducer = (state = initialState, action: ICardActions) => {
         ...state,
         pending: false,
         card: action.payload,
+        error: null,
       };
       return newState;
     case ICardTypes.CARD_PIN_CHANGED:
@@ -71,6 +77,7 @@ export const cardReducer = (state = initialState, action: ICardActions) => {
         ...state,
         pending: false,
         card: action.payload,
+        error: null,
       };
       return newState;
     case ICardTypes.CARD_PIN_CHANGED_FAILED:
@@ -80,10 +87,17 @@ export const cardReducer = (state = initialState, action: ICardActions) => {
         error: action.payload,
       };
       return newState;
-    case ICardTypes.INIT_CARD:
+    case ICardTypes.RESET_ERROR:
       newState = {
         ...state,
         pending: false,
+        error: null,
+      };
+      return newState;
+    case ICardTypes.INIT_CARD:
+      newState = {
+        ...state,
+        ...initialState,
       };
       return newState;
     default:

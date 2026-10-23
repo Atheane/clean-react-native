@@ -10,7 +10,7 @@ import {
   IAccountsTypes,
   listAccounts,
   accountsListed,
-  initializeAccountsList,
+  initializeAccounts,
   accountSelected,
 } from '../../commands/accounts';
 import { IAccountsState, accountsReducer } from '../../state-management';
@@ -89,9 +89,9 @@ describe('Accounts - integration', () => {
     });
   });
 
-  it('Should store correct state if INITIALIZE_LIST_ACCOUNTS', () => {
+  it('Should store correct state if INITIALIZE_ACCOUNTS', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, listAccountsSaga, httpConnection);
-    sagaTester.dispatch(initializeAccountsList());
+    sagaTester.dispatch(initializeAccounts());
 
     expect(sagaTester.getState()).toEqual({
       pending: false,

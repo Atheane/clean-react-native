@@ -9,25 +9,21 @@ import { ITransactionServer } from '@clean-rn/transaction/infrastructure';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { TransactionApi } from '@clean-rn/transaction/infrastructure';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages, ITransactionStackPages } from '../../../../shared/presentation/types';
+import { ITransactionStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-
-import { selectAuth } from '../../../../auth/application/state-management/selectors';
-import { refreshSuccess } from '../../../../auth/application/commands';
 
 import { accountSelected } from '../../../../account/application/commands/accounts';
 
 import { listTransactionsGenerator, listTransactionsSaga } from '../../usecases';
 import { ITransactionsTypes, transactionsListed, initializeTransactionsList } from '../../commands';
+import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
 describe('ListTransactions - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
 
   const api = TransactionApi.getInstance(httpConnection);
-  const authApi = AuthApi.getInstance(httpConnection);
 
   const genObject = listTransactionsSaga(httpConnection);
 
@@ -58,29 +54,12 @@ describe('ListTransactions - usecase', () => {
     type: item.transactionType as ITransactionType, //todo: maybe delete this, and make use of category only, easier to map, and this is all we need to know in the app
   }));
 
-  const mockError401 = {
-    statusCode: 401,
-    message: 'Unauthorized',
-    response: {
-      statusCode: 401,
-      message: 'Unauthorized',
-    },
-    timestamp: '2023-10-03T13:20:21.303Z',
-    path: '/app/account',
-    method: 'GET',
-  };
-
   const mockError500 = {
     message: 'Core::AuthService::Auth - Server Error',
     statusCode: 500,
     response: 'Core::AuthService::Auth - Server Error',
     timestamp: '2023-04-07T15:28:04.657Z',
     path: '/app/account',
-  };
-
-  const mockToken = {
-    accessToken: 'fake-access-token',
-    refreshToken: 'fake-refresh-token',
   };
 
   const account = {
@@ -104,11 +83,7 @@ describe('ListTransactions - usecase', () => {
       payload: { account },
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
+      .call(ensureTokenRefreshed, httpConnection)
       .next()
       .call([api, api.getTransactions], account.accountId) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
@@ -120,36 +95,13 @@ describe('ListTransactions - usecase', () => {
       .next();
   });
 
-  it('Should call navigate to Login modale action if 401 from Server', () => {
-    testSaga(listTransactionsGenerator, httpConnection, {
-      type: ITransactionsTypes.LIST_TRANSACTIONS,
-      payload: { account },
-    })
-      .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
-      .next()
-      .call([api, api.getTransactions], account.accountId) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .throw(new ServerError(mockError401))
-      .call(navigate, { route: IAuthStackPages.LOGIN })
-      .next()
-      .cancel();
-  });
-
   it('Should call showUnknownError action if 500 from Server', () => {
     testSaga(listTransactionsGenerator, httpConnection, {
       type: ITransactionsTypes.LIST_TRANSACTIONS,
       payload: { account },
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
+      .call(ensureTokenRefreshed, httpConnection)
       .next()
       .call([api, api.getTransactions], account.accountId)
       .throw(new ServerError(mockError500))
@@ -165,11 +117,7 @@ describe('ListTransactions - usecase', () => {
       payload: { account },
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
+      .call(ensureTokenRefreshed, httpConnection)
       .next()
       .call([api, api.getTransactions], account.accountId)
       .throw(new Error('unknown error'))

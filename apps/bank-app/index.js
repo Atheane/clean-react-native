@@ -3,6 +3,7 @@ import * as Sentry from '@sentry/react-native';
 import Constants from 'expo-constants';
 import App from './src/shared/presentation/App';
 import firebase from '@react-native-firebase/app';
+import { decode } from 'base-64';
 
 const firebaseConfig = {
   apiKey: Constants.expoConfig?.extra?.FIREBASE_API_KEY,
@@ -16,6 +17,9 @@ const firebaseConfig = {
 if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
 }
+
+//polyfill for jwt-decode
+global.atob = decode;
 
 console.log('ENVIRONMENT', Constants.expoConfig?.extra?.NODE_ENV);
 

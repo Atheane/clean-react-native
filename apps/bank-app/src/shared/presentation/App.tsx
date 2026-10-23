@@ -10,7 +10,7 @@ import SplashScreen from '../../../assets/images/splash.png';
 
 import { Fonts, theme, i18n, useDeepLink } from '@clean-rn/ui-mobile';
 
-import { store } from '../application/state-management/state/store';
+import { store } from '../application/usecases/root-saga';
 import { NavigationUI } from './navigation';
 import { IRootState } from '../../shared/application/state-management/reducers/root-reducer';
 import { initializeApplication } from '../../shared/application/commands/initialize-application';

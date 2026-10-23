@@ -8,26 +8,23 @@ import {
   IDeleteBeneficiaryCommand,
 } from '@clean-rn/beneficiary/domain';
 
-import { AuthApi } from '@clean-rn/auth/infrastructure';
-
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { BeneficiaryApi } from '@clean-rn/beneficiary/infrastructure';
 
 import {
   beneficiariesListed,
   IBeneficiaryTypes,
-  initBeneficiary,
   beneficiaryAddFailed,
   beneficiaryAdded,
   beneficiaryDeleteFailed,
   beneficiaryDeleted,
+  resetError,
 } from '../../commands/beneficiary';
-import { IAuthStackPages, IBeneficiaryStackPages } from '../../../../shared/presentation/types';
+import { IBeneficiaryStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { selectBeneficiary } from '../../state-management/selectors';
-import { selectAuth } from '../../../../auth/application/state-management/selectors';
-import { refreshSuccess } from '../../../../auth/application/commands';
+import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
 export function* addBeneficiarySaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IBeneficiaryTypes.ADD_BENEFICIARY, addBeneficiaryGenerator, httpConnection);
@@ -51,23 +48,14 @@ export function* addBeneficiaryGenerator(
   },
 ): Generator<StrictEffect, any, any> {
   try {
-    const authApi = AuthApi.getInstance(httpConnection);
-    const authFromStore = yield select(selectAuth);
-    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
-    yield put(refreshSuccess({ auth }));
-    // api call - add beneficiary
+    yield call(ensureTokenRefreshed, httpConnection);
     const api = BeneficiaryApi.getInstance(httpConnection);
     const beneficiary = yield call([api, api.addBeneficiary], payload);
     yield put(beneficiaryAdded(beneficiary));
     // nav back to beneficiary list
     yield call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 0 } });
   } catch (error: unknown) {
-    yield put(initBeneficiary());
-    // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
-    if (error instanceof ServerError && error.statusCode === 401) {
-      yield call(navigate, { route: IAuthStackPages.LOGIN });
-      yield cancel();
-    }
+    yield put(resetError());
     if (error instanceof ServerError && error.statusCode === 400) {
       yield put(beneficiaryAddFailed(new BeneficiaryError.BeneficiaryAlreadyExists(error.message)));
       yield cancel();
@@ -86,23 +74,15 @@ export function* deleteBeneficiaryGenerator(
   },
 ): Generator<StrictEffect, any, any> {
   try {
-    const authApi = AuthApi.getInstance(httpConnection);
-    const authFromStore = yield select(selectAuth);
-    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
-    yield put(refreshSuccess({ auth }));
-    // api call - delete beneficiary
+    yield call(ensureTokenRefreshed, httpConnection);
+
     const api = BeneficiaryApi.getInstance(httpConnection);
     const beneficiary = yield call([api, api.deleteBeneficiary], payload);
 
     yield put(beneficiaryDeleted(beneficiary));
     yield call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 0 } });
   } catch (error: unknown) {
-    yield put(initBeneficiary());
-    // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
-    if (error instanceof ServerError && error.statusCode === 401) {
-      yield call(navigate, { route: IAuthStackPages.LOGIN });
-      yield cancel();
-    }
+    yield put(resetError());
     if (error instanceof ServerError && error.statusCode === 400) {
       yield put(beneficiaryDeleteFailed(new BeneficiaryError.BeneficiaryUnknown(error.message)));
       yield cancel();
@@ -113,28 +93,19 @@ export function* deleteBeneficiaryGenerator(
 
 export function* listBeneficiaryGenerator(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   try {
-    const authApi = AuthApi.getInstance(httpConnection);
-    const authFromStore = yield select(selectAuth);
-    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
-    yield put(refreshSuccess({ auth }));
-
     const { beneficiaries: beneficiariesFromStore } = yield select(selectBeneficiary);
 
     if (beneficiariesFromStore) {
       yield put(beneficiariesListed(beneficiariesFromStore));
       yield call(navigate, { route: IBeneficiaryStackPages.MENU });
     } else {
+      yield call(ensureTokenRefreshed, httpConnection);
       const api = BeneficiaryApi.getInstance(httpConnection);
       const beneficiaries: IBeneficiary[] = yield call([api, api.getBeneficiary]);
       yield put(beneficiariesListed(beneficiaries));
     }
   } catch (error: unknown) {
-    yield put(initBeneficiary());
-    // https://redux-saga.js.org/docs/basics/ErrorHandling/ expected error must be managed at the saga level
-    if (error instanceof ServerError && error.statusCode === 401) {
-      yield call(navigate, { route: IAuthStackPages.LOGIN });
-      yield cancel();
-    }
+    yield put(resetError());
     // once app is well tested, delete this part and let onError hook manage unexpected errors
     yield put(showUnknownError(error as Error));
   }

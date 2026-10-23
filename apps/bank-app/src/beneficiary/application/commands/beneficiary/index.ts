@@ -20,6 +20,7 @@ import {
   IBeneficiaryAdded,
   IBeneficiaryDeleted,
   IChangeTab,
+  IResetError,
 } from './types';
 
 // commands
@@ -35,6 +36,10 @@ export const deleteBeneficiary = (payload: IDeleteBeneficiaryCommand): IDeleteBe
 
 export const listBeneficiaries = (): IListBeneficiary => ({
   type: IBeneficiaryTypes.LIST_BENEFICIARIES,
+});
+
+export const resetError = (): IResetError => ({
+  type: IBeneficiaryTypes.RESET_ERROR,
 });
 
 export const initBeneficiary = (): IInitBeneficiary => ({

@@ -7,24 +7,22 @@ import {
   IToggleCardLockCommand,
   IChangeCardPINCommand,
 } from '@clean-rn/card/domain';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { CardApi } from '@clean-rn/card/infrastructure';
 
 import {
   cardLimitsChanged,
-  initCard,
   ICardTypes,
   cardLockToggled,
   cardPINChanged,
   cardPINChangedFailed,
+  resetError,
 } from '../commands';
-import { IAuthStackPages, ICardStackPages } from '../../../shared/presentation/types';
+import { ICardStackPages } from '../../../shared/presentation/types';
 import { navigate } from '../../../shared/presentation/navigation/navigationRef';
+import { ensureTokenRefreshed } from '../../../shared/application/usecases/ensureTokenRefreshed';
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
-import { selectAuth } from '../../../auth/application/state-management/selectors';
-import { refreshSuccess } from '../../../auth/application/commands';
 import { selectCard } from '../state-management/selectors';
 
 export function* changeCardPINSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
@@ -41,25 +39,18 @@ export function* changeCardPINGenerator(
   },
 ): Generator<StrictEffect, any, any> {
   try {
-    const authApi = AuthApi.getInstance(httpConnection);
-    const authFromStore = yield select(selectAuth);
-    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
-    yield put(refreshSuccess({ auth }));
+    yield call(ensureTokenRefreshed, httpConnection);
     const cardFromStore = yield select(selectCard);
     const cardApi = CardApi.getInstance(httpConnection);
     const card = yield call([cardApi, cardApi.changeCardPIN], cardFromStore, payload);
     yield put(cardPINChanged(card));
     yield call(navigate, { route: ICardStackPages.CHANGE_PIN_SUCCESS });
   } catch (error: unknown) {
-    if (error instanceof ServerError && error.statusCode === 401) {
-      yield call(navigate, { route: IAuthStackPages.LOGIN });
-      yield cancel();
-    }
+    yield put(resetError());
     if (error instanceof ServerError && error.statusCode === 403) {
       yield put(cardPINChangedFailed(new CardError.MaxNumberOfPinChangesReached()));
       yield cancel();
     }
-    yield put(initCard());
     // Gestion des erreurs non attendues
     yield put(showUnknownError(error as Error));
   }
@@ -79,21 +70,14 @@ export function* changeCardLimitsGenerator(
   },
 ): Generator<StrictEffect, any, any> {
   try {
-    const authApi = AuthApi.getInstance(httpConnection);
-    const authFromStore = yield select(selectAuth);
-    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
-    yield put(refreshSuccess({ auth }));
+    yield call(ensureTokenRefreshed, httpConnection);
     const cardFromStore = yield select(selectCard);
     const cardApi = CardApi.getInstance(httpConnection);
     const card = yield call([cardApi, cardApi.changeCardLimits], cardFromStore, payload);
     yield put(cardLimitsChanged(card));
     yield call(navigate, { route: ICardStackPages.CARD });
   } catch (error: unknown) {
-    if (error instanceof ServerError && error.statusCode === 401) {
-      yield call(navigate, { route: IAuthStackPages.LOGIN });
-      yield cancel();
-    }
-    yield put(initCard());
+    yield put(resetError());
     // Gestion des erreurs non attendues
     yield put(showUnknownError(error as Error));
   }
@@ -113,21 +97,14 @@ export function* toggleCardLockGenerator(
   },
 ): Generator<StrictEffect, any, any> {
   try {
-    const authApi = AuthApi.getInstance(httpConnection);
-    const authFromStore = yield select(selectAuth);
-    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
-    yield put(refreshSuccess({ auth }));
+    yield call(ensureTokenRefreshed, httpConnection);
     const cardFromStore = yield select(selectCard);
     const cardApi = CardApi.getInstance(httpConnection);
     const card = yield call([cardApi, cardApi.toggleCardLock], cardFromStore, payload);
     yield put(cardLockToggled(card));
     yield call(navigate, { route: ICardStackPages.LOCK_CARD_SUCCESS });
   } catch (error: unknown) {
-    if (error instanceof ServerError && error.statusCode === 401) {
-      yield call(navigate, { route: IAuthStackPages.LOGIN });
-      yield cancel();
-    }
-    yield put(initCard());
+    yield put(resetError());
     // Gestion des erreurs non attendues
     yield put(showUnknownError(error as Error));
   }

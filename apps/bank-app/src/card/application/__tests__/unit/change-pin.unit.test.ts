@@ -4,24 +4,21 @@ import { testSaga } from 'redux-saga-test-plan';
 import Constants from 'expo-constants';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
 import { Card, CardError, CardPinCode, ICardStatuses, IChangeCardPINCommand } from '@clean-rn/card/domain';
 import { CardApi } from '@clean-rn/card/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages, ICardStackPages } from '../../../../shared/presentation/types';
+import { ICardStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { changeCardPINGenerator, changeCardPINSaga } from '../../usecases';
-import { ICardTypes, cardForbidden, cardPINChanged, cardPINChangedFailed, initCard } from '../../commands';
-import { selectAuth } from '../../../../auth/application/state-management/selectors';
-import { refreshSuccess } from '../../../../auth/application/commands';
+import { ICardTypes, cardPINChanged, cardPINChangedFailed, resetError } from '../../commands';
 import { selectCard } from '../../state-management/selectors';
+import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
 describe('ChangePIN - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
   const api = CardApi.getInstance(httpConnection);
-  const authApi = AuthApi.getInstance(httpConnection);
 
   const mockCardServeur = {
     cardId: 999826250,
@@ -53,23 +50,6 @@ describe('ChangePIN - usecase', () => {
 
   const changeCardPINCmd: IChangeCardPINCommand = {
     pin: new CardPinCode('1234'),
-  };
-
-  const mockToken = {
-    accessToken: 'fake-access-token',
-    refreshToken: 'fake-refresh-token',
-  };
-
-  const mockError401 = {
-    statusCode: 401,
-    message: 'Unauthorized',
-    response: {
-      message: 'Unauthorized',
-      statusCode: 401,
-    },
-    timestamp: '2024-01-30T16:43:19.792Z',
-    path: '/app/card/999826250/changePIN',
-    method: 'PUT',
   };
 
   const mockError403 = {
@@ -111,12 +91,8 @@ describe('ChangePIN - usecase', () => {
       payload: changeCardPINCmd,
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
-      .next({ auth: mockToken })
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .select(selectCard)
       .next(card)
       .call([api, api.changeCardPIN], card, changeCardPINCmd) // <- Utilisez cette syntaxe pour spécifier le contexte.
@@ -127,37 +103,20 @@ describe('ChangePIN - usecase', () => {
       .next();
   });
 
-  it('Should call navigate to Login modale if 401 from Server', () => {
-    testSaga(changeCardPINGenerator, httpConnection, {
-      type: ICardTypes.FETCH_CHANGE_CARD_PIN,
-      payload: changeCardPINCmd,
-    })
-      .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .throw(new ServerError(mockError401))
-      .call(navigate, { route: IAuthStackPages.LOGIN })
-      .next()
-      .cancel();
-  });
-
   it('Should call cardForbidden action if 403 from Server', () => {
     testSaga(changeCardPINGenerator, httpConnection, {
       type: ICardTypes.FETCH_CHANGE_CARD_LIMITS,
       payload: changeCardPINCmd,
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
-      .next({ auth: mockToken })
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .select(selectCard)
       .next(card)
       .call([api, api.changeCardPIN], card, changeCardPINCmd)
       .throw(new ServerError(mockError403))
+      .put(resetError())
+      .next()
       .put(cardPINChangedFailed(new CardError.MaxNumberOfPinChangesReached()))
       .next();
   });
@@ -168,17 +127,13 @@ describe('ChangePIN - usecase', () => {
       payload: changeCardPINCmd,
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
-      .next({ auth: mockToken })
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .select(selectCard)
       .next(card)
       .call([api, api.changeCardPIN], card, changeCardPINCmd)
       .throw(new ServerError(mockError500))
-      .put(initCard())
+      .put(resetError())
       .next()
       .put(showUnknownError(new ServerError(mockError500)))
       .next();
@@ -190,17 +145,13 @@ describe('ChangePIN - usecase', () => {
       payload: changeCardPINCmd,
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
-      .next({ auth: mockToken })
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .select(selectCard)
       .next(card)
       .call([api, api.changeCardPIN], card, changeCardPINCmd)
       .throw(new Error('unknown error'))
-      .put(initCard())
+      .put(resetError())
       .next()
       .put(showUnknownError(new Error('unknown error')))
       .next();

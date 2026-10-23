@@ -13,23 +13,19 @@ import {
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { TransactionApi } from '@clean-rn/transaction/infrastructure';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages, IBeneficiaryStackPages } from '../../../../shared/presentation/types';
+import { IBeneficiaryStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-
-import { selectAuth } from '../../../../auth/application/state-management/selectors';
-import { refreshSuccess } from '../../../../auth/application/commands';
 
 import { transferGenerator, transferSaga } from '../../usecases';
 import { ITransactionsTypes, transferSucceded, initTransaction, transactionFailed } from '../../commands';
+import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
 describe('Transfer - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
 
   const api = TransactionApi.getInstance(httpConnection);
-  const authApi = AuthApi.getInstance(httpConnection);
 
   const genObject = transferSaga(httpConnection);
 
@@ -39,18 +35,6 @@ describe('Transfer - usecase', () => {
     id: 1686814688829,
     type: ITransactionType.TRANSFER_OUT,
     date: new Date('2023-06-15T07:38:09.217Z'),
-  };
-
-  const mockError401 = {
-    statusCode: 401,
-    message: 'Unauthenticated',
-    response: {
-      statusCode: 401,
-      message: 'Unauthenticated',
-    },
-    timestamp: '2023-10-03T13:20:21.303Z',
-    path: '/app/transaction/transfer',
-    method: 'POST',
   };
 
   const mockError403 = {
@@ -73,11 +57,6 @@ describe('Transfer - usecase', () => {
     path: '/app/transaction/transfer',
   };
 
-  const mockToken = {
-    accessToken: 'fake-access-token',
-    refreshToken: 'fake-refresh-token',
-  };
-
   const payload: ITransferCommand = {
     accountId: 4004318954,
     beneficiaryAccountId: 5004318954,
@@ -98,11 +77,7 @@ describe('Transfer - usecase', () => {
       payload,
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
+      .call(ensureTokenRefreshed, httpConnection)
       .next()
       .call([api, api.transfer], payload) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
@@ -115,31 +90,17 @@ describe('Transfer - usecase', () => {
       .next();
   });
 
-  it('Should call navigate to Login modale action if 401 from Server', () => {
-    testSaga(transferGenerator, httpConnection, {
-      type: ITransactionsTypes.FETCH_TRANSFER,
-      payload,
-    })
-      .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .throw(new ServerError(mockError401))
-      .call(navigate, { route: IAuthStackPages.LOGIN })
-      .next()
-      .cancel();
-  });
-
   it('Should call transferFailed if 403 from Server', () => {
     testSaga(transferGenerator, httpConnection, {
       type: ITransactionsTypes.FETCH_TRANSFER,
       payload,
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .throw(new ServerError(mockError403))
+      .put(initTransaction())
+      .next()
       .put(transactionFailed(new TransactionError.TransferAmountTooHigh(mockError403)))
       .next()
       .cancel();
@@ -151,9 +112,8 @@ describe('Transfer - usecase', () => {
       payload,
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .throw(new ServerError(mockError500))
       .put(initTransaction())
       .next()
@@ -167,9 +127,8 @@ describe('Transfer - usecase', () => {
       payload,
     })
       .next()
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .throw(new Error('unknown error'))
       .put(initTransaction())
       .next()

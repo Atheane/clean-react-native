@@ -16,6 +16,7 @@ import {
   beneficiaryDeleted,
   beneficiaryDeleteFailed,
   changeTab,
+  resetError,
 } from '../../commands/beneficiary';
 import { IBeneficiaryState, beneficiaryReducer } from '../../state-management';
 
@@ -95,20 +96,6 @@ describe('Beneficiary - integration', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, listBeneficiarySaga, httpConnection);
     sagaTester.dispatch(listBeneficiaries());
     sagaTester.dispatch(beneficiariesListed(mockBeneficiaries));
-
-    expect(sagaTester.getState()).toEqual({
-      pending: false,
-      beneficiaries: mockBeneficiaries,
-      tab: 0,
-      error: null,
-    });
-  });
-
-  it('Should store correct state if INIT_BENEFICIARY', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, listBeneficiarySaga, httpConnection);
-    sagaTester.dispatch(listBeneficiaries());
-    sagaTester.dispatch(beneficiariesListed(mockBeneficiaries));
-    sagaTester.dispatch(initBeneficiary());
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
@@ -282,6 +269,34 @@ describe('Beneficiary - integration', () => {
       beneficiaries: null,
       tab: 0,
       error: new BeneficiaryError.BeneficiaryUnknown(mockError400.message),
+    });
+  });
+
+  it('Should store correct state if INIT_BENEFICIARY', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, listBeneficiarySaga, httpConnection);
+    sagaTester.dispatch(listBeneficiaries());
+    sagaTester.dispatch(beneficiariesListed(mockBeneficiaries));
+    sagaTester.dispatch(initBeneficiary());
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      beneficiaries: null,
+      tab: 0,
+      error: null,
+    });
+  });
+
+  it('Should store correct state if RESET_ERROR', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, listBeneficiarySaga, httpConnection);
+    sagaTester.dispatch(listBeneficiaries());
+    sagaTester.dispatch(beneficiariesListed(mockBeneficiaries));
+    sagaTester.dispatch(resetError());
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      beneficiaries: mockBeneficiaries,
+      tab: 0,
+      error: null,
     });
   });
 });

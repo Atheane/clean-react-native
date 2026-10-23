@@ -151,15 +151,13 @@ export const userReducer = (state = initialState, action: IUserActions) => {
         error: null,
       };
       return newState;
-    case IUserTypes.USER_ACCOUNT_DELETED:
+    case IUserTypes.INITIALIZE_USER:
       newState = {
         ...state,
-        pending: false,
-        user: null,
-        error: null,
+        ...initialState,
       };
       return newState;
-    case IUserTypes.INITIALIZE_USER:
+    case IUserTypes.RESET_ERROR:
       newState = {
         ...state,
         pending: false,

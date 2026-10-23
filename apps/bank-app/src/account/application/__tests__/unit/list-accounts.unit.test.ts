@@ -8,11 +8,12 @@ import { IAccountType, Iban, Bic } from '@clean-rn/account/domain';
 import { AccountApi } from '@clean-rn/account/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages, ISharedStackPages } from '../../../../shared/presentation/types';
+import { ISharedStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { listAccountsGenerator, listAccountsSaga } from '../../usecases';
-import { IAccountsTypes, accountsListed, initializeAccountsList } from '../../commands/accounts';
+import { IAccountsTypes, accountsListed, resetPending } from '../../commands/accounts';
+import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
 describe('ListAccounts - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -30,18 +31,6 @@ describe('ListAccounts - usecase', () => {
       bic: new Bic('TRZOFR21XXX'),
     },
   ];
-
-  const mockError401 = {
-    statusCode: 401,
-    message: 'Unauthorized',
-    response: {
-      statusCode: 401,
-      message: 'Unauthorized',
-    },
-    timestamp: '2023-10-03T13:20:21.303Z',
-    path: '/app/account',
-    method: 'GET',
-  };
 
   const mockError500 = {
     message: 'Core::AuthService::Auth - Server Error',
@@ -61,6 +50,8 @@ describe('ListAccounts - usecase', () => {
   it('Should call accountsListed if no cached data', async () => {
     testSaga(listAccountsGenerator, httpConnection)
       .next()
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
       .put(accountsListed(mockResponse))
@@ -69,22 +60,14 @@ describe('ListAccounts - usecase', () => {
       .next();
   });
 
-  it('Should call navigate to Login modale if 401 from Server', () => {
-    testSaga(listAccountsGenerator, httpConnection)
-      .next()
-      .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .throw(new ServerError(mockError401))
-      .call(navigate, { route: IAuthStackPages.LOGIN })
-      .next()
-      .cancel();
-  });
-
   it('Should call showUnknownError action if 500 from Server', () => {
     testSaga(listAccountsGenerator, httpConnection)
       .next()
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError500))
-      .put(initializeAccountsList())
+      .put(resetPending())
       .next()
       .put(showUnknownError(new ServerError(mockError500)))
       .next();
@@ -93,9 +76,11 @@ describe('ListAccounts - usecase', () => {
   it('Should call showUnknownError action if unknown error', () => {
     testSaga(listAccountsGenerator, httpConnection)
       .next()
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .call([api, api.getAccounts]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new Error('unknown error'))
-      .put(initializeAccountsList())
+      .put(resetPending())
       .next()
       .put(showUnknownError(new Error('unknown error')))
       .next();

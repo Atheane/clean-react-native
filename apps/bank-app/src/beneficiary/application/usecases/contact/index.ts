@@ -8,9 +8,9 @@ import { ExpoContact } from '@clean-rn/contact/infrastructure';
 import {
   contactsListed,
   IContactTypes,
-  initContact,
   contactAdded,
   contactAddedFailed,
+  resetError,
 } from '../../commands/contact';
 import { IBeneficiaryStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
@@ -41,7 +41,7 @@ export function* addContactGenerator({
 
     // nav back to contact list
   } catch (error: unknown) {
-    yield put(initContact());
+    yield put(resetError());
     if (error instanceof ContactError.ContactAlreadyExists) {
       yield put(contactAddedFailed(error));
       yield cancel();
@@ -62,7 +62,7 @@ export function* listContactGenerator(): Generator<StrictEffect, any, any> {
     }
   } catch (error: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors
-    yield put(initContact());
+    yield put(resetError());
     yield put(showUnknownError(error as Error));
   }
 }

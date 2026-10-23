@@ -21,17 +21,14 @@ import { KycApi } from '@clean-rn/kyc/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { IAuthStackPages } from '../../../../shared/presentation/types';
 
-import { selectAuth } from '../../../../auth/application/state-management/selectors';
 import { selectUser } from '../../../../user/application/state-management/selectors';
-import { refreshSuccess } from '../../../../auth/application/commands';
 
 import { uploadDocumentSaga, uploadDocumentSagaGenerator } from '../../usecases/document';
 import { customerDocumentsUpdated } from '../../commands/customer';
 import { IDocumentTypes, documentUploaded, resetDocument, setAbortController } from '../../commands/document';
 import { selectCustomer } from '../../state-management/selectors';
+import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
 describe('Document - uploadDocument - usecases', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -46,26 +43,8 @@ describe('Document - uploadDocument - usecases', () => {
   };
 
   const api = KycApi.getInstance(httpConnection);
-  const authApi = AuthApi.getInstance(httpConnection);
 
   const genObject = uploadDocumentSaga(httpConnection);
-
-  const mockToken = {
-    accessToken: 'fake-access-token',
-    refreshToken: 'fake-refresh-token',
-  };
-
-  const mockError401 = {
-    statusCode: 401,
-    message: 'Unauthorized',
-    response: {
-      statusCode: 401,
-      message: 'Unauthorized',
-    },
-    timestamp: '2023-10-03T13:20:21.303Z',
-    path: '/app/document/kyc',
-    method: 'GET',
-  };
 
   const mockError500 = {
     message: 'Core::DocumentService::Document - Server Error',
@@ -119,11 +98,7 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUser)
       .next(user)
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
+      .call(ensureTokenRefreshed, httpConnection)
       .next()
       .put(setAbortController({ controller: mockAbortController }))
       .next()
@@ -164,42 +139,6 @@ describe('Document - uploadDocument - usecases', () => {
       .next();
   });
 
-  it('Should call navigate to Login modale if 401 from Server', () => {
-    const user = User.Create({ id: 123, properties: {} });
-    const document = new DocumentVO(documentProperties);
-    document.addPage('base64-fake-recto');
-    document.addPage('base64-fake-verso');
-
-    testSaga(uploadDocumentSagaGenerator, httpConnection, {
-      type: IDocumentTypes.UPLOAD_DOCUMENT,
-      payload: {
-        document,
-      },
-    })
-      .next()
-      .select(selectUser)
-      .next(user)
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
-      .next()
-      .put(setAbortController({ controller: mockAbortController }))
-      .next()
-      .spawn([api, api.createDocument], {
-        customerId: user.id,
-        document,
-        abortSignal: mockAbortController.signal,
-      }) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .throw(new ServerError(mockError401))
-      .put(resetDocument())
-      .next()
-      .call(navigate, { route: IAuthStackPages.LOGIN })
-      .next()
-      .cancel();
-  });
-
   it('Should call navigate to Login modale if 500 from Server', () => {
     const user = User.Create({ id: 123, properties: {} });
     const document = new DocumentVO(documentProperties);
@@ -215,11 +154,7 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUser)
       .next(user)
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
+      .call(ensureTokenRefreshed, httpConnection)
       .next()
       .put(setAbortController({ controller: mockAbortController }))
       .next()
@@ -251,11 +186,7 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUser)
       .next(user)
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
+      .call(ensureTokenRefreshed, httpConnection)
       .next()
       .put(setAbortController({ controller: mockAbortController }))
       .next()
@@ -286,11 +217,7 @@ describe('Document - uploadDocument - usecases', () => {
       .next()
       .select(selectUser)
       .next(user)
-      .select(selectAuth)
-      .next(mockToken)
-      .call([authApi, authApi.refresh], mockToken.refreshToken)
-      .next(mockToken)
-      .put(refreshSuccess({ auth: mockToken }))
+      .call(ensureTokenRefreshed, httpConnection)
       .next()
       .put(setAbortController({ controller: mockAbortController }))
       .next()

@@ -27,6 +27,8 @@ export enum IUserTypes {
   FETCH_SIGNUP_USER = 'FETCH_SIGNUP_USER',
   FETCH_UPDATE_NOTIFICATIONS = 'FETCH_UPDATE_NOTIFICATIONS',
   FETCH_DELETE_USER_ACCOUNT = 'FETCH_DELETE_USER_ACCOUNT',
+  INITIALIZE_USER = 'INITIALIZE_USER',
+  RESET_ERROR = 'RESET_ERROR',
   // domain events
   EMAIL_NOT_FOUND = 'EMAIL_NOT_FOUND',
   SIGNUP_FAILED = 'SIGNUP_FAILED',
@@ -40,8 +42,6 @@ export enum IUserTypes {
   USER_SIGNED_UP = 'USER_SIGNED_UP',
   NOTIFICATIONS_UPDATED = 'NOTIFICATIONS_UPDATED',
   USER_SAVED = 'USER_SAVED',
-  USER_ACCOUNT_DELETED = 'USER_ACCOUNT_DELETED',
-  INITIALIZE_USER = 'INITIALIZE_USER',
 }
 
 // commands
@@ -90,12 +90,16 @@ export type IFetchUpdateNotifications = {
   payload: IUpdateUserConfigCommand;
 };
 
+export type IFetchDeleteUserAccount = {
+  type: typeof IUserTypes.FETCH_DELETE_USER_ACCOUNT;
+};
+
 export type IInitializeUser = {
   type: typeof IUserTypes.INITIALIZE_USER;
 };
 
-export type IFetchDeleteUserAccount = {
-  type: typeof IUserTypes.FETCH_DELETE_USER_ACCOUNT;
+export type IResetError = {
+  type: typeof IUserTypes.RESET_ERROR;
 };
 
 // domainEvents
@@ -159,11 +163,6 @@ export type IUserSaved = {
   payload: User;
 };
 
-export type IUserAccountDeleted = {
-  type: typeof IUserTypes.USER_ACCOUNT_DELETED;
-  payload: User;
-};
-
 export type IUserActions =
   | IInitializeUser
   | IFetchSearchEmail
@@ -184,4 +183,4 @@ export type IUserActions =
   | IUserSignedUp
   | INotificationsUpdated
   | IUserSaved
-  | IUserAccountDeleted;
+  | IResetError;

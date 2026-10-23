@@ -5,7 +5,7 @@ import { Email } from '@clean-rn/auth/domain';
 import { IRegisterIdentityCommand, User } from '@clean-rn/user/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IUserTypes, identityRegistered, initializeUser } from '../../commands';
+import { IUserTypes, identityRegistered, resetError } from '../../commands';
 
 export function* registerIdentitySaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(IUserTypes.REGISTER_IDENTITY, registerIdentityGenerator);
@@ -27,7 +27,7 @@ export function* registerIdentityGenerator({
     yield put(identityRegistered(user));
   } catch (e: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors
-    yield put(initializeUser());
+    yield put(resetError());
     yield put(showUnknownError(e as Error));
   }
 }

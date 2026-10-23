@@ -21,13 +21,6 @@ export const documentReducer = (state = initialState, action: IDocumentActions) 
       return newState;
     case IDocumentTypes.ADD_PAGE:
       return state;
-    case IDocumentTypes.RESET_DOCUMENT:
-      newState = {
-        ...state,
-        pending: false,
-        document: null,
-      };
-      return newState;
     case IDocumentTypes.CANCEL_UPLOAD:
       newState = {
         ...state,
@@ -61,7 +54,12 @@ export const documentReducer = (state = initialState, action: IDocumentActions) 
         document: action.payload.document,
       };
       return newState;
-
+    case IDocumentTypes.RESET_DOCUMENT:
+      newState = {
+        ...state,
+        ...initialState,
+      };
+      return newState;
     default:
       return {
         ...state,

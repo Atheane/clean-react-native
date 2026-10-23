@@ -16,22 +16,17 @@ import {
 } from '@clean-rn/user/domain';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { UserApi } from '@clean-rn/user/infrastructure';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
 
-import { IAuthStackPages } from '../../../../shared/presentation/types';
-import { goBack, navigate } from '../../../../shared/presentation/navigation/navigationRef';
+import { goBack } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
-import { selectAuth } from '../../../../auth/application/state-management/selectors';
-import { refreshSuccess } from '../../../../auth/application/commands';
-
 import { updateNotificationsSaga, updateNotificationsGenerator } from '../../usecases';
-import { IUserTypes, initializeUser, notificationUpdated } from '../../commands';
+import { IUserTypes, notificationUpdated, resetError } from '../../commands';
+import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
 describe('Update Notifications - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
   const userApi = UserApi.getInstance(httpConnection);
-  const authApi = AuthApi.getInstance(httpConnection);
 
   const user = User.Create({
     id: 123,
@@ -52,21 +47,8 @@ describe('Update Notifications - usecase', () => {
     },
   });
 
-  const mockAuth = {
-    accessToken: '123',
-    refreshToken: '123',
-  };
-
   const mockUpdateNotifications: IUpdateUserConfigCommand = {
     notifFirebaseDisabled: [IPhoneNotifications.PAYOUT_INITIATED],
-  };
-
-  const mockError401 = {
-    message: 'Core::AuthService::Auth - Server Error',
-    statusCode: 401,
-    response: 'Core::AuthService::Auth - Server Error',
-    timestamp: '2023-04-07T15:28:04.657Z',
-    path: '/auth/login',
   };
 
   const mockError500 = {
@@ -95,38 +77,14 @@ describe('Update Notifications - usecase', () => {
       payload: mockUpdateNotifications,
     })
       .next()
-      .select(selectAuth)
-      .next(mockAuth)
-      .call([authApi, authApi.refresh], mockAuth.refreshToken)
-      .next(mockAuth)
-      .put(refreshSuccess({ auth: mockAuth }))
-      .next(mockAuth)
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .call([userApi, userApi.updateConfig], mockUpdateNotifications)
       .next(userWithConfig)
       .put(notificationUpdated({ user: userWithConfig }))
       .next()
       .call(goBack)
       .next();
-  });
-
-  it('should call navigate to LOGIN actions if 401', () => {
-    const userWithConfig = user;
-    userWithConfig.setConfig(mockUpdateNotifications);
-
-    testSaga(updateNotificationsGenerator, httpConnection, {
-      type: IUserTypes.FETCH_UPDATE_NOTIFICATIONS,
-      payload: mockUpdateNotifications,
-    })
-      .next()
-      .select(selectAuth)
-      .next(mockAuth)
-      .call([authApi, authApi.refresh], mockAuth.refreshToken)
-      .throw(new ServerError(mockError401))
-      .put(initializeUser())
-      .next()
-      .call(navigate, { route: IAuthStackPages.LOGIN })
-      .next()
-      .cancel();
   });
 
   it('should call showUnknownError if 500', () => {
@@ -138,11 +96,10 @@ describe('Update Notifications - usecase', () => {
       payload: mockUpdateNotifications,
     })
       .next()
-      .select(selectAuth)
-      .next(mockAuth)
-      .call([authApi, authApi.refresh], mockAuth.refreshToken)
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .throw(new ServerError(mockError500))
-      .put(initializeUser())
+      .put(resetError())
       .next()
       .put(showUnknownError(new ServerError(mockError500)))
       .next();
@@ -157,11 +114,10 @@ describe('Update Notifications - usecase', () => {
       payload: mockUpdateNotifications,
     })
       .next()
-      .select(selectAuth)
-      .next(mockAuth)
-      .call([authApi, authApi.refresh], mockAuth.refreshToken)
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
       .throw(new Error('unknown error'))
-      .put(initializeUser())
+      .put(resetError())
       .next()
       .put(showUnknownError(new Error('unknown error')))
       .next();
