@@ -1,0 +1,773 @@
+{
+  "banners": {
+    "update-application": "Actualización disponible",
+    "identity-validation": "Validación de identidad"
+  },
+  "modal": {
+    "login": {
+      "title": "Sesión expirada, inicie sesión"
+    }
+  },
+  "errors": {
+    "card-limits": {
+      "min": "La cantidad debe ser mayor a 100",
+      "max": {
+        "day": "La cantidad debe ser menor a 3000",
+        "week": "La cantidad debe ser menor a 6000",
+        "month": "La cantidad debe ser menor a 9000"
+      }
+    },
+    "BIC": {
+      "required": "BIC requerido",
+      "invalid": "BIC inválido"
+    },
+    "consent": {
+      "required": "Consentimiento requerido"
+    },
+    "email": {
+      "required": "email requerido",
+      "invalid": "email inválido"
+    },
+    "label": {
+      "required": "El etiquetado es requerido",
+      "invalid": "Máximo 140 caracteres"
+    },
+    "IBAN": {
+      "required": "IBAN requerido",
+      "invalid": "IBAN inválido"
+    },
+    "password": {
+      "required": "Contraseña requerida",
+      "invalid": "Contraseña inválida",
+      "min-length": "Debe contener al menos 6 caracteres"
+    },
+    "phone": {
+      "required": "Número de teléfono requerido",
+      "invalid": "Número de teléfono móvil inválido"
+    },
+    "phone-otp": {
+      "required": "Código de 6 dígitos requerido",
+      "invalid": "Código inválido",
+      "min-length": "Debe contener al menos 6 dígitos"
+    },
+    "card-pin": {
+      "required": "Código de 4 dígitos requerido",
+      "invalid": "Código inválido",
+      "min-length": "Debe contener al menos 4 dígitos"
+    },
+    "birthday": {
+      "invalid": "Fecha de nacimiento inválida, mínimo 18 años"
+    },
+    "first-name": {
+      "required": "Nombre requerido",
+      "invalid": "Formato de nombre inválido"
+    },
+    "last-name": {
+      "required": "Apellido requerido",
+      "invalid": "Formato de apellido inválido"
+    },
+    "birth-country": {
+      "required": "País de nacimiento requerido"
+    },
+    "nationality": {
+      "required": "Nacionalidad requerida"
+    },
+    "street": {
+      "required": "Calle requerida"
+    },
+    "city": {
+      "required": "Ciudad requerida"
+    },
+    "zip": {
+      "required": "Código postal requerido"
+    },
+    "country": {
+      "required": "Código de país requerido",
+      "invalid": "País inválido",
+      "unvailable": "Este país no está disponible"
+    },
+    "country-code": {
+      "required": "Código de país requerido"
+    },
+    "amount": {
+      "required": "Cantidad requerida",
+      "invalid": "Cantidad inválida"
+    },
+    "domain-error": {
+      "auth": {
+        "INVALID_EMAIL": "E-mail inválido",
+        "INVALID_PASSWORD": "Contraseña inválida",
+        "LOGIN_FAILURE_USER_NOT_FOUND": "La cuenta no existe",
+        "LOGIN_FAILURE_INVALID_CREDENTIALS": "Correo electrónico o contraseña incorrectos",
+        "LOGIN_FAILURE_USER_PHONE_NOT_VALIDATED": "El número de teléfono no es válido",
+        "USER_UNAUTHENTICATED": "Por favor autentíquese"
+      },
+      "user": {
+        "INVALID_PHONE": "Número de teléfono móvil inválido",
+        "INVALID_COUNTRY": "País inválido",
+        "UNAVAILABLE_COUNTRY": "País no disponible",
+        "INVALID_BIRTHDAY": "Fecha de nacimiento inválida",
+        "INVALID_6_DIGITS": "6 dígitos inválidos",
+        "SIGNUP_FAILURE_EMAIL_EXISTS": "Este correo electrónico ya está registrado",
+        "SIGNUP_FAILURE_PHONE_EXISTS": "Este teléfono ya está registrado",
+        "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "Código incorrecto",
+        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Número de teléfono desconocido"
+      },
+      "account": {
+        "INVALID_IBAN": "IBAN inválido",
+        "INVALID_BIC": "BIC inválido",
+        "UNKNOWN_TRANSACTION_TYPE": "Tipo de transacción desconocido",
+        "INVALID_TRANSACTION_VALUE": "Valor de transacción inválido"
+      },
+      "beneficiary": {
+        "INVALID_IBAN": "IBAN inválido",
+        "INVALID_BIC": "BIC inválido",
+        "INVALID_NAME": "Nombre inválido",
+        "BENEFICIARY_ALREADY_EXISTS": "Este beneficiario ya existe",
+        "BENEFICIARY_UNKNOWN": "Beneficiario desconocido"
+      },
+      "contact": {
+        "INVALID_NAME": "Formato del nombre inválido",
+        "INVALID_PHONE": "Número de teléfono móvil inválido",
+        "CONTACT_ALREADY_EXISTS": "Este contacto ya existe"
+      },
+      "carbon": {
+        "INVALID_HOUSE_PROPS": "Propiedades de la casa inválidas",
+        "INVALID_TRANSPORT_PROPS": "Propiedades de transporte inválidas",
+        "INVALID_FOOD_PROPS": "Propiedades de alimentos inválidas",
+        "INVALID_FLY_PROPS": "Propiedades de vuelo inválidas"
+      },
+      "kyc": {
+        "MISSING_KYC_DOCUMENTS": "Faltan documentos para la validación del expediente",
+        "KYC_REFUSED": "La validación de su expediente ha fallado",
+        "MISSING_RECTO": "Falta el anverso",
+        "MISSING_VERSO": "Falta el reverso",
+        "DOCUMENT_NOT_READY": "Documento aún no listo",
+        "INVALID_DOCUMENT_TYPE": "Tipo de documento inválido",
+        "DOCUMENT_TOO_LARGE": "Documento demasiado grande, máximo 1MB",
+        "REFUSED": "El documento no pudo ser validado, por favor reenvíelo",
+        "OUT_OF_SCOPE": "Por favor adjunte un documento emitido por el Espacio Económico Europeo o un permiso de residencia",
+        "EXPIRED": "Por favor adjunte un documento válido",
+        "ILLEGIBLE": "Por favor adjunte un justificante de domicilio válido",
+        "TRUNCATED_DOC": "Por favor adjunte un documento en color, legible y completo (no truncado)",
+        "TRUNCATED": "Por favor adjunte un documento en color, legible y completo (no truncado)",
+        "INCOHERENT": "Por favor adjunte un documento coherente con la información proporcionada",
+        "OTHER": "El documento no pudo ser validado, por favor reenvíelo"
+      },
+      "transaction": {
+        "INVALID_AMOUNT": "Cantidad inválida",
+        "UNKNOWN_TRANSACTION_TYPE": "Tipo de transacción desconocido",
+        "INVALID_TRANSACTION_VALUE": "Valor de transacción inválido",
+        "TRANSFER_AMOUNT_TOO_HIGH": "Cantidad de transferencia superior al saldo"
+      },
+      "card": {
+        "INVALID_PIN_FORMAT": "Formato de PIN inválido",
+        "CARD_NOT_FOUND": "Tarjeta no encontrada",
+        "CARD_FORBIDDEN": "Tarjeta no autorizada",
+        "MAX_NUMBER_OF_PIN_CHANGES_REACHED": "Número máximo de cambios de PIN alcanzado"
+      },
+      "other": "Error, por favor contacte al administrador"
+    },
+    "other": "Error, por favor contacte al administrador"
+  },
+  "country-picker": {
+    "label": "país",
+    "placeholder": "Seleccionar un país"
+  },
+  "date-picker": {
+    "label": "Fecha de nacimiento",
+    "placeholder": "DD/MM/AAAA"
+  },
+  "email-input": {
+    "label": "email",
+    "placeholder": "tu@correo.com"
+  },
+  "contact-email": {
+    "label": "POR CORREO ELECTRÓNICO",
+    "bank": "contacto@example.com",
+    "subject": {
+      "unavailable-card": "Solicitud de renovación de tarjeta",
+      "contact": "Contacto desde la aplicación CO2"
+    },
+    "body": {
+      "unavailable-card": "Hola,\nLa aplicación CO2 me indica que mi tarjeta CO2 ya no está accesible, y deseo renovarla.\n\nCordialmente",
+      "contact": "Hola,\n"
+    }
+  },
+  "password-input": {
+    "placeholder": "******",
+    "label": "contraseña"
+  },
+  "button": {
+    "add": "Agregar",
+    "share": "Compartir",
+    "submit": "Validar",
+    "photo": "Tomar una foto",
+    "document": "Importar un documento"
+  },
+  "login": {
+    "forgotten-password": "¿Olvidaste tu contraseña?",
+    "validate": "Validar"
+  },
+  "reset-password": {
+    "success": "Si este correo existe, se ha enviado un mensaje",
+    "reset": "Restablecer"
+  },
+  "signup-email": {
+    "text": "Verifiquemos juntos si su dirección de correo está asociada a una cuenta existente."
+  },
+  "signup-identity": {
+    "gender": {
+      "label": "Género",
+      "man": "Hombre",
+      "woman": "Mujer",
+      "neutral": "Neutro"
+    },
+    "first-name": {
+      "label": "Nombre",
+      "placeholder": "John"
+    },
+    "last-name": {
+      "label": "Apellido",
+      "placeholder": "Doe"
+    }
+  },
+  "signup-phone": {
+    "country-code": {
+      "required": "Código de país requerido"
+    },
+    "phone": {
+      "label": "Número de teléfono",
+      "placeholder": "0607080910"
+    }
+  },
+  "signup-birth": {
+    "birthday": {
+      "label": "Fecha de nacimiento",
+      "placeholder": "DD/MM/AAAA"
+    },
+    "birth-country": {
+      "label": "País de nacimiento",
+      "placeholder": "País de nacimiento"
+    },
+    "nationality": {
+      "label": "Nacionalidad",
+      "placeholder": "Nacionalidad"
+    }
+  },
+  "signup-address": {
+    "street": {
+      "label": "Dirección",
+      "placeholder": "Nombre de la calle"
+    },
+    "city": {
+      "label": "Ciudad",
+      "placeholder": "Ciudad"
+    },
+    "zip": {
+      "label": "Código postal",
+      "placeholder": "Código postal"
+    },
+    "country": {
+      "label": "País",
+      "placeholder": "País"
+    },
+    "usperson": {
+      "label": "Soy una «persona de EE.UU.»",
+      "subtitle": "(Residente americano)",
+      "yes": "Sí",
+      "no": "No"
+    }
+  },
+  "email-sent": {
+    "title": "Correo enviado",
+    "text": "Le hemos enviado un correo de confirmación a la dirección indicada.\nPor favor, haga clic en el enlace para conectarse."
+  },
+  "modal-error": {
+    "code": "Código de error ",
+    "details": "Mensaje ",
+    "stack": "Detalles "
+  },
+  "screens": {
+    "legal": "Datos personales",
+    "cgu": "Términos y condiciones de uso",
+    "cgu-kyc-provider": "Términos y condiciones (KycProvider)",
+    "modal-error": "Error",
+    "login": {
+      "title": "Inicio de sesión"
+    },
+    "reset-password": {
+      "title": "Contraseña olvidada"
+    },
+    "signup-email": {
+      "title": "Registro",
+      "checkbox": "Al marcar esta casilla reconozco haber leído los Términos y condiciones, las menciones legales así como el uso de los datos personales de la Cuenta CO2"
+    },
+    "signup-identity": {
+      "title": "Registro"
+    },
+    "signup-validate-phone": {
+      "title": "Seguridad",
+      "instruction": "Introduzca el código de verificación que acaba de recibir por SMS"
+    },
+    "signup-birth": {
+      "title": "Completar mi perfil"
+    },
+    "signup-address": {
+      "title": "Completar mi perfil"
+    },
+    "signup-congrats": {
+      "title": "Felicidades",
+      "congrats": "¡Felicidades! Ahora puede acceder a su aplicación Cuenta CO2.",
+      "button": "¡Empecemos!"
+    },
+    "email-sent": {
+      "title": "Correo enviado",
+      "text": "Le hemos enviado un correo de confirmación a la dirección indicada.\n\nPor favor, haga clic en el enlace para conectarse."
+    },
+    "signup-phone": {
+      "title": "Validación móvil",
+      "text": "Validar su número de teléfono móvil"
+    },
+    "home": {
+      "title": "Inicio",
+      "tab": "Inicio",
+      "help": "Ayuda",
+      "balance": {
+        "main": "Mi cuenta CO2:",
+        "restoflash": "Mi cuenta Restau Flash:",
+        "weflo": "Mi cuenta Weflo:",
+        "noaccounts": "Ninguna cuenta"
+      },
+      "banner": {
+        "validation-identity": "Valide su identidad",
+        "update-needed": "Actualización necesaria"
+      }
+    },
+    "account": {
+      "balance": "Saldo de mi cuenta",
+      "oups": "¡Recargue su Cuenta CO2 para usar la moneda climática a diario!",
+      "iban": "Mostrar mi IBAN CO2",
+      "transfer": "Transferencia",
+      "cards": {
+        "card": "Nuestra Tarjeta de pago para ahorrar CO2",
+        "loan": "Nuestros préstamos para descarbonizar la economía",
+        "loan-heater": "Nuestra oferta de préstamo para cambiar de caldera",
+        "carbon-premium": "Sea recompensado gracias a nuestras primas",
+        "manifesto": "Manifiesto",
+        "history": "Nuestra historia",
+        "green-euro": "¿Cómo funcionan los euros verdes?",
+        "currency": "Nuestros objetivos y límites",
+        "article": "Nuestro blog sobre el mundo bancario y la urgencia climática"
+      }
+    },
+    "beneficiary": {
+      "title": "Gestionar mis beneficiarios",
+      "bank": "Banco",
+      "contacts": "Contactos",
+      "add-beneficiary": "Agregar",
+      "new-beneficiary": {
+        "title": "Agregar un beneficiario",
+        "BIC": {
+          "label": "BIC",
+          "placeholder": "TRZOFR21XXX"
+        },
+        "IBAN": {
+          "label": "IBAN",
+          "placeholder": "FR7616790000000000000000XXX"
+        },
+        "name": {
+          "label": "Nombre",
+          "placeholder": "Nombre"
+        }
+      },
+      "new-contact": {
+        "title": "Agregar un contacto",
+        "firstname": {
+          "label": "Nombre",
+          "placeholder": "Nombre"
+        },
+        "lastname": {
+          "label": "Apellido",
+          "placeholder": "Apellido"
+        }
+      }
+    },
+    "account-statements": {
+      "title": "Exportar",
+      "bold": "Exportar mi estado de cuenta",
+      "normal": "Descargar mi estado de cuenta en PDF",
+      "cards": {
+        "last-month": "El mes pasado",
+        "last-trimester": "Últimos 3 meses",
+        "all": "Todos mis estados de cuenta",
+        "rib": "Descargar el RIB"
+      }
+    },
+    "account-statements-pdf": {
+      "title": "Estado de cuenta"
+    },
+    "rib-pdf": {
+      "title": "El RIB"
+    },
+    "transfer": {
+      "title": "Transferencia",
+      "tab": "Transferencia",
+      "button": "Validar",
+      "main": "Cuenta CO2",
+      "amount": "Cantidad",
+      "label": "Etiqueta de la transferencia",
+      "placeholder": "Reembolso restaurante"
+    },
+    "transfer-success": {
+      "title": "Transferencia",
+      "button": "Volver al inicio"
+    },
+    "carbon": {
+      "title": "Mi huella de carbono",
+      "tab": "Balance CO2",
+      "instruction": "Presione una categoría para comenzar",
+      "zero-carbon": "0 tCO2",
+      "average": "Promedio Francés",
+      "ton": "t",
+      "tons": "t",
+      "share": "Compartir",
+      "reward": "Ser recompensado por la prima CO2",
+      "method": "Más información sobre el método de cálculo",
+      "compute": "Calcular",
+      "consumption": "Consumo",
+      "message-part-one": "Hola,\n\nAcabo de hacer mi balance de carbono en dos minutos. Muy interesante.\n\nMi huella de carbono es de ",
+      "message-part-two": "¡Descubre la tuya también y dime cuánto pesas!\n\nEn iOS:\n\nhttps://apps.apple.com/fr/app/bank-app/id0000000000?l=fr-FR\n\n en Android:\n\nhttps://play.google.com/store/apps/details?id=com.example.energyapp"
+    },
+    "carbon-house": {
+      "title": "Mi vivienda",
+      "no-CO2": "El consumo de este tipo de calefacción no emite CO2 en la metodología de cálculo.",
+      "dropdown": {
+        "heater": "Tipo de calefacción",
+        "region": "Departamento",
+        "electric": "Electricidad",
+        "coal": "Carbón",
+        "gas": "Gas de ciudad",
+        "fuelOil": "Fuelóleo",
+        "urban": "Red de calor urbana",
+        "wood": "Madera",
+        "heatPump": "Bomba de calor",
+        "thermalSolar": "Solar térmica",
+        "propane": "Propano",
+        "unit": " L",
+        "state-department": "Departamento"
+      },
+      "slider": {
+        "consumption": "Consumo",
+        "built-year": "Año de construcción"
+      },
+      "surface": "Superficie"
+    },
+    "carbon-transport": {
+      "title": "Mi transporte",
+      "no-CO2": "El consumo de este tipo de vehículo no emite CO2 en la metodología de cálculo",
+      "dropdown": {
+        "title": "Combustible",
+        "fuel": "Gasolina (incluye Híbrido)",
+        "E85": "E85 (Superetanol)",
+        "electric": "Eléctrico",
+        "gasoil": "Diésel (incluye Híbrido)",
+        "GNV": "GNV (Gas Natural)",
+        "LPG": "GLP",
+        "unit": " L/100 KM"
+      },
+      "slider": {
+        "mpg": "Consumo",
+        "distance-by-year": "Kilometraje anual",
+        "unit": " km"
+      }
+    },
+    "carbon-food": {
+      "title": "Mi alimentación",
+      "slider": {
+        "alcohol": "Vino / Cerveza",
+        "bread": "Pan",
+        "cheese": "Queso / Lácteos / Huevo",
+        "fish": "Pescado / Marisco",
+        "harvestExotic": "Verd. / Frut. exóticas",
+        "harvestLocal": "Verd. / Frut. de temporada",
+        "meatRed": "Carne roja",
+        "meatWhite": "Carne blanca / Aves",
+        "rice": "Pasta / Arroz",
+        "soft": "Jugos de frutas / Soda / Agua",
+        "unit": " veces / semana",
+        "units": " veces / semana"
+      }
+    },
+    "warning-food": {
+      "title": "Advertencia",
+      "text": "A partir de la estimación de la huella de carbono de la alimentación se deduce la de los residuos.",
+      "next": "Siguiente"
+    },
+    "carbon-fly": {
+      "title": "Mi transporte aéreo",
+      "dropdown": {
+        "destination": "Salida de",
+        "arrival": "Llegada a"
+      },
+      "search": "Buscar",
+      "slider": "Número de viajes",
+      "swipe-button": {
+        "type": "Viaje",
+        "simple": "Ida",
+        "round": "Ida y vuelta",
+        "class": "Clase",
+        "economy": "Económica",
+        "business": "Business"
+      },
+      "secondary-button": "Agregar",
+      "flight": "viaje(s)"
+    },
+    "kyc": {
+      "title": "Verificación de su identidad",
+      "send-document": "Enviar un documento",
+      "init": {
+        "instruction": "Por favor tenga a mano:\n\n- Un documento de identidad\n- Un justificante de domicilio\n- Una transferencia al Cuenta CO2 desde una de sus cuentas",
+        "check-identity": "Verificar mi identidad"
+      },
+      "complete": {
+        "title": "Documentos validados",
+        "congrats": "¡Felicidades sus documentos están validados!\n\n",
+        "instruction": "Último paso, ahora debe realizar una transferencia a su Cuenta CO2, desde una de sus cuentas ubicadas en Francia."
+      },
+      "success": {
+        "title": "Identidad validada",
+        "congrats": "¡Felicidades su identidad está validada!\n\n",
+        "instruction-before-card": "Hemos iniciado la ",
+        "instruction-card": "fabricación de su Tarjeta CO2",
+        "instruction-after-card": ". Se la enviaremos por correo tan pronto como esté lista.\n\nUn poco de paciencia, mientras tanto puede ",
+        "link-instruction": " acreditar su cuenta."
+      },
+      "card-sent": {
+        "title": "Identidad validada",
+        "text": "Le hemos enviado su Tarjeta CO2 por correo."
+      },
+      "menu": {
+        "title": "Documentos a enviar:",
+        "instruction-before": {
+          "begin": "Una vez los",
+          "end": "documentos transferidos, la verificación se iniciará automáticamente."
+        },
+        "instruction-after": {
+          "begin": "Sus documentos están",
+          "bold": " en proceso de verificación, ",
+          "end": "esto puede tomar de 24h a 72h."
+        },
+        "w9-form": "Formulario W9",
+        "identity": "Documento de identidad",
+        "address": "Justificante de domicilio",
+        "photo": "Foto de perfil",
+        "host-id": "Documento de identidad del anfitrión",
+        "host-residence": "Justificante de domicilio del anfitrión",
+        "sworn-statement": "Certificación del anfitrión",
+        "fix-file": "Por favor corrija los elementos del expediente"
+      },
+      "first-id": {
+        "title": "Documentos de identidad",
+        "instruction": "Elija su documento de identidad",
+        "id": "Tarjeta de identidad",
+        "passport": "Pasaporte",
+        "residence-permit": "Permiso de residencia"
+      },
+      "take-photo": "Tomar una foto",
+      "id": {
+        "recto": {
+          "title": "Tarjeta de identidad - Anverso",
+          "instruction": "del anverso de su tarjeta de identidad"
+        },
+        "verso": {
+          "title": "Tarjeta de identidad - Reverso",
+          "instruction": "del reverso de su tarjeta de identidad"
+        }
+      },
+      "passport": {
+        "title": "Pasaporte",
+        "instruction": "de la página de identidad de su pasaporte"
+      },
+      "residence-permit": {
+        "recto": {
+          "title": "Permiso de residencia - Anverso",
+          "instruction": "del anverso de su permiso de residencia"
+        },
+        "verso": {
+          "title": "Permiso de residencia - Reverso",
+          "instruction": "del reverso de su permiso de residencia"
+        }
+      },
+      "taxes": {
+        "title": "Aviso de imposición",
+        "instruction": "de su último aviso de imposición"
+      },
+      "sworn-statement": {
+        "title": "Certificación de alojamiento",
+        "instruction": "de la certificación de alojamiento",
+        "example": "Ejemplo"
+      },
+      "invoice": {
+        "title": "Factura",
+        "instruction": "del frente de su factura.",
+        "another-instruction": "Las facturas de internet, electricidad, gas son las únicas aceptadas y deben tener menos de 3 meses de antigüedad.",
+        "last-instruction": "Las facturas de teléfono móvil no son válidas."
+      },
+      "w9": {
+        "title": "Residente americano - W-9",
+        "instruction": "o importe su formulario W-9"
+      },
+      "residence-proof-options": {
+        "title": "Justificante de domicilio",
+        "has-proof": "Tengo un justificante de domicilio a mi nombre",
+        "no-proof": "No tengo un justificante de domicilio a mi nombre, y adjunto los documentos de la persona que me aloja"
+      },
+      "residence-proof-list": {
+        "title": "Justificante de domicilio",
+        "instruction": "Elija su justificante de domicilio",
+        "invoice": "Una factura\n(internet, electricidad y gas)",
+        "tax": "Aviso de imposición",
+        "iban": "IBAN"
+      },
+      "menu-kyc-host": {
+        "title": "Justificantes del anfitrión",
+        "instruction": "Documentos a enviar:",
+        "sworn-statement": "Una certificación del anfitrión",
+        "identification": "Un documento de identidad del anfitrión",
+        "residence-proof": "Un justificante de domicilio del anfitrión"
+      },
+      "host-id-list": {
+        "title": "Documentos de identidad del anfitrión",
+        "instruction": "Elija el documento de identidad de la persona que le aloja",
+        "id": "Tarjeta de identidad",
+        "passport": "Pasaporte"
+      },
+      "host-id": {
+        "recto": {
+          "title": "Tarjeta de identidad - Anverso",
+          "instruction": "del anverso de la tarjeta de identidad de la persona que le aloja."
+        },
+        "verso": {
+          "title": "Tarjeta de identidad - Reverso",
+          "instruction": "del reverso de la tarjeta de identidad de la persona que le aloja."
+        }
+      },
+      "host-passport": {
+        "title": "Pasaporte",
+        "instruction": "de la página de identidad del pasaporte de la persona que le aloja"
+      },
+      "host-residence-proof-list": {
+        "title": "Justificante de domicilio del anfitrión",
+        "instruction": "Elija el justificante de domicilio de su anfitrión",
+        "invoice": "Una factura\n(internet, electricidad y gas)",
+        "tax": "Aviso de imposición",
+        "iban": "IBAN"
+      },
+      "host-iban": {
+        "title": "Identificación bancaria de su anfitrión",
+        "instruction": "o envíenos una copia del IBAN de la persona que le aloja."
+      },
+      "host-taxes": {
+        "title": "Aviso de imposición de su anfitrión",
+        "instruction": "del último aviso de imposición de la persona que le aloja"
+      },
+      "host-invoice": {
+        "title": "Factura de su anfitrión",
+        "instruction": "del frente de la factura de la persona que le aloja.",
+        "another-instruction": "Las facturas de internet, electricidad, gas son las únicas aceptadas y deben tener menos de 3 meses de antigüedad.",
+        "last-instruction": "Las facturas de teléfono móvil no son válidas."
+      }
+    },
+    "profile": {
+      "menu": {
+        "title": "Mi perfil",
+        "tab": "Perfil",
+        "personal-info": "Información personal",
+        "my-parameters": "Mis parámetros",
+        "card-settings": "Configurar mi tarjeta",
+        "notifications": "Notificaciones",
+        "love": "Apóyanos en la App Store",
+        "contact-us": "Contáctenos",
+        "legal": "Datos personales",
+        "cgu": "Términos y condiciones de uso",
+        "cgu-kyc-provider": "Términos y condiciones KycProvider",
+        "delete-account": "Darse de baja"
+      },
+      "delete-account": {
+        "title": "Darse de baja",
+        "description": "Estamos muy tristes por esta noticia.\n\nSin embargo, hemos tomado nota de ella.\n\nAl confirmar su elección, eliminaremos su cuenta de usuario.\n\n",
+        "button": "Confirmar",
+        "goodbye": "¡Adiós!"
+      }
+    },
+    "card": {
+      "menu": {
+        "title": "Configurar mi tarjeta",
+        "unavailable-card": "Esta tarjeta ya no está accesible. Por favor, solicite una nueva:",
+        "limits": "Modificar mis límites",
+        "lock": "Bloquear mi tarjeta",
+        "unlock": "Desbloquear mi tarjeta",
+        "change-pin": "Modificar mi PIN",
+        "show-pin": "Ver mi PIN"
+      },
+      "kyc-missing": {
+        "title": "Justificantes faltantes",
+        "instruction": "Su tarjeta aún no ha sido creada. Primero debe ",
+        "instruction-bold": "validar su identidad.",
+        "link-instruction": "Validar mi identidad"
+      },
+      "waiting-card": {
+        "title": "Tarjeta en proceso de envío",
+        "congrats": "¡Felicidades su identidad está validada!\n\n",
+        "instruction-before-card": "Hemos iniciado la ",
+        "instruction-card": "fabricación de su Tarjeta CO2",
+        "instruction-after-card": ". Se la enviaremos por correo tan pronto como esté lista.\n\nUn poco de paciencia, mientras tanto puede ",
+        "link-instruction": " acreditar su cuenta."
+      },
+      "limits": {
+        "title": "Modificar mis límites",
+        "instruction-top": "Definir límites es una manera simple de asegurar su Cuenta",
+        "day-limit": "Monto diario",
+        "week-limit": "Monto semanal",
+        "month-limit": "Monto mensual",
+        "instruction-bottom": "Para cualquier compra excepcional, contáctenos"
+      },
+      "toggle-lock": {
+        "title": "Bloquear mi tarjeta",
+        "instruction": "Esta función le permite bloquear su tarjeta. No dude en activarla en caso de pérdida o robo. Su tarjeta puede ser reactivada en cualquier momento.",
+        "lock": "Bloquear",
+        "button": "Validar"
+      },
+      "toggle-lock-success": {
+        "title": "Felicidades",
+        "lock": "Su tarjeta ha sido bloqueada correctamente",
+        "unlock": "Su tarjeta ha sido desbloqueada correctamente",
+        "ok": "ok"
+      },
+      "change-pin": {
+        "title": "Modificar mi PIN",
+        "instruction-top": "Puede elegir definir usted mismo el código de su Tarjeta CO2.",
+        "instruction-bottom-static": "Atención, puede modificar su código un máximo de 3 veces.",
+        "instruction-bottom-dynamic": "/ 3 número de modificaciones"
+      },
+      "change-pin-success": {
+        "title": "Validar mi PIN",
+        "instruction": "Su PIN ha sido modificado.\n\nPara que la red MasterCard reconozca su nuevo PIN, debe dirigirse a un cajero automático e introducir este nuevo PIN.\nNo podrá retirar efectivo, pero su nuevo PIN será registrado en la red",
+        "ok": "ok"
+      },
+      "show-pin": {
+        "title": "Ver mi PIN",
+        "instruction": "Aquí está el código secreto de mi Tarjeta CO2",
+        "see-my-pin": "Ver mi PIN"
+      }
+    },
+    "notifications": {
+      "title": "Notificaciones",
+      "payment": "Pago con mi tarjeta",
+      "transfer": "Transferencia recibida",
+      "threshold": "Límite",
+      "submit": "Actualizar"
+    }
+  }
+}
