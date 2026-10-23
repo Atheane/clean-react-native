@@ -5,13 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 
 import { IAccount } from '@clean-rn/account/domain';
-import {
-  FormTransfer,
-  ITransferFormData,
-  TransferCard,
-  useCleanErrorOnFocus,
-  BankBgGradient,
-} from '@clean-rn/ui-mobile';
+import { FormTransfer, ITransferFormData, TransferCard, useCleanErrorOnFocus } from '@clean-rn/ui-mobile';
 
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
@@ -28,7 +22,6 @@ import {
 import { Amount, ITransactionType } from '@clean-rn/transaction/domain';
 import { useRoute } from '@react-navigation/native';
 import { Phone } from '@clean-rn/contact/domain';
-import { Logger } from '@clean-rn/logger';
 
 type IData = {
   key: string;
@@ -51,16 +44,6 @@ export const Transfer = () => {
       beneficiaryAccountId?: number;
     };
   };
-  Logger.getInstance().info(
-    'beneficiaryId: ',
-    beneficiaryId,
-    'beneficiaryName: ',
-    beneficiaryName,
-    'phoneNumber: ',
-    phoneNumber,
-    'beneficiaryAccountId: ',
-    beneficiaryAccountId,
-  );
 
   // select account
   const { accounts } = useSelector((state: IRootState) => state.account.accounts);

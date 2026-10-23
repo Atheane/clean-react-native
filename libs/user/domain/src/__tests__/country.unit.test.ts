@@ -1,6 +1,6 @@
 import { PhoneNumberUtil } from 'google-libphonenumber';
 import { Country } from '../value-objects';
-import { COUNTRIES_AVAILABLE } from '../constants';
+import { COUNTRIES_AVAILABLE } from '@clean-rn/utils';
 import { UserError } from '../errors';
 
 describe('CountryVO - unit', () => {

@@ -1,33 +1,49 @@
-import { PhoneNumberUtil, PhoneNumberFormat } from 'google-libphonenumber';
-import { getLocales } from 'expo-localization';
-import { COUNTRIES_AVAILABLE } from '@clean-rn/user/domain';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { PhoneNumberUtil, PhoneNumberFormat, PhoneNumberType } from 'google-libphonenumber';
+import { COUNTRIES_AVAILABLE } from '@clean-rn/utils';
 import { ContactError } from '../errors';
 
 export class Phone {
   private readonly phoneUtil: PhoneNumberUtil;
-  private readonly numberProto: any;
-  public countryCode?: string;
+  private numberProto: any;
+  public countryCode: string;
 
-  constructor(phone: string, countryCode?: string) {
+  constructor(phone: string, countryCode: string) {
     this.phoneUtil = PhoneNumberUtil.getInstance();
-    if (countryCode) {
-      this.countryCode = countryCode;
-      this.numberProto = this.phoneUtil.parse(phone, this.countryCode);
-    } else {
-      const defaultCountry = getLocales()[0]?.regionCode;
-      if (!defaultCountry) this.numberProto = this.phoneUtil.parse(phone);
-      else {
-        this.countryCode = defaultCountry;
-        this.numberProto = this.phoneUtil.parse(phone, defaultCountry);
+    this.countryCode = countryCode;
+    this.parseNumber(phone);
+    this.validate();
+  }
+
+  private parseNumber(phone: string) {
+    try {
+      this.numberProto = this.phoneUtil.parse(phone);
+      const regionCode = this.phoneUtil.getRegionCodeForNumber(this.numberProto);
+      // vérifier regionCode === countryCode ...
+      if (regionCode) {
+        this.countryCode = regionCode;
       }
-    }
-    if (!this.validate()) {
-      throw new ContactError.InvalidPhone();
+    } catch (e: unknown) {
+      // missing international extension in phone number
+      this.numberProto = this.phoneUtil.parse(phone, this.countryCode);
     }
   }
 
-  private validate(): boolean {
-    return this.phoneUtil.isValidNumber(this.numberProto);
+  private validate(): void {
+    const ueCountryCodes = Object.keys(COUNTRIES_AVAILABLE).map(
+      (key) => COUNTRIES_AVAILABLE[key as keyof typeof COUNTRIES_AVAILABLE].code as string,
+    );
+    if (!ueCountryCodes.includes(this.countryCode)) {
+      throw new ContactError.InvalidCountryCode('Invalid country code');
+    }
+    // Vérifie si le numéro est valide et si c'est un numéro de téléphone mobile
+    if (!this.phoneUtil.isValidNumber(this.numberProto)) {
+      throw new ContactError.InvalidPhone('Invalid phone');
+    }
+    const numberType = this.phoneUtil.getNumberType(this.numberProto);
+    if (numberType !== PhoneNumberType.MOBILE) {
+      throw new ContactError.InvalidPhone('Invalid phone');
+    }
   }
 
   get valueInternational(): string {
@@ -35,14 +51,5 @@ export class Phone {
       .format(this.numberProto, PhoneNumberFormat.INTERNATIONAL)
       .replace(/\s/g, '');
     return formattedPhone;
-  }
-
-  get countryIsAvalaible(): boolean {
-    const ueCountryCodes = Object.keys(COUNTRIES_AVAILABLE).map(
-      (key) => COUNTRIES_AVAILABLE[key as keyof typeof COUNTRIES_AVAILABLE].code as string,
-    );
-    const regionCode = this.phoneUtil.getRegionCodeForNumber(this.numberProto);
-    if (!regionCode) return false;
-    return ueCountryCodes.includes(regionCode);
   }
 }

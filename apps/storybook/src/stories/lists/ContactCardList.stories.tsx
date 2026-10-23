@@ -14,20 +14,19 @@ const ContactCardListMeta: ComponentMeta<typeof ContactCardList> = {
   args: {
     data: [
       {
-        name: 'John Doe',
-        phone: new Phone('+33612345678'),
+        id: 'uuid1',
+        name: 'John Doe1',
+        phone: new Phone('+33612345677', 'FR'),
       },
       {
-        name: 'Marie Jeanne',
-        phone: new Phone('+4593705821'),
-      },
-      {
-        name: 'Jeanne Durut',
-        phone: new Phone('+3584573988222'),
-      },
-      {
+        id: 'uuid2',
         name: 'John Doe2',
-        phone: new Phone('+12013514000'), // US phone number, should not be shown in list
+        phone: new Phone('+33612345678', 'FR'),
+      },
+      {
+        id: 'uuid3',
+        name: 'John Doe3',
+        phone: new Phone('+33612345679', 'FR'),
       },
     ],
   },
