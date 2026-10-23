@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   Colors,
@@ -51,12 +51,10 @@ export const BeneficiaryStack = () => {
           headerTitle: t('screens.transfer.title'),
           ...headersOptions(),
           headerRight: () => (
-            <View style={[theme.bank.shadow.button, styles.addButton]}>
-              <LinkButton
-                onPress={handleOnPressAdd}
-                iconLeft={AddButton}
-                colorOption={LinkButtonColors.WHITE}
-              />
+            <View style={theme.bank.shadow.button}>
+              <TouchableOpacity onPress={handleOnPressAdd}>
+                <AddButton width={styles.headerRightButton.width} height={styles.headerRightButton.height} />
+              </TouchableOpacity>
             </View>
           ),
         }}
@@ -104,8 +102,9 @@ export const BeneficiaryStack = () => {
   );
 };
 
-const HEADER_HEIGHT = 44;
-
 const styles = StyleSheet.create({
-  addButton: { position: 'absolute', top: -HEADER_HEIGHT, right: -30 },
+  headerRightButton: {
+    width: 62,
+    height: 62,
+  },
 });

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Tab, TabView } from '@rneui/themed';
-import { View, StyleSheet, Dimensions, SafeAreaView, StyleProp, ViewStyle } from 'react-native';
+import { View, StyleSheet, Dimensions, SafeAreaView, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -10,10 +10,6 @@ import { IconNode } from '@rneui/base';
 import { IBeneficiary } from '@clean-rn/beneficiary/domain';
 import { IContact } from '@clean-rn/contact/domain';
 import {
-  PrimaryButton,
-  LinkButton,
-  LinkButtonColors,
-  BeneficiaryAdd,
   BeneficiaryCardList,
   ContactCardList,
   BankBuilding,
@@ -28,64 +24,12 @@ import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { changeTab, listBeneficiaries } from '../../application/commands/beneficiary';
 import { listContacts } from '../../application/commands/contact';
 
-const ContentNoBeneficiary = () => {
-  const { t } = useTranslation();
-  const navigation = useNavigation();
-
-  const handleOnPressAdd = useCallback(() => {
-    navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_ADD as never);
-  }, [navigation]);
-
-  return (
-    <View style={styles.btnAddContainer}>
-      {/* <PrimaryButton
-        title={t('screens.beneficiary.add-beneficiary')}
-        onPress={handleOnPressAdd}
-        iconOne={() => (
-          <View style={styles.iconContainer}>
-            <BeneficiaryAdd style={{ marginTop: 15 }} />
-          </View>
-        )}
-        long
-      /> */}
-    </View>
-  );
-};
-
-// TODO Refactor  after UX review
-const ContentNoContact = () => {
-  const { t } = useTranslation();
-  const navigation = useNavigation();
-
-  const handleOnPressAdd = useCallback(() => {
-    navigation.navigate(IBeneficiaryStackPages.CONTACT_ADD as never);
-  }, [navigation]);
-
-  return (
-    <View style={styles.btnAddContainer}>
-      {/* <PrimaryButton
-        long
-        title={t('screens.beneficiary.add-beneficiary')}
-        onPress={handleOnPressAdd}
-        iconOne={() => (
-          <View style={styles.iconContainer}>
-            <BeneficiaryAdd style={{ marginTop: 15 }} />
-          </View>
-        )}
-      /> */}
-    </View>
-  );
-};
+import { NoBeneficiary, NoContact } from '../../presentation/assets/images';
 
 const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
   const navigation = useNavigation();
-  const { theme } = useTheme();
 
   const { beneficiaries } = useSelector((state: IRootState) => state.beneficiary.beneficiaries);
-
-  const handleOnPressAdd = useCallback(() => {
-    navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_ADD as never);
-  }, [navigation]);
 
   //todo refactorize
   const handleOnPress = useCallback(
@@ -119,28 +63,16 @@ const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
   //   [dispatch],
   // );
   return (
-    <>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.content}>
-          <BeneficiaryCardList data={props.data} onPress={handleOnPress} />
-        </View>
-      </SafeAreaView>
-      {/* <View style={styles.top}>
-        <View style={[styles.addBeneficiary, theme.bank.shadow.button]}>
-          <LinkButton
-            onPress={handleOnPressAdd}
-            iconLeft={BeneficiaryAdd}
-            colorOption={LinkButtonColors.WHITE}
-          />
-        </View>
-      </View> */}
-    </>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.content}>
+        <BeneficiaryCardList data={props.data} onPress={handleOnPress} />
+      </View>
+    </SafeAreaView>
   );
 };
 
 const ContentContact = (props: { data: IContact[] }) => {
   const navigation = useNavigation();
-  const { theme } = useTheme();
 
   const { contacts } = useSelector((state: IRootState) => state.beneficiary.contacts);
 
@@ -157,10 +89,6 @@ const ContentContact = (props: { data: IContact[] }) => {
     },
     [navigation, contacts],
   );
-
-  const handleOnPressAdd = useCallback(() => {
-    navigation.navigate(IBeneficiaryStackPages.CONTACT_ADD as never);
-  }, [navigation]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -247,32 +175,30 @@ export const BeneficiaryList = () => {
           </Tab>
         </View>
 
-        <View style={styles.tabContent}>
+        <View style={[styles.tabContent, { marginTop: 10 }]}>
           <TabView
             value={index}
             onChange={handleOnChangeTab}
             animationType="spring"
             containerStyle={{ backgroundColor: Colors.bank.primary.white }}
           >
-            <TabView.Item
-              style={[
-                contacts?.length === 0 && (theme.bank.shadow.button as StyleProp<ViewStyle>),
-                { width: '100%' },
-              ]}
-            >
+            <TabView.Item style={[{ width: '100%' }]}>
               <>
-                {!hasContact && <ContentNoContact />}
+                {!hasContact && (
+                  <View style={theme.bank.container.centeredItem}>
+                    <Image source={NoContact} style={{ width: 250, height: 250 }} />
+                  </View>
+                )}
                 {hasContact && <ContentContact data={contacts} />}
               </>
             </TabView.Item>
-            <TabView.Item
-              style={[
-                beneficiaries?.length === 0 && (theme.bank.shadow.button as StyleProp<ViewStyle>),
-                { width: '100%' },
-              ]}
-            >
+            <TabView.Item style={[{ width: '100%' }]}>
               <>
-                {!hasBeneficiary && <ContentNoBeneficiary />}
+                {!hasBeneficiary && (
+                  <View style={theme.bank.container.centeredItem}>
+                    <Image source={NoBeneficiary} style={{ width: 250, height: 250 }} />
+                  </View>
+                )}
                 {hasBeneficiary && <ContentBeneficiary data={beneficiaries} />}
               </>
             </TabView.Item>
@@ -292,11 +218,6 @@ const styles = StyleSheet.create({
   row: {
     width: Dimensions.get('window').width,
   },
-  top: {
-    position: 'absolute',
-    top: -60,
-    right: 0,
-  },
   addBeneficiary: {
     position: 'relative',
     top: 0,
@@ -309,7 +230,6 @@ const styles = StyleSheet.create({
   iconContainer: { height: 23, marginLeft: -80, justifyContent: 'center' },
   tabContent: {
     flex: 1,
-    marginTop: 50,
   },
   content: {
     flex: 1,
