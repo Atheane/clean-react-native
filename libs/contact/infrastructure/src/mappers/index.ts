@@ -15,13 +15,6 @@ export const mapContactExpoToContact = (contact: Contact): IContact | undefined 
       if (phoneNumber.label !== 'mobile') return;
       const defaultCountry = locales[0]?.regionCode;
       const id = UUID.generate();
-      console.log('Your UUID: ' + id);
-
-      Logger.getInstance().info({
-        id,
-        name: contact.name,
-        phone: new Phone(phoneNumber.number, defaultCountry as string),
-      });
       return {
         id,
         name: contact.name,
