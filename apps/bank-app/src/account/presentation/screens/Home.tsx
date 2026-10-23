@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useMemo } from 'react';
 import { View, StyleSheet, Dimensions, Linking, Platform } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -118,6 +118,21 @@ export const Home = () => {
   const { customer, pending: kycPending } = useSelector((state: IRootState) => state.kyc.customer);
   const { card, pending: cardPending } = useSelector((state: IRootState) => state.card);
 
+  const dataEventCards = useMemo(
+    () =>
+      eventsCardsContent
+        .filter((item: { image: any; text: string; uid: string }) => {
+          if (!deletedCards.includes(item.uid)) {
+            return item;
+          }
+        })
+        .map((item) => ({
+          ...item,
+          text: t('screens.account.cards.' + item.uid),
+        })),
+    [deletedCards, t],
+  );
+
   return accountPending || kycPending || cardPending ? (
     <LoaderSplashScreen />
   ) : (
@@ -148,14 +163,7 @@ export const Home = () => {
         <ScrollBackground background={TopDownBackground} initialScroll={-20} window={1.2}>
           <View style={styles.cardScroller}>
             <CardScroller
-              data={eventsCardsContent.filter((item: { image: any; text: string; uid: string }) => {
-                if (!deletedCards.includes(item.uid)) {
-                  return {
-                    ...item,
-                    text: t('screens.account.cards.' + item.uid),
-                  };
-                }
-              })}
+              data={dataEventCards}
               height={260}
               onPress={handleOnPressCard}
               onDelete={handleOnDeleteCard}

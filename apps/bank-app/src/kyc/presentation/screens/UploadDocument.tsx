@@ -21,6 +21,7 @@ import { showUnknownError } from '../../../shared/application/commands/manage-gl
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
 import { addPage } from '../../application/commands/document';
+import { Logger } from '@clean-rn/logger';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -79,7 +80,7 @@ export const UploadDocument = () => {
   );
 
   const handleShowExample = useCallback(() => {
-    console.log('handleShowExample');
+    Logger.getInstance().info('handleShowExample');
     //todo dispatch to upload document usecase
   }, []);
 

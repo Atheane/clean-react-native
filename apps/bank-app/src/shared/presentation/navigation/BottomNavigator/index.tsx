@@ -22,7 +22,6 @@ import {
   ITransactionStackPages,
   IProfileStackPages,
   ICardStackPages,
-  ISharedStackPages,
 } from '../../types';
 
 import { AccountStack } from '../../../../account/presentation/navigation';
@@ -111,7 +110,7 @@ export const BottomTabNavigator = () => {
             ),
 
           tabBarLabel: ({ focused }: { focused: boolean }) =>
-            focused ? <Text style={styles.tab}> {t('screens.profile.tab')}</Text> : '',
+            focused ? <Text style={styles.tab}> {t('screens.profile.menu.tab')}</Text> : '',
         })}
       />
       <Tab.Screen
