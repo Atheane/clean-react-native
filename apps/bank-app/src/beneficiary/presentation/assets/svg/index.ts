@@ -8,6 +8,7 @@ import CardPremium from './premium.svg';
 import CardRocket from './rocket.svg';
 import CardTeam from './team.svg';
 import CardWorkflow from './workflow.svg';
+import Decoration from './decoration.svg';
 
 export {
   CardCarbonFootPrint,
@@ -20,4 +21,5 @@ export {
   CardRocket,
   CardTeam,
   CardWorkflow,
+  Decoration,
 };

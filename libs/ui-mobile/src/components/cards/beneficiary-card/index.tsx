@@ -10,8 +10,8 @@ import { BankBgGradient } from '../../../assets';
 type IProps = {
   data: IBeneficiary & { icon?: React.FC<SvgProps> };
   idx: number;
-  onDelete?: (beneficiary: number) => void;
-  onPress?: (beneficiary: number) => void;
+  onDelete?: (beneficiaryId: number) => void;
+  onPress?: (beneficiaryId: number) => void;
 };
 
 export const BeneficiaryCard = (props: IProps) => {

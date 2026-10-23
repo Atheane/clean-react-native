@@ -11,7 +11,7 @@ import { TransactionApi } from '@clean-rn/transaction/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IAuthStackPages, ITransferStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages, IBeneficiaryStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { selectAuth } from '../../../../auth/application/state-management/selectors';
@@ -104,7 +104,7 @@ describe('ListTransactions - usecase', () => {
       .next(mockResponse)
       .put(transferSent(mockResponse))
       .next()
-      .call(navigate, { route: ITransferStackPages.TRANSFER_SUCCESS })
+      .call(navigate, { route: IBeneficiaryStackPages.TRANSFER_SUCCESS })
       .next();
   });
 

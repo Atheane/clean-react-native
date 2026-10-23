@@ -8,6 +8,7 @@ import { IContactState } from '../state';
 const initialState: IContactState = {
   pending: false,
   contacts: null,
+  selectedContact: null,
   error: null,
 };
 
@@ -24,6 +25,13 @@ export const contactReducer = (state = initialState, action: IContactActions) =>
       };
       return newState;
     case IContactTypes.LIST_CONTACTS:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: true,
+      };
+      return newState;
+    case IContactTypes.SELECT_CONTACT:
       logger.debug(action.type);
       newState = {
         ...state,
@@ -66,6 +74,14 @@ export const contactReducer = (state = initialState, action: IContactActions) =>
         ...state,
         pending: false,
         contacts: action.payload,
+      };
+      return newState;
+    case IContactTypes.CONTACT_SELECTED:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        selectedContact: action.payload,
       };
       return newState;
     default:

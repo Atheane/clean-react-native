@@ -55,6 +55,7 @@ export class TransactionApi implements ITransactionRepository {
       label: cmd.label,
     };
 
+    console.log('params', params);
     const response = await fetch(
       `${this.connection.baseUrl}/app/transaction/transfer`,
       this.connection.options(IHttpVerb.POST, params),

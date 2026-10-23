@@ -14,8 +14,9 @@ import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/h
 
 import { BankLogoCO2 } from '../assets/images';
 import { Decoration } from '../assets/svg';
-import { fetchSendTransfer } from '../../application/commands';
+import { fetchSendTransfer } from '../../../transaction/application/commands';
 import { Amount, ITransactionType } from '@clean-rn/transaction/domain';
+import { useRoute } from '@react-navigation/native';
 
 type IData = {
   key: string;
@@ -27,8 +28,12 @@ const HEIGHT = Dimensions.get('window').height;
 export const Transfer = () => {
   const { t } = useTranslation();
 
-  const { selectedBeneficiary } = useSelector((state: IRootState) => state.beneficiary.beneficiaries);
+  // select beneficiary
+  const {
+    params: { beneficiaryId, beneficiaryName },
+  } = useRoute() as { params: { beneficiaryId: number; beneficiaryName: string } };
 
+  // select account
   const { accounts } = useSelector((state: IRootState) => state.account.accounts);
 
   const [data, setData] = useState<IData[]>([]);
@@ -89,19 +94,19 @@ export const Transfer = () => {
   // api call
   const onSubmit = useCallback(
     (formData: ITransferFormData) => {
-      if (!selectedAccount || !selectedBeneficiary) {
+      if (!selectedAccount || !beneficiaryId) {
         return;
       }
       dispatch(
         fetchSendTransfer({
           accountId: selectedAccount.accountId,
-          beneficiaryId: selectedBeneficiary.beneficiaryId,
+          beneficiaryId,
           amount: new Amount(formData.amount, ITransactionType.TRANSFER_OUT),
           label: formData.label,
         }),
       );
     },
-    [dispatch, selectedAccount, selectedBeneficiary],
+    [dispatch, selectedAccount, beneficiaryId],
   );
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
@@ -120,11 +125,7 @@ export const Transfer = () => {
               />
             </View>
             <View style={styles.itemContainer}>
-              <TransferCard
-                arrow={false}
-                text={selectedBeneficiary?.name as string} //todo from react navigation
-                image={BankLogoCO2}
-              />
+              <TransferCard arrow={false} text={beneficiaryName} image={BankLogoCO2} />
             </View>
             <View style={styles.decorationContainer}>
               <Decoration />

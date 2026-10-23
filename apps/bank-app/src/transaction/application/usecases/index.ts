@@ -17,7 +17,7 @@ import { showUnknownError } from '../../../shared/application/commands/manage-gl
 import {
   IAuthStackPages,
   ITransactionStackPages,
-  ITransferStackPages,
+  IBeneficiaryStackPages,
 } from '../../../shared/presentation/types';
 
 import { accountSelected } from '../../../account/application/commands/accounts';
@@ -113,7 +113,8 @@ export function* sendTransferGenerator(
 
     yield put(transferSent(transaction));
     yield call(navigate, {
-      route: ITransferStackPages.TRANSFER_SUCCESS,
+      route: IBeneficiaryStackPages.MENU,
+      screen: IBeneficiaryStackPages.TRANSFER_SUCCESS,
     });
   } catch (error: unknown) {
     if (error instanceof ServerError && error.statusCode === 401) {

@@ -11,11 +11,12 @@ export enum IContactTypes {
   ADD_CONTACT = 'ADD_CONTACT',
   LIST_CONTACTS = 'LIST_CONTACTS',
   INIT_CONTACT = 'INIT_CONTACT',
-
+  SELECT_CONTACT = 'SELECT_CONTACT',
   // domain Events
   CONTACT_ADDED = 'CONTACT_ADDED',
   CONTACT_ADD_FAILED = 'CONTACT_ADD_FAILED',
   CONTACTS_LISTED = 'CONTACTS_LISTED',
+  CONTACT_SELECTED = 'CONTACT_SELECTED',
 }
 
 // commands
@@ -30,6 +31,11 @@ export type IListContacts = {
 
 export type IInitContact = {
   type: typeof IContactTypes.INIT_CONTACT;
+};
+
+export type ISelectContact = {
+  type: typeof IContactTypes.SELECT_CONTACT;
+  payload: IContact;
 };
 
 //domain Events
@@ -48,10 +54,17 @@ export type IContactsListed = {
   payload: IContact[];
 };
 
+export type IContactSelected = {
+  type: typeof IContactTypes.CONTACT_SELECTED;
+  payload: IContact;
+};
+
 export type IContactActions =
   | IAddContact
   | IListContacts
   | IInitContact
+  | ISelectContact
   | IContactAdded
   | IContactAddedFailed
-  | IContactsListed;
+  | IContactsListed
+  | IContactSelected;

@@ -21,13 +21,8 @@ import {
   beneficiaryAdded,
   beneficiaryDeleteFailed,
   beneficiaryDeleted,
-  beneficiarySelected,
 } from '../../commands/beneficiary';
-import {
-  IAuthStackPages,
-  IBeneficiaryStackPages,
-  ITransferStackPages,
-} from '../../../../shared/presentation/types';
+import { IAuthStackPages, IBeneficiaryStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { selectBeneficiary } from '../../state-management/selectors';
@@ -44,10 +39,6 @@ export function* deleteBeneficiarySaga(httpConnection: HttpConnection): Generato
 
 export function* listBeneficiarySaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IBeneficiaryTypes.LIST_BENEFICIARIES, listBeneficiaryGenerator, httpConnection);
-}
-
-export function* selectBeneficiarySaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
-  yield takeEvery(IBeneficiaryTypes.SELECT_BENEFICIARY, selectBeneficiaryGenerator, httpConnection);
 }
 
 export function* addBeneficiaryGenerator(
@@ -145,37 +136,6 @@ export function* listBeneficiaryGenerator(httpConnection: HttpConnection): Gener
     }
     // once app is well tested, delete this part and let onError hook manage unexpected errors
     yield put(initBeneficiary());
-    yield put(showUnknownError(error as Error));
-  }
-}
-
-export function* selectBeneficiaryGenerator(
-  httpConnection: HttpConnection,
-  {
-    payload,
-  }: {
-    type: string;
-    payload: { beneficiaryId: number };
-  },
-): Generator<StrictEffect, any, any> {
-  try {
-    const authApi = AuthApi.getInstance(httpConnection);
-    const authFromStore = yield select(selectAuth);
-    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
-    yield put(refreshSuccess({ auth }));
-
-    const { beneficiaries: beneficiariesFromStore } = yield select(selectBeneficiary);
-    const beneficiary = beneficiariesFromStore.find(
-      (beneficiary: IBeneficiary) => payload.beneficiaryId === beneficiary.beneficiaryId,
-    );
-    yield put(beneficiarySelected(beneficiary));
-    yield call(navigate, { route: ITransferStackPages.MENU });
-  } catch (error: unknown) {
-    if (error instanceof ServerError && error.statusCode === 401) {
-      yield call(navigate, { route: IAuthStackPages.LOGIN });
-      yield cancel();
-    }
-    // Gestion des erreurs non attendues
     yield put(showUnknownError(error as Error));
   }
 }

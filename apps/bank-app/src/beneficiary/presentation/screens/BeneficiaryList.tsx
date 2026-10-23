@@ -25,7 +25,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { IBeneficiaryStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 
-import { listBeneficiaries, selectBeneficiary } from '../../application/commands/beneficiary';
+import { listBeneficiaries } from '../../application/commands/beneficiary';
 import { listContacts } from '../../application/commands/contact';
 
 const ContentNoBeneficiary = () => {
@@ -81,16 +81,26 @@ const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
   const navigation = useNavigation();
   const { theme } = useTheme();
 
-  const dispatch = useDispatch();
+  const { beneficiaries } = useSelector((state: IRootState) => state.beneficiary.beneficiaries);
+
   const handleOnPressAdd = useCallback(() => {
     navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_ADD as never);
   }, [navigation]);
 
   const handleOnPress = useCallback(
     (beneficiaryId: number) => {
-      dispatch(selectBeneficiary({ beneficiaryId }));
+      if (!beneficiaries) {
+        return;
+      }
+      const beneficiary = beneficiaries.find(
+        (beneficiary: IBeneficiary) => beneficiary.beneficiaryId === beneficiaryId,
+      );
+      navigation.navigate(IBeneficiaryStackPages.TRANSFER, {
+        beneficiaryId,
+        beneficiaryName: beneficiary?.name,
+      });
     },
-    [dispatch],
+    [navigation, beneficiaries],
   );
 
   // const handleOnPressDelete = useCallback(
@@ -123,13 +133,17 @@ const ContentContact = (props: { data: IContact[] }) => {
   const navigation = useNavigation();
   const { theme } = useTheme();
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const handleOnPress = useCallback(
     (phone: Phone) => {
       // todo
       // dispatch(selectContact({ phone }));
+      navigation.navigate(IBeneficiaryStackPages.TRANSFER, {
+        phone: phone.valueInternational,
+        name: phone.label,
+      });
     },
-    [dispatch],
+    [navigation],
   );
 
   const handleOnPressAdd = useCallback(() => {
