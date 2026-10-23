@@ -1,5 +1,4 @@
 import { IDomainError } from '@clean-rn/ddd';
-import { User } from '@clean-rn/user/domain';
 import {
   IAuth,
   ILoginCommand,
@@ -21,6 +20,8 @@ import {
   IFetchResetPassword,
   IPasswordReset,
   IInitializeAuth,
+  IFetchLogout,
+  ILoggedOut,
 } from './types';
 import { IRoutes } from '../../../shared/presentation/types';
 
@@ -37,6 +38,10 @@ export const fetchRefresh = (payload?: { nextRoute: IRoutes; params?: any }): IF
 export const fetchResetPassword = (payload: IResetPasswordCommand): IFetchResetPassword => ({
   type: IAuthTypes.FETCH_RESET_PASSWORD,
   payload,
+});
+
+export const fetchLogout = (): IFetchLogout => ({
+  type: IAuthTypes.FETCH_LOGOUT,
 });
 
 export const loginSuccess = (payload: { auth: IAuth }): ILoginSucceded => ({
@@ -57,6 +62,10 @@ export const loginFailure = (payload: IDomainError<IAuthErrorCodes, IAuthErrorMe
 export const passwordReset = (payload: ISuccess): IPasswordReset => ({
   type: IAuthTypes.PASSWORD_RESET,
   payload,
+});
+
+export const loggedOut = (): ILoggedOut => ({
+  type: IAuthTypes.LOGGED_OUT,
 });
 
 export const initializeAuth = (): IInitializeAuth => ({

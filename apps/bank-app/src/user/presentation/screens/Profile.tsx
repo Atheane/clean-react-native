@@ -25,7 +25,6 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { APPLE_STORE_LINK, GOOGLE_PLAY_LINK } from '../../../shared/presentation/constants';
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
-const HEIGHT = Dimensions.get('screen').height;
 export const Profile = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();

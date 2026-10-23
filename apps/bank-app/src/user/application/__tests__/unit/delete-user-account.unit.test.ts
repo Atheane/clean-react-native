@@ -4,16 +4,7 @@ import Constants from 'expo-constants';
 import dayjs from 'dayjs';
 
 import { Email } from '@clean-rn/auth/domain';
-import {
-  Phone,
-  IGender,
-  User,
-  KYC_REVIEW,
-  BirthDay,
-  Country,
-  IUpdateUserConfigCommand,
-  IPhoneNotifications,
-} from '@clean-rn/user/domain';
+import { Phone, IGender, User, KYC_REVIEW, BirthDay, Country } from '@clean-rn/user/domain';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { UserApi } from '@clean-rn/user/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
@@ -56,10 +47,6 @@ describe('Delete User Account - usecase', () => {
   const mockAuth = {
     accessToken: '123',
     refreshToken: '123',
-  };
-
-  const mockUpdateNotifications: IUpdateUserConfigCommand = {
-    notifFirebaseDisabled: [IPhoneNotifications.PAYOUT_INITIATED],
   };
 
   const mockError401 = {

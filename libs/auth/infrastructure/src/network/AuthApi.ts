@@ -10,6 +10,8 @@ export class AuthApi implements IAuthGateway {
     this.connection = httpConnection;
     this.login = this.login.bind(this);
     this.refresh = this.refresh.bind(this);
+    this.resetPassword = this.resetPassword.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   // Public method to provide access to the singleton instance
@@ -54,6 +56,15 @@ export class AuthApi implements IAuthGateway {
     const response = await fetch(
       `${this.connection.baseUrl}/app/user/resetPassword`,
       this.connection.options(IHttpVerb.PUT, params),
+    );
+    await this.connection.handleError(response);
+    return response.json();
+  }
+
+  async logout(): Promise<ISuccess> {
+    const response = await fetch(
+      `${this.connection.baseUrl}/auth/logout`,
+      this.connection.options(IHttpVerb.GET),
     );
     await this.connection.handleError(response);
     return response.json();

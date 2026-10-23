@@ -9,6 +9,7 @@ import {
   closeLoginModalSaga,
   refreshSaga,
   resetPasswordSaga,
+  logoutSaga,
 } from '../../../auth/application/usecases';
 
 import {
@@ -107,5 +108,6 @@ export function* rootSaga(httpConnection: HttpConnection) {
     toggleCardLockSaga(httpConnection),
     changeCardPINSaga(httpConnection),
     deleteUserAccountSaga(httpConnection),
+    logoutSaga(httpConnection),
   ]);
 }

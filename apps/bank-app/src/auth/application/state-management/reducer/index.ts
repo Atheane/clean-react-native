@@ -60,12 +60,32 @@ export const authReducer = (state = initialState, action: IAuthActions) => {
         success: null,
       };
       return newState;
+    case IAuthTypes.FETCH_LOGOUT:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: true,
+        success: null,
+      };
+      return newState;
     case IAuthTypes.PASSWORD_RESET:
       logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
         success: action.payload.success,
+      };
+      return newState;
+    case IAuthTypes.LOGGED_OUT:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        success: null,
+        pending: false,
+        auth: {
+          accessToken: null,
+          refreshToken: null,
+        },
       };
       return newState;
     case IAuthTypes.INITIALIZE_AUTH:
