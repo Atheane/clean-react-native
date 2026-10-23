@@ -1,7 +1,8 @@
 import { Entity } from '@clean-rn/ddd';
 import { AuthError, Email, Password } from '@clean-rn/auth/domain';
+import { Phone } from '@clean-rn/contact/domain';
 import { IAddress, IIdentity, IBirth, KYC_REVIEW, IPhoneNotifications, IEmailNotifications } from '../types';
-import { Phone, Country, BirthDay } from '../value-objects';
+import { Country, BirthDay } from '../value-objects';
 import { IRegisterAddressCommand, IRegisterBirthCommand, IRegisterIdentityCommand } from '../commands';
 import { IValidatePhoneQuery } from '../queries';
 

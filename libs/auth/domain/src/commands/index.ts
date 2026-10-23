@@ -1,4 +1,5 @@
 import { Email, Password } from '../value-objects';
+import { Phone } from '@clean-rn/contact/domain';
 
 export type ILoginCommand = {
   email: Email;
@@ -7,4 +8,10 @@ export type ILoginCommand = {
 
 export type IResetPasswordCommand = {
   email: Email;
+};
+
+export type ILogPhoneCommand = {
+  email: Email;
+  password: Password;
+  phone: Phone;
 };

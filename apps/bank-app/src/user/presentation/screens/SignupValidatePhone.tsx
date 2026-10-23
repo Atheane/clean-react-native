@@ -39,8 +39,9 @@ export const SignupValidatePhone = () => {
   const onSubmit = useCallback(
     (formData: ISignupValidatePhoneFormData) => {
       const { code } = formData;
+      // will not happen
       if (!phone) {
-        throw new Error('Missing phone');
+        return;
       }
       const payload = {
         phoneOtp: new PhoneOtp(code),

@@ -15,7 +15,8 @@ import {
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { KycApi } from '@clean-rn/kyc/infrastructure';
-import { BirthDay, User, Phone, IGender, Country, KYC_REVIEW } from '@clean-rn/user/domain';
+import { Phone } from '@clean-rn/contact/domain';
+import { BirthDay, User, IGender, Country, KYC_REVIEW } from '@clean-rn/user/domain';
 import { Email } from '@clean-rn/auth/domain';
 
 import { IAuthStackPages, IKycStackPages } from '../../../../shared/presentation/types';

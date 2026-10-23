@@ -1,4 +1,4 @@
-import { ILoginCommand, IResetPasswordCommand } from '../commands';
+import { ILogPhoneCommand, ILoginCommand, IResetPasswordCommand } from '../commands';
 import { IAuth, ISuccess } from '../types';
 
 export interface IAuthGateway {
@@ -6,4 +6,5 @@ export interface IAuthGateway {
   refresh: (refreshToken: string) => Promise<IAuth>;
   resetPassword: (cmd: IResetPasswordCommand) => Promise<ISuccess>;
   logout: () => Promise<ISuccess>;
+  logPhone: (cmd: ILogPhoneCommand) => Promise<IAuth>;
 }

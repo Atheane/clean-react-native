@@ -4,9 +4,9 @@ import Constants from 'expo-constants';
 import dayjs from 'dayjs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { AuthError, Email, IAuth } from '@clean-rn/auth/domain';
+import { AuthError, Email, IAuth, Password } from '@clean-rn/auth/domain';
+import { ContactError, Phone } from '@clean-rn/contact/domain';
 import {
-  Phone,
   IGender,
   IRegisterIdentityCommand,
   ISuccess,
@@ -55,7 +55,6 @@ import {
   fetchSignupUser,
   initializeUser,
   phoneCodeSent,
-  phoneNotFound,
 } from '../../commands';
 import { IStoreKey } from '../../../../shared/application/types';
 import { loadStorage } from '../../../../shared/application/commands/initialize-application';
@@ -63,6 +62,10 @@ import { IAuthStackPages, IUserStackPages } from '../../../../shared/presentatio
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
+import {
+  selectPassword,
+  selectEmail as selectEmailFromAuth,
+} from '../../../../auth/application/state-management/selectors';
 import { loginSuccess } from '../../../../auth/application/commands';
 
 import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
@@ -383,26 +386,7 @@ describe('Signup - usecase', () => {
       .next();
   });
 
-  it('should call phoneCodeSent if signup flow and phone not found', () => {
-    const user = User.CreateFromEmail(new Email('test@example.com'));
-    testSaga(checkPhoneGenerator, httpConnection, {
-      type: IUserTypes.FETCH_SEARCH_PHONE,
-      payload: mockQueryPhone,
-    })
-      .next()
-      .call([userApi, userApi.searchPhone], mockQueryPhone)
-      .next(IUserSearchServerCode.NOT_FOUND)
-      .select(selectUser)
-      .next(user)
-      .call([userApi, userApi.sendPhoneValidation], mockQueryPhone)
-      .next(mockSuccessTrue)
-      .put(phoneCodeSent())
-      .next();
-  });
-
-  it('should call signupFailed action if signup flow phone exists', () => {
-    const user = User.CreateFromEmail(new Email('test@example.com'));
-
+  it('should call signupFailed action if phone exists', () => {
     testSaga(checkPhoneGenerator, httpConnection, {
       type: IUserTypes.FETCH_SEARCH_PHONE,
       payload: mockQueryPhone,
@@ -410,14 +394,27 @@ describe('Signup - usecase', () => {
       .next()
       .call([userApi, userApi.searchPhone], mockQueryPhone)
       .next(IUserSearchServerCode.PHONE_EXISTS)
-      .select(selectUser)
-      .next(user)
       .put(signupFailed(new UserError.SignupFailurePhoneExists()))
       .next()
       .cancel();
   });
 
-  it('should call signupFailed action if signup flow phone receive 400 from back-end', () => {
+  it('should call phoneCodeSent action if phone not found', () => {
+    testSaga(checkPhoneGenerator, httpConnection, {
+      type: IUserTypes.FETCH_SEARCH_PHONE,
+      payload: mockQueryPhone,
+    })
+      .next()
+      .call([userApi, userApi.searchPhone], mockQueryPhone)
+      .next(IUserSearchServerCode.NOT_FOUND)
+      .call([userApi, userApi.sendPhoneValidation], mockQueryPhone)
+      .next()
+      .put(phoneCodeSent())
+      .next()
+      .call(navigate, { route: IUserStackPages.SIGNUP_VALIDATE_PHONE });
+  });
+
+  it('Should call signupFailed action if 400 when fetchSearchPhone', () => {
     testSaga(checkPhoneGenerator, httpConnection, {
       type: IUserTypes.FETCH_SEARCH_PHONE,
       payload: mockQueryPhone,
@@ -425,38 +422,7 @@ describe('Signup - usecase', () => {
       .next()
       .call([userApi, userApi.searchPhone], mockQueryPhone)
       .throw(new ServerError(mockError400))
-      .put(signupFailed(new UserError.InvalidPhone()))
-      .next()
-      .cancel();
-  });
-
-  it('should call phoneCodeSent action if migration flow phone exists', () => {
-    testSaga(checkPhoneGenerator, httpConnection, {
-      type: IUserTypes.FETCH_SEARCH_PHONE,
-      payload: mockQueryPhone,
-    })
-      .next()
-      .call([userApi, userApi.searchPhone], mockQueryPhone)
-      .next(IUserSearchServerCode.PHONE_EXISTS)
-      .select(selectUser)
-      .next(null)
-      .call([userApi, userApi.sendPhoneValidation], mockQueryPhone)
-      .next(mockSuccessTrue)
-      .put(phoneCodeSent())
-      .next();
-  });
-
-  it('should call phoneNotFound action if migration flow phone not found', () => {
-    testSaga(checkPhoneGenerator, httpConnection, {
-      type: IUserTypes.FETCH_SEARCH_PHONE,
-      payload: mockQueryPhone,
-    })
-      .next()
-      .call([userApi, userApi.searchPhone], mockQueryPhone)
-      .next(IUserSearchServerCode.NOT_FOUND)
-      .select(selectUser)
-      .next(null)
-      .put(phoneNotFound(new UserError.ValidatePhoneFailurePhoneNotFound()))
+      .put(signupFailed(new ContactError.InvalidPhone()))
       .next()
       .cancel();
   });
@@ -473,6 +439,21 @@ describe('Signup - usecase', () => {
       .put(initializeUser())
       .next()
       .put(showUnknownError(new ServerError(mockError500)))
+      .next();
+  });
+
+  it('Should call showUnknownError action if unknown error', () => {
+    testSaga(checkPhoneGenerator, httpConnection, {
+      type: IUserTypes.FETCH_SEARCH_PHONE,
+      payload: mockQueryPhone,
+    })
+      .next()
+      .call([userApi, userApi.searchPhone], mockQueryPhone)
+      .next()
+      .throw(new Error('unknown error'))
+      .put(initializeUser())
+      .next()
+      .put(showUnknownError(new Error('unknown error')))
       .next();
   });
 
@@ -507,7 +488,7 @@ describe('Signup - usecase', () => {
       .next();
   });
 
-  it('login -> check phone flow: should call phoneValidated is user not in store', () => {
+  it('Check phone flow: should call phoneValidated is user not in store', () => {
     const user = User.CreateFromEmail(new Email('test@example.com'));
     user.validatePhone(mockQueryPhoneOtp);
 
@@ -518,23 +499,26 @@ describe('Signup - usecase', () => {
       .next()
       .call([userApi, userApi.checkPhoneValidation], mockQueryPhoneOtp)
       .next(mockSuccessTrue)
-      .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
-        expect(yieldedValue.type).toEqual('SELECT');
-        expect(yieldedValue).toEqual(
-          expect.objectContaining({
-            type: 'SELECT',
-            payload: expect.objectContaining({
-              selector: selectUser,
-            }),
-          }),
-        );
-      })
+      .select(selectUser)
       .next(null)
-      .put(phoneValidated(null))
+      .select(selectEmailFromAuth)
+      .next(new Email('test@example.com'))
+      .select(selectPassword)
+      .next(new Password('test123'))
+      .call([authApi, authApi.logPhone], {
+        email: new Email('test@example.com'),
+        password: new Password('test123'),
+        phone: mockQueryPhoneOtp.phone,
+      })
+      .next(mockAuth)
+      .call(httpConnection.attachBearerToken, mockAuth.accessToken)
+      .next()
+      .call([userApi, userApi.getUser])
+      .next(user)
+      .put(phoneValidated(user))
       .next()
       .call(navigate, { route: IUserStackPages.SIGNUP_CONGRATS })
-      .next()
-      .cancel();
+      .next();
   });
 
   it('should call signupFailed action if otp incorrect', () => {
