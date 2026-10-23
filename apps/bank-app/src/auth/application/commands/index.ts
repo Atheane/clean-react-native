@@ -25,7 +25,7 @@ import {
 } from './types';
 import { IRoutes } from '../../../shared/presentation/types';
 
-export const fetchLogin = (payload: ILoginCommand): IFetchLogin => ({
+export const fetchLogin = (payload: ILoginCommand & { locale: string }): IFetchLogin => ({
   type: IAuthTypes.FETCH_LOGIN,
   payload,
 });
