@@ -5,14 +5,20 @@ import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 
 import { IAccount } from '@clean-rn/account/domain';
-import { FormTransfer, ITransferFormData, TransferCard, useCleanErrorOnFocus } from '@clean-rn/ui-mobile';
+import {
+  FormTransfer,
+  ITransferFormData,
+  TransferCard,
+  useCleanErrorOnFocus,
+  BankBgGradient,
+} from '@clean-rn/ui-mobile';
 
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
-import { BankLogoCO2 } from '../assets/images';
+import { BankLogoCO2, BankLogoGeneric } from '../assets/images';
 import { Decoration } from '../assets/svg';
 import {
   fetchPayout,
@@ -175,7 +181,11 @@ export const Transfer = () => {
             </View>
             {beneficiaryName && (
               <View style={styles.itemContainer}>
-                <TransferCard arrow={false} text={beneficiaryName} image={BankLogoCO2} />
+                <TransferCard
+                  arrow={false}
+                  text={beneficiaryName}
+                  image={beneficiaryAccountId ? BankLogoCO2 : BankLogoGeneric}
+                />
               </View>
             )}
             <View style={styles.decorationContainer}>
