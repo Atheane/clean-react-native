@@ -17,7 +17,7 @@ const TouchEventCardMeta: ComponentMeta<typeof TouchEventCard> = {
     image: LoanHeater,
     text: 'Lorem ipsum delatus',
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING), WithCenterView],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
 export default TouchEventCardMeta;

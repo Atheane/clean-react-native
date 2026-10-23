@@ -3,13 +3,7 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {
-  Colors,
-  FontNames,
-  LinkButton,
-  LinkButtonColors,
-  BeneficiaryAdd as AddButton,
-} from '@clean-rn/ui-mobile';
+import { Colors, FontNames, BeneficiaryAdd as AddButton } from '@clean-rn/ui-mobile';
 import { useTheme } from '@rneui/themed';
 import { useSelector } from 'react-redux';
 
