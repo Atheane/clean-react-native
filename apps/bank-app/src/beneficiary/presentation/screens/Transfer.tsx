@@ -22,7 +22,6 @@ import {
 import { Amount, ITransactionType } from '@clean-rn/transaction/domain';
 import { useRoute } from '@react-navigation/native';
 import { Phone } from '@clean-rn/contact/domain';
-import { Logger } from '@clean-rn/logger';
 
 type IData = {
   key: string;
