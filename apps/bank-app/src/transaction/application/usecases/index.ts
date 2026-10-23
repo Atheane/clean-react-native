@@ -28,7 +28,6 @@ import {
 
 import { accountSelected } from '../../../account/application/commands/accounts';
 
-import { selectTransactions } from '../selectors';
 import {
   transactionsListed,
   ITransactionsTypes,
@@ -68,31 +67,19 @@ export function* listTransactionsGenerator(
   },
 ): Generator<StrictEffect, any, any> {
   try {
-    const { transactions: transactionsFromStore } = yield select(selectTransactions);
+    const authApi = AuthApi.getInstance(httpConnection);
+    const authFromStore = yield select(selectAuth);
+    const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
+    yield put(refreshSuccess({ auth }));
 
-    let transactions;
-    if (transactionsFromStore) {
-      transactions = transactionsFromStore;
-      yield put(transactionsListed(transactions));
-      yield put(accountSelected(payload.account));
-      yield call(navigate, {
-        route: ITransactionStackPages.MENU,
-      });
-    } else {
-      const authApi = AuthApi.getInstance(httpConnection);
-      const authFromStore = yield select(selectAuth);
-      const auth = yield call([authApi, authApi.refresh], authFromStore.refreshToken);
-      yield put(refreshSuccess({ auth }));
+    const api = TransactionApi.getInstance(httpConnection);
 
-      const api = TransactionApi.getInstance(httpConnection);
-
-      const transactions: ITransaction[] = yield call([api, api.getTransactions], payload.account.accountId);
-      yield put(transactionsListed(transactions));
-      yield put(accountSelected(payload.account));
-      yield call(navigate, {
-        route: ITransactionStackPages.MENU,
-      });
-    }
+    const transactions: ITransaction[] = yield call([api, api.getTransactions], payload.account.accountId);
+    yield put(transactionsListed(transactions));
+    yield put(accountSelected(payload.account));
+    yield call(navigate, {
+      route: ITransactionStackPages.MENU,
+    });
   } catch (error: unknown) {
     if (error instanceof ServerError && error.statusCode === 401) {
       yield call(navigate, { route: IAuthStackPages.LOGIN });

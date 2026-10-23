@@ -32,7 +32,7 @@ export const CguPdf = () => {
         uri={pdfUrls(lng).cgu}
         handleError={handleError}
         icon={Download}
-        fileName={`account-details.pdf`}
+        fileName={`terms.pdf`}
       />
       <PdfViewer uri={pdfUrls(lng).cgu} handleError={handleError} />
     </ErrorBoundary>

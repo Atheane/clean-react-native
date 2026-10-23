@@ -9,7 +9,6 @@ import {
   fetchChangeCardLimits,
   cardLimitsChanged,
   initCard,
-  fetchGetCard,
   cardGetSuccess,
   cardNotFound,
   cardForbidden,
@@ -21,7 +20,7 @@ import {
 } from '../../commands';
 import { ICardState, cardReducer } from '../../state-management';
 
-import { changeCardLimitsSaga, changeCardPINSaga, getCardSaga, toggleCardLockSaga } from '../../usecases';
+import { changeCardLimitsSaga, changeCardPINSaga, toggleCardLockSaga } from '../../usecases';
 import {
   Card,
   CardError,
@@ -99,18 +98,6 @@ describe('Card - integration', () => {
     });
   });
 
-  it('Should store correct initial state if FETCH_GET_CARD', () => {
-    const newState = cardReducer(undefined, {
-      type: ICardTypes.FETCH_GET_CARD,
-    });
-
-    expect(newState).toEqual({
-      pending: true,
-      card: null,
-      error: null,
-    });
-  });
-
   it('Should store correct initial state if FETCH_CHANGE_CARD_LIMITS', () => {
     const changeCardLimitsCmd: IChangeCardLimitsCommand = {
       limits: {
@@ -168,7 +155,6 @@ describe('Card - integration', () => {
 
   it('Should store correct state if CARD_GET_SUCCESS', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, changeCardLimitsSaga, httpConnection);
-    sagaTester.dispatch(fetchGetCard());
     sagaTester.dispatch(cardGetSuccess(card));
 
     expect(sagaTester.getState()).toEqual({
@@ -180,7 +166,6 @@ describe('Card - integration', () => {
 
   it('Should store correct state if CARD_NOT_FOUND', () => {
     sagaTester.start(wrapSagaHidingNotFoundError, changeCardLimitsSaga, httpConnection);
-    sagaTester.dispatch(fetchGetCard());
     sagaTester.dispatch(cardNotFound(new CardError.NotFound()));
 
     expect(sagaTester.getState()).toEqual({
@@ -191,8 +176,7 @@ describe('Card - integration', () => {
   });
 
   it('Should store correct state if CARD_FORBIDDEN', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, getCardSaga, httpConnection);
-    sagaTester.dispatch(fetchGetCard());
+    sagaTester.start(wrapSagaHidingNotFoundError, changeCardLimitsSaga, httpConnection);
     sagaTester.dispatch(cardForbidden(new CardError.Forbidden()));
 
     expect(sagaTester.getState()).toEqual({

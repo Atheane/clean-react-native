@@ -3,17 +3,20 @@ import { UserError } from '../errors';
 export class Name {
   private readonly name: string;
 
-  static pattern = /^([a-za-z]+?)(I-s'][a-za-z]+)*?$/i;
-
-  static validate(email: string): boolean {
-    return Name.pattern.test(email);
-  }
-
   constructor(name: string) {
     if (!Name.validate(name)) {
-      throw new UserError.InvalidName("Must match ^([a-za-z]+?)(I-s'][a-za-z]+)*?$ pattern");
+      throw new UserError.InvalidName(
+        "Must match ^([a-zA-ZÀ-ÖØ-öø-ÿs]+?)([-s'][a-zA-ZÀ-ÖØ-öø-ÿs]+)*? pattern",
+      );
     }
     this.name = name;
+  }
+
+  static validate(nameString: string): boolean {
+    // [a-zA-Z-] : autorise les lettres majuscules et minuscules
+    // todo: autoriser espace et - pour les noms composés, dès que c'est fait côté back
+    const regex = new RegExp(/^([a-zA-ZÀ-ÖØ-öø-ÿ\s]+?)([-s'][a-zA-ZÀ-ÖØ-öø-ÿ\s]+)*?$/);
+    return regex.test(nameString);
   }
 
   get value(): string {

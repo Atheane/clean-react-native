@@ -528,7 +528,7 @@
       "title": "Überprüfung Ihrer Identität",
       "send-document": "Ein Dokument senden",
       "init": {
-        "instruction": "Bitte bereithalten:\n\n- Ein Ausweisdokument\n- Ein Wohnsitznachweis\n- Eine Überweisung auf das CO2-Konto von einem Ihrer Konten",
+        "instruction": "3 Schritte:\n\n1. Fügen Sie einen Ausweis bei\n\n2. Fügen Sie einen Wohnsitznachweis bei\n\n3. Überweisen Sie 1 Euro von einem Ihrer Bankkonten auf Ihr CO2-Konto",
         "check-identity": "Meine Identität überprüfen"
       },
       "complete": {

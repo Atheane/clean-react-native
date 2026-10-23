@@ -5,7 +5,6 @@ import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
 import { FormContact, IContactFormData } from '@clean-rn/ui-mobile';
 import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../../wrappers';
-import { Logger } from '@clean-rn/logger';
 
 const FormContactMeta: ComponentMeta<typeof FormContact> = {
   title: 'Forms/FormContact',
@@ -24,7 +23,7 @@ type FormContactStory = ComponentStory<typeof FormContact>;
 
 export const Dynamic: FormContactStory = (args) => {
   const onSubmit = useCallback(() => {
-    Logger.getInstance().info('onSubmit');
+    console.log('onSubmit');
   }, []);
   const {
     control,

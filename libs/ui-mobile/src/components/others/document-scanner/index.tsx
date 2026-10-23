@@ -5,7 +5,6 @@ import DocumentScan, { ResponseType } from 'react-native-document-scanner-plugin
 import { Image } from 'react-native-compressor';
 import * as FileSystem from 'expo-file-system';
 
-import { Logger } from '@clean-rn/logger';
 import { calculateBase64Size } from '@clean-rn/utils';
 
 import { PrimaryButton } from '../../buttons/primary-button';
@@ -27,7 +26,7 @@ const compressImage = async (imageURI: string, quality: number, maxMB = 0.95): P
   });
   const base64 = await FileSystem.readAsStringAsync(compressedImageURI, { encoding: 'base64' });
   const compressedSizeMB = calculateBase64Size(base64);
-  Logger.getInstance().info('compressedSizeMB', compressedSizeMB);
+  console.log('compressedSizeMB', compressedSizeMB);
   if (compressedSizeMB > maxMB * 1048576 && quality > 0.1) {
     // Réduire la qualité et réessayez
     return compressImage(imageURI, quality - 0.1, maxMB);
@@ -55,7 +54,7 @@ export const DocumentScanner = (props: IProps) => {
         const lastScannedImageURI = scannedImagesURI[scannedImagesURI.length - 1];
         const base64 = await FileSystem.readAsStringAsync(lastScannedImageURI, { encoding: 'base64' });
         const imageSizeMB = calculateBase64Size(base64);
-        Logger.getInstance().info('imageSizeMB', imageSizeMB);
+        console.log('imageSizeMB', imageSizeMB);
         if (imageSizeMB > 1000000) {
           const compressedImageURI = await compressImage(lastScannedImageURI, 0.9, 1);
           const base64 = await FileSystem.readAsStringAsync(compressedImageURI, { encoding: 'base64' });

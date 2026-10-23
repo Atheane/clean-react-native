@@ -2,8 +2,8 @@
 import { PhoneNumberUtil } from 'google-libphonenumber';
 //@ts-ignore
 import countryFlagEmoji from 'country-flag-emoji';
+import { COUNTRIES_AVAILABLE } from '@clean-rn/contact/domain';
 import { UserError } from '../errors';
-import { COUNTRIES_AVAILABLE } from '@clean-rn/utils';
 
 export class Country {
   private readonly emoji: string;

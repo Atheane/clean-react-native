@@ -1,7 +1,7 @@
 import { PhoneNumberUtil } from 'google-libphonenumber';
-import { Country } from '../value-objects';
-import { COUNTRIES_AVAILABLE } from '@clean-rn/utils';
+import { COUNTRIES_AVAILABLE } from '@clean-rn/contact/domain';
 import { UserError } from '../errors';
+import { Country } from '../value-objects';
 
 describe('CountryVO - unit', () => {
   it('should validateAvailability if the country code is available', () => {

@@ -6,7 +6,7 @@ import { useTheme } from '@rneui/themed';
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
 import { IDomainError } from '@clean-rn/ddd';
-import { COUNTRIES_AVAILABLE } from '@clean-rn/utils';
+import { COUNTRIES_AVAILABLE } from '@clean-rn/contact/domain';
 import { ICountry, IUserErrorCodes, IUserErrorMessage } from '@clean-rn/user/domain';
 
 import { House } from '../../../assets';

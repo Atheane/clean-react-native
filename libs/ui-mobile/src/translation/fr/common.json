@@ -530,7 +530,7 @@
       "title": "Vérification de votre identité",
       "send-document": "Envoyer un document",
       "init": {
-        "instruction": "Veuillez prévoir :\n\n- Une pièce d’identité\n- Un justificatif de domicile\n- Un virement sur le Bank App depuis un de vos comptes",
+        "instruction": "3 étapes :\n\n1. Joindre une pièce d’identité\n\n2. Joindre un justificatif de domicile\n\n3. Faire un virement de 1 euro depuis un de vos comptes bancaires sur votre Bank App",
         "check-identity": "Vérifier mon identité"
       },
       "complete": {
@@ -543,8 +543,7 @@
         "congrats": "Félicitations votre identité est validée !\n\n",
         "instruction-before-card": "Nous avons lancé la ",
         "instruction-card": "fabrication de votre Carte CO2",
-        "instruction-after-card": ". Nous vous l’enverrons par courrier dès qu’elle sera prête.\n\nUn peu de patience, vous pouvez en attendant ",
-        "link-instruction": " créditer votre compte."
+        "instruction-after-card": ". Nous vous l’enverrons par courrier dès qu’elle sera prête.\n\nUn peu de patience, vous pouvez en attendant créditer votre compte."
       },
       "card-sent": {
         "title": "Identité validée",
@@ -725,8 +724,7 @@
         "congrats": "Félicitations votre identité est validée !\n\n",
         "instruction-before-card": "Nous avons lancé la ",
         "instruction-card": "fabrication de votre Carte CO2",
-        "instruction-after-card": ". Nous vous l’enverrons par courrier dès qu’elle sera prête.\n\nUn peu de patience, vous pouvez en attendant ",
-        "link-instruction": " créditer votre compte."
+        "instruction-after-card": ". Nous vous l’enverrons par courrier dès qu’elle sera prête.\n\nUn peu de patience, vous pouvez en attendant créditer votre compte."
       },
       "limits": {
         "title": "Modifier mes plafonds",

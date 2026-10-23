@@ -59,7 +59,6 @@ import {
 import { registerDeviceSaga } from '../../../device/application/usecases/register-device';
 
 import {
-  getCardSaga,
   changeCardLimitsSaga,
   toggleCardLockSaga,
   changeCardPINSaga,
@@ -103,7 +102,6 @@ export function* rootSaga(httpConnection: HttpConnection) {
     transferSaga(httpConnection),
     payoutSaga(httpConnection),
     transactionWaitingSaga(httpConnection),
-    getCardSaga(httpConnection),
     changeCardLimitsSaga(httpConnection),
     toggleCardLockSaga(httpConnection),
     changeCardPINSaga(httpConnection),

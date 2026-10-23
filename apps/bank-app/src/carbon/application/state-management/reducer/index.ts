@@ -1,5 +1,3 @@
-import { Logger } from '@clean-rn/logger';
-
 import { ICarbonActions, ICarbonTypes } from '../../commands';
 import { ICarbonState } from '../state';
 
@@ -28,11 +26,9 @@ const initialState: ICarbonState = {
 };
 
 export const carbonReducer = (state = initialState, action: ICarbonActions) => {
-  const logger = Logger.getInstance();
   let newState: ICarbonState;
   switch (action.type) {
     case ICarbonTypes.COMPUTE_HOUSE_EMISSIONS:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
@@ -43,7 +39,6 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
       };
       return newState;
     case ICarbonTypes.HOUSE_EMISSIONS_COMPUTED:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -54,7 +49,6 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
       };
       return newState;
     case ICarbonTypes.INITIALIZE_HOUSE_EMISSIONS:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -66,7 +60,6 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
       };
       return newState;
     case ICarbonTypes.COMPUTE_TRANSPORT_EMISSIONS:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
@@ -77,7 +70,6 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
       };
       return newState;
     case ICarbonTypes.TRANSPORT_EMISSIONS_COMPUTED:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -88,7 +80,6 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
       };
       return newState;
     case ICarbonTypes.INITIALIZE_TRANSPORT_EMISSIONS:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -100,7 +91,6 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
       };
       return newState;
     case ICarbonTypes.COMPUTE_FOOD_EMISSIONS:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
@@ -111,7 +101,6 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
       };
       return newState;
     case ICarbonTypes.FOOD_EMISSIONS_COMPUTED:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -122,7 +111,6 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
       };
       return newState;
     case ICarbonTypes.INITIALIZE_FOOD_EMISSIONS:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -134,7 +122,6 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
       };
       return newState;
     case ICarbonTypes.COMPUTE_FLY_EMISSIONS:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
@@ -145,7 +132,6 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
       };
       return newState;
     case ICarbonTypes.FLY_EMISSIONS_COMPUTED:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -156,7 +142,6 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
       };
       return newState;
     case ICarbonTypes.INITIALIZE_FLY_EMISSIONS:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,

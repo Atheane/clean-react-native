@@ -1,5 +1,3 @@
-import { Logger } from '@clean-rn/logger';
-
 import { IAuthTypes, IAuthActions } from '../../commands/types';
 import { IAuthState } from '../state';
 
@@ -16,11 +14,9 @@ const initialState: IAuthState = {
 };
 
 export const authReducer = (state = initialState, action: IAuthActions) => {
-  const logger = Logger.getInstance();
   let newState: IAuthState;
   switch (action.type) {
     case IAuthTypes.FETCH_LOGIN:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
@@ -29,7 +25,6 @@ export const authReducer = (state = initialState, action: IAuthActions) => {
       };
       return newState;
     case IAuthTypes.LOGIN_SUCCEDED:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -37,7 +32,6 @@ export const authReducer = (state = initialState, action: IAuthActions) => {
       };
       return newState;
     case IAuthTypes.REFRESH_SUCCEDED:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -45,7 +39,6 @@ export const authReducer = (state = initialState, action: IAuthActions) => {
       };
       return newState;
     case IAuthTypes.LOGIN_FAILED:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -53,7 +46,6 @@ export const authReducer = (state = initialState, action: IAuthActions) => {
       };
       return newState;
     case IAuthTypes.FETCH_RESET_PASSWORD:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
@@ -61,7 +53,6 @@ export const authReducer = (state = initialState, action: IAuthActions) => {
       };
       return newState;
     case IAuthTypes.FETCH_LOGOUT:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
@@ -69,7 +60,6 @@ export const authReducer = (state = initialState, action: IAuthActions) => {
       };
       return newState;
     case IAuthTypes.PASSWORD_RESET:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -77,7 +67,6 @@ export const authReducer = (state = initialState, action: IAuthActions) => {
       };
       return newState;
     case IAuthTypes.LOGGED_OUT:
-      logger.debug(action.type);
       newState = {
         ...state,
         success: null,
@@ -89,14 +78,12 @@ export const authReducer = (state = initialState, action: IAuthActions) => {
       };
       return newState;
     case IAuthTypes.INITIALIZE_AUTH:
-      logger.debug(action.type);
       newState = {
         ...state,
         ...initialState,
       };
       return newState;
     case IAuthTypes.RESET_ERROR:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,

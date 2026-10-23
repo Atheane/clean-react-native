@@ -9,7 +9,6 @@ import { PhoneNumberUtil } from 'google-libphonenumber';
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
 import { IDomainError } from '@clean-rn/ddd';
-import { Logger } from '@clean-rn/logger';
 import { Phone } from '@clean-rn/contact/domain';
 import {
   Country,
@@ -19,7 +18,7 @@ import {
   IUserErrorMessage,
   Name,
 } from '@clean-rn/user/domain';
-import { COUNTRIES_AVAILABLE } from '@clean-rn/utils';
+import { COUNTRIES_AVAILABLE } from '@clean-rn/contact/domain';
 import { Person, Phone as PhoneIcon } from '../../../assets';
 import { Colors } from '../../../constants';
 
@@ -60,7 +59,7 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
     try {
       if (props.defaultCountry) setCountryCode(new Country(props.defaultCountry).value);
     } catch (error) {
-      Logger.getInstance().error(error);
+      console.log(error);
     }
   }, [props.defaultCountry]);
 
@@ -94,7 +93,7 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
         <Controller
           control={props.control}
           name="firstName"
-          rules={{ required: true, pattern: Name.pattern }}
+          rules={{ required: true, validate: Name.validate }}
           render={({ field: { onChange, value } }) => (
             <TextInput
               label={t('signup-identity.first-name.label')}
@@ -113,7 +112,7 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
             </Text>
           </View>
         )}
-        {props.errors?.firstName && props.errors.firstName.type === 'pattern' && (
+        {props.errors?.firstName && props.errors.firstName.type === 'validate' && (
           <View style={styles.errorContainer}>
             <Text style={theme.bank.text.errors}>
               {firstLetterCapitalize(t('errors.first-name.invalid'))}
@@ -125,7 +124,7 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
         <Controller
           control={props.control}
           name="lastName"
-          rules={{ required: true, pattern: Name.pattern }}
+          rules={{ required: true, validate: Name.validate }}
           render={({ field: { onChange, value } }) => (
             <TextInput
               label={t('signup-identity.last-name.label')}
@@ -144,7 +143,7 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
             </Text>
           </View>
         )}
-        {props.errors?.lastName && props.errors.lastName.type === 'pattern' && (
+        {props.errors?.lastName && props.errors.lastName.type === 'validate' && (
           <View style={styles.errorContainer}>
             <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.last-name.invalid'))}</Text>
           </View>

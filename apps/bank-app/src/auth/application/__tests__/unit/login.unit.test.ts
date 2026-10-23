@@ -22,7 +22,7 @@ import { ISharedStackPages, IUserStackPages } from '../../../../shared/presentat
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
 import { initializeUser, userSaved } from '../../../../user/application/commands';
-import { cardGetSuccess, cardNotFound } from '../../../../card/application/commands';
+import { cardForbidden, cardGetSuccess, cardNotFound } from '../../../../card/application/commands';
 
 describe('Login - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
@@ -66,6 +66,14 @@ describe('Login - usecase', () => {
     statusCode: 401,
     codeError: IAuthServerCode.USER_PHONE_NOT_VALIDATED,
     response: 'Core::AuthService::Auth - User phone not validated.',
+    timestamp: '2023-04-07T15:28:04.657Z',
+    path: '/auth/login',
+  };
+
+  const mockError403CardForbidden = {
+    message: 'Core::CardService::Card - Card Forbidden',
+    statusCode: 403,
+    response: 'Core::CardService::Card - Card Forbidden',
     timestamp: '2023-04-07T15:28:04.657Z',
     path: '/auth/login',
   };
@@ -237,7 +245,9 @@ describe('Login - usecase', () => {
       .call([userApi, userApi.getUser])
       .next(user)
       .call([cardApi, cardApi.getCard])
-      .throw(new CardError.Forbidden())
+      .throw(new ServerError(mockError403CardForbidden))
+      .put(cardForbidden(new CardError.Forbidden(new ServerError(mockError403CardForbidden))))
+      .next()
       .put(loginSuccess({ auth: mockResponse }))
       .next()
       .put(userSaved(user))

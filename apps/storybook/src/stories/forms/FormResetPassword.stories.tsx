@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
-import { Logger } from '@clean-rn/logger';
 import { FormResetPassword, IResetPasswordFormData } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../../wrappers';
@@ -25,7 +24,7 @@ type FormResetpasswordStory = ComponentStory<typeof FormResetPassword>;
 
 export const Dynamic: FormResetpasswordStory = (args) => {
   const onSubmit = useCallback(() => {
-    Logger.getInstance().info('onSubmit');
+    console.log('onSubmit');
   }, []);
 
   const {

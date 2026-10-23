@@ -1,5 +1,3 @@
-import { Logger } from '@clean-rn/logger';
-
 import { IDeviceActions, IDeviceTypes } from '../../commands';
 import { IDeviceState } from '../state';
 
@@ -10,11 +8,9 @@ const initialState: IDeviceState = {
 };
 
 export const deviceReducer = (state = initialState, action: IDeviceActions) => {
-  const logger = Logger.getInstance();
   let newState: IDeviceState;
   switch (action.type) {
     case IDeviceTypes.FETCH_REGISTER_DEVICE:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: true,
@@ -22,7 +18,6 @@ export const deviceReducer = (state = initialState, action: IDeviceActions) => {
       };
       return newState;
     case IDeviceTypes.INITIALIZE_DEVICE:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -30,7 +25,6 @@ export const deviceReducer = (state = initialState, action: IDeviceActions) => {
       };
       return newState;
     case IDeviceTypes.DEVICE_REGISTERED:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,
@@ -38,7 +32,6 @@ export const deviceReducer = (state = initialState, action: IDeviceActions) => {
       };
       return newState;
     case IDeviceTypes.DEVICE_ALREADY_REGISTERED:
-      logger.debug(action.type);
       newState = {
         ...state,
         pending: false,

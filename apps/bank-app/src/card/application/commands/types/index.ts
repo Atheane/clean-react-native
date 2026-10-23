@@ -10,7 +10,6 @@ import { IDomainError } from '@clean-rn/ddd';
 
 export enum ICardTypes {
   // commands
-  FETCH_GET_CARD = 'FETCH_CARD',
   FETCH_CHANGE_CARD_LIMITS = 'FETCH_CHANGE_CARD_LIMITS',
   FETCH_TOGGLE_LOCK = 'FETCH_TOGGLE_LOCK',
   FETCH_CHANGE_CARD_PIN = 'FETCH_CHANGE_CARD_PIN',
@@ -29,9 +28,6 @@ export enum ICardTypes {
 export type IFetchChangeCardLimits = {
   type: typeof ICardTypes.FETCH_CHANGE_CARD_LIMITS;
   payload: IChangeCardLimitsCommand;
-};
-export type IFetchGetCard = {
-  type: typeof ICardTypes.FETCH_GET_CARD;
 };
 
 export type IFetchToggleLock = {
@@ -86,7 +82,6 @@ export type IInitCard = {
 
 export type ICardActions =
   | IFetchChangeCardLimits
-  | IFetchGetCard
   | IFetchToggleLock
   | IFetchChangePIN
   | ICardLimitsChanged

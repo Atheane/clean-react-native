@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { PhoneNumberUtil, PhoneNumberFormat, PhoneNumberType } from 'google-libphonenumber';
-import { COUNTRIES_AVAILABLE } from '@clean-rn/utils';
+import { COUNTRIES_AVAILABLE } from '../constants';
 import { ContactError } from '../errors';
 
 export class Phone {
@@ -46,7 +46,8 @@ export class Phone {
       throw new ContactError.InvalidPhone('Invalid phone');
     }
     const numberType = this.phoneUtil.getNumberType(this.numberProto);
-    if (numberType !== PhoneNumberType.MOBILE) {
+
+    if (![PhoneNumberType.MOBILE, PhoneNumberType.FIXED_LINE_OR_MOBILE].includes(numberType)) {
       throw new ContactError.InvalidPhone('Invalid phone');
     }
   }

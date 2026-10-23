@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { getLocales } from 'expo-localization';
 
-import { Logger } from '@clean-rn/logger';
 import { IGender } from '@clean-rn/user/domain';
 import {
   FormSignupIdentityPasswordPhone,
@@ -52,7 +51,7 @@ export const Dynamic: FormSignupIdentityPasswordPhoneStory = (args) => {
   const { secured: securedPassword, onToggleSecurity: onToggleSecurityPassword } = useSecure(true);
 
   const onSubmit = useCallback((formData: ISignupIdentityPasswordPhoneFormData) => {
-    Logger.getInstance().debug(formData);
+    console.log(formData);
   }, []);
 
   return (

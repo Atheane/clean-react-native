@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 
-import { Logger } from '@clean-rn/logger';
 import { FormSignupEmail, ISignupEmailFormData } from '@clean-rn/ui-mobile';
 import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../../wrappers';
 
@@ -21,7 +20,7 @@ type FormSignupEmailStory = ComponentStory<typeof FormSignupEmail>;
 
 export const Dynamic: FormSignupEmailStory = (args) => {
   const onSubmit = useCallback(() => {
-    Logger.getInstance().info('onFocus');
+    console.log('onFocus');
   }, []);
 
   const {
