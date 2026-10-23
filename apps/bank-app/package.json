@@ -1,6 +1,6 @@
 {
   "name": "bank-app",
-  "version": "1.8.8",
+  "version": "1.0.6",
   "private": true,
   "dependencies": {
     "@bank/carbon-weight": "^1.5.6",

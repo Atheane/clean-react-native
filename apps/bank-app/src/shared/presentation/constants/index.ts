@@ -17,4 +17,6 @@ const APPLE_STORE_LINK = `https://apps.apple.com/${
 }/app/bank-app/id6478209342`;
 const GOOGLE_PLAY_LINK = 'https://play.google.com/store/apps/details?id=com.example.bankapp';
 
-export { GOOGLE_PLAY_LINK, APPLE_STORE_LINK, pdfUrls, eventsCardsContent };
+const SUPPORTED_LANGUAGES_WEBSITE = ['en', 'fr'];
+
+export { GOOGLE_PLAY_LINK, APPLE_STORE_LINK, pdfUrls, eventsCardsContent, SUPPORTED_LANGUAGES_WEBSITE };

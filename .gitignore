@@ -72,5 +72,3 @@ apps/bank-app/package-lock.json
 apps/storybook/package-lock.json
 
 bank-app*.json
-google-services.json
-GoogleService-Info.plist

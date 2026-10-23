@@ -51,8 +51,9 @@ export const Profile = () => {
       } else {
         navigation.navigate(ICardStackPages.MENU, { screen: ICardStackPages.WAITING_CARD });
       }
-    }
-    if (error instanceof ServerError && error.statusCode === 403) {
+    } else if (error instanceof ServerError && error.statusCode === 403) {
+      navigation.navigate(ICardStackPages.MENU as never);
+    } else {
       navigation.navigate(ICardStackPages.MENU as never);
     }
   }, [navigation, customer, error]);
