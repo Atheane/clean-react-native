@@ -37,15 +37,6 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
         pending: true,
       };
       return newState;
-    case IBeneficiaryTypes.INIT_BENEFICIARY:
-      logger.debug(action.type);
-      newState = {
-        ...state,
-        pending: false,
-        beneficiaries: null,
-        error: null,
-      };
-      return newState;
     case IBeneficiaryTypes.BENEFICIARY_ADDED:
       logger.debug(action.type);
       if (state.beneficiaries && state.beneficiaries.length > 0) {
@@ -95,6 +86,15 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
         ...state,
         pending: false,
         beneficiaries: action.payload,
+      };
+      return newState;
+    case IBeneficiaryTypes.INIT_BENEFICIARY:
+      logger.debug(action.type);
+      newState = {
+        ...state,
+        pending: false,
+        beneficiaries: null,
+        error: null,
       };
       return newState;
     default:

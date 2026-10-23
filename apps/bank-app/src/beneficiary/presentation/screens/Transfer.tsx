@@ -14,9 +14,15 @@ import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/h
 
 import { BankLogoCO2 } from '../assets/images';
 import { Decoration } from '../assets/svg';
-import { fetchSendTransfer } from '../../../transaction/application/commands';
+import {
+  fetchPayout,
+  fetchTransactionWaiting,
+  fetchTransfer,
+} from '../../../transaction/application/commands';
 import { Amount, ITransactionType } from '@clean-rn/transaction/domain';
 import { useRoute } from '@react-navigation/native';
+import { Phone } from '@clean-rn/contact/domain';
+import { Logger } from '@clean-rn/logger';
 
 type IData = {
   key: string;
@@ -30,15 +36,24 @@ export const Transfer = () => {
 
   // select beneficiary
   const {
-    params: { beneficiaryId, beneficiaryName, phoneNumber },
-  } = useRoute() as { params: { beneficiaryId?: number; beneficiaryName?: string; phoneNumber?: string } };
-  console.log(
+    params: { beneficiaryId, beneficiaryName, phoneNumber, beneficiaryAccountId },
+  } = useRoute() as {
+    params: {
+      beneficiaryId?: number;
+      beneficiaryName?: string;
+      phoneNumber?: string;
+      beneficiaryAccountId?: number;
+    };
+  };
+  Logger.getInstance().info(
     'beneficiaryId: ',
     beneficiaryId,
     'beneficiaryName: ',
     beneficiaryName,
     'phoneNumber: ',
     phoneNumber,
+    'beneficiaryAccountId: ',
+    beneficiaryAccountId,
   );
 
   // select account
@@ -99,10 +114,25 @@ export const Transfer = () => {
   const dispatch = useDispatch();
   const onSubmit = useCallback(
     (formData: ITransferFormData) => {
+      if (!selectedAccount) {
+        return;
+      }
       // api call for transfer
-      if (selectedAccount && beneficiaryId) {
+      if (beneficiaryAccountId) {
         dispatch(
-          fetchSendTransfer({
+          fetchTransfer({
+            accountId: selectedAccount.accountId,
+            beneficiaryAccountId: beneficiaryAccountId,
+            amount: new Amount(formData.amount, ITransactionType.TRANSFER_OUT),
+            label: formData.label,
+          }),
+        );
+        return;
+      }
+      // api call for payout
+      if (beneficiaryId) {
+        dispatch(
+          fetchPayout({
             accountId: selectedAccount.accountId,
             beneficiaryId,
             amount: new Amount(formData.amount, ITransactionType.TRANSFER_OUT),
@@ -111,20 +141,20 @@ export const Transfer = () => {
         );
         return;
       }
-      if (selectedAccount && phoneNumber) {
-        console.log('should dispatch fetchSendTransferWaiting');
-        // dispatch(
-        //   fetchSendTransferWaiting({
-        //     accountId: selectedAccount.accountId,
-        //     phone: phoneNumber,
-        //     amount: new Amount(formData.amount, ITransactionType.TRANSFER_OUT),
-        //     label: formData.label,
-        //   }),
-        // );
+      // api call for transactionWaiting
+      if (phoneNumber) {
+        dispatch(
+          fetchTransactionWaiting({
+            accountId: selectedAccount.accountId,
+            phone: new Phone(phoneNumber),
+            amount: new Amount(formData.amount, ITransactionType.TRANSFER_OUT),
+            label: formData.label,
+          }),
+        );
         return;
       }
     },
-    [dispatch, selectedAccount, beneficiaryId, phoneNumber],
+    [dispatch, selectedAccount, beneficiaryId, phoneNumber, beneficiaryAccountId],
   );
 
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
@@ -143,9 +173,11 @@ export const Transfer = () => {
                 onSelect={handleOnSelect}
               />
             </View>
-            <View style={styles.itemContainer}>
-              <TransferCard arrow={false} text={beneficiaryName} image={BankLogoCO2} />
-            </View>
+            {beneficiaryName && (
+              <View style={styles.itemContainer}>
+                <TransferCard arrow={false} text={beneficiaryName} image={BankLogoCO2} />
+              </View>
+            )}
             <View style={styles.decorationContainer}>
               <Decoration />
             </View>

@@ -26,7 +26,12 @@ import {
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
 import { listAccountsSaga } from '../../../account/application/usecases';
-import { listTransactionsSaga, sendTransferSaga } from '../../../transaction/application/usecases';
+import {
+  listTransactionsSaga,
+  transferSaga,
+  payoutSaga,
+  transactionWaitingSaga,
+} from '../../../transaction/application/usecases';
 
 import {
   addBeneficiarySaga,
@@ -93,7 +98,9 @@ export function* rootSaga(httpConnection: HttpConnection) {
     uploadDocumentSaga(httpConnection),
     cancelUploadSaga(),
     updateNotificationsSaga(httpConnection),
-    sendTransferSaga(httpConnection),
+    transferSaga(httpConnection),
+    payoutSaga(httpConnection),
+    transactionWaitingSaga(httpConnection),
     getCardSaga(httpConnection),
     changeCardLimitsSaga(httpConnection),
     toggleCardLockSaga(httpConnection),

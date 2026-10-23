@@ -70,7 +70,7 @@ export const DigitsInput = (props: Props) => {
         value={props.value}
         onChangeText={onChangeText}
         onSubmitEditing={handleOnBlur}
-        keyboardType={'phone-pad'}
+        keyboardType="number-pad"
         returnKeyType="done"
         textContentType="oneTimeCode"
         maxLength={props.numberDigits}

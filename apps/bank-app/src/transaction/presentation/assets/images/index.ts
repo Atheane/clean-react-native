@@ -9,7 +9,6 @@ import CardPremium from './premium.png';
 import CardRocket from './rocket.png';
 import CardTeam from './team.png';
 import CardWorkflow from './workflow.png';
-import SuccessTransfer from './success-transfer.png';
 
 export {
   Oups,
@@ -23,5 +22,4 @@ export {
   CardRocket,
   CardTeam,
   CardWorkflow,
-  SuccessTransfer,
 };

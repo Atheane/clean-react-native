@@ -5,7 +5,7 @@ import { IBeneficiary } from '@clean-rn/beneficiary/domain';
 //
 import { Colors } from '../../../constants';
 import { BeneficiaryItem } from '../../items/beneficiary-item';
-import { BankBgGradient } from '../../../assets';
+import { BankBgGradient, BankAltLogo } from '../../../assets';
 
 type IProps = {
   data: IBeneficiary & { icon?: React.FC<SvgProps> };
@@ -25,7 +25,7 @@ export const BeneficiaryCard = (props: IProps) => {
     >
       <View>
         <BeneficiaryItem
-          icon={props.data.icon ? props.data.icon : BankBgGradient}
+          icon={props.data.icon ? props.data.icon : props.data.accountId ? BankAltLogo : BankBgGradient}
           beneficiaryId={props.data.beneficiaryId}
           name={props.data.name}
           iban={props.data.iban}

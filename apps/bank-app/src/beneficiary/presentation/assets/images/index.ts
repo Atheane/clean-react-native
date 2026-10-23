@@ -10,6 +10,7 @@ import CardRocket from './rocket.png';
 import CardTeam from './team.png';
 import CardWorkflow from './workflow.png';
 import BankLogoCO2 from './bank-logo.png';
+import SuccessTransfer from './success-transfer.png';
 
 export {
   Oups,
@@ -24,4 +25,5 @@ export {
   CardTeam,
   CardWorkflow,
   BankLogoCO2,
+  SuccessTransfer,
 };

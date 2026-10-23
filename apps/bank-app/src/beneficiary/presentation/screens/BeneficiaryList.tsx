@@ -87,6 +87,7 @@ const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
     navigation.navigate(IBeneficiaryStackPages.BENEFICIARY_ADD as never);
   }, [navigation]);
 
+  //todo refactorize
   const handleOnPress = useCallback(
     (beneficiaryId: number) => {
       if (!beneficiaries) {
@@ -95,10 +96,18 @@ const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
       const beneficiary = beneficiaries.find(
         (beneficiary: IBeneficiary) => beneficiary.beneficiaryId === beneficiaryId,
       );
-      navigation.navigate(IBeneficiaryStackPages.TRANSFER, {
-        beneficiaryId,
-        beneficiaryName: beneficiary?.name,
-      });
+      navigation.navigate(
+        IBeneficiaryStackPages.TRANSFER,
+        beneficiary?.accountId
+          ? {
+              beneficiaryAccountId: beneficiary?.accountId,
+              beneficiaryName: beneficiary?.name,
+            }
+          : {
+              beneficiaryId,
+              beneficiaryName: beneficiary?.name,
+            },
+      );
     },
     [navigation, beneficiaries],
   );

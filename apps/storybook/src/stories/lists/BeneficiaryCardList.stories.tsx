@@ -14,6 +14,7 @@ const BeneficiaryCardListMeta: ComponentMeta<typeof BeneficiaryCardList> = {
   args: {
     data: [
       {
+        accountId: 1,
         beneficiaryId: 1,
         name: 'John Doe',
         iban: 'ES6621000418450200051331',
@@ -26,6 +27,7 @@ const BeneficiaryCardListMeta: ComponentMeta<typeof BeneficiaryCardList> = {
         bic: 'BCIRESMMXXX',
       },
       {
+        accountId: 2,
         beneficiaryId: 3,
         name: 'Jeanne Durut',
         iban: 'FR4621000418450200051333',
