@@ -12,10 +12,11 @@ import {
   fetchGetCard,
   cardGetSuccess,
   cardNotFound,
+  cardForbidden,
 } from '../../commands';
 import { ICardState, cardReducer } from '../../state-management';
 
-import { changeCardLimitsSaga } from '../../usecases';
+import { changeCardLimitsSaga, getCardSaga } from '../../usecases';
 import { Card, CardError, ICardStatuses, IChangeCardLimitsCommand } from '@clean-rn/card/domain';
 
 const expoConstantsMock = {
@@ -140,6 +141,18 @@ describe('Card - integration', () => {
       pending: false,
       card: null,
       error: new CardError.NotFound(),
+    });
+  });
+
+  it('Should store correct state if CARD_FORBIDDEN', () => {
+    sagaTester.start(wrapSagaHidingNotFoundError, getCardSaga, httpConnection);
+    sagaTester.dispatch(fetchGetCard());
+    sagaTester.dispatch(cardForbidden(new CardError.Forbidden()));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      card: null,
+      error: new CardError.Forbidden(),
     });
   });
 

@@ -14,7 +14,7 @@ import { IAuthStackPages, ICardStackPages } from '../../../../shared/presentatio
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { getCardGenerator, getCardSaga } from '../../usecases';
-import { ICardTypes, cardGetSuccess, cardNotFound, initCard } from '../../commands';
+import { ICardTypes, cardForbidden, cardGetSuccess, cardNotFound, initCard } from '../../commands';
 import { selectAuth } from '../../../../auth/application/state-management/selectors';
 import { refreshSuccess } from '../../../../auth/application/commands';
 import { selectCustomer } from '../../../../kyc/application/state-management/selectors';
@@ -64,6 +64,18 @@ describe('GetCard - usecase', () => {
     response: {
       message: 'Unauthorized',
       statusCode: 401,
+    },
+    timestamp: '2024-01-30T16:43:19.792Z',
+    path: '/app/card/999826250/limits',
+    method: 'PUT',
+  };
+
+  const mockError403 = {
+    statusCode: 403,
+    message: 'Forbidden',
+    response: {
+      message: 'Forbidden',
+      statusCode: 403,
     },
     timestamp: '2024-01-30T16:43:19.792Z',
     path: '/app/card/999826250/limits',
@@ -176,6 +188,24 @@ describe('GetCard - usecase', () => {
       .call([authApi, authApi.refresh], mockToken.refreshToken)
       .throw(new ServerError(mockError401))
       .call(navigate, { route: IAuthStackPages.LOGIN })
+      .next()
+      .cancel();
+  });
+
+  it('Should call cardForbidden if 403 from Server', () => {
+    testSaga(getCardGenerator, httpConnection)
+      .next()
+      .select(selectAuth)
+      .next(mockToken)
+      .call([authApi, authApi.refresh], mockToken.refreshToken)
+      .next(mockToken)
+      .put(refreshSuccess({ auth: mockToken }))
+      .next({ auth: mockToken })
+      .call([api, api.getCard])
+      .throw(new ServerError(mockError403))
+      .put(cardForbidden(new CardError.Forbidden()))
+      .next()
+      .call(navigate, { route: ICardStackPages.MENU })
       .next()
       .cancel();
   });
