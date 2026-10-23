@@ -3,19 +3,18 @@ import { View, StyleSheet, Pressable, TextInput, Text, SafeAreaView, Platform } 
 import { useTheme } from '@rneui/themed';
 import { Colors } from '../../../constants';
 
-const CODE_LENGTH = 6;
-
 type Props = {
   value: string;
+  numberDigits: number;
   onChange: (code: string) => void;
   onFocus: () => void;
-  onFullfill: () => void;
+  onFullfill?: () => void;
 };
 
-export const PhoneValidationCodeInput = (props: Props) => {
+export const DigitsInput = (props: Props) => {
   const { theme } = useTheme();
   const [code, setCode] = useState('');
-  const codeDigitsArray = ['', '', '', '', '', ''];
+  const codeDigitsArray = new Array(props.numberDigits).fill('');
   const [containerIsFocused, setContainerIsFocused] = useState(false);
 
   const ref = useRef<TextInput>(null);
@@ -34,8 +33,8 @@ export const PhoneValidationCodeInput = (props: Props) => {
     const digit = code[idx] || emptyInputChar;
 
     const isCurrentDigit = idx === code.length;
-    const isLastDigit = idx === CODE_LENGTH - 1;
-    const isCodeFull = code.length === CODE_LENGTH;
+    const isLastDigit = idx === props.numberDigits - 1;
+    const isCodeFull = code.length === props.numberDigits;
 
     const isFocused = isCurrentDigit || (isLastDigit && isCodeFull);
 
@@ -53,7 +52,7 @@ export const PhoneValidationCodeInput = (props: Props) => {
   const onChangeText = (text: string) => {
     setCode(text);
     props.onChange(text);
-    if (text.length === CODE_LENGTH) {
+    if (text.length === props.numberDigits && props?.onFullfill) {
       props.onFullfill(); // Déclencher la soumission automatique
     }
   };
@@ -74,7 +73,7 @@ export const PhoneValidationCodeInput = (props: Props) => {
         keyboardType={'phone-pad'}
         returnKeyType="done"
         textContentType="oneTimeCode"
-        maxLength={CODE_LENGTH}
+        maxLength={props.numberDigits}
         style={styles.hiddenCodeInput}
         onFocus={props.onFocus}
       />

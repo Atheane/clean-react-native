@@ -51,7 +51,8 @@ import {
   Lock,
   Eye,
   Blind,
-  Mail,
+  BlueMail,
+  GreenGradientMail,
   Edit,
   Phone,
   Person,
@@ -129,6 +130,7 @@ import {
   RightChevronGradient,
   IbanGreenGradient,
   BicGreenGradient,
+  GreenGradientSpeedLimit,
 } from './svg';
 import { DefaultImage, PlaneEmpty } from './image';
 import { Loader } from './lottie';
@@ -186,7 +188,8 @@ export {
   Lock,
   Eye,
   Blind,
-  Mail,
+  BlueMail,
+  GreenGradientMail,
   Edit,
   Phone,
   Person,
@@ -266,4 +269,5 @@ export {
   RightChevronGradient,
   IbanGreenGradient,
   BicGreenGradient,
+  GreenGradientSpeedLimit,
 };

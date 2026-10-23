@@ -99,13 +99,15 @@ const getStories = () => {
     './stories/forms/FormBeneficiary.stories.tsx': require('../stories/forms/FormBeneficiary.stories'),
     './stories/forms/FormContact.stories.tsx': require('../stories/forms/FormContact.stories'),
     './stories/forms/FormTransfer.stories.tsx': require('../stories/forms/FormTransfer.stories'),
+    './stories/forms/FormCardLimits.stories.tsx': require('../stories/forms/FormCardLimits.stories'),
+    './stories/forms/FormChangePin.stories.tsx': require('../stories/forms/FormChangePin.stories'),
     // Inputs
     './stories/inputs/TextInput.stories.tsx': require('../stories/inputs/TextInput.stories'),
     './stories/inputs/EmailInput.stories.tsx': require('../stories/inputs/EmailInput.stories'),
     './stories/inputs/PasswordInput.stories.tsx': require('../stories/inputs/PasswordInput.stories'),
     './stories/inputs/SelectNumber.stories.tsx': require('../stories/inputs/SelectNumber.stories'),
     './stories/inputs/PhoneSecurityPinInput.stories.tsx': require('../stories/inputs/PhoneSecurityPinInput.stories'),
-    './stories/inputs/PhoneValidationCodeInput.stories.tsx': require('../stories/inputs/PhoneValidationCodeInput.stories'),
+    './stories/inputs/DigitsInput.stories.tsx': require('../stories/inputs/DigitsInput.stories'),
     './stories/inputs/Slider.stories.tsx': require('../stories/inputs/Slider.stories'),
     // Lists
     './stories/lists/TransactionsCardsList.stories.tsx': require('../stories/lists/TransactionsCardsList.stories'),
@@ -123,6 +125,8 @@ const getStories = () => {
     './stories/others/GraphCO2.stories.tsx': require('../stories/others/GraphCO2.stories'),
     './stories/others/ModalError.stories.tsx': require('../stories/others/ModalError.stories'),
     './stories/others/LoaderSplashScreen.stories.tsx': require('../stories/others/LoaderSplashScreen.stories'),
+    './stories/others/ContactEmail.stories.tsx': require('../stories/others/ContactEmail.stories'),
+    './stories/others/Secured4Digits.stories.tsx': require('../stories/others/Secured4Digits.stories'),
     // Searchboxes
     './stories/searchboxes/SearchModal.stories.tsx': require('../stories/searchboxes/SearchModal.stories'),
     // Texts

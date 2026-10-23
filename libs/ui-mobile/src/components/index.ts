@@ -51,13 +51,15 @@ import { FoodForm } from './forms/food-form';
 import { HouseForm } from './forms/house-form';
 import { TransportForm } from './forms/transport-form';
 import { FormTransfer, ITransferFormData } from './forms/form-transfer';
+import { FormCardLimits, ICardLimitsFormData } from './forms/form-card-limits';
+import { FormChangePin, IChangePinFormData } from './forms/form-change-pin';
 // Inputs
 import { TextInput } from './inputs/text-input';
 import { EmailInput } from './inputs/email-input';
 import { PasswordInput } from './inputs/password-input';
 import { SelectNumber } from './inputs/select-number';
 import { PhoneSecurityPinInput } from './inputs/phone-security-pin-input';
-import { PhoneValidationCodeInput } from './inputs/phone-validation-code-input';
+import { DigitsInput } from './inputs/digits-input';
 import { Slider } from './inputs/slider';
 // Items
 import { IconTextItem } from './items/icon-text-item';
@@ -80,6 +82,8 @@ import { CopyValueClipboard } from './others/copy-value-clipboard';
 import { GraphCO2 } from './others/graph-co2';
 import { ModalError } from './others/modal-error';
 import { LoaderSplashScreen } from './others/loader-splash-screen';
+import { ContactEmail } from './others/contact-email';
+import { Secured4Digits } from './others/secured-4digits';
 // Searchboxes
 import { SearchModal } from './searchboxes/search-modal';
 // Texts
@@ -149,13 +153,17 @@ export {
   TransportForm,
   FormTransfer,
   ITransferFormData,
+  FormCardLimits,
+  ICardLimitsFormData,
+  FormChangePin,
+  IChangePinFormData,
   // Inputs
   TextInput,
   EmailInput,
   PasswordInput,
   SelectNumber,
   PhoneSecurityPinInput,
-  PhoneValidationCodeInput,
+  DigitsInput,
   Slider,
   // Items
   TransactionItem,
@@ -178,6 +186,8 @@ export {
   GraphCO2,
   ModalError,
   LoaderSplashScreen,
+  ContactEmail,
+  Secured4Digits,
   // Searchboxes
   SearchModal,
   // Texts

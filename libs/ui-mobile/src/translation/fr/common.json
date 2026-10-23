@@ -9,6 +9,14 @@
     }
   },
   "errors": {
+    "card-limits": {
+      "min": "Le montant doit être supérieur à 100",
+      "max": {
+        "day": "Le montant doit être inférieur à 3000",
+        "week": "Le montant doit être inférieur à 6000",
+        "month": "Le montant doit être inférieur à 9000"
+      }
+    },
     "BIC": {
       "required": "BIC requis",
       "invalid": "BIC invalide"
@@ -41,6 +49,11 @@
       "required": "code à 6 chiffres requis",
       "invalid": "code invalide",
       "min-length": "doit contenir au minimum 6 chiffres"
+    },
+    "card-pin": {
+      "required": "code à 4 chiffres requis",
+      "invalid": "code invalide",
+      "min-length": "doit contenir au minimum 4 chiffres"
     },
     "birthday": {
       "invalid": "date de naissance invalide, 18 ans minimum"
@@ -147,6 +160,12 @@
         "INVALID_TRANSACTION_VALUE": "Valeur de transaction invalide",
         "TRANSFER_AMOUNT_TOO_HIGH": "Montant de transfert supérieur au solde"
       },
+      "card": {
+        "INVALID_PIN_FORMAT": "Format du code PIN invalide",
+        "CARD_NOT_FOUND": "Carte non trouvée",
+        "CARD_FORBIDDEN": "Carte non autorisée",
+        "MAX_NUMBER_OF_PIN_CHANGES_REACHED": "Nombre maximum de modifications du code PIN atteint"
+      },
       "other": "erreur, veuillez contacter l'administrateur"
     },
     "other": "erreur, veuillez contacter l'administrateur"
@@ -162,6 +181,12 @@
   "email-input": {
     "label": "email",
     "placeholder": "votre@email.com"
+  },
+  "contact-email": {
+    "label": "PAR EMAIL",
+    "bank": "contact@example.com",
+    "subject": "Commander une carte CO2",
+    "body": "Bonjour,\nL'application CO2 m'indique que ma carte CO2 n'est plus accessible, et je souhaite la renouveler.\n\nCordialement"
   },
   "password-input": {
     "placeholder": "******",
@@ -652,7 +677,69 @@
     "profile": {
       "title": "Profil",
       "tab": "Profil",
+      "card-settings": "Paramètrer ma carte",
       "notifications": "Notifications"
+    },
+    "card": {
+      "menu": {
+        "title": "Paramètrer ma carte",
+        "unavailable-card": "Cette carte n’est plus accessible. Veuillez en commander une nouvelle :",
+        "limits": "Modifier mes plafonds",
+        "lock": "Bloquer ma carte",
+        "unlock": "Débloquer ma carte",
+        "change-pin": "Modifier mon code PIN",
+        "show-pin": "Voir mon code PIN"
+      },
+      "kyc-missing": {
+        "title": "Justificatifs manquants",
+        "instruction": "Votre carte n’a pas encore été créée. Vous devez d’abord ",
+        "instruction-bold": "valider votre identité.",
+        "link-instruction": "Valider mon identité"
+      },
+      "waiting-card": {
+        "title": "Carte en cours d'envoi",
+        "congrats": "Félicitations votre identité est validée !\n\n",
+        "instruction-before-card": "Nous avons lancé la ",
+        "instruction-card": "fabrication de votre Carte CO2",
+        "instruction-after-card": ". Nous vous l’enverrons par courrier dès qu’elle sera prête.\n\nUn peu de patience, vous pouvez en attendant ",
+        "link-instruction": " créditer votre compte."
+      },
+      "limits": {
+        "title": "Modifier mes plafonds",
+        "instruction-top": "Définir des plafonds est un moyen simple de sécuriser votre Compte",
+        "day-limit": "Montant journalier",
+        "week-limit": "Montant hebdomadaire",
+        "month-limit": "Montant mensuel",
+        "instruction-bottom": "Pour tout achat exceptionnel, contactez nous"
+      },
+      "toggle-lock": {
+        "title": "Bloquer ma carte",
+        "instruction": "Cette fonction vous permet de bloquer votre carte. N’hésitez pas à l’activer en cas de perte ou de vol. Votre carte peut être réactivée à tout moment.",
+        "lock": "Bloquer",
+        "button": "Valider"
+      },
+      "toggle-lock-success": {
+        "title": "Félicitations",
+        "lock": "Votre carte a bien été bloquée",
+        "unlock": "Votre carte a bien été débloquée",
+        "ok": "ok"
+      },
+      "change-pin": {
+        "title": "Modifier mon code PIN",
+        "instruction-top": "Vous pouvez choisir de définir vous-même le code de votre Carte CO2.",
+        "instruction-bottom-static": "Attention, vous ne pouvez modifier au maximum que 3 fois votre code.",
+        "instruction-bottom-dynamic": "/ 3 nombre de modifications"
+      },
+      "change-pin-success": {
+        "title": "Valider mon code PIN",
+        "instruction": "Votre code PIN a été modifié.\n\nAfin que le réseau MasterCard reconnaisse votre nouveau PIN, vous devez vous rendre dans un distributeur de billets de banque, et saisir ce nouveau PIN.\nVous ne pourrez pas retirer d’espèces, mais votre nouveau PIN sera enregistré sur le réseau",
+        "ok": "ok"
+      },
+      "show-pin": {
+        "title": "Voir mon code PIN",
+        "instruction": "Voici le code secret de ma Carte CO2",
+        "see-my-pin": "Voir mon code"
+      }
     },
     "notifications": {
       "title": "Notifications",

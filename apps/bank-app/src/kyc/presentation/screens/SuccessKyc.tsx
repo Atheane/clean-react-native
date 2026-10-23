@@ -22,7 +22,7 @@ export const SuccessKyc = () => {
   const navigation = useNavigation();
   const handleOnPress = useCallback(() => {
     if (accounts && accounts[0]) {
-      navigation.navigate(ITransactionStackPages.TRANSACTIONS, { account: accounts[0] });
+      navigation.navigate(ITransactionStackPages.TRANSACTIONS as never);
     }
   }, [accounts, navigation]);
 

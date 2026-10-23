@@ -39,6 +39,12 @@
       "@clean-rn/carbon/domain": [
         "libs/carbon/domain/src/index.ts"
       ],
+      "@clean-rn/card/domain": [
+        "libs/card/domain/src/index.ts"
+      ],
+      "@clean-rn/card/infrastructure": [
+        "libs/card/infrastructure/src/index.ts"
+      ],
       "@clean-rn/contact/domain": [
         "libs/contact/domain/src/index.ts"
       ],

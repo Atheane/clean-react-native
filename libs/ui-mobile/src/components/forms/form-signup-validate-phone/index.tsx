@@ -8,7 +8,7 @@ import { IUserErrorCodes, IUserErrorMessage, PhoneOtp } from '@clean-rn/user/dom
 
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
-import { PhoneValidationCodeInput } from '../../inputs/phone-validation-code-input';
+import { DigitsInput } from '../../inputs/digits-input';
 import { ErrorMessage } from '../../texts/error-message';
 
 type IProps = {
@@ -37,11 +37,12 @@ export const FormSignupValidatePhone = (props: IProps) => {
           rules={{ required: true, pattern: PhoneOtp.pattern, minLength: 6 }}
           render={({ field: { onChange, value } }) => {
             return (
-              <PhoneValidationCodeInput
+              <DigitsInput
                 value={value}
                 onChange={onChange}
                 onFocus={props.onFocus}
                 onFullfill={props.onSubmit}
+                numberDigits={6}
               />
             );
           }}
