@@ -21,7 +21,7 @@ export default {
       bundleIdentifier: process.env.BUNDLE_IDENTIFIER || 'com.example.bankapp',
       googleServicesFile: process.env.GOOGLE_PLIST || './GoogleService-Info.plist',
       supportsTablet: false,
-      versionCode: process.env.APP_VERSION || '1.0.2',
+      versionCode: process.env.APP_VERSION || '1.0.3',
     },
     android: {
       adaptiveIcon: {
@@ -30,7 +30,7 @@ export default {
       },
       package: process.env.BUNDLE_IDENTIFIER || 'com.example.bankapp',
       googleServicesFile: process.env.GOOGLE_SERVICES || './google-services.json',
-      versionCode: process.env.APP_VERSION_ANDROID || '102',
+      versionCode: process.env.APP_VERSION_ANDROID || '103',
     },
     web: {
       favicon: './assets/images/logo-bank.png',
