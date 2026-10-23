@@ -9,6 +9,7 @@ import { Colors } from '../../../constants';
 export const ModalError = ({ error }: { error: ServerError | Error }) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
+
   return (
     <View style={styles.container}>
       <View style={styles.modalContainer}>

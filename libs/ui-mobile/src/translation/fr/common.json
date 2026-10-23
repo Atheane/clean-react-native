@@ -292,7 +292,8 @@
   "modal-error": {
     "code": "Code erreur ",
     "details": "Message ",
-    "stack": "Détails "
+    "stack": "Détails ",
+    "network": "Pas de connexion internet"
   },
   "screens": {
     "legal": "Données personnelles",

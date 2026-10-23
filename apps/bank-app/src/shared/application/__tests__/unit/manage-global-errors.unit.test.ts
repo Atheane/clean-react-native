@@ -17,6 +17,15 @@ describe('Manage Global Errors - usecase', () => {
     expect(genObject.next().done).toBeTruthy();
   });
 
+  it('Should cancel if Network request failed message error', async () => {
+    testSaga(showUnknownErrorGenerator, {
+      type: IGlobalErrorTypes.SHOW_UNKNOWN_ERROR,
+      payload: new Error('Network request failed'),
+    })
+      .next()
+      .cancel();
+  });
+
   it('Should call showUnknownError', async () => {
     testSaga(showUnknownErrorGenerator, {
       type: IGlobalErrorTypes.SHOW_UNKNOWN_ERROR,

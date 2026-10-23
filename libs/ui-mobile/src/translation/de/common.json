@@ -291,7 +291,8 @@
   "modal-error": {
     "code": "Fehlercode ",
     "details": "Nachricht ",
-    "stack": "Details "
+    "stack": "Details ",
+    "network": "Keine Internetverbindung"
   },
   "screens": {
     "legal": "Persönliche Daten",

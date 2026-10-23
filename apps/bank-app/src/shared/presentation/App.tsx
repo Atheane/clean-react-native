@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { SafeAreaView, StyleSheet, Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { I18nextProvider } from 'react-i18next';
+import { I18nextProvider, useTranslation } from 'react-i18next';
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@rneui/themed';
 import SplashScreen from '../../../assets/images/splash.png';
+import * as Notifications from 'expo-notifications';
 
 import { Fonts, theme, i18n, useDeepLink } from '@clean-rn/ui-mobile';
 
@@ -27,6 +28,26 @@ const App: () => JSX.Element = () => {
   useDeepLink();
 
   const { pending } = useSelector((state: IRootState) => state.initialization);
+
+  const { error } = useSelector((state: IRootState) => state.unknownError);
+
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+    }),
+  });
+
+  const { t } = useTranslation();
+  if (error?.message === 'Network request failed') {
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: t('modal-error.network'),
+      },
+      trigger: null,
+    });
+  }
 
   return fontsLoaded && !pending ? (
     <ThemeProvider theme={theme}>
