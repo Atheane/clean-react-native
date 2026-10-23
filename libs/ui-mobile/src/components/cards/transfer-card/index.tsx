@@ -1,6 +1,5 @@
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { SvgProps } from 'react-native-svg';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 import { BackgroundCardArrow, BackgroundCardGrey } from '../../../assets';
 import { Dropdown } from '../../dropdowns/dropdown';
@@ -21,7 +20,6 @@ type IProps = {
 
 export const TransferCard = (props: IProps) => {
   const { theme } = useTheme();
-  const { t } = useTranslation();
   return (
     <View>
       <View style={styles.backgroundContainer}>
@@ -29,7 +27,7 @@ export const TransferCard = (props: IProps) => {
         {!props.arrow && <BackgroundCardGrey />}
         <View style={[styles.textContainer, { width: props.arrow ? 150 : 150 }]}>
           <Text style={[theme.bank.text.boldDarkBlue, { fontSize: 12, lineHeight: 19 }]}>
-            {props.arrow ? props.text.slice(0, 17) : props.text}
+            {props.arrow ? props.text.slice(0, 19) : props.text}
           </Text>
         </View>
         {props.arrow && !props.uniqueAccount && (
@@ -65,7 +63,7 @@ const styles = StyleSheet.create({
   textContainer: {
     position: 'absolute',
     top: 20,
-    left: 70,
+    left: 60,
     height: 40,
     justifyContent: 'center',
   },
