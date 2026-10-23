@@ -65,7 +65,7 @@
             "command": "npm run eas-build-pre-install"
           }
         ],
-        "cwd": "apps/bank-app"
+        "cwd": "apps/storybook"
       }
     },
     "ensure-symlink": {
