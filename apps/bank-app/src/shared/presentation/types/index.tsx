@@ -158,6 +158,8 @@ export enum IProfileStackPages {
   MENU = 'MenuProfile',
   PROFILE = 'Profile',
   NOTIFICATON_SETTINGS = 'NotificationSettings',
+  DELETE_ACCOUNT = 'DeleteAccount',
+  LOGOUT = 'Logout',
 }
 
 export enum IAccountStackPages {
@@ -250,6 +252,8 @@ export type IProfileStackProps = {
   [IProfileStackPages.MENU]: object;
   [IProfileStackPages.PROFILE]: object;
   [IProfileStackPages.NOTIFICATON_SETTINGS]: object;
+  [IProfileStackPages.DELETE_ACCOUNT]: object;
+  [IProfileStackPages.LOGOUT]: object;
 };
 
 export type IAccountStackProps = {
@@ -333,6 +337,8 @@ export type IRoutes =
   | IProfileStackPages.MENU
   | IProfileStackPages.PROFILE
   | IProfileStackPages.NOTIFICATON_SETTINGS
+  | IProfileStackPages.DELETE_ACCOUNT
+  | IProfileStackPages.LOGOUT
   | IAccountStackPages.MENU
   | IAccountStackPages.ACCOUNTS
   | IAccountStackPages.RIB_PDF

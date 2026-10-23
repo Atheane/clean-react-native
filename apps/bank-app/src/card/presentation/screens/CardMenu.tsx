@@ -42,7 +42,10 @@ export const CardMenu = () => {
               <Text style={[styles.instruction, theme.bank.text.grey, { fontSize: 14, textAlign: 'center' }]}>
                 {t('screens.card.menu.unavailable-card')}
               </Text>
-              <ContactEmail />
+              <ContactEmail
+                subject={t('contact-email.subject.unavailable-card')}
+                body={t('contact-email.body.unavailable-card')}
+              />
             </View>
           )}
           <View style={[styles.subContainer]}>
