@@ -17,6 +17,7 @@ import {
 } from '../../../shared/presentation/types';
 
 import { BeneficiaryAdd, BeneficiaryList, ContactAdd, Transfer, TransferSuccess } from '../screens';
+import { KYC_REVIEW } from '@clean-rn/user/domain';
 
 const Stack = createNativeStackNavigator<IBeneficiaryStackProps>();
 
@@ -36,22 +37,34 @@ export const BeneficiaryStack = () => {
     }
   }, [navigation, tab]);
 
+  const { customer } = useSelector((state: IRootState) => state.kyc.customer);
+
   return (
     <Stack.Navigator>
       <Stack.Screen
         name={IBeneficiaryStackPages.BENEFICIARY_LIST}
         component={BeneficiaryList}
-        options={{
-          headerTitle: t('screens.transfer.title'),
-          ...headersOptions(),
-          headerRight: () => (
-            <View style={theme.bank.shadow.button}>
-              <TouchableOpacity onPress={handleOnPressAdd}>
-                <AddButton width={styles.headerRightButton.width} height={styles.headerRightButton.height} />
-              </TouchableOpacity>
-            </View>
-          ),
-        }}
+        options={
+          customer?.properties.status === KYC_REVIEW.VALIDATED
+            ? {
+                headerTitle: t('screens.transfer.title'),
+                ...headersOptions(),
+                headerRight: () => (
+                  <View style={theme.bank.shadow.button}>
+                    <TouchableOpacity onPress={handleOnPressAdd}>
+                      <AddButton
+                        width={styles.headerRightButton.width}
+                        height={styles.headerRightButton.height}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                ),
+              }
+            : {
+                headerTitle: t('screens.transfer.title'),
+                ...headersOptions(),
+              }
+        }
       />
       <Stack.Screen
         name={IBeneficiaryStackPages.BENEFICIARY_ADD}

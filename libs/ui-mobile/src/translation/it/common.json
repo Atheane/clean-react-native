@@ -397,6 +397,11 @@
           "label": "Cognome",
           "placeholder": "Cognome"
         }
+      },
+      "kyc-missing": {
+        "instruction": "Per accedere a questa funzionalità, devi prima ",
+        "instruction-bold": "verificare la tua identità",
+        "link-instruction": "Verifica la mia identità"
       }
     },
     "account-statements": {

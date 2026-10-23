@@ -396,6 +396,11 @@
           "label": "Apellido",
           "placeholder": "Apellido"
         }
+      },
+      "kyc-missing": {
+        "instruction": "Para acceder a esta función, primero debe ",
+        "instruction-bold": "verificar su identidad",
+        "link-instruction": "Verificar mi identidad"
       }
     },
     "account-statements": {

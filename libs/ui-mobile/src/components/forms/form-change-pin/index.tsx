@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
   },
   domainErrorContainer: {
     marginTop: 16,
+    width: '90%',
   },
   textContainer: {
     marginTop: 24,

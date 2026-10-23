@@ -24,9 +24,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 
 import { APPLE_STORE_LINK, GOOGLE_PLAY_LINK } from '../../../shared/presentation/constants';
 import { firstLetterCapitalize } from '@clean-rn/utils';
-import { CardError } from '@clean-rn/card/domain';
 import { KYC_REVIEW } from '@clean-rn/user/domain';
-import { ServerError } from '@clean-rn/shared/infrastructure';
 
 export const Profile = () => {
   const { t } = useTranslation();
@@ -37,7 +35,7 @@ export const Profile = () => {
     navigation.navigate(IProfileStackPages.NOTIFICATON_SETTINGS as never);
   }, [navigation]);
 
-  const { error } = useSelector((state: IRootState) => state.card);
+  const { card } = useSelector((state: IRootState) => state.card);
   const { customer } = useSelector((state: IRootState) => state.kyc.customer);
 
   const handlePressCardParameters = useCallback(() => {
@@ -45,18 +43,16 @@ export const Profile = () => {
     if (!customer) {
       return;
     }
-    if (error instanceof CardError.NotFound) {
+    if (!card) {
       if (customer.properties.status !== KYC_REVIEW.VALIDATED) {
         navigation.navigate(ICardStackPages.MENU, { screen: ICardStackPages.KYC_MISSING });
       } else {
         navigation.navigate(ICardStackPages.MENU, { screen: ICardStackPages.WAITING_CARD });
       }
-    } else if (error instanceof ServerError && error.statusCode === 403) {
-      navigation.navigate(ICardStackPages.MENU as never);
     } else {
       navigation.navigate(ICardStackPages.MENU as never);
     }
-  }, [navigation, customer, error]);
+  }, [navigation, customer, card]);
 
   const handlePressLove = useCallback(() => {
     Linking.openURL(Platform.OS === 'ios' ? APPLE_STORE_LINK : GOOGLE_PLAY_LINK);

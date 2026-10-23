@@ -398,6 +398,11 @@
           "label": "Nom",
           "placeholder": "Nom"
         }
+      },
+      "kyc-missing": {
+        "instruction": "Pour accéder à cette fonctionnalité, vous devez d’abord ",
+        "instruction-bold": "valider votre identité",
+        "link-instruction": "Valider mon identité"
       }
     },
     "account-statements": {
