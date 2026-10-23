@@ -22,7 +22,7 @@
       "invalid": "BIC invalide"
     },
     "consent": {
-      "required": "consentement requis"
+      "required": "Consentement requis"
     },
     "email": {
       "required": "email requis",
@@ -37,70 +37,70 @@
       "invalid": "IBAN invalide"
     },
     "password": {
-      "required": "mot de passe requis",
-      "invalid": "mot de passe invalide",
-      "min-length": "doit contenir au minimum 6 caractères"
+      "required": "Mot de passe requis",
+      "invalid": "Mot de passe invalide",
+      "min-length": "Doit contenir au minimum 6 caractères"
     },
     "phone": {
-      "required": "numéro de téléphone requis",
-      "invalid": "numéro de téléphone mobile invalide"
+      "required": "Numéro de téléphone requis",
+      "invalid": "Numéro de téléphone mobile invalide"
     },
     "phone-otp": {
-      "required": "code à 6 chiffres requis",
-      "invalid": "code invalide",
-      "min-length": "doit contenir au minimum 6 chiffres"
+      "required": "Code à 6 chiffres requis",
+      "invalid": "Code invalide",
+      "min-length": "Doit contenir au minimum 6 chiffres"
     },
     "card-pin": {
-      "required": "code à 4 chiffres requis",
-      "invalid": "code invalide",
-      "min-length": "doit contenir au minimum 4 chiffres"
+      "required": "Code à 4 chiffres requis",
+      "invalid": "Code invalide",
+      "min-length": "Doit contenir au minimum 4 chiffres"
     },
     "birthday": {
-      "invalid": "date de naissance invalide, 18 ans minimum"
+      "invalid": "Date de naissance invalide, 18 ans minimum"
     },
     "first-name": {
-      "required": "prénom requis",
-      "invalid": "format du prénom invalide"
+      "required": "Prénom requis",
+      "invalid": "Format du prénom invalide"
     },
     "last-name": {
-      "required": "nom requis",
-      "invalid": "format du nom de famille invalide"
+      "required": "Nom requis",
+      "invalid": "Format du nom de famille invalide"
     },
     "birth-country": {
-      "required": "pays de naissance requis"
+      "required": "Pays de naissance requis"
     },
     "nationality": {
-      "required": "nationalité requise"
+      "required": "Nationalité requise"
     },
     "street": {
-      "required": "rue requise"
+      "required": "Rue requise"
     },
     "city": {
-      "required": "ville requise"
+      "required": "Ville requise"
     },
     "zip": {
-      "required": "code postal requis"
+      "required": "Code postal requis"
     },
     "country": {
-      "required": "code pays requis",
-      "invalid": "pays invalide",
-      "unvailable": "ce pays n'est pas disponible"
+      "required": "Code pays requis",
+      "invalid": "Pays invalide",
+      "unvailable": "Ce pays n'est pas disponible"
     },
     "country-code": {
-      "required": "code pays requis"
+      "required": "Code pays requis"
     },
     "amount": {
-      "required": "montant requis",
-      "invalid": "montant invalide"
+      "required": "Montant requis",
+      "invalid": "Montant invalide"
     },
     "domain-error": {
       "auth": {
         "INVALID_EMAIL": "E-mail invalide",
         "INVALID_PASSWORD": "Mot de passe invalide",
-        "LOGIN_FAILURE_USER_NOT_FOUND": "le compte n'existe pas",
+        "LOGIN_FAILURE_USER_NOT_FOUND": "Le compte n'existe pas",
         "LOGIN_FAILURE_INVALID_CREDENTIALS": "Email ou mot de passe incorrect",
-        "LOGIN_FAILURE_USER_PHONE_NOT_VALIDATED": "le numéro de téléphone n'est pas valide",
-        "USER_UNAUTHENTICATED": "veuillez vous authentifier"
+        "LOGIN_FAILURE_USER_PHONE_NOT_VALIDATED": "Le numéro de téléphone n'est pas valide",
+        "USER_UNAUTHENTICATED": "Veuillez vous authentifier"
       },
       "user": {
         "INVALID_PHONE": "Numéro de téléphone mobile invalide",
@@ -108,10 +108,10 @@
         "UNAVAILABLE_COUNTRY": "Pays indisponible",
         "INVALID_BIRTHDAY": "Date de naissance invalide",
         "INVALID_6_DIGITS": "6 chiffres invalides",
-        "SIGNUP_FAILURE_EMAIL_EXISTS": "cet email est déjà enregistré",
-        "SIGNUP_FAILURE_PHONE_EXISTS": "ce téléphone est déjà enregistré",
-        "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "code incorrect",
-        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "numéro de téléphone inconnu"
+        "SIGNUP_FAILURE_EMAIL_EXISTS": "Cet email est déjà enregistré",
+        "SIGNUP_FAILURE_PHONE_EXISTS": "Ce téléphone est déjà enregistré",
+        "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "Code incorrect",
+        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Numéro de téléphone inconnu"
       },
       "account": {
         "INVALID_IBAN": "IBAN invalide",
@@ -124,7 +124,7 @@
         "INVALID_BIC": "BIC invalide",
         "INVALID_NAME": "Nom invalide",
         "BENEFICIARY_ALREADY_EXISTS": "Ce destinataire existe déjà",
-        "BENEFICIARY_UNKNOWN": "Beneficiaire inconnu"
+        "BENEFICIARY_UNKNOWN": "Béneficiaire inconnu"
       },
       "contact": {
         "INVALID_NAME": "Format du nom invalide",
@@ -138,7 +138,7 @@
         "INVALID_FLY_PROPS": "Propriétés de vol invalides"
       },
       "kyc": {
-        "MISSING_KYC_DOCUMENTS": "Documents KYC manquants",
+        "MISSING_KYC_DOCUMENTS": "Documents pour validation du dossier manquants",
         "KYC_REFUSED": "La validation de votre dossier a échoué",
         "MISSING_RECTO": "Recto manquant",
         "MISSING_VERSO": "Verso manquant",
@@ -166,9 +166,9 @@
         "CARD_FORBIDDEN": "Carte non autorisée",
         "MAX_NUMBER_OF_PIN_CHANGES_REACHED": "Nombre maximum de modifications du code PIN atteint"
       },
-      "other": "erreur, veuillez contacter l'administrateur"
+      "other": "Erreur, veuillez contacter l'administrateur"
     },
-    "other": "erreur, veuillez contacter l'administrateur"
+    "other": "Erreur, veuillez contacter l'administrateur"
   },
   "country-picker": {
     "label": "pays",
@@ -199,45 +199,45 @@
     "label": "password"
   },
   "button": {
-    "add": "ajouter",
-    "share": "partager",
-    "submit": "valider",
+    "add": "Ajouter",
+    "share": "Partager",
+    "submit": "Valider",
     "photo": "Prendre une photo",
     "document": "Importer un document"
   },
   "login": {
     "forgotten-password": "Mot de passe oublié ?",
-    "validate": "valider"
+    "validate": "Valider"
   },
   "reset-password": {
     "success": "Si cet email existe, un message vous a été envoyé",
-    "reset": "réinitialiser"
+    "reset": "Réinitialiser"
   },
   "signup-email": {
     "text": "Vérifions ensemble si votre adresse mail est rattachée à un compte existant."
   },
   "signup-identity": {
     "gender": {
-      "label": "genre",
+      "label": "Genre",
       "man": "Homme",
       "woman": "Femme",
       "neutral": "Neutre"
     },
     "first-name": {
-      "label": "prénom",
+      "label": "Prénom",
       "placeholder": "John"
     },
     "last-name": {
-      "label": "nom",
+      "label": "Nom",
       "placeholder": "Doe"
     }
   },
   "signup-phone": {
     "country-code": {
-      "required": "indicatif pays requis"
+      "required": "Indicatif pays requis"
     },
     "phone": {
-      "label": "numéro de téléphone",
+      "label": "Numéro de téléphone",
       "placeholder": "0607080910"
     }
   },
@@ -247,7 +247,7 @@
       "placeholder": "DD/MM/YYYY"
     },
     "birth-country": {
-      "label": "pays de naissance",
+      "label": Pays de naissance",
       "placeholder": "Pays de naissance"
     },
     "nationality": {
@@ -257,15 +257,15 @@
   },
   "signup-address": {
     "street": {
-      "label": "adresse",
+      "label": "Adresse",
       "placeholder": "Nom de la rue"
     },
     "city": {
-      "label": "ville",
+      "label": "Ville",
       "placeholder": "Ville"
     },
     "zip": {
-      "label": "code postal",
+      "label": "Code postal",
       "placeholder": "Code postal"
     },
     "country": {
@@ -273,7 +273,7 @@
       "placeholder": "Pays"
     },
     "usperson": {
-      "label": "je suis une « person US »",
+      "label": "Je suis une « person US »",
       "subtitle": "(Résident américain)",
       "yes": "Oui",
       "no": "Non"
@@ -377,7 +377,7 @@
           "placeholder": "FR7616790000000000000000XXX"
         },
         "name": {
-          "label": "nom",
+          "label": "Nom",
           "placeholder": "Nom"
         }
       },
@@ -385,12 +385,12 @@
         "title": "Ajouter un contact",
 
         "firstname": {
-          "label": "prénom",
-          "placeholder": "prénom"
+          "label": "Prénom",
+          "placeholder": "Prénom"
         },
         "lastname": {
-          "label": "nom",
-          "placeholder": "nom"
+          "label": "Nom",
+          "placeholder": "Nom"
         }
       }
     },
@@ -459,7 +459,7 @@
         "state-department": "Département"
       },
       "slider": {
-        "consumption": "consommation",
+        "consumption": "Consommation",
         "built-year": "Année du logement"
       },
       "surface": "Surface"
@@ -478,7 +478,7 @@
         "unit": " L/100 KM"
       },
       "slider": {
-        "mpg": "consommation",
+        "mpg": "Consommation",
         "distance-by-year": "Kilométrage annuel",
         "unit": " km"
       }
@@ -522,7 +522,7 @@
         "business": "Business"
       },
       "secondary-button": "Ajouter",
-      "flight": "trajet"
+      "flight": "trajet(s)"
     },
     "kyc": {
       "title": "Vérification de votre identité",
@@ -601,7 +601,7 @@
         }
       },
       "taxes": {
-        "title": "Avis d’imposititon",
+        "title": "Avis d’imposition",
         "instruction": "de votre dernier avis d’imposition"
       },
       "sworn-statement": {
@@ -670,7 +670,7 @@
         "instruction": "ou envoyez nous une copie de l'IBAN de la personne qui vous héberge."
       },
       "host-taxes": {
-        "title": "Avis d’imposititon de votre hébergeur",
+        "title": "Avis d’imposition de votre hébergeur",
         "instruction": "du dernier avis d’imposition de la personne qui vous héberge"
       },
       "host-invoice": {
@@ -686,7 +686,7 @@
         "tab": "Profil",
         "personal-info": "Informations personnelles",
         "my-parameters": "Mes paramètres",
-        "card-settings": "Paramètrer ma carte",
+        "card-settings": "Paramétrer ma carte",
         "notifications": "Notifications",
         "love": "Soutenez-nous sur l’App Store",
         "contact-us": "Nous contacter",
@@ -704,7 +704,7 @@
     },
     "card": {
       "menu": {
-        "title": "Paramètrer ma carte",
+        "title": "Paramétrer ma carte",
         "unavailable-card": "Cette carte n’est plus accessible. Veuillez en commander une nouvelle :",
         "limits": "Modifier mes plafonds",
         "lock": "Bloquer ma carte",
