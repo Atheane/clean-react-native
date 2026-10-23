@@ -67,7 +67,8 @@ export const Profile = () => {
     navigation.navigate(IProfileStackPages.DELETE_ACCOUNT as never);
   }, [navigation]);
 
-  const { user, email } = useSelector((state: IRootState) => state.user);
+  const { user } = useSelector((state: IRootState) => state.user);
+  const { email } = useSelector((state: IRootState) => state.auth);
 
   return (
     <ErrorBoundary t={t}>
@@ -85,7 +86,7 @@ export const Profile = () => {
               >{`${firstLetterCapitalize(user.properties.identity.firstName)} ${user.properties.identity.lastName.toUpperCase()}`}</Text>
             )}
           </View>
-          <View style={styles.rowContainer}>
+          <View style={[styles.rowContainer, { marginTop: 28 }]}>
             <View style={styles.iconContainer}>
               <BlueGradientMail />
             </View>
@@ -95,7 +96,7 @@ export const Profile = () => {
               </View>
             )}
           </View>
-          <View style={styles.rowContainer}>
+          <View style={[styles.rowContainer, { marginTop: 28 }]}>
             <View style={styles.iconContainer}>
               <PhoneBlueGradient />
             </View>
@@ -164,7 +165,7 @@ export const Profile = () => {
               onPress={onPressCguKycProvider}
             />
           </View>
-          <View style={[styles.rowContainer, { marginVertical: 50 }]}>
+          <View style={[styles.rowContainer, { marginTop: 50 }]}>
             <LinkButton
               iconLeft={RedCross}
               colorOption={LinkButtonColors.BLUE}

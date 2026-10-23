@@ -4,8 +4,10 @@ import { useTranslation } from 'react-i18next';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigationState } from '@react-navigation/native';
+import Constants from 'expo-constants';
+import { getLocales } from 'expo-localization';
 
-import { Colors, FontNames } from '@clean-rn/ui-mobile';
+import { Colors, FontNames, WebViewer } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import {
@@ -17,7 +19,7 @@ import {
   IUserStackPages,
   IUserStackProps,
 } from '../../../shared/presentation/types';
-import { initGlobalError } from '../../../shared/application/commands/manage-global-errors';
+import { initGlobalError, showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 import { ScreenModalError, ScreenModalWebview } from '../../../shared/presentation/screens';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
@@ -28,6 +30,12 @@ import { AuthStack } from '../../../auth/presentation/navigation';
 import { BottomTabNavigator } from './BottomNavigator';
 import { UserStack } from '../../../user/presentation/navigation';
 import { SignupCongrats } from '../../../user/presentation/screens';
+import { CguPdf } from '../../../shared/presentation/screens';
+
+import { pdfUrls } from '../../../shared/presentation/constants';
+
+const locales = getLocales();
+
 export const RootStack = () => {
   const {
     auth: { accessToken },
@@ -49,6 +57,19 @@ export const HomeStack = () => {
       dispatch(initGlobalError());
     }
   }, [navigationStack, dispatch]);
+
+  const handleError = (error: unknown) => {
+    dispatch(showUnknownError(error as Error));
+  };
+
+  let lng = locales[0]?.languageCode ?? 'fr';
+  if (!Constants.expoConfig?.extra?.SUPPORTED_LANGUAGES_WEBSITE.includes(lng)) {
+    lng = 'fr';
+  }
+
+  const ScreenLegal = () => <WebViewer uri={pdfUrls(lng).legal} handleError={handleError} />;
+  const ScreenCguKycProvider = () => <WebViewer uri={pdfUrls(lng).cguKycProvider} handleError={handleError} />;
+
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -96,6 +117,33 @@ export const HomeStack = () => {
         }}
         name={IAuthStackPages.LOGIN}
         component={Login}
+      />
+      <Stack.Screen
+        options={{
+          presentation: 'modal',
+          headerTitle: t(`screens.legal`),
+          ...headersOptions(),
+        }}
+        name={ISharedStackPages.LEGAL}
+        component={ScreenLegal}
+      />
+      <Stack.Screen
+        options={{
+          presentation: 'modal',
+          headerTitle: t(`screens.cgu`),
+          ...headersOptions(),
+        }}
+        name={ISharedStackPages.CGU}
+        component={CguPdf}
+      />
+      <Stack.Screen
+        options={{
+          presentation: 'modal',
+          headerTitle: t(`screens.cgu-kyc-provider`),
+          ...headersOptions(),
+        }}
+        name={ISharedStackPages.CGU_KYC_PROVIDER}
+        component={ScreenCguKycProvider}
       />
     </Stack.Navigator>
   );

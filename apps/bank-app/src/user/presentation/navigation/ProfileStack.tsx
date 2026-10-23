@@ -51,7 +51,7 @@ export const ProfileStack = () => {
         name={IProfileStackPages.NOTIFICATON_SETTINGS}
         component={NotificationSettings}
         options={{
-          headerTitle: t('screens.notifications.menu.title'),
+          headerTitle: t('screens.notifications.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />

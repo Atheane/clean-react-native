@@ -18,7 +18,7 @@ import {
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { initGlobalError, showUnknownError } from '../../../shared/application/commands/manage-global-errors';
-import { ScreenModalError } from '../../../shared/presentation/screens';
+import { ScreenModalError, CguPdf } from '../../../shared/presentation/screens';
 
 import { pdfUrls } from '../../../shared/presentation/constants';
 import {
@@ -51,7 +51,6 @@ export const UserStack = () => {
   }
 
   const ScreenLegal = () => <WebViewer uri={pdfUrls(lng).legal} handleError={handleError} />;
-  const ScreenCgu = () => <WebViewer uri={pdfUrls(lng).cgu} handleError={handleError} />;
   const ScreenCguKycProvider = () => <WebViewer uri={pdfUrls(lng).cguKycProvider} handleError={handleError} />;
 
   const dispatch = useDispatch();
@@ -132,24 +131,27 @@ export const UserStack = () => {
       />
       <Stack.Screen
         options={{
+          presentation: 'modal',
           headerTitle: t(`screens.legal`),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+          ...headersOptions(),
         }}
         name={ISharedStackPages.LEGAL}
         component={ScreenLegal}
       />
       <Stack.Screen
         options={{
+          presentation: 'modal',
           headerTitle: t(`screens.cgu`),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+          ...headersOptions(),
         }}
         name={ISharedStackPages.CGU}
-        component={ScreenCgu}
+        component={CguPdf}
       />
       <Stack.Screen
         options={{
+          presentation: 'modal',
           headerTitle: t(`screens.cgu-kyc-provider`),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+          ...headersOptions(),
         }}
         name={ISharedStackPages.CGU_KYC_PROVIDER}
         component={ScreenCguKycProvider}
