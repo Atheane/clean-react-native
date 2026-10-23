@@ -41,11 +41,11 @@ export function* addContactGenerator({
 
     // nav back to contact list
   } catch (error: unknown) {
+    yield put(initContact());
     if (error instanceof ContactError.ContactAlreadyExists) {
       yield put(contactAddedFailed(error));
       yield cancel();
     }
-    yield put(initContact());
     yield put(showUnknownError(error as Error));
   }
 }

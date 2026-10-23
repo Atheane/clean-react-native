@@ -116,6 +116,8 @@ describe('AddBeneficiary - usecase', () => {
       .next()
       .call([api, api.addBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError400))
+      .put(initBeneficiary())
+      .next()
       .put(beneficiaryAddFailed(new BeneficiaryError.BeneficiaryAlreadyExists(mockError400.message)))
       .next()
       .cancel();
@@ -135,6 +137,8 @@ describe('AddBeneficiary - usecase', () => {
       .next()
       .call([api, api.addBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .throw(new ServerError(mockError401))
+      .put(initBeneficiary())
+      .next()
       .call(navigate, { route: IAuthStackPages.LOGIN })
       .next()
       .cancel();

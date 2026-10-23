@@ -130,7 +130,7 @@
       "contact": {
         "INVALID_NAME": "Format du nom invalide",
         "INVALID_PHONE": "Numéro de téléphone mobile invalide",
-        "CONTACT_ALREADY_EXISTS": "Ce contact existe déjà"
+        "CONTACT_ALREADY_EXISTS": "Ce numéro existe déjà"
       },
       "carbon": {
         "INVALID_HOUSE_PROPS": "Propriétés de maison invalides",

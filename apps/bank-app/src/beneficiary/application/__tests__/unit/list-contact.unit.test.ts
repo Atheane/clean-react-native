@@ -8,18 +8,21 @@ import { listContactGenerator, listContactSaga } from '../../usecases/contact';
 import { IContactTypes, contactsListed, initContact } from '../../commands/contact';
 import { ExpoContact } from '@clean-rn/contact/infrastructure';
 import { selectContact } from '../../state-management';
+import { Phone } from '@clean-rn/contact/domain';
 
 describe('ListContact - usecase', () => {
   const api = ExpoContact.getInstance();
 
   const mockResponse = [
     {
+      id: 'id1',
       name: 'John Doe',
-      phone: '+33607080910',
+      phone: new Phone('+33607080910'),
     },
     {
+      id: 'id2',
       name: 'Jane Doe',
-      phone: '+33607080911',
+      phone: new Phone('+33607080911'),
     },
   ];
 

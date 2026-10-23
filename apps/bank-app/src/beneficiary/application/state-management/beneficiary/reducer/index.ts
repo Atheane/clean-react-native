@@ -101,7 +101,6 @@ export const beneficiaryReducer = (state = initialState, action: IBeneficiaryAct
       newState = {
         ...state,
         pending: false,
-        beneficiaries: null,
         error: null,
       };
       return newState;
