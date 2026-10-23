@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { PhoneNumberUtil, PhoneNumberFormat } from 'google-libphonenumber';
 import { UserError } from '../errors';
+import { COUNTRIES_AVAILABLE } from '@clean-rn/utils';
 
 export class Phone {
   private readonly phoneUtil: PhoneNumberUtil;
@@ -37,5 +38,14 @@ export class Phone {
       .format(this.numberProto, PhoneNumberFormat.INTERNATIONAL)
       .replace(/\s/g, '');
     return formattedPhone;
+  }
+
+  get countryIsAvalaible(): boolean {
+    const ueCountryCodes = Object.keys(COUNTRIES_AVAILABLE).map(
+      (key) => COUNTRIES_AVAILABLE[key as keyof typeof COUNTRIES_AVAILABLE].code as string,
+    );
+    const regionCode = this.phoneUtil.getRegionCodeForNumber(this.numberProto);
+    if (!regionCode) return false;
+    return ueCountryCodes.includes(regionCode);
   }
 }

@@ -6,7 +6,8 @@ import { useTheme } from '@rneui/themed';
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
 import { IDomainError } from '@clean-rn/ddd';
-import { ICountry, COUNTRIES_AVAILABLE, IUserErrorCodes, IUserErrorMessage } from '@clean-rn/user/domain';
+import { COUNTRIES_AVAILABLE } from '@clean-rn/utils';
+import { ICountry, IUserErrorCodes, IUserErrorMessage } from '@clean-rn/user/domain';
 
 import { House } from '../../../assets';
 import { Colors } from '../../../constants';

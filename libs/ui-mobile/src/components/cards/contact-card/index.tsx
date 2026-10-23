@@ -1,37 +1,37 @@
+import React, { memo, useCallback } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
-import { IContact, Phone } from '@clean-rn/contact/domain';
+import { IContact } from '@clean-rn/contact/domain';
 import { Colors } from '../../../constants';
 import { ContactItem } from '../../items/contact-item';
 import { PhoneGradientGreyBg, PhoneGradientWhiteBg } from '../../../assets';
 
-type IProps = {
-  data: IContact;
-  idx: number;
-  onPress?: (phoneNumber: Phone) => void;
-};
+export const ContactCard = memo(({ data, idx, onPress }: IProps) => {
+  const isEven = idx % 2 === 0;
+  const icon = isEven ? PhoneGradientWhiteBg : PhoneGradientGreyBg;
+  const containerStyle = [styles.contactContainer, isEven ? styles.evenContainer : styles.oddContainer];
 
-export const ContactCard = (props: IProps) => {
-  return (
-    <View
-      style={
-        props.idx % 2 === 0
-          ? [styles.contactContainer, styles.evenContainer]
-          : [styles.contactContainer, styles.oddContainer]
+  const handlePress = useCallback(
+    (phone: string) => {
+      if (onPress) {
+        onPress(phone);
       }
-    >
-      <View>
-        {props.data.phone && (
-          <ContactItem
-            icon={props.idx % 2 === 0 ? PhoneGradientWhiteBg : PhoneGradientGreyBg}
-            name={props.data.name}
-            phone={props.data.phone.valueInternational}
-            onPress={props.onPress ? () => props.onPress(props.data.phone) : undefined}
-          />
-        )}
-      </View>
+    },
+    [onPress],
+  );
+
+  return (
+    <View style={containerStyle}>
+      {data.phone && (
+        <ContactItem
+          icon={icon}
+          name={data.name}
+          phone={data.phone.valueInternational}
+          onPress={handlePress}
+        />
+      )}
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   contactContainer: {
@@ -47,3 +47,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.bank.primary.white,
   },
 });
+
+type IProps = {
+  data: IContact;
+  idx: number;
+  onPress?: (phoneNumber: string) => void;
+};

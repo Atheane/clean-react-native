@@ -44,7 +44,7 @@ export const Dropdown = (props: IProps) => {
   };
 
   return (
-    <View style={props.short ? { width: props.shortWidth ?? Dimensions.get('window').width * 0.5 } : {}}>
+    <View style={props.short ? { width: props.shortWidth ?? 100 } : {}}>
       {props.label && (
         <View style={styles.labelContainer}>
           <Text style={[theme.bank.text.label, { color: props.labelColor ?? Colors.bank.secondary.pink }]}>
@@ -67,7 +67,7 @@ export const Dropdown = (props: IProps) => {
           buttonStyle={[
             styles.buttonContainer,
             props.short
-              ? { width: props.shortWidth ?? Dimensions.get('window').width * 0.5 }
+              ? { width: props.shortWidth ?? 100 }
               : { width: Dimensions.get('window').width * 0.65 },
           ]}
           rowTextForSelection={(item: IData) => item.value}

@@ -12,8 +12,9 @@ const ContactCardMeta: ComponentMeta<typeof ContactCard> = {
   },
   args: {
     data: {
+      id: 'unique-id',
       name: 'John Doe',
-      phone: new Phone('+33612345678'),
+      phone: new Phone('+33612345678', 'FR'),
     },
     idx: 0,
   },

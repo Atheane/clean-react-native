@@ -105,7 +105,6 @@ export const cardReducer = (state = initialState, action: ICardActions) => {
       newState = {
         ...state,
         pending: false,
-        card: null,
       };
       return newState;
     default:

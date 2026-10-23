@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   SafeAreaView,
-  FlatList,
+  VirtualizedList,
   TouchableOpacity,
   Modal,
   Platform,
@@ -91,6 +91,20 @@ export const SearchModal = (props: IProps) => {
     setVisible(true);
   }, []);
 
+  const keyExtractor = useCallback((item: IData) => item.key, []);
+  const getItem = useCallback((data: IData[], index: number) => data[index], []);
+  const getItemCount = useCallback(() => filteredData.length, [filteredData]);
+  const renderItem = useCallback(
+    ({ item }: { item: IData }) => (
+      <View key={item.key} style={styles.itemContainer}>
+        <TouchableOpacity onPress={() => handleSelect(item)}>
+          <Text style={theme.bank.text.grey}>{renderLabel(item)}</Text>
+        </TouchableOpacity>
+      </View>
+    ),
+    [handleSelect, theme.bank.text.grey],
+  );
+
   return (
     <View>
       <TextInput
@@ -124,16 +138,13 @@ export const SearchModal = (props: IProps) => {
             </TouchableOpacity>
           )}
           <View style={styles.listContainer}>
-            <FlatList
+            <VirtualizedList
               data={filteredData}
-              keyExtractor={(item: IData) => item.key}
-              renderItem={({ item }: { item: IData }) => (
-                <View key={item.key} style={styles.itemContainer}>
-                  <TouchableOpacity onPress={() => handleSelect(item)}>
-                    <Text style={theme.bank.text.grey}>{renderLabel(item)}</Text>
-                  </TouchableOpacity>
-                </View>
-              )}
+              keyExtractor={keyExtractor}
+              renderItem={renderItem}
+              getItemCount={getItemCount}
+              getItem={getItem}
+              windowSize={5}
             />
           </View>
         </SafeAreaView>

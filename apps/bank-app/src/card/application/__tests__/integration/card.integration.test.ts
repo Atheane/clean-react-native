@@ -275,7 +275,7 @@ describe('Card - integration', () => {
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      card: null,
+      card,
       error: null,
     });
   });

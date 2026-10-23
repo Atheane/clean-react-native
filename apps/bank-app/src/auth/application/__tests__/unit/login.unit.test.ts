@@ -10,7 +10,8 @@ import { AuthError, Email, Password } from '@clean-rn/auth/domain';
 import { KYC_REVIEW } from '@clean-rn/user/domain';
 
 import { UserApi, mapUserServerToUserProperties } from '@clean-rn/user/infrastructure';
-
+import { Card, CardError, ICardStatuses } from '@clean-rn/card/domain';
+import { CardApi } from '@clean-rn/card/infrastructure';
 import { AuthApi, IAuthServerCode } from '@clean-rn/auth/infrastructure';
 
 import { loginSaga, loginGenerator } from '../../usecases/login';
@@ -21,11 +22,13 @@ import { ISharedStackPages, IUserStackPages } from '../../../../shared/presentat
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
 import { initializeUser, userSaved } from '../../../../user/application/commands';
+import { cardGetSuccess, cardNotFound } from '../../../../card/application/commands';
 
 describe('Login - usecase', () => {
   const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
   const authApi = AuthApi.getInstance(httpConnection);
   const userApi = UserApi.getInstance(httpConnection);
+  const cardApi = CardApi.getInstance(httpConnection);
 
   const genObject = loginSaga(httpConnection);
 
@@ -116,6 +119,34 @@ describe('Login - usecase', () => {
     kycReviewComment: '',
   };
 
+  const mockCardServeur = {
+    cardId: 999826250,
+    userId: 100087408,
+    publicToken: '100310268',
+    statusCode: ICardStatuses.UNLOCK,
+    isLive: false,
+    pin: '6666',
+    pinChange: 0,
+    pinTryExceeds: false,
+    expiryDate: '2027-01-31T00:00:00.000Z',
+    limitPaymentYear: 30000,
+    limitPaymentMonth: 9000,
+    limitPaymentWeek: 6000,
+    limitPaymentDay: 3000,
+  };
+
+  const card = Card.Create({
+    cardId: mockCardServeur.cardId,
+    statusCode: mockCardServeur.statusCode,
+    pinString: mockCardServeur.pin,
+    pinChange: mockCardServeur.pinChange,
+    expiryDate: new Date(mockCardServeur.expiryDate),
+    limitPaymentYear: mockCardServeur.limitPaymentYear,
+    limitPaymentMonth: mockCardServeur.limitPaymentMonth,
+    limitPaymentWeek: mockCardServeur.limitPaymentWeek,
+    limitPaymentDay: mockCardServeur.limitPaymentDay,
+  });
+
   it('Should wait for FETCH_LOGIN action and call loginGenerator, should be done on next iteration', () => {
     expect(genObject.next().value).toEqual(takeEvery(IAuthTypes.FETCH_LOGIN, loginGenerator, httpConnection));
     expect(genObject.next().done).toBeTruthy();
@@ -136,6 +167,10 @@ describe('Login - usecase', () => {
       .next()
       .call([userApi, userApi.getUser])
       .next(user)
+      .call([cardApi, cardApi.getCard])
+      .next(card)
+      .put(cardGetSuccess(card))
+      .next()
       .put(loginSuccess({ auth: mockResponse }))
       .next()
       .put(userSaved(user))
@@ -162,6 +197,10 @@ describe('Login - usecase', () => {
       .next()
       .call([userApi, userApi.getUser])
       .next(user)
+      .call([cardApi, cardApi.getCard])
+      .throw(new CardError.NotFound())
+      .put(cardNotFound(new CardError.NotFound()))
+      .next()
       .put(loginSuccess({ auth: mockResponse }))
       .next()
       .put(userSaved(user))
@@ -188,6 +227,8 @@ describe('Login - usecase', () => {
       .next()
       .call([userApi, userApi.getUser])
       .next(user)
+      .call([cardApi, cardApi.getCard])
+      .throw(new CardError.Forbidden())
       .put(loginSuccess({ auth: mockResponse }))
       .next()
       .put(userSaved(user))
