@@ -128,6 +128,13 @@ export const BeneficiaryList = () => {
     [tabWidth, dispatch],
   );
 
+  const [loading, setLoading] = useState<boolean>(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, [loading]);
+
   const { beneficiaries, pending: beneficiaryPending } = useSelector(
     (state: IRootState) => state.beneficiary.beneficiaries,
   );
@@ -138,7 +145,7 @@ export const BeneficiaryList = () => {
   const hasBeneficiary = beneficiaries && beneficiaries.length > 0;
   const hasContact = contacts && contacts.length > 0;
 
-  return beneficiaryPending || contactPending ? (
+  return loading || beneficiaryPending || contactPending ? (
     <LoaderSplashScreen />
   ) : (
     <ErrorBoundary t={t}>
@@ -184,22 +191,22 @@ export const BeneficiaryList = () => {
           >
             <TabView.Item style={[{ width: '100%' }]}>
               <>
-                {!hasContact && (
+                {hasContact && <ContentContact data={contacts} />}
+                {!hasContact && !loading && !beneficiaryPending && !contactPending && (
                   <View style={theme.bank.container.centeredItem}>
                     <Image source={NoContact} style={{ width: 250, height: 250 }} />
                   </View>
                 )}
-                {hasContact && <ContentContact data={contacts} />}
               </>
             </TabView.Item>
             <TabView.Item style={[{ width: '100%' }]}>
               <>
-                {!hasBeneficiary && (
+                {hasBeneficiary && <ContentBeneficiary data={beneficiaries} />}
+                {!hasBeneficiary && !loading && !beneficiaryPending && !contactPending && (
                   <View style={theme.bank.container.centeredItem}>
                     <Image source={NoBeneficiary} style={{ width: 250, height: 250 }} />
                   </View>
                 )}
-                {hasBeneficiary && <ContentBeneficiary data={beneficiaries} />}
               </>
             </TabView.Item>
           </TabView>
@@ -233,7 +240,6 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    marginTop: 30,
     height: Dimensions.get('window').height,
   },
   scrollNoBeneficiary: {
