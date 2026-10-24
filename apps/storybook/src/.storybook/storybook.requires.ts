@@ -101,6 +101,7 @@ const getStories = () => {
     './stories/forms/FormTransfer.stories.tsx': require('../stories/forms/FormTransfer.stories'),
     './stories/forms/FormCardLimits.stories.tsx': require('../stories/forms/FormCardLimits.stories'),
     './stories/forms/FormChangePin.stories.tsx': require('../stories/forms/FormChangePin.stories'),
+    './stories/forms/FormUpdateIdentity.stories.tsx': require('../stories/forms/FormUpdateIdentity.stories'),
     // Inputs
     './stories/inputs/TextInput.stories.tsx': require('../stories/inputs/TextInput.stories'),
     './stories/inputs/EmailInput.stories.tsx': require('../stories/inputs/EmailInput.stories'),

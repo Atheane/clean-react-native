@@ -3,7 +3,12 @@ import { AuthError, Email, Password } from '@clean-rn/auth/domain';
 import { Phone } from '@clean-rn/contact/domain';
 import { IAddress, IIdentity, IBirth, KYC_REVIEW, IPhoneNotifications, IEmailNotifications } from '../types';
 import { Country, BirthDay } from '../value-objects';
-import { IRegisterAddressCommand, IRegisterBirthCommand, IRegisterIdentityCommand } from '../commands';
+import {
+  IRegisterAddressCommand,
+  IRegisterBirthCommand,
+  IRegisterIdentityCommand,
+  IUpdateUserCommand,
+} from '../commands';
 import { IValidatePhoneQuery } from '../queries';
 
 export interface IUserProperties {
@@ -97,5 +102,15 @@ export class User extends Entity<IUserProperties> {
       notifFirebaseDisabled: config.notifFirebaseDisabled ?? [],
       notifMailDisabled: config.notifMailDisabled ?? [],
     };
+  }
+
+  updateUser(cmd: IUpdateUserCommand): void {
+    const { firstName, lastName } = cmd;
+    if (firstName && this.properties.identity && this.properties.identity.firstName !== firstName) {
+      this.properties.identity.firstName = firstName;
+    }
+    if (lastName && this.properties.identity && this.properties.identity.lastName !== lastName) {
+      this.properties.identity.lastName = lastName;
+    }
   }
 }

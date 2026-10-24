@@ -157,7 +157,8 @@ export enum IUserStackPages {
 export enum IParametersStackPages {
   MENU = 'MenuParameters',
   PARAMETERS = 'Parameters',
-  PROFILE = 'Profile',
+  PROFILE_IDENTITY = 'ProfileIdentity',
+  PROFILE_ADDRESS = 'ProfileAddress',
   APPLICATION_SETTINGS = 'ApplicationSettings',
   NOTIFICATON_SETTINGS = 'NotificationSettings',
   LANGUAGES = 'Languages',
@@ -256,7 +257,8 @@ export type IUserStackProps = {
 export type IParametersStackProps = {
   [IParametersStackPages.MENU]: object;
   [IParametersStackPages.PARAMETERS]: object;
-  [IParametersStackPages.PROFILE]: object;
+  [IParametersStackPages.PROFILE_IDENTITY]: object;
+  [IParametersStackPages.PROFILE_ADDRESS]: object;
   [IParametersStackPages.APPLICATION_SETTINGS]: object;
   [IParametersStackPages.NOTIFICATON_SETTINGS]: object;
   [IParametersStackPages.LANGUAGES]: object;
@@ -346,7 +348,8 @@ export type IRoutes =
   | IUserStackPages.SIGNUP_PHONE
   | IParametersStackPages.MENU
   | IParametersStackPages.PARAMETERS
-  | IParametersStackPages.PROFILE
+  | IParametersStackPages.PROFILE_IDENTITY
+  | IParametersStackPages.PROFILE_ADDRESS
   | IParametersStackPages.APPLICATION_SETTINGS
   | IParametersStackPages.NOTIFICATON_SETTINGS
   | IParametersStackPages.LANGUAGES

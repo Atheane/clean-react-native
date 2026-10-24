@@ -150,6 +150,7 @@ export const FormSignupAddress = (props: IProps) => {
               optionsTitle={[t('signup-address.usperson.no'), t('signup-address.usperson.yes')]}
               optionsValues={['0', '1']}
               onChange={onChange}
+              defaultValue={props.control._defaultValues.specifiedUSPerson}
             />
           )}
         />

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigationState } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -24,8 +24,11 @@ import {
   DeleteAccount,
   GoodBye,
   Parameters,
-  Profile,
+  ProfileIdentity,
+  ProfileAddress,
 } from '../screens';
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { KYC_REVIEW } from '@clean-rn/user/domain';
 
 const Stack = createNativeStackNavigator<IParametersStackProps & ISharedStackProps>();
 
@@ -38,6 +41,8 @@ export const ParametersStack = () => {
   const onPressLogout = useCallback(() => {
     dispatch(fetchLogout());
   }, [dispatch]);
+
+  const { customer } = useSelector((state: IRootState) => state.kyc.customer);
 
   return (
     <Stack.Navigator>
@@ -83,10 +88,21 @@ export const ParametersStack = () => {
         }}
       />
       <Stack.Screen
-        name={IParametersStackPages.PROFILE}
-        component={Profile}
+        name={IParametersStackPages.PROFILE_IDENTITY}
+        component={ProfileIdentity}
         options={{
-          headerTitle: t('screens.profile.title'),
+          headerTitle:
+            customer?.properties.status === KYC_REVIEW.VALIDATED
+              ? t('screens.parameters.menu.profile')
+              : t('screens.profile-identity.title'),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+      />
+      <Stack.Screen
+        name={IParametersStackPages.PROFILE_ADDRESS}
+        component={ProfileAddress}
+        options={{
+          headerTitle: t('screens.profile-address.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />

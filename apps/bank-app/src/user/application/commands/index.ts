@@ -13,6 +13,7 @@ import {
   IRegisterAddressCommand,
   ISignupUserCommand,
   IUpdateUserConfigCommand,
+  IUpdateUserCommand,
 } from '@clean-rn/user/domain';
 import {
   IUserActions,
@@ -43,8 +44,11 @@ import {
   IFetchDeleteUserAccount,
   IResetError,
   ILanguageUpdated,
+  IFetchUpdateUser,
+  IUserUpdated,
 } from './types';
 import { IContactErrorCodes, IContactErrorMessage } from '@clean-rn/contact/domain';
+import { IRoutes } from '../../../shared/presentation/types';
 
 // redux actions that are commands
 export const fetchSearchEmail = (payload: ISearchEmailQuery): IFetchSearchEmail => ({
@@ -98,6 +102,11 @@ export const resetError = (): IResetError => ({
 
 export const fetchUpdateLanguage = (payload: IUpdateUserConfigCommand): IFetchUpdateLanguage => ({
   type: IUserTypes.FETCH_UPDATE_LANGUAGE,
+  payload,
+});
+
+export const fetchUpdateUser = (payload: IUpdateUserCommand & { nextRoute: IRoutes }): IFetchUpdateUser => ({
+  type: IUserTypes.FETCH_UPDATE_USER,
   payload,
 });
 
@@ -174,6 +183,11 @@ export const userSaved = (payload: User): IUserSaved => ({
 
 export const languageUpdated = (payload: { user: User }): ILanguageUpdated => ({
   type: IUserTypes.LANGUAGE_UPDATED,
+  payload,
+});
+
+export const userUpdated = (payload: User): IUserUpdated => ({
+  type: IUserTypes.USER_UPDATED,
   payload,
 });
 
