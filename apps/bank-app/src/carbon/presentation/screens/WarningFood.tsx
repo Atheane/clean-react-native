@@ -32,8 +32,13 @@ export const WarningFood = () => {
       <SafeScrollingView>
         <View style={[styles.container, theme.bank.container.centeredItem]}>
           <Image source={WarningFoodCO2} style={{ width: 250, height: 250 }} />
-          <Text style={styles.title}>{t('screens.warning-food.title')}</Text>
-          <Text style={theme.bank.text.lightGrey}>{t('screens.warning-food.text')}</Text>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>{t('screens.warning-food.title')}</Text>
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={theme.bank.text.lightGrey}>{t('screens.warning-food.text')}</Text>
+          </View>
+
           <View style={styles.buttonContainer}>
             <PrimaryButton
               long
@@ -61,12 +66,14 @@ const styles = StyleSheet.create({
     marginTop: -60,
   },
   iconContainer: { position: 'relative', right: -75, top: 2 },
+  titleContainer: { marginVertical: 32 },
   title: {
     textAlign: 'center',
     fontFamily: FontNames.Roboto_700Bold,
     fontSize: NEEDS_SMALL_TEXT ? 20 : 24,
     color: Colors.bank.primary.darkBlue,
   },
+  textContainer: { width: '80%', marginBottom: 24 },
   buttonContainer: {
     marginTop: 24,
   },

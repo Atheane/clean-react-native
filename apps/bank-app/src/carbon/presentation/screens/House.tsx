@@ -29,7 +29,7 @@ export const House = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT }]}>
+        <View style={[styles.container]}>
           <HouseForm initialValues={data} onChangeForm={resetFormData} onChangeField={handleFormData} />
 
           <View style={styles.buttonContainer}>
@@ -57,9 +57,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 50,
+    marginBottom: 300,
   },
   buttonContainer: {
-    position: 'relative',
-    bottom: '30%',
+    marginTop: 140,
   },
 });
