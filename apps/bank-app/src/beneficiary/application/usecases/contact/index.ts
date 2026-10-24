@@ -37,8 +37,12 @@ export function* addContactGenerator({
     const contact = yield call([api, api.addContact], payload);
 
     yield put(contactAdded(contact));
-    yield call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 1 } });
 
+    const params = {
+      phoneNumber: contact.phone.valueInternational,
+      beneficiaryName: contact.name,
+    };
+    yield call(navigate, { route: IBeneficiaryStackPages.TRANSFER, params });
     // nav back to contact list
   } catch (error: unknown) {
     yield put(resetError());
