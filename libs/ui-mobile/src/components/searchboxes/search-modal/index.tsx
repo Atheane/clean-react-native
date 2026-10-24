@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -29,6 +29,7 @@ type IProps = {
   placeholder: string;
   data: IData[];
   onSelect: (item: IData) => void;
+  shouldClearSearch?: boolean;
 };
 
 export const SearchModal = (props: IProps) => {
@@ -88,8 +89,13 @@ export const SearchModal = (props: IProps) => {
 
   const handleClearInput = useCallback(() => {
     clearSearch();
-    setVisible(true);
   }, []);
+
+  useEffect(() => {
+    if (props.shouldClearSearch) {
+      clearSearch();
+    }
+  }, [props.shouldClearSearch]);
 
   const keyExtractor = useCallback((item: IData) => item.key, []);
   const getItem = useCallback((data: IData[], index: number) => data[index], []);

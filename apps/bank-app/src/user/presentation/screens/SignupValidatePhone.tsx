@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
+import { getDeviceId, getBrand } from 'react-native-device-info';
 
 import {
   FontNames,
@@ -19,7 +20,11 @@ import { SafeScrollingView, ErrorBoundary } from '../../../shared/presentation/h
 
 import { fetchValidatePhone } from '../../../user/application/commands';
 
+const brand = getBrand();
+const model = getDeviceId();
+
 const HEIGHT = Dimensions.get('window').height;
+const NEEDS_SMALL_TEXT = brand === 'OPPO' && model === 'lahaina';
 
 export const SignupValidatePhone = () => {
   /// translations
@@ -98,7 +103,7 @@ const styles = StyleSheet.create({
   },
   instructionText: {
     width: 290,
-    fontSize: 16,
+    fontSize: NEEDS_SMALL_TEXT ? 14 : 16,
     lineHeight: 30,
     textAlign: 'center',
     fontFamily: FontNames.MartelSans_400Regular,

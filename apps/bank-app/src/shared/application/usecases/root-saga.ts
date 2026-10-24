@@ -1,5 +1,9 @@
 import { all, take, fork, put, call } from 'redux-saga/effects';
-import { SagaIterator } from 'redux-saga';
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware, { SagaIterator } from 'redux-saga';
+import { persistStore, persistReducer } from 'redux-persist';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Sentry from '@sentry/react-native';
 import { initializeApplicationSaga } from './initialize-application';
 import { loadStorageSaga } from './load-storage';
 import { showUnknownErrorSaga } from './manage-global-errors';
@@ -69,11 +73,6 @@ import { IAuthTypes, initializeAuth } from '../../../auth/application/commands';
 
 import { initializeAccounts } from '../../../account/application/commands/accounts';
 
-import { createStore, applyMiddleware } from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import * as Sentry from '@sentry/react-native';
-import Constants from 'expo-constants';
-
 import { rootReducer } from '../state-management/reducers/root-reducer';
 import { initBeneficiary } from '../../../beneficiary/application/commands/beneficiary';
 import {
@@ -89,8 +88,22 @@ import { initializeKyc } from '../../../kyc/application/commands/customer';
 import { resetDocument } from '../../../kyc/application/commands/document';
 import { initTransaction, initializeTransactionsList } from '../../../transaction/application/commands';
 import { initializeUser } from '../../../user/application/commands';
+import { IStoreKey } from '../../../shared/application/types';
 
-const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+const httpConnection = HttpConnection.getInstance(
+  process.env.EXPO_PUBLIC_BASE_URL_API || 'http://localhost:3000',
+);
+
+const persistConfig = {
+  key: IStoreKey.ROOT_REDUCER,
+  storage: AsyncStorage,
+  whitelist: ['auth.auth', 'beneficiary.beneficiaries', 'card', 'user', 'kyc'],
+  // if phone is in standby mode, usecases may use empty data from store (it depends on how background is handled, it depends on device trademark)
+  // so we persist in storage all redux data that is selected in usecases
+  // for security reasons, all data is purged when user is logged out
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const sagaMiddleware = createSagaMiddleware({
   onError: (error, errorInfos) => {
@@ -100,7 +113,8 @@ const sagaMiddleware = createSagaMiddleware({
   },
 });
 
-export const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+export const store = createStore(persistedReducer, applyMiddleware(sagaMiddleware));
+export const persistor = persistStore(store);
 
 let rootSagaTask: any = sagaMiddleware.run(rootSaga, httpConnection);
 // Fonction pour redémarrer rootSaga
@@ -116,6 +130,7 @@ const restartRootSaga = () => {
 function* watchLogout() {
   // Écoutez l'action de logout
   yield take(IAuthTypes.LOGGED_OUT);
+  persistor.purge(); // for security reasons
   // Annuler toutes les sagas en cours lors du logout
   yield call(restartRootSaga);
   yield put(initializeAccounts());

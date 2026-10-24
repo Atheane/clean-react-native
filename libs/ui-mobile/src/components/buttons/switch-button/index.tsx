@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import { View, StyleSheet, Text, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Button, useTheme } from '@rneui/themed';
+import { getDeviceId, getBrand } from 'react-native-device-info';
 
 import { Colors, FontNames } from '../../../constants';
 
@@ -12,6 +13,11 @@ type IProps = {
   options: [IData, IData];
   onToggle: (option: IData) => void;
 };
+
+const brand = getBrand();
+const model = getDeviceId();
+
+const NEEDS_SMALL_TEXT = brand === 'OPPO' && model === 'lahaina';
 
 export const SwitchButton: FC<IProps> = (props: IProps) => {
   const [toggle, setToggle] = useState(true);
@@ -104,6 +110,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: FontNames.MartelSans_600SemiBold,
-    fontSize: 14,
+    fontSize: NEEDS_SMALL_TEXT ? 12 : 14,
   },
 });

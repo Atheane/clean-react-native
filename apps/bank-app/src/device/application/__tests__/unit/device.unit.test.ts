@@ -1,8 +1,8 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
-import Constants from 'expo-constants';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { Email } from '@clean-rn/auth/domain';
 import { User } from '@clean-rn/user/domain';
@@ -15,9 +15,10 @@ import { selectUser } from '../../../../user/application/state-management/select
 
 import { registerDeviceGenerator, registerDeviceSaga } from '../../usecases/register-device';
 import { IDeviceTypes, deviceRegistered, deviceAlreadyRegistered, resetError } from '../../commands';
+import { IStoreKey } from '../../../../shared/application/types';
 
 describe('Device - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
   const deviceApi = DeviceApi.getInstance(httpConnection);
 
   const genObject = registerDeviceSaga(httpConnection);
@@ -31,18 +32,6 @@ describe('Device - usecase', () => {
     os: 'android',
     osVersion: '1',
     userId: 100000352,
-  };
-
-  const mockError400 = {
-    statusCode: 400,
-    message: 'Duplicate firebase id',
-    response: {
-      statusCode: 400,
-      message: 'Duplicate firebase id',
-    },
-    timestamp: '2023-10-03T13:20:21.303Z',
-    path: '/app/account',
-    method: 'GET',
   };
 
   const mockError500 = {
@@ -84,19 +73,32 @@ describe('Device - usecase', () => {
       .next()
       .select(selectUser)
       .next(user)
+      .call(AsyncStorage.getItem, IStoreKey.DEVICE_ID)
+      .next(null)
       .call([deviceApi, deviceApi.createDevice], mockData)
       .next(device)
       .put(deviceRegistered(device))
-      .next(device);
+      .next(device)
+      .call(AsyncStorage.setItem, IStoreKey.DEVICE_ID, device.id)
+      .next();
   });
 
-  it('Should call deviceAlreadyRegistered if 400', () => {
+  it('Should call deviceAlreadyRegistered if device exists in AsyncStorage', () => {
     const user = User.Create({
       id: mockData.userId,
       properties: {
         email: new Email('test@test.com'),
       },
     });
+    const device = Device.Create({ deviceId: mockData.deviceId, userId: mockData.userId.toString() });
+    device.registerDeviceProperties({
+      brand: mockData.brand,
+      model: mockData.model,
+      os: mockData.os,
+      osVersion: mockData.osVersion,
+    });
+    device.addAppVersion(mockData.appVersion);
+    device.connectToNotifications(mockData.firebaseId);
 
     testSaga(registerDeviceGenerator, httpConnection, {
       type: IDeviceTypes.FETCH_REGISTER_DEVICE,
@@ -105,11 +107,9 @@ describe('Device - usecase', () => {
       .next()
       .select(selectUser)
       .next(user)
-      .call([deviceApi, deviceApi.createDevice], mockData)
-      .throw(new ServerError(mockError400))
-      .put(resetError())
-      .next()
-      .put(deviceAlreadyRegistered({ error: new DeviceError.AlreadyRegistered(mockError400) }))
+      .call(AsyncStorage.getItem, IStoreKey.DEVICE_ID)
+      .next(device.id)
+      .put(deviceAlreadyRegistered({ error: new DeviceError.AlreadyRegistered(device.id) }))
       .next()
       .cancel();
   });
@@ -129,6 +129,8 @@ describe('Device - usecase', () => {
       .next()
       .select(selectUser)
       .next(user)
+      .call(AsyncStorage.getItem, IStoreKey.DEVICE_ID)
+      .next(null)
       .call([deviceApi, deviceApi.createDevice], mockData)
       .throw(new ServerError(mockError500))
       .put(resetError())

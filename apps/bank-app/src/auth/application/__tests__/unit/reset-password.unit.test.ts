@@ -1,7 +1,6 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
-import Constants from 'expo-constants';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AuthError, Email } from '@clean-rn/auth/domain';
@@ -12,7 +11,7 @@ import { IAuthTypes, initializeAuth, passwordReset } from '../../commands';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 describe('ResetPassword - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
   const api = AuthApi.getInstance(httpConnection);
 
   const genObject = resetPasswordSaga(httpConnection);

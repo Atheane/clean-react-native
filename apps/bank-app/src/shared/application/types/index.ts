@@ -1,4 +1,5 @@
 export enum IStoreKey {
+  ROOT_REDUCER = '@450rootreducer',
   USER_EMAIL = '@450useremail',
   HOUSE_EMISSION = '@450houseemission',
   AVERAGE_HOUSE_EMISSION = '@450averagehouseemission',

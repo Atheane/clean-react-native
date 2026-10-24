@@ -1,6 +1,5 @@
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
-import Constants from 'expo-constants';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { UserApi } from '@clean-rn/user/infrastructure';
@@ -14,7 +13,7 @@ import { IUserTypes, initializeUser, resetError } from '../../commands';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
 describe('Delete User Account - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
   const userApi = UserApi.getInstance(httpConnection);
 
   const mockError500 = {

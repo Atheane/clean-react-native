@@ -208,7 +208,7 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
                       onChange(countryCode);
                     }}
                     buttonStyle={styles.selectButton}
-                    buttonTextStyle={theme.bank.text.input}
+                    buttonTextStyle={theme.bank.text.inputPicker}
                     searchPlaceHolder=""
                     defaultValue={countryCode ? new Country(countryCode).valueFlagAndExtension : undefined}
                   />
@@ -232,7 +232,7 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
               }}
               render={({ field: { onChange, value } }) => (
                 <Input
-                  inputContainerStyle={[theme.bank.container.input, { width: '50%' }]}
+                  inputContainerStyle={[theme.bank.container.input, { width: '50%', paddingTop: 3 }]}
                   inputStyle={theme.bank.text.input}
                   onChangeText={onChange}
                   value={value}

@@ -1,6 +1,5 @@
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
-import Constants from 'expo-constants';
 import dayjs from 'dayjs';
 
 import { Email } from '@clean-rn/auth/domain';
@@ -25,7 +24,7 @@ import { IUserTypes, notificationUpdated, resetError } from '../../commands';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
 describe('Update Notifications - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
   const userApi = UserApi.getInstance(httpConnection);
 
   const user = User.Create({

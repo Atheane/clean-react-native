@@ -17,11 +17,13 @@ import {
   WhiteBalance,
   Colors,
   FontNames,
+  LoaderSplashScreen,
 } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ITransactionStackPages } from '../../../shared/presentation/types';
 import { Oups } from '../assets/images';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { useTheme } from '@rneui/themed';
 
 const Top = ({ currentAccount }: { currentAccount?: IAccount }) => {
   const { t } = useTranslation();
@@ -46,12 +48,13 @@ const Top = ({ currentAccount }: { currentAccount?: IAccount }) => {
 
 const ContentNoTransactions = ({ currentAccount }: { currentAccount?: IAccount }) => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
 
   return (
     <ScrollView contentContainerStyle={styles.scrollNoTransactions} showsVerticalScrollIndicator={false}>
       <Image source={Oups} style={styles.oupsImage} />
       <View style={styles.textContainer}>
-        <Text style={styles.oupsText}>{t('screens.account.oups')}</Text>
+        <Text style={theme.bank.text.darkBlue}>{t('screens.account.oups')}</Text>
       </View>
       {currentAccount && (
         <View>
@@ -64,8 +67,10 @@ const ContentNoTransactions = ({ currentAccount }: { currentAccount?: IAccount }
 };
 
 export const Transactions = () => {
-  const { selectedAccount } = useSelector((state: IRootState) => state.account.accounts);
-  const { transactions } = useSelector((state: IRootState) => state.transaction);
+  const { selectedAccount, pending: accountPending } = useSelector(
+    (state: IRootState) => state.account.accounts,
+  );
+  const { transactions, pending: transactionPending } = useSelector((state: IRootState) => state.transaction);
   const hasTransactions = transactions && transactions?.length > 0;
   const { t } = useTranslation();
 
@@ -73,7 +78,9 @@ export const Transactions = () => {
     return null;
   }
 
-  return (
+  return accountPending || transactionPending ? (
+    <LoaderSplashScreen />
+  ) : (
     <ErrorBoundary t={t}>
       {!hasTransactions && (
         <>
@@ -139,6 +146,8 @@ const styles = StyleSheet.create({
   textContainer: {
     position: 'relative',
     marginTop: -20,
+    alignItems: 'center',
+    width: Dimensions.get('window').width * 0.8,
   },
   oupsImage: {
     ...OUPS_SIZE,

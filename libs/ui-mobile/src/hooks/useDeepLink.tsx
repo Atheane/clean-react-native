@@ -10,18 +10,19 @@ export const useDeepLink = () => {
   };
 
   useEffect(() => {
-    async function getInitialURL() {
+    const getInitialURL = async () => {
       const initialURL = await Linking.getInitialURL();
-      if (initialURL) {
-        setData(Linking.parse(initialURL));
-      }
-    }
-    // only work if app is open in the background
-    Linking.addEventListener('url', handleDeeplink);
-    if (!data) {
-      getInitialURL();
-    }
-  });
+      if (initialURL) setData(Linking.parse(initialURL));
+    };
+
+    getInitialURL();
+
+    const subscription = Linking.addEventListener('url', handleDeeplink);
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   return data;
 };

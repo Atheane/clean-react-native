@@ -1,6 +1,5 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import SagaTester from 'redux-saga-tester';
-import Constants from 'expo-constants';
 //
 import { ContactError, Phone } from '@clean-rn/contact/domain';
 
@@ -31,17 +30,6 @@ describe('Contact - integration', () => {
       phone: new Phone('+33607080911'),
     },
   ];
-
-  beforeAll(() => {
-    Constants.expoConfig = {
-      name: 'CleanRN BankApp Test',
-      slug: 'clean-rn-bank-app-test',
-      extra: {
-        BASE_URL_API: 'https://fake-api.com',
-        NODE_ENV: 'test',
-      },
-    };
-  });
 
   beforeEach(() => {
     const initialState: IContactState = {

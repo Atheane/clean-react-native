@@ -53,9 +53,6 @@ export function* listTransactionsGenerator(
     const transactions: ITransaction[] = yield call([api, api.getTransactions], payload.account.accountId);
     yield put(transactionsListed(transactions));
     yield put(accountSelected(payload.account));
-    yield call(navigate, {
-      route: ITransactionStackPages.MENU,
-    });
   } catch (error: unknown) {
     // Gestion des erreurs non attendues
     yield put(initializeTransactionsList());

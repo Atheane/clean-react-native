@@ -4,8 +4,8 @@ export default {
   expo: {
     owner: '450',
     name: 'Bank App',
-    slug: process.env.SLUG_NAME_BANK_APP,
-    version: process.env.APP_VERSION,
+    slug: process.env.EXPO_PUBLIC_SLUG_NAME_BANK_APP,
+    version: process.env.EXPO_PUBLIC_APP_VERSION,
     orientation: 'portrait',
     icon: './assets/images/logo-bank.png',
     splash: {
@@ -18,8 +18,8 @@ export default {
     },
     assetBundlePatterns: ['**/*'],
     ios: {
-      bundleIdentifier: process.env.BUNDLE_IDENTIFIER || 'com.example.bankapp',
-      googleServicesFile: process.env.GOOGLE_PLIST || './GoogleService-Info.plist',
+      bundleIdentifier: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.example.bankapp',
+      googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_PLIST || './GoogleService-Info.plist',
       supportsTablet: false,
       versionCode: process.env.APP_VERSION,
     },
@@ -29,9 +29,9 @@ export default {
         backgroundColor: '#FFFFFF',
       },
       supportsTablet: false,
-      package: process.env.BUNDLE_IDENTIFIER || 'com.example.bankapp',
-      googleServicesFile: process.env.GOOGLE_SERVICES || './google-services.json',
-      versionCode: process.env.APP_VERSION_ANDROID,
+      package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.example.bankapp',
+      googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_SERVICES || './google-services.json',
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION_ANDROID,
     },
     web: {
       favicon: './assets/images/logo-bank.png',
@@ -73,22 +73,11 @@ export default {
         },
       ],
     ],
-    scheme: process.env.BUNDLE_IDENTIFIER,
+    scheme: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER,
     extra: {
-      APP_VERSION: process.env.APP_VERSION,
-      BASE_URL: process.env.BASE_URL,
-      BASE_URL_API: process.env.BASE_URL_API,
-      FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
-      FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
-      FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
-      FIREBASE_MESSAGING_SENDER_ID: process.env.FIREBASE_MESSAGING_SENDER_ID,
-      FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,
-      FIREBASE_STORAGE_BUCKET: process.env.FIREBASE_STORAGE_BUCKET,
-      NODE_ENV: process.env.NODE_ENV,
       eas: {
         projectId: '00000000-0000-0000-0000-000000000000',
       },
-      SENTRY_DSN: process.env.SENTRY_DSN,
     },
   },
 };

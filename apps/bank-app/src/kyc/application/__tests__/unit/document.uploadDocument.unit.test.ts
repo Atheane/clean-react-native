@@ -1,7 +1,6 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
-import Constants from 'expo-constants';
 import { createMockTask } from '@redux-saga/testing-utils';
 
 import { User } from '@clean-rn/user/domain';
@@ -18,7 +17,6 @@ import {
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { KycApi } from '@clean-rn/kyc/infrastructure';
-import { AuthApi } from '@clean-rn/auth/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
@@ -31,7 +29,7 @@ import { selectCustomer } from '../../state-management/selectors';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
 describe('Document - uploadDocument - usecases', () => {
-  const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
 
   const documentProperties: IDocumentProperties = {
     typeId: 9,

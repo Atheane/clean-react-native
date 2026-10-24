@@ -1,7 +1,6 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
-import Constants from 'expo-constants';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { CardApi } from '@clean-rn/card/infrastructure';
@@ -17,7 +16,7 @@ import { selectCard } from '../../state-management/selectors';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
 describe('Toggle Card lock - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
   const api = CardApi.getInstance(httpConnection);
 
   const mockCardServeur = {

@@ -17,6 +17,6 @@ export class Email {
   }
 
   get value(): string {
-    return this.email.toLowerCase();
+    return this.email?.toLowerCase();
   }
 }

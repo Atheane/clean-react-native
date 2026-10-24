@@ -1,7 +1,6 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
-import Constants from 'expo-constants';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
@@ -15,7 +14,7 @@ import { selectAuth } from '../../../../auth/application/state-management/select
 import { IAuthTypes, refreshSuccess, resetError } from '../../commands';
 
 describe('Refresh - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
   const authApi = AuthApi.getInstance(httpConnection);
 
   const genObject = refreshSaga(httpConnection);

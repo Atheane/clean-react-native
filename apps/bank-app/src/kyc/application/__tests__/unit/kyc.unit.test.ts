@@ -1,7 +1,6 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
-import Constants from 'expo-constants';
 import dayjs from 'dayjs';
 
 import {
@@ -26,7 +25,7 @@ import { checkCustomerStatusGenerator, checkCustomerStatusSaga } from '../../use
 import { ICustomerTypes, customerStatusChecked, initializeKyc } from '../../commands/customer';
 
 describe('KYC - CheckCustomerStatus - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
 
   const kycApi = KycApi.getInstance(httpConnection);
   const genObject = checkCustomerStatusSaga(httpConnection);

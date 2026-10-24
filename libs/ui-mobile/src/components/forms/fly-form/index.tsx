@@ -8,7 +8,7 @@ import { FlightSeatE as SeatE, FlightI } from '@bank/carbon-weight/dist';
 
 import { FlyEmissions } from '@clean-rn/carbon/domain';
 
-import { Add, FlyFrom, FlyTo, PlaneEmpty } from '../../../assets';
+import { GreenAdd, FlyFrom, FlyTo, PlaneEmpty } from '../../../assets';
 import { Colors } from '../../../constants';
 
 import { SecondaryButton } from '../../buttons/secondary-button';
@@ -49,14 +49,23 @@ export const FlyForm = (props: IProps) => {
 
   const [disabled, setDisabled] = useState(true);
 
+  const handleOnAddFlight = useCallback(() => {
+    props.onAddFlight();
+    props.scrollViewRef.current?.scrollToEnd();
+    cardScrollRef.current?.scrollToEnd();
+  }, [props]);
+
   useEffect(() => {
     try {
       new FlyEmissions(props.flight as FlightI);
       setDisabled(false);
+      if (props.flights.length === 0 && props.flight) {
+        handleOnAddFlight();
+      }
     } catch (e: unknown) {
       console.log(e);
     }
-  }, [props.flight]);
+  }, [props.flight, props.flights, handleOnAddFlight]);
 
   const handleOnChangeField = useCallback(
     (item: IData, property: keyof FlightI) => {
@@ -113,17 +122,14 @@ export const FlyForm = (props: IProps) => {
       });
   };
 
+  const [shouldClearSearch, setShouldClearSearch] = useState(false);
   const handleOnDeleteFlight = (uid: string) => {
-    if (props.onRemoveFlight) props.onRemoveFlight(uid);
+    props.onRemoveFlight(uid);
+    setShouldClearSearch(true);
+    setDisabled(true);
   };
 
   const cardScrollRef = useRef<null | ScrollView>(null);
-
-  const handleOnAddFlight = () => {
-    props.onAddFlight();
-    props.scrollViewRef.current?.scrollToEnd();
-    cardScrollRef.current?.scrollToEnd();
-  };
 
   return (
     <View style={theme.bank.container.centeredItem}>
@@ -134,6 +140,7 @@ export const FlyForm = (props: IProps) => {
           data={props.airports}
           icon={() => <FlyFrom style={{ color: Colors.bank.primary.lightGreen }} />}
           onSelect={(data: IData) => handleOnChangeField(data, 'fromIATA')}
+          shouldClearSearch={shouldClearSearch}
         />
       </View>
       <View style={styles.inputContainer}>
@@ -143,6 +150,7 @@ export const FlyForm = (props: IProps) => {
           data={props.airports}
           icon={() => <FlyTo style={{ color: Colors.bank.primary.lightGreen }} />}
           onSelect={(data: IData) => handleOnChangeField(data, 'toIATA')}
+          shouldClearSearch={shouldClearSearch}
         />
       </View>
       <View
@@ -180,7 +188,7 @@ export const FlyForm = (props: IProps) => {
       </View>
       <View style={styles.buttonContainer}>
         <SecondaryButton
-          iconOne={Add}
+          iconOne={GreenAdd}
           title={t('screens.carbon-fly.secondary-button')}
           onPress={handleOnAddFlight}
           disabled={disabled}

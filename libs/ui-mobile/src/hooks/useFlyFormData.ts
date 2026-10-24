@@ -36,6 +36,11 @@ export const useFlyFormData = (initialValues: FlightI[] | null) => {
           flight.roundTrip !== (roundTrip === 'true'),
       ),
     );
+    setFlight({
+      nbPassengers: 1,
+      roundTrip: false,
+      seatType: SeatE.economy,
+    });
   }, []);
 
   const [disabled, setDisabled] = useState(true);

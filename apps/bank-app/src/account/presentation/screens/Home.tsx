@@ -18,10 +18,14 @@ import {
   useDevice,
 } from '@clean-rn/ui-mobile';
 import { IAccount } from '@clean-rn/account/domain';
-import Constants from 'expo-constants';
+import { IKycState } from '@clean-rn/kyc/domain';
 
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
-import { IKycStackPages, ISharedStackPages } from '../../../shared/presentation/types';
+import {
+  IKycStackPages,
+  ISharedStackPages,
+  ITransactionStackPages,
+} from '../../../shared/presentation/types';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 import { fetchRegisterDevice } from '../../../device/application/commands';
@@ -35,7 +39,6 @@ import {
   GOOGLE_PLAY_LINK,
   eventsCardsContent,
 } from '../../../shared/presentation/constants';
-import { IKycState } from '@clean-rn/kyc/domain';
 
 export const Home = () => {
   // translation
@@ -51,14 +54,15 @@ export const Home = () => {
     dispatch(listAccounts());
   }, [dispatch, loginPending]);
 
+  const navigation = useNavigation();
+
   const handleOnPressAccount = useCallback(
     (account: IAccount) => {
       dispatch(listTransactions({ account }));
+      navigation.navigate(ITransactionStackPages.MENU, { screens: [ITransactionStackPages.TRANSACTIONS] });
     },
-    [dispatch],
+    [dispatch, navigation],
   );
-
-  const navigation = useNavigation();
 
   const handleOnPressCard = useCallback(
     (uid: string) => {
@@ -98,7 +102,7 @@ export const Home = () => {
           model,
           os,
           osVersion,
-          appVersion: Constants.expoConfig?.extra?.APP_VERSION,
+          appVersion: process.env.EXPO_PUBLIC_APP_VERSION || '1.0.8',
         }),
       );
     }
@@ -107,8 +111,8 @@ export const Home = () => {
   const [appNeedUpdate, setAppNeedUpdate] = useState(false);
   useEffect(() => {
     checkVersion({
-      currentVersion: Constants.expoConfig?.extra?.APP_VERSION,
-      bundleId: Constants.expoConfig?.extra?.BUNDLE_IDENTIFIER,
+      currentVersion: process.env.EXPO_PUBLIC_APP_VERSION,
+      bundleId: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER,
     }).then((version) => {
       if (version.needsUpdate !== undefined || version.needsUpdate !== null) {
         setAppNeedUpdate(version.needsUpdate);

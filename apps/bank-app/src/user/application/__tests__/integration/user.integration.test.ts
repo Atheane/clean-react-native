@@ -1,6 +1,5 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import SagaTester from 'redux-saga-tester';
-import Constants from 'expo-constants';
 import dayjs from 'dayjs';
 
 import { Phone } from '@clean-rn/contact/domain';
@@ -60,17 +59,6 @@ import {
 import { IUserState, userReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
 
-const expoConstantsMock = {
-  name: 'CleanRN BankApp Test',
-  slug: 'clean-rn-bank-app-test',
-  extra: {
-    BASE_URL_API: 'https://fake-api.com',
-    NODE_ENV: 'test',
-  },
-};
-
-jest.mock('expo-constants', () => expoConstantsMock);
-
 describe('User - integration', () => {
   let sagaTester: SagaTester;
   let httpConnection: HttpConnection;
@@ -111,15 +99,7 @@ describe('User - integration', () => {
   let initialState: IUserState;
 
   beforeAll(() => {
-    Constants.expoConfig = {
-      name: 'CleanRN BankApp Test',
-      slug: 'clean-rn-bank-app-test',
-      extra: {
-        BASE_URL_API: 'https://fake-api.com',
-        NODE_ENV: 'test',
-      },
-    };
-    httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+    httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
   });
 
   beforeEach(() => {

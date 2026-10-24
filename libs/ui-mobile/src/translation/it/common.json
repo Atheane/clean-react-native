@@ -3,6 +3,9 @@
     "contacts": "Trasferite i vostri €G direttamente ai numeri di cellulare. Esempio: si invia un bonifico di 10 €G al numero 06 01 01 01 01 anziché al numero FR76 0001 XO01 XO01 XO01 XO01 XO01 X11.",
     "camera": "L'applicazione richiede l'accesso alla fotocamera per la scansione dei documenti."
   },
+  "tablets": {
+    "instruction": "Questa applicazione non è compatibile con i tablet. Si prega di installare questa applicazione su uno smartphone."
+  },
   "banners": {
     "update-application": "Aggiornamento disponibile",
     "identity-validation": "Validazione dell'identità"

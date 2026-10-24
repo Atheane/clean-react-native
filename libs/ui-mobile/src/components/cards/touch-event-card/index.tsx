@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ImageSourcePropType } from 'react-native';
 import { useTheme } from '@rneui/themed';
+import { getDeviceId, getBrand } from 'react-native-device-info';
 
 import { DeleteCross } from '../../../assets';
 import { LinkButtonColors } from '../../../types';
@@ -13,6 +14,11 @@ type IProps = {
   onDelete?: (uid: string) => void;
   onPress?: (uid: string) => void;
 };
+
+const brand = getBrand();
+const model = getDeviceId();
+
+const NEEDS_SMALL_TEXT = brand === 'OPPO' && model === 'lahaina';
 
 export const TouchEventCard = (props: IProps) => {
   const { theme } = useTheme();
@@ -37,7 +43,15 @@ export const TouchEventCard = (props: IProps) => {
       >
         <View style={styles.subContainer}>
           <Image style={styles.image} source={props.image} />
-          <Text style={[styles.text, theme.bank.text.grey, { fontSize: 12, lineHeight: 14, paddingTop: 8 }]}>
+          <Text
+            style={[
+              styles.text,
+              theme.bank.text.grey,
+              NEEDS_SMALL_TEXT
+                ? { fontSize: 10, lineHeight: 12, paddingTop: 10 }
+                : { fontSize: 12, lineHeight: 14, paddingTop: 8 },
+            ]}
+          >
             {props.text}
           </Text>
         </View>
