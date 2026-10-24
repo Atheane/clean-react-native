@@ -3,6 +3,9 @@
     "contacts": "Virez vos €G directement sur des numéros de mobiles. Exemple : vous envoyez un virement de 10 €G au 06 01 01 01 01 plutôt qu’au FR76 0001 XO01 XO01 XO01 XO01 X11.",
     "camera": "L’application nécessite un accès à la caméra pour les scans de documents."
   },
+  "tablets": {
+    "instruction": "Cette application n'est pas compatible avec les tablettes. Veuillez installer cette application sur un smartphone."
+  },
   "banners": {
     "update-application": "Mise à jour disponible",
     "identity-validation": "Validation de l'identité",

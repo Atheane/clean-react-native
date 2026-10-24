@@ -3,6 +3,9 @@
     "contacts": "Transfiera sus €G directamente a números de móvil. Ejemplo: envía una transferencia de 10 €G al 06 01 01 01 01 en lugar de FR76 0001 XO01 XO01 XO01 XO01 X11.",
     "camera": "La aplicación requiere acceso a la cámara para escanear documentos."
   },
+  "tablets": {
+    "instruction": "Esta aplicación no es compatible con tabletas. Por favor, instala esta aplicación en un smartphone."
+  },
   "banners": {
     "update-application": "Actualización disponible",
     "identity-validation": "Validación de identidad"

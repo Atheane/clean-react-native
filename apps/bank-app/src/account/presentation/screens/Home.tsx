@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { checkVersion } from 'react-native-check-version';
+import Constants from 'expo-constants';
 
 import {
   TopRightFlowersBg,
@@ -18,7 +19,7 @@ import {
   useDevice,
 } from '@clean-rn/ui-mobile';
 import { IAccount } from '@clean-rn/account/domain';
-import Constants from 'expo-constants';
+import { IKycState } from '@clean-rn/kyc/domain';
 
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { IKycStackPages, ISharedStackPages } from '../../../shared/presentation/types';
@@ -35,7 +36,6 @@ import {
   GOOGLE_PLAY_LINK,
   eventsCardsContent,
 } from '../../../shared/presentation/constants';
-import { IKycState } from '@clean-rn/kyc/domain';
 
 export const Home = () => {
   // translation

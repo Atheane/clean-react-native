@@ -1,11 +1,45 @@
+import { useState, useEffect } from 'react';
+import { Image, View, Text, StyleSheet, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import DeviceInfo from 'react-native-device-info';
+import { useTranslation } from 'react-i18next';
+import { useTheme } from '@rneui/themed';
+
+import { SafeScrollingView, Colors } from '@clean-rn/ui-mobile';
 
 import { RootStack } from './RootStack';
 import { navigationRef, goToInitRoute } from './navigationRef';
 import { LinkingConfiguration } from './LinkingConfiguration';
 
+import { InitKyc } from '../../../kyc/presentation/assets/images';
+import { ErrorBoundary } from '../hoc';
+
 const NavigationUI = () => {
-  return (
+  const [isTablet, setIsTablet] = useState(true);
+  const { t } = useTranslation();
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    const checkIsTablet = () => {
+      const isDeviceTablet = DeviceInfo.isTablet();
+      setIsTablet(isDeviceTablet);
+    };
+
+    checkIsTablet();
+  }, []);
+
+  return isTablet ? (
+    <ErrorBoundary t={t}>
+      <SafeScrollingView>
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
+          <Image source={InitKyc} style={{ width: 250, height: 250 }} />
+          <Text style={[styles.instruction, theme.bank.text.grey, { fontSize: 16 }]}>
+            {t('tablets.instruction')}
+          </Text>
+        </View>
+      </SafeScrollingView>
+    </ErrorBoundary>
+  ) : (
     <NavigationContainer
       ref={navigationRef as any}
       linking={LinkingConfiguration}
@@ -18,3 +52,17 @@ const NavigationUI = () => {
 };
 
 export { NavigationUI };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.bank.primary.white,
+    height: Dimensions.get('window').height,
+    marginTop: -100,
+  },
+  instruction: {
+    textAlign: 'justify',
+    width: '85%',
+    marginVertical: 24,
+  },
+});
