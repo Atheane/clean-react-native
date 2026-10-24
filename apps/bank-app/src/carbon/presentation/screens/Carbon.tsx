@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { getLocales } from 'expo-localization';
 import { useTheme } from '@rneui/themed';
+import { getDeviceId, getBrand } from 'react-native-device-info';
 
 import {
   Car,
@@ -45,8 +46,10 @@ import {
 import { URL_CO2_COMPUTATION_FR, URL_CO2_COMPUTATION_EN, URL_CO2_REWARD } from '../constants';
 
 const locales = getLocales();
-
 const HEIGHT = Dimensions.get('window').height;
+const brand = getBrand();
+const model = getDeviceId();
+const NEEDS_SMALL_TEXT = brand === 'OPPO' && model === 'lahaina';
 
 export const Carbon = () => {
   const { theme } = useTheme();
@@ -256,7 +259,7 @@ export const Carbon = () => {
             style={[styles.container, theme.bank.container.centeredItem, { height: HEIGHT, marginTop: -80 }]}
           >
             <View style={styles.textContainer}>
-              <Text style={styles.instructionText}>{t('screens.carbon.instruction')}</Text>
+              <Text style={theme.bank.text.darkBlue}>{t('screens.carbon.instruction')}</Text>
               <View style={styles.kpiContainer}>
                 <Text style={styles.kpiText}>{t('screens.carbon.zero-carbon')}</Text>
               </View>
@@ -361,7 +364,7 @@ const styles = StyleSheet.create({
   kpiText: {
     fontFamily: FontNames.Roboto_400Regular,
     color: Colors.bank.primary.darkBlue,
-    fontSize: 48,
+    fontSize: NEEDS_SMALL_TEXT ? 40 : 48,
     lineHeight: 63,
     textAlign: 'center',
   },

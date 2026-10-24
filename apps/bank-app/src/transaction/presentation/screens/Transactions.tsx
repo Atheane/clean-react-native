@@ -22,6 +22,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { ITransactionStackPages } from '../../../shared/presentation/types';
 import { Oups } from '../assets/images';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { useTheme } from '@rneui/themed';
 
 const Top = ({ currentAccount }: { currentAccount?: IAccount }) => {
   const { t } = useTranslation();
@@ -46,12 +47,13 @@ const Top = ({ currentAccount }: { currentAccount?: IAccount }) => {
 
 const ContentNoTransactions = ({ currentAccount }: { currentAccount?: IAccount }) => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
 
   return (
     <ScrollView contentContainerStyle={styles.scrollNoTransactions} showsVerticalScrollIndicator={false}>
       <Image source={Oups} style={styles.oupsImage} />
       <View style={styles.textContainer}>
-        <Text style={styles.oupsText}>{t('screens.account.oups')}</Text>
+        <Text style={theme.bank.text.darkBlue}>{t('screens.account.oups')}</Text>
       </View>
       {currentAccount && (
         <View>
@@ -139,6 +141,8 @@ const styles = StyleSheet.create({
   textContainer: {
     position: 'relative',
     marginTop: -20,
+    alignItems: 'center',
+    width: Dimensions.get('window').width * 0.8,
   },
   oupsImage: {
     ...OUPS_SIZE,

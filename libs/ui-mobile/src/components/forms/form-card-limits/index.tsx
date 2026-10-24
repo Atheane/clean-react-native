@@ -101,7 +101,7 @@ export const FormCardLimits = (props: IProps) => {
           </Text>
         </View>
       )}
-      <View style={styles.inputContainer}>
+      <View style={(styles.inputContainer, { marginTop: 40, marginBottom: 16 })}>
         <Controller
           control={props.control}
           name="limitPaymentMonth"

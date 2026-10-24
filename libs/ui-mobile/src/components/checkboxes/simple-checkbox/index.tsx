@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { CheckBox, useTheme } from '@rneui/themed';
+import { getDeviceId, getBrand } from 'react-native-device-info';
 
 import { Colors } from '../../../constants';
 
@@ -9,6 +10,11 @@ type IProps = {
   checked: boolean;
   toggleCheckbox: (checked: boolean) => void;
 };
+
+const brand = getBrand();
+const model = getDeviceId();
+
+const NEEDS_SMALL_TEXT = brand === 'OPPO' && model === 'lahaina';
 
 export const SimpleCheckBox: React.FunctionComponent<IProps> = (props: IProps) => {
   const [checked, setChecked] = useState<boolean>(props.checked);
@@ -41,7 +47,7 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'left',
-    fontSize: 10,
-    lineHeight: 14,
+    fontSize: NEEDS_SMALL_TEXT ? 10 : 12,
+    lineHeight: NEEDS_SMALL_TEXT ? 14 : 16,
   },
 });

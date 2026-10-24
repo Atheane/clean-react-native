@@ -1,14 +1,12 @@
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { getDeviceId, getBrand } from 'react-native-device-info';
 
 import { IAccount, IAccountType } from '@clean-rn/account/domain';
 import { useTheme } from '@rneui/themed';
 
 import { RightChevron, GreenEuro } from '../../../assets';
-import { Colors, FontNames } from '../../../constants';
-import { LinkButtonColors } from '../../../types';
-
-import { LinkButton } from '../../buttons/link-button';
+import { Colors } from '../../../constants';
 
 type IProps = {
   divider?: boolean;
@@ -16,6 +14,11 @@ type IProps = {
   account: IAccount;
   onPress?: () => void;
 };
+
+const brand = getBrand();
+const model = getDeviceId();
+
+const NEEDS_SMALL_TEXT = brand === 'OPPO' && model === 'lahaina';
 
 export const WhiteBalance = (props: IProps) => {
   const { theme } = useTheme();
@@ -36,7 +39,7 @@ export const WhiteBalance = (props: IProps) => {
 
   return props.onPress ? (
     <TouchableOpacity onPress={props.onPress}>
-      <Text style={styles.title}>{props.title ?? title(props.account.accountType)}</Text>
+      <Text style={theme.bank.text.white}>{props.title ?? title(props.account.accountType)}</Text>
       <View style={[styles.widgetContainer, theme.bank.container.justifiedItems]}>
         <View style={theme.bank.container.centeredItems}>
           <Text style={[theme.bank.text.white, styles.balance]}>
@@ -52,7 +55,7 @@ export const WhiteBalance = (props: IProps) => {
     </TouchableOpacity>
   ) : (
     <View>
-      <Text style={styles.title}>{props.title ?? title(props.account.accountType)}</Text>
+      <Text style={theme.bank.text.white}>{props.title ?? title(props.account.accountType)}</Text>
       <View style={[styles.widgetContainer, theme.bank.container.justifiedItems]}>
         <View style={theme.bank.container.centeredItems}>
           <Text style={[theme.bank.text.white, styles.balance]}>
@@ -72,15 +75,8 @@ const styles = StyleSheet.create({
   linkContainer: {
     marginBottom: 24,
   },
-  title: {
-    color: Colors.bank.primary.white,
-    fontSize: 15,
-    fontWeight: 'bold',
-    fontFamily: FontNames.MartelSans_700Bold,
-    marginTop: 0,
-  },
   balance: {
-    fontSize: 38,
+    fontSize: NEEDS_SMALL_TEXT ? 32 : 38,
     marginTop: -6,
   },
 });

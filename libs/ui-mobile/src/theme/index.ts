@@ -1,6 +1,8 @@
 import '@rneui/themed';
 import { Dimensions, StyleProp, TextStyle, ViewStyle } from 'react-native';
 import { createTheme } from '@rneui/themed';
+import { getDeviceId, getBrand } from 'react-native-device-info';
+
 import { FontNames, Colors } from '../constants';
 
 declare module '@rneui/themed' {
@@ -38,10 +40,12 @@ declare module '@rneui/themed' {
         legend: StyleProp<TextStyle>;
         darkBlue: StyleProp<TextStyle>;
         boldDarkBlue: StyleProp<TextStyle>;
+        lightGrey: StyleProp<TextStyle>;
         grey: StyleProp<TextStyle>;
         boldGrey: StyleProp<TextStyle>;
         cyan: StyleProp<TextStyle>;
         input: StyleProp<TextStyle>;
+        inputPicker: StyleProp<TextStyle>;
         inputNumber: StyleProp<TextStyle>;
         errors: StyleProp<TextStyle>;
         white: StyleProp<TextStyle>;
@@ -57,6 +61,11 @@ const COEFF = 0.75;
 const SHORT_CARD_RATIO = 168 / 228;
 const LONG_CARD_RATIO = 85 / 356;
 const KPI_CARD_RATIO = 112 / 174;
+
+const brand = getBrand();
+const model = getDeviceId();
+
+const NEEDS_SMALL_TEXT = brand === 'OPPO' && model === 'lahaina';
 
 export const theme = createTheme({
   bank: {
@@ -160,19 +169,19 @@ export const theme = createTheme({
     text: {
       banner: {
         color: Colors.bank.primary.white,
-        fontSize: 16,
+        fontSize: NEEDS_SMALL_TEXT ? 16 : 18,
         fontFamily: FontNames.MartelSans_700Bold,
         fontWeight: '700',
       },
       link: {
         textAlign: 'left',
         fontFamily: FontNames.Roboto_400Regular,
-        fontSize: 14,
+        fontSize: NEEDS_SMALL_TEXT ? 12 : 16,
         lineHeight: 19,
       },
       button: {
         lineHeight: 20,
-        fontSize: 16,
+        fontSize: NEEDS_SMALL_TEXT ? 14 : 18,
         fontFamily: FontNames.Roboto_700Bold,
         textTransform: 'none',
         paddingLeft: 12,
@@ -180,25 +189,25 @@ export const theme = createTheme({
       label: {
         textTransform: 'uppercase',
         fontFamily: FontNames.Roboto_700Bold,
-        fontSize: 16,
+        fontSize: NEEDS_SMALL_TEXT ? 14 : 16,
         lineHeight: 21,
         textAlign: 'left',
       },
       kpi: {
         fontFamily: FontNames.Roboto_700Bold,
-        fontSize: 30,
+        fontSize: NEEDS_SMALL_TEXT ? 26 : 32,
         color: Colors.bank.primary.darkBlue,
         lineHeight: 48,
         marginLeft: 8,
       },
       subtitle: {
         fontFamily: FontNames.Roboto_700Bold,
-        fontSize: 12,
+        fontSize: NEEDS_SMALL_TEXT ? 12 : 14,
         color: Colors.bank.primary.darkGrey,
       },
       legend: {
         fontFamily: FontNames.Roboto_400Regular,
-        fontSize: 10,
+        fontSize: NEEDS_SMALL_TEXT ? 9 : 12,
         color: Colors.bank.primary.grey,
         lineHeight: 15,
         marginTop: 16,
@@ -212,31 +221,37 @@ export const theme = createTheme({
       },
       darkBlue: {
         fontFamily: FontNames.MartelSans_400Regular,
-        fontSize: 16,
+        fontSize: NEEDS_SMALL_TEXT ? 14 : 16,
         color: Colors.bank.primary.darkBlue,
         lineHeight: 22,
       },
       boldDarkBlue: {
-        fontSize: 13,
+        fontSize: NEEDS_SMALL_TEXT ? 13 : 14,
         fontWeight: 'bold',
         color: Colors.bank.primary.darkBlue,
         textAlign: 'left',
         fontFamily: FontNames.MartelSans_700Bold,
       },
+      lightGrey: {
+        fontSize: NEEDS_SMALL_TEXT ? 14 : 16,
+        fontFamily: FontNames.MartelSans_400Regular,
+        textAlign: 'center',
+        color: Colors.bank.primary.grey,
+      },
       grey: {
-        fontSize: 13,
+        fontSize: NEEDS_SMALL_TEXT ? 13 : 14,
         fontFamily: FontNames.MartelSans_400Regular,
         textAlign: 'left',
         color: Colors.bank.primary.darkGrey,
       },
       boldGrey: {
-        fontSize: 13,
+        fontSize: NEEDS_SMALL_TEXT ? 13 : 14,
         fontFamily: FontNames.MartelSans_700Bold,
         color: Colors.bank.primary.darkGrey,
         fontWeight: 'bold',
       },
       cyan: {
-        fontSize: 16,
+        fontSize: NEEDS_SMALL_TEXT ? 14 : 16,
         fontFamily: FontNames.Roboto_400Regular,
         color: Colors.bank.secondary.cyan,
         lineHeight: 21,
@@ -244,31 +259,37 @@ export const theme = createTheme({
       input: {
         color: Colors.bank.secondary.pink,
         fontFamily: FontNames.Roboto_400Regular,
-        fontSize: 13,
+        fontSize: NEEDS_SMALL_TEXT ? 13 : 14,
+        textAlign: 'left',
+      },
+      inputPicker: {
+        color: Colors.bank.secondary.pink,
+        fontFamily: FontNames.Roboto_400Regular,
+        fontSize: NEEDS_SMALL_TEXT ? 16 : 18,
         textAlign: 'left',
       },
       inputNumber: {
         color: Colors.bank.secondary.pink,
         fontFamily: FontNames.Roboto_400Regular,
-        fontSize: 32,
+        fontSize: NEEDS_SMALL_TEXT ? 28 : 32,
         textAlign: 'center',
         justifyContent: 'center',
       },
       errors: {
         color: Colors.bank.secondary.salmon,
         fontFamily: FontNames.MartelSans_400Regular,
-        fontSize: 14,
+        fontSize: NEEDS_SMALL_TEXT ? 12 : 14,
         textAlign: 'center',
       },
       white: {
         color: Colors.bank.primary.white,
-        fontSize: 15,
+        fontSize: NEEDS_SMALL_TEXT ? 14 : 16,
         fontWeight: 'bold',
         fontFamily: FontNames.MartelSans_700Bold,
       },
       whiteGraphTitle: {
         fontFamily: FontNames.Roboto_700Bold,
-        fontSize: 40,
+        fontSize: NEEDS_SMALL_TEXT ? 36 : 42,
         color: Colors.bank.primary.white,
       },
     },

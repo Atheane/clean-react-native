@@ -1,8 +1,9 @@
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import RNSlider from '@react-native-community/slider';
+import { getDeviceId, getBrand } from 'react-native-device-info';
 
 import { useTheme } from '@rneui/themed';
-import { Colors } from '../../../constants';
+import { Colors, FontNames } from '../../../constants';
 
 type IProps = {
   label: string;
@@ -15,13 +16,18 @@ type IProps = {
   onChange: (value: number) => void;
 };
 
+const brand = getBrand();
+const model = getDeviceId();
+
+const NEEDS_SMALL_TEXT = brand === 'OPPO' && model === 'lahaina';
+
 export const Slider = (props: IProps) => {
   const { theme } = useTheme();
   return props.short ? (
     <View style={theme.bank.container.centeredItems}>
       <Text style={[theme.bank.text.darkBlue, styles.labelShortContainer]}>{props.label}</Text>
       <View style={styles.sliderUnitContainer}>
-        <Text style={theme.bank.text.boldDarkBlue}>{`${props.value}${props.unit ?? ''}`}</Text>
+        <Text style={styles.textSlider}>{`${props.value}${props.unit ?? ''}`}</Text>
         <RNSlider
           style={styles.sliderContainer}
           minimumValue={props.minValue}
@@ -78,5 +84,12 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     paddingTop: 16,
+  },
+  textSlider: {
+    fontSize: NEEDS_SMALL_TEXT ? 12 : 13,
+    fontWeight: 'bold',
+    color: Colors.bank.primary.darkBlue,
+    textAlign: 'left',
+    fontFamily: FontNames.MartelSans_700Bold,
   },
 });
