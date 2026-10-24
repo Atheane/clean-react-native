@@ -11,6 +11,7 @@ import {
   contactAdded,
   contactAddedFailed,
   resetError,
+  contactPermissionRefused,
 } from '../../commands/contact';
 import { IBeneficiaryStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
@@ -65,6 +66,10 @@ export function* listContactGenerator(): Generator<StrictEffect, any, any> {
       yield put(contactsListed(contacts));
     }
   } catch (error: unknown) {
+    if (error instanceof ContactError.PermissionRefused) {
+      yield put(contactPermissionRefused());
+      yield cancel();
+    }
     // once app is well tested, delete this part and let onError hook manage unexpected errors
     yield put(resetError());
     yield put(showUnknownError(error as Error));

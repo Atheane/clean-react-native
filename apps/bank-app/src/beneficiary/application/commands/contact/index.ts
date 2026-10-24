@@ -15,6 +15,7 @@ import {
   IContactsListed,
   IContactAddedFailed,
   IResetError,
+  IContactPermissionRefused,
 } from './types';
 import { IDomainError } from '@clean-rn/ddd';
 
@@ -52,6 +53,10 @@ export const contactAddedFailed = (
 export const contactsListed = (payload: IContact[]): IContactsListed => ({
   type: IContactTypes.CONTACTS_LISTED,
   payload,
+});
+
+export const contactPermissionRefused = (): IContactPermissionRefused => ({
+  type: IContactTypes.CONTACT_PERMISSION_REFUSED,
 });
 
 export { IContactTypes, IContactActions };
