@@ -20,7 +20,7 @@ import {
   beneficiaryDeleted,
   resetError,
 } from '../../commands/beneficiary';
-import { IBeneficiaryStackPages } from '../../../../shared/presentation/types';
+import { IBeneficiaryStackPages, IRoutes } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { selectBeneficiary } from '../../state-management/selectors';
@@ -87,9 +87,7 @@ export function* deleteBeneficiaryGenerator(
 
     const api = BeneficiaryApi.getInstance(httpConnection);
     const beneficiary = yield call([api, api.deleteBeneficiary], payload);
-
     yield put(beneficiaryDeleted(beneficiary));
-    yield call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 0 } });
   } catch (error: unknown) {
     yield put(resetError());
     if (error instanceof ServerError && error.statusCode === 400) {
@@ -106,7 +104,6 @@ export function* listBeneficiaryGenerator(httpConnection: HttpConnection): Gener
 
     if (beneficiariesFromStore) {
       yield put(beneficiariesListed(beneficiariesFromStore));
-      yield call(navigate, { route: IBeneficiaryStackPages.MENU });
     } else {
       yield call(ensureTokenRefreshed, httpConnection);
       const api = BeneficiaryApi.getInstance(httpConnection);

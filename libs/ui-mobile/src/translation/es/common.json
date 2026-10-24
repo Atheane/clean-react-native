@@ -716,13 +716,17 @@
       "submit": "Actualizar"
     },
     "account-settings": {
-      "title": "Ajustes de la cuenta",
+      "title": "Configuración de la cuenta",
+      "beneficiaries": "Administrar mis beneficiarios",
       "bank-coordinates": "Mis datos bancarios"
     },
     "application-settings": {
       "title": "Configuración de la aplicación",
       "notifications": "Notificaciones",
       "languages": "Idiomas"
+    },
+    "manage-beneficiaries": {
+      "title": "Administrar mis beneficiarios"
     },
     "bank-coordinates": {
       "title": "Mis datos bancarios",

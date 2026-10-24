@@ -71,8 +71,6 @@ describe('DeleteBeneficiary - usecase', () => {
       .call([api, api.deleteBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponse)
       .put(beneficiaryDeleted(mockResponse))
-      .next()
-      .call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 0 } })
       .next();
   });
 

@@ -717,12 +717,16 @@
     },
     "account-settings": {
       "title": "Kontoeinstellungen",
+      "beneficiaries": "Meine Begünstigten verwalten",
       "bank-coordinates": "Meine Bankverbindung"
     },
     "application-settings": {
       "title": "Anwendungseinstellungen",
       "notifications": "Benachrichtigungen",
       "languages": "Sprachen"
+    },
+    "manage-beneficiaries": {
+      "title": "Meine Begünstigten verwalten"
     },
     "bank-coordinates": {
       "title": "Meine Bankverbindung",

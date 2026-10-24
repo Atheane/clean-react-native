@@ -16,6 +16,7 @@ import { DeleteAccount } from './DeleteAccount';
 import { GoodBye } from './GoodBye';
 import { AccountSettings } from './AccountSettings';
 import { BankCoordinates } from './BankCoordinates';
+import { ManageBeneficiaries } from './ManageBeneficiaries';
 
 export {
   SignupEmail,
@@ -36,4 +37,5 @@ export {
   GoodBye,
   AccountSettings,
   BankCoordinates,
+  ManageBeneficiaries,
 };

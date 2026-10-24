@@ -164,6 +164,7 @@ export enum IParametersStackPages {
   NOTIFICATON_SETTINGS = 'NotificationSettings',
   BANK_COORDINATES = 'BankCoordinates',
   LANGUAGES = 'Languages',
+  MANAGE_BENEFICIARIES = 'ManageBeneficiaries',
   DELETE_ACCOUNT = 'DeleteAccount',
   GOODBYE = 'GoodBye',
   LOGOUT = 'Logout',
@@ -264,6 +265,7 @@ export type IParametersStackProps = {
   [IParametersStackPages.ACCOUNT_SETTINGS]: object;
   [IParametersStackPages.APPLICATION_SETTINGS]: object;
   [IParametersStackPages.NOTIFICATON_SETTINGS]: object;
+  [IParametersStackPages.MANAGE_BENEFICIARIES]: object;
   [IParametersStackPages.BANK_COORDINATES]: object;
   [IParametersStackPages.LANGUAGES]: object;
   [IParametersStackPages.DELETE_ACCOUNT]: object;
@@ -358,6 +360,7 @@ export type IRoutes =
   | IParametersStackPages.APPLICATION_SETTINGS
   | IParametersStackPages.NOTIFICATON_SETTINGS
   | IParametersStackPages.BANK_COORDINATES
+  | IParametersStackPages.MANAGE_BENEFICIARIES
   | IParametersStackPages.LANGUAGES
   | IParametersStackPages.DELETE_ACCOUNT
   | IParametersStackPages.LOGOUT
