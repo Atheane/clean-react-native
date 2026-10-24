@@ -573,6 +573,7 @@
           "bold": " under review, ",
           "end": "this can take from 24 to 72 hours."
         },
+        "last-step": "\n\n\nLast step :\n",
         "w9-form": "W9 Form",
         "identity": "ID",
         "address": "Proof of address",
@@ -580,7 +581,8 @@
         "host-id": "Host's ID",
         "host-residence": "Host's proof of address",
         "sworn-statement": "Host's attestation",
-        "fix-file": "Please correct the elements of the file"
+        "fix-file": "Please correct the elements of the file",
+        "transfer": "Transfer of 1 euro"
       },
       "first-id": {
         "title": "ID documents",
@@ -692,6 +694,10 @@
         "instruction": "of the front of the invoice of the person hosting you.",
         "another-instruction": "Only internet box, electricity, gas bills are accepted and must be less than 3 months old. ",
         "last-instruction": "Mobile phone bills are not valid."
+      },
+      "sct-required": {
+        "title": "Transfer of 1 euro",
+        "instruction": "Make a transfer of 1 euro to your CO2 Account from one of your accounts located in France."
       }
     },
     "profile": {

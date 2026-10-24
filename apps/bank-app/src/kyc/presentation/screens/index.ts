@@ -10,3 +10,4 @@ export { ResidenceProofList } from './ResidenceProofList';
 export { KycHost } from './KycHost';
 export { HostIdList } from './HostIdList';
 export { HostResidenceProofList } from './HostResidenceProofList';
+export { SctRequired } from './SctRequired';

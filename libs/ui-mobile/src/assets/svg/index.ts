@@ -139,6 +139,7 @@ import BankAltLogo from './co2-bank.svg';
 import CertificateBlueGradient from './certificate-blue-gradient.svg';
 import OffBlueGradient from './off-blue-gradient.svg';
 import FlagGradient from './flag-gradient.svg';
+import TransferBlueGradient from './transfer-blue-gradient.svg';
 export {
   Love,
   LoveBlueGradient,
@@ -281,4 +282,5 @@ export {
   BlueGradientMail,
   CertificateBlueGradient,
   OffBlueGradient,
+  TransferBlueGradient,
 };

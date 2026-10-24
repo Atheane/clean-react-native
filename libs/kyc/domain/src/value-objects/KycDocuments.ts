@@ -3,6 +3,7 @@ import { arrayIsEmpty } from '@clean-rn/shared/domain';
 import { IDocumentCategory, IDocumentProperties, IDocumentStatus, IDocumentType, IKycState } from '../types';
 import { ALLOWED_DOCUMENT_TYPES, EXPECTED_DOCUMENTS_NUMBER } from '../constants';
 import { DocumentError } from '../errors';
+import { KYC_REVIEW } from '@clean-rn/user/domain';
 
 export class DocumentVO {
   properties: IDocumentProperties;
@@ -67,6 +68,10 @@ export class KycDocuments {
     this.isHosted = this.setIsHosted();
     this.expectedDocumentCount = this.setExpectedDocumentCount();
     this.state = this.computeState();
+  }
+
+  setState(state: KYC_REVIEW): void {
+    if (state === KYC_REVIEW.REFUSED) this.state = IKycState.REFUSED;
   }
 
   addDocument(document: DocumentVO): void {

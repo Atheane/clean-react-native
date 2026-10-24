@@ -574,6 +574,7 @@
           "bold": " in fase di verifica, ",
           "end": "potrebbe richiedere da 24 a 72 ore."
         },
+        "last-step": "\n\n\nUltimo passo :\n",
         "w9-form": "Modulo W9",
         "identity": "Documento d'identità",
         "address": "Prova di residenza",
@@ -581,7 +582,8 @@
         "host-id": "Documento d'identità dell'ospitante",
         "host-residence": "Prova di residenza dell'ospitante",
         "sworn-statement": "Dichiarazione dell'ospitante",
-        "fix-file": "Si prega di correggere gli elementi del dossier"
+        "fix-file": "Si prega di correggere gli elementi del dossier",
+        "transfer": "Trasferimento di 1 euro"
       },
       "first-id": {
         "title": "Documenti d'identità",
@@ -693,6 +695,10 @@
         "instruction": "del fronte della fattura della persona che ti ospita.",
         "another-instruction": "Solo le fatture di internet, elettricità, gas sono accettate e devono essere datate meno di 3 mesi fa. ",
         "last-instruction": "Le fatture di telefonia mobile non sono valide."
+      },
+      "sct-required": {
+        "title": "Trasferimento di 1 euro",
+        "instruction": "Effettua un bonifico di 1 euro sul tuo conto CO2, da uno dei tuoi conti situati in Francia."
       }
     },
     "profile": {

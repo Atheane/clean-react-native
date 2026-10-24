@@ -211,6 +211,7 @@ export enum IKycStackPages {
   KYC_HOST = 'KycHost',
   HOST_ID_LIST = 'HostIdList',
   HOST_RESIDENCE_PROOF_LIST = 'HostResidenceProofList',
+  SCT_REQUIRED = 'SctRequired',
 }
 
 export enum ICardStackPages {
@@ -299,6 +300,7 @@ export type IKycStackProps = {
   [IKycStackPages.KYC_HOST]: object;
   [IKycStackPages.HOST_ID_LIST]: object;
   [IKycStackPages.HOST_RESIDENCE_PROOF_LIST]: object;
+  [IKycStackPages.SCT_REQUIRED]: object;
 };
 
 export type IBeneficiaryStackProps = {
@@ -375,6 +377,7 @@ export type IRoutes =
   | IKycStackPages.KYC_HOST
   | IKycStackPages.HOST_ID_LIST
   | IKycStackPages.HOST_RESIDENCE_PROOF_LIST
+  | IKycStackPages.SCT_REQUIRED
   | IBeneficiaryStackPages.MENU
   | IBeneficiaryStackPages.BENEFICIARY_LIST
   | IBeneficiaryStackPages.BENEFICIARY_ADD

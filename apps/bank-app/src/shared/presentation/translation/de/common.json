@@ -573,6 +573,7 @@
           "bold": " derzeit überprüft, ",
           "end": "dies kann zwischen 24 und 72 Stunden dauern."
         },
+        "last-step": "\n\n\nLetzter Schritt :\n",
         "w9-form": "Formular W9",
         "identity": "Ausweisdokument",
         "address": "Wohnsitznachweis",
@@ -580,7 +581,8 @@
         "host-id": "Ausweisdokument des Gastgebers",
         "host-residence": "Wohnsitznachweis des Gastgebers",
         "sworn-statement": "Bescheinigung des Gastgebers",
-        "fix-file": "Bitte korrigieren Sie die Elemente im Dossier"
+        "fix-file": "Bitte korrigieren Sie die Elemente im Dossier",
+        "transfer": "Überweisung von 1 Euro"
       },
       "first-id": {
         "title": "Ausweisdokumente",
@@ -692,6 +694,10 @@
         "instruction": "der Vorderseite der Rechnung der Person, die Sie beherbergt.",
         "another-instruction": "Nur Internet-, Strom- und Gasrechnungen sind akzeptiert und müssen zwingend weniger als 3 Monate alt sein. ",
         "last-instruction": "Handyrechnungen sind nicht gültig."
+      },
+      "sct-required": {
+        "title": "Überweisung von 1 Euro",
+        "instruction": "Überweisen Sie 1 Euro auf Ihr CO2-Konto von einem Ihrer Konten in Frankreich."
       }
     },
     "profile": {
