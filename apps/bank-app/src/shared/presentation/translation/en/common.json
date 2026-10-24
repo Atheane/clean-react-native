@@ -700,10 +700,10 @@
         "instruction": "Make a transfer of 1 euro to your CO2 Account from one of your accounts located in France."
       }
     },
-    "profile": {
+    "parameters": {
       "menu": {
-        "title": "My profile",
-        "tab": "Profile",
+        "title": "My Settings",
+        "tab": "Settings",
         "personal-info": "Personal information",
         "my-parameters": "My settings",
         "app-settings": "Application Settings",
@@ -714,6 +714,7 @@
         "legal": "Personal data",
         "cgu": "Terms and Conditions",
         "cgu-kyc-provider": "CGU KycProvider",
+        "profile": "My Profile",
         "delete-account": "Unsubscribe"
       },
       "delete-account": {
@@ -722,6 +723,9 @@
         "button": "Confirm",
         "goodbye": "Goodbye!"
       }
+    },
+    "profile": {
+      "title": "My Profile"
     },
     "card": {
       "menu": {

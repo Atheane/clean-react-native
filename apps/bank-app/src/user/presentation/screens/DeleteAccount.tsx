@@ -28,12 +28,12 @@ export const DeleteAccount = () => {
         <View style={[styles.container, { height: HEIGHT }]}>
           <View style={styles.textContainer}>
             <Text style={[theme.bank.text.darkBlue, styles.text]}>
-              {t('screens.profile.delete-account.description')}
+              {t('screens.parameters.delete-account.description')}
             </Text>
           </View>
           <View style={[theme.bank.container.centeredItem, styles.button]}>
             <PrimaryButton
-              title={t('screens.profile.delete-account.button')}
+              title={t('screens.parameters.delete-account.button')}
               uppercase
               onPress={handleOnPress}
               loading={false}

@@ -141,6 +141,9 @@ import {
   OffBlueGradient,
   FlagGradient,
   TransferBlueGradient,
+  ParametersGradient,
+  ParametersIcon,
+  ProfileBlueGradient,
 } from './svg';
 import { DefaultImage, PlaneEmpty } from './image';
 import { Loader } from './lottie';
@@ -290,4 +293,7 @@ export {
   OffBlueGradient,
   FlagGradient,
   TransferBlueGradient,
+  ParametersGradient,
+  ParametersIcon,
+  ProfileBlueGradient,
 };

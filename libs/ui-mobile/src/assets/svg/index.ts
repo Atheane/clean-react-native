@@ -140,6 +140,9 @@ import CertificateBlueGradient from './certificate-blue-gradient.svg';
 import OffBlueGradient from './off-blue-gradient.svg';
 import FlagGradient from './flag-gradient.svg';
 import TransferBlueGradient from './transfer-blue-gradient.svg';
+import ParametersGradient from './parameters-gradient.svg';
+import ParametersIcon from './parameters.svg';
+import ProfileBlueGradient from './profile-blue-gradient.svg';
 export {
   Love,
   LoveBlueGradient,
@@ -283,4 +286,7 @@ export {
   CertificateBlueGradient,
   OffBlueGradient,
   TransferBlueGradient,
+  ParametersGradient,
+  ParametersIcon,
+  ProfileBlueGradient,
 };

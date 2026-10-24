@@ -6,7 +6,7 @@ import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { UserApi } from '@clean-rn/user/infrastructure';
 
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { IProfileStackPages } from '../../../../shared/presentation/types';
+import { IParametersStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 import { IUserTypes, initializeUser, resetError } from '../../commands';
@@ -24,7 +24,7 @@ export function* deleteUserAccountGenerator(
     const userApi = UserApi.getInstance(httpConnection);
     yield call([userApi, userApi.deleteUserAccount]);
     yield put(initializeUser());
-    yield call(navigate, { route: IProfileStackPages.GOODBYE });
+    yield call(navigate, { route: IParametersStackPages.GOODBYE });
   } catch (error: unknown) {
     yield put(resetError());
     yield put(showUnknownError(error as Error));

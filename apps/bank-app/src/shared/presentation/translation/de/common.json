@@ -700,10 +700,10 @@
         "instruction": "Überweisen Sie 1 Euro auf Ihr CO2-Konto von einem Ihrer Konten in Frankreich."
       }
     },
-    "profile": {
+    "parameters": {
       "menu": {
-        "title": "Mein Profil",
-        "tab": "Profil",
+        "title": "Meine Einstellungen",
+        "tab": "Einstellungen",
         "personal-info": "Persönliche Informationen",
         "my-parameters": "Meine Einstellungen",
         "app-settings": "Anwendungseinstellungen",
@@ -714,6 +714,7 @@
         "legal": "Persönliche Daten",
         "cgu": "AGB",
         "cgu-kyc-provider": "AGB KycProvider",
+        "profile": "Mein Profil",
         "delete-account": "Abmelden"
       },
       "delete-account": {
@@ -722,6 +723,9 @@
         "button": "Bestätigen",
         "goodbye": "Auf Wiedersehen!"
       }
+    },
+    "profile": {
+      "title": "Mein Profil"
     },
     "card": {
       "menu": {

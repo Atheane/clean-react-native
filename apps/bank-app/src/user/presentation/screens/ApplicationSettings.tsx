@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { LinkButton, LinkButtonColors, FlagGradient } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { IProfileStackPages } from '../../../shared/presentation/types';
+import { IParametersStackPages } from '../../../shared/presentation/types';
 
 import { GradientBell } from '../../../user/presentation/assets';
 
@@ -16,11 +16,11 @@ export const ApplicationSettings = () => {
   const navigation = useNavigation();
 
   const handlePressNotifications = useCallback(() => {
-    navigation.navigate(IProfileStackPages.NOTIFICATON_SETTINGS as never);
+    navigation.navigate(IParametersStackPages.NOTIFICATON_SETTINGS as never);
   }, [navigation]);
 
   const handlePressLanguages = useCallback(() => {
-    navigation.navigate(IProfileStackPages.LANGUAGES as never);
+    navigation.navigate(IParametersStackPages.LANGUAGES as never);
   }, [navigation]);
 
   return (

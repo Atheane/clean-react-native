@@ -10,7 +10,7 @@ export type IRootStackParamList = {
   MenuTransaction: NavigatorScreenParams<IRootTabParamList> | undefined;
   MenuBeneficiary: NavigatorScreenParams<IRootTabParamList> | undefined;
   MenuCarbon: NavigatorScreenParams<IRootTabParamList> | undefined;
-  MenuProfile: NavigatorScreenParams<IRootTabParamList> | undefined;
+  MenuParameters: NavigatorScreenParams<IRootTabParamList> | undefined;
   MenuKyc: NavigatorScreenParams<IRootTabParamList> | undefined;
   MenuCard: NavigatorScreenParams<IRootTabParamList> | undefined;
   ModalError: undefined;
@@ -31,7 +31,7 @@ export type IRootTabParamList = {
   MenuTransaction: undefined;
   MenuBeneficiary: undefined;
   MenuCarbon: undefined;
-  MenuProfile: undefined;
+  MenuParameters: undefined;
   MenuTransfer: undefined;
   MenuKyc: undefined;
   MenuCard: undefined;
@@ -110,9 +110,9 @@ export type IBeneficiaryStackParamList = {
   TransferSuccess: undefined;
 };
 
-export type IProfileStackParamList = {
-  MenuProfile: undefined;
-  Profile: undefined;
+export type IParametersStackParamList = {
+  MenuParameters: undefined;
+  Parameters: undefined;
   NotificationSettings: undefined;
 };
 
@@ -154,8 +154,9 @@ export enum IUserStackPages {
   SIGNUP_CONGRATS = 'SignupCongrats',
 }
 
-export enum IProfileStackPages {
-  MENU = 'MenuProfile',
+export enum IParametersStackPages {
+  MENU = 'MenuParameters',
+  PARAMETERS = 'Parameters',
   PROFILE = 'Profile',
   APPLICATION_SETTINGS = 'ApplicationSettings',
   NOTIFICATON_SETTINGS = 'NotificationSettings',
@@ -252,15 +253,16 @@ export type IUserStackProps = {
   [IUserStackPages.SIGNUP_PHONE]: object;
 };
 
-export type IProfileStackProps = {
-  [IProfileStackPages.MENU]: object;
-  [IProfileStackPages.PROFILE]: object;
-  [IProfileStackPages.APPLICATION_SETTINGS]: object;
-  [IProfileStackPages.NOTIFICATON_SETTINGS]: object;
-  [IProfileStackPages.LANGUAGES]: object;
-  [IProfileStackPages.DELETE_ACCOUNT]: object;
-  [IProfileStackPages.LOGOUT]: object;
-  [IProfileStackPages.GOODBYE]: object;
+export type IParametersStackProps = {
+  [IParametersStackPages.MENU]: object;
+  [IParametersStackPages.PARAMETERS]: object;
+  [IParametersStackPages.PROFILE]: object;
+  [IParametersStackPages.APPLICATION_SETTINGS]: object;
+  [IParametersStackPages.NOTIFICATON_SETTINGS]: object;
+  [IParametersStackPages.LANGUAGES]: object;
+  [IParametersStackPages.DELETE_ACCOUNT]: object;
+  [IParametersStackPages.LOGOUT]: object;
+  [IParametersStackPages.GOODBYE]: object;
 };
 
 export type IAccountStackProps = {
@@ -342,14 +344,15 @@ export type IRoutes =
   | IUserStackPages.SIGNUP_CONGRATS
   | IUserStackPages.EMAIL_SENT
   | IUserStackPages.SIGNUP_PHONE
-  | IProfileStackPages.MENU
-  | IProfileStackPages.PROFILE
-  | IProfileStackPages.APPLICATION_SETTINGS
-  | IProfileStackPages.NOTIFICATON_SETTINGS
-  | IProfileStackPages.LANGUAGES
-  | IProfileStackPages.DELETE_ACCOUNT
-  | IProfileStackPages.LOGOUT
-  | IProfileStackPages.GOODBYE
+  | IParametersStackPages.MENU
+  | IParametersStackPages.PARAMETERS
+  | IParametersStackPages.PROFILE
+  | IParametersStackPages.APPLICATION_SETTINGS
+  | IParametersStackPages.NOTIFICATON_SETTINGS
+  | IParametersStackPages.LANGUAGES
+  | IParametersStackPages.DELETE_ACCOUNT
+  | IParametersStackPages.LOGOUT
+  | IParametersStackPages.GOODBYE
   | IAccountStackPages.MENU
   | IAccountStackPages.ACCOUNTS
   | IAccountStackPages.RIB_PDF
