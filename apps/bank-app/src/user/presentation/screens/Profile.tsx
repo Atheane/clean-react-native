@@ -17,9 +17,13 @@ import {
 } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { ICardStackPages, IProfileStackPages, ISharedStackPages } from '../../../shared/presentation/types';
+import {
+  ICardStackPages,
+  IParametersStackPages,
+  ISharedStackPages,
+} from '../../../shared/presentation/types';
 
-import { GradientCO2Card } from '../../../user/presentation/assets';
+import { GradientCO2Card } from '../assets';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 import { APPLE_STORE_LINK, GOOGLE_PLAY_LINK } from '../../../shared/presentation/constants';
@@ -51,7 +55,7 @@ export const Profile = () => {
   }, [navigation, customer, card]);
 
   const handlePressAppParameters = useCallback(() => {
-    navigation.navigate(IProfileStackPages.APPLICATION_SETTINGS as never);
+    navigation.navigate(IParametersStackPages.APPLICATION_SETTINGS as never);
   }, [navigation]);
 
   const handlePressLove = useCallback(() => {
@@ -79,7 +83,7 @@ export const Profile = () => {
   }, [navigation]);
 
   const onPressDeleteAccount = useCallback(() => {
-    navigation.navigate(IProfileStackPages.DELETE_ACCOUNT as never);
+    navigation.navigate(IParametersStackPages.DELETE_ACCOUNT as never);
   }, [navigation]);
 
   const { user } = useSelector((state: IRootState) => state.user);
@@ -91,7 +95,7 @@ export const Profile = () => {
         <View style={styles.container}>
           <View style={[styles.rowContainer, { marginTop: 40 }]}>
             <Text style={[theme.bank.text.boldDarkBlue, { fontSize: 16 }]}>
-              {t('screens.profile.menu.personal-info')}
+              {t('screens.parameters.menu.personal-info')}
             </Text>
           </View>
           <View style={[styles.rowContainer, { marginTop: 28, marginLeft: 44 }]}>
@@ -128,14 +132,14 @@ export const Profile = () => {
           </View>
           <View style={[styles.rowContainer, { marginTop: 50 }]}>
             <Text style={[theme.bank.text.boldDarkBlue, { fontSize: 16 }]}>
-              {t('screens.profile.menu.my-parameters')}
+              {t('screens.parameters.menu.my-parameters')}
             </Text>
           </View>
           <View style={[styles.rowContainer, { marginTop: 12, marginBottom: -8 }]}>
             <LinkButton
               iconLeft={() => <GradientCO2Card style={{ marginRight: 14 }} />}
               colorOption={LinkButtonColors.BLUE}
-              title={t('screens.profile.menu.card-settings')}
+              title={t('screens.parameters.menu.card-settings')}
               onPress={handlePressCardParameters}
             />
           </View>
@@ -143,7 +147,7 @@ export const Profile = () => {
             <LinkButton
               iconLeft={PhoneBlueGradient}
               colorOption={LinkButtonColors.BLUE}
-              title={t('screens.profile.menu.app-settings')}
+              title={t('screens.parameters.menu.app-settings')}
               onPress={handlePressAppParameters}
             />
           </View>
@@ -151,7 +155,7 @@ export const Profile = () => {
             <LinkButton
               iconLeft={LoveBlueGradient}
               colorOption={LinkButtonColors.BLUE}
-              title={t('screens.profile.menu.love')}
+              title={t('screens.parameters.menu.love')}
               onPress={handlePressLove}
             />
           </View>
@@ -159,7 +163,7 @@ export const Profile = () => {
             <LinkButton
               iconLeft={BlueGradientMail}
               colorOption={LinkButtonColors.BLUE}
-              title={t('screens.profile.menu.contact-us')}
+              title={t('screens.parameters.menu.contact-us')}
               onPress={handlePressContact}
             />
           </View>
@@ -167,21 +171,21 @@ export const Profile = () => {
             <LinkButton
               iconLeft={CertificateBlueGradient}
               colorOption={LinkButtonColors.BLUE}
-              title={t('screens.profile.menu.legal')}
+              title={t('screens.parameters.menu.legal')}
               onPress={onPressLegal}
             />
           </View>
           <View style={[styles.rowContainer, { marginVertical: -8, marginLeft: 72 }]}>
             <LinkButton
               colorOption={LinkButtonColors.BLUE}
-              title={t('screens.profile.menu.cgu')}
+              title={t('screens.parameters.menu.cgu')}
               onPress={onPressCgu}
             />
           </View>
           <View style={[styles.rowContainer, { marginVertical: -8, marginLeft: 72 }]}>
             <LinkButton
               colorOption={LinkButtonColors.BLUE}
-              title={t('screens.profile.menu.cgu-kyc-provider')}
+              title={t('screens.parameters.menu.cgu-kyc-provider')}
               onPress={onPressCguKycProvider}
             />
           </View>
@@ -189,7 +193,7 @@ export const Profile = () => {
             <LinkButton
               iconLeft={RedCross}
               colorOption={LinkButtonColors.BLUE}
-              title={t('screens.profile.menu.delete-account')}
+              title={t('screens.parameters.menu.delete-account')}
               onPress={onPressDeleteAccount}
             />
           </View>

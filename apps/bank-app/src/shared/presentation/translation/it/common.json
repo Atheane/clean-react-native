@@ -701,10 +701,10 @@
         "instruction": "Effettua un bonifico di 1 euro sul tuo conto CO2, da uno dei tuoi conti situati in Francia."
       }
     },
-    "profile": {
+    "parameters": {
       "menu": {
-        "title": "Il mio profilo",
-        "tab": "Profilo",
+        "title": "Le mie impostazioni",
+        "tab": "Impostazioni",
         "personal-info": "Informazioni personali",
         "my-parameters": "Le mie impostazioni",
         "app-settings": "Impostazioni dell'applicazione",
@@ -723,6 +723,9 @@
         "button": "Conferma",
         "goodbye": "Arrivederci!"
       }
+    },
+    "profile": {
+      "title": "Il mio profilo"
     },
     "card": {
       "menu": {

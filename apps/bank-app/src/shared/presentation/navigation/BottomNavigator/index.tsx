@@ -10,8 +10,8 @@ import {
   TransferGradient,
   Carbon as CarbontIcon,
   CarbonGradient,
-  Profile as ProfileIcon,
-  ProfileGradient,
+  ParametersGradient,
+  ParametersIcon,
 } from '@clean-rn/ui-mobile';
 import {
   IRootTabParamList,
@@ -20,13 +20,13 @@ import {
   IKycStackPages,
   IBeneficiaryStackPages,
   ITransactionStackPages,
-  IProfileStackPages,
+  IParametersStackPages,
   ICardStackPages,
 } from '../../types';
 
 import { AccountStack } from '../../../../account/presentation/navigation';
 import { CarbonStack } from '../../../../carbon/presentation/navigation';
-import { ProfileStack } from '../../../../user/presentation/navigation';
+import { ParametersStack } from '../../../../user/presentation/navigation';
 import { KycStack } from '../../../../kyc/presentation/navigation';
 import { BeneficiaryStack } from '../../../../beneficiary/presentation/navigation';
 import { TransactionStack } from '../../../../transaction/presentation/navigation';
@@ -98,19 +98,18 @@ export const BottomTabNavigator = () => {
         })}
       />
       <Tab.Screen
-        name={IProfileStackPages.MENU}
-        component={ProfileStack}
+        name={IParametersStackPages.MENU}
+        component={ParametersStack}
         options={() => ({
-          title: t('screens.profile.title'),
+          title: t('screens.parameters.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             focused ? (
-              <ProfileGradient style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />
+              <ParametersGradient style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />
             ) : (
-              <ProfileIcon style={{ color: Colors.bank.primary.grey } as StyleProp<ViewStyle>} />
+              <ParametersIcon style={{ color: Colors.bank.primary.grey } as StyleProp<ViewStyle>} />
             ),
-
           tabBarLabel: ({ focused }: { focused: boolean }) =>
-            focused ? <Text style={styles.tab}> {t('screens.profile.menu.tab')}</Text> : '',
+            focused ? <Text style={styles.tab}> {t('screens.parameters.menu.tab')}</Text> : '',
         })}
       />
       <Tab.Screen

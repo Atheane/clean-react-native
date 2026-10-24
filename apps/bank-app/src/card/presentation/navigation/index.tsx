@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 
-import { ICardStackPages, ICardStackProps, IProfileStackPages } from '../../../shared/presentation/types';
+import { ICardStackPages, ICardStackProps, IParametersStackPages } from '../../../shared/presentation/types';
 
 import {
   CardMenu,
@@ -31,7 +31,7 @@ export const CardStack = () => {
         component={CardMenu}
         options={{
           headerTitle: t('screens.card.menu.title'),
-          ...headersOptions(() => navigation.navigate(IProfileStackPages.MENU as never)),
+          ...headersOptions(() => navigation.navigate(IParametersStackPages.MENU as never)),
         }}
       />
       <Stack.Screen
@@ -39,7 +39,7 @@ export const CardStack = () => {
         component={KycMissing}
         options={{
           headerTitle: t('screens.card.kyc-missing.title'),
-          ...headersOptions(() => navigation.navigate(IProfileStackPages.MENU as never)),
+          ...headersOptions(() => navigation.navigate(IParametersStackPages.MENU as never)),
         }}
       />
       <Stack.Screen
@@ -47,7 +47,7 @@ export const CardStack = () => {
         component={WaitingCard}
         options={{
           headerTitle: t('screens.card.waiting-card.title'),
-          ...headersOptions(() => navigation.navigate(IProfileStackPages.MENU as never)),
+          ...headersOptions(() => navigation.navigate(IParametersStackPages.MENU as never)),
         }}
       />
       <Stack.Screen

@@ -6,6 +6,7 @@ import { SignupAddress } from './SignupAddress';
 import { SignupCongrats } from './SignupCongrats';
 import { EmailSent } from './EmailSent';
 import { SignupPhone } from './SignupPhone';
+import { Parameters } from './Parameters';
 import { Profile } from './Profile';
 import { ApplicationSettings } from './ApplicationSettings';
 import { NotificationSettings } from './NotificationSettings';
@@ -22,6 +23,7 @@ export {
   SignupCongrats,
   EmailSent,
   SignupPhone,
+  Parameters,
   Profile,
   Languages,
   ApplicationSettings,

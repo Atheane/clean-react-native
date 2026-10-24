@@ -4,7 +4,7 @@ import { testSaga } from 'redux-saga-test-plan';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { UserApi } from '@clean-rn/user/infrastructure';
 
-import { IProfileStackPages } from '../../../../shared/presentation/types';
+import { IParametersStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
@@ -42,7 +42,7 @@ describe('Delete User Account - usecase', () => {
       .next()
       .put(initializeUser())
       .next()
-      .call(navigate, { route: IProfileStackPages.GOODBYE })
+      .call(navigate, { route: IParametersStackPages.GOODBYE })
       .next();
   });
 

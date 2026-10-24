@@ -701,10 +701,10 @@
         "instruction": "Faîtes un virement de 1 euro sur votre Bank App, à partir d’un de vos comptes situés en France."
       }
     },
-    "profile": {
+    "parameters": {
       "menu": {
-        "title": "Mon profil",
-        "tab": "Profil",
+        "title": "Mes paramètres",
+        "tab": "Paramètres",
         "personal-info": "Informations personnelles",
         "my-parameters": "Mes paramètres",
         "app-settings": "Paramètres de l'application",
@@ -715,6 +715,7 @@
         "legal": "Données personnelles",
         "cgu": "CGU",
         "cgu-kyc-provider": "CGU KycProvider",
+        "profile": "Mon profil",
         "delete-account": "Se désinscrire"
       },
       "delete-account": {
@@ -723,6 +724,9 @@
         "button": "Confirmer",
         "goodbye": "Au revoir !"
       }
+    },
+    "profile": {
+      "title": "Mon profil"
     },
     "card": {
       "menu": {
