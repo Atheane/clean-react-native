@@ -28,8 +28,9 @@ export function* checkCustomerStatusGenerator(
 ): Generator<StrictEffect, any, any> {
   try {
     const { user } = payload;
-    const customerStatus = user.properties.kycReview;
-    if (customerStatus && customerStatus === KYC_REVIEW.VALIDATED) {
+    const customerStatus = user.properties.kycReview as KYC_REVIEW;
+
+    if (customerStatus === KYC_REVIEW.VALIDATED) {
       const customer = Customer.Create({
         id: parseInt(user.id),
         properties: { status: customerStatus, USPerson: user.properties.USPerson as boolean },
@@ -48,8 +49,8 @@ export function* checkCustomerStatusGenerator(
       customer.addKycReviewComment(user.properties.kycReviewComment);
     }
     customer.checkDocumentsStatus(documents);
-
-    if (customerStatus) customer.setState(customerStatus); // if KYC refused but all docs are validated, we should show last SCT step
+    customer.setState(customerStatus as KYC_REVIEW); // if KYC refused but all docs are validated, we should show last SCT step
+    // if KYC_PENDING, but one document is refused, KYC should be considered PENDING
 
     let initRoute: IKycStackPages;
     if (customer.properties.kyc?.state === IKycState.INIT) {
