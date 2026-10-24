@@ -307,7 +307,7 @@ const styles = StyleSheet.create({
   },
   messageContainer: {
     alignItems: 'center',
-    width: '100%',
+    width: '95%',
   },
   errorMessage: {
     textAlign: 'left',
