@@ -41,6 +41,7 @@ import { CguPdf } from '../../../shared/presentation/screens';
 
 import { SUPPORTED_LANGUAGES_WEBSITE, pdfUrls } from '../../../shared/presentation/constants';
 import { IStoreKey } from '../../../shared/application/types';
+import { Kyc } from '../../../kyc/presentation/screens';
 
 const locales = getLocales();
 

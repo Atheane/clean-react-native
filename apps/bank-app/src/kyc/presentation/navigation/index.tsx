@@ -21,6 +21,7 @@ import {
   CardSent,
   HostResidenceProofList,
   SuccessKyc,
+  SctRequired,
 } from '../screens';
 
 const Stack = createNativeStackNavigator<IKycStackProps>();
@@ -126,6 +127,14 @@ export const KycStack = () => {
         component={HostResidenceProofList}
         options={{
           headerTitle: t('screens.kyc.host-residence-proof-list.title'),
+          ...headersOptions(goBack),
+        }}
+      />
+      <Stack.Screen
+        name={IKycStackPages.SCT_REQUIRED}
+        component={SctRequired}
+        options={{
+          headerTitle: t('screens.kyc.sct-required.title'),
           ...headersOptions(goBack),
         }}
       />

@@ -73,7 +73,6 @@ export const Login = () => {
       <SafeScrollingView>
         <View style={[styles.container, theme.bank.container.centeredItem]}>
           <Image style={styles.image} source={Welcome} />
-
           <FormLogin
             control={control}
             errors={errors}

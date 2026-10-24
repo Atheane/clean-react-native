@@ -223,7 +223,7 @@ export const theme = createTheme({
         fontFamily: FontNames.MartelSans_400Regular,
         fontSize: NEEDS_SMALL_TEXT ? 14 : 16,
         color: Colors.bank.primary.darkBlue,
-        lineHeight: 22,
+        lineHeight: 24,
       },
       boldDarkBlue: {
         fontSize: NEEDS_SMALL_TEXT ? 13 : 14,

@@ -49,6 +49,8 @@ export function* checkCustomerStatusGenerator(
     }
     customer.checkDocumentsStatus(documents);
 
+    if (customerStatus) customer.setState(customerStatus); // if KYC refused but all docs are validated, we should show last SCT step
+
     let initRoute: IKycStackPages;
     if (customer.properties.kyc?.state === IKycState.INIT) {
       initRoute = IKycStackPages.INIT;

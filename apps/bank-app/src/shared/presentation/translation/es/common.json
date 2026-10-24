@@ -573,6 +573,7 @@
           "bold": " en proceso de verificación, ",
           "end": "esto puede tomar de 24h a 72h."
         },
+        "last-step": "\n\n\nÚltimo paso :\n",
         "w9-form": "Formulario W9",
         "identity": "Documento de identidad",
         "address": "Justificante de domicilio",
@@ -580,7 +581,8 @@
         "host-id": "Documento de identidad del anfitrión",
         "host-residence": "Justificante de domicilio del anfitrión",
         "sworn-statement": "Certificación del anfitrión",
-        "fix-file": "Por favor corrija los elementos del expediente"
+        "fix-file": "Por favor corrija los elementos del expediente",
+        "transfer": "Transferencia de 1 euro"
       },
       "first-id": {
         "title": "Documentos de identidad",
@@ -692,6 +694,10 @@
         "instruction": "del frente de la factura de la persona que le aloja.",
         "another-instruction": "Las facturas de internet, electricidad, gas son las únicas aceptadas y deben tener menos de 3 meses de antigüedad.",
         "last-instruction": "Las facturas de teléfono móvil no son válidas."
+      },
+      "sct-required": {
+        "title": "Transferencia de 1 euro",
+        "instruction": "Realiza una transferencia de 1 euro a tu cuenta CO2 desde una de tus cuentas ubicadas en Francia."
       }
     },
     "profile": {
