@@ -44,9 +44,6 @@ export enum IDocumentStatusCode {
 export enum IDocumentCategory {
   W9 = 'W9',
   ID = 'ID',
-  RESIDENCE_PROOF = 'RESIDENCE_PROOF',
-  RESIDENCE_PROOF_ID = 'RESIDENCE_PROOF_ID',
-  RESIDENCE_PROOF_SWORN_STATEMENT = 'RESIDENCE_PROOF_SWORN_STATEMENT',
 }
 
 export type IDocumentProperties = {

@@ -14,14 +14,7 @@ import {
   IDocumentStatusCode,
   IKycState,
 } from '@clean-rn/kyc/domain';
-import {
-  UploadDocumentCard,
-  KycW9,
-  KycIdentification,
-  KycInvoice,
-  KycSwornStatement,
-  TransferBlueGradient,
-} from '@clean-rn/ui-mobile';
+import { UploadDocumentCard, KycW9, KycIdentification, TransferBlueGradient } from '@clean-rn/ui-mobile';
 
 import { IKycStackPages, IRoutes } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
@@ -29,7 +22,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 
 import { initializeDocument, cancelUpload } from '../../application/commands/document';
 
-import { W9, SwornStatement, PendingKyc } from '../assets/images';
+import { W9, PendingKyc } from '../assets/images';
 
 const renderLabel = (text: string) => {
   if (text.length > 90) {
@@ -103,7 +96,7 @@ export const Kyc = () => {
   );
 
   const KycPending = () => (
-    <View style={[styles.messageContainer, { marginTop: 150 }]}>
+    <View style={[styles.messageContainer]}>
       <Image source={PendingKyc} style={{ width: 115, height: 115 }} />
       <Text style={[styles.instruction, theme.bank.text.grey]}>
         {t('screens.kyc.menu.instruction-after.begin')}
@@ -117,7 +110,7 @@ export const Kyc = () => {
   );
 
   const KycRefused = () => (
-    <View style={[styles.messageContainer, { marginTop: 50 }]}>
+    <View style={[styles.messageContainer]}>
       <Text style={[styles.title, theme.bank.text.darkBlue]}>{t('screens.kyc.menu.title')}</Text>
       <Text style={[theme.bank.text.errors, styles.errorMessage, { lineHeight: 18, fontSize: 12 }]}>
         {`${t('errors.domain-error.kyc.KYC_REFUSED')}. \n\n`}
@@ -192,92 +185,6 @@ export const Kyc = () => {
               />
             </View>
           )}
-          {customer?.properties.kyc?.state !== IKycState.PENDING && submittedKyc?.isHosted && (
-            <View style={styles.itemContainer}>
-              <UploadDocumentCard
-                icon={KycSwornStatement}
-                status={submittedKyc?.documents.RESIDENCE_PROOF_SWORN_STATEMENT?.properties.status}
-                text={t('screens.kyc.menu.sworn-statement')}
-                onPress={() =>
-                  navigateTo(IKycStackPages.UPLOAD_DOCUMENT, {
-                    instruction: t('screens.kyc.sworn-statement.instruction'),
-                    imageSource: SwornStatement,
-                    showExample: true,
-                    docPickerVisible: false,
-                    documentProperties: {
-                      category: IDocumentCategory.RESIDENCE_PROOF_SWORN_STATEMENT,
-                      typeId: IDocumentType.SWORN_STATEMENT,
-                      name: 'residence-proof.sworn-statement.recto',
-                      status: IDocumentStatus.INIT,
-                      createdAt: new Date(),
-                      statusCode: IDocumentStatusCode.INITIAL,
-                    },
-                  })
-                }
-                loading={
-                  pending &&
-                  document?.properties.category === IDocumentCategory.RESIDENCE_PROOF_SWORN_STATEMENT
-                }
-                onCancel={handleOnCancel}
-                errorMessage={
-                  hasErrorMessage(IDocumentCategory.RESIDENCE_PROOF_SWORN_STATEMENT)
-                    ? t(
-                        `errors.domain-error.kyc.${submittedKyc?.documents.RESIDENCE_PROOF_SWORN_STATEMENT?.properties.statusCode}`,
-                      )
-                    : ''
-                }
-              />
-            </View>
-          )}
-          {customer?.properties.kyc?.state !== IKycState.PENDING && submittedKyc?.isHosted && (
-            <View style={styles.itemContainer}>
-              <UploadDocumentCard
-                icon={KycIdentification}
-                status={submittedKyc?.documents.RESIDENCE_PROOF_ID?.properties.status}
-                text={t('screens.kyc.menu.host-id')}
-                onPress={() => navigateTo(IKycStackPages.HOST_ID_LIST as never, {})}
-                loading={pending && document?.properties.category === IDocumentCategory.RESIDENCE_PROOF_ID}
-                onCancel={handleOnCancel}
-                errorMessage={
-                  hasErrorMessage(IDocumentCategory.RESIDENCE_PROOF_ID)
-                    ? t(
-                        `errors.domain-error.kyc.${submittedKyc?.documents.RESIDENCE_PROOF_ID?.properties.statusCode}`,
-                      )
-                    : ''
-                }
-              />
-            </View>
-          )}
-          {customer?.properties.kyc?.state !== IKycState.PENDING && (
-            <View style={styles.itemContainer}>
-              <UploadDocumentCard
-                icon={KycInvoice}
-                status={submittedKyc?.documents.RESIDENCE_PROOF?.properties.status}
-                text={
-                  submittedKyc?.isHosted
-                    ? t('screens.kyc.menu.host-residence')
-                    : t('screens.kyc.menu.address')
-                }
-                onPress={() =>
-                  navigateTo(
-                    submittedKyc?.isHosted
-                      ? (IKycStackPages.HOST_RESIDENCE_PROOF_LIST as never)
-                      : (IKycStackPages.RESIDENCE_PROOF_OPTIONS as never),
-                    {},
-                  )
-                }
-                loading={pending && document?.properties.category === IDocumentCategory.RESIDENCE_PROOF}
-                onCancel={handleOnCancel}
-                errorMessage={
-                  hasErrorMessage(IDocumentCategory.RESIDENCE_PROOF)
-                    ? t(
-                        `errors.domain-error.kyc.${submittedKyc?.documents.RESIDENCE_PROOF?.properties.statusCode}`,
-                      )
-                    : ''
-                }
-              />
-            </View>
-          )}
           <View style={styles.itemContainer}>
             <UploadDocumentCard
               icon={TransferBlueGradient}
@@ -304,6 +211,7 @@ export const Kyc = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 150,
     marginBottom: 300,
   },
   title: {

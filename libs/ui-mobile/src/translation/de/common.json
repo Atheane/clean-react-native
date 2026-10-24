@@ -576,11 +576,6 @@
         "last-step": "\n\n\nLetzter Schritt :\n",
         "w9-form": "Formular W9",
         "identity": "Ausweisdokument",
-        "address": "Wohnsitznachweis",
-        "photo": "Portraitfoto",
-        "host-id": "Ausweisdokument des Gastgebers",
-        "host-residence": "Wohnsitznachweis des Gastgebers",
-        "sworn-statement": "Bescheinigung des Gastgebers",
         "fix-file": "Bitte korrigieren Sie die Elemente im Dossier",
         "transfer": "Überweisung von 1 Euro"
       },
@@ -616,84 +611,9 @@
           "instruction": "der Rückseite Ihrer Aufenthaltsgenehmigung"
         }
       },
-      "taxes": {
-        "title": "Steuerbescheid",
-        "instruction": "Ihres letzten Steuerbescheids"
-      },
-      "sworn-statement": {
-        "title": "Unterkunftsbescheinigung",
-        "instruction": "der Unterkunftsbescheinigung",
-        "example": "Beispiel"
-      },
-      "invoice": {
-        "title": "Rechnung",
-        "instruction": "der Vorderseite Ihrer Rechnung.",
-        "another-instruction": "Nur Internet-, Strom- und Gasrechnungen sind akzeptiert und müssen zwingend weniger als 3 Monate alt sein. ",
-        "last-instruction": "Handyrechnungen sind nicht gültig."
-      },
       "w9": {
         "title": "US-Resident - W-9",
         "instruction": "oder importieren Sie Ihr W-9-Formular"
-      },
-      "residence-proof-options": {
-        "title": "Wohnsitznachweis",
-        "has-proof": "Ich habe einen Wohnsitznachweis auf meinen Namen",
-        "no-proof": "Ich habe keinen Wohnsitznachweis auf meinen Namen und füge die Dokumente der Person hinzu, die mich beherbergt"
-      },
-      "residence-proof-list": {
-        "title": "Wohnsitznachweis",
-        "instruction": "Wählen Sie Ihren Wohnsitznachweis",
-        "invoice": "Eine Rechnung\n(Internetbox, Strom und Gas)",
-        "tax": "Steuerbescheid",
-        "iban": "IBAN"
-      },
-      "menu-kyc-host": {
-        "title": "Nachweise des Gastgebers",
-        "instruction": "Zu übermittelnde Dokumente:",
-        "sworn-statement": "Eine Bescheinigung des Gastgebers",
-        "identification": "Ein Ausweisdokument des Gastgebers",
-        "residence-proof": "Ein Wohnsitznachweis des Gastgebers"
-      },
-      "host-id-list": {
-        "title": "Ausweisdokumente des Gastgebers",
-        "instruction": "Wählen Sie das Ausweisdokument der Person, die Sie beherbergt",
-        "id": "Personalausweis",
-        "passport": "Reisepass"
-      },
-      "host-id": {
-        "recto": {
-          "title": "Personalausweis - Vorderseite",
-          "instruction": "der Vorderseite des Personalausweises der Person, die Sie beherbergt."
-        },
-        "verso": {
-          "title": "Personalausweis - Rückseite",
-          "instruction": "der Rückseite des Personalausweises der Person, die Sie beherbergt."
-        }
-      },
-      "host-passport": {
-        "title": "Reisepass",
-        "instruction": "der Identitätsseite des Reisepasses der Person, die Sie beherbergt"
-      },
-      "host-residence-proof-list": {
-        "title": "Wohnsitznachweis des Gastgebers",
-        "instruction": "Wählen Sie den Wohnsitznachweis Ihres Gastgebers",
-        "invoice": "Eine Rechnung\n(Internetbox, Strom und Gas)",
-        "tax": "Steuerbescheid",
-        "iban": "IBAN"
-      },
-      "host-iban": {
-        "title": "Bankidentifikation Ihres Gastgebers",
-        "instruction": "oder senden Sie uns eine Kopie des IBAN der Person, die Sie beherbergt."
-      },
-      "host-taxes": {
-        "title": "Steuerbescheid Ihres Gastgebers",
-        "instruction": "des letzten Steuerbescheids der Person, die Sie beherbergt"
-      },
-      "host-invoice": {
-        "title": "Rechnung Ihres Gastgebers",
-        "instruction": "der Vorderseite der Rechnung der Person, die Sie beherbergt.",
-        "another-instruction": "Nur Internet-, Strom- und Gasrechnungen sind akzeptiert und müssen zwingend weniger als 3 Monate alt sein. ",
-        "last-instruction": "Handyrechnungen sind nicht gültig."
       },
       "sct-required": {
         "title": "Überweisung von 1 Euro",

@@ -577,11 +577,6 @@
         "last-step": "\n\n\nUltimo passo :\n",
         "w9-form": "Modulo W9",
         "identity": "Documento d'identità",
-        "address": "Prova di residenza",
-        "photo": "Foto ritratto",
-        "host-id": "Documento d'identità dell'ospitante",
-        "host-residence": "Prova di residenza dell'ospitante",
-        "sworn-statement": "Dichiarazione dell'ospitante",
         "fix-file": "Si prega di correggere gli elementi del dossier",
         "transfer": "Trasferimento di 1 euro"
       },
@@ -617,84 +612,9 @@
           "instruction": "del retro del tuo permesso di soggiorno"
         }
       },
-      "taxes": {
-        "title": "Avviso di imposizione",
-        "instruction": "del tuo ultimo avviso di imposizione"
-      },
-      "sworn-statement": {
-        "title": "Attestazione di ospitalità",
-        "instruction": "dell'attestazione di ospitalità",
-        "example": "Esempio"
-      },
-      "invoice": {
-        "title": "Fattura",
-        "instruction": "del fronte della tua fattura.",
-        "another-instruction": "Solo le fatture di internet, elettricità, gas sono accettate e devono essere datate meno di 3 mesi fa. ",
-        "last-instruction": "Le fatture di telefonia mobile non sono valide."
-      },
       "w9": {
         "title": "Residente americano - W-9",
         "instruction": "o importa il tuo modulo w-9"
-      },
-      "residence-proof-options": {
-        "title": "Prova di residenza",
-        "has-proof": "Ho una prova di residenza a mio nome",
-        "no-proof": "Non ho una prova di residenza a mio nome, e allego i documenti della persona che mi ospita"
-      },
-      "residence-proof-list": {
-        "title": "Prova di residenza",
-        "instruction": "Scegli la tua prova di residenza",
-        "invoice": "Una fattura\n(internet, elettricità e gas)",
-        "tax": "Avviso di imposizione",
-        "iban": "IBAN"
-      },
-      "menu-kyc-host": {
-        "title": "Documenti dell'ospitante",
-        "instruction": "Documenti da inviare:",
-        "sworn-statement": "Un'attestazione dell'ospitante",
-        "identification": "Un documento d'identità dell'ospitante",
-        "residence-proof": "Una prova di residenza dell'ospitante"
-      },
-      "host-id-list": {
-        "title": "Documenti d'identità dell'ospitante",
-        "instruction": "Scegli il documento d'identità della persona che ti ospita",
-        "id": "Carta d'identità",
-        "passport": "Passaporto"
-      },
-      "host-id": {
-        "recto": {
-          "title": "Carta d’identità - Fronte",
-          "instruction": "del fronte della carta d’identità della persona che ti ospita."
-        },
-        "verso": {
-          "title": "Carta d’identità - Retro",
-          "instruction": "del retro della carta d’identità della persona che ti ospita."
-        }
-      },
-      "host-passport": {
-        "title": "Passaporto",
-        "instruction": "della pagina d’identità del passaporto della persona che ti ospita"
-      },
-      "host-residence-proof-list": {
-        "title": "Prova di residenza dell'ospitante",
-        "instruction": "Scegli la prova di residenza del tuo ospitante",
-        "invoice": "Una fattura\n(internet, elettricità e gas)",
-        "tax": "Avviso di imposizione",
-        "iban": "IBAN"
-      },
-      "host-iban": {
-        "title": "Estratto conto bancario del tuo ospitante",
-        "instruction": "o inviaci una copia dell'IBAN della persona che ti ospita."
-      },
-      "host-taxes": {
-        "title": "Avviso di imposizione del tuo ospitante",
-        "instruction": "dell'ultimo avviso di imposizione della persona che ti ospita"
-      },
-      "host-invoice": {
-        "title": "Fattura del tuo ospitante",
-        "instruction": "del fronte della fattura della persona che ti ospita.",
-        "another-instruction": "Solo le fatture di internet, elettricità, gas sono accettate e devono essere datate meno di 3 mesi fa. ",
-        "last-instruction": "Le fatture di telefonia mobile non sono valide."
       },
       "sct-required": {
         "title": "Trasferimento di 1 euro",
