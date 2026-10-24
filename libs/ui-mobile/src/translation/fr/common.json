@@ -119,7 +119,8 @@
         "SIGNUP_FAILURE_EMAIL_EXISTS": "Cet email est déjà enregistré",
         "SIGNUP_FAILURE_PHONE_EXISTS": "Ce téléphone est déjà enregistré",
         "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "Code incorrect",
-        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Numéro de téléphone inconnu"
+        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Numéro de téléphone inconnu",
+        "INVALID_ADDRESS": "Adresse invalide"
       },
       "account": {
         "INVALID_IBAN": "IBAN invalide",
@@ -265,21 +266,9 @@
     }
   },
   "signup-address": {
-    "street": {
+    "address": {
       "label": "Adresse",
-      "placeholder": "Nom de la rue"
-    },
-    "city": {
-      "label": "Ville",
-      "placeholder": "Ville"
-    },
-    "zip": {
-      "label": "Code postal",
-      "placeholder": "Code postal"
-    },
-    "country": {
-      "label": "Pays",
-      "placeholder": "Pays"
+      "placeholder": "5 rue de la paix 75000 Paris"
     },
     "usperson": {
       "label": "Je suis une « person US »",

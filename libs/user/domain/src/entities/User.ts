@@ -79,13 +79,8 @@ export class User extends Entity<IUserProperties> {
   }
 
   registerAddress(cmd: IRegisterAddressCommand): void {
-    const { str, city, zip, country, USPerson } = cmd;
-    this.properties.address = {
-      str,
-      city,
-      zip,
-      country: new Country(country),
-    };
+    const { address, USPerson } = cmd;
+    this.properties.address = address;
     this.properties.USPerson = USPerson;
   }
 

@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -41,7 +41,6 @@ import { CguPdf } from '../../../shared/presentation/screens';
 
 import { SUPPORTED_LANGUAGES_WEBSITE, pdfUrls } from '../../../shared/presentation/constants';
 import { IStoreKey } from '../../../shared/application/types';
-import { Kyc } from '../../../kyc/presentation/screens';
 
 const locales = getLocales();
 

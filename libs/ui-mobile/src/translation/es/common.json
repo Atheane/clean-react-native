@@ -118,7 +118,8 @@
         "SIGNUP_FAILURE_EMAIL_EXISTS": "Este correo electrónico ya está registrado",
         "SIGNUP_FAILURE_PHONE_EXISTS": "Este teléfono ya está registrado",
         "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "Código incorrecto",
-        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Número de teléfono desconocido"
+        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Número de teléfono desconocido",
+        "INVALID_ADDRESS": "Dirección inválida"
       },
       "account": {
         "INVALID_IBAN": "IBAN inválido",

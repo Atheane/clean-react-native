@@ -118,7 +118,8 @@
         "SIGNUP_FAILURE_EMAIL_EXISTS": "Diese E-Mail ist bereits registriert",
         "SIGNUP_FAILURE_PHONE_EXISTS": "Diese Telefonnummer ist bereits registriert",
         "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "Falscher Code",
-        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Telefonnummer unbekannt"
+        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Telefonnummer unbekannt",
+        "INVALID_ADDRESS": "Ungültige Adresse"
       },
       "account": {
         "INVALID_IBAN": "IBAN ungültig",

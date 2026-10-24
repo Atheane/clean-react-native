@@ -63,6 +63,7 @@ import { PhoneSecurityPinInput } from './inputs/phone-security-pin-input';
 import { DigitsInput } from './inputs/digits-input';
 import { Slider } from './inputs/slider';
 import { IbanInput } from './inputs/iban-input';
+import { AddressInput } from './inputs/address-input';
 // Items
 import { IconTextItem } from './items/icon-text-item';
 import { TransactionItem } from './items/transaction-item';
@@ -170,6 +171,7 @@ export {
   DigitsInput,
   Slider,
   IbanInput,
+  AddressInput,
   // Items
   TransactionItem,
   BeneficiaryItem,

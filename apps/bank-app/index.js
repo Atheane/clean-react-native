@@ -3,6 +3,7 @@ import * as Sentry from '@sentry/react-native';
 import App from './src/shared/presentation/App';
 import firebase from '@react-native-firebase/app';
 import { decode } from 'base-64';
+import Geocoder from 'react-native-geocoding';
 
 const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
@@ -34,6 +35,8 @@ if (process.env.EXPO_PUBLIC_NODE_ENV !== 'development') {
     return;
   };
 }
+
+Geocoder.init(process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY);
 
 console.warn = () => {
   return;
