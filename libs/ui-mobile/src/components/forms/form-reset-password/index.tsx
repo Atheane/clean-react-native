@@ -31,7 +31,7 @@ export const FormResetPassword = (props: IProps) => {
       <View style={theme.bank.container.centeredItem}>
         <View>
           {props.email ? (
-            <EmailInput email={props.email} filled />
+            <EmailInput email={props.email} filled onSubmitEditing={props.onSubmit} />
           ) : (
             <View>
               <Controller
@@ -39,7 +39,12 @@ export const FormResetPassword = (props: IProps) => {
                 name="email"
                 rules={{ required: true, pattern: Email.pattern }}
                 render={({ field: { onChange, value } }) => (
-                  <EmailInput value={value} filled={false} onChange={onChange} />
+                  <EmailInput
+                    value={value}
+                    filled={false}
+                    onChange={onChange}
+                    onSubmitEditing={props.onSubmit}
+                  />
                 )}
               />
               {props.errors?.email && props.errors.email.type === 'required' && (

@@ -96,6 +96,7 @@ export const FormTransfer = (props: IProps) => {
               labelColor={Colors.bank.primary.grey}
               onChange={onChange}
               value={value}
+              onSubmitEditing={props.onSubmit}
             />
           )}
         />

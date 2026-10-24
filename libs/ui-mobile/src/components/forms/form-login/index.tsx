@@ -42,7 +42,7 @@ export const FormLogin = (props: IProps) => {
     <View style={[styles.container, theme.bank.container.centeredItem]}>
       <View style={styles.inputContainer}>
         {props.email ? (
-          <EmailInput email={props.email} filled />
+          <EmailInput email={props.email} filled onSubmitEditing={props.onSubmit} />
         ) : (
           <View>
             <Controller
@@ -50,7 +50,13 @@ export const FormLogin = (props: IProps) => {
               name="email"
               rules={{ required: true, pattern: Email.pattern }}
               render={({ field: { onChange, value } }) => (
-                <EmailInput value={value} filled={false} onChange={onChange} onFocus={props.onFocus} />
+                <EmailInput
+                  value={value}
+                  filled={false}
+                  onChange={onChange}
+                  onFocus={props.onFocus}
+                  onSubmitEditing={props.onSubmit}
+                />
               )}
             />
             {props.errors?.email && props.errors.email.type === 'required' && (
@@ -81,6 +87,7 @@ export const FormLogin = (props: IProps) => {
               secured={props.secured}
               onToggleSecurity={props.onToggleSecurity}
               onFocus={props.onFocus}
+              onSubmitEditing={props.onSubmit}
             />
           )}
         />

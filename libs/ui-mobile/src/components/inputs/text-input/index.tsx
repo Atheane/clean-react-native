@@ -22,6 +22,7 @@ export type IProps = {
   onBlur?: () => void;
   short?: boolean;
   customInputStyle?: StyleProp<TextStyle>;
+  onSubmitEditing?: () => void;
 };
 
 const Label = React.memo(
@@ -50,6 +51,7 @@ export const TextInput = ({
   onBlur,
   short,
   customInputStyle,
+  onSubmitEditing,
 }: IProps) => {
   const { theme } = useTheme();
 
@@ -89,6 +91,8 @@ export const TextInput = ({
           autoFocus={autoFocus}
           clearTextOnFocus={clearTextOnFocus}
           multiline={false}
+          onSubmitEditing={onSubmitEditing}
+          returnKeyType={onSubmitEditing ? 'go' : undefined}
         />
       </View>
     </View>

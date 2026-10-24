@@ -57,6 +57,7 @@ export const FormSignupAddress = (props: IProps) => {
               IconLeft={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
               placeholder={t('signup-address.street.placeholder')}
               onChange={onChange}
+              onSubmitEditing={props.onSubmit}
             />
           )}
         />
@@ -81,6 +82,7 @@ export const FormSignupAddress = (props: IProps) => {
               IconLeft={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
               placeholder={t('signup-address.city.placeholder')}
               onChange={onChange}
+              onSubmitEditing={props.onSubmit}
             />
           )}
         />

@@ -48,6 +48,7 @@ export const FormSignupBirth = (props: IProps) => {
               format={'DD/MM/YYYY'}
               placeholder={t('signup-birth.birthday.placeholder')}
               onChange={onChange}
+              onSubmitEditing={props.onSubmit}
             />
           )}
         />

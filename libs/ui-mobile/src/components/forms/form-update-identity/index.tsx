@@ -55,6 +55,7 @@ export const FormUpdateIdentity = (props: IProps) => {
               IconLeft={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
               value={value}
               onChange={onChange}
+              onSubmitEditing={props.onSubmit}
             />
           )}
         />
@@ -86,6 +87,7 @@ export const FormUpdateIdentity = (props: IProps) => {
               IconLeft={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
               value={value}
               onChange={onChange}
+              onSubmitEditing={props.onSubmit}
             />
           )}
         />
@@ -116,6 +118,7 @@ export const FormUpdateIdentity = (props: IProps) => {
                 placeholder={t('signup-birth.birthday.placeholder')}
                 onChange={onChange}
                 defaultValue={props.control._defaultValues?.birthday as Dayjs | undefined}
+                onSubmitEditing={props.onSubmit}
               />
             )}
           />
