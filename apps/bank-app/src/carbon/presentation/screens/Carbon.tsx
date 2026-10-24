@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { getLocales } from 'expo-localization';
 import { useTheme } from '@rneui/themed';
-import { getDeviceId, getBrand } from 'react-native-device-info';
 
 import {
   Car,
@@ -18,6 +17,7 @@ import {
   FontNames,
   useReduxOverStorageValue,
   ShareScreen,
+  NEEDS_SMALL_TEXT,
 } from '@clean-rn/ui-mobile';
 import { IBANKCategories } from '@clean-rn/carbon/domain';
 
@@ -47,9 +47,6 @@ import { URL_CO2_COMPUTATION_FR, URL_CO2_COMPUTATION_EN, URL_CO2_REWARD } from '
 
 const locales = getLocales();
 const HEIGHT = Dimensions.get('window').height;
-const brand = getBrand();
-const model = getDeviceId();
-const NEEDS_SMALL_TEXT = brand === 'OPPO' && model === 'lahaina';
 
 export const Carbon = () => {
   const { theme } = useTheme();

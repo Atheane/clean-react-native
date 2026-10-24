@@ -1,10 +1,9 @@
 import { useCallback } from 'react';
 import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { getDeviceId, getBrand } from 'react-native-device-info';
 import { useTranslation } from 'react-i18next';
 
-import { PrimaryButton, FontNames, Colors, ErrorMessage } from '@clean-rn/ui-mobile';
+import { PrimaryButton, FontNames, Colors, ErrorMessage, NEEDS_SMALL_TEXT } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { ISharedStackPages } from '../../../shared/presentation/types';
@@ -14,11 +13,7 @@ import { Congrats } from '../../presentation/assets/images';
 import { useNavigation } from '@react-navigation/native';
 import { Email } from '@clean-rn/auth/domain';
 
-const brand = getBrand();
-const model = getDeviceId();
-
 const HEIGHT = Dimensions.get('window').height;
-const NEEDS_SMALL_TEXT = brand === 'OPPO' && model === 'lahaina';
 
 export const SignupCongrats = () => {
   const { t } = useTranslation();

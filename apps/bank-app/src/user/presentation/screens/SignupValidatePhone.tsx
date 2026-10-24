@@ -3,7 +3,6 @@ import { StyleSheet, View, Text, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
-import { getDeviceId, getBrand } from 'react-native-device-info';
 
 import {
   FontNames,
@@ -12,6 +11,7 @@ import {
   FormSignupValidatePhone,
   ISignupValidatePhoneFormData,
   Security,
+  NEEDS_SMALL_TEXT,
 } from '@clean-rn/ui-mobile';
 import { PhoneOtp } from '@clean-rn/user/domain';
 
@@ -20,11 +20,7 @@ import { SafeScrollingView, ErrorBoundary } from '../../../shared/presentation/h
 
 import { fetchValidatePhone } from '../../../user/application/commands';
 
-const brand = getBrand();
-const model = getDeviceId();
-
 const HEIGHT = Dimensions.get('window').height;
-const NEEDS_SMALL_TEXT = brand === 'OPPO' && model === 'lahaina';
 
 export const SignupValidatePhone = () => {
   /// translations
