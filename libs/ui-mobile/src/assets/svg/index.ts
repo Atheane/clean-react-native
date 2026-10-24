@@ -129,6 +129,7 @@ import Profile from './profile.svg';
 import PhoneGradientGreyBg from './phone-gradient-grey-bg.svg';
 import PhoneGradientWhiteBg from './phone-gradient-white-bg.svg';
 import Trash from './trash.svg';
+import TrashGradient from './trash-gradient.svg';
 import BankBgGradient from './bank-bg-gradient.svg';
 import RightChevronGradient from './right-chevron-gradient.svg';
 import IbanGreenGradient from './iban-green-gradient.svg';
@@ -137,6 +138,11 @@ import GreenGradientSpeedLimit from './green-gradient-speedlimit.svg';
 import BankAltLogo from './co2-bank.svg';
 import CertificateBlueGradient from './certificate-blue-gradient.svg';
 import OffBlueGradient from './off-blue-gradient.svg';
+import FlagGradient from './flag-gradient.svg';
+import TransferBlueGradient from './transfer-blue-gradient.svg';
+import ParametersGradient from './parameters-gradient.svg';
+import ParametersIcon from './parameters.svg';
+import ProfileBlueGradient from './profile-blue-gradient.svg';
 export {
   Love,
   LoveBlueGradient,
@@ -209,6 +215,7 @@ export {
   Gasoline,
   Profile,
   ProfileGradient,
+  FlagGradient,
   ALCOHOL,
   ART,
   ASSURANCES,
@@ -268,6 +275,7 @@ export {
   PhoneGradientGreyBg,
   PhoneGradientWhiteBg,
   Trash,
+  TrashGradient,
   BankBgGradient,
   RightChevronGradient,
   IbanGreenGradient,
@@ -277,4 +285,8 @@ export {
   BlueGradientMail,
   CertificateBlueGradient,
   OffBlueGradient,
+  TransferBlueGradient,
+  ParametersGradient,
+  ParametersIcon,
+  ProfileBlueGradient,
 };

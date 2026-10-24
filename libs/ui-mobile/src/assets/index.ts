@@ -128,6 +128,7 @@ import {
   PhoneGradientGreyBg,
   PhoneGradientWhiteBg,
   Trash,
+  TrashGradient,
   BankBgGradient,
   RightChevronGradient,
   IbanGreenGradient,
@@ -138,6 +139,11 @@ import {
   PhoneBlueGradient,
   CertificateBlueGradient,
   OffBlueGradient,
+  FlagGradient,
+  TransferBlueGradient,
+  ParametersGradient,
+  ParametersIcon,
+  ProfileBlueGradient,
 } from './svg';
 import { DefaultImage, PlaneEmpty } from './image';
 import { Loader } from './lottie';
@@ -275,6 +281,7 @@ export {
   PhoneGradientGreyBg,
   PhoneGradientWhiteBg,
   Trash,
+  TrashGradient,
   BankBgGradient,
   RightChevronGradient,
   IbanGreenGradient,
@@ -284,4 +291,9 @@ export {
   BlueGradientMail,
   CertificateBlueGradient,
   OffBlueGradient,
+  FlagGradient,
+  TransferBlueGradient,
+  ParametersGradient,
+  ParametersIcon,
+  ProfileBlueGradient,
 };

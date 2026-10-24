@@ -101,7 +101,6 @@ export const userReducer = (state = initialState, action: IUserActions) => {
         error: null,
       };
       return newState;
-
     case IUserTypes.FETCH_SIGNUP_USER:
       newState = {
         ...state,
@@ -136,7 +135,26 @@ export const userReducer = (state = initialState, action: IUserActions) => {
         error: null,
       };
       return newState;
+    case IUserTypes.FETCH_UPDATE_LANGUAGE:
+      newState = {
+        ...state,
+        pending: true,
+        config: {
+          ...state.config,
+          lang: action.payload.lang,
+        },
+        error: null,
+      };
+      return newState;
     case IUserTypes.NOTIFICATIONS_UPDATED:
+      newState = {
+        ...state,
+        pending: false,
+        user: action.payload.user,
+        error: null,
+      };
+      return newState;
+    case IUserTypes.LANGUAGE_UPDATED:
       newState = {
         ...state,
         pending: false,
@@ -148,6 +166,21 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       newState = {
         ...state,
         user: action.payload,
+        error: null,
+      };
+      return newState;
+    case IUserTypes.FETCH_UPDATE_USER:
+      newState = {
+        ...state,
+        pending: true,
+        error: null,
+      };
+      return newState;
+    case IUserTypes.USER_UPDATED:
+      newState = {
+        ...state,
+        user: action.payload,
+        pending: false,
         error: null,
       };
       return newState;

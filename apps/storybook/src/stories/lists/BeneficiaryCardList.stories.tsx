@@ -49,3 +49,7 @@ export const OnPress: BeneficiaryCardListStory = (args) => (
 export const OnDelete: BeneficiaryCardListStory = (args) => (
   <BeneficiaryCardList {...args} onPress={undefined} onDelete={args.onDelete} />
 );
+
+export const Disabled: BeneficiaryCardListStory = (args) => (
+  <BeneficiaryCardList {...args} onPress={undefined} onDelete={undefined} />
+);

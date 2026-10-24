@@ -1,12 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
+import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useNavigationState } from '@react-navigation/native';
+import { useNavigation, useNavigationState } from '@react-navigation/native';
 import { getLocales } from 'expo-localization';
 
-import { Colors, FontNames, WebViewer } from '@clean-rn/ui-mobile';
+import { LinkButton, LinkButtonColors, OffBlueGradient, WebViewer } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import {
@@ -14,7 +16,6 @@ import {
   IAuthStackProps,
   ISharedStackPages,
   ISharedStackProps,
-  HeaderTitleAlign,
   IUserStackPages,
   IUserStackProps,
 } from '../../../shared/presentation/types';
@@ -39,6 +40,8 @@ import {
 import { CguPdf } from '../../../shared/presentation/screens';
 
 import { SUPPORTED_LANGUAGES_WEBSITE, pdfUrls } from '../../../shared/presentation/constants';
+import { IStoreKey } from '../../../shared/application/types';
+import { Kyc } from '../../../kyc/presentation/screens';
 
 const locales = getLocales();
 
@@ -92,6 +95,14 @@ export const HomeStack = () => {
       />
       <Stack.Screen
         options={{
+          headerTitle: t('screens.login.title'),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+        name={IAuthStackPages.LOGIN}
+        component={Login}
+      />
+      <Stack.Screen
+        options={{
           presentation: 'modal',
           headerShown: false,
           headerBackVisible: false,
@@ -107,21 +118,6 @@ export const HomeStack = () => {
         }}
         name={ISharedStackPages.MODAL_WEBVIEW}
         component={ScreenModalWebview}
-      />
-      <Stack.Screen
-        options={{
-          presentation: 'modal',
-          headerTitle: t('modal.login.title'),
-          headerTitleAlign: 'center' as HeaderTitleAlign,
-          headerTitleStyle: {
-            color: Colors.bank.primary.darkBlue,
-            fontSize: 19,
-            fontFamily: FontNames.MartelSans_600SemiBold,
-          },
-          headerBackVisible: false,
-        }}
-        name={IAuthStackPages.LOGIN}
-        component={Login}
       />
       <Stack.Screen
         options={{
@@ -179,15 +175,50 @@ export const AuthStack = () => {
   const ScreenLegal = () => <WebViewer uri={pdfUrls(lng).legal} handleError={handleError} />;
   const ScreenCguKycProvider = () => <WebViewer uri={pdfUrls(lng).cguKycProvider} handleError={handleError} />;
 
+  const navigation = useNavigation();
+  const onPressEmptyStorage = () => {
+    AsyncStorage.multiRemove([
+      IStoreKey.USER_EMAIL,
+      IStoreKey.DEVICE_ID,
+      IStoreKey.HOUSE_EMISSION,
+      IStoreKey.AVERAGE_HOUSE_EMISSION,
+      IStoreKey.TRANSPORT_EMISSION,
+      IStoreKey.AVERAGE_TRANSPORT_EMISSION,
+      IStoreKey.FOOD_EMISSION,
+      IStoreKey.AVERAGE_FOOD_EMISSION,
+      IStoreKey.FLY_EMISSION,
+      IStoreKey.AVERAGE_FLY_EMISSION,
+      IStoreKey.CUSTOMER_STATUS,
+    ]);
+    console.log('AsyncStorage empty');
+    navigation.navigate(IUserStackPages.SIGNUP_EMAIL as never);
+  };
+
   return (
     <Stack.Navigator
       initialRouteName={initRouteName as keyof IUserStackProps | keyof ISharedStackProps | undefined}
     >
       <Stack.Screen
-        options={{
-          headerTitle: t('screens.login.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
-        }}
+        options={
+          process.env.EXPO_PUBLIC_NODE_ENV === 'development'
+            ? {
+                headerTitle: t('screens.login.title'),
+                ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+                headerRight: () => (
+                  <View style={{ position: 'relative', top: -6 }}>
+                    <LinkButton
+                      iconLeft={() => <OffBlueGradient width={28} height={28} />}
+                      colorOption={LinkButtonColors.BLUE}
+                      onPress={onPressEmptyStorage}
+                    />
+                  </View>
+                ),
+              }
+            : {
+                headerTitle: t('screens.login.title'),
+                ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+              }
+        }
         name={IAuthStackPages.LOGIN}
         component={Login}
       />

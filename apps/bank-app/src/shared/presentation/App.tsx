@@ -8,8 +8,7 @@ import { Provider } from 'react-redux';
 import { ThemeProvider } from '@rneui/themed';
 import * as Notifications from 'expo-notifications';
 import { PersistGate } from 'redux-persist/integration/react';
-
-import { Fonts, i18n, useDeepLink, theme } from '@clean-rn/ui-mobile';
+import { i18n, Fonts, useDeepLink, theme } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../shared/application/state-management/reducers/root-reducer';
 import { initializeApplication } from '../../shared/application/commands/initialize-application';

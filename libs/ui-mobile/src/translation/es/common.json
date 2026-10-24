@@ -384,7 +384,7 @@
         },
         "IBAN": {
           "label": "IBAN",
-          "placeholder": "FR7616790000000000000000XXX"
+          "placeholder": "ES85 3004 7883 7385 8218 5879"
         },
         "name": {
           "label": "Nombre",
@@ -573,6 +573,7 @@
           "bold": " en proceso de verificación, ",
           "end": "esto puede tomar de 24h a 72h."
         },
+        "last-step": "\n\n\nÚltimo paso :\n",
         "w9-form": "Formulario W9",
         "identity": "Documento de identidad",
         "address": "Justificante de domicilio",
@@ -580,7 +581,8 @@
         "host-id": "Documento de identidad del anfitrión",
         "host-residence": "Justificante de domicilio del anfitrión",
         "sworn-statement": "Certificación del anfitrión",
-        "fix-file": "Por favor corrija los elementos del expediente"
+        "fix-file": "Por favor corrija los elementos del expediente",
+        "transfer": "Transferencia de 1 euro"
       },
       "first-id": {
         "title": "Documentos de identidad",
@@ -692,14 +694,19 @@
         "instruction": "del frente de la factura de la persona que le aloja.",
         "another-instruction": "Las facturas de internet, electricidad, gas son las únicas aceptadas y deben tener menos de 3 meses de antigüedad.",
         "last-instruction": "Las facturas de teléfono móvil no son válidas."
+      },
+      "sct-required": {
+        "title": "Transferencia de 1 euro",
+        "instruction": "Realiza una transferencia de 1 euro a tu cuenta CO2 desde una de tus cuentas ubicadas en Francia."
       }
     },
-    "profile": {
+    "parameters": {
       "menu": {
-        "title": "Mi perfil",
-        "tab": "Perfil",
+        "title": "Mis ajustes",
+        "tab": "Ajustes",
         "personal-info": "Información personal",
         "my-parameters": "Mis parámetros",
+        "app-settings": "Configuración de la aplicación",
         "card-settings": "Configurar mi tarjeta",
         "notifications": "Notificaciones",
         "love": "Apóyanos en la App Store",
@@ -707,6 +714,7 @@
         "legal": "Datos personales",
         "cgu": "Términos y condiciones de uso",
         "cgu-kyc-provider": "Términos y condiciones KycProvider",
+        "profile": "Mi perfil",
         "delete-account": "Darse de baja"
       },
       "delete-account": {
@@ -715,6 +723,9 @@
         "button": "Confirmar",
         "goodbye": "¡Adiós!"
       }
+    },
+    "profile": {
+      "title": "Mi perfil"
     },
     "card": {
       "menu": {
@@ -783,6 +794,14 @@
       "transfer": "Transferencia recibida",
       "threshold": "Límite",
       "submit": "Actualizar"
+    },
+    "application-settings": {
+      "title": "Configuración de la aplicación",
+      "notifications": "Notificaciones",
+      "languages": "Idiomas"
+    },
+    "languages": {
+      "title": "Seleccionar idioma"
     }
   }
 }

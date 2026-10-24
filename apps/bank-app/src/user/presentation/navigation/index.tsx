@@ -1,3 +1,3 @@
-import { ProfileStack } from './ProfileStack';
+import { ParametersStack } from './ParametersStack';
 
-export { ProfileStack };
+export { ParametersStack };

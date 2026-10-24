@@ -7,4 +7,6 @@ export * from './register-birth';
 export * from './register-address';
 export * from './create-user';
 export * from './update-notifications';
+export * from './update-language';
+export * from './update-user';
 export * from './delete-user-account';

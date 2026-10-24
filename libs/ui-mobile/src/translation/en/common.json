@@ -384,7 +384,7 @@
         },
         "IBAN": {
           "label": "IBAN",
-          "placeholder": "FR7616790000000000000000XXX"
+          "placeholder": "GB45 BARC 2003 8476 5299 69"
         },
         "name": {
           "label": "Name",
@@ -573,6 +573,7 @@
           "bold": " under review, ",
           "end": "this can take from 24 to 72 hours."
         },
+        "last-step": "\n\n\nLast step :\n",
         "w9-form": "W9 Form",
         "identity": "ID",
         "address": "Proof of address",
@@ -580,7 +581,8 @@
         "host-id": "Host's ID",
         "host-residence": "Host's proof of address",
         "sworn-statement": "Host's attestation",
-        "fix-file": "Please correct the elements of the file"
+        "fix-file": "Please correct the elements of the file",
+        "transfer": "Transfer of 1 euro"
       },
       "first-id": {
         "title": "ID documents",
@@ -692,14 +694,19 @@
         "instruction": "of the front of the invoice of the person hosting you.",
         "another-instruction": "Only internet box, electricity, gas bills are accepted and must be less than 3 months old. ",
         "last-instruction": "Mobile phone bills are not valid."
+      },
+      "sct-required": {
+        "title": "Transfer of 1 euro",
+        "instruction": "Make a transfer of 1 euro to your CO2 Account from one of your accounts located in France."
       }
     },
-    "profile": {
+    "parameters": {
       "menu": {
-        "title": "My profile",
-        "tab": "Profile",
+        "title": "My Settings",
+        "tab": "Settings",
         "personal-info": "Personal information",
         "my-parameters": "My settings",
+        "app-settings": "Application Settings",
         "card-settings": "Set up my card",
         "notifications": "Notifications",
         "love": "Support us on the App Store",
@@ -707,6 +714,7 @@
         "legal": "Personal data",
         "cgu": "Terms and Conditions",
         "cgu-kyc-provider": "CGU KycProvider",
+        "profile": "My Profile",
         "delete-account": "Unsubscribe"
       },
       "delete-account": {
@@ -715,6 +723,9 @@
         "button": "Confirm",
         "goodbye": "Goodbye!"
       }
+    },
+    "profile": {
+      "title": "My Profile"
     },
     "card": {
       "menu": {
@@ -783,6 +794,14 @@
       "transfer": "Transfer received",
       "threshold": "Threshold",
       "submit": "Update"
+    },
+    "application-settings": {
+      "title": "Application Settings",
+      "notifications": "Notifications",
+      "languages": "Languages"
+    },
+    "languages": {
+      "title": "Select Language"
     }
   }
 }

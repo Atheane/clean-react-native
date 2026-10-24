@@ -15,6 +15,7 @@ const BeneficiaryItemMeta: ComponentMeta<typeof BeneficiaryItem> = {
     name: 'John Doe',
     iban: 'ES6621000418450200051332',
     beneficiaryId: 0,
+    disabled: false,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING), WithCenterView],
 };
@@ -33,4 +34,12 @@ export const Delete: BeneficiaryItemStory = (args) => {
 
 export const Chevron: BeneficiaryItemStory = (args) => {
   return <BeneficiaryItem {...args} onDelete={undefined} />;
+};
+
+export const DisabledChevron: BeneficiaryItemStory = (args) => {
+  return <BeneficiaryItem {...args} onDelete={undefined} disabled />;
+};
+
+export const DisabledDelete: BeneficiaryItemStory = (args) => {
+  return <BeneficiaryItem {...args} onPress={undefined} disabled />;
 };

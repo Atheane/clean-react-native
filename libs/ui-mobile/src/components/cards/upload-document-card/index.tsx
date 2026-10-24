@@ -95,7 +95,7 @@ export const UploadDocumentCard = (props: IProps) => {
             style={[
               theme.bank.text.errors,
               styles.errorMessage,
-              NEEDS_SMALL_TEXT ? { fontSize: 12, lineHeight: 16 } : { fontSize: 14, lineHeight: 18 },
+              NEEDS_SMALL_TEXT ? { fontSize: 12, lineHeight: 18 } : { fontSize: 14, lineHeight: 20 },
             ]}
           >
             {props.errorMessage}

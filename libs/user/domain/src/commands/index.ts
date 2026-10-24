@@ -1,6 +1,7 @@
 import { Dayjs } from 'dayjs';
-import { IEmailNotifications, IGender, IPhoneNotifications } from '../types';
-import { Phone, PhoneOtp } from '../value-objects';
+import { IEmailNotifications, IGender, ILanguage, IPhoneNotifications } from '../types';
+import { BirthDay, Country, PhoneOtp } from '../value-objects';
+import { Phone } from '@clean-rn/contact/domain';
 import { User } from '../entities';
 
 export type IRegisterIdentityCommand = {
@@ -39,5 +40,20 @@ export type ISignupUserCommand = {
 export type IUpdateUserConfigCommand = {
   notifFirebaseDisabled?: IPhoneNotifications[];
   notifEmailDisabled?: IEmailNotifications[];
-  lang?: string;
+  lang?: ILanguage;
+};
+
+export type IUpdateUserCommand = {
+  firstName?: string;
+  lastName?: string;
+  birthDay?: BirthDay;
+  birthCountry?: Country;
+  nationality?: Country;
+  address?: {
+    str?: string;
+    city?: string;
+    zip?: string;
+    country?: Country;
+  };
+  USPerson?: boolean;
 };

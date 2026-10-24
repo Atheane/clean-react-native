@@ -12,10 +12,11 @@ type IProps = {
   optionsValues: string[];
   onChange: (option: string) => void;
   vertical?: boolean;
+  defaultValue?: string;
 };
 
 export const MultipleOptionsCheckBox = (props: IProps) => {
-  const [currentOption, setCurrentOption] = useState<string>(props.optionsValues[0]);
+  const [currentOption, setCurrentOption] = useState<string>(props.defaultValue || props.optionsValues[0]);
 
   const handleOnPress = useCallback(
     (option: string) => {

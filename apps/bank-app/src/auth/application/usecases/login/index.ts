@@ -20,6 +20,7 @@ import { checkCustomerStatus } from '../../../../kyc/application/commands/custom
 import { loginFailure, IAuthTypes, initializeAuth, loginSuccess, resetError } from '../../commands';
 import { initializeUser, userSaved } from '../../../../user/application/commands';
 import { cardForbidden, cardGetSuccess, cardNotFound } from '../../../../card/application/commands';
+import { ILanguage } from '@clean-rn/user/domain';
 
 export function* loginSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IAuthTypes.FETCH_LOGIN, loginGenerator, httpConnection);
@@ -67,7 +68,7 @@ export function* loginGenerator(
 
     if (user.properties.config && user.properties.config.lang !== payload.locale) {
       user = yield call([userApi, userApi.updateConfig], {
-        lang: payload.locale,
+        lang: payload.locale as ILanguage,
       });
     }
 

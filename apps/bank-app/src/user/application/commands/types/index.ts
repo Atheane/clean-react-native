@@ -13,6 +13,7 @@ import {
   IRegisterAddressCommand,
   ISignupUserCommand,
   IUpdateUserConfigCommand,
+  IUpdateUserCommand,
 } from '@clean-rn/user/domain';
 
 export enum IUserTypes {
@@ -29,6 +30,8 @@ export enum IUserTypes {
   FETCH_DELETE_USER_ACCOUNT = 'FETCH_DELETE_USER_ACCOUNT',
   INITIALIZE_USER = 'INITIALIZE_USER',
   RESET_ERROR = 'RESET_ERROR',
+  FETCH_UPDATE_LANGUAGE = 'FETCH_UPDATE_LANGUAGE',
+  FETCH_UPDATE_USER = 'FETCH_UPDATE_USER',
   // domain events
   EMAIL_NOT_FOUND = 'EMAIL_NOT_FOUND',
   SIGNUP_FAILED = 'SIGNUP_FAILED',
@@ -41,7 +44,9 @@ export enum IUserTypes {
   ADDRESS_REGISTERED = 'ADDRESS_REGISTERED',
   USER_SIGNED_UP = 'USER_SIGNED_UP',
   NOTIFICATIONS_UPDATED = 'NOTIFICATIONS_UPDATED',
+  LANGUAGE_UPDATED = 'LANGUAGE_UPDATED',
   USER_SAVED = 'USER_SAVED',
+  USER_UPDATED = 'USER_UPDATED',
 }
 
 // commands
@@ -102,6 +107,16 @@ export type IResetError = {
   type: typeof IUserTypes.RESET_ERROR;
 };
 
+export type IFetchUpdateLanguage = {
+  type: typeof IUserTypes.FETCH_UPDATE_LANGUAGE;
+  payload: IUpdateUserConfigCommand;
+};
+
+export type IFetchUpdateUser = {
+  type: typeof IUserTypes.FETCH_UPDATE_USER;
+  payload: IUpdateUserCommand;
+};
+
 // domainEvents
 export type IEmailNotFound = {
   type: typeof IUserTypes.EMAIL_NOT_FOUND;
@@ -158,8 +173,20 @@ export type INotificationsUpdated = {
   };
 };
 
+export type ILanguageUpdated = {
+  type: typeof IUserTypes.LANGUAGE_UPDATED;
+  payload: {
+    user: User;
+  };
+};
+
 export type IUserSaved = {
   type: typeof IUserTypes.USER_SAVED;
+  payload: User;
+};
+
+export type IUserUpdated = {
+  type: typeof IUserTypes.USER_UPDATED;
   payload: User;
 };
 
@@ -176,11 +203,15 @@ export type IUserActions =
   | IPhoneCodeSent
   | IFetchValidatePhone
   | IFetchUpdateNotifications
+  | IFetchUpdateLanguage
   | IPhoneValidated
   | IBirthRegistered
   | IAddressRegistered
   | IFetchSignupUser
   | IUserSignedUp
   | INotificationsUpdated
+  | ILanguageUpdated
   | IUserSaved
-  | IResetError;
+  | IResetError
+  | IFetchUpdateUser
+  | IUserUpdated;

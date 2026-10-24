@@ -54,4 +54,8 @@ export class Customer extends Entity<ICustomerProperties> {
   checkDocumentsStatus(docProps: IDocumentProperties[]): void {
     this.properties.kyc = new KycDocuments(docProps, this.properties.USPerson);
   }
+
+  setState(state: KYC_REVIEW): void {
+    this.properties.kyc?.setState(state);
+  }
 }

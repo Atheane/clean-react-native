@@ -385,7 +385,7 @@
         },
         "IBAN": {
           "label": "IBAN",
-          "placeholder": "FR7616790000000000000000XXX"
+          "placeholder": "FR08 1450 8000 7047 8411 8428 F43"
         },
         "name": {
           "label": "Nom",
@@ -574,6 +574,7 @@
           "bold": " en cours de vérification, ",
           "end": "cela peut prendre de 24h à 72h."
         },
+        "last-step": "\n\n\nDernière étape :\n",
         "w9-form": "Formulaire W9",
         "identity": "Pièce d'identité",
         "address": "Justificatif de domicile",
@@ -581,7 +582,8 @@
         "host-id": "Pièce d’identité de l’hébergeur",
         "host-residence": "Justificatif de domicile de l'hébergeur",
         "sworn-statement": "Attestation de l'hébergeur",
-        "fix-file": "Merci de corriger les éléments du dossier"
+        "fix-file": "Merci de corriger les éléments du dossier",
+        "transfer": "Virement de 1 euro"
       },
       "first-id": {
         "title": "Pièces d'identité",
@@ -693,14 +695,19 @@
         "instruction": "de la face avant de la facture de la personne qui vous héberge.",
         "another-instruction": "Les factures de box internet, électricité, gaz sont les seules acceptées et doivent impérativement avoir moins de 3 mois. ",
         "last-instruction": "Les factures de téléphone mobile ne sont pas valables."
+      },
+      "sct-required": {
+        "title": "Virement de 1 euro",
+        "instruction": "Faîtes un virement de 1 euro sur votre Bank App, à partir d’un de vos comptes situés en France."
       }
     },
-    "profile": {
+    "parameters": {
       "menu": {
-        "title": "Mon profil",
-        "tab": "Profil",
+        "title": "Mes paramètres",
+        "tab": "Paramètres",
         "personal-info": "Informations personnelles",
         "my-parameters": "Mes paramètres",
+        "app-settings": "Paramètres de l'application",
         "card-settings": "Paramétrer ma carte",
         "notifications": "Notifications",
         "love": "Soutenez-nous sur l’App Store",
@@ -708,6 +715,7 @@
         "legal": "Données personnelles",
         "cgu": "CGU",
         "cgu-kyc-provider": "CGU KycProvider",
+        "profile": "Mon profil",
         "delete-account": "Se désinscrire"
       },
       "delete-account": {
@@ -716,6 +724,12 @@
         "button": "Confirmer",
         "goodbye": "Au revoir !"
       }
+    },
+    "profile-identity": {
+      "title": "Modifier mon profil - Identité"
+    },
+    "profile-address": {
+      "title": "Modifier mon profil - Adresse"
     },
     "card": {
       "menu": {
@@ -783,6 +797,14 @@
       "transfer": "Virement reçu",
       "threshold": "Plafond",
       "submit": "Mettre à jour"
+    },
+    "application-settings": {
+      "title": "Paramètres de l'application",
+      "notifications": "Notifications",
+      "languages": "Langues"
+    },
+    "languages": {
+      "title": "Sélectionner la langue"
     }
   }
 }

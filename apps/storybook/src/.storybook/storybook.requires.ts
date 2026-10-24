@@ -101,6 +101,7 @@ const getStories = () => {
     './stories/forms/FormTransfer.stories.tsx': require('../stories/forms/FormTransfer.stories'),
     './stories/forms/FormCardLimits.stories.tsx': require('../stories/forms/FormCardLimits.stories'),
     './stories/forms/FormChangePin.stories.tsx': require('../stories/forms/FormChangePin.stories'),
+    './stories/forms/FormUpdateIdentity.stories.tsx': require('../stories/forms/FormUpdateIdentity.stories'),
     // Inputs
     './stories/inputs/TextInput.stories.tsx': require('../stories/inputs/TextInput.stories'),
     './stories/inputs/EmailInput.stories.tsx': require('../stories/inputs/EmailInput.stories'),
@@ -109,6 +110,7 @@ const getStories = () => {
     './stories/inputs/PhoneSecurityPinInput.stories.tsx': require('../stories/inputs/PhoneSecurityPinInput.stories'),
     './stories/inputs/DigitsInput.stories.tsx': require('../stories/inputs/DigitsInput.stories'),
     './stories/inputs/Slider.stories.tsx': require('../stories/inputs/Slider.stories'),
+    './stories/inputs/IbanInput.stories.tsx': require('../stories/inputs/IbanInput.stories'),
     // Lists
     './stories/lists/TransactionsCardsList.stories.tsx': require('../stories/lists/TransactionsCardsList.stories'),
     './stories/lists/WhiteBalanceList.stories.tsx': require('../stories/lists/WhiteBalanceList.stories'),

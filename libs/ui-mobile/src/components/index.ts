@@ -53,6 +53,7 @@ import { TransportForm } from './forms/transport-form';
 import { FormTransfer, ITransferFormData } from './forms/form-transfer';
 import { FormCardLimits, ICardLimitsFormData } from './forms/form-card-limits';
 import { FormChangePin, IChangePinFormData } from './forms/form-change-pin';
+import { FormUpdateIdentity, IUpdateIdentityFormData } from './forms/form-update-identity';
 // Inputs
 import { TextInput } from './inputs/text-input';
 import { EmailInput } from './inputs/email-input';
@@ -61,6 +62,7 @@ import { SelectNumber } from './inputs/select-number';
 import { PhoneSecurityPinInput } from './inputs/phone-security-pin-input';
 import { DigitsInput } from './inputs/digits-input';
 import { Slider } from './inputs/slider';
+import { IbanInput } from './inputs/iban-input';
 // Items
 import { IconTextItem } from './items/icon-text-item';
 import { TransactionItem } from './items/transaction-item';
@@ -157,6 +159,8 @@ export {
   ICardLimitsFormData,
   FormChangePin,
   IChangePinFormData,
+  FormUpdateIdentity,
+  IUpdateIdentityFormData,
   // Inputs
   TextInput,
   EmailInput,
@@ -165,6 +169,7 @@ export {
   PhoneSecurityPinInput,
   DigitsInput,
   Slider,
+  IbanInput,
   // Items
   TransactionItem,
   BeneficiaryItem,

@@ -22,6 +22,13 @@ export const mapUserServerToUserProperties = (result: IUserPropertiesServer): Us
     birth: {
       birthday: new BirthDay(dayjs(result.birthday)),
       nationality: new Country(result.nationality),
+      birthCountry: new Country(result.birthCountry),
+    },
+    address: {
+      city: result.address.city,
+      country: new Country(result.address.country),
+      str: result.address.str,
+      zip: result.address.zip,
     },
     kycReview: result.kycReview,
     kycReviewComment: result.kycReviewComment,

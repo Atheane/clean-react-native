@@ -14,26 +14,25 @@ import {
   LoveBlueGradient,
   CertificateBlueGradient,
   RedCross,
+  ProfileBlueGradient,
 } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { ICardStackPages, IProfileStackPages, ISharedStackPages } from '../../../shared/presentation/types';
+import {
+  ICardStackPages,
+  IParametersStackPages,
+  ISharedStackPages,
+} from '../../../shared/presentation/types';
 
-import { GradientBell, GradientCO2Card } from '../../../user/presentation/assets';
+import { GradientCO2Card } from '../assets';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 import { APPLE_STORE_LINK, GOOGLE_PLAY_LINK } from '../../../shared/presentation/constants';
-import { firstLetterCapitalize } from '@clean-rn/utils';
 import { KYC_REVIEW } from '@clean-rn/user/domain';
 
-export const Profile = () => {
+export const Parameters = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
-  const { theme } = useTheme();
-
-  const handlePressApplicationSettings = useCallback(() => {
-    navigation.navigate(IProfileStackPages.NOTIFICATON_SETTINGS as never);
-  }, [navigation]);
 
   const { card } = useSelector((state: IRootState) => state.card);
   const { customer } = useSelector((state: IRootState) => state.kyc.customer);
@@ -53,6 +52,10 @@ export const Profile = () => {
       navigation.navigate(ICardStackPages.MENU as never);
     }
   }, [navigation, customer, card]);
+
+  const handlePressAppParameters = useCallback(() => {
+    navigation.navigate(IParametersStackPages.APPLICATION_SETTINGS as never);
+  }, [navigation]);
 
   const handlePressLove = useCallback(() => {
     Linking.openURL(Platform.OS === 'ios' ? APPLE_STORE_LINK : GOOGLE_PLAY_LINK);
@@ -78,118 +81,85 @@ export const Profile = () => {
     navigation.navigate(ISharedStackPages.CGU_KYC_PROVIDER as never);
   }, [navigation]);
 
-  const onPressDeleteAccount = useCallback(() => {
-    navigation.navigate(IProfileStackPages.DELETE_ACCOUNT as never);
+  const onPressProfile = useCallback(() => {
+    navigation.navigate(IParametersStackPages.PROFILE_IDENTITY as never);
   }, [navigation]);
 
-  const { user } = useSelector((state: IRootState) => state.user);
-  const { email } = useSelector((state: IRootState) => state.auth);
+  const onPressDeleteAccount = useCallback(() => {
+    navigation.navigate(IParametersStackPages.DELETE_ACCOUNT as never);
+  }, [navigation]);
 
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={styles.container}>
-          <View style={[styles.rowContainer, { marginTop: 40 }]}>
-            <Text style={[theme.bank.text.boldDarkBlue, { fontSize: 16 }]}>
-              {t('screens.profile.menu.personal-info')}
-            </Text>
-          </View>
-          <View style={[styles.rowContainer, { marginTop: 28, marginLeft: 44 }]}>
-            {user?.properties.identity && (
-              <Text
-                style={[theme.bank.text.darkBlue]}
-              >{`${firstLetterCapitalize(user.properties.identity.firstName)} ${user.properties.identity.lastName.toUpperCase()}`}</Text>
-            )}
-          </View>
-          <View style={[styles.rowContainer, { marginTop: 28 }]}>
-            <View style={styles.iconContainer}>
-              <BlueGradientMail />
-            </View>
-            {email && (
-              <View style={styles.textContainer}>
-                <Text style={[theme.bank.text.darkBlue]}>{email.value}</Text>
-              </View>
-            )}
-            {!email && user?.properties.email && (
-              <View style={styles.textContainer}>
-                <Text style={[theme.bank.text.darkBlue]}>{user.properties.email?.value}</Text>
-              </View>
-            )}
-          </View>
-          <View style={[styles.rowContainer, { marginTop: 28 }]}>
-            <View style={styles.iconContainer}>
-              <PhoneBlueGradient />
-            </View>
-            {user?.properties.phone && (
-              <View style={styles.textContainer}>
-                <Text style={[theme.bank.text.darkBlue]}>{user?.properties.phone.valueInternational}</Text>
-              </View>
-            )}
-          </View>
-          <View style={[styles.rowContainer, { marginTop: 50 }]}>
-            <Text style={[theme.bank.text.boldDarkBlue, { fontSize: 16 }]}>
-              {t('screens.profile.menu.my-parameters')}
-            </Text>
-          </View>
-          <View style={[styles.rowContainer, { marginTop: 12, marginBottom: -8 }]}>
+          <View style={styles.rowContainer}>
             <LinkButton
-              iconLeft={GradientCO2Card}
+              iconLeft={() => <GradientCO2Card style={{ marginRight: 14 }} />}
               colorOption={LinkButtonColors.BLUE}
-              title={t('screens.profile.menu.card-settings')}
+              title={t('screens.parameters.menu.card-settings')}
               onPress={handlePressCardParameters}
             />
           </View>
-          <View style={[styles.rowContainer, { marginVertical: -8, marginLeft: 28 }]}>
+          <View style={styles.rowContainer}>
             <LinkButton
-              iconLeft={GradientBell}
+              iconLeft={PhoneBlueGradient}
               colorOption={LinkButtonColors.BLUE}
-              title={t('screens.profile.menu.notifications')}
-              onPress={handlePressApplicationSettings}
+              title={t('screens.parameters.menu.app-settings')}
+              onPress={handlePressAppParameters}
             />
           </View>
-          <View style={[styles.rowContainer, { marginVertical: -8 }]}>
+          <View style={styles.rowContainer}>
             <LinkButton
               iconLeft={LoveBlueGradient}
               colorOption={LinkButtonColors.BLUE}
-              title={t('screens.profile.menu.love')}
+              title={t('screens.parameters.menu.love')}
               onPress={handlePressLove}
             />
           </View>
-          <View style={[styles.rowContainer, { marginVertical: -8 }]}>
+          <View style={styles.rowContainer}>
             <LinkButton
               iconLeft={BlueGradientMail}
               colorOption={LinkButtonColors.BLUE}
-              title={t('screens.profile.menu.contact-us')}
+              title={t('screens.parameters.menu.contact-us')}
               onPress={handlePressContact}
             />
           </View>
-          <View style={[styles.rowContainer, { marginVertical: -8 }]}>
+          <View style={styles.rowContainer}>
             <LinkButton
               iconLeft={CertificateBlueGradient}
               colorOption={LinkButtonColors.BLUE}
-              title={t('screens.profile.menu.legal')}
+              title={t('screens.parameters.menu.legal')}
               onPress={onPressLegal}
             />
           </View>
-          <View style={[styles.rowContainer, { marginVertical: -8, marginLeft: 72 }]}>
+          <View style={[styles.rowContainer, { marginLeft: 72 }]}>
             <LinkButton
               colorOption={LinkButtonColors.BLUE}
-              title={t('screens.profile.menu.cgu')}
+              title={t('screens.parameters.menu.cgu')}
               onPress={onPressCgu}
             />
           </View>
-          <View style={[styles.rowContainer, { marginVertical: -8, marginLeft: 72 }]}>
+          <View style={[styles.rowContainer, { marginLeft: 72 }]}>
             <LinkButton
               colorOption={LinkButtonColors.BLUE}
-              title={t('screens.profile.menu.cgu-kyc-provider')}
+              title={t('screens.parameters.menu.cgu-kyc-provider')}
               onPress={onPressCguKycProvider}
+            />
+          </View>
+          <View style={[styles.rowContainer, { marginLeft: 36 }]}>
+            <LinkButton
+              iconLeft={() => <ProfileBlueGradient style={{ marginRight: 12 }} />}
+              colorOption={LinkButtonColors.BLUE}
+              title={t('screens.parameters.menu.profile')}
+              onPress={onPressProfile}
             />
           </View>
           <View style={[styles.rowContainer, { marginTop: 50 }]}>
             <LinkButton
               iconLeft={RedCross}
               colorOption={LinkButtonColors.BLUE}
-              title={t('screens.profile.menu.delete-account')}
+              title={t('screens.parameters.menu.delete-account')}
               onPress={onPressDeleteAccount}
             />
           </View>
@@ -203,6 +173,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
+    marginTop: 80,
+    marginBottom: 300,
   },
   iconContainer: {
     marginLeft: 8,
@@ -215,6 +187,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 32,
-    marginVertical: 10,
   },
 });

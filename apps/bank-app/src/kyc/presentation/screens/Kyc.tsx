@@ -20,6 +20,7 @@ import {
   KycIdentification,
   KycInvoice,
   KycSwornStatement,
+  TransferBlueGradient,
 } from '@clean-rn/ui-mobile';
 
 import { IKycStackPages, IRoutes } from '../../../shared/presentation/types';
@@ -29,8 +30,6 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { initializeDocument, cancelUpload } from '../../application/commands/document';
 
 import { W9, SwornStatement, PendingKyc } from '../assets/images';
-
-const HEIGHT = Dimensions.get('window').height;
 
 const renderLabel = (text: string) => {
   if (text.length > 90) {
@@ -104,7 +103,7 @@ export const Kyc = () => {
   );
 
   const KycPending = () => (
-    <View style={[styles.messageContainer, { marginTop: -120 }]}>
+    <View style={[styles.messageContainer, { marginTop: 150 }]}>
       <Image source={PendingKyc} style={{ width: 115, height: 115 }} />
       <Text style={[styles.instruction, theme.bank.text.grey]}>
         {t('screens.kyc.menu.instruction-after.begin')}
@@ -112,6 +111,7 @@ export const Kyc = () => {
           {t('screens.kyc.menu.instruction-after.bold')}
         </Text>
         {t('screens.kyc.menu.instruction-after.end')}
+        <Text style={[styles.instruction, theme.bank.text.boldGrey]}>{t('screens.kyc.menu.last-step')}</Text>
       </Text>
     </View>
   );
@@ -119,7 +119,7 @@ export const Kyc = () => {
   const KycRefused = () => (
     <View style={[styles.messageContainer, { marginTop: 50 }]}>
       <Text style={[styles.title, theme.bank.text.darkBlue]}>{t('screens.kyc.menu.title')}</Text>
-      <Text style={[theme.bank.text.errors, styles.errorMessage, { lineHeight: 15, fontSize: 12 }]}>
+      <Text style={[theme.bank.text.errors, styles.errorMessage, { lineHeight: 18, fontSize: 12 }]}>
         {`${t('errors.domain-error.kyc.KYC_REFUSED')}. \n\n`}
         {customer?.properties.kycReviewComment
           ? `${renderLabel(customer.properties.kycReviewComment)}. \n\n`
@@ -139,16 +139,7 @@ export const Kyc = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View
-          style={[
-            styles.container,
-            theme.bank.container.centeredItem,
-            customer?.properties.kyc?.state === IKycState.REFUSED &&
-            customer?.properties.kyc?.expectedDocumentCount > 3
-              ? {}
-              : { height: HEIGHT },
-          ]}
-        >
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
           {(customer?.properties.kyc?.state === IKycState.INIT ||
             customer?.properties.kyc?.state === IKycState.INCOMPLETE) && <Instructions />}
           {customer?.properties.kyc?.state === IKycState.PENDING && <KycPending />}
@@ -287,6 +278,23 @@ export const Kyc = () => {
               />
             </View>
           )}
+          <View style={styles.itemContainer}>
+            <UploadDocumentCard
+              icon={TransferBlueGradient}
+              status={
+                customer?.properties.kyc?.state === IKycState.REFUSED
+                  ? IDocumentStatus.REFUSED
+                  : IDocumentStatus.INIT
+              }
+              text={t('screens.kyc.menu.transfer')}
+              onPress={() => navigateTo(IKycStackPages.SCT_REQUIRED as never, {})}
+              loading={false}
+              onCancel={() => {
+                return;
+              }}
+              errorMessage={''}
+            />
+          </View>
         </View>
       </SafeScrollingView>
     </ErrorBoundary>
@@ -296,6 +304,7 @@ export const Kyc = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginBottom: 300,
   },
   title: {
     margin: 60,

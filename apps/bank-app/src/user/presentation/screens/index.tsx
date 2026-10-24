@@ -6,8 +6,12 @@ import { SignupAddress } from './SignupAddress';
 import { SignupCongrats } from './SignupCongrats';
 import { EmailSent } from './EmailSent';
 import { SignupPhone } from './SignupPhone';
-import { Profile } from './Profile';
+import { Parameters } from './Parameters';
+import { ProfileIdentity } from './ProfileIdentity';
+import { ProfileAddress } from './ProfileAddress';
+import { ApplicationSettings } from './ApplicationSettings';
 import { NotificationSettings } from './NotificationSettings';
+import { Languages } from './Languages';
 import { DeleteAccount } from './DeleteAccount';
 import { GoodBye } from './GoodBye';
 
@@ -20,7 +24,11 @@ export {
   SignupCongrats,
   EmailSent,
   SignupPhone,
-  Profile,
+  Parameters,
+  ProfileIdentity,
+  ProfileAddress,
+  Languages,
+  ApplicationSettings,
   NotificationSettings,
   DeleteAccount,
   GoodBye,

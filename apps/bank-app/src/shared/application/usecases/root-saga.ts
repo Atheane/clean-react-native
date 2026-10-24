@@ -29,7 +29,9 @@ import {
   validatePhoneSaga,
   signupUserSaga,
   updateNotificationsSaga,
+  updateLanguageSaga,
   deleteUserAccountSaga,
+  updateUserSaga,
 } from '../../../user/application/usecases';
 
 import { listAccountsSaga } from '../../../account/application/usecases';
@@ -193,8 +195,9 @@ function* rootSaga(httpConnection: HttpConnection): SagaIterator {
     call(transferSaga, httpConnection),
     call(payoutSaga, httpConnection),
     call(transactionWaitingSaga, httpConnection),
-
     call(updateNotificationsSaga, httpConnection),
+    call(updateLanguageSaga, httpConnection),
+    call(updateUserSaga, httpConnection),
     call(deleteUserAccountSaga, httpConnection),
     call(logoutSaga, httpConnection),
   ];
