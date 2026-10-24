@@ -1,7 +1,6 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
-import Constants from 'expo-constants';
 
 import { BeneficiaryError } from '@clean-rn/beneficiary/domain';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
@@ -21,7 +20,7 @@ import {
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
 describe('AddBeneficiary - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
   const api = BeneficiaryApi.getInstance(httpConnection);
 
   const mockRequest = {

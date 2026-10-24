@@ -2,48 +2,48 @@
   "build": {
     "production": {
       "env": {
-        "APP_VERSION": "1.0.8",
-        "APP_VERSION_ANDROID": "108",
-        "BASE_URL": "https://www.example.com",
-        "BASE_URL_API": "https://dev-carte.example.com",
-        "BUNDLE_IDENTIFIER": "com.example.bankapp",
-        "FIREBASE_AUTH_DOMAIN": "bank-app.firebaseapp.com",
-        "FIREBASE_PROJECT_ID": "bank-app",
-        "FIREBASE_STORAGE_BUCKET": "bank-app.appspot.com",
-        "NODE_ENV": "production",
-        "SLUG_NAME_BANK_APP": "bank-app"
+        "EXPO_PUBLIC_APP_VERSION": "1.0.8",
+        "EXPO_PUBLIC_APP_VERSION_ANDROID": "108",
+        "EXPO_PUBLIC_BASE_URL": "https://www.example.com",
+        "EXPO_PUBLIC_BASE_URL_API": "https://dev-carte.example.com",
+        "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.example.bankapp",
+        "EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN": "bank-app.firebaseapp.com",
+        "EXPO_PUBLIC_FIREBASE_PROJECT_ID": "bank-app",
+        "EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET": "bank-app.appspot.com",
+        "EXPO_PUBLIC_NODE_ENV": "production",
+        "EXPO_PUBLIC_SLUG_NAME_BANK_APP": "bank-app"
       }
     },
     "development": {
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "APP_VERSION": "1.0.8",
-        "APP_VERSION_ANDROID": "108",
-        "BASE_URL": "https://www.example.com",
-        "BASE_URL_API": "https://sandbox.example.com",
-        "BUNDLE_IDENTIFIER": "com.example.bankapp",
-        "FIREBASE_AUTH_DOMAIN": "bank-app.firebaseapp.com",
-        "FIREBASE_PROJECT_ID": "bank-app",
-        "FIREBASE_STORAGE_BUCKET": "bank-app.appspot.com",
-        "NODE_ENV": "production",
-        "SLUG_NAME_BANK_APP": "bank-app"
+        "EXPO_PUBLIC_APP_VERSION": "1.0.8",
+        "EXPO_PUBLIC_APP_VERSION_ANDROID": "108",
+        "EXPO_PUBLIC_BASE_URL": "https://www.example.com",
+        "EXPO_PUBLIC_BASE_URL_API": "https://sandbox.example.com",
+        "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.example.bankapp",
+        "EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN": "bank-app.firebaseapp.com",
+        "EXPO_PUBLIC_FIREBASE_PROJECT_ID": "bank-app",
+        "EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET": "bank-app.appspot.com",
+        "EXPO_PUBLIC_NODE_ENV": "production",
+        "EXPO_PUBLIC_SLUG_NAME_BANK_APP": "bank-app"
       }
     },
     "development-simulator": {
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "APP_VERSION": "1.0.8",
-        "APP_VERSION_ANDROID": "108",
-        "BASE_URL": "https://www.example.com",
-        "BASE_URL_API": "https://sandbox.example.com",
-        "BUNDLE_IDENTIFIER": "com.example.bankapp",
-        "FIREBASE_AUTH_DOMAIN": "bank-app.firebaseapp.com",
-        "FIREBASE_PROJECT_ID": "bank-app",
-        "FIREBASE_STORAGE_BUCKET": "bank-app.appspot.com",
-        "NODE_ENV": "production",
-        "SLUG_NAME_BANK_APP": "bank-app"
+        "EXPO_PUBLIC_APP_VERSION": "1.0.8",
+        "EXPO_PUBLIC_APP_VERSION_ANDROID": "108",
+        "EXPO_PUBLIC_BASE_URL": "https://www.example.com",
+        "EXPO_PUBLIC_BASE_URL_API": "https://sandbox.example.com",
+        "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.example.bankapp",
+        "EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN": "bank-app.firebaseapp.com",
+        "EXPO_PUBLIC_FIREBASE_PROJECT_ID": "bank-app",
+        "EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET": "bank-app.appspot.com",
+        "EXPO_PUBLIC_NODE_ENV": "production",
+        "EXPO_PUBLIC_SLUG_NAME_BANK_APP": "bank-app"
       },
       "ios": {
         "simulator": true
@@ -52,16 +52,16 @@
     "preview": {
       "distribution": "internal",
       "env": {
-        "APP_VERSION": "1.0.8",
-        "APP_VERSION_ANDROID": "108",
-        "BASE_URL": "https://www.example.com",
-        "BASE_URL_API": "https://dev-carte.example.com",
-        "BUNDLE_IDENTIFIER": "com.example.bankapp",
-        "FIREBASE_AUTH_DOMAIN": "bank-app.firebaseapp.com",
-        "FIREBASE_PROJECT_ID": "bank-app",
-        "FIREBASE_STORAGE_BUCKET": "bank-app.appspot.com",
-        "NODE_ENV": "production",
-        "SLUG_NAME_BANK_APP": "bank-app"
+        "EXPO_PUBLIC_APP_VERSION": "1.0.8",
+        "EXPO_PUBLIC_APP_VERSION_ANDROID": "108",
+        "EXPO_PUBLIC_BASE_URL": "https://www.example.com",
+        "EXPO_PUBLIC_BASE_URL_API": "https://dev-carte.example.com",
+        "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.example.bankapp",
+        "EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN": "bank-app.firebaseapp.com",
+        "EXPO_PUBLIC_FIREBASE_PROJECT_ID": "bank-app",
+        "EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET": "bank-app.appspot.com",
+        "EXPO_PUBLIC_NODE_ENV": "production",
+        "EXPO_PUBLIC_SLUG_NAME_BANK_APP": "bank-app"
       },
       "android": {
         "buildType": "apk"

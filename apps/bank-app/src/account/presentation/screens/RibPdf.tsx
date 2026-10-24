@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useRoute } from '@react-navigation/native';
-import Constants from 'expo-constants';
 
 import { IAccount } from '@clean-rn/account/domain';
 import { ModalError, PdfViewer, PdfDownloader, Download } from '@clean-rn/ui-mobile';
@@ -30,7 +29,7 @@ export const RibPdf = () => {
   ) : (
     <ErrorBoundary t={t}>
       <PdfDownloader
-        uri={`${Constants.expoConfig?.extra?.BASE_URL_API}/app/account/${account.accountId}/rib`}
+        uri={`${process.env.EXPO_PUBLIC_BASE_URL_API}/app/account/${account.accountId}/rib`}
         headers={{
           Authorization: `Bearer ${accessToken}`,
         }}
@@ -39,7 +38,7 @@ export const RibPdf = () => {
         fileName={`account-details.pdf`}
       />
       <PdfViewer
-        uri={`${Constants.expoConfig?.extra?.BASE_URL_API}/app/account/${account.accountId}/rib`}
+        uri={`${process.env.EXPO_PUBLIC_BASE_URL_API}/app/account/${account.accountId}/rib`}
         headers={{
           Authorization: `Bearer ${accessToken}`,
         }}

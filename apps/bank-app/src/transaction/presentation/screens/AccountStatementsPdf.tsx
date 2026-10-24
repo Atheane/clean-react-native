@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useRoute } from '@react-navigation/native';
-import Constants from 'expo-constants';
 
 import { IAccount } from '@clean-rn/account/domain';
 import { IStatementsPeriod } from '@clean-rn/transaction/domain';
@@ -32,7 +31,7 @@ export const AccountStatementsPdf = () => {
   ) : (
     <ErrorBoundary t={t}>
       <PdfDownloader
-        uri={`${Constants.expoConfig?.extra?.BASE_URL_API}/app/account/${account.accountId}/statement?period=${period}`}
+        uri={`${process.env.EXPO_PUBLIC_BASE_URL_API}/app/account/${account.accountId}/statement?period=${period}`}
         headers={{
           Authorization: `Bearer ${accessToken}`,
         }}
@@ -41,7 +40,7 @@ export const AccountStatementsPdf = () => {
         fileName={`statement-${period}.pdf`}
       />
       <PdfViewer
-        uri={`${Constants.expoConfig?.extra?.BASE_URL_API}/app/account/${account.accountId}/statement?period=${period}`}
+        uri={`${process.env.EXPO_PUBLIC_BASE_URL_API}/app/account/${account.accountId}/statement?period=${period}`}
         headers={{
           Authorization: `Bearer ${accessToken}`,
         }}

@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import * as Sentry from '@sentry/react-native';
-import Constants from 'expo-constants';
 const AppEntryPoint = require('./.storybook').default;
 
-if (Constants.expoConfig?.extra?.NODE_ENV !== 'development') {
+if (process.env.EXPO_PUBLIC_NODE_ENV !== 'development') {
   Sentry.init({
-    dsn: Constants.expoConfig?.extra?.SENTRY_DSN,
-    environment: Constants.expoConfig?.extra?.NODE_ENV,
+    dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
+    environment: process.env.EXPO_PUBLIC_NODE_ENV,
     // We recommend adjusting this value in production.
     tracesSampleRate: 1.0,
   });
