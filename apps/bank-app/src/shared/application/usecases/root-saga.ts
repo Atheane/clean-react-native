@@ -96,7 +96,10 @@ const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.B
 const persistConfig = {
   key: IStoreKey.ROOT_REDUCER,
   storage: AsyncStorage,
-  whitelist: ['auth.auth'], // Seul le reducer 'auth' sera persisté
+  whitelist: ['auth.auth', 'beneficiary.beneficiaries', 'card', 'user', 'kyc'],
+  // if phone is in standby mode, usecases may use empty data from store (it depends on how background is handled, it depends on device trademark)
+  // so we persist in storage all redux data that is selected in usecases
+  // for security reasons, all data is purged when user is logged out
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
