@@ -171,7 +171,7 @@ export const theme = createTheme({
         textAlign: 'left',
         fontFamily: FontNames.Roboto_400Regular,
         fontSize: NEEDS_SMALL_TEXT ? 13 : 16,
-        lineHeight: 19,
+        lineHeight: 20,
       },
       button: {
         lineHeight: 20,
@@ -189,7 +189,7 @@ export const theme = createTheme({
       },
       kpi: {
         fontFamily: FontNames.Roboto_700Bold,
-        fontSize: NEEDS_SMALL_TEXT ? 22 : 32,
+        fontSize: NEEDS_SMALL_TEXT ? 18 : 32,
         color: Colors.bank.primary.darkBlue,
         lineHeight: 48,
         marginLeft: 8,
@@ -253,13 +253,13 @@ export const theme = createTheme({
       input: {
         color: Colors.bank.secondary.pink,
         fontFamily: FontNames.Roboto_400Regular,
-        fontSize: NEEDS_SMALL_TEXT ? 13 : 14,
+        fontSize: NEEDS_SMALL_TEXT ? 12 : 14,
         textAlign: 'left',
       },
       inputPicker: {
         color: Colors.bank.secondary.pink,
         fontFamily: FontNames.Roboto_400Regular,
-        fontSize: NEEDS_SMALL_TEXT ? 16 : 18,
+        fontSize: NEEDS_SMALL_TEXT ? 14 : 16,
         textAlign: 'left',
       },
       inputNumber: {

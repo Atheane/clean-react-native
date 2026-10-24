@@ -34,7 +34,7 @@ export const FormSignupAddress = (props: IProps) => {
   const [disabled, setDisabled] = useState(true);
   return (
     <View style={[styles.container, theme.bank.container.centeredItem]}>
-      <View style={styles.inputContainer}>
+      <View style={(styles.inputContainer, { marginTop: 150 })}>
         <Controller
           control={props.control}
           name="address"

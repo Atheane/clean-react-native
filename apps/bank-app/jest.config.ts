@@ -21,6 +21,7 @@ module.exports = {
     './apps/bank-app/src/shared/application/usecases/ensureTokenRefreshed.ts',
     './apps/bank-app/src/auth/application/state-management/selectors/index.ts',
     './apps/bank-app/src/auth/application/usecases/session/index.ts',
+    './apps/bank-app/src/beneficiary/application/usecases/contact/index.ts',
     './apps/bank-app/src/user/application/state-management/selectors/index.ts',
     './apps/bank-app/src/account/application/state-management/selectors/index.ts',
     './apps/bank-app/src/beneficiary/application/state-management/selectors/index.ts',

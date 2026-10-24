@@ -732,7 +732,7 @@
       "title": "My bank details",
       "instruction": "Here are the IBAN and BIC of your CO2 Account. With them, credit your CO2 Account from your other bank account.",
       "bank-account": "CO2 Account",
-      "share": "Share"
+      "share": "Download"
     },
     "languages": {
       "title": "Select Language"
