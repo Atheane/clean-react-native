@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TextStyle, StyleProp } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { Input, useTheme, Theme } from '@rneui/themed';
 
 import { Colors } from '../../../constants';
 
-type IProps = {
+export type IProps = {
   placeholder: string;
   numeric?: boolean;
   label?: string;
@@ -21,6 +21,7 @@ type IProps = {
   onFocus?: () => void;
   onBlur?: () => void;
   short?: boolean;
+  customInputStyle?: StyleProp<TextStyle>;
 };
 
 const Label = React.memo(
@@ -48,6 +49,7 @@ export const TextInput = ({
   onFocus,
   onBlur,
   short,
+  customInputStyle,
 }: IProps) => {
   const { theme } = useTheme();
 
@@ -74,7 +76,7 @@ export const TextInput = ({
         <Input
           {...inputStyle}
           inputContainerStyle={styles.inputContainer}
-          inputStyle={theme.bank.text.input}
+          inputStyle={customInputStyle ?? theme.bank.text.input}
           leftIcon={IconLeft ? <IconLeft /> : undefined}
           leftIconContainerStyle={styles.leftIconContainer}
           rightIcon={IconRight ? <IconRight /> : undefined}
