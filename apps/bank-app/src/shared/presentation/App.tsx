@@ -8,14 +8,12 @@ import { Provider } from 'react-redux';
 import { ThemeProvider } from '@rneui/themed';
 import * as Notifications from 'expo-notifications';
 import { PersistGate } from 'redux-persist/integration/react';
-
-import { Fonts, useDeepLink, theme } from '@clean-rn/ui-mobile';
+import { i18n, Fonts, useDeepLink, theme } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../shared/application/state-management/reducers/root-reducer';
 import { initializeApplication } from '../../shared/application/commands/initialize-application';
 import { store, persistor } from '../application/usecases/root-saga';
 import { NavigationUI } from './navigation';
-import i18n from './i18n';
 import SplashScreen from '../../../assets/images/splash.png';
 
 // Initialize Firebase

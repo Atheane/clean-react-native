@@ -22,7 +22,6 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 import { updateLanguageSaga, updateLanguageGenerator } from '../../usecases';
 import { IUserTypes, languageUpdated, resetError } from '../../commands';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
-import i18n from '../../../../shared/presentation/i18n';
 
 describe('Update Language - usecase', () => {
   const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
@@ -90,8 +89,6 @@ describe('Update Language - usecase', () => {
       .next()
       .call([userApi, userApi.updateConfig], mockUpdateLanguage)
       .next(userWithConfig)
-      .call(i18n.changeLanguage, 'fr')
-      .next()
       .put(languageUpdated({ user: userWithConfig }))
       .next()
       .call(goBack)
@@ -114,8 +111,6 @@ describe('Update Language - usecase', () => {
       .next()
       .call([userApi, userApi.updateConfig], mockUpdateLanguage)
       .next(userWithConfig)
-      .call(i18n.changeLanguage, 'el')
-      .next()
       .put(languageUpdated({ user: userWithConfig }))
       .next()
       .call(goBack)

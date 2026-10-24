@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any  */
 /* eslint-disable no-fallthrough */
 import { call, cancel, put, StrictEffect, takeEvery } from 'redux-saga/effects';
-import { IUpdateUserConfigCommand, ILanguage } from '@clean-rn/user/domain';
+import { IUpdateUserConfigCommand } from '@clean-rn/user/domain';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { UserApi } from '@clean-rn/user/infrastructure';
 
@@ -10,18 +10,10 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 
 import { IUserTypes, languageUpdated, resetError } from '../../../../user/application/commands';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
-import i18n from '../../../../shared/presentation/i18n';
 
 export function* updateLanguageSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IUserTypes.FETCH_UPDATE_LANGUAGE, updateLanguageGenerator, httpConnection);
 }
-
-const mapLanguageToi18n = (lg: ILanguage) => {
-  if (lg === ILanguage.EL) {
-    return 'el';
-  }
-  return lg.toLowerCase();
-};
 
 export function* updateLanguageGenerator(
   httpConnection: HttpConnection,
@@ -39,7 +31,6 @@ export function* updateLanguageGenerator(
     yield call(ensureTokenRefreshed, httpConnection);
     const userApi = UserApi.getInstance(httpConnection);
     const user = yield call([userApi, userApi.updateConfig], payload);
-    yield call(i18n.changeLanguage, mapLanguageToi18n(payload.lang as ILanguage));
     yield put(
       languageUpdated({
         user,
