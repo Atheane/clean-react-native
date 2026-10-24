@@ -170,7 +170,7 @@ export const theme = createTheme({
       link: {
         textAlign: 'left',
         fontFamily: FontNames.Roboto_400Regular,
-        fontSize: NEEDS_SMALL_TEXT ? 12 : 16,
+        fontSize: NEEDS_SMALL_TEXT ? 10 : 16,
         lineHeight: 19,
       },
       button: {
@@ -189,19 +189,19 @@ export const theme = createTheme({
       },
       kpi: {
         fontFamily: FontNames.Roboto_700Bold,
-        fontSize: NEEDS_SMALL_TEXT ? 26 : 32,
+        fontSize: NEEDS_SMALL_TEXT ? 22 : 32,
         color: Colors.bank.primary.darkBlue,
         lineHeight: 48,
         marginLeft: 8,
       },
       subtitle: {
         fontFamily: FontNames.Roboto_700Bold,
-        fontSize: NEEDS_SMALL_TEXT ? 12 : 14,
+        fontSize: NEEDS_SMALL_TEXT ? 10 : 14,
         color: Colors.bank.primary.darkGrey,
       },
       legend: {
         fontFamily: FontNames.Roboto_400Regular,
-        fontSize: NEEDS_SMALL_TEXT ? 9 : 12,
+        fontSize: NEEDS_SMALL_TEXT ? 8 : 12,
         color: Colors.bank.primary.grey,
         lineHeight: 15,
         marginTop: 16,
