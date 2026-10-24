@@ -15,7 +15,6 @@ import { store, persistor } from '../application/usecases/root-saga';
 import { NavigationUI } from './navigation';
 import { IRootState } from '../../shared/application/state-management/reducers/root-reducer';
 import { initializeApplication } from '../../shared/application/commands/initialize-application';
-import { fetchLogout } from '../../auth/application/commands';
 
 // Initialize Firebase
 const App: () => JSX.Element = () => {
