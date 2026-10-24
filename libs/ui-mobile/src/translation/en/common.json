@@ -384,7 +384,7 @@
         },
         "IBAN": {
           "label": "IBAN",
-          "placeholder": "FR7616790000000000000000XXX"
+          "placeholder": "GB45 BARC 2003 8476 5299 69"
         },
         "name": {
           "label": "Name",

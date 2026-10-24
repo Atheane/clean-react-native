@@ -34,6 +34,7 @@ describe('AddBeneficiary - usecase', () => {
     iban: 'FR7616798000010000242599449',
     bic: 'TRZOFR21XXX',
     name: 'BENFMOCK',
+    isActive: true,
   };
 
   const mockError400 = {
@@ -92,6 +93,7 @@ describe('AddBeneficiary - usecase', () => {
       iban: 'FR7616798000010000196245186',
       bic: 'TRZOFR21XXX',
       name: 'Tumbalalali',
+      isActive: true,
     };
     testSaga(addBeneficiaryGenerator, httpConnection, {
       type: IBeneficiaryTypes.ADD_BENEFICIARY,

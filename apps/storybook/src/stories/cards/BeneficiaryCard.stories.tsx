@@ -19,6 +19,7 @@ const BeneficiaryCardMeta: ComponentMeta<typeof BeneficiaryCard> = {
       bic: 'BCITESMMXXX',
     },
     idx: 0,
+    disabled: false,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING), WithCenterView],
 };
@@ -74,4 +75,8 @@ export const OddPress: BeneficiaryCardStory = (args) => {
 
 export const OddDelete: BeneficiaryCardStory = (args) => {
   return <BeneficiaryCard {...args} idx={5} onPress={undefined} />;
+};
+
+export const Disabled: BeneficiaryCardStory = (args) => {
+  return <BeneficiaryCard {...args} disabled={true} idx={7} onDelete={undefined} />;
 };

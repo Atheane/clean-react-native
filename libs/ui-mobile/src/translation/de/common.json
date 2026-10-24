@@ -384,7 +384,7 @@
         },
         "IBAN": {
           "label": "IBAN",
-          "placeholder": "FR7616790000000000000000XXX"
+          "placeholder": "DE14 5001 0517 6772 6427 63"
         },
         "name": {
           "label": "Name",

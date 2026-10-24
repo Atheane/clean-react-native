@@ -15,7 +15,7 @@ import { TransactionApi } from '@clean-rn/transaction/infrastructure';
 
 import { navigate } from '../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
-import { ITransactionStackPages, IBeneficiaryStackPages } from '../../../shared/presentation/types';
+import { IBeneficiaryStackPages } from '../../../shared/presentation/types';
 
 import { accountSelected } from '../../../account/application/commands/accounts';
 
