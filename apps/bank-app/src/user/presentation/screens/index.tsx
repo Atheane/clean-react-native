@@ -7,7 +7,8 @@ import { SignupCongrats } from './SignupCongrats';
 import { EmailSent } from './EmailSent';
 import { SignupPhone } from './SignupPhone';
 import { Parameters } from './Parameters';
-import { Profile } from './Profile';
+import { ProfileIdentity } from './ProfileIdentity';
+import { ProfileAddress } from './ProfileAddress';
 import { ApplicationSettings } from './ApplicationSettings';
 import { NotificationSettings } from './NotificationSettings';
 import { Languages } from './Languages';
@@ -24,7 +25,8 @@ export {
   EmailSent,
   SignupPhone,
   Parameters,
-  Profile,
+  ProfileIdentity,
+  ProfileAddress,
   Languages,
   ApplicationSettings,
   NotificationSettings,

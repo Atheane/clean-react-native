@@ -169,6 +169,21 @@ export const userReducer = (state = initialState, action: IUserActions) => {
         error: null,
       };
       return newState;
+    case IUserTypes.FETCH_UPDATE_USER:
+      newState = {
+        ...state,
+        pending: true,
+        error: null,
+      };
+      return newState;
+    case IUserTypes.USER_UPDATED:
+      newState = {
+        ...state,
+        user: action.payload,
+        pending: false,
+        error: null,
+      };
+      return newState;
     case IUserTypes.INITIALIZE_USER:
       newState = {
         ...state,

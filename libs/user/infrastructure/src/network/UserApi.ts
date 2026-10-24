@@ -12,6 +12,7 @@ import {
   ISuccess,
   ISendPhoneValidationCommand,
   IUpdateUserConfigCommand,
+  IUpdateUserCommand,
 } from '@clean-rn/user/domain';
 import { mapUserServerToUserProperties } from '../mappers';
 import { IAuth } from '@clean-rn/auth/domain';
@@ -30,6 +31,7 @@ export class UserApi implements IUserRepository, IUserGateway {
     this.sendPhoneValidation = this.sendPhoneValidation.bind(this);
     this.checkPhoneValidation = this.checkPhoneValidation.bind(this);
     this.updateConfig = this.updateConfig.bind(this);
+    this.updateUser = this.updateUser.bind(this);
     this.deleteUserAccount = this.deleteUserAccount.bind(this);
   }
 
@@ -143,6 +145,62 @@ export class UserApi implements IUserRepository, IUserGateway {
     const response = await fetch(
       `${this.connection.baseUrl}/app/user/updateConfig`,
       this.connection.options(IHttpVerb.PUT, cmd),
+    );
+    await this.connection.handleError(response);
+    const userServer = await response.json();
+    return mapUserServerToUserProperties(userServer);
+  }
+
+  async updateUser(cmd: IUpdateUserCommand): Promise<User> {
+    let params = {};
+    if (cmd.firstName) {
+      params = {
+        ...params,
+        firstname: cmd.firstName,
+      };
+    }
+    if (cmd.lastName) {
+      params = {
+        ...params,
+        lastname: cmd.lastName,
+      };
+    }
+    if (cmd.birthDay) {
+      params = {
+        ...params,
+        birthday: cmd.birthDay.value,
+      };
+    }
+    if (cmd.birthCountry) {
+      params = {
+        ...params,
+        birthCountry: cmd.birthCountry.value,
+      };
+    }
+    if (cmd.nationality) {
+      params = {
+        ...params,
+        nationality: cmd.nationality.value,
+      };
+    }
+    if (cmd.address) {
+      params = {
+        ...params,
+        address: {
+          ...cmd.address,
+          country: cmd.address?.country?.value,
+        },
+      };
+    }
+    if (cmd.USPerson !== undefined) {
+      params = {
+        ...params,
+        specifiedUSPerson: cmd.USPerson ? 1 : 0,
+      };
+    }
+    const response = await fetch(
+      `${this.connection.baseUrl}/app/user`,
+      this.connection.options(IHttpVerb.PUT, params),
     );
     await this.connection.handleError(response);
     const userServer = await response.json();

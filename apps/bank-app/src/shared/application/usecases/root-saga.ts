@@ -31,6 +31,7 @@ import {
   updateNotificationsSaga,
   updateLanguageSaga,
   deleteUserAccountSaga,
+  updateUserSaga,
 } from '../../../user/application/usecases';
 
 import { listAccountsSaga } from '../../../account/application/usecases';
@@ -196,6 +197,7 @@ function* rootSaga(httpConnection: HttpConnection): SagaIterator {
     call(transactionWaitingSaga, httpConnection),
     call(updateNotificationsSaga, httpConnection),
     call(updateLanguageSaga, httpConnection),
+    call(updateUserSaga, httpConnection),
     call(deleteUserAccountSaga, httpConnection),
     call(logoutSaga, httpConnection),
   ];

@@ -16,6 +16,10 @@ import {
   IUpdateUserConfigCommand,
   IPhoneNotifications,
   ILanguage,
+  IUpdateUserCommand,
+  BirthDay,
+  Country,
+  KYC_REVIEW,
 } from '@clean-rn/user/domain';
 
 import { Email } from '@clean-rn/auth/domain';
@@ -29,6 +33,7 @@ import {
   checkPhoneSaga,
   validatePhoneSaga,
   signupUserSaga,
+  updateUserSaga,
 } from '../../usecases';
 import {
   IUserTypes,
@@ -58,9 +63,12 @@ import {
   resetError,
   fetchUpdateLanguage,
   languageUpdated,
+  fetchUpdateUser,
+  userUpdated,
 } from '../../commands';
 import { IUserState, userReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
+import { IParametersStackPages, IRoutes } from '../../../../shared/presentation/types';
 
 describe('User - integration', () => {
   let sagaTester: SagaTester;
@@ -101,6 +109,26 @@ describe('User - integration', () => {
 
   const mockUpdateLanguage: IUpdateUserConfigCommand = {
     lang: ILanguage.EL,
+  };
+
+  const mockUpdateUser1: IUpdateUserCommand & { nextRoute: IRoutes } = {
+    firstName: 'new',
+    lastName: 'lastname',
+    birthDay: new BirthDay(dayjs('1989-01-01T00:00:00.000Z')),
+    birthCountry: new Country('FR'),
+    nationality: new Country('FR'),
+    nextRoute: IParametersStackPages.PROFILE_ADDRESS,
+  };
+
+  const mockUpdateUser2: IUpdateUserCommand & { nextRoute: IRoutes } = {
+    address: {
+      str: 'street',
+      city: 'city',
+      zip: '40600',
+      country: new Country('FR'),
+    },
+    USPerson: true,
+    nextRoute: IParametersStackPages.PARAMETERS,
   };
 
   let initialState: IUserState;
@@ -667,6 +695,55 @@ describe('User - integration', () => {
       user,
       error: null,
       config: mockUpdateLanguage,
+    });
+  });
+
+  it('Should store correct state if USER_UPDATED', () => {
+    const initialState: IUserState = {
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: null,
+    };
+
+    const user = User.Create({
+      id: 123,
+      properties: {
+        kycReview: KYC_REVIEW.NONE,
+        USPerson: false,
+        birth: {
+          birthday: new BirthDay(dayjs('1980-01-01T00:00:00.000Z')),
+          nationality: new Country('SE'),
+        },
+        email: new Email('user1@example.com'),
+        identity: {
+          firstName: 'aze',
+          gender: IGender.NEUTRAL,
+          lastName: 'aze',
+        },
+        phone: new Phone('+46726413201'),
+      },
+    });
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+    user.updateUser(mockUpdateUser1);
+    sagaTester.dispatch(fetchUpdateUser(mockUpdateUser1));
+    sagaTester.dispatch(userUpdated(user));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user,
+      error: null,
+      config: null,
     });
   });
 

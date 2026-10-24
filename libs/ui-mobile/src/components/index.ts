@@ -53,6 +53,7 @@ import { TransportForm } from './forms/transport-form';
 import { FormTransfer, ITransferFormData } from './forms/form-transfer';
 import { FormCardLimits, ICardLimitsFormData } from './forms/form-card-limits';
 import { FormChangePin, IChangePinFormData } from './forms/form-change-pin';
+import { FormUpdateIdentity, IUpdateIdentityFormData } from './forms/form-update-identity';
 // Inputs
 import { TextInput } from './inputs/text-input';
 import { EmailInput } from './inputs/email-input';
@@ -158,6 +159,8 @@ export {
   ICardLimitsFormData,
   FormChangePin,
   IChangePinFormData,
+  FormUpdateIdentity,
+  IUpdateIdentityFormData,
   // Inputs
   TextInput,
   EmailInput,

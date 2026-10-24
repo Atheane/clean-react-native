@@ -8,10 +8,17 @@ export type IUserPropertiesServer = {
   phone: string;
   birthday: string;
   nationality: string;
+  birthCountry: string;
   specifiedUSPerson: number;
   kycReviewComment: string;
   kycReview: KYC_REVIEW;
   userId: number;
+  address: {
+    country: string;
+    city: string;
+    str: string;
+    zip: string;
+  };
   config?: {
     lang: string;
     notifFirebaseDisabled: IPhoneNotifications[];

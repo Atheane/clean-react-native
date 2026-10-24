@@ -82,7 +82,7 @@ export const Parameters = () => {
   }, [navigation]);
 
   const onPressProfile = useCallback(() => {
-    navigation.navigate(IParametersStackPages.PROFILE as never);
+    navigation.navigate(IParametersStackPages.PROFILE_IDENTITY as never);
   }, [navigation]);
 
   const onPressDeleteAccount = useCallback(() => {
@@ -147,14 +147,14 @@ export const Parameters = () => {
               onPress={onPressCguKycProvider}
             />
           </View>
-          {/* <View style={[styles.rowContainer, { marginLeft: 36 }]}>
+          <View style={[styles.rowContainer, { marginLeft: 36 }]}>
             <LinkButton
-              iconLeft={ProfileBlueGradient}
+              iconLeft={() => <ProfileBlueGradient style={{ marginRight: 12 }} />}
               colorOption={LinkButtonColors.BLUE}
               title={t('screens.parameters.menu.profile')}
               onPress={onPressProfile}
             />
-          </View> */}
+          </View>
           <View style={[styles.rowContainer, { marginTop: 50 }]}>
             <LinkButton
               iconLeft={RedCross}

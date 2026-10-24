@@ -97,6 +97,13 @@ describe('Login - usecase', () => {
     userId: 3952560,
     kycReview: KYC_REVIEW.NONE,
     kycReviewComment: '',
+    birthCountry: 'FR',
+    address: {
+      str: 'aze',
+      zip: 'aze',
+      city: 'aze',
+      country: 'FR',
+    },
   };
 
   const mockUserWomanData = {
@@ -111,6 +118,13 @@ describe('Login - usecase', () => {
     userId: 3952561,
     kycReview: KYC_REVIEW.NONE,
     kycReviewComment: '',
+    birthCountry: 'FR',
+    address: {
+      str: 'aze',
+      zip: 'aze',
+      city: 'aze',
+      country: 'FR',
+    },
   };
 
   const mockUserNeutralData = {
@@ -125,6 +139,13 @@ describe('Login - usecase', () => {
     userId: 3952561,
     kycReview: KYC_REVIEW.NONE,
     kycReviewComment: '',
+    birthCountry: 'FR',
+    address: {
+      str: 'aze',
+      zip: 'aze',
+      city: 'aze',
+      country: 'FR',
+    },
   };
 
   const mockCardServeur = {

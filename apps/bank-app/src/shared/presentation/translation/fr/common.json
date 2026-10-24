@@ -725,8 +725,11 @@
         "goodbye": "Au revoir !"
       }
     },
-    "profile": {
-      "title": "Mon profil"
+    "profile-identity": {
+      "title": "Modifier mon profil - Identité"
+    },
+    "profile-address": {
+      "title": "Modifier mon profil - Adresse"
     },
     "card": {
       "menu": {
