@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { checkVersion } from 'react-native-check-version';
+import { getLocales } from 'expo-localization';
 
 import {
   TopRightFlowersBg,
@@ -39,6 +40,8 @@ import {
   GOOGLE_PLAY_LINK,
   eventsCardsContent,
 } from '../../../shared/presentation/constants';
+
+const locale = getLocales()[0]?.languageCode || 'fr';
 
 export const Home = () => {
   // translation
@@ -113,6 +116,7 @@ export const Home = () => {
     checkVersion({
       currentVersion: process.env.EXPO_PUBLIC_APP_VERSION,
       bundleId: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER,
+      country: locale,
     }).then((version) => {
       if (version.needsUpdate !== undefined || version.needsUpdate !== null) {
         setAppNeedUpdate(version.needsUpdate);
