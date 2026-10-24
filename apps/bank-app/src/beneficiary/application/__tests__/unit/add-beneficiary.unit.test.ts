@@ -62,7 +62,7 @@ describe('AddBeneficiary - usecase', () => {
     expect(genObject.next().done).toBeTruthy();
   });
 
-  it('Should call beneficiaryAdded', async () => {
+  it('Should call beneficiaryAdded if external acount', async () => {
     testSaga(addBeneficiaryGenerator, httpConnection, {
       type: IBeneficiaryTypes.ADD_BENEFICIARY,
       payload: mockRequest,
@@ -74,7 +74,41 @@ describe('AddBeneficiary - usecase', () => {
       .next(mockResponse)
       .put(beneficiaryAdded(mockResponse))
       .next()
-      .call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 0 } })
+      .call(navigate, {
+        route: IBeneficiaryStackPages.TRANSFER,
+        params: { beneficiaryId: mockResponse.beneficiaryId, beneficiaryName: mockResponse.name },
+      })
+      .next();
+  });
+
+  it('Should call beneficiaryAdded if bank acount', async () => {
+    const mockRequest = {
+      name: 'Tumbalalali',
+      iban: 'FR7616798000010000196245186',
+      bic: 'TRZOFR21XXX',
+    };
+    const mockResponse = {
+      accountId: 100,
+      beneficiaryId: 400431,
+      iban: 'FR7616798000010000196245186',
+      bic: 'TRZOFR21XXX',
+      name: 'Tumbalalali',
+    };
+    testSaga(addBeneficiaryGenerator, httpConnection, {
+      type: IBeneficiaryTypes.ADD_BENEFICIARY,
+      payload: mockRequest,
+    })
+      .next()
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
+      .call([api, api.addBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .next(mockResponse)
+      .put(beneficiaryAdded(mockResponse))
+      .next()
+      .call(navigate, {
+        route: IBeneficiaryStackPages.TRANSFER,
+        params: { beneficiaryAccountId: mockResponse.accountId, beneficiaryName: mockResponse.name },
+      })
       .next();
   });
 

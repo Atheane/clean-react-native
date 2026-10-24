@@ -52,8 +52,17 @@ export function* addBeneficiaryGenerator(
     const api = BeneficiaryApi.getInstance(httpConnection);
     const beneficiary = yield call([api, api.addBeneficiary], payload);
     yield put(beneficiaryAdded(beneficiary));
-    // nav back to beneficiary list
-    yield call(navigate, { route: IBeneficiaryStackPages.BENEFICIARY_LIST, params: { idx: 0 } });
+    // nav to transfer
+    const params = beneficiary?.accountId
+      ? {
+          beneficiaryAccountId: beneficiary.accountId,
+          beneficiaryName: beneficiary.name,
+        }
+      : {
+          beneficiaryId: beneficiary.beneficiaryId,
+          beneficiaryName: beneficiary.name,
+        };
+    yield call(navigate, { route: IBeneficiaryStackPages.TRANSFER, params });
   } catch (error: unknown) {
     yield put(resetError());
     if (error instanceof ServerError && error.statusCode === 400) {
