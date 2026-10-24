@@ -6,15 +6,16 @@ import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@rneui/themed';
-import SplashScreen from '../../../assets/images/splash.png';
 import * as Notifications from 'expo-notifications';
 import { PersistGate } from 'redux-persist/integration/react';
-import { Fonts, theme, i18n, useDeepLink } from '@clean-rn/ui-mobile';
 
-import { store, persistor } from '../application/usecases/root-saga';
-import { NavigationUI } from './navigation';
+import { Fonts, i18n, useDeepLink, theme } from '@clean-rn/ui-mobile';
+
 import { IRootState } from '../../shared/application/state-management/reducers/root-reducer';
 import { initializeApplication } from '../../shared/application/commands/initialize-application';
+import { store, persistor } from '../application/usecases/root-saga';
+import { NavigationUI } from './navigation';
+import SplashScreen from '../../../assets/images/splash.png';
 
 // Initialize Firebase
 const App: () => JSX.Element = () => {

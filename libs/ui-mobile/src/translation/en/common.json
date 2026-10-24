@@ -3,6 +3,9 @@
     "contacts": "Transfer your €G directly to mobile numbers. Example: you send a transfer of €G10 to 06 01 01 01 01 rather than FR76 0001 XO01 XO01 XO01 XO01 X11.",
     "camera": "The application requires access to the camera for document scans."
   },
+  "tablets": {
+    "instruction": "This application is not compatible with tablets. Please install this application on a smartphone."
+  },
   "banners": {
     "update-application": "Update available",
     "identity-validation": "Identity validation"
