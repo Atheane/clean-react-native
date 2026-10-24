@@ -163,14 +163,14 @@ export const theme = createTheme({
     text: {
       banner: {
         color: Colors.bank.primary.white,
-        fontSize: NEEDS_SMALL_TEXT ? 16 : 18,
+        fontSize: NEEDS_SMALL_TEXT ? 15 : 18,
         fontFamily: FontNames.MartelSans_700Bold,
         fontWeight: '700',
       },
       link: {
         textAlign: 'left',
         fontFamily: FontNames.Roboto_400Regular,
-        fontSize: NEEDS_SMALL_TEXT ? 10 : 16,
+        fontSize: NEEDS_SMALL_TEXT ? 13 : 16,
         lineHeight: 19,
       },
       button: {
@@ -183,7 +183,7 @@ export const theme = createTheme({
       label: {
         textTransform: 'uppercase',
         fontFamily: FontNames.Roboto_700Bold,
-        fontSize: NEEDS_SMALL_TEXT ? 14 : 16,
+        fontSize: NEEDS_SMALL_TEXT ? 13 : 16,
         lineHeight: 21,
         textAlign: 'left',
       },
@@ -215,7 +215,7 @@ export const theme = createTheme({
       },
       darkBlue: {
         fontFamily: FontNames.MartelSans_400Regular,
-        fontSize: NEEDS_SMALL_TEXT ? 14 : 16,
+        fontSize: NEEDS_SMALL_TEXT ? 13 : 16,
         color: Colors.bank.primary.darkBlue,
         lineHeight: 24,
       },
@@ -227,7 +227,7 @@ export const theme = createTheme({
         fontFamily: FontNames.MartelSans_700Bold,
       },
       lightGrey: {
-        fontSize: NEEDS_SMALL_TEXT ? 14 : 16,
+        fontSize: NEEDS_SMALL_TEXT ? 13 : 16,
         fontFamily: FontNames.MartelSans_400Regular,
         textAlign: 'center',
         color: Colors.bank.primary.grey,
@@ -245,7 +245,7 @@ export const theme = createTheme({
         fontWeight: 'bold',
       },
       cyan: {
-        fontSize: NEEDS_SMALL_TEXT ? 14 : 16,
+        fontSize: NEEDS_SMALL_TEXT ? 13 : 16,
         fontFamily: FontNames.Roboto_400Regular,
         color: Colors.bank.secondary.cyan,
         lineHeight: 21,
