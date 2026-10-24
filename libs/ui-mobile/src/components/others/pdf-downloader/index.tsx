@@ -4,6 +4,7 @@ import { SvgProps } from 'react-native-svg';
 import ReactNativeBlobUtil from 'react-native-blob-util';
 import * as Sharing from 'expo-sharing'; // Importation modifiée
 
+import { PrimaryButton } from '../../buttons/primary-button';
 import { LinkButton } from '../../buttons/link-button';
 import { Colors } from '../../../constants';
 
@@ -13,6 +14,7 @@ type IProps = {
   headers?: { [key: string]: string };
   handleError: (error: unknown) => void;
   icon: React.FC<SvgProps>;
+  primaryButtonTitle?: string;
 };
 
 export const PdfDownloader = (props: IProps) => {
@@ -55,7 +57,9 @@ export const PdfDownloader = (props: IProps) => {
       .catch(props.handleError);
   };
 
-  return (
+  return props.primaryButtonTitle ? (
+    <PrimaryButton title={props.primaryButtonTitle} onPress={downloadPDF} iconOne={props.icon} long />
+  ) : (
     <View style={styles.container}>
       <LinkButton onPress={downloadPDF} iconRight={props.icon} />
     </View>

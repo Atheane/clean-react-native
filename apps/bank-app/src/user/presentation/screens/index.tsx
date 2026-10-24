@@ -14,6 +14,8 @@ import { NotificationSettings } from './NotificationSettings';
 import { Languages } from './Languages';
 import { DeleteAccount } from './DeleteAccount';
 import { GoodBye } from './GoodBye';
+import { AccountSettings } from './AccountSettings';
+import { BankCoordinates } from './BankCoordinates';
 
 export {
   SignupEmail,
@@ -32,4 +34,6 @@ export {
   NotificationSettings,
   DeleteAccount,
   GoodBye,
+  AccountSettings,
+  BankCoordinates,
 };

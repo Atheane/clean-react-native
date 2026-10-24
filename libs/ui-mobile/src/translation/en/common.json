@@ -623,19 +623,18 @@
     },
     "parameters": {
       "menu": {
-        "title": "My Settings",
+        "title": "My settings",
         "tab": "Settings",
-        "personal-info": "Personal information",
-        "my-parameters": "My settings",
-        "app-settings": "Application Settings",
         "card-settings": "Set up my card",
+        "account-settings": "Account settings",
+        "app-settings": "App settings",
         "notifications": "Notifications",
         "love": "Support us on the App Store",
         "contact-us": "Contact us",
         "legal": "Personal data",
         "cgu": "Terms and Conditions",
-        "cgu-kyc-provider": "CGU KycProvider",
-        "profile": "My Profile",
+        "cgu-kyc-provider": "KycProvider Terms and Conditions",
+        "profile": "My profile",
         "delete-account": "Unsubscribe"
       },
       "delete-account": {
@@ -716,10 +715,20 @@
       "threshold": "Threshold",
       "submit": "Update"
     },
+    "account-settings": {
+      "title": "Account settings",
+      "bank-coordinates": "My bank details"
+    },
     "application-settings": {
       "title": "Application Settings",
       "notifications": "Notifications",
       "languages": "Languages"
+    },
+    "bank-coordinates": {
+      "title": "My bank details",
+      "instruction": "Here are the IBAN and BIC of your CO2 Account. With them, credit your CO2 Account from your other bank account.",
+      "bank-account": "CO2 Account",
+      "share": "Share"
     },
     "languages": {
       "title": "Select Language"

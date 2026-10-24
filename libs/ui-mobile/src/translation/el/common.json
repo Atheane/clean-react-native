@@ -624,15 +624,14 @@
     },
     "parameters": {
       "menu": {
-        "title": "Οι Ρυθμίσεις μου",
+        "title": "Οι ρυθμίσεις μου",
         "tab": "Ρυθμίσεις",
-        "personal-info": "Προσωπικές πληροφορίες",
-        "my-parameters": "Οι παράμετροί μου",
+        "card-settings": "Ρύθμιση της κάρτας μου",
+        "account-settings": "Ρυθμίσεις λογαριασμού",
         "app-settings": "Ρυθμίσεις εφαρμογής",
-        "card-settings": "Ρυθμίσεις της κάρτας μου",
         "notifications": "Ειδοποιήσεις",
         "love": "Υποστηρίξτε μας στο App Store",
-        "contact-us": "Επικοινωνία μαζί μας",
+        "contact-us": "Επικοινωνήστε μαζί μας",
         "legal": "Προσωπικά δεδομένα",
         "cgu": "Όροι χρήσης",
         "cgu-kyc-provider": "Όροι χρήσης KycProvider",
@@ -717,10 +716,20 @@
       "threshold": "Όριο",
       "submit": "Ενημέρωση"
     },
+    "account-settings": {
+      "title": "Ρυθμίσεις λογαριασμού",
+      "bank-coordinates": "Οι τραπεζικές μου συντεταγμένες"
+    },
     "application-settings": {
       "title": "Ρυθμίσεις Εφαρμογής",
       "notifications": "Ειδοποιήσεις",
       "languages": "Γλώσσες"
+    },
+    "bank-coordinates": {
+      "title": "Τα τραπεζικά μου στοιχεία",
+      "instruction": "Εδώ είναι το IBAN και το BIC του Λογαριασμού CO2 σας. Χρησιμοποιήστε τα για να πιστώσετε τον Λογαριασμό CO2 σας από τον άλλο τραπεζικό σας λογαριασμό.",
+      "bank-account": "Λογαριασμός CO2",
+      "share": "Κοινοποίηση"
     },
     "languages": {
       "title": "Επιλογή Γλώσσας"

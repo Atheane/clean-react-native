@@ -625,10 +625,9 @@
       "menu": {
         "title": "Meine Einstellungen",
         "tab": "Einstellungen",
-        "personal-info": "Persönliche Informationen",
-        "my-parameters": "Meine Einstellungen",
-        "app-settings": "Anwendungseinstellungen",
-        "card-settings": "Meine Karte konfigurieren",
+        "card-settings": "Meine Karte einrichten",
+        "account-settings": "Kontoeinstellungen",
+        "app-settings": "App-Einstellungen",
         "notifications": "Benachrichtigungen",
         "love": "Unterstützen Sie uns im App Store",
         "contact-us": "Kontaktieren Sie uns",
@@ -716,10 +715,20 @@
       "threshold": "Limit",
       "submit": "Aktualisieren"
     },
+    "account-settings": {
+      "title": "Kontoeinstellungen",
+      "bank-coordinates": "Meine Bankverbindung"
+    },
     "application-settings": {
       "title": "Anwendungseinstellungen",
       "notifications": "Benachrichtigungen",
       "languages": "Sprachen"
+    },
+    "bank-coordinates": {
+      "title": "Meine Bankverbindung",
+      "instruction": "Hier finden Sie die IBAN und BIC Ihres CO2-Kontos. Mit diesen Angaben können Sie Ihr CO2-Konto von Ihrem anderen Bankkonto aus aufladen.",
+      "bank-account": "CO2-Konto",
+      "share": "Teilen"
     },
     "languages": {
       "title": "Sprache auswählen"

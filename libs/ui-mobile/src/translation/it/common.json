@@ -626,16 +626,16 @@
       "menu": {
         "title": "Le mie impostazioni",
         "tab": "Impostazioni",
-        "personal-info": "Informazioni personali",
-        "my-parameters": "Le mie impostazioni",
+        "card-settings": "Configura la mia carta",
+        "account-settings": "Impostazioni dell'account",
         "app-settings": "Impostazioni dell'applicazione",
-        "card-settings": "Impostazioni della mia carta",
         "notifications": "Notifiche",
         "love": "Sostienici sull'App Store",
         "contact-us": "Contattaci",
         "legal": "Dati personali",
-        "cgu": "CGU",
-        "cgu-kyc-provider": "CGU KycProvider",
+        "cgu": "Termini e condizioni",
+        "cgu-kyc-provider": "Termini e condizioni KycProvider",
+        "profile": "Il mio profilo",
         "delete-account": "Disiscriviti"
       },
       "delete-account": {
@@ -716,10 +716,20 @@
       "threshold": "Limite",
       "submit": "Aggiorna"
     },
+    "account-settings": {
+      "title": "Impostazioni dell'account",
+      "bank-coordinates": "Le mie coordinate bancarie"
+    },
     "application-settings": {
       "title": "Impostazioni dell'applicazione",
       "notifications": "Notifiche",
       "languages": "Lingue"
+    },
+    "bank-coordinates": {
+      "title": "Le mie coordinate bancarie",
+      "instruction": "Ecco l'IBAN e il BIC del tuo Conto CO2. Grazie ad essi, accredita il tuo Conto CO2 dal tuo altro conto bancario.",
+      "bank-account": "Conto CO2",
+      "share": "Condividi"
     },
     "languages": {
       "title": "Seleziona la lingua"
