@@ -21,7 +21,7 @@ if (firebase.apps.length === 0) {
 //polyfill for jwt-decode
 global.atob = decode;
 
-console.log('ENVIRONMENT', Constants.expoConfig?.extra?.NODE_ENV);
+console.log('>>>>>>>>>> ENVIRONMENT', Constants.expoConfig?.extra?.NODE_ENV);
 
 if (Constants.expoConfig?.extra?.NODE_ENV !== 'development') {
   Sentry.init({
