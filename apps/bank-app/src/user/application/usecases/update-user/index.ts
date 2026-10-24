@@ -11,6 +11,7 @@ import { selectUser } from '../../state-management/selectors';
 import { IRoutes } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
+import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
 
 export function* updateUserSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IUserTypes.FETCH_UPDATE_USER, updateUserGenerator, httpConnection);
@@ -39,6 +40,7 @@ export function* updateUserGenerator(
     user.updateUser(payload);
     const newUser = yield call([userApi, userApi.updateUser], payload);
     yield put(userUpdated(newUser));
+    yield put(checkCustomerStatus({ user: newUser }));
     yield call(navigate, { route: payload.nextRoute });
   } catch (e: unknown) {
     yield put(resetError());
