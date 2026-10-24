@@ -7,6 +7,7 @@ import { IContactState } from '../state';
 const initialState: IContactState = {
   pending: false,
   contacts: null,
+  permission: true,
   error: null,
 };
 
@@ -55,6 +56,12 @@ export const contactReducer = (state = initialState, action: IContactActions) =>
         pending: false,
         error: null,
         contacts: action.payload,
+      };
+      return newState;
+    case IContactTypes.CONTACT_PERMISSION_REFUSED:
+      newState = {
+        ...state,
+        permission: false,
       };
       return newState;
     case IContactTypes.RESET_ERROR:

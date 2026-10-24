@@ -26,20 +26,21 @@ export class ExpoContact implements IContactRepository {
   async getContacts(): Promise<IContact[]> {
     const { status } = await Contacts.requestPermissionsAsync();
     const sortType = Contacts.SortTypes.FirstName;
+    if (status !== 'granted') {
+      throw new ContactError.PermissionRefused();
+    }
 
-    if (status === 'granted') {
-      const { data } = await Contacts.getContactsAsync({
-        fields: [Contacts.Fields.PhoneNumbers, Contacts.Fields.FirstName, Contacts.Fields.Name],
-        sort: sortType,
-      });
+    const { data } = await Contacts.getContactsAsync({
+      fields: [Contacts.Fields.PhoneNumbers, Contacts.Fields.FirstName, Contacts.Fields.Name],
+      sort: sortType,
+    });
 
-      if (data.length > 0) {
-        const contacts = data
-          .map(mapContactExpoToContact)
-          .filter((contact) => contact !== undefined) as IContact[];
-        inplaceSortByName(contacts);
-        return contacts;
-      }
+    if (data.length > 0) {
+      const contacts = data
+        .map(mapContactExpoToContact)
+        .filter((contact) => contact !== undefined) as IContact[];
+      inplaceSortByName(contacts);
+      return contacts;
     }
 
     return [];
