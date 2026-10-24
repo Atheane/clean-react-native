@@ -26,6 +26,7 @@ export function* showUnknownErrorGenerator({
     yield call(navigate, { route: IAuthStackPages.LOGIN });
     yield cancel();
   }
+  console.log('|||||||||||||||', payload);
   yield call(Sentry.captureException, payload);
   yield call(navigate, { route: ISharedStackPages.MODAL_ERROR, params: { error: payload } });
 }
