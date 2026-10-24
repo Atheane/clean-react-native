@@ -19,7 +19,7 @@ import {
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { ICardStackPages, IProfileStackPages, ISharedStackPages } from '../../../shared/presentation/types';
 
-import { GradientBell, GradientCO2Card } from '../../../user/presentation/assets';
+import { GradientCO2Card } from '../../../user/presentation/assets';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 import { APPLE_STORE_LINK, GOOGLE_PLAY_LINK } from '../../../shared/presentation/constants';
@@ -30,10 +30,6 @@ export const Profile = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
   const { theme } = useTheme();
-
-  const handlePressApplicationSettings = useCallback(() => {
-    navigation.navigate(IProfileStackPages.NOTIFICATON_SETTINGS as never);
-  }, [navigation]);
 
   const { card } = useSelector((state: IRootState) => state.card);
   const { customer } = useSelector((state: IRootState) => state.kyc.customer);
@@ -55,7 +51,6 @@ export const Profile = () => {
   }, [navigation, customer, card]);
 
   const handlePressAppParameters = useCallback(() => {
-    console.log('handlePressAppParameters');
     navigation.navigate(IProfileStackPages.APPLICATION_SETTINGS as never);
   }, [navigation]);
 
