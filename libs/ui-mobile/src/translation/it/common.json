@@ -718,7 +718,11 @@
     },
     "account-settings": {
       "title": "Impostazioni dell'account",
+      "beneficiaries": "Gestisci i miei beneficiari",
       "bank-coordinates": "Le mie coordinate bancarie"
+    },
+    "manage-beneficiaries": {
+      "title": "Gestisci i miei beneficiari"
     },
     "application-settings": {
       "title": "Impostazioni dell'applicazione",

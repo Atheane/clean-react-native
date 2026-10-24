@@ -708,7 +708,11 @@
     },
     "account-settings": {
       "title": "Paramètres du compte",
+      "beneficiaries": "Gérer mes bénéficiaires",
       "bank-coordinates": "Mes coordonnées bancaires"
+    },
+    "manage-beneficiaries": {
+      "title": "Gérer mes bénéficiaires"
     },
     "application-settings": {
       "title": "Paramètres de l'application",

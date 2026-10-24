@@ -717,12 +717,16 @@
     },
     "account-settings": {
       "title": "Account settings",
+      "beneficiaries": "Manage my beneficiaries",
       "bank-coordinates": "My bank details"
     },
     "application-settings": {
       "title": "Application Settings",
       "notifications": "Notifications",
       "languages": "Languages"
+    },
+    "manage-beneficiaries": {
+      "title": "Manage my beneficiaries"
     },
     "bank-coordinates": {
       "title": "My bank details",

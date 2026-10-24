@@ -718,12 +718,16 @@
     },
     "account-settings": {
       "title": "Ρυθμίσεις λογαριασμού",
-      "bank-coordinates": "Οι τραπεζικές μου συντεταγμένες"
+      "beneficiaries": "Διαχείριση δικαιούχων",
+      "bank-coordinates": "Τραπεζικά στοιχεία"
     },
     "application-settings": {
       "title": "Ρυθμίσεις Εφαρμογής",
       "notifications": "Ειδοποιήσεις",
       "languages": "Γλώσσες"
+    },
+    "manage-beneficiaries": {
+      "title": "Διαχείριση δικαιούχων"
     },
     "bank-coordinates": {
       "title": "Τα τραπεζικά μου στοιχεία",

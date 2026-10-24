@@ -148,7 +148,7 @@ import {
   PortofolioBlueGradient,
   ShareIcon,
 } from './svg';
-import { DefaultImage, PlaneEmpty } from './image';
+import { DefaultImage, PlaneEmpty, SuccessTransfer, NoBeneficiary, NoContact } from './image';
 import { Loader } from './lottie';
 export {
   Love,
@@ -302,4 +302,7 @@ export {
   BankBuildingBlueGradient,
   PortofolioBlueGradient,
   ShareIcon,
+  SuccessTransfer,
+  NoBeneficiary,
+  NoContact,
 };

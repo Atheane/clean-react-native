@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
@@ -10,11 +9,11 @@ import {
   CopyValueClipboard,
   ShareIcon,
   PdfDownloader,
-  PrimaryButton,
 } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -24,19 +23,12 @@ export const BankCoordinates = () => {
 
   const { accounts } = useSelector((state: IRootState) => state.account.accounts);
 
-  const handleOnPress = () => {
-    console.log('handleOnPress');
-    return;
-  };
-
   const {
     auth: { accessToken },
   } = useSelector((state: IRootState) => state.auth);
 
-  const [unknownError, setUnknownError] = useState<Error>();
-
   const handleError = (error: unknown) => {
-    setUnknownError(error as Error);
+    showUnknownError(error as Error);
   };
 
   return (
@@ -46,9 +38,7 @@ export const BankCoordinates = () => {
           <Text style={[styles.instruction, theme.bank.text.grey]}>
             {t('screens.bank-coordinates.instruction')}
           </Text>
-          <Text style={[styles.title, theme.bank.text.boldDarkBlue]}>
-            {t('screens.bank-coordinates.bank-account')}
-          </Text>
+          <Text style={[theme.bank.text.boldDarkBlue]}>{t('screens.bank-coordinates.bank-account')}</Text>
           {accounts && accounts[0] && (
             <View>
               <CopyValueClipboard value={accounts[0].iban.value} icon={IbanIcon} />

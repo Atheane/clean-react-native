@@ -19,6 +19,8 @@ import {
   LoaderSplashScreen,
   SafeScrollingView,
   LinkButton,
+  NoBeneficiary,
+  NoContact,
 } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IBeneficiaryStackPages, IKycStackPages } from '../../../shared/presentation/types';
@@ -27,7 +29,6 @@ import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { changeTab, listBeneficiaries } from '../../application/commands/beneficiary';
 import { listContacts } from '../../application/commands/contact';
 
-import { NoBeneficiary, NoContact } from '../../presentation/assets/images';
 import { InitKyc } from '../../../kyc/presentation/assets/images';
 
 const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
@@ -140,7 +141,7 @@ export const BeneficiaryList = () => {
       () => {
         setLoading(false);
       },
-      customer?.properties.status === KYC_REVIEW.VALIDATED ? 3000 : 0,
+      customer?.properties.status === KYC_REVIEW.VALIDATED ? 500 : 0,
     );
   }, [customer?.properties.status]);
 

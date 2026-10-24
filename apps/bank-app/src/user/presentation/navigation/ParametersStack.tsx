@@ -28,6 +28,7 @@ import {
   ProfileAddress,
   AccountSettings,
   BankCoordinates,
+  ManageBeneficiaries,
 } from '../screens';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { KYC_REVIEW } from '@clean-rn/user/domain';
@@ -86,6 +87,14 @@ export const ParametersStack = () => {
         component={NotificationSettings}
         options={{
           headerTitle: t('screens.notifications.title'),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+      />
+      <Stack.Screen
+        name={IParametersStackPages.MANAGE_BENEFICIARIES}
+        component={ManageBeneficiaries}
+        options={{
+          headerTitle: t('screens.manage-beneficiaries.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />
