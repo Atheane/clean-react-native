@@ -72,6 +72,7 @@ export class KycDocuments {
 
   setState(state: KYC_REVIEW): void {
     if (state === KYC_REVIEW.REFUSED) this.state = IKycState.REFUSED;
+    if (state === KYC_REVIEW.PENDING) this.state = IKycState.PENDING;
   }
 
   addDocument(document: DocumentVO): void {
