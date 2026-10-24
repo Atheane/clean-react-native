@@ -1,7 +1,7 @@
 import React from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { Story } from '@storybook/react-native';
-import { i18n } from '@clean-rn/ui-mobile';
+import i18n from '../i18n';
 
 export const WithTranslations = (Story: Story) => {
   return (

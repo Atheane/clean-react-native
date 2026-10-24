@@ -139,6 +139,7 @@ import {
   PhoneBlueGradient,
   CertificateBlueGradient,
   OffBlueGradient,
+  FlagGradient,
 } from './svg';
 import { DefaultImage, PlaneEmpty } from './image';
 import { Loader } from './lottie';
@@ -286,4 +287,5 @@ export {
   BlueGradientMail,
   CertificateBlueGradient,
   OffBlueGradient,
+  FlagGradient,
 };

@@ -1,5 +1,5 @@
 import { Dayjs } from 'dayjs';
-import { IEmailNotifications, IGender, IPhoneNotifications } from '../types';
+import { IEmailNotifications, IGender, ILanguage, IPhoneNotifications } from '../types';
 import { Phone, PhoneOtp } from '../value-objects';
 import { User } from '../entities';
 
@@ -39,5 +39,5 @@ export type ISignupUserCommand = {
 export type IUpdateUserConfigCommand = {
   notifFirebaseDisabled?: IPhoneNotifications[];
   notifEmailDisabled?: IEmailNotifications[];
-  lang?: string;
+  lang?: ILanguage;
 };

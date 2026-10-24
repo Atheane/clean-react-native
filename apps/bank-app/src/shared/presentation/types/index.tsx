@@ -157,7 +157,9 @@ export enum IUserStackPages {
 export enum IProfileStackPages {
   MENU = 'MenuProfile',
   PROFILE = 'Profile',
+  APPLICATION_SETTINGS = 'ApplicationSettings',
   NOTIFICATON_SETTINGS = 'NotificationSettings',
+  LANGUAGES = 'Languages',
   DELETE_ACCOUNT = 'DeleteAccount',
   GOODBYE = 'GoodBye',
   LOGOUT = 'Logout',
@@ -252,7 +254,9 @@ export type IUserStackProps = {
 export type IProfileStackProps = {
   [IProfileStackPages.MENU]: object;
   [IProfileStackPages.PROFILE]: object;
+  [IProfileStackPages.APPLICATION_SETTINGS]: object;
   [IProfileStackPages.NOTIFICATON_SETTINGS]: object;
+  [IProfileStackPages.LANGUAGES]: object;
   [IProfileStackPages.DELETE_ACCOUNT]: object;
   [IProfileStackPages.LOGOUT]: object;
   [IProfileStackPages.GOODBYE]: object;
@@ -338,7 +342,9 @@ export type IRoutes =
   | IUserStackPages.SIGNUP_PHONE
   | IProfileStackPages.MENU
   | IProfileStackPages.PROFILE
+  | IProfileStackPages.APPLICATION_SETTINGS
   | IProfileStackPages.NOTIFICATON_SETTINGS
+  | IProfileStackPages.LANGUAGES
   | IProfileStackPages.DELETE_ACCOUNT
   | IProfileStackPages.LOGOUT
   | IProfileStackPages.GOODBYE

@@ -17,7 +17,14 @@ import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 
 import { fetchLogout } from '../../../auth/application/commands';
 
-import { NotificationSettings, Profile, DeleteAccount, GoodBye } from '../screens';
+import {
+  ApplicationSettings,
+  NotificationSettings,
+  Profile,
+  Languages,
+  DeleteAccount,
+  GoodBye,
+} from '../screens';
 
 const Stack = createNativeStackNavigator<IProfileStackProps & ISharedStackProps>();
 
@@ -51,10 +58,26 @@ export const ProfileStack = () => {
         component={Profile}
       />
       <Stack.Screen
+        name={IProfileStackPages.APPLICATION_SETTINGS}
+        component={ApplicationSettings}
+        options={{
+          headerTitle: t('screens.application-settings.title'),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+      />
+      <Stack.Screen
         name={IProfileStackPages.NOTIFICATON_SETTINGS}
         component={NotificationSettings}
         options={{
           headerTitle: t('screens.notifications.title'),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+      />
+      <Stack.Screen
+        name={IProfileStackPages.LANGUAGES}
+        component={Languages}
+        options={{
+          headerTitle: t('screens.languages.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />

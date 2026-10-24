@@ -138,6 +138,7 @@ import GreenGradientSpeedLimit from './green-gradient-speedlimit.svg';
 import BankAltLogo from './co2-bank.svg';
 import CertificateBlueGradient from './certificate-blue-gradient.svg';
 import OffBlueGradient from './off-blue-gradient.svg';
+import FlagGradient from './flag-gradient.svg';
 export {
   Love,
   LoveBlueGradient,
@@ -210,6 +211,7 @@ export {
   Gasoline,
   Profile,
   ProfileGradient,
+  FlagGradient,
   ALCOHOL,
   ART,
   ASSURANCES,

@@ -54,6 +54,11 @@ export const Profile = () => {
     }
   }, [navigation, customer, card]);
 
+  const handlePressAppParameters = useCallback(() => {
+    console.log('handlePressAppParameters');
+    navigation.navigate(IProfileStackPages.APPLICATION_SETTINGS as never);
+  }, [navigation]);
+
   const handlePressLove = useCallback(() => {
     Linking.openURL(Platform.OS === 'ios' ? APPLE_STORE_LINK : GOOGLE_PLAY_LINK);
   }, []);
@@ -133,18 +138,18 @@ export const Profile = () => {
           </View>
           <View style={[styles.rowContainer, { marginTop: 12, marginBottom: -8 }]}>
             <LinkButton
-              iconLeft={GradientCO2Card}
+              iconLeft={() => <GradientCO2Card style={{ marginRight: 14 }} />}
               colorOption={LinkButtonColors.BLUE}
               title={t('screens.profile.menu.card-settings')}
               onPress={handlePressCardParameters}
             />
           </View>
-          <View style={[styles.rowContainer, { marginVertical: -8, marginLeft: 28 }]}>
+          <View style={[styles.rowContainer, { marginVertical: -8 }]}>
             <LinkButton
-              iconLeft={GradientBell}
+              iconLeft={PhoneBlueGradient}
               colorOption={LinkButtonColors.BLUE}
-              title={t('screens.profile.menu.notifications')}
-              onPress={handlePressApplicationSettings}
+              title={t('screens.profile.menu.app-settings')}
+              onPress={handlePressAppParameters}
             />
           </View>
           <View style={[styles.rowContainer, { marginVertical: -8 }]}>

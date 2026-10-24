@@ -37,10 +37,12 @@ import {
   IUserSignedUp,
   IPhoneCodeSent,
   IFetchUpdateNotifications,
+  IFetchUpdateLanguage,
   INotificationsUpdated,
   IUserSaved,
   IFetchDeleteUserAccount,
   IResetError,
+  ILanguageUpdated,
 } from './types';
 import { IContactErrorCodes, IContactErrorMessage } from '@clean-rn/contact/domain';
 
@@ -92,6 +94,11 @@ export const initializeUser = (): IInitializeUser => ({
 
 export const resetError = (): IResetError => ({
   type: IUserTypes.RESET_ERROR,
+});
+
+export const fetchUpdateLanguage = (payload: IUpdateUserConfigCommand): IFetchUpdateLanguage => ({
+  type: IUserTypes.FETCH_UPDATE_LANGUAGE,
+  payload,
 });
 
 // redux actions that are domain Events
@@ -155,7 +162,6 @@ export const userSignedUp = (user: User): IUserSignedUp => ({
   payload: user,
 });
 
-// redux actions that are domain Events
 export const notificationUpdated = (payload: { user: User }): INotificationsUpdated => ({
   type: IUserTypes.NOTIFICATIONS_UPDATED,
   payload,
@@ -163,6 +169,11 @@ export const notificationUpdated = (payload: { user: User }): INotificationsUpda
 
 export const userSaved = (payload: User): IUserSaved => ({
   type: IUserTypes.USER_SAVED,
+  payload,
+});
+
+export const languageUpdated = (payload: { user: User }): ILanguageUpdated => ({
+  type: IUserTypes.LANGUAGE_UPDATED,
   payload,
 });
 

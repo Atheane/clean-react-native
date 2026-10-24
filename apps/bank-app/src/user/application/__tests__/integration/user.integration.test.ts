@@ -15,6 +15,7 @@ import {
   UserError,
   IUpdateUserConfigCommand,
   IPhoneNotifications,
+  ILanguage,
 } from '@clean-rn/user/domain';
 
 import { Email } from '@clean-rn/auth/domain';
@@ -55,6 +56,8 @@ import {
   userSaved,
   fetchDeleteUserAccount,
   resetError,
+  fetchUpdateLanguage,
+  languageUpdated,
 } from '../../commands';
 import { IUserState, userReducer } from '../../state-management';
 import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
@@ -94,6 +97,10 @@ describe('User - integration', () => {
 
   const mockUpdateNotifications: IUpdateUserConfigCommand = {
     notifFirebaseDisabled: [IPhoneNotifications.PAYOUT_INITIATED],
+  };
+
+  const mockUpdateLanguage: IUpdateUserConfigCommand = {
+    lang: ILanguage.EL,
   };
 
   let initialState: IUserState;
@@ -628,6 +635,38 @@ describe('User - integration', () => {
       user,
       error: null,
       config: mockUpdateNotifications,
+    });
+  });
+
+  it('Should store correct state if LANGUAGE_UPDATED', () => {
+    const initialState: IUserState = {
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: null,
+    };
+    const user = User.CreateFromEmail(new Email('test@example.com'));
+    user.setConfig(mockUpdateLanguage);
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+
+    sagaTester.dispatch(fetchUpdateLanguage(mockUpdateLanguage));
+    sagaTester.dispatch(languageUpdated({ user }));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user,
+      error: null,
+      config: mockUpdateLanguage,
     });
   });
 

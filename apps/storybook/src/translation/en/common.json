@@ -700,6 +700,7 @@
         "tab": "Profile",
         "personal-info": "Personal information",
         "my-parameters": "My settings",
+        "app-settings": "Application Settings",
         "card-settings": "Set up my card",
         "notifications": "Notifications",
         "love": "Support us on the App Store",
@@ -783,6 +784,14 @@
       "transfer": "Transfer received",
       "threshold": "Threshold",
       "submit": "Update"
+    },
+    "application-settings": {
+      "title": "Application Settings",
+      "notifications": "Notifications",
+      "languages": "Languages"
+    },
+    "languages": {
+      "title": "Select Language"
     }
   }
 }
