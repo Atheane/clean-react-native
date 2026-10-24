@@ -55,7 +55,7 @@ export const DocumentPicker = (props: IProps) => {
         props.handleError(err);
         return;
       }
-      console.log.info('User cancelled the picker');
+      console.log('User cancelled the picker');
     } finally {
       props.setLoading(false);
     }

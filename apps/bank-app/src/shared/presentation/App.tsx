@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { SafeAreaView, StyleSheet, Image } from 'react-native';
+import { useEffect, useState } from 'react';
+import { SafeAreaView, StyleSheet, Image, AppState, AppStateStatus } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { I18nextProvider, useTranslation } from 'react-i18next';
 import { useFonts } from 'expo-font';
@@ -9,13 +9,13 @@ import { ThemeProvider } from '@rneui/themed';
 import SplashScreen from '../../../assets/images/splash.png';
 import * as Notifications from 'expo-notifications';
 import { PersistGate } from 'redux-persist/integration/react';
-
 import { Fonts, theme, i18n, useDeepLink } from '@clean-rn/ui-mobile';
 
 import { store, persistor } from '../application/usecases/root-saga';
 import { NavigationUI } from './navigation';
 import { IRootState } from '../../shared/application/state-management/reducers/root-reducer';
 import { initializeApplication } from '../../shared/application/commands/initialize-application';
+import { fetchLogout } from '../../auth/application/commands';
 
 // Initialize Firebase
 const App: () => JSX.Element = () => {
@@ -49,6 +49,25 @@ const App: () => JSX.Element = () => {
       trigger: null,
     });
   }
+
+  const [appState, setAppState] = useState<AppStateStatus>(AppState.currentState);
+
+  useEffect(() => {
+    const handleAppStateChange = (nextAppState: AppStateStatus) => {
+      if (appState.match(/active/) && nextAppState.match(/inactive/)) {
+        // L'application est passée en arrière-plan ou est devenue inactive
+        console.log("L'application a été quitée");
+        persistor.purge();
+      }
+      setAppState(nextAppState);
+    };
+
+    const appStateListener = AppState.addEventListener('change', handleAppStateChange);
+
+    return () => {
+      appStateListener.remove();
+    };
+  }, [appState]);
 
   return fontsLoaded && !pending ? (
     <ThemeProvider theme={theme}>
