@@ -16,8 +16,8 @@ export const TransactionItem = (props: IProps) => {
       return '';
     }
     const substring = props.label.substring(0, 25);
-    if (props.label.length > 25) {
-      return substring.substring(0, 25) + '...';
+    if (props.label.length > 22) {
+      return substring.substring(0, 22) + '...';
     }
     return props.label;
   };
