@@ -103,10 +103,13 @@ export const ProfileIdentity = () => {
         <View
           style={[
             styles.container,
-            customer?.properties.status === KYC_REVIEW.VALIDATED && {
-              marginTop: 100,
-              marginBottom: Dimensions.get('window').height,
-            },
+            customer?.properties.status !== undefined &&
+            [KYC_REVIEW.NONE, KYC_REVIEW.REFUSED].includes(customer.properties.status)
+              ? {}
+              : {
+                  marginTop: 100,
+                  marginBottom: Dimensions.get('window').height,
+                },
           ]}
         >
           <View style={[styles.rowContainer, { marginTop: 28 }]}>
@@ -134,7 +137,7 @@ export const ProfileIdentity = () => {
               </View>
             )}
           </View>
-          {customer?.properties.status &&
+          {customer?.properties.status !== undefined &&
             [KYC_REVIEW.NONE, KYC_REVIEW.REFUSED].includes(customer.properties.status) && (
               <FormUpdateIdentity
                 loading={pending}

@@ -2,7 +2,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
 import countryFlagEmoji from 'country-flag-emoji';
 
 import { firstLetterCapitalize } from '@clean-rn/utils';
@@ -111,10 +111,11 @@ export const FormUpdateIdentity = (props: IProps) => {
             render={({ field: { onChange, value } }) => (
               <DateTimePicker
                 label={t('signup-birth.birthday.label')}
-                value={value || dayjs('1980-01-01')}
+                value={value}
                 format={'DD/MM/YYYY'}
                 placeholder={t('signup-birth.birthday.placeholder')}
                 onChange={onChange}
+                defaultValue={props.control._defaultValues?.birthday as Dayjs | undefined}
               />
             )}
           />
