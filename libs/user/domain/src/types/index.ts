@@ -1,6 +1,5 @@
 import { BirthDay, Country } from '../value-objects';
 
-// signup
 export type IIdentity = {
   gender: IGender;
   firstName: string;
@@ -36,16 +35,12 @@ export type ISuccess = {
   success: boolean;
 };
 
-//kyc
-
 export enum KYC_REVIEW {
   NONE = 0, // No review yet
   PENDING = 1,
   VALIDATED = 2, // Review was successful
   REFUSED = 3,
 }
-
-//notifications
 
 export enum IPhoneNotifications {
   CARD_CREATION = 'CARD_CREATION',
@@ -69,4 +64,13 @@ export enum IEmailNotifications {
   KYC_VALIDATED = 'KYC_VALIDATED',
   PASSWORD_RESET = 'PASSWORD_RESET',
   WAITING_TRANSACTION_REFUND = 'WAITING_TRANSACTION_REFUND',
+}
+
+export enum ILanguage {
+  EN = 'EN',
+  FR = 'FR',
+  ES = 'ES',
+  IT = 'IT',
+  DE = 'DE',
+  EL = 'GR',
 }

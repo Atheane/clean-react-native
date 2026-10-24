@@ -701,6 +701,7 @@
         "tab": "Profilo",
         "personal-info": "Informazioni personali",
         "my-parameters": "Le mie impostazioni",
+        "app-settings": "Impostazioni dell'applicazione",
         "card-settings": "Impostazioni della mia carta",
         "notifications": "Notifiche",
         "love": "Sostienici sull'App Store",
@@ -784,6 +785,14 @@
       "transfer": "Bonifico ricevuto",
       "threshold": "Limite",
       "submit": "Aggiorna"
+    },
+    "application-settings": {
+      "title": "Impostazioni dell'applicazione",
+      "notifications": "Notifiche",
+      "languages": "Lingue"
+    },
+    "languages": {
+      "title": "Seleziona la lingua"
     }
   }
 }

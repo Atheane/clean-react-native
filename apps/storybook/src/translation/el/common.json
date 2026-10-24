@@ -701,6 +701,7 @@
         "tab": "Προφίλ",
         "personal-info": "Προσωπικές πληροφορίες",
         "my-parameters": "Οι παράμετροί μου",
+        "app-settings": "Ρυθμίσεις εφαρμογής",
         "card-settings": "Ρυθμίσεις της κάρτας μου",
         "notifications": "Ειδοποιήσεις",
         "love": "Υποστηρίξτε μας στο App Store",
@@ -784,6 +785,14 @@
       "transfer": "Ληφθέντα μεταφορά",
       "threshold": "Όριο",
       "submit": "Ενημέρωση"
+    },
+    "application-settings": {
+      "title": "Ρυθμίσεις Εφαρμογής",
+      "notifications": "Ειδοποιήσεις",
+      "languages": "Γλώσσες"
+    },
+    "languages": {
+      "title": "Επιλογή Γλώσσας"
     }
   }
 }

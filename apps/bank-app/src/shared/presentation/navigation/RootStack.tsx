@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigationState } from '@react-navigation/native';
 import { getLocales } from 'expo-localization';
 
-import { Colors, FontNames, WebViewer } from '@clean-rn/ui-mobile';
+import { WebViewer } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import {
@@ -14,7 +14,6 @@ import {
   IAuthStackProps,
   ISharedStackPages,
   ISharedStackProps,
-  HeaderTitleAlign,
   IUserStackPages,
   IUserStackProps,
 } from '../../../shared/presentation/types';
@@ -89,6 +88,14 @@ export const HomeStack = () => {
         name={ISharedStackPages.HOME}
         component={BottomTabNavigator}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        options={{
+          headerTitle: t('screens.login.title'),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+        name={IAuthStackPages.LOGIN}
+        component={Login}
       />
       <Stack.Screen
         options={{

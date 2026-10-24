@@ -701,6 +701,7 @@
         "tab": "Profil",
         "personal-info": "Informations personnelles",
         "my-parameters": "Mes paramètres",
+        "app-settings": "Paramètres de l'application",
         "card-settings": "Paramétrer ma carte",
         "notifications": "Notifications",
         "love": "Soutenez-nous sur l’App Store",
@@ -783,6 +784,14 @@
       "transfer": "Virement reçu",
       "threshold": "Plafond",
       "submit": "Mettre à jour"
+    },
+    "application-settings": {
+      "title": "Paramètres de l'application",
+      "notifications": "Notifications",
+      "languages": "Langues"
+    },
+    "languages": {
+      "title": "Sélectionner la langue"
     }
   }
 }
