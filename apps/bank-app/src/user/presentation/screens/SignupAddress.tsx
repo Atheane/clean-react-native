@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
+import { getLocales } from 'expo-localization';
 
 import {
   useCleanErrorOnFocus,
@@ -13,12 +14,11 @@ import {
 } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { ErrorBoundary } from '../../../shared/presentation/hoc';
 
 import { registerAddress } from '../../application/commands';
 
-const HEIGHT = Dimensions.get('window').height;
-
+const lang = getLocales()[0]?.languageCode || 'FR';
 export const SignupAddress = () => {
   /// translations
   const { t } = useTranslation();
@@ -26,26 +26,20 @@ export const SignupAddress = () => {
 
   // api call
   const dispatch = useDispatch();
-  const { pending, error, user } = useSelector((state: IRootState) => state.user);
+  const { pending, error } = useSelector((state: IRootState) => state.user);
 
   // internal state
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<ISignupAddressFormData>({
-    defaultValues: {
-      specifiedUSPerson: '0',
-      country: user?.properties.phone?.countryCode,
-    },
-  });
+  } = useForm<ISignupAddressFormData>();
 
   const onSubmit = useCallback(
     (formData: ISignupAddressFormData) => {
       dispatch(
         registerAddress({
           ...formData,
-          str: formData.street,
           USPerson: formData.specifiedUSPerson === '1',
         }),
       );
@@ -57,19 +51,17 @@ export const SignupAddress = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView>
-        <View style={[styles.container, theme.bank.container.centeredItem]}>
-          <FormSignupAddress
-            loading={pending}
-            control={control}
-            errors={errors}
-            error={domainError}
-            defaultCountry={user?.properties.phone?.countryCode}
-            onSubmit={handleSubmit(onSubmit)}
-            onFocus={onFocus}
-          />
-        </View>
-      </SafeScrollingView>
+      <View style={[styles.container, theme.bank.container.centeredItem]}>
+        <FormSignupAddress
+          loading={pending}
+          control={control}
+          errors={errors}
+          error={domainError}
+          onSubmit={handleSubmit(onSubmit)}
+          onFocus={onFocus}
+          language={lang}
+        />
+      </View>
     </ErrorBoundary>
   );
 };
@@ -78,6 +70,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.bank.primary.white,
-    height: HEIGHT * 1.15,
   },
 });

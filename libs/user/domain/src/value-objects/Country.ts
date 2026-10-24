@@ -42,4 +42,8 @@ export class Country {
   get valueFlagAndName(): string {
     return `${this.emoji}   ${this.name}`;
   }
+
+  get valueName(): string {
+    return this.name;
+  }
 }

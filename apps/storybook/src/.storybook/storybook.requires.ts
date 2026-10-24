@@ -111,6 +111,7 @@ const getStories = () => {
     './stories/inputs/DigitsInput.stories.tsx': require('../stories/inputs/DigitsInput.stories'),
     './stories/inputs/Slider.stories.tsx': require('../stories/inputs/Slider.stories'),
     './stories/inputs/IbanInput.stories.tsx': require('../stories/inputs/IbanInput.stories'),
+    './stories/inputs/AddressInput.stories.tsx': require('../stories/inputs/AddressInput.stories'),
     // Lists
     './stories/lists/TransactionsCardsList.stories.tsx': require('../stories/lists/TransactionsCardsList.stories'),
     './stories/lists/WhiteBalanceList.stories.tsx': require('../stories/lists/WhiteBalanceList.stories'),

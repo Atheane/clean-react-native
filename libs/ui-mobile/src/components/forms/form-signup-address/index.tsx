@@ -1,25 +1,19 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 
-import { firstLetterCapitalize } from '@clean-rn/utils';
-
 import { IDomainError } from '@clean-rn/ddd';
-import { COUNTRIES_AVAILABLE } from '@clean-rn/contact/domain';
-import { ICountry, IUserErrorCodes, IUserErrorMessage } from '@clean-rn/user/domain';
+import { IAddress, IUserErrorCodes, IUserErrorMessage } from '@clean-rn/user/domain';
 
-import { House } from '../../../assets';
-import { Colors } from '../../../constants';
-
-import { SubmitButton } from '../../buttons/submit-button';
 import { MultipleOptionsCheckBox } from '../../checkboxes/multiple-options-checkBox';
-import { CountryPicker } from '../../dropdowns/country-picker';
-import { TextInput } from '../../inputs/text-input';
+import { SubmitButton } from '../../buttons/submit-button';
+import { AddressInput } from '../../inputs/address-input';
 import { ErrorMessage } from '../../texts/error-message';
 
 type IProps = {
-  defaultCountry?: string;
+  language: string;
   loading: boolean;
   control: Control<ISignupAddressFormData>;
   errors: FieldErrors<ISignupAddressFormData>;
@@ -29,10 +23,7 @@ type IProps = {
 };
 
 export type ISignupAddressFormData = {
-  country: string;
-  street: string;
-  city: string;
-  zip: string;
+  address: IAddress;
   specifiedUSPerson: string;
 };
 
@@ -40,106 +31,23 @@ export const FormSignupAddress = (props: IProps) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
 
+  const [disabled, setDisabled] = useState(true);
   return (
     <View style={[styles.container, theme.bank.container.centeredItem]}>
       <View style={styles.inputContainer}>
         <Controller
           control={props.control}
-          name="street"
-          rules={{
-            required: true,
-          }}
-          render={({ field: { onChange, value } }) => (
-            <TextInput
-              label={t('signup-address.street.label')}
-              labelColor={Colors.bank.primary.grey}
-              value={value}
-              IconLeft={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
-              placeholder={t('signup-address.street.placeholder')}
-              onChange={onChange}
-              onSubmitEditing={props.onSubmit}
+          name="address"
+          render={({ field: { onChange } }) => (
+            <AddressInput
+              language={props.language}
+              placeholder={t('signup-address.address.placeholder')}
+              onAddressSelect={onChange}
+              setDisabled={setDisabled}
+              defaultValue={props.control._defaultValues.address as IAddress}
             />
           )}
         />
-      </View>
-      {props.errors?.street && props.errors.street.type === 'required' && (
-        <View style={styles.errorContainer}>
-          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.street.required'))}</Text>
-        </View>
-      )}
-      <View style={styles.inputContainer}>
-        <Controller
-          control={props.control}
-          name="city"
-          rules={{
-            required: true,
-          }}
-          render={({ field: { onChange, value } }) => (
-            <TextInput
-              label={t('signup-address.city.label')}
-              labelColor={Colors.bank.primary.grey}
-              value={value}
-              IconLeft={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
-              placeholder={t('signup-address.city.placeholder')}
-              onChange={onChange}
-              onSubmitEditing={props.onSubmit}
-            />
-          )}
-        />
-      </View>
-      {props.errors?.city && props.errors.city.type === 'required' && (
-        <View style={styles.errorContainer}>
-          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.city.required'))}</Text>
-        </View>
-      )}
-      <View style={styles.inputContainer}>
-        <Controller
-          control={props.control}
-          name="zip"
-          rules={{
-            required: true,
-          }}
-          render={({ field: { onChange, value } }) => (
-            <TextInput
-              label={t('signup-address.zip.label')}
-              labelColor={Colors.bank.primary.grey}
-              value={value}
-              IconLeft={() => <House style={{ color: Colors.bank.primary.lightGreen }} />}
-              placeholder={t('signup-address.zip.placeholder')}
-              onChange={onChange}
-              numeric
-            />
-          )}
-        />
-      </View>
-      {props.errors?.zip && props.errors.zip.type === 'required' && (
-        <View style={styles.errorContainer}>
-          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.zip.required'))}</Text>
-        </View>
-      )}
-      <View style={styles.inputContainer}>
-        <Controller
-          control={props.control}
-          name="country"
-          rules={{
-            required: true,
-          }}
-          render={({ field: { onChange, value } }) => (
-            <CountryPicker
-              label={t('signup-address.country.label')}
-              value={value}
-              onChange={onChange}
-              defaultValue={props.defaultCountry}
-              data={Object.values(COUNTRIES_AVAILABLE) as ICountry[]}
-              sortBy={'name'}
-            />
-          )}
-        />
-        {props.errors?.country && props.errors.country.type === 'required' && (
-          <View style={styles.errorContainer}>
-            <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.country.required'))}</Text>
-          </View>
-        )}
       </View>
       <View style={styles.inputContainer}>
         <Controller
@@ -152,6 +60,7 @@ export const FormSignupAddress = (props: IProps) => {
               optionsTitle={[t('signup-address.usperson.no'), t('signup-address.usperson.yes')]}
               optionsValues={['0', '1']}
               onChange={onChange}
+              setDisabled={setDisabled}
               defaultValue={props.control._defaultValues.specifiedUSPerson}
             />
           )}
@@ -162,7 +71,7 @@ export const FormSignupAddress = (props: IProps) => {
       </View>
       <View style={styles.formSubmit}>
         <SubmitButton
-          disabled={false}
+          disabled={disabled}
           title={t('button.submit')}
           uppercase={false}
           onSubmit={props.onSubmit}
@@ -174,10 +83,8 @@ export const FormSignupAddress = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  inputContainer: { marginTop: 30 },
+  container: {},
+  inputContainer: { marginVertical: 60 },
   errorContainer: {
     marginTop: 24,
     marginBottom: -24,
