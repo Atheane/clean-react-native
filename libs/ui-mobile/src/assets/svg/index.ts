@@ -97,6 +97,7 @@ import GreenValidation from './green-validation.svg';
 import GreyPending from './grey-pending.svg';
 import RedCross from './red-cross.svg';
 import Add from './add.svg';
+import GreenAdd from './green-add.svg';
 import Camera from './camera.svg';
 import KycDrivingLicense from './kyc-driving-license.svg';
 import KycHealthCard from './kyc-health-card.svg';
@@ -239,6 +240,7 @@ export {
   GreyPending,
   RedCross,
   Add,
+  GreenAdd,
   Camera,
   KycDrivingLicense,
   KycHealthCard,
