@@ -1,33 +1,11 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import SagaTester from 'redux-saga-tester';
-import Constants from 'expo-constants';
 
 import { IEventCardsTypes, deleteEventCard } from '../../commands/event-cards';
 import { IEventCardsState, eventCardsReducer } from '../../state-management';
 
-const expoConstantsMock = {
-  name: 'CleanRN BankApp Test',
-  slug: 'clean-rn-bank-app-test',
-  extra: {
-    BASE_URL_API: 'https://fake-api.com',
-    NODE_ENV: 'test',
-  },
-};
-jest.mock('expo-constants', () => expoConstantsMock);
-
 describe('DeleteEventCard - integration', () => {
   let sagaTester: SagaTester;
-
-  beforeAll(() => {
-    Constants.expoConfig = {
-      name: 'CleanRN BankApp Test',
-      slug: 'clean-rn-bank-app-test',
-      extra: {
-        BASE_URL_API: 'https://fake-api.com',
-        NODE_ENV: 'test',
-      },
-    };
-  });
 
   beforeEach(() => {
     const initialState: IEventCardsState = {

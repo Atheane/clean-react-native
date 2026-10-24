@@ -4,7 +4,6 @@ import createSagaMiddleware, { SagaIterator } from 'redux-saga';
 import { persistStore, persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Sentry from '@sentry/react-native';
-import Constants from 'expo-constants';
 import { initializeApplicationSaga } from './initialize-application';
 import { loadStorageSaga } from './load-storage';
 import { showUnknownErrorSaga } from './manage-global-errors';
@@ -91,7 +90,9 @@ import { initTransaction, initializeTransactionsList } from '../../../transactio
 import { initializeUser } from '../../../user/application/commands';
 import { IStoreKey } from '../../../shared/application/types';
 
-const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+const httpConnection = HttpConnection.getInstance(
+  process.env.EXPO_PUBLIC_BASE_URL_API || 'http://localhost:3000',
+);
 
 const persistConfig = {
   key: IStoreKey.ROOT_REDUCER,

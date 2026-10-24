@@ -1,7 +1,6 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
-import Constants from 'expo-constants';
 
 import { IAccountType, Iban, Bic } from '@clean-rn/account/domain';
 import { Amount, TransactionCategory, ITransactionType, ITransaction } from '@clean-rn/transaction/domain';
@@ -11,8 +10,6 @@ import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { TransactionApi } from '@clean-rn/transaction/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { ITransactionStackPages } from '../../../../shared/presentation/types';
-import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { accountSelected } from '../../../../account/application/commands/accounts';
 
@@ -21,7 +18,7 @@ import { ITransactionsTypes, transactionsListed, initializeTransactionsList } fr
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
 describe('ListTransactions - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
 
   const api = TransactionApi.getInstance(httpConnection);
 

@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { checkVersion } from 'react-native-check-version';
-import Constants from 'expo-constants';
 
 import {
   TopRightFlowersBg,
@@ -103,7 +102,7 @@ export const Home = () => {
           model,
           os,
           osVersion,
-          appVersion: Constants.expoConfig?.extra?.APP_VERSION,
+          appVersion: process.env.EXPO_PUBLIC_APP_VERSION || '1.0.8',
         }),
       );
     }
@@ -112,8 +111,8 @@ export const Home = () => {
   const [appNeedUpdate, setAppNeedUpdate] = useState(false);
   useEffect(() => {
     checkVersion({
-      currentVersion: Constants.expoConfig?.extra?.APP_VERSION,
-      bundleId: Constants.expoConfig?.extra?.BUNDLE_IDENTIFIER,
+      currentVersion: process.env.EXPO_PUBLIC_APP_VERSION,
+      bundleId: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER,
     }).then((version) => {
       if (version.needsUpdate !== undefined || version.needsUpdate !== null) {
         setAppNeedUpdate(version.needsUpdate);

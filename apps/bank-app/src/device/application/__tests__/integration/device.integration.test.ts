@@ -1,6 +1,5 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import SagaTester from 'redux-saga-tester';
-import Constants from 'expo-constants';
 
 import { registerDeviceSaga } from '../../usecases/register-device';
 import {
@@ -14,17 +13,6 @@ import {
 import { deviceReducer } from '../../state-management/reducer';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { Device, DeviceError } from '@clean-rn/device/domain';
-
-const expoConstantsMock = {
-  name: 'CleanRN BankApp Test',
-  slug: 'clean-rn-bank-app-test',
-  extra: {
-    BASE_URL_API: 'https://fake-api.com',
-    NODE_ENV: 'test',
-  },
-};
-
-jest.mock('expo-constants', () => expoConstantsMock);
 
 describe('Device - integration', () => {
   const mockData = {
@@ -43,15 +31,7 @@ describe('Device - integration', () => {
   let httpConnection: HttpConnection;
 
   beforeAll(() => {
-    Constants.expoConfig = {
-      name: 'CleanRN BankApp Test',
-      slug: 'clean-rn-bank-app-test',
-      extra: {
-        BASE_URL_API: 'https://fake-api.com',
-        NODE_ENV: 'test',
-      },
-    };
-    httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+    httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
   });
 
   beforeEach(() => {

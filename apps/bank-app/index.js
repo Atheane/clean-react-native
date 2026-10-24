@@ -1,17 +1,16 @@
 import { registerRootComponent } from 'expo';
 import * as Sentry from '@sentry/react-native';
-import Constants from 'expo-constants';
 import App from './src/shared/presentation/App';
 import firebase from '@react-native-firebase/app';
 import { decode } from 'base-64';
 
 const firebaseConfig = {
-  apiKey: Constants.expoConfig?.extra?.FIREBASE_API_KEY,
-  databaseURL: Constants.expoConfig?.extra?.FIREBASE_AUTH_DOMAIN, //maybe a hack, careful if firebase bug
-  projectId: Constants.expoConfig?.extra?.FIREBASE_PROJECT_ID,
-  storageBucket: Constants.expoConfig?.extra?.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: Constants.expoConfig?.extra?.FIREBASE_MESSAGING_SENDER_ID,
-  appId: Constants.expoConfig?.extra?.FIREBASE_APP_ID,
+  apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
+  databaseURL: process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN, //maybe a hack, careful if firebase bug
+  projectId: process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
 };
 
 if (firebase.apps.length === 0) {
@@ -21,12 +20,12 @@ if (firebase.apps.length === 0) {
 //polyfill for jwt-decode
 global.atob = decode;
 
-console.log('>>>>>>>>>> ENVIRONMENT', Constants.expoConfig?.extra?.NODE_ENV);
+console.log('>>>>>>>>>> ENVIRONMENT', process.env.EXPO_PUBLIC_NODE_ENV);
 
-if (Constants.expoConfig?.extra?.NODE_ENV !== 'development') {
+if (process.env.EXPO_PUBLIC_NODE_ENV !== 'development') {
   Sentry.init({
-    dsn: Constants.expoConfig?.extra?.SENTRY_DSN,
-    environment: Constants.expoConfig?.extra?.NODE_ENV,
+    dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
+    environment: process.env.EXPO_PUBLIC_NODE_ENV,
     enableNative: true,
     // We recommend adjusting this value in production.
     tracesSampleRate: 1.0,

@@ -1,7 +1,6 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
-import Constants from 'expo-constants';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
@@ -19,7 +18,7 @@ import { IDeviceTypes, deviceRegistered, deviceAlreadyRegistered, resetError } f
 import { IStoreKey } from '../../../../shared/application/types';
 
 describe('Device - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(Constants.expoConfig?.extra?.BASE_URL_API);
+  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
   const deviceApi = DeviceApi.getInstance(httpConnection);
 
   const genObject = registerDeviceSaga(httpConnection);
