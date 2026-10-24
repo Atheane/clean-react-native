@@ -90,8 +90,6 @@ describe('ListTransactions - usecase', () => {
       .put(transactionsListed(mockResponse))
       .next()
       .put(accountSelected(account))
-      .next()
-      .call(navigate, { route: ITransactionStackPages.MENU })
       .next();
   });
 

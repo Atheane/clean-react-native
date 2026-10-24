@@ -10,7 +10,7 @@ module.exports = {
   moduleNameMapper: {
     '\\.svg$': '@nx/expo/plugins/jest/svg-mock',
   },
-  collectCoverage: true,
+  collectCoverage: false,
   collectCoverageFrom: ['**/components/**/*.tsx'],
   coveragePathIgnorePatterns: [
     './libs/ui-mobile/src/lib/components/dropdown/',
