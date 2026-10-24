@@ -17,6 +17,7 @@ import {
   WhiteBalance,
   Colors,
   FontNames,
+  LoaderSplashScreen,
 } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ITransactionStackPages } from '../../../shared/presentation/types';
@@ -66,8 +67,10 @@ const ContentNoTransactions = ({ currentAccount }: { currentAccount?: IAccount }
 };
 
 export const Transactions = () => {
-  const { selectedAccount } = useSelector((state: IRootState) => state.account.accounts);
-  const { transactions } = useSelector((state: IRootState) => state.transaction);
+  const { selectedAccount, pending: accountPending } = useSelector(
+    (state: IRootState) => state.account.accounts,
+  );
+  const { transactions, pending: transactionPending } = useSelector((state: IRootState) => state.transaction);
   const hasTransactions = transactions && transactions?.length > 0;
   const { t } = useTranslation();
 
@@ -75,7 +78,9 @@ export const Transactions = () => {
     return null;
   }
 
-  return (
+  return accountPending || transactionPending ? (
+    <LoaderSplashScreen />
+  ) : (
     <ErrorBoundary t={t}>
       {!hasTransactions && (
         <>

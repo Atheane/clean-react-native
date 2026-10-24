@@ -22,7 +22,11 @@ import { IAccount } from '@clean-rn/account/domain';
 import { IKycState } from '@clean-rn/kyc/domain';
 
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
-import { IKycStackPages, ISharedStackPages } from '../../../shared/presentation/types';
+import {
+  IKycStackPages,
+  ISharedStackPages,
+  ITransactionStackPages,
+} from '../../../shared/presentation/types';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 import { fetchRegisterDevice } from '../../../device/application/commands';
@@ -51,14 +55,15 @@ export const Home = () => {
     dispatch(listAccounts());
   }, [dispatch, loginPending]);
 
+  const navigation = useNavigation();
+
   const handleOnPressAccount = useCallback(
     (account: IAccount) => {
       dispatch(listTransactions({ account }));
+      navigation.navigate(ITransactionStackPages.MENU, { screens: [ITransactionStackPages.TRANSACTIONS] });
     },
-    [dispatch],
+    [dispatch, navigation],
   );
-
-  const navigation = useNavigation();
 
   const handleOnPressCard = useCallback(
     (uid: string) => {
