@@ -49,14 +49,23 @@ export const FlyForm = (props: IProps) => {
 
   const [disabled, setDisabled] = useState(true);
 
+  const handleOnAddFlight = useCallback(() => {
+    props.onAddFlight();
+    props.scrollViewRef.current?.scrollToEnd();
+    cardScrollRef.current?.scrollToEnd();
+  }, [props]);
+
   useEffect(() => {
     try {
       new FlyEmissions(props.flight as FlightI);
       setDisabled(false);
+      if (props.flights.length === 0) {
+        handleOnAddFlight();
+      }
     } catch (e: unknown) {
       console.log(e);
     }
-  }, [props.flight]);
+  }, [props.flight, props.flights, handleOnAddFlight]);
 
   const handleOnChangeField = useCallback(
     (item: IData, property: keyof FlightI) => {
@@ -118,12 +127,6 @@ export const FlyForm = (props: IProps) => {
   };
 
   const cardScrollRef = useRef<null | ScrollView>(null);
-
-  const handleOnAddFlight = () => {
-    props.onAddFlight();
-    props.scrollViewRef.current?.scrollToEnd();
-    cardScrollRef.current?.scrollToEnd();
-  };
 
   return (
     <View style={theme.bank.container.centeredItem}>
