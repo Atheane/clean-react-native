@@ -16,6 +16,7 @@ import { IUserTypes, resetError, userUpdated } from '../../commands';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 import { IParametersStackPages, IRoutes } from '../../../../shared/presentation/types';
 import { selectUser } from '../../../../user/application/state-management/selectors';
+import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
 
 describe('Update User - usecase', () => {
   const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
@@ -92,6 +93,8 @@ describe('Update User - usecase', () => {
       .next(user)
       .put(userUpdated(user))
       .next()
+      .put(checkCustomerStatus({ user }))
+      .next()
       .call(navigate, { route: IParametersStackPages.PROFILE_ADDRESS });
   });
 
@@ -109,6 +112,8 @@ describe('Update User - usecase', () => {
       .call([userApi, userApi.updateUser], mockUpdateUser2)
       .next(user)
       .put(userUpdated(user))
+      .next()
+      .put(checkCustomerStatus({ user }))
       .next()
       .call(navigate, { route: IParametersStackPages.PARAMETERS })
       .next();

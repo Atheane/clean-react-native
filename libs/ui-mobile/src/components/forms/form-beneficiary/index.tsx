@@ -61,6 +61,7 @@ export const FormBeneficiary = (props: IProps) => {
               IconLeft={ProfileGradient}
               placeholder={t('screens.beneficiary.new-beneficiary.name.placeholder')}
               onChange={onChange}
+              onSubmitEditing={props.onSubmit}
             />
           )}
         />
@@ -91,6 +92,7 @@ export const FormBeneficiary = (props: IProps) => {
               IconLeft={IbanGreenGradient}
               placeholder={t('screens.beneficiary.new-beneficiary.IBAN.placeholder')}
               onChange={(text) => onChange(text.replace(/\s/g, ''))}
+              onSubmitEditing={props.onSubmit}
             />
           )}
         />
@@ -121,6 +123,7 @@ export const FormBeneficiary = (props: IProps) => {
               IconLeft={BicGreenGradient}
               placeholder={t('screens.beneficiary.new-beneficiary.BIC.placeholder')}
               onChange={onChange}
+              onSubmitEditing={props.onSubmit}
             />
           )}
         />

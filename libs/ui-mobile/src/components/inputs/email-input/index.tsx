@@ -18,6 +18,7 @@ type State = {
   filled?: boolean;
   onFocus?: () => void;
   onChange?: (text: string) => void;
+  onSubmitEditing: () => void;
 };
 
 export const EmailInput = (props: Props & State) => {
@@ -52,6 +53,7 @@ export const EmailInput = (props: Props & State) => {
       onChange={handleOnChange}
       onFocus={props.onFocus}
       placeholder={t('email-input.placeholder')}
+      onSubmitEditing={props.onSubmitEditing}
     />
   );
 };

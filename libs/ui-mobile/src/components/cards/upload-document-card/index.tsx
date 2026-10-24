@@ -2,8 +2,8 @@ import { FC } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { Icon, useTheme, LinearProgress } from '@rneui/themed';
+import { NEEDS_SMALL_TEXT } from '../../../constants';
 import { IDocumentStatus } from '@clean-rn/kyc/domain';
-import { getDeviceId, getBrand } from 'react-native-device-info';
 
 import { Edit, GreenValidation, DeleteCrossGradient } from '../../../assets';
 import { Colors, FontNames } from '../../../constants';
@@ -19,11 +19,6 @@ type IProps = {
   status?: IDocumentStatus;
   onCancel: () => void;
 };
-
-const brand = getBrand();
-const model = getDeviceId();
-
-const NEEDS_SMALL_TEXT = brand === 'OPPO' && model === 'lahaina';
 
 export const UploadDocumentCard = (props: IProps) => {
   const { theme } = useTheme();

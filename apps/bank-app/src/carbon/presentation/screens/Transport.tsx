@@ -29,7 +29,7 @@ export const Transport = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, { height: HEIGHT }]}>
+        <View style={[styles.container]}>
           <TransportForm initialValues={data} onChangeForm={resetFormData} onChangeField={handleFormData} />
 
           <View style={styles.buttonContainer}>
@@ -56,9 +56,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     marginTop: 50,
+    marginBottom: 300,
   },
   buttonContainer: {
-    position: 'relative',
-    bottom: '30%',
+    marginTop: 140,
   },
 });

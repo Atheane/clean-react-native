@@ -89,13 +89,22 @@ export const SignupEmail = () => {
           <View style={styles.textContainer}>
             <Text style={[theme.bank.text.darkBlue, styles.text]}>{t('signup-email.text')}</Text>
           </View>
-          <FormSignupEmail control={control} errors={errors} error={domainError} onFocus={onFocus} />
-          <SubmitButton
-            title={t('button.submit')}
-            uppercase={false}
+          <FormSignupEmail
+            control={control}
+            errors={errors}
+            error={domainError}
+            onFocus={onFocus}
             onSubmit={handleSubmit(onSubmit)}
-            loading={pending}
           />
+          <View style={styles.buttonContainer}>
+            <SubmitButton
+              title={t('button.submit')}
+              uppercase={false}
+              onSubmit={handleSubmit(onSubmit)}
+              loading={pending}
+            />
+          </View>
+
           <View style={styles.cgu}>
             <LinkButton
               title={t('screens.legal')}
@@ -125,8 +134,9 @@ export const SignupEmail = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: HEIGHT,
     backgroundColor: Colors.bank.primary.white,
+    marginTop: 100,
+    marginBottom: 100,
   },
   textContainer: {
     marginTop: 16,
@@ -138,6 +148,9 @@ const styles = StyleSheet.create({
   image: {
     width: HEIGHT * 0.25,
     height: HEIGHT * 0.25,
+  },
+  buttonContainer: {
+    marginVertical: 40,
   },
   cgu: {
     marginBottom: '20%',

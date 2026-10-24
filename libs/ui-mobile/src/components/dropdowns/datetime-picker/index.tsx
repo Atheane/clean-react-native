@@ -14,11 +14,15 @@ type Props = {
   format: 'DD/MM/YYYY';
   placeholder: string;
   onChange: (data: Dayjs) => void;
+  defaultValue?: Dayjs;
+  onSubmitEditing: () => void;
 };
 
 export const DateTimePicker = (props: Props) => {
   const [containerIsFocused, setContainerIsFocused] = useState(false);
-  const [date, setDate] = useState<Dayjs>(dayjs('1980-01-01'));
+  const [date, setDate] = useState<Dayjs>(
+    props.defaultValue ? dayjs(props.defaultValue) : dayjs('1980-01-01'),
+  );
   const handleOnFocus = () => {
     setContainerIsFocused(true);
   };
@@ -27,7 +31,7 @@ export const DateTimePicker = (props: Props) => {
     setContainerIsFocused(true);
   };
 
-  const handleOnchange = (event: DateTimePickerEvent) => {
+  const handleChange = (event: DateTimePickerEvent) => {
     const {
       nativeEvent: { timestamp },
     } = event;
@@ -42,7 +46,7 @@ export const DateTimePicker = (props: Props) => {
       {containerIsFocused && (
         <DateTimePickerNative
           value={dayjs(props.value).toDate()}
-          onChange={handleOnchange}
+          onChange={handleChange}
           mode="date"
           display={'spinner'}
         />
@@ -55,6 +59,7 @@ export const DateTimePicker = (props: Props) => {
         value={date.format(props.format)}
         placeholder={props.placeholder}
         onFocus={handleOnFocus}
+        onSubmitEditing={props.onSubmitEditing}
       />
     </Pressable>
   );

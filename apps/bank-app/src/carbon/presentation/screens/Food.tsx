@@ -1,4 +1,4 @@
-import { View, StyleSheet, StyleProp, ViewStyle, Dimensions } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';

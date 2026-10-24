@@ -576,11 +576,6 @@
         "last-step": "\n\n\nÚltimo paso :\n",
         "w9-form": "Formulario W9",
         "identity": "Documento de identidad",
-        "address": "Justificante de domicilio",
-        "photo": "Foto de perfil",
-        "host-id": "Documento de identidad del anfitrión",
-        "host-residence": "Justificante de domicilio del anfitrión",
-        "sworn-statement": "Certificación del anfitrión",
         "fix-file": "Por favor corrija los elementos del expediente",
         "transfer": "Transferencia de 1 euro"
       },
@@ -616,84 +611,9 @@
           "instruction": "del reverso de su permiso de residencia"
         }
       },
-      "taxes": {
-        "title": "Aviso de imposición",
-        "instruction": "de su último aviso de imposición"
-      },
-      "sworn-statement": {
-        "title": "Certificación de alojamiento",
-        "instruction": "de la certificación de alojamiento",
-        "example": "Ejemplo"
-      },
-      "invoice": {
-        "title": "Factura",
-        "instruction": "del frente de su factura.",
-        "another-instruction": "Las facturas de internet, electricidad, gas son las únicas aceptadas y deben tener menos de 3 meses de antigüedad.",
-        "last-instruction": "Las facturas de teléfono móvil no son válidas."
-      },
       "w9": {
         "title": "Residente americano - W-9",
         "instruction": "o importe su formulario W-9"
-      },
-      "residence-proof-options": {
-        "title": "Justificante de domicilio",
-        "has-proof": "Tengo un justificante de domicilio a mi nombre",
-        "no-proof": "No tengo un justificante de domicilio a mi nombre, y adjunto los documentos de la persona que me aloja"
-      },
-      "residence-proof-list": {
-        "title": "Justificante de domicilio",
-        "instruction": "Elija su justificante de domicilio",
-        "invoice": "Una factura\n(internet, electricidad y gas)",
-        "tax": "Aviso de imposición",
-        "iban": "IBAN"
-      },
-      "menu-kyc-host": {
-        "title": "Justificantes del anfitrión",
-        "instruction": "Documentos a enviar:",
-        "sworn-statement": "Una certificación del anfitrión",
-        "identification": "Un documento de identidad del anfitrión",
-        "residence-proof": "Un justificante de domicilio del anfitrión"
-      },
-      "host-id-list": {
-        "title": "Documentos de identidad del anfitrión",
-        "instruction": "Elija el documento de identidad de la persona que le aloja",
-        "id": "Tarjeta de identidad",
-        "passport": "Pasaporte"
-      },
-      "host-id": {
-        "recto": {
-          "title": "Tarjeta de identidad - Anverso",
-          "instruction": "del anverso de la tarjeta de identidad de la persona que le aloja."
-        },
-        "verso": {
-          "title": "Tarjeta de identidad - Reverso",
-          "instruction": "del reverso de la tarjeta de identidad de la persona que le aloja."
-        }
-      },
-      "host-passport": {
-        "title": "Pasaporte",
-        "instruction": "de la página de identidad del pasaporte de la persona que le aloja"
-      },
-      "host-residence-proof-list": {
-        "title": "Justificante de domicilio del anfitrión",
-        "instruction": "Elija el justificante de domicilio de su anfitrión",
-        "invoice": "Una factura\n(internet, electricidad y gas)",
-        "tax": "Aviso de imposición",
-        "iban": "IBAN"
-      },
-      "host-iban": {
-        "title": "Identificación bancaria de su anfitrión",
-        "instruction": "o envíenos una copia del IBAN de la persona que le aloja."
-      },
-      "host-taxes": {
-        "title": "Aviso de imposición de su anfitrión",
-        "instruction": "del último aviso de imposición de la persona que le aloja"
-      },
-      "host-invoice": {
-        "title": "Factura de su anfitrión",
-        "instruction": "del frente de la factura de la persona que le aloja.",
-        "another-instruction": "Las facturas de internet, electricidad, gas son las únicas aceptadas y deben tener menos de 3 meses de antigüedad.",
-        "last-instruction": "Las facturas de teléfono móvil no son válidas."
       },
       "sct-required": {
         "title": "Transferencia de 1 euro",

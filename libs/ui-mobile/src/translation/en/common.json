@@ -576,11 +576,6 @@
         "last-step": "\n\n\nLast step :\n",
         "w9-form": "W9 Form",
         "identity": "ID",
-        "address": "Proof of address",
-        "photo": "Portrait photo",
-        "host-id": "Host's ID",
-        "host-residence": "Host's proof of address",
-        "sworn-statement": "Host's attestation",
         "fix-file": "Please correct the elements of the file",
         "transfer": "Transfer of 1 euro"
       },
@@ -616,84 +611,9 @@
           "instruction": "of the back of your residence permit"
         }
       },
-      "taxes": {
-        "title": "Tax notice",
-        "instruction": "of your last tax notice"
-      },
-      "sworn-statement": {
-        "title": "Host certification",
-        "instruction": "of the host certification",
-        "example": "Example"
-      },
-      "invoice": {
-        "title": "Invoice",
-        "instruction": "of the front of your invoice.",
-        "another-instruction": "Only internet box, electricity, gas bills are accepted and must be less than 3 months old. ",
-        "last-instruction": "Mobile phone bills are not valid."
-      },
       "w9": {
         "title": "US resident - W-9",
         "instruction": "or upload your W-9 form"
-      },
-      "residence-proof-options": {
-        "title": "Proof of residence",
-        "has-proof": "I have a proof of residence in my name",
-        "no-proof": "I do not have a proof of residence in my name, and I am joining the documents of the person hosting me"
-      },
-      "residence-proof-list": {
-        "title": "Proof of residence",
-        "instruction": "Choose your proof of residence",
-        "invoice": "A bill\n(internet box, electricity, and gas)",
-        "tax": "Tax notice",
-        "iban": "IBAN"
-      },
-      "menu-kyc-host": {
-        "title": "Host's proofs",
-        "instruction": "Documents to submit:",
-        "sworn-statement": "A host's attestation",
-        "identification": "An ID of the host",
-        "residence-proof": "A proof of residence of the host"
-      },
-      "host-id-list": {
-        "title": "Host's ID documents",
-        "instruction": "Choose the ID of the person hosting you",
-        "id": "Identity card",
-        "passport": "Passport"
-      },
-      "host-id": {
-        "recto": {
-          "title": "Identity card - Front",
-          "instruction": "of the front of the identity card of the person hosting you."
-        },
-        "verso": {
-          "title": "Identity card - Back",
-          "instruction": "of the back of the identity card of the person hosting you."
-        }
-      },
-      "host-passport": {
-        "title": "Passport",
-        "instruction": "of the identity page of the passport of the person hosting you"
-      },
-      "host-residence-proof-list": {
-        "title": "Host's proof of residence",
-        "instruction": "Choose the proof of residence of your host",
-        "invoice": "A bill\n(internet box, electricity, and gas)",
-        "tax": "Tax notice",
-        "iban": "IBAN"
-      },
-      "host-iban": {
-        "title": "Your host's bank account statement",
-        "instruction": "or send us a copy of the IBAN of the person hosting you."
-      },
-      "host-taxes": {
-        "title": "Your host's tax notice",
-        "instruction": "of the last tax notice of the person hosting you"
-      },
-      "host-invoice": {
-        "title": "Your host's invoice",
-        "instruction": "of the front of the invoice of the person hosting you.",
-        "another-instruction": "Only internet box, electricity, gas bills are accepted and must be less than 3 months old. ",
-        "last-instruction": "Mobile phone bills are not valid."
       },
       "sct-required": {
         "title": "Transfer of 1 euro",

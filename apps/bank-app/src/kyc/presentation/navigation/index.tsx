@@ -12,14 +12,9 @@ import {
   InitKyc,
   Kyc,
   IdList,
-  ResidenceProofOptions,
-  ResidenceProofList,
-  KycHost,
-  HostIdList,
   UploadDocument,
   KycDocumentsValidated,
   CardSent,
-  HostResidenceProofList,
   SuccessKyc,
   SctRequired,
 } from '../screens';
@@ -87,46 +82,6 @@ export const KycStack = () => {
         component={IdList}
         options={{
           headerTitle: t('screens.kyc.first-id.title'),
-          ...headersOptions(goBack),
-        }}
-      />
-      <Stack.Screen
-        name={IKycStackPages.RESIDENCE_PROOF_OPTIONS}
-        component={ResidenceProofOptions}
-        options={{
-          headerTitle: t('screens.kyc.residence-proof-options.title'),
-          ...headersOptions(goBack),
-        }}
-      />
-      <Stack.Screen
-        name={IKycStackPages.RESIDENCE_PROOF_LIST}
-        component={ResidenceProofList}
-        options={{
-          headerTitle: t('screens.kyc.residence-proof-list.title'),
-          ...headersOptions(goBack),
-        }}
-      />
-      <Stack.Screen
-        name={IKycStackPages.KYC_HOST}
-        component={KycHost}
-        options={{
-          headerTitle: t('screens.kyc.menu-kyc-host.title'),
-          ...headersOptions(goBack),
-        }}
-      />
-      <Stack.Screen
-        name={IKycStackPages.HOST_ID_LIST}
-        component={HostIdList}
-        options={{
-          headerTitle: t('screens.kyc.host-id-list.title'),
-          ...headersOptions(goBack),
-        }}
-      />
-      <Stack.Screen
-        name={IKycStackPages.HOST_RESIDENCE_PROOF_LIST}
-        component={HostResidenceProofList}
-        options={{
-          headerTitle: t('screens.kyc.host-residence-proof-list.title'),
           ...headersOptions(goBack),
         }}
       />

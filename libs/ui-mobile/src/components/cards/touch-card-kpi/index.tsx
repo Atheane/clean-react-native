@@ -2,18 +2,13 @@ import { FC } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
-import { getDeviceId, getBrand } from 'react-native-device-info';
+import { NEEDS_SMALL_TEXT } from '../../../constants';
 
 type IProps = {
   data?: { pct?: string; co2?: string; legend?: string; text?: string };
   icon: React.FC<SvgProps>;
   onPress: () => void;
 };
-
-const brand = getBrand();
-const model = getDeviceId();
-
-const NEEDS_SMALL_TEXT = brand === 'OPPO' && model === 'lahaina';
 
 export const TouchCardKpi: FC<IProps> = (props: IProps) => {
   const { theme } = useTheme();

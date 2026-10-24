@@ -1,9 +1,8 @@
 import '@rneui/themed';
 import { Dimensions, StyleProp, TextStyle, ViewStyle } from 'react-native';
 import { createTheme } from '@rneui/themed';
-import { getDeviceId, getBrand } from 'react-native-device-info';
 
-import { FontNames, Colors } from '../constants';
+import { FontNames, Colors, NEEDS_SMALL_TEXT } from '../constants';
 
 declare module '@rneui/themed' {
   export interface Theme {
@@ -61,11 +60,6 @@ const COEFF = 0.75;
 const SHORT_CARD_RATIO = 168 / 228;
 const LONG_CARD_RATIO = 85 / 356;
 const KPI_CARD_RATIO = 112 / 174;
-
-const brand = getBrand();
-const model = getDeviceId();
-
-const NEEDS_SMALL_TEXT = brand === 'OPPO' && model === 'lahaina';
 
 export const theme = createTheme({
   bank: {
@@ -176,7 +170,7 @@ export const theme = createTheme({
       link: {
         textAlign: 'left',
         fontFamily: FontNames.Roboto_400Regular,
-        fontSize: NEEDS_SMALL_TEXT ? 12 : 16,
+        fontSize: NEEDS_SMALL_TEXT ? 10 : 16,
         lineHeight: 19,
       },
       button: {
@@ -195,19 +189,19 @@ export const theme = createTheme({
       },
       kpi: {
         fontFamily: FontNames.Roboto_700Bold,
-        fontSize: NEEDS_SMALL_TEXT ? 26 : 32,
+        fontSize: NEEDS_SMALL_TEXT ? 22 : 32,
         color: Colors.bank.primary.darkBlue,
         lineHeight: 48,
         marginLeft: 8,
       },
       subtitle: {
         fontFamily: FontNames.Roboto_700Bold,
-        fontSize: NEEDS_SMALL_TEXT ? 12 : 14,
+        fontSize: NEEDS_SMALL_TEXT ? 10 : 14,
         color: Colors.bank.primary.darkGrey,
       },
       legend: {
         fontFamily: FontNames.Roboto_400Regular,
-        fontSize: NEEDS_SMALL_TEXT ? 9 : 12,
+        fontSize: NEEDS_SMALL_TEXT ? 8 : 12,
         color: Colors.bank.primary.grey,
         lineHeight: 15,
         marginTop: 16,

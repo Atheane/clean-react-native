@@ -1,12 +1,11 @@
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { getDeviceId, getBrand } from 'react-native-device-info';
 
 import { IAccount, IAccountType } from '@clean-rn/account/domain';
 import { useTheme } from '@rneui/themed';
 
 import { RightChevron, GreenEuro } from '../../../assets';
-import { Colors } from '../../../constants';
+import { Colors, NEEDS_SMALL_TEXT } from '../../../constants';
 
 type IProps = {
   divider?: boolean;
@@ -14,11 +13,6 @@ type IProps = {
   account: IAccount;
   onPress?: () => void;
 };
-
-const brand = getBrand();
-const model = getDeviceId();
-
-const NEEDS_SMALL_TEXT = brand === 'OPPO' && model === 'lahaina';
 
 export const WhiteBalance = (props: IProps) => {
   const { theme } = useTheme();

@@ -11,6 +11,7 @@ type State = {
   secured: boolean;
   onChange: (text: string) => void;
   onToggleSecurity: (event: GestureResponderEvent) => void;
+  onSubmitEditing: () => void;
 };
 
 export const PasswordInput = (props: InputProps & State) => {
@@ -32,6 +33,8 @@ export const PasswordInput = (props: InputProps & State) => {
           onChangeText={props.onChange}
           value={props.value}
           placeholder={t('password-input.placeholder')}
+          onSubmitEditing={props.onSubmitEditing}
+          returnKeyType="go"
           rightIcon={
             <View style={styles.eyeContainer} onTouchStart={props.onToggleSecurity}>
               {props.secured ? (
