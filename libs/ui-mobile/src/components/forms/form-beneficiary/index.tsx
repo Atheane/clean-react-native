@@ -20,6 +20,7 @@ import { Colors } from '../../../constants';
 import { SubmitButton } from '../../buttons/submit-button';
 import { TextInput } from '../../inputs/text-input';
 import { ErrorMessage } from '../../texts/error-message';
+import { IbanInput } from '../../inputs/iban-input';
 
 export type IBeneficiaryFormData = {
   name: string;
@@ -80,16 +81,16 @@ export const FormBeneficiary = (props: IProps) => {
           name="iban"
           rules={{
             required: true,
-            validate: IBAN.validate,
+            validate: (value) => IBAN.validate(value.replace(/\s/g, '')),
           }}
           render={({ field: { onChange, value } }) => (
-            <TextInput
+            <IbanInput
               label={t('screens.beneficiary.new-beneficiary.IBAN.label')}
               labelColor={Colors.bank.primary.grey}
               value={value}
               IconLeft={IbanGreenGradient}
               placeholder={t('screens.beneficiary.new-beneficiary.IBAN.placeholder')}
-              onChange={onChange}
+              onChange={(text) => onChange(text.replace(/\s/g, ''))}
             />
           )}
         />

@@ -384,7 +384,7 @@
         },
         "IBAN": {
           "label": "IBAN",
-          "placeholder": "FR7616790000000000000000XXX"
+          "placeholder": "IT26 Y030 0203 2809 8166 5882 668"
         },
         "name": {
           "label": "Nome",

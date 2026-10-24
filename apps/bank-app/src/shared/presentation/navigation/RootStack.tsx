@@ -111,21 +111,6 @@ export const HomeStack = () => {
       <Stack.Screen
         options={{
           presentation: 'modal',
-          headerTitle: t('modal.login.title'),
-          headerTitleAlign: 'center' as HeaderTitleAlign,
-          headerTitleStyle: {
-            color: Colors.bank.primary.darkBlue,
-            fontSize: 19,
-            fontFamily: FontNames.MartelSans_600SemiBold,
-          },
-          headerBackVisible: false,
-        }}
-        name={IAuthStackPages.LOGIN}
-        component={Login}
-      />
-      <Stack.Screen
-        options={{
-          presentation: 'modal',
           headerTitle: t(`screens.legal`),
           ...headersOptions(),
         }}

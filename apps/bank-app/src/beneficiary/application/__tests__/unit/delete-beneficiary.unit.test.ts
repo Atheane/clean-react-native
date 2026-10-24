@@ -32,6 +32,7 @@ describe('DeleteBeneficiary - usecase', () => {
     iban: 'FR7616798000010000242599449',
     bic: 'TRZOFR21XXX',
     name: 'BENFMOCK',
+    isActive: false,
   };
 
   const mockError400 = {

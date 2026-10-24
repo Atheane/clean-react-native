@@ -32,6 +32,7 @@ describe('Beneficiary - integration', () => {
       iban: 'FR7616798000010000242599449',
       bic: 'TRZOFR21XXX',
       name: 'MOCKBENEFICIARY',
+      isActive: true,
     },
   ];
 
