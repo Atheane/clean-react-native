@@ -134,16 +134,17 @@ export const ProfileIdentity = () => {
               </View>
             )}
           </View>
-          {customer?.properties.status === KYC_REVIEW.REFUSED && (
-            <FormUpdateIdentity
-              loading={pending}
-              control={control}
-              errors={errors}
-              error={domainError}
-              onSubmit={handleSubmit(onSubmit)}
-              onFocus={onFocus}
-            />
-          )}
+          {customer?.properties.status &&
+            [KYC_REVIEW.NONE, KYC_REVIEW.REFUSED].includes(customer.properties.status) && (
+              <FormUpdateIdentity
+                loading={pending}
+                control={control}
+                errors={errors}
+                error={domainError}
+                onSubmit={handleSubmit(onSubmit)}
+                onFocus={onFocus}
+              />
+            )}
         </View>
       </SafeScrollingView>
     </ErrorBoundary>
