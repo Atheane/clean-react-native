@@ -1,10 +1,9 @@
 import { useCallback } from 'react';
-import { View, StyleSheet, Text, Platform, Linking } from 'react-native';
+import { View, StyleSheet, Platform, Linking } from 'react-native';
 import * as ExpoLinking from 'expo-linking';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
-import { useTheme } from '@rneui/themed';
 
 import {
   LinkButton,
@@ -15,6 +14,7 @@ import {
   CertificateBlueGradient,
   RedCross,
   ProfileBlueGradient,
+  BankBuildingBlueGradient,
 } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
@@ -53,7 +53,11 @@ export const Parameters = () => {
     }
   }, [navigation, customer, card]);
 
-  const handlePressAppParameters = useCallback(() => {
+  const handlePressAccountSettings = useCallback(() => {
+    navigation.navigate(IParametersStackPages.ACCOUNT_SETTINGS as never);
+  }, [navigation]);
+
+  const handlePressAppSettings = useCallback(() => {
     navigation.navigate(IParametersStackPages.APPLICATION_SETTINGS as never);
   }, [navigation]);
 
@@ -103,10 +107,18 @@ export const Parameters = () => {
           </View>
           <View style={styles.rowContainer}>
             <LinkButton
+              iconLeft={() => <BankBuildingBlueGradient style={{ marginRight: 14 }} />}
+              colorOption={LinkButtonColors.BLUE}
+              title={t('screens.parameters.menu.account-settings')}
+              onPress={handlePressAccountSettings}
+            />
+          </View>
+          <View style={styles.rowContainer}>
+            <LinkButton
               iconLeft={PhoneBlueGradient}
               colorOption={LinkButtonColors.BLUE}
               title={t('screens.parameters.menu.app-settings')}
-              onPress={handlePressAppParameters}
+              onPress={handlePressAppSettings}
             />
           </View>
           <View style={styles.rowContainer}>

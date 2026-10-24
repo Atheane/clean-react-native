@@ -143,6 +143,9 @@ import TransferBlueGradient from './transfer-blue-gradient.svg';
 import ParametersGradient from './parameters-gradient.svg';
 import ParametersIcon from './parameters.svg';
 import ProfileBlueGradient from './profile-blue-gradient.svg';
+import BankBuildingBlueGradient from './bank-building-blue-gradient.svg';
+import PortofolioBlueGradient from './portofolio-blue-gradient.svg';
+import ShareIcon from './share.svg';
 export {
   Love,
   LoveBlueGradient,
@@ -289,4 +292,7 @@ export {
   ParametersGradient,
   ParametersIcon,
   ProfileBlueGradient,
+  BankBuildingBlueGradient,
+  PortofolioBlueGradient,
+  ShareIcon,
 };
