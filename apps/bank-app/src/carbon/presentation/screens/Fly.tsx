@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { View, StyleSheet, StyleProp, ViewStyle, SafeAreaView, Dimensions } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle, SafeAreaView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
