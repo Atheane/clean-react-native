@@ -96,12 +96,15 @@ export const SignupEmail = () => {
             onFocus={onFocus}
             onSubmit={handleSubmit(onSubmit)}
           />
-          <SubmitButton
-            title={t('button.submit')}
-            uppercase={false}
-            onSubmit={handleSubmit(onSubmit)}
-            loading={pending}
-          />
+          <View style={styles.buttonContainer}>
+            <SubmitButton
+              title={t('button.submit')}
+              uppercase={false}
+              onSubmit={handleSubmit(onSubmit)}
+              loading={pending}
+            />
+          </View>
+
           <View style={styles.cgu}>
             <LinkButton
               title={t('screens.legal')}
@@ -131,8 +134,9 @@ export const SignupEmail = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: HEIGHT,
     backgroundColor: Colors.bank.primary.white,
+    marginTop: 100,
+    marginBottom: 100,
   },
   textContainer: {
     marginTop: 16,
@@ -144,6 +148,9 @@ const styles = StyleSheet.create({
   image: {
     width: HEIGHT * 0.25,
     height: HEIGHT * 0.25,
+  },
+  buttonContainer: {
+    marginVertical: 40,
   },
   cgu: {
     marginBottom: '20%',
