@@ -82,7 +82,7 @@ export const TransactionsCard = (props: IProps) => {
           return (
             <View key={data.id}>
               <TransactionItem
-                icon={TransactionIcons[data.category.value]}
+                icon={data.category ? TransactionIcons[data.category.value] : DIVERSE}
                 label={data.label}
                 amount={data.amount.value}
               />

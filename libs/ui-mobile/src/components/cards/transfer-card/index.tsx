@@ -38,7 +38,7 @@ export const TransferCard = (props: IProps) => {
               shortWidth={120}
               defaultValue={props.data && props.data.length > 0 ? props.data[0].value : undefined}
               multiline
-              onSelect={props?.onSelect}
+              onSelect={props?.onSelect as (item: IData) => void}
               placeholder=""
             />
           </View>
