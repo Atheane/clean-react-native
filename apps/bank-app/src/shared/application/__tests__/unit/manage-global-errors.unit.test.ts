@@ -6,7 +6,7 @@ import { ServerError } from '@clean-rn/shared/infrastructure';
 
 import { IGlobalErrorTypes } from '../../commands/manage-global-errors';
 import { showUnknownErrorGenerator, showUnknownErrorSaga } from '../../usecases/manage-global-errors';
-import { IAuthStackPages, ISharedStackPages } from '../../../presentation/types';
+import { IAuthStackPages } from '../../../presentation/types';
 import { navigate } from '../../../presentation/navigation/navigationRef';
 import { loggedOut } from '../../../../auth/application/commands';
 
@@ -57,8 +57,6 @@ describe('Manage Global Errors - usecase', () => {
     })
       .next()
       .call(Sentry.captureException, new Error('test'))
-      .next()
-      .call(navigate, { route: ISharedStackPages.MODAL_ERROR, params: { error: new Error('test') } })
       .next();
   });
 });

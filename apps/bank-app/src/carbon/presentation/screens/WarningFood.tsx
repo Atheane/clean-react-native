@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, StyleProp, ViewStyle, Dimensions } from 
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
+import { getDeviceId, getBrand } from 'react-native-device-info';
 
 import { PrimaryButton, RightChevron, Colors, FontNames } from '@clean-rn/ui-mobile';
 import { ICarbonStackPages } from '../../../shared/presentation/types';
@@ -11,6 +12,10 @@ import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/h
 import { WarningFoodCO2 } from '../assets/images';
 
 const HEIGHT = Dimensions.get('window').height;
+const brand = getBrand();
+const model = getDeviceId();
+
+const NEEDS_SMALL_TEXT = brand === 'OPPO' && model === 'lahaina';
 
 export const WarningFood = () => {
   const { t } = useTranslation();
@@ -28,7 +33,7 @@ export const WarningFood = () => {
         <View style={[styles.container, theme.bank.container.centeredItem]}>
           <Image source={WarningFoodCO2} style={{ width: 250, height: 250 }} />
           <Text style={styles.title}>{t('screens.warning-food.title')}</Text>
-          <Text style={styles.text}>{t('screens.warning-food.text')}</Text>
+          <Text style={theme.bank.text.lightGrey}>{t('screens.warning-food.text')}</Text>
           <View style={styles.buttonContainer}>
             <PrimaryButton
               long
@@ -59,17 +64,8 @@ const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     fontFamily: FontNames.Roboto_700Bold,
-    fontSize: 26,
+    fontSize: NEEDS_SMALL_TEXT ? 20 : 24,
     color: Colors.bank.primary.darkBlue,
-  },
-  text: {
-    textAlign: 'center',
-    fontFamily: FontNames.MartelSans_400Regular,
-    fontSize: 16,
-    color: Colors.bank.primary.darkGrey,
-    width: '75%',
-    paddingTop: 20,
-    paddingBottom: 30,
   },
   buttonContainer: {
     marginTop: 24,

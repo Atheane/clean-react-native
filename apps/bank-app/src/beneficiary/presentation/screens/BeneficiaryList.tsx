@@ -233,16 +233,16 @@ export const BeneficiaryList = () => {
       <SafeScrollingView>
         <View style={[styles.containerKYCMissing, theme.bank.container.centeredItem]}>
           <Image source={InitKyc} style={{ width: 250, height: 250 }} />
-          <Text style={[styles.instruction, theme.bank.text.grey, { fontSize: 16 }]}>
+          <Text style={[styles.instruction, theme.bank.text.grey]}>
             {t('screens.beneficiary.kyc-missing.instruction')}
-            <Text style={[styles.instruction, theme.bank.text.boldGrey, { fontSize: 16 }]}>
+            <Text style={[styles.instruction, theme.bank.text.boldGrey]}>
               {t('screens.beneficiary.kyc-missing.instruction-bold')}
             </Text>
           </Text>
           <LinkButton
             title={t('screens.beneficiary.kyc-missing.link-instruction')}
             onPress={handleOnPress}
-            inline={[theme.bank.text.darkBlue, { fontSize: 16 }]}
+            inline={[theme.bank.text.darkBlue]}
           />
         </View>
       </SafeScrollingView>
@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   instruction: {
-    textAlign: 'justify',
+    textAlign: 'center',
     width: '85%',
     marginVertical: 24,
   },

@@ -2,12 +2,18 @@ import { FC } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
+import { getDeviceId, getBrand } from 'react-native-device-info';
 
 type IProps = {
   data?: { pct?: string; co2?: string; legend?: string; text?: string };
   icon: React.FC<SvgProps>;
   onPress: () => void;
 };
+
+const brand = getBrand();
+const model = getDeviceId();
+
+const NEEDS_SMALL_TEXT = brand === 'OPPO' && model === 'lahaina';
 
 export const TouchCardKpi: FC<IProps> = (props: IProps) => {
   const { theme } = useTheme();
@@ -41,7 +47,14 @@ export const TouchCardKpi: FC<IProps> = (props: IProps) => {
       )}
       {props.data && props.data.text && (
         <View style={styles.textContainer}>
-          <Text style={[theme.bank.text.darkBlue, { fontSize: 12, lineHeight: 18 }]}>{props.data.text}</Text>
+          <Text
+            style={[
+              theme.bank.text.darkBlue,
+              NEEDS_SMALL_TEXT ? { fontSize: 10, lineHeight: 16 } : { fontSize: 12, lineHeight: 18 },
+            ]}
+          >
+            {props.data.text}
+          </Text>
         </View>
       )}
     </TouchableOpacity>

@@ -26,16 +26,16 @@ export const KycMissing = () => {
       <SafeScrollingView>
         <View style={[styles.container, theme.bank.container.centeredItem]}>
           <Image source={InitKyc} style={{ width: 250, height: 250 }} />
-          <Text style={[styles.instruction, theme.bank.text.grey, { fontSize: 16 }]}>
+          <Text style={[styles.instruction, theme.bank.text.grey]}>
             {t('screens.card.kyc-missing.instruction')}
-            <Text style={[styles.instruction, theme.bank.text.boldGrey, { fontSize: 16 }]}>
+            <Text style={[styles.instruction, theme.bank.text.boldGrey]}>
               {t('screens.card.kyc-missing.instruction-bold')}
             </Text>
           </Text>
           <LinkButton
             title={t('screens.card.kyc-missing.link-instruction')}
             onPress={handleOnPress}
-            inline={[theme.bank.text.darkBlue, { fontSize: 16 }]}
+            inline={[theme.bank.text.darkBlue]}
           />
         </View>
       </SafeScrollingView>

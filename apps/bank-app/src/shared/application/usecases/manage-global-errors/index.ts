@@ -4,7 +4,7 @@ import * as Sentry from '@sentry/react-native';
 import { ServerError } from '@clean-rn/shared/infrastructure';
 
 import { IGlobalErrorTypes } from '../../commands/manage-global-errors';
-import { IAuthStackPages, ISharedStackPages } from '../../../../shared/presentation/types';
+import { IAuthStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { loggedOut } from '../../../../auth/application/commands';
 
@@ -28,5 +28,4 @@ export function* showUnknownErrorGenerator({
   }
   console.log('|||||||||||||||', payload);
   yield call(Sentry.captureException, payload);
-  yield call(navigate, { route: ISharedStackPages.MODAL_ERROR, params: { error: payload } });
 }

@@ -26,7 +26,9 @@ export const InitKyc = () => {
       <SafeScrollingView>
         <View style={[styles.container, theme.bank.container.centeredItem]}>
           <Image source={InitKycImg} style={{ width: 250, height: 250 }} />
-          <Text style={styles.text}>{t('screens.kyc.init.instruction')}</Text>
+          <View style={styles.instructionContainer}>
+            <Text style={theme.bank.text.lightGrey}>{t('screens.kyc.init.instruction')}</Text>
+          </View>
           <View style={styles.buttonContainer}>
             <PrimaryButton
               long
@@ -52,14 +54,9 @@ const styles = StyleSheet.create({
     marginTop: -80,
   },
   iconContainer: { position: 'relative', left: 10, top: 2 },
-  text: {
-    textAlign: 'center',
-    fontFamily: FontNames.MartelSans_400Regular,
-    fontSize: 16,
-    color: Colors.bank.primary.darkGrey,
+  instructionContainer: {
     width: '80%',
-    paddingTop: 20,
-    paddingBottom: 30,
+    marginBottom: 40,
   },
   buttonContainer: {
     marginTop: 0,

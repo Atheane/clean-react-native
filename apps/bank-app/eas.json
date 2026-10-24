@@ -2,8 +2,8 @@
   "build": {
     "production": {
       "env": {
-        "APP_VERSION": "1.0.7",
-        "APP_VERSION_ANDROID": "107",
+        "APP_VERSION": "1.0.8",
+        "APP_VERSION_ANDROID": "108",
         "BASE_URL": "https://www.example.com",
         "BASE_URL_API": "https://dev-carte.example.com",
         "BUNDLE_IDENTIFIER": "com.example.bankapp",
@@ -18,8 +18,8 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "APP_VERSION": "1.0.7",
-        "APP_VERSION_ANDROID": "107",
+        "APP_VERSION": "1.0.8",
+        "APP_VERSION_ANDROID": "108",
         "BASE_URL": "https://www.example.com",
         "BASE_URL_API": "https://sandbox.example.com",
         "BUNDLE_IDENTIFIER": "com.example.bankapp",
@@ -34,8 +34,8 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "APP_VERSION": "1.0.7",
-        "APP_VERSION_ANDROID": "107",
+        "APP_VERSION": "1.0.8",
+        "APP_VERSION_ANDROID": "108",
         "BASE_URL": "https://www.example.com",
         "BASE_URL_API": "https://sandbox.example.com",
         "BUNDLE_IDENTIFIER": "com.example.bankapp",
@@ -52,8 +52,8 @@
     "preview": {
       "distribution": "internal",
       "env": {
-        "APP_VERSION": "1.0.7",
-        "APP_VERSION_ANDROID": "107",
+        "APP_VERSION": "1.0.8",
+        "APP_VERSION_ANDROID": "108",
         "BASE_URL": "https://www.example.com",
         "BASE_URL_API": "https://dev-carte.example.com",
         "BUNDLE_IDENTIFIER": "com.example.bankapp",
