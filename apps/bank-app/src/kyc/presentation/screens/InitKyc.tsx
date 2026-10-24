@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
-import { PrimaryButton, Colors, FontNames, Add } from '@clean-rn/ui-mobile';
+import { PrimaryButton, Colors, Add } from '@clean-rn/ui-mobile';
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 

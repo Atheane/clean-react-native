@@ -83,14 +83,6 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
       createdAt: new Date('2023-10-03T13:20:22.303Z'),
       statusCode: IDocumentStatusCode.INITIAL,
     },
-    {
-      typeId: IDocumentType.PROOF_OF_ADDRESS,
-      category: IDocumentCategory.RESIDENCE_PROOF,
-      status: IDocumentStatus.PENDING,
-      name: 'test-mock-verso',
-      createdAt: new Date('2023-10-03T13:20:22.303Z'),
-      statusCode: IDocumentStatusCode.INITIAL,
-    },
   ];
 
   const mockResponseDocumentsValidated: IDocumentProperties[] = [
@@ -110,14 +102,6 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
       createdAt: new Date('2023-10-03T13:20:22.303Z'),
       statusCode: IDocumentStatusCode.INITIAL,
     },
-    {
-      typeId: IDocumentType.PROOF_OF_ADDRESS,
-      category: IDocumentCategory.RESIDENCE_PROOF,
-      status: IDocumentStatus.VALIDATED,
-      name: 'test-mock-verso',
-      createdAt: new Date('2023-10-03T13:20:22.303Z'),
-      statusCode: IDocumentStatusCode.INITIAL,
-    },
   ];
 
   const mockResponseRefused: IDocumentProperties[] = [
@@ -127,14 +111,6 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
       status: IDocumentStatus.REFUSED,
       name: 'test-mock-recto',
       createdAt: new Date('2023-10-03T13:20:21.303Z'),
-      statusCode: IDocumentStatusCode.INITIAL,
-    },
-    {
-      typeId: IDocumentType.PROOF_OF_ADDRESS,
-      category: IDocumentCategory.RESIDENCE_PROOF,
-      status: IDocumentStatus.VALIDATED,
-      name: 'test-mock-verso',
-      createdAt: new Date('2023-10-03T13:20:22.303Z'),
       statusCode: IDocumentStatusCode.INITIAL,
     },
   ];
