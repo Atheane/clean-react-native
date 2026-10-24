@@ -134,7 +134,7 @@ export const ProfileIdentity = () => {
               </View>
             )}
           </View>
-          {customer?.properties.status !== KYC_REVIEW.VALIDATED && (
+          {customer?.properties.status === KYC_REVIEW.REFUSED && (
             <FormUpdateIdentity
               loading={pending}
               control={control}
