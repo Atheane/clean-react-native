@@ -118,7 +118,8 @@
         "SIGNUP_FAILURE_EMAIL_EXISTS": "Diese E-Mail ist bereits registriert",
         "SIGNUP_FAILURE_PHONE_EXISTS": "Diese Telefonnummer ist bereits registriert",
         "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "Falscher Code",
-        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Telefonnummer unbekannt"
+        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Telefonnummer unbekannt",
+        "INVALID_ADDRESS": "Ungültige Adresse"
       },
       "account": {
         "INVALID_IBAN": "IBAN ungültig",
@@ -624,10 +625,9 @@
       "menu": {
         "title": "Meine Einstellungen",
         "tab": "Einstellungen",
-        "personal-info": "Persönliche Informationen",
-        "my-parameters": "Meine Einstellungen",
-        "app-settings": "Anwendungseinstellungen",
-        "card-settings": "Meine Karte konfigurieren",
+        "card-settings": "Meine Karte einrichten",
+        "account-settings": "Kontoeinstellungen",
+        "app-settings": "App-Einstellungen",
         "notifications": "Benachrichtigungen",
         "love": "Unterstützen Sie uns im App Store",
         "contact-us": "Kontaktieren Sie uns",
@@ -715,10 +715,24 @@
       "threshold": "Limit",
       "submit": "Aktualisieren"
     },
+    "account-settings": {
+      "title": "Kontoeinstellungen",
+      "beneficiaries": "Meine Begünstigten verwalten",
+      "bank-coordinates": "Meine Bankverbindung"
+    },
     "application-settings": {
       "title": "Anwendungseinstellungen",
       "notifications": "Benachrichtigungen",
       "languages": "Sprachen"
+    },
+    "manage-beneficiaries": {
+      "title": "Meine Begünstigten verwalten"
+    },
+    "bank-coordinates": {
+      "title": "Meine Bankverbindung",
+      "instruction": "Hier finden Sie die IBAN und BIC Ihres CO2-Kontos. Mit diesen Angaben können Sie Ihr CO2-Konto von Ihrem anderen Bankkonto aus aufladen.",
+      "bank-account": "CO2-Konto",
+      "share": "Herunterladen"
     },
     "languages": {
       "title": "Sprache auswählen"

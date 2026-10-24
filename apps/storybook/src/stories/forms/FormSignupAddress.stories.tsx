@@ -3,12 +3,11 @@ import { useForm } from 'react-hook-form';
 import { ComponentStory, ComponentMeta } from '@storybook/react-native';
 import { getLocales } from 'expo-localization';
 
-import { COUNTRIES_AVAILABLE } from '@clean-rn/contact/domain';
 import { FormSignupAddress, ISignupAddressFormData } from '@clean-rn/ui-mobile';
-import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../../wrappers';
+import { WithStatus, ValidationStatus } from '../../wrappers';
 
 const locales = getLocales();
-const defaultCountry = locales[0]?.regionCode || undefined;
+const language = locales[0]?.regionCode || undefined;
 
 const FormSignupAddressMeta: ComponentMeta<typeof FormSignupAddress> = {
   title: 'Forms/FormSignupAddress',
@@ -16,15 +15,11 @@ const FormSignupAddressMeta: ComponentMeta<typeof FormSignupAddress> = {
   argTypes: {
     onSubmit: { action: 'onSubmit' },
     onFocus: { action: 'onFocus' },
-    defaultCountry: {
-      options: Object.keys(COUNTRIES_AVAILABLE) as string[],
-      control: { type: 'select' }, // Automatically inferred when 'options' is defined
-    },
   },
   args: {
-    defaultCountry,
+    language,
   },
-  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING)],
 };
 
 export default FormSignupAddressMeta;
@@ -36,11 +31,7 @@ export const Dynamic: FormSignupAddressStory = (args) => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<ISignupAddressFormData>({
-    defaultValues: {
-      country: defaultCountry,
-    },
-  });
+  } = useForm<ISignupAddressFormData>();
 
   const onSubmit = useCallback((formData: ISignupAddressFormData) => {
     console.log(formData);

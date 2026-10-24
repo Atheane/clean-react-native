@@ -13,6 +13,7 @@ type IProps = {
   onChange: (option: string) => void;
   vertical?: boolean;
   defaultValue?: string;
+  setDisabled?: (disabled: boolean) => void;
 };
 
 export const MultipleOptionsCheckBox = (props: IProps) => {
@@ -21,6 +22,7 @@ export const MultipleOptionsCheckBox = (props: IProps) => {
   const handleOnPress = useCallback(
     (option: string) => {
       setCurrentOption(option);
+      if (props.setDisabled) props.setDisabled(false);
       props.onChange(option);
     },
     [props],

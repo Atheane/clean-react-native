@@ -118,7 +118,8 @@
         "SIGNUP_FAILURE_EMAIL_EXISTS": "Αυτό το email έχει ήδη καταχωρηθεί",
         "SIGNUP_FAILURE_PHONE_EXISTS": "Αυτό το τηλέφωνο έχει ήδη καταχωρηθεί",
         "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "Λάθος κωδικός",
-        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Άγνωστος αριθμός τηλεφώνου"
+        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Άγνωστος αριθμός τηλεφώνου",
+        "INVALID_ADDRESS": "Μη έγκυρη διευθυνση"
       },
       "account": {
         "INVALID_IBAN": "Μη έγκυρο IBAN",
@@ -623,15 +624,14 @@
     },
     "parameters": {
       "menu": {
-        "title": "Οι Ρυθμίσεις μου",
+        "title": "Οι ρυθμίσεις μου",
         "tab": "Ρυθμίσεις",
-        "personal-info": "Προσωπικές πληροφορίες",
-        "my-parameters": "Οι παράμετροί μου",
+        "card-settings": "Ρύθμιση της κάρτας μου",
+        "account-settings": "Ρυθμίσεις λογαριασμού",
         "app-settings": "Ρυθμίσεις εφαρμογής",
-        "card-settings": "Ρυθμίσεις της κάρτας μου",
         "notifications": "Ειδοποιήσεις",
         "love": "Υποστηρίξτε μας στο App Store",
-        "contact-us": "Επικοινωνία μαζί μας",
+        "contact-us": "Επικοινωνήστε μαζί μας",
         "legal": "Προσωπικά δεδομένα",
         "cgu": "Όροι χρήσης",
         "cgu-kyc-provider": "Όροι χρήσης KycProvider",
@@ -716,10 +716,24 @@
       "threshold": "Όριο",
       "submit": "Ενημέρωση"
     },
+    "account-settings": {
+      "title": "Ρυθμίσεις λογαριασμού",
+      "beneficiaries": "Διαχείριση δικαιούχων",
+      "bank-coordinates": "Τραπεζικά στοιχεία"
+    },
     "application-settings": {
       "title": "Ρυθμίσεις Εφαρμογής",
       "notifications": "Ειδοποιήσεις",
       "languages": "Γλώσσες"
+    },
+    "manage-beneficiaries": {
+      "title": "Διαχείριση δικαιούχων"
+    },
+    "bank-coordinates": {
+      "title": "Τα τραπεζικά μου στοιχεία",
+      "instruction": "Εδώ είναι το IBAN και το BIC του Λογαριασμού CO2 σας. Χρησιμοποιήστε τα για να πιστώσετε τον Λογαριασμό CO2 σας από τον άλλο τραπεζικό σας λογαριασμό.",
+      "bank-account": "Λογαριασμός CO2",
+      "share": "Λήψη"
     },
     "languages": {
       "title": "Επιλογή Γλώσσας"

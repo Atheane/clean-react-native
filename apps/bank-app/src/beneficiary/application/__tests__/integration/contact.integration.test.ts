@@ -12,6 +12,7 @@ import {
   contactAdded,
   contactAddedFailed,
   resetError,
+  contactPermissionRefused,
 } from '../../commands/contact';
 import { IContactState, contactReducer } from '../../state-management';
 
@@ -35,6 +36,7 @@ describe('Contact - integration', () => {
     const initialState: IContactState = {
       pending: false,
       contacts: null,
+      permission: true,
       error: null,
     };
     sagaTester = new SagaTester({
@@ -51,6 +53,7 @@ describe('Contact - integration', () => {
     expect(newState).toEqual({
       pending: true,
       contacts: null,
+      permission: true,
       error: null,
     });
   });
@@ -62,6 +65,7 @@ describe('Contact - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       contacts: mockContacts,
+      permission: true,
       error: null,
     });
   });
@@ -86,6 +90,7 @@ describe('Contact - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       contacts: [mockResponse],
+      permission: true,
       error: null,
     });
   });
@@ -115,6 +120,7 @@ describe('Contact - integration', () => {
       initialState: {
         pending: false,
         contacts: mockContacts,
+        permission: true,
         error: null,
       },
       reducers: contactReducer,
@@ -126,6 +132,7 @@ describe('Contact - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       contacts: [mockResponse, ...mockContacts],
+      permission: true,
       error: null,
     });
   });
@@ -144,7 +151,19 @@ describe('Contact - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       contacts: null,
+      permission: true,
       error: new ContactError.ContactAlreadyExists(),
+    });
+  });
+
+  it('Should store correct state if CONTACT_PERMISSION_REFUSED', () => {
+    sagaTester.dispatch(contactPermissionRefused());
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      contacts: null,
+      permission: false,
+      error: null,
     });
   });
 
@@ -168,6 +187,7 @@ describe('Contact - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       contacts: null,
+      permission: true,
       error: null,
     });
   });
@@ -192,6 +212,7 @@ describe('Contact - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       contacts: [mockResponse],
+      permission: true,
       error: null,
     });
   });

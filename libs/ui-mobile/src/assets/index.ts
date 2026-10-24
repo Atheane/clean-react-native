@@ -144,8 +144,11 @@ import {
   ParametersGradient,
   ParametersIcon,
   ProfileBlueGradient,
+  BankBuildingBlueGradient,
+  PortofolioBlueGradient,
+  ShareIcon,
 } from './svg';
-import { DefaultImage, PlaneEmpty } from './image';
+import { DefaultImage, PlaneEmpty, SuccessTransfer, NoBeneficiary, NoContact } from './image';
 import { Loader } from './lottie';
 export {
   Love,
@@ -296,4 +299,10 @@ export {
   ParametersGradient,
   ParametersIcon,
   ProfileBlueGradient,
+  BankBuildingBlueGradient,
+  PortofolioBlueGradient,
+  ShareIcon,
+  SuccessTransfer,
+  NoBeneficiary,
+  NoContact,
 };

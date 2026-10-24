@@ -3,7 +3,7 @@ import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
 
 import { RightChevronGradient, RightChevron, Trash, TrashGradient } from '../../../assets';
-import { Colors, FontNames } from '../../../constants';
+import { Colors, FontNames, NEEDS_SMALL_TEXT } from '../../../constants';
 
 type IProps = {
   icon?: React.FC<SvgProps>;
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   textIban: {
     color: Colors.bank.primary.grey,
-    fontSize: 14,
+    fontSize: NEEDS_SMALL_TEXT ? 12 : 14,
     marginTop: 5,
   },
   btnContainer: {

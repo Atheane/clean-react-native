@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
+import { getLocales } from 'expo-localization';
 
 import {
   useCleanErrorOnFocus,
@@ -11,14 +12,15 @@ import {
   ISignupAddressFormData,
   Colors,
 } from '@clean-rn/ui-mobile';
-import { Country, IUpdateUserCommand } from '@clean-rn/user/domain';
+import { IUpdateUserCommand } from '@clean-rn/user/domain';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { fetchUpdateUser } from '../../../user/application/commands';
 import { IParametersStackPages } from '../../../shared/presentation/types';
 
 const HEIGHT = Dimensions.get('window').height;
+const lang = getLocales()[0]?.languageCode || 'FR';
 
 export const ProfileAddress = () => {
   /// translations
@@ -37,16 +39,13 @@ export const ProfileAddress = () => {
   } = useForm<ISignupAddressFormData>({
     defaultValues: {
       specifiedUSPerson: user?.properties.USPerson ? '1' : '0',
-      country: user?.properties.address?.country.value,
-      city: user?.properties.address?.city,
-      street: user?.properties.address?.str,
-      zip: user?.properties.address?.zip,
+      address: user?.properties.address,
     },
   });
 
   const onSubmit = useCallback(
     (formData: ISignupAddressFormData) => {
-      const { specifiedUSPerson, country, city, street, zip } = formData;
+      const { specifiedUSPerson, address } = formData;
       let updatedFormData: IUpdateUserCommand & { nextRoute: IParametersStackPages } = {
         nextRoute: IParametersStackPages.PARAMETERS,
       };
@@ -60,23 +59,11 @@ export const ProfileAddress = () => {
           USPerson: specifiedUSPerson === '1' ? true : false,
         };
       }
-      if (
-        (country && country !== user?.properties.address?.country.value) ||
-        (city && city !== user?.properties.address?.city) ||
-        (street && street !== user?.properties.address?.str) ||
-        (zip && zip !== user?.properties.address?.zip)
-      ) {
-        updatedFormData = {
-          ...updatedFormData,
-          address: {
-            ...updatedFormData.address,
-            country: new Country(country),
-            city,
-            str: street,
-            zip,
-          },
-        };
-      }
+      updatedFormData = {
+        ...updatedFormData,
+        address: address.str ? address : user?.properties.address,
+      };
+
       dispatch(fetchUpdateUser(updatedFormData));
     },
     [dispatch, user],
@@ -86,19 +73,17 @@ export const ProfileAddress = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView>
-        <View style={[styles.container, theme.bank.container.centeredItem]}>
-          <FormSignupAddress
-            loading={pending}
-            control={control}
-            errors={errors}
-            error={domainError}
-            defaultCountry={user?.properties.address?.country.value}
-            onSubmit={handleSubmit(onSubmit)}
-            onFocus={onFocus}
-          />
-        </View>
-      </SafeScrollingView>
+      <View style={[styles.container, theme.bank.container.centeredItem]}>
+        <FormSignupAddress
+          loading={pending}
+          control={control}
+          errors={errors}
+          error={domainError}
+          onSubmit={handleSubmit(onSubmit)}
+          onFocus={onFocus}
+          language={lang}
+        />
+      </View>
     </ErrorBoundary>
   );
 };

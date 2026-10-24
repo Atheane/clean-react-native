@@ -14,6 +14,7 @@ import {
   ISignupEmailFormData,
   useCleanErrorOnFocus,
   SubmitButton,
+  NEEDS_SMALL_TEXT,
 } from '@clean-rn/ui-mobile';
 import { AuthError, Email } from '@clean-rn/auth/domain';
 
@@ -111,18 +112,21 @@ export const SignupEmail = () => {
               arrow={false}
               colorOption={LinkButtonColors.BLUE}
               onPress={onPressLegal}
+              inline={{ fontSize: NEEDS_SMALL_TEXT ? 12 : 15, color: Colors.bank.primary.darkBlue }}
             />
             <LinkButton
               title={t('screens.cgu')}
               arrow={false}
               colorOption={LinkButtonColors.BLUE}
               onPress={onPressCgu}
+              inline={{ fontSize: NEEDS_SMALL_TEXT ? 12 : 15, color: Colors.bank.primary.darkBlue }}
             />
             <LinkButton
               title={t('screens.cgu-kyc-provider')}
               arrow={false}
               colorOption={LinkButtonColors.BLUE}
               onPress={onPressCguKycProvider}
+              inline={{ fontSize: NEEDS_SMALL_TEXT ? 12 : 15, color: Colors.bank.primary.darkBlue }}
             />
           </View>
         </View>

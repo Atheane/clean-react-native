@@ -16,6 +16,7 @@ export enum IContactTypes {
   CONTACT_ADDED = 'CONTACT_ADDED',
   CONTACT_ADD_FAILED = 'CONTACT_ADD_FAILED',
   CONTACTS_LISTED = 'CONTACTS_LISTED',
+  CONTACT_PERMISSION_REFUSED = 'CONTACT_PERMISSION_REFUSED',
 }
 
 // commands
@@ -52,6 +53,10 @@ export type IContactsListed = {
   payload: IContact[];
 };
 
+export type IContactPermissionRefused = {
+  type: typeof IContactTypes.CONTACT_PERMISSION_REFUSED;
+};
+
 export type IContactActions =
   | IAddContact
   | IListContacts
@@ -59,4 +64,5 @@ export type IContactActions =
   | IResetError
   | IContactAdded
   | IContactAddedFailed
+  | IContactPermissionRefused
   | IContactsListed;

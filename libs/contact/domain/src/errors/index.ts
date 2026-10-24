@@ -6,6 +6,7 @@ export enum IContactErrorMessage {
   INVALID_PHONE = 'Invalid phone format',
   INVALID_COUNTRY_CODE = 'Invalid country calling code',
   CONTACT_ALREADY_EXISTS = 'Contact already exists',
+  PERMISSION_REFUSED = 'Permission refused',
 }
 
 export enum IContactErrorCodes {
@@ -13,6 +14,7 @@ export enum IContactErrorCodes {
   INVALID_PHONE = 'INVALID_PHONE',
   INVALID_COUNTRY_CODE = 'INVALID_COUNTRY_CODE',
   CONTACT_ALREADY_EXISTS = 'CONTACT_ALREADY_EXISTS',
+  PERMISSION_REFUSED = 'PERMISSION_REFUSED',
 }
 
 export namespace ContactError {
@@ -66,6 +68,20 @@ export namespace ContactError {
       super();
       this.message = IContactErrorMessage.CONTACT_ALREADY_EXISTS;
       this.code = IContactErrorCodes.CONTACT_ALREADY_EXISTS;
+      this.cause = cause;
+    }
+  }
+  export class PermissionRefused
+    extends Error
+    implements IDomainError<IContactErrorCodes, IContactErrorMessage>
+  {
+    code: IContactErrorCodes;
+    message: IContactErrorMessage;
+    cause?: unknown;
+    constructor(cause?: unknown) {
+      super();
+      this.message = IContactErrorMessage.PERMISSION_REFUSED;
+      this.code = IContactErrorCodes.PERMISSION_REFUSED;
       this.cause = cause;
     }
   }

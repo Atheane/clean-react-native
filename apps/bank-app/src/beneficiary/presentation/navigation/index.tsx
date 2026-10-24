@@ -28,6 +28,7 @@ export const BeneficiaryStack = () => {
   const navigation = useNavigation();
 
   const { tab } = useSelector((state: IRootState) => state.beneficiary.beneficiaries);
+  const { permission } = useSelector((state: IRootState) => state.beneficiary.contacts);
 
   const handleOnPressAdd = useCallback(() => {
     if (tab === 1) {
@@ -49,16 +50,19 @@ export const BeneficiaryStack = () => {
             ? {
                 headerTitle: t('screens.transfer.title'),
                 ...headersOptions(),
-                headerRight: () => (
-                  <View style={theme.bank.shadow.button}>
-                    <TouchableOpacity onPress={handleOnPressAdd}>
-                      <AddButton
-                        width={styles.headerRightButton.width}
-                        height={styles.headerRightButton.height}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                ),
+                headerRight:
+                  permission || tab === 1
+                    ? () => (
+                        <View style={theme.bank.shadow.button}>
+                          <TouchableOpacity onPress={handleOnPressAdd}>
+                            <AddButton
+                              width={styles.headerRightButton.width}
+                              height={styles.headerRightButton.height}
+                            />
+                          </TouchableOpacity>
+                        </View>
+                      )
+                    : undefined,
               }
             : {
                 headerTitle: t('screens.transfer.title'),

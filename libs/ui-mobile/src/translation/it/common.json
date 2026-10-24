@@ -118,7 +118,8 @@
         "SIGNUP_FAILURE_EMAIL_EXISTS": "Questa email è già registrata",
         "SIGNUP_FAILURE_PHONE_EXISTS": "Questo telefono è già registrato",
         "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "Codice errato",
-        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Numero di telefono sconosciuto"
+        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Numero di telefono sconosciuto",
+        "INVALID_ADDRESS": "Indirizzo non valido"
       },
       "account": {
         "INVALID_IBAN": "IBAN non valido",
@@ -625,16 +626,16 @@
       "menu": {
         "title": "Le mie impostazioni",
         "tab": "Impostazioni",
-        "personal-info": "Informazioni personali",
-        "my-parameters": "Le mie impostazioni",
+        "card-settings": "Configura la mia carta",
+        "account-settings": "Impostazioni dell'account",
         "app-settings": "Impostazioni dell'applicazione",
-        "card-settings": "Impostazioni della mia carta",
         "notifications": "Notifiche",
         "love": "Sostienici sull'App Store",
         "contact-us": "Contattaci",
         "legal": "Dati personali",
-        "cgu": "CGU",
-        "cgu-kyc-provider": "CGU KycProvider",
+        "cgu": "Termini e condizioni",
+        "cgu-kyc-provider": "Termini e condizioni KycProvider",
+        "profile": "Il mio profilo",
         "delete-account": "Disiscriviti"
       },
       "delete-account": {
@@ -715,10 +716,24 @@
       "threshold": "Limite",
       "submit": "Aggiorna"
     },
+    "account-settings": {
+      "title": "Impostazioni dell'account",
+      "beneficiaries": "Gestisci i miei beneficiari",
+      "bank-coordinates": "Le mie coordinate bancarie"
+    },
+    "manage-beneficiaries": {
+      "title": "Gestisci i miei beneficiari"
+    },
     "application-settings": {
       "title": "Impostazioni dell'applicazione",
       "notifications": "Notifiche",
       "languages": "Lingue"
+    },
+    "bank-coordinates": {
+      "title": "Le mie coordinate bancarie",
+      "instruction": "Ecco l'IBAN e il BIC del tuo Conto CO2. Grazie ad essi, accredita il tuo Conto CO2 dal tuo altro conto bancario.",
+      "bank-account": "Conto CO2",
+      "share": "Scaricare"
     },
     "languages": {
       "title": "Seleziona la lingua"

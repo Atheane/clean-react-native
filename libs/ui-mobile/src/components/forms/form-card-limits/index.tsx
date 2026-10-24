@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
@@ -29,6 +30,8 @@ export const FormCardLimits = (props: IProps) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
 
+  const [disabled, setDisabled] = useState(true);
+
   return (
     <View style={[styles.container, theme.bank.container.centeredItem]}>
       <View style={styles.textContainer}>
@@ -51,7 +54,10 @@ export const FormCardLimits = (props: IProps) => {
               value={value}
               IconLeft={GreenGradientSpeedLimit}
               placeholder={'2000'}
-              onChange={onChange}
+              onChange={(value) => {
+                setDisabled(false);
+                onChange(value);
+              }}
               onBlur={onBlur}
             />
           )}
@@ -84,7 +90,10 @@ export const FormCardLimits = (props: IProps) => {
               value={value}
               IconLeft={GreenGradientSpeedLimit}
               placeholder={'5000'}
-              onChange={onChange}
+              onChange={(value) => {
+                setDisabled(false);
+                onChange(value);
+              }}
             />
           )}
         />
@@ -118,7 +127,10 @@ export const FormCardLimits = (props: IProps) => {
               value={value}
               IconLeft={GreenGradientSpeedLimit}
               placeholder={'8000'}
-              onChange={onChange}
+              onChange={(value) => {
+                setDisabled(false);
+                onChange(value);
+              }}
             />
           )}
         />
@@ -144,6 +156,7 @@ export const FormCardLimits = (props: IProps) => {
           uppercase={false}
           onSubmit={props.onSubmit}
           loading={props.loading}
+          disabled={disabled}
         />
       </View>
     </View>

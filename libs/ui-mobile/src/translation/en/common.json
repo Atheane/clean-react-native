@@ -118,7 +118,8 @@
         "SIGNUP_FAILURE_EMAIL_EXISTS": "This email is already registered",
         "SIGNUP_FAILURE_PHONE_EXISTS": "This phone is already registered",
         "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "Incorrect code",
-        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Phone number unknown"
+        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Phone number unknown",
+        "INVALID_ADDRESS": "Invalid address"
       },
       "account": {
         "INVALID_IBAN": "Invalid IBAN",
@@ -622,19 +623,18 @@
     },
     "parameters": {
       "menu": {
-        "title": "My Settings",
+        "title": "My settings",
         "tab": "Settings",
-        "personal-info": "Personal information",
-        "my-parameters": "My settings",
-        "app-settings": "Application Settings",
         "card-settings": "Set up my card",
+        "account-settings": "Account settings",
+        "app-settings": "App settings",
         "notifications": "Notifications",
         "love": "Support us on the App Store",
         "contact-us": "Contact us",
         "legal": "Personal data",
         "cgu": "Terms and Conditions",
-        "cgu-kyc-provider": "CGU KycProvider",
-        "profile": "My Profile",
+        "cgu-kyc-provider": "KycProvider Terms and Conditions",
+        "profile": "My profile",
         "delete-account": "Unsubscribe"
       },
       "delete-account": {
@@ -715,10 +715,24 @@
       "threshold": "Threshold",
       "submit": "Update"
     },
+    "account-settings": {
+      "title": "Account settings",
+      "beneficiaries": "Manage my beneficiaries",
+      "bank-coordinates": "My bank details"
+    },
     "application-settings": {
       "title": "Application Settings",
       "notifications": "Notifications",
       "languages": "Languages"
+    },
+    "manage-beneficiaries": {
+      "title": "Manage my beneficiaries"
+    },
+    "bank-coordinates": {
+      "title": "My bank details",
+      "instruction": "Here are the IBAN and BIC of your CO2 Account. With them, credit your CO2 Account from your other bank account.",
+      "bank-account": "CO2 Account",
+      "share": "Download"
     },
     "languages": {
       "title": "Select Language"

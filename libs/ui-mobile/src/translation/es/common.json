@@ -118,7 +118,8 @@
         "SIGNUP_FAILURE_EMAIL_EXISTS": "Este correo electrónico ya está registrado",
         "SIGNUP_FAILURE_PHONE_EXISTS": "Este teléfono ya está registrado",
         "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "Código incorrecto",
-        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Número de teléfono desconocido"
+        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Número de teléfono desconocido",
+        "INVALID_ADDRESS": "Dirección inválida"
       },
       "account": {
         "INVALID_IBAN": "IBAN inválido",
@@ -624,16 +625,15 @@
       "menu": {
         "title": "Mis ajustes",
         "tab": "Ajustes",
-        "personal-info": "Información personal",
-        "my-parameters": "Mis parámetros",
-        "app-settings": "Configuración de la aplicación",
         "card-settings": "Configurar mi tarjeta",
+        "account-settings": "Ajustes de la cuenta",
+        "app-settings": "Ajustes de la aplicación",
         "notifications": "Notificaciones",
         "love": "Apóyanos en la App Store",
-        "contact-us": "Contáctenos",
+        "contact-us": "Contáctanos",
         "legal": "Datos personales",
-        "cgu": "Términos y condiciones de uso",
-        "cgu-kyc-provider": "Términos y condiciones KycProvider",
+        "cgu": "Términos y condiciones",
+        "cgu-kyc-provider": "Términos y condiciones de KycProvider",
         "profile": "Mi perfil",
         "delete-account": "Darse de baja"
       },
@@ -715,10 +715,24 @@
       "threshold": "Límite",
       "submit": "Actualizar"
     },
+    "account-settings": {
+      "title": "Configuración de la cuenta",
+      "beneficiaries": "Administrar mis beneficiarios",
+      "bank-coordinates": "Mis datos bancarios"
+    },
     "application-settings": {
       "title": "Configuración de la aplicación",
       "notifications": "Notificaciones",
       "languages": "Idiomas"
+    },
+    "manage-beneficiaries": {
+      "title": "Administrar mis beneficiarios"
+    },
+    "bank-coordinates": {
+      "title": "Mis datos bancarios",
+      "instruction": "Aquí están el IBAN y el BIC de su Cuenta CO2. Con ellos, acredite su Cuenta CO2 desde su otra cuenta bancaria.",
+      "bank-account": "Cuenta CO2",
+      "share": "Descargar"
     },
     "languages": {
       "title": "Seleccionar idioma"
