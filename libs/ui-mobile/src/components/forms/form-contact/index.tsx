@@ -72,6 +72,7 @@ export const FormContact = (props: IProps) => {
               IconLeft={ProfileGradient}
               value={value}
               onChange={onChange}
+              onSubmitEditing={props.onSubmit}
             />
           )}
         />
@@ -96,6 +97,7 @@ export const FormContact = (props: IProps) => {
               IconLeft={ProfileGradient}
               value={value}
               onChange={onChange}
+              onSubmitEditing={props.onSubmit}
             />
           )}
         />

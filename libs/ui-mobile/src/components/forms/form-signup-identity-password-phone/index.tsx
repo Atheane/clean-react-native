@@ -102,6 +102,7 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
               IconLeft={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
               value={value}
               onChange={onChange}
+              onSubmitEditing={props.onSubmit}
             />
           )}
         />
@@ -133,6 +134,7 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
               IconLeft={() => <Person style={{ color: Colors.bank.primary.lightGreen }} />}
               value={value}
               onChange={onChange}
+              onSubmitEditing={props.onSubmit}
             />
           )}
         />
@@ -161,6 +163,7 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
               secured={props.securedPassword}
               onToggleSecurity={props.onToggleSecurityPassword}
               onFocus={props.onFocus}
+              onSubmitEditing={props.onSubmit}
             />
           )}
         />
@@ -238,7 +241,7 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
                   value={value}
                   placeholder={t('signup-phone.phone.placeholder')}
                   onFocus={props.onFocus}
-                  keyboardType={'phone-pad'}
+                  keyboardType="phone-pad"
                 />
               )}
             />

@@ -89,7 +89,13 @@ export const SignupEmail = () => {
           <View style={styles.textContainer}>
             <Text style={[theme.bank.text.darkBlue, styles.text]}>{t('signup-email.text')}</Text>
           </View>
-          <FormSignupEmail control={control} errors={errors} error={domainError} onFocus={onFocus} />
+          <FormSignupEmail
+            control={control}
+            errors={errors}
+            error={domainError}
+            onFocus={onFocus}
+            onSubmit={handleSubmit(onSubmit)}
+          />
           <SubmitButton
             title={t('button.submit')}
             uppercase={false}

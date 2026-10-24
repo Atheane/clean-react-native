@@ -15,6 +15,7 @@ type Props = {
   placeholder: string;
   onChange: (data: Dayjs) => void;
   defaultValue?: Dayjs;
+  onSubmitEditing: () => void;
 };
 
 export const DateTimePicker = (props: Props) => {
@@ -58,6 +59,7 @@ export const DateTimePicker = (props: Props) => {
         value={date.format(props.format)}
         placeholder={props.placeholder}
         onFocus={handleOnFocus}
+        onSubmitEditing={props.onSubmitEditing}
       />
     </Pressable>
   );

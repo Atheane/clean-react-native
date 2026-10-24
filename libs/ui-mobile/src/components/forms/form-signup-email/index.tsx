@@ -18,6 +18,7 @@ type IProps = {
   errors: FieldErrors<ISignupEmailFormData>;
   error: IDomainError<IUserErrorCodes, IUserErrorMessage> | null;
   onFocus: () => void;
+  onSubmit: () => void;
 };
 
 export type ISignupEmailFormData = {
@@ -37,7 +38,12 @@ export const FormSignupEmail = (props: IProps) => {
           name="email"
           rules={{ required: true, pattern: Email.pattern }}
           render={({ field: { onChange, value } }) => (
-            <EmailInput value={value} onChange={onChange} onFocus={props.onFocus} />
+            <EmailInput
+              value={value}
+              onChange={onChange}
+              onFocus={props.onFocus}
+              onSubmitEditing={props.onSubmit}
+            />
           )}
         />
         {props.errors?.email && props.errors.email.type === 'required' && (
