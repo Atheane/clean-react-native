@@ -3,19 +3,14 @@ import { View, Text, StyleSheet, Image, StyleProp, ViewStyle, Dimensions } from 
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
-import { getDeviceId, getBrand } from 'react-native-device-info';
 
-import { PrimaryButton, RightChevron, Colors, FontNames } from '@clean-rn/ui-mobile';
+import { PrimaryButton, RightChevron, Colors, FontNames, NEEDS_SMALL_TEXT } from '@clean-rn/ui-mobile';
 import { ICarbonStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
 import { WarningFoodCO2 } from '../assets/images';
 
 const HEIGHT = Dimensions.get('window').height;
-const brand = getBrand();
-const model = getDeviceId();
-
-const NEEDS_SMALL_TEXT = brand === 'OPPO' && model === 'lahaina';
 
 export const WarningFood = () => {
   const { t } = useTranslation();

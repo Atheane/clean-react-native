@@ -1,9 +1,8 @@
 import '@rneui/themed';
 import { Dimensions, StyleProp, TextStyle, ViewStyle } from 'react-native';
 import { createTheme } from '@rneui/themed';
-import { getDeviceId, getBrand } from 'react-native-device-info';
 
-import { FontNames, Colors } from '../constants';
+import { FontNames, Colors, NEEDS_SMALL_TEXT } from '../constants';
 
 declare module '@rneui/themed' {
   export interface Theme {
@@ -61,11 +60,6 @@ const COEFF = 0.75;
 const SHORT_CARD_RATIO = 168 / 228;
 const LONG_CARD_RATIO = 85 / 356;
 const KPI_CARD_RATIO = 112 / 174;
-
-const brand = getBrand();
-const model = getDeviceId();
-
-const NEEDS_SMALL_TEXT = brand === 'OPPO' && model === 'lahaina';
 
 export const theme = createTheme({
   bank: {
