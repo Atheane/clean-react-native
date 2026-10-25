@@ -541,85 +541,86 @@
       "flight": "viaggio(i)"
     },
     "kyc": {
-      "title": "Verifica della tua identità",
-      "send-document": "Invia un documento",
+      "title": "Verifica dell'Identità",
+      "send-document": "Invia Documento",
       "init": {
-        "instruction": "3 fasi:\n\n1. Allegare un documento di identità\n\n2. Allegare un documento di indirizzo\n\n3. Trasferire 1 euro da uno dei vostri conti bancari al vostro Conto CO2",
-        "check-identity": "Verifica la mia identità"
+        "steps": "Passaggi:\n",
+        "step1": "1. Allegare un documento di identità\n",
+        "step2": "2. Effettuare un bonifico di 1 euro da uno dei tuoi conti bancari sul tuo Conto CO2\n",
+        "step3": "3. Allegare il modulo W9",
+        "check-identity": "Verifica"
       },
       "complete": {
-        "title": "Documenti validati",
-        "congrats": "Congratulazioni i tuoi documenti sono stati validati!\n\n",
-        "instruction": "Ultimo passo, ora devi effettuare un bonifico sul tuo Conto CO2, da uno dei tuoi conti situati in Francia."
+        "title": "Documenti Validati",
+        "congrats": "Congratulazioni, i tuoi documenti sono stati validati!\n\n",
+        "instruction": "Ultimo passo, devi ora effettuare un bonifico sul tuo Conto CO2, da uno dei tuoi conti in Francia."
       },
       "success": {
-        "title": "Identità validata",
-        "congrats": "Congratulazioni la tua identità è stata validata!\n\n",
+        "title": "Identità Verificata",
+        "congrats": "Congratulazioni, la tua identità è stata verificata!\n\n",
         "instruction-before-card": "Abbiamo avviato la ",
         "instruction-card": "produzione della tua Carta CO2",
-        "instruction-after-card": ". Ti invieremo la carta per posta non appena sarà pronta.\n\nUn po' di pazienza, nel frattempo puoi ",
-        "link-instruction": " ricaricare il tuo conto."
+        "instruction-after-card": ". Te la invieremo per posta non appena sarà pronta.\n\nPer favore, sii paziente, nel frattempo puoi ricaricare il tuo conto."
       },
       "card-sent": {
-        "title": "Identità validata",
-        "text": "Abbiamo inviato la tua Carta CO2 per posta."
+        "title": "Identità Verificata",
+        "text": "Abbiamo inviato con successo la tua Carta CO2 per posta."
       },
       "menu": {
-        "title": "Documenti da inviare:",
         "instruction-before": {
-          "begin": "Una volta inviati i",
-          "end": "documenti, la verifica verrà avviata automaticamente."
+          "singular": "Una volta trasmesso il documento di identità e ricevuto il bonifico, la verifica partirà automaticamente.",
+          "plural": "Una volta trasmessi entrambi i documenti e ricevuto il bonifico, la verifica partirà automaticamente."
         },
         "instruction-after": {
           "begin": "I tuoi documenti sono",
           "bold": " in fase di verifica, ",
-          "end": "potrebbe richiedere da 24 a 72 ore."
+          "end": "questo può richiedere da 24 a 72 ore."
         },
-        "last-step": "\n\n\nUltimo passo :\n",
+        "last-step": "\n\n\nUltimo passo:\n",
         "w9-form": "Modulo W9",
-        "identity": "Documento d'identità",
-        "fix-file": "Si prega di correggere gli elementi del dossier",
-        "transfer": "Trasferimento di 1 euro"
+        "identity": "Documento di Identità",
+        "fix-file": "Si prega di correggere gli elementi del file",
+        "transfer": "Bonifico di 1 euro"
       },
       "first-id": {
-        "title": "Documenti d'identità",
-        "instruction": "Scegli il tuo documento d'identità",
-        "id": "Carta d'identità",
+        "title": "Documenti d'Identità",
+        "instruction": "Scegli il tuo documento di identità",
+        "id": "Carta d'Identità",
         "passport": "Passaporto",
-        "residence-permit": "Permesso di soggiorno"
+        "residence-permit": "Permesso di Soggiorno"
       },
       "take-photo": "Scatta una foto",
       "id": {
         "recto": {
-          "title": "Carta d’identità - Fronte",
-          "instruction": "del fronte della tua carta d’identità"
+          "title": "Carta d'Identità - Fronte",
+          "instruction": "del fronte della tua carta d'identità"
         },
         "verso": {
-          "title": "Carta d’identità - Retro",
-          "instruction": "del retro della tua carta d’identità"
+          "title": "Carta d'Identità - Retro",
+          "instruction": "del retro della tua carta d'identità"
         }
       },
       "passport": {
         "title": "Passaporto",
-        "instruction": "della pagina d'identità del tuo passaporto"
+        "instruction": "della pagina di identità del tuo passaporto"
       },
       "residence-permit": {
         "recto": {
-          "title": "Permesso di soggiorno - Fronte",
+          "title": "Permesso di Soggiorno - Fronte",
           "instruction": "del fronte del tuo permesso di soggiorno"
         },
         "verso": {
-          "title": "Permesso di soggiorno - Retro",
+          "title": "Permesso di Soggiorno - Retro",
           "instruction": "del retro del tuo permesso di soggiorno"
         }
       },
       "w9": {
-        "title": "Residente americano - W-9",
-        "instruction": "o importa il tuo modulo w-9"
+        "title": "Residente USA - W-9",
+        "instruction": "o importa il tuo modulo W-9"
       },
       "sct-required": {
-        "title": "Trasferimento di 1 euro",
-        "instruction": "Effettua un bonifico di 1 euro sul tuo conto CO2, da uno dei tuoi conti situati in Francia."
+        "title": "Bonifico di 1 euro",
+        "instruction": "Effettua un bonifico di 1 euro sul tuo Conto CO2, da uno dei tuoi conti in Francia."
       }
     },
     "parameters": {
@@ -645,8 +646,11 @@
         "goodbye": "Arrivederci!"
       }
     },
-    "profile": {
-      "title": "Il mio profilo"
+    "profile-identity": {
+      "title": "Modifica il mio profilo - Identità"
+    },
+    "profile-address": {
+      "title": "Modifica il mio profilo - Indirizzo"
     },
     "card": {
       "menu": {
