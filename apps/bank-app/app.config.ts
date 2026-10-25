@@ -21,7 +21,7 @@ export default {
       bundleIdentifier: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.example.bankapp',
       googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_PLIST || './GoogleService-Info.plist',
       supportsTablet: false,
-      versionCode: process.env.APP_VERSION,
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION,
     },
     android: {
       adaptiveIcon: {

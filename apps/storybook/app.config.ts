@@ -2,9 +2,9 @@ import 'dotenv/config';
 
 export default {
   expo: {
-    name: 'CleanRN Storybook Dev',
-    slug: 'clean-rn-storybook-dev',
-    version: process.env.APP_VERSION,
+    name: process.env.EXPO_PUBLIC_APP_NAME_STORYBOOK,
+    slug: process.env.EXPO_PUBLIC_SLUG_NAME_STORYBOOK,
+    version: process.env.EXPO_PUBLIC_APP_VERSION,
     orientation: 'portrait',
     icon: './assets/images/icon.png',
     splash: {
@@ -17,17 +17,19 @@ export default {
     },
     assetBundlePatterns: ['**/*'],
     ios: {
-      bundleIdentifier: 'com.example.storybookdev',
-      googleServicesFile: './GoogleService-Info.plist',
+      bundleIdentifier: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER,
+      googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_PLIST,
       supportsTablet: true,
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION,
     },
     android: {
       adaptiveIcon: {
         foregroundImage: './assets/images/adaptive-icon.png',
         backgroundColor: '#FFFFFF',
       },
-      package: 'com.example.storybookdev',
-      googleServicesFile: './google-services.json',
+      package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER,
+      googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_SERVICES,
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION_ANDROID,
     },
     web: {
       favicon: './assets/images/favicon.png',
@@ -66,10 +68,8 @@ export default {
       ],
     ],
     extra: {
-      NODE_ENV: process.env.NODE_ENV,
-      SENTRY_DSN: process.env.SENTRY_DSN,
       eas: {
-        projectId: process.env.PROJECT_ID,
+        projectId: process.env.EXPO_PUBLIC_PROJECT_ID,
       },
     },
   },

@@ -13,6 +13,7 @@ import { FlyForm, CO2, PrimaryButton, useFlyFormData, Colors } from '@clean-rn/u
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
+import { PlaneEmpty } from '../assets/images';
 import { computeFlyEmissions } from '../../application/commands';
 
 const formattedAirports = airports.map((airport) => ({
@@ -49,6 +50,7 @@ export const Fly = () => {
               onAddFlight={handleOnAddFlight}
               onRemoveFlight={handleRemoveFlight}
               scrollViewRef={scrollViewRef}
+              planeImage={PlaneEmpty}
             />
             <View style={styles.buttonContainer}>
               <PrimaryButton

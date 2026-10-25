@@ -206,7 +206,7 @@
   },
   "password-input": {
     "placeholder": "******",
-    "label": "password"
+    "label": "Mot de passe"
   },
   "button": {
     "add": "Ajouter",
