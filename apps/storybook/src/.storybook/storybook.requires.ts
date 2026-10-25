@@ -76,6 +76,8 @@ const getStories = () => {
     './stories/cards/TransferCard.stories.tsx': require('../stories/cards/TransferCard.stories'),
     './stories/cards/BeneficiaryCard.stories.tsx': require('../stories/cards/BeneficiaryCard.stories'),
     './stories/cards/ContactCard.stories.tsx': require('../stories/cards/ContactCard.stories'),
+    // Charts
+    './stories/charts/StackedBars.stories.tsx': require('../stories/charts/StackedBars.stories'),
     // Checkboxes
     './stories/checkboxes/SimpleCheckBox.stories.tsx': require('../stories/checkboxes/SimpleCheckBox.stories'),
     './stories/checkboxes/MultipleOptionsCheckBox.stories.tsx': require('../stories/checkboxes/MultipleOptionsCheckBox.stories'),

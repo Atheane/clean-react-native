@@ -25,6 +25,8 @@ import { UploadDocumentCard } from './cards/upload-document-card';
 import { TransferCard } from './cards/transfer-card';
 import { BeneficiaryCard } from './cards/beneficiary-card';
 import { ContactCard } from './cards/contact-card';
+// Charts
+import { StackedBars } from './charts/stacked-bars';
 // Checkboxes
 import { MultipleOptionsCheckBox } from './checkboxes/multiple-options-checkBox';
 import { SimpleCheckBox } from './checkboxes/simple-checkbox';
@@ -122,6 +124,8 @@ export {
   TransferCard,
   BeneficiaryCard,
   ContactCard,
+  // Charts
+  StackedBars,
   // Checkboxes
   MultipleOptionsCheckBox,
   SimpleCheckBox,
