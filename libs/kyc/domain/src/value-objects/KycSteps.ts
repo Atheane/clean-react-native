@@ -1,9 +1,10 @@
 import { arrayIsEmpty } from '@clean-rn/shared/domain';
 
-import { IDocumentCategory, IDocumentProperties, IDocumentStatus, IDocumentType, IKycState } from '../types';
-import { ALLOWED_DOCUMENT_TYPES, EXPECTED_DOCUMENTS_NUMBER } from '../constants';
+import { IDocumentProperties, IDocumentStatus, IDocumentType, IKycState, IKycSteps } from '../types';
+import { ALLOWED_DOCUMENT_TYPES, EXPECTED_STEPS_NUMBER } from '../constants';
 import { DocumentError } from '../errors';
 import { KYC_REVIEW } from '@clean-rn/user/domain';
+import { ITransaction, ITransactionType } from '@clean-rn/transaction/domain';
 
 export class DocumentVO {
   properties: IDocumentProperties;
@@ -46,22 +47,32 @@ export class DocumentVO {
   }
 }
 
-export class KycDocuments {
-  documents: { [key in IDocumentCategory]: DocumentVO | undefined } = {
-    [IDocumentCategory.W9]: undefined,
-    [IDocumentCategory.ID]: undefined,
+export class KycSteps {
+  steps: { [key in IKycSteps]: DocumentVO | boolean | undefined } = {
+    [IKycSteps.W9]: undefined,
+    [IKycSteps.ID]: undefined,
+    [IKycSteps.SCT]: undefined,
   };
   isUSPerson: boolean;
   state: IKycState;
-  expectedDocumentCount: number;
+  stepsCount: number;
 
-  constructor(docsProps: IDocumentProperties[], USPerson?: boolean) {
-    const documentsByCategory = this.allocateDocumentsByCategory(docsProps);
-    Object.keys(documentsByCategory).forEach((category) => {
-      this.processCategoryDocuments(category as IDocumentCategory, documentsByCategory);
+  constructor({
+    docProps,
+    transactions,
+    USPerson,
+  }: {
+    docProps: IDocumentProperties[];
+    transactions: ITransaction[];
+    USPerson?: boolean;
+  }) {
+    const documentsByCategory = this.allocateDocumentsByCategory(docProps);
+    Object.keys(documentsByCategory).forEach((cat) => {
+      this.processCategoryDocuments(cat as IKycSteps.W9 | IKycSteps.ID, documentsByCategory);
     });
     this.isUSPerson = !!USPerson;
-    this.expectedDocumentCount = this.setExpectedDocumentCount();
+    this.stepsCount = this.setExpectedStepsCount();
+    this.validateSct(transactions);
     this.state = this.computeState();
   }
 
@@ -71,33 +82,44 @@ export class KycDocuments {
   }
 
   addDocument(document: DocumentVO): void {
-    this.validateDocumentType(document.properties.category, document.properties.typeId);
-    this.documents[document.properties.category] = document;
-    this.expectedDocumentCount = this.setExpectedDocumentCount();
+    this.validateDocumentType(document.properties.kycStep, document.properties.typeId);
+    this.steps[document.properties.kycStep] = document;
+    this.stepsCount = this.setExpectedStepsCount();
     this.state = this.computeState();
   }
 
+  validateSct(transactions: ITransaction[]): void {
+    if (
+      transactions.filter((transaction: ITransaction) => transaction?.type === ITransactionType.PAYIN)
+        .length > 0
+    ) {
+      this.steps[IKycSteps.SCT] = true;
+    }
+  }
+
   private computeState(): IKycState {
-    const pendingDocs = Object.values(this.documents).filter(
-      (doc) =>
-        doc?.properties.status === IDocumentStatus.PENDING ||
-        doc?.properties.status === IDocumentStatus.VALIDATED,
+    const pendingSteps = Object.values(this.steps).filter(
+      (step) =>
+        (step instanceof DocumentVO &&
+          [IDocumentStatus.PENDING, IDocumentStatus.VALIDATED].includes(step.properties.status)) ||
+        step === true,
     );
-    const validatedDocs = Object.values(this.documents).filter(
-      (doc) => doc?.properties.status === IDocumentStatus.VALIDATED,
+    const validatedSteps = Object.values(this.steps).filter(
+      (step) =>
+        (step instanceof DocumentVO && step.properties.status === IDocumentStatus.VALIDATED) || step === true,
     );
-    const refusedDocs = Object.values(this.documents).some(
-      (doc) => doc?.properties.status === IDocumentStatus.REFUSED,
+    const refusedDocs = Object.values(this.steps).some(
+      (step) => step instanceof DocumentVO && step.properties.status === IDocumentStatus.REFUSED,
     );
-    if (Object.values(this.documents).every((doc) => doc === undefined)) return IKycState.INIT;
-    else if (validatedDocs.length === this.expectedDocumentCount) return IKycState.DOCUMENTS_VALIDATED;
+    if (Object.values(this.steps).every((step) => !step)) return IKycState.INIT;
+    else if (validatedSteps.length === this.stepsCount) return IKycState.STEPS_COMPLETED;
     else if (refusedDocs) return IKycState.REFUSED;
-    else if (pendingDocs.length === this.expectedDocumentCount) return IKycState.PENDING;
+    else if (pendingSteps.length === this.stepsCount) return IKycState.PENDING;
     else return IKycState.INCOMPLETE;
   }
 
-  private setExpectedDocumentCount(): number {
-    let expectedDocumentCount = EXPECTED_DOCUMENTS_NUMBER;
+  private setExpectedStepsCount(): number {
+    let expectedDocumentCount = EXPECTED_STEPS_NUMBER;
     if (this.isUSPerson) {
       expectedDocumentCount += 1;
     }
@@ -105,14 +127,14 @@ export class KycDocuments {
   }
 
   private processCategoryDocuments(
-    category: IDocumentCategory,
-    documentsByCategory: { [key in IDocumentCategory]: IDocumentProperties[] },
+    category: IKycSteps.W9 | IKycSteps.ID,
+    documentsByCategory: { [key in IKycSteps.W9 | IKycSteps.ID]: IDocumentProperties[] },
   ): void {
     if (!arrayIsEmpty(documentsByCategory[category])) {
       const relevantDocumentProperties = this.filterRelevantDocumentProperties(documentsByCategory[category]);
       if (!arrayIsEmpty(relevantDocumentProperties)) {
         const docStatus = this.checkDocumentStatus(relevantDocumentProperties);
-        this.documents[category] = new DocumentVO({
+        this.steps[category] = new DocumentVO({
           ...relevantDocumentProperties[0],
           status: docStatus,
         });
@@ -120,7 +142,7 @@ export class KycDocuments {
     }
   }
 
-  private validateDocumentType(category: IDocumentCategory, type: IDocumentType): void {
+  private validateDocumentType(category: IKycSteps.W9 | IKycSteps.ID, type: IDocumentType): void {
     if (!ALLOWED_DOCUMENT_TYPES[category].includes(type)) {
       throw new DocumentError.InvalidDocumentType(
         `${type} is not a valid document type for context ${category}`,
@@ -130,18 +152,18 @@ export class KycDocuments {
 
   // this should be done in back-end
   private allocateDocumentsByCategory(docsProps: IDocumentProperties[]): {
-    [key in IDocumentCategory]: IDocumentProperties[];
+    [key in IKycSteps.W9 | IKycSteps.ID]: IDocumentProperties[];
   } {
     const groupedByCategory = docsProps.reduce(
       (accumulator, doc) => {
-        if (!accumulator[doc.category]) {
-          accumulator[doc.category] = [doc];
+        if (!accumulator[doc.kycStep]) {
+          accumulator[doc.kycStep] = [doc];
         } else {
-          accumulator[doc.category].push(doc);
+          accumulator[doc.kycStep].push(doc);
         }
         return accumulator;
       },
-      {} as { [key in IDocumentCategory]: IDocumentProperties[] },
+      {} as { [key in IKycSteps.W9 | IKycSteps.ID]: IDocumentProperties[] },
     );
     return groupedByCategory;
   }

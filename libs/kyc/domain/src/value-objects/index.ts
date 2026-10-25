@@ -1,2 +1,2 @@
-import { KycDocuments, DocumentVO } from './KycDocuments';
-export { KycDocuments, DocumentVO };
+import { KycSteps, DocumentVO } from './KycSteps';
+export { KycSteps, DocumentVO };

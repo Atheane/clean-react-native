@@ -5,8 +5,8 @@ import {
   IDocumentRepository,
   DocumentVO,
   IDocumentStatus,
-  IDocumentCategory,
   IDocumentStatusCode,
+  IKycSteps,
 } from '@clean-rn/kyc/domain';
 import { IDocumentServer } from '../types';
 
@@ -36,7 +36,7 @@ export class KycApi implements IDocumentRepository {
     await this.connection.handleError(response);
     const documents = await response.json();
     return documents.map((doc: IDocumentServer) => ({
-      category: IDocumentCategory[doc.documentContext as keyof typeof IDocumentCategory],
+      kycStep: IKycSteps[doc.documentContext as keyof typeof IKycSteps],
       typeId: doc.documentTypeId,
       status: IDocumentStatus[doc.documentStatus as keyof typeof IDocumentStatus],
       name: doc.name,
@@ -55,7 +55,7 @@ export class KycApi implements IDocumentRepository {
     abortSignal?: AbortSignal;
   }): Promise<DocumentVO> {
     const params = {
-      documentContext: document.properties.category,
+      documentContext: document.properties.kycStep,
       documentTypeId: document.properties.typeId,
       name: document.properties.name,
       userId: customerId,
@@ -71,7 +71,7 @@ export class KycApi implements IDocumentRepository {
     const documentServer = await response.json();
 
     const documentProperties = {
-      category: IDocumentCategory[documentServer.documentContext as keyof typeof IDocumentCategory],
+      kycStep: documentServer.documentContext as IKycSteps.ID | IKycSteps.W9,
       typeId: documentServer.documentTypeId,
       status: IDocumentStatus[documentServer.documentStatus as keyof typeof IDocumentStatus],
       name: documentServer.name,

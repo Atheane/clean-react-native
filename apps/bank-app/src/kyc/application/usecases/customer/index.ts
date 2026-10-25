@@ -5,6 +5,10 @@ import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { Customer, IDocumentProperties, IKycState } from '@clean-rn/kyc/domain';
 import { KycApi } from '@clean-rn/kyc/infrastructure';
 import { KYC_REVIEW, User } from '@clean-rn/user/domain';
+import { AccountApi } from '@clean-rn/account/infrastructure';
+import { IAccount } from '@clean-rn/account/domain';
+import { TransactionApi } from '@clean-rn/transaction/infrastructure';
+import { ITransaction } from '@clean-rn/transaction/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IKycStackPages } from '../../../../shared/presentation/types';
@@ -33,7 +37,11 @@ export function* checkCustomerStatusGenerator(
     if (customerStatus === KYC_REVIEW.VALIDATED) {
       const customer = Customer.Create({
         id: parseInt(user.id),
-        properties: { status: customerStatus, USPerson: user.properties.USPerson as boolean },
+        properties: {
+          status: customerStatus,
+          USPerson: user.properties.USPerson as boolean,
+          kycReviewComment: '',
+        },
       });
       yield put(customerStatusChecked({ customer, initRoute: IKycStackPages.SUCCESS }));
       yield cancel();
@@ -43,20 +51,29 @@ export function* checkCustomerStatusGenerator(
     const documents: IDocumentProperties[] = yield call([api, api.getDocuments]);
     const customer = Customer.Create({
       id: parseInt(user.id),
-      properties: { status: customerStatus, USPerson: user.properties.USPerson as boolean },
+      properties: {
+        status: customerStatus,
+        USPerson: user.properties.USPerson as boolean,
+        kycReviewComment: user.properties.kycReviewComment || '',
+      },
     });
-    if (user.properties.kycReviewComment && user.properties.kycReviewComment.length > 0) {
-      customer.addKycReviewComment(user.properties.kycReviewComment);
-    }
-    customer.checkDocumentsStatus(documents);
-    customer.setState(customerStatus as KYC_REVIEW); // if KYC refused but all docs are validated, we should show last SCT step
-    // if KYC_PENDING, but one document is refused, KYC should be considered PENDING
+
+    // get transactions, necessary to compute SCT status
+    // KycProvider does not give information on payin owner identity
+    // so we make the strong asumption that if there is a payin, SCT is active
+    const accountApi = AccountApi.getInstance(httpConnection);
+    const accounts: IAccount[] = yield call([accountApi, accountApi.getAccounts]);
+
+    const transactionApi = TransactionApi.getInstance(httpConnection);
+    const transactions: ITransaction[] = yield call(
+      [transactionApi, transactionApi.getTransactions],
+      accounts[0].accountId,
+    );
+    customer.initKyc(documents, transactions);
 
     let initRoute: IKycStackPages;
     if (customer.properties.kyc?.state === IKycState.INIT) {
       initRoute = IKycStackPages.INIT;
-    } else if (customer.properties.kyc?.state === IKycState.DOCUMENTS_VALIDATED) {
-      initRoute = IKycStackPages.DOCUMENTS_VALIDATED;
     } else {
       // state = INCOMPLETE, PENDING or REFUSED
       initRoute = IKycStackPages.KYC;
