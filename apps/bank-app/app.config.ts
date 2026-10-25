@@ -18,8 +18,8 @@ export default {
     },
     assetBundlePatterns: ['**/*'],
     ios: {
-      bundleIdentifier: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.example.bankapp',
-      googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_PLIST || './GoogleService-Info.plist',
+      bundleIdentifier: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER,
+      googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_PLIST,
       supportsTablet: false,
       versionCode: process.env.EXPO_PUBLIC_APP_VERSION,
     },
@@ -29,8 +29,8 @@ export default {
         backgroundColor: '#FFFFFF',
       },
       supportsTablet: false,
-      package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.example.bankapp',
-      googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_SERVICES || './google-services.json',
+      package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER,
+      googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_SERVICES,
       versionCode: process.env.EXPO_PUBLIC_APP_VERSION_ANDROID,
     },
     web: {
@@ -76,7 +76,7 @@ export default {
     scheme: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER,
     extra: {
       eas: {
-        projectId: '00000000-0000-0000-0000-000000000000',
+        projectId: process.env.EXPO_PUBLIC_PROJECT_ID,
       },
     },
   },
