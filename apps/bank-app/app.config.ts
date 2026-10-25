@@ -19,7 +19,7 @@ export default {
     assetBundlePatterns: ['**/*'],
     ios: {
       bundleIdentifier: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER,
-      googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_PLIST,
+      googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_PLIST || './GoogleService-Info.plist',
       supportsTablet: false,
       versionCode: process.env.EXPO_PUBLIC_APP_VERSION,
     },
@@ -30,7 +30,7 @@ export default {
       },
       supportsTablet: false,
       package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER,
-      googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_SERVICES,
+      googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_SERVICES || './google-services.json',
       versionCode: process.env.EXPO_PUBLIC_APP_VERSION_ANDROID,
     },
     web: {
