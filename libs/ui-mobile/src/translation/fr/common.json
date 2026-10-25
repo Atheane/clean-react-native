@@ -287,6 +287,11 @@
     "stack": "Détails ",
     "network": "Pas de connexion internet"
   },
+  "tabs-co2": {
+    "button": "Recevoir ma prime ",
+    "tag": "Non calculé",
+    "baseline": "Emissions de référence"
+  },
   "screens": {
     "legal": "Données personnelles",
     "cgu": "CGU",

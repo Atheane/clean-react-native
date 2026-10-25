@@ -16,6 +16,7 @@ type IProps = {
   iconTwo?: React.FC<SvgProps>;
   loading?: boolean;
   disabled?: boolean;
+  mini?: boolean;
   onPress: () => void;
 };
 
@@ -34,7 +35,7 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
         ViewComponent={LinearGradient}
         buttonStyle={[
           theme.bank.shadow.button,
-          styles.button,
+          props.mini ? styles.buttonMini : styles.button,
           (props.iconOne || props.iconTwo) && !props.loading && styles.buttonIcon,
           props.iconOne && !props.iconTwo && !props.loading && styles.buttonOneIcon,
           theme.bank.container.centeredItems,
@@ -65,6 +66,7 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
               theme.bank.text.button,
               styles.content,
               props.uppercase && { textTransform: 'uppercase' },
+              props.mini && { fontSize: 14 },
             ]}
           >
             {renderLabel(firstLetterCapitalize(props.title))}
@@ -94,6 +96,14 @@ const styles = StyleSheet.create({
     paddingRight: 24,
     paddingBottom: 16,
     paddingLeft: 26,
+  },
+  buttonMini: {
+    height: 32,
+    width: 140,
+    paddingTop: 0,
+    paddingRight: 0,
+    paddingBottom: 0,
+    paddingLeft: 0,
   },
   content: {
     color: Colors.bank.primary.white,

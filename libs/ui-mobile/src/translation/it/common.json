@@ -298,6 +298,11 @@
     "stack": "Dettagli ",
     "network": "Nessuna connessione Internet"
   },
+  "tabs-co2": {
+    "button": "Ricevi il mio premio",
+    "tag": "Non calcolato",
+    "baseline": "Emissioni di riferimento"
+  },
   "screens": {
     "legal": "Dati personali",
     "cgu": "CGU",
