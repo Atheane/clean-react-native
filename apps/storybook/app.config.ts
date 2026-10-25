@@ -2,7 +2,6 @@ import 'dotenv/config';
 
 export default {
   expo: {
-    owner: '450',
     name: process.env.EXPO_PUBLIC_APP_NAME_STORYBOOK,
     slug: process.env.EXPO_PUBLIC_SLUG_NAME_STORYBOOK,
     version: process.env.EXPO_PUBLIC_APP_VERSION,
@@ -19,6 +18,7 @@ export default {
     assetBundlePatterns: ['**/*'],
     ios: {
       bundleIdentifier: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER,
+      googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_PLIST,
       supportsTablet: true,
       versionCode: process.env.EXPO_PUBLIC_APP_VERSION,
     },
@@ -28,6 +28,7 @@ export default {
         backgroundColor: '#FFFFFF',
       },
       package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER,
+      googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_SERVICES,
       versionCode: process.env.EXPO_PUBLIC_APP_VERSION_ANDROID,
     },
     web: {
