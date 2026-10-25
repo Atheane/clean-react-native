@@ -83,8 +83,11 @@ export const FormSignupAddress = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
-  inputContainer: { marginVertical: 60 },
+  container: {
+    marginTop: 100,
+    marginBottom: 200,
+  },
+  inputContainer: { marginTop: 60 },
   errorContainer: {
     marginTop: 24,
     marginBottom: -24,
