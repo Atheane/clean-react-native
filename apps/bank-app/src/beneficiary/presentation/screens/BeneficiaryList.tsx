@@ -19,8 +19,6 @@ import {
   LoaderSplashScreen,
   SafeScrollingView,
   LinkButton,
-  NoBeneficiary,
-  NoContact,
 } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IBeneficiaryStackPages, IKycStackPages } from '../../../shared/presentation/types';
@@ -30,6 +28,7 @@ import { changeTab, listBeneficiaries } from '../../application/commands/benefic
 import { listContacts } from '../../application/commands/contact';
 
 import { InitKyc } from '../../../kyc/presentation/assets/images';
+import { NoBeneficiary, NoContact } from '../../../beneficiary/presentation/assets/images';
 
 const ContentBeneficiary = (props: { data: IBeneficiary[] }) => {
   const navigation = useNavigation();
@@ -138,11 +137,9 @@ export const BeneficiaryList = () => {
   const { beneficiaries, pending: beneficiaryPending } = useSelector(
     (state: IRootState) => state.beneficiary.beneficiaries,
   );
-  const {
-    contacts,
-    pending: contactPending,
-    permission,
-  } = useSelector((state: IRootState) => state.beneficiary.contacts);
+  const { contacts, pending: contactPending } = useSelector(
+    (state: IRootState) => state.beneficiary.contacts,
+  );
 
   const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
@@ -150,9 +147,9 @@ export const BeneficiaryList = () => {
       () => {
         setLoading(false);
       },
-      customer?.properties.status === KYC_REVIEW.VALIDATED || !permission ? 500 : 0,
+      !(customerPending || contactPending || beneficiaryPending) ? 500 : 0,
     );
-  }, [customer?.properties.status, permission]);
+  }, [customerPending, contactPending, beneficiaryPending]);
 
   const hasBeneficiary = beneficiaries && beneficiaries.length > 0;
   const hasContact = contacts && contacts.length > 0;
@@ -163,7 +160,7 @@ export const BeneficiaryList = () => {
     navigation.navigate(IKycStackPages.MENU as never);
   }, [navigation]);
 
-  return loading || beneficiaryPending || contactPending || customerPending ? (
+  return loading ? (
     <LoaderSplashScreen />
   ) : customer?.properties.status === KYC_REVIEW.VALIDATED ? (
     <ErrorBoundary t={t}>
@@ -210,7 +207,7 @@ export const BeneficiaryList = () => {
             <TabView.Item style={[{ width: '100%' }]}>
               <>
                 {hasContact && <ContentContact data={contacts} />}
-                {!hasContact && !loading && !beneficiaryPending && !contactPending && (
+                {!hasContact && (
                   <View style={theme.bank.container.centeredItem}>
                     <Image source={NoContact} style={{ width: 250, height: 250 }} />
                   </View>
@@ -220,7 +217,7 @@ export const BeneficiaryList = () => {
             <TabView.Item style={[{ width: '100%' }]}>
               <>
                 {hasBeneficiary && <ContentBeneficiary data={beneficiaries} />}
-                {!hasBeneficiary && !loading && !beneficiaryPending && !contactPending && (
+                {!hasBeneficiary && (
                   <View style={theme.bank.container.centeredItem}>
                     <Image source={NoBeneficiary} style={{ width: 250, height: 250 }} />
                   </View>

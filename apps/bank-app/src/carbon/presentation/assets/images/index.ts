@@ -14,6 +14,7 @@ import BilanFranceFR from './bilan-france-fr.png';
 import BilanFranceEN from './bilan-france-en.png';
 import WarningFoodCO2 from './warning.png';
 import LoanHeater from './loan-heater.png';
+import PlaneEmpty from './plane-empty.png';
 export {
   Thumb,
   HeaderBad,
@@ -30,4 +31,5 @@ export {
   BilanFranceEN,
   WarningFoodCO2,
   LoanHeater,
+  PlaneEmpty,
 };

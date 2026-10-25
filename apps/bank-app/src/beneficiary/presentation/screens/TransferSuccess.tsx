@@ -2,10 +2,11 @@ import { useCallback } from 'react';
 import { View, Image, StyleSheet, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import { PrimaryButton, SuccessTransfer } from '@clean-rn/ui-mobile';
+import { PrimaryButton } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { ISharedStackPages } from '../../../shared/presentation/types';
+import { SuccessTransfer } from '../assets/images';
 
 const HEIGHT = Dimensions.get('window').height;
 
