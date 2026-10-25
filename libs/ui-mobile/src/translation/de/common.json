@@ -541,53 +541,54 @@
     },
     "kyc": {
       "title": "Überprüfung Ihrer Identität",
-      "send-document": "Ein Dokument senden",
+      "send-document": "Dokument senden",
       "init": {
-        "instruction": "3 Schritte:\n\n1. Fügen Sie einen Ausweis bei\n\n2. Fügen Sie einen Wohnsitznachweis bei\n\n3. Überweisen Sie 1 Euro von einem Ihrer Bankkonten auf Ihr CO2-Konto",
-        "check-identity": "Meine Identität überprüfen"
+        "steps": "Schritte:\n",
+        "step1": "1. Fügen Sie einen Identitätsnachweis hinzu\n",
+        "step2": "2. Tätigen Sie eine Überweisung von 1 Euro von einem Ihrer Bankkonten auf Ihr CO2-Konto\n",
+        "step3": "3. Fügen Sie das Formular W9 hinzu",
+        "check-identity": "Überprüfen"
       },
       "complete": {
         "title": "Dokumente validiert",
-        "congrats": "Herzlichen Glückwunsch, Ihre Dokumente sind validiert!\n\n",
-        "instruction": "Letzter Schritt, Sie müssen jetzt eine Überweisung auf Ihr CO2-Konto von einem Ihrer in Frankreich befindlichen Konten durchführen."
+        "congrats": "Herzlichen Glückwunsch, Ihre Dokumente wurden validiert!\n\n",
+        "instruction": "Letzter Schritt, Sie müssen jetzt eine Überweisung auf Ihr CO2-Konto tätigen, von einem Ihrer Konten in Frankreich aus."
       },
       "success": {
-        "title": "Identität validiert",
-        "congrats": "Herzlichen Glückwunsch, Ihre Identität ist validiert!\n\n",
+        "title": "Identität bestätigt",
+        "congrats": "Herzlichen Glückwunsch, Ihre Identität wurde bestätigt!\n\n",
         "instruction-before-card": "Wir haben die ",
         "instruction-card": "Herstellung Ihrer CO2-Karte",
-        "instruction-after-card": " gestartet. Wir werden sie Ihnen per Post zusenden, sobald sie fertig ist.\n\nBitte haben Sie etwas Geduld, in der Zwischenzeit können Sie ",
-        "link-instruction": "Ihr Konto aufladen."
+        "instruction-after-card": " gestartet. Wir werden sie per Post versenden, sobald sie fertig ist.\n\nBitte haben Sie etwas Geduld, in der Zwischenzeit können Sie Ihr Konto aufladen."
       },
       "card-sent": {
-        "title": "Identität validiert",
-        "text": "Wir haben Ihnen Ihre CO2-Karte per Post zugesandt."
+        "title": "Identität bestätigt",
+        "text": "Wir haben Ihre CO2-Karte erfolgreich per Post versendet."
       },
       "menu": {
-        "title": "Zu übermittelnde Dokumente:",
         "instruction-before": {
-          "begin": "Sobald die ",
-          "end": "Dokumente übermittelt wurden, startet die Überprüfung automatisch."
+          "singular": "Sobald der Identitätsnachweis übertragen und die Überweisung eingegangen ist, wird die Überprüfung automatisch gestartet.",
+          "plural": "Sobald beide Dokumente übertragen und die Überweisung eingegangen sind, wird die Überprüfung automatisch gestartet."
         },
         "instruction-after": {
-          "begin": "Ihre Dokumente werden ",
-          "bold": " derzeit überprüft, ",
-          "end": "dies kann zwischen 24 und 72 Stunden dauern."
+          "begin": "Ihre Dokumente werden",
+          "bold": " gerade überprüft, ",
+          "end": "dies kann 24 bis 72 Stunden dauern."
         },
-        "last-step": "\n\n\nLetzter Schritt :\n",
+        "last-step": "\n\n\nLetzter Schritt:\n",
         "w9-form": "Formular W9",
-        "identity": "Ausweisdokument",
-        "fix-file": "Bitte korrigieren Sie die Elemente im Dossier",
+        "identity": "Identitätsnachweis",
+        "fix-file": "Bitte korrigieren Sie die Elemente der Datei",
         "transfer": "Überweisung von 1 Euro"
       },
       "first-id": {
-        "title": "Ausweisdokumente",
-        "instruction": "Wählen Sie Ihr Ausweisdokument",
+        "title": "Identitätsnachweise",
+        "instruction": "Wählen Sie Ihren Identitätsnachweis aus",
         "id": "Personalausweis",
         "passport": "Reisepass",
-        "residence-permit": "Aufenthaltsgenehmigung"
+        "residence-permit": "Aufenthaltserlaubnis"
       },
-      "take-photo": "Machen Sie ein Foto",
+      "take-photo": "Foto machen",
       "id": {
         "recto": {
           "title": "Personalausweis - Vorderseite",
@@ -604,21 +605,21 @@
       },
       "residence-permit": {
         "recto": {
-          "title": "Aufenthaltsgenehmigung - Vorderseite",
-          "instruction": "der Vorderseite Ihrer Aufenthaltsgenehmigung"
+          "title": "Aufenthaltserlaubnis - Vorderseite",
+          "instruction": "der Vorderseite Ihrer Aufenthaltserlaubnis"
         },
         "verso": {
-          "title": "Aufenthaltsgenehmigung - Rückseite",
-          "instruction": "der Rückseite Ihrer Aufenthaltsgenehmigung"
+          "title": "Aufenthaltserlaubnis - Rückseite",
+          "instruction": "der Rückseite Ihrer Aufenthaltserlaubnis"
         }
       },
       "w9": {
-        "title": "US-Resident - W-9",
-        "instruction": "oder importieren Sie Ihr W-9-Formular"
+        "title": "US-Bürger - W-9",
+        "instruction": "oder laden Sie Ihr W-9-Formular hoch"
       },
       "sct-required": {
         "title": "Überweisung von 1 Euro",
-        "instruction": "Überweisen Sie 1 Euro auf Ihr CO2-Konto von einem Ihrer Konten in Frankreich."
+        "instruction": "Tätigen Sie eine Überweisung von 1 Euro auf Ihr CO2-Konto, von einem Ihrer Konten in Frankreich aus."
       }
     },
     "parameters": {
@@ -644,8 +645,11 @@
         "goodbye": "Auf Wiedersehen!"
       }
     },
-    "profile": {
-      "title": "Mein Profil"
+    "profile-identity": {
+      "title": "Mein Profil bearbeiten - Identität"
+    },
+    "profile-address": {
+      "title": "Mein Profil bearbeiten - Adresse"
     },
     "card": {
       "menu": {

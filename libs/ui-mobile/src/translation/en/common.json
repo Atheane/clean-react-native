@@ -540,62 +540,63 @@
       "flight": "trip(s)"
     },
     "kyc": {
-      "title": "Verify your identity",
-      "send-document": "Send a document",
+      "title": "Identity Verification",
+      "send-document": "Send Document",
       "init": {
-        "instruction": "3 steps:\n\n1. Attach proof of identity\n\n2. Attach proof of address\n\n3. Transfer 1 euro from one of your bank accounts to your CO2 Account",
-        "check-identity": "Check my identity"
+        "steps": "Steps:\n",
+        "step1": "1. Attach an identity document\n",
+        "step2": "2. Make a transfer of 1 euro from one of your bank accounts to your CO2 Account\n",
+        "step3": "3. Attach the W9 form",
+        "check-identity": "Check"
       },
       "complete": {
-        "title": "Documents validated",
-        "congrats": "Congratulations your documents are validated!\n\n",
-        "instruction": "Last step, you now need to make a transfer to your CO2 Account, from one of your accounts located in France."
+        "title": "Documents Validated",
+        "congrats": "Congratulations, your documents have been validated!\n\n",
+        "instruction": "Final step, you now need to make a transfer to your CO2 Account, from one of your accounts in France."
       },
       "success": {
-        "title": "Identity validated",
-        "congrats": "Congratulations your identity is validated!\n\n",
-        "instruction-before-card": "We have launched the ",
-        "instruction-card": "manufacture of your CO2 Card",
-        "instruction-after-card": ". We will send it to you by mail as soon as it is ready.\n\nA little patience, in the meantime you can ",
-        "link-instruction": " credit your account."
+        "title": "Identity Validated",
+        "congrats": "Congratulations, your identity has been validated!\n\n",
+        "instruction-before-card": "We have initiated the ",
+        "instruction-card": "production of your CO2 Card",
+        "instruction-after-card": ". We will send it to you by mail as soon as it is ready.\n\nPlease be patient, in the meantime, you can top up your account."
       },
       "card-sent": {
-        "title": "Identity validated",
-        "text": "We have sent you your CO2 Card by mail."
+        "title": "Identity Validated",
+        "text": "We have successfully sent your CO2 Card by mail."
       },
       "menu": {
-        "title": "Documents to submit:",
         "instruction-before": {
-          "begin": "Once the",
-          "end": "documents are transferred, the verification will automatically start."
+          "singular": "Once the identity document is transferred and the transfer is received, the verification will start automatically.",
+          "plural": "Once both documents are transferred and the transfer is received, the verification will start automatically."
         },
         "instruction-after": {
           "begin": "Your documents are",
-          "bold": " under review, ",
-          "end": "this can take from 24 to 72 hours."
+          "bold": " under verification, ",
+          "end": "this may take from 24 to 72 hours."
         },
-        "last-step": "\n\n\nLast step :\n",
+        "last-step": "\n\n\nLast step:\n",
         "w9-form": "W9 Form",
-        "identity": "ID",
-        "fix-file": "Please correct the elements of the file",
+        "identity": "Identity Document",
+        "fix-file": "Please fix the elements of the file",
         "transfer": "Transfer of 1 euro"
       },
       "first-id": {
-        "title": "ID documents",
-        "instruction": "Choose your ID",
-        "id": "Identity card",
+        "title": "Identity Documents",
+        "instruction": "Choose your identity document",
+        "id": "Identity Card",
         "passport": "Passport",
-        "residence-permit": "Residence permit"
+        "residence-permit": "Residence Permit"
       },
       "take-photo": "Take a photo",
       "id": {
         "recto": {
-          "title": "Identity card - Front",
-          "instruction": "of the front of your identity card"
+          "title": "Identity Card - Front",
+          "instruction": "of the front side of your identity card"
         },
         "verso": {
-          "title": "Identity card - Back",
-          "instruction": "of the back of your identity card"
+          "title": "Identity Card - Back",
+          "instruction": "of the back side of your identity card"
         }
       },
       "passport": {
@@ -604,21 +605,21 @@
       },
       "residence-permit": {
         "recto": {
-          "title": "Residence permit - Front",
-          "instruction": "of the front of your residence permit"
+          "title": "Residence Permit - Front",
+          "instruction": "of the front side of your residence permit"
         },
         "verso": {
-          "title": "Residence permit - Back",
-          "instruction": "of the back of your residence permit"
+          "title": "Residence Permit - Back",
+          "instruction": "of the back side of your residence permit"
         }
       },
       "w9": {
-        "title": "US resident - W-9",
-        "instruction": "or upload your W-9 form"
+        "title": "US Resident - W-9",
+        "instruction": "or import your W-9 form"
       },
       "sct-required": {
         "title": "Transfer of 1 euro",
-        "instruction": "Make a transfer of 1 euro to your CO2 Account from one of your accounts located in France."
+        "instruction": "Make a transfer of 1 euro to your CO2 Account, from one of your accounts in France."
       }
     },
     "parameters": {
@@ -644,8 +645,11 @@
         "goodbye": "Goodbye!"
       }
     },
-    "profile": {
-      "title": "My Profile"
+    "profile-identity": {
+      "title": "Edit My Profile - Identity"
+    },
+    "profile-address": {
+      "title": "Edit My Profile - Address"
     },
     "card": {
       "menu": {
