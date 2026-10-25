@@ -134,6 +134,11 @@ const getStories = () => {
     './stories/others/Secured4Digits.stories.tsx': require('../stories/others/Secured4Digits.stories'),
     // Searchboxes
     './stories/searchboxes/SearchModal.stories.tsx': require('../stories/searchboxes/SearchModal.stories'),
+    // Tabs
+    './stories/tabs/TabCO2Reward.stories.tsx': require('../stories/tabs/TabCO2Reward.stories'),
+    './stories/tabs/TabCO2Split.stories.tsx': require('../stories/tabs/TabCO2Split.stories'),
+    // Tags
+    './stories/tags/Tag.stories.tsx': require('../stories/tags/Tag.stories'),
     // Texts
     './stories/texts/ErrorMessage.stories.tsx': require('../stories/texts/ErrorMessage.stories'),
     './stories/texts/WhiteBalance.stories.tsx': require('../stories/texts/WhiteBalance.stories'),

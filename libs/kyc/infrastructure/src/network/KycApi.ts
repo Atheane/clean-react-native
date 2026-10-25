@@ -49,17 +49,19 @@ export class KycApi implements IDocumentRepository {
     customerId,
     document,
     abortSignal,
+    type,
   }: {
     customerId: string;
     document: DocumentVO;
     abortSignal?: AbortSignal;
+    type: 'recto' | 'verso';
   }): Promise<DocumentVO> {
     const params = {
       documentContext: document.properties.kycStep,
       documentTypeId: document.properties.typeId,
       name: document.properties.name,
       userId: customerId,
-      fileContentBase64: document.value.recto,
+      fileContentBase64: type === 'recto' ? document.value.recto : document.value.verso,
     };
 
     const response = await fetch(
@@ -96,6 +98,8 @@ export class KycApi implements IDocumentRepository {
     const documentRecto = await this.createOnePageDocument({
       customerId,
       document,
+      abortSignal,
+      type: 'recto',
     });
 
     documentRecto.addPage(document.value.recto);
@@ -106,6 +110,7 @@ export class KycApi implements IDocumentRepository {
         customerId,
         document,
         abortSignal,
+        type: 'verso',
       });
       documentRecto.addPage(document.value.verso);
       return documentRecto;

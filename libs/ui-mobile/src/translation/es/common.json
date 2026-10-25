@@ -298,6 +298,7 @@
     "stack": "Detalles ",
     "network": "Sin conexión a internet"
   },
+  "tabs-co2": { "button": "Recibir mi premio", "tag": "No calculado", "baseline": "Emisiones de referencia" },
   "screens": {
     "legal": "Datos personales",
     "cgu": "Términos y condiciones de uso",

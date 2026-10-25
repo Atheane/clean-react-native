@@ -91,6 +91,11 @@ import { ContactEmail } from './others/contact-email';
 import { Secured4Digits } from './others/secured-4digits';
 // Searchboxes
 import { SearchModal } from './searchboxes/search-modal';
+// Tabs
+import { TabCO2Reward } from './tabs/co2-reward';
+import { TabCO2Split } from './tabs/co2-split';
+// Tags
+import { Tag } from './tags';
 // Texts
 import { ErrorMessage } from './texts/error-message';
 import { WhiteBalance } from './texts/white-balance';
@@ -201,6 +206,11 @@ export {
   Secured4Digits,
   // Searchboxes
   SearchModal,
+  // Tabs
+  TabCO2Reward,
+  TabCO2Split,
+  // Tags
+  Tag,
   // Texts
   ErrorMessage,
   WhiteBalance,
