@@ -2,6 +2,7 @@ import 'dotenv/config';
 
 export default {
   expo: {
+    owner: '450',
     name: process.env.EXPO_PUBLIC_APP_NAME_STORYBOOK,
     slug: process.env.EXPO_PUBLIC_SLUG_NAME_STORYBOOK,
     version: process.env.EXPO_PUBLIC_APP_VERSION,
