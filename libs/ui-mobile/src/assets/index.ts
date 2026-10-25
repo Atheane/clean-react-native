@@ -148,7 +148,6 @@ import {
   PortofolioBlueGradient,
   ShareIcon,
 } from './svg';
-import { DefaultImage, PlaneEmpty, SuccessTransfer, NoBeneficiary, NoContact } from './image';
 import { Loader } from './lottie';
 export {
   Love,
@@ -193,7 +192,6 @@ export {
   House,
   Food,
   Plane,
-  PlaneEmpty,
   Flame,
   Department,
   Surface,
@@ -245,7 +243,6 @@ export {
   TRAVEL,
   VEHICLES,
   HouseCarbon,
-  DefaultImage,
   GreenValidation,
   GreyPending,
   RedCross,
@@ -302,7 +299,4 @@ export {
   BankBuildingBlueGradient,
   PortofolioBlueGradient,
   ShareIcon,
-  SuccessTransfer,
-  NoBeneficiary,
-  NoContact,
 };

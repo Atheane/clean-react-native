@@ -8,7 +8,7 @@ import { FlightSeatE as SeatE, FlightI } from '@bank/carbon-weight/dist';
 
 import { FlyEmissions } from '@clean-rn/carbon/domain';
 
-import { GreenAdd, FlyFrom, FlyTo, PlaneEmpty } from '../../../assets';
+import { GreenAdd, FlyFrom, FlyTo } from '../../../assets';
 import { Colors } from '../../../constants';
 
 import { SecondaryButton } from '../../buttons/secondary-button';
@@ -39,6 +39,7 @@ type IProps = {
   onAddFlight: () => void;
   onRemoveFlight: (uid: string) => void;
   scrollViewRef: React.RefObject<KeyboardAwareScrollView>;
+  planeImage: string;
 };
 
 const COEFF = 0.75;
@@ -114,7 +115,7 @@ export const FlyForm = (props: IProps) => {
         return {
           uid: `${nbPassengers}_${fromIATA}_${toIATA}_${seatType}_${roundTrip}`,
           text: `${nbPassengers} ${travelType}${plural} ${fromIATA} / ${toIATA} ${seat}`,
-          image: PlaneEmpty,
+          image: props.planeImage,
         };
       })
       .filter((value, index, self) => {

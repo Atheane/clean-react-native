@@ -62,6 +62,7 @@ export const contactReducer = (state = initialState, action: IContactActions) =>
       newState = {
         ...state,
         permission: false,
+        pending: false,
       };
       return newState;
     case IContactTypes.RESET_ERROR:
