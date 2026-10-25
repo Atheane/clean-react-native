@@ -540,62 +540,63 @@
       "flight": "viaje(s)"
     },
     "kyc": {
-      "title": "Verificación de su identidad",
-      "send-document": "Enviar un documento",
+      "title": "Verificación de Identidad",
+      "send-document": "Enviar Documento",
       "init": {
-        "instruction": "3 pasos:\n\n1. Adjuntar prueba de identidad\n\n2. Adjuntar un justificante de domicilio\n\n3. Transfiera 1 euro de una de sus cuentas bancarias a su Cuenta CO2",
-        "check-identity": "Verificar mi identidad"
+        "steps": "Pasos:\n",
+        "step1": "1. Adjuntar un documento de identidad\n",
+        "step2": "2. Realizar una transferencia de 1 euro desde una de sus cuentas bancarias a su Cuenta CO2\n",
+        "step3": "3. Adjuntar el formulario W9",
+        "check-identity": "Verificar"
       },
       "complete": {
-        "title": "Documentos validados",
-        "congrats": "¡Felicidades sus documentos están validados!\n\n",
-        "instruction": "Último paso, ahora debe realizar una transferencia a su Cuenta CO2, desde una de sus cuentas ubicadas en Francia."
+        "title": "Documentos Validados",
+        "congrats": "¡Felicidades, sus documentos han sido validados!\n\n",
+        "instruction": "Último paso, ahora debe realizar una transferencia a su Cuenta CO2, desde una de sus cuentas en Francia."
       },
       "success": {
-        "title": "Identidad validada",
-        "congrats": "¡Felicidades su identidad está validada!\n\n",
+        "title": "Identidad Validada",
+        "congrats": "¡Felicidades, su identidad ha sido validada!\n\n",
         "instruction-before-card": "Hemos iniciado la ",
-        "instruction-card": "fabricación de su Tarjeta CO2",
-        "instruction-after-card": ". Se la enviaremos por correo tan pronto como esté lista.\n\nUn poco de paciencia, mientras tanto puede ",
-        "link-instruction": " acreditar su cuenta."
+        "instruction-card": "producción de su Tarjeta CO2",
+        "instruction-after-card": ". Se la enviaremos por correo tan pronto como esté lista.\n\nPor favor, tenga paciencia, mientras tanto puede cargar su cuenta."
       },
       "card-sent": {
-        "title": "Identidad validada",
-        "text": "Le hemos enviado su Tarjeta CO2 por correo."
+        "title": "Identidad Validada",
+        "text": "Hemos enviado con éxito su Tarjeta CO2 por correo."
       },
       "menu": {
-        "title": "Documentos a enviar:",
         "instruction-before": {
-          "begin": "Una vez los",
-          "end": "documentos transferidos, la verificación se iniciará automáticamente."
+          "singular": "Una vez que se transfiera el documento de identidad y se reciba la transferencia, la verificación comenzará automáticamente.",
+          "plural": "Una vez que se transfieran ambos documentos y se reciba la transferencia, la verificación comenzará automáticamente."
         },
         "instruction-after": {
           "begin": "Sus documentos están",
-          "bold": " en proceso de verificación, ",
-          "end": "esto puede tomar de 24h a 72h."
+          "bold": " bajo verificación, ",
+          "end": "esto puede tomar de 24 a 72 horas."
         },
-        "last-step": "\n\n\nÚltimo paso :\n",
+        "last-step": "\n\n\nÚltimo paso:\n",
         "w9-form": "Formulario W9",
-        "identity": "Documento de identidad",
-        "fix-file": "Por favor corrija los elementos del expediente",
+        "identity": "Documento de Identidad",
+        "fix-file": "Por favor, corrija los elementos del archivo",
         "transfer": "Transferencia de 1 euro"
       },
       "first-id": {
-        "title": "Documentos de identidad",
+        "title": "Documentos de Identidad",
         "instruction": "Elija su documento de identidad",
-        "id": "Tarjeta de identidad",
+        "id": "Documento de Identidad",
         "passport": "Pasaporte",
-        "residence-permit": "Permiso de residencia"
+        "residence-permit": "Permiso de Residencia"
       },
       "take-photo": "Tomar una foto",
       "id": {
         "recto": {
-          "title": "Tarjeta de identidad - Anverso",
-          "instruction": "del anverso de su tarjeta de identidad"
+          "title": "Documento de Identidad - Anverso",
+          "instruction": "del anverso de su documento de identidad"
         },
         "verso": {
-          "title": "Tarjeta de identidad - Reverso",
-          "instruction": "del reverso de su tarjeta de identidad"
+          "title": "Documento de Identidad - Reverso",
+          "instruction": "del reverso de su documento de identidad"
         }
       },
       "passport": {
@@ -604,21 +605,21 @@
       },
       "residence-permit": {
         "recto": {
-          "title": "Permiso de residencia - Anverso",
+          "title": "Permiso de Residencia - Anverso",
           "instruction": "del anverso de su permiso de residencia"
         },
         "verso": {
-          "title": "Permiso de residencia - Reverso",
+          "title": "Permiso de Residencia - Reverso",
           "instruction": "del reverso de su permiso de residencia"
         }
       },
       "w9": {
-        "title": "Residente americano - W-9",
+        "title": "Residente de EE. UU. - W-9",
         "instruction": "o importe su formulario W-9"
       },
       "sct-required": {
         "title": "Transferencia de 1 euro",
-        "instruction": "Realiza una transferencia de 1 euro a tu cuenta CO2 desde una de tus cuentas ubicadas en Francia."
+        "instruction": "Realice una transferencia de 1 euro a su Cuenta CO2, desde una de sus cuentas en Francia."
       }
     },
     "parameters": {
@@ -644,8 +645,11 @@
         "goodbye": "¡Adiós!"
       }
     },
-    "profile": {
-      "title": "Mi perfil"
+    "profile-identity": {
+      "title": "Editar mi perfil - Identidad"
+    },
+    "profile-address": {
+      "title": "Editar mi perfil - Dirección"
     },
     "card": {
       "menu": {
