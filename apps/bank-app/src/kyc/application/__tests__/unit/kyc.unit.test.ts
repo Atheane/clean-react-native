@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import {
   Customer,
   IDocumentProperties,
-  IDocumentCategory,
+  IKycSteps,
   IDocumentStatus,
   IDocumentStatusCode,
   IDocumentType,
@@ -17,6 +17,10 @@ import { KycApi } from '@clean-rn/kyc/infrastructure';
 import { Phone } from '@clean-rn/contact/domain';
 import { BirthDay, User, IGender, Country, KYC_REVIEW } from '@clean-rn/user/domain';
 import { Email } from '@clean-rn/auth/domain';
+import { IAccountType, Bic, Iban, IAccount } from '@clean-rn/account/domain';
+import { Amount, ITransaction, ITransactionType, TransactionCategory } from '@clean-rn/transaction/domain';
+import { AccountApi } from '@clean-rn/account/infrastructure';
+import { ITransactionServer, TransactionApi } from '@clean-rn/transaction/infrastructure';
 
 import { IKycStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
@@ -28,6 +32,9 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
   const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
 
   const kycApi = KycApi.getInstance(httpConnection);
+  const accountApi = AccountApi.getInstance(httpConnection);
+  const transactionApi = TransactionApi.getInstance(httpConnection);
+
   const genObject = checkCustomerStatusSaga(httpConnection);
   const user = User.Create({
     id: 123,
@@ -49,16 +56,16 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
   });
   const mockResponseIncomplete: IDocumentProperties[] = [
     {
-      typeId: IDocumentType.RESIDENT_PERMIT,
-      category: IDocumentCategory.ID,
+      typeId: IDocumentType.ID,
+      kycStep: IKycSteps.ID,
       status: IDocumentStatus.PENDING,
       name: 'test-mock-recto',
       createdAt: new Date('2023-10-03T13:20:21.303Z'),
       statusCode: IDocumentStatusCode.INITIAL,
     },
     {
-      typeId: IDocumentType.RESIDENT_PERMIT,
-      category: IDocumentCategory.ID,
+      typeId: IDocumentType.ID,
+      kycStep: IKycSteps.ID,
       status: IDocumentStatus.PENDING,
       name: 'test-mock-verso',
       createdAt: new Date('2023-10-03T13:20:22.303Z'),
@@ -69,7 +76,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
   const mockResponsePending: IDocumentProperties[] = [
     {
       typeId: IDocumentType.ID,
-      category: IDocumentCategory.ID,
+      kycStep: IKycSteps.ID,
       status: IDocumentStatus.VALIDATED,
       name: 'test-mock-recto',
       createdAt: new Date('2023-10-03T13:20:21.303Z'),
@@ -77,27 +84,8 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
     },
     {
       typeId: IDocumentType.ID,
-      category: IDocumentCategory.ID,
+      kycStep: IKycSteps.ID,
       status: IDocumentStatus.PENDING,
-      name: 'test-mock-verso',
-      createdAt: new Date('2023-10-03T13:20:22.303Z'),
-      statusCode: IDocumentStatusCode.INITIAL,
-    },
-  ];
-
-  const mockResponseDocumentsValidated: IDocumentProperties[] = [
-    {
-      typeId: IDocumentType.ID,
-      category: IDocumentCategory.ID,
-      status: IDocumentStatus.VALIDATED,
-      name: 'test-mock-recto',
-      createdAt: new Date('2023-10-03T13:20:21.303Z'),
-      statusCode: IDocumentStatusCode.INITIAL,
-    },
-    {
-      typeId: IDocumentType.ID,
-      category: IDocumentCategory.ID,
-      status: IDocumentStatus.VALIDATED,
       name: 'test-mock-verso',
       createdAt: new Date('2023-10-03T13:20:22.303Z'),
       statusCode: IDocumentStatusCode.INITIAL,
@@ -107,7 +95,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
   const mockResponseRefused: IDocumentProperties[] = [
     {
       typeId: IDocumentType.PASSPORT,
-      category: IDocumentCategory.ID,
+      kycStep: IKycSteps.ID,
       status: IDocumentStatus.REFUSED,
       name: 'test-mock-recto',
       createdAt: new Date('2023-10-03T13:20:21.303Z'),
@@ -123,6 +111,43 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
     path: '/app/document/kyc',
   };
 
+  const mockedAccounts: IAccount[] = [
+    {
+      accountId: 4004318954,
+      accountType: IAccountType.MAIN,
+      authorizedBalance: 0,
+      iban: new Iban('FR7616798000010000242599449'),
+      bic: new Bic('TRZOFR21XXX'),
+    },
+  ];
+
+  const mockedTransactions: ITransaction[] = [
+    {
+      amount: 0.25,
+      updatedAt: '2023-06-15T07:38:09.217Z',
+      label: 'Payin Generated from UTs on User Test',
+      transactionId: 1686814688829,
+      transactionType: ITransactionType.PAYIN,
+    },
+    {
+      amount: 244.99,
+      updatedAt: '2023-05-23T06:47:10.000Z',
+      label: 'GASCOVERT AUC',
+      mccCode: 5992,
+      transactionId: 1686814773049,
+      transactionType: ITransactionType.CARD_TRANSACTION,
+    },
+  ].map((item: ITransactionServer) => ({
+    id: item.transactionId,
+    amount: new Amount(item.amount.toString(), item.transactionType as ITransactionType),
+    label: item.label,
+    category: item.mccCode
+      ? new TransactionCategory(item.transactionType as ITransactionType, item.mccCode)
+      : new TransactionCategory(item.transactionType as ITransactionType),
+    date: new Date(item.updatedAt),
+    type: item.transactionType as ITransactionType, //todo: maybe delete this, and make use of category only, easier to map, and this is all we need to know in the app
+  }));
+
   it('Should wait for CHECK_CUSTOMER_STATUS action and call checkCustomerStatusGenerator, should be done on next iteration', () => {
     expect(genObject.next().value).toEqual(
       takeEvery(ICustomerTypes.CHECK_CUSTOMER_STATUS, checkCustomerStatusGenerator, httpConnection),
@@ -130,19 +155,23 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
     expect(genObject.next().done).toBeTruthy();
   });
 
-  it('Should call customerStatusChecked and initRoute INIT if customer kycReview not VALIDATED', async () => {
+  it('Should call customerStatusChecked and initRoute INIT', async () => {
     const customer = Customer.Create({
       id: 123,
-      properties: { USPerson: false },
+      properties: { USPerson: false, status: 0, kycReviewComment: '' },
     });
 
-    customer.checkDocumentsStatus([]);
+    customer.initKyc([], []);
     testSaga(checkCustomerStatusGenerator, httpConnection, {
       type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
       payload: { user },
     })
       .next()
-      .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .call([kycApi, kycApi.getDocuments])
+      .next([])
+      .call([accountApi, accountApi.getAccounts])
+      .next(mockedAccounts)
+      .call([transactionApi, transactionApi.getTransactions], mockedAccounts[0].accountId)
       .next([])
       .put(
         customerStatusChecked({
@@ -153,13 +182,15 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
       .next();
   });
 
-  it('Should call customerStatusChecked and initRoute KYC if customer kycReview not VALIDATED and documents incomplete', async () => {
+  it('Should call customerStatusChecked and initRoute KYC if ID PENDING and SCT not active', async () => {
     const customer = Customer.Create({
       id: 123,
-      properties: { USPerson: false },
+      properties: { USPerson: false, status: KYC_REVIEW.PENDING, kycReviewComment: '' },
     });
 
-    customer.checkDocumentsStatus(mockResponseIncomplete);
+    user.properties.kycReview = KYC_REVIEW.PENDING;
+    customer.initKyc(mockResponseIncomplete, []);
+
     testSaga(checkCustomerStatusGenerator, httpConnection, {
       type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
       payload: { user },
@@ -167,6 +198,10 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
       .next()
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponseIncomplete)
+      .call([accountApi, accountApi.getAccounts])
+      .next(mockedAccounts)
+      .call([transactionApi, transactionApi.getTransactions], mockedAccounts[0].accountId)
+      .next([])
       .put(
         customerStatusChecked({
           customer,
@@ -176,13 +211,42 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
       .next();
   });
 
-  it('Should call customerStatusChecked and initRoute KYC if customer kycReview not VALIDATED and documents pending', async () => {
+  it('Should call customerStatusChecked and initRoute KYC if ID PENDING and SCT active', async () => {
     const customer = Customer.Create({
       id: 123,
-      properties: { USPerson: false },
+      properties: { USPerson: false, status: KYC_REVIEW.PENDING, kycReviewComment: '' },
     });
 
-    customer.checkDocumentsStatus(mockResponsePending);
+    user.properties.kycReview = KYC_REVIEW.PENDING;
+    customer.initKyc(mockResponseIncomplete, mockedTransactions);
+    testSaga(checkCustomerStatusGenerator, httpConnection, {
+      type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
+      payload: { user },
+    })
+      .next()
+      .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .next(mockResponseIncomplete)
+      .call([accountApi, accountApi.getAccounts])
+      .next(mockedAccounts)
+      .call([transactionApi, transactionApi.getTransactions], mockedAccounts[0].accountId)
+      .next(mockedTransactions)
+      .put(
+        customerStatusChecked({
+          customer,
+          initRoute: IKycStackPages.KYC,
+        }),
+      )
+      .next();
+  });
+
+  it('Should call customerStatusChecked and initRoute KYC if documents pending and SCT not active', async () => {
+    const customer = Customer.Create({
+      id: 123,
+      properties: { USPerson: false, status: KYC_REVIEW.PENDING, kycReviewComment: '' },
+    });
+
+    user.properties.kycReview = KYC_REVIEW.PENDING;
+    customer.initKyc(mockResponseIncomplete, []);
     testSaga(checkCustomerStatusGenerator, httpConnection, {
       type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
       payload: { user },
@@ -190,6 +254,10 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
       .next()
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponsePending)
+      .call([accountApi, accountApi.getAccounts])
+      .next(mockedAccounts)
+      .call([transactionApi, transactionApi.getTransactions], mockedAccounts[0].accountId)
+      .next([])
       .put(
         customerStatusChecked({
           customer,
@@ -199,36 +267,13 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
       .next();
   });
 
-  it('Should call customerStatusChecked and initRoute DOCUMENTS_VALIDATED if customer kycReview not VALIDATED and documents validated', async () => {
+  it('Should call customerStatusChecked and initRoute KYC if ID refused', async () => {
     const customer = Customer.Create({
       id: 123,
-      properties: { USPerson: false },
+      properties: { USPerson: false, status: KYC_REVIEW.REFUSED, kycReviewComment: '' },
     });
-
-    customer.checkDocumentsStatus(mockResponseDocumentsValidated);
-    testSaga(checkCustomerStatusGenerator, httpConnection, {
-      type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
-      payload: { user },
-    })
-      .next()
-      .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .next(mockResponseDocumentsValidated)
-      .put(
-        customerStatusChecked({
-          customer,
-          initRoute: IKycStackPages.DOCUMENTS_VALIDATED,
-        }),
-      )
-      .next();
-  });
-
-  it('Should call customerStatusChecked and initRoute KYC if customer kycReview not VALIDATED and documents refused', async () => {
-    const customer = Customer.Create({
-      id: 123,
-      properties: { USPerson: false },
-    });
-
-    customer.checkDocumentsStatus(mockResponseRefused);
+    user.properties.kycReview = KYC_REVIEW.REFUSED;
+    customer.initKyc(mockResponseRefused, mockedTransactions);
     testSaga(checkCustomerStatusGenerator, httpConnection, {
       type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
       payload: { user },
@@ -236,6 +281,10 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
       .next()
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponseRefused)
+      .call([accountApi, accountApi.getAccounts])
+      .next(mockedAccounts)
+      .call([transactionApi, transactionApi.getTransactions], mockedAccounts[0].accountId)
+      .next(mockedTransactions)
       .put(
         customerStatusChecked({
           customer,
@@ -253,7 +302,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
 
     const customer = Customer.Create({
       id: 123,
-      properties: { status: KYC_REVIEW.VALIDATED, USPerson: false },
+      properties: { status: KYC_REVIEW.VALIDATED, USPerson: false, kycReviewComment: '' },
     });
 
     testSaga(checkCustomerStatusGenerator, httpConnection, {
@@ -282,7 +331,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
       properties: { status: KYC_REVIEW.PENDING, USPerson: false, kycReviewComment: 'test' },
     });
     customer.addKycReviewComment('test');
-    customer.checkDocumentsStatus(mockResponsePending);
+    customer.initKyc(mockResponsePending, mockedTransactions);
 
     testSaga(checkCustomerStatusGenerator, httpConnection, {
       type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
@@ -291,6 +340,10 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
       .next()
       .call([kycApi, kycApi.getDocuments]) // <- Utilisez cette syntaxe pour spécifier le contexte.
       .next(mockResponsePending)
+      .call([accountApi, accountApi.getAccounts])
+      .next(mockedAccounts)
+      .call([transactionApi, transactionApi.getTransactions], mockedAccounts[0].accountId)
+      .next(mockedTransactions)
       .put(
         customerStatusChecked({
           customer,

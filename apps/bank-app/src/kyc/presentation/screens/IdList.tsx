@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
 import {
-  IDocumentCategory,
+  IKycSteps,
   IDocumentType,
   IDocumentProperties,
   IDocumentStatus,
@@ -79,7 +79,7 @@ export const IdList = () => {
                     instruction: t('screens.kyc.id.recto.instruction'),
                     imageSource: IDCardRecto,
                     documentProperties: {
-                      category: IDocumentCategory.ID,
+                      kycStep: IKycSteps.ID,
                       typeId: IDocumentType.ID,
                       name: 'first-id.id.recto',
                       status: IDocumentStatus.INIT,
@@ -103,7 +103,7 @@ export const IdList = () => {
                     instruction: t('screens.kyc.passport.instruction'),
                     imageSource: Passport,
                     documentProperties: {
-                      category: IDocumentCategory.ID,
+                      kycStep: IKycSteps.ID,
                       typeId: IDocumentType.PASSPORT,
                       name: 'first-id.passport.recto',
                       status: IDocumentStatus.INIT,
@@ -123,7 +123,7 @@ export const IdList = () => {
                     instruction: t('screens.kyc.residence-permit.recto.instruction'),
                     imageSource: ResidencePermitRecto,
                     documentProperties: {
-                      category: IDocumentCategory.ID,
+                      kycStep: IKycSteps.ID,
                       typeId: IDocumentType.RESIDENT_PERMIT,
                       name: 'first-id.residence-permit.recto',
                       status: IDocumentStatus.INIT,

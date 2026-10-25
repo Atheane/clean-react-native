@@ -8,11 +8,10 @@ import {
   Customer,
   DocumentError,
   DocumentVO,
-  IDocumentCategory,
+  IKycSteps,
   IDocumentProperties,
   IDocumentStatus,
   IDocumentStatusCode,
-  KycDocuments,
 } from '@clean-rn/kyc/domain';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
@@ -33,7 +32,7 @@ describe('Document - uploadDocument - usecases', () => {
 
   const documentProperties: IDocumentProperties = {
     typeId: 9,
-    category: IDocumentCategory.ID,
+    kycStep: IKycSteps.ID,
     status: IDocumentStatus.PENDING,
     name: 'test-mock',
     createdAt: new Date('2023-10-03T13:20:21.303Z'),
@@ -81,10 +80,12 @@ describe('Document - uploadDocument - usecases', () => {
     const customer = Customer.Create({
       id: 123,
       properties: {
+        status: 0,
+        kycReviewComment: '',
         USPerson: false,
       },
     });
-    customer.addKyc(new KycDocuments([document.properties]));
+    customer.initKyc([document.properties], []);
     customer.addDocument(document);
 
     testSaga(uploadDocumentSagaGenerator, httpConnection, {

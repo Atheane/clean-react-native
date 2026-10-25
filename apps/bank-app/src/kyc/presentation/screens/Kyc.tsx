@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, ImageSourcePropType, Image } from 'react-native';
+import { View, Text, StyleSheet, ImageSourcePropType, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@rneui/themed';
@@ -7,12 +7,13 @@ import { useTranslation } from 'react-i18next';
 
 import {
   IDocumentType,
-  IDocumentCategory,
-  KycDocuments,
+  IKycSteps,
+  KycSteps,
   IDocumentStatus,
   IDocumentProperties,
   IDocumentStatusCode,
   IKycState,
+  DocumentVO,
 } from '@clean-rn/kyc/domain';
 import { UploadDocumentCard, KycW9, KycIdentification, TransferBlueGradient } from '@clean-rn/ui-mobile';
 
@@ -77,7 +78,15 @@ export const Kyc = () => {
   const { customer } = useSelector((state: IRootState) => state.kyc.customer);
   const { document, pending } = useSelector((state: IRootState) => state.kyc.document);
 
-  const [submittedKyc, setSubmittedKyc] = useState<KycDocuments>();
+  const [submittedKyc, setSubmittedKyc] = useState<KycSteps>();
+  const [documentsCount, setDocumentsCount] = useState(1);
+
+  useEffect(() => {
+    if (customer?.properties.kyc) {
+      const documentsCount = customer.properties.kyc.stepsCount - 1;
+      setDocumentsCount(documentsCount);
+    }
+  }, [customer]);
 
   useEffect(() => {
     if (customer?.properties.kyc) {
@@ -91,7 +100,11 @@ export const Kyc = () => {
 
   const Instructions = () => (
     <View style={[styles.messageContainer]}>
-      <Text style={[styles.title, theme.bank.text.darkBlue]}>{t('screens.kyc.menu.title')}</Text>
+      <Text style={[theme.bank.text.grey]}>
+        {documentsCount === 1
+          ? t('screens.kyc.menu.instruction-before.singular')
+          : t('screens.kyc.menu.instruction-before.plural')}
+      </Text>
     </View>
   );
 
@@ -104,15 +117,13 @@ export const Kyc = () => {
           {t('screens.kyc.menu.instruction-after.bold')}
         </Text>
         {t('screens.kyc.menu.instruction-after.end')}
-        <Text style={[styles.instruction, theme.bank.text.boldGrey]}>{t('screens.kyc.menu.last-step')}</Text>
       </Text>
     </View>
   );
 
   const KycRefused = () => (
     <View style={[styles.messageContainer]}>
-      <Text style={[styles.title, theme.bank.text.darkBlue]}>{t('screens.kyc.menu.title')}</Text>
-      <Text style={[theme.bank.text.errors, styles.errorMessage, { lineHeight: 18, fontSize: 12 }]}>
+      <Text style={[theme.bank.text.errors, styles.errorMessage, { lineHeight: 18, fontSize: 14 }]}>
         {`${t('errors.domain-error.kyc.KYC_REFUSED')}. \n\n`}
         {customer?.properties.kycReviewComment
           ? `${renderLabel(customer.properties.kycReviewComment)}. \n\n`
@@ -122,10 +133,12 @@ export const Kyc = () => {
     </View>
   );
 
-  const hasErrorMessage = (documentCategory: IDocumentCategory) => {
+  const hasErrorMessage = (documentCategory: IKycSteps.ID | IKycSteps.W9) => {
     return (
-      submittedKyc?.documents[documentCategory]?.properties.status === IDocumentStatus.REFUSED &&
-      !!submittedKyc?.documents[documentCategory]?.properties.statusCode
+      submittedKyc &&
+      submittedKyc.steps[documentCategory] instanceof DocumentVO &&
+      submittedKyc.steps[documentCategory].properties.status === IDocumentStatus.REFUSED &&
+      !!submittedKyc.steps[documentCategory].properties.statusCode
     );
   };
 
@@ -141,7 +154,11 @@ export const Kyc = () => {
             <View style={styles.itemContainer}>
               <UploadDocumentCard
                 icon={KycW9}
-                status={submittedKyc?.documents.W9?.properties.status}
+                status={
+                  submittedKyc?.steps.W9 instanceof DocumentVO
+                    ? submittedKyc.steps.W9.properties.status
+                    : IDocumentStatus.INIT
+                }
                 text={t('screens.kyc.menu.w9-form')}
                 onPress={() =>
                   navigateTo(IKycStackPages.UPLOAD_DOCUMENT as never, {
@@ -149,7 +166,7 @@ export const Kyc = () => {
                     imageSource: W9,
                     docPickerVisible: true,
                     documentProperties: {
-                      category: IDocumentCategory.W9,
+                      kycStep: IKycSteps.W9,
                       typeId: IDocumentType.TAX_CERTIFICATE,
                       name: 'w9.form.recto',
                       status: IDocumentStatus.INIT,
@@ -158,11 +175,11 @@ export const Kyc = () => {
                     },
                   })
                 }
-                loading={pending && document?.properties.category === IDocumentCategory.W9}
+                loading={pending && document?.properties.kycStep === IKycSteps.W9}
                 onCancel={handleOnCancel}
                 errorMessage={
-                  hasErrorMessage(IDocumentCategory.W9)
-                    ? t(`errors.domain-error.kyc.${submittedKyc?.documents.W9?.properties.statusCode}`)
+                  hasErrorMessage(IKycSteps.W9) && submittedKyc?.steps.W9 instanceof DocumentVO
+                    ? t(`errors.domain-error.kyc.${submittedKyc.steps.W9.properties.statusCode}`)
                     : ''
                 }
               />
@@ -172,36 +189,40 @@ export const Kyc = () => {
             <View style={styles.itemContainer}>
               <UploadDocumentCard
                 icon={KycIdentification}
-                status={submittedKyc?.documents.ID?.properties.status}
+                status={
+                  submittedKyc?.steps.ID instanceof DocumentVO
+                    ? submittedKyc.steps.ID.properties.status
+                    : IDocumentStatus.INIT
+                }
                 text={t('screens.kyc.menu.identity')}
                 onPress={() => navigateTo(IKycStackPages.ID_LIST as never, {})}
-                loading={pending && document?.properties.category === IDocumentCategory.ID}
+                loading={pending && document?.properties.kycStep === IKycSteps.ID}
                 onCancel={handleOnCancel}
                 errorMessage={
-                  hasErrorMessage(IDocumentCategory.ID)
-                    ? t(`errors.domain-error.kyc.${submittedKyc?.documents.ID?.properties.statusCode}`)
+                  hasErrorMessage(IKycSteps.ID) && submittedKyc?.steps.ID instanceof DocumentVO
+                    ? t(`errors.domain-error.kyc.${submittedKyc.steps.ID.properties.statusCode}`)
                     : ''
                 }
               />
             </View>
           )}
-          <View style={styles.itemContainer}>
-            <UploadDocumentCard
-              icon={TransferBlueGradient}
-              status={
-                customer?.properties.kyc?.state === IKycState.REFUSED
-                  ? IDocumentStatus.REFUSED
-                  : IDocumentStatus.INIT
-              }
-              text={t('screens.kyc.menu.transfer')}
-              onPress={() => navigateTo(IKycStackPages.SCT_REQUIRED as never, {})}
-              loading={false}
-              onCancel={() => {
-                return;
-              }}
-              errorMessage={''}
-            />
-          </View>
+          {customer?.properties.kyc?.state !== IKycState.PENDING && (
+            <View style={styles.itemContainer}>
+              <UploadDocumentCard
+                icon={TransferBlueGradient}
+                status={
+                  customer?.properties.kyc?.steps.SCT ? IDocumentStatus.VALIDATED : IDocumentStatus.INIT
+                }
+                text={t('screens.kyc.menu.transfer')}
+                onPress={() => navigateTo(IKycStackPages.SCT_REQUIRED as never, {})}
+                loading={false}
+                onCancel={() => {
+                  return;
+                }}
+                errorMessage={''}
+              />
+            </View>
+          )}
         </View>
       </SafeScrollingView>
     </ErrorBoundary>
@@ -224,7 +245,8 @@ const styles = StyleSheet.create({
   },
   messageContainer: {
     alignItems: 'center',
-    width: '95%',
+    marginBottom: 20,
+    width: '90%',
   },
   errorMessage: {
     textAlign: 'left',

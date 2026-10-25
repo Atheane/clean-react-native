@@ -9,6 +9,7 @@ import { AuthApi, IAuthServerCode } from '@clean-rn/auth/infrastructure';
 import { UserApi } from '@clean-rn/user/infrastructure';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { CardApi } from '@clean-rn/card/infrastructure';
+import { ILanguage } from '@clean-rn/user/domain';
 
 import { IStoreKey } from '../../../../shared/application/types';
 import { goBack, navigate } from '../../../../shared/presentation/navigation/navigationRef';
@@ -20,7 +21,6 @@ import { checkCustomerStatus } from '../../../../kyc/application/commands/custom
 import { loginFailure, IAuthTypes, initializeAuth, loginSuccess, resetError } from '../../commands';
 import { initializeUser, userSaved } from '../../../../user/application/commands';
 import { cardForbidden, cardGetSuccess, cardNotFound } from '../../../../card/application/commands';
-import { ILanguage } from '@clean-rn/user/domain';
 
 export function* loginSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IAuthTypes.FETCH_LOGIN, loginGenerator, httpConnection);

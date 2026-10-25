@@ -533,8 +533,11 @@
       "title": "Vérification de votre identité",
       "send-document": "Envoyer un document",
       "init": {
-        "instruction": "2 étapes :\n\n1. Joindre une pièce d’identité\n\n2. Faire un virement de 1 euro depuis un de vos comptes bancaires sur votre Bank App",
-        "check-identity": "Vérifier mon identité"
+        "steps": "étapes :\n",
+        "step1": "1. Joindre une pièce d’identité\n",
+        "step2": "2. Faire un virement de 1 euro depuis un de vos comptes bancaires sur votre Bank App\n",
+        "step3": "3. Joindre le formulaire W9",
+        "check-identity": "Vérifier"
       },
       "complete": {
         "title": "Documents validés",
@@ -553,10 +556,9 @@
         "text": "Nous vous avons bien envoyé votre Carte CO2 par courrier."
       },
       "menu": {
-        "title": "Documents à transmettre :",
         "instruction-before": {
-          "begin": "Une fois les",
-          "end": "documents transférés, la vérification se lancera automatiquement."
+          "singular": "Une fois la pièce d'identité transférée et le virement reçu, la vérification se lancera automatiquement.",
+          "plural": "Une fois les 2 documents transférés et le virement reçu, la vérification se lancera automatiquement."
         },
         "instruction-after": {
           "begin": "Vos documents sont",

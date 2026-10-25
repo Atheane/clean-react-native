@@ -1,14 +1,15 @@
 import { Entity } from '@clean-rn/ddd';
 import { KYC_REVIEW } from '@clean-rn/user/domain';
 import { IDocumentProperties } from '../types';
-import { KycDocuments, DocumentVO } from '../value-objects';
+import { KycSteps, DocumentVO } from '../value-objects';
 import { CustomerError } from '../errors/index';
+import { ITransaction } from '@clean-rn/transaction/domain';
 
 export interface ICustomerProperties {
   // todo part of the actual user should be moved to customer entity
   USPerson: boolean;
   status: KYC_REVIEW;
-  kyc: KycDocuments;
+  kyc: KycSteps;
   kycReviewComment?: string;
 }
 
@@ -23,20 +24,26 @@ export class Customer extends Entity<ICustomerProperties> {
   }: {
     id: number;
     properties: {
-      status?: KYC_REVIEW;
+      status: KYC_REVIEW;
       USPerson: boolean;
-      kycReviewComment?: string;
+      kycReviewComment: string;
     };
   }): Customer {
     return new Customer({
       id: id.toString(),
-      properties: status
-        ? { status, USPerson, kycReviewComment }
-        : { status: KYC_REVIEW.NONE, USPerson, kycReviewComment },
+      properties: { status, USPerson, kycReviewComment },
     });
   }
 
-  addKyc(kyc: KycDocuments): void {
+  initKyc(docProps: IDocumentProperties[], transactions: ITransaction[]): void {
+    this.properties.kyc = new KycSteps({ docProps, transactions, USPerson: this.properties.USPerson });
+  }
+
+  setState(state: KYC_REVIEW): void {
+    this.properties.kyc?.setState(state);
+  }
+
+  addKyc(kyc: KycSteps): void {
     this.properties.kyc = kyc;
   }
 
@@ -49,13 +56,5 @@ export class Customer extends Entity<ICustomerProperties> {
 
   addKycReviewComment(comment: string): void {
     this.properties.kycReviewComment = comment;
-  }
-
-  checkDocumentsStatus(docProps: IDocumentProperties[]): void {
-    this.properties.kyc = new KycDocuments(docProps, this.properties.USPerson);
-  }
-
-  setState(state: KYC_REVIEW): void {
-    this.properties.kyc?.setState(state);
   }
 }

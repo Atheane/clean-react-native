@@ -4,7 +4,7 @@ import SagaTester from 'redux-saga-tester';
 import {
   Customer,
   DocumentVO,
-  IDocumentCategory,
+  IKycSteps,
   IDocumentProperties,
   IDocumentStatus,
   IDocumentStatusCode,
@@ -22,7 +22,7 @@ import {
   initializeKyc,
 } from '../../commands/customer';
 import { ICustomerState, customerReducer } from '../../state-management';
-import { User } from '@clean-rn/user/domain';
+import { KYC_REVIEW, User } from '@clean-rn/user/domain';
 
 describe('KYC - integration', () => {
   let sagaTester: SagaTester;
@@ -31,7 +31,7 @@ describe('KYC - integration', () => {
   const mockResponse: IDocumentProperties[] = [
     {
       typeId: 9,
-      category: IDocumentCategory.ID,
+      kycStep: IKycSteps.ID,
       status: IDocumentStatus.PENDING,
       name: 'test-mock',
       createdAt: new Date('2023-10-03T13:20:21.303Z'),
@@ -70,8 +70,11 @@ describe('KYC - integration', () => {
 
   it('Should store correct state if CUSTOMER_STATUS_CHECKED', () => {
     const user = User.Create({ id: 123, properties: { USPerson: false } });
-    const customer = Customer.Create({ id: 123, properties: { USPerson: false } });
-    customer.checkDocumentsStatus(mockResponse);
+    const customer = Customer.Create({
+      id: 123,
+      properties: { USPerson: false, status: KYC_REVIEW.PENDING, kycReviewComment: '' },
+    });
+    customer.initKyc(mockResponse, []);
     sagaTester.start(wrapSagaHidingNotFoundError, checkCustomerStatusSaga, httpConnection);
     sagaTester.dispatch(checkCustomerStatus({ user }));
     sagaTester.dispatch(
@@ -99,12 +102,15 @@ describe('KYC - integration', () => {
   });
 
   it('Should store correct state if CUSTOMER_DOCUMENTS_UPDATED', () => {
-    const customer = Customer.Create({ id: 123, properties: { USPerson: false } });
-    customer.checkDocumentsStatus(mockResponse);
+    const customer = Customer.Create({
+      id: 123,
+      properties: { USPerson: false, status: KYC_REVIEW.PENDING, kycReviewComment: '' },
+    });
+    customer.initKyc(mockResponse, []);
 
     const document = new DocumentVO({
       typeId: 9,
-      category: IDocumentCategory.ID,
+      kycStep: IKycSteps.ID,
       status: IDocumentStatus.PENDING,
       name: 'test-mock',
       createdAt: new Date('2023-10-03T13:20:21.303Z'),

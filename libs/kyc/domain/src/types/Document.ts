@@ -41,13 +41,14 @@ export enum IDocumentStatusCode {
   OTHER = 600017, // - Other - REFUSED
 }
 
-export enum IDocumentCategory {
+export enum IKycSteps {
   W9 = 'W9',
   ID = 'ID',
+  SCT = 'SCT',
 }
 
 export type IDocumentProperties = {
-  category: IDocumentCategory;
+  kycStep: IKycSteps.W9 | IKycSteps.ID;
   typeId: IDocumentType;
   status: IDocumentStatus;
   statusCode: IDocumentStatusCode;
@@ -65,6 +66,6 @@ export enum IKycState {
   INIT = 'INIT', // no documents at all
   INCOMPLETE = 'INCOMPLETE', // at least one document is pending
   PENDING = 'PENDING', // all expected documents were sent, at least one is pending, none of them is refused
-  DOCUMENTS_VALIDATED = 'DOCUMENTS_VALIDATED', // all documents are validated
+  STEPS_COMPLETED = 'STEPS_COMPLETED', // all steps are completed
   REFUSED = 'REFUSED', // at least one document is refused
 }
