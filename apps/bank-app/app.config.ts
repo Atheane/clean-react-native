@@ -76,7 +76,7 @@ export default {
     scheme: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER,
     extra: {
       eas: {
-        projectId: process.env.EXPO_PUBLIC_PROJECT_ID,
+        projectId: process.env.EXPO_PUBLIC_PROJECT_ID || '00000000-0000-0000-0000-000000000000',
       },
     },
   },
