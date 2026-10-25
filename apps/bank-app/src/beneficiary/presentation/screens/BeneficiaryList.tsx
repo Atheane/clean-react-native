@@ -135,22 +135,24 @@ export const BeneficiaryList = () => {
     [tabWidth, dispatch],
   );
 
+  const { beneficiaries, pending: beneficiaryPending } = useSelector(
+    (state: IRootState) => state.beneficiary.beneficiaries,
+  );
+  const {
+    contacts,
+    pending: contactPending,
+    permission,
+  } = useSelector((state: IRootState) => state.beneficiary.contacts);
+
   const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     setTimeout(
       () => {
         setLoading(false);
       },
-      customer?.properties.status === KYC_REVIEW.VALIDATED ? 500 : 0,
+      customer?.properties.status === KYC_REVIEW.VALIDATED || !permission ? 500 : 0,
     );
-  }, [customer?.properties.status]);
-
-  const { beneficiaries, pending: beneficiaryPending } = useSelector(
-    (state: IRootState) => state.beneficiary.beneficiaries,
-  );
-  const { contacts, pending: contactPending } = useSelector(
-    (state: IRootState) => state.beneficiary.contacts,
-  );
+  }, [customer?.properties.status, permission]);
 
   const hasBeneficiary = beneficiaries && beneficiaries.length > 0;
   const hasContact = contacts && contacts.length > 0;
