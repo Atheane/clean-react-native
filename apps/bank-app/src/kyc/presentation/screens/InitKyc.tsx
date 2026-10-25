@@ -1,14 +1,16 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, StyleProp, ViewStyle, Dimensions } from 'react-native';
+import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
 import { PrimaryButton, Colors, Add } from '@clean-rn/ui-mobile';
+import { InitKyc as InitKycImg } from '../assets/images';
+
 import { IKycStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-
-import { InitKyc as InitKycImg } from '../assets/images';
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -21,13 +23,26 @@ export const InitKyc = () => {
     navigation.navigate(IKycStackPages.KYC as never);
   }, [navigation]);
 
+  const { customer } = useSelector((state: IRootState) => state.kyc.customer);
+
+  const [stepsCount, setStepsCount] = useState(2);
+  useEffect(() => {
+    if (customer?.properties.kyc) {
+      const stepsCount = customer.properties.kyc.stepsCount;
+      setStepsCount(stepsCount);
+    }
+  }, [customer]);
+
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={[styles.container, theme.bank.container.centeredItem]}>
           <Image source={InitKycImg} style={{ width: 250, height: 250 }} />
           <View style={styles.instructionContainer}>
-            <Text style={theme.bank.text.lightGrey}>{t('screens.kyc.init.instruction')}</Text>
+            <Text style={theme.bank.text.lightGrey}>{`${stepsCount} ${t('screens.kyc.init.steps')}`}</Text>
+            <Text style={theme.bank.text.lightGrey}>{t('screens.kyc.init.step1')}</Text>
+            <Text style={theme.bank.text.lightGrey}>{t('screens.kyc.init.step2')}</Text>
+            {stepsCount > 2 && <Text style={theme.bank.text.lightGrey}>{t('screens.kyc.init.step3')}</Text>}
           </View>
           <View style={styles.buttonContainer}>
             <PrimaryButton

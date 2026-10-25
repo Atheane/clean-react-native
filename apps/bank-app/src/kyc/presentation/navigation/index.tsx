@@ -8,16 +8,7 @@ import { headersOptions } from '../../../shared/presentation/navigation/headersO
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 import { IKycStackPages, IKycStackProps } from '../../../shared/presentation/types';
 
-import {
-  InitKyc,
-  Kyc,
-  IdList,
-  UploadDocument,
-  KycDocumentsValidated,
-  CardSent,
-  SuccessKyc,
-  SctRequired,
-} from '../screens';
+import { InitKyc, Kyc, IdList, UploadDocument, CardSent, SuccessKyc, SctRequired } from '../screens';
 
 const Stack = createNativeStackNavigator<IKycStackProps>();
 
@@ -40,14 +31,6 @@ export const KycStack = () => {
       <Stack.Screen
         name={IKycStackPages.KYC}
         component={Kyc}
-        options={{
-          headerTitle: t('screens.kyc.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
-        }}
-      />
-      <Stack.Screen
-        name={IKycStackPages.DOCUMENTS_VALIDATED}
-        component={KycDocumentsValidated}
         options={{
           headerTitle: t('screens.kyc.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),

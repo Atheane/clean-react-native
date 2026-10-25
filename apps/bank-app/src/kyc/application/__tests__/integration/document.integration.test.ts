@@ -3,7 +3,7 @@ import SagaTester from 'redux-saga-tester';
 
 import {
   DocumentVO,
-  IDocumentCategory,
+  IKycSteps,
   IDocumentProperties,
   IDocumentStatus,
   IDocumentStatusCode,
@@ -29,7 +29,7 @@ describe('Document - integration', () => {
   const mockResponse: IDocumentProperties[] = [
     {
       typeId: 9,
-      category: IDocumentCategory.ID,
+      kycStep: IKycSteps.ID,
       status: IDocumentStatus.PENDING,
       name: 'test-mock',
       createdAt: new Date('2023-10-03T13:20:21.303Z'),

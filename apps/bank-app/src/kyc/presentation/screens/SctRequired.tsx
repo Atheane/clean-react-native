@@ -36,10 +36,10 @@ export const SctRequired = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 200,
+    marginTop: 150,
     justifyContent: 'space-around',
     alignItems: 'center',
-    marginBottom: 400,
+    marginBottom: 300,
   },
   title: {
     margin: 24,

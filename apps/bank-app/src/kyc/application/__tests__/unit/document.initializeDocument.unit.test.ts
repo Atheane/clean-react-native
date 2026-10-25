@@ -2,7 +2,7 @@
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 
-import { DocumentVO, IDocumentCategory, IDocumentStatus, IDocumentStatusCode } from '@clean-rn/kyc/domain';
+import { DocumentVO, IKycSteps, IDocumentStatus, IDocumentStatusCode } from '@clean-rn/kyc/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
@@ -12,7 +12,7 @@ import { IDocumentTypes, documentInitialized } from '../../commands/document';
 describe('Document - initializeDocument - usecases', () => {
   const documentProperties = {
     typeId: 9,
-    category: IDocumentCategory.ID,
+    kycStep: IKycSteps.ID as IKycSteps.W9 | IKycSteps.ID,
     status: IDocumentStatus.PENDING,
     name: 'test-mock',
     createdAt: new Date('2023-10-03T13:20:21.303Z'),
@@ -50,7 +50,7 @@ describe('Document - initializeDocument - usecases', () => {
       payload: {
         documentProperties: {
           typeId: 9,
-          category: IDocumentCategory.RESIDENCE_PROOF_SWORN_STATEMENT,
+          kycStep: IKycSteps.W9,
           status: IDocumentStatus.PENDING,
           name: 'test-mock',
           createdAt: new Date('2023-10-03T13:20:21.303Z'),
