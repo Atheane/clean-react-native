@@ -1,12 +1,20 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { TabCO2Split } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus } from '../../wrappers';
 
-const TabCO2SplitMeta: ComponentMeta<typeof TabCO2Split> = {
+const meta = {
   title: 'Tabs/CO2Split',
   component: TabCO2Split,
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING)],
+} as Meta<typeof TabCO2Split>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const FourColumns: Story = {
   args: {
     tableHead: ['Logement', 'Voiture', 'Total', 'Evité'],
     tableData: [
@@ -17,11 +25,4 @@ const TabCO2SplitMeta: ComponentMeta<typeof TabCO2Split> = {
     ],
     rowLabels: ['2019-2020', '2022', '2023', '2024'],
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING)],
-};
-
-export default TabCO2SplitMeta;
-
-export const FourColumns: ComponentStory<typeof TabCO2Split> = (args) => {
-  return <TabCO2Split {...args} />;
 };

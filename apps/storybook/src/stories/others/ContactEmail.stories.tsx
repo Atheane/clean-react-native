@@ -1,21 +1,22 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { ContactEmail } from '@clean-rn/ui-mobile';
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
-const ContactEmailMeta: ComponentMeta<typeof ContactEmail> = {
+const meta = {
   title: 'Others/ContactEmail',
   component: ContactEmail,
   argTypes: {},
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+} as Meta<typeof ContactEmail>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Basic: Story = {
   args: {
     subject: 'subject',
     body: 'body',
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING), WithCenterView],
 };
-
-export default ContactEmailMeta;
-
-type ContactEmailStory = ComponentStory<typeof ContactEmail>;
-
-export const Basic: ContactEmailStory = (args) => <ContactEmail {...args} />;

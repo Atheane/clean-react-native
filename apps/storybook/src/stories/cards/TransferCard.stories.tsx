@@ -9,22 +9,7 @@ const meta = {
   argTypes: {
     onSelect: { action: 'onSelect' },
   },
-  args: {
-    icon: BankLogoCA,
-    text: 'Mmmmmm\nMmmmmmmmmmm',
-    arrow: true,
-    data: [
-      {
-        key: 'key1',
-        value: 'value1',
-      },
-      {
-        key: 'key2',
-        value: 'value2',
-      },
-    ],
-  },
-  decorators: [(Story: any) => WithStatus(Story, ValidationStatus.PENDING), WithCenterView],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 } satisfies Meta<typeof TransferCard>;
 
 export default meta;

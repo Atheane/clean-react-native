@@ -1,81 +1,58 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
-import { useTranslation } from 'react-i18next';
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { Slider, useChange } from '@clean-rn/ui-mobile';
+import { Slider } from '@clean-rn/ui-mobile';
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
-const SliderMeta: ComponentMeta<typeof Slider> = {
+const meta = {
   title: 'Inputs/Slider',
   component: Slider,
   argTypes: {
     onChange: { action: 'onChange' },
   },
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+} as Meta<typeof Slider>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Basic: Story = {
   args: {
+    label: 'consumption',
     minValue: 0,
     maxValue: 100,
     value: 50,
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
-export default SliderMeta;
-
-type SliderStory = ComponentStory<typeof Slider>;
-
-export const Dynamic: SliderStory = (args) => {
-  const { t } = useTranslation();
-
-  const { value, onChange } = useChange(20);
-  return <Slider {...args} label={t('screens.carbon.consumption')} value={value} onChange={onChange} />;
-};
-export const Units: SliderStory = (args) => {
-  const { value, onChange } = useChange(6);
-  const { t } = useTranslation();
-
-  return (
-    <Slider
-      {...args}
-      label={t('screens.carbon.consumption')}
-      value={value}
-      onChange={onChange}
-      unit={t('screens.carbon-transport.dropdown.unit')}
-      minValue={0}
-      maxValue={20}
-    />
-  );
+export const Units: Story = {
+  args: {
+    label: 'consumption',
+    minValue: 0,
+    maxValue: 20,
+    value: 8,
+    unit: ' L / 100 km',
+  },
 };
 
-export const Steps500: SliderStory = (args) => {
-  const { value, onChange } = useChange(6);
-  const { t } = useTranslation();
-
-  return (
-    <Slider
-      {...args}
-      label={t('screens.carbon.consumption')}
-      value={value}
-      onChange={onChange}
-      unit={t('screens.carbon-transport.slider.unit')}
-      minValue={0}
-      maxValue={20000}
-      step={500}
-    />
-  );
+export const Steps500: Story = {
+  args: {
+    label: 'consumption',
+    minValue: 0,
+    maxValue: 20000,
+    step: 500,
+    value: 10000,
+    unit: ' km / year',
+  },
 };
 
-export const Short: SliderStory = () => {
-  const { value, onChange } = useChange(50);
-  const { t } = useTranslation();
-
-  return (
-    <Slider
-      label={t('screens.carbon-food.slider.meatRed')}
-      minValue={0}
-      maxValue={14}
-      value={value}
-      onChange={onChange}
-      short
-      unit={value < 2 ? t('screens.carbon-food.slider.unit') : t('screens.carbon-food.slider.units')}
-    />
-  );
+export const Short: Story = {
+  args: {
+    label: 'Red meat',
+    minValue: 0,
+    maxValue: 14,
+    value: 7,
+    unit: ' times / week',
+    short: true,
+  },
 };

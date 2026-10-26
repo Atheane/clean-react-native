@@ -1,9 +1,9 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
-import { PasswordInput, useSecure } from '@clean-rn/ui-mobile';
+import type { Meta, StoryObj } from '@storybook/react';
+import { PasswordInput } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
-const PasswordInputMeta: ComponentMeta<typeof PasswordInput> = {
+const meta = {
   title: 'Inputs/PasswordInput',
   component: PasswordInput,
   argTypes: {
@@ -16,12 +16,14 @@ const PasswordInputMeta: ComponentMeta<typeof PasswordInput> = {
     secured: true,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
-};
+} as Meta<typeof PasswordInput>;
 
-export default PasswordInputMeta;
+export default meta;
 
-export const Static: ComponentStory<typeof PasswordInput> = (args) => <PasswordInput {...args} />;
-export const Dynamic: ComponentStory<typeof PasswordInput> = (args) => {
-  const { secured, onToggleSecurity } = useSecure(true);
-  return <PasswordInput {...args} secured={secured} onToggleSecurity={onToggleSecurity} />;
+type Story = StoryObj<typeof meta>;
+
+export const Basic: Story = {
+  args: {
+    secured: true,
+  },
 };

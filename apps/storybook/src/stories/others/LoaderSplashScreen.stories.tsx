@@ -1,17 +1,16 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { LoaderSplashScreen } from '@clean-rn/ui-mobile';
 
-const LoaderSplashScreenMeta: ComponentMeta<typeof LoaderSplashScreen> = {
+const meta = {
   title: 'Others/Loader',
   component: LoaderSplashScreen,
+} as Meta<typeof LoaderSplashScreen>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Basic: Story = {
   args: {},
-};
-
-export default LoaderSplashScreenMeta;
-
-type LoaderSplashScreenStory = ComponentStory<typeof LoaderSplashScreen>;
-
-export const Static: LoaderSplashScreenStory = () => {
-  return <LoaderSplashScreen />;
 };

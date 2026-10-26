@@ -1,6 +1,6 @@
 import { StyleProp, ViewStyle } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { SearchModal, FlyFrom, Colors } from '@clean-rn/ui-mobile';
 import { airports, IAirport } from '@clean-rn/carbon/domain';
@@ -11,7 +11,7 @@ const data = airports.map((item: IAirport) => {
   return { key: item.IATA, value: item.name };
 });
 
-const SearchModalMeta: ComponentMeta<typeof SearchModal> = {
+const meta = {
   title: 'SearchBoxes/SearchModal',
   component: SearchModal,
   argTypes: {
@@ -22,20 +22,17 @@ const SearchModalMeta: ComponentMeta<typeof SearchModal> = {
     data,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
-};
+} as Meta<typeof SearchModal>;
 
-export default SearchModalMeta;
+export default meta;
 
-type SearchModalStory = ComponentStory<typeof SearchModal>;
+type Story = StoryObj<typeof meta>;
 
-export const Airports: SearchModalStory = (args) => {
-  const { t } = useTranslation();
-
-  return (
-    <SearchModal
-      {...args}
-      label={t('screens.carbon-fly.dropdown.destination')}
-      placeholder={t('screens.carbon-fly.search')}
-    />
-  );
+export const Airports: Story = {
+  args: {
+    label: 'From',
+    placeholder: 'Enter an airport',
+    icon: () => <FlyFrom style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />,
+    data,
+  },
 };

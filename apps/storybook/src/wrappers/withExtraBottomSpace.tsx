@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Story } from '@storybook/react-native';
 
-export const WithExtraBottomSpace = (Story: Story) => {
+export const WithExtraBottomSpace = (Story: React.ComponentType) => {
   return (
     <View style={styles.container}>
       <Story />

@@ -10,11 +10,6 @@ const meta = {
   argTypes: {
     onSubmit: { action: 'onSubmit' },
   },
-  args: {
-    title: 'Valider',
-    uppercase: false,
-    disabled: false,
-  },
   decorators: [(Story: any) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 

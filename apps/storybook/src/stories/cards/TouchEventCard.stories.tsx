@@ -13,11 +13,7 @@ const meta = {
     onPress: { action: 'onPress' },
     onDelete: { action: 'onDelete' },
   },
-  args: {
-    image: LoanHeater,
-    text: 'Lorem ipsum delatus',
-  },
-  decorators: [(Story: any) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 } satisfies Meta<typeof TouchEventCard>;
 
 export default meta;

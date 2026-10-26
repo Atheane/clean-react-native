@@ -1,7 +1,6 @@
 import { ScrollView } from 'react-native';
-import { Story } from '@storybook/react-native';
 
-export const WithScroll = (Story: Story) => {
+export const WithScroll = (Story: React.ComponentType) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Story />

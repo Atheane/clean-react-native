@@ -1,7 +1,5 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta } from '@storybook/react';
 import countryFlagEmoji from 'country-flag-emoji';
-import { useTranslation } from 'react-i18next';
-import { getLocales } from 'expo-localization';
 
 import { CountryPicker } from '@clean-rn/ui-mobile';
 import { ICountry } from '@clean-rn/user/domain';
@@ -20,7 +18,7 @@ const countries = Object.values(countryFlagEmoji.data as ICountry[])
   })
   .map((country: ICountry) => country.code);
 
-const CountryPickerMeta: ComponentMeta<typeof CountryPicker> = {
+const meta = {
   title: 'Dropdowns/CountryPicker',
   component: CountryPicker,
   argTypes: {
@@ -31,18 +29,15 @@ const CountryPickerMeta: ComponentMeta<typeof CountryPicker> = {
     },
   },
   args: {
-    label: 'Pays',
     defaultValue: 'FR',
-    data: countryFlagEmoji.data,
-    sortBy: 'name',
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
-};
+} satisfies Meta<typeof CountryPicker>;
 
-export default CountryPickerMeta;
+export default meta;
 
-export const Dynamic: ComponentStory<typeof CountryPicker> = (args) => {
-  const { t } = useTranslation();
-  const { regionCode } = getLocales()[0] as { regionCode: string };
-  return <CountryPicker {...args} label={t('country-picker.label')} defaultValue={regionCode} />;
+export const Basic = {
+  label: 'Pays',
+  defaultValue: 'FR',
+  sortBy: 'name',
 };

@@ -1,12 +1,12 @@
 import { StyleProp, ViewStyle } from 'react-native';
 
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { ContactItem, Love, Colors } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
-const ContactItemMeta: ComponentMeta<typeof ContactItem> = {
+const meta = {
   title: 'Items/ContactItem',
   component: ContactItem,
   args: {
@@ -21,12 +21,22 @@ const ContactItemMeta: ComponentMeta<typeof ContactItem> = {
     phone: '0612345678',
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
-};
+} as Meta<typeof ContactItem>;
 
-export default ContactItemMeta;
+export default meta;
 
-type ContactItemStory = ComponentStory<typeof ContactItem>;
+type Story = StoryObj<typeof meta>;
 
-export const Static: ContactItemStory = (args) => {
-  return <ContactItem {...args} />;
+export const Basic: Story = {
+  args: {
+    icon: () => (
+      <Love
+        width={23}
+        height={23}
+        style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
+      />
+    ),
+    name: 'Marie Dupond',
+    phone: '0612345678',
+  },
 };

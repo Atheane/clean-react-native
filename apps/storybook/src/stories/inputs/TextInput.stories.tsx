@@ -1,11 +1,11 @@
 import { StyleProp, ViewStyle } from 'react-native';
 
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 import { TextInput, Love, Colors, GreenEuroAmount } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
-const TextInputMeta: ComponentMeta<typeof TextInput> = {
+const meta = {
   title: 'Inputs/TextInput',
   component: TextInput,
   argTypes: {
@@ -19,6 +19,14 @@ const TextInputMeta: ComponentMeta<typeof TextInput> = {
       action: 'onFocus',
     },
   },
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+} as Meta<typeof TextInput>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const TextPinkLabel: Story = {
   args: {
     label: 'Label',
     lowerCase: false,
@@ -31,38 +39,54 @@ const TextInputMeta: ComponentMeta<typeof TextInput> = {
     ),
     short: false,
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
-export default TextInputMeta;
-
-type TextInputStory = ComponentStory<typeof TextInput>;
-
-export const TextPinkLabel: TextInputStory = (args) => {
-  return <TextInput {...args} />;
-};
-export const TextGreyLabel: TextInputStory = (args) => {
-  return <TextInput {...args} labelColor={Colors.bank.primary.grey} />;
-};
-
-export const NumericPinkLabel: TextInputStory = (args) => {
-  return <TextInput {...args} numeric />;
-};
-
-export const GreenEuroAmountPinkLabel: TextInputStory = (args) => {
-  return (
-    <TextInput
-      {...args}
-      label={'Amount'}
-      labelColor={Colors.bank.primary.grey}
-      numeric
-      IconRight={GreenEuroAmount}
-      IconLeft={undefined}
-      short={true}
-    />
-  );
+export const TextGreyLabel: Story = {
+  args: {
+    label: 'Label',
+    labelColor: Colors.bank.primary.grey,
+    lowerCase: false,
+    IconLeft: () => (
+      <Love
+        width={27}
+        height={27}
+        style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
+      />
+    ),
+    short: false,
+  },
 };
 
-export const Short: TextInputStory = (args) => {
-  return <TextInput {...args} short />;
+export const NumericPinkLabel: Story = {
+  args: {
+    label: 'Label',
+    numeric: true,
+    labelColor: Colors.bank.primary.grey,
+    lowerCase: false,
+    IconLeft: () => (
+      <Love
+        width={27}
+        height={27}
+        style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
+      />
+    ),
+    short: false,
+  },
+};
+
+export const GreenEuroAmountPinkLabel: Story = {
+  args: {
+    label: 'Amount',
+    numeric: true,
+    labelColor: Colors.bank.primary.grey,
+    lowerCase: false,
+    short: true,
+    IconRight: () => (
+      <GreenEuroAmount
+        width={27}
+        height={27}
+        style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
+      />
+    ),
+  },
 };

@@ -9,11 +9,7 @@ const meta = {
   argTypes: {
     onPress: { action: 'onPress' },
   },
-  args: {
-    text: 'Current month',
-    icon: ExportPdfGradient,
-  },
-  decorators: [(Story: any) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 } satisfies Meta<typeof LongCard>;
 
 export default meta;

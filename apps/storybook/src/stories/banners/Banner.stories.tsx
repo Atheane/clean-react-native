@@ -11,7 +11,7 @@ const meta = {
   argTypes: {
     onPressRightIcon: { action: 'onPressRightIcon' },
   },
-  decorators: [(Story: any) => WithStatus(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 } satisfies Meta<typeof StaticBanner>;
 
 export default meta;

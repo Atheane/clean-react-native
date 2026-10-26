@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { StyleProp, ViewStyle } from 'react-native';
+import countryFlagEmoji from 'country-flag-emoji';
 
 import { ICountry } from '@clean-rn/user/domain';
 
@@ -11,7 +12,6 @@ import { Colors } from '../../../constants';
 type IProps = {
   label: string;
   defaultValue?: string;
-  data: ICountry[];
   sortBy: 'name' | 'code';
 };
 
@@ -27,7 +27,7 @@ export const CountryPicker = (props: IProps & IState) => {
     if (!country) return '';
     return country.emoji + ' ' + country.name;
   };
-  const sortedData = Object.values(props.data as ICountry[])
+  const sortedData = Object.values(countryFlagEmoji.data as ICountry[])
     .sort((a: ICountry, b: ICountry) => {
       if (a[props.sortBy] < b[props.sortBy]) {
         return -1;
@@ -47,7 +47,9 @@ export const CountryPicker = (props: IProps & IState) => {
   };
 
   const defaultValue = props.defaultValue
-    ? Object.values(props.data as ICountry[]).find((country: ICountry) => country.code === props.defaultValue)
+    ? Object.values(countryFlagEmoji.data as ICountry[]).find(
+        (country: ICountry) => country.code === props.defaultValue,
+      )
     : undefined;
 
   return (

@@ -10,7 +10,7 @@ const meta = {
   argTypes: {
     onPress: { action: 'onPress' },
   },
-  decorators: [(Story: any) => WithStatus(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 } satisfies Meta<typeof GreenBackButton>;
 
 export default meta;

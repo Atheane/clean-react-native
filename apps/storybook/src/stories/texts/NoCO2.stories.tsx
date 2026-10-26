@@ -1,21 +1,21 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
-import { useTranslation } from 'react-i18next';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { NoCO2 } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
-const NoCO2Meta: ComponentMeta<typeof NoCO2> = {
+const meta = {
   title: 'Texts/NoCO2',
   component: NoCO2,
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
-};
+} as Meta<typeof NoCO2>;
 
-export default NoCO2Meta;
+export default meta;
 
-type NoCO2Story = ComponentStory<typeof NoCO2>;
+type Story = StoryObj<typeof meta>;
 
-export const Static: NoCO2Story = () => {
-  const { t } = useTranslation();
-  return <NoCO2 text={t('screens.carbon-house.no-CO2')} />;
+export const Basic: Story = {
+  args: {
+    text: 'NO CO2',
+  },
 };

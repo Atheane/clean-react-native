@@ -9,8 +9,7 @@ const meta = {
   title: 'Cards/TransactionsCard',
   component: TransactionsCard,
   argTypes: {},
-
-  decorators: [(Story: any) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 } satisfies Meta<typeof TransactionsCard>;
 
 export default meta;

@@ -1,9 +1,9 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 import { WithStatus, ValidationStatus, WithKeyboardAwareScroll } from '../../wrappers';
 
 import { DocumentScanner } from '@clean-rn/ui-mobile';
 
-const DocumentScannerMeta: ComponentMeta<typeof DocumentScanner> = {
+const meta = {
   title: 'Others/DocumentScanner',
   component: DocumentScanner,
   argTypes: {
@@ -11,9 +11,13 @@ const DocumentScannerMeta: ComponentMeta<typeof DocumentScanner> = {
     getScan: { action: 'getScan' },
     setLoading: { action: 'setLoading' },
   },
-  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.PENDING)],
+  decorators: [WithKeyboardAwareScroll, (Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
+} as Meta<typeof DocumentScanner>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Basic: Story = {
+  args: {},
 };
-
-export default DocumentScannerMeta;
-
-export const Static: ComponentStory<typeof DocumentScanner> = (args) => <DocumentScanner {...args} />;

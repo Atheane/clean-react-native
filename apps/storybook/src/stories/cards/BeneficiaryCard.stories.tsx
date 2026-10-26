@@ -10,7 +10,7 @@ const meta = {
     onDelete: { action: 'onDelete' },
     onPress: { action: 'onPress' },
   },
-  decorators: [(Story: any) => WithStatus(Story, ValidationStatus.PENDING), WithCenterView],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 } satisfies Meta<typeof BeneficiaryCard>;
 
 export default meta;
