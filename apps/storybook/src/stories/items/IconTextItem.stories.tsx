@@ -1,10 +1,9 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { KycId, IconTextItem } from '@clean-rn/ui-mobile';
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
-import { useTranslation } from 'react-i18next';
 
-const IconTextItemMeta: ComponentMeta<typeof IconTextItem> = {
+const meta = {
   title: 'Items/IconTextItem',
   component: IconTextItem,
   argTypes: {
@@ -12,19 +11,25 @@ const IconTextItemMeta: ComponentMeta<typeof IconTextItem> = {
       action: 'onPress',
     },
   },
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+} as Meta<typeof IconTextItem>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Basic: Story = {
+  args: {
+    icon: KycId,
+    text: 'ID Card',
+    validated: false,
+  },
+};
+
+export const Validated: Story = {
   args: {
     icon: KycId,
     text: 'ID Card',
     validated: true,
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING), WithCenterView],
-};
-
-export default IconTextItemMeta;
-
-type IconTextItemStory = ComponentStory<typeof IconTextItem>;
-
-export const Static: IconTextItemStory = (args) => {
-  const { t } = useTranslation();
-  return <IconTextItem {...args} text={t('screens.kyc.first-id.id')} />;
 };

@@ -1,37 +1,45 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
-import { useTranslation } from 'react-i18next';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { AccountError } from '@clean-rn/account/domain';
-import { Banner, BannerColors } from '@clean-rn/ui-mobile';
+import { Banner as StaticBanner, BannerColors } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus } from '../../wrappers';
 
-const BannerMeta: ComponentMeta<typeof Banner> = {
-  title: 'Banners/Banner',
-  component: Banner,
+const meta = {
+  title: 'Banners/StaticBanner',
+  component: StaticBanner,
   argTypes: {
     onPressRightIcon: { action: 'onPressRightIcon' },
   },
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
+} satisfies Meta<typeof StaticBanner>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const UpdateNeeded: Story = {
   args: {
+    title: 'Update application',
     colorBanner: BannerColors.PINK,
     rightIcon: true,
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 };
 
-export default BannerMeta;
-
-type BannerStory = ComponentStory<typeof Banner>;
-
-export const UpdateNeeded: BannerStory = (args) => {
-  const { t } = useTranslation();
-  return <Banner {...args} title={t('banners.update-application')} />;
+const error = new AccountError.InvalidIban('Invalid IBAN');
+export const ErrorMessage: Story = {
+  args: {
+    title: error.message,
+    colorBanner: BannerColors.PINK,
+    rightIcon: true,
+    onPressRightIcon: undefined,
+  },
 };
-export const ErrorMessage: BannerStory = (args) => {
-  const error = new AccountError.InvalidIban('Invalid IBAN');
-  return <Banner {...args} title={error.message} onPressRightIcon={undefined} />;
-};
-export const IdentityValidation: BannerStory = (args) => {
-  const { t } = useTranslation();
-  return <Banner {...args} title={t('banners.identity-validation')} colorBanner={BannerColors.PURPLE} />;
+
+export const IdentityValidation: Story = {
+  args: {
+    title: 'Update application',
+    colorBanner: BannerColors.PURPLE,
+    rightIcon: true,
+  },
 };

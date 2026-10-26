@@ -18,10 +18,10 @@ export default {
     },
     assetBundlePatterns: ['**/*'],
     ios: {
-      bundleIdentifier: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER,
+      bundleIdentifier: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.example.bankapp',
       googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_PLIST || './GoogleService-Info.plist',
       supportsTablet: false,
-      versionCode: process.env.EXPO_PUBLIC_APP_VERSION,
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '200',
     },
     android: {
       adaptiveIcon: {
@@ -29,15 +29,16 @@ export default {
         backgroundColor: '#FFFFFF',
       },
       supportsTablet: false,
-      package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER,
+      package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.example.bankapp',
       googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_SERVICES || './google-services.json',
-      versionCode: process.env.EXPO_PUBLIC_APP_VERSION_ANDROID,
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION_ANDROID || '200',
     },
     web: {
       favicon: './assets/images/logo-bank.png',
       bundler: 'metro',
     },
     plugins: [
+      'expo-font',
       'expo-localization',
       [
         'expo-contacts',
@@ -73,7 +74,7 @@ export default {
         },
       ],
     ],
-    scheme: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER,
+    scheme: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.example.bankapp',
     extra: {
       eas: {
         projectId: process.env.EXPO_PUBLIC_PROJECT_ID || '00000000-0000-0000-0000-000000000000',

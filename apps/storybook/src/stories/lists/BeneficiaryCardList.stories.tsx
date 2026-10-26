@@ -1,19 +1,28 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { BeneficiaryCardList } from '@clean-rn/ui-mobile';
 
 import { ValidationStatus, WithCenterView, WithStatus } from '../../wrappers';
 
-const BeneficiaryCardListMeta: ComponentMeta<typeof BeneficiaryCardList> = {
+const meta = {
   title: 'Lists/BeneficiaryCardList',
   component: BeneficiaryCardList,
   argTypes: {
     onPress: { action: 'onPress' },
     onDelete: { action: 'onDelete' },
   },
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING), WithCenterView],
+} as Meta<typeof BeneficiaryCardList>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const OnPress: Story = {
   args: {
     data: [
       {
+        isActive: true,
         accountId: 1,
         beneficiaryId: 1,
         name: 'John Doe',
@@ -21,12 +30,14 @@ const BeneficiaryCardListMeta: ComponentMeta<typeof BeneficiaryCardList> = {
         bic: 'BCIRESMMXXX',
       },
       {
+        isActive: true,
         beneficiaryId: 2,
         name: 'Marie Jeanne',
         iban: 'FR4621000418450200051332',
         bic: 'BCIRESMMXXX',
       },
       {
+        isActive: true,
         accountId: 2,
         beneficiaryId: 3,
         name: 'Jeanne Durut',
@@ -34,22 +45,69 @@ const BeneficiaryCardListMeta: ComponentMeta<typeof BeneficiaryCardList> = {
         bic: 'BCIRESMMXXX',
       },
     ],
+    onDelete: undefined,
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING), WithCenterView],
 };
 
-export default BeneficiaryCardListMeta;
+export const OnDelete: Story = {
+  args: {
+    data: [
+      {
+        isActive: true,
+        accountId: 1,
+        beneficiaryId: 1,
+        name: 'John Doe',
+        iban: 'ES6621000418450200051331',
+        bic: 'BCIRESMMXXX',
+      },
+      {
+        isActive: true,
+        beneficiaryId: 2,
+        name: 'Marie Jeanne',
+        iban: 'FR4621000418450200051332',
+        bic: 'BCIRESMMXXX',
+      },
+      {
+        isActive: true,
+        accountId: 2,
+        beneficiaryId: 3,
+        name: 'Jeanne Durut',
+        iban: 'FR4621000418450200051333',
+        bic: 'BCIRESMMXXX',
+      },
+    ],
+    onPress: undefined,
+  },
+};
 
-type BeneficiaryCardListStory = ComponentStory<typeof BeneficiaryCardList>;
-
-export const OnPress: BeneficiaryCardListStory = (args) => (
-  <BeneficiaryCardList {...args} onPress={args.onPress} onDelete={undefined} />
-);
-
-export const OnDelete: BeneficiaryCardListStory = (args) => (
-  <BeneficiaryCardList {...args} onPress={undefined} onDelete={args.onDelete} />
-);
-
-export const Disabled: BeneficiaryCardListStory = (args) => (
-  <BeneficiaryCardList {...args} onPress={undefined} onDelete={undefined} />
-);
+export const Disabled: Story = {
+  args: {
+    data: [
+      {
+        isActive: true,
+        accountId: 1,
+        beneficiaryId: 1,
+        name: 'John Doe',
+        iban: 'ES6621000418450200051331',
+        bic: 'BCIRESMMXXX',
+      },
+      {
+        isActive: true,
+        beneficiaryId: 2,
+        name: 'Marie Jeanne',
+        iban: 'FR4621000418450200051332',
+        bic: 'BCIRESMMXXX',
+      },
+      {
+        isActive: true,
+        accountId: 2,
+        beneficiaryId: 3,
+        name: 'Jeanne Durut',
+        iban: 'FR4621000418450200051333',
+        bic: 'BCIRESMMXXX',
+      },
+    ],
+    onPress: undefined,
+    onDelete: undefined,
+  },
+};

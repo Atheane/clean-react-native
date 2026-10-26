@@ -1,11 +1,11 @@
 import { StyleProp, ViewStyle } from 'react-native';
 
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 import { IbanInput, Colors, Love } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
-const IbanInputMeta: ComponentMeta<typeof IbanInput> = {
+const meta = {
   title: 'Inputs/IbanInput',
   component: IbanInput,
   argTypes: {
@@ -19,6 +19,14 @@ const IbanInputMeta: ComponentMeta<typeof IbanInput> = {
       action: 'onFocus',
     },
   },
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+} as Meta<typeof IbanInput>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const TextPinkLabel: Story = {
   args: {
     label: 'Label',
     lowerCase: false,
@@ -31,16 +39,20 @@ const IbanInputMeta: ComponentMeta<typeof IbanInput> = {
     ),
     short: false,
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
-export default IbanInputMeta;
-
-type IbanInputStory = ComponentStory<typeof IbanInput>;
-
-export const TextPinkLabel: IbanInputStory = (args) => {
-  return <IbanInput {...args} />;
-};
-export const TextGreyLabel: IbanInputStory = (args) => {
-  return <IbanInput {...args} labelColor={Colors.bank.primary.grey} />;
+export const TextGreyLabel: Story = {
+  args: {
+    label: 'Label',
+    labelColor: Colors.bank.primary.grey,
+    lowerCase: false,
+    IconLeft: () => (
+      <Love
+        width={27}
+        height={27}
+        style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
+      />
+    ),
+    short: false,
+  },
 };

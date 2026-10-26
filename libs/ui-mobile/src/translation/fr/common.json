@@ -80,11 +80,8 @@
     "nationality": {
       "required": "Nationalité requise"
     },
-    "street": {
-      "required": "Rue requise"
-    },
-    "city": {
-      "required": "Ville requise"
+    "address": {
+      "required": "Adresse requise"
     },
     "zip": {
       "required": "Code postal requis"
@@ -275,6 +272,10 @@
       "subtitle": "(Résident américain)",
       "yes": "Oui",
       "no": "Non"
+    },
+    "zip": {
+      "label": "Code postal",
+      "placeholder": "40600"
     }
   },
   "email-sent": {

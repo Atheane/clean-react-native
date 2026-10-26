@@ -1,12 +1,20 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { TabCO2Reward } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus } from '../../wrappers';
 
-const TabCO2RewardMeta: ComponentMeta<typeof TabCO2Reward> = {
+const meta = {
   title: 'Tabs/CO2Reward',
   component: TabCO2Reward,
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING)],
+} as Meta<typeof TabCO2Reward>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const TwoColumns: Story = {
   args: {
     tableHead: ['Prime CO2', 'Emissions'],
     tableData: [
@@ -17,11 +25,4 @@ const TabCO2RewardMeta: ComponentMeta<typeof TabCO2Reward> = {
     ],
     rowLabels: ['2024', '2023', '2022', '2021'],
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING)],
-};
-
-export default TabCO2RewardMeta;
-
-export const TwoColumns: ComponentStory<typeof TabCO2Reward> = (args) => {
-  return <TabCO2Reward {...args} />;
 };

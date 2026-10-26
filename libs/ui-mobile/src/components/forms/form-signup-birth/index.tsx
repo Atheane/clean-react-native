@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import dayjs, { Dayjs } from 'dayjs';
 import { useTheme } from '@rneui/themed';
-import countryFlagEmoji from 'country-flag-emoji';
 
 import { IDomainError } from '@clean-rn/ddd';
 import { IUserErrorCodes, IUserErrorMessage, BirthDay } from '@clean-rn/user/domain';
@@ -76,7 +75,6 @@ export const FormSignupBirth = (props: IProps) => {
               value={value}
               onChange={onChange}
               defaultValue={props.defaultCountry}
-              data={countryFlagEmoji.data}
               sortBy={'name'}
             />
           )}
@@ -95,7 +93,6 @@ export const FormSignupBirth = (props: IProps) => {
               value={value}
               onChange={onChange}
               defaultValue={props.defaultCountry}
-              data={countryFlagEmoji.data}
               sortBy={'name'}
             />
           )}

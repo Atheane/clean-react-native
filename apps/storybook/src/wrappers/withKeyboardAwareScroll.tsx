@@ -1,10 +1,9 @@
 import { View, StyleSheet, Dimensions } from 'react-native';
-import { Story } from '@storybook/react-native';
 import { SafeScrollingView } from '@clean-rn/ui-mobile';
 
 const HEIGHT = Dimensions.get('window').height;
 
-export const WithKeyboardAwareScroll = (Story: Story) => {
+export const WithKeyboardAwareScroll = (Story: React.ComponentType) => {
   return (
     <SafeScrollingView>
       <View style={[styles.container, { height: HEIGHT }]}>

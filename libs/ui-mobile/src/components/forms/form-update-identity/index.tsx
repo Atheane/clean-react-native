@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 import { Dayjs } from 'dayjs';
-import countryFlagEmoji from 'country-flag-emoji';
 
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
@@ -146,7 +145,6 @@ export const FormUpdateIdentity = (props: IProps) => {
                 value={value}
                 onChange={onChange}
                 defaultValue={props.control._defaultValues.birthCountry}
-                data={countryFlagEmoji.data}
                 sortBy={'name'}
               />
             )}
@@ -165,7 +163,6 @@ export const FormUpdateIdentity = (props: IProps) => {
                 value={value}
                 onChange={onChange}
                 defaultValue={props.control._defaultValues.nationality}
-                data={countryFlagEmoji.data}
                 sortBy={'name'}
               />
             )}

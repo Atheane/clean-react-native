@@ -1,4 +1,4 @@
-import { WithTheme, WithFont, WithTranslations } from '../wrappers';
+import { WithTheme, WithFont } from '../wrappers';
 import Geocoder from 'react-native-geocoding';
 
 export const parameters = {
@@ -9,6 +9,6 @@ export const parameters = {
   },
 };
 
-Geocoder.init(process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY);
+Geocoder.init(process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY as string);
 
-export const decorators = [WithTheme, WithFont, WithTranslations];
+export const decorators = [WithTheme, WithFont];

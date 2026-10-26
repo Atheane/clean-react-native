@@ -189,7 +189,6 @@ export const AuthStack = () => {
       IStoreKey.AVERAGE_FLY_EMISSION,
       IStoreKey.CUSTOMER_STATUS,
     ]);
-    console.log('AsyncStorage empty');
     navigation.navigate(IUserStackPages.SIGNUP_EMAIL as never);
   };
 
