@@ -96,7 +96,17 @@ export const AddressInput = (props: IProps) => {
           styles={{
             textInputContainer: styles.inputContainer,
             textInput: styles.textInput,
-            listView: { marginLeft: -55, marginRight: 0 },
+            listView: {
+              position: 'absolute',
+              top: 60, // Ajustez cette valeur en fonction de la position souhaitée
+              left: -60,
+              right: 0,
+              backgroundColor: 'white',
+              zIndex: 1000,
+            },
+            row: {
+              backgroundColor: 'white', // Définit l'arrière-plan de chaque élément de la liste en blanc
+            },
           }}
           renderDescription={(row) => row.description}
         />

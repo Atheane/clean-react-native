@@ -122,10 +122,10 @@ export const FormSignupAddress = (props: IProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 200,
-    marginBottom: 200,
+    marginTop: 50,
+    marginBottom: 150,
   },
-  inputContainer: { marginTop: 60 },
+  inputContainer: { marginTop: 30, zIndex: -1 },
   errorContainer: {
     marginTop: 24,
     marginBottom: -24,
@@ -134,6 +134,6 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   formSubmit: {
-    marginVertical: '10%',
+    marginTop: 80,
   },
 });

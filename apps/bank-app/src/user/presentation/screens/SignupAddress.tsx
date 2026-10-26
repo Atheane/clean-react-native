@@ -11,6 +11,7 @@ import {
   FormSignupAddress,
   ISignupAddressFormData,
   Colors,
+  SafeScrollingView,
 } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
@@ -63,19 +64,21 @@ export const SignupAddress = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <View style={[styles.container, theme.bank.container.centeredItem]}>
-        <FormSignupAddress
-          loading={pending}
-          control={control}
-          errors={errors}
-          reset={reset}
-          error={domainError}
-          onSubmit={handleSubmit(onSubmit)}
-          onFocus={onFocus}
-          language={lang}
-          address={addressValue}
-        />
-      </View>
+      <SafeScrollingView>
+        <View style={[styles.container, theme.bank.container.centeredItem]}>
+          <FormSignupAddress
+            loading={pending}
+            control={control}
+            errors={errors}
+            reset={reset}
+            error={domainError}
+            onSubmit={handleSubmit(onSubmit)}
+            onFocus={onFocus}
+            language={lang}
+            address={addressValue}
+          />
+        </View>
+      </SafeScrollingView>
     </ErrorBoundary>
   );
 };
