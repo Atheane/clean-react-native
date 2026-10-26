@@ -1,14 +1,17 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 import { WebViewer } from '@clean-rn/ui-mobile';
 
-const WebViewerMeta: ComponentMeta<typeof WebViewer> = {
+const meta = {
   title: 'Others/WebViewer',
   component: WebViewer,
+} as Meta<typeof WebViewer>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Basic: Story = {
   args: {
     uri: 'https://example.com/green-euro-intro',
   },
 };
-
-export default WebViewerMeta;
-
-export const Static: ComponentStory<typeof WebViewer> = (args) => <WebViewer {...args} />;

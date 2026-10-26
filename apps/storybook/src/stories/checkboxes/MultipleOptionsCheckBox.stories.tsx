@@ -1,49 +1,34 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 import { MultipleOptionsCheckBox } from '@clean-rn/ui-mobile';
-import { useTranslation } from 'react-i18next';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
-const YesNoCheckBoxMeta: ComponentMeta<typeof MultipleOptionsCheckBox> = {
+const meta = {
   title: 'Checkboxes/MultipleOptionsCheckBox',
   component: MultipleOptionsCheckBox,
   argTypes: {
     onChange: { action: 'onChange' },
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+} as Meta<typeof MultipleOptionsCheckBox>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const YesNo: Story = {
+  args: {
+    label: 'US Resident',
+    subtitle: 'Are you a US person?',
+    optionsTitle: ['Yes', 'No'],
+    optionsValues: ['0', '1'],
+  },
 };
 
-export default YesNoCheckBoxMeta;
-
-export const YesNo: ComponentStory<typeof MultipleOptionsCheckBox> = (args) => {
-  const { t } = useTranslation();
-  return (
-    <MultipleOptionsCheckBox
-      {...args}
-      label={t('signup-address.usperson.label')}
-      subtitle={t('signup-address.usperson.subtitle')}
-      optionsTitle={[t('signup-address.usperson.yes'), t('signup-address.usperson.no')]}
-      optionsValues={[t('signup-address.usperson.yes'), t('signup-address.usperson.no')]}
-    />
-  );
-};
-export const ThreeTileOptions: ComponentStory<typeof MultipleOptionsCheckBox> = (args) => {
-  const { t } = useTranslation();
-
-  return (
-    <MultipleOptionsCheckBox
-      {...args}
-      label={t('signup-identity.gender.label')}
-      optionsTitle={[
-        t('signup-identity.gender.man'),
-        t('signup-identity.gender.woman'),
-        t('signup-identity.gender.neutral'),
-      ]}
-      optionsValues={[
-        t('signup-identity.gender.man'),
-        t('signup-identity.gender.woman'),
-        t('signup-identity.gender.neutral'),
-      ]}
-    />
-  );
+export const ThreeTileOptions: Story = {
+  args: {
+    label: 'US Resident',
+    optionsTitle: ['Option 1', 'Option 2', 'Option 3'],
+    optionsValues: ['0', '1', '2'],
+  },
 };

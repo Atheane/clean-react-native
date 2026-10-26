@@ -1,16 +1,25 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { IAccountType, Bic, Iban } from '@clean-rn/account/domain';
 import { WhiteBalance } from '@clean-rn/ui-mobile';
 
 import { ValidationStatus, WithBackground, WithStatusBelow } from '../../wrappers';
 
-const WhiteBalanceMeta: ComponentMeta<typeof WhiteBalance> = {
+const meta = {
   title: 'Texts/WhiteBalance',
   component: WhiteBalance,
   argTypes: {
     onPress: { action: 'onPress' },
   },
+
+  decorators: [(Story) => WithStatusBelow(Story, ValidationStatus.VALIDATED), WithBackground],
+} as Meta<typeof WhiteBalance>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Basic: Story = {
   args: {
     account: {
       accountType: IAccountType.MAIN,
@@ -20,11 +29,4 @@ const WhiteBalanceMeta: ComponentMeta<typeof WhiteBalance> = {
       bic: new Bic('TRZOFR21XXX'),
     },
   },
-  decorators: [(Story) => WithStatusBelow(Story, ValidationStatus.VALIDATED), WithBackground],
 };
-
-export default WhiteBalanceMeta;
-
-type WhiteBalanceStory = ComponentStory<typeof WhiteBalance>;
-
-export const Static: WhiteBalanceStory = (args) => <WhiteBalance {...args} />;

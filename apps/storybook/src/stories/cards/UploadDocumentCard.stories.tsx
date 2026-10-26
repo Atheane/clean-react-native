@@ -12,11 +12,7 @@ const meta = {
     onPress: { action: 'onPress' },
     onCancel: { action: 'onCancel' },
   },
-  args: {
-    icon: KycW9,
-    text: 'Lorem ipsum delatus Lorem ipsum delatus',
-  },
-  decorators: [(Story: any) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 } satisfies Meta<typeof UploadDocumentCard>;
 
 export default meta;

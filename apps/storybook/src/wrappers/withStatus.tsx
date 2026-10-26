@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { Icon, Divider } from '@rneui/themed';
-import { Story } from '@storybook/react-native';
 
 export enum ValidationStatus {
   VALIDATED = 'VALIDATED',
@@ -8,7 +7,7 @@ export enum ValidationStatus {
   PENDING = 'PENDING',
 }
 
-export const WithStatus = (Story: Story, validationStatus: ValidationStatus) => {
+export const WithStatus = (Story: React.ComponentType, validationStatus: ValidationStatus) => {
   return (
     <View style={styles(validationStatus).mainContainer}>
       {validationStatus === ValidationStatus.VALIDATED && (

@@ -1,22 +1,35 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { Secured4Digits } from '@clean-rn/ui-mobile';
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
-const Secured4DigitsMeta: ComponentMeta<typeof Secured4Digits> = {
+const meta = {
   title: 'Others/Secured4Digits',
   component: Secured4Digits,
   argTypes: {},
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+} as Meta<typeof Secured4Digits>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Basic: Story = {
   args: {
     digits: [1, 2, 3, 4],
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING), WithCenterView],
 };
 
-export default Secured4DigitsMeta;
+export const Secured: Story = {
+  args: {
+    digits: [1, 2, 3, 4],
+    hidden: true,
+  },
+};
 
-type Secured4DigitsStory = ComponentStory<typeof Secured4Digits>;
-
-export const Basic: Secured4DigitsStory = (args) => <Secured4Digits {...args} />;
-export const Secured: Secured4DigitsStory = (args) => <Secured4Digits {...args} hidden />;
-export const Underlined: Secured4DigitsStory = (args) => <Secured4Digits {...args} underlined />;
+export const Underlined: Story = {
+  args: {
+    digits: [1, 2, 3, 4],
+    underlined: true,
+  },
+};

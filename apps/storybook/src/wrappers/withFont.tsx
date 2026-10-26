@@ -1,9 +1,8 @@
-import { Story } from '@storybook/react-native';
 import { useFonts } from 'expo-font';
 import { SafeAreaView, Text } from 'react-native';
 import { Fonts } from '@clean-rn/ui-mobile';
 
-export const WithFont = (Story: Story) => {
+export const WithFont = (Story: React.ComponentType) => {
   const [fontsLoaded] = useFonts(Fonts);
   return fontsLoaded ? (
     <Story />

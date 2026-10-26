@@ -10,9 +10,6 @@ const meta = {
   argTypes: {
     onToggle: { action: 'onToggle' },
   },
-  args: {
-    checked: false,
-  },
   decorators: [(Story: any) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 } satisfies Meta<typeof SmallSwitchButton>;
 

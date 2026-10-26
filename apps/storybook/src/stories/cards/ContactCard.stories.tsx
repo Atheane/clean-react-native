@@ -10,15 +10,7 @@ const meta = {
   argTypes: {
     onPress: { action: 'onPress' },
   },
-  args: {
-    data: {
-      id: 'unique-id',
-      name: 'John Doe',
-      phone: new Phone('+33612345678', 'FR'),
-    },
-    idx: 0,
-  },
-  decorators: [(Story: any) => WithStatus(Story, ValidationStatus.PENDING), WithCenterView],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 } satisfies Meta<typeof ContactCard>;
 
 export default meta;

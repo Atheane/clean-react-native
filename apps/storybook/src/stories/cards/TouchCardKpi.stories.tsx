@@ -13,10 +13,7 @@ const meta = {
   argTypes: {
     onPress: { action: 'onPress' },
   },
-  args: {
-    icon: () => <House style={{ color: Colors.bank.primary.darkBlue } as StyleProp<ViewStyle>} />,
-  },
-  decorators: [(Story: any) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 } satisfies Meta<typeof TouchCardKpi>;
 
 export default meta;

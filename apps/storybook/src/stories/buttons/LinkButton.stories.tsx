@@ -15,10 +15,7 @@ const meta = {
       control: { type: 'radio' },
     },
   },
-  args: {
-    colorOption: LinkButtonColors.GREEN,
-  },
-  decorators: [(Story: any) => WithStatus(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
 } satisfies Meta<typeof LinkButton>;
 
 export default meta;

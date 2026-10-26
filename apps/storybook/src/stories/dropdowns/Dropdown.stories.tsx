@@ -1,9 +1,6 @@
 import { StyleProp, ViewStyle } from 'react-native';
-import { useTranslation } from 'react-i18next';
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 import { sort } from 'fast-sort';
-
-import { HouseHeaterE as HeaterE } from '@bank/carbon-weight/dist';
 
 import { Flame, Department, Dropdown, Colors } from '@clean-rn/ui-mobile';
 import { IHeatingType, departmentsFR, IDepartment } from '@clean-rn/carbon/domain';
@@ -22,12 +19,28 @@ const translations = {
   propane: 'Propane',
 };
 
-const DropdownMeta: ComponentMeta<typeof Dropdown> = {
+const meta = {
   title: 'Dropdowns/Dropdown',
   component: Dropdown,
   argTypes: {
     onSelect: { action: 'onSelect' },
   },
+
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+} as Meta<typeof Dropdown>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+const sortedDeps = sort(departmentsFR)
+  .asc((dep: IDepartment) => dep.NCC)
+  .map((dep: IDepartment) => ({
+    key: dep.DEP,
+    value: dep.NCC,
+  }));
+
+export const HeatingTypes: Story = {
   args: {
     label: 'Heating type',
     placeholder: 'Heating type',
@@ -37,47 +50,15 @@ const DropdownMeta: ComponentMeta<typeof Dropdown> = {
     })),
     icon: () => <Flame style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />,
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
-export default DropdownMeta;
-
-type DropdownStory = ComponentStory<typeof Dropdown>;
-
-const sortedDeps = sort(departmentsFR)
-  .asc((dep: IDepartment) => dep.NCC)
-  .map((dep: IDepartment) => ({
-    key: dep.DEP,
-    value: dep.NCC,
-  }));
-
-export const HeatingTypes: DropdownStory = (args) => {
-  const { t } = useTranslation();
-  const dataHeating = Object.entries(HeaterE).map(([key, value]) => ({
-    key,
-    value: t('screens.carbon-house.dropdown.' + value),
-  }));
-  return (
-    <Dropdown
-      {...args}
-      label={t('screens.carbon-house.dropdown.heater')}
-      placeholder={t('screens.carbon-house.dropdown.heater')}
-      data={dataHeating}
-    />
-  );
-};
-export const Departments: DropdownStory = (args) => {
-  const { t } = useTranslation();
-
-  return (
-    <Dropdown
-      {...args}
-      label={t('screens.carbon-house.dropdown.state-department')}
-      placeholder={t('screens.carbon-house.dropdown.state-department')}
-      data={sortedDeps}
-      icon={() => <Department style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />}
-    />
-  );
+export const Departments: Story = {
+  args: {
+    label: 'Departments',
+    placeholder: 'Departments',
+    data: sortedDeps,
+    icon: () => <Department style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />,
+  },
 };
 
 const accounts = [
@@ -87,16 +68,10 @@ const accounts = [
   { key: 'vacances', value: 'Chèques vacances\n203,12 €' },
 ];
 
-export const MultilineShortDropdown: DropdownStory = (args) => {
-  return (
-    <Dropdown
-      {...args}
-      placeholder={'Compte'}
-      label={undefined}
-      short
-      multiline
-      data={accounts}
-      icon={undefined}
-    />
-  );
+export const MultilineShortDropdown: Story = {
+  args: {
+    multiline: true,
+    placeholder: 'Compte',
+    data: accounts,
+  },
 };

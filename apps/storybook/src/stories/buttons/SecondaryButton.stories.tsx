@@ -12,10 +12,6 @@ const meta = {
     onPress: { action: 'pressed the button' },
     iconOne: { table: { disable: true } },
   },
-  args: {
-    long: false,
-    uppercase: true,
-  },
   decorators: [(Story: any) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 } satisfies Meta<typeof SecondaryButton>;
 

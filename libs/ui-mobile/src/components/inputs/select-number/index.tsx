@@ -1,6 +1,5 @@
-import { FC } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import NumericInput from 'react-native-numeric-input';
+import { FC, useState } from 'react';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
 
@@ -16,23 +15,39 @@ type IProps = {
 
 export const SelectNumber = (props: IProps) => {
   const { theme } = useTheme();
+  const [inputValue, setInputValue] = useState(props.value?.toString() ?? '0');
+
+  const handleIncrement = () => {
+    const newValue = parseInt(inputValue, 10) + 1;
+    setInputValue(newValue.toString());
+    props.onChange(newValue);
+  };
+
+  const handleDecrement = () => {
+    const newValue = parseInt(inputValue, 10) - 1;
+    if (newValue >= 0) {
+      setInputValue(newValue.toString());
+      props.onChange(newValue);
+    }
+  };
+
   return props.horizontal ? (
     <View style={styles.selectContainer}>
       <Text style={[theme.bank.text.label, { color: Colors.bank.secondary.pink }]}>
         {props.label.toLocaleUpperCase()}
       </Text>
       <View style={styles.inputContainer}>
-        <NumericInput
-          step={1}
-          minValue={0}
-          valueType="integer"
-          rounded={true}
-          borderColor={Colors.bank.transparent}
-          rightButtonBackgroundColor={Colors.bank.primary.lightGreen}
-          leftButtonBackgroundColor={Colors.bank.primary.lightGreen}
-          value={props.value}
-          onChange={props.onChange}
-        />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleDecrement}
+          disabled={parseInt(inputValue, 10) <= 0}
+        >
+          <Text style={styles.buttonText}>-</Text>
+        </TouchableOpacity>
+        <Text style={styles.inputText}>{inputValue}</Text>
+        <TouchableOpacity style={styles.button} onPress={handleIncrement}>
+          <Text style={styles.buttonText}>+</Text>
+        </TouchableOpacity>
       </View>
     </View>
   ) : (
@@ -46,18 +61,17 @@ export const SelectNumber = (props: IProps) => {
             <props.icon />
           </View>
         )}
-
-        <NumericInput
-          step={1}
-          minValue={0}
-          valueType="integer"
-          rounded={true}
-          borderColor={Colors.bank.transparent}
-          rightButtonBackgroundColor={Colors.bank.primary.lightGreen}
-          leftButtonBackgroundColor={Colors.bank.primary.lightGreen}
-          value={props.value}
-          onChange={props.onChange}
-        />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleDecrement}
+          disabled={parseInt(inputValue, 10) <= 0}
+        >
+          <Text style={styles.buttonText}>-</Text>
+        </TouchableOpacity>
+        <Text style={styles.inputText}>{inputValue}</Text>
+        <TouchableOpacity style={styles.button} onPress={handleIncrement}>
+          <Text style={styles.buttonText}>+</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -75,6 +89,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: Dimensions.get('window').width * 0.75,
     marginVertical: 16,
+    alignItems: 'center',
   },
   leftIconContainer: {
     marginLeft: 8,
@@ -82,6 +97,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   inputContainer: {
-    margin: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  button: {
+    backgroundColor: Colors.bank.primary.lightGreen,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 4,
+  },
+  buttonText: {
+    color: Colors.bank.primary.white,
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  inputText: {
+    marginHorizontal: 12,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: Colors.bank.primary.darkGrey,
   },
 });

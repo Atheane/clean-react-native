@@ -1,9 +1,9 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 import { BeneficiaryItem, BankLogoCA } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
-const BeneficiaryItemMeta: ComponentMeta<typeof BeneficiaryItem> = {
+const meta = {
   title: 'Items/BeneficiaryItem',
   component: BeneficiaryItem,
   argTypes: {
@@ -17,29 +17,65 @@ const BeneficiaryItemMeta: ComponentMeta<typeof BeneficiaryItem> = {
     beneficiaryId: 0,
     disabled: false,
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING), WithCenterView],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+} as Meta<typeof BeneficiaryItem>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Basic: Story = {
+  args: {
+    icon: BankLogoCA,
+    name: 'John Doe',
+    iban: 'ES6621000418450200051332',
+    beneficiaryId: 0,
+    disabled: false,
+    onDelete: undefined,
+    onPress: undefined,
+  },
 };
 
-export default BeneficiaryItemMeta;
-
-type BeneficiaryItemStory = ComponentStory<typeof BeneficiaryItem>;
-
-export const Simple: BeneficiaryItemStory = (args) => {
-  return <BeneficiaryItem {...args} onDelete={undefined} onPress={undefined} />;
+export const Delete: Story = {
+  args: {
+    icon: BankLogoCA,
+    name: 'John Doe',
+    iban: 'ES6621000418450200051332',
+    beneficiaryId: 0,
+    disabled: false,
+    onPress: undefined,
+  },
 };
 
-export const Delete: BeneficiaryItemStory = (args) => {
-  return <BeneficiaryItem {...args} onPress={undefined} />;
+export const Chevron: Story = {
+  args: {
+    icon: BankLogoCA,
+    name: 'John Doe',
+    iban: 'ES6621000418450200051332',
+    beneficiaryId: 0,
+    disabled: false,
+    onDelete: undefined,
+  },
 };
 
-export const Chevron: BeneficiaryItemStory = (args) => {
-  return <BeneficiaryItem {...args} onDelete={undefined} />;
+export const DisabledChevron: Story = {
+  args: {
+    icon: BankLogoCA,
+    name: 'John Doe',
+    iban: 'ES6621000418450200051332',
+    beneficiaryId: 0,
+    disabled: true,
+    onDelete: undefined,
+  },
 };
 
-export const DisabledChevron: BeneficiaryItemStory = (args) => {
-  return <BeneficiaryItem {...args} onDelete={undefined} disabled />;
-};
-
-export const DisabledDelete: BeneficiaryItemStory = (args) => {
-  return <BeneficiaryItem {...args} onPress={undefined} disabled />;
+export const DisabledDelete: Story = {
+  args: {
+    icon: BankLogoCA,
+    name: 'John Doe',
+    iban: 'ES6621000418450200051332',
+    beneficiaryId: 0,
+    disabled: true,
+    onPress: undefined,
+  },
 };

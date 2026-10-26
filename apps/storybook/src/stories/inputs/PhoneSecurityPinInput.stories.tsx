@@ -1,20 +1,21 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 import { PhoneSecurityPinInput } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
-const PhoneSecurityPinInputMeta: ComponentMeta<typeof PhoneSecurityPinInput> = {
+const meta = {
   title: 'Inputs/PhoneSecurityPinInput',
   component: PhoneSecurityPinInput,
   argTypes: {
     onChange: { action: 'onChange' },
   },
-  args: {},
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+} as Meta<typeof PhoneSecurityPinInput>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Basic: Story = {
+  args: {},
 };
-
-export default PhoneSecurityPinInputMeta;
-
-export const Dynamic: ComponentStory<typeof PhoneSecurityPinInput> = (args) => (
-  <PhoneSecurityPinInput {...args} />
-);

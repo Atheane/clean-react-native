@@ -1,9 +1,9 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 import { DigitsInput } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
-const DigitsInputMeta: ComponentMeta<typeof DigitsInput> = {
+const meta = {
   title: 'Inputs/DigitsInput',
   component: DigitsInput,
   argTypes: {
@@ -11,15 +11,21 @@ const DigitsInputMeta: ComponentMeta<typeof DigitsInput> = {
     onFocus: { action: 'onFocus' },
     onFullfill: { action: 'onFullfill' },
   },
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+} as Meta<typeof DigitsInput>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const SixDigits: Story = {
   args: {
     numberDigits: 6,
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
-export default DigitsInputMeta;
-
-export const SixDigits: ComponentStory<typeof DigitsInput> = (args) => <DigitsInput {...args} />;
-export const FourDigits: ComponentStory<typeof DigitsInput> = (args) => (
-  <DigitsInput {...args} numberDigits={4} />
-);
+export const FourDigits: Story = {
+  args: {
+    numberDigits: 4,
+  },
+};

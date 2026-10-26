@@ -1,4 +1,4 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 import { ImageSourcePropType } from 'react-native';
 
 import { GraphCO2 } from '@clean-rn/ui-mobile';
@@ -25,7 +25,7 @@ enum ICategories {
   COP21 = 'cop21',
 }
 
-const GraphCO2Meta: ComponentMeta<typeof GraphCO2> = {
+const meta = {
   title: 'Others/GraphCO2',
   component: GraphCO2,
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
@@ -58,13 +58,30 @@ const GraphCO2Meta: ComponentMeta<typeof GraphCO2> = {
     },
     emissions: 500,
   },
+} as Meta<typeof GraphCO2>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Cop21: Story = {
+  args: {
+    emissions: 500,
+  },
+};
+export const Champion: Story = {
+  args: {
+    emissions: 1000,
+  },
+};
+export const France: Story = {
+  args: {
+    emissions: 2000,
+  },
 };
 
-export default GraphCO2Meta;
-
-type GraphCO2Story = ComponentStory<typeof GraphCO2>;
-
-export const Cop21: GraphCO2Story = (args) => <GraphCO2 {...args} />;
-export const Champion: GraphCO2Story = (args) => <GraphCO2 {...args} emissions={1000} />;
-export const France: GraphCO2Story = (args) => <GraphCO2 {...args} emissions={2000} />;
-export const Bad: GraphCO2Story = (args) => <GraphCO2 {...args} emissions={5000} />;
+export const Bad: Story = {
+  args: {
+    emissions: 5000,
+  },
+};

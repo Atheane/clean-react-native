@@ -1,21 +1,22 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { ErrorMessage } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus } from '../../wrappers';
 import { UserError } from '@clean-rn/user/domain';
 
-const ErrorMessageMeta: ComponentMeta<typeof ErrorMessage> = {
+const meta = {
   title: 'Texts/ErrorMessage',
   component: ErrorMessage,
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
+} as Meta<typeof ErrorMessage>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const AuthErrorInvalid6Digits: Story = {
   args: {
     error: new UserError.ValidatePhoneIncorrectPhoneCode(),
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
-};
-
-export default ErrorMessageMeta;
-
-export const AuthErrorInvalid6Digits: ComponentStory<typeof ErrorMessage> = (args) => {
-  return <ErrorMessage {...args} />;
 };

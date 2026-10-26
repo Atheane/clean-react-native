@@ -1,7 +1,7 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 import { PdfDownloader, Edit } from '@clean-rn/ui-mobile';
 
-const PdfDownloaderMeta: ComponentMeta<typeof PdfDownloader> = {
+const meta = {
   title: 'Others/PdfDownloader',
   component: PdfDownloader,
   argTypes: {
@@ -9,13 +9,16 @@ const PdfDownloaderMeta: ComponentMeta<typeof PdfDownloader> = {
       action: 'handleError',
     },
   },
+} as Meta<typeof PdfDownloader>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Basic: Story = {
   args: {
     uri: 'https://www.africau.edu/images/default/sample.pdf',
     fileName: 'sample-test.pdf',
     icon: () => <Edit />,
   },
 };
-
-export default PdfDownloaderMeta;
-
-export const Basic: ComponentStory<typeof PdfDownloader> = (args) => <PdfDownloader {...args} />;

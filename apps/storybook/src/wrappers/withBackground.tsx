@@ -1,9 +1,8 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Story } from '@storybook/react-native';
 import { Colors } from '@clean-rn/ui-mobile';
 
-export const WithBackground = (Story: Story) => {
+export const WithBackground = (Story: React.ComponentType) => {
   return (
     <View style={styles.container}>
       <Story />

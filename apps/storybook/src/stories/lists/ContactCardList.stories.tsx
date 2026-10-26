@@ -1,11 +1,11 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { Phone } from '@clean-rn/contact/domain';
 import { ContactCardList } from '@clean-rn/ui-mobile';
 
 import { ValidationStatus, WithCenterView, WithStatus } from '../../wrappers';
 
-const ContactCardListMeta: ComponentMeta<typeof ContactCardList> = {
+const meta = {
   title: 'Lists/ContactCardList',
   component: ContactCardList,
   argTypes: {
@@ -31,10 +31,14 @@ const ContactCardListMeta: ComponentMeta<typeof ContactCardList> = {
     ],
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING), WithCenterView],
+} as Meta<typeof ContactCardList>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const OnPress: Story = {
+  args: {
+    onPress: undefined,
+  },
 };
-
-export default ContactCardListMeta;
-
-type ContactCardListStory = ComponentStory<typeof ContactCardList>;
-
-export const OnPress: ContactCardListStory = (args) => <ContactCardList {...args} />;
