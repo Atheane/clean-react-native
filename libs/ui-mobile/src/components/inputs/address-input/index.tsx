@@ -15,30 +15,35 @@ import { House } from '../../../assets/svg';
 type IProps = {
   language: string;
   placeholder: string;
+  address: IAddress;
   onAddressSelect: (address: IAddress) => void;
-  setDisabled: (value: boolean) => void;
-  defaultValue?: IAddress;
+  clearAddress: () => void;
 };
 
 const WIDTH = Dimensions.get('window').width;
 
 const regionCode = getLocales()[0]?.regionCode || 'FR';
+
 export const AddressInput = (props: IProps) => {
-  const [addressString, setAddressString] = useState<string>(
-    props.defaultValue
-      ? `${props.defaultValue.str}, ${props.defaultValue.zip} ${props.defaultValue.city}, ${props.defaultValue.country.valueName}`
-      : '',
-  );
+  const [addressString, setAddressString] = useState<string>('');
   const [cleared, setCleared] = useState<boolean>(false);
   const [error, setError] = useState<unknown>();
   const googlePlacesRef = useRef<RefAttributes<GooglePlacesAutocompleteRef>>(null);
+
+  // if user clear adresse several times in a row, we need to reset the state cleared at false
+  useEffect(() => {
+    setCleared(false);
+  }, [props.address]);
 
   const handleAddressSelect = async (data: GooglePlaceData) => {
     if (data) {
       try {
         const str = data.structured_formatting.main_text;
-        const city = data.structured_formatting.secondary_text.split(',')[0];
-
+        let city = data.structured_formatting.secondary_text.split(',')[0];
+        const citySplit = city.split(' ');
+        if (citySplit.length > 1) {
+          city = citySplit[citySplit.length - 1];
+        }
         const json = await Geocoder.from(data.description);
         const zip =
           json.results[0].address_components.find((component) => component.types.includes('postal_code'))
@@ -47,7 +52,6 @@ export const AddressInput = (props: IProps) => {
           json.results[0].address_components.find((component) => component.types.includes('country'))
             ?.short_name || regionCode;
         const country = new Country(countryCode);
-        // format de l'output attendu
         const address: IAddress = {
           str,
           city,
@@ -58,19 +62,12 @@ export const AddressInput = (props: IProps) => {
         props.onAddressSelect(address);
         googlePlacesRef.current?.setAddressText(addressString);
         setAddressString(addressString);
-        props.setDisabled(false);
       } catch (error: unknown) {
         console.log('Erreur lors du géocodage :', error);
         setError(error);
       }
     }
   };
-
-  useEffect(() => {
-    if (props.defaultValue) {
-      googlePlacesRef.current?.setAddressText(addressString);
-    }
-  }, [props, addressString]);
 
   return (
     <View>
@@ -85,11 +82,9 @@ export const AddressInput = (props: IProps) => {
           textInputProps={{
             onChangeText: (text: string) => {
               if (text === '' && text !== addressString && !cleared) {
-                console.log('Address cleared :', error);
                 setCleared(true);
-                props.onAddressSelect({} as IAddress);
-                props.setDisabled(true);
                 setError(undefined);
+                props.clearAddress();
               }
             },
           }}
