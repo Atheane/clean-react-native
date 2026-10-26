@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { IAccount } from '@clean-rn/account/domain';
 import { IStatementsPeriod } from '@clean-rn/transaction/domain';
@@ -26,6 +26,12 @@ export const AccountStatementsPdf = () => {
     setUnknownError(error as Error);
   };
 
+  const navigation = useNavigation();
+
+  const nextNavigation = () => {
+    navigation.goBack();
+  };
+
   return unknownError ? (
     <ModalError error={unknownError} />
   ) : (
@@ -38,6 +44,7 @@ export const AccountStatementsPdf = () => {
         handleError={handleError}
         icon={Download}
         fileName={`statement-${period}.pdf`}
+        nextNavigation={nextNavigation}
       />
       <PdfViewer
         uri={`${process.env.EXPO_PUBLIC_BASE_URL_API}/app/account/${account.accountId}/statement?period=${period}`}
