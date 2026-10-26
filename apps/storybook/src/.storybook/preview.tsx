@@ -9,6 +9,6 @@ export const parameters = {
   },
 };
 
-Geocoder.init(process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY);
+Geocoder.init(process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY as string);
 
 export const decorators = [WithTheme, WithFont, WithTranslations];

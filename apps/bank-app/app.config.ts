@@ -38,6 +38,7 @@ export default {
       bundler: 'metro',
     },
     plugins: [
+      'expo-font',
       'expo-localization',
       [
         'expo-contacts',

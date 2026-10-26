@@ -1,6 +1,5 @@
 import { View } from 'react-native';
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
-import { useTranslation } from 'react-i18next';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { TouchCardKpi, House, Colors } from '@clean-rn/ui-mobile';
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
@@ -8,7 +7,7 @@ import { StyleProp, ViewStyle } from 'react-native';
 
 import { CardCarbonFootPrint } from '../../../assets/svg';
 
-const TouchCardKpiMeta: ComponentMeta<typeof TouchCardKpi> = {
+const meta = {
   title: 'Cards/TouchCardKpi',
   component: TouchCardKpi,
   argTypes: {
@@ -17,45 +16,39 @@ const TouchCardKpiMeta: ComponentMeta<typeof TouchCardKpi> = {
   args: {
     icon: () => <House style={{ color: Colors.bank.primary.darkBlue } as StyleProp<ViewStyle>} />,
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+  decorators: [(Story: any) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+} satisfies Meta<typeof TouchCardKpi>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Icon: Story = {
+  args: {
+    icon: () => <House style={{ color: Colors.bank.primary.darkBlue } as StyleProp<ViewStyle>} />,
+  },
 };
 
-export default TouchCardKpiMeta;
-
-type TouchCardKpiStory = ComponentStory<typeof TouchCardKpi>;
-
-export const Icon: TouchCardKpiStory = (args) => {
-  return <TouchCardKpi {...args} />;
-};
-export const IconData: TouchCardKpiStory = (args) => {
-  const { t } = useTranslation();
-
-  return (
-    <TouchCardKpi
-      {...args}
-      data={{
-        pct: '100%',
-        co2: '6 tCO2',
-        legend: t('screens.carbon.average') + ': 0,65 t',
-      }}
-    />
-  );
+export const IconData: Story = {
+  args: {
+    icon: () => <House style={{ color: Colors.bank.primary.darkBlue } as StyleProp<ViewStyle>} />,
+    data: {
+      pct: '100%',
+      co2: '6 tCO2',
+      legend: 'Average Carbon Footprint: 0,65 t',
+    },
+  },
 };
 
-export const IconText: TouchCardKpiStory = (args) => {
-  const { t } = useTranslation();
-
-  return (
-    <TouchCardKpi
-      {...args}
-      data={{
-        text: t('screens.carbon.method'),
-      }}
-      icon={() => (
-        <View style={{ margin: -15 }}>
-          <CardCarbonFootPrint width={60} height={60} />
-        </View>
-      )}
-    />
-  );
+export const IconText: Story = {
+  args: {
+    icon: () => (
+      <View style={{ margin: -15 }}>
+        <CardCarbonFootPrint width={60} height={60} />
+      </View>
+    ),
+    data: {
+      text: 'This is a text with some information in it...',
+    },
+  },
 };

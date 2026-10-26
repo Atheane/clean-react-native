@@ -2,9 +2,16 @@ import { useCallback } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import Flag from 'react-native-ico-emojione-emojis';
 import { useTheme } from '@rneui/themed';
-import { i18n } from '@clean-rn/ui-mobile';
+import {
+  i18n,
+  FlagForFrance,
+  FlagForGermany,
+  FlagForGreece,
+  FlagForItaly,
+  FlagForSpain,
+  FlagForUK,
+} from '@clean-rn/ui-mobile';
 
 import { ILanguage } from '@clean-rn/user/domain';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
@@ -43,8 +50,7 @@ export const Languages = () => {
               style={{ marginVertical: 8 }}
               onPress={() => handleSelectLanguage(ILanguage.FR)}
             >
-              <Flag
-                name="flag-for-france"
+              <FlagForFrance
                 width={90}
                 height={90}
                 style={[styles.iconContainer, theme.bank.shadow.button]}
@@ -54,12 +60,7 @@ export const Languages = () => {
               style={{ marginVertical: 8 }}
               onPress={() => handleSelectLanguage(ILanguage.IT)}
             >
-              <Flag
-                name="flag-for-italy"
-                width={90}
-                height={90}
-                style={[styles.iconContainer, theme.bank.shadow.button]}
-              />
+              <FlagForItaly width={90} height={90} style={[styles.iconContainer, theme.bank.shadow.button]} />
             </TouchableOpacity>
           </View>
           <View style={styles.rowContainer}>
@@ -67,8 +68,7 @@ export const Languages = () => {
               style={{ marginVertical: 8 }}
               onPress={() => handleSelectLanguage(ILanguage.EL)}
             >
-              <Flag
-                name="flag-for-greece"
+              <FlagForGreece
                 width={90}
                 height={90}
                 style={[styles.iconContainer, theme.bank.shadow.button]}
@@ -78,8 +78,7 @@ export const Languages = () => {
               style={{ marginVertical: 8 }}
               onPress={() => handleSelectLanguage(ILanguage.DE)}
             >
-              <Flag
-                name="flag-for-germany"
+              <FlagForGermany
                 width={90}
                 height={90}
                 style={[styles.iconContainer, theme.bank.shadow.button]}
@@ -91,23 +90,13 @@ export const Languages = () => {
               style={{ marginVertical: 8 }}
               onPress={() => handleSelectLanguage(ILanguage.ES)}
             >
-              <Flag
-                name="flag-for-spain"
-                width={90}
-                height={90}
-                style={[styles.iconContainer, theme.bank.shadow.button]}
-              />
+              <FlagForSpain width={90} height={90} style={[styles.iconContainer, theme.bank.shadow.button]} />
             </TouchableOpacity>
             <TouchableOpacity
               style={{ marginVertical: 8 }}
               onPress={() => handleSelectLanguage(ILanguage.EN)}
             >
-              <Flag
-                name="flag-for-united-kingdom"
-                width={90}
-                height={90}
-                style={[styles.iconContainer, theme.bank.shadow.button]}
-              />
+              <FlagForUK width={90} height={90} style={[styles.iconContainer, theme.bank.shadow.button]} />
             </TouchableOpacity>
           </View>
         </View>

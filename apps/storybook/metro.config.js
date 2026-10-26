@@ -1,36 +1,56 @@
-const { withNxMetro } = require('@nx/expo');
+const path = require('path');
 const { getDefaultConfig } = require('expo/metro-config');
+const { withNxMetro } = require('@nx/expo');
 const { mergeConfig } = require('metro-config');
 const exclusionList = require('metro-config/src/defaults/exclusionList');
+
+const { generate } = require('@storybook/react-native/scripts/generate');
+
+generate({
+  configPath: path.resolve(__dirname, './src/.storybook'),
+});
 
 const defaultConfig = getDefaultConfig(__dirname);
 const { assetExts, sourceExts } = defaultConfig.resolver;
 
-/**
- * Metro configuration
- * https://facebook.github.io/metro/docs/configuration
- *
- * @type {import('metro-config').MetroConfig}
- */
+defaultConfig.transformer.unstable_allowRequireContext = true;
+defaultConfig.resolver.sourceExts.push('mjs');
+
+// Ajoutez les alias nécessaires pour résoudre les packages partagés
+defaultConfig.resolver.alias = {
+  ...defaultConfig.resolver.alias,
+  '@clean-rn/ui-mobile': path.resolve(__dirname, '../libs/ui-mobile/src'),
+  '@clean-rn/account/domain': path.resolve(__dirname, '../libs/account/domain/src'),
+  // Ajoutez d'autres alias pour les packages partagés si nécessaire
+};
+
+// Configurez les dossiers à surveiller pour les packages partagés
+defaultConfig.watchFolders = [
+  ...defaultConfig.watchFolders,
+  path.resolve(__dirname, '../libs/ui-mobile/src'),
+  path.resolve(__dirname, '../libs/account/domain/src'),
+  // Ajoutez d'autres dossiers de packages partagés si nécessaire
+];
+
 const customConfig = {
   transformer: {
-    babelTransformerPath: require.resolve('react-native-svg-transformer'),
+    babelTransformerPath: require.resolve('./customTransformer'),
+    getTransformOptions: async () => ({
+      transform: {
+        experimentalImportSupport: false,
+        inlineRequires: true,
+      },
+    }),
   },
   resolver: {
     assetExts: assetExts.filter((ext) => ext !== 'svg'),
     sourceExts: [...sourceExts, 'svg'],
     blockList: exclusionList([/^(?!.*node_modules).*\/dist\/.*/]),
-    unstable_enableSymlinks: true,
-    unstable_enablePackageExports: true,
   },
 };
 
 module.exports = withNxMetro(mergeConfig(defaultConfig, customConfig), {
-  // Change this to true to see debugging info.
-  // Useful if you have issues resolving modules
   debug: false,
-  // all the file extensions used for imports other than 'ts', 'tsx', 'js', 'jsx', 'json'
   extensions: [],
-  // Specify folders to watch, in addition to Nx defaults (workspace libraries and node_modules)
   watchFolders: [],
 });

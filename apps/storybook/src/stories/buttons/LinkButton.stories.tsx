@@ -1,11 +1,11 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
-import { useTranslation } from 'react-i18next';
+import type { Meta, StoryObj } from '@storybook/react';
+import { StyleProp, ViewStyle } from 'react-native';
 
-import { LinkButton, LinkButtonColors, Phone } from '@clean-rn/ui-mobile';
+import { LinkButton, LinkButtonColors, Love, Colors } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus } from '../../wrappers';
 
-const LinkButtonMeta: ComponentMeta<typeof LinkButton> = {
+const meta = {
   title: 'Buttons/LinkButton',
   component: LinkButton,
   argTypes: {
@@ -18,32 +18,68 @@ const LinkButtonMeta: ComponentMeta<typeof LinkButton> = {
   args: {
     colorOption: LinkButtonColors.GREEN,
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED)],
+  decorators: [(Story: any) => WithStatus(Story, ValidationStatus.VALIDATED)],
+} satisfies Meta<typeof LinkButton>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const NoIcon: Story = {
+  args: {
+    title: 'My title',
+  },
 };
 
-export default LinkButtonMeta;
-
-export const NoIcon: ComponentStory<typeof LinkButton> = (args) => {
-  const { t } = useTranslation();
-  return <LinkButton {...args} title={t('login.forgotten-password')} />;
+export const Arrow: Story = {
+  args: {
+    title: 'My title',
+    arrow: true,
+  },
 };
 
-export const Arrow: ComponentStory<typeof LinkButton> = (args) => {
-  const { t } = useTranslation();
-  return <LinkButton {...args} title={t('login.forgotten-password')} arrow={true} />;
+export const IconLeft: Story = {
+  args: {
+    title: 'My title',
+    iconLeft: () => (
+      <Love
+        width={20}
+        height={20}
+        style={{ color: Colors.bank.primary.lightGreen, marginRight: 10 } as StyleProp<ViewStyle>}
+      />
+    ),
+  },
 };
 
-export const IconLeft: ComponentStory<typeof LinkButton> = (args) => {
-  const { t } = useTranslation();
-  return <LinkButton {...args} title={t('login.forgotten-password')} iconLeft={Phone} />;
+export const IconRight: Story = {
+  args: {
+    title: 'My title',
+    iconRight: () => (
+      <Love
+        width={20}
+        height={20}
+        style={{ color: Colors.bank.primary.lightGreen, marginLeft: 10 } as StyleProp<ViewStyle>}
+      />
+    ),
+  },
 };
 
-export const IconRight: ComponentStory<typeof LinkButton> = (args) => {
-  const { t } = useTranslation();
-  return <LinkButton {...args} title={t('login.forgotten-password')} iconRight={Phone} />;
-};
-
-export const IconLeftRight: ComponentStory<typeof LinkButton> = (args) => {
-  const { t } = useTranslation();
-  return <LinkButton {...args} title={t('login.forgotten-password')} iconLeft={Phone} iconRight={Phone} />;
+export const IconLeftRight: Story = {
+  args: {
+    title: 'My title',
+    iconLeft: () => (
+      <Love
+        width={20}
+        height={20}
+        style={{ color: Colors.bank.primary.lightGreen, marginRight: 10 } as StyleProp<ViewStyle>}
+      />
+    ),
+    iconRight: () => (
+      <Love
+        width={20}
+        height={20}
+        style={{ color: Colors.bank.primary.lightGreen, marginLeft: 10 } as StyleProp<ViewStyle>}
+      />
+    ),
+  },
 };

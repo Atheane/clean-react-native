@@ -1,15 +1,23 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { SwitchButton } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
-const SwitchButtonMeta: ComponentMeta<typeof SwitchButton> = {
+const meta = {
   title: 'Buttons/SwitchButton',
   component: SwitchButton,
   argTypes: {
     onToggle: { action: 'onToggle' },
   },
+  decorators: [(Story: any) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+} satisfies Meta<typeof SwitchButton>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Basic: Story = {
   args: {
     label: 'Label',
     options: [
@@ -17,12 +25,12 @@ const SwitchButtonMeta: ComponentMeta<typeof SwitchButton> = {
       { key: 'opt2', value: 'Option 2' },
     ],
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
-
-export default SwitchButtonMeta;
-
-type SwitchButtonStory = ComponentStory<typeof SwitchButton>;
-
-export const Basic: SwitchButtonStory = (args) => <SwitchButton {...args} />;
-export const NoLabel: SwitchButtonStory = (args) => <SwitchButton {...args} label={undefined} />;
+export const NoLabel: Story = {
+  args: {
+    options: [
+      { key: 'opt1', value: 'Option 1' },
+      { key: 'opt2', value: 'Option 2' },
+    ],
+  },
+};

@@ -1,10 +1,10 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { SmallSwitchButton, useTogglePress } from '@clean-rn/ui-mobile';
+import { SmallSwitchButton } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
-const SmallSwitchButtonMeta: ComponentMeta<typeof SmallSwitchButton> = {
+const meta = {
   title: 'Buttons/SmallSwitchButton',
   component: SmallSwitchButton,
   argTypes: {
@@ -13,18 +13,15 @@ const SmallSwitchButtonMeta: ComponentMeta<typeof SmallSwitchButton> = {
   args: {
     checked: false,
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
-};
+  decorators: [(Story: any) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+} satisfies Meta<typeof SmallSwitchButton>;
 
-export default SmallSwitchButtonMeta;
+export default meta;
 
-type SmallSwitchButtonStory = ComponentStory<typeof SmallSwitchButton>;
+type Story = StoryObj<typeof meta>;
 
-export const Static: SmallSwitchButtonStory = (args) => {
-  return <SmallSwitchButton {...args} />;
-};
-
-export const Dynamic: SmallSwitchButtonStory = (args) => {
-  const { pressed, onPress } = useTogglePress(false);
-  return <SmallSwitchButton checked={pressed} onToggle={onPress} />;
+export const Basic: Story = {
+  args: {
+    checked: false,
+  },
 };

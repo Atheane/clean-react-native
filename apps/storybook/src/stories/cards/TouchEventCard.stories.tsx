@@ -1,4 +1,4 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { TouchEventCard } from '@clean-rn/ui-mobile';
 
@@ -6,7 +6,7 @@ import { LoanHeater } from '../../../assets/images';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
-const TouchEventCardMeta: ComponentMeta<typeof TouchEventCard> = {
+const meta = {
   title: 'Cards/TouchEventCard',
   component: TouchEventCard,
   argTypes: {
@@ -17,12 +17,26 @@ const TouchEventCardMeta: ComponentMeta<typeof TouchEventCard> = {
     image: LoanHeater,
     text: 'Lorem ipsum delatus',
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+  decorators: [(Story: any) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+} satisfies Meta<typeof TouchEventCard>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const WithDelete: Story = {
+  args: {
+    uid: 'unique-uid1',
+    image: LoanHeater,
+    text: 'Lorem ipsum delatus',
+  },
 };
 
-export default TouchEventCardMeta;
-
-type TouchEventCardStory = ComponentStory<typeof TouchEventCard>;
-
-export const WithDelete: TouchEventCardStory = (args) => <TouchEventCard {...args} />;
-export const NoDelete: TouchEventCardStory = (args) => <TouchEventCard {...args} onDelete={undefined} />;
+export const NoDelete: Story = {
+  args: {
+    uid: 'unique-uid1',
+    image: LoanHeater,
+    text: 'Lorem ipsum delatus',
+    onDelete: undefined,
+  },
+};
