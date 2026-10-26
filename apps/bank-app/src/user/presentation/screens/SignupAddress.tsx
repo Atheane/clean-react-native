@@ -64,21 +64,19 @@ export const SignupAddress = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView>
-        <View style={[styles.container, theme.bank.container.centeredItem]}>
-          <FormSignupAddress
-            loading={pending}
-            control={control}
-            errors={errors}
-            reset={reset}
-            error={domainError}
-            onSubmit={handleSubmit(onSubmit)}
-            onFocus={onFocus}
-            language={lang}
-            address={addressValue}
-          />
-        </View>
-      </SafeScrollingView>
+      <View style={[styles.container, theme.bank.container.centeredItem]}>
+        <FormSignupAddress
+          loading={pending}
+          control={control}
+          errors={errors}
+          reset={reset}
+          error={domainError}
+          onSubmit={handleSubmit(onSubmit)}
+          onFocus={onFocus}
+          language={lang}
+          address={addressValue}
+        />
+      </View>
     </ErrorBoundary>
   );
 };
