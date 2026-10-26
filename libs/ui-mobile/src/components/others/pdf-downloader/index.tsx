@@ -47,10 +47,9 @@ export const PdfDownloader = (props: IProps) => {
       .then(async (res) => {
         // in iOS, we want to save our files by opening up the saveToFiles bottom sheet action.
         // whereas in android, the download manager is handling the download for us.
-        if (props.nextNavigation) {
+        if (Platform.OS === 'android' && props.nextNavigation) {
           props.nextNavigation();
-        }
-        if (Platform.OS === 'ios') {
+        } else if (Platform.OS === 'ios') {
           const filePath = res.path();
           const isAvailable = await Sharing.isAvailableAsync();
           if (isAvailable) {
