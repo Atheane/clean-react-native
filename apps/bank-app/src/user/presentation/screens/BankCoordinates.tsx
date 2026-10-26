@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { useTheme } from '@rneui/themed';
+import { useNavigation } from '@react-navigation/native';
 
 import {
   Bic as BicIcon,
@@ -31,6 +32,12 @@ export const BankCoordinates = () => {
     showUnknownError(error as Error);
   };
 
+  const navigation = useNavigation();
+
+  const nextNavigation = () => {
+    navigation.goBack();
+  };
+
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
@@ -56,6 +63,7 @@ export const BankCoordinates = () => {
                 icon={ShareIcon}
                 fileName={`account-details.pdf`}
                 primaryButtonTitle={t('screens.bank-coordinates.share')}
+                nextNavigation={nextNavigation}
               />
             </View>
           )}

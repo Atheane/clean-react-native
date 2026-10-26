@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getLocales } from 'expo-localization';
+import { useNavigation } from '@react-navigation/native';
 
 import { ModalError, PdfDownloader, PdfViewer, Download } from '@clean-rn/ui-mobile';
 
@@ -23,6 +24,12 @@ export const CguPdf = () => {
     setUnknownError(error as Error);
   };
 
+  const navigation = useNavigation();
+
+  const nextNavigation = () => {
+    navigation.goBack();
+  };
+
   return unknownError ? (
     <ModalError error={unknownError} />
   ) : (
@@ -32,6 +39,7 @@ export const CguPdf = () => {
         handleError={handleError}
         icon={Download}
         fileName={`terms.pdf`}
+        nextNavigation={nextNavigation}
       />
       <PdfViewer uri={pdfUrls(lng).cgu} handleError={handleError} />
     </ErrorBoundary>
