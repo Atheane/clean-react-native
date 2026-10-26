@@ -79,14 +79,11 @@
     "nationality": {
       "required": "Nazionalità richiesta"
     },
-    "street": {
-      "required": "Strada richiesta"
-    },
-    "city": {
-      "required": "Città richiesta"
+    "address": {
+      "required": "Indirizzo richiesto"
     },
     "zip": {
-      "required": "Codice postale richiesto"
+      "required": "CAP richiesto"
     },
     "country": {
       "required": "Codice paese richiesto",
@@ -265,27 +262,19 @@
     }
   },
   "signup-address": {
-    "street": {
+    "address": {
       "label": "Indirizzo",
-      "placeholder": "Nome della strada"
-    },
-    "city": {
-      "label": "Città",
-      "placeholder": "Città"
-    },
-    "zip": {
-      "label": "Codice postale",
-      "placeholder": "Codice postale"
-    },
-    "country": {
-      "label": "Paese",
-      "placeholder": "Paese"
+      "placeholder": "5 Rue de la Paix, 75000 Parigi"
     },
     "usperson": {
-      "label": "Sono una 'persona US'",
-      "subtitle": "(Residente americano)",
+      "label": "Sono una 'persona statunitense'",
+      "subtitle": "(Residente USA)",
       "yes": "Sì",
       "no": "No"
+    },
+    "zip": {
+      "label": "Codice Postale",
+      "placeholder": "40600"
     }
   },
   "email-sent": {

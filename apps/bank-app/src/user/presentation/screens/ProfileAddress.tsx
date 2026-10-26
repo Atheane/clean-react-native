@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
@@ -19,7 +19,6 @@ import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { fetchUpdateUser } from '../../../user/application/commands';
 import { IParametersStackPages } from '../../../shared/presentation/types';
 
-const HEIGHT = Dimensions.get('window').height;
 const lang = getLocales()[0]?.languageCode || 'FR';
 
 export const ProfileAddress = () => {
@@ -35,11 +34,12 @@ export const ProfileAddress = () => {
   const {
     control,
     handleSubmit,
+    reset,
+    watch,
     formState: { errors },
   } = useForm<ISignupAddressFormData>({
     defaultValues: {
       specifiedUSPerson: user?.properties.USPerson ? '1' : '0',
-      address: user?.properties.address,
     },
   });
 
@@ -71,6 +71,8 @@ export const ProfileAddress = () => {
 
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
+  const addressValue = watch('address');
+
   return (
     <ErrorBoundary t={t}>
       <View style={[styles.container, theme.bank.container.centeredItem]}>
@@ -79,6 +81,8 @@ export const ProfileAddress = () => {
           control={control}
           errors={errors}
           error={domainError}
+          reset={reset}
+          address={addressValue}
           onSubmit={handleSubmit(onSubmit)}
           onFocus={onFocus}
           language={lang}
@@ -92,6 +96,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.bank.primary.white,
-    height: HEIGHT * 1.15,
   },
 });

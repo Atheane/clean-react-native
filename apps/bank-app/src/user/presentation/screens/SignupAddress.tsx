@@ -32,11 +32,21 @@ export const SignupAddress = () => {
   const {
     control,
     handleSubmit,
+    reset,
+    watch,
     formState: { errors },
-  } = useForm<ISignupAddressFormData>();
+  } = useForm<ISignupAddressFormData>({
+    defaultValues: {
+      specifiedUSPerson: '0',
+    },
+  });
 
   const onSubmit = useCallback(
     (formData: ISignupAddressFormData) => {
+      // sometimes google api does not find zip. In that case, it is given by user
+      if (formData.address.zip === '') {
+        formData.address.zip = formData.zip;
+      }
       dispatch(
         registerAddress({
           ...formData,
@@ -49,6 +59,8 @@ export const SignupAddress = () => {
 
   const { domainError, onFocus } = useCleanErrorOnFocus(error);
 
+  const addressValue = watch('address');
+
   return (
     <ErrorBoundary t={t}>
       <View style={[styles.container, theme.bank.container.centeredItem]}>
@@ -56,10 +68,12 @@ export const SignupAddress = () => {
           loading={pending}
           control={control}
           errors={errors}
+          reset={reset}
           error={domainError}
           onSubmit={handleSubmit(onSubmit)}
           onFocus={onFocus}
           language={lang}
+          address={addressValue}
         />
       </View>
     </ErrorBoundary>
