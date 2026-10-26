@@ -12,6 +12,7 @@ import {
   PhoneBlueGradient,
   IUpdateIdentityFormData,
   useCleanErrorOnFocus,
+  CopyValueClipboard,
 } from '@clean-rn/ui-mobile';
 import { BirthDay, Country, IUpdateUserCommand, KYC_REVIEW } from '@clean-rn/user/domain';
 
@@ -113,12 +114,9 @@ export const ProfileIdentity = () => {
           ]}
         >
           <View style={[styles.rowContainer, { marginTop: 28 }]}>
-            <View style={styles.iconContainer}>
-              <BlueGradientMail />
-            </View>
             {email && (
-              <View style={styles.textContainer}>
-                <Text style={[theme.bank.text.darkBlue]}>{email.value}</Text>
+              <View style={[styles.textContainer, { marginLeft: 8 }]}>
+                <CopyValueClipboard value={email.value} icon={BlueGradientMail} />
               </View>
             )}
             {!email && user?.properties.email && (
