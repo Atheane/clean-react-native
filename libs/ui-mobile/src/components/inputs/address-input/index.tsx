@@ -109,6 +109,7 @@ export const AddressInput = (props: IProps) => {
             },
           }}
           renderDescription={(row) => row.description}
+          keyboardShouldPersistTaps="always"
         />
       </View>
     </View>
