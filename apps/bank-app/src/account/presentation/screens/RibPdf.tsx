@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 import { IAccount } from '@clean-rn/account/domain';
 import { ModalError, PdfViewer, PdfDownloader, Download } from '@clean-rn/ui-mobile';
@@ -24,6 +25,12 @@ export const RibPdf = () => {
     setUnknownError(error as Error);
   };
 
+  const navigation = useNavigation();
+
+  const nextNavigation = () => {
+    navigation.goBack();
+  };
+
   return unknownError ? (
     <ModalError error={unknownError} />
   ) : (
@@ -36,6 +43,7 @@ export const RibPdf = () => {
         handleError={handleError}
         icon={Download}
         fileName={`account-details.pdf`}
+        nextNavigation={nextNavigation}
       />
       <PdfViewer
         uri={`${process.env.EXPO_PUBLIC_BASE_URL_API}/app/account/${account.accountId}/rib`}
