@@ -79,11 +79,8 @@
     "nationality": {
       "required": "Staatsangehörigkeit erforderlich"
     },
-    "street": {
-      "required": "Straße erforderlich"
-    },
-    "city": {
-      "required": "Stadt erforderlich"
+    "address": {
+      "required": "Adresse erforderlich"
     },
     "zip": {
       "required": "Postleitzahl erforderlich"
@@ -265,27 +262,19 @@
     }
   },
   "signup-address": {
-    "street": {
+    "address": {
       "label": "Adresse",
-      "placeholder": "Straßenname"
-    },
-    "city": {
-      "label": "Stadt",
-      "placeholder": "Stadt"
-    },
-    "zip": {
-      "label": "Postleitzahl",
-      "placeholder": "Postleitzahl"
-    },
-    "country": {
-      "label": "Land",
-      "placeholder": "Land"
+      "placeholder": "5 Rue de la Paix, 75000 Paris"
     },
     "usperson": {
-      "label": "Ich bin eine US-Person",
+      "label": "Ich bin eine 'US-Person'",
       "subtitle": "(US-Resident)",
       "yes": "Ja",
       "no": "Nein"
+    },
+    "zip": {
+      "label": "Postleitzahl",
+      "placeholder": "40600"
     }
   },
   "email-sent": {

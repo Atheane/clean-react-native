@@ -79,11 +79,8 @@
     "nationality": {
       "required": "Απαιτείται εθνικότητα"
     },
-    "street": {
-      "required": "Απαιτείται οδός"
-    },
-    "city": {
-      "required": "Απαιτείται πόλη"
+    "address": {
+      "required": "Απαιτείται διεύθυνση"
     },
     "zip": {
       "required": "Απαιτείται ταχυδρομικός κώδικας"
@@ -265,27 +262,19 @@
     }
   },
   "signup-address": {
-    "street": {
+    "address": {
       "label": "Διεύθυνση",
-      "placeholder": "Όνομα οδού"
-    },
-    "city": {
-      "label": "Πόλη",
-      "placeholder": "Πόλη"
-    },
-    "zip": {
-      "label": "Ταχυδρομικός κώδικας",
-      "placeholder": "Ταχυδρομικός κώδικας"
-    },
-    "country": {
-      "label": "Χώρα",
-      "placeholder": "Χώρα"
+      "placeholder": "5 Rue de la Paix, 75000 Paris"
     },
     "usperson": {
-      "label": "Είμαι «πρόσωπο των ΗΠΑ»",
-      "subtitle": "(Αμερικανός κάτοικος)",
+      "label": "Είμαι 'US person'",
+      "subtitle": "(Κάτοικος ΗΠΑ)",
       "yes": "Ναι",
       "no": "Όχι"
+    },
+    "zip": {
+      "label": "Ταχυδρομικός Κώδικας",
+      "placeholder": "40600"
     }
   },
   "email-sent": {
