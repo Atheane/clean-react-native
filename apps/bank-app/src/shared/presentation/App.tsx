@@ -49,7 +49,7 @@ const App: () => JSX.Element = () => {
     });
   }
 
-  const [appState, setAppState] = useState<AppStateStatus>(AppState.currentState);
+  const [appState, setAppState] = useState<AppStateStatus>(AppState.currentState || 'unknown');
 
   useEffect(() => {
     const handleAppStateChange = (nextAppState: AppStateStatus) => {

@@ -1,9 +1,9 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 import { TransferCard, BankLogoCA, BankAltLogo, PhoneGradientWhiteBg } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
-const TransferCardMeta: ComponentMeta<typeof TransferCard> = {
+const meta = {
   title: 'Cards/TransferCard',
   component: TransferCard,
   argTypes: {
@@ -24,29 +24,100 @@ const TransferCardMeta: ComponentMeta<typeof TransferCard> = {
       },
     ],
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING), WithCenterView],
+  decorators: [(Story: any) => WithStatus(Story, ValidationStatus.PENDING), WithCenterView],
+} satisfies Meta<typeof TransferCard>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const TransferFromUniqueAccount: Story = {
+  args: {
+    text: 'Mmmmmm\nMmmmmmmmmmm',
+    arrow: true,
+    data: [
+      {
+        key: 'key1',
+        value: 'value1',
+      },
+      {
+        key: 'key2',
+        value: 'value2',
+      },
+    ],
+    uniqueAccount: true,
+    icon: BankAltLogo,
+  },
 };
 
-export default TransferCardMeta;
-
-type TransferCardStory = ComponentStory<typeof TransferCard>;
-
-export const TransferFromUniqueAccount: TransferCardStory = (args) => {
-  return <TransferCard {...args} uniqueAccount icon={BankAltLogo} />;
+export const TransferFromMultiAccount: Story = {
+  args: {
+    text: 'Mmmmmm\nMmmmmmmmmmm',
+    arrow: true,
+    data: [
+      {
+        key: 'key1',
+        value: 'value1',
+      },
+      {
+        key: 'key2',
+        value: 'value2',
+      },
+    ],
+    icon: BankAltLogo,
+  },
 };
 
-export const TransferFromMultiAccount: TransferCardStory = (args) => {
-  return <TransferCard {...args} icon={BankAltLogo} />;
+export const PayoutOut: Story = {
+  args: {
+    text: 'Mmmmmm\nMmmmmmmmmmm',
+    arrow: false,
+    data: [
+      {
+        key: 'key1',
+        value: 'value1',
+      },
+      {
+        key: 'key2',
+        value: 'value2',
+      },
+    ],
+    icon: BankLogoCA,
+  },
 };
 
-export const PayoutOut: TransferCardStory = (args) => {
-  return <TransferCard {...args} arrow={false} icon={BankLogoCA} />;
+export const TransferOut: Story = {
+  args: {
+    text: 'Mmmmmm\nMmmmmmmmmmm',
+    arrow: false,
+    data: [
+      {
+        key: 'key1',
+        value: 'value1',
+      },
+      {
+        key: 'key2',
+        value: 'value2',
+      },
+    ],
+    icon: BankAltLogo,
+  },
 };
 
-export const TransferOut: TransferCardStory = (args) => {
-  return <TransferCard {...args} arrow={false} icon={BankAltLogo} />;
-};
-
-export const WaitingTransaction: TransferCardStory = (args) => {
-  return <TransferCard {...args} arrow={false} icon={PhoneGradientWhiteBg} />;
+export const WaitingTransaction: Story = {
+  args: {
+    text: 'Mmmmmm\nMmmmmmmmmmm',
+    arrow: false,
+    data: [
+      {
+        key: 'key1',
+        value: 'value1',
+      },
+      {
+        key: 'key2',
+        value: 'value2',
+      },
+    ],
+    icon: PhoneGradientWhiteBg,
+  },
 };

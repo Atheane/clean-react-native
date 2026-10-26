@@ -147,6 +147,12 @@ import {
   BankBuildingBlueGradient,
   PortofolioBlueGradient,
   ShareIcon,
+  FlagForFrance,
+  FlagForItaly,
+  FlagForGermany,
+  FlagForSpain,
+  FlagForGreece,
+  FlagForUK,
 } from './svg';
 import { Loader } from './lottie';
 export {
@@ -299,4 +305,10 @@ export {
   BankBuildingBlueGradient,
   PortofolioBlueGradient,
   ShareIcon,
+  FlagForFrance,
+  FlagForItaly,
+  FlagForGermany,
+  FlagForSpain,
+  FlagForGreece,
+  FlagForUK,
 };

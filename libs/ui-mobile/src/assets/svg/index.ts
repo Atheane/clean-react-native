@@ -146,7 +146,19 @@ import ProfileBlueGradient from './profile-blue-gradient.svg';
 import BankBuildingBlueGradient from './bank-building-blue-gradient.svg';
 import PortofolioBlueGradient from './portofolio-blue-gradient.svg';
 import ShareIcon from './share.svg';
+import FlagForFrance from './flag-for-france.svg';
+import FlagForItaly from './flag-for-italy.svg';
+import FlagForGermany from './flag-for-germany.svg';
+import FlagForSpain from './flag-for-spain.svg';
+import FlagForGreece from './flag-for-greece.svg';
+import FlagForUK from './flag-for-united-kingdom.svg';
 export {
+  FlagForFrance,
+  FlagForItaly,
+  FlagForGermany,
+  FlagForSpain,
+  FlagForGreece,
+  FlagForUK,
   Love,
   LoveBlueGradient,
   Validate,

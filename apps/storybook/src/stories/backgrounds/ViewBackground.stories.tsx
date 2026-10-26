@@ -1,21 +1,28 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import { View } from 'react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { TopBackground, TopDownBackground, ViewBackground } from '@clean-rn/ui-mobile';
 
-const ViewBackgroundMeta: ComponentMeta<typeof ViewBackground> = {
+const meta = {
   title: 'Backgrounds/ViewBackground',
   component: ViewBackground,
   argTypes: {},
+} satisfies Meta<typeof ViewBackground>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const TopDown: Story = {
   args: {
     background: TopDownBackground,
+    children: <View />,
   },
 };
 
-export default ViewBackgroundMeta;
-
-type ViewBackgroundStory = ComponentStory<typeof ViewBackground>;
-
-export const TopDown: ViewBackgroundStory = (args) => (
-  <ViewBackground {...args} background={TopDownBackground} />
-);
-export const Top: ViewBackgroundStory = (args) => <ViewBackground {...args} background={TopBackground} />;
+export const Top: Story = {
+  args: {
+    background: TopBackground,
+    children: <View />,
+  },
+};

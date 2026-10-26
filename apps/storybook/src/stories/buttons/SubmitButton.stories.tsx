@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import type { Meta, StoryObj } from '@storybook/react';
 import { SubmitButton } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
-const SubmitButtonMeta: ComponentMeta<typeof SubmitButton> = {
+const meta = {
   title: 'Buttons/SubmitButton',
   component: SubmitButton,
   argTypes: {
@@ -15,17 +15,26 @@ const SubmitButtonMeta: ComponentMeta<typeof SubmitButton> = {
     uppercase: false,
     disabled: false,
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
+  decorators: [(Story: any) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 };
 
-export default SubmitButtonMeta;
+export default meta;
 
-export const Static: ComponentStory<typeof SubmitButton> = (args) => {
-  const { t } = useTranslation();
-  return <SubmitButton {...args} title={t('button.submit')} />;
+type Story = StoryObj<typeof meta>;
+
+export const Basic: Story = {
+  args: {
+    title: 'Valider',
+    uppercase: false,
+    disabled: false,
+  },
 };
 
-export const Loading: ComponentStory<typeof SubmitButton> = (args) => {
-  const { t } = useTranslation();
-  return <SubmitButton {...args} title={t('button.submit')} loading />;
+export const Loading: Story = {
+  args: {
+    title: 'Loading...',
+    uppercase: false,
+    disabled: false,
+    loading: true,
+  },
 };
