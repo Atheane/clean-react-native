@@ -5,12 +5,12 @@ export default {
     name: 'EnergyApp',
     slug: process.env.EXPO_PUBLIC_SLUG_NAME_ENERGY_APP,
     version: process.env.EXPO_PUBLIC_APP_VERSION,
-    scheme: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.CleanRN.energy-app',
+    scheme: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.energy-app.app',
     orientation: 'portrait',
     icon: './assets/icon.png',
     extra: {
       eas: {
-        projectId: process.env.EXPO_PUBLIC_PROJECT_ID || 'bc5d46ad-877d-45ad-bcdf-5fdc121161b3',
+        projectId: process.env.EXPO_PUBLIC_PROJECT_ID || '618ed0ba-31a1-41c1-9877-eef3e8981f19',
       },
     },
     splash: {
@@ -24,7 +24,7 @@ export default {
     assetBundlePatterns: ['**/*'],
     ios: {
       supportsTablet: false,
-      bundleIdentifier: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.CleanRN.energy-app',
+      bundleIdentifier: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.energy-app.app',
       versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '001',
     },
     android: {
@@ -33,7 +33,7 @@ export default {
         backgroundColor: '#FFFFFF',
       },
       supportsTablet: false,
-      package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.CleanRN.energy-app',
+      package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.energy-app.app',
       versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '001',
     },
     web: {

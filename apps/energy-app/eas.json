@@ -1,13 +1,26 @@
 {
   "build": {
     "production": {
-      "android": {
-        "buildType": "app-bundle"
-      }
+        "env": {
+          "EXPO_PUBLIC_APP_VERSION": "001",
+          "EXPO_PUBLIC_BASE_URL_API": "https://dev-carte.example.com",
+          "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.energy-app.app",
+          "EXPO_PUBLIC_NODE_ENV": "production",
+          "EXPO_PUBLIC_SLUG_NAME_ENERGY_APP": "energy-app",
+          "EXPO_PUBLIC_PROJECT_ID": "618ed0ba-31a1-41c1-9877-eef3e8981f19"
+        }
     },
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_APP_VERSION": "001",
+        "EXPO_PUBLIC_BASE_URL_API": "https://sandbox.example.com",
+        "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.energy-app.app",
+        "EXPO_PUBLIC_NODE_ENV": "development",
+        "EXPO_PUBLIC_SLUG_NAME_ENERGY_APP": "energy-app",
+        "EXPO_PUBLIC_PROJECT_ID": "618ed0ba-31a1-41c1-9877-eef3e8981f19"
+      }
     },
     "development-simulator": {
       "developmentClient": true,
@@ -18,6 +31,14 @@
     },
     "preview": {
       "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_APP_VERSION": "001",
+        "EXPO_PUBLIC_BASE_URL_API": "https://dev-carte.example.com",
+        "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.energy-app.app",
+        "EXPO_PUBLIC_NODE_ENV": "production",
+        "EXPO_PUBLIC_SLUG_NAME_ENERGY_APP": "energy-app",
+        "EXPO_PUBLIC_PROJECT_ID": "618ed0ba-31a1-41c1-9877-eef3e8981f19"
+      },
       "android": {
         "buildType": "apk"
       }
