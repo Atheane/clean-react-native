@@ -53,7 +53,7 @@ export const BeneficiaryStack = () => {
                 headerRight:
                   permission || tab === 1
                     ? () => (
-                        <View style={theme.bank.shadow.button}>
+                        <View style={theme.shadow.button}>
                           <TouchableOpacity onPress={handleOnPressAdd}>
                             <AddButton
                               width={styles.headerRightButton.width}
@@ -100,7 +100,7 @@ export const BeneficiaryStack = () => {
           headerTitle: t('screens.transfer.title'),
           headerTitleAlign: 'center' as HeaderTitleAlign,
           headerTitleStyle: {
-            color: Colors.bank.primary.darkBlue,
+            color: Colors.primary.darkBlue,
             fontSize: 19,
             fontFamily: FontNames.MartelSans_600SemiBold,
           },

@@ -11,11 +11,7 @@ const meta = {
   component: TransactionItem,
   args: {
     icon: () => (
-      <Love
-        width={23}
-        height={23}
-        style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
-      />
+      <Love width={23} height={23} style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
     ),
     amount: 131,
   },
@@ -30,11 +26,7 @@ export const PositiveAmount: Story = {
   args: {
     label: 'Transfer Marie Dupond',
     icon: () => (
-      <Love
-        width={23}
-        height={23}
-        style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
-      />
+      <Love width={23} height={23} style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
     ),
     amount: 131,
   },
@@ -44,11 +36,7 @@ export const NegativeAmount: Story = {
   args: {
     label: 'Transfer Marie Dupond',
     icon: () => (
-      <Love
-        width={23}
-        height={23}
-        style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
-      />
+      <Love width={23} height={23} style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
     ),
     amount: -49,
   },

@@ -31,9 +31,9 @@ const NavigationUI = () => {
   return isTablet ? (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, theme.bank.container.centeredItem]}>
+        <View style={[styles.container, theme.container.centeredItem]}>
           <Image source={InitKyc} style={{ width: 250, height: 250 }} />
-          <Text style={[styles.instruction, theme.bank.text.grey, { fontSize: 16 }]}>
+          <Text style={[styles.instruction, theme.text.grey, { fontSize: 16 }]}>
             {t('tablets.instruction')}
           </Text>
         </View>
@@ -56,7 +56,7 @@ export { NavigationUI };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
     height: Dimensions.get('window').height,
     marginTop: -100,
   },

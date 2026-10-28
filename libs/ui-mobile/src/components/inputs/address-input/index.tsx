@@ -10,7 +10,7 @@ import { Country, IAddress } from '@clean-rn/user/domain';
 import { getLocales } from 'expo-localization';
 
 import { Colors } from '../../../constants';
-import { House } from '../../../assets/svg';
+import { House } from '../../../assets/svg-raw';
 
 type IProps = {
   language: string;
@@ -73,7 +73,7 @@ export const AddressInput = (props: IProps) => {
     <View>
       <View style={styles.container}>
         <View style={{ marginLeft: 16, marginRight: 0, marginTop: 10 }}>
-          <House style={{ color: Colors.bank.primary.lightGreen }} />
+          <House style={{ color: Colors.primary.lightGreen }} />
         </View>
         <GooglePlacesAutocomplete
           ref={googlePlacesRef}
@@ -119,23 +119,23 @@ export const AddressInput = (props: IProps) => {
 const styles = StyleSheet.create({
   container: {
     width: WIDTH * 0.8,
-    backgroundColor: Colors.bank.primary.lightGrey,
+    backgroundColor: Colors.primary.lightGrey,
     flexDirection: 'row',
     borderRadius: 8,
   },
   inputContainer: {
-    backgroundColor: Colors.bank.primary.lightGrey,
+    backgroundColor: Colors.primary.lightGrey,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
     borderRadius: 8,
   },
   textInput: {
-    color: Colors.bank.secondary.pink,
+    color: Colors.secondary.pink,
     fontSize: 16,
     marginTop: 4,
     marginLeft: 8,
-    backgroundColor: Colors.bank.primary.lightGrey,
+    backgroundColor: Colors.primary.lightGrey,
   },
   domainErrorContainer: {
     marginTop: 16,

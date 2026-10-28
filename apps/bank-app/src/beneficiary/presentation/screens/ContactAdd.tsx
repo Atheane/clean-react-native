@@ -5,12 +5,14 @@ import { useTranslation } from 'react-i18next';
 import { getLocales } from 'expo-localization';
 import { useForm } from 'react-hook-form';
 
-import { useCleanErrorOnFocus, FormContact, IContactFormData, Colors } from '@clean-rn/ui-mobile';
+import { useCleanErrorOnFocus, Colors } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
 import { addContact } from '../../application/commands/contact';
+
+import { FormContact, IContactFormData } from '../forms/form-contact';
 
 const locales = getLocales();
 
@@ -66,6 +68,6 @@ export const ContactAdd = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
 });

@@ -10,7 +10,6 @@ import {
   Pill,
   Search,
   Close,
-  RightArrow,
   Home,
   TopBlueBg,
   TopRightFlowersBg,
@@ -153,7 +152,7 @@ import {
   FlagForSpain,
   FlagForGreece,
   FlagForUK,
-} from './svg';
+} from './svg-raw';
 import { Loader } from './lottie';
 export {
   Love,
@@ -167,7 +166,6 @@ export {
   Pill,
   Search,
   Close,
-  RightArrow,
   Home,
   TopBlueBg,
   TopRightFlowersBg,
@@ -312,3 +310,4 @@ export {
   FlagForGreece,
   FlagForUK,
 };
+export * from './svg';

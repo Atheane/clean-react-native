@@ -18,5 +18,7 @@ type Story = StoryObj<typeof meta>;
 export const AuthErrorInvalid6Digits: Story = {
   args: {
     error: new UserError.ValidatePhoneIncorrectPhoneCode(),
+    errorMessage: 'Domain error message',
+    genericErrorMessage: 'Something went wrong',
   },
 };

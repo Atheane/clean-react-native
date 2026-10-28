@@ -18,8 +18,8 @@ type IProps = {
 export const Slider = (props: IProps) => {
   const { theme } = useTheme();
   return props.short ? (
-    <View style={theme.bank.container.centeredItems}>
-      <Text style={[theme.bank.text.darkBlue, styles.labelShortContainer]}>{props.label}</Text>
+    <View style={theme.container.centeredItems}>
+      <Text style={[theme.text.darkBlue, styles.labelShortContainer]}>{props.label}</Text>
       <View style={styles.sliderUnitContainer}>
         <Text style={styles.textSlider}>{`${props.value}${props.unit ?? ''}`}</Text>
         <RNSlider
@@ -28,19 +28,19 @@ export const Slider = (props: IProps) => {
           maximumValue={props.maxValue}
           value={props.value}
           step={props.step ?? 1}
-          thumbTintColor={Colors.bank.secondary.pink}
+          thumbTintColor={Colors.secondary.pink}
           onValueChange={props.onChange}
-          minimumTrackTintColor={Colors.bank.secondary.pink}
-          maximumTrackTintColor={Colors.bank.primary.lightGrey}
+          minimumTrackTintColor={Colors.secondary.pink}
+          maximumTrackTintColor={Colors.primary.lightGrey}
         />
       </View>
     </View>
   ) : (
     <View>
-      <Text style={[theme.bank.text.label, { color: Colors.bank.secondary.pink }]}>
+      <Text style={[theme.text.label, { color: Colors.secondary.pink }]}>
         {props.label.toLocaleUpperCase()}
       </Text>
-      <Text style={[theme.bank.text.darkBlue, styles.text]}>{`${props.value}${props.unit ?? ''}`}</Text>
+      <Text style={[theme.text.darkBlue, styles.text]}>{`${props.value}${props.unit ?? ''}`}</Text>
       <RNSlider
         style={[
           {
@@ -54,10 +54,10 @@ export const Slider = (props: IProps) => {
         maximumValue={props.maxValue}
         value={props.value}
         step={props.step ?? 1}
-        thumbTintColor={Colors.bank.secondary.pink}
+        thumbTintColor={Colors.secondary.pink}
         onValueChange={props.onChange}
-        minimumTrackTintColor={Colors.bank.secondary.pink}
-        maximumTrackTintColor={Colors.bank.primary.lightGrey}
+        minimumTrackTintColor={Colors.secondary.pink}
+        maximumTrackTintColor={Colors.primary.lightGrey}
       />
     </View>
   );
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   textSlider: {
     fontSize: NEEDS_SMALL_TEXT ? 12 : 13,
     fontWeight: 'bold',
-    color: Colors.bank.primary.darkBlue,
+    color: Colors.primary.darkBlue,
     textAlign: 'left',
     fontFamily: FontNames.MartelSans_700Bold,
   },

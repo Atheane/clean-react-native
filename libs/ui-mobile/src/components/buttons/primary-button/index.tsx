@@ -1,19 +1,17 @@
 import { FC } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleProp, TextStyle } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Button, useTheme } from '@rneui/themed';
 
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
-import { Colors } from '../../../constants';
-
 type IProps = {
   title: string;
   long?: boolean;
   uppercase?: boolean;
-  iconOne?: React.FC<SvgProps>;
-  iconTwo?: React.FC<SvgProps>;
+  iconLeft?: React.FC<SvgProps>;
+  iconRight?: React.FC<SvgProps>;
   loading?: boolean;
   disabled?: boolean;
   mini?: boolean;
@@ -24,56 +22,55 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
   const { theme } = useTheme();
   const renderLabel = (text: string) => (text.length < 20 ? `${text}` : `${text}`.slice(0, 20) + '...');
 
+  const buttonStyle = [
+    theme.buttons.primary.base,
+    props.long ? theme.buttons.primary.long : theme.buttons.primary.short,
+    props.mini && theme.buttons.primary.mini,
+  ];
+
+  const contentStyle = [
+    theme.buttons.primary.content,
+    props.uppercase && { textTransform: 'uppercase' },
+    props.mini && theme.buttons.primary.miniContent,
+  ];
+
   return (
     <View
-      style={[
-        props.long ? theme.bank.container.button.long : theme.bank.container.button.short,
-        theme.bank.shadow.button,
-      ]}
+      style={[props.long ? theme.container.button.long : theme.container.button.short, theme.shadow.button]}
     >
       <Button
-        ViewComponent={LinearGradient}
-        buttonStyle={[
-          theme.bank.shadow.button,
-          props.mini ? styles.buttonMini : styles.button,
-          (props.iconOne || props.iconTwo) && !props.loading && styles.buttonIcon,
-          props.iconOne && !props.iconTwo && !props.loading && styles.buttonOneIcon,
-          theme.bank.container.centeredItems,
-        ]}
+        ViewComponent={theme.buttons.primary.gradientColors && LinearGradient}
+        buttonStyle={buttonStyle}
         containerStyle={[
-          props.long ? theme.bank.container.button.long : theme.bank.container.button.short,
-          theme.bank.shadow.button,
+          theme.shadow.button,
+          props.long ? theme.container.button.long : theme.container.button.short,
         ]}
         loading={props?.loading ?? false}
-        linearGradientProps={{
-          colors: [Colors.bank.greenGradient.lightGreen, Colors.bank.greenGradient.darkGreen],
-          start: [0, 1],
-          end: [1, 0],
-        }}
+        linearGradientProps={
+          theme.buttons.primary.gradientColors && {
+            colors: theme.buttons.primary.gradientColors,
+            start: [0, 1],
+            end: [1, 0],
+          }
+        }
         onPress={props.onPress}
         disabled={props.disabled}
         raised
+        {...theme.buttons.primary.additionalProps}
       >
-        <View style={theme.bank.container.centeredItems}>
-          {props.iconOne && (
-            <View style={styles.iconOneContainer}>
-              <props.iconOne />
+        <View style={theme.container.centeredItems}>
+          {props.iconLeft && (
+            <View style={theme.buttons.primary.iconLeftContainer}>
+              <props.iconLeft />
             </View>
           )}
 
-          <Text
-            style={[
-              theme.bank.text.button,
-              styles.content,
-              props.uppercase && { textTransform: 'uppercase' },
-              props.mini && { fontSize: 14 },
-            ]}
-          >
+          <Text style={contentStyle as StyleProp<TextStyle>}>
             {renderLabel(firstLetterCapitalize(props.title))}
           </Text>
-          {props.iconTwo && (
-            <View style={styles.iconTwoContainer}>
-              <props.iconTwo />
+          {props.iconRight && (
+            <View style={theme.buttons.primary.iconRightContainer}>
+              <props.iconRight />
             </View>
           )}
         </View>
@@ -81,45 +78,3 @@ export const PrimaryButton: FC<IProps> = (props: IProps) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  buttonOneIcon: {
-    paddingRight: 50,
-  },
-  buttonIcon: {
-    paddingTop: 11,
-    paddingBottom: 11,
-  },
-  button: {
-    height: 55,
-    paddingTop: 15,
-    paddingRight: 24,
-    paddingBottom: 16,
-    paddingLeft: 26,
-  },
-  buttonMini: {
-    height: 32,
-    width: 140,
-    paddingTop: 0,
-    paddingRight: 0,
-    paddingBottom: 0,
-    paddingLeft: 0,
-  },
-  content: {
-    color: Colors.bank.primary.white,
-  },
-  iconOneContainer: {
-    height: 32,
-    alignItems: 'center',
-    paddingHorizontal: 6,
-    justifyContent: 'center',
-    marginRight: 15,
-  },
-  iconOne: {
-    width: 32,
-    height: 32,
-  },
-  iconTwoContainer: {
-    marginLeft: 15,
-  },
-});

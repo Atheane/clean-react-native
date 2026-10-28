@@ -29,8 +29,8 @@ export const BeneficiaryItem = (props: IProps) => {
   };
 
   return (
-    <View style={[theme.bank.container.leftItems, { width: Dimensions.get('window').width, height: 72 }]}>
-      <View style={[theme.bank.container.leftItems, { marginLeft: 20 }]}>{props.icon && <props.icon />}</View>
+    <View style={[theme.container.leftItems, { width: Dimensions.get('window').width, height: 72 }]}>
+      <View style={[theme.container.leftItems, { marginLeft: 20 }]}>{props.icon && <props.icon />}</View>
 
       <View style={styles.textContainer}>
         <Text style={styles.textName}>{cleanText()}</Text>
@@ -38,12 +38,10 @@ export const BeneficiaryItem = (props: IProps) => {
       </View>
       <View style={styles.btnContainer}>
         {props.onDelete && !props.disabled && <TrashGradient width={18} height={18} />}
-        {props.onDelete && props.disabled && (
-          <Trash width={18} height={18} color={Colors.bank.primary.grey} />
-        )}
+        {props.onDelete && props.disabled && <Trash width={18} height={18} color={Colors.primary.grey} />}
         {props.onPress && !props.disabled && <RightChevronGradient width={18} height={18} />}
         {props.onPress && props.disabled && (
-          <RightChevron width={18} height={18} color={Colors.bank.primary.grey} />
+          <RightChevron width={18} height={18} color={Colors.primary.grey} />
         )}
       </View>
     </View>
@@ -58,10 +56,10 @@ const styles = StyleSheet.create({
   textName: {
     fontFamily: FontNames.Roboto_700Bold,
     fontSize: 18,
-    color: Colors.bank.primary.darkGrey,
+    color: Colors.primary.darkGrey,
   },
   textIban: {
-    color: Colors.bank.primary.grey,
+    color: Colors.primary.grey,
     fontSize: NEEDS_SMALL_TEXT ? 12 : 14,
     marginTop: 5,
   },

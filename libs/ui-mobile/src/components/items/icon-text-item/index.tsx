@@ -16,24 +16,24 @@ export const IconTextItem = (props: IProps) => {
   const { theme } = useTheme();
   return !props.validated ? (
     <TouchableOpacity onPress={props.onPress}>
-      <View style={[theme.bank.container.leftItems, styles.container]}>
+      <View style={[theme.container.leftItems, styles.container]}>
         <View style={styles.iconContainer}>
           <props.icon />
         </View>
         <View style={styles.textContainer}>
-          <Text style={[theme.bank.text.darkBlue]}>{props.text}</Text>
+          <Text style={[theme.text.darkBlue]}>{props.text}</Text>
         </View>
       </View>
     </TouchableOpacity>
   ) : (
     <View style={styles.checkedContainer}>
       <TouchableOpacity onPress={props.onPress} disabled style={{ opacity: 0.5 }}>
-        <View style={[theme.bank.container.leftItems, styles.container]}>
+        <View style={[theme.container.leftItems, styles.container]}>
           <View style={styles.iconContainer}>
             <props.icon />
           </View>
           <View style={styles.textContainer}>
-            <Text style={[theme.bank.text.darkBlue]}>{props.text}</Text>
+            <Text style={[theme.text.darkBlue]}>{props.text}</Text>
           </View>
         </View>
       </TouchableOpacity>

@@ -4,6 +4,7 @@ import { getLocales } from 'expo-localization';
 
 import { WebViewer, ModalError } from '@clean-rn/ui-mobile';
 import { SUPPORTED_LANGUAGES_WEBSITE } from '../constants';
+import { useTranslation } from 'react-i18next';
 
 const locales = getLocales();
 
@@ -23,8 +24,16 @@ export const ScreenModalWebview = () => {
     setUnknownError(error as Error);
   };
 
+  const { t } = useTranslation();
+
   return unknownError ? (
-    <ModalError error={unknownError} />
+    <ModalError
+      error={unknownError}
+      errorCode={t('modal-error.code')}
+      errorDetails={t('modal-error.details')}
+      errorStack={t('modal-error.stack')}
+      genericMessage={t('errors.other')}
+    />
   ) : (
     <WebViewer
       uri={`${process.env.EXPO_PUBLIC_BASE_URL || 'https://www.example.com'}/${lng}/${uid}`}

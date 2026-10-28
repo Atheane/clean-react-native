@@ -18,6 +18,8 @@ const meta = {
   },
   args: {
     email: 'shortemail@gmail.com',
+    label: 'Email',
+    placeholder: 'your@email.com',
     filled: true,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],

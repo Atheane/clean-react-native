@@ -18,5 +18,7 @@ export const Basic: Story = {
   args: {
     subject: 'subject',
     body: 'body',
+    label: 'label',
+    co2: 'co2',
   },
 };

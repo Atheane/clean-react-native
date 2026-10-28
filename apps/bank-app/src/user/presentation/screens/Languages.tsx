@@ -50,17 +50,13 @@ export const Languages = () => {
               style={{ marginVertical: 8 }}
               onPress={() => handleSelectLanguage(ILanguage.FR)}
             >
-              <FlagForFrance
-                width={90}
-                height={90}
-                style={[styles.iconContainer, theme.bank.shadow.button]}
-              />
+              <FlagForFrance width={90} height={90} style={[styles.iconContainer, theme.shadow.button]} />
             </TouchableOpacity>
             <TouchableOpacity
               style={{ marginVertical: 8 }}
               onPress={() => handleSelectLanguage(ILanguage.IT)}
             >
-              <FlagForItaly width={90} height={90} style={[styles.iconContainer, theme.bank.shadow.button]} />
+              <FlagForItaly width={90} height={90} style={[styles.iconContainer, theme.shadow.button]} />
             </TouchableOpacity>
           </View>
           <View style={styles.rowContainer}>
@@ -68,21 +64,13 @@ export const Languages = () => {
               style={{ marginVertical: 8 }}
               onPress={() => handleSelectLanguage(ILanguage.EL)}
             >
-              <FlagForGreece
-                width={90}
-                height={90}
-                style={[styles.iconContainer, theme.bank.shadow.button]}
-              />
+              <FlagForGreece width={90} height={90} style={[styles.iconContainer, theme.shadow.button]} />
             </TouchableOpacity>
             <TouchableOpacity
               style={{ marginVertical: 8 }}
               onPress={() => handleSelectLanguage(ILanguage.DE)}
             >
-              <FlagForGermany
-                width={90}
-                height={90}
-                style={[styles.iconContainer, theme.bank.shadow.button]}
-              />
+              <FlagForGermany width={90} height={90} style={[styles.iconContainer, theme.shadow.button]} />
             </TouchableOpacity>
           </View>
           <View style={styles.rowContainer}>
@@ -90,13 +78,13 @@ export const Languages = () => {
               style={{ marginVertical: 8 }}
               onPress={() => handleSelectLanguage(ILanguage.ES)}
             >
-              <FlagForSpain width={90} height={90} style={[styles.iconContainer, theme.bank.shadow.button]} />
+              <FlagForSpain width={90} height={90} style={[styles.iconContainer, theme.shadow.button]} />
             </TouchableOpacity>
             <TouchableOpacity
               style={{ marginVertical: 8 }}
               onPress={() => handleSelectLanguage(ILanguage.EN)}
             >
-              <FlagForUK width={90} height={90} style={[styles.iconContainer, theme.bank.shadow.button]} />
+              <FlagForUK width={90} height={90} style={[styles.iconContainer, theme.shadow.button]} />
             </TouchableOpacity>
           </View>
         </View>

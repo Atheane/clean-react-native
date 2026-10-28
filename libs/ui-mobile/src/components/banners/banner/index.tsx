@@ -24,18 +24,16 @@ export const Banner = (props: IProps) => {
           </View>
         }
         centerComponent={
-          <View style={theme.bank.container.centeredItem}>
-            <Text style={theme.bank.text.banner}>{props.title}</Text>
+          <View style={theme.container.centeredItem}>
+            <Text style={theme.text.banner}>{props.title}</Text>
           </View>
         }
-        rightComponent={<RightChevron width={16} height={20} style={{ color: Colors.bank.primary.white }} />}
+        rightComponent={<RightChevron width={16} height={20} style={{ color: Colors.primary.white }} />}
         containerStyle={[
-          theme.bank.container.centeredItem,
+          theme.container.centeredItem,
           {
             backgroundColor:
-              props.colorBanner === BannerColors.PINK
-                ? Colors.bank.secondary.salmon
-                : Colors.bank.primary.lightPurple,
+              props.colorBanner === BannerColors.PINK ? Colors.secondary.salmon : Colors.primary.lightPurple,
           },
         ]}
       />
@@ -48,8 +46,8 @@ export const Banner = (props: IProps) => {
         </View>
       }
       centerComponent={
-        <View style={theme.bank.container.centeredItem}>
-          <Text style={theme.bank.text.banner}>{props.title}</Text>
+        <View style={theme.container.centeredItem}>
+          <Text style={theme.text.banner}>{props.title}</Text>
         </View>
       }
       rightComponent={
@@ -58,20 +56,16 @@ export const Banner = (props: IProps) => {
             onPress={() => {
               return null;
             }}
-            iconRight={() => (
-              <RightChevron width={16} height={26} style={{ color: Colors.bank.transparent }} />
-            )}
+            iconRight={() => <RightChevron width={16} height={26} style={{ color: Colors.transparent }} />}
             colorOption={LinkButtonColors.WHITE}
           />
         </View>
       }
       containerStyle={[
-        theme.bank.container.centeredItem,
+        theme.container.centeredItem,
         {
           backgroundColor:
-            props.colorBanner === BannerColors.PINK
-              ? Colors.bank.secondary.salmon
-              : Colors.bank.primary.lightPurple,
+            props.colorBanner === BannerColors.PINK ? Colors.secondary.salmon : Colors.primary.lightPurple,
         },
       ]}
     />

@@ -4,21 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 
-import {
-  FontNames,
-  Colors,
-  useCleanErrorOnFocus,
-  FormSignupValidatePhone,
-  ISignupValidatePhoneFormData,
-  Security,
-  NEEDS_SMALL_TEXT,
-} from '@clean-rn/ui-mobile';
+import { FontNames, Colors, useCleanErrorOnFocus, Security, NEEDS_SMALL_TEXT } from '@clean-rn/ui-mobile';
 import { PhoneOtp } from '@clean-rn/user/domain';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { SafeScrollingView, ErrorBoundary } from '../../../shared/presentation/hoc';
 
 import { fetchValidatePhone } from '../../../user/application/commands';
+import { FormSignupValidatePhone, ISignupValidatePhoneFormData } from '../forms';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -85,7 +78,7 @@ export const SignupValidatePhone = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
   subContainer: {
     flex: 1,
@@ -103,7 +96,7 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     textAlign: 'center',
     fontFamily: FontNames.MartelSans_400Regular,
-    color: Colors.bank.primary.grey,
+    color: Colors.primary.grey,
   },
   formContainer: {
     flex: 1,

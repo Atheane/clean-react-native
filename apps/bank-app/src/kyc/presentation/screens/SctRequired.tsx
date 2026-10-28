@@ -18,7 +18,7 @@ export const SctRequired = () => {
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={[styles.container]}>
-          <Text style={[styles.instruction, theme.bank.text.grey]}>
+          <Text style={[styles.instruction, theme.text.grey]}>
             {t('screens.kyc.sct-required.instruction')}
           </Text>
           {accounts && accounts[0] && (

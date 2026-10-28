@@ -20,18 +20,16 @@ export const SuccessKyc = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, theme.bank.container.centeredItem]}>
-          <Text style={[styles.title, theme.bank.text.boldDarkBlue]}>{t('screens.kyc.success.title')}</Text>
+        <View style={[styles.container, theme.container.centeredItem]}>
+          <Text style={[styles.title, theme.text.boldDarkBlue]}>{t('screens.kyc.success.title')}</Text>
           <Image source={CheckmarkImage} style={{ width: 150, height: 150 }} />
-          <Text style={[styles.instruction, theme.bank.text.grey]}>
-            <Text style={[styles.instruction, theme.bank.text.boldGrey]}>
-              {t('screens.kyc.success.congrats')}
-            </Text>
+          <Text style={[styles.instruction, theme.text.grey]}>
+            <Text style={[styles.instruction, theme.text.boldGrey]}>{t('screens.kyc.success.congrats')}</Text>
             {t('screens.kyc.success.instruction-before-card')}
-            <Text style={[styles.instruction, theme.bank.text.boldGrey]}>
+            <Text style={[styles.instruction, theme.text.boldGrey]}>
               {t('screens.kyc.success.instruction-card')}
             </Text>
-            <Text style={[styles.instruction, theme.bank.text.grey]}>
+            <Text style={[styles.instruction, theme.text.grey]}>
               {t('screens.kyc.success.instruction-after-card')}
             </Text>
             {accounts && accounts[0] && (

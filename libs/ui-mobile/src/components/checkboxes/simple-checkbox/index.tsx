@@ -23,11 +23,12 @@ export const SimpleCheckBox: React.FunctionComponent<IProps> = (props: IProps) =
 
   // css theme
   const { theme } = useTheme();
+
   return (
     <CheckBox
       containerStyle={styles.container}
-      textStyle={[theme.bank.text.darkBlue, styles.title]}
-      checkedColor={Colors.bank.primary.lightGreen}
+      textStyle={[theme.text.darkBlue, styles.title]}
+      checkedColor={Colors.primary.lightGreen}
       title={props.title}
       checked={checked}
       onPress={() => toggleCheckbox(checked)}

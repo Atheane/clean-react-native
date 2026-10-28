@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ImageSourcePropType } from 'react-native';
+import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
 
 import { NEEDS_SMALL_TEXT } from '../../../constants';
@@ -8,8 +9,10 @@ import { LinkButtonColors } from '../../../types';
 import { LinkButton } from '../../buttons/link-button';
 
 type IProps = {
-  image: ImageSourcePropType;
+  image?: ImageSourcePropType;
+  icon?: React.FC<SvgProps>;
   uid: string;
+  title: string;
   text: string;
   onDelete?: (uid: string) => void;
   onPress?: (uid: string) => void;
@@ -34,20 +37,21 @@ export const TouchEventCard = (props: IProps) => {
       <TouchableOpacity
         onPress={handleOnPress}
         activeOpacity={0.85}
-        style={[theme.bank.container.card.short, theme.bank.shadow.card]}
+        style={[theme.container.card.short, theme.shadow.card]}
       >
         <View style={styles.subContainer}>
-          <Image style={styles.image} source={props.image} />
+          {props.image && <Image style={styles.image} source={props.image} />}
+          {props.icon && <props.icon style={styles.icon} />}
           <Text
             style={[
               styles.text,
-              theme.bank.text.grey,
+              theme.text.grey,
               NEEDS_SMALL_TEXT
                 ? { fontSize: 10, lineHeight: 12, paddingTop: 10 }
                 : { fontSize: 12, lineHeight: 14, paddingTop: 8 },
             ]}
           >
-            {props.text}
+            {props.title}
           </Text>
         </View>
       </TouchableOpacity>
@@ -73,6 +77,14 @@ const styles = StyleSheet.create({
     left: -10,
     width: 80,
     height: 80,
+    marginBottom: -30,
+  },
+  icon: {
+    position: 'relative',
+    top: -16,
+    left: -10,
+    width: 24,
+    height: 24,
     marginBottom: -30,
   },
   deleteCross: {

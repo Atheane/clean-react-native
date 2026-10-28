@@ -22,13 +22,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Icon: Story = {
   args: {
-    icon: () => <House style={{ color: Colors.bank.primary.darkBlue } as StyleProp<ViewStyle>} />,
+    icon: () => <House style={{ color: Colors.primary.darkBlue } as StyleProp<ViewStyle>} />,
   },
 };
 
 export const IconData: Story = {
   args: {
-    icon: () => <House style={{ color: Colors.bank.primary.darkBlue } as StyleProp<ViewStyle>} />,
+    icon: () => <House style={{ color: Colors.primary.darkBlue } as StyleProp<ViewStyle>} />,
     data: {
       pct: '100%',
       co2: '6 tCO2',

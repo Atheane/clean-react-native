@@ -13,7 +13,7 @@ const meta = {
   },
   args: {
     label: 'Surface',
-    icon: () => <Surface style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />,
+    icon: () => <Surface style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 } as Meta<typeof SelectNumber>;
@@ -25,12 +25,13 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: {
     label: 'Surface',
-    icon: () => <Surface style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />,
+    icon: () => <Surface style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />,
   },
 };
 
 export const NoIcon: Story = {
   args: {
     label: 'Surface',
+    icon: undefined,
   },
 };

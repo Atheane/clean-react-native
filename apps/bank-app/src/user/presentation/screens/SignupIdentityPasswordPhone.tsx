@@ -9,19 +9,14 @@ import { useTheme } from '@rneui/themed';
 import { Email } from '@clean-rn/auth/domain';
 import { Phone } from '@clean-rn/contact/domain';
 import { IGender, IRegisterIdentityCommand } from '@clean-rn/user/domain';
-import {
-  useCleanErrorOnFocus,
-  FormSignupIdentityPasswordPhone,
-  ISignupIdentityPasswordPhoneFormData,
-  useSecure,
-  Colors,
-} from '@clean-rn/ui-mobile';
+import { useCleanErrorOnFocus, useSecure, Colors } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 
 import { registerIdentity, fetchSearchPhone, registerPassword } from '../../application/commands';
+import { FormSignupIdentityPasswordPhone, ISignupIdentityPasswordPhoneFormData } from '../forms';
 
 const locales = getLocales();
 
@@ -81,7 +76,7 @@ export const SignupIdentityPasswordPhone = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, theme.bank.container.centeredItem]}>
+        <View style={[styles.container, theme.container.centeredItem]}>
           <FormSignupIdentityPasswordPhone
             defaultCountry={defaultCountry}
             loading={pending}
@@ -103,6 +98,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: HEIGHT * 1.1,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
 });

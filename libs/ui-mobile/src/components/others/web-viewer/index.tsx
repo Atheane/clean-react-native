@@ -45,6 +45,6 @@ export const WebViewer = (props: IProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.bank.primary.lightGrey,
+    backgroundColor: Colors.primary.lightGrey,
   },
 });

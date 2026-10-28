@@ -40,8 +40,8 @@ export const UploadDocumentCard = (props: IProps) => {
       <TouchableOpacity
         onPress={props.onPress}
         style={[
-          theme.bank.container.card.long,
-          !disabled && theme.bank.shadow.card,
+          theme.container.card.long,
+          !disabled && theme.shadow.card,
           disabled && styles.disabled,
           { marginVertical: 16 },
         ]}
@@ -51,7 +51,7 @@ export const UploadDocumentCard = (props: IProps) => {
           <View style={styles.iconContainer}>
             <props.icon />
           </View>
-          <Text style={[disabled ? theme.bank.text.grey : theme.bank.text.darkBlue, styles.text]}>
+          <Text style={[disabled ? theme.text.grey : theme.text.darkBlue, styles.text]}>
             {renderLabel(props.text)}
           </Text>
 
@@ -77,7 +77,7 @@ export const UploadDocumentCard = (props: IProps) => {
             )}
           </View>
         )}
-        {props.loading && <LinearProgress color={Colors.bank.primary.darkGreen} style={styles.progress} />}
+        {props.loading && <LinearProgress color={Colors.primary.darkGreen} style={styles.progress} />}
         {props.status === 'REFUSED' && !props.loading && (
           <View style={styles.rightIconContainer}>
             <Edit />
@@ -88,7 +88,7 @@ export const UploadDocumentCard = (props: IProps) => {
         <View style={styles.errorMessageContainer}>
           <Text
             style={[
-              theme.bank.text.errors,
+              theme.text.errors,
               styles.errorMessage,
               NEEDS_SMALL_TEXT ? { fontSize: 12, lineHeight: 18 } : { fontSize: 14, lineHeight: 20 },
             ]}
@@ -103,7 +103,7 @@ export const UploadDocumentCard = (props: IProps) => {
 
 const styles = StyleSheet.create({
   disabled: {
-    backgroundColor: Colors.bank.primary.lightGrey,
+    backgroundColor: Colors.primary.lightGrey,
     opacity: 0.8,
   },
   container: {
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 16,
     left: 20,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
     borderRadius: 100,
   },
   rightIconContainer: {
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     top: 26,
     right: 20,
   },
-  rightIcon: { backgroundColor: Colors.bank.primary.white, borderRadius: 100 },
+  rightIcon: { backgroundColor: Colors.primary.white, borderRadius: 100 },
   cancelIcon: { top: 4, right: 8, position: 'absolute' },
   loading: {
     alignItems: 'center',

@@ -96,13 +96,19 @@ export const UploadDocument = () => {
       <SafeScrollingView>
         <View style={styles.container}>
           <View style={[styles.instructionText]}>
-            <Text style={[theme.bank.text.darkBlue, styles.takePhoto]}>{t('screens.kyc.take-photo')}</Text>
-            <Text style={[theme.bank.text.boldDarkBlue, styles.instruction]}>{instruction}</Text>
-            <Text style={[theme.bank.text.darkBlue, styles.instruction]}>{anotherInstruction}</Text>
-            <Text style={[theme.bank.text.boldDarkBlue, styles.instruction]}>{lastInstruction}</Text>
+            <Text style={[theme.text.darkBlue, styles.takePhoto]}>{t('screens.kyc.take-photo')}</Text>
+            <Text style={[theme.text.boldDarkBlue, styles.instruction]}>{instruction}</Text>
+            <Text style={[theme.text.darkBlue, styles.instruction]}>{anotherInstruction}</Text>
+            <Text style={[theme.text.boldDarkBlue, styles.instruction]}>{lastInstruction}</Text>
           </View>
           <Image source={imageSource} />
-          {domainError && <ErrorMessage error={domainError} />}
+          {domainError && (
+            <ErrorMessage
+              error={domainError}
+              errorMessage={t(`errors.domain-error.kyc.${domainError.code}`)}
+              genericErrorMessage={t('errors.other')}
+            />
+          )}
 
           {!docPickerVisible && !showExample && (
             <View style={styles.buttonContainer}>
@@ -110,6 +116,7 @@ export const UploadDocument = () => {
                 getScan={handleGetDocument}
                 handleError={handleError}
                 setLoading={handleLoading}
+                buttonTitle={t('button.photo')}
               />
             </View>
           )}
@@ -119,6 +126,7 @@ export const UploadDocument = () => {
                 getScan={handleGetDocument}
                 handleError={handleError}
                 setLoading={handleLoading}
+                buttonTitle={t('button.photo')}
               />
               <View style={styles.secondButtonContainer}>
                 <LinkButton
@@ -135,12 +143,14 @@ export const UploadDocument = () => {
                 getScan={handleGetDocument}
                 handleError={handleError}
                 setLoading={handleLoading}
+                buttonTitle={t('button.photo')}
               />
               <View style={styles.secondButtonContainer}>
                 <DocumentPicker
                   getDocument={handleGetDocument}
                   handleError={handleError}
                   setLoading={handleLoading}
+                  buttonTitle={t('button.document')}
                 />
               </View>
             </View>

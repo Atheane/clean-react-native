@@ -104,11 +104,11 @@ export const SearchModal = (props: IProps) => {
     ({ item }: { item: IData }) => (
       <View key={item.key} style={styles.itemContainer}>
         <TouchableOpacity onPress={() => handleSelect(item)}>
-          <Text style={theme.bank.text.grey}>{renderLabel(item)}</Text>
+          <Text style={theme.text.grey}>{renderLabel(item)}</Text>
         </TouchableOpacity>
       </View>
     ),
-    [handleSelect, theme.bank.text.grey],
+    [handleSelect, theme.text.grey],
   );
 
   return (
@@ -120,7 +120,7 @@ export const SearchModal = (props: IProps) => {
         lowerCase
         value={selectedItem ? renderLabel(selectedItem) : ''}
         onFocus={handleOnPress}
-        labelColor={Colors.bank.secondary.pink}
+        labelColor={Colors.secondary.pink}
       />
       {selectedItem && (
         <TouchableOpacity onPress={handleClearInput} style={styles.closeIcon}>
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: Dimensions.get('window').width * COEFF,
     paddingVertical: 10,
-    borderBottomColor: Colors.bank.primary.lightGrey,
+    borderBottomColor: Colors.primary.lightGrey,
     borderBottomWidth: 1,
   },
   closeIcon: { position: 'relative', bottom: 25, left: Dimensions.get('window').width * COEFF - 35 },

@@ -111,10 +111,10 @@ const styles = StyleSheet.create({
   bullet: {
     fontSize: 100,
     marginLeft: 27,
-    color: Colors.bank.primary.green,
+    color: Colors.primary.green,
   },
   bulletFocused: {
-    color: Colors.bank.primary.darkBlue,
+    color: Colors.primary.darkBlue,
   },
   gridContainer: {
     flex: 1,
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   cell: {
     fontSize: 35,
     textAlign: 'center',
-    color: Colors.bank.secondary.pink,
+    color: Colors.secondary.pink,
   },
   deleteCell: {
     marginLeft: (110 - 32) / 2,

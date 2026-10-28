@@ -1,5 +1,4 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import { Colors } from '../../../constants';
 import { PrimaryButton } from '../../buttons/primary-button';
 import { Tag } from '../../tags';
@@ -9,11 +8,12 @@ type IProps = {
   tableData: string[][];
   rowLabels: string | React.ReactNode[];
   onPress: () => void;
+  subtitle: string;
+  buttonTitle: string;
+  tagText: string;
 };
 
 export const TabCO2Split = (props: IProps) => {
-  const { t } = useTranslation();
-
   return (
     <View style={styles.container}>
       <View style={[styles.row, styles.headerRow]}>
@@ -32,7 +32,7 @@ export const TabCO2Split = (props: IProps) => {
             {rowIndex === 0 ? (
               <View>
                 <Text style={styles.labelText}>{props.rowLabels[rowIndex]}</Text>
-                <Text style={styles.labelSubtitle}>{t('tabs-co2.baseline')}</Text>
+                <Text style={styles.labelSubtitle}>{props.subtitle}</Text>
               </View>
             ) : (
               <Text style={styles.labelText}>{props.rowLabels[rowIndex]}</Text>
@@ -42,17 +42,17 @@ export const TabCO2Split = (props: IProps) => {
             <View key={cellIndex} style={styles.cell}>
               {cellData === 'N.A' && cellIndex % 2 === 1 ? (
                 <View style={styles.cellNA}>
-                  <PrimaryButton title={t('tabs-co2.button')} onPress={props.onPress} mini />
+                  <PrimaryButton title={props.buttonTitle} onPress={props.onPress} mini />
                 </View>
               ) : cellData === 'N.A' && cellIndex % 2 === 0 ? (
                 <View style={styles.tag}>
-                  <Tag color={Colors.bank.primary.lightGrey} text={t('tabs-co2.tag')} />
+                  <Tag color={Colors.primary.lightGrey} text={props.tagText} />
                 </View>
               ) : (
                 <Text
                   style={
                     cellIndex % 4 === 3
-                      ? { ...styles.cellText, color: Colors.bank.primary.green, fontWeight: 'bold' }
+                      ? { ...styles.cellText, color: Colors.primary.green, fontWeight: 'bold' }
                       : styles.cellText
                   }
                 >
@@ -72,19 +72,19 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     paddingTop: 30,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
   row: {
     flexDirection: 'row',
   },
   headerRow: {
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
   evenRow: {
-    backgroundColor: Colors.bank.primary.darkWhite,
+    backgroundColor: Colors.primary.darkWhite,
   },
   oddRow: {
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
   cell: {
     flex: 1,
@@ -100,23 +100,23 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginLeft: -18,
     fontSize: 10,
-    color: Colors.bank.primary.darkGrey,
+    color: Colors.primary.darkGrey,
   },
   labelText: {
     textAlign: 'left',
     fontSize: 12,
-    color: Colors.bank.primary.darkBlue,
+    color: Colors.primary.darkBlue,
   },
   labelSubtitle: {
     paddingTop: 4,
     textAlign: 'left',
     fontSize: 11,
-    color: Colors.bank.primary.darkGrey,
+    color: Colors.primary.darkGrey,
   },
   cellText: {
     textAlign: 'right',
     fontSize: 12,
-    color: Colors.bank.primary.darkGrey,
+    color: Colors.primary.darkGrey,
   },
   cellNA: {
     flex: 1,

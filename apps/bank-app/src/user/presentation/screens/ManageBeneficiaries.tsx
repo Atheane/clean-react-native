@@ -71,7 +71,7 @@ export const ManageBeneficiaries = () => {
       <View style={styles.container}>
         {hasBeneficiary && <ContentBeneficiary data={beneficiaries} />}
         {!hasBeneficiary && !beneficiaryPending && (
-          <View style={theme.bank.container.centeredItem}>
+          <View style={theme.container.centeredItem}>
             <Image source={NoBeneficiary} style={{ width: 250, height: 250 }} />
           </View>
         )}
@@ -80,18 +80,18 @@ export const ManageBeneficiaries = () => {
   ) : (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.containerKYCMissing, theme.bank.container.centeredItem]}>
+        <View style={[styles.containerKYCMissing, theme.container.centeredItem]}>
           <Image source={InitKyc} style={{ width: 250, height: 250 }} />
-          <Text style={[styles.instruction, theme.bank.text.grey]}>
+          <Text style={[styles.instruction, theme.text.grey]}>
             {t('screens.beneficiary.kyc-missing.instruction')}
-            <Text style={[styles.instruction, theme.bank.text.boldGrey]}>
+            <Text style={[styles.instruction, theme.text.boldGrey]}>
               {t('screens.beneficiary.kyc-missing.instruction-bold')}
             </Text>
           </Text>
           <LinkButton
             title={t('screens.beneficiary.kyc-missing.link-instruction')}
             onPress={handleOnPress}
-            inline={[theme.bank.text.darkBlue]}
+            inline={[theme.text.darkBlue]}
           />
         </View>
       </SafeScrollingView>
@@ -102,7 +102,7 @@ export const ManageBeneficiaries = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
     marginTop: 0,
   },
   row: {
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   },
   containerKYCMissing: {
     flex: 1,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
     height: Dimensions.get('window').height,
     marginTop: -100,
   },

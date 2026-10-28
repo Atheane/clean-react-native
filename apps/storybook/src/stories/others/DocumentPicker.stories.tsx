@@ -19,5 +19,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
-  args: {},
+  args: {
+    buttonTitle: 'Document Picker',
+  },
 };

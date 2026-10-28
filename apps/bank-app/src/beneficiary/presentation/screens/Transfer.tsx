@@ -7,8 +7,6 @@ import { useForm } from 'react-hook-form';
 
 import { IAccount } from '@clean-rn/account/domain';
 import {
-  FormTransfer,
-  ITransferFormData,
   TransferCard,
   useCleanErrorOnFocus,
   PhoneGradientWhiteBg,
@@ -27,7 +25,7 @@ import {
   fetchTransactionWaiting,
   fetchTransfer,
 } from '../../../transaction/application/commands';
-
+import { FormTransfer, ITransferFormData } from '../forms';
 import { Decoration } from '../assets/svg';
 
 type IData = {

@@ -25,22 +25,22 @@ export const WarningFood = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, theme.bank.container.centeredItem]}>
+        <View style={[styles.container, theme.container.centeredItem]}>
           <Image source={WarningFoodCO2} style={{ width: 250, height: 250 }} />
           <View style={styles.titleContainer}>
             <Text style={styles.title}>{t('screens.warning-food.title')}</Text>
           </View>
           <View style={styles.textContainer}>
-            <Text style={theme.bank.text.lightGrey}>{t('screens.warning-food.text')}</Text>
+            <Text style={theme.text.lightGrey}>{t('screens.warning-food.text')}</Text>
           </View>
 
           <View style={styles.buttonContainer}>
             <PrimaryButton
               long
               title={t('screens.warning-food.next')}
-              iconTwo={() => (
+              iconRight={() => (
                 <View style={styles.iconContainer}>
-                  <RightChevron style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+                  <RightChevron style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
                 </View>
               )}
               onPress={handleOnPress}
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: FontNames.Roboto_700Bold,
     fontSize: NEEDS_SMALL_TEXT ? 20 : 24,
-    color: Colors.bank.primary.darkBlue,
+    color: Colors.primary.darkBlue,
   },
   textContainer: { width: '80%', marginBottom: 24 },
   buttonContainer: {

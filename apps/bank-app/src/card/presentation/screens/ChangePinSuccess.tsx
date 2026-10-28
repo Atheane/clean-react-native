@@ -24,10 +24,10 @@ export const ChangePinSuccess = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, theme.bank.container.centeredItem]}>
+        <View style={[styles.container, theme.container.centeredItem]}>
           <Image source={Success} style={{ width: 200, height: 200 }} />
           <View style={styles.rowContainer}>
-            <Text style={[styles.instruction, theme.bank.text.grey]}>
+            <Text style={[styles.instruction, theme.text.grey]}>
               {t('screens.card.change-pin-success.instruction')}
             </Text>
           </View>
@@ -36,7 +36,7 @@ export const ChangePinSuccess = () => {
               title={t('screens.card.change-pin-success.ok')}
               long
               uppercase
-              iconOne={Validate}
+              iconLeft={Validate}
               onPress={handleOnPress}
             />
           </View>

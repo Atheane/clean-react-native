@@ -33,7 +33,7 @@ export const SelectNumber = (props: IProps) => {
 
   return props.horizontal ? (
     <View style={styles.selectContainer}>
-      <Text style={[theme.bank.text.label, { color: Colors.bank.secondary.pink }]}>
+      <Text style={[theme.text.label, { color: Colors.secondary.pink }]}>
         {props.label.toLocaleUpperCase()}
       </Text>
       <View style={styles.inputContainer}>
@@ -52,7 +52,7 @@ export const SelectNumber = (props: IProps) => {
     </View>
   ) : (
     <View>
-      <Text style={[theme.bank.text.label, { color: Colors.bank.secondary.pink }]}>
+      <Text style={[theme.text.label, { color: Colors.secondary.pink }]}>
         {props.label.toLocaleUpperCase()}
       </Text>
       <View style={styles.selectContainer}>
@@ -79,7 +79,7 @@ export const SelectNumber = (props: IProps) => {
 
 const styles = StyleSheet.create({
   inputLabel: {
-    color: Colors.bank.secondary.pink,
+    color: Colors.secondary.pink,
     fontFamily: FontNames.Roboto_700Bold,
     fontSize: 18,
     lineHeight: 24,
@@ -101,13 +101,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    backgroundColor: Colors.bank.primary.lightGreen,
+    backgroundColor: Colors.primary.lightGreen,
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 4,
   },
   buttonText: {
-    color: Colors.bank.primary.white,
+    color: Colors.primary.white,
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -115,6 +115,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
     fontSize: 18,
     fontWeight: 'bold',
-    color: Colors.bank.primary.darkGrey,
+    color: Colors.primary.darkGrey,
   },
 });

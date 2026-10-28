@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { View, Text, StyleSheet, StyleProp, TextStyle } from 'react-native';
+import { View, Text, StyleSheet, StyleProp, TextStyle, ViewStyle } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { Button, useTheme } from '@rneui/themed';
 
@@ -31,21 +31,23 @@ export const LinkButton: FC<IProps> = (props: IProps) => {
       {props.inline ? (
         props.title && <Text style={props.inline}>{props.title}</Text>
       ) : (
-        <View style={[theme.bank.container.centeredItems, styles.container]}>
-          {props.iconLeft && <props.iconLeft style={styles.iconLeft} />}
+        <View style={[theme.container.centeredItems, styles.container]}>
+          {props.iconLeft && (
+            <props.iconLeft style={props.colorOption ? { color: getColor(props.colorOption) } : {}} />
+          )}
           {props.arrow && (
             <View style={styles.iconContainer}>
               <RightArrow
                 width={27}
                 height={16}
-                style={props.colorOption ? { color: getColor(props.colorOption) } : {}}
+                color={(props.colorOption && getColor(props.colorOption)) as string}
               />
             </View>
           )}
           {props.title && (
             <Text
               style={[
-                theme.bank.text.link,
+                theme.text.link,
                 props.colorOption
                   ? {
                       color: getColor(props.colorOption),
@@ -56,7 +58,11 @@ export const LinkButton: FC<IProps> = (props: IProps) => {
               {props.title}
             </Text>
           )}
-          {props.iconRight && <props.iconRight />}
+          {props.iconRight && (
+            <props.iconRight
+              style={(props.colorOption && { color: getColor(props.colorOption) }) as StyleProp<ViewStyle>}
+            />
+          )}
         </View>
       )}
     </Button>
@@ -66,13 +72,13 @@ export const LinkButton: FC<IProps> = (props: IProps) => {
 const getColor = (option: LinkButtonColors) => {
   switch (option) {
     case LinkButtonColors.PINK:
-      return Colors.bank.secondary.pink;
+      return Colors.secondary.pink;
     case LinkButtonColors.BLUE:
-      return Colors.bank.primary.darkBlue;
+      return Colors.primary.darkBlue;
     case LinkButtonColors.WHITE:
-      return Colors.bank.primary.white;
+      return Colors.primary.white;
     default:
-      return Colors.bank.primary.darkGreen;
+      return Colors.primary.darkGreen;
   }
 };
 

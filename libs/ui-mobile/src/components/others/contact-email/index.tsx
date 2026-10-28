@@ -1,6 +1,5 @@
 import { StyleSheet, View, Text, TouchableOpacity, Linking } from 'react-native';
 import { useTheme } from '@rneui/themed';
-import { useTranslation } from 'react-i18next';
 
 import { BlueMail } from '../../../assets';
 import { Colors } from '../../../constants';
@@ -8,11 +7,12 @@ import { Colors } from '../../../constants';
 type IProps = {
   subject: string;
   body: string;
+  label: string;
+  co2: string;
 };
 
 export const ContactEmail = (props: IProps) => {
   const { theme } = useTheme();
-  const { t } = useTranslation();
 
   return (
     <TouchableOpacity
@@ -23,11 +23,11 @@ export const ContactEmail = (props: IProps) => {
       <View style={styles.rowContainer}>
         <BlueMail />
         <View style={styles.textContainer}>
-          <Text style={theme.bank.text.darkBlue}>{t('contact-email.label')}</Text>
+          <Text style={theme.text.darkBlue}>{props.label}</Text>
         </View>
       </View>
       <View style={styles.textContainer}>
-        <Text style={theme.bank.text.boldDarkBlue}>{t('contact-email.bank')}</Text>
+        <Text style={theme.text.boldDarkBlue}>{props.co2}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -44,11 +44,11 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   tooltipContainer: {
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
     width: '100%',
   },
   tooltipText: {
-    color: Colors.bank.primary.lightGreen,
+    color: Colors.primary.lightGreen,
     textAlign: 'left',
   },
 });

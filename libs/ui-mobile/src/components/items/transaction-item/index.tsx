@@ -22,20 +22,20 @@ export const TransactionItem = (props: IProps) => {
     return props.label;
   };
   return (
-    <View style={[theme.bank.container.justifiedItems]}>
-      <View style={theme.bank.container.leftItems}>
+    <View style={[theme.container.justifiedItems]}>
+      <View style={theme.container.leftItems}>
         <props.icon />
         <View style={styles.textContainer}>
-          <Text style={theme.bank.text.grey}>{cleanText()}</Text>
+          <Text style={theme.text.grey}>{cleanText()}</Text>
         </View>
       </View>
       {props.amount >= 0 && (
-        <Text style={[theme.bank.text.boldGrey, styles.amountPositive]}>
+        <Text style={[theme.text.boldGrey, styles.amountPositive]}>
           {'+' + props.amount.toString().replace('.', ',') + ' €G'}
         </Text>
       )}
       {props.amount < 0 && (
-        <Text style={[theme.bank.text.boldGrey, styles.amountNegative]}>
+        <Text style={[theme.text.boldGrey, styles.amountNegative]}>
           {props.amount.toString().replace('.', ',') + ' €G'}
         </Text>
       )}
@@ -49,10 +49,10 @@ const styles = StyleSheet.create({
   },
   amountPositive: {
     textAlign: 'right',
-    color: Colors.bank.primary.lightGreen,
+    color: Colors.primary.lightGreen,
   },
   amountNegative: {
     textAlign: 'right',
-    color: Colors.bank.primary.grey,
+    color: Colors.primary.grey,
   },
 });

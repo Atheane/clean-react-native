@@ -28,9 +28,7 @@ export type IProps = {
 const Label = React.memo(
   ({ label, labelColor, theme }: { label?: string; labelColor?: string; theme: Theme }) =>
     label ? (
-      <Text style={[theme.bank.text.label, { color: labelColor ?? Colors.bank.secondary.pink }]}>
-        {label}
-      </Text>
+      <Text style={[theme.text.label, { color: labelColor ?? Colors.secondary.pink }]}>{label}</Text>
     ) : null,
 );
 
@@ -60,7 +58,7 @@ export const TextInput = ({
       autoCapitalize: lowerCase ? 'none' : undefined,
       autoCorrect: false,
       keyboardType: numeric ? 'numeric' : 'default',
-      placeholderTextColor: Colors.bank.primary.grey,
+      placeholderTextColor: Colors.primary.grey,
     }),
     [lowerCase, numeric],
   );
@@ -71,14 +69,14 @@ export const TextInput = ({
       <View
         style={
           short
-            ? [theme.bank.container.input, { width: Dimensions.get('window').width * 0.5 }]
-            : theme.bank.container.input
+            ? [theme.container.input, { width: Dimensions.get('window').width * 0.5 }]
+            : theme.container.input
         }
       >
         <Input
           {...inputStyle}
           inputContainerStyle={styles.inputContainer}
-          inputStyle={customInputStyle ?? theme.bank.text.input}
+          inputStyle={customInputStyle ?? theme.text.input}
           leftIcon={IconLeft ? <IconLeft /> : undefined}
           leftIconContainerStyle={styles.leftIconContainer}
           rightIcon={IconRight ? <IconRight /> : undefined}

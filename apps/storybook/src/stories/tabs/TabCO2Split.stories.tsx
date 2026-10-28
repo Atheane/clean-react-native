@@ -24,5 +24,8 @@ export const FourColumns: Story = {
       ['N.A', 'N.A'],
     ],
     rowLabels: ['2019-2020', '2022', '2023', '2024'],
+    subtitle: '1000 kg',
+    buttonTitle: 'Add data',
+    tagText: 'N.A',
   },
 };

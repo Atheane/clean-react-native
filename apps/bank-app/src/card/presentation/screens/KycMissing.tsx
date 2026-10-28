@@ -24,18 +24,18 @@ export const KycMissing = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, theme.bank.container.centeredItem]}>
+        <View style={[styles.container, theme.container.centeredItem]}>
           <Image source={InitKyc} style={{ width: 250, height: 250 }} />
-          <Text style={[styles.instruction, theme.bank.text.grey]}>
+          <Text style={[styles.instruction, theme.text.grey]}>
             {t('screens.card.kyc-missing.instruction')}
-            <Text style={[styles.instruction, theme.bank.text.boldGrey]}>
+            <Text style={[styles.instruction, theme.text.boldGrey]}>
               {t('screens.card.kyc-missing.instruction-bold')}
             </Text>
           </Text>
           <LinkButton
             title={t('screens.card.kyc-missing.link-instruction')}
             onPress={handleOnPress}
-            inline={[theme.bank.text.darkBlue]}
+            inline={[theme.text.darkBlue]}
           />
         </View>
       </SafeScrollingView>

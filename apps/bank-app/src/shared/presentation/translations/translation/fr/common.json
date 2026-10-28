@@ -1,0 +1,740 @@
+{
+  "permissions": {
+    "contacts": "Virez vos €G directement sur des numéros de mobiles. Exemple : vous envoyez un virement de 10 €G au 06 01 01 01 01 plutôt qu’au FR76 0001 XO01 XO01 XO01 XO01 X11.",
+    "camera": "L’application nécessite un accès à la caméra pour les scans de documents."
+  },
+  "tablets": {
+    "instruction": "Cette application n'est pas compatible avec les tablettes. Veuillez installer cette application sur un smartphone."
+  },
+  "banners": {
+    "update-application": "Mise à jour disponible",
+    "identity-validation": "Validation de l'identité",
+    "identity-validated": "Identité validée"
+  },
+  "modal": {
+    "login": {
+      "title": "Session expirée, connectez-vous"
+    }
+  },
+  "errors": {
+    "card-limits": {
+      "min": "Le montant doit être supérieur à 100",
+      "max": {
+        "day": "Le montant doit être inférieur à 3000",
+        "week": "Le montant doit être inférieur à 6000",
+        "month": "Le montant doit être inférieur à 9000"
+      }
+    },
+    "BIC": {
+      "required": "BIC requis",
+      "invalid": "BIC invalide"
+    },
+    "consent": {
+      "required": "Consentement requis"
+    },
+    "email": {
+      "required": "email requis",
+      "invalid": "email invalide"
+    },
+    "label": {
+      "required": "Le libellé est requis",
+      "invalid": "140 caractères maximum"
+    },
+    "IBAN": {
+      "required": "IBAN requis",
+      "invalid": "IBAN invalide"
+    },
+    "password": {
+      "required": "Mot de passe requis",
+      "invalid": "Mot de passe invalide",
+      "min-length": "Doit contenir au minimum 6 caractères"
+    },
+    "phone": {
+      "required": "Numéro de téléphone requis",
+      "invalid": "Numéro de téléphone mobile invalide"
+    },
+    "phone-otp": {
+      "required": "Code à 6 chiffres requis",
+      "invalid": "Code invalide",
+      "min-length": "Doit contenir au minimum 6 chiffres"
+    },
+    "card-pin": {
+      "required": "Code à 4 chiffres requis",
+      "invalid": "Code invalide",
+      "min-length": "Doit contenir au minimum 4 chiffres"
+    },
+    "birthday": {
+      "invalid": "Date de naissance invalide, 18 ans minimum"
+    },
+    "first-name": {
+      "required": "Prénom requis",
+      "invalid": "Format du prénom invalide"
+    },
+    "last-name": {
+      "required": "Nom requis",
+      "invalid": "Format du nom de famille invalide"
+    },
+    "birth-country": {
+      "required": "Pays de naissance requis"
+    },
+    "nationality": {
+      "required": "Nationalité requise"
+    },
+    "address": {
+      "required": "Adresse requise"
+    },
+    "zip": {
+      "required": "Code postal requis"
+    },
+    "country": {
+      "required": "Code pays requis",
+      "invalid": "Pays invalide",
+      "unvailable": "Ce pays n'est pas disponible"
+    },
+    "country-code": {
+      "required": "Code pays requis"
+    },
+    "amount": {
+      "required": "Montant requis",
+      "invalid": "Montant invalide"
+    },
+    "domain-error": {
+      "auth": {
+        "INVALID_EMAIL": "E-mail invalide",
+        "INVALID_PASSWORD": "Mot de passe invalide",
+        "LOGIN_FAILURE_USER_NOT_FOUND": "Le compte n'existe pas",
+        "LOGIN_FAILURE_INVALID_CREDENTIALS": "Email ou mot de passe incorrect",
+        "LOGIN_FAILURE_USER_PHONE_NOT_VALIDATED": "Le numéro de téléphone n'est pas valide",
+        "USER_UNAUTHENTICATED": "Veuillez vous authentifier"
+      },
+      "user": {
+        "INVALID_PHONE": "Numéro de téléphone mobile invalide",
+        "INVALID_COUNTRY": "Pays invalide",
+        "UNAVAILABLE_COUNTRY": "Pays indisponible",
+        "INVALID_BIRTHDAY": "Date de naissance invalide",
+        "INVALID_6_DIGITS": "6 chiffres invalides",
+        "SIGNUP_FAILURE_EMAIL_EXISTS": "Cet email est déjà enregistré",
+        "SIGNUP_FAILURE_PHONE_EXISTS": "Ce téléphone est déjà enregistré",
+        "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "Code incorrect",
+        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Numéro de téléphone inconnu",
+        "INVALID_ADDRESS": "Adresse invalide"
+      },
+      "account": {
+        "INVALID_IBAN": "IBAN invalide",
+        "INVALID_BIC": "BIC invalide",
+        "UNKNOWN_TRANSACTION_TYPE": "Type de transaction inconnu",
+        "INVALID_TRANSACTION_VALUE": "Valeur de transaction invalide"
+      },
+      "beneficiary": {
+        "INVALID_IBAN": "IBAN invalide",
+        "INVALID_BIC": "BIC invalide",
+        "INVALID_NAME": "Nom invalide",
+        "BENEFICIARY_ALREADY_EXISTS": "Ce destinataire existe déjà",
+        "BENEFICIARY_UNKNOWN": "Béneficiaire inconnu",
+        "BENEFICIARY_MUST_DIFFER_FROM_ACCOUNT": "Vous ne pouvez pas faire un virement sur votre numéro de téléphone"
+      },
+      "contact": {
+        "INVALID_NAME": "Format du nom invalide",
+        "INVALID_PHONE": "Numéro de téléphone mobile invalide",
+        "CONTACT_ALREADY_EXISTS": "Ce numéro existe déjà"
+      },
+      "carbon": {
+        "INVALID_HOUSE_PROPS": "Propriétés de maison invalides",
+        "INVALID_TRANSPORT_PROPS": "Propriétés de transport invalides",
+        "INVALID_FOOD_PROPS": "Propriétés alimentaires invalides",
+        "INVALID_FLY_PROPS": "Propriétés de vol invalides"
+      },
+      "kyc": {
+        "MISSING_KYC_DOCUMENTS": "Documents pour validation du dossier manquants",
+        "KYC_REFUSED": "La validation de votre dossier a échoué",
+        "MISSING_RECTO": "Recto manquant",
+        "MISSING_VERSO": "Verso manquant",
+        "DOCUMENT_NOT_READY": "Document pas encore prêt",
+        "INVALID_DOCUMENT_TYPE": "Type de document invalide",
+        "DOCUMENT_TOO_LARGE": "Document trop volumineux, 1MB maximum",
+        "REFUSED": "Le document n'a pas pu être validé, merci de le renvoyer",
+        "OUT_OF_SCOPE": "Merci de joindre un document issu de l'Espace Economique Européen ou un titre de séjour",
+        "EXPIRED": "Merci de joindre un document en cours de validité",
+        "ILLEGIBLE": "Merci de joindre un justificatif de domicile valide",
+        "TRUNCATED_DOC": "Merci de joindre un document en couleur, lisible, et entier (non tronqué)",
+        "TRUNCATED": "Merci de joindre un document en couleur, lisible, et entier (non tronqué)",
+        "INCOHERENT": "Merci de joindre un document en cohérence avec les informations renseignées",
+        "OTHER": "Le document n'a pas pu être validé, merci de le renvoyer"
+      },
+      "transaction": {
+        "INVALID_AMOUNT": "Montant invalide",
+        "UNKNOWN_TRANSACTION_TYPE": "Type de transaction inconnu",
+        "INVALID_TRANSACTION_VALUE": "Valeur de transaction invalide",
+        "TRANSFER_AMOUNT_TOO_HIGH": "Solde insuffisant"
+      },
+      "card": {
+        "INVALID_PIN_FORMAT": "Format du code PIN invalide",
+        "CARD_NOT_FOUND": "Carte non trouvée",
+        "CARD_FORBIDDEN": "Carte non autorisée",
+        "MAX_NUMBER_OF_PIN_CHANGES_REACHED": "Nombre maximum de modifications du code PIN atteint"
+      },
+      "other": "Erreur, veuillez contacter l'administrateur"
+    },
+    "other": "Erreur, veuillez contacter l'administrateur"
+  },
+  "country-picker": {
+    "label": "pays",
+    "placeholder": "Sélectionner un pays"
+  },
+  "date-picker": {
+    "label": "Date de naissance",
+    "placeholder": "DD/MM/YYYY"
+  },
+  "email-input": {
+    "label": "email",
+    "placeholder": "votre@email.com"
+  },
+  "contact-email": {
+    "label": "PAR EMAIL",
+    "bank": "contact@example.com",
+    "subject": {
+      "unavailable-card": "Demande de renouvellement de carte",
+      "contact": "Contact depuis l'application CO2"
+    },
+    "body": {
+      "unavailable-card": "Bonjour,\nL'application CO2 m'indique que ma carte CO2 n'est plus accessible, et je souhaite la renouveler.\n\nCordialement",
+      "contact": "Bonjour,\n"
+    }
+  },
+  "password-input": {
+    "placeholder": "******",
+    "label": "Mot de passe"
+  },
+  "button": {
+    "add": "Ajouter",
+    "share": "Partager",
+    "submit": "Valider",
+    "photo": "Prendre une photo",
+    "document": "Importer un document"
+  },
+  "login": {
+    "forgotten-password": "Mot de passe oublié ?",
+    "validate": "Valider"
+  },
+  "reset-password": {
+    "success": "Si cet email existe, un message vous a été envoyé",
+    "reset": "Réinitialiser"
+  },
+  "signup-email": {
+    "text": "Vérifions ensemble si votre adresse mail est rattachée à un compte existant."
+  },
+  "signup-identity": {
+    "gender": {
+      "label": "Genre",
+      "man": "Homme",
+      "woman": "Femme",
+      "neutral": "Neutre"
+    },
+    "first-name": {
+      "label": "Prénom",
+      "placeholder": "John"
+    },
+    "last-name": {
+      "label": "Nom",
+      "placeholder": "Doe"
+    }
+  },
+  "signup-phone": {
+    "country-code": {
+      "required": "Indicatif pays requis"
+    },
+    "phone": {
+      "label": "Numéro de téléphone",
+      "placeholder": "0607080910"
+    }
+  },
+  "signup-birth": {
+    "birthday": {
+      "label": "Date de naissance",
+      "placeholder": "DD/MM/YYYY"
+    },
+    "birth-country": {
+      "label": "Pays de naissance",
+      "placeholder": "Pays de naissance"
+    },
+    "nationality": {
+      "label": "Nationalité",
+      "placeholder": "Nationalité"
+    }
+  },
+  "signup-address": {
+    "address": {
+      "label": "Adresse",
+      "placeholder": "5 rue de la paix 75000 Paris"
+    },
+    "usperson": {
+      "label": "Je suis une « person US »",
+      "subtitle": "(Résident américain)",
+      "yes": "Oui",
+      "no": "Non"
+    },
+    "zip": {
+      "label": "Code postal",
+      "placeholder": "40600"
+    }
+  },
+  "email-sent": {
+    "title": "Email envoyé",
+    "text": "Nous vous avons envoyé un email de confirmation à l’adresse indiquée. \nVeuillez cliquer sur le lien pour vous connecter."
+  },
+  "modal-error": {
+    "code": "Code erreur ",
+    "details": "Message ",
+    "stack": "Détails ",
+    "network": "Pas de connexion internet"
+  },
+  "tabs-co2": {
+    "button": "Recevoir ma prime ",
+    "tag": "Non calculé",
+    "baseline": "Emissions de référence"
+  },
+  "screens": {
+    "legal": "Données personnelles",
+    "cgu": "CGU",
+    "cgu-kyc-provider": "CGU (KycProvider)",
+    "modal-error": "Erreur",
+    "login": {
+      "title": "Connexion"
+    },
+    "reset-password": {
+      "title": "Mot de passe oublié"
+    },
+    "signup-email": {
+      "title": "Inscription",
+      "checkbox": "En cochant la case ci-contre je reconnais avoir pris connaissance des CGU, des mentions légales ainsi que l’usage des données personnelles du Bank App"
+    },
+    "signup-identity": {
+      "title": "Inscription"
+    },
+    "signup-validate-phone": {
+      "title": "Sécurité",
+      "instruction": "Saisissez le code vérification qui vient de vous être envoyé par SMS"
+    },
+    "signup-birth": {
+      "title": "Compléter mon profil"
+    },
+    "signup-address": {
+      "title": "Compléter mon profil"
+    },
+    "signup-congrats": {
+      "title": "Félicitations",
+      "congrats": "Félicitations ! Vous pouvez maintenant accéder à votre application Bank App.",
+      "button": "C'est parti !"
+    },
+    "email-sent": {
+      "title": "Email envoyé",
+      "text": "Nous vous avons envoyé un email de confirmation à l’adresse indiquée. \n\nVeuillez cliquer sur le lien pour vous connecter."
+    },
+    "signup-phone": {
+      "title": "Validation du mobile",
+      "text": "Valider votre numéro de téléphone mobile"
+    },
+    "home": {
+      "title": "Accueil",
+      "tab": "Accueil",
+      "help": "Aide",
+      "balance": {
+        "main": "Mon Bank App :",
+        "restoflash": "Mon compte resto Flash :",
+        "weflo": "Mon compte Weflo :",
+        "noaccounts": "Aucun compte"
+      },
+      "banner": {
+        "validation-identity": "Validez votre identité",
+        "update-needed": "Mise à jour à faire",
+        "identity-validated": "Identité validée"
+      }
+    },
+    "account": {
+      "balance": "Solde de mon compte",
+      "oups": "Créditez votre Bank App pour utiliser la monnaie climatique au quotidien !",
+      "iban": "Afficher mon IBAN CO2",
+      "transfer": "Virement",
+      "cards": {
+        "card": "Notre Carte de paiement pour économiser du CO2",
+        "loan": "Nos prêts pour décarboner l’économie",
+        "loan-heater": "Notre offre de prêt pour changer de chaudière",
+        "carbon-premium": "Soyez récompensé grâce à nos primes",
+        "manifesto": "Manifeste",
+        "history": "Notre histoire",
+        "green-euro": "Comment fonctionnent les euros-verts ?",
+        "currency": "Nos objectifs et nos limites",
+        "article": "Notre blog sur le monde bancaire et l’urgence climatique"
+      }
+    },
+    "beneficiary": {
+      "title": "Gérer mes bénéficiaires",
+      "bank": "Banque",
+      "contacts": "Contacts",
+      "add-beneficiary": "Ajouter",
+      "new-beneficiary": {
+        "title": "Ajouter un bénéficiaire",
+        "BIC": {
+          "label": "BIC",
+          "placeholder": "TRZOFR21XXX"
+        },
+        "IBAN": {
+          "label": "IBAN",
+          "placeholder": "FR08 1450 8000 7047 8411 8428 F43"
+        },
+        "name": {
+          "label": "Nom",
+          "placeholder": "Nom"
+        }
+      },
+      "new-contact": {
+        "title": "Ajouter un contact",
+
+        "firstname": {
+          "label": "Prénom",
+          "placeholder": "Prénom"
+        },
+        "lastname": {
+          "label": "Nom",
+          "placeholder": "Nom"
+        }
+      },
+      "kyc-missing": {
+        "instruction": "Pour accéder à cette fonctionnalité, vous devez d’abord ",
+        "instruction-bold": "valider votre identité",
+        "link-instruction": "Valider mon identité"
+      }
+    },
+    "account-statements": {
+      "title": "Export",
+      "bold": "Exporter mon relevé de compte",
+      "normal": "Télécharger mon relevé de compte en PDF",
+      "cards": {
+        "last-month": "Le mois dernier",
+        "last-trimester": "3 derniers mois",
+        "all": "Tous mes relevés",
+        "rib": "Télécharger le RIB"
+      }
+    },
+    "account-statements-pdf": {
+      "title": "Relevé de compte"
+    },
+    "rib-pdf": {
+      "title": "Le RIB"
+    },
+    "transfer": {
+      "title": "Virement",
+      "tab": "Virement",
+      "button": "Payer",
+      "main": "Bank App",
+      "amount": "Montant",
+      "label": "Libellé du virement",
+      "placeholder": "Remboursement restaurant"
+    },
+    "transfer-success": {
+      "title": "Virement",
+      "button": "Retour à l'accueil"
+    },
+    "carbon": {
+      "title": "Mon bilan carbone",
+      "tab": "Bilan CO2",
+      "instruction": "Appuyer sur une catégorie pour démarrer",
+      "zero-carbon": "0 tC02",
+      "average": "Moyenne Française",
+      "ton": "t",
+      "tons": "t",
+      "share": "Partager",
+      "reward": "Etre récompensé par la prime CO2",
+      "method": "En savoir plus sur la méthode de calcul",
+      "compute": "Calculer",
+      "consumption": "Consommation",
+      "message-part-one": "Hello,\n\nJe viens de faire mon bilan carbone en deux minutes. Hyper intéressant.\n\nMon bilan carbone est de ",
+      "message-part-two": "Découvre le tien aussi et dis moi combien tu pèses !\n\nSur iOS:\n\nhttps://apps.apple.com/fr/app/bank-app/id0000000000?l=fr-FR\n\n sur Android:\n\nhttps://play.google.com/store/apps/details?id=com.example.energyapp"
+    },
+    "carbon-house": {
+      "title": "Mon logement",
+      "no-CO2": "La consommation de ce type de chauffage n’émet pas de CO2 dans la méthodologie de calcul.",
+      "dropdown": {
+        "heater": "Type de chauffage",
+        "region": "Département",
+        "electric": "Electricité",
+        "coal": "Charbon",
+        "gas": "Gaz de ville",
+        "fuelOil": "Fioul domestique",
+        "urban": "Réseau de chaleur urbain",
+        "wood": "Bois",
+        "heatPump": "Pompe à chaleur",
+        "thermalSolar": "Solaire thermique",
+        "propane": "Propane",
+        "unit": " L",
+        "state-department": "Département"
+      },
+      "slider": {
+        "consumption": "Consommation",
+        "built-year": "Année du logement"
+      },
+      "surface": "Surface"
+    },
+    "carbon-transport": {
+      "title": "Mon transport",
+      "no-CO2": "La consommation de ce type de véhicule n’émet pas de CO2 dans la méthodologie de calcul",
+      "dropdown": {
+        "title": "Carburant",
+        "fuel": "Essence (inclus Hybride)",
+        "E85": "E85 (Superethanol)",
+        "electric": "Electrique",
+        "gasoil": "Diesel (inclus Hybride)",
+        "GNV": "GNV (Gas Naturel)",
+        "LPG": "GPL",
+        "unit": " L/100 KM"
+      },
+      "slider": {
+        "mpg": "Consommation",
+        "distance-by-year": "Kilométrage annuel",
+        "unit": " km"
+      }
+    },
+    "carbon-food": {
+      "title": "Mon alimentation",
+      "slider": {
+        "alcohol": "Vin / Bière",
+        "bread": "Pain",
+        "cheese": "From. / Laitage / Oeuf",
+        "fish": "Poisson / Crustacé",
+        "harvestExotic": "Lég. / Fruit exotiques",
+        "harvestLocal": "Lég. / Fruit saison",
+        "meatRed": "Viande rouge",
+        "meatWhite": "V. blanche / Volaille",
+        "rice": "Pâtes / Riz",
+        "soft": "Jus de fruits / Soda / Eau",
+        "unit": " fois / semaine",
+        "units": " fois / semaine"
+      }
+    },
+    "warning-food": {
+      "title": "Avertissement",
+      "text": "À partir de l’estimation de l’empreinte carbone de l’alimentation on déduit celle des déchets.",
+      "next": "Suivant"
+    },
+    "carbon-fly": {
+      "title": "Mon transport aérien",
+      "dropdown": {
+        "destination": "Départ de",
+        "arrival": "Arrivée à"
+      },
+      "search": "Rechercher",
+      "slider": "Nombre de trajets",
+      "swipe-button": {
+        "type": "Trajet",
+        "simple": "Aller simple",
+        "round": "Aller-retour",
+        "class": "Classe",
+        "economy": "Economique",
+        "business": "Business"
+      },
+      "secondary-button": "Ajouter",
+      "flight": "trajet(s)"
+    },
+    "kyc": {
+      "title": "Vérification de votre identité",
+      "send-document": "Envoyer un document",
+      "init": {
+        "steps": "étapes :\n",
+        "step1": "1. Joindre une pièce d’identité\n",
+        "step2": "2. Faire un virement de 1 euro depuis un de vos comptes bancaires sur votre Bank App\n",
+        "step3": "3. Joindre le formulaire W9",
+        "check-identity": "Vérifier"
+      },
+      "complete": {
+        "title": "Documents validés",
+        "congrats": "Félicitations vos documents sont validés !\n\n",
+        "instruction": "Dernière étape, vous devez maintenant effectuer un virement sur votre Bank App, à partir d’un de vos comptes situés en France."
+      },
+      "success": {
+        "title": "Identité validée",
+        "congrats": "Félicitations votre identité est validée !\n\n",
+        "instruction-before-card": "Nous avons lancé la ",
+        "instruction-card": "fabrication de votre Carte CO2",
+        "instruction-after-card": ". Nous vous l’enverrons par courrier dès qu’elle sera prête.\n\nUn peu de patience, vous pouvez en attendant créditer votre compte."
+      },
+      "card-sent": {
+        "title": "Identité validée",
+        "text": "Nous vous avons bien envoyé votre Carte CO2 par courrier."
+      },
+      "menu": {
+        "instruction-before": {
+          "singular": "Une fois la pièce d'identité transférée et le virement reçu, la vérification se lancera automatiquement.",
+          "plural": "Une fois les 2 documents transférés et le virement reçu, la vérification se lancera automatiquement."
+        },
+        "instruction-after": {
+          "begin": "Vos documents sont",
+          "bold": " en cours de vérification, ",
+          "end": "cela peut prendre de 24h à 72h."
+        },
+        "last-step": "\n\n\nDernière étape :\n",
+        "w9-form": "Formulaire W9",
+        "identity": "Pièce d'identité",
+        "fix-file": "Merci de corriger les éléments du dossier",
+        "transfer": "Virement de 1 euro"
+      },
+      "first-id": {
+        "title": "Pièces d'identité",
+        "instruction": "Choisissez votre pièce d'identité",
+        "id": "Carte d'identité",
+        "passport": "Passeport",
+        "residence-permit": "Permis de séjour"
+      },
+      "take-photo": "Prenez une photo",
+      "id": {
+        "recto": {
+          "title": "Carte d’identité - Recto",
+          "instruction": "du recto de votre carte d’identité"
+        },
+        "verso": {
+          "title": "Carte d’identité - Verso",
+          "instruction": "du verso de votre carte d’identité"
+        }
+      },
+      "passport": {
+        "title": "Passeport",
+        "instruction": "de la page d’identité de votre passeport"
+      },
+      "residence-permit": {
+        "recto": {
+          "title": "Permis de séjour - Recto",
+          "instruction": "du recto de votre permis de séjour"
+        },
+        "verso": {
+          "title": "Permis de séjour - Recto",
+          "instruction": "du verso de votre permis de séjour"
+        }
+      },
+      "w9": {
+        "title": "Résident américain - W-9",
+        "instruction": "ou importer votre formulaire w-9"
+      },
+      "sct-required": {
+        "title": "Virement de 1 euro",
+        "instruction": "Faîtes un virement de 1 euro sur votre Bank App, à partir d’un de vos comptes situés en France."
+      }
+    },
+    "parameters": {
+      "menu": {
+        "title": "Mes paramètres",
+        "tab": "Paramètres",
+        "card-settings": "Paramétrer ma carte",
+        "account-settings": "Paramètres du compte",
+        "app-settings": "Paramètres de l'application",
+        "notifications": "Notifications",
+        "love": "Soutenez-nous sur l’App Store",
+        "contact-us": "Nous contacter",
+        "legal": "Données personnelles",
+        "cgu": "CGU",
+        "cgu-kyc-provider": "CGU KycProvider",
+        "profile": "Mon profil",
+        "delete-account": "Se désinscrire"
+      },
+      "delete-account": {
+        "title": "Se désinscrire",
+        "description": "Nous sommes très tristes de cette nouvelle.\n\nNous l’avons bien prise en compte malgré tout.\n\nEn confirmant votre choix, nous supprimons votre compte utilisateur.\n\n",
+        "button": "Confirmer",
+        "goodbye": "Au revoir !"
+      }
+    },
+    "profile-identity": {
+      "title": "Modifier mon profil - Identité"
+    },
+    "profile-address": {
+      "title": "Modifier mon profil - Adresse"
+    },
+    "card": {
+      "menu": {
+        "title": "Paramétrer ma carte",
+        "unavailable-card": "Cette carte n’est plus accessible. Veuillez en commander une nouvelle :",
+        "limits": "Modifier mes plafonds",
+        "lock": "Bloquer ma carte",
+        "unlock": "Débloquer ma carte",
+        "change-pin": "Modifier mon code PIN",
+        "show-pin": "Voir mon code PIN"
+      },
+      "kyc-missing": {
+        "title": "Justificatifs manquants",
+        "instruction": "Votre carte n’a pas encore été créée. Vous devez d’abord ",
+        "instruction-bold": "valider votre identité.",
+        "link-instruction": "Valider mon identité"
+      },
+      "waiting-card": {
+        "title": "Carte en cours d'envoi",
+        "congrats": "Félicitations votre identité est validée !\n\n",
+        "instruction-before-card": "Nous avons lancé la ",
+        "instruction-card": "fabrication de votre Carte CO2",
+        "instruction-after-card": ". Nous vous l’enverrons par courrier dès qu’elle sera prête.\n\nUn peu de patience, vous pouvez en attendant créditer votre compte."
+      },
+      "limits": {
+        "title": "Modifier mes plafonds",
+        "instruction-top": "Définir des plafonds est un moyen simple de sécuriser votre Compte",
+        "day-limit": "Montant journalier",
+        "week-limit": "Montant hebdomadaire",
+        "month-limit": "Montant mensuel",
+        "instruction-bottom": "Pour tout achat exceptionnel, contactez nous"
+      },
+      "toggle-lock": {
+        "title": "Bloquer ma carte",
+        "instruction": "Cette fonction vous permet de bloquer votre carte. N’hésitez pas à l’activer en cas de perte ou de vol. Votre carte peut être réactivée à tout moment.",
+        "lock": "Bloquer",
+        "button": "Valider"
+      },
+      "toggle-lock-success": {
+        "title": "Félicitations",
+        "lock": "Votre carte a bien été bloquée",
+        "unlock": "Votre carte a bien été débloquée",
+        "ok": "ok"
+      },
+      "change-pin": {
+        "title": "Modifier mon code PIN",
+        "instruction-top": "Vous pouvez choisir de définir vous-même le code de votre Carte CO2.",
+        "instruction-bottom-static": "Attention, vous ne pouvez modifier au maximum que 3 fois votre code.",
+        "instruction-bottom-dynamic": "/ 3 nombre de modifications"
+      },
+      "change-pin-success": {
+        "title": "Valider mon code PIN",
+        "instruction": "Votre code PIN a été modifié.\n\nAfin que le réseau MasterCard reconnaisse votre nouveau PIN, vous devez vous rendre dans un distributeur de billets de banque, et saisir ce nouveau PIN.\nVous ne pourrez pas retirer d’espèces, mais votre nouveau PIN sera enregistré sur le réseau",
+        "ok": "ok"
+      },
+      "show-pin": {
+        "title": "Voir mon code PIN",
+        "instruction": "Voici le code secret de ma Carte CO2",
+        "see-my-pin": "Voir mon code"
+      }
+    },
+    "notifications": {
+      "title": "Notifications",
+      "payment": "Paiement avec ma carte",
+      "transfer": "Virement reçu",
+      "threshold": "Plafond",
+      "submit": "Mettre à jour"
+    },
+    "account-settings": {
+      "title": "Paramètres du compte",
+      "beneficiaries": "Gérer mes bénéficiaires",
+      "bank-coordinates": "Mes coordonnées bancaires"
+    },
+    "manage-beneficiaries": {
+      "title": "Gérer mes bénéficiaires"
+    },
+    "application-settings": {
+      "title": "Paramètres de l'application",
+      "notifications": "Notifications",
+      "languages": "Langues"
+    },
+    "bank-coordinates": {
+      "title": "Mes coordonnées bancaires",
+      "instruction": "Voici l’IBAN et le BIC de votre Bank App. Grâce à eux, créditez votre Bank App depuis votre autre compte bancaire.",
+      "bank-account": "Bank App",
+      "share": "Télécharger"
+    },
+    "languages": {
+      "title": "Sélectionner la langue"
+    }
+  }
+}
