@@ -2,7 +2,7 @@
   "build": {
     "production": {
         "env": {
-          "EXPO_PUBLIC_APP_VERSION": "002",
+          "EXPO_PUBLIC_APP_VERSION": "003",
           "EXPO_PUBLIC_BASE_URL_API": "https://dev-carte.example.com",
           "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.energy-app.app",
           "EXPO_PUBLIC_NODE_ENV": "production",
@@ -14,7 +14,7 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_APP_VERSION": "002",
+        "EXPO_PUBLIC_APP_VERSION": "003",
         "EXPO_PUBLIC_BASE_URL_API": "https://sandbox.example.com",
         "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.energy-app.app",
         "EXPO_PUBLIC_NODE_ENV": "development",
@@ -32,7 +32,7 @@
     "preview": {
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_APP_VERSION": "002",
+        "EXPO_PUBLIC_APP_VERSION": "003",
         "EXPO_PUBLIC_BASE_URL_API": "https://dev-carte.example.com",
         "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.energy-app.app",
         "EXPO_PUBLIC_NODE_ENV": "production",
