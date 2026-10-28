@@ -6,6 +6,11 @@ export default {
     name: 'EnergyApp',
     scheme: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.energy-app.app',
     slug: process.env.EXPO_PUBLIC_SLUG_NAME_ENERGY_APP,
+    extra: {
+      eas: {
+        projectId: process.env.EXPO_PUBLIC_PROJECT_ID || '618ed0ba-31a1-41c1-9877-eef3e8981f19',
+      },
+    },
     version: process.env.EXPO_PUBLIC_APP_VERSION,
     orientation: 'portrait',
     icon: './assets/icon.png',
@@ -53,10 +58,5 @@ export default {
         },
       ],
     ],
-  },
-  extra: {
-    eas: {
-      projectId: process.env.EXPO_PUBLIC_PROJECT_ID || '618ed0ba-31a1-41c1-9877-eef3e8981f19',
-    },
   },
 };
