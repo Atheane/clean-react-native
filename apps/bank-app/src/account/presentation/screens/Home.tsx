@@ -11,14 +11,15 @@ import {
   CardScroller,
   TopDownBackground,
   ScrollBackground,
-  WhiteBalanceList,
+  BalanceList,
   Banner,
   BannerColors,
   LoaderSplashScreen,
   useNotification,
   useDevice,
+  Colors,
 } from '@clean-rn/ui-mobile';
-import { IAccount } from '@clean-rn/account/domain';
+import { IAccount, IAccountType } from '@clean-rn/account/domain';
 import { IKycState } from '@clean-rn/kyc/domain';
 
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
@@ -60,11 +61,13 @@ export const Home = () => {
   const navigation = useNavigation();
 
   const handleOnPressAccount = useCallback(
-    (account: IAccount) => {
+    (data: { uid: string; value: number; title: string; color: string }) => {
+      const account = accounts?.find((account: IAccount) => account.accountId === parseInt(data.uid));
+      if (!account) return;
       dispatch(listTransactions({ account }));
       navigation.navigate(ITransactionStackPages.MENU, { screens: [ITransactionStackPages.TRANSACTIONS] });
     },
-    [dispatch, navigation],
+    [dispatch, navigation, accounts],
   );
 
   const handleOnPressCard = useCallback(
@@ -146,6 +149,13 @@ export const Home = () => {
     [deletedCards, t],
   );
 
+  const dataBalance = accounts?.map((item: IAccount) => ({
+    uid: item.accountId.toString(),
+    value: item.authorizedBalance,
+    title: item.accountType === IAccountType.MAIN ? t('screens.home.balance.main') : '',
+    unit: '€G',
+  }));
+
   return accountPending || kycPending ? (
     <LoaderSplashScreen />
   ) : (
@@ -187,7 +197,12 @@ export const Home = () => {
           </View>
           {accounts && accounts.length > 0 && (
             <View style={styles.accountList}>
-              <WhiteBalanceList data={accounts} onPress={handleOnPressAccount} />
+              <BalanceList
+                data={dataBalance || []}
+                onPress={handleOnPressAccount}
+                noDataLabel={t('screens.home.balance.noaccounts')}
+                color={Colors.primary.white}
+              />
             </View>
           )}
         </ScrollBackground>

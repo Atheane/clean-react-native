@@ -42,10 +42,10 @@ export const BankCoordinates = () => {
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={[styles.container, { height: HEIGHT }]}>
-          <Text style={[styles.instruction, theme.bank.text.grey]}>
+          <Text style={[styles.instruction, theme.text.grey]}>
             {t('screens.bank-coordinates.instruction')}
           </Text>
-          <Text style={[theme.bank.text.boldDarkBlue]}>{t('screens.bank-coordinates.bank-account')}</Text>
+          <Text style={[theme.text.boldDarkBlue]}>{t('screens.bank-coordinates.bank-account')}</Text>
           {accounts && accounts[0] && (
             <View>
               <CopyValueClipboard value={accounts[0].iban.value} icon={IbanIcon} />

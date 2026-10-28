@@ -36,21 +36,21 @@ export const InitKyc = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, theme.bank.container.centeredItem]}>
+        <View style={[styles.container, theme.container.centeredItem]}>
           <Image source={InitKycImg} style={{ width: 250, height: 250 }} />
           <View style={styles.instructionContainer}>
-            <Text style={theme.bank.text.lightGrey}>{`${stepsCount} ${t('screens.kyc.init.steps')}`}</Text>
-            <Text style={theme.bank.text.lightGrey}>{t('screens.kyc.init.step1')}</Text>
-            <Text style={theme.bank.text.lightGrey}>{t('screens.kyc.init.step2')}</Text>
-            {stepsCount > 2 && <Text style={theme.bank.text.lightGrey}>{t('screens.kyc.init.step3')}</Text>}
+            <Text style={theme.text.lightGrey}>{`${stepsCount} ${t('screens.kyc.init.steps')}`}</Text>
+            <Text style={theme.text.lightGrey}>{t('screens.kyc.init.step1')}</Text>
+            <Text style={theme.text.lightGrey}>{t('screens.kyc.init.step2')}</Text>
+            {stepsCount > 2 && <Text style={theme.text.lightGrey}>{t('screens.kyc.init.step3')}</Text>}
           </View>
           <View style={styles.buttonContainer}>
             <PrimaryButton
               long
               title={t('screens.kyc.init.check-identity')}
-              iconOne={() => (
+              iconLeft={() => (
                 <View style={styles.iconContainer}>
-                  <Add style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+                  <Add style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
                 </View>
               )}
               onPress={handleOnPress}

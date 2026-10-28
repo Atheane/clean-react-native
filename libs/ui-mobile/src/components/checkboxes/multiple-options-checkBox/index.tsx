@@ -32,17 +32,15 @@ export const MultipleOptionsCheckBox = (props: IProps) => {
 
   return (
     <View>
-      {props.label && (
-        <Text style={[theme.bank.text.label, { color: Colors.bank.primary.grey }]}>{props.label}</Text>
-      )}
-      {props.subtitle && <Text style={theme.bank.text.grey}>{props.subtitle}</Text>}
+      {props.label && <Text style={[theme.text.label, { color: Colors.primary.grey }]}>{props.label}</Text>}
+      {props.subtitle && <Text style={theme.text.grey}>{props.subtitle}</Text>}
       <View style={props.vertical ? styles.checkboxContainerVertical : styles.checkboxContainer}>
         {props.optionsValues.map((option: string, index: number) => {
           return (
             <View
               key={index}
               style={[
-                theme.bank.container.justifiedItems,
+                theme.container.justifiedItems,
                 styles.item,
                 { marginRight: props.optionsTitle.length < 3 ? 50 : 0 },
               ]}
@@ -51,9 +49,9 @@ export const MultipleOptionsCheckBox = (props: IProps) => {
                 checked={currentOption === option}
                 onPress={() => handleOnPress(option)}
                 title={props.optionsTitle[index]}
-                titleProps={{ style: [theme.bank.text.grey, { marginLeft: 8 }] }}
-                checkedIcon={<CheckedIcon style={{ color: Colors.bank.primary.lightGreen }} />}
-                uncheckedIcon={<UncheckIcon style={{ color: Colors.bank.primary.lightGreen }} />}
+                titleProps={{ style: [theme.text.grey, { marginLeft: 8 }] }}
+                checkedIcon={<CheckedIcon style={{ color: Colors.primary.lightGreen }} />}
+                uncheckedIcon={<UncheckIcon style={{ color: Colors.primary.lightGreen }} />}
               />
             </View>
           );

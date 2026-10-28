@@ -26,7 +26,7 @@ export const TransferCard = (props: IProps) => {
         {props.arrow && <BackgroundCardArrow />}
         {!props.arrow && <BackgroundCardGrey />}
         <View style={[styles.textContainer, { width: props.arrow ? 150 : 150 }]}>
-          <Text style={[theme.bank.text.boldDarkBlue, { fontSize: 12, lineHeight: 19 }]}>
+          <Text style={[theme.text.boldDarkBlue, { fontSize: 12, lineHeight: 19 }]}>
             {props.arrow ? props.text.slice(0, 19) : props.text}
           </Text>
         </View>
@@ -44,8 +44,8 @@ export const TransferCard = (props: IProps) => {
           </View>
         )}
         {props.arrow && props.uniqueAccount && props.data && props.data.length > 0 && (
-          <View style={[styles.uniqueAccountContainer, theme.bank.container.input, { width: 120 }]}>
-            <Text style={theme.bank.text.input}>{props.data[0].value}</Text>
+          <View style={[styles.uniqueAccountContainer, theme.container.input, { width: 120 }]}>
+            <Text style={theme.text.input}>{props.data[0].value}</Text>
           </View>
         )}
         <View style={styles.iconStyle}>

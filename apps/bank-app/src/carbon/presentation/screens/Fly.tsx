@@ -8,7 +8,9 @@ import { useTheme } from '@rneui/themed';
 import { FlightI } from '@bank/carbon-weight/dist';
 
 import { airports } from '@clean-rn/carbon/domain';
-import { FlyForm, CO2, PrimaryButton, useFlyFormData, Colors } from '@clean-rn/ui-mobile';
+import { CO2, PrimaryButton, Colors } from '@clean-rn/ui-mobile';
+import { FlyForm } from '../forms';
+import { useFlyFormData } from '../hooks';
 
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
@@ -41,7 +43,7 @@ export const Fly = () => {
     <ErrorBoundary t={t}>
       <SafeAreaView style={styles.container}>
         <KeyboardAwareScrollView showsVerticalScrollIndicator={false} ref={scrollViewRef}>
-          <View style={theme.bank.container.centeredItem}>
+          <View style={theme.container.centeredItem}>
             <FlyForm
               airports={formattedAirports}
               flight={flight}
@@ -56,9 +58,9 @@ export const Fly = () => {
               <PrimaryButton
                 title={t('screens.carbon.compute')}
                 onPress={handleOnPress}
-                iconOne={() => (
+                iconLeft={() => (
                   <View style={{ height: 23, justifyContent: 'center' }}>
-                    <CO2 style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+                    <CO2 style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
                   </View>
                 )}
                 long
@@ -74,7 +76,7 @@ export const Fly = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
   buttonContainer: {
     marginVertical: 50,

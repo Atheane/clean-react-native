@@ -33,7 +33,13 @@ export const AccountStatementsPdf = () => {
   };
 
   return unknownError ? (
-    <ModalError error={unknownError} />
+    <ModalError
+      error={unknownError}
+      errorCode={t('modal-error.code')}
+      errorDetails={t('modal-error.details')}
+      errorStack={t('modal-error.stack')}
+      genericMessage={t('errors.other')}
+    />
   ) : (
     <ErrorBoundary t={t}>
       <PdfDownloader

@@ -106,6 +106,7 @@
     "@storybook/addon-ondevice-actions": "^7.6.10",
     "@storybook/addon-ondevice-backgrounds": "^7.6.10",
     "@storybook/addon-ondevice-controls": "^7.6.10",
+    "@storybook/addon-ondevice-notes": "^7.6.10",
     "@storybook/react": "^7.6.10",
     "@storybook/react-native": "^7.6.10",
     "@testing-library/jest-dom": "5.16.5",

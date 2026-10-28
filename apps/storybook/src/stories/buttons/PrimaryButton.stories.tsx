@@ -8,8 +8,8 @@ const meta = {
   component: PrimaryButton,
   argTypes: {
     onPress: { action: 'pressed the button' },
-    iconOne: { table: { disable: true } },
-    iconTwo: { table: { disable: true } },
+    iconLeft: { table: { disable: true } },
+    iconRight: { table: { disable: true } },
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 } satisfies Meta<typeof PrimaryButton>;
@@ -43,8 +43,8 @@ export const OneIcon: Story = {
     uppercase: true,
     disabled: false,
     title: 'OneIcon',
-    iconOne: () => (
-      <Love width={23} height={23} style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+    iconLeft: () => (
+      <Love width={23} height={23} style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
     ),
   },
 };
@@ -55,8 +55,8 @@ export const LongText: Story = {
     uppercase: false,
     disabled: false,
     title: 'This is a button with long text',
-    iconOne: () => (
-      <Love width={23} height={23} style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+    iconLeft: () => (
+      <Love width={23} height={23} style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
     ),
   },
 };
@@ -67,11 +67,11 @@ export const TwoIcons: Story = {
     uppercase: false,
     disabled: false,
     title: 'Two Icons',
-    iconOne: () => (
-      <Love width={23} height={23} style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+    iconLeft: () => (
+      <Love width={23} height={23} style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
     ),
-    iconTwo: () => (
-      <Validate width={23} height={23} style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+    iconRight: () => (
+      <Validate width={23} height={23} style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
     ),
   },
 };
@@ -82,9 +82,9 @@ export const CO2Button: Story = {
     uppercase: true,
     disabled: false,
     title: 'CO2 Button',
-    iconOne: () => (
+    iconLeft: () => (
       <View style={{ height: 23, justifyContent: 'center' }}>
-        <CO2 style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+        <CO2 style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
       </View>
     ),
   },

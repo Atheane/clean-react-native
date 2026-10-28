@@ -11,7 +11,7 @@ type IProps = {
 
 export const SubmitButton = (props: IProps) => (
   <PrimaryButton
-    iconOne={Validate}
+    iconLeft={Validate}
     title={props.title}
     uppercase={props.uppercase}
     loading={props.loading}

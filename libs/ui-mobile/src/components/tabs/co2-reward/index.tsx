@@ -1,5 +1,4 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import { Colors } from '../../../constants';
 import { PrimaryButton } from '../../buttons/primary-button';
 import { Tag } from '../../tags';
@@ -9,11 +8,11 @@ type IProps = {
   tableData: string[][];
   rowLabels: string[];
   onPress: () => void;
+  buttonTitle: string;
+  tagText: string;
 };
 
 export const TabCO2Reward = (props: IProps) => {
-  const { t } = useTranslation();
-
   return (
     <View style={styles.container}>
       <View style={[styles.row, styles.headerRow]}>
@@ -43,11 +42,11 @@ export const TabCO2Reward = (props: IProps) => {
             <View key={cellIndex} style={styles.cell}>
               {cellData === 'N.A' && cellIndex % 2 === 0 ? (
                 <View style={styles.cellNA}>
-                  <PrimaryButton title={t('tabs-co2.button')} onPress={props.onPress} mini />
+                  <PrimaryButton title={props.buttonTitle} onPress={props.onPress} mini />
                 </View>
               ) : cellData === 'N.A' && cellIndex % 2 === 1 ? (
                 <View style={styles.tag}>
-                  <Tag color={Colors.bank.primary.lightGrey} text={t('tabs-co2.tag')} />
+                  <Tag color={Colors.primary.lightGrey} text={props.tagText} />
                 </View>
               ) : (
                 <Text style={styles.cellText}>{cellData}</Text>
@@ -65,19 +64,19 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     paddingTop: 30,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
   row: {
     flexDirection: 'row',
   },
   headerRow: {
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
   evenRow: {
-    backgroundColor: Colors.bank.primary.darkWhite,
+    backgroundColor: Colors.primary.darkWhite,
   },
   oddRow: {
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
   cell: {
     flex: 1,
@@ -91,7 +90,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontWeight: 'bold',
     textAlign: 'left',
-    color: Colors.bank.primary.darkGrey,
+    color: Colors.primary.darkGrey,
   },
   headerLeft: {
     marginLeft: -20,
@@ -101,11 +100,11 @@ const styles = StyleSheet.create({
   },
   labelText: {
     textAlign: 'left',
-    color: Colors.bank.primary.darkBlue,
+    color: Colors.primary.darkBlue,
   },
   cellText: {
     textAlign: 'left',
-    color: Colors.bank.primary.darkGrey,
+    color: Colors.primary.darkGrey,
   },
   cellNA: {
     flex: 1,

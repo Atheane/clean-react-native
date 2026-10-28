@@ -32,7 +32,7 @@ export const CopyValueClipboard = (props: IProps) => {
 
   return (
     <View style={styles.container}>
-      <View style={theme.bank.container.leftItems}>
+      <View style={theme.container.leftItems}>
         <props.icon />
         <View style={styles.iconRight}>
           <Tooltip
@@ -43,8 +43,8 @@ export const CopyValueClipboard = (props: IProps) => {
                 <Text style={styles.tooltipText}>{props.value}</Text>
               </View>
             }
-            backgroundColor={Colors.bank.transparent}
-            highlightColor={Colors.bank.primary.lightGreen}
+            backgroundColor={Colors.transparent}
+            highlightColor={Colors.primary.lightGreen}
             containerStyle={styles.tooltipContainer}
           />
           <TouchableOpacity onPress={handleCopyValue}>
@@ -53,7 +53,7 @@ export const CopyValueClipboard = (props: IProps) => {
         </View>
       </View>
       <View style={styles.textContainer}>
-        <Text style={theme.bank.text.boldGrey}>{props.value}</Text>
+        <Text style={theme.text.boldGrey}>{props.value}</Text>
       </View>
     </View>
   );
@@ -71,11 +71,11 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   tooltipContainer: {
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
     width: '100%',
   },
   tooltipText: {
-    color: Colors.bank.primary.lightGreen,
+    color: Colors.primary.lightGreen,
     textAlign: 'left',
   },
 });

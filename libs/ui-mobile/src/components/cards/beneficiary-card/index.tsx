@@ -50,9 +50,9 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
   },
   evenContainer: {
-    backgroundColor: Colors.bank.primary.lightGrey,
+    backgroundColor: Colors.primary.lightGrey,
   },
   oddContainer: {
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
 });

@@ -26,6 +26,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: {
+    buttonTitle: 'Share',
     children: (
       <View style={styles.container}>
         <Image source={LoanHeater} />

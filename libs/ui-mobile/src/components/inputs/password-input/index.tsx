@@ -1,5 +1,4 @@
 import { View, Text, StyleSheet, GestureResponderEvent } from 'react-native';
-import { useTranslation } from 'react-i18next';
 
 import { Input, InputProps, useTheme } from '@rneui/themed';
 
@@ -7,7 +6,8 @@ import { Lock, Eye, Blind } from '../../../assets';
 import { Colors } from '../../../constants';
 
 type State = {
-  label?: string;
+  label: string;
+  placeholder: string;
   secured: boolean;
   onChange: (text: string) => void;
   onToggleSecurity: (event: GestureResponderEvent) => void;
@@ -16,31 +16,28 @@ type State = {
 
 export const PasswordInput = (props: InputProps & State) => {
   const { theme } = useTheme();
-  const { t } = useTranslation();
   return (
     <View>
-      <Text style={[theme.bank.text.label, { color: Colors.bank.primary.grey }]}>
-        {props.label ? props.label : t('password-input.label')}
-      </Text>
-      <View style={theme.bank.container.input}>
+      <Text style={[theme.text.label, { color: Colors.primary.grey }]}>{props.label}</Text>
+      <View style={theme.container.input}>
         <Input
           inputContainerStyle={styles.inputContainerStyle}
-          inputStyle={theme.bank.text.input}
+          inputStyle={theme.text.input}
           secureTextEntry={props.secured}
-          leftIcon={<Lock style={{ color: Colors.bank.background.lightGreen }} />}
+          leftIcon={<Lock style={{ color: Colors.background.lightGreen }} />}
           leftIconContainerStyle={styles.leftIconContainer}
           onFocus={props.onFocus}
           onChangeText={props.onChange}
           value={props.value}
-          placeholder={t('password-input.placeholder')}
+          placeholder={props.placeholder}
           onSubmitEditing={props.onSubmitEditing}
           returnKeyType="go"
           rightIcon={
             <View style={styles.eyeContainer} onTouchStart={props.onToggleSecurity}>
               {props.secured ? (
-                <Eye {...styles.eyeIcon} style={{ color: Colors.bank.secondary.pink }} />
+                <Eye {...styles.eyeIcon} style={{ color: Colors.secondary.pink }} />
               ) : (
-                <Blind {...styles.blindIcon} style={{ color: Colors.bank.secondary.pink }} />
+                <Blind {...styles.blindIcon} style={{ color: Colors.secondary.pink }} />
               )}
             </View>
           }
@@ -63,7 +60,7 @@ const styles = StyleSheet.create({
   eyeContainer: {
     justifyContent: 'center',
     height: 30,
-    borderLeftColor: Colors.bank.secondary.pink,
+    borderLeftColor: Colors.secondary.pink,
     borderLeftWidth: 1,
     paddingLeft: 20,
     paddingRight: 10,

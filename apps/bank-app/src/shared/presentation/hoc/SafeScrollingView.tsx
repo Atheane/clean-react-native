@@ -22,6 +22,6 @@ export const SafeScrollingView = ({ children, ref }: IProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
 });

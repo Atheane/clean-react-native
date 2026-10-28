@@ -6,13 +6,9 @@ import { useForm } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 import { getLocales } from 'expo-localization';
 
-import {
-  useCleanErrorOnFocus,
-  FormSignupAddress,
-  ISignupAddressFormData,
-  Colors,
-  SafeScrollingView,
-} from '@clean-rn/ui-mobile';
+import { useCleanErrorOnFocus, Colors } from '@clean-rn/ui-mobile';
+
+import { FormSignupAddress, ISignupAddressFormData } from '../forms';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
@@ -64,7 +60,7 @@ export const SignupAddress = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <View style={[styles.container, theme.bank.container.centeredItem]}>
+      <View style={[styles.container, theme.container.centeredItem]}>
         <FormSignupAddress
           loading={pending}
           control={control}
@@ -84,6 +80,6 @@ export const SignupAddress = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
 });

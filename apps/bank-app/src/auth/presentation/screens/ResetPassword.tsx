@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { FormResetPassword, IResetPasswordFormData } from '@clean-rn/ui-mobile';
+import { FormResetPassword, IResetPasswordFormData } from '../forms/form-reset-password';
 import { Email } from '@clean-rn/auth/domain';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';

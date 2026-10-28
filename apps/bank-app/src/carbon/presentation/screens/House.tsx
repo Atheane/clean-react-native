@@ -1,17 +1,17 @@
-import { View, StyleSheet, StyleProp, ViewStyle, Dimensions } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { HouseT } from '@bank/carbon-weight/dist';
 
-import { useHouseFormData, HouseForm, PrimaryButton, CO2, Colors } from '@clean-rn/ui-mobile';
+import { PrimaryButton, CO2, Colors } from '@clean-rn/ui-mobile';
+import { useHouseFormData } from '../hooks';
+import { HouseForm } from '../forms';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 import { computeHouseEmissions } from '../../application/commands';
-
-const HEIGHT = Dimensions.get('window').height;
 
 export const House = () => {
   const { t } = useTranslation();
@@ -36,9 +36,9 @@ export const House = () => {
             <PrimaryButton
               title={t('screens.carbon.compute')}
               onPress={handleOnPress}
-              iconOne={() => (
+              iconLeft={() => (
                 <View style={{ height: 23, justifyContent: 'center' }}>
-                  <CO2 style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+                  <CO2 style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
                 </View>
               )}
               long

@@ -47,14 +47,14 @@ export const Dropdown = (props: IProps) => {
     <View style={props.short ? { width: props.shortWidth ?? 100 } : {}}>
       {props.label && (
         <View style={styles.labelContainer}>
-          <Text style={[theme.bank.text.label, { color: props.labelColor ?? Colors.bank.secondary.pink }]}>
+          <Text style={[theme.text.label, { color: props.labelColor ?? Colors.secondary.pink }]}>
             {props.label.toLocaleUpperCase()}
           </Text>
         </View>
       )}
-      <View style={theme.bank.container.centeredItems}>
+      <View style={theme.container.centeredItems}>
         {props.icon && (
-          <View style={[styles.leftIconContainer, theme.bank.container.centeredItem]}>
+          <View style={[styles.leftIconContainer, theme.container.centeredItem]}>
             <props.icon />
           </View>
         )}
@@ -71,11 +71,11 @@ export const Dropdown = (props: IProps) => {
               : { width: Dimensions.get('window').width * 0.65 },
           ]}
           rowTextForSelection={(item: IData) => item.value}
-          buttonTextStyle={theme.bank.text.input}
+          buttonTextStyle={theme.text.input}
           rowTextStyle={styles.rowText}
           renderDropdownIcon={() => (
             <View style={styles.dropdownIcon}>
-              <DropDownChevron style={{ color: Colors.bank.primary.lightGreen }} />
+              <DropDownChevron style={{ color: Colors.primary.lightGreen }} />
             </View>
           )}
           renderCustomizedRowChild={(row: any) => (
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     paddingLeft: 4,
   },
   selectedItemText: {
-    color: Colors.bank.secondary.pink,
+    color: Colors.secondary.pink,
     textAlign: 'left',
     flexWrap: 'wrap',
   },

@@ -171,7 +171,7 @@ export const BeneficiaryList = () => {
             onChange={handleOnChangeTab}
             scrollable
             indicatorStyle={{
-              backgroundColor: Colors.bank.primary.lightGreen,
+              backgroundColor: Colors.primary.lightGreen,
               height: 3,
               width: Dimensions.get('window').width / 2,
               transform: [{ translateX: indicatorX }], // Overriding the buggy string from the source
@@ -181,7 +181,7 @@ export const BeneficiaryList = () => {
             <Tab.Item
               title="contact"
               active={index === 0}
-              titleStyle={{ fontSize: 13, color: Colors.bank.primary.lightGreen, marginTop: 8 }}
+              titleStyle={{ fontSize: 13, color: Colors.primary.lightGreen, marginTop: 8 }}
               icon={Group2 as IconNode}
             >
               {t('screens.beneficiary.contacts')}
@@ -189,7 +189,7 @@ export const BeneficiaryList = () => {
             <Tab.Item
               title="bank"
               active={index === 1}
-              titleStyle={{ fontSize: 13, color: Colors.bank.primary.lightGreen, marginTop: 8 }}
+              titleStyle={{ fontSize: 13, color: Colors.primary.lightGreen, marginTop: 8 }}
               icon={BankBuilding as IconNode}
             >
               {t('screens.beneficiary.bank')}
@@ -202,13 +202,13 @@ export const BeneficiaryList = () => {
             value={index}
             onChange={handleOnChangeTab}
             animationType="spring"
-            containerStyle={{ backgroundColor: Colors.bank.primary.white }}
+            containerStyle={{ backgroundColor: Colors.primary.white }}
           >
             <TabView.Item style={[{ width: '100%' }]}>
               <>
                 {hasContact && <ContentContact data={contacts} />}
                 {!hasContact && (
-                  <View style={theme.bank.container.centeredItem}>
+                  <View style={theme.container.centeredItem}>
                     <Image source={NoContact} style={{ width: 250, height: 250 }} />
                   </View>
                 )}
@@ -218,7 +218,7 @@ export const BeneficiaryList = () => {
               <>
                 {hasBeneficiary && <ContentBeneficiary data={beneficiaries} />}
                 {!hasBeneficiary && (
-                  <View style={theme.bank.container.centeredItem}>
+                  <View style={theme.container.centeredItem}>
                     <Image source={NoBeneficiary} style={{ width: 250, height: 250 }} />
                   </View>
                 )}
@@ -231,18 +231,18 @@ export const BeneficiaryList = () => {
   ) : (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.containerKYCMissing, theme.bank.container.centeredItem]}>
+        <View style={[styles.containerKYCMissing, theme.container.centeredItem]}>
           <Image source={InitKyc} style={{ width: 250, height: 250 }} />
-          <Text style={[styles.instruction, theme.bank.text.grey]}>
+          <Text style={[styles.instruction, theme.text.grey]}>
             {t('screens.beneficiary.kyc-missing.instruction')}
-            <Text style={[styles.instruction, theme.bank.text.boldGrey]}>
+            <Text style={[styles.instruction, theme.text.boldGrey]}>
               {t('screens.beneficiary.kyc-missing.instruction-bold')}
             </Text>
           </Text>
           <LinkButton
             title={t('screens.beneficiary.kyc-missing.link-instruction')}
             onPress={handleOnPress}
-            inline={[theme.bank.text.darkBlue]}
+            inline={[theme.text.darkBlue]}
           />
         </View>
       </SafeScrollingView>
@@ -253,7 +253,7 @@ export const BeneficiaryList = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
     marginTop: 0,
   },
   row: {
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
   },
   containerKYCMissing: {
     flex: 1,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
     height: Dimensions.get('window').height,
     marginTop: -100,
   },

@@ -39,11 +39,7 @@ export const Icon: Story = {
     uppercase: true,
     title: 'Icon',
     iconOne: () => (
-      <Logout
-        width={27}
-        height={27}
-        style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
-      />
+      <Logout width={27} height={27} style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
     ),
   },
 };
@@ -54,11 +50,7 @@ export const LongText: Story = {
     uppercase: false,
     title: 'This is a Button with long text',
     iconOne: () => (
-      <Logout
-        width={27}
-        height={27}
-        style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
-      />
+      <Logout width={27} height={27} style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
     ),
   },
 };

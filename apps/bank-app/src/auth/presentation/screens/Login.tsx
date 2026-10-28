@@ -7,8 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 import { getLocales } from 'expo-localization';
 
-import { Colors, useSecure, useCleanErrorOnFocus, FormLogin, ILoginFormData } from '@clean-rn/ui-mobile';
-
+import { Colors, useSecure, useCleanErrorOnFocus } from '@clean-rn/ui-mobile';
 import { Email, Password } from '@clean-rn/auth/domain';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
@@ -16,6 +15,7 @@ import { IAuthStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 
+import { FormLogin, ILoginFormData } from '../forms/form-login';
 import { Welcome } from '../assets/images';
 import { fetchLogin } from '../../application/commands';
 
@@ -71,7 +71,7 @@ export const Login = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, theme.bank.container.centeredItem]}>
+        <View style={[styles.container, theme.container.centeredItem]}>
           <Image style={styles.image} source={Welcome} />
           <FormLogin
             control={control}
@@ -94,7 +94,7 @@ export const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
     height: HEIGHT,
     marginTop: -20,
   },

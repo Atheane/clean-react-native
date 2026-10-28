@@ -27,27 +27,21 @@ export const SwitchButton: FC<IProps> = (props: IProps) => {
     <View>
       {props.label && (
         <View style={styles.labelContainer}>
-          <Text style={[theme.bank.text.label, { color: Colors.bank.secondary.pink }]}>
+          <Text style={[theme.text.label, { color: Colors.secondary.pink }]}>
             {props.label.toLocaleUpperCase()}
           </Text>
         </View>
       )}
-      <View
-        style={[
-          theme.bank.container.button.long,
-          theme.bank.container.centeredItems,
-          theme.bank.shadow.button,
-        ]}
-      >
+      <View style={[theme.container.button.long, theme.container.centeredItems, theme.shadow.button]}>
         <LinearGradient
           // Button Linear Gradient
-          colors={[Colors.bank.greenGradient.lightGreen, Colors.bank.greenGradient.darkGreen]}
+          colors={[Colors.greenGradient.lightGreen, Colors.greenGradient.darkGreen]}
           start={[0, 1]}
           end={[1, 0]}
           style={[
-            theme.bank.container.button.long,
-            theme.bank.container.centeredItems,
-            theme.bank.shadow.button,
+            theme.container.button.long,
+            theme.container.centeredItems,
+            theme.shadow.button,
             {
               height: 55,
             },
@@ -56,15 +50,12 @@ export const SwitchButton: FC<IProps> = (props: IProps) => {
           <Button
             buttonStyle={[
               styles.button,
-              { backgroundColor: toggle ? Colors.bank.primary.white : Colors.bank.transparent },
+              { backgroundColor: toggle ? Colors.primary.white : Colors.transparent },
             ]}
             onPress={() => handleOnPress(0)}
           >
             <Text
-              style={[
-                styles.text,
-                { color: toggle ? Colors.bank.primary.darkGrey : Colors.bank.primary.lightGrey },
-              ]}
+              style={[styles.text, { color: toggle ? Colors.primary.darkGrey : Colors.primary.lightGrey }]}
             >
               {props.options[0].value}
             </Text>
@@ -73,15 +64,12 @@ export const SwitchButton: FC<IProps> = (props: IProps) => {
           <Button
             buttonStyle={[
               styles.button,
-              { backgroundColor: toggle ? Colors.bank.transparent : Colors.bank.primary.white },
+              { backgroundColor: toggle ? Colors.transparent : Colors.primary.white },
             ]}
             onPress={() => handleOnPress(1)}
           >
             <Text
-              style={[
-                styles.text,
-                { color: toggle ? Colors.bank.primary.lightGrey : Colors.bank.primary.darkGrey },
-              ]}
+              style={[styles.text, { color: toggle ? Colors.primary.lightGrey : Colors.primary.darkGrey }]}
             >
               {props.options[1].value}
             </Text>

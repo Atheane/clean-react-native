@@ -21,14 +21,14 @@ export const WaitingCard = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, theme.bank.container.centeredItem]}>
+        <View style={[styles.container, theme.container.centeredItem]}>
           <Image source={CheckmarkImage} style={{ width: 150, height: 150 }} />
-          <Text style={[styles.instruction, theme.bank.text.grey]}>
+          <Text style={[styles.instruction, theme.text.grey]}>
             {t('screens.card.waiting-card.instruction-before-card')}
-            <Text style={[styles.instruction, theme.bank.text.boldGrey]}>
+            <Text style={[styles.instruction, theme.text.boldGrey]}>
               {t('screens.card.waiting-card.instruction-card')}
             </Text>
-            <Text style={[styles.instruction, theme.bank.text.grey]}>
+            <Text style={[styles.instruction, theme.text.grey]}>
               {t('screens.card.waiting-card.instruction-after-card')}
             </Text>
             {accounts && accounts[0] && (

@@ -61,21 +61,21 @@ export const StackedBars = (props: IProps) => {
         type: 'bar',
         stack: 'one',
         data: props.housing,
-        color: Colors.bank.secondary.pink,
+        color: Colors.secondary.pink,
       },
       {
         name: props.categories[0],
         type: 'bar',
         stack: 'one',
         data: props.transport,
-        color: Colors.bank.primary.grey,
+        color: Colors.primary.grey,
       },
       {
         name: props.categories[2],
         type: 'bar',
         stack: 'one',
         data: props.savings,
-        color: Colors.bank.primary.lightGreen,
+        color: Colors.primary.lightGreen,
       },
     ],
     legend: {
@@ -84,7 +84,7 @@ export const StackedBars = (props: IProps) => {
       left: 'center',
       itemGap: 20,
       textStyle: {
-        color: Colors.bank.primary.darkGrey,
+        color: Colors.primary.darkGrey,
         fontSize: 12,
       },
     },

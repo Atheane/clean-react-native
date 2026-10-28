@@ -16,7 +16,7 @@ export const Secured4Digits = (props: IProps) => {
           style={[
             styles.digitContainer,
             props.underlined &&
-              !props.hidden && { borderBottomWidth: 1, borderBottomColor: Colors.bank.secondary.purple },
+              !props.hidden && { borderBottomWidth: 1, borderBottomColor: Colors.secondary.purple },
           ]}
         >
           {props.hidden && <Text style={styles.digit}>{'*'}</Text>}
@@ -36,13 +36,13 @@ const styles = StyleSheet.create({
   digitContainer: {
     width: 30,
     height: 60,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
     justifyContent: 'center',
     alignItems: 'center',
     margin: 10,
   },
   digit: {
-    color: Colors.bank.secondary.purple,
+    color: Colors.secondary.purple,
     fontFamily: FontNames.Roboto_700Bold,
     fontSize: 36,
     lineHeight: 36,

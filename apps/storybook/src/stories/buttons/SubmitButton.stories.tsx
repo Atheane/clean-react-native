@@ -1,5 +1,4 @@
-import { useTranslation } from 'react-i18next';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { StoryObj } from '@storybook/react';
 import { SubmitButton } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';

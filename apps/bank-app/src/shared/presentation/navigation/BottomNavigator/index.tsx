@@ -40,7 +40,7 @@ export const BottomTabNavigator = () => {
     <Tab.Navigator
       initialRouteName={IAccountStackPages.MENU}
       screenOptions={{
-        tabBarActiveTintColor: Colors.bank.primary.white,
+        tabBarActiveTintColor: Colors.primary.white,
         headerShown: false,
       }}
     >
@@ -53,7 +53,7 @@ export const BottomTabNavigator = () => {
             focused ? (
               <HomeGradient />
             ) : (
-              <HomeIcon style={{ color: Colors.bank.primary.grey } as StyleProp<ViewStyle>} />
+              <HomeIcon style={{ color: Colors.primary.grey } as StyleProp<ViewStyle>} />
             ),
           tabBarLabel: ({ focused }: { focused: boolean }) =>
             focused ? <Text style={styles.tab}> {t('screens.home.tab')}</Text> : '',
@@ -73,9 +73,9 @@ export const BottomTabNavigator = () => {
           title: t('screens.transfer.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             focused ? (
-              <TransferGradient style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />
+              <TransferGradient style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
             ) : (
-              <TransferIcon style={{ color: Colors.bank.primary.grey } as StyleProp<ViewStyle>} />
+              <TransferIcon style={{ color: Colors.primary.grey } as StyleProp<ViewStyle>} />
             ),
 
           tabBarLabel: ({ focused }: { focused: boolean }) =>
@@ -89,9 +89,9 @@ export const BottomTabNavigator = () => {
           title: t('screens.carbon.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             focused ? (
-              <CarbonGradient style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />
+              <CarbonGradient style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
             ) : (
-              <CarbontIcon style={{ color: Colors.bank.primary.grey } as StyleProp<ViewStyle>} />
+              <CarbontIcon style={{ color: Colors.primary.grey } as StyleProp<ViewStyle>} />
             ),
           tabBarLabel: ({ focused }: { focused: boolean }) =>
             focused ? <Text style={styles.tab}> {t('screens.carbon.tab')}</Text> : '',
@@ -104,9 +104,9 @@ export const BottomTabNavigator = () => {
           title: t('screens.parameters.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             focused ? (
-              <ParametersGradient style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />
+              <ParametersGradient style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
             ) : (
-              <ParametersIcon style={{ color: Colors.bank.primary.grey } as StyleProp<ViewStyle>} />
+              <ParametersIcon style={{ color: Colors.primary.grey } as StyleProp<ViewStyle>} />
             ),
           tabBarLabel: ({ focused }: { focused: boolean }) =>
             focused ? <Text style={styles.tab}> {t('screens.parameters.menu.tab')}</Text> : '',
@@ -134,6 +134,6 @@ const styles = StyleSheet.create({
   tab: {
     fontSize: 9,
     fontFamily: FontNames.MartelSans_600SemiBold,
-    color: Colors.bank.primary.lightGreen,
+    color: Colors.primary.lightGreen,
   },
 });

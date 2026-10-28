@@ -17,7 +17,7 @@ import { SmallSwitchButton } from './buttons/small-switch-button';
 // Cards
 import { TouchEventCard } from './cards/touch-event-card';
 import { LongCard } from './cards/long-card';
-import { CardScroller } from './cards/card-scroller';
+import { CardScroller, IPropsTouchEventCard } from './cards/card-scroller';
 import { TransactionsCard } from './cards/transactions-card';
 import { TouchCardKpi } from './cards/touch-card-kpi';
 import { TouchCardText } from './cards/touch-card-text';
@@ -27,6 +27,10 @@ import { BeneficiaryCard } from './cards/beneficiary-card';
 import { ContactCard } from './cards/contact-card';
 // Charts
 import { StackedBars } from './charts/stacked-bars';
+import { ScatterPlot } from './charts/scatter-plot';
+import { LinePlot } from './charts/line-plot';
+import { BarPlot } from './charts/bar-plot';
+import { DynamicBarPlot } from './charts/dynamic-bar-plot';
 // Checkboxes
 import { MultipleOptionsCheckBox } from './checkboxes/multiple-options-checkBox';
 import { SimpleCheckBox } from './checkboxes/simple-checkbox';
@@ -34,28 +38,6 @@ import { SimpleCheckBox } from './checkboxes/simple-checkbox';
 import { Dropdown } from './dropdowns/dropdown';
 import { CountryPicker } from './dropdowns/country-picker';
 import { DateTimePicker } from './dropdowns/datetime-picker';
-// Forms
-import { IBeneficiaryFormData, FormBeneficiary } from './forms/form-beneficiary';
-import { IContactFormData, FormContact } from './forms/form-contact';
-import { ILoginFormData, FormLogin } from './forms/form-login';
-import { IResetPasswordFormData, FormResetPassword } from './forms/form-reset-password';
-import { ISignupEmailFormData, FormSignupEmail } from './forms/form-signup-email';
-import {
-  ISignupIdentityPasswordPhoneFormData,
-  FormSignupIdentityPasswordPhone,
-} from './forms/form-signup-identity-password-phone';
-import { ISignupPhoneFormData, FormSignupPhone } from './forms/form-signup-phone';
-import { ISignupValidatePhoneFormData, FormSignupValidatePhone } from './forms/form-signup-validate-phone';
-import { ISignupBirthFormData, FormSignupBirth } from './forms/form-signup-birth';
-import { ISignupAddressFormData, FormSignupAddress } from './forms/form-signup-address';
-import { FlyForm } from './forms/fly-form';
-import { FoodForm } from './forms/food-form';
-import { HouseForm } from './forms/house-form';
-import { TransportForm } from './forms/transport-form';
-import { FormTransfer, ITransferFormData } from './forms/form-transfer';
-import { FormCardLimits, ICardLimitsFormData } from './forms/form-card-limits';
-import { FormChangePin, IChangePinFormData } from './forms/form-change-pin';
-import { FormUpdateIdentity, IUpdateIdentityFormData } from './forms/form-update-identity';
 // Inputs
 import { TextInput } from './inputs/text-input';
 import { EmailInput } from './inputs/email-input';
@@ -75,7 +57,10 @@ import { ContactItem } from './items/contact-item';
 import { BeneficiaryCardList } from './lists/beneficiary-card-list';
 import { ContactCardList } from './lists/contact-card-list';
 import { TransactionsCardsList } from './lists/transactions-cards-list';
-import { WhiteBalanceList } from './lists/white-balance-list';
+import { BalanceList } from './lists/balance-list';
+// Modals
+import { ModalError } from './modals/modal-error';
+import { ModalContent } from './modals/modal-content';
 // Others
 import { WebViewer } from './others/web-viewer';
 import { ShareScreen } from './others/share-screen';
@@ -85,7 +70,6 @@ import { PdfViewer } from './others/pdf-viewer';
 import { PdfDownloader } from './others/pdf-downloader';
 import { CopyValueClipboard } from './others/copy-value-clipboard';
 import { GraphCO2 } from './others/graph-co2';
-import { ModalError } from './others/modal-error';
 import { LoaderSplashScreen } from './others/loader-splash-screen';
 import { ContactEmail } from './others/contact-email';
 import { Secured4Digits } from './others/secured-4digits';
@@ -98,7 +82,7 @@ import { TabCO2Split } from './tabs/co2-split';
 import { Tag } from './tags';
 // Texts
 import { ErrorMessage } from './texts/error-message';
-import { WhiteBalance } from './texts/white-balance';
+import { Balance } from './texts/balance';
 import { NoCO2 } from './texts/no-co2';
 
 export {
@@ -122,6 +106,7 @@ export {
   TouchEventCard,
   LongCard,
   CardScroller,
+  IPropsTouchEventCard,
   TransactionsCard,
   TouchCardKpi,
   TouchCardText,
@@ -131,6 +116,10 @@ export {
   ContactCard,
   // Charts
   StackedBars,
+  ScatterPlot,
+  LinePlot,
+  BarPlot,
+  DynamicBarPlot,
   // Checkboxes
   MultipleOptionsCheckBox,
   SimpleCheckBox,
@@ -138,39 +127,6 @@ export {
   Dropdown,
   CountryPicker,
   DateTimePicker,
-  // Forms
-  IBeneficiaryFormData,
-  IContactFormData,
-  ILoginFormData,
-  IResetPasswordFormData,
-  ISignupEmailFormData,
-  ISignupIdentityPasswordPhoneFormData,
-  ISignupValidatePhoneFormData,
-  ISignupBirthFormData,
-  ISignupAddressFormData,
-  ISignupPhoneFormData,
-  FormBeneficiary,
-  FormContact,
-  FormLogin,
-  FormResetPassword,
-  FormSignupEmail,
-  FormSignupIdentityPasswordPhone,
-  FormSignupValidatePhone,
-  FormSignupBirth,
-  FormSignupAddress,
-  FormSignupPhone,
-  FlyForm,
-  FoodForm,
-  HouseForm,
-  TransportForm,
-  FormTransfer,
-  ITransferFormData,
-  FormCardLimits,
-  ICardLimitsFormData,
-  FormChangePin,
-  IChangePinFormData,
-  FormUpdateIdentity,
-  IUpdateIdentityFormData,
   // Inputs
   TextInput,
   EmailInput,
@@ -190,7 +146,10 @@ export {
   BeneficiaryCardList,
   ContactCardList,
   TransactionsCardsList,
-  WhiteBalanceList,
+  BalanceList,
+  // Modals
+  ModalError,
+  ModalContent,
   // Others
   WebViewer,
   ShareScreen,
@@ -200,7 +159,6 @@ export {
   PdfDownloader,
   CopyValueClipboard,
   GraphCO2,
-  ModalError,
   LoaderSplashScreen,
   ContactEmail,
   Secured4Digits,
@@ -213,6 +171,6 @@ export {
   Tag,
   // Texts
   ErrorMessage,
-  WhiteBalance,
+  Balance,
   NoCO2,
 };

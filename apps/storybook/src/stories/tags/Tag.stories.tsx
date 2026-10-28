@@ -9,7 +9,7 @@ const meta = {
   component: Tag,
   args: {
     text: 'Non calculé',
-    color: Colors.bank.primary.lightGrey,
+    color: Colors.primary.lightGrey,
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING)],
 } as Meta<typeof Tag>;
@@ -18,9 +18,9 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const TwoColumns: Story = {
+export const Grey: Story = {
   args: {
     text: 'Non calculé',
-    color: Colors.bank.primary.lightGrey,
+    color: Colors.primary.lightGrey,
   },
 };

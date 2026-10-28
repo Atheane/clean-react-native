@@ -100,7 +100,7 @@ export const Kyc = () => {
 
   const Instructions = () => (
     <View style={[styles.messageContainer]}>
-      <Text style={[theme.bank.text.grey]}>
+      <Text style={[theme.text.grey]}>
         {documentsCount === 1
           ? t('screens.kyc.menu.instruction-before.singular')
           : t('screens.kyc.menu.instruction-before.plural')}
@@ -111,9 +111,9 @@ export const Kyc = () => {
   const KycPending = () => (
     <View style={[styles.messageContainer]}>
       <Image source={PendingKyc} style={{ width: 115, height: 115 }} />
-      <Text style={[styles.instruction, theme.bank.text.grey]}>
+      <Text style={[styles.instruction, theme.text.grey]}>
         {t('screens.kyc.menu.instruction-after.begin')}
-        <Text style={[styles.instruction, theme.bank.text.boldGrey]}>
+        <Text style={[styles.instruction, theme.text.boldGrey]}>
           {t('screens.kyc.menu.instruction-after.bold')}
         </Text>
         {t('screens.kyc.menu.instruction-after.end')}
@@ -123,7 +123,7 @@ export const Kyc = () => {
 
   const KycRefused = () => (
     <View style={[styles.messageContainer]}>
-      <Text style={[theme.bank.text.errors, styles.errorMessage, { lineHeight: 18, fontSize: 14 }]}>
+      <Text style={[theme.text.errors, styles.errorMessage, { lineHeight: 18, fontSize: 14 }]}>
         {`${t('errors.domain-error.kyc.KYC_REFUSED')}. \n\n`}
         {customer?.properties.kycReviewComment
           ? `${renderLabel(customer.properties.kycReviewComment)}. \n\n`
@@ -145,7 +145,7 @@ export const Kyc = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, theme.bank.container.centeredItem]}>
+        <View style={[styles.container, theme.container.centeredItem]}>
           {(customer?.properties.kyc?.state === IKycState.INIT ||
             customer?.properties.kyc?.state === IKycState.INCOMPLETE) && <Instructions />}
           {customer?.properties.kyc?.state === IKycState.PENDING && <KycPending />}

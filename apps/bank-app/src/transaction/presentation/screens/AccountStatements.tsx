@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 14,
     lineHeight: 19,
-    color: Colors.bank.primary.darkBlue,
+    color: Colors.primary.darkBlue,
     paddingVertical: 8,
   },
   boldText: {

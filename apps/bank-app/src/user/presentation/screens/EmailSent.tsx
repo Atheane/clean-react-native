@@ -40,7 +40,7 @@ export const EmailSent = () => {
             <Image style={{ width: 100, height: 100 }} source={IconMailCode} />
           </View>
           <View style={styles.textContainer}>
-            <Text style={[theme.bank.text.darkBlue, styles.text]}>{t('screens.email-sent.text')}</Text>
+            <Text style={[theme.text.darkBlue, styles.text]}>{t('screens.email-sent.text')}</Text>
           </View>
         </View>
       </SafeScrollingView>
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
   imageContainer: {
     marginTop: -160,

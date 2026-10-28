@@ -48,7 +48,7 @@ export const HeatingTypes: Story = {
       key,
       value: translations[value],
     })),
-    icon: () => <Flame style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />,
+    icon: () => <Flame style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />,
   },
 };
 
@@ -57,7 +57,7 @@ export const Departments: Story = {
     label: 'Departments',
     placeholder: 'Departments',
     data: sortedDeps,
-    icon: () => <Department style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />,
+    icon: () => <Department style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />,
   },
 };
 

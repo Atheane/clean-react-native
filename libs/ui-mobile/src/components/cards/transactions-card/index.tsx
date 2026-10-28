@@ -73,9 +73,9 @@ const TransactionIcons = {
 export const TransactionsCard = (props: IProps) => {
   const { theme } = useTheme();
   return (
-    <Card containerStyle={[theme.bank.container.card.long, theme.bank.shadow.card]}>
+    <Card containerStyle={[theme.container.card.long, theme.shadow.card]}>
       <View>
-        <Text style={theme.bank.text.boldDarkBlue}>{props.date}</Text>
+        <Text style={theme.text.boldDarkBlue}>{props.date}</Text>
       </View>
       <View style={styles.transactionsContainer}>
         {props.data.map((data: ITransaction, index: number) => {

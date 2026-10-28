@@ -27,18 +27,18 @@ export const DeleteAccount = () => {
       <SafeScrollingView>
         <View style={[styles.container, { height: HEIGHT }]}>
           <View style={styles.textContainer}>
-            <Text style={[theme.bank.text.darkBlue, styles.text]}>
+            <Text style={[theme.text.darkBlue, styles.text]}>
               {t('screens.parameters.delete-account.description')}
             </Text>
           </View>
-          <View style={[theme.bank.container.centeredItem, styles.button]}>
+          <View style={[theme.container.centeredItem, styles.button]}>
             <PrimaryButton
               title={t('screens.parameters.delete-account.button')}
               uppercase
               onPress={handleOnPress}
               loading={false}
               long
-              iconOne={Validate}
+              iconLeft={Validate}
             />
           </View>
         </View>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
   textContainer: {
     marginTop: 0,

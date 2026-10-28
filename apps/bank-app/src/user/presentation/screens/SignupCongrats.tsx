@@ -1,8 +1,12 @@
 import { useCallback } from 'react';
 import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 
+import { IDomainError } from '@clean-rn/ddd';
+import { IUserErrorCodes, IUserErrorMessage } from '@clean-rn/user/domain';
+import { Email } from '@clean-rn/auth/domain';
 import { PrimaryButton, FontNames, Colors, ErrorMessage, NEEDS_SMALL_TEXT } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
@@ -10,8 +14,6 @@ import { ISharedStackPages } from '../../../shared/presentation/types';
 import { applicationInitialized } from '../../../shared/application/commands/initialize-application';
 
 import { Congrats } from '../../presentation/assets/images';
-import { useNavigation } from '@react-navigation/native';
-import { Email } from '@clean-rn/auth/domain';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -63,7 +65,11 @@ export const SignupCongrats = () => {
             <Text style={styles.text}>{t('screens.signup-congrats.congrats')}</Text>
           </View>
           <View style={styles.errorContainer}>
-            <ErrorMessage error={error} />
+            <ErrorMessage
+              error={error as IDomainError<IUserErrorCodes, IUserErrorMessage>}
+              errorMessage={t(`errors.domain-error.user.${error?.code}`)}
+              genericErrorMessage={t('errors.other')}
+            />
           </View>
           <View style={styles.formSubmit}>
             <PrimaryButton
@@ -101,7 +107,7 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     textAlign: 'center',
     fontFamily: FontNames.MartelSans_400Regular,
-    color: Colors.bank.primary.grey,
+    color: Colors.primary.grey,
   },
   formSubmit: {
     marginTop: 100,

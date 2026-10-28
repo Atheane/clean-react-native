@@ -11,11 +11,7 @@ const meta = {
   component: ContactItem,
   args: {
     icon: () => (
-      <Love
-        width={23}
-        height={23}
-        style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
-      />
+      <Love width={23} height={23} style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
     ),
     name: 'Marie Dupond',
     phone: '0612345678',
@@ -30,11 +26,7 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: {
     icon: () => (
-      <Love
-        width={23}
-        height={23}
-        style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
-      />
+      <Love width={23} height={23} style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
     ),
     name: 'Marie Dupond',
     phone: '0612345678',
