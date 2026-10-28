@@ -4,6 +4,7 @@ export default {
   expo: {
     owner: '450',
     name: 'EnergyApp',
+    scheme: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.energy-app.app',
     slug: process.env.EXPO_PUBLIC_SLUG_NAME_ENERGY_APP,
     version: process.env.EXPO_PUBLIC_APP_VERSION,
     orientation: 'portrait',
@@ -53,7 +54,6 @@ export default {
       ],
     ],
   },
-  scheme: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.energy-app.app',
   extra: {
     eas: {
       projectId: process.env.EXPO_PUBLIC_PROJECT_ID || '618ed0ba-31a1-41c1-9877-eef3e8981f19',
