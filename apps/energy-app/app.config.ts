@@ -3,6 +3,7 @@ import 'dotenv/config';
 export default {
   expo: {
     name: 'EnergyApp',
+    owner: '450',
     slug: process.env.EXPO_PUBLIC_SLUG_NAME_ENERGY_APP,
     version: process.env.EXPO_PUBLIC_APP_VERSION,
     scheme: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.energy-app.app',
