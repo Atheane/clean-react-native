@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { SafeAreaView, StyleSheet, Image, AppState, AppStateStatus } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { I18nextProvider } from 'react-i18next';
@@ -24,7 +24,7 @@ const App: () => JSX.Element = () => {
     dispatch(initializeApplication());
   }, [dispatch]);
 
-  const [appState, setAppState] = useState<AppStateStatus>(AppState.currentState || 'unknown');
+  const [appState, setAppState] = React.useState<AppStateStatus>(AppState.currentState || 'unknown');
 
   useEffect(() => {
     const handleAppStateChange = (nextAppState: AppStateStatus) => {
