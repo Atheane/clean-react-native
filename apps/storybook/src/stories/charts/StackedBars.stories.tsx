@@ -103,3 +103,13 @@ export const YearlyConsumption: Story = {
     savings: savingsYear,
   },
 };
+
+export const NoData: Story = {
+  args: {
+    categories: [],
+    labels: [],
+    transport: [],
+    housing: [],
+    savings: [],
+  },
+};

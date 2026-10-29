@@ -17,10 +17,12 @@ import { SmallSwitchButton } from './buttons/small-switch-button';
 // Cards
 import { TouchEventCard } from './cards/touch-event-card';
 import { LongCard } from './cards/long-card';
+import { LongCardIcon } from './cards/long-card-icon';
 import { CardScroller, IPropsTouchEventCard } from './cards/card-scroller';
 import { TransactionsCard } from './cards/transactions-card';
 import { TouchCardKpi } from './cards/touch-card-kpi';
 import { TouchCardText } from './cards/touch-card-text';
+import { TouchCardCheck } from './cards/touch-card-check';
 import { UploadDocumentCard } from './cards/upload-document-card';
 import { TransferCard } from './cards/transfer-card';
 import { BeneficiaryCard } from './cards/beneficiary-card';
@@ -73,11 +75,14 @@ import { GraphCO2 } from './others/graph-co2';
 import { LoaderSplashScreen } from './others/loader-splash-screen';
 import { ContactEmail } from './others/contact-email';
 import { Secured4Digits } from './others/secured-4digits';
+import { StepsIndicator } from './others/steps-indicator';
 // Searchboxes
 import { SearchModal } from './searchboxes/search-modal';
+// Tables
+import { TableCO2Reward } from './tables/co2-reward';
+import { TableCO2Baseline } from './tables/co2-baseline';
 // Tabs
-import { TabCO2Reward } from './tabs/co2-reward';
-import { TabCO2Split } from './tabs/co2-split';
+import { Tabs } from './tabs';
 // Tags
 import { Tag } from './tags';
 // Texts
@@ -105,11 +110,13 @@ export {
   // Cards
   TouchEventCard,
   LongCard,
+  LongCardIcon,
   CardScroller,
   IPropsTouchEventCard,
   TransactionsCard,
   TouchCardKpi,
   TouchCardText,
+  TouchCardCheck,
   UploadDocumentCard,
   TransferCard,
   BeneficiaryCard,
@@ -162,11 +169,14 @@ export {
   LoaderSplashScreen,
   ContactEmail,
   Secured4Digits,
+  StepsIndicator,
   // Searchboxes
   SearchModal,
+  // Tables
+  TableCO2Reward,
+  TableCO2Baseline,
   // Tabs
-  TabCO2Reward,
-  TabCO2Split,
+  Tabs,
   // Tags
   Tag,
   // Texts

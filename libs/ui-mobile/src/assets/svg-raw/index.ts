@@ -151,6 +151,17 @@ import FlagForGermany from './flag-for-germany.svg';
 import FlagForSpain from './flag-for-spain.svg';
 import FlagForGreece from './flag-for-greece.svg';
 import FlagForUK from './flag-for-united-kingdom.svg';
+import StepEmpty from './step-empty.svg';
+import StepCurrent from './step-current.svg';
+import StepDone from './step-done.svg';
+import StepsConnector from './steps-connector.svg';
+import HouseGradient from './house-gradient.svg';
+import HeatGradient from './heat-gradient.svg';
+import CarGradient from './car-gradient.svg';
+import FamilyGradient from './family-gradient.svg';
+import FullChecked from './full-checked.svg';
+import CarbonRewardGrey from './carbon-reward-grey.svg';
+import CarbonRewardGreen from './carbon-reward-green.svg';
 export {
   FlagForFrance,
   FlagForItaly,
@@ -305,4 +316,15 @@ export {
   BankBuildingBlueGradient,
   PortofolioBlueGradient,
   ShareIcon,
+  StepEmpty,
+  StepCurrent,
+  StepDone,
+  StepsConnector,
+  HouseGradient,
+  HeatGradient,
+  CarGradient,
+  FamilyGradient,
+  FullChecked,
+  CarbonRewardGrey,
+  CarbonRewardGreen,
 };

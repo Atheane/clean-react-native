@@ -59,22 +59,19 @@ export const ErrorMessage = (props: IProps) => {
             <Text style={theme.text.errors}>{firstLetterCapitalize(props.errorMessage)}</Text>
           </View>
         )}
-      {props.error &&
-        props.error.code &&
+      {props.error?.code &&
         Object.values(IBeneficiaryErrorCodes).includes(props.error.code as IBeneficiaryErrorCodes) && (
           <View>
             <Text style={theme.text.errors}>{firstLetterCapitalize(props.errorMessage)}</Text>
           </View>
         )}
-      {props.error &&
-        props.error.code &&
+      {props.error?.code &&
         Object.values(IContactErrorCodes).includes(props.error.code as IContactErrorCodes) && (
           <View>
             <Text style={theme.text.errors}>{firstLetterCapitalize(props.errorMessage)}</Text>
           </View>
         )}
-      {props.error &&
-        props.error.code &&
+      {props.error?.code &&
         Object.values(ICarbonErrorCodes).includes(props.error.code as ICarbonErrorCodes) && (
           <View>
             <Text style={theme.text.errors}>{firstLetterCapitalize(props.errorMessage)}</Text>

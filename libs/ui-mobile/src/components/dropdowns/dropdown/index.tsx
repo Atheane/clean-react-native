@@ -68,7 +68,9 @@ export const Dropdown = (props: IProps) => {
             styles.buttonContainer,
             props.short
               ? { width: props.shortWidth ?? 100 }
-              : { width: Dimensions.get('window').width * 0.65 },
+              : props.icon
+                ? { width: Dimensions.get('window').width * 0.65 }
+                : { width: Dimensions.get('window').width * 0.85 },
           ]}
           rowTextForSelection={(item: IData) => item.value}
           buttonTextStyle={theme.text.input}

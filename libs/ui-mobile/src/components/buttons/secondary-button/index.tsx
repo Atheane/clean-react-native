@@ -19,7 +19,14 @@ type IProps = {
 
 export const SecondaryButton: FC<IProps> = (props: IProps) => {
   const { theme } = useTheme();
-  const renderLabel = (text: string) => (text.length < 18 ? `${text}` : `${text}`.slice(0, 15) + '...');
+  const renderLabel = (text: string) =>
+    props.long
+      ? text.length < 26
+        ? text
+        : `${text}`.slice(0, 23) + '...'
+      : text.length < 18
+        ? text
+        : `${text}`.slice(0, 15) + '...';
 
   return (
     <View

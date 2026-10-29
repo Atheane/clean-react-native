@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { TabCO2Reward } from '@clean-rn/ui-mobile';
+import { TableCO2Reward } from '@clean-rn/ui-mobile';
 
-import { WithStatus, ValidationStatus } from '../../wrappers';
+import { WithStatus, ValidationStatus, WithScroll } from '../../wrappers';
 
 const meta = {
-  title: 'Tabs/CO2Reward',
-  component: TabCO2Reward,
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING)],
-} as Meta<typeof TabCO2Reward>;
+  title: 'Tables/TableCO2Reward',
+  component: TableCO2Reward,
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING), WithScroll],
+} as Meta<typeof TableCO2Reward>;
 
 export default meta;
 
@@ -47,12 +47,23 @@ const { tableHead, tableData, rowLabels } = {
   ],
   rowLabels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 };
-export const FourColumns: Story = {
+
+export const ThreeColumns: Story = {
   args: {
     tableHead,
     tableData,
     rowLabels,
     buttonTitle: 'Add data',
     tagText: 'N.A',
+  },
+};
+
+export const NoData: Story = {
+  args: {
+    tableHead: ['Prime CO2', 'Emissions'],
+    tableData: [['N.A']],
+    rowLabels: ['2024', '2023', '2022', '2021'],
+    buttonTitle: 'Add data',
+    tagText: '',
   },
 };

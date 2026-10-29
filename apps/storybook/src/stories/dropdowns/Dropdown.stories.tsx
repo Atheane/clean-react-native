@@ -75,3 +75,24 @@ export const MultilineShortDropdown: Story = {
     data: accounts,
   },
 };
+
+export const NoIcon: Story = {
+  args: {
+    label: 'Label',
+    placeholder: 'Select',
+    data: [
+      {
+        key: 'key1',
+        value: 'value1',
+      },
+      {
+        key: 'key2',
+        value: 'value2',
+      },
+      {
+        key: 'key3',
+        value: 'value3',
+      },
+    ],
+  },
+};
