@@ -17,6 +17,8 @@ import W9 from './w9.png';
 import W9Disabled from './w9-disabled.png';
 import BankLogoCA from './bank-logo-ca.png';
 import BankLogoCO2 from './bank-logo.png';
+import NoContact from './no-contact.png';
+import NoBeneficiary from './no-beneficiary.png';
 export {
   HeaderBad,
   HeaderChampion,
@@ -35,4 +37,6 @@ export {
   W9Disabled,
   BankLogoCA,
   BankLogoCO2,
+  NoContact,
+  NoBeneficiary,
 };

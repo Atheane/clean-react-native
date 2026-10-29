@@ -142,7 +142,11 @@
         "INVALID_HOUSE_PROPS": "Propriétés de maison invalides",
         "INVALID_TRANSPORT_PROPS": "Propriétés de transport invalides",
         "INVALID_FOOD_PROPS": "Propriétés alimentaires invalides",
-        "INVALID_FLY_PROPS": "Propriétés de vol invalides"
+        "INVALID_FLY_PROPS": "Propriétés de vol invalides",
+        "MISSING_HEATER_TYPE": "Le type de chauffage est requis",
+        "MISSING_PREVIOUS_HEATER_TYPE": "Le type de chauffage est requis",
+        "MISSING_HEATER_INSTALLATION_YEAR": "La date d'installation est requise",
+        "MISSING_HEATER": "Le chauffage est requis"
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Documents pour validation du dossier manquants",
@@ -371,6 +375,7 @@
       "title": "Gérer mes bénéficiaires",
       "bank": "Banque",
       "contacts": "Contacts",
+      "beneficiaries": "Bénéficiaires",
       "add-beneficiary": "Ajouter",
       "new-beneficiary": {
         "title": "Ajouter un bénéficiaire",
@@ -435,8 +440,76 @@
       "title": "Virement",
       "button": "Retour à l'accueil"
     },
-    "carbon": {
+    "menu-carbon": {
       "title": "Mon bilan carbone",
+      "2min": "Mon bilan carbone en 2 min",
+      "my-reward": "Ma prime CO2",
+      "reward": "Prime CO2",
+      "emissions": "Emissions",
+      "evolution": "Evolution de mes émissions",
+      "link": "Combien puis-je recevoir ?",
+      "receive": "Recevoir ma prime",
+      "na": "Non calculée"
+    },
+    "menu-primeum": {
+      "title": "Ma prime CO2",
+      "step-one": "Situation",
+      "step-two": "Justificatifs",
+      "step-three": "Suivi",
+      "instruction": "Remplissez les formulaires ci-dessous, cela nous permet d’évaluer le montant de votre prime en créant votre ",
+      "ref-year": "année de référence.",
+      "heat": "Chauffage",
+      "works": "Travaux",
+      "transport": "Transport",
+      "household": "Foyer"
+    },
+    "heat-primeum": {
+      "title": "Ma prime CO2",
+      "subtitle": "Mon chauffage",
+      "step-one": "Situation",
+      "step-two": "Justificatifs",
+      "step-three": "Suivi",
+      "heater": "Type de chauffage",
+      "placeholder": "Sélectionner",
+      "dropdown-heat-type": {
+        "electric": "Electricité",
+        "coal": "Charbon",
+        "gas": "Gaz de ville",
+        "fuelOil": "Fioul domestique",
+        "urban": "Réseau de chaleur urbain",
+        "wood": "Bois",
+        "heatPump": "Pompe à chaleur",
+        "thermalSolar": "Solaire thermique",
+        "propane": "Propane"
+      },
+      "dropdown-years": {
+        "before-2010": "Avant 2010"
+      },
+      "instruction-heat-type": "Aujourd’hui, comment chauffez-vous votre logement ?",
+      "instruction-heat-type-installation-date": "Ce chauffage est installé dans le logement depuis :",
+      "instruction-heat-type-before": "Type de chauffage avant",
+      "instruction-sanitary-heat-type": "Aujourd’hui, votre eau chaude sanitaire est produite de quelle façon ?",
+      "instruction-sanitary-heat-installation-date": "Le chauffage de l'eau chaude sanitaire est installé depuis :",
+      "instruction-sanitary-heat-type-before": "Type d'au chaude sanitaire avant",
+      "instruction-secondary-heat-type": "Si votre logement possède un chauffage secondaire, indiquez le type de chauffage."
+    },
+    "works-primeum": {
+      "title": "Ma prime CO2"
+    },
+    "transport-primeum": {
+      "title": "Ma prime CO2"
+    },
+    "household-primeum": {
+      "title": "Ma prime CO2"
+    },
+    "evolution": {
+      "title": "Évolution de mes émissions",
+      "na": "Non calculée",
+      "receive": "Recevoir ma prime",
+      "baseline": "Emissions de référence"
+    },
+    "carbon": {
+      "title": "Mon bilan carbone en 2 min",
       "tab": "Bilan CO2",
       "instruction": "Appuyer sur une catégorie pour démarrer",
       "zero-carbon": "0 tC02",

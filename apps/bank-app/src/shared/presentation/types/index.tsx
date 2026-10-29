@@ -83,6 +83,11 @@ export type ICarbonStackParamList = {
   Food: undefined;
   Fly: undefined;
   WarningFood: undefined;
+  MenuPrimeum: undefined;
+  HeatersForm: undefined;
+  WorksForm: undefined;
+  TransportsForm: undefined;
+  HouseholdForm: undefined;
 };
 
 export type IKycStackParamList = {
@@ -194,12 +199,18 @@ export enum IBeneficiaryStackPages {
 
 export enum ICarbonStackPages {
   MENU = 'MenuCarbon',
+  EVOLUTION = 'EvolutionCarbon',
   CARBON = 'Carbon',
   HOUSE = 'House',
   TRANSPORT = 'Transport',
   FOOD = 'Food',
   FLY = 'Fly',
   WARNING_FOOD = 'WarningFood',
+  MENU_PRIMEUM = 'MenuPrimeum',
+  HEATERS_FORM = 'HeatersForm',
+  WORKS_FORM = 'WorksForm',
+  TRANSPORTS_FORM = 'TransportsForm',
+  HOUSEHOLD_FORM = 'HouseholdForm',
 }
 
 export enum IKycStackPages {
@@ -287,12 +298,18 @@ export type ITransactionStackProps = {
 
 export type ICarbonStackProps = {
   [ICarbonStackPages.MENU]: object;
+  [ICarbonStackPages.EVOLUTION]: object;
   [ICarbonStackPages.CARBON]: object;
   [ICarbonStackPages.HOUSE]: object;
   [ICarbonStackPages.TRANSPORT]: object;
   [ICarbonStackPages.FOOD]: object;
   [ICarbonStackPages.FLY]: object;
   [ICarbonStackPages.WARNING_FOOD]: object;
+  [ICarbonStackPages.MENU_PRIMEUM]: object;
+  [ICarbonStackPages.HEATERS_FORM]: object;
+  [ICarbonStackPages.WORKS_FORM]: object;
+  [ICarbonStackPages.TRANSPORTS_FORM]: object;
+  [ICarbonStackPages.HOUSEHOLD_FORM]: object;
 };
 
 export type IKycStackProps = {
@@ -371,12 +388,18 @@ export type IRoutes =
   | ITransactionStackPages.ACCOUNT_STATEMENTS
   | ITransactionStackPages.ACCOUNT_STATEMENTS_PDF
   | ICarbonStackPages.MENU
+  | ICarbonStackPages.EVOLUTION
   | ICarbonStackPages.CARBON
   | ICarbonStackPages.HOUSE
   | ICarbonStackPages.TRANSPORT
   | ICarbonStackPages.FOOD
   | ICarbonStackPages.FLY
   | ICarbonStackPages.WARNING_FOOD
+  | ICarbonStackPages.MENU_PRIMEUM
+  | ICarbonStackPages.HEATERS_FORM
+  | ICarbonStackPages.WORKS_FORM
+  | ICarbonStackPages.TRANSPORTS_FORM
+  | ICarbonStackPages.HOUSEHOLD_FORM
   | IKycStackPages.MENU
   | IKycStackPages.INIT
   | IKycStackPages.KYC

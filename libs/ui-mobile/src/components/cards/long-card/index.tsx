@@ -23,12 +23,12 @@ export const LongCard = (props: IProps) => {
       activeOpacity={0.4}
       style={[theme.shadow.card, theme.container.card.long, { justifyContent: 'center' }]}
     >
-      <View>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <View style={styles.textContainer}>
           <Text style={theme.text.cyan}>{props.text}</Text>
         </View>
         {props.icon && (
-          <View style={[styles.iconContainer, { top: 8, right: 22 }]}>
+          <View style={styles.chevronContainer}>
             <props.icon />
           </View>
         )}
@@ -57,6 +57,11 @@ const styles = StyleSheet.create({
   },
   rowContainer: {
     marginLeft: 16,
+  },
+  chevronContainer: {
+    flex: 1,
+    alignItems: 'flex-end',
+    marginRight: 20,
   },
   textContainer: { marginLeft: 30, marginVertical: 14 },
   iconContainer: { position: 'absolute', right: 12 },

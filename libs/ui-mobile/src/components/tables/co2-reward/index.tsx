@@ -12,7 +12,7 @@ type IProps = {
   tagText: string;
 };
 
-export const TabCO2Reward = (props: IProps) => {
+export const TableCO2Reward = (props: IProps) => {
   return (
     <View style={styles.container}>
       <View style={[styles.row, styles.headerRow]}>
@@ -62,7 +62,6 @@ export const TabCO2Reward = (props: IProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
     paddingTop: 30,
     backgroundColor: Colors.primary.white,
   },

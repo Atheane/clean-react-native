@@ -152,6 +152,17 @@ import {
   FlagForSpain,
   FlagForGreece,
   FlagForUK,
+  StepEmpty,
+  StepCurrent,
+  StepDone,
+  StepsConnector,
+  HouseGradient,
+  HeatGradient,
+  CarGradient,
+  FamilyGradient,
+  FullChecked,
+  CarbonRewardGreen,
+  CarbonRewardGrey,
 } from './svg-raw';
 import { Loader } from './lottie';
 export {
@@ -309,5 +320,16 @@ export {
   FlagForSpain,
   FlagForGreece,
   FlagForUK,
+  StepEmpty,
+  StepCurrent,
+  StepDone,
+  StepsConnector,
+  HouseGradient,
+  HeatGradient,
+  CarGradient,
+  FamilyGradient,
+  FullChecked,
+  CarbonRewardGreen,
+  CarbonRewardGrey,
 };
 export * from './svg';

@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     margin: '10%',
   },
   iconContainer: {
-    marginTop: 6,
+    marginBottom: 6,
   },
   text: {
     fontSize: 14,
