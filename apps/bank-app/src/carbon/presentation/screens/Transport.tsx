@@ -1,16 +1,16 @@
-import { View, StyleSheet, StyleProp, ViewStyle, Dimensions } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { VehicleConsumptionT } from '@bank/carbon-weight/dist';
 
-import { useTransportFormData, TransportForm, PrimaryButton, CO2, Colors } from '@clean-rn/ui-mobile';
+import { PrimaryButton, CO2, Colors } from '@clean-rn/ui-mobile';
+import { TransportForm } from '../forms';
+import { useTransportFormData } from '../hooks';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 import { computeTransportEmissions } from '../../application/commands';
-
-const HEIGHT = Dimensions.get('window').height;
 
 export const Transport = () => {
   const { t } = useTranslation();
@@ -36,9 +36,9 @@ export const Transport = () => {
             <PrimaryButton
               title={t('screens.carbon.compute')}
               onPress={handleOnPress}
-              iconOne={() => (
+              iconLeft={() => (
                 <View style={{ height: 23, justifyContent: 'center' }}>
-                  <CO2 style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+                  <CO2 style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
                 </View>
               )}
               long
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     marginTop: 50,
-    marginBottom: 300,
+    marginBottom: 400,
   },
   buttonContainer: {
     marginTop: 140,

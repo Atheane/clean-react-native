@@ -1,14 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { TabCO2Split } from '@clean-rn/ui-mobile';
+import { TableCO2Split } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus } from '../../wrappers';
 
 const meta = {
   title: 'Tabs/CO2Split',
-  component: TabCO2Split,
+  component: TableCO2Split,
   decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING)],
-} as Meta<typeof TabCO2Split>;
+  argTypes: {
+    onPress: { action: 'onPress' },
+  },
+} as Meta<typeof TableCO2Split>;
 
 export default meta;
 

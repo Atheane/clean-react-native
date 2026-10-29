@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 
 import { useTranslation } from 'react-i18next';
 
-import { FormCardLimits, ICardLimitsFormData } from '@clean-rn/ui-mobile';
+import { FormCardLimits, ICardLimitsFormData } from '../forms';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 

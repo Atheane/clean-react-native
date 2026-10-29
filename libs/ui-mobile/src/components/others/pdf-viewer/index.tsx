@@ -45,7 +45,7 @@ export const PdfViewer = (props: IProps) => {
           handleGetPdf(pdfPath);
         }}
         renderActivityIndicator={() => (
-          <LinearProgress value={progress} color={Colors.bank.primary.darkGreen} style={styles.progress} />
+          <LinearProgress value={progress} color={Colors.primary.darkGreen} style={styles.progress} />
         )}
       />
     </View>

@@ -14,6 +14,8 @@ const meta = {
   },
   args: {
     secured: true,
+    placeholder: 'your password',
+    label: 'Password',
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 } as Meta<typeof PasswordInput>;

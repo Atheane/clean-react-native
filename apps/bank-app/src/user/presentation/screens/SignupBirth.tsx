@@ -6,12 +6,13 @@ import { useForm } from 'react-hook-form';
 import dayjs from 'dayjs';
 import { useTheme } from '@rneui/themed';
 
-import { FormSignupBirth, ISignupBirthFormData, useCleanErrorOnFocus, Colors } from '@clean-rn/ui-mobile';
+import { useCleanErrorOnFocus, Colors } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
 import { registerBirth } from '../../application/commands';
+import { FormSignupBirth, ISignupBirthFormData } from '../forms';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -49,7 +50,7 @@ export const SignupBirth = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, theme.bank.container.centeredItem]}>
+        <View style={[styles.container, theme.container.centeredItem]}>
           <FormSignupBirth
             control={control}
             errors={errors}
@@ -68,6 +69,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: HEIGHT,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
 });

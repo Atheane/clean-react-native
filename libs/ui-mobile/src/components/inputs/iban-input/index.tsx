@@ -33,7 +33,7 @@ export const IbanInput: React.FC<IProps> = (props: IProps) => {
       value={value}
       onChange={handleChange}
       numeric={false}
-      customInputStyle={[theme.bank.text.input, styles.customTextStyle]}
+      customInputStyle={[theme.text.input, styles.customTextStyle]}
     />
   );
 };

@@ -14,7 +14,7 @@ import {
   TopBackground,
   CopyValueClipboard,
   TransactionsCardsList,
-  WhiteBalance,
+  Balance,
   Colors,
   FontNames,
   LoaderSplashScreen,
@@ -37,7 +37,13 @@ const Top = ({ currentAccount }: { currentAccount?: IAccount }) => {
   return (
     <View style={styles.row}>
       <View style={styles.whiteBalance}>
-        {currentAccount && <WhiteBalance account={currentAccount} title={t('screens.account.balance')} />}
+        {currentAccount && (
+          <Balance
+            value={currentAccount.authorizedBalance}
+            title={t('screens.account.balance')}
+            color={Colors.primary.white}
+          />
+        )}
       </View>
       <View style={styles.pdf}>
         <LinkButton onPress={handleOnPressPdf} iconRight={ExportPdf} colorOption={LinkButtonColors.WHITE} />
@@ -54,7 +60,7 @@ const ContentNoTransactions = ({ currentAccount }: { currentAccount?: IAccount }
     <ScrollView contentContainerStyle={styles.scrollNoTransactions} showsVerticalScrollIndicator={false}>
       <Image source={Oups} style={styles.oupsImage} />
       <View style={styles.textContainer}>
-        <Text style={theme.bank.text.darkBlue}>{t('screens.account.oups')}</Text>
+        <Text style={theme.text.darkBlue}>{t('screens.account.oups')}</Text>
       </View>
       {currentAccount && (
         <View>
@@ -120,7 +126,7 @@ const OUPS_SIZE = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
   top: {
     position: 'absolute',
@@ -156,7 +162,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.8,
     fontSize: 22,
     fontFamily: FontNames.Roboto_400Regular,
-    color: Colors.bank.primary.darkBlue,
+    color: Colors.primary.darkBlue,
     textAlign: 'center',
     lineHeight: 29,
   },

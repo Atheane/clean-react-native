@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { CardScroller } from '@clean-rn/ui-mobile';
 import { LoanHeater } from '../../../assets/images';
+import { CardCarbonFootPrint } from '../../../assets/svg';
 
 import { WithStatus, ValidationStatus } from '../../wrappers';
 
@@ -19,7 +20,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const CardScrollerWithDelete: Story = {
+export const CardScrollerImgWithDelete: Story = {
   args: {
     data: [
       { image: LoanHeater, text: 'bla1', uid: 'ajkzhrei1' },
@@ -31,11 +32,11 @@ export const CardScrollerWithDelete: Story = {
       { image: LoanHeater, text: 'bla7', uid: 'ajkzhrei7' },
       { image: LoanHeater, text: 'bla8', uid: 'ajkzhrei8' },
     ],
-    height: 200,
+    height: 300,
   },
 };
 
-export const CardScrollerNoDelete: Story = {
+export const CardScrollerImgNoDelete: Story = {
   args: {
     data: [
       { image: LoanHeater, text: 'bla1', uid: 'ajkzhrei1' },
@@ -47,7 +48,40 @@ export const CardScrollerNoDelete: Story = {
       { image: LoanHeater, text: 'bla7', uid: 'ajkzhrei7' },
       { image: LoanHeater, text: 'bla8', uid: 'ajkzhrei8' },
     ],
-    height: 200,
+    height: 300,
+    onDelete: undefined,
+  },
+};
+
+export const CardScrollerIconWithDelete: Story = {
+  args: {
+    data: [
+      { icon: CardCarbonFootPrint, text: 'bla1', uid: 'ajkzhrei1' },
+      { icon: CardCarbonFootPrint, text: 'bla2', uid: 'ajkzhrei2' },
+      { icon: CardCarbonFootPrint, text: 'bla3', uid: 'ajkzhrei3' },
+      { icon: CardCarbonFootPrint, text: 'bla4', uid: 'ajkzhrei4' },
+      { icon: CardCarbonFootPrint, text: 'bla5', uid: 'ajkzhrei5' },
+      { icon: CardCarbonFootPrint, text: 'bla6', uid: 'ajkzhrei6' },
+      { icon: CardCarbonFootPrint, text: 'bla7', uid: 'ajkzhrei7' },
+      { icon: CardCarbonFootPrint, text: 'bla8', uid: 'ajkzhrei8' },
+    ],
+    height: 300,
+  },
+};
+
+export const CardScrollerIconNoDelete: Story = {
+  args: {
+    data: [
+      { icon: CardCarbonFootPrint, text: 'bla1', uid: 'ajkzhrei1' },
+      { icon: CardCarbonFootPrint, text: 'bla2', uid: 'ajkzhrei2' },
+      { icon: CardCarbonFootPrint, text: 'bla3', uid: 'ajkzhrei3' },
+      { icon: CardCarbonFootPrint, text: 'bla4', uid: 'ajkzhrei4' },
+      { icon: CardCarbonFootPrint, text: 'bla5', uid: 'ajkzhrei5' },
+      { icon: CardCarbonFootPrint, text: 'bla6', uid: 'ajkzhrei6' },
+      { icon: CardCarbonFootPrint, text: 'bla7', uid: 'ajkzhrei7' },
+      { icon: CardCarbonFootPrint, text: 'bla8', uid: 'ajkzhrei8' },
+    ],
+    height: 300,
     onDelete: undefined,
   },
 };

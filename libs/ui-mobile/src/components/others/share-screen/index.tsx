@@ -1,19 +1,18 @@
 import { useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import ViewShot from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing'; // Import expo-sharing
-
+import { ShareIcon } from '../../../assets';
 import { PrimaryButton } from '../../buttons/primary-button';
 
 type IProps = {
   children: React.ReactElement;
   message: string;
   handleError: (error: unknown) => void;
+  buttonTitle: string;
 };
 
-export const ShareScreen = ({ children, handleError, message }: IProps) => {
-  const { t } = useTranslation();
+export const ShareScreen = ({ children, handleError, message, buttonTitle }: IProps) => {
   const viewShot = useRef<ViewShot | null>(null);
 
   const shareImage = async (uri: string) => {
@@ -51,7 +50,7 @@ export const ShareScreen = ({ children, handleError, message }: IProps) => {
       </ViewShot>
 
       <View style={styles.buttonContainer}>
-        <PrimaryButton title={t('button.share')} onPress={captureAndShareScreenshot} long />
+        <PrimaryButton title={buttonTitle} onPress={captureAndShareScreenshot} long iconLeft={ShareIcon} />
       </View>
     </View>
   );

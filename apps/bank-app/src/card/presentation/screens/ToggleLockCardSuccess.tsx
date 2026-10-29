@@ -30,10 +30,10 @@ export const ToggleLockCardSuccess = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, theme.bank.container.centeredItem]}>
+        <View style={[styles.container, theme.container.centeredItem]}>
           <Image source={Success} style={{ width: 250, height: 250 }} />
           <View style={styles.rowContainer}>
-            <Text style={[styles.instruction, theme.bank.text.grey, { fontSize: 16 }]}>
+            <Text style={[styles.instruction, theme.text.grey, { fontSize: 16 }]}>
               {card?.properties.status === ICardStatuses.LOCK
                 ? t('screens.card.toggle-lock-success.lock')
                 : t('screens.card.toggle-lock-success.unlock')}
@@ -44,7 +44,7 @@ export const ToggleLockCardSuccess = () => {
               title={t('screens.card.toggle-lock-success.ok')}
               long
               uppercase
-              iconOne={Validate}
+              iconLeft={Validate}
               onPress={handleOnPress}
             />
           </View>

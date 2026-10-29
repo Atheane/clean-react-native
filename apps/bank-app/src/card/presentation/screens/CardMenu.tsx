@@ -39,12 +39,14 @@ export const CardMenu = () => {
           </View>
           {error && error instanceof CardError.Forbidden && (
             <View style={styles.contactEmailContainer}>
-              <Text style={[styles.instruction, theme.bank.text.grey, { fontSize: 14, textAlign: 'center' }]}>
+              <Text style={[styles.instruction, theme.text.grey, { fontSize: 14, textAlign: 'center' }]}>
                 {t('screens.card.menu.unavailable-card')}
               </Text>
               <ContactEmail
                 subject={t('contact-email.subject.unavailable-card')}
                 body={t('contact-email.body.unavailable-card')}
+                label={t('contact-email.label')}
+                co2={t('contact-email.co2')}
               />
             </View>
           )}

@@ -44,7 +44,7 @@ export const DigitsInput = (props: Props) => {
         : styles.inputContainer;
     return (
       <View key={idx} style={containerStyle}>
-        <Text style={theme.bank.text.inputNumber}>{digit}</Text>
+        <Text style={theme.text.inputNumber}>{digit}</Text>
       </View>
     );
   };
@@ -59,10 +59,7 @@ export const DigitsInput = (props: Props) => {
 
   return (
     <SafeAreaView>
-      <Pressable
-        style={[styles.inputsContainer, theme.bank.container.justifiedItems]}
-        onPress={handleOnPress}
-      >
+      <Pressable style={[styles.inputsContainer, theme.container.justifiedItems]} onPress={handleOnPress}>
         {codeDigitsArray.map(toDigitInput)}
       </Pressable>
       <TextInput
@@ -85,20 +82,20 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: 43,
     height: 56,
-    backgroundColor: Colors.bank.primary.lightGrey,
+    backgroundColor: Colors.primary.lightGrey,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: Colors.bank.primary.grey,
+    borderColor: Colors.primary.grey,
     padding: Platform.OS === 'ios' ? 8 : 5,
     marginHorizontal: 7,
   },
   inputContainerFocused: {
     width: 43,
     height: 56,
-    backgroundColor: Colors.bank.primary.lightGrey,
+    backgroundColor: Colors.primary.lightGrey,
     borderRadius: 4,
     borderWidth: 2,
-    borderColor: Colors.bank.secondary.pink,
+    borderColor: Colors.secondary.pink,
   },
   inputsContainer: {
     width: '50%',

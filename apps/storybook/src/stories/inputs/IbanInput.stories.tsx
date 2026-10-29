@@ -31,11 +31,7 @@ export const TextPinkLabel: Story = {
     label: 'Label',
     lowerCase: false,
     IconLeft: () => (
-      <Love
-        width={27}
-        height={27}
-        style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
-      />
+      <Love width={27} height={27} style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
     ),
     short: false,
   },
@@ -44,14 +40,10 @@ export const TextPinkLabel: Story = {
 export const TextGreyLabel: Story = {
   args: {
     label: 'Label',
-    labelColor: Colors.bank.primary.grey,
+    labelColor: Colors.primary.grey,
     lowerCase: false,
     IconLeft: () => (
-      <Love
-        width={27}
-        height={27}
-        style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>}
-      />
+      <Love width={27} height={27} style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
     ),
     short: false,
   },

@@ -66,17 +66,17 @@ export const NotificationSettings = () => {
           <View style={styles.iconContainer}>
             <BlueBell />
           </View>
-          <View style={[styles.container, theme.bank.container.centeredItem]}>
+          <View style={[styles.container, theme.container.centeredItem]}>
             <View style={styles.rowContainer}>
-              <Text style={[theme.bank.text.darkBlue]}>{t('screens.notifications.payment')}</Text>
+              <Text style={[theme.text.darkBlue]}>{t('screens.notifications.payment')}</Text>
               <SmallSwitchButton checked={paymentChecked} onToggle={handleTogglePayment} />
             </View>
             <View style={styles.rowContainer}>
-              <Text style={[theme.bank.text.darkBlue]}>{t('screens.notifications.transfer')}</Text>
+              <Text style={[theme.text.darkBlue]}>{t('screens.notifications.transfer')}</Text>
               <SmallSwitchButton checked={transferChecked} onToggle={handleToggleTransfer} />
             </View>
             <View style={styles.rowContainer}>
-              <Text style={[theme.bank.text.darkBlue]}>{t('screens.notifications.threshold')}</Text>
+              <Text style={[theme.text.darkBlue]}>{t('screens.notifications.threshold')}</Text>
               <SmallSwitchButton checked={thresholdChecked} onToggle={handleToggleThreshold} />
             </View>
             <View style={styles.buttonContainer}>

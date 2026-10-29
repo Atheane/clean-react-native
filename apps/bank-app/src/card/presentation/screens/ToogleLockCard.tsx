@@ -33,10 +33,10 @@ export const ToggleLockCard = () => {
       <SafeScrollingView>
         <View style={[styles.container, { height: HEIGHT }]}>
           <View style={styles.rowContainer}>
-            <Text style={[theme.bank.text.darkBlue]}>{t('screens.card.toggle-lock.instruction')}</Text>
+            <Text style={[theme.text.darkBlue]}>{t('screens.card.toggle-lock.instruction')}</Text>
           </View>
           <View style={styles.rowContainer}>
-            <Text style={[theme.bank.text.darkBlue]}>{t('screens.card.toggle-lock.lock')}</Text>
+            <Text style={[theme.text.darkBlue]}>{t('screens.card.toggle-lock.lock')}</Text>
             <SmallSwitchButton checked={isLocked} onToggle={handleToggleCard} />
           </View>
           <View style={styles.buttonContainer}>

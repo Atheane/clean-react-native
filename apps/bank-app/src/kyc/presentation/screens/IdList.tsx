@@ -62,9 +62,9 @@ export const IdList = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, theme.bank.container.centeredItem]}>
+        <View style={[styles.container, theme.container.centeredItem]}>
           <View style={[styles.titleContainer]}>
-            <Text style={[theme.bank.text.boldDarkBlue, styles.title]}>
+            <Text style={[theme.text.boldDarkBlue, styles.title]}>
               {t('screens.kyc.first-id.instruction')}
             </Text>
           </View>

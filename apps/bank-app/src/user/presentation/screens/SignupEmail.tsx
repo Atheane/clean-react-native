@@ -10,8 +10,6 @@ import {
   LinkButton,
   Colors,
   LinkButtonColors,
-  FormSignupEmail,
-  ISignupEmailFormData,
   useCleanErrorOnFocus,
   SubmitButton,
   NEEDS_SMALL_TEXT,
@@ -25,6 +23,7 @@ import { ISharedStackPages } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
 import { fetchSearchEmail } from '../../application/commands';
+import { FormSignupEmail, ISignupEmailFormData } from '../forms';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -85,10 +84,10 @@ export const SignupEmail = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, theme.bank.container.centeredItem]}>
+        <View style={[styles.container, theme.container.centeredItem]}>
           <Image style={styles.image} source={Welcome} />
           <View style={styles.textContainer}>
-            <Text style={[theme.bank.text.darkBlue, styles.text]}>{t('signup-email.text')}</Text>
+            <Text style={[theme.text.darkBlue, styles.text]}>{t('signup-email.text')}</Text>
           </View>
           <FormSignupEmail
             control={control}
@@ -112,21 +111,21 @@ export const SignupEmail = () => {
               arrow={false}
               colorOption={LinkButtonColors.BLUE}
               onPress={onPressLegal}
-              inline={{ fontSize: NEEDS_SMALL_TEXT ? 12 : 15, color: Colors.bank.primary.darkBlue }}
+              inline={{ fontSize: NEEDS_SMALL_TEXT ? 12 : 15, color: Colors.primary.darkBlue }}
             />
             <LinkButton
               title={t('screens.cgu')}
               arrow={false}
               colorOption={LinkButtonColors.BLUE}
               onPress={onPressCgu}
-              inline={{ fontSize: NEEDS_SMALL_TEXT ? 12 : 15, color: Colors.bank.primary.darkBlue }}
+              inline={{ fontSize: NEEDS_SMALL_TEXT ? 12 : 15, color: Colors.primary.darkBlue }}
             />
             <LinkButton
               title={t('screens.cgu-kyc-provider')}
               arrow={false}
               colorOption={LinkButtonColors.BLUE}
               onPress={onPressCguKycProvider}
-              inline={{ fontSize: NEEDS_SMALL_TEXT ? 12 : 15, color: Colors.bank.primary.darkBlue }}
+              inline={{ fontSize: NEEDS_SMALL_TEXT ? 12 : 15, color: Colors.primary.darkBlue }}
             />
           </View>
         </View>
@@ -138,7 +137,7 @@ export const SignupEmail = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
     marginTop: 100,
     marginBottom: 100,
   },

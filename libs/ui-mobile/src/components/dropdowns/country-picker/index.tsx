@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import { StyleProp, ViewStyle } from 'react-native';
 import countryFlagEmoji from 'country-flag-emoji';
 
@@ -11,6 +10,7 @@ import { Colors } from '../../../constants';
 
 type IProps = {
   label: string;
+  placeholder: string;
   defaultValue?: string;
   sortBy: 'name' | 'code';
 };
@@ -21,8 +21,6 @@ type IState = {
 };
 
 export const CountryPicker = (props: IProps & IState) => {
-  const { t } = useTranslation();
-
   const getFlagAndName = (country: ICountry | undefined) => {
     if (!country) return '';
     return country.emoji + ' ' + country.name;
@@ -55,10 +53,10 @@ export const CountryPicker = (props: IProps & IState) => {
   return (
     <Dropdown
       {...props}
-      labelColor={Colors.bank.primary.grey}
+      labelColor={Colors.primary.grey}
       data={sortedData}
-      icon={() => <Location style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />}
-      placeholder={t('countryPicker.placeholder')}
+      icon={() => <Location style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />}
+      placeholder={props.placeholder}
       onSelect={handleOnSelect}
       defaultValue={getFlagAndName(defaultValue)}
     />

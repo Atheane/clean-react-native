@@ -1,5 +1,4 @@
 import { View, Text } from 'react-native';
-import { useTranslation } from 'react-i18next';
 
 import { IDomainError } from '@clean-rn/ddd';
 
@@ -36,91 +35,69 @@ type IProps = {
     | IDomainError<ITransactionErrorCodes, ITransactionErrorMessage>
     | IDomainError<ICardErrorCodes, ICardErrorMessage>
     | null;
+  errorMessage: string;
+  genericErrorMessage: string;
 };
 export const ErrorMessage = (props: IProps) => {
   const { theme } = useTheme();
-  const { t } = useTranslation();
 
   return (
     <View>
       {props.error?.code && Object.values(IAuthErrorCodes).includes(props.error.code as IAuthErrorCodes) && (
         <View>
-          <Text style={theme.bank.text.errors}>
-            {firstLetterCapitalize(t(`errors.domain-error.auth.${props.error.code}`))}
-          </Text>
+          <Text style={theme.text.errors}>{firstLetterCapitalize(props.errorMessage)}</Text>
         </View>
       )}
       {props.error?.code && Object.values(IUserErrorCodes).includes(props.error.code as IUserErrorCodes) && (
         <View>
-          <Text style={theme.bank.text.errors}>
-            {firstLetterCapitalize(t(`errors.domain-error.user.${props.error.code}`))}
-          </Text>
+          <Text style={theme.text.errors}>{firstLetterCapitalize(props.errorMessage)}</Text>
         </View>
       )}
       {props.error?.code &&
         Object.values(IAccountErrorCodes).includes(props.error.code as IAccountErrorCodes) && (
           <View>
-            <Text style={theme.bank.text.errors}>
-              {firstLetterCapitalize(t(`errors.domain-error.account.${props.error.code}`))}
-            </Text>
+            <Text style={theme.text.errors}>{firstLetterCapitalize(props.errorMessage)}</Text>
           </View>
         )}
-      {props.error &&
-        props.error.code &&
+      {props.error?.code &&
         Object.values(IBeneficiaryErrorCodes).includes(props.error.code as IBeneficiaryErrorCodes) && (
           <View>
-            <Text style={theme.bank.text.errors}>
-              {firstLetterCapitalize(t(`errors.domain-error.beneficiary.${props.error.code}`))}
-            </Text>
+            <Text style={theme.text.errors}>{firstLetterCapitalize(props.errorMessage)}</Text>
           </View>
         )}
-      {props.error &&
-        props.error.code &&
+      {props.error?.code &&
         Object.values(IContactErrorCodes).includes(props.error.code as IContactErrorCodes) && (
           <View>
-            <Text style={theme.bank.text.errors}>
-              {firstLetterCapitalize(t(`errors.domain-error.contact.${props.error.code}`))}
-            </Text>
+            <Text style={theme.text.errors}>{firstLetterCapitalize(props.errorMessage)}</Text>
           </View>
         )}
-      {props.error &&
-        props.error.code &&
+      {props.error?.code &&
         Object.values(ICarbonErrorCodes).includes(props.error.code as ICarbonErrorCodes) && (
           <View>
-            <Text style={theme.bank.text.errors}>
-              {firstLetterCapitalize(t(`errors.domain-error.carbon.${props.error.code}`))}
-            </Text>
+            <Text style={theme.text.errors}>{firstLetterCapitalize(props.errorMessage)}</Text>
           </View>
         )}
       {props.error?.code &&
         Object.values(ICustomerErrorCodes).includes(props.error.code as ICustomerErrorCodes) && (
           <View>
-            <Text style={theme.bank.text.errors}>
-              {firstLetterCapitalize(t(`errors.domain-error.kyc.${props.error.code}`))}
-            </Text>
+            <Text style={theme.text.errors}>{firstLetterCapitalize(props.errorMessage)}</Text>
           </View>
         )}
       {props.error?.code &&
         Object.values(IDocumentErrorCodes).includes(props.error.code as IDocumentErrorCodes) && (
           <View>
-            <Text style={theme.bank.text.errors}>
-              {firstLetterCapitalize(t(`errors.domain-error.kyc.${props.error.code}`))}
-            </Text>
+            <Text style={theme.text.errors}>{firstLetterCapitalize(props.errorMessage)}</Text>
           </View>
         )}
       {props.error?.code &&
         Object.values(ITransactionErrorCodes).includes(props.error.code as ITransactionErrorCodes) && (
           <View>
-            <Text style={theme.bank.text.errors}>
-              {firstLetterCapitalize(t(`errors.domain-error.transaction.${props.error.code}`))}
-            </Text>
+            <Text style={theme.text.errors}>{firstLetterCapitalize(props.errorMessage)}</Text>
           </View>
         )}
       {props.error?.code && Object.values(ICardErrorCodes).includes(props.error.code as ICardErrorCodes) && (
         <View>
-          <Text style={theme.bank.text.errors}>
-            {firstLetterCapitalize(t(`errors.domain-error.card.${props.error.code}`))}
-          </Text>
+          <Text style={theme.text.errors}>{firstLetterCapitalize(props.errorMessage)}</Text>
         </View>
       )}
       {props.error?.code &&
@@ -135,22 +112,20 @@ export const ErrorMessage = (props: IProps) => {
         !Object.values(ITransactionErrorCodes).includes(props.error.code as ITransactionErrorCodes) &&
         !Object.values(ICardErrorCodes).includes(props.error.code as ICardErrorCodes) && (
           <View>
-            <Text style={theme.bank.text.errors}>
-              {firstLetterCapitalize(t('errors.domain-error.other'))}
-            </Text>
+            <Text style={theme.text.errors}>{firstLetterCapitalize(props.errorMessage)}</Text>
             {props.error.code && (
-              <Text style={theme.bank.text.errors}>{'\n\n Code erreur : ' + props.error.code}</Text>
+              <Text style={theme.text.errors}>{'\n\n Code erreur : ' + props.error.code}</Text>
             )}
             {props.error.message && (
-              <Text style={theme.bank.text.errors}>{firstLetterCapitalize(props.error.message)}</Text>
+              <Text style={theme.text.errors}>{firstLetterCapitalize(props.error.message)}</Text>
             )}
           </View>
         )}
       {props.error && !props.error?.code && (
         <View>
-          <Text style={theme.bank.text.errors}>{firstLetterCapitalize(t('errors.other'))}</Text>
+          <Text style={theme.text.errors}>{firstLetterCapitalize(props.genericErrorMessage)}</Text>
           {props.error.message && (
-            <Text style={theme.bank.text.errors}>{'\n' + firstLetterCapitalize(props.error.message)}</Text>
+            <Text style={theme.text.errors}>{'\n' + firstLetterCapitalize(props.error.message)}</Text>
           )}
         </View>
       )}

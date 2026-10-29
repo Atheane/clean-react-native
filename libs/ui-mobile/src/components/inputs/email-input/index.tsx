@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
-import { useTranslation } from 'react-i18next';
 
 import { Input, useTheme } from '@rneui/themed';
 
@@ -14,6 +13,8 @@ type Props = {
 };
 
 type State = {
+  label: string;
+  placeholder: string;
   value?: string;
   filled?: boolean;
   onFocus?: () => void;
@@ -23,7 +24,6 @@ type State = {
 
 export const EmailInput = (props: Props & State) => {
   const { theme } = useTheme();
-  const { t } = useTranslation();
 
   const handleOnChange = useCallback(
     (text: string) => {
@@ -36,23 +36,23 @@ export const EmailInput = (props: Props & State) => {
   return props.filled ? (
     <Input
       autoCapitalize="none"
-      inputContainerStyle={[theme.bank.container.input, styles.inputContainer]}
-      inputStyle={[theme.bank.text.input, styles.input]}
-      leftIcon={<GreenGradientMail style={{ color: Colors.bank.primary.lightGreen }} />}
+      inputContainerStyle={[theme.container.input, styles.inputContainer]}
+      inputStyle={[theme.text.input, styles.input]}
+      leftIcon={<GreenGradientMail style={{ color: Colors.primary.lightGreen }} />}
       leftIconContainerStyle={styles.leftIconContainer}
       value={props.email?.trim()}
       caretHidden={true}
     />
   ) : (
     <TextInput
-      label={t('email-input.label')}
-      labelColor={Colors.bank.primary.grey}
-      IconLeft={() => <GreenGradientMail style={{ color: Colors.bank.primary.lightGreen }} />}
+      label={props.label}
+      placeholder={props.placeholder}
+      labelColor={Colors.primary.grey}
+      IconLeft={() => <GreenGradientMail style={{ color: Colors.primary.lightGreen }} />}
       value={props.value}
       lowerCase
       onChange={handleOnChange}
       onFocus={props.onFocus}
-      placeholder={t('email-input.placeholder')}
       onSubmitEditing={props.onSubmitEditing}
     />
   );

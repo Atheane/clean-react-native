@@ -21,23 +21,23 @@ export const LongCard = (props: IProps) => {
     <TouchableOpacity
       onPress={props.onPress}
       activeOpacity={0.4}
-      style={[theme.bank.shadow.card, theme.bank.container.card.long, { justifyContent: 'center' }]}
+      style={[theme.shadow.card, theme.container.card.long, { justifyContent: 'center' }]}
     >
-      <View>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <View style={styles.textContainer}>
-          <Text style={theme.bank.text.cyan}>{props.text}</Text>
+          <Text style={theme.text.cyan}>{props.text}</Text>
         </View>
         {props.icon && (
-          <View style={[styles.iconContainer, { top: 8, right: 22 }]}>
+          <View style={styles.chevronContainer}>
             <props.icon />
           </View>
         )}
       </View>
     </TouchableOpacity>
   ) : (
-    <View style={[styles.container, theme.bank.shadow.card, theme.bank.container.card.long]}>
+    <View style={[styles.container, theme.shadow.card, theme.container.card.long]}>
       <View style={styles.textContainer}>
-        <Text style={theme.bank.text.cyan}>{props.text}</Text>
+        <Text style={theme.text.cyan}>{props.text}</Text>
       </View>
       {props.icon && (
         <View style={styles.iconContainer}>
@@ -51,12 +51,17 @@ export const LongCard = (props: IProps) => {
 const styles = StyleSheet.create({
   container: {
     marginVertical: 8,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
     flexDirection: 'row',
     alignItems: 'center',
   },
   rowContainer: {
     marginLeft: 16,
+  },
+  chevronContainer: {
+    flex: 1,
+    alignItems: 'flex-end',
+    marginRight: 20,
   },
   textContainer: { marginLeft: 30, marginVertical: 14 },
   iconContainer: { position: 'absolute', right: 12 },

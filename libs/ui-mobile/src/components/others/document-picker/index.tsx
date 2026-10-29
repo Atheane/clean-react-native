@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 import { View, Platform, StyleProp, ViewStyle, StyleSheet } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import DocumentPickr from 'react-native-document-picker';
 import * as FileSystem from 'expo-file-system';
 
@@ -15,6 +14,7 @@ type IProps = {
   setLoading: (loading: boolean) => void;
   getDocument: (doc: string) => void;
   handleError: (error: unknown) => void;
+  buttonTitle: string;
 };
 
 const convertPDFToBase64 = async (uri: string) => {
@@ -26,7 +26,6 @@ const convertPDFToBase64 = async (uri: string) => {
 };
 
 export const DocumentPicker = (props: IProps) => {
-  const { t } = useTranslation();
   const selectPDF = async (): Promise<void> => {
     props.setLoading(true);
 
@@ -68,10 +67,10 @@ export const DocumentPicker = (props: IProps) => {
   return (
     <SecondaryButton
       long
-      title={t('button.document')}
+      title={props.buttonTitle}
       iconOne={() => (
         <View style={styles.iconContainer}>
-          <ImportDocument style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+          <ImportDocument style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
         </View>
       )}
       onPress={handleOnPress}

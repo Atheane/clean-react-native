@@ -26,8 +26,8 @@ export const ContactItem = (props: IProps) => {
   };
 
   return (
-    <View style={[theme.bank.container.leftItems, { width: Dimensions.get('window').width, height: 72 }]}>
-      <View style={[theme.bank.container.leftItems, { marginLeft: 20 }]}>{props.icon && <props.icon />}</View>
+    <View style={[theme.container.leftItems, { width: Dimensions.get('window').width, height: 72 }]}>
+      <View style={[theme.container.leftItems, { marginLeft: 20 }]}>{props.icon && <props.icon />}</View>
 
       <View style={styles.textContainer}>
         <Text style={styles.textName}>{cleanText()}</Text>
@@ -47,10 +47,10 @@ const styles = StyleSheet.create({
   textName: {
     fontFamily: FontNames.Roboto_700Bold,
     fontSize: 18,
-    color: Colors.bank.primary.darkGrey,
+    color: Colors.primary.darkGrey,
   },
   textIban: {
-    color: Colors.bank.primary.grey,
+    color: Colors.primary.grey,
     fontSize: 14,
     marginTop: 5,
   },

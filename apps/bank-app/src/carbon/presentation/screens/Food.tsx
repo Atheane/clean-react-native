@@ -5,7 +5,9 @@ import { useTheme } from '@rneui/themed';
 
 import { FoodConsumptionT } from '@bank/carbon-weight/dist';
 
-import { useFoodFormData, FoodForm, PrimaryButton, CO2, Colors } from '@clean-rn/ui-mobile';
+import { PrimaryButton, CO2, Colors } from '@clean-rn/ui-mobile';
+import { FoodForm } from '../forms';
+import { useFoodFormData } from '../hooks';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
@@ -28,16 +30,16 @@ export const Food = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, theme.bank.container.centeredItem]}>
+        <View style={[styles.container, theme.container.centeredItem]}>
           <FoodForm initialValues={data} onChangeForm={handleFormData} />
 
           <View style={styles.buttonContainer}>
             <PrimaryButton
               title={t('screens.carbon.compute')}
               onPress={handleOnPress}
-              iconOne={() => (
+              iconLeft={() => (
                 <View style={{ height: 23, justifyContent: 'center' }}>
-                  <CO2 style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+                  <CO2 style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
                 </View>
               )}
               long

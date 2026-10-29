@@ -30,6 +30,7 @@ const meta = {
   },
   args: {
     defaultValue: 'FR',
+    placeholder: 'Choisir le pays',
   },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 } satisfies Meta<typeof CountryPicker>;
@@ -40,4 +41,5 @@ export const Basic = {
   label: 'Pays',
   defaultValue: 'FR',
   sortBy: 'name',
+  placeholder: 'Select country',
 };

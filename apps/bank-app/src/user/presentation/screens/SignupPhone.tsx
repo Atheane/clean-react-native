@@ -7,19 +7,14 @@ import { getLocales } from 'expo-localization';
 import { useTheme } from '@rneui/themed';
 
 import { Phone } from '@clean-rn/contact/domain';
-import {
-  useCleanErrorOnFocus,
-  ISignupPhoneFormData,
-  FormSignupPhone,
-  Shield,
-  Colors,
-} from '@clean-rn/ui-mobile';
+import { useCleanErrorOnFocus, Shield, Colors } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 
 import { fetchSearchPhone } from '../../application/commands';
+import { ISignupPhoneFormData, FormSignupPhone } from '../forms';
 
 const locales = getLocales();
 
@@ -67,12 +62,12 @@ export const SignupPhone = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView fixedHeight>
-        <View style={[styles.container, theme.bank.container.centeredItem]}>
+        <View style={[styles.container, theme.container.centeredItem]}>
           <View style={styles.iconContainer}>
             <Shield width={150} height={150} />
           </View>
           <View style={styles.textContainer}>
-            <Text style={[theme.bank.text.darkBlue, styles.text]}>{t('screens.signup-phone.text')}</Text>
+            <Text style={[theme.text.darkBlue, styles.text]}>{t('screens.signup-phone.text')}</Text>
           </View>
           <FormSignupPhone
             defaultCountry={defaultCountry}
@@ -93,7 +88,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: HEIGHT,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
   iconContainer: {
     marginTop: 50,

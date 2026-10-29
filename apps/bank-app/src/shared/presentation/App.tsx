@@ -8,13 +8,15 @@ import { Provider } from 'react-redux';
 import { ThemeProvider } from '@rneui/themed';
 import * as Notifications from 'expo-notifications';
 import { PersistGate } from 'redux-persist/integration/react';
-import { i18n, Fonts, useDeepLink, theme } from '@clean-rn/ui-mobile';
+import i18n from '../presentation/translations/i18n';
+import { Fonts, useDeepLink, theme } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../shared/application/state-management/reducers/root-reducer';
 import { initializeApplication } from '../../shared/application/commands/initialize-application';
 import { store, persistor } from '../application/usecases/root-saga';
 import { NavigationUI } from './navigation';
 import SplashScreen from '../../../assets/images/splash.png';
+import { ConfigCatProvider, createConsoleLogger, LogLevel } from 'configcat-react';
 
 // Initialize Firebase
 const App: () => JSX.Element = () => {
@@ -30,6 +32,8 @@ const App: () => JSX.Element = () => {
   const { pending } = useSelector((state: IRootState) => state.initialization);
 
   const { error } = useSelector((state: IRootState) => state.unknownError);
+
+  const logger = createConsoleLogger(LogLevel.Info);
 
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -68,13 +72,15 @@ const App: () => JSX.Element = () => {
     };
   }, [appState]);
 
-  return fontsLoaded && !pending ? (
-    <ThemeProvider theme={theme}>
-      <I18nextProvider i18n={i18n}>
-        <NavigationUI />
-        <StatusBar />
-      </I18nextProvider>
-    </ThemeProvider>
+  return fontsLoaded && !pending && process.env.EXPO_PUBLIC_CONFIG_CAT_API_KEY ? (
+    <ConfigCatProvider sdkKey={process.env.EXPO_PUBLIC_CONFIG_CAT_API_KEY as string} options={{ logger }}>
+      <ThemeProvider theme={theme}>
+        <I18nextProvider i18n={i18n}>
+          <NavigationUI />
+          <StatusBar />
+        </I18nextProvider>
+      </ThemeProvider>
+    </ConfigCatProvider>
   ) : (
     <SafeAreaView style={[styles.container, { marginBottom: 30, marginLeft: 10 }]}>
       <Image source={SplashScreen} style={{ width: 250, height: 500 }} />

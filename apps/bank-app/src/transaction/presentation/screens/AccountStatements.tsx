@@ -117,12 +117,12 @@ const styles = StyleSheet.create({
     margin: '10%',
   },
   iconContainer: {
-    marginTop: 6,
+    marginBottom: 6,
   },
   text: {
     fontSize: 14,
     lineHeight: 19,
-    color: Colors.bank.primary.darkBlue,
+    color: Colors.primary.darkBlue,
     paddingVertical: 8,
   },
   boldText: {

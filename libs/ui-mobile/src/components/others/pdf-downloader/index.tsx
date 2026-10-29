@@ -77,5 +77,5 @@ const styles = StyleSheet.create({
     marginTop: -16,
     zIndex: 1,
   },
-  icon: { color: Colors.bank.primary.lightGreen },
+  icon: { color: Colors.primary.lightGreen },
 });

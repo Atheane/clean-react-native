@@ -19,29 +19,33 @@ type IProps = {
 
 export const SecondaryButton: FC<IProps> = (props: IProps) => {
   const { theme } = useTheme();
-  const renderLabel = (text: string) => (text.length < 18 ? `${text}` : `${text}`.slice(0, 15) + '...');
+  const renderLabel = (text: string) =>
+    props.long
+      ? text.length < 26
+        ? text
+        : `${text}`.slice(0, 23) + '...'
+      : text.length < 18
+        ? text
+        : `${text}`.slice(0, 15) + '...';
 
   return (
     <View
-      style={[
-        props.long ? theme.bank.container.button.long : theme.bank.container.button.short,
-        theme.bank.shadow.button,
-      ]}
+      style={[props.long ? theme.container.button.long : theme.container.button.short, theme.shadow.button]}
     >
       <Button
         buttonStyle={[
-          theme.bank.shadow.button,
+          theme.shadow.button,
           styles.button,
           props.iconOne && styles.buttonOneIcon,
-          theme.bank.container.centeredItems,
+          theme.container.centeredItems,
         ]}
         containerStyle={[
-          props.long ? theme.bank.container.button.long : theme.bank.container.button.short,
-          theme.bank.shadow.button,
+          props.long ? theme.container.button.long : theme.container.button.short,
+          theme.shadow.button,
         ]}
         loading={props?.loading ?? false}
         linearGradientProps={{
-          colors: [Colors.bank.greenGradient.lightGreen, Colors.bank.greenGradient.darkGreen],
+          colors: [Colors.greenGradient.lightGreen, Colors.greenGradient.darkGreen],
           start: [0, 1],
           end: [1, 0],
         }}
@@ -49,7 +53,7 @@ export const SecondaryButton: FC<IProps> = (props: IProps) => {
         disabled={props.disabled}
         raised
       >
-        <View style={theme.bank.container.centeredItems}>
+        <View style={theme.container.centeredItems}>
           {props.iconOne && (
             <View style={styles.iconOneContainer}>
               <props.iconOne />
@@ -57,11 +61,7 @@ export const SecondaryButton: FC<IProps> = (props: IProps) => {
           )}
 
           <Text
-            style={[
-              theme.bank.text.button,
-              styles.content,
-              props.uppercase && { textTransform: 'uppercase' },
-            ]}
+            style={[theme.text.button, styles.content, props.uppercase && { textTransform: 'uppercase' }]}
           >
             {renderLabel(firstLetterCapitalize(props.title))}
           </Text>
@@ -83,10 +83,10 @@ const styles = StyleSheet.create({
     paddingRight: 24,
     paddingBottom: 16,
     paddingLeft: 26,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
   content: {
-    color: Colors.bank.primary.lightGreen,
+    color: Colors.primary.lightGreen,
   },
   iconOneContainer: {
     height: 32,

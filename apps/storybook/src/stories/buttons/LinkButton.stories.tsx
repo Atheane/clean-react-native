@@ -32,19 +32,15 @@ export const Arrow: Story = {
   args: {
     title: 'My title',
     arrow: true,
+    colorOption: LinkButtonColors.BLUE,
   },
 };
 
 export const IconLeft: Story = {
   args: {
     title: 'My title',
-    iconLeft: () => (
-      <Love
-        width={20}
-        height={20}
-        style={{ color: Colors.bank.primary.lightGreen, marginRight: 10 } as StyleProp<ViewStyle>}
-      />
-    ),
+    colorOption: LinkButtonColors.GREEN,
+    iconLeft: (styleProps: StyleProp<ViewStyle>) => <Love width={20} height={20} style={styleProps} />,
   },
 };
 
@@ -55,7 +51,7 @@ export const IconRight: Story = {
       <Love
         width={20}
         height={20}
-        style={{ color: Colors.bank.primary.lightGreen, marginLeft: 10 } as StyleProp<ViewStyle>}
+        style={{ color: Colors.primary.lightGreen, marginLeft: 10 } as StyleProp<ViewStyle>}
       />
     ),
   },
@@ -68,14 +64,14 @@ export const IconLeftRight: Story = {
       <Love
         width={20}
         height={20}
-        style={{ color: Colors.bank.primary.lightGreen, marginRight: 10 } as StyleProp<ViewStyle>}
+        style={{ color: Colors.primary.lightGreen, marginRight: 10 } as StyleProp<ViewStyle>}
       />
     ),
     iconRight: () => (
       <Love
         width={20}
         height={20}
-        style={{ color: Colors.bank.primary.lightGreen, marginLeft: 10 } as StyleProp<ViewStyle>}
+        style={{ color: Colors.primary.lightGreen, marginLeft: 10 } as StyleProp<ViewStyle>}
       />
     ),
   },

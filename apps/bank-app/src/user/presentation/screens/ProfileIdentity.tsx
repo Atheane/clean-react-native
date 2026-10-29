@@ -8,19 +8,18 @@ import dayjs from 'dayjs';
 
 import {
   BlueGradientMail,
-  FormUpdateIdentity,
   PhoneBlueGradient,
-  IUpdateIdentityFormData,
   useCleanErrorOnFocus,
   CopyValueClipboard,
 } from '@clean-rn/ui-mobile';
 import { BirthDay, Country, IUpdateUserCommand, KYC_REVIEW } from '@clean-rn/user/domain';
+import { firstLetterCapitalize } from '@clean-rn/utils';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { fetchUpdateUser } from '../../application/commands';
 import { IParametersStackPages } from '../../../shared/presentation/types';
-import { firstLetterCapitalize } from '@clean-rn/utils';
+import { IUpdateIdentityFormData, FormUpdateIdentity } from '../forms';
 
 export const ProfileIdentity = () => {
   const { t } = useTranslation();
@@ -121,7 +120,7 @@ export const ProfileIdentity = () => {
             )}
             {!email && user?.properties.email && (
               <View style={styles.textContainer}>
-                <Text style={[theme.bank.text.darkBlue]}>{user.properties.email?.value}</Text>
+                <Text style={[theme.text.darkBlue]}>{user.properties.email?.value}</Text>
               </View>
             )}
           </View>
@@ -131,7 +130,7 @@ export const ProfileIdentity = () => {
             </View>
             {user?.properties.phone && (
               <View style={styles.textContainer}>
-                <Text style={[theme.bank.text.darkBlue]}>{user?.properties.phone.valueInternational}</Text>
+                <Text style={[theme.text.darkBlue]}>{user?.properties.phone.valueInternational}</Text>
               </View>
             )}
           </View>

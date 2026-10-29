@@ -43,7 +43,7 @@ export const ShowPin = () => {
             <Image source={CB} style={{ width: 150, height: 300 }} />
           </View>
           <View style={styles.rowContainer}>
-            <Text style={theme.bank.text.boldDarkBlue}>{t('screens.card.show-pin.instruction')}</Text>
+            <Text style={theme.text.boldDarkBlue}>{t('screens.card.show-pin.instruction')}</Text>
           </View>
           <View style={styles.rowContainer}>
             <Secured4Digits digits={digits} hidden={hidden} />
@@ -51,7 +51,7 @@ export const ShowPin = () => {
           <View style={styles.rowContainer}>
             <PrimaryButton
               title={t('screens.card.show-pin.see-my-pin')}
-              iconOne={WhiteEye}
+              iconLeft={WhiteEye}
               onPress={handleOnPress}
               uppercase
             />

@@ -23,6 +23,6 @@ const styles = StyleSheet.create({
   text: {
     textTransform: 'uppercase',
     fontSize: 10,
-    color: Colors.bank.primary.grey,
+    color: Colors.primary.grey,
   },
 });

@@ -1,9 +1,10 @@
 import { registerRootComponent } from 'expo';
 import * as Sentry from '@sentry/react-native';
-import App from './src/shared/presentation/App';
 import firebase from '@react-native-firebase/app';
 import { decode } from 'base-64';
 import Geocoder from 'react-native-geocoding';
+
+import App from './src/shared/presentation/App';
 
 const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,

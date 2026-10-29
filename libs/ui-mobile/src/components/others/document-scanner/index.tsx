@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 import { View, StyleProp, ViewStyle, StyleSheet } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import DocumentScan, { ResponseType } from 'react-native-document-scanner-plugin';
 import { Image } from 'react-native-compressor';
 import * as FileSystem from 'expo-file-system';
@@ -15,6 +14,7 @@ type IProps = {
   setLoading: (loading: boolean) => void;
   getScan: (scannedImg: string) => void;
   handleError: (error: unknown) => void;
+  buttonTitle: string;
 };
 
 const compressImage = async (imageURI: string, quality: number, maxMB = 0.95): Promise<string> => {
@@ -37,8 +37,6 @@ const compressImage = async (imageURI: string, quality: number, maxMB = 0.95): P
 };
 
 export const DocumentScanner = (props: IProps) => {
-  const { t } = useTranslation();
-
   const scanDocument = async () => {
     props.setLoading(true);
     // start the document scanner
@@ -81,10 +79,10 @@ export const DocumentScanner = (props: IProps) => {
   return (
     <PrimaryButton
       long
-      title={t('button.photo')}
-      iconOne={() => (
+      title={props.buttonTitle}
+      iconLeft={() => (
         <View style={styles.iconContainer}>
-          <CameraIcon style={{ color: Colors.bank.primary.white } as StyleProp<ViewStyle>} />
+          <CameraIcon style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
         </View>
       )}
       onPress={handleOnPress}

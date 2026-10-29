@@ -7,19 +7,15 @@ import { useTheme } from '@rneui/themed';
 
 import { CardPinCode } from '@clean-rn/card/domain';
 
-import {
-  FormChangePin,
-  IChangePinFormData,
-  useCleanErrorOnFocus,
-  SubmitButton,
-  Colors,
-} from '@clean-rn/ui-mobile';
+import { useCleanErrorOnFocus, SubmitButton, Colors } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { fetchChangePIN } from '../../../card/application/commands';
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
+
+import { FormChangePin, IChangePinFormData } from '../forms';
 
 const HEIGHT = Dimensions.get('screen').height;
 export const ChangePin = () => {
@@ -65,26 +61,24 @@ export const ChangePin = () => {
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={[styles.container]}>
-          <View style={[theme.bank.container.centeredItem, styles.textContainer, { marginTop: 100 }]}>
-            <Text style={[theme.bank.text.grey, styles.text]}>
-              {t('screens.card.change-pin.instruction-top')}
-            </Text>
+          <View style={[theme.container.centeredItem, styles.textContainer, { marginTop: 100 }]}>
+            <Text style={[theme.text.grey, styles.text]}>{t('screens.card.change-pin.instruction-top')}</Text>
           </View>
           <View style={styles.formContainer}>
             <FormChangePin control={control} errors={errors} error={domainError} onFocus={onFocus} />
           </View>
-          <View style={[theme.bank.container.centeredItem, styles.textContainer]}>
-            <Text style={[theme.bank.text.grey, styles.text]}>
+          <View style={[theme.container.centeredItem, styles.textContainer]}>
+            <Text style={[theme.text.grey, styles.text]}>
               {t('screens.card.change-pin.instruction-bottom-static')}
             </Text>
           </View>
-          <View style={[theme.bank.container.centeredItem, styles.textContainer, { marginTop: 50 }]}>
+          <View style={[theme.container.centeredItem, styles.textContainer, { marginTop: 50 }]}>
             <Text
               style={[
-                theme.bank.text.grey,
+                theme.text.grey,
                 styles.text,
                 (card?.properties?.pinChange === undefined || card?.properties?.pinChange === 3) && {
-                  color: Colors.bank.secondary.salmon,
+                  color: Colors.secondary.salmon,
                 },
               ]}
             >

@@ -15,7 +15,7 @@ export const SmallSwitchButton = (props: IProps) => {
 
   return (
     <View style={styles.view}>
-      <Switch value={props.checked} onValueChange={toggleSwitch} color={Colors.bank.primary.lightGreen} />
+      <Switch value={props.checked} onValueChange={toggleSwitch} color={Colors.primary.lightGreen} />
     </View>
   );
 };

@@ -13,6 +13,6 @@ export const WithBackground = (Story: React.ComponentType) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.bank.background.lightGreen,
+    backgroundColor: Colors.background.lightGreen,
   },
 });

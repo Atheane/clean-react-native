@@ -47,17 +47,17 @@ export const GraphCO2 = (props: IProps) => {
   }, [props.emissions]);
 
   return (
-    <View style={[styles.container, theme.bank.container.centeredItem]}>
+    <View style={[styles.container, theme.container.centeredItem]}>
       {category && (
         <View>
-          <View style={[styles.textContainer, theme.bank.container.centeredItem]}>
-            <Text style={theme.bank.text.whiteGraphTitle}>{toCO2(props.emissions)}</Text>
+          <View style={[styles.textContainer, theme.container.centeredItem]}>
+            <Text style={theme.text.whiteGraphTitle}>{toCO2(props.emissions)}</Text>
           </View>
           <Image source={props.headers[category]} resizeMode="contain" style={styles.headerImage} />
         </View>
       )}
       {country && category && props.bilans[country as keyof typeof props.bilans] && (
-        <View style={[styles.imageContainer, theme.bank.shadow.card, theme.bank.container.centeredItem]}>
+        <View style={[styles.imageContainer, theme.shadow.card, theme.container.centeredItem]}>
           <Image
             source={props.bilans[country as keyof typeof props.bilans][category]}
             resizeMode="contain"

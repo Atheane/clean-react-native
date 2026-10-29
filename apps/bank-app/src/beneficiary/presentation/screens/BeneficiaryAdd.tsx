@@ -4,12 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 
-import { useCleanErrorOnFocus, FormBeneficiary, IBeneficiaryFormData, Colors } from '@clean-rn/ui-mobile';
+import { useCleanErrorOnFocus, Colors } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
 import { addBeneficiary } from '../../application/commands/beneficiary';
+
+import { FormBeneficiary, IBeneficiaryFormData } from '../forms/form-beneficiary';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -60,6 +62,6 @@ export const BeneficiaryAdd = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
 });

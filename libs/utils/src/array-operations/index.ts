@@ -7,3 +7,7 @@ export const inplaceSortByName = (contacts: any[]) => {
     return 0;
   });
 };
+
+export const arrayIsEmpty = (array: any[]) => {
+  return array.length === 0;
+};

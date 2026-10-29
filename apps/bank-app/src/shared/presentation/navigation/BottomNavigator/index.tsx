@@ -1,6 +1,9 @@
 import { StyleSheet, Text, StyleProp, ViewStyle } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTranslation } from 'react-i18next';
+import { useFeatureFlag, User as ConfigCatUser } from 'configcat-react';
+import { useSelector } from 'react-redux';
+
 import {
   Colors,
   FontNames,
@@ -8,10 +11,13 @@ import {
   Home as HomeIcon,
   Transfer as TransferIcon,
   TransferGradient,
-  Carbon as CarbontIcon,
-  CarbonGradient,
   ParametersGradient,
   ParametersIcon,
+  CarbonRewardGrey,
+  CarbonRewardGreen,
+  LoaderSplashScreen,
+  CarbonGradient,
+  Carbon as CarbonIcon,
 } from '@clean-rn/ui-mobile';
 import {
   IRootTabParamList,
@@ -31,16 +37,33 @@ import { KycStack } from '../../../../kyc/presentation/navigation';
 import { BeneficiaryStack } from '../../../../beneficiary/presentation/navigation';
 import { TransactionStack } from '../../../../transaction/presentation/navigation';
 import { CardStack } from '../../../../card/presentation/navigation';
+import { IRootState } from '../../../application/state-management/reducers/root-reducer';
 
 const Tab = createBottomTabNavigator<IRootTabParamList>();
 
 export const BottomTabNavigator = () => {
   const { t } = useTranslation();
-  return (
+  const { email } = useSelector((state: IRootState) => state.auth);
+  let userConfigCat: ConfigCatUser | undefined;
+  if (!email) {
+    userConfigCat = undefined;
+  } else {
+    userConfigCat = new ConfigCatUser(email.value, email.value);
+  }
+
+  const { value: featureTagLegacy, loading: loadingLegacy } = useFeatureFlag(
+    'bank-legacy',
+    false,
+    userConfigCat,
+  );
+
+  return loadingLegacy ? (
+    <LoaderSplashScreen />
+  ) : (
     <Tab.Navigator
       initialRouteName={IAccountStackPages.MENU}
       screenOptions={{
-        tabBarActiveTintColor: Colors.bank.primary.white,
+        tabBarActiveTintColor: Colors.primary.white,
         headerShown: false,
       }}
     >
@@ -53,7 +76,7 @@ export const BottomTabNavigator = () => {
             focused ? (
               <HomeGradient />
             ) : (
-              <HomeIcon style={{ color: Colors.bank.primary.grey } as StyleProp<ViewStyle>} />
+              <HomeIcon style={{ color: Colors.primary.grey } as StyleProp<ViewStyle>} />
             ),
           tabBarLabel: ({ focused }: { focused: boolean }) =>
             focused ? <Text style={styles.tab}> {t('screens.home.tab')}</Text> : '',
@@ -73,9 +96,9 @@ export const BottomTabNavigator = () => {
           title: t('screens.transfer.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             focused ? (
-              <TransferGradient style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />
+              <TransferGradient style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
             ) : (
-              <TransferIcon style={{ color: Colors.bank.primary.grey } as StyleProp<ViewStyle>} />
+              <TransferIcon style={{ color: Colors.primary.grey } as StyleProp<ViewStyle>} />
             ),
 
           tabBarLabel: ({ focused }: { focused: boolean }) =>
@@ -88,10 +111,16 @@ export const BottomTabNavigator = () => {
         options={() => ({
           title: t('screens.carbon.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
-            focused ? (
-              <CarbonGradient style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />
+            featureTagLegacy ? (
+              focused ? (
+                <CarbonRewardGreen />
+              ) : (
+                <CarbonRewardGrey />
+              )
+            ) : focused ? (
+              <CarbonGradient />
             ) : (
-              <CarbontIcon style={{ color: Colors.bank.primary.grey } as StyleProp<ViewStyle>} />
+              <CarbonIcon />
             ),
           tabBarLabel: ({ focused }: { focused: boolean }) =>
             focused ? <Text style={styles.tab}> {t('screens.carbon.tab')}</Text> : '',
@@ -103,11 +132,7 @@ export const BottomTabNavigator = () => {
         options={() => ({
           title: t('screens.parameters.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
-            focused ? (
-              <ParametersGradient style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />
-            ) : (
-              <ParametersIcon style={{ color: Colors.bank.primary.grey } as StyleProp<ViewStyle>} />
-            ),
+            focused ? <ParametersGradient /> : <ParametersIcon />,
           tabBarLabel: ({ focused }: { focused: boolean }) =>
             focused ? <Text style={styles.tab}> {t('screens.parameters.menu.tab')}</Text> : '',
         })}
@@ -134,6 +159,6 @@ const styles = StyleSheet.create({
   tab: {
     fontSize: 9,
     fontFamily: FontNames.MartelSans_600SemiBold,
-    color: Colors.bank.primary.lightGreen,
+    color: Colors.primary.lightGreen,
   },
 });

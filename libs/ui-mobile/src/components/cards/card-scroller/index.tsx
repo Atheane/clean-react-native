@@ -1,13 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useCallback, useEffect } from 'react';
 import { ScrollView, Dimensions, StyleSheet, View, ImageSourcePropType } from 'react-native';
+import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
 
 import { TouchEventCard } from '../touch-event-card';
 
-type IPropsTouchEventCard = {
+export type IPropsTouchEventCard = {
   uid: string;
-  image: ImageSourcePropType;
+  image?: ImageSourcePropType;
+  icon?: React.FC<SvgProps>;
+  title: string;
   text: string;
 };
 
@@ -51,11 +54,11 @@ export const CardScroller = (props: IProps) => {
 
   const bullets = data.map((_, index) =>
     index === slideIndex ? (
-      <View key={index} style={theme.bank.shadow.bullet}>
-        <View key={index} style={theme.bank.container.bulletGreen} />
+      <View key={index} style={theme.shadow.bullet}>
+        <View key={index} style={theme.container.bulletColor} />
       </View>
     ) : (
-      <View key={index} style={theme.bank.shadow.bullet} />
+      <View key={index} style={theme.shadow.bullet} />
     ),
   );
 
@@ -72,13 +75,13 @@ export const CardScroller = (props: IProps) => {
         showsHorizontalScrollIndicator={false}
         ref={props.cardScrollRef}
       >
-        <View style={theme.bank.container.centeredItems}>
+        <View style={theme.container.centeredItems}>
           {!props.onDelete &&
-            props.data.map((card: any) => {
+            props.data.map((card: IPropsTouchEventCard) => {
               return <TouchEventCard key={card.uid} {...card} onPress={props.onPress} />;
             })}
           {props.onDelete &&
-            props.data.map((card: any) => {
+            props.data.map((card: IPropsTouchEventCard) => {
               return (
                 <TouchEventCard key={card.uid} {...card} onPress={props.onPress} onDelete={handleOnDelete} />
               );
@@ -92,8 +95,6 @@ export const CardScroller = (props: IProps) => {
 
 const styles = StyleSheet.create({
   containerBullets: {
-    // position: 'relative',
-    // top: 20,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',

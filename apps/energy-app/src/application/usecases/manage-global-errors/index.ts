@@ -1,0 +1,34 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { call, StrictEffect, takeEvery, cancel, put } from 'redux-saga/effects';
+import * as Sentry from '@sentry/react-native';
+import { ServerError } from '@clean-rn/shared/infrastructure';
+
+import { IGlobalErrorTypes } from '../../commands/manage-global-errors';
+import { IAuthStackPages } from '../../../presentation/types';
+import { navigate } from '../../../presentation/navigation/navigationRef';
+// import { loggedOut } from '../../commands';
+
+export function* showUnknownErrorSaga(): Generator<StrictEffect, any, any> {
+  yield takeEvery(IGlobalErrorTypes.SHOW_UNKNOWN_ERROR, showUnknownErrorGenerator);
+}
+
+export function* showUnknownErrorGenerator({
+  payload,
+}: {
+  type: string;
+  payload: ServerError | Error;
+}): Generator<StrictEffect, any, any> {
+  console.log('showUnknownErrorGenerator', payload);
+
+  if (payload.message === 'Network request failed') {
+    yield cancel();
+  } else if (payload instanceof ServerError && payload.statusCode === 401) {
+    yield call(Sentry.captureException, payload);
+    // yield put(loggedOut());
+    yield call(console.log, 'Not logged');
+    yield call(navigate, { route: IAuthStackPages.LOGIN });
+    yield cancel();
+  }
+  console.log('|||||||||||||||', payload);
+  yield call(Sentry.captureException, payload);
+}

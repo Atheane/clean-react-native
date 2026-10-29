@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -6,19 +6,15 @@ import { useForm } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 import { getLocales } from 'expo-localization';
 
-import {
-  useCleanErrorOnFocus,
-  FormSignupAddress,
-  ISignupAddressFormData,
-  Colors,
-} from '@clean-rn/ui-mobile';
+import { useCleanErrorOnFocus, Colors } from '@clean-rn/ui-mobile';
 import { IUpdateUserCommand } from '@clean-rn/user/domain';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { fetchUpdateUser } from '../../../user/application/commands';
 import { IParametersStackPages } from '../../../shared/presentation/types';
+
+import { FormSignupAddress, ISignupAddressFormData } from '../forms';
 
 const lang = getLocales()[0]?.languageCode || 'FR';
 
@@ -76,7 +72,7 @@ export const ProfileAddress = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <View style={[styles.container, theme.bank.container.centeredItem]}>
+      <View style={[styles.container, theme.container.centeredItem]}>
         <FormSignupAddress
           loading={pending}
           control={control}
@@ -96,6 +92,6 @@ export const ProfileAddress = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
 });

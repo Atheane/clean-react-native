@@ -14,37 +14,37 @@ export const TouchCardKpi: FC<IProps> = (props: IProps) => {
   const { theme } = useTheme();
 
   return (
-    <TouchableOpacity onPress={props.onPress} style={[theme.bank.shadow.card, theme.bank.container.card.kpi]}>
+    <TouchableOpacity onPress={props.onPress} style={[theme.shadow.card, theme.container.card.kpi]}>
       <View
         style={[
           styles.rowContainer,
           props.data && props.data.pct && props.data.co2
-            ? theme.bank.container.leftItems
+            ? theme.container.leftItems
             : { position: 'relative', left: 0, top: 12 },
         ]}
       >
         <props.icon />
         {props.data && props.data.pct && props.data.co2 && (
-          <View style={[theme.bank.container.centeredItem, { marginLeft: 12 }]}>
-            <View style={theme.bank.container.leftItems}>
-              <Text style={[theme.bank.text.kpi]}>{props.data.pct}</Text>
+          <View style={[theme.container.centeredItem, { marginLeft: 12 }]}>
+            <View style={theme.container.leftItems}>
+              <Text style={[theme.text.kpi]}>{props.data.pct}</Text>
             </View>
-            <View style={theme.bank.container.leftItems}>
-              <Text style={[styles.subtitleContainer, theme.bank.text.subtitle]}>{props.data.co2}</Text>
+            <View style={theme.container.leftItems}>
+              <Text style={[styles.subtitleContainer, theme.text.subtitle]}>{props.data.co2}</Text>
             </View>
           </View>
         )}
       </View>
       {props.data && props.data.legend && (
-        <View style={theme.bank.container.leftItems}>
-          <Text style={[theme.bank.text.legend]}>{props.data.legend}</Text>
+        <View style={theme.container.leftItems}>
+          <Text style={[theme.text.legend]}>{props.data.legend}</Text>
         </View>
       )}
       {props.data && props.data.text && (
         <View style={styles.textContainer}>
           <Text
             style={[
-              theme.bank.text.darkBlue,
+              theme.text.darkBlue,
               NEEDS_SMALL_TEXT ? { fontSize: 10, lineHeight: 16 } : { fontSize: 12, lineHeight: 18 },
             ]}
           >

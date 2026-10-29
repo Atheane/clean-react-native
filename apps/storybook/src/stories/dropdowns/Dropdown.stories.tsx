@@ -48,7 +48,7 @@ export const HeatingTypes: Story = {
       key,
       value: translations[value],
     })),
-    icon: () => <Flame style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />,
+    icon: () => <Flame style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />,
   },
 };
 
@@ -57,7 +57,7 @@ export const Departments: Story = {
     label: 'Departments',
     placeholder: 'Departments',
     data: sortedDeps,
-    icon: () => <Department style={{ color: Colors.bank.primary.lightGreen } as StyleProp<ViewStyle>} />,
+    icon: () => <Department style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />,
   },
 };
 
@@ -73,5 +73,26 @@ export const MultilineShortDropdown: Story = {
     multiline: true,
     placeholder: 'Compte',
     data: accounts,
+  },
+};
+
+export const NoIcon: Story = {
+  args: {
+    label: 'Label',
+    placeholder: 'Select',
+    data: [
+      {
+        key: 'key1',
+        value: 'value1',
+      },
+      {
+        key: 'key2',
+        value: 'value2',
+      },
+      {
+        key: 'key3',
+        value: 'value3',
+      },
+    ],
   },
 };

@@ -252,11 +252,9 @@ export const Carbon = () => {
     return (
       <ErrorBoundary t={t}>
         <SafeScrollingView>
-          <View
-            style={[styles.container, theme.bank.container.centeredItem, { height: HEIGHT, marginTop: -80 }]}
-          >
+          <View style={[styles.container, theme.container.centeredItem, { height: HEIGHT, marginTop: -80 }]}>
             <View style={styles.textContainer}>
-              <Text style={theme.bank.text.darkBlue}>{t('screens.carbon.instruction')}</Text>
+              <Text style={theme.text.darkBlue}>{t('screens.carbon.instruction')}</Text>
               <View style={styles.kpiContainer}>
                 <Text style={styles.kpiText}>{t('screens.carbon.zero-carbon')}</Text>
               </View>
@@ -276,8 +274,8 @@ export const Carbon = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View style={[styles.container, theme.bank.container.centeredItem]}>
-          <ShareScreen message={message} handleError={handleErrorShare}>
+        <View style={[styles.container, theme.container.centeredItem]}>
+          <ShareScreen message={message} handleError={handleErrorShare} buttonTitle={t('button.share')}>
             <View collapsable={false}>
               <View style={styles.graphContainer}>
                 <GraphCO2
@@ -349,18 +347,18 @@ export const Carbon = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.bank.primary.white,
+    backgroundColor: Colors.primary.white,
   },
   instructionText: {
     fontFamily: FontNames.MartelSans_400Regular,
-    color: Colors.bank.primary.darkBlue,
+    color: Colors.primary.darkBlue,
     fontSize: 16,
     lineHeight: 22,
     textAlign: 'center',
   },
   kpiText: {
     fontFamily: FontNames.Roboto_400Regular,
-    color: Colors.bank.primary.darkBlue,
+    color: Colors.primary.darkBlue,
     fontSize: NEEDS_SMALL_TEXT ? 40 : 48,
     lineHeight: 63,
     textAlign: 'center',
@@ -390,7 +388,7 @@ const styles = StyleSheet.create({
   },
   shareTitle: {
     fontFamily: FontNames.MartelSans_600SemiBold,
-    color: Colors.bank.primary.darkBlue,
+    color: Colors.primary.darkBlue,
     fontSize: 24,
   },
 });

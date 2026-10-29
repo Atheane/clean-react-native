@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { useTranslation } from 'react-i18next';
 
 import { ITransactionType, Amount, TransactionCategory } from '@clean-rn/transaction/domain';
 import { TransactionsCardsList } from '@clean-rn/ui-mobile';
