@@ -141,7 +141,11 @@
         "INVALID_HOUSE_PROPS": "Invalid house properties",
         "INVALID_TRANSPORT_PROPS": "Invalid transport properties",
         "INVALID_FOOD_PROPS": "Invalid food properties",
-        "INVALID_FLY_PROPS": "Invalid flight properties"
+        "INVALID_FLY_PROPS": "Invalid flight properties",
+        "INVALID_HEATER_TYPE": "Heater type is required",
+        "INVALID_HEATER_USAGE": "Heater usage is required",
+        "INVALID_HEATER_DATE": "Installation date is required",
+        "HEATER_ALREADY_EXISTS": "Heater already declared"
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Missing documents for validation",

@@ -2,35 +2,40 @@ import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { VehicleConsumptionT } from '@bank/carbon-weight/dist';
+import { HouseT } from '@bank/carbon-weight/dist';
 
 import { PrimaryButton, CO2, Colors } from '@clean-rn/ui-mobile';
-import { TransportForm } from '../forms';
-import { useTransportFormData } from '../hooks';
+
+import { useHouseFormData } from '../hooks';
+import { HeaterFootprintEstimationForm } from './forms';
+
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
-import { computeTransportEmissions } from '../../application/commands';
+import { computeHouseEmissions } from '../../application/commands';
 
 export const Transport = () => {
   const { t } = useTranslation();
 
   // init values with previous stored values
-  const { data } = useSelector((state: IRootState) => state.carbon.transport);
-
+  const { data } = useSelector((state: IRootState) => state.carbon.house);
   // formData
-  const { disabled, formData, resetFormData, handleFormData } = useTransportFormData(data);
+  const { disabled, formData, resetFormData, handleFormData } = useHouseFormData(data);
 
   const dispatch = useDispatch();
   const handleOnPress = () => {
-    dispatch(computeTransportEmissions(formData as VehicleConsumptionT));
+    dispatch(computeHouseEmissions(formData as HouseT & { consumption: number } & { builtYear: number }));
   };
 
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={[styles.container]}>
-          <TransportForm initialValues={data} onChangeForm={resetFormData} onChangeField={handleFormData} />
+          <HeaterFootprintEstimationForm
+            initialValues={data}
+            onChangeForm={resetFormData}
+            onChangeField={handleFormData}
+          />
 
           <View style={styles.buttonContainer}>
             <PrimaryButton
@@ -54,6 +59,7 @@ export const Transport = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
     marginTop: 50,
     marginBottom: 400,

@@ -77,17 +77,17 @@ export type ITransactionStackParamList = {
 
 export type ICarbonStackParamList = {
   MenuCarbon: undefined;
-  Carbon: undefined;
-  House: undefined;
-  Transport: undefined;
-  Food: undefined;
-  Fly: undefined;
-  WarningFood: undefined;
+  FootprintEstimation: undefined;
+  HeaterFootprintEstimation: undefined;
+  TransportFootprintEstimation: undefined;
+  FoodFootprintEstimation: undefined;
+  FlyFootprintEstimation: undefined;
+  WarningFoodFootprintEstimation: undefined;
   MenuPrimeum: undefined;
-  HeatersForm: undefined;
-  WorksForm: undefined;
-  TransportsForm: undefined;
-  HouseholdForm: undefined;
+  HeatersPrimeum: undefined;
+  WorksPrimeum: undefined;
+  TransportsPrimeum: undefined;
+  HouseholdPrimeum: undefined;
 };
 
 export type IKycStackParamList = {
@@ -199,18 +199,18 @@ export enum IBeneficiaryStackPages {
 
 export enum ICarbonStackPages {
   MENU = 'MenuCarbon',
-  EVOLUTION = 'EvolutionCarbon',
-  CARBON = 'Carbon',
-  HOUSE = 'House',
-  TRANSPORT = 'Transport',
-  FOOD = 'Food',
-  FLY = 'Fly',
-  WARNING_FOOD = 'WarningFood',
+  EVOLUTION_FOOTPRINT = 'EvolutionFootprint',
+  FOOTPRINT_ESTIMATION = 'FootprintEstimation',
+  HEATER_FOOTPRINT_ESTIMATION = 'HeaterFootprintEstimation',
+  TRANSPORT_FOOTPRINT_ESTIMATION = 'TransportFootprintEstimation',
+  FOOD_FOOTPRINT_ESTIMATION = 'FoodFootprintEstimation',
+  FLY_FOOTPRINT_ESTIMATION = 'FlyFootprintEstimation',
+  WARNING_FOOD_FOOTPRINT_ESTIMATION = 'WarningFoodFootprintEstimation',
   MENU_PRIMEUM = 'MenuPrimeum',
-  HEATERS_FORM = 'HeatersForm',
-  WORKS_FORM = 'WorksForm',
-  TRANSPORTS_FORM = 'TransportsForm',
-  HOUSEHOLD_FORM = 'HouseholdForm',
+  HEATERS = 'Heaters',
+  WORKS = 'Works',
+  TRANSPORT = 'Transport',
+  HOUSEHOLD = 'Household',
 }
 
 export enum IKycStackPages {
@@ -298,18 +298,18 @@ export type ITransactionStackProps = {
 
 export type ICarbonStackProps = {
   [ICarbonStackPages.MENU]: object;
-  [ICarbonStackPages.EVOLUTION]: object;
-  [ICarbonStackPages.CARBON]: object;
-  [ICarbonStackPages.HOUSE]: object;
-  [ICarbonStackPages.TRANSPORT]: object;
-  [ICarbonStackPages.FOOD]: object;
-  [ICarbonStackPages.FLY]: object;
-  [ICarbonStackPages.WARNING_FOOD]: object;
+  [ICarbonStackPages.EVOLUTION_FOOTPRINT]: object;
+  [ICarbonStackPages.FOOTPRINT_ESTIMATION]: object;
+  [ICarbonStackPages.HEATER_FOOTPRINT_ESTIMATION]: object;
+  [ICarbonStackPages.TRANSPORT_FOOTPRINT_ESTIMATION]: object;
+  [ICarbonStackPages.FOOD_FOOTPRINT_ESTIMATION]: object;
+  [ICarbonStackPages.FLY_FOOTPRINT_ESTIMATION]: object;
+  [ICarbonStackPages.WARNING_FOOD_FOOTPRINT_ESTIMATION]: object;
   [ICarbonStackPages.MENU_PRIMEUM]: object;
-  [ICarbonStackPages.HEATERS_FORM]: object;
-  [ICarbonStackPages.WORKS_FORM]: object;
-  [ICarbonStackPages.TRANSPORTS_FORM]: object;
-  [ICarbonStackPages.HOUSEHOLD_FORM]: object;
+  [ICarbonStackPages.HEATERS]: object;
+  [ICarbonStackPages.WORKS]: object;
+  [ICarbonStackPages.TRANSPORT]: object;
+  [ICarbonStackPages.HOUSEHOLD]: object;
 };
 
 export type IKycStackProps = {
@@ -388,18 +388,18 @@ export type IRoutes =
   | ITransactionStackPages.ACCOUNT_STATEMENTS
   | ITransactionStackPages.ACCOUNT_STATEMENTS_PDF
   | ICarbonStackPages.MENU
-  | ICarbonStackPages.EVOLUTION
-  | ICarbonStackPages.CARBON
-  | ICarbonStackPages.HOUSE
-  | ICarbonStackPages.TRANSPORT
-  | ICarbonStackPages.FOOD
-  | ICarbonStackPages.FLY
-  | ICarbonStackPages.WARNING_FOOD
+  | ICarbonStackPages.EVOLUTION_FOOTPRINT
+  | ICarbonStackPages.FOOTPRINT_ESTIMATION
+  | ICarbonStackPages.HEATER_FOOTPRINT_ESTIMATION
+  | ICarbonStackPages.TRANSPORT_FOOTPRINT_ESTIMATION
+  | ICarbonStackPages.FOOD_FOOTPRINT_ESTIMATION
+  | ICarbonStackPages.FLY_FOOTPRINT_ESTIMATION
+  | ICarbonStackPages.WARNING_FOOD_FOOTPRINT_ESTIMATION
   | ICarbonStackPages.MENU_PRIMEUM
-  | ICarbonStackPages.HEATERS_FORM
-  | ICarbonStackPages.WORKS_FORM
-  | ICarbonStackPages.TRANSPORTS_FORM
-  | ICarbonStackPages.HOUSEHOLD_FORM
+  | ICarbonStackPages.HEATERS
+  | ICarbonStackPages.WORKS
+  | ICarbonStackPages.TRANSPORT
+  | ICarbonStackPages.HOUSEHOLD
   | IKycStackPages.MENU
   | IKycStackPages.INIT
   | IKycStackPages.KYC

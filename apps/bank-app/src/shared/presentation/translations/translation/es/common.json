@@ -141,7 +141,11 @@
         "INVALID_HOUSE_PROPS": "Propiedades de la casa inválidas",
         "INVALID_TRANSPORT_PROPS": "Propiedades de transporte inválidas",
         "INVALID_FOOD_PROPS": "Propiedades de alimentos inválidas",
-        "INVALID_FLY_PROPS": "Propiedades de vuelo inválidas"
+        "INVALID_FLY_PROPS": "Propiedades de vuelo inválidas",
+        "INVALID_HEATER_TYPE": "Tipo de calefacción es requerido",
+        "INVALID_HEATER_USAGE": "Uso de calefacción es requerido",
+        "INVALID_HEATER_DATE": "Fecha de instalación es requerida",
+        "HEATER_ALREADY_EXISTS": "Calefacción ya declarada"
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Faltan documentos para la validación del expediente",

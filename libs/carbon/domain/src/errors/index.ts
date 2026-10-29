@@ -9,6 +9,7 @@ export enum ICarbonErrorCodes {
   INVALID_HEATER_DATE = 'INVALID_HEATER_DATE',
   INVALID_HEATER_TYPE = 'INVALID_HEATER_TYPE',
   INVALID_HEATER_USAGE = 'INVALID_HEATER_USAGE',
+  HEATER_ALREADY_EXISTS = 'HEATER_ALREADY_EXISTS',
 }
 
 export enum ICarbonErrorMessage {
@@ -19,6 +20,7 @@ export enum ICarbonErrorMessage {
   INVALID_HEATER_DATE = 'Invalid Heater Date',
   INVALID_HEATER_TYPE = 'Invalid Heater Type',
   INVALID_HEATER_USAGE = 'Invalid Heater Usage',
+  HEATER_ALREADY_EXISTS = 'Heater already exists',
 }
 
 export namespace CarbonError {
@@ -121,6 +123,21 @@ export namespace CarbonError {
       super();
       this.code = ICarbonErrorCodes.INVALID_HEATER_USAGE;
       this.message = ICarbonErrorMessage.INVALID_HEATER_USAGE;
+      this.cause = cause;
+    }
+  }
+  export class HeaterAlreadyExists
+    extends Error
+    implements IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>
+  {
+    code: ICarbonErrorCodes;
+    message: ICarbonErrorMessage;
+    cause?: unknown;
+
+    constructor(cause?: unknown) {
+      super();
+      this.code = ICarbonErrorCodes.HEATER_ALREADY_EXISTS;
+      this.message = ICarbonErrorMessage.HEATER_ALREADY_EXISTS;
       this.cause = cause;
     }
   }

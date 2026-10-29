@@ -15,3 +15,8 @@ export enum HEATER_USAGE {
   SECONDARY = 'SECONDARY',
   SANITARY = 'SANITARY',
 }
+
+export enum HOUSE_STATUS {
+  OCCUPIED = 'OCCUPIED',
+  LEFT = 'LEFT',
+}

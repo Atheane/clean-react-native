@@ -56,7 +56,7 @@ describe('ComputeTransportEmissions - usecase', () => {
         carbonFootprint.valueAverage.toFixed(2),
       )
       .next(carbonFootprint.valueAverage.toFixed(2))
-      .call(navigate, { route: ICarbonStackPages.CARBON })
+      .call(navigate, { route: ICarbonStackPages.FOOTPRINT_ESTIMATION })
       .next();
   });
 

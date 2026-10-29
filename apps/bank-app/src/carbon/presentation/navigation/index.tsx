@@ -11,19 +11,19 @@ import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 import {
-  Carbon,
-  House,
-  Transport,
-  Food,
-  WarningFood,
-  Fly,
-  Evolution,
+  FootprintEstimation,
+  HeaterFootprintEstimation,
   MenuCarbon,
   MenuPrimeum,
-  HeatersForm,
-  WorksPrimeum,
-  TransportPrimeum,
-  HouseholdPrimeum,
+  Works,
+  Transport,
+  Household,
+  EvolutionFootprint,
+  TransportFootprintEstimation,
+  WarningFoodFootprintEstimation,
+  FoodFootprintEstimation,
+  FlyFootprintEstimation,
+  Heaters,
 } from '../screens';
 
 const Stack = createNativeStackNavigator<ICarbonStackProps & ISharedStackProps>();
@@ -52,7 +52,7 @@ export const CarbonStack = () => {
     <Stack.Navigator initialRouteName={ICarbonStackPages.MENU}>
       <Stack.Screen
         name={ICarbonStackPages.MENU}
-        component={featureTagLegacy ? MenuCarbon : Carbon}
+        component={featureTagLegacy ? MenuCarbon : FootprintEstimation}
         options={{
           headerTitle: t('screens.menu-carbon.title'),
           ...headersOptions(),
@@ -60,8 +60,8 @@ export const CarbonStack = () => {
       />
       {featureTagLegacy && (
         <Stack.Screen
-          name={ICarbonStackPages.EVOLUTION}
-          component={Evolution}
+          name={ICarbonStackPages.EVOLUTION_FOOTPRINT}
+          component={EvolutionFootprint}
           options={{
             headerTitle: t('screens.evolution.title'),
             ...headersOptions(),
@@ -71,8 +71,8 @@ export const CarbonStack = () => {
       )}
       {featureTagLegacy && (
         <Stack.Screen
-          name={ICarbonStackPages.CARBON}
-          component={Carbon}
+          name={ICarbonStackPages.FOOTPRINT_ESTIMATION}
+          component={FootprintEstimation}
           options={{
             headerTitle: t('screens.carbon.title'),
             ...headersOptions(),
@@ -81,40 +81,40 @@ export const CarbonStack = () => {
         />
       )}
       <Stack.Screen
-        name={ICarbonStackPages.HOUSE}
-        component={House}
+        name={ICarbonStackPages.HEATER_FOOTPRINT_ESTIMATION}
+        component={HeaterFootprintEstimation}
         options={{
           headerTitle: t('screens.carbon-house.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />
       <Stack.Screen
-        name={ICarbonStackPages.TRANSPORT}
-        component={Transport}
+        name={ICarbonStackPages.TRANSPORT_FOOTPRINT_ESTIMATION}
+        component={TransportFootprintEstimation}
         options={{
           headerTitle: t('screens.carbon-transport.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />
       <Stack.Screen
-        name={ICarbonStackPages.FOOD}
-        component={Food}
+        name={ICarbonStackPages.FOOD_FOOTPRINT_ESTIMATION}
+        component={FoodFootprintEstimation}
         options={{
           headerTitle: t('screens.carbon-food.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />
       <Stack.Screen
-        name={ICarbonStackPages.WARNING_FOOD}
-        component={WarningFood}
+        name={ICarbonStackPages.WARNING_FOOD_FOOTPRINT_ESTIMATION}
+        component={WarningFoodFootprintEstimation}
         options={{
           headerTitle: t('screens.carbon-food.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />
       <Stack.Screen
-        name={ICarbonStackPages.FLY}
-        component={Fly}
+        name={ICarbonStackPages.FLY_FOOTPRINT_ESTIMATION}
+        component={FlyFootprintEstimation}
         options={{
           headerTitle: t('screens.carbon-fly.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
@@ -132,8 +132,8 @@ export const CarbonStack = () => {
       )}
       {featureTagLegacy && (
         <Stack.Screen
-          name={ICarbonStackPages.HEATERS_FORM}
-          component={HeatersForm}
+          name={ICarbonStackPages.HEATERS}
+          component={Heaters}
           options={{
             headerTitle: t('screens.heat-primeum.title'),
             ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
@@ -142,8 +142,8 @@ export const CarbonStack = () => {
       )}
       {featureTagLegacy && (
         <Stack.Screen
-          name={ICarbonStackPages.WORKS_FORM}
-          component={WorksPrimeum}
+          name={ICarbonStackPages.WORKS}
+          component={Works}
           options={{
             headerTitle: t('screens.heat-primeum.title'),
             ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
@@ -152,8 +152,8 @@ export const CarbonStack = () => {
       )}
       {featureTagLegacy && (
         <Stack.Screen
-          name={ICarbonStackPages.TRANSPORTS_FORM}
-          component={TransportPrimeum}
+          name={ICarbonStackPages.TRANSPORT}
+          component={Transport}
           options={{
             headerTitle: t('screens.heat-primeum.title'),
             ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
@@ -162,8 +162,8 @@ export const CarbonStack = () => {
       )}
       {featureTagLegacy && (
         <Stack.Screen
-          name={ICarbonStackPages.HOUSEHOLD_FORM}
-          component={HouseholdPrimeum}
+          name={ICarbonStackPages.HOUSEHOLD}
+          component={Household}
           options={{
             headerTitle: t('screens.heat-primeum.title'),
             ...headersOptions(navigationStack.length > 1 ? goBack : undefined),

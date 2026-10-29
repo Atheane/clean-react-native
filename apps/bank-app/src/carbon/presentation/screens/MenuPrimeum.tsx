@@ -1,5 +1,5 @@
+import { useEffect, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@rneui/themed';
@@ -13,10 +13,14 @@ import {
   FamilyGradient,
   HeatGradient,
   StepsIndicator,
+  LoaderSplashScreen,
 } from '@clean-rn/ui-mobile';
 
-import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { IRoutes, ICarbonStackPages } from '../../../shared/presentation/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { getHouse } from '../../application/commands';
 
 export const MenuPrimeum = () => {
   const { theme } = useTheme();
@@ -28,40 +32,78 @@ export const MenuPrimeum = () => {
     navigation.navigate(route as never);
   };
 
-  const dispatch = useDispatch();
-
   const STEPS = [
     t('screens.menu-primeum.step-one'),
     t('screens.menu-primeum.step-two'),
     t('screens.menu-primeum.step-three'),
   ];
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getHouse());
+  }, [dispatch]);
+
+  const { house, transport, household, pending } = useSelector((state: IRootState) => state.carbon);
+
+  const [heatersChecked, setHeatersChecked] = useState(false);
+  const [worksChecked, setWorksChecked] = useState(false);
+  const [transportChecked, setTransportChecked] = useState(false);
+  const [householdChecked, setHouseholdChecked] = useState(false);
+
+  useEffect(() => {
+    if (house?.house?.properties?.heaters && house.house.properties.heaters.length > 0) {
+      setHeatersChecked(true);
+    }
+    if (house?.house?.properties?.works && house.house.properties.works.length > 0) {
+      setWorksChecked(true);
+    }
+    if (transport?.transport?.properties?.cars && transport.transport.properties.cars.length > 0) {
+      setTransportChecked(true);
+    }
+    if (household) {
+      setHouseholdChecked(true);
+    }
+  }, [house, transport, household]);
+
+  const [currentPosition, setCurrentPosition] = useState(1);
+  useEffect(() => {
+    if (heatersChecked && worksChecked && transportChecked && householdChecked) {
+      setCurrentPosition(2);
+    }
+  }, [heatersChecked, worksChecked, transportChecked, householdChecked]);
+
   const Cards = () => {
-    return (
+    return pending ? (
+      <LoaderSplashScreen />
+    ) : (
       <View style={styles.cardContainer}>
         <View style={styles.row}>
           <TouchCardCheck
             icon={HeatGradient}
-            onPress={() => handlePressNavigation(ICarbonStackPages.HEATERS_FORM)}
+            onPress={() => handlePressNavigation(ICarbonStackPages.HEATERS)}
             text={t('screens.menu-primeum.heat')}
-            checked
+            checked={heatersChecked}
           />
           <TouchCardCheck
             icon={HouseGradient}
-            onPress={() => handlePressNavigation(ICarbonStackPages.WORKS_FORM)}
+            onPress={() => handlePressNavigation(ICarbonStackPages.WORKS)}
             text={t('screens.menu-primeum.works')}
+            checked={worksChecked}
           />
         </View>
         <View style={styles.row}>
           <TouchCardCheck
             icon={CarGradient}
-            onPress={() => handlePressNavigation(ICarbonStackPages.TRANSPORTS_FORM)}
+            onPress={() => handlePressNavigation(ICarbonStackPages.TRANSPORT)}
             text={t('screens.menu-primeum.transport')}
+            checked={transportChecked}
           />
           <TouchCardCheck
             icon={FamilyGradient}
-            onPress={() => handlePressNavigation(ICarbonStackPages.HOUSEHOLD_FORM)}
+            onPress={() => handlePressNavigation(ICarbonStackPages.HOUSEHOLD)}
             text={t('screens.menu-primeum.household')}
+            checked={householdChecked}
           />
         </View>
       </View>
@@ -70,15 +112,15 @@ export const MenuPrimeum = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView backgroundColor={Colors.primary.darkWhite}>
-        <View>
-          <View style={[styles.whiteContainer]}>
-            <StepsIndicator
-              labels={STEPS}
-              currentPosition={2}
-              onCirclePress={(position: number) => console.log('Navigation set to: ' + STEPS[position - 1])}
-            />
-          </View>
+      <View>
+        <View style={[styles.whiteContainer]}>
+          <StepsIndicator
+            labels={STEPS}
+            currentPosition={currentPosition}
+            onCirclePress={(position: number) => console.log('Navigation set to: ' + STEPS[position - 1])}
+          />
+        </View>
+        <View style={styles.darkWhiteContainer}>
           <View style={[styles.instructionContainer]}>
             <Text>
               <Text style={[styles.instructionText, theme.text.grey]}>
@@ -90,27 +132,27 @@ export const MenuPrimeum = () => {
             </Text>
           </View>
 
-          <View style={[styles.darkWhiteContainer, theme.container.centeredItem]}>
+          <View style={[theme.container.centeredItem]}>
             <Cards />
           </View>
         </View>
-      </SafeScrollingView>
+      </View>
     </ErrorBoundary>
   );
 };
 
 const styles = StyleSheet.create({
   whiteContainer: {
-    flex: 1,
+    flexDirection: 'row',
     backgroundColor: Colors.primary.white,
-  },
-  darkWhiteContainer: {
-    backgroundColor: Colors.primary.darkWhite,
   },
   instructionContainer: {
     width: '90%',
     alignSelf: 'center',
     marginVertical: 30,
+  },
+  darkWhiteContainer: {
+    backgroundColor: Colors.primary.darkWhite,
   },
   instructionText: {
     fontFamily: FontNames.MartelSans_400Regular,

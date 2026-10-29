@@ -139,9 +139,13 @@
       },
       "carbon": {
         "INVALID_HOUSE_PROPS": "Proprietà della casa non valide",
-        "INVALID_TRANSPORT_PROPS": "Proprietà del trasporto non valide",
-        "INVALID_FOOD_PROPS": "Proprietà alimentari non valide",
-        "INVALID_FLY_PROPS": "Proprietà del volo non valide"
+        "INVALID_TRANSPORT_PROPS": "Proprietà di trasporto non valide",
+        "INVALID_FOOD_PROPS": "Proprietà di alimenti non valide",
+        "INVALID_FLY_PROPS": "Proprietà di volo non valide",
+        "INVALID_HEATER_TYPE": "Tipo di riscaldamento richiesto",
+        "INVALID_HEATER_USAGE": "Uso del riscaldamento richiesto",
+        "INVALID_HEATER_DATE": "Data di installazione richiesta",
+        "HEATER_ALREADY_EXISTS": "Riscaldamento già dichiarato"
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Documenti per la validazione del dossier mancanti",

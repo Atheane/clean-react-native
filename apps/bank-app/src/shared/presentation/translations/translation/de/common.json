@@ -138,10 +138,14 @@
         "CONTACT_ALREADY_EXISTS": "Dieser Kontakt existiert bereits"
       },
       "carbon": {
-        "INVALID_HOUSE_PROPS": "Ungültige Hauseigenschaften",
+        "INVALID_HOUSE_PROPS": "Ungültige Haus-Eigenschaften",
         "INVALID_TRANSPORT_PROPS": "Ungültige Transporteigenschaften",
-        "INVALID_FOOD_PROPS": "Ungültige Nahrungsmittel-Eigenschaften",
-        "INVALID_FLY_PROPS": "Ungültige Flugeigenschaften"
+        "INVALID_FOOD_PROPS": "Ungültige Lebensmittel-Eigenschaften",
+        "INVALID_FLY_PROPS": "Ungültige Flug-Eigenschaften",
+        "INVALID_HEATER_TYPE": "Heizungstyp ist erforderlich",
+        "INVALID_HEATER_USAGE": "Heizungsverwendung ist erforderlich",
+        "INVALID_HEATER_DATE": "Die Installationsdatum ist erforderlich",
+        "HEATER_ALREADY_EXISTS": "Heizung bereits deklariert"
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Dokumente zur Kontoverifizierung fehlen",
