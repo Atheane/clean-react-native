@@ -59,7 +59,7 @@ describe('ComputeHouseEmissions - usecase', () => {
         houseCarbonFootprint.valueAverage.toFixed(2),
       )
       .next(houseCarbonFootprint.valueAverage.toFixed(2))
-      .call(navigate, { route: ICarbonStackPages.CARBON })
+      .call(navigate, { route: ICarbonStackPages.FOOTPRINT_ESTIMATION })
       .next();
   });
 

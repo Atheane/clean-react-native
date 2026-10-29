@@ -15,7 +15,16 @@ import {
   IComputeFlyEmissions,
   IInitializeFlyEmissions,
   IFlyEmissionsComputed,
+  IHouseCreated,
+  IHeatersAdded,
+  IAddHeaters,
+  IHeatersNotAdded,
+  IInitializeCarbon,
+  IGetHouse,
 } from './types';
+import { House, ICarbonErrorCodes, ICarbonErrorMessage } from '@clean-rn/carbon/domain';
+import { IHeaterProps } from '../../presentation/types';
+import { IDomainError } from '@clean-rn/ddd';
 
 // commands
 export const computeHouseEmissions = (
@@ -90,6 +99,36 @@ export const flyEmissionsComputed = (payload: {
 }): IFlyEmissionsComputed => ({
   type: ICarbonTypes.FLY_EMISSIONS_COMPUTED,
   payload,
+});
+
+export const houseCreated = (payload: House): IHouseCreated => ({
+  type: ICarbonTypes.HOUSE_CREATED,
+  payload,
+});
+
+export const addHeaters = (payload: IHeaterProps): IAddHeaters => ({
+  type: ICarbonTypes.ADD_HEATERS,
+  payload,
+});
+
+export const heatersAdded = (payload: House): IHeatersAdded => ({
+  type: ICarbonTypes.HEATERS_ADDED,
+  payload,
+});
+
+export const heatersNotAdded = (
+  payload: IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>,
+): IHeatersNotAdded => ({
+  type: ICarbonTypes.HEATERS_NOT_ADDED,
+  payload,
+});
+
+export const initializeCarbon = (): IInitializeCarbon => ({
+  type: ICarbonTypes.INITIALIZE_CARBON,
+});
+
+export const getHouse = (): IGetHouse => ({
+  type: ICarbonTypes.GET_HOUSE,
 });
 
 export { ICarbonActions, ICarbonTypes };

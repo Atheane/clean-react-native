@@ -54,6 +54,8 @@ import {
   computeTransportEmissionsSaga,
   computeFoodEmissionsSaga,
   computeFlyEmissionsSaga,
+  getHouseSaga,
+  addHeatersSaga,
 } from '../../../carbon/application/usecases';
 
 import { checkCustomerStatusSaga } from '../../../kyc/application/usecases/customer';
@@ -78,6 +80,7 @@ import { initializeAccounts } from '../../../account/application/commands/accoun
 import { rootReducer } from '../state-management/reducers/root-reducer';
 import { initBeneficiary } from '../../../beneficiary/application/commands/beneficiary';
 import {
+  initializeCarbon,
   initializeFlyEmissions,
   initializeFoodEmissions,
   initializeHouseEmissions,
@@ -150,6 +153,7 @@ function* watchLogout() {
   yield put(initializeTransactionsList());
   yield put(initTransaction());
   yield put(initializeUser());
+  yield put(initializeCarbon());
 }
 
 function* rootSaga(httpConnection: HttpConnection): SagaIterator {
@@ -200,6 +204,8 @@ function* rootSaga(httpConnection: HttpConnection): SagaIterator {
     call(updateUserSaga, httpConnection),
     call(deleteUserAccountSaga, httpConnection),
     call(logoutSaga, httpConnection),
+    call(getHouseSaga, httpConnection),
+    call(addHeatersSaga, httpConnection),
   ];
   // here we watch if action logout is launched in the store
   yield fork(watchLogout);

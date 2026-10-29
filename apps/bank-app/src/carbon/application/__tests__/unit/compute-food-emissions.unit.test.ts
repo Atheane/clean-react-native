@@ -58,7 +58,7 @@ describe('ComputeFoodEmissions - usecase', () => {
       .next(carbonFootprint.value.toFixed(2))
       .call(AsyncStorage.setItem, IStoreKey.AVERAGE_FOOD_EMISSION, carbonFootprint.valueAverage.toFixed(2))
       .next(carbonFootprint.valueAverage.toFixed(2))
-      .call(navigate, { route: ICarbonStackPages.CARBON })
+      .call(navigate, { route: ICarbonStackPages.FOOTPRINT_ESTIMATION })
       .next();
   });
 

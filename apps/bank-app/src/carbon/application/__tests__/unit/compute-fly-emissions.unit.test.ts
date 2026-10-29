@@ -64,7 +64,7 @@ describe('ComputeFlyEmissions - usecase', () => {
       .next((flyCarbonFootprint1.value + flyCarbonFootprint2.value).toFixed(2))
       .call(AsyncStorage.setItem, IStoreKey.AVERAGE_FLY_EMISSION, flyCarbonFootprint1.valueAverage.toFixed(2))
       .next(flyCarbonFootprint1.valueAverage.toFixed(2))
-      .call(navigate, { route: ICarbonStackPages.CARBON })
+      .call(navigate, { route: ICarbonStackPages.FOOTPRINT_ESTIMATION })
       .next();
   });
 

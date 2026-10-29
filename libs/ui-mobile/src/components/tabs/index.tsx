@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { View, Dimensions, StyleSheet } from 'react-native';
 import { Tab, TabView } from '@rneui/themed';
 import { IconNode } from '@rneui/base';
@@ -10,28 +10,38 @@ type IProps = {
   icons: IconNode[];
   contents: React.ReactNode[];
   titles: string[];
-  changeTab?: (index: number) => void;
   color: string;
   colorInactive?: string;
   backgroundColor?: string;
+  onChangeTab?: (index: number) => void;
+  value?: number;
 };
 
 export const Tabs = (props: IProps) => {
-  const [index, setIndex] = useState<number>(0);
-
+  const [index, setIndex] = useState<number>(props.value || 0);
   // https://github.com/react-native-elements/react-native-elements/issues/3784
-  const [indicatorX, setIndicatorX] = useState(0);
+
   const windowWidth = Dimensions.get('window').width;
   const tabWidth = windowWidth / props.tabsCount; // Specify your tabs amount
 
+  const [indicatorX, setIndicatorX] = useState(index * tabWidth);
+
   const handleOnChangeTab = useCallback(
-    (index: number) => {
-      setIndex(index);
-      setIndicatorX(index * tabWidth); // Setting the right translateX value
-      props.changeTab?.(index);
+    (newIndex: number) => {
+      setIndex(newIndex);
+      setIndicatorX(newIndex * tabWidth); // Setting the right translateX value
+      props.onChangeTab?.(newIndex); // inform parent on currentTab
     },
     [tabWidth, props],
   );
+
+  useEffect(() => {
+    if (props.value !== undefined && props.value !== index) {
+      setIndex(props.value);
+      setIndicatorX(props.value * tabWidth);
+    }
+  }, [props.value, tabWidth]);
+
   return (
     <View style={[styles.container, { backgroundColor: props.backgroundColor ?? Colors.primary.white }]}>
       <View style={styles.row}>
@@ -43,7 +53,7 @@ export const Tabs = (props: IProps) => {
             {
               backgroundColor: props.color,
               height: 3,
-              width: Dimensions.get('window').width / props.tabsCount - (props.colorInactive ? 8 : 0),
+              width: tabWidth - (props.colorInactive ? 8 : 0),
               transform: [{ translateX: indicatorX }], // Overriding the buggy string from the source
               borderBottomColor: props.color,
               borderTopStartRadius: 4,
@@ -53,7 +63,7 @@ export const Tabs = (props: IProps) => {
             },
             props.colorInactive ? { borderBottomWidth: 4 } : null,
           ]}
-          buttonStyle={{ width: Dimensions.get('window').width / props.tabsCount }}
+          buttonStyle={{ width: tabWidth }}
         >
           {Array(props.tabsCount)
             .fill(0)
@@ -65,7 +75,7 @@ export const Tabs = (props: IProps) => {
                 titleStyle={{
                   fontSize: 13,
                   marginTop: 8,
-                  color: props.color,
+                  color: index === idx ? props.color : props.colorInactive || props.color,
                 }}
                 icon={props.icons[idx] as IconNode}
                 containerStyle={
@@ -73,7 +83,7 @@ export const Tabs = (props: IProps) => {
                     ? {
                         borderBottomColor: props.colorInactive,
                         borderBottomWidth: 4,
-                        width: Dimensions.get('window').width / props.tabsCount - 8,
+                        width: tabWidth - 8,
                         marginRight: 8,
                       }
                     : null

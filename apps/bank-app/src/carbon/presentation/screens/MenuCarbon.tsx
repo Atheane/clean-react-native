@@ -20,7 +20,7 @@ import {
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { ICarbonStackPages, IRoutes, ISharedStackPages } from '../../../shared/presentation/types';
-import { URL_CO2_REWARD } from '../../../carbon/presentation/constants';
+import { URL_CO2_REWARD } from '../constants';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 const fakeData = [
@@ -74,7 +74,7 @@ export const MenuCarbon = () => {
               text={t('screens.menu-carbon.2min')}
               leftIcon={CarbonGradient}
               rightIcon={RightChevronGradient}
-              onPress={() => handlePressNavigation(ICarbonStackPages.CARBON)}
+              onPress={() => handlePressNavigation(ICarbonStackPages.FOOTPRINT_ESTIMATION)}
             />
           </View>
           <View style={[theme.container.card.long, theme.shadow.card]}>
@@ -92,7 +92,7 @@ export const MenuCarbon = () => {
             <View style={[theme.container.centeredItem, styles.titleContainer]}>
               <SecondaryButton
                 title={t('screens.menu-carbon.evolution')}
-                onPress={() => handlePressNavigation(ICarbonStackPages.EVOLUTION)}
+                onPress={() => handlePressNavigation(ICarbonStackPages.EVOLUTION_FOOTPRINT)}
                 long
               />
             </View>

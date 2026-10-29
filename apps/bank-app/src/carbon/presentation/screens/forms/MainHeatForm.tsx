@@ -1,15 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { View, StyleSheet, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
+import { DomainEventManager } from '@clean-rn/ddd';
 import { Dropdown, ErrorMessage, SubmitButton } from '@clean-rn/ui-mobile';
-import { IDomainError } from '@clean-rn/ddd';
-import { HEATER_TYPE, HEATER_USAGE, ICarbonErrorCodes, ICarbonErrorMessage } from '@clean-rn/carbon/domain';
-import { Heater } from '@clean-rn/carbon/domain';
-import { mapHeaterPropsToDomain } from '../../mappers';
+import {
+  HEATER_TYPE,
+  HEATER_USAGE,
+  ICarbonErrorCodes,
+  CARBON_EVENTS,
+  Heater,
+} from '@clean-rn/carbon/domain';
+import { IRootState } from '../../../../shared/application/state-management/reducers/root-reducer';
+import { addHeaters, initializeCarbon } from '../../../application/commands';
 import { IHeaterProps } from '../../types';
 
-export const MainHeatForm = () => {
+type IProps = {
+  goToNextTab: (nextIndex: number) => number | undefined;
+};
+
+export const MainHeatForm = (props: IProps) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
 
@@ -24,26 +35,46 @@ export const MainHeatForm = () => {
     return { key: year.toString(), value: year.toString() };
   });
 
-  const [formData, setFormData] = useState<Partial<IHeaterProps>>({ usage: HEATER_USAGE.MAIN });
-  const [domainError, setDomainError] = useState<IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>>();
+  const [formData, setFormData] = useState<Partial<IHeaterProps>>();
 
   const handleChangeForm = ({ key, value }: { key: string; value: string | number }) => {
-    setDomainError(undefined);
-    const newFormData = { ...formData, [key]: value };
+    const newFormData = { ...formData, usage: HEATER_USAGE.MAIN, [key]: value };
     if (key === 'installationYear' && value === 2011 && newFormData.previousHeatType) {
       newFormData.previousHeatType = undefined;
     }
     setFormData(newFormData);
+    dispatch(initializeCarbon());
   };
+
+  const dispatch = useDispatch();
+
+  const { pending, error: domainError } = useSelector((state: IRootState) => state.carbon);
+
   const handleOnSubmit = async () => {
-    try {
-      const heaters: Heater[] = await mapHeaterPropsToDomain(formData as IHeaterProps);
-      console.log('dispatch(addHeaters(heaters))', heaters);
-    } catch (error) {
-      console.log('error', error);
-      setDomainError(error as IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>);
-    }
+    dispatch(addHeaters(formData as IHeaterProps));
   };
+
+  const [heatersAdded, setHeatersAdded] = useState(false);
+
+  const handleHeatersAdded = useCallback(({ heater }: { heater: Heater }) => {
+    if (heater.properties.heaterUsage === HEATER_USAGE.MAIN) {
+      setHeatersAdded(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    const domainEventManager = DomainEventManager.getInstance();
+    domainEventManager.on(CARBON_EVENTS.HEATER_ADDED, handleHeatersAdded);
+    return () => {
+      domainEventManager.off(CARBON_EVENTS.HEATER_ADDED, handleHeatersAdded);
+    };
+  }, [handleHeatersAdded]);
+
+  useEffect(() => {
+    if (heatersAdded) {
+      props.goToNextTab(1);
+    }
+  }, [heatersAdded, props]);
 
   return (
     <View>
@@ -58,15 +89,18 @@ export const MainHeatForm = () => {
         value={formData?.heatType}
         onSelect={({ key }) => handleChangeForm({ key: 'heatType', value: key })}
       />
-      {!formData.heatType && domainError && domainError.code === ICarbonErrorCodes.INVALID_HEATER_TYPE && (
-        <View style={styles.errorContainer}>
-          <ErrorMessage
-            error={domainError}
-            errorMessage={t(`errors.domain-error.carbon.${domainError?.code}`)}
-            genericErrorMessage={t('errors.other')}
-          />
-        </View>
-      )}
+      {formData?.usage === HEATER_USAGE.MAIN &&
+        !formData.heatType &&
+        domainError &&
+        domainError.code === ICarbonErrorCodes.INVALID_HEATER_TYPE && (
+          <View style={styles.errorContainer}>
+            <ErrorMessage
+              error={domainError}
+              errorMessage={t(`errors.domain-error.carbon.${domainError?.code}`)}
+              genericErrorMessage={t('errors.other')}
+            />
+          </View>
+        )}
       <View style={styles.rowContainer}>
         <View style={styles.textContainer}>
           <Text style={theme.text.grey}>
@@ -80,15 +114,18 @@ export const MainHeatForm = () => {
         value={formData?.installationYear?.toString()}
         onSelect={({ key }) => handleChangeForm({ key: 'installationYear', value: parseInt(key) })}
       />
-      {domainError && domainError.code === ICarbonErrorCodes.INVALID_HEATER_DATE && (
-        <View style={styles.errorContainer}>
-          <ErrorMessage
-            error={domainError}
-            errorMessage={t(`errors.domain-error.carbon.${domainError?.code}`)}
-            genericErrorMessage={t('errors.other')}
-          />
-        </View>
-      )}
+      {formData?.usage === HEATER_USAGE.MAIN &&
+        !formData.installationYear &&
+        domainError &&
+        domainError.code === ICarbonErrorCodes.INVALID_HEATER_DATE && (
+          <View style={styles.errorContainer}>
+            <ErrorMessage
+              error={domainError}
+              errorMessage={t(`errors.domain-error.carbon.${domainError?.code}`)}
+              genericErrorMessage={t('errors.other')}
+            />
+          </View>
+        )}
       {formData?.installationYear && formData.installationYear >= 2012 && (
         <View>
           <View style={styles.rowContainer}>
@@ -105,7 +142,8 @@ export const MainHeatForm = () => {
             value={formData?.previousHeatType}
             onSelect={({ key }) => handleChangeForm({ key: 'previousHeatType', value: key })}
           />
-          {!formData.previousHeatType &&
+          {formData.usage === HEATER_USAGE.MAIN &&
+            !formData.previousHeatType &&
             domainError &&
             domainError.code === ICarbonErrorCodes.INVALID_HEATER_TYPE && (
               <View style={styles.errorContainer}>
@@ -118,11 +156,23 @@ export const MainHeatForm = () => {
             )}
         </View>
       )}
+      {formData?.usage === HEATER_USAGE.MAIN &&
+        domainError &&
+        domainError.code === ICarbonErrorCodes.HEATER_ALREADY_EXISTS && (
+          <View style={styles.errorContainer}>
+            <ErrorMessage
+              error={domainError}
+              errorMessage={t(`errors.domain-error.carbon.${domainError?.code}`)}
+              genericErrorMessage={t('errors.other')}
+            />
+          </View>
+        )}
       <View style={[styles.rowContainer, { marginTop: 80 }]}>
         <SubmitButton
           title={t('screens.heat-primeum.next-step')}
           disabled={!formData?.heatType || !formData?.installationYear}
           uppercase
+          loading={pending}
           onSubmit={handleOnSubmit}
         />
       </View>

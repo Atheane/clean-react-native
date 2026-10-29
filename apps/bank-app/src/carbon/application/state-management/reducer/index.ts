@@ -1,5 +1,7 @@
+import { DomainEventManager } from '@clean-rn/ddd';
 import { ICarbonActions, ICarbonTypes } from '../../commands';
 import { ICarbonState } from '../state';
+import { CARBON_EVENTS } from '@clean-rn/carbon/domain';
 
 const initialState: ICarbonState = {
   pending: false,
@@ -7,6 +9,7 @@ const initialState: ICarbonState = {
     data: null,
     footprint: null,
     average: null,
+    house: null,
   },
   transport: {
     data: null,
@@ -23,11 +26,58 @@ const initialState: ICarbonState = {
     footprint: null,
     average: null,
   },
+  error: null,
 };
 
 export const carbonReducer = (state = initialState, action: ICarbonActions) => {
   let newState: ICarbonState;
   switch (action.type) {
+    case ICarbonTypes.GET_HOUSE:
+      newState = {
+        ...state,
+        pending: true,
+        error: null,
+      };
+      return newState;
+    case ICarbonTypes.ADD_HEATERS:
+      newState = {
+        ...state,
+        pending: true,
+        error: null,
+      };
+      return newState;
+    case ICarbonTypes.HOUSE_CREATED:
+      newState = {
+        ...state,
+        pending: false,
+        house: {
+          ...state.house,
+          house: action.payload,
+        },
+        error: null,
+      };
+      return newState;
+    case ICarbonTypes.HEATERS_ADDED:
+      newState = {
+        ...state,
+        pending: false,
+        house: {
+          ...state.house,
+          house: action.payload,
+        },
+        error: null,
+      };
+      return newState;
+    case ICarbonTypes.HEATERS_NOT_ADDED:
+      newState = {
+        ...state,
+        pending: false,
+        house: {
+          ...state.house,
+        },
+        error: action.payload,
+      };
+      return newState;
     case ICarbonTypes.COMPUTE_HOUSE_EMISSIONS:
       newState = {
         ...state,
@@ -36,6 +86,7 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
           ...state.house,
           data: action.payload,
         },
+        error: null,
       };
       return newState;
     case ICarbonTypes.HOUSE_EMISSIONS_COMPUTED:
@@ -46,6 +97,7 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
           ...state.house,
           ...action.payload,
         },
+        error: null,
       };
       return newState;
     case ICarbonTypes.INITIALIZE_HOUSE_EMISSIONS:
@@ -56,7 +108,9 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
           data: null,
           footprint: null,
           average: null,
+          house: null,
         },
+        error: null,
       };
       return newState;
     case ICarbonTypes.COMPUTE_TRANSPORT_EMISSIONS:
@@ -67,6 +121,7 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
           ...state.transport,
           data: action.payload,
         },
+        error: null,
       };
       return newState;
     case ICarbonTypes.TRANSPORT_EMISSIONS_COMPUTED:
@@ -77,6 +132,7 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
           ...state.transport,
           ...action.payload,
         },
+        error: null,
       };
       return newState;
     case ICarbonTypes.INITIALIZE_TRANSPORT_EMISSIONS:
@@ -88,6 +144,7 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
           footprint: null,
           average: null,
         },
+        error: null,
       };
       return newState;
     case ICarbonTypes.COMPUTE_FOOD_EMISSIONS:
@@ -98,6 +155,7 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
           ...state.food,
           data: action.payload,
         },
+        error: null,
       };
       return newState;
     case ICarbonTypes.FOOD_EMISSIONS_COMPUTED:
@@ -108,6 +166,7 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
           ...state.food,
           ...action.payload,
         },
+        error: null,
       };
       return newState;
     case ICarbonTypes.INITIALIZE_FOOD_EMISSIONS:
@@ -119,6 +178,7 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
           footprint: null,
           average: null,
         },
+        error: null,
       };
       return newState;
     case ICarbonTypes.COMPUTE_FLY_EMISSIONS:
@@ -129,6 +189,7 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
           ...state.fly,
           data: action.payload,
         },
+        error: null,
       };
       return newState;
     case ICarbonTypes.FLY_EMISSIONS_COMPUTED:
@@ -139,6 +200,7 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
           ...state.fly,
           ...action.payload,
         },
+        error: null,
       };
       return newState;
     case ICarbonTypes.INITIALIZE_FLY_EMISSIONS:
@@ -150,6 +212,14 @@ export const carbonReducer = (state = initialState, action: ICarbonActions) => {
           footprint: null,
           average: null,
         },
+        error: null,
+      };
+      return newState;
+    case ICarbonTypes.INITIALIZE_CARBON:
+      newState = {
+        ...state,
+        pending: false,
+        error: null,
       };
       return newState;
     default:

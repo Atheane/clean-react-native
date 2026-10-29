@@ -36,7 +36,7 @@ export function* computeFoodEmissionsGenerator({
       IStoreKey.AVERAGE_FOOD_EMISSION,
       foodCarbonFootprint.valueAverage.toFixed(2),
     );
-    yield call(navigate, { route: ICarbonStackPages.CARBON });
+    yield call(navigate, { route: ICarbonStackPages.FOOTPRINT_ESTIMATION });
   } catch (error: any) {
     yield put(initializeFoodEmissions());
     yield put(showUnknownError(error as Error));

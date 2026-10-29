@@ -90,6 +90,7 @@ describe('Compute emissions - integration', () => {
         data: null,
         footprint: null,
         average: null,
+        house: null,
       },
       transport: {
         data: null,
@@ -106,6 +107,7 @@ describe('Compute emissions - integration', () => {
         footprint: null,
         average: null,
       },
+      error: null,
     };
     sagaTester = new SagaTester({
       initialState,
@@ -125,6 +127,7 @@ describe('Compute emissions - integration', () => {
         data: mockHouseData,
         footprint: null,
         average: null,
+        house: null,
       },
       transport: {
         data: null,
@@ -141,6 +144,7 @@ describe('Compute emissions - integration', () => {
         footprint: null,
         average: null,
       },
+      error: null,
     });
   });
 
@@ -160,6 +164,7 @@ describe('Compute emissions - integration', () => {
         data: mockHouseData,
         footprint: houseCarbonFootprint.value,
         average: houseCarbonFootprint.valueAverage,
+        house: null,
       },
       transport: {
         data: null,
@@ -176,6 +181,7 @@ describe('Compute emissions - integration', () => {
         footprint: null,
         average: null,
       },
+      error: null,
     });
   });
 
@@ -190,6 +196,7 @@ describe('Compute emissions - integration', () => {
         data: null,
         footprint: null,
         average: null,
+        house: null,
       },
       transport: {
         data: null,
@@ -206,6 +213,7 @@ describe('Compute emissions - integration', () => {
         footprint: null,
         average: null,
       },
+      error: null,
     });
   });
 
@@ -221,6 +229,7 @@ describe('Compute emissions - integration', () => {
         data: null,
         footprint: null,
         average: null,
+        house: null,
       },
       transport: {
         data: mockTransportData,
@@ -237,6 +246,7 @@ describe('Compute emissions - integration', () => {
         footprint: null,
         average: null,
       },
+      error: null,
     });
   });
 
@@ -256,6 +266,7 @@ describe('Compute emissions - integration', () => {
         data: null,
         footprint: null,
         average: null,
+        house: null,
       },
       transport: {
         data: mockTransportData,
@@ -272,6 +283,7 @@ describe('Compute emissions - integration', () => {
         footprint: null,
         average: null,
       },
+      error: null,
     });
   });
 
@@ -286,6 +298,7 @@ describe('Compute emissions - integration', () => {
         data: null,
         footprint: null,
         average: null,
+        house: null,
       },
       transport: {
         data: null,
@@ -302,6 +315,7 @@ describe('Compute emissions - integration', () => {
         footprint: null,
         average: null,
       },
+      error: null,
     });
   });
 
@@ -317,6 +331,7 @@ describe('Compute emissions - integration', () => {
         data: null,
         footprint: null,
         average: null,
+        house: null,
       },
       transport: {
         data: null,
@@ -333,6 +348,7 @@ describe('Compute emissions - integration', () => {
         footprint: null,
         average: null,
       },
+      error: null,
     });
   });
 
@@ -352,6 +368,7 @@ describe('Compute emissions - integration', () => {
         data: null,
         footprint: null,
         average: null,
+        house: null,
       },
       transport: {
         data: null,
@@ -368,6 +385,7 @@ describe('Compute emissions - integration', () => {
         footprint: null,
         average: null,
       },
+      error: null,
     });
   });
 
@@ -382,6 +400,7 @@ describe('Compute emissions - integration', () => {
         data: null,
         footprint: null,
         average: null,
+        house: null,
       },
       transport: {
         data: null,
@@ -398,6 +417,7 @@ describe('Compute emissions - integration', () => {
         footprint: null,
         average: null,
       },
+      error: null,
     });
   });
 
@@ -413,6 +433,7 @@ describe('Compute emissions - integration', () => {
         data: null,
         footprint: null,
         average: null,
+        house: null,
       },
       transport: {
         data: null,
@@ -429,6 +450,7 @@ describe('Compute emissions - integration', () => {
         footprint: null,
         average: null,
       },
+      error: null,
     });
   });
 
@@ -448,6 +470,7 @@ describe('Compute emissions - integration', () => {
         data: null,
         footprint: null,
         average: null,
+        house: null,
       },
       transport: {
         data: null,
@@ -464,6 +487,7 @@ describe('Compute emissions - integration', () => {
         footprint: flyCarbonFootprint1.value + flyCarbonFootprint2.value,
         average: flyCarbonFootprint1.valueAverage,
       },
+      error: null,
     });
   });
 
@@ -478,6 +502,7 @@ describe('Compute emissions - integration', () => {
         data: null,
         footprint: null,
         average: null,
+        house: null,
       },
       transport: {
         data: null,
@@ -494,6 +519,7 @@ describe('Compute emissions - integration', () => {
         footprint: null,
         average: null,
       },
+      error: null,
     });
   });
 });

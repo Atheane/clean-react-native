@@ -1,29 +1,29 @@
 import { MenuCarbon } from './MenuCarbon';
-import { Evolution } from './Evolution';
-import { Carbon } from './Carbon';
-import { Food } from './Food';
-import { House } from './House';
-import { Transport } from './Transport';
-import { WarningFood } from './WarningFood';
-import { Fly } from './Fly';
+import { EvolutionFootprint } from './EvolutionFootprint';
+import { FootprintEstimation } from './FootprintEstimation';
+import { FoodFootprintEstimation } from './FoodFootprintEstimation';
+import { HeaterFootprintEstimation } from './HeaterFootprintEstimation';
+import { TransportFootprintEstimation } from './TransportFootprintEstimation';
+import { WarningFoodFootprintEstimation } from './WarningFoodFootprintEstimation';
+import { FlyFootprintEstimation } from './FlyFootprintEstimation';
 import { MenuPrimeum } from './MenuPrimeum';
-import { HeatersForm } from './HeatersForm';
-import { WorksPrimeum } from './WorksPrimeum';
-import { TransportPrimeum } from './TransportPrimeum';
-import { HouseholdPrimeum } from './HouseholdPrimeum';
+import { Heaters } from './Heaters';
+import { Works } from './Works';
+import { Transport } from './Transport';
+import { Household } from './Household';
 
 export {
   MenuCarbon,
-  Evolution,
-  Carbon,
-  House,
-  Transport,
-  Food,
-  WarningFood,
-  Fly,
+  EvolutionFootprint,
+  FootprintEstimation,
+  HeaterFootprintEstimation,
+  TransportFootprintEstimation,
+  FoodFootprintEstimation,
+  WarningFoodFootprintEstimation,
+  FlyFootprintEstimation,
   MenuPrimeum,
-  HeatersForm,
-  WorksPrimeum,
-  TransportPrimeum,
-  HouseholdPrimeum,
+  Heaters,
+  Household,
+  Works,
+  Transport,
 };

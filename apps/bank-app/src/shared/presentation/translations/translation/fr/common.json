@@ -145,7 +145,8 @@
         "INVALID_FLY_PROPS": "Propriétés de vol invalides",
         "INVALID_HEATER_TYPE": "Le type de chauffage est requis",
         "INVALID_HEATER_USAGE": "L'usage de chauffage est requis",
-        "INVALID_HEATER_DATE": "La date d'installation est requise"
+        "INVALID_HEATER_DATE": "La date d'installation est requise",
+        "HEATER_ALREADY_EXISTS": "Chauffage déjà déclaré"
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Documents pour validation du dossier manquants",

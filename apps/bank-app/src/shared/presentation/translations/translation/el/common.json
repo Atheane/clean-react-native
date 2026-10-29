@@ -138,10 +138,14 @@
         "CONTACT_ALREADY_EXISTS": "Αυτή η επαφή υπάρχει ήδη"
       },
       "carbon": {
-        "INVALID_HOUSE_PROPS": "Μη έγκυρες ιδιότητες σπιτιού",
-        "INVALID_TRANSPORT_PROPS": "Μη έγκυρες ιδιότητες μεταφοράς",
-        "INVALID_FOOD_PROPS": "Μη έγκυρες ιδιότητες τροφίμων",
-        "INVALID_FLY_PROPS": "Μη έγκυρες ιδιότητες πτήσης"
+        "INVALID_HOUSE_PROPS": "Άκυρες ιδιότητες οικίας",
+        "INVALID_TRANSPORT_PROPS": "Άκυρες ιδιότητες μεταφοράς",
+        "INVALID_FOOD_PROPS": "Άκυρες ιδιότητες τροφίμων",
+        "INVALID_FLY_PROPS": "Άκυρες ιδιότητες πτήσης",
+        "INVALID_HEATER_TYPE": "Απαιτείται τύπος θέρμανσης",
+        "INVALID_HEATER_USAGE": "Απαιτείται χρήση θέρμανσης",
+        "INVALID_HEATER_DATE": "Απαιτείται ημερομηνία εγκατάστασης",
+        "HEATER_ALREADY_EXISTS": "Η θέρμανση έχει ήδη δηλωθεί"
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Έγγραφα επαλήθευσης ταυτότητας λείπουν",
