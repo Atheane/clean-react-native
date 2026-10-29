@@ -23,6 +23,7 @@
     "@rneui/themed": "^4.0.0-rc.8",
     "@sentry/react-native": "~5.20.0",
     "base-64": "^1.0.0",
+    "configcat-react": "^4.6.0",
     "country-flag-emoji": "^1.0.3",
     "dayjs": "1.11.10",
     "dotenv": "^16.4.5",

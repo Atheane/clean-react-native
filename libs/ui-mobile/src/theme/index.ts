@@ -53,6 +53,7 @@ declare module '@rneui/themed' {
       legend: StyleProp<TextStyle>;
       darkBlue: StyleProp<TextStyle>;
       boldDarkBlue: StyleProp<TextStyle>;
+      lightBlue: StyleProp<TextStyle>;
       lightGrey: StyleProp<TextStyle>;
       grey: StyleProp<TextStyle>;
       boldGrey: StyleProp<TextStyle>;
@@ -284,6 +285,13 @@ export const theme = createTheme({
       color: Colors.primary.darkBlue,
       textAlign: 'left',
       fontFamily: FontNames.MartelSans_700Bold,
+    },
+    lightBlue: {
+      fontSize: NEEDS_SMALL_TEXT ? 13 : 14,
+      color: Colors.primary.darkBlue,
+      textAlign: 'left',
+      fontFamily: FontNames.MartelSans_400Regular,
+      opacity: 0.6,
     },
     lightGrey: {
       fontSize: NEEDS_SMALL_TEXT ? 13 : 16,
