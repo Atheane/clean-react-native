@@ -1,21 +1,14 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { View, StyleSheet, Text } from 'react-native';
-import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
-import { Colors, Tabs, StepsIndicator } from '@clean-rn/ui-mobile';
+import { Colors, Tabs, StepsIndicator, LoaderSplashScreen } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { MainHeatForm, SanitaryHeatForm, SecondaryHeatForm } from './forms';
-import {
-  Heater,
-  IHeaterProps,
-  Heaters,
-  ICarbonErrorCodes,
-  ICarbonErrorMessage,
-} from '@clean-rn/carbon/domain';
-import { IDomainError } from '@clean-rn/ddd';
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 export const HeatersForm = () => {
   const { t } = useTranslation();
@@ -27,86 +20,26 @@ export const HeatersForm = () => {
     t('screens.heat-primeum.step-three'),
   ];
 
+  const SUBTITLES = [
+    t('screens.heat-primeum.subtitle-main'),
+    t('screens.heat-primeum.subtitle-sanitary'),
+    t('screens.heat-primeum.subtitle-secondary'),
+  ];
+
   const changeStep = (position: number) =>
     console.log('Navigation set to: ' + position + ' - ' + STEPS[position - 1]);
-  const changeTab = () => {
-    console.log('Tab changed');
+
+  const [currentTab, setCurrentTab] = useState(0);
+  const changeTab = (tabIndex: number) => {
+    console.log('Tab changed', tabIndex);
+    setCurrentTab(tabIndex);
   };
 
-  const [heatersProps, setHeatersProps] = useState<IHeaterProps[]>([]);
-  const [mainHeatFormData, setMainHeatForData] = useState<IHeaterProps>();
-  const [mainFormError, setMainFormError] = useState<IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>>();
-  const changeMainHeatForm = ({ key, value }: { key: string; value: string | number }) => {
-    const newFormData = { ...mainHeatFormData, [key]: value, usage: 'MAIN' };
-    if (key === 'installationYear' && value === 2009 && newFormData.previousHeatType) {
-      newFormData.previousHeatType = undefined;
-    }
-    const otherHeatersProps = heatersProps.filter((heater: IHeaterProps) => heater.usage !== 'MAIN');
-    console.log('newFormData', newFormData);
-    try {
-      setMainHeatForData(newFormData);
-      new Heater(newFormData as IHeaterProps);
-      setHeatersProps([...otherHeatersProps, newFormData] as IHeaterProps[]);
-      setMainFormError(undefined);
-    } catch (error) {
-      console.log(error);
-      setMainFormError(error as IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>);
-      setHeatersProps(otherHeatersProps);
-    }
-  };
+  const { user, pending } = useSelector((state: IRootState) => state.user);
 
-  const [sanitaryHeatFormData, setSanitaryHeatFormData] = useState<IHeaterProps>();
-  const [sanitaryFormError, setSanitaryFormError] =
-    useState<IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>>();
-  const changeSanitaryHeatForm = ({ key, value }: { key: string; value: string | number }) => {
-    const newFormData = { ...sanitaryHeatFormData, [key]: value, usage: 'SANITARY' };
-    if (key === 'installationYear' && value === 2009 && newFormData.previousHeatType) {
-      newFormData.previousHeatType = undefined;
-    }
-    const otherHeatersProps = heatersProps.filter((heater: IHeaterProps) => heater.usage !== 'SANITARY');
-    try {
-      setSanitaryHeatFormData(newFormData);
-      new Heater(newFormData as IHeaterProps);
-      setHeatersProps([...otherHeatersProps, newFormData] as IHeaterProps[]);
-      setSanitaryFormError(undefined);
-    } catch (error) {
-      console.log(error);
-      setSanitaryFormError(error as IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>);
-      setHeatersProps(otherHeatersProps);
-    }
-  };
-
-  const [secondaryHeatFormData, setSecondaryHeatFormData] = useState<IHeaterProps>();
-  const [secondaryFormError, setSecondaryFormError] =
-    useState<IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>>();
-  const changeSecondaryHeatForm = ({ key, value }: { key: string; value: string }) => {
-    const newFormData = { ...secondaryHeatFormData, [key]: value, usage: 'SECONDARY' };
-    const otherHeatersProps = heatersProps.filter((heater: IHeaterProps) => heater.usage !== 'SECONDARY');
-    try {
-      setSecondaryHeatFormData(newFormData);
-      setHeatersProps([...otherHeatersProps, newFormData] as IHeaterProps[]);
-      setSecondaryFormError(undefined);
-    } catch (error) {
-      console.log(error);
-      setSecondaryFormError(error as IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>);
-      setHeatersProps(otherHeatersProps);
-    }
-  };
-
-  const dispatch = useDispatch();
-
-  const handleSubmit = () => {
-    try {
-      const heaters = new Heaters({ heaters: heatersProps });
-      console.log('dispatch(fetchHeatPrimeum(heaters))');
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // console.log('heatersProps', heatersProps);
-
-  return (
+  return pending ? (
+    <LoaderSplashScreen />
+  ) : (
     <ErrorBoundary t={t}>
       <SafeScrollingView backgroundColor={Colors.primary.darkWhite}>
         <View>
@@ -116,7 +49,10 @@ export const HeatersForm = () => {
 
           <View style={[styles.darkWhiteContainer]}>
             <View style={styles.subtitleContainer}>
-              <Text style={theme.text.boldDarkBlue}>{t('screens.heat-primeum.subtitle')}</Text>
+              <Text style={theme.text.boldDarkBlue}>{SUBTITLES[currentTab]}</Text>
+              <Text
+                style={theme.text.lightBlue}
+              >{`${user?.properties.address?.str} ${user?.properties.address?.zip} ${user?.properties.address?.city}`}</Text>
             </View>
             <Tabs
               tabsCount={3}
@@ -127,29 +63,13 @@ export const HeatersForm = () => {
               backgroundColor={Colors.primary.darkWhite}
               contents={[
                 <View style={styles.tabPageContainer}>
-                  <MainHeatForm
-                    heatType={mainHeatFormData?.heatType}
-                    installationYear={mainHeatFormData?.installationYear}
-                    previousHeatType={mainHeatFormData?.previousHeatType}
-                    handleChangeForm={changeMainHeatForm}
-                    domainError={mainFormError}
-                  />
+                  <MainHeatForm />
                 </View>,
                 <View style={styles.tabPageContainer}>
-                  <SanitaryHeatForm
-                    heatType={sanitaryHeatFormData?.heatType}
-                    installationYear={sanitaryHeatFormData?.installationYear}
-                    previousHeatType={sanitaryHeatFormData?.previousHeatType}
-                    handleChangeForm={changeSanitaryHeatForm}
-                    domainError={sanitaryFormError}
-                  />
+                  <SanitaryHeatForm />
                 </View>,
                 <View style={styles.tabPageContainer}>
-                  <SecondaryHeatForm
-                    heatType={secondaryHeatFormData?.heatType}
-                    handleChangeForm={changeSecondaryHeatForm}
-                    domainError={secondaryFormError}
-                  />
+                  <SecondaryHeatForm />
                 </View>,
               ]}
               changeTab={changeTab}
@@ -178,12 +98,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: Colors.primary.darkWhite,
-  },
-  textContainer: {
-    width: '90%',
-    marginVertical: 20,
-  },
-  domainErrorContainer: {
-    marginTop: 16,
   },
 });

@@ -6,11 +6,9 @@ export enum ICarbonErrorCodes {
   INVALID_TRANSPORT_PROPS = 'INVALID_TRANSPORT_PROPS',
   INVALID_FOOD_PROPS = 'INVALID_FOOD_PROPS',
   INVALID_FLY_PROPS = 'INVALID_FLY_PROPS',
-  MISSING_HEATER_TYPE = 'MISSING_HEATER_TYPE',
-  MISSING_PREVIOUS_HEATER_TYPE = 'MISSING_PREVIOUS_HEATER_TYPE',
-  MISSING_HEATER_INSTALLATION_YEAR = 'MISSING_HEATER_INSTALLATION_YEAR',
-  MISSING_HEATER_PROPS = 'MISSING_HEATER_PROPS',
-  MISSING_HEATER = 'MISSING_HEATER',
+  INVALID_HEATER_DATE = 'INVALID_HEATER_DATE',
+  INVALID_HEATER_TYPE = 'INVALID_HEATER_TYPE',
+  INVALID_HEATER_USAGE = 'INVALID_HEATER_USAGE',
 }
 
 export enum ICarbonErrorMessage {
@@ -18,11 +16,9 @@ export enum ICarbonErrorMessage {
   INVALID_TRANSPORT_PROPS = 'Invalid Transport Props',
   INVALID_FOOD_PROPS = 'Invalid Food Props',
   INVALID_FLY_PROPS = 'Invalid Fly Props',
-  MISSING_HEATER_TYPE = 'Missing Heater Type',
-  MISSING_PREVIOUS_HEATER_TYPE = 'Missing Previous Heater Type',
-  MISSING_HEATER_INSTALLATION_YEAR = 'Missing Heater Installation Year',
-  MISSING_HEATER_PROPS = 'Missing Heater Props',
-  MISSING_HEATER = 'Missing Heater',
+  INVALID_HEATER_DATE = 'Invalid Heater Date',
+  INVALID_HEATER_TYPE = 'Invalid Heater Type',
+  INVALID_HEATER_USAGE = 'Invalid Heater Usage',
 }
 
 export namespace CarbonError {
@@ -83,7 +79,7 @@ export namespace CarbonError {
       this.cause = cause;
     }
   }
-  export class MissingHeaterType
+  export class InvalidHeaterDate
     extends Error
     implements IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>
   {
@@ -93,12 +89,12 @@ export namespace CarbonError {
 
     constructor(cause?: unknown) {
       super();
-      this.code = ICarbonErrorCodes.MISSING_HEATER_TYPE;
-      this.message = ICarbonErrorMessage.MISSING_HEATER_TYPE;
+      this.code = ICarbonErrorCodes.INVALID_HEATER_DATE;
+      this.message = ICarbonErrorMessage.INVALID_HEATER_DATE;
       this.cause = cause;
     }
   }
-  export class MissingHeaterInstallationYear
+  export class InvalidHeaterType
     extends Error
     implements IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>
   {
@@ -108,12 +104,12 @@ export namespace CarbonError {
 
     constructor(cause?: unknown) {
       super();
-      this.code = ICarbonErrorCodes.MISSING_HEATER_INSTALLATION_YEAR;
-      this.message = ICarbonErrorMessage.MISSING_HEATER_INSTALLATION_YEAR;
+      this.code = ICarbonErrorCodes.INVALID_HEATER_TYPE;
+      this.message = ICarbonErrorMessage.INVALID_HEATER_TYPE;
       this.cause = cause;
     }
   }
-  export class MissingHeaterProps
+  export class InvalidHeaterUsage
     extends Error
     implements IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>
   {
@@ -123,35 +119,8 @@ export namespace CarbonError {
 
     constructor(cause?: unknown) {
       super();
-      this.code = ICarbonErrorCodes.MISSING_HEATER_PROPS;
-      this.message = ICarbonErrorMessage.MISSING_HEATER_PROPS;
-      this.cause = cause;
-    }
-  }
-  export class MissingHeater extends Error implements IDomainError<ICarbonErrorCodes, ICarbonErrorMessage> {
-    code: ICarbonErrorCodes;
-    message: ICarbonErrorMessage;
-    cause?: unknown;
-
-    constructor(cause?: unknown) {
-      super();
-      this.code = ICarbonErrorCodes.MISSING_HEATER;
-      this.message = ICarbonErrorMessage.MISSING_HEATER;
-      this.cause = cause;
-    }
-  }
-  export class MissingPreviousHeaterType
-    extends Error
-    implements IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>
-  {
-    code: ICarbonErrorCodes;
-    message: ICarbonErrorMessage;
-    cause?: unknown;
-
-    constructor(cause?: unknown) {
-      super();
-      this.code = ICarbonErrorCodes.MISSING_PREVIOUS_HEATER_TYPE;
-      this.message = ICarbonErrorMessage.MISSING_PREVIOUS_HEATER_TYPE;
+      this.code = ICarbonErrorCodes.INVALID_HEATER_USAGE;
+      this.message = ICarbonErrorMessage.INVALID_HEATER_USAGE;
       this.cause = cause;
     }
   }

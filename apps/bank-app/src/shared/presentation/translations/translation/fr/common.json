@@ -143,10 +143,9 @@
         "INVALID_TRANSPORT_PROPS": "Propriétés de transport invalides",
         "INVALID_FOOD_PROPS": "Propriétés alimentaires invalides",
         "INVALID_FLY_PROPS": "Propriétés de vol invalides",
-        "MISSING_HEATER_TYPE": "Le type de chauffage est requis",
-        "MISSING_PREVIOUS_HEATER_TYPE": "Le type de chauffage est requis",
-        "MISSING_HEATER_INSTALLATION_YEAR": "La date d'installation est requise",
-        "MISSING_HEATER": "Le chauffage est requis"
+        "INVALID_HEATER_TYPE": "Le type de chauffage est requis",
+        "INVALID_HEATER_USAGE": "L'usage de chauffage est requis",
+        "INVALID_HEATER_DATE": "La date d'installation est requise"
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Documents pour validation du dossier manquants",
@@ -465,32 +464,39 @@
     },
     "heat-primeum": {
       "title": "Ma prime CO2",
-      "subtitle": "Mon chauffage",
+      "subtitle-main": "Mon chauffage principal",
+      "subtitle-sanitary": "Mon eau sanitaire",
+      "subtitle-secondary": "Mon chauffage secondaire",
       "step-one": "Situation",
       "step-two": "Justificatifs",
       "step-three": "Suivi",
       "heater": "Type de chauffage",
       "placeholder": "Sélectionner",
+      "house-main-heat": "Chauffage principal installé dans votre \nlogement :",
+      "house-sanitary-heat": "Eau chaude sanitaire installée dans votre \nlogement :",
+      "house-secondary-heat": "Chauffage secondaire installé dans votre \nlogement :",
+      "next-step": "Suivant",
+      "end": "Terminer",
       "dropdown-heat-type": {
-        "electric": "Electricité",
-        "coal": "Charbon",
-        "gas": "Gaz de ville",
-        "fuelOil": "Fioul domestique",
-        "urban": "Réseau de chaleur urbain",
-        "wood": "Bois",
-        "heatPump": "Pompe à chaleur",
-        "thermalSolar": "Solaire thermique",
-        "propane": "Propane"
+        "ELECTRIC": "Electricité",
+        "COAL": "Charbon",
+        "GAS": "Gaz de ville",
+        "FUEL_OIL": "Fioul domestique",
+        "URBAN": "Réseau de chaleur urbain",
+        "WOOD": "Bois",
+        "HEAT_PUMP": "Pompe à chaleur",
+        "THERMAL_SOLAR": "Solaire thermique",
+        "PROPANE": "Propane"
       },
       "dropdown-years": {
-        "before-2010": "Avant 2010"
+        "before-2012": "Avant 2012"
       },
       "instruction-heat-type": "Aujourd’hui, comment chauffez-vous votre logement ?",
-      "instruction-heat-type-installation-date": "Ce chauffage est installé dans le logement depuis :",
+      "instruction-heat-type-installation-date": "Ce chauffage est installé dans le logement \n depuis :",
       "instruction-heat-type-before": "Type de chauffage avant",
       "instruction-sanitary-heat-type": "Aujourd’hui, votre eau chaude sanitaire est produite de quelle façon ?",
-      "instruction-sanitary-heat-installation-date": "Le chauffage de l'eau chaude sanitaire est installé depuis :",
-      "instruction-sanitary-heat-type-before": "Type d'au chaude sanitaire avant",
+      "instruction-sanitary-heat-installation-date": "L'eau chaude sanitaire est installé depuis :",
+      "instruction-sanitary-heat-type-before": "Type d'eau chaude sanitaire avant",
       "instruction-secondary-heat-type": "Si votre logement possède un chauffage secondaire, indiquez le type de chauffage."
     },
     "works-primeum": {

@@ -39,6 +39,8 @@
     "@rneui/themed": "^4.0.0-rc.8",
     "@sentry/react-native": "~5.20.0",
     "base-64": "^1.0.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
     "configcat-react": "^4.6.0",
     "country-flag-emoji": "^1.0.3",
     "dayjs": "1.11.10",
@@ -105,6 +107,7 @@
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.2.3",
     "redux-saga-tester": "^1.0.874",
+    "reflect-metadata": "^0.2.2",
     "short-unique-id": "^5.0.2",
     "uuidjs": "^5.0.1"
   },

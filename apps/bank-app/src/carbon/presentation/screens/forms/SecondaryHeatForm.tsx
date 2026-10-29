@@ -1,67 +1,112 @@
+import { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { HouseHeaterE as HeaterE } from '@bank/carbon-weight/dist';
-import { Colors, Dropdown, ErrorMessage } from '@clean-rn/ui-mobile';
 import { useTheme } from '@rneui/themed';
+import { Dropdown, ErrorMessage, SubmitButton } from '@clean-rn/ui-mobile';
 import { IDomainError } from '@clean-rn/ddd';
-import { ICarbonErrorCodes, ICarbonErrorMessage } from '@clean-rn/carbon/domain';
+import { HEATER_TYPE, HEATER_USAGE, ICarbonErrorCodes, ICarbonErrorMessage } from '@clean-rn/carbon/domain';
+import { Heater } from '@clean-rn/carbon/domain';
+import { mapHeaterPropsToDomain } from '../../mappers';
+import { IHeaterProps } from '../../types';
 
-type ISecondaryHeatFormProps = {
-  heatType?: string;
-  handleChangeForm: ({ value }: { key: string; value: string }) => void;
-  domainError?: IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>;
-};
-
-export const SecondaryHeatForm = (props: ISecondaryHeatFormProps) => {
+export const SecondaryHeatForm = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
 
-  const dataHeating = Object.entries(HeaterE).map(([key, value]) => ({
+  const dataHeating = Object.entries(HEATER_TYPE).map(([key, value]) => ({
     key,
     value: t('screens.heat-primeum.dropdown-heat-type.' + value),
   }));
 
+  const dataYears = Array.from({ length: new Date().getFullYear() - 2010 }, (_, index) => {
+    const year = 2011 + index;
+    if (index === 0) return { key: '2011', value: t('screens.heat-primeum.dropdown-years.before-2012') };
+    return { key: year.toString(), value: year.toString() };
+  });
+
+  const [formData, setFormData] = useState<Partial<IHeaterProps>>({ usage: HEATER_USAGE.SECONDARY });
+  const [domainError, setDomainError] = useState<IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>>();
+
+  const handleChangeForm = ({ key, value }: { key: string; value: string | number }) => {
+    setDomainError(undefined);
+    const newFormData = { ...formData, [key]: value };
+    if (key === 'installationYear' && value === 2011 && newFormData.previousHeatType) {
+      newFormData.previousHeatType = undefined;
+    }
+    setFormData(newFormData);
+  };
+  const handleOnSubmit = async () => {
+    try {
+      const heaters: Heater[] = await mapHeaterPropsToDomain(formData as IHeaterProps);
+      console.log('dispatch(addHeaters(heaters))', heaters);
+    } catch (error) {
+      console.log('error', error);
+      setDomainError(error as IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>);
+    }
+  };
+
   return (
     <View>
-      <View style={styles.textContainer}>
-        <Text style={theme.text.grey}>{t('screens.heat-primeum.instruction-secondary-heat-type')}</Text>
+      <View style={styles.rowContainer}>
+        <View style={styles.textContainer}>
+          <Text style={theme.text.grey}>{t('screens.heat-primeum.instruction-secondary-heat-type')}</Text>
+        </View>
       </View>
       <Dropdown
         placeholder={t('screens.heat-primeum.placeholder')}
         data={dataHeating}
-        value={props.heatType}
-        onSelect={({ value }) => props.handleChangeForm({ key: 'heatType', value })}
+        value={formData?.heatType}
+        onSelect={({ key }) => handleChangeForm({ key: 'heatType', value: key })}
       />
-      {props.domainError && props.domainError.code === ICarbonErrorCodes.MISSING_PREVIOUS_HEATER_TYPE && (
+      {domainError && domainError.code === ICarbonErrorCodes.INVALID_HEATER_TYPE && (
         <View style={styles.errorContainer}>
           <ErrorMessage
-            error={props.domainError}
-            errorMessage={t(`errors.domain-error.carbon.${props.domainError?.code}`)}
+            error={domainError}
+            errorMessage={t(`errors.domain-error.carbon.${domainError?.code}`)}
             genericErrorMessage={t('errors.other')}
           />
         </View>
       )}
+      <View style={styles.rowContainer}>
+        <View style={styles.textContainer}>
+          <Text style={theme.text.grey}>
+            {t('screens.heat-primeum.instruction-heat-type-installation-date')}
+          </Text>
+        </View>
+      </View>
+      <Dropdown
+        placeholder={t('screens.heat-primeum.placeholder')}
+        data={dataYears}
+        value={formData?.installationYear?.toString()}
+        onSelect={({ key }) => handleChangeForm({ key: 'installationYear', value: parseInt(key) })}
+      />
+      {domainError && domainError.code === ICarbonErrorCodes.INVALID_HEATER_DATE && (
+        <View style={styles.errorContainer}>
+          <ErrorMessage
+            error={domainError}
+            errorMessage={t(`errors.domain-error.carbon.${domainError?.code}`)}
+            genericErrorMessage={t('errors.other')}
+          />
+        </View>
+      )}
+      <View style={[styles.rowContainer, { marginTop: 80 }]}>
+        <SubmitButton
+          title={t('screens.heat-primeum.end')}
+          disabled={!formData?.heatType || !formData?.installationYear}
+          uppercase
+          onSubmit={handleOnSubmit}
+        />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  whiteContainer: {
-    flex: 1,
-    backgroundColor: Colors.primary.darkWhite,
-  },
-  darkWhiteContainer: {
-    flex: 1,
-    backgroundColor: Colors.primary.darkWhite,
-  },
-  subtitleContainer: {
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  tabPageContainer: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: Colors.primary.darkWhite,
+  rowContainer: {
+    flexDirection: 'row',
+    alignContent: 'space-between',
+    justifyContent: 'center',
+    marginVertical: 5,
   },
   textContainer: {
     width: '90%',
