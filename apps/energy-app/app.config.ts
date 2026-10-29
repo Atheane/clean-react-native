@@ -26,7 +26,7 @@ export default {
     ios: {
       supportsTablet: false,
       bundleIdentifier: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.energy-app.app',
-      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '003',
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '004',
     },
     android: {
       adaptiveIcon: {
@@ -35,7 +35,7 @@ export default {
       },
       supportsTablet: false,
       package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.energy-app.app',
-      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '003',
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '004',
     },
     web: {
       favicon: './assets/favicon.png',
