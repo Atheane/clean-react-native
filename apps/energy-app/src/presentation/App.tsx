@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { SafeAreaView, StyleSheet, Image, AppState, AppStateStatus, Dimensions } from 'react-native';
+import { View, StyleSheet, AppState, AppStateStatus, SafeAreaView, Image, Dimensions } from 'react-native';
 import { I18nextProvider } from 'react-i18next';
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
@@ -25,8 +25,8 @@ const App: () => JSX.Element = () => {
 
   const { error } = useSelector((state: IRootState) => state.unknownError);
 
-  const [appState, setAppState] = useState(AppState.currentState || 'unknown');
-  useEffect(() => {
+  const [appState, setAppState] = React.useState(AppState.currentState || 'unknown');
+  React.useEffect(() => {
     dispatch(initializeApplication());
   }, [dispatch]);
 
@@ -40,7 +40,7 @@ const App: () => JSX.Element = () => {
     });
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     const handleAppStateChange = (nextAppState: AppStateStatus) => {
       if (appState.match(/active/) && nextAppState.match(/inactive/)) {
         // L'application est passée en arrière-plan ou est devenue inactive
