@@ -11,7 +11,7 @@ import {
 } from '@clean-rn/transaction/domain';
 import { ITransactionServer } from '@clean-rn/transaction/infrastructure';
 
-import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
 import {
   ITransactionsTypes,
@@ -31,6 +31,19 @@ import { ITransactionsState, transactionsReducer } from '../../state-management'
 
 import { listTransactionsSaga, payoutSaga, transferSaga, transactionWaitingSaga } from '../../usecases';
 import { Phone } from '@clean-rn/contact/domain';
+
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
 
 describe('Transactions - integration', () => {
   let sagaTester: SagaTester;
@@ -63,10 +76,6 @@ describe('Transactions - integration', () => {
     type: item.transactionType as ITransactionType, //todo: maybe delete this, and make use of category only, easier to map, and this is all we need to know in the app
   }));
 
-  beforeAll(() => {
-    httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
-  });
-
   const account = {
     accountId: 4004318954,
     accountType: IAccountType.MAIN,
@@ -86,6 +95,20 @@ describe('Transactions - integration', () => {
       initialState,
       reducers: transactionsReducer,
     });
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   it('Should store correct initial state if not initial state is provided', () => {
@@ -105,7 +128,7 @@ describe('Transactions - integration', () => {
   });
 
   it('Should store correct state if TRANSACTIONS_LISTED', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, listTransactionsSaga, httpConnection);
+    sagaTester.start(listTransactionsSaga, httpConnection);
     sagaTester.dispatch(listTransactions({ account }));
     sagaTester.dispatch(transactionsListed(mockResponse));
 
@@ -118,7 +141,7 @@ describe('Transactions - integration', () => {
   });
 
   it('Should store correct state if INITIALIZE_LIST_TRANSACTIONS', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, listTransactionsSaga, httpConnection);
+    sagaTester.start(listTransactionsSaga, httpConnection);
     sagaTester.dispatch(initializeTransactionsList());
 
     expect(sagaTester.getState()).toEqual({
@@ -144,7 +167,7 @@ describe('Transactions - integration', () => {
       type: ITransactionType.PAYOUT,
       date: new Date('2023-06-15T07:38:09.217Z'),
     };
-    sagaTester.start(wrapSagaHidingNotFoundError, payoutSaga, httpConnection);
+    sagaTester.start(payoutSaga, httpConnection);
     sagaTester.dispatch(fetchPayout(payout));
     sagaTester.dispatch(payoutSucceded(mockResponse));
 
@@ -171,7 +194,7 @@ describe('Transactions - integration', () => {
       type: ITransactionType.TRANSFER_OUT,
       date: new Date('2023-06-15T07:38:09.217Z'),
     };
-    sagaTester.start(wrapSagaHidingNotFoundError, transferSaga, httpConnection);
+    sagaTester.start(transferSaga, httpConnection);
     sagaTester.dispatch(fetchTransfer(transfer));
     sagaTester.dispatch(transferSucceded(mockResponse));
 
@@ -198,7 +221,7 @@ describe('Transactions - integration', () => {
       type: ITransactionType.TRANSFER_OUT,
       date: new Date('2023-06-15T07:38:09.217Z'),
     };
-    sagaTester.start(wrapSagaHidingNotFoundError, transactionWaitingSaga, httpConnection);
+    sagaTester.start(transactionWaitingSaga, httpConnection);
     sagaTester.dispatch(fetchTransactionWaiting(transactionWaiting));
     sagaTester.dispatch(transactionWaitingSucceded(mockResponse));
 
@@ -229,7 +252,7 @@ describe('Transactions - integration', () => {
       path: '/app/transaction/payout',
       method: 'POST',
     };
-    sagaTester.start(wrapSagaHidingNotFoundError, payoutSaga, httpConnection);
+    sagaTester.start(payoutSaga, httpConnection);
     sagaTester.dispatch(fetchPayout(transaction));
     sagaTester.dispatch(transactionFailed(new TransactionError.TransferAmountTooHigh(mockError403)));
 
@@ -242,7 +265,7 @@ describe('Transactions - integration', () => {
   });
 
   it('Should store correct state if INIT_TRANSFER', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, transferSaga, httpConnection);
+    sagaTester.start(transferSaga, httpConnection);
     sagaTester.dispatch(initTransaction());
 
     expect(sagaTester.getState()).toEqual({

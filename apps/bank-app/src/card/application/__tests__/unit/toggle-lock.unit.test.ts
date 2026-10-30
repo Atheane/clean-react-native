@@ -15,9 +15,40 @@ import { ICardTypes, cardLockToggled, resetError } from '../../commands';
 import { selectCard } from '../../state-management/selectors';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
+
 describe('Toggle Card lock - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
-  const api = CardApi.getInstance(httpConnection);
+  let httpConnection: HttpConnection;
+  let api: CardApi;
+
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    api = CardApi.getInstance(httpConnection);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
+  });
 
   const mockCardServeur = {
     cardId: 999826250,
@@ -47,11 +78,6 @@ describe('Toggle Card lock - usecase', () => {
     limitPaymentDay: mockCardServeur.limitPaymentDay,
   });
 
-  const mockToken = {
-    accessToken: 'fake-access-token',
-    refreshToken: 'fake-refresh-token',
-  };
-
   const mockError500 = {
     statusCode: 500,
     message: "Cannot read properties of null (reading 'cardId')",
@@ -66,9 +92,9 @@ describe('Toggle Card lock - usecase', () => {
     },
   };
 
-  const genObject = toggleCardLockSaga(httpConnection);
-
   it('Should wait for FETCH_TOGGLE_LOCK action and call fetchToggleLock, should be done on next iteration', () => {
+    const genObject = toggleCardLockSaga(httpConnection);
+
     expect(genObject.next().value).toEqual(
       takeEvery(ICardTypes.FETCH_TOGGLE_LOCK, toggleCardLockGenerator, httpConnection),
     );

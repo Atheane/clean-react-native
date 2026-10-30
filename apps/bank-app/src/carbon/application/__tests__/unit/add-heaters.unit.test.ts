@@ -24,11 +24,40 @@ import { ensureTokenRefreshed } from '../../../../shared/application/usecases/en
 import { mapHeaterPropsToDomain } from '../../mappers';
 import { selectHouse } from '../../selectors';
 
-describe('AddHeaters - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
-  const api = FootprintApi.getInstance(httpConnection);
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
 
-  const genObject = addHeatersSaga(httpConnection);
+describe('AddHeaters - usecase', () => {
+  let httpConnection: HttpConnection;
+  let api: FootprintApi;
+
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    api = FootprintApi.getInstance(httpConnection);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
+  });
 
   const mockUserData = {
     userId: 100000352,
@@ -50,6 +79,8 @@ describe('AddHeaters - usecase', () => {
   };
 
   it('Should wait for ADD_HEATERS action and call registerHeatersGenerator, should be done on next iteration', () => {
+    const genObject = addHeatersSaga(httpConnection);
+
     expect(genObject.next().value).toEqual(
       takeEvery(ICarbonTypes.ADD_HEATERS, addHeatersGenerator, httpConnection),
     );
@@ -165,6 +196,9 @@ describe('AddHeaters - usecase', () => {
   });
 
   it('Should not add heaters if already exists', async () => {
+    const serverError = new ServerError(mockError400HeaterAlreadyExists);
+    serverError.statusCode = 400;
+
     const mockData = {
       usage: HEATER_USAGE.MAIN,
       heatType: HEATER_TYPE.ELECTRIC,
@@ -199,7 +233,7 @@ describe('AddHeaters - usecase', () => {
         house,
         heaters: heatersVO,
       })
-      .throw(new ServerError(mockError400HeaterAlreadyExists))
+      .throw(serverError)
       .put(initializeCarbon())
       .next()
       .put(heatersNotAdded(new CarbonError.HeaterAlreadyExists()))

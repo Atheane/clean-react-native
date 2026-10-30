@@ -17,12 +17,40 @@ import { listTransactionsGenerator, listTransactionsSaga } from '../../usecases'
 import { ITransactionsTypes, transactionsListed, initializeTransactionsList } from '../../commands';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
+
 describe('ListTransactions - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
+  let httpConnection: HttpConnection;
+  let api: TransactionApi;
 
-  const api = TransactionApi.getInstance(httpConnection);
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    api = TransactionApi.getInstance(httpConnection);
+  });
 
-  const genObject = listTransactionsSaga(httpConnection);
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
+  });
 
   const mockResponse: ITransaction[] = [
     {
@@ -68,6 +96,8 @@ describe('ListTransactions - usecase', () => {
   };
 
   it('Should wait for LIST_TRANSACTIONS action and call listTransactionsGenerator, should be done on next iteration', () => {
+    const genObject = listTransactionsSaga(httpConnection);
+
     expect(genObject.next().value).toEqual(
       takeEvery(ITransactionsTypes.LIST_TRANSACTIONS, listTransactionsGenerator, httpConnection),
     );

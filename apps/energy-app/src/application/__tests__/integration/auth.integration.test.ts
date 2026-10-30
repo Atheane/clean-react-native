@@ -16,7 +16,20 @@ import {
   resetError,
 } from '../../commands/login';
 import { IAuthState, authReducer } from '../../state-management';
-import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
+
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
 
 describe('Login - integration', () => {
   const mockData = {
@@ -54,12 +67,6 @@ describe('Login - integration', () => {
     gender = IGender.MAN;
   }
 
-  beforeAll(() => {
-    httpConnection = HttpConnection.getInstance(
-      process.env.EXPO_PUBLIC_BASE_URL_API || 'https://localhost:3000',
-    );
-  });
-
   beforeEach(() => {
     const initialState: IAuthState = {
       pending: false,
@@ -76,6 +83,20 @@ describe('Login - integration', () => {
       initialState,
       reducers: authReducer,
     });
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   it('Should store correct initial state if not initial state is provided', () => {
@@ -98,7 +119,7 @@ describe('Login - integration', () => {
   });
 
   it('Should store correct state in case if FETCH_LOGIN', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, loginSaga, httpConnection);
+    sagaTester.start(loginSaga, httpConnection);
 
     sagaTester.dispatch(fetchLogin(mockData));
 
@@ -132,7 +153,7 @@ describe('Login - integration', () => {
   });
 
   it('Should store correct state if LOGIN_SUCCESS', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, loginSaga, httpConnection);
+    sagaTester.start(loginSaga, httpConnection);
     sagaTester.dispatch(fetchLogin(mockData));
     sagaTester.dispatch(loginSuccess({ auth: mockResponse }));
 
@@ -147,7 +168,7 @@ describe('Login - integration', () => {
   });
 
   it('Should store correct state if LOGIN_FAILURE for invalid credentials', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, loginSaga, httpConnection);
+    sagaTester.start(loginSaga, httpConnection);
     sagaTester.dispatch(fetchLogin(mockData));
     sagaTester.dispatch(loginFailure(new AuthError.LoginFailureInvalidCredentials()));
 
@@ -165,7 +186,7 @@ describe('Login - integration', () => {
   });
 
   it('Should store correct state if INITIALIZE_AUTH for invalid credentials', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, loginSaga, httpConnection);
+    sagaTester.start(loginSaga, httpConnection);
     sagaTester.dispatch(fetchLogin(mockData));
     sagaTester.dispatch(initializeAuth());
 

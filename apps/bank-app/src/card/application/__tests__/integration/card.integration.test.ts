@@ -1,7 +1,7 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import SagaTester from 'redux-saga-tester';
 //
-import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
 import {
   ICardTypes,
@@ -31,6 +31,19 @@ import {
   IToggleCardLockCommand,
 } from '@clean-rn/card/domain';
 
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
+
 describe('Card - integration', () => {
   let sagaTester: SagaTester;
   let httpConnection: HttpConnection;
@@ -53,10 +66,6 @@ describe('Card - integration', () => {
 
   let card: Card;
 
-  beforeAll(() => {
-    httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
-  });
-
   beforeEach(() => {
     const initialState: ICardState = {
       pending: false,
@@ -78,6 +87,20 @@ describe('Card - integration', () => {
       limitPaymentWeek: mockCardServeur.limitPaymentWeek,
       limitPaymentDay: mockCardServeur.limitPaymentDay,
     });
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   it('Should store correct initial state if FETCH_CHANGE_CARD_LIMITS', () => {
@@ -136,7 +159,7 @@ describe('Card - integration', () => {
   });
 
   it('Should store correct state if CARD_GET_SUCCESS', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, changeCardLimitsSaga, httpConnection);
+    sagaTester.start(changeCardLimitsSaga, httpConnection);
     sagaTester.dispatch(cardGetSuccess(card));
 
     expect(sagaTester.getState()).toEqual({
@@ -147,7 +170,7 @@ describe('Card - integration', () => {
   });
 
   it('Should store correct state if CARD_NOT_FOUND', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, changeCardLimitsSaga, httpConnection);
+    sagaTester.start(changeCardLimitsSaga, httpConnection);
     sagaTester.dispatch(cardNotFound(new CardError.NotFound()));
 
     expect(sagaTester.getState()).toEqual({
@@ -158,7 +181,7 @@ describe('Card - integration', () => {
   });
 
   it('Should store correct state if CARD_FORBIDDEN', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, changeCardLimitsSaga, httpConnection);
+    sagaTester.start(changeCardLimitsSaga, httpConnection);
     sagaTester.dispatch(cardForbidden(new CardError.Forbidden()));
 
     expect(sagaTester.getState()).toEqual({
@@ -169,7 +192,7 @@ describe('Card - integration', () => {
   });
 
   it('Should store correct state if CARD_PIN_CHANGED_FAILED', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, changeCardPINSaga, httpConnection);
+    sagaTester.start(changeCardPINSaga, httpConnection);
     sagaTester.dispatch(fetchChangePIN({ pin: new CardPinCode('1234') }));
     sagaTester.dispatch(cardPINChangedFailed(new CardError.MaxNumberOfPinChangesReached()));
 
@@ -189,7 +212,7 @@ describe('Card - integration', () => {
       },
     };
 
-    sagaTester.start(wrapSagaHidingNotFoundError, changeCardLimitsSaga, httpConnection);
+    sagaTester.start(changeCardLimitsSaga, httpConnection);
     sagaTester.dispatch(fetchChangeCardLimits(changeCardLimitsCmd));
     card.changeCardLimits(changeCardLimitsCmd.limits);
     sagaTester.dispatch(cardLimitsChanged(card));
@@ -202,7 +225,7 @@ describe('Card - integration', () => {
   });
 
   it('Should store correct state if CARD_LOCK_TOGGLED', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, toggleCardLockSaga, httpConnection);
+    sagaTester.start(toggleCardLockSaga, httpConnection);
     sagaTester.dispatch(fetchToggleLock({ lock: true }));
     card.updateStatus(ICardStatuses.LOCK);
     sagaTester.dispatch(cardLockToggled(card));
@@ -214,7 +237,7 @@ describe('Card - integration', () => {
   });
 
   it('Should store correct state if CARD_PIN_CHANGED', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, changeCardPINSaga, httpConnection);
+    sagaTester.start(changeCardPINSaga, httpConnection);
     sagaTester.dispatch(fetchChangePIN({ pin: new CardPinCode('1234') }));
     card.updatePin('1234', 1);
     sagaTester.dispatch(cardPINChanged(card));
@@ -233,7 +256,7 @@ describe('Card - integration', () => {
         day: 200,
       },
     };
-    sagaTester.start(wrapSagaHidingNotFoundError, changeCardLimitsSaga, httpConnection);
+    sagaTester.start(changeCardLimitsSaga, httpConnection);
     sagaTester.dispatch(fetchChangeCardLimits(changeCardLimitsCmd));
     card.changeCardLimits(changeCardLimitsCmd.limits);
     sagaTester.dispatch(cardLimitsChanged(card));
@@ -254,7 +277,7 @@ describe('Card - integration', () => {
         day: 200,
       },
     };
-    sagaTester.start(wrapSagaHidingNotFoundError, changeCardLimitsSaga, httpConnection);
+    sagaTester.start(changeCardLimitsSaga, httpConnection);
     sagaTester.dispatch(fetchChangeCardLimits(changeCardLimitsCmd));
     card.changeCardLimits(changeCardLimitsCmd.limits);
     sagaTester.dispatch(cardLimitsChanged(card));

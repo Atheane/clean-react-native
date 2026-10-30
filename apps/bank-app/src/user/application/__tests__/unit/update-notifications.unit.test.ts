@@ -23,9 +23,39 @@ import { updateNotificationsSaga, updateNotificationsGenerator } from '../../use
 import { IUserTypes, notificationUpdated, resetError } from '../../commands';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
+
 describe('Update Notifications - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
-  const userApi = UserApi.getInstance(httpConnection);
+  let httpConnection: HttpConnection;
+  let userApi: UserApi;
+
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    userApi = UserApi.getInstance(httpConnection);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
 
   const user = User.Create({
     id: 123,

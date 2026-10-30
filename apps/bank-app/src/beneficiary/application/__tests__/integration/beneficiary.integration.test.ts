@@ -1,7 +1,7 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import SagaTester from 'redux-saga-tester';
 //
-import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
 import {
   IBeneficiaryTypes,
@@ -21,6 +21,19 @@ import { IBeneficiaryState, beneficiaryReducer } from '../../state-management';
 
 import { addBeneficiarySaga, deleteBeneficiarySaga, listBeneficiarySaga } from '../../usecases/beneficiary';
 import { BeneficiaryError } from '@clean-rn/beneficiary/domain';
+
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
 
 describe('Beneficiary - integration', () => {
   let sagaTester: SagaTester;
@@ -44,10 +57,6 @@ describe('Beneficiary - integration', () => {
     path: '/app/beneficiary',
   };
 
-  beforeAll(() => {
-    httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
-  });
-
   beforeEach(() => {
     const initialState: IBeneficiaryState = {
       pending: false,
@@ -59,6 +68,20 @@ describe('Beneficiary - integration', () => {
       initialState,
       reducers: beneficiaryReducer,
     });
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   it('Should store correct initial state if not initial state is provided', () => {
@@ -75,7 +98,7 @@ describe('Beneficiary - integration', () => {
   });
 
   it('Should store correct state if BENEFICIARIES_LISTED', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, listBeneficiarySaga, httpConnection);
+    sagaTester.start(listBeneficiarySaga, httpConnection);
     sagaTester.dispatch(listBeneficiaries());
     sagaTester.dispatch(beneficiariesListed(mockBeneficiaries));
 
@@ -100,7 +123,7 @@ describe('Beneficiary - integration', () => {
       name: 'BENFMOCK',
     };
 
-    sagaTester.start(wrapSagaHidingNotFoundError, addBeneficiarySaga, httpConnection);
+    sagaTester.start(addBeneficiarySaga, httpConnection);
     sagaTester.dispatch(addBeneficiary(mockRequest));
     sagaTester.dispatch(beneficiaryAdded(mockResponse));
 
@@ -113,7 +136,7 @@ describe('Beneficiary - integration', () => {
   });
 
   it('Should store correct state if CHANGE_TAB to Beneficiary List', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, listBeneficiarySaga, httpConnection);
+    sagaTester.start(listBeneficiarySaga, httpConnection);
     sagaTester.dispatch(changeTab({ idx: 1 }));
 
     expect(sagaTester.getState()).toEqual({
@@ -125,7 +148,7 @@ describe('Beneficiary - integration', () => {
   });
 
   it('Should store correct state if CHANGE_TAB to Contact List', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, listBeneficiarySaga, httpConnection);
+    sagaTester.start(listBeneficiarySaga, httpConnection);
     sagaTester.dispatch(changeTab({ idx: 0 }));
 
     expect(sagaTester.getState()).toEqual({
@@ -157,7 +180,7 @@ describe('Beneficiary - integration', () => {
       name: 'BENFMOCK',
     };
 
-    sagaTester.start(wrapSagaHidingNotFoundError, addBeneficiarySaga, httpConnection);
+    sagaTester.start(addBeneficiarySaga, httpConnection);
     sagaTester.dispatch(addBeneficiary(mockRequest));
     sagaTester.dispatch(beneficiaryAdded(mockBeneficiaries[0]));
     sagaTester.dispatch(beneficiaryAdded(mockResponse));
@@ -177,7 +200,7 @@ describe('Beneficiary - integration', () => {
       name: 'BENFMOCK',
     };
 
-    sagaTester.start(wrapSagaHidingNotFoundError, addBeneficiarySaga, httpConnection);
+    sagaTester.start(addBeneficiarySaga, httpConnection);
     sagaTester.dispatch(addBeneficiary(mockRequest));
     sagaTester.dispatch(
       beneficiaryAddFailed(new BeneficiaryError.BeneficiaryAlreadyExists(mockError400.message)),
@@ -199,7 +222,7 @@ describe('Beneficiary - integration', () => {
       name: 'BENFMOCK',
     };
 
-    sagaTester.start(wrapSagaHidingNotFoundError, deleteBeneficiarySaga, httpConnection);
+    sagaTester.start(deleteBeneficiarySaga, httpConnection);
     sagaTester.dispatch(beneficiariesListed(mockBeneficiaries));
     sagaTester.dispatch(beneficiaryDeleted(mockResponse));
 
@@ -222,7 +245,7 @@ describe('Beneficiary - integration', () => {
       name: 'BENFMOCK',
     };
 
-    sagaTester.start(wrapSagaHidingNotFoundError, deleteBeneficiarySaga, httpConnection);
+    sagaTester.start(deleteBeneficiarySaga, httpConnection);
     sagaTester.dispatch(beneficiariesListed([]));
     sagaTester.dispatch(deleteBeneficiary(mockRequest));
     sagaTester.dispatch(beneficiaryDeleted(mockResponse));
@@ -240,7 +263,7 @@ describe('Beneficiary - integration', () => {
       beneficiaryId: 4004318954,
     };
 
-    sagaTester.start(wrapSagaHidingNotFoundError, deleteBeneficiarySaga, httpConnection);
+    sagaTester.start(deleteBeneficiarySaga, httpConnection);
     sagaTester.dispatch(deleteBeneficiary(mockRequest));
     sagaTester.dispatch(
       beneficiaryDeleteFailed(new BeneficiaryError.BeneficiaryUnknown(mockError400.message)),
@@ -255,7 +278,7 @@ describe('Beneficiary - integration', () => {
   });
 
   it('Should store correct state if INIT_BENEFICIARY', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, listBeneficiarySaga, httpConnection);
+    sagaTester.start(listBeneficiarySaga, httpConnection);
     sagaTester.dispatch(listBeneficiaries());
     sagaTester.dispatch(beneficiariesListed(mockBeneficiaries));
     sagaTester.dispatch(initBeneficiary());
@@ -269,7 +292,7 @@ describe('Beneficiary - integration', () => {
   });
 
   it('Should store correct state if RESET_ERROR', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, listBeneficiarySaga, httpConnection);
+    sagaTester.start(listBeneficiarySaga, httpConnection);
     sagaTester.dispatch(listBeneficiaries());
     sagaTester.dispatch(beneficiariesListed(mockBeneficiaries));
     sagaTester.dispatch(resetError());

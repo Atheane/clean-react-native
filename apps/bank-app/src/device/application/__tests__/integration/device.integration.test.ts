@@ -14,6 +14,19 @@ import { deviceReducer } from '../../state-management/reducer';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { Device, DeviceError } from '@clean-rn/device/domain';
 
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
+
 describe('Device - integration', () => {
   const mockData = {
     deviceId: '0e909aa1933d3fed',
@@ -44,6 +57,20 @@ describe('Device - integration', () => {
       initialState,
       reducers: deviceReducer,
     });
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   it('should store correct initial state if no initial state is provided', () => {

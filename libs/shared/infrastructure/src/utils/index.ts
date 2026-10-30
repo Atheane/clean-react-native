@@ -1,1 +1,3 @@
-export * from './generators';
+import { arrayIsEmpty } from './arrayIsEmpty';
+
+export { arrayIsEmpty };
