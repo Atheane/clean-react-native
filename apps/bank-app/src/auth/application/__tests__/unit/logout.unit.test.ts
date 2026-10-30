@@ -14,11 +14,35 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 import { IAuthTypes, loggedOut, resetError } from '../../commands';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
-describe('Loggout - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
-  const authApi = AuthApi.getInstance(httpConnection);
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
 
-  const genObject = logoutSaga(httpConnection);
+describe('Loggout - usecase', () => {
+  let httpConnection: HttpConnection;
+  let authApi: AuthApi;
+
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    authApi = AuthApi.getInstance(httpConnection);
+  });
 
   const mockError500 = {
     message: 'Core::AuthService::Auth - Server Error',
@@ -29,6 +53,8 @@ describe('Loggout - usecase', () => {
   };
 
   it('Should wait for FETCH_LOGOUT action and call loginGenerator, should be done on next iteration', () => {
+    const genObject = logoutSaga(httpConnection);
+
     expect(genObject.next().value).toEqual(
       takeEvery(IAuthTypes.FETCH_LOGOUT, logoutGenerator, httpConnection),
     );

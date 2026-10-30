@@ -12,12 +12,40 @@ import { listBeneficiaryGenerator, listBeneficiarySaga } from '../../usecases/be
 import { IBeneficiaryTypes, beneficiariesListed, resetError } from '../../commands/beneficiary';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
+
 describe('ListBeneficiary - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
+  let httpConnection: HttpConnection;
+  let api: BeneficiaryApi;
 
-  const api = BeneficiaryApi.getInstance(httpConnection);
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    api = BeneficiaryApi.getInstance(httpConnection);
+  });
 
-  const genObject = listBeneficiarySaga(httpConnection);
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
+  });
 
   const mockResponse = [
     {
@@ -38,6 +66,8 @@ describe('ListBeneficiary - usecase', () => {
   };
 
   it('Should wait for LIST_BENEFICIARIES action and call listBeneficiaryGenerator, should be done on next iteration', () => {
+    const genObject = listBeneficiarySaga(httpConnection);
+
     expect(genObject.next().value).toEqual(
       takeEvery(IBeneficiaryTypes.LIST_BENEFICIARIES, listBeneficiaryGenerator, httpConnection),
     );

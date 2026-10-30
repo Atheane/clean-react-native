@@ -69,10 +69,42 @@ import { loginSuccess } from '../../../../auth/application/commands';
 
 import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
 
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
+
 describe('Signup - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
-  const userApi = UserApi.getInstance(httpConnection);
-  const authApi = AuthApi.getInstance(httpConnection);
+  let httpConnection: HttpConnection;
+  let userApi: UserApi;
+  let authApi: AuthApi;
+
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    userApi = UserApi.getInstance(httpConnection);
+    authApi = AuthApi.getInstance(httpConnection);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
+  });
 
   const mockIdentity: IRegisterIdentityCommand = {
     gender: IGender.MAN,
@@ -103,12 +135,12 @@ describe('Signup - usecase', () => {
   };
 
   const mockQueryPhone = {
-    phone: new Phone('0616804613', 'FR'),
+    phone: new Phone('0600000002', 'FR'),
   };
 
   const mockQueryPhoneOtp = {
     phoneOtp: new PhoneOtp('123456'),
-    phone: new Phone('0616804613', 'FR'),
+    phone: new Phone('0600000002', 'FR'),
   };
 
   const mockSuccessTrue: ISuccess = {
@@ -414,16 +446,19 @@ describe('Signup - usecase', () => {
   });
 
   it('Should call signupFailed action if 400 when fetchSearchPhone', () => {
+    const serverError = new ServerError(mockError400);
+    serverError.statusCode = 400;
+
     testSaga(checkPhoneGenerator, httpConnection, {
       type: IUserTypes.FETCH_SEARCH_PHONE,
       payload: mockQueryPhone,
     })
       .next()
       .call([userApi, userApi.searchPhone], mockQueryPhone)
-      .throw(new ServerError(mockError400))
+      .throw(serverError)
       .put(resetError())
       .next()
-      .put(signupFailed(new ContactError.InvalidPhone()))
+      .put(signupFailed(new ContactError.InvalidPhone(serverError.message)))
       .next()
       .cancel();
   });

@@ -8,9 +8,8 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 import { selectDocument } from '../../state-management/selectors';
 
 describe('Document - cancelUpload - usecases', () => {
-  const genObject = cancelUploadSaga();
-
   it('Should wait for CANCEL_UPLOAD action and call cancelUploadSagaGenerator, should be done on next iteration', () => {
+    const genObject = cancelUploadSaga();
     expect(genObject.next().value).toEqual(
       takeEvery(IDocumentTypes.CANCEL_UPLOAD, cancelUploadSagaGenerator),
     );

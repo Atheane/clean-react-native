@@ -10,11 +10,40 @@ import { resetPasswordGenerator, resetPasswordSaga } from '../../usecases/reset-
 import { IAuthTypes, initializeAuth, passwordReset } from '../../commands';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
-describe('ResetPassword - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
-  const api = AuthApi.getInstance(httpConnection);
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
 
-  const genObject = resetPasswordSaga(httpConnection);
+describe('ResetPassword - usecase', () => {
+  let httpConnection: HttpConnection;
+  let api: AuthApi;
+
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    api = AuthApi.getInstance(httpConnection);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
+  });
 
   const mockData = {
     email: new Email('test@example.com'),
@@ -29,6 +58,8 @@ describe('ResetPassword - usecase', () => {
   };
 
   it('should wait for FETCH_RESET_PASSWORD action and call resetPasswordApiSaga, should be done on next iteration', () => {
+    const genObject = resetPasswordSaga(httpConnection);
+
     expect(genObject.next().value).toEqual(
       takeEvery(IAuthTypes.FETCH_RESET_PASSWORD, resetPasswordGenerator, httpConnection),
     );

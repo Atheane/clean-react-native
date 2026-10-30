@@ -6,8 +6,6 @@ import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { BeneficiaryApi } from '@clean-rn/beneficiary/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IBeneficiaryStackPages } from '../../../../shared/presentation/types';
-import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 import { deleteBeneficiaryGenerator, deleteBeneficiarySaga } from '../../usecases/beneficiary';
 import {
@@ -19,9 +17,40 @@ import {
 import { BeneficiaryError } from '@clean-rn/beneficiary/domain';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
+
 describe('DeleteBeneficiary - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
-  const api = BeneficiaryApi.getInstance(httpConnection);
+  let httpConnection: HttpConnection;
+  let api: BeneficiaryApi;
+
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    api = BeneficiaryApi.getInstance(httpConnection);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
+  });
 
   const mockRequest = {
     beneficiaryId: 4004318954,
@@ -51,9 +80,9 @@ describe('DeleteBeneficiary - usecase', () => {
     path: '/app/beneficiary',
   };
 
-  const genObject = deleteBeneficiarySaga(httpConnection);
-
   it('Should wait for DELETE_BENEFICIARY action and call listAccountsGenerator, should be done on next iteration', () => {
+    const genObject = deleteBeneficiarySaga(httpConnection);
+
     expect(genObject.next().value).toEqual(
       takeEvery(IBeneficiaryTypes.DELETE_BENEFICIARY, deleteBeneficiaryGenerator, httpConnection),
     );
@@ -75,6 +104,9 @@ describe('DeleteBeneficiary - usecase', () => {
   });
 
   it('Should call beneficiaryDeleteFailed 400 from Server', () => {
+    const serverError = new ServerError(mockError400);
+    serverError.statusCode = 400;
+
     testSaga(deleteBeneficiaryGenerator, httpConnection, {
       type: IBeneficiaryTypes.DELETE_BENEFICIARY,
       payload: mockRequest,
@@ -83,10 +115,10 @@ describe('DeleteBeneficiary - usecase', () => {
       .call(ensureTokenRefreshed, httpConnection)
       .next()
       .call([api, api.deleteBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .throw(new ServerError(mockError400))
+      .throw(serverError)
       .put(resetError())
       .next()
-      .put(beneficiaryDeleteFailed(new BeneficiaryError.BeneficiaryUnknown(mockError400.message)))
+      .put(beneficiaryDeleteFailed(new BeneficiaryError.BeneficiaryUnknown(serverError.message)))
       .next()
       .cancel();
   });

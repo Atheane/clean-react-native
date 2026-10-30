@@ -18,12 +18,42 @@ import { showUnknownError } from '../../../application/commands/manage-global-er
 import { ISharedStackPages } from '../../../presentation/types';
 import { navigate } from '../../../presentation/navigation/navigationRef';
 
-describe('Login - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
-  const authApi = AuthApi.getInstance(httpConnection);
-  const userApi = UserApi.getInstance(httpConnection);
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
 
-  const genObject = loginSaga(httpConnection);
+describe('Login - usecase', () => {
+  let httpConnection: HttpConnection;
+  let userApi: UserApi;
+  let authApi: AuthApi;
+
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    userApi = UserApi.getInstance(httpConnection);
+    authApi = AuthApi.getInstance(httpConnection);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
+  });
 
   const mockData = {
     email: new Email('test@example.com'),
@@ -84,6 +114,8 @@ describe('Login - usecase', () => {
   };
 
   it('Should wait for FETCH_LOGIN action and call loginGenerator, should be done on next iteration', () => {
+    const genObject = loginSaga(httpConnection);
+
     expect(genObject.next().value).toEqual(takeEvery(IAuthTypes.FETCH_LOGIN, loginGenerator, httpConnection));
     expect(genObject.next().done).toBeTruthy();
   });
@@ -140,6 +172,9 @@ describe('Login - usecase', () => {
   });
 
   it('Should call loginFailure action if invalid credentials', () => {
+    const serverError = new ServerError(mockError401InvalidCredentials);
+    serverError.codeError = IAuthServerCode.USER_INVALID_CREDENTIAL;
+
     testSaga(loginGenerator, httpConnection, {
       type: IAuthTypes.FETCH_LOGIN,
       payload: mockData,
@@ -148,16 +183,14 @@ describe('Login - usecase', () => {
       .call(AsyncStorage.removeItem, IStoreKey.USER_EMAIL)
       .next()
       .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .throw(new ServerError(mockError401InvalidCredentials))
-      .put(
-        loginFailure(
-          new AuthError.LoginFailureInvalidCredentials(new ServerError(mockError401InvalidCredentials)),
-        ),
-      )
+      .throw(serverError)
+      .put(loginFailure(new AuthError.LoginFailureInvalidCredentials(serverError.message)))
       .next();
   });
 
   it('Should call loginFailure action if user not found', () => {
+    const serverError = new ServerError(mockError401UserNotFound);
+    serverError.codeError = IAuthServerCode.USER_NOT_FOUND;
     testSaga(loginGenerator, httpConnection, {
       type: IAuthTypes.FETCH_LOGIN,
       payload: mockData,
@@ -166,8 +199,8 @@ describe('Login - usecase', () => {
       .call(AsyncStorage.removeItem, IStoreKey.USER_EMAIL)
       .next()
       .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .throw(new ServerError(mockError401UserNotFound))
-      .put(loginFailure(new AuthError.LoginFailureUserNotFound(new ServerError(mockError401UserNotFound))))
+      .throw(serverError)
+      .put(loginFailure(new AuthError.LoginFailureUserNotFound(serverError.message)))
       .next();
   });
 

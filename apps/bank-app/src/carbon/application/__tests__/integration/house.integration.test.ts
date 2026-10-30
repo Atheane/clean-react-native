@@ -26,6 +26,20 @@ import { IHeaterProps } from '../../../presentation/types';
 import { addHeatersSaga } from '../../usecases/add-heaters';
 import { mapHeaterPropsToDomain } from '../../mappers';
 import { getHouseSaga } from '../../usecases/get-house';
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
+
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
 
 describe('AddHeaters footprint - integration', () => {
   let sagaTester: SagaTester;
@@ -50,6 +64,8 @@ describe('AddHeaters footprint - integration', () => {
     houseStatus: HOUSE_STATUS.OCCUPIED,
     houseId: 'houseId',
   });
+
+  let httpConnection: HttpConnection;
 
   beforeEach(() => {
     const initialState: ICarbonState = {
@@ -81,6 +97,20 @@ describe('AddHeaters footprint - integration', () => {
       initialState,
       reducers: carbonReducer,
     });
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   it('Should store correct state if ADD_HEATERS', () => {

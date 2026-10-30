@@ -12,9 +12,39 @@ import { deleteUserAccountGenerator, deleteUserAccountSaga } from '../../usecase
 import { IUserTypes, initializeUser, resetError } from '../../commands';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
+
 describe('Delete User Account - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
-  const userApi = UserApi.getInstance(httpConnection);
+  let httpConnection: HttpConnection;
+  let userApi: UserApi;
+
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    userApi = UserApi.getInstance(httpConnection);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
 
   const mockError500 = {
     message: 'Core::AuthService::Auth - Server Error',
@@ -24,9 +54,9 @@ describe('Delete User Account - usecase', () => {
     path: '/auth/login',
   };
 
-  const genObject = deleteUserAccountSaga(httpConnection);
-
   it('should wait for FETCH_DELETE_USER_ACCOUNT action and call deleteUserAccountGenerator, should be done on next iteration', () => {
+    const genObject = deleteUserAccountSaga(httpConnection);
+
     expect(genObject.next().value).toEqual(
       takeEvery(IUserTypes.FETCH_DELETE_USER_ACCOUNT, deleteUserAccountGenerator, httpConnection),
     );

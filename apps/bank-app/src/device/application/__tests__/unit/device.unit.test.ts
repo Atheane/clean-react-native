@@ -17,11 +17,40 @@ import { registerDeviceGenerator, registerDeviceSaga } from '../../usecases/regi
 import { IDeviceTypes, deviceRegistered, deviceAlreadyRegistered, resetError } from '../../commands';
 import { IStoreKey } from '../../../../shared/application/types';
 
-describe('Device - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
-  const deviceApi = DeviceApi.getInstance(httpConnection);
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
 
-  const genObject = registerDeviceSaga(httpConnection);
+describe('Device - usecase', () => {
+  let httpConnection: HttpConnection;
+  let deviceApi: DeviceApi;
+
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    deviceApi = DeviceApi.getInstance(httpConnection);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
+  });
 
   const mockData = {
     deviceId: '0e909aa1933d3fed',
@@ -43,6 +72,8 @@ describe('Device - usecase', () => {
   };
 
   it('should wait for FETCH_REGISTER_DEVICE action and call resetPasswordApiSaga, should be done on next iteration', () => {
+    const genObject = registerDeviceSaga(httpConnection);
+
     expect(genObject.next().value).toEqual(
       takeEvery(IDeviceTypes.FETCH_REGISTER_DEVICE, registerDeviceGenerator, httpConnection),
     );

@@ -27,8 +27,42 @@ import { IDocumentTypes, documentUploaded, resetDocument, setAbortController } f
 import { selectCustomer } from '../../state-management/selectors';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
+
 describe('Document - uploadDocument - usecases', () => {
-  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
+  let httpConnection: HttpConnection;
+  let api: KycApi;
+
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    api = KycApi.getInstance(httpConnection);
+    mockAbortController = new AbortController();
+    jest.spyOn(window, 'AbortController').mockImplementation(() => mockAbortController);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
+  });
 
   const documentProperties: IDocumentProperties = {
     typeId: 9,
@@ -39,10 +73,6 @@ describe('Document - uploadDocument - usecases', () => {
     statusCode: IDocumentStatusCode.INITIAL,
   };
 
-  const api = KycApi.getInstance(httpConnection);
-
-  const genObject = uploadDocumentSaga(httpConnection);
-
   const mockError500 = {
     message: 'Core::DocumentService::Document - Server Error',
     statusCode: 500,
@@ -52,16 +82,10 @@ describe('Document - uploadDocument - usecases', () => {
   };
 
   let mockAbortController: AbortController;
-  beforeEach(() => {
-    mockAbortController = new AbortController();
-    jest.spyOn(window, 'AbortController').mockImplementation(() => mockAbortController);
-  });
-
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
 
   it('Should wait for UPLOAD_DOCUMENT action and call uploadDocumentSagaGenerator, should be done on next iteration', () => {
+    const genObject = uploadDocumentSaga(httpConnection);
+
     expect(genObject.next().value).toEqual(
       takeEvery(IDocumentTypes.UPLOAD_DOCUMENT, uploadDocumentSagaGenerator, httpConnection),
     );

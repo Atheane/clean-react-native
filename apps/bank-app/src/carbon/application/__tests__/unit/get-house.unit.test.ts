@@ -15,17 +15,43 @@ import { FootprintApi } from '@clean-rn/carbon/infrastructure';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 import { selectUser } from '../../../../user/application/state-management/selectors';
 
-describe('GetHouse - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
-  const api = FootprintApi.getInstance(httpConnection);
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
 
-  const genObject = getHouseSaga(httpConnection);
+describe('GetHouse - usecase', () => {
+  let httpConnection: HttpConnection;
+  let api: FootprintApi;
+
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    api = FootprintApi.getInstance(httpConnection);
+  });
 
   const mockUserData = {
     userId: 100000352,
   };
 
   it('Should wait for GET_HOUSE action and call registerHeatersGenerator, should be done on next iteration', () => {
+    const genObject = getHouseSaga(httpConnection);
+
     expect(genObject.next().value).toEqual(
       takeEvery(ICarbonTypes.GET_HOUSE, getHouseGenerator, httpConnection),
     );

@@ -14,12 +14,39 @@ import { listAccountsGenerator, listAccountsSaga } from '../../usecases';
 import { IAccountsTypes, accountsListed, resetPending } from '../../commands/accounts';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
+
 describe('ListAccounts - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
+  let httpConnection: HttpConnection;
+  let api: AccountApi;
 
-  const api = AccountApi.getInstance(httpConnection);
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    api = AccountApi.getInstance(httpConnection);
+  });
 
-  const genObject = listAccountsSaga(httpConnection);
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
 
   const mockResponse = [
     {
@@ -40,6 +67,8 @@ describe('ListAccounts - usecase', () => {
   };
 
   it('Should wait for LIST_ACCOUNTS action and call listAccountsGenerator, should be done on next iteration', () => {
+    const genObject = listAccountsSaga(httpConnection);
+
     expect(genObject.next().value).toEqual(
       takeEvery(IAccountsTypes.LIST_ACCOUNTS, listAccountsGenerator, httpConnection),
     );

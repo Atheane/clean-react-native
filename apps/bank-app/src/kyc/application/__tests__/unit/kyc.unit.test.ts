@@ -28,14 +28,45 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 import { checkCustomerStatusGenerator, checkCustomerStatusSaga } from '../../usecases/customer';
 import { ICustomerTypes, customerStatusChecked, initializeKyc } from '../../commands/customer';
 
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
+
 describe('KYC - CheckCustomerStatus - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
+  let httpConnection: HttpConnection;
+  let kycApi: KycApi;
+  let accountApi: AccountApi;
+  let transactionApi: TransactionApi;
 
-  const kycApi = KycApi.getInstance(httpConnection);
-  const accountApi = AccountApi.getInstance(httpConnection);
-  const transactionApi = TransactionApi.getInstance(httpConnection);
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    kycApi = KycApi.getInstance(httpConnection);
+    accountApi = AccountApi.getInstance(httpConnection);
+    transactionApi = TransactionApi.getInstance(httpConnection);
+  });
 
-  const genObject = checkCustomerStatusSaga(httpConnection);
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
+  });
+
   const user = User.Create({
     id: 123,
     properties: {
@@ -149,6 +180,7 @@ describe('KYC - CheckCustomerStatus - usecase', () => {
   }));
 
   it('Should wait for CHECK_CUSTOMER_STATUS action and call checkCustomerStatusGenerator, should be done on next iteration', () => {
+    const genObject = checkCustomerStatusSaga(httpConnection);
     expect(genObject.next().value).toEqual(
       takeEvery(ICustomerTypes.CHECK_CUSTOMER_STATUS, checkCustomerStatusGenerator, httpConnection),
     );
