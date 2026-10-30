@@ -22,7 +22,6 @@ type IProps = {
   icon?: React.FC<SvgProps>;
   uid: string;
   title: string;
-  text: string;
   onDelete?: (uid: string) => void;
   onPress?: (uid: string) => void;
 };

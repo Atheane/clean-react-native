@@ -9,9 +9,9 @@ export const ScreenModalContent = () => {
     params: { uid },
   } = useRoute() as { params: { uid: string } };
 
-  const [content, setContent] = useState<IPropsTouchEventCard>();
+  const [content, setContent] = useState<IPropsTouchEventCard & { Component?: React.FC }>();
   useEffect(() => {
-    eventsCardsContent.find((item) => {
+    eventsCardsContent.find((item: IPropsTouchEventCard) => {
       if (item.uid === uid) {
         setContent(item);
       }
@@ -19,5 +19,13 @@ export const ScreenModalContent = () => {
     });
   }, [uid]);
 
-  return <ModalContent text={content?.text || ''} icon={content?.icon} imgWidth={200} imgHeight={200} />;
+  return (
+    <ModalContent
+      icon={content?.icon}
+      img={content?.image}
+      Component={content?.Component}
+      imgWidth={200}
+      imgHeight={200}
+    />
+  );
 };
