@@ -117,7 +117,7 @@ export const FlyFootprintEstimationForm = (props: IProps) => {
 
         return {
           uid: `${nbPassengers}_${fromIATA}_${toIATA}_${seatType}_${roundTrip}`,
-          text: `${nbPassengers} ${travelType}${plural} ${fromIATA} / ${toIATA} ${seat}`,
+          title: `${nbPassengers} ${travelType}${plural} ${fromIATA} / ${toIATA} ${seat}`,
           image: props.planeImage,
         };
       })
