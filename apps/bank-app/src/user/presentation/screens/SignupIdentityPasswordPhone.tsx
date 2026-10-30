@@ -9,7 +9,7 @@ import { useTheme } from '@rneui/themed';
 import { Email } from '@clean-rn/auth/domain';
 import { Phone } from '@clean-rn/contact/domain';
 import { IGender, IRegisterIdentityCommand } from '@clean-rn/user/domain';
-import { useCleanErrorOnFocus, useSecure, Colors } from '@clean-rn/ui-mobile';
+import { useCleanErrorOnFocus, useSecure } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
@@ -17,6 +17,8 @@ import { showUnknownError } from '../../../shared/application/commands/manage-gl
 
 import { registerIdentity, fetchSearchPhone, registerPassword } from '../../application/commands';
 import { FormSignupIdentityPasswordPhone, ISignupIdentityPasswordPhoneFormData } from '../forms';
+
+import { Colors } from '../../../shared/presentation/constants';
 
 const locales = getLocales();
 

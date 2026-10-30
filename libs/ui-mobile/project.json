@@ -27,6 +27,46 @@
         "jestConfig": "libs/ui-mobile/jest.config.ts",
         "passWithNoTests": false
       }
+    },
+    "storybook": {
+      "executor": "@nx/storybook:storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "libs/ui-mobile/.storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@nx/storybook:build",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/ui-mobile",
+        "configDir": "libs/ui-mobile/.storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "test-storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "test-storybook -c libs/ui-mobile/.storybook --url=http://localhost:4400"
+      }
+    },
+    "chromatic": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npx dotenv-cli -e .env -- npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --storybook-build-dir=../../dist/storybook/ui-mobile"
+        ],
+        "cwd": "libs/ui-mobile"
+      }
     }
   }
 }

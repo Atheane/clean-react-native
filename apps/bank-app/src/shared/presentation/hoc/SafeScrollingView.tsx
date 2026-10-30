@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import { SafeAreaView } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import { Colors } from '@clean-rn/ui-mobile';
+import { Colors } from '../constants';
 
 type IProps = {
   fixedHeight?: boolean;

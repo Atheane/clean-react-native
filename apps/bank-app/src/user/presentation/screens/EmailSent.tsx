@@ -4,12 +4,12 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Colors } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IconMailCode } from '../assets/images';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IStoreKey } from '../../../shared/application/types';
+import { Colors } from '../../../shared/presentation/constants';
 
 const HEIGHT = Dimensions.get('window').height;
 

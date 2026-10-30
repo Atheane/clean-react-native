@@ -16,7 +16,7 @@ install_dependencies:
 chromatic_deployment:
   stage: deploy
   script:
-    - npm run chromatic:storybook-web -- --exit-zero-on-changes
+    - npm run chromatic:ui-mobile -- --exit-zero-on-changes
   only:
     - main  # ou le nom de votre branche principale
   variables:

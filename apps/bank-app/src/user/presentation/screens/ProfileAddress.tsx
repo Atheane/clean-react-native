@@ -6,13 +6,14 @@ import { useForm } from 'react-hook-form';
 import { useTheme } from '@rneui/themed';
 import { getLocales } from 'expo-localization';
 
-import { useCleanErrorOnFocus, Colors } from '@clean-rn/ui-mobile';
+import { useCleanErrorOnFocus } from '@clean-rn/ui-mobile';
 import { IUpdateUserCommand } from '@clean-rn/user/domain';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { fetchUpdateUser } from '../../../user/application/commands';
 import { IParametersStackPages } from '../../../shared/presentation/types';
+import { Colors } from '../../../shared/presentation/constants';
 
 import { FormSignupAddress, ISignupAddressFormData } from '../forms';
 

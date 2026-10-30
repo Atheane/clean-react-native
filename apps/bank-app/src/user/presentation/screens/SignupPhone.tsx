@@ -7,7 +7,7 @@ import { getLocales } from 'expo-localization';
 import { useTheme } from '@rneui/themed';
 
 import { Phone } from '@clean-rn/contact/domain';
-import { useCleanErrorOnFocus, Shield, Colors } from '@clean-rn/ui-mobile';
+import { useCleanErrorOnFocus, Shield } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
@@ -15,6 +15,8 @@ import { showUnknownError } from '../../../shared/application/commands/manage-gl
 
 import { fetchSearchPhone } from '../../application/commands';
 import { ISignupPhoneFormData, FormSignupPhone } from '../forms';
+
+import { Colors } from '../../../shared/presentation/constants';
 
 const locales = getLocales();
 
