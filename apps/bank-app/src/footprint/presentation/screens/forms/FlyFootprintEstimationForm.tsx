@@ -105,12 +105,14 @@ export const FlyFootprintEstimationForm = (props: IProps) => {
       .map(({ nbPassengers, fromIATA, toIATA, seatType, roundTrip }: FlightI) => {
         const plural = nbPassengers > 1 ? 's' : '';
         const travelType = (
-          roundTrip ? t('screens.carbon-fly.swipe-button.round') : t('screens.carbon-fly.swipe-button.simple')
+          roundTrip
+            ? t('screens.footprint-estimation-fly.swipe-button.round')
+            : t('screens.footprint-estimation-fly.swipe-button.simple')
         ).toLocaleLowerCase();
         const seat = (
           seatType === SeatE.economy
-            ? t('screens.carbon-fly.swipe-button.economy')
-            : t('screens.carbon-fly.swipe-button.business')
+            ? t('screens.footprint-estimation-fly.swipe-button.economy')
+            : t('screens.footprint-estimation-fly.swipe-button.business')
         ).toLocaleLowerCase();
 
         return {
@@ -137,8 +139,8 @@ export const FlyFootprintEstimationForm = (props: IProps) => {
     <View style={theme.container.centeredItem}>
       <View style={styles.inputContainer}>
         <SearchModal
-          label={t('screens.carbon-fly.dropdown.destination')}
-          placeholder={t('screens.carbon-fly.dropdown.destination')}
+          label={t('screens.footprint-estimation-fly.dropdown.destination')}
+          placeholder={t('screens.footprint-estimation-fly.dropdown.destination')}
           data={props.airports}
           icon={() => <FlyFrom style={{ color: Colors.primary.lightGreen }} />}
           onSelect={(data: IData) => handleOnChangeField(data, 'fromIATA')}
@@ -147,8 +149,8 @@ export const FlyFootprintEstimationForm = (props: IProps) => {
       </View>
       <View style={styles.inputContainer}>
         <SearchModal
-          label={t('screens.carbon-fly.dropdown.arrival')}
-          placeholder={t('screens.carbon-fly.dropdown.arrival')}
+          label={t('screens.footprint-estimation-fly.dropdown.arrival')}
+          placeholder={t('screens.footprint-estimation-fly.dropdown.arrival')}
           data={props.airports}
           icon={() => <FlyTo style={{ color: Colors.primary.lightGreen }} />}
           onSelect={(data: IData) => handleOnChangeField(data, 'toIATA')}
@@ -163,27 +165,27 @@ export const FlyFootprintEstimationForm = (props: IProps) => {
         ]}
       >
         <SelectNumber
-          label={t('screens.carbon-fly.slider')}
+          label={t('screens.footprint-estimation-fly.slider')}
           value={props.flight?.nbPassengers ?? 1}
           onChange={handleOnChangeFlightNumber}
         />
       </View>
       <View style={[styles.swipeButtonContainer, styles.inputContainer]}>
         <SwitchButton
-          label={t('screens.carbon-fly.swipe-button.type')}
+          label={t('screens.footprint-estimation-fly.swipe-button.type')}
           options={[
-            { key: FLY_TYPE.SIMPLE, value: t('screens.carbon-fly.swipe-button.simple') },
-            { key: FLY_TYPE.ROUND, value: t('screens.carbon-fly.swipe-button.round') },
+            { key: FLY_TYPE.SIMPLE, value: t('screens.footprint-estimation-fly.swipe-button.simple') },
+            { key: FLY_TYPE.ROUND, value: t('screens.footprint-estimation-fly.swipe-button.round') },
           ]}
           onToggle={handleOnToggleWays}
         />
       </View>
       <View style={[styles.swipeButtonContainer, styles.inputContainer]}>
         <SwitchButton
-          label={t('screens.carbon-fly.swipe-button.class')}
+          label={t('screens.footprint-estimation-fly.swipe-button.class')}
           options={[
-            { key: SeatE.economy, value: t('screens.carbon-fly.swipe-button.economy') },
-            { key: SeatE.business, value: t('screens.carbon-fly.swipe-button.business') },
+            { key: SeatE.economy, value: t('screens.footprint-estimation-fly.swipe-button.economy') },
+            { key: SeatE.business, value: t('screens.footprint-estimation-fly.swipe-button.business') },
           ]}
           onToggle={handleOnToggleSeat}
         />
@@ -191,7 +193,7 @@ export const FlyFootprintEstimationForm = (props: IProps) => {
       <View style={styles.buttonContainer}>
         <SecondaryButton
           iconOne={GreenAdd}
-          title={t('screens.carbon-fly.secondary-button')}
+          title={t('screens.footprint-estimation-fly.secondary-button')}
           onPress={handleOnAddFlight}
           disabled={disabled}
         />

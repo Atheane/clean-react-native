@@ -138,7 +138,7 @@
         "INVALID_PHONE": "Numéro de téléphone mobile invalide",
         "CONTACT_ALREADY_EXISTS": "Ce numéro existe déjà"
       },
-      "carbon": {
+      "footprint": {
         "INVALID_HOUSE_PROPS": "Propriétés de maison invalides",
         "INVALID_TRANSPORT_PROPS": "Propriétés de transport invalides",
         "INVALID_FOOD_PROPS": "Propriétés alimentaires invalides",
@@ -510,7 +510,7 @@
       "receive": "Recevoir ma prime",
       "baseline": "Emissions de référence"
     },
-    "carbon": {
+    "footprint-estimation": {
       "title": "Mon bilan carbone en 2 min",
       "tab": "Bilan CO2",
       "instruction": "Appuyer sur une catégorie pour démarrer",
@@ -518,7 +518,7 @@
       "average": "Moyenne Française",
       "ton": "t",
       "tons": "t",
-      "share": "Partager",
+      "take-action": "Passer à l'action",
       "reward": "Etre récompensé par la prime CO2",
       "method": "En savoir plus sur la méthode de calcul",
       "compute": "Calculer",
@@ -526,7 +526,7 @@
       "message-part-one": "Hello,\n\nJe viens de faire mon bilan carbone en deux minutes. Hyper intéressant.\n\nMon bilan carbone est de ",
       "message-part-two": "Découvre le tien aussi et dis moi combien tu pèses !\n\nSur iOS:\n\nhttps://apps.apple.com/fr/app/bank-app/id0000000000?l=fr-FR\n\n sur Android:\n\nhttps://play.google.com/store/apps/details?id=com.example.energyapp"
     },
-    "carbon-house": {
+    "footprint-estimation-house": {
       "title": "Mon logement",
       "no-CO2": "La consommation de ce type de chauffage n’émet pas de CO2 dans la méthodologie de calcul.",
       "dropdown": {
@@ -550,7 +550,7 @@
       },
       "surface": "Surface"
     },
-    "carbon-transport": {
+    "footprint-estimation-transport": {
       "title": "Mon transport",
       "no-CO2": "La consommation de ce type de véhicule n’émet pas de CO2 dans la méthodologie de calcul",
       "dropdown": {
@@ -569,7 +569,7 @@
         "unit": " km"
       }
     },
-    "carbon-food": {
+    "footprint-estimation-food": {
       "title": "Mon alimentation",
       "slider": {
         "alcohol": "Vin / Bière",
@@ -591,7 +591,7 @@
       "text": "À partir de l’estimation de l’empreinte carbone de l’alimentation on déduit celle des déchets.",
       "next": "Suivant"
     },
-    "carbon-fly": {
+    "footprint-estimation-fly": {
       "title": "Mon transport aérien",
       "dropdown": {
         "destination": "Départ de",

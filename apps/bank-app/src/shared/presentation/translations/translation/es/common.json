@@ -137,7 +137,7 @@
         "INVALID_PHONE": "Número de teléfono móvil inválido",
         "CONTACT_ALREADY_EXISTS": "Este contacto ya existe"
       },
-      "carbon": {
+      "footprint-estimation": {
         "INVALID_HOUSE_PROPS": "Propiedades de la casa inválidas",
         "INVALID_TRANSPORT_PROPS": "Propiedades de transporte inválidas",
         "INVALID_FOOD_PROPS": "Propiedades de alimentos inválidas",
@@ -433,7 +433,77 @@
       "title": "Transferencia",
       "button": "Volver al inicio"
     },
-    "carbon": {
+    "menu-footprint": {
+      "title": "Mi huella de carbono",
+      "2min": "Mi huella de carbono en 2 min",
+      "my-reward": "Recibir mi prima de CO2",
+      "my-emissions": "Ver mis emisiones"
+    },
+    "menu-primeum": {
+      "title": "Mi prima de CO2",
+      "step-one": "Situación",
+      "step-two": "Justificantes",
+      "step-three": "Seguimiento",
+      "instruction": "Rellene los formularios a continuación, esto nos permite evaluar el monto de su prima creando su ",
+      "ref-year": "año de referencia.",
+      "heat": "Calefacción",
+      "works": "Obras",
+      "transport": "Transporte",
+      "household": "Hogar"
+    },
+    "heat-primeum": {
+      "title": "Mi prima de CO2",
+      "subtitle-main": "Mi calefacción principal",
+      "subtitle-sanitary": "Mi agua sanitaria",
+      "subtitle-secondary": "Mi calefacción secundaria",
+      "step-one": "Situación",
+      "step-two": "Justificantes",
+      "step-three": "Seguimiento",
+      "heater": "Tipo de calefacción",
+      "placeholder": "Seleccionar",
+      "house-main-heat": "Calefacción principal instalada en su vivienda:",
+      "house-sanitary-heat": "Agua caliente sanitaria instalada en su vivienda:",
+      "house-secondary-heat": "Calefacción secundaria instalada en su vivienda:",
+      "next-step": "Siguiente",
+      "end": "Terminar",
+      "dropdown-heat-type": {
+        "ELECTRIC": "Electricidad",
+        "COAL": "Carbón",
+        "GAS": "Gas ciudad",
+        "FUEL_OIL": "Gasóleo",
+        "URBAN": "Red de calor urbana",
+        "WOOD": "Madera",
+        "HEAT_PUMP": "Bomba de calor",
+        "THERMAL_SOLAR": "Solar térmica",
+        "PROPANE": "Propano"
+      },
+      "dropdown-years": {
+        "before-2012": "Antes de 2012"
+      },
+      "instruction-heat-type": "Hoy, ¿cómo calienta su vivienda?",
+      "instruction-heat-type-installation-date": "Esta calefacción está instalada en la vivienda desde:",
+      "instruction-heat-type-before": "Tipo de calefacción anterior",
+      "instruction-sanitary-heat-type": "Hoy, ¿cómo se produce su agua caliente sanitaria?",
+      "instruction-sanitary-heat-installation-date": "El agua caliente sanitaria está instalada desde:",
+      "instruction-sanitary-heat-type-before": "Tipo de agua caliente sanitaria anterior",
+      "instruction-secondary-heat-type": "Si su vivienda tiene calefacción secundaria, indique el tipo de calefacción."
+    },
+    "works-primeum": {
+      "title": "Mi prima de CO2"
+    },
+    "transport-primeum": {
+      "title": "Mi prima de CO2"
+    },
+    "household-primeum": {
+      "title": "Mi prima de CO2"
+    },
+    "evolution": {
+      "title": "Evolución de mis emisiones",
+      "na": "No calculado",
+      "receive": "Recibir mi prima",
+      "baseline": "Emisiones de referencia"
+    },
+    "footprint-estimation": {
       "title": "Mi huella de carbono",
       "tab": "Balance CO2",
       "instruction": "Presione una categoría para comenzar",
@@ -441,7 +511,7 @@
       "average": "Promedio Francés",
       "ton": "t",
       "tons": "t",
-      "share": "Compartir",
+      "take-action": "Pasar a la acción",
       "reward": "Ser recompensado por la prima CO2",
       "method": "Más información sobre el método de cálculo",
       "compute": "Calcular",
@@ -449,7 +519,7 @@
       "message-part-one": "Hola,\n\nAcabo de hacer mi huella de carbono en dos minutos. Muy interesante.\n\nMi huella de carbono es de ",
       "message-part-two": "¡Descubre la tuya también y dime cuánto pesas!\n\nEn iOS:\n\nhttps://apps.apple.com/fr/app/bank-app/id0000000000?l=fr-FR\n\n en Android:\n\nhttps://play.google.com/store/apps/details?id=com.example.energyapp"
     },
-    "carbon-house": {
+    "footprint-estimation-house": {
       "title": "Mi vivienda",
       "no-CO2": "El consumo de este tipo de calefacción no emite CO2 en la metodología de cálculo.",
       "dropdown": {
@@ -473,7 +543,7 @@
       },
       "surface": "Superficie"
     },
-    "carbon-transport": {
+    "footprint-estimation-transport": {
       "title": "Mi transporte",
       "no-CO2": "El consumo de este tipo de vehículo no emite CO2 en la metodología de cálculo",
       "dropdown": {
@@ -492,7 +562,7 @@
         "unit": " km"
       }
     },
-    "carbon-food": {
+    "footprint-estimation-food": {
       "title": "Mi alimentación",
       "slider": {
         "alcohol": "Vino / Cerveza",
@@ -514,7 +584,7 @@
       "text": "A partir de la estimación de la huella de carbono de la alimentación se deduce la de los residuos.",
       "next": "Siguiente"
     },
-    "carbon-fly": {
+    "footprint-estimation-fly": {
       "title": "Mi transporte aéreo",
       "dropdown": {
         "destination": "Salida de",

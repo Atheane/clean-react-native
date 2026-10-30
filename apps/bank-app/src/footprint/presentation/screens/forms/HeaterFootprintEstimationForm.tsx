@@ -36,7 +36,7 @@ export const HeaterFootprintEstimationForm = (props: IProps) => {
 
   const dataHeating = Object.entries(HeaterE).map(([key, value]) => ({
     key,
-    value: t('screens.carbon-house.dropdown.' + value),
+    value: t('screens.footprint-estimation-house.dropdown.' + value),
   }));
 
   const [heater, setHeater] = useState<HeaterE>();
@@ -112,7 +112,7 @@ export const HeaterFootprintEstimationForm = (props: IProps) => {
     if (heater === HeaterE.coal || heater === HeaterE.propane) {
       return (
         <Slider
-          label={t('screens.carbon-house.slider.consumption')}
+          label={t('screens.footprint-estimation-house.slider.consumption')}
           minValue={0}
           maxValue={10000}
           value={consumption}
@@ -124,7 +124,7 @@ export const HeaterFootprintEstimationForm = (props: IProps) => {
     } else if (heater === HeaterE.fuelOil) {
       return (
         <Slider
-          label={t('screens.carbon-house.slider.consumption')}
+          label={t('screens.footprint-estimation-house.slider.consumption')}
           minValue={0}
           maxValue={10000}
           value={consumption}
@@ -138,8 +138,8 @@ export const HeaterFootprintEstimationForm = (props: IProps) => {
         <View>
           {country === 'FR' && (
             <Dropdown
-              label={t('screens.carbon-house.dropdown.region')}
-              placeholder={t('screens.carbon-house.dropdown.region')}
+              label={t('screens.footprint-estimation-house.dropdown.region')}
+              placeholder={t('screens.footprint-estimation-house.dropdown.region')}
               icon={() => <Department style={{ color: Colors.primary.lightGreen }} />}
               data={sortedDeps}
               value={region ? convertDepNumberToName(region) : undefined}
@@ -151,7 +151,7 @@ export const HeaterFootprintEstimationForm = (props: IProps) => {
           )}
           <View style={styles.formContainer}>
             <SelectNumber
-              label={t('screens.carbon-house.surface')}
+              label={t('screens.footprint-estimation-house.surface')}
               icon={() => <Surface style={{ color: Colors.primary.lightGreen }} />}
               value={surface}
               onChange={handleOnChangeSurface}
@@ -159,7 +159,7 @@ export const HeaterFootprintEstimationForm = (props: IProps) => {
           </View>
           <View style={styles.formContainer}>
             <Slider
-              label={t('screens.carbon-house.slider.built-year')}
+              label={t('screens.footprint-estimation-house.slider.built-year')}
               minValue={1900}
               maxValue={todayYear()}
               value={builtYear}
@@ -171,19 +171,19 @@ export const HeaterFootprintEstimationForm = (props: IProps) => {
     } else if (!heater) {
       return <View />;
     } else {
-      return <NoCO2 text={t('screens.carbon-house.no-CO2')} />;
+      return <NoCO2 text={t('screens.footprint-estimation-house.no-CO2')} />;
     }
   };
 
   return (
     <View style={styles.container}>
       <Dropdown
-        label={t('screens.carbon-house.dropdown.heater')}
-        placeholder={t('screens.carbon-house.dropdown.heater')}
+        label={t('screens.footprint-estimation-house.dropdown.heater')}
+        placeholder={t('screens.footprint-estimation-house.dropdown.heater')}
         icon={() => <Flame style={{ color: Colors.primary.lightGreen }} />}
         data={dataHeating}
         onSelect={handleOnChange}
-        defaultValue={t(`screens.carbon-house.dropdown.${heater ?? 'heater'}`)}
+        defaultValue={t(`screens.footprint-estimation-house.dropdown.${heater ?? 'heater'}`)}
       />
       <View style={styles.formContainer}>{ConditionalForm()}</View>
     </View>

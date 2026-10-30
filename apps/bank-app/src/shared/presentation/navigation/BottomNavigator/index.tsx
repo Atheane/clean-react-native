@@ -109,7 +109,7 @@ export const BottomTabNavigator = () => {
         name={IFootprintStackPages.MENU}
         component={FootprintStack}
         options={() => ({
-          title: t('screens.carbon.title'),
+          title: t('screens.footprint-estimation.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             featureTagLegacy ? (
               focused ? (
@@ -123,7 +123,7 @@ export const BottomTabNavigator = () => {
               <CarbonIcon />
             ),
           tabBarLabel: ({ focused }: { focused: boolean }) =>
-            focused ? <Text style={styles.tab}> {t('screens.carbon.tab')}</Text> : '',
+            focused ? <Text style={styles.tab}> {t('screens.footprint-estimation.tab')}</Text> : '',
         })}
       />
       <Tab.Screen

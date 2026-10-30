@@ -18,7 +18,7 @@ export const TransportFootprintEstimationForm = (props: IProps) => {
 
   const dataFuel = Object.entries(FuelE).map(([key, value]) => ({
     key,
-    value: t('screens.carbon-transport.dropdown.' + value),
+    value: t('screens.footprint-estimation-transport.dropdown.' + value),
   }));
 
   const [fuel, setFuel] = useState<FuelE>();
@@ -65,7 +65,7 @@ export const TransportFootprintEstimationForm = (props: IProps) => {
       return (
         <View>
           <Slider
-            label={t('screens.carbon-transport.slider.mpg')}
+            label={t('screens.footprint-estimation-transport.slider.mpg')}
             minValue={0}
             maxValue={25}
             value={mpg}
@@ -74,7 +74,7 @@ export const TransportFootprintEstimationForm = (props: IProps) => {
           />
           <View style={styles.container}>
             <Slider
-              label={t('screens.carbon-transport.slider.distance-by-year')}
+              label={t('screens.footprint-estimation-transport.slider.distance-by-year')}
               minValue={0}
               maxValue={150000}
               step={500}
@@ -86,19 +86,19 @@ export const TransportFootprintEstimationForm = (props: IProps) => {
         </View>
       );
     } else {
-      return <NoCO2 text={t('screens.carbon-transport.no-CO2')} />;
+      return <NoCO2 text={t('screens.footprint-estimation-transport.no-CO2')} />;
     }
   };
 
   return (
     <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <Dropdown
-        label={t('screens.carbon-transport.dropdown.title')}
-        placeholder={t('screens.carbon-transport.dropdown.title')}
+        label={t('screens.footprint-estimation-transport.dropdown.title')}
+        placeholder={t('screens.footprint-estimation-transport.dropdown.title')}
         icon={() => <Gasoline style={{ color: Colors.primary.lightGreen }} />}
         data={dataFuel}
         onSelect={handleOnChange}
-        defaultValue={t(`screens.carbon-transport.dropdown.${fuel ?? 'title'}`)}
+        defaultValue={t(`screens.footprint-estimation-transport.dropdown.${fuel ?? 'title'}`)}
       />
       {fuel && <View style={styles.container}>{ConditionalForm()}</View>}
     </KeyboardAwareScrollView>

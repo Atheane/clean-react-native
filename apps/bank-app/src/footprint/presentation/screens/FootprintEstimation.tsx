@@ -16,7 +16,7 @@ import {
   Colors,
   FontNames,
   useReduxOverStorageValue,
-  ShareScreen,
+  PrimaryButton,
   NEEDS_SMALL_TEXT,
 } from '@clean-rn/ui-mobile';
 import { IBANKCategories } from '@clean-rn/footprint/domain';
@@ -164,8 +164,8 @@ export const FootprintEstimation = () => {
   };
 
   const toLegend = (value: number) => {
-    return `${t('screens.carbon.average')}: ${(value / 1000).toFixed(2).replace('.', ',')} ${
-      value > 1 ? t('screens.carbon.tons') : t('screens.carbon.ton')
+    return `${t('screens.footprint-estimation.average')}: ${(value / 1000).toFixed(2).replace('.', ',')} ${
+      value > 1 ? t('screens.footprint-estimation.tons') : t('screens.footprint-estimation.ton')
     }`;
   };
 
@@ -266,9 +266,9 @@ export const FootprintEstimation = () => {
         <SafeScrollingView>
           <View style={[styles.container, theme.container.centeredItem, { height: HEIGHT, marginTop: -80 }]}>
             <View style={styles.textContainer}>
-              <Text style={theme.text.darkBlue}>{t('screens.carbon.instruction')}</Text>
+              <Text style={theme.text.darkBlue}>{t('screens.footprint-estimation.instruction')}</Text>
               <View style={styles.kpiContainer}>
-                <Text style={styles.kpiText}>{t('screens.carbon.zero-carbon')}</Text>
+                <Text style={styles.kpiText}>{t('screens.footprint-estimation.zero-carbon')}</Text>
               </View>
             </View>
             <Cards />
@@ -278,58 +278,58 @@ export const FootprintEstimation = () => {
     );
   }
 
-  const message =
-    t('screens.carbon.message-part-one') +
-    `${toCO2(totalEmissions)}.\n\n` +
-    t('screens.carbon.message-part-two');
-
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={[styles.container, theme.container.centeredItem]}>
-          <ShareScreen message={message} handleError={handleErrorShare} buttonTitle={t('button.share')}>
-            <View collapsable={false}>
-              <View style={styles.graphContainer}>
-                <GraphCO2
-                  headers={
-                    {
-                      [IBANKCategories.BAD]: HeaderBad as ImageSourcePropType,
-                      [IBANKCategories.FRANCE]: HeaderFrance as ImageSourcePropType,
-                      [IBANKCategories.CHAMPION]: HeaderChampion as ImageSourcePropType,
-                      [IBANKCategories.COP21]: HeaderCop21 as ImageSourcePropType,
-                    } as { [key: string]: ImageSourcePropType }
-                  }
-                  bilans={{
-                    FR: {
-                      [IBANKCategories.BAD]: BilanBadFR as ImageSourcePropType,
-                      [IBANKCategories.FRANCE]: BilanFranceFR as ImageSourcePropType,
-                      [IBANKCategories.CHAMPION]: BilanChampionFR as ImageSourcePropType,
-                      [IBANKCategories.COP21]: BilanCop21FR as ImageSourcePropType,
-                    } as { [key: string]: ImageSourcePropType },
-                    GB: {
-                      [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
-                      [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
-                      [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
-                      [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
-                    } as { [key: string]: ImageSourcePropType },
-                    US: {
-                      [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
-                      [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
-                      [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
-                      [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
-                    } as { [key: string]: ImageSourcePropType },
-                  }}
-                  emissions={totalEmissions}
-                />
-              </View>
-              <Cards />
+          <View collapsable={false}>
+            <View style={styles.graphContainer}>
+              <GraphCO2
+                headers={
+                  {
+                    [IBANKCategories.BAD]: HeaderBad as ImageSourcePropType,
+                    [IBANKCategories.FRANCE]: HeaderFrance as ImageSourcePropType,
+                    [IBANKCategories.CHAMPION]: HeaderChampion as ImageSourcePropType,
+                    [IBANKCategories.COP21]: HeaderCop21 as ImageSourcePropType,
+                  } as { [key: string]: ImageSourcePropType }
+                }
+                bilans={{
+                  FR: {
+                    [IBANKCategories.BAD]: BilanBadFR as ImageSourcePropType,
+                    [IBANKCategories.FRANCE]: BilanFranceFR as ImageSourcePropType,
+                    [IBANKCategories.CHAMPION]: BilanChampionFR as ImageSourcePropType,
+                    [IBANKCategories.COP21]: BilanCop21FR as ImageSourcePropType,
+                  } as { [key: string]: ImageSourcePropType },
+                  GB: {
+                    [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
+                    [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
+                    [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
+                    [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
+                  } as { [key: string]: ImageSourcePropType },
+                  US: {
+                    [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
+                    [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
+                    [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
+                    [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
+                  } as { [key: string]: ImageSourcePropType },
+                }}
+                emissions={totalEmissions}
+              />
             </View>
-          </ShareScreen>
+            <Cards />
+            <View style={[styles.row, { marginVertical: 40 }]}>
+              <PrimaryButton
+                long
+                title={t('screens.footprint-estimation.take-action')}
+                onPress={() => handlePressNavigation(IFootprintStackPages.MENU_PRIMEUM)}
+              />
+            </View>
+          </View>
 
           <View style={styles.row}>
             <TouchCardKpi
               data={{
-                text: t('screens.carbon.reward'),
+                text: t('screens.footprint-estimation.reward'),
               }}
               icon={() => (
                 <View style={{ margin: -15 }}>
@@ -340,7 +340,7 @@ export const FootprintEstimation = () => {
             />
             <TouchCardKpi
               data={{
-                text: t('screens.carbon.method'),
+                text: t('screens.footprint-estimation.method'),
               }}
               icon={() => (
                 <View style={{ margin: -15 }}>

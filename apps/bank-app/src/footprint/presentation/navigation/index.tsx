@@ -58,7 +58,7 @@ export const FootprintStack = () => {
         name={IFootprintStackPages.MENU}
         component={featureTagLegacy ? MenuFootprint : FootprintEstimation}
         options={{
-          headerTitle: t('screens.menu-carbon.title'),
+          headerTitle: t('screens.menu-footprint.title'),
           ...headersOptions(),
         }}
       />
@@ -78,7 +78,7 @@ export const FootprintStack = () => {
           name={IFootprintStackPages.FOOTPRINT_ESTIMATION}
           component={FootprintEstimation}
           options={{
-            headerTitle: t('screens.carbon.title'),
+            headerTitle: t('screens.footprint-estimation.title'),
             ...headersOptions(),
             ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
           }}
@@ -88,7 +88,7 @@ export const FootprintStack = () => {
         name={IFootprintStackPages.HEATER_FOOTPRINT_ESTIMATION}
         component={HeaterFootprintEstimation}
         options={{
-          headerTitle: t('screens.carbon-house.title'),
+          headerTitle: t('screens.footprint-estimation-house.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />
@@ -96,7 +96,7 @@ export const FootprintStack = () => {
         name={IFootprintStackPages.TRANSPORT_FOOTPRINT_ESTIMATION}
         component={TransportFootprintEstimation}
         options={{
-          headerTitle: t('screens.carbon-transport.title'),
+          headerTitle: t('screens.footprint-estimation-transport.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />
@@ -104,7 +104,7 @@ export const FootprintStack = () => {
         name={IFootprintStackPages.FOOD_FOOTPRINT_ESTIMATION}
         component={FoodFootprintEstimation}
         options={{
-          headerTitle: t('screens.carbon-food.title'),
+          headerTitle: t('screens.footprint-estimation-food.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />
@@ -112,7 +112,7 @@ export const FootprintStack = () => {
         name={IFootprintStackPages.WARNING_FOOD_FOOTPRINT_ESTIMATION}
         component={WarningFoodFootprintEstimation}
         options={{
-          headerTitle: t('screens.carbon-food.title'),
+          headerTitle: t('screens.warning-food.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />
@@ -120,7 +120,7 @@ export const FootprintStack = () => {
         name={IFootprintStackPages.FLY_FOOTPRINT_ESTIMATION}
         component={FlyFootprintEstimation}
         options={{
-          headerTitle: t('screens.carbon-fly.title'),
+          headerTitle: t('screens.footprint-estimation-fly.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />
