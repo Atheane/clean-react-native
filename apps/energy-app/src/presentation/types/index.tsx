@@ -80,6 +80,9 @@ export enum IEpcStackPages {
 export enum ISettingsStackPages {
   MENU = 'MenuSettings',
   SETTINGS = 'Settings',
+  APPLICATION_SETTINGS = 'ApplicationSettings',
+  NOTIFICATIONS = 'Notifications',
+  LANGUAGES = 'Languages',
   LOGOUT = 'Logout',
 }
 
@@ -115,6 +118,9 @@ export type IEpcStackProps = {
 export type ISettingsStackProps = {
   [ISettingsStackPages.MENU]: object;
   [ISettingsStackPages.SETTINGS]: object;
+  [ISettingsStackPages.APPLICATION_SETTINGS]: object;
+  [ISettingsStackPages.NOTIFICATIONS]: object;
+  [ISettingsStackPages.LANGUAGES]: object;
   [ISettingsStackPages.LOGOUT]: object;
 };
 
@@ -135,4 +141,7 @@ export type IRoutes =
   | IEpcStackPages.EPC_CONTRACT
   | ISettingsStackPages.MENU
   | ISettingsStackPages.SETTINGS
+  | ISettingsStackPages.APPLICATION_SETTINGS
+  | ISettingsStackPages.NOTIFICATIONS
+  | ISettingsStackPages.LANGUAGES
   | ISettingsStackPages.LOGOUT;

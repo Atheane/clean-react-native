@@ -114,3 +114,8 @@ export { BANKLogo } from './BANKLogo';
 export { ExportPdfBg } from './ExportPdfBg';
 export { Activity } from './Activity';
 export { KWh } from './KWh';
+export { Bell } from './Bell';
+export { CardBank } from './CardBank';
+export { ShowPin } from './ShowPin';
+export { ChangePin } from './ChangePin';
+export { Unlock } from './Unlock';

@@ -1,9 +1,7 @@
 import { View, StyleSheet, Text } from 'react-native';
 import { useTheme } from '@rneui/themed';
-import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { DraggableLinePlot, Colors, PrimaryButton } from '@clean-rn/ui-mobile';
-import { ErrorBoundary, SafeScrollingView } from '../hoc';
 import { IEpcStackPages } from '../types';
 
 const FAKE_BASELINE = [17.5, 20, 19.5, 21, 24, 25, 27.7, 25, 26, 25, 20, 17.5, 18];
@@ -14,7 +12,7 @@ export const EpcRecommendedIndoorTemperature = () => {
   const navigation = useNavigation();
 
   const handleOnPress = () => {
-    navigation.navigate(IEpcStackPages.EPC_CONTRACT);
+    navigation.navigate(IEpcStackPages.EPC_CONTRACT as never);
   };
 
   const handleOnDrag = (value: number | { x: number; y: number } | null) => {

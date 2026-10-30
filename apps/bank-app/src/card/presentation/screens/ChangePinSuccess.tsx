@@ -8,7 +8,7 @@ import { PrimaryButton, Validate } from '@clean-rn/ui-mobile';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { ICardStackPages } from '../../../shared/presentation/types';
 
-import { Success } from '../assets';
+import { Success } from '../assets/images';
 
 const HEIGHT = Dimensions.get('screen').height;
 export const ChangePinSuccess = () => {

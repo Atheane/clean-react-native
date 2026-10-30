@@ -10,14 +10,13 @@ import { CardPinCode } from '@clean-rn/card/domain';
 import { useCleanErrorOnFocus, SubmitButton } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { Colors } from '../../../shared/presentation/constants';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { fetchChangePIN } from '../../../card/application/commands';
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 
 import { FormChangePin, IChangePinFormData } from '../forms';
-
-import { Colors } from '../../../shared/presentation/constants';
 
 const HEIGHT = Dimensions.get('screen').height;
 export const ChangePin = () => {

@@ -5,14 +5,14 @@ import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@rneui/themed';
 import { PrimaryButton, Validate } from '@clean-rn/ui-mobile';
+import { ICardStatuses } from '@clean-rn/card/domain';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { ICardStackPages } from '../../../shared/presentation/types';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
-import { Success } from '../assets';
-import { ICardStatuses } from '@clean-rn/card/domain';
+import { Success } from '../assets/images';
 
 const HEIGHT = Dimensions.get('screen').height;
 export const ToggleLockCardSuccess = () => {

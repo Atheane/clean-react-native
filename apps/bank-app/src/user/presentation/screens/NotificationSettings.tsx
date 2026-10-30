@@ -4,11 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
-import { SmallSwitchButton, SubmitButton, useTogglePress } from '@clean-rn/ui-mobile';
+import { SmallSwitchButton, SubmitButton, useTogglePress, Bell, Colors } from '@clean-rn/ui-mobile';
 
 import { IPhoneNotifications } from '@clean-rn/user/domain';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { BlueBell } from '../../../user/presentation/assets';
 import { fetchUpdateNotifications } from '../../../user/application/commands';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
@@ -64,7 +63,7 @@ export const NotificationSettings = () => {
       <SafeScrollingView>
         <View>
           <View style={styles.iconContainer}>
-            <BlueBell />
+            <Bell color={Colors.primary.darkBlue} />
           </View>
           <View style={[styles.container, theme.container.centeredItem]}>
             <View style={styles.rowContainer}>

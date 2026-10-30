@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import * as SVGIcons from '../../../../../libs/ui-mobile/src/assets/svg';
 
 const customSizeSVGs = {
+  BANKLogo: SVGIcons.BANKLogo,
   KycId: SVGIcons.KycId,
   Shield: SVGIcons.Shield,
   RedCross: SVGIcons.RedCross,
@@ -27,6 +28,8 @@ const customSizeSVGs = {
   BottomLeavesBg: SVGIcons.BottomLeavesBg,
   TopLeavesBg: SVGIcons.TopLeavesBg,
   CertificateBlueGradient: SVGIcons.CertificateBlueGradient,
+  CardBank: SVGIcons.CardBank,
+  Unlock: SVGIcons.Unlock,
 };
 
 const customSizeColorSVGs = {

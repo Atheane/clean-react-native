@@ -4,21 +4,24 @@ import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@rneui/themed';
 
-import { ContactEmail, LinkButton, LinkButtonColors, LoaderSplashScreen } from '@clean-rn/ui-mobile';
-
+import {
+  ContactEmail,
+  LinkButton,
+  LinkButtonColors,
+  LoaderSplashScreen,
+  SpeedLimit,
+  Lock,
+  Unlock,
+  ChangePin,
+  ShowPin,
+  Colors,
+} from '@clean-rn/ui-mobile';
+import { CardError, ICardStatuses } from '@clean-rn/card/domain';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { ICardStackPages } from '../../../shared/presentation/types';
 
-import {
-  BlueGradientSpeedmeter,
-  BlueGradientLocked,
-  BlueGradientUnLocked,
-  BlueGradientChangePin,
-  BlueGradientShowPin,
-  CB,
-} from '../assets';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { CardError, ICardStatuses } from '@clean-rn/card/domain';
+import { CB } from '../assets/images';
 
 const HEIGHT = Dimensions.get('screen').height;
 export const CardMenu = () => {
@@ -53,7 +56,15 @@ export const CardMenu = () => {
           <View style={[styles.subContainer]}>
             <View style={styles.rowContainer}>
               <LinkButton
-                iconLeft={BlueGradientSpeedmeter}
+                iconLeft={() => (
+                  <SpeedLimit
+                    width={styles.icon.width}
+                    height={styles.icon.height}
+                    style={{ marginRight: 16 }}
+                    startColor={Colors.secondary.pink}
+                    endColor={Colors.primary.darkBlue}
+                  />
+                )}
                 colorOption={LinkButtonColors.BLUE}
                 title={t('screens.card.menu.limits')}
                 onPress={() => navigation.navigate(ICardStackPages.CARD_LIMITS as never)}
@@ -68,14 +79,20 @@ export const CardMenu = () => {
                 iconLeft={
                   card?.properties.status === ICardStatuses.LOCK
                     ? () => (
-                        <View style={{ marginRight: 6 }}>
-                          <BlueGradientUnLocked width={styles.icon.width} height={styles.icon.height} />
-                        </View>
+                        <Unlock
+                          width={styles.icon.width}
+                          height={styles.icon.height}
+                          style={{ marginRight: 16 }}
+                        />
                       )
                     : () => (
-                        <View style={{ marginRight: 8 }}>
-                          <BlueGradientLocked width={styles.icon.width} height={styles.icon.height} />
-                        </View>
+                        <Lock
+                          width={styles.icon.width}
+                          height={styles.icon.height}
+                          style={{ marginRight: 16 }}
+                          startColor={Colors.secondary.pink}
+                          endColor={Colors.primary.darkBlue}
+                        />
                       )
                 }
                 colorOption={LinkButtonColors.BLUE}
@@ -90,7 +107,15 @@ export const CardMenu = () => {
             </View>
             <View style={[styles.rowContainer, { marginLeft: 4 }]}>
               <LinkButton
-                iconLeft={BlueGradientChangePin}
+                iconLeft={() => (
+                  <ChangePin
+                    width={styles.icon.width}
+                    height={styles.icon.height}
+                    style={{ marginRight: 12 }}
+                    startColor={Colors.secondary.pink}
+                    endColor={Colors.primary.darkBlue}
+                  />
+                )}
                 colorOption={LinkButtonColors.BLUE}
                 title={t('screens.card.menu.change-pin')}
                 onPress={() => navigation.navigate(ICardStackPages.CHANGE_PIN as never)}
@@ -102,7 +127,15 @@ export const CardMenu = () => {
             </View>
             <View style={[styles.rowContainer, { marginLeft: 2 }]}>
               <LinkButton
-                iconLeft={BlueGradientShowPin}
+                iconLeft={() => (
+                  <ShowPin
+                    width={styles.icon.width}
+                    height={styles.icon.height}
+                    startColor={Colors.secondary.pink}
+                    endColor={Colors.primary.darkBlue}
+                    style={{ marginRight: 14 }}
+                  />
+                )}
                 colorOption={LinkButtonColors.BLUE}
                 title={t('screens.card.menu.show-pin')}
                 onPress={() => navigation.navigate(ICardStackPages.SHOW_PIN as never)}
