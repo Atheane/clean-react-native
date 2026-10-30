@@ -502,7 +502,11 @@
       "title": "Ma prime CO2"
     },
     "household-primeum": {
-      "title": "Ma prime CO2"
+      "title": "Ma prime CO2",
+      "subtitle": "Mon foyer",
+      "adults": "Nombre d'adultes",
+      "minors": "Nombre de mineurs",
+      "submit": "Valider"
     },
     "evolution": {
       "title": "Évolution de mes émissions",

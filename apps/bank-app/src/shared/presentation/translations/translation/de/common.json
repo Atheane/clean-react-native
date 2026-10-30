@@ -499,7 +499,11 @@
       "title": "Meine CO2-Prämie"
     },
     "household-primeum": {
-      "title": "Meine CO2-Prämie"
+      "title": "Meine CO2-Prämie",
+      "subtitle": "Mein Haushalt",
+      "adults": "Anzahl der Erwachsenen",
+      "minors": "Anzahl der Minderjährigen",
+      "submit": "Bestätigen"
     },
     "evolution": {
       "title": "Entwicklung meiner Emissionen",

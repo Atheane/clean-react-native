@@ -500,7 +500,11 @@
       "title": "Il mio premio CO2"
     },
     "household-primeum": {
-      "title": "Il mio premio CO2"
+      "title": "Il mio premio CO2",
+      "subtitle": "La mia famiglia",
+      "adults": "Numero di adulti",
+      "minors": "Numero di minori",
+      "submit": "Conferma"
     },
     "evolution": {
       "title": "Evoluzione delle mie emissioni",
