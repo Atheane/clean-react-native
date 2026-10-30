@@ -26,12 +26,12 @@ export const EpcStack = () => {
   const navigation = useNavigation();
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerBackTitleVisible: false }}>
       <Stack.Screen
         name={IEpcStackPages.CURRENT_SITUATION}
         component={EpcCurrentSituation}
         options={{
-          headerTitle: '',
+          headerTitle: 'Current comfort price',
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
           headerRight: () => (
             <TouchableOpacity onPress={() => navigation.navigate(IEpcStackPages.EXPLANATION_COMFORT_PRICE)}>
@@ -44,7 +44,7 @@ export const EpcStack = () => {
         name={IEpcStackPages.AFTER_RENOVATION}
         component={EpcAfterRenovation}
         options={{
-          headerTitle: '',
+          headerTitle: 'Target comfort price',
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
           headerRight: () => (
             <TouchableOpacity onPress={() => navigation.navigate(IEpcStackPages.EXPLANATION_COMFORT_PRICE)}>
@@ -57,7 +57,7 @@ export const EpcStack = () => {
         name={IEpcStackPages.RECOMMENDED_INDOOR_TEMPERATURE}
         component={EpcRecommendedIndoorTemperature}
         options={{
-          headerTitle: '',
+          headerTitle: 'Target indoor temperature',
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />
@@ -65,7 +65,7 @@ export const EpcStack = () => {
         name={IEpcStackPages.EPC_CONTRACT}
         component={EpcContract}
         options={{
-          headerTitle: '',
+          headerTitle: 'EPC contract',
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />
@@ -73,7 +73,7 @@ export const EpcStack = () => {
         name={IEpcStackPages.EXPLANATION_COMFORT_PRICE}
         component={EpcExplanationComfortPrice}
         options={{
-          headerTitle: '',
+          headerTitle: 'What is comfort price?',
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />

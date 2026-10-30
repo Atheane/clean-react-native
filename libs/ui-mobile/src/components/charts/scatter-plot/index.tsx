@@ -110,7 +110,7 @@ export const ScatterPlot = (props: IProps) => {
       text: props.title,
       subtext: props.subtitle ?? '',
       left: 'center',
-      top: Platform.OS === 'web' ? 0 : -12,
+      top: Platform.OS === 'web' ? 0 : -4,
     },
     tooltip: {
       trigger: 'axis',

@@ -34,6 +34,7 @@ import { ScatterPlot } from './charts/scatter-plot';
 import { LinePlot } from './charts/line-plot';
 import { BarPlot } from './charts/bar-plot';
 import { DynamicBarPlot } from './charts/dynamic-bar-plot';
+import { DraggableLinePlot } from './charts/draggable-line-plot';
 // Checkboxes
 import { MultipleOptionsCheckBox } from './checkboxes/multiple-options-checkBox';
 import { SimpleCheckBox } from './checkboxes/simple-checkbox';
@@ -128,6 +129,7 @@ export {
   StackedBars,
   ScatterPlot,
   LinePlot,
+  DraggableLinePlot,
   BarPlot,
   DynamicBarPlot,
   // Checkboxes
