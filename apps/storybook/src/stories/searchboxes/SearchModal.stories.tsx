@@ -2,7 +2,7 @@ import { StyleProp, ViewStyle } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { SearchModal, FlyFrom, Colors } from '@clean-rn/ui-mobile';
-import { airports, IAirport } from '@clean-rn/carbon/domain';
+import { airports, IAirport } from '@clean-rn/footprint/domain';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 

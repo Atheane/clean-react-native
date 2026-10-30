@@ -14,7 +14,6 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import {
   IAuthStackPages,
   IAuthStackProps,
-  ICarbonStackPages,
   ISharedStackPages,
   ISharedStackProps,
   IUserStackPages,
@@ -42,7 +41,6 @@ import { CguPdf } from '../../../shared/presentation/screens';
 
 import { SUPPORTED_LANGUAGES_WEBSITE, pdfUrls } from '../../../shared/presentation/constants';
 import { IStoreKey } from '../../../shared/application/types';
-import { HeatersForm } from '../../../carbon/presentation/screens';
 
 const locales = getLocales();
 
@@ -198,14 +196,6 @@ export const AuthStack = () => {
     <Stack.Navigator
       initialRouteName={initRouteName as keyof IUserStackProps | keyof ISharedStackProps | undefined}
     >
-      {/* <Stack.Screen
-        options={{
-          headerTitle: t('screens.reset-password.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
-        }}
-        name={ICarbonStackPages.HEATERS_FORM}
-        component={HeatersForm}
-      /> */}
       <Stack.Screen
         options={
           process.env.EXPO_PUBLIC_NODE_ENV === 'development'
