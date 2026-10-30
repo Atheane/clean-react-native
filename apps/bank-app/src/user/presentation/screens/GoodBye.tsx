@@ -2,9 +2,10 @@ import { useEffect } from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { Colors } from '@clean-rn/ui-mobile';
 import { fetchLogout } from '../../../auth/application/commands';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
+import { Colors } from '../../../shared/presentation/constants';
+
 import { GoodBye as GoodByeImg } from '../assets/images';
 import { useDispatch } from 'react-redux';
 

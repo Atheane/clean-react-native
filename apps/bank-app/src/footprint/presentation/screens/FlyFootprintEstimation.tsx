@@ -8,7 +8,7 @@ import { useTheme } from '@rneui/themed';
 import { FlightI } from '@bank/carbon-weight/dist';
 
 import { airports } from '@clean-rn/footprint/domain';
-import { CO2, PrimaryButton, Colors } from '@clean-rn/ui-mobile';
+import { CO2, PrimaryButton } from '@clean-rn/ui-mobile';
 import { FlyFootprintEstimationForm } from './forms';
 import { useFlyFormData } from '../hooks';
 
@@ -17,6 +17,8 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 
 import { PlaneEmpty } from '../assets/images';
 import { computeFlyEmissions } from '../../application/commands';
+
+import { Colors } from '../../../shared/presentation/constants';
 
 const formattedAirports = airports.map((airport) => ({
   key: airport.IATA,

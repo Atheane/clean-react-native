@@ -1,5 +1,8 @@
 import { getLocales } from 'expo-localization';
 import { eventsCardsContent } from './eventsCardsContent';
+import { Colors } from './Colors';
+import { Fonts, FontNames } from './Fonts';
+import { NEEDS_SMALL_TEXT } from './SmallText';
 
 const pdfUrls = (lng: string) => ({
   legal: lng === 'fr' ? 'https://example.com/pol-data' : 'https://example.com/en/pol-data',
@@ -19,4 +22,14 @@ const GOOGLE_PLAY_LINK = 'https://play.google.com/store/apps/details?id=com.exam
 
 const SUPPORTED_LANGUAGES_WEBSITE = ['en', 'fr'];
 
-export { GOOGLE_PLAY_LINK, APPLE_STORE_LINK, pdfUrls, eventsCardsContent, SUPPORTED_LANGUAGES_WEBSITE };
+export {
+  Colors,
+  Fonts,
+  FontNames,
+  NEEDS_SMALL_TEXT,
+  GOOGLE_PLAY_LINK,
+  APPLE_STORE_LINK,
+  pdfUrls,
+  eventsCardsContent,
+  SUPPORTED_LANGUAGES_WEBSITE,
+};

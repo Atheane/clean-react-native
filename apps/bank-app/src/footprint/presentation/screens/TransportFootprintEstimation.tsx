@@ -4,11 +4,12 @@ import { useTranslation } from 'react-i18next';
 
 import { VehicleConsumptionT } from '@bank/carbon-weight/dist';
 
-import { PrimaryButton, CO2, Colors } from '@clean-rn/ui-mobile';
+import { PrimaryButton, CO2 } from '@clean-rn/ui-mobile';
 import { TransportFootprintEstimationForm } from './forms';
 import { useTransportFormData } from '../hooks';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { Colors } from '../../../shared/presentation/constants';
 
 import { computeTransportEmissions } from '../../application/commands';
 

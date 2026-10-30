@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider } from '@rneui/themed';
-import { theme } from '@clean-rn/ui-mobile';
+import { theme } from '../theme';
 
 export const WithTheme = (Story: React.ComponentType) => {
   return (

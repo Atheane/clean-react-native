@@ -6,10 +6,11 @@ import { useForm } from 'react-hook-form';
 import dayjs from 'dayjs';
 import { useTheme } from '@rneui/themed';
 
-import { useCleanErrorOnFocus, Colors } from '@clean-rn/ui-mobile';
+import { useCleanErrorOnFocus } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { Colors } from '../../../shared/presentation/constants';
 
 import { registerBirth } from '../../application/commands';
 import { FormSignupBirth, ISignupBirthFormData } from '../forms';
