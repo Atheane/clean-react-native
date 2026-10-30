@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { StyleSheet, Pressable, Text, View, TouchableOpacity } from 'react-native';
 
-import { Delete } from '../../../assets';
+import { LeftArrow } from '../../../assets';
 import { Colors } from '../../../constants';
 
 const CODE_LENGTH = 6;
@@ -55,7 +55,7 @@ export const PhoneSecurityPinInput = ({ onChange }: Props) => {
       >
         {digit === 'delete' ? (
           <View style={styles.deleteCell}>
-            <Delete />
+            <LeftArrow />
           </View>
         ) : (
           <Text adjustsFontSizeToFit={true} style={styles.cell}>

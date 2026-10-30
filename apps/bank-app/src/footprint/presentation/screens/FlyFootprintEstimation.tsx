@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { View, StyleSheet, StyleProp, ViewStyle, SafeAreaView } from 'react-native';
+import { View, StyleSheet, SafeAreaView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -62,7 +62,7 @@ export const FlyFootprintEstimation = () => {
                 onPress={handleOnPress}
                 iconLeft={() => (
                   <View style={{ height: 23, justifyContent: 'center' }}>
-                    <CO2 style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
+                    <CO2 color={Colors.primary.white} />
                   </View>
                 )}
                 long

@@ -1,6 +1,7 @@
-import { useRef } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { View, StyleSheet, Dimensions, Platform } from 'react-native';
 import { ECharts } from 'react-native-echarts-wrapper';
+import ReactECharts from 'echarts-for-react';
 import { arrayIsEmpty } from '@clean-rn/utils';
 
 import { Colors } from '../../../constants';
@@ -16,39 +17,14 @@ type IProps = {
 };
 
 const StackedBarsData = (props: IProps) => {
-  const additionalCode = `
-    chart.on('click', function(param) {
-      var obj = {
-        type: 'event_clicked',
-        name: param.seriesName,
-        value: param.value
-      };
-      sendData(JSON.stringify(obj));
-    });
-  `;
+  const [tooltipData, setTooltipData] = useState<any>(null);
+  const chartRef = useRef<any>(null);
 
-  const onData = (param: string) => {
-    const obj = JSON.parse(param);
-    if (obj.type === 'event_clicked') {
-      const { name, value } = obj;
-      const tooltipData = {
-        seriesName: name,
-        value: value,
-      };
-      setTooltipData(tooltipData);
+  const onEvent = (param: any) => {
+    if (param.type === 'click') {
+      const { seriesName, value } = param;
+      setTooltipData({ seriesName, value });
     }
-  };
-
-  const setTooltipData = (data: any) => {
-    const option = {
-      tooltip: {
-        trigger: 'item',
-        formatter: function (params: any) {
-          return `${data.seriesName}: ${data.value}`;
-        },
-      },
-    };
-    setOption(option);
   };
 
   const option = {
@@ -124,17 +100,51 @@ const StackedBarsData = (props: IProps) => {
         fontSize: 12,
       },
     },
-  };
-  const setOption = (newOption: any) => {
-    const mergedOption = { ...option, ...newOption };
-    chartRef.current?.setOption(mergedOption);
+    tooltip: {
+      trigger: 'item',
+      formatter: function (params: any) {
+        if (tooltipData) {
+          return `${tooltipData.seriesName}: ${tooltipData.value}`;
+        }
+        return `${params.seriesName}: ${params.value}`;
+      },
+    },
   };
 
-  const chartRef = useRef<any>(null);
+  if (Platform.OS === 'web') {
+    return (
+      <View style={styles.chartContainer}>
+        <ReactECharts
+          ref={chartRef}
+          option={option}
+          style={{ height: '40vh', width: '100%' }}
+          onEvents={{
+            click: onEvent,
+          }}
+        />
+      </View>
+    );
+  }
+
+  const additionalCode = `
+    chart.on('click', function(param) {
+      var obj = {
+        type: 'click',
+        seriesName: param.seriesName,
+        value: param.value
+      };
+      sendData(JSON.stringify(obj));
+    });
+  `;
 
   return (
     <View style={styles.chartContainer}>
-      <ECharts ref={chartRef} additionalCode={additionalCode} onData={onData} option={option} />
+      <ECharts
+        ref={chartRef}
+        additionalCode={additionalCode}
+        onData={(param) => onEvent(JSON.parse(param))}
+        option={option}
+      />
     </View>
   );
 };
@@ -156,8 +166,8 @@ export const StackedBars = (props: IProps) => {
 
 const styles = StyleSheet.create({
   chartContainer: {
-    width: Dimensions.get('window').width,
+    width: Platform.OS === 'web' ? '100%' : Dimensions.get('window').width,
     height: Dimensions.get('window').height * 0.4,
-    marginLeft: 16,
+    marginLeft: Platform.OS === 'web' ? 0 : 16,
   },
 });

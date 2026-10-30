@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 import { Input, useTheme } from '@rneui/themed';
 
-import { GreenGradientMail } from '../../../assets';
+import { Email } from '../../../assets';
 import { Colors } from '../../../constants';
 
 import { TextInput } from '../../inputs/text-input';
@@ -38,7 +38,7 @@ export const EmailInput = (props: Props & State) => {
       autoCapitalize="none"
       inputContainerStyle={[theme.container.input, styles.inputContainer]}
       inputStyle={[theme.text.input, styles.input]}
-      leftIcon={<GreenGradientMail style={{ color: Colors.primary.lightGreen }} />}
+      leftIcon={<Email startColor={Colors.primary.lightGreen} endColor={Colors.primary.green} />}
       leftIconContainerStyle={styles.leftIconContainer}
       value={props.email?.trim()}
       caretHidden={true}
@@ -48,7 +48,7 @@ export const EmailInput = (props: Props & State) => {
       label={props.label}
       placeholder={props.placeholder}
       labelColor={Colors.primary.grey}
-      IconLeft={() => <GreenGradientMail style={{ color: Colors.primary.lightGreen }} />}
+      IconLeft={() => <Email startColor={Colors.primary.lightGreen} endColor={Colors.primary.green} />}
       value={props.value}
       lowerCase
       onChange={handleOnChange}

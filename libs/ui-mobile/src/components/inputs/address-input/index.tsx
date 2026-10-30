@@ -1,3 +1,4 @@
+import 'react-native-get-random-values'; // polyfill for react-native-google-places-autocomplete that depends on uuid. Also add react-native-crypto as a dependency
 import { useEffect, useState, useRef, RefAttributes } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import {
@@ -10,7 +11,7 @@ import { Country, IAddress } from '@clean-rn/user/domain';
 import { getLocales } from 'expo-localization';
 
 import { Colors } from '../../../constants';
-import { House } from '../../../assets/svg-raw';
+import { House } from '../../../assets';
 
 type IProps = {
   language: string;
@@ -73,7 +74,7 @@ export const AddressInput = (props: IProps) => {
     <View>
       <View style={styles.container}>
         <View style={{ marginLeft: 16, marginRight: 0, marginTop: 10 }}>
-          <House style={{ color: Colors.primary.lightGreen }} />
+          <House startColor={Colors.primary.lightGreen} endColor={Colors.primary.green} />
         </View>
         <GooglePlacesAutocomplete
           ref={googlePlacesRef}

@@ -1,11 +1,13 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import {
   TouchCardCheck,
-  HouseGradient,
-  HeatGradient,
-  CarGradient,
-  FamilyGradient,
+  Car as CarGradient,
+  House as HouseGradient,
+  Heat as HeatGradient,
+  Family as FamilyGradient,
+  Colors,
 } from '@clean-rn/ui-mobile';
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
@@ -24,14 +26,14 @@ type Story = StoryObj<typeof meta>;
 
 export const House: Story = {
   args: {
-    icon: () => <HouseGradient />,
+    icon: () => <HouseGradient startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />,
     text: 'Lorem ipsum',
   },
 };
 
 export const HouseChecked: Story = {
   args: {
-    icon: () => <HouseGradient />,
+    icon: () => <HouseGradient startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />,
     text: 'Lorem ipsum',
     checked: true,
   },
@@ -39,14 +41,14 @@ export const HouseChecked: Story = {
 
 export const Heat: Story = {
   args: {
-    icon: () => <HeatGradient />,
+    icon: () => <HeatGradient startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />,
     text: 'Lorem ipsum',
   },
 };
 
 export const HeatChecked: Story = {
   args: {
-    icon: () => <HeatGradient />,
+    icon: () => <HeatGradient startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />,
     text: 'Lorem ipsum',
     checked: true,
   },
@@ -54,14 +56,14 @@ export const HeatChecked: Story = {
 
 export const Car: Story = {
   args: {
-    icon: () => <HeatGradient />,
+    icon: () => <CarGradient startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />,
     text: 'Lorem ipsum',
   },
 };
 
 export const CarChecked: Story = {
   args: {
-    icon: () => <HeatGradient />,
+    icon: () => <CarGradient startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />,
     text: 'Lorem ipsum',
     checked: true,
   },
@@ -69,14 +71,14 @@ export const CarChecked: Story = {
 
 export const Family: Story = {
   args: {
-    icon: () => <FamilyGradient />,
+    icon: () => <FamilyGradient startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />,
     text: 'Lorem ipsum',
   },
 };
 
 export const FamilyChecked: Story = {
   args: {
-    icon: () => <FamilyGradient />,
+    icon: () => <FamilyGradient startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />,
     text: 'Lorem ipsum',
     checked: true,
   },

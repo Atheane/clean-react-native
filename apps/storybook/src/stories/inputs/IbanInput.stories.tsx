@@ -30,9 +30,7 @@ export const TextPinkLabel: Story = {
   args: {
     label: 'Label',
     lowerCase: false,
-    IconLeft: () => (
-      <Love width={27} height={27} style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
-    ),
+    IconLeft: () => <Love width={27} height={27} color={Colors.primary.lightGreen} />,
     short: false,
   },
 };
@@ -42,9 +40,7 @@ export const TextGreyLabel: Story = {
     label: 'Label',
     labelColor: Colors.primary.grey,
     lowerCase: false,
-    IconLeft: () => (
-      <Love width={27} height={27} style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
-    ),
+    IconLeft: () => <Love width={27} height={27} color={Colors.primary.lightGreen} />,
     short: false,
   },
 };

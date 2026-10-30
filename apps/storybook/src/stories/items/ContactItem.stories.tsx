@@ -1,5 +1,3 @@
-import { StyleProp, ViewStyle } from 'react-native';
-
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { ContactItem, Love, Colors } from '@clean-rn/ui-mobile';
@@ -10,9 +8,7 @@ const meta = {
   title: 'Items/ContactItem',
   component: ContactItem,
   args: {
-    icon: () => (
-      <Love width={23} height={23} style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
-    ),
+    icon: () => <Love width={23} height={23} color={Colors.primary.lightGreen} />,
     name: 'Marie Dupond',
     phone: '0612345678',
   },
@@ -25,9 +21,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: {
-    icon: () => (
-      <Love width={23} height={23} style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
-    ),
+    icon: () => <Love width={23} height={23} color={Colors.primary.lightGreen} />,
     name: 'Marie Dupond',
     phone: '0612345678',
   },

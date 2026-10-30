@@ -1,6 +1,6 @@
 import { Image, View, StyleSheet } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react';
-import { LoanHeater } from '../../../assets/images';
+import { LoanHeater } from '@clean-rn/ui-mobile';
 
 import { ShareScreen } from '@clean-rn/ui-mobile';
 

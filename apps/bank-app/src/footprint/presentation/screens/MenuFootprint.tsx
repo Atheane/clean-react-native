@@ -7,8 +7,8 @@ import { useFeatureFlag, User as ConfigCatUser } from 'configcat-react';
 import {
   Colors,
   LongCardIcon,
-  CarbonGradient,
-  RightChevronGradient,
+  CarbonFootprint,
+  RightChevron,
   LoaderSplashScreen,
 } from '@clean-rn/ui-mobile';
 
@@ -44,24 +44,24 @@ export const MenuFootprint = () => {
         <View style={styles.row}>
           <LongCardIcon
             text={t('screens.menu-footprint.2min')}
-            leftIcon={CarbonGradient}
-            rightIcon={RightChevronGradient}
+            leftIcon={() => <CarbonFootprint />}
+            rightIcon={() => <RightChevron color={Colors.primary.lightGreen} />}
             onPress={() => handlePressNavigation(IFootprintStackPages.FOOTPRINT_ESTIMATION)}
           />
         </View>
         <View style={styles.row}>
           <LongCardIcon
             text={t('screens.menu-footprint.my-reward')}
-            leftIcon={CardPremium}
-            rightIcon={RightChevronGradient}
+            leftIcon={() => <CardPremium />}
+            rightIcon={() => <RightChevron color={Colors.primary.lightGreen} />}
             onPress={() => handlePressNavigation(IFootprintStackPages.MENU_PRIMEUM)}
           />
         </View>
         <View style={styles.row}>
           <LongCardIcon
             text={t('screens.menu-footprint.my-emissions')}
-            leftIcon={CardCarbonFootPrint}
-            rightIcon={RightChevronGradient}
+            leftIcon={() => <CardCarbonFootPrint />}
+            rightIcon={() => <RightChevron color={Colors.primary.lightGreen} />}
             onPress={() => handlePressNavigation(IFootprintStackPages.EVOLUTION_FOOTPRINT)}
           />
         </View>

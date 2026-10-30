@@ -1,8 +1,0 @@
-<svg id="image-blanc" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="98.863" height="38.775" viewBox="0 0 98.863 38.775">
-  <defs>
-    <pattern id="pattern" preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 836 329">
-      <image width="836" height="329" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="/>
-    </pattern>
-  </defs>
-  <rect id="image-blanc-2" data-name="image-blanc" width="98.863" height="38.775" fill="url(#pattern)"/>
-</svg>

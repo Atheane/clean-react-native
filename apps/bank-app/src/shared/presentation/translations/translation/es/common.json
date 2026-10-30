@@ -717,7 +717,8 @@
       }
     },
     "profile-identity": {
-      "title": "Editar mi perfil - Identidad"
+      "title": "Editar mi perfil - Identidad",
+      "copy": "Copiar"
     },
     "profile-address": {
       "title": "Editar mi perfil - Dirección"
@@ -807,7 +808,8 @@
       "title": "Mis datos bancarios",
       "instruction": "Aquí están el IBAN y el BIC de su Cuenta CO2. Con ellos, acredite su Cuenta CO2 desde su otra cuenta bancaria.",
       "bank-account": "Cuenta CO2",
-      "share": "Descargar"
+      "share": "Descargar",
+      "copy": "Copiar"
     },
     "languages": {
       "title": "Seleccionar idioma"

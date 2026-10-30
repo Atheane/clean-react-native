@@ -72,7 +72,7 @@ export const IdList = () => {
           <View>
             <View style={[styles.itemContainer]}>
               <IconTextItem
-                icon={KycId}
+                icon={() => <KycId />}
                 text={t('screens.kyc.first-id.id')}
                 onPress={() =>
                   handleOnPress({
@@ -96,7 +96,7 @@ export const IdList = () => {
             </View>
             <View style={[styles.itemContainer]}>
               <IconTextItem
-                icon={KycPassport}
+                icon={() => <KycPassport />}
                 text={t('screens.kyc.first-id.passport')}
                 onPress={() =>
                   handleOnPress({
@@ -116,7 +116,7 @@ export const IdList = () => {
             </View>
             <View style={styles.itemContainer}>
               <IconTextItem
-                icon={KycResidencePermit}
+                icon={() => <KycResidencePermit />}
                 text={t('screens.kyc.first-id.residence-permit')}
                 onPress={() =>
                   handleOnPress({

@@ -1,5 +1,4 @@
-import { StyleProp, ViewStyle } from 'react-native';
-
+// stories/buttons/SecondaryButton.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react';
 import { SecondaryButton, Logout, Colors } from '@clean-rn/ui-mobile';
 
@@ -10,10 +9,12 @@ const meta = {
   component: SecondaryButton,
   argTypes: {
     onPress: { action: 'pressed the button' },
-    iconOne: { table: { disable: true } },
+    iconLeft: { table: { disable: true } },
   },
   decorators: [(Story: any) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 } satisfies Meta<typeof SecondaryButton>;
+
+export default meta;
 
 type Story = StoryObj<typeof meta>;
 
@@ -38,9 +39,7 @@ export const Icon: Story = {
     long: true,
     uppercase: true,
     title: 'Icon',
-    iconOne: () => (
-      <Logout width={27} height={27} style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
-    ),
+    iconLeft: (props) => <Logout width={27} height={27} color={Colors.primary.lightGreen as string} />,
   },
 };
 
@@ -49,8 +48,6 @@ export const LongText: Story = {
     long: true,
     uppercase: false,
     title: 'This is a Button with long text',
-    iconOne: () => (
-      <Logout width={27} height={27} style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
-    ),
+    iconLeft: (props) => <Logout width={27} height={27} color={Colors.primary.lightGreen as string} />,
   },
 };

@@ -1,6 +1,7 @@
-import { useRef, useState } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { View, StyleSheet, Dimensions, Platform } from 'react-native';
 import { ECharts } from 'react-native-echarts-wrapper';
+import ReactECharts from 'echarts-for-react';
 
 type IProps = {
   title: string;
@@ -15,6 +16,9 @@ type IProps = {
 type IDataPoint = { seriesIndex: number; dataIndex: number };
 
 export const LinePlot = (props: IProps) => {
+  const [selectedPoint, setSelectedPoint] = useState<IDataPoint>();
+  const chartRef = useRef<any>(null);
+
   const series = props.labels.map((label: string, index: number) => ({
     name: label,
     type: 'line',
@@ -27,7 +31,6 @@ export const LinePlot = (props: IProps) => {
         borderWidth: 2,
       },
     },
-    // Rendre la deuxième série (index 1) draggable
     draggable: index === 1,
   }));
 
@@ -36,7 +39,7 @@ export const LinePlot = (props: IProps) => {
       text: props.title,
       subtext: props.subtitle ?? '',
       left: 'center',
-      top: -12,
+      top: Platform.OS === 'web' ? 0 : -12,
     },
     xAxis: {
       type: 'category',
@@ -44,7 +47,7 @@ export const LinePlot = (props: IProps) => {
     },
     yAxis: {
       type: 'value',
-      name: props.yAxisLabel, // Ajoute le label sur l'axe Y
+      name: props.yAxisLabel,
     },
     tooltip: {
       trigger: 'axis',
@@ -59,58 +62,83 @@ export const LinePlot = (props: IProps) => {
     series,
   };
 
-  const additionalCode = `
-    chart.on('click', function(param) {
-        var obj = {
-        type: 'touch',
-        name: param.seriesName,
-        value: param.value
-        };
-        sendData(JSON.stringify(obj));
-    });
-    chart.on('dragend', function(param) {
-        var obj = {
-        type: 'drag',
-        name: param.seriesName,
-        value: param.value
-        };
-        sendData(JSON.stringify(obj));
-    });
-    `;
-
-  const [selectedPoint, setSelectedPoint] = useState<IDataPoint>();
-  const chartRef = useRef<typeof ECharts>(null);
-
-  const onChartEvent = (param: string) => {
-    const obj = JSON.parse(param);
-    if (obj.name === props.labels[0]) {
-      return;
-    }
-    if (obj.type === 'touch') {
-      console.log('Point clicked: ', obj.value);
-      setSelectedPoint(obj.value);
-    } else if (obj.type === 'dragend' && selectedPoint !== null) {
-      console.log('Point dragged: ', obj.value);
-      const newData = [...props.data[1]];
-      newData[1] = obj.value; //new Y value
-      chartRef.current?.setOption({
-        series: series.map((s, i) => (i === 1 ? { ...s, data: newData } : s)),
-      });
-      console.log('Data should be changed: ', newData);
+  const onChartEvent = (param: any) => {
+    if (param.seriesName !== props.labels[0]) {
+      if (param.type === 'click') {
+        console.log('Point clicked: ', param.value);
+        setSelectedPoint(param.value);
+      } else if (param.type === 'dragend' && selectedPoint !== null) {
+        console.log('Point dragged: ', param.value);
+        const newData = [...props.data[1]];
+        newData[param.dataIndex] = param.value[1]; // new Y value
+        if (chartRef.current) {
+          if (Platform.OS === 'web') {
+            chartRef.current.getEchartsInstance().setOption({
+              series: series.map((s, i) => (i === 1 ? { ...s, data: newData } : s)),
+            });
+          } else {
+            chartRef.current.setOption({
+              series: series.map((s, i) => (i === 1 ? { ...s, data: newData } : s)),
+            });
+          }
+        }
+        console.log('Data should be changed: ', newData);
+      }
     }
   };
 
+  if (Platform.OS === 'web') {
+    return (
+      <View style={styles.chartContainer}>
+        <ReactECharts
+          ref={chartRef}
+          option={option}
+          style={{ height: '50vh', width: '100%' }}
+          onEvents={{
+            click: onChartEvent,
+            dragend: onChartEvent,
+          }}
+        />
+      </View>
+    );
+  }
+
+  const additionalCode = `
+    chart.on('click', function(param) {
+      var obj = {
+        type: 'click',
+        seriesName: param.seriesName,
+        value: param.value
+      };
+      sendData(JSON.stringify(obj));
+    });
+    chart.on('dragend', function(param) {
+      var obj = {
+        type: 'dragend',
+        seriesName: param.seriesName,
+        value: param.value,
+        dataIndex: param.dataIndex
+      };
+      sendData(JSON.stringify(obj));
+    });
+  `;
+
   return (
     <View style={styles.chartContainer}>
-      <ECharts ref={chartRef} option={option} additionalCode={additionalCode} onData={onChartEvent} />
+      <ECharts
+        ref={chartRef}
+        option={option}
+        additionalCode={additionalCode}
+        onData={(param) => onChartEvent(JSON.parse(param))}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   chartContainer: {
-    width: Dimensions.get('window').width,
+    width: Platform.OS === 'web' ? '100%' : Dimensions.get('window').width,
     height: Dimensions.get('window').height * 0.5,
-    marginLeft: 16,
+    marginLeft: Platform.OS === 'web' ? 0 : 16,
   },
 });

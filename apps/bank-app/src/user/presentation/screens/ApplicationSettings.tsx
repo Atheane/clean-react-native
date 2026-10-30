@@ -3,7 +3,7 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 
-import { LinkButton, LinkButtonColors, FlagGradient } from '@clean-rn/ui-mobile';
+import { LinkButton, LinkButtonColors, Flag as FlagGradient } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IParametersStackPages } from '../../../shared/presentation/types';

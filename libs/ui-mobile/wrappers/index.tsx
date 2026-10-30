@@ -6,6 +6,8 @@ import { WithBackground } from './withBackground';
 import { WithStatusBelow } from './withStatusBelow';
 import { WithCenterView } from './withCenterView';
 import { WithExtraBottomSpace } from './withExtraBottomSpace';
+import { WithKeyboardAwareScroll } from './withKeyboardAwareScroll';
+import { WithSvgSelector } from './withSVGSelector';
 export {
   WithTheme,
   WithStatus,
@@ -16,4 +18,6 @@ export {
   WithStatusBelow,
   WithCenterView,
   WithExtraBottomSpace,
+  WithKeyboardAwareScroll,
+  WithSvgSelector,
 };

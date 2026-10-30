@@ -43,7 +43,7 @@ export const HeaterFootprintEstimation = () => {
               onPress={handleOnPress}
               iconLeft={() => (
                 <View style={{ height: 23, justifyContent: 'center' }}>
-                  <CO2 style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
+                  <CO2 color={Colors.primary.white} />
                 </View>
               )}
               long

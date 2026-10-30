@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { useTheme } from '@rneui/themed';
 import { useTranslation } from 'react-i18next';
-import { DynamicBarPlot, TableCO2Reward } from '@clean-rn/ui-mobile';
+import { DynamicBarPlot, TableReward } from '@clean-rn/ui-mobile';
 import { Colors } from '../constants';
 import { ErrorBoundary, SafeScrollingView } from '../hoc';
 
@@ -29,7 +29,7 @@ export const Dashboard = () => {
             />
           </View>
           <View style={styles.tabContainer}>
-            <TableCO2Reward
+            <TableReward
               tableHead={tableHead}
               tableData={tableData}
               rowLabels={rowLabels}

@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { CardScroller } from '@clean-rn/ui-mobile';
-import { LoanHeater } from '../../../assets/images';
-import { CardCarbonFootPrint } from '../../../assets/svg';
+import { CardScroller, LoanHeater, CarbonFootprint } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus } from '../../wrappers';
 
@@ -23,14 +21,14 @@ type Story = StoryObj<typeof meta>;
 export const CardScrollerImgWithDelete: Story = {
   args: {
     data: [
-      { image: LoanHeater, text: 'bla1', uid: 'ajkzhrei1' },
-      { image: LoanHeater, text: 'bla2', uid: 'ajkzhrei2' },
-      { image: LoanHeater, text: 'bla3', uid: 'ajkzhrei3' },
-      { image: LoanHeater, text: 'bla4', uid: 'ajkzhrei4' },
-      { image: LoanHeater, text: 'bla5', uid: 'ajkzhrei5' },
-      { image: LoanHeater, text: 'bla6', uid: 'ajkzhrei6' },
-      { image: LoanHeater, text: 'bla7', uid: 'ajkzhrei7' },
-      { image: LoanHeater, text: 'bla8', uid: 'ajkzhrei8' },
+      { image: LoanHeater, title: '', text: 'bla1', uid: 'ajkzhrei1' },
+      { image: LoanHeater, title: '', text: 'bla2', uid: 'ajkzhrei2' },
+      { image: LoanHeater, title: '', text: 'bla3', uid: 'ajkzhrei3' },
+      { image: LoanHeater, title: '', text: 'bla4', uid: 'ajkzhrei4' },
+      { image: LoanHeater, title: '', text: 'bla5', uid: 'ajkzhrei5' },
+      { image: LoanHeater, title: '', text: 'bla6', uid: 'ajkzhrei6' },
+      { image: LoanHeater, title: '', text: 'bla7', uid: 'ajkzhrei7' },
+      { image: LoanHeater, title: '', text: 'bla8', uid: 'ajkzhrei8' },
     ],
     height: 300,
   },
@@ -39,14 +37,14 @@ export const CardScrollerImgWithDelete: Story = {
 export const CardScrollerImgNoDelete: Story = {
   args: {
     data: [
-      { image: LoanHeater, text: 'bla1', uid: 'ajkzhrei1' },
-      { image: LoanHeater, text: 'bla2', uid: 'ajkzhrei2' },
-      { image: LoanHeater, text: 'bla3', uid: 'ajkzhrei3' },
-      { image: LoanHeater, text: 'bla4', uid: 'ajkzhrei4' },
-      { image: LoanHeater, text: 'bla5', uid: 'ajkzhrei5' },
-      { image: LoanHeater, text: 'bla6', uid: 'ajkzhrei6' },
-      { image: LoanHeater, text: 'bla7', uid: 'ajkzhrei7' },
-      { image: LoanHeater, text: 'bla8', uid: 'ajkzhrei8' },
+      { image: LoanHeater, title: '', text: 'bla1', uid: 'ajkzhrei1' },
+      { image: LoanHeater, title: '', text: 'bla2', uid: 'ajkzhrei2' },
+      { image: LoanHeater, title: '', text: 'bla3', uid: 'ajkzhrei3' },
+      { image: LoanHeater, title: '', text: 'bla4', uid: 'ajkzhrei4' },
+      { image: LoanHeater, title: '', text: 'bla5', uid: 'ajkzhrei5' },
+      { image: LoanHeater, title: '', text: 'bla6', uid: 'ajkzhrei6' },
+      { image: LoanHeater, title: '', text: 'bla7', uid: 'ajkzhrei7' },
+      { image: LoanHeater, title: '', text: 'bla8', uid: 'ajkzhrei8' },
     ],
     height: 300,
     onDelete: undefined,
@@ -56,14 +54,14 @@ export const CardScrollerImgNoDelete: Story = {
 export const CardScrollerIconWithDelete: Story = {
   args: {
     data: [
-      { icon: CardCarbonFootPrint, text: 'bla1', uid: 'ajkzhrei1' },
-      { icon: CardCarbonFootPrint, text: 'bla2', uid: 'ajkzhrei2' },
-      { icon: CardCarbonFootPrint, text: 'bla3', uid: 'ajkzhrei3' },
-      { icon: CardCarbonFootPrint, text: 'bla4', uid: 'ajkzhrei4' },
-      { icon: CardCarbonFootPrint, text: 'bla5', uid: 'ajkzhrei5' },
-      { icon: CardCarbonFootPrint, text: 'bla6', uid: 'ajkzhrei6' },
-      { icon: CardCarbonFootPrint, text: 'bla7', uid: 'ajkzhrei7' },
-      { icon: CardCarbonFootPrint, text: 'bla8', uid: 'ajkzhrei8' },
+      { icon: () => <CarbonFootprint />, title: '', text: 'bla1', uid: 'ajkzhrei1' },
+      { icon: () => <CarbonFootprint />, title: '', text: 'bla2', uid: 'ajkzhrei2' },
+      { icon: () => <CarbonFootprint />, title: '', text: 'bla3', uid: 'ajkzhrei3' },
+      { icon: () => <CarbonFootprint />, title: '', text: 'bla4', uid: 'ajkzhrei4' },
+      { icon: () => <CarbonFootprint />, title: '', text: 'bla5', uid: 'ajkzhrei5' },
+      { icon: () => <CarbonFootprint />, title: '', text: 'bla6', uid: 'ajkzhrei6' },
+      { icon: () => <CarbonFootprint />, title: '', text: 'bla7', uid: 'ajkzhrei7' },
+      { icon: () => <CarbonFootprint />, title: '', text: 'bla8', uid: 'ajkzhrei8' },
     ],
     height: 300,
   },
@@ -72,14 +70,14 @@ export const CardScrollerIconWithDelete: Story = {
 export const CardScrollerIconNoDelete: Story = {
   args: {
     data: [
-      { icon: CardCarbonFootPrint, text: 'bla1', uid: 'ajkzhrei1' },
-      { icon: CardCarbonFootPrint, text: 'bla2', uid: 'ajkzhrei2' },
-      { icon: CardCarbonFootPrint, text: 'bla3', uid: 'ajkzhrei3' },
-      { icon: CardCarbonFootPrint, text: 'bla4', uid: 'ajkzhrei4' },
-      { icon: CardCarbonFootPrint, text: 'bla5', uid: 'ajkzhrei5' },
-      { icon: CardCarbonFootPrint, text: 'bla6', uid: 'ajkzhrei6' },
-      { icon: CardCarbonFootPrint, text: 'bla7', uid: 'ajkzhrei7' },
-      { icon: CardCarbonFootPrint, text: 'bla8', uid: 'ajkzhrei8' },
+      { icon: () => <CarbonFootprint />, title: '', text: 'bla1', uid: 'ajkzhrei1' },
+      { icon: () => <CarbonFootprint />, title: '', text: 'bla2', uid: 'ajkzhrei2' },
+      { icon: () => <CarbonFootprint />, title: '', text: 'bla3', uid: 'ajkzhrei3' },
+      { icon: () => <CarbonFootprint />, title: '', text: 'bla4', uid: 'ajkzhrei4' },
+      { icon: () => <CarbonFootprint />, title: '', text: 'bla5', uid: 'ajkzhrei5' },
+      { icon: () => <CarbonFootprint />, title: '', text: 'bla6', uid: 'ajkzhrei6' },
+      { icon: () => <CarbonFootprint />, title: '', text: 'bla7', uid: 'ajkzhrei7' },
+      { icon: () => <CarbonFootprint />, title: '', text: 'bla8', uid: 'ajkzhrei8' },
     ],
     height: 300,
     onDelete: undefined,

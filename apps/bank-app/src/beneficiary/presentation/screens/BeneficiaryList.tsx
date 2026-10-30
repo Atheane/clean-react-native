@@ -19,6 +19,8 @@ import {
   SafeScrollingView,
   LinkButton,
   Tabs,
+  NoContact as NoContactImg,
+  NoBeneficiary as NoBeneficiaryImg,
 } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IBeneficiaryStackPages, IKycStackPages } from '../../../shared/presentation/types';
@@ -28,10 +30,6 @@ import { changeTab, listBeneficiaries } from '../../application/commands/benefic
 import { listContacts } from '../../application/commands/contact';
 
 import { InitKyc } from '../../../kyc/presentation/assets/images';
-import {
-  NoBeneficiary as NoBeneficiaryImg,
-  NoContact as NoContactImg,
-} from '../../../beneficiary/presentation/assets/images';
 
 const NoContact = () => {
   const { theme } = useTheme();
@@ -170,7 +168,7 @@ export const BeneficiaryList = () => {
       <Tabs
         tabsCount={2}
         titles={[t('screens.beneficiary.contacts'), t('screens.beneficiary.beneficiaries')]}
-        icons={[Group2, BankBuilding] as IconNode[]}
+        icons={[Group2, () => <BankBuilding color={Colors.primary.lightGreen} />] as IconNode[]}
         contents={
           [
             hasContact ? <ContentContact data={contacts} /> : <NoContact />,

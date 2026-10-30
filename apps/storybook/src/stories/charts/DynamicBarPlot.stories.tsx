@@ -62,7 +62,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const OneLine: Story = {
+export const One: Story = {
   args: {
     initialData: parentData,
     allData: allData,

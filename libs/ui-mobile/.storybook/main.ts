@@ -1,11 +1,14 @@
+// ./libs/ui-mobile/.storybook/main.ts
 import type { StorybookConfig } from '@storybook/react-webpack5';
 import { Configuration } from 'webpack';
+
 const path = require('path');
 
 const config: StorybookConfig = {
   stories: ['../stories/**/*.stories.mdx', '../stories/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
+    '@storybook/addon-controls',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
     {
@@ -112,6 +115,19 @@ const config: StorybookConfig = {
               ['@babel/plugin-transform-private-property-in-object', { loose: true }],
               ['@babel/plugin-transform-class-properties', { loose: true }],
             ],
+          },
+        },
+      ],
+    });
+
+    // Add SVG handling rule
+    config.module.rules?.push({
+      test: /\.svg$/,
+      use: [
+        {
+          loader: '@svgr/webpack',
+          options: {
+            native: true,
           },
         },
       ],

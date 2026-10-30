@@ -8,10 +8,10 @@ import {
   Colors,
   FontNames,
   TouchCardCheck,
-  HouseGradient,
-  CarGradient,
-  FamilyGradient,
-  HeatGradient,
+  House as HouseGradient,
+  Car as CarGradient,
+  Family as FamilyGradient,
+  Heat as HeatGradient,
   StepsIndicator,
   LoaderSplashScreen,
 } from '@clean-rn/ui-mobile';
@@ -80,13 +80,13 @@ export const MenuPrimeum = () => {
       <View style={styles.cardContainer}>
         <View style={styles.row}>
           <TouchCardCheck
-            icon={HeatGradient}
+            icon={() => <HeatGradient />}
             onPress={() => handlePressNavigation(IFootprintStackPages.HEATERS)}
             text={t('screens.menu-primeum.heat')}
             checked={heatersChecked}
           />
           <TouchCardCheck
-            icon={HouseGradient}
+            icon={() => <HouseGradient />}
             onPress={() => handlePressNavigation(IFootprintStackPages.WORKS)}
             text={t('screens.menu-primeum.works')}
             checked={worksChecked}
@@ -94,13 +94,13 @@ export const MenuPrimeum = () => {
         </View>
         <View style={styles.row}>
           <TouchCardCheck
-            icon={CarGradient}
+            icon={() => <CarGradient />}
             onPress={() => handlePressNavigation(IFootprintStackPages.TRANSPORT)}
             text={t('screens.menu-primeum.transport')}
             checked={transportChecked}
           />
           <TouchCardCheck
-            icon={FamilyGradient}
+            icon={() => <FamilyGradient />}
             onPress={() => handlePressNavigation(IFootprintStackPages.HOUSEHOLD)}
             text={t('screens.menu-primeum.household')}
             checked={householdChecked}

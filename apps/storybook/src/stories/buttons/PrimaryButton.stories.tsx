@@ -1,4 +1,5 @@
-import { StyleProp, ViewStyle, View } from 'react-native';
+// stories/buttons/PrimaryButton.stories.tsx
+import { View } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Love, Validate, PrimaryButton, Colors, CO2 } from '@clean-rn/ui-mobile';
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
@@ -43,9 +44,7 @@ export const OneIcon: Story = {
     uppercase: true,
     disabled: false,
     title: 'OneIcon',
-    iconLeft: () => (
-      <Love width={23} height={23} style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
-    ),
+    iconLeft: () => <Love width={23} height={23} color={Colors.primary.white} />,
   },
 };
 
@@ -55,9 +54,7 @@ export const LongText: Story = {
     uppercase: false,
     disabled: false,
     title: 'This is a button with long text',
-    iconLeft: () => (
-      <Love width={23} height={23} style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
-    ),
+    iconLeft: () => <Love width={23} height={23} color={Colors.primary.white} />,
   },
 };
 
@@ -67,12 +64,8 @@ export const TwoIcons: Story = {
     uppercase: false,
     disabled: false,
     title: 'Two Icons',
-    iconLeft: () => (
-      <Love width={23} height={23} style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
-    ),
-    iconRight: () => (
-      <Validate width={23} height={23} style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
-    ),
+    iconLeft: () => <Love width={23} height={23} color={Colors.primary.white} />,
+    iconRight: () => <Validate width={23} height={23} color={Colors.primary.white} />,
   },
 };
 
@@ -84,7 +77,7 @@ export const CO2Button: Story = {
     title: 'CO2 Button',
     iconLeft: () => (
       <View style={{ height: 23, justifyContent: 'center' }}>
-        <CO2 style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
+        <CO2 color={Colors.primary.white} />
       </View>
     ),
   },

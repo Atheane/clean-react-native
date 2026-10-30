@@ -10,7 +10,7 @@ import { ViewBackground } from './backgrounds/view-background';
 import { PrimaryButton } from './buttons/primary-button';
 import { SecondaryButton } from './buttons/secondary-button';
 import { SubmitButton } from './buttons/submit-button';
-import { LinkButton } from './buttons/link-button';
+import { LinkButton, getColor } from './buttons/link-button';
 import { SwitchButton } from './buttons/switch-button';
 import { GreenBackButton } from './buttons/green-back-button';
 import { SmallSwitchButton } from './buttons/small-switch-button';
@@ -79,8 +79,8 @@ import { StepsIndicator } from './others/steps-indicator';
 // Searchboxes
 import { SearchModal } from './searchboxes/search-modal';
 // Tables
-import { TableCO2Reward } from './tables/co2-reward';
-import { TableCO2Baseline } from './tables/co2-baseline';
+import { TableReward } from './tables/reward';
+import { TableBaseline } from './tables/baseline';
 // Tabs
 import { Tabs } from './tabs';
 // Tags
@@ -104,6 +104,7 @@ export {
   SecondaryButton,
   SubmitButton,
   LinkButton,
+  getColor,
   SwitchButton,
   GreenBackButton,
   SmallSwitchButton,
@@ -173,8 +174,8 @@ export {
   // Searchboxes
   SearchModal,
   // Tables
-  TableCO2Reward,
-  TableCO2Baseline,
+  TableReward,
+  TableBaseline,
   // Tabs
   Tabs,
   // Tags

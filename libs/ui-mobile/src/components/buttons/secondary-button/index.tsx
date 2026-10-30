@@ -1,78 +1,122 @@
-import { FC } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { FC } from 'react';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { Button, useTheme } from '@rneui/themed';
-
 import { firstLetterCapitalize } from '@clean-rn/utils';
-
 import { Colors } from '../../../constants';
 
 type IProps = {
   title: string;
   long?: boolean;
   uppercase?: boolean;
-  iconOne?: React.FC<SvgProps>;
+  iconLeft?: React.FC<SvgProps>;
   loading?: boolean;
   onPress: () => void;
   disabled?: boolean;
 };
 
-export const SecondaryButton: FC<IProps> = (props: IProps) => {
+const renderLabel = (text: string, long: boolean) =>
+  long
+    ? text.length < 26
+      ? text
+      : `${text}`.slice(0, 23) + '...'
+    : text.length < 18
+      ? text
+      : `${text}`.slice(0, 15) + '...';
+
+const ButtonContent: FC<Pick<IProps, 'iconLeft' | 'title' | 'uppercase'>> = ({
+  iconLeft: IconLeft,
+  title,
+  uppercase,
+}) => {
   const { theme } = useTheme();
-  const renderLabel = (text: string) =>
-    props.long
-      ? text.length < 26
-        ? text
-        : `${text}`.slice(0, 23) + '...'
-      : text.length < 18
-        ? text
-        : `${text}`.slice(0, 15) + '...';
-
   return (
-    <View
-      style={[props.long ? theme.container.button.long : theme.container.button.short, theme.shadow.button]}
-    >
-      <Button
-        buttonStyle={[
-          theme.shadow.button,
-          styles.button,
-          props.iconOne && styles.buttonOneIcon,
-          theme.container.centeredItems,
-        ]}
-        containerStyle={[
-          props.long ? theme.container.button.long : theme.container.button.short,
-          theme.shadow.button,
-        ]}
-        loading={props?.loading ?? false}
-        linearGradientProps={{
-          colors: [Colors.greenGradient.lightGreen, Colors.greenGradient.darkGreen],
-          start: [0, 1],
-          end: [1, 0],
-        }}
-        onPress={props.onPress}
-        disabled={props.disabled}
-        raised
-      >
-        <View style={theme.container.centeredItems}>
-          {props.iconOne && (
-            <View style={styles.iconOneContainer}>
-              <props.iconOne />
-            </View>
-          )}
-
-          <Text
-            style={[theme.text.button, styles.content, props.uppercase && { textTransform: 'uppercase' }]}
-          >
-            {renderLabel(firstLetterCapitalize(props.title))}
-          </Text>
+    <View style={styles.contentContainer}>
+      {IconLeft && (
+        <View style={styles.iconLeftContainer}>
+          <IconLeft />
         </View>
-      </Button>
+      )}
+      <Text style={[theme.text.content, styles.content, uppercase && styles.uppercase]}>
+        {renderLabel(firstLetterCapitalize(title), !!IconLeft)}
+      </Text>
     </View>
   );
 };
 
+const BaseSecondaryButton: FC<IProps & { containerStyle: any; buttonStyle: any }> = ({
+  long,
+  loading,
+  onPress,
+  disabled,
+  containerStyle,
+  buttonStyle,
+  ...contentProps
+}) => (
+  <View style={containerStyle}>
+    <Button
+      buttonStyle={buttonStyle}
+      containerStyle={containerStyle}
+      loading={loading ?? false}
+      linearGradientProps={{
+        colors: [Colors.greenGradient.lightGreen, Colors.greenGradient.darkGreen],
+        start: [0, 1],
+        end: [1, 0],
+      }}
+      onPress={onPress}
+      disabled={disabled}
+      raised
+    >
+      <ButtonContent {...contentProps} />
+    </Button>
+  </View>
+);
+
+const MobileSecondaryButton: FC<IProps> = (props) => {
+  const { theme } = useTheme();
+  const containerStyle = [
+    props.long ? theme.container.button.long : theme.container.button.short,
+    theme.shadow.button,
+  ];
+  const buttonStyle = [
+    theme.shadow.button,
+    styles.button,
+    props.iconLeft && styles.buttonLeftIcon,
+    theme.container.centeredItems,
+  ];
+
+  return <BaseSecondaryButton {...props} containerStyle={containerStyle} buttonStyle={buttonStyle} />;
+};
+
+const WebSecondaryButton: FC<IProps> = (props) => {
+  const { theme } = useTheme();
+  const containerStyle = [
+    styles.container,
+    props.long ? styles.containerLong : styles.containerShort,
+    styles.webShadow,
+  ];
+  const buttonStyle = [styles.button, props.iconLeft && styles.buttonLeftIcon, theme.container.centeredItems];
+
+  return <BaseSecondaryButton {...props} containerStyle={containerStyle} buttonStyle={buttonStyle} />;
+};
+
+export const SecondaryButton: FC<IProps> = Platform.OS === 'web' ? WebSecondaryButton : MobileSecondaryButton;
+
 const styles = StyleSheet.create({
-  buttonOneIcon: {
+  container: {
+    overflow: 'hidden',
+  },
+  containerLong: {
+    width: '100%',
+  },
+  containerShort: {
+    width: 'auto',
+  },
+  webShadow: {
+    boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.2)',
+    borderRadius: 30,
+  },
+  buttonLeftIcon: {
     paddingRight: 50,
     paddingTop: 11,
     paddingBottom: 11,
@@ -88,15 +132,19 @@ const styles = StyleSheet.create({
   content: {
     color: Colors.primary.lightGreen,
   },
-  iconOneContainer: {
+  contentContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconLeftContainer: {
     height: 32,
     alignItems: 'center',
     paddingHorizontal: 6,
     justifyContent: 'center',
     marginRight: 15,
   },
-  iconOne: {
-    width: 32,
-    height: 32,
+  uppercase: {
+    textTransform: 'uppercase',
   },
 });

@@ -9,8 +9,8 @@ import { useTheme } from '@rneui/themed';
 import {
   Car,
   Food,
-  HouseCarbon,
-  Plane,
+  House,
+  FlyFrom,
   TouchCardKpi,
   GraphCO2,
   Colors,
@@ -18,16 +18,6 @@ import {
   useReduxOverStorageValue,
   PrimaryButton,
   NEEDS_SMALL_TEXT,
-} from '@clean-rn/ui-mobile';
-import { IBANKCategories } from '@clean-rn/footprint/domain';
-
-import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { IRoutes, IFootprintStackPages, ISharedStackPages } from '../../../shared/presentation/types';
-import { CardPremium, CardCarbonFootPrint } from '../../../shared/presentation/assets/svg';
-import { SUPPORTED_LANGUAGES_WEBSITE } from '../../../shared/presentation/constants';
-
-import {
   HeaderBad,
   HeaderChampion,
   HeaderCop21,
@@ -40,7 +30,14 @@ import {
   BilanCop21EN,
   BilanFranceFR,
   BilanFranceEN,
-} from '../assets/images';
+} from '@clean-rn/ui-mobile';
+import { IBANKCategories } from '@clean-rn/footprint/domain';
+
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { IRoutes, IFootprintStackPages, ISharedStackPages } from '../../../shared/presentation/types';
+import { CardPremium, CardCarbonFootPrint } from '../../../shared/presentation/assets/svg';
+import { SUPPORTED_LANGUAGES_WEBSITE } from '../../../shared/presentation/constants';
 
 import { URL_CO2_COMPUTATION_FR, URL_CO2_COMPUTATION_EN, URL_CO2_REWARD } from '../constants';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -173,7 +170,7 @@ export const FootprintEstimation = () => {
   const CardHouse = () => {
     return houseEmissions !== undefined && averageHouseEmissions !== undefined ? (
       <TouchCardKpi
-        icon={HouseCarbon}
+        icon={() => <House />}
         onPress={() => handlePressNavigation(IFootprintStackPages.HEATER_FOOTPRINT_ESTIMATION)}
         data={{
           pct: toPct(houseEmissions),
@@ -183,7 +180,7 @@ export const FootprintEstimation = () => {
       />
     ) : (
       <TouchCardKpi
-        icon={HouseCarbon}
+        icon={() => <House />}
         onPress={() => handlePressNavigation(IFootprintStackPages.HEATER_FOOTPRINT_ESTIMATION)}
       />
     );
@@ -192,7 +189,7 @@ export const FootprintEstimation = () => {
   const CardTransport = () => {
     return transportEmissions !== undefined && averageTransportEmissions !== undefined ? (
       <TouchCardKpi
-        icon={Car}
+        icon={() => <Car />}
         onPress={() => handlePressNavigation(IFootprintStackPages.TRANSPORT_FOOTPRINT_ESTIMATION)}
         data={{
           pct: toPct(transportEmissions),
@@ -202,7 +199,7 @@ export const FootprintEstimation = () => {
       />
     ) : (
       <TouchCardKpi
-        icon={Car}
+        icon={() => <Car />}
         onPress={() => handlePressNavigation(IFootprintStackPages.TRANSPORT_FOOTPRINT_ESTIMATION)}
       />
     );
@@ -211,7 +208,7 @@ export const FootprintEstimation = () => {
   const CardFood = () => {
     return foodEmissions !== undefined && averageFoodEmissions !== undefined ? (
       <TouchCardKpi
-        icon={Food}
+        icon={() => <Food />}
         onPress={() => handlePressNavigation(IFootprintStackPages.FOOD_FOOTPRINT_ESTIMATION)} //todo replace with FOOD
         data={{
           pct: toPct(foodEmissions),
@@ -221,7 +218,7 @@ export const FootprintEstimation = () => {
       />
     ) : (
       <TouchCardKpi
-        icon={Food}
+        icon={() => <Food />}
         onPress={() => handlePressNavigation(IFootprintStackPages.WARNING_FOOD_FOOTPRINT_ESTIMATION)}
       />
     );
@@ -230,7 +227,7 @@ export const FootprintEstimation = () => {
   const CardFly = () => {
     return flyEmissions !== undefined && averageFlyEmissions !== undefined ? (
       <TouchCardKpi
-        icon={Plane}
+        icon={() => <FlyFrom />}
         onPress={() => handlePressNavigation(IFootprintStackPages.FLY_FOOTPRINT_ESTIMATION)} //todo replace with FOOD
         data={{
           pct: toPct(flyEmissions),
@@ -240,7 +237,7 @@ export const FootprintEstimation = () => {
       />
     ) : (
       <TouchCardKpi
-        icon={Plane}
+        icon={() => <FlyFrom />}
         onPress={() => handlePressNavigation(IFootprintStackPages.FLY_FOOTPRINT_ESTIMATION)}
       />
     );

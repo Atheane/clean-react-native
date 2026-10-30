@@ -1,0 +1,39 @@
+import React from 'react';
+import Svg, { Defs, LinearGradient, Stop, Path } from 'react-native-svg';
+import { StyleProp, ViewStyle } from 'react-native';
+
+type IProps = {
+  width?: number;
+  height?: number;
+  startColor?: string;
+  endColor?: string;
+  color?: string;
+  style?: StyleProp<ViewStyle>;
+};
+
+export const Trash = ({
+  width = 20,
+  height = 24,
+  startColor = '#CB287D',
+  endColor = '#113580',
+  color,
+  style,
+}: IProps) => {
+  const useGradient = !color;
+
+  return (
+    <Svg width={width} height={height} viewBox="0 0 20 24" style={style}>
+      <Defs>
+        <LinearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+          <Stop offset="0" stopColor={startColor} />
+          <Stop offset="1" stopColor={endColor} />
+        </LinearGradient>
+      </Defs>
+      <Path
+        d="M18.677,4.239H1.868c-.337,0-.605.219-.587.48L2.626,24.364a.545.545,0,0,0,.587.432h14.12a.543.543,0,0,0,.587-.432L19.265,4.719c.018-.261-.25-.48-.587-.48Zm-.62.912L16.775,23.884H3.77L2.488,5.151H18.057Zm1.865-3.174H.622a.534.534,0,0,0-.588.456V4.7a.534.534,0,0,0,.588.456h19.3A.534.534,0,0,0,20.51,4.7V2.433a.534.534,0,0,0-.588-.456Zm-.588.912V4.24H1.21V2.889H19.334ZM13.562,0a.54.54,0,0,1,.588.443V2.432a.534.534,0,0,1-.588.456.54.54,0,0,1-.588-.443V.912h-5.4v1.52A.53.53,0,0,1,7,2.888H6.983a.54.54,0,0,1-.588-.443V.456A.53.53,0,0,1,6.966,0h6.6ZM6.477,6.407a.54.54,0,0,1,.588.443V20.955a.534.534,0,0,1-.588.456.54.54,0,0,1-.588-.443V6.863a.534.534,0,0,1,.588-.456Zm3.8,0a.54.54,0,0,1,.588.443V20.955a.534.534,0,0,1-.588.456.54.54,0,0,1-.588-.443V6.863a.534.534,0,0,1,.588-.456Zm3.69,0a.54.54,0,0,1,.588.443V20.955a.534.534,0,0,1-.588.456.54.54,0,0,1-.588-.443V6.863a.534.534,0,0,1,.588-.456Z"
+        transform="translate(-0.034)"
+        fill={useGradient ? 'url(#linear-gradient)' : color}
+      />
+    </Svg>
+  );
+};

@@ -45,7 +45,7 @@ export const Basic: Story = {
   },
 };
 
-export const SoloRegression: Story = {
+export const OneRegression: Story = {
   args: {
     title: 'Title',
     subtitle: 'Subtitle',
@@ -86,7 +86,7 @@ export const SoloRegression: Story = {
   },
 };
 
-export const Duo: Story = {
+export const Two: Story = {
   args: {
     title: 'Title',
     subtitle: 'Subtitle',
@@ -125,7 +125,7 @@ export const Duo: Story = {
   },
 };
 
-export const DuoRegression: Story = {
+export const TwoRegressions: Story = {
   args: {
     title: 'Baseline before and after renovation',
     subtitle: '',

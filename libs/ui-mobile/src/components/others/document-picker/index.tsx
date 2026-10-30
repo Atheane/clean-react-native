@@ -68,7 +68,7 @@ export const DocumentPicker = (props: IProps) => {
     <SecondaryButton
       long
       title={props.buttonTitle}
-      iconOne={() => (
+      iconLeft={() => (
         <View style={styles.iconContainer}>
           <ImportDocument style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
         </View>

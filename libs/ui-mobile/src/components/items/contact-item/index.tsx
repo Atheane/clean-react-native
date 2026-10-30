@@ -3,7 +3,7 @@ import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
 
 import { Colors, FontNames } from '../../../constants';
-import { RightChevronGradient } from '../../../assets';
+import { RightChevron } from '../../../assets';
 
 type IProps = {
   icon?: React.FC<SvgProps>;
@@ -34,7 +34,14 @@ export const ContactItem = (props: IProps) => {
         <Text style={styles.textIban}>{props.phone}</Text>
       </View>
       <View style={styles.btnContainer}>
-        {props.onPress && <RightChevronGradient width={18} height={18} />}
+        {props.onPress && (
+          <RightChevron
+            width={18}
+            height={18}
+            startColor={Colors.secondary.pink}
+            endColor={Colors.primary.darkBlue}
+          />
+        )}
       </View>
     </View>
   );

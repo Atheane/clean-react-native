@@ -30,7 +30,13 @@ export const BeneficiaryCard = (props: IProps) => {
       disabled={props.disabled}
     >
       <BeneficiaryItem
-        icon={props.data.icon ? props.data.icon : props.data.accountId ? BankAltLogo : BankBgGradient}
+        icon={
+          props.data.icon
+            ? props.data.icon
+            : props.data.accountId
+              ? () => <BankAltLogo />
+              : () => <BankBgGradient />
+        }
         beneficiaryId={props.data.beneficiaryId}
         name={props.data.name}
         iban={props.data.iban}

@@ -15,9 +15,9 @@ import {
 } from '@clean-rn/beneficiary/domain';
 
 import {
-  ProfileGradient,
-  BicGreenGradient,
-  IbanGreenGradient,
+  Profile,
+  BankBuilding as BicIcon,
+  Iban as IbanIcon,
   Colors,
   SubmitButton,
   TextInput,
@@ -61,7 +61,7 @@ export const FormBeneficiary = (props: IProps) => {
               label={t('screens.beneficiary.new-beneficiary.name.label')}
               labelColor={Colors.primary.grey}
               value={value}
-              IconLeft={ProfileGradient}
+              IconLeft={() => <Profile />}
               placeholder={t('screens.beneficiary.new-beneficiary.name.placeholder')}
               onChange={onChange}
               onSubmitEditing={props.onSubmit}
@@ -92,7 +92,7 @@ export const FormBeneficiary = (props: IProps) => {
               label={t('screens.beneficiary.new-beneficiary.IBAN.label')}
               labelColor={Colors.primary.grey}
               value={value}
-              IconLeft={IbanGreenGradient}
+              IconLeft={() => <IbanIcon />}
               placeholder={t('screens.beneficiary.new-beneficiary.IBAN.placeholder')}
               onChange={(text) => onChange(text.replace(/\s/g, ''))}
               onSubmitEditing={props.onSubmit}
@@ -123,7 +123,7 @@ export const FormBeneficiary = (props: IProps) => {
               label={t('screens.beneficiary.new-beneficiary.BIC.label')}
               labelColor={Colors.primary.grey}
               value={value}
-              IconLeft={BicGreenGradient}
+              IconLeft={() => <BicIcon />}
               placeholder={t('screens.beneficiary.new-beneficiary.BIC.placeholder')}
               onChange={onChange}
               onSubmitEditing={props.onSubmit}

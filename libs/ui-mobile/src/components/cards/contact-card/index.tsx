@@ -3,11 +3,25 @@ import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { IContact } from '@clean-rn/contact/domain';
 import { Colors } from '../../../constants';
 import { ContactItem } from '../../items/contact-item';
-import { PhoneGradientGreyBg, PhoneGradientWhiteBg } from '../../../assets';
+import { PhoneBg } from '../../../assets';
 
 export const ContactCard = memo(({ data, idx, onPress }: IProps) => {
   const isEven = idx % 2 === 0;
-  const icon = isEven ? PhoneGradientWhiteBg : PhoneGradientGreyBg;
+  const icon = isEven
+    ? () => (
+        <PhoneBg
+          backgroundColor={Colors.primary.white}
+          endColor={Colors.secondary.pink}
+          startColor={Colors.primary.darkBlue}
+        />
+      )
+    : () => (
+        <PhoneBg
+          backgroundColor={Colors.primary.lightGrey}
+          endColor={Colors.secondary.pink}
+          startColor={Colors.primary.darkBlue}
+        />
+      );
   const containerStyle = [styles.contactContainer, isEven ? styles.evenContainer : styles.oddContainer];
 
   const handlePress = useCallback(
