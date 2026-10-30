@@ -1,29 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import { FoodConsumptionT } from '@bank/carbon-weight/dist';
-
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { FoodEmissions } from '@clean-rn/footprint/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IStoreKey } from '../../../../shared/application/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { IFootprintStackPages } from '../../../../shared/presentation/types';
+import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 import { IFootprintTypes, foodEmissionsComputed, initializeFoodEmissions } from '../../commands';
 
-export function* computeFoodEmissionsSaga(): Generator<StrictEffect, any, any> {
-  yield takeEvery(IFootprintTypes.COMPUTE_FOOD_EMISSIONS, computeFoodEmissionsGenerator);
+export function* computeFoodEmissionsSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
+  yield takeEvery(IFootprintTypes.COMPUTE_FOOD_EMISSIONS, computeFoodEmissionsGenerator, httpConnection);
 }
 
-export function* computeFoodEmissionsGenerator({
-  payload,
-}: {
-  type: string;
-  payload: FoodConsumptionT;
-}): Generator<StrictEffect, any, any> {
+export function* computeFoodEmissionsGenerator(
+  httpConnection: HttpConnection,
+  {
+    payload,
+  }: {
+    type: string;
+    payload: FoodConsumptionT;
+  },
+): Generator<StrictEffect, any, any> {
   try {
+    yield call(ensureTokenRefreshed, httpConnection);
+
     const foodCarbonFootprint = new FoodEmissions(payload);
+
     yield put(
       foodEmissionsComputed({
         footprint: foodCarbonFootprint.value,

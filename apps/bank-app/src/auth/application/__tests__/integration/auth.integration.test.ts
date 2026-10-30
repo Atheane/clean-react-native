@@ -25,20 +25,6 @@ import {
   loggedOut,
 } from '../../commands';
 import { IAuthState, authReducer } from '../../state-management';
-import { HttpConnection } from '@clean-rn/shared/infrastructure';
-
-jest.mock('@clean-rn/shared/infrastructure', () => ({
-  HttpConnection: {
-    getInstance: jest.fn(),
-  },
-  ServerError: jest.fn().mockImplementation(function (error) {
-    this.message = error.message;
-    this.name = 'ServerError';
-    this.statusCode = error.statusCode;
-    this.codeError = error.codeError;
-    this.cause = error.response;
-  }),
-}));
 
 describe('Auth - integration', () => {
   const mockData = {
@@ -57,8 +43,6 @@ describe('Auth - integration', () => {
   const mockSuccess = {
     success: true,
   };
-
-  let httpConnection: HttpConnection;
 
   const mockUserData = {
     birthday: '1984-10-06T00:00:00.000Z',
@@ -96,20 +80,6 @@ describe('Auth - integration', () => {
       initialState,
       reducers: authReducer,
     });
-    httpConnection = {
-      baseUrl: 'http://mock-api.com',
-      options: jest.fn(),
-      handleError: jest.fn(),
-      getDefaultHeaders: jest.fn(),
-      attachBearerToken: jest.fn(),
-    };
-    HttpConnection.getInstance.mockReturnValue(httpConnection);
-    global.fetch = jest.fn();
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-    jest.clearAllMocks();
   });
 
   it('Should store correct initial state if not initial state is provided', () => {
@@ -132,7 +102,7 @@ describe('Auth - integration', () => {
   });
 
   it('Should store correct state in case if FETCH_LOGIN', () => {
-    sagaTester.start(loginSaga, httpConnection);
+    sagaTester.start(loginSaga);
 
     sagaTester.dispatch(fetchLogin(mockData));
 
@@ -166,7 +136,7 @@ describe('Auth - integration', () => {
   });
 
   it('Should store correct state if LOGIN_SUCCESS', () => {
-    sagaTester.start(loginSaga, httpConnection);
+    sagaTester.start(loginSaga);
     sagaTester.dispatch(fetchLogin(mockData));
     sagaTester.dispatch(loginSuccess({ auth: mockResponse }));
 
@@ -181,7 +151,7 @@ describe('Auth - integration', () => {
   });
 
   it('Should store correct state if LOGIN_FAILURE for invalid credentials', () => {
-    sagaTester.start(loginSaga, httpConnection);
+    sagaTester.start(loginSaga);
     sagaTester.dispatch(fetchLogin(mockData));
     sagaTester.dispatch(loginFailure(new AuthError.LoginFailureInvalidCredentials()));
 
@@ -199,7 +169,7 @@ describe('Auth - integration', () => {
   });
 
   it('Should store correct state if REFRESH_SUCCESS', () => {
-    sagaTester.start(refreshSaga, httpConnection);
+    sagaTester.start(refreshSaga);
     sagaTester.dispatch(fetchRefresh());
     sagaTester.dispatch(refreshSuccess({ auth: mockResponse }));
     expect(sagaTester.getState()).toEqual({
@@ -213,7 +183,7 @@ describe('Auth - integration', () => {
   });
 
   it('Should store correct state if INITIALIZE_AUTH for invalid credentials', () => {
-    sagaTester.start(loginSaga, httpConnection);
+    sagaTester.start(loginSaga);
     sagaTester.dispatch(fetchLogin(mockData));
     sagaTester.dispatch(initializeAuth());
 
@@ -250,7 +220,7 @@ describe('Auth - integration', () => {
   });
 
   it('Should store correct state in case if FETCH_RESET_PASSWORD', () => {
-    sagaTester.start(resetPasswordSaga, httpConnection);
+    sagaTester.start(resetPasswordSaga);
 
     sagaTester.dispatch(fetchResetPassword(mockData));
 
@@ -268,7 +238,7 @@ describe('Auth - integration', () => {
   });
 
   it('Should store correct state if RESET_PASSWORD_SUCCESS', () => {
-    sagaTester.start(resetPasswordSaga, httpConnection);
+    sagaTester.start(resetPasswordSaga);
     sagaTester.dispatch(fetchResetPassword(mockData));
     sagaTester.dispatch(passwordReset({ success: mockSuccess.success }));
 
@@ -286,7 +256,7 @@ describe('Auth - integration', () => {
   });
 
   it('Should store correct state if LOGGED_OUT', () => {
-    sagaTester.start(logoutSaga, httpConnection);
+    sagaTester.start(logoutSaga);
     sagaTester.dispatch(fetchLogout());
     sagaTester.dispatch(loggedOut());
 

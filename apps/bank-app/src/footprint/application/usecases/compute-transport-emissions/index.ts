@@ -3,28 +3,39 @@ import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { VehicleConsumptionT } from '@bank/carbon-weight/dist';
-
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { TransportEmissions } from '@clean-rn/footprint/domain';
 
 import { IFootprintTypes, transportEmissionsComputed, initializeTransportEmissions } from '../../commands';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IStoreKey } from '../../../../shared/application/types';
-
+import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { IFootprintStackPages } from '../../../../shared/presentation/types';
 
-export function* computeTransportEmissionsSaga(): Generator<StrictEffect, any, any> {
-  yield takeEvery(IFootprintTypes.COMPUTE_TRANSPORT_EMISSIONS, computeTransportEmissionsGenerator);
+export function* computeTransportEmissionsSaga(
+  httpConnection: HttpConnection,
+): Generator<StrictEffect, any, any> {
+  yield takeEvery(
+    IFootprintTypes.COMPUTE_TRANSPORT_EMISSIONS,
+    computeTransportEmissionsGenerator,
+    httpConnection,
+  );
 }
 
-export function* computeTransportEmissionsGenerator({
-  payload,
-}: {
-  type: string;
-  payload: VehicleConsumptionT;
-}): Generator<StrictEffect, any, any> {
+export function* computeTransportEmissionsGenerator(
+  httpConnection: HttpConnection,
+  {
+    payload,
+  }: {
+    type: string;
+    payload: VehicleConsumptionT;
+  },
+): Generator<StrictEffect, any, any> {
   try {
+    yield call(ensureTokenRefreshed, httpConnection);
+
     const transportCarbonFootprint = new TransportEmissions(payload);
     yield put(
       transportEmissionsComputed({

@@ -120,6 +120,11 @@ describe('Compute emissions - integration', () => {
     });
   });
 
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
+  });
+
   it('Should store correct state if COMPUTE_HOUSE_EMISSIONS', () => {
     const newState = footprintReducer(undefined, {
       type: IFootprintTypes.COMPUTE_HOUSE_EMISSIONS,

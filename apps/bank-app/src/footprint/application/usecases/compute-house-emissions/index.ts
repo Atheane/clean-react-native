@@ -1,28 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import { HouseT } from '@bank/carbon-weight/dist';
-
 import { HouseEmissions } from '@clean-rn/footprint/domain';
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IStoreKey } from '../../../../shared/application/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { IFootprintStackPages } from '../../../../shared/presentation/types';
+import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 import { IFootprintTypes, houseEmissionsComputed, initializeHouseEmissions } from '../../commands';
 
-export function* computeHouseEmissionsSaga(): Generator<StrictEffect, any, any> {
-  yield takeEvery(IFootprintTypes.COMPUTE_HOUSE_EMISSIONS, computeHouseEmissionsGenerator);
+export function* computeHouseEmissionsSaga(
+  httpConnection: HttpConnection,
+): Generator<StrictEffect, any, any> {
+  yield takeEvery(IFootprintTypes.COMPUTE_HOUSE_EMISSIONS, computeHouseEmissionsGenerator, httpConnection);
 }
 
-export function* computeHouseEmissionsGenerator({
-  payload,
-}: {
-  type: string;
-  payload: HouseT & { consumption: number } & { builtYear: number };
-}): Generator<StrictEffect, any, any> {
+export function* computeHouseEmissionsGenerator(
+  httpConnection: HttpConnection,
+  {
+    payload,
+  }: {
+    type: string;
+    payload: HouseT & { consumption: number } & { builtYear: number };
+  },
+): Generator<StrictEffect, any, any> {
   try {
+    yield call(ensureTokenRefreshed, httpConnection);
+
     const houseCarbonFootprint = new HouseEmissions(payload);
     yield put(
       houseEmissionsComputed({
