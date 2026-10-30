@@ -1,10 +1,12 @@
 import ShortUniqueId from 'short-unique-id';
+import { domainEventManager } from '../DomainEventManager';
 
+// Modification de la classe Entity
 const isEntity = (v: any): v is Entity<any> => {
   return v instanceof Entity;
 };
 
-export class Entity<T> {
+export abstract class Entity<T> {
   public id: string;
   public properties: Partial<T>;
 
@@ -27,7 +29,17 @@ export class Entity<T> {
       return true;
     }
 
-    // something weird with this condition
     return isEntity(object);
+  }
+
+  // Nouvelle méthode pour émettre des événements du domaine
+
+  protected emitDomainEvent(eventName: string, data: any): void {
+    Entity.emitStaticDomainEvent(eventName, { ...data, entityId: this.id });
+  }
+
+  protected static emitStaticDomainEvent(eventName: string, data: any): void {
+    console.log(eventName, data);
+    domainEventManager.emit(eventName, data);
   }
 }

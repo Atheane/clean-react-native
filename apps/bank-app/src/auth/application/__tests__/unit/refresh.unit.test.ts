@@ -13,11 +13,35 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 import { selectAuth } from '../../../../auth/application/state-management/selectors';
 import { IAuthTypes, refreshSuccess, resetError } from '../../commands';
 
-describe('Refresh - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
-  const authApi = AuthApi.getInstance(httpConnection);
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
 
-  const genObject = refreshSaga(httpConnection);
+describe('Refresh - usecase', () => {
+  let httpConnection: HttpConnection;
+  let authApi: AuthApi;
+
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    authApi = AuthApi.getInstance(httpConnection);
+  });
 
   const mockResponse = {
     accessToken: 'fake-access-token',
@@ -33,6 +57,8 @@ describe('Refresh - usecase', () => {
   };
 
   it('Should wait for FETCH_REFRESH action and call loginGenerator, should be done on next iteration', () => {
+    const genObject = refreshSaga(httpConnection);
+
     expect(genObject.next().value).toEqual(
       takeEvery(IAuthTypes.FETCH_REFRESH, refreshGenerator, httpConnection),
     );

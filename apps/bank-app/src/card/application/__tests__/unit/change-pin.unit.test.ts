@@ -15,9 +15,40 @@ import { ICardTypes, cardPINChanged, cardPINChangedFailed, resetError } from '..
 import { selectCard } from '../../state-management/selectors';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
+
 describe('ChangePIN - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
-  const api = CardApi.getInstance(httpConnection);
+  let httpConnection: HttpConnection;
+  let api: CardApi;
+
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    api = CardApi.getInstance(httpConnection);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
+  });
 
   const mockCardServeur = {
     cardId: 999826250,
@@ -75,9 +106,9 @@ describe('ChangePIN - usecase', () => {
     },
   };
 
-  const genObject = changeCardPINSaga(httpConnection);
-
   it('Should wait for FETCH_CHANGE_CARD_PIN action and call changeCardPINGenerator, should be done on next iteration', () => {
+    const genObject = changeCardPINSaga(httpConnection);
+
     expect(genObject.next().value).toEqual(
       takeEvery(ICardTypes.FETCH_CHANGE_CARD_PIN, changeCardPINGenerator, httpConnection),
     );
@@ -103,6 +134,9 @@ describe('ChangePIN - usecase', () => {
   });
 
   it('Should call cardForbidden action if 403 from Server', () => {
+    const serverError = new ServerError(mockError403);
+    serverError.statusCode = 403;
+
     testSaga(changeCardPINGenerator, httpConnection, {
       type: ICardTypes.FETCH_CHANGE_CARD_LIMITS,
       payload: changeCardPINCmd,
@@ -113,10 +147,10 @@ describe('ChangePIN - usecase', () => {
       .select(selectCard)
       .next(card)
       .call([api, api.changeCardPIN], card, changeCardPINCmd)
-      .throw(new ServerError(mockError403))
+      .throw(serverError)
       .put(resetError())
       .next()
-      .put(cardPINChangedFailed(new CardError.MaxNumberOfPinChangesReached()))
+      .put(cardPINChangedFailed(new CardError.MaxNumberOfPinChangesReached(serverError)))
       .next();
   });
 

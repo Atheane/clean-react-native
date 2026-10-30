@@ -138,15 +138,18 @@
         "INVALID_PHONE": "Numéro de téléphone mobile invalide",
         "CONTACT_ALREADY_EXISTS": "Ce numéro existe déjà"
       },
-      "carbon": {
+      "footprint": {
         "INVALID_HOUSE_PROPS": "Propriétés de maison invalides",
         "INVALID_TRANSPORT_PROPS": "Propriétés de transport invalides",
         "INVALID_FOOD_PROPS": "Propriétés alimentaires invalides",
         "INVALID_FLY_PROPS": "Propriétés de vol invalides",
-        "MISSING_HEATER_TYPE": "Le type de chauffage est requis",
-        "MISSING_PREVIOUS_HEATER_TYPE": "Le type de chauffage est requis",
-        "MISSING_HEATER_INSTALLATION_YEAR": "La date d'installation est requise",
-        "MISSING_HEATER": "Le chauffage est requis"
+        "INVALID_HEATER_TYPE": "Le type de chauffage est requis",
+        "INVALID_HEATER_USAGE": "L'usage de chauffage est requis",
+        "INVALID_HEATER_DATE": "La date d'installation est requise",
+        "HEATER_ALREADY_EXISTS": "Chauffage déjà déclaré",
+        "INVALID_ADULT_NUMBER": "Le nombre d'adultes doit être compris en 1 et 20",
+        "INVALID_CHILD_NUMBER": "Le nombre de mineurs doit être compris en 1 et 20",
+        "HOUSEHOLD_ALDREADY_DECLARED": "Foyer déjà déclaré"
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Documents pour validation du dossier manquants",
@@ -440,16 +443,11 @@
       "title": "Virement",
       "button": "Retour à l'accueil"
     },
-    "menu-carbon": {
+    "menu-footprint": {
       "title": "Mon bilan carbone",
       "2min": "Mon bilan carbone en 2 min",
-      "my-reward": "Ma prime CO2",
-      "reward": "Prime CO2",
-      "emissions": "Emissions",
-      "evolution": "Evolution de mes émissions",
-      "link": "Combien puis-je recevoir ?",
-      "receive": "Recevoir ma prime",
-      "na": "Non calculée"
+      "my-reward": "Recevoir ma prime CO2",
+      "my-emissions": "Voir mes émissions"
     },
     "menu-primeum": {
       "title": "Ma prime CO2",
@@ -465,32 +463,39 @@
     },
     "heat-primeum": {
       "title": "Ma prime CO2",
-      "subtitle": "Mon chauffage",
+      "subtitle-main": "Mon chauffage principal",
+      "subtitle-sanitary": "Mon eau sanitaire",
+      "subtitle-secondary": "Mon chauffage secondaire",
       "step-one": "Situation",
       "step-two": "Justificatifs",
       "step-three": "Suivi",
       "heater": "Type de chauffage",
       "placeholder": "Sélectionner",
+      "house-main-heat": "Chauffage principal installé dans votre \nlogement :",
+      "house-sanitary-heat": "Eau chaude sanitaire installée dans votre \nlogement :",
+      "house-secondary-heat": "Chauffage secondaire installé dans votre \nlogement :",
+      "next-step": "Suivant",
+      "end": "Terminer",
       "dropdown-heat-type": {
-        "electric": "Electricité",
-        "coal": "Charbon",
-        "gas": "Gaz de ville",
-        "fuelOil": "Fioul domestique",
-        "urban": "Réseau de chaleur urbain",
-        "wood": "Bois",
-        "heatPump": "Pompe à chaleur",
-        "thermalSolar": "Solaire thermique",
-        "propane": "Propane"
+        "ELECTRIC": "Electricité",
+        "COAL": "Charbon",
+        "GAS": "Gaz de ville",
+        "FUEL_OIL": "Fioul domestique",
+        "URBAN": "Réseau de chaleur urbain",
+        "WOOD": "Bois",
+        "HEAT_PUMP": "Pompe à chaleur",
+        "THERMAL_SOLAR": "Solaire thermique",
+        "PROPANE": "Propane"
       },
       "dropdown-years": {
-        "before-2010": "Avant 2010"
+        "before-2012": "Avant 2012"
       },
       "instruction-heat-type": "Aujourd’hui, comment chauffez-vous votre logement ?",
-      "instruction-heat-type-installation-date": "Ce chauffage est installé dans le logement depuis :",
+      "instruction-heat-type-installation-date": "Ce chauffage est installé dans le logement \n depuis :",
       "instruction-heat-type-before": "Type de chauffage avant",
       "instruction-sanitary-heat-type": "Aujourd’hui, votre eau chaude sanitaire est produite de quelle façon ?",
-      "instruction-sanitary-heat-installation-date": "Le chauffage de l'eau chaude sanitaire est installé depuis :",
-      "instruction-sanitary-heat-type-before": "Type d'au chaude sanitaire avant",
+      "instruction-sanitary-heat-installation-date": "L'eau chaude sanitaire est installé depuis :",
+      "instruction-sanitary-heat-type-before": "Type d'eau chaude sanitaire avant",
       "instruction-secondary-heat-type": "Si votre logement possède un chauffage secondaire, indiquez le type de chauffage."
     },
     "works-primeum": {
@@ -500,7 +505,11 @@
       "title": "Ma prime CO2"
     },
     "household-primeum": {
-      "title": "Ma prime CO2"
+      "title": "Ma prime CO2",
+      "subtitle": "Mon foyer",
+      "adults": "Nombre d'adultes",
+      "minors": "Nombre de mineurs",
+      "submit": "Valider"
     },
     "evolution": {
       "title": "Évolution de mes émissions",
@@ -508,7 +517,7 @@
       "receive": "Recevoir ma prime",
       "baseline": "Emissions de référence"
     },
-    "carbon": {
+    "footprint-estimation": {
       "title": "Mon bilan carbone en 2 min",
       "tab": "Bilan CO2",
       "instruction": "Appuyer sur une catégorie pour démarrer",
@@ -516,7 +525,7 @@
       "average": "Moyenne Française",
       "ton": "t",
       "tons": "t",
-      "share": "Partager",
+      "take-action": "Passer à l'action",
       "reward": "Etre récompensé par la prime CO2",
       "method": "En savoir plus sur la méthode de calcul",
       "compute": "Calculer",
@@ -524,7 +533,7 @@
       "message-part-one": "Hello,\n\nJe viens de faire mon bilan carbone en deux minutes. Hyper intéressant.\n\nMon bilan carbone est de ",
       "message-part-two": "Découvre le tien aussi et dis moi combien tu pèses !\n\nSur iOS:\n\nhttps://apps.apple.com/fr/app/bank-app/id0000000000?l=fr-FR\n\n sur Android:\n\nhttps://play.google.com/store/apps/details?id=com.example.energyapp"
     },
-    "carbon-house": {
+    "footprint-estimation-house": {
       "title": "Mon logement",
       "no-CO2": "La consommation de ce type de chauffage n’émet pas de CO2 dans la méthodologie de calcul.",
       "dropdown": {
@@ -548,7 +557,7 @@
       },
       "surface": "Surface"
     },
-    "carbon-transport": {
+    "footprint-estimation-transport": {
       "title": "Mon transport",
       "no-CO2": "La consommation de ce type de véhicule n’émet pas de CO2 dans la méthodologie de calcul",
       "dropdown": {
@@ -567,7 +576,7 @@
         "unit": " km"
       }
     },
-    "carbon-food": {
+    "footprint-estimation-food": {
       "title": "Mon alimentation",
       "slider": {
         "alcohol": "Vin / Bière",
@@ -589,7 +598,7 @@
       "text": "À partir de l’estimation de l’empreinte carbone de l’alimentation on déduit celle des déchets.",
       "next": "Suivant"
     },
-    "carbon-fly": {
+    "footprint-estimation-fly": {
       "title": "Mon transport aérien",
       "dropdown": {
         "destination": "Départ de",

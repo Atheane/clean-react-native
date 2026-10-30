@@ -15,9 +15,40 @@ import { CardApi } from '@clean-rn/card/infrastructure';
 import { selectCard } from '../../state-management/selectors';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
+
 describe('ChangeCardLimits - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
-  const api = CardApi.getInstance(httpConnection);
+  let httpConnection: HttpConnection;
+  let api: CardApi;
+
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    api = CardApi.getInstance(httpConnection);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
+  });
 
   const mockCardServeur = {
     cardId: 999826250,
@@ -55,11 +86,6 @@ describe('ChangeCardLimits - usecase', () => {
     },
   };
 
-  const mockToken = {
-    accessToken: 'fake-access-token',
-    refreshToken: 'fake-refresh-token',
-  };
-
   const mockError500 = {
     statusCode: 500,
     message: "Cannot read properties of null (reading 'cardId')",
@@ -74,9 +100,9 @@ describe('ChangeCardLimits - usecase', () => {
     },
   };
 
-  const genObject = changeCardLimitsSaga(httpConnection);
-
   it('Should wait for FETCH_CHANGE_CARD_LIMITS action and call changeCardLimitsGenerator, should be done on next iteration', () => {
+    const genObject = changeCardLimitsSaga(httpConnection);
+
     expect(genObject.next().value).toEqual(
       takeEvery(ICardTypes.FETCH_CHANGE_CARD_LIMITS, changeCardLimitsGenerator, httpConnection),
     );

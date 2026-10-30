@@ -3,8 +3,6 @@ import SagaTester from 'redux-saga-tester';
 
 import { Bic, IAccountType, Iban } from '@clean-rn/account/domain';
 
-import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
-
 import {
   IAccountsTypes,
   listAccounts,
@@ -18,7 +16,6 @@ import { listAccountsSaga } from '../../usecases';
 
 describe('Accounts - integration', () => {
   let sagaTester: SagaTester;
-  let httpConnection: HttpConnection;
 
   const mockResponse = [
     {
@@ -29,12 +26,6 @@ describe('Accounts - integration', () => {
       bic: new Bic('TRZOFR21XXX'),
     },
   ];
-
-  beforeAll(() => {
-    httpConnection = HttpConnection.getInstance(
-      process.env.EXPO_PUBLIC_BASE_URL_API || 'https://localhost:3000',
-    );
-  });
 
   beforeEach(() => {
     const initialState: IAccountsState = {
@@ -61,7 +52,7 @@ describe('Accounts - integration', () => {
   });
 
   it('Should store correct state if ACCOUNTS_LISTED', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, listAccountsSaga, httpConnection);
+    sagaTester.start(listAccountsSaga);
     sagaTester.dispatch(listAccounts());
     sagaTester.dispatch(accountsListed(mockResponse));
 
@@ -73,7 +64,7 @@ describe('Accounts - integration', () => {
   });
 
   it('Should store correct state if INITIALIZE_ACCOUNTS', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, listAccountsSaga, httpConnection);
+    sagaTester.start(listAccountsSaga);
     sagaTester.dispatch(initializeAccounts());
 
     expect(sagaTester.getState()).toEqual({
@@ -84,7 +75,7 @@ describe('Accounts - integration', () => {
   });
 
   it('Should store correct state if ACCOUNT_SELECTED', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, listAccountsSaga, httpConnection);
+    sagaTester.start(listAccountsSaga);
     sagaTester.dispatch(accountSelected(mockResponse[0]));
 
     expect(sagaTester.getState()).toEqual({

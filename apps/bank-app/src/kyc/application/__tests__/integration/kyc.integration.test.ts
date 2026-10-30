@@ -9,8 +9,7 @@ import {
   IDocumentStatus,
   IDocumentStatusCode,
 } from '@clean-rn/kyc/domain';
-
-import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
+import { KYC_REVIEW, User } from '@clean-rn/user/domain';
 
 import { IKycStackPages } from '../../../../shared/presentation/types';
 import { checkCustomerStatusSaga } from '../../usecases/customer';
@@ -22,11 +21,9 @@ import {
   initializeKyc,
 } from '../../commands/customer';
 import { ICustomerState, customerReducer } from '../../state-management';
-import { KYC_REVIEW, User } from '@clean-rn/user/domain';
 
 describe('KYC - integration', () => {
   let sagaTester: SagaTester;
-  let httpConnection: HttpConnection;
 
   const mockResponse: IDocumentProperties[] = [
     {
@@ -38,10 +35,6 @@ describe('KYC - integration', () => {
       statusCode: IDocumentStatusCode.INITIAL,
     },
   ];
-
-  beforeAll(() => {
-    httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
-  });
 
   beforeEach(() => {
     const initialState: ICustomerState = {
@@ -75,7 +68,7 @@ describe('KYC - integration', () => {
       properties: { USPerson: false, status: KYC_REVIEW.PENDING, kycReviewComment: '' },
     });
     customer.initKyc(mockResponse, []);
-    sagaTester.start(wrapSagaHidingNotFoundError, checkCustomerStatusSaga, httpConnection);
+    sagaTester.start(checkCustomerStatusSaga);
     sagaTester.dispatch(checkCustomerStatus({ user }));
     sagaTester.dispatch(
       customerStatusChecked({
@@ -92,7 +85,7 @@ describe('KYC - integration', () => {
   });
 
   it('Should store correct state if INITIALIZE_KYC', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, checkCustomerStatusSaga, httpConnection);
+    sagaTester.start(checkCustomerStatusSaga);
     sagaTester.dispatch(initializeKyc());
     expect(sagaTester.getState()).toEqual({
       pending: false,
@@ -118,7 +111,7 @@ describe('KYC - integration', () => {
     });
 
     customer.addDocument(document);
-    sagaTester.start(wrapSagaHidingNotFoundError, checkCustomerStatusSaga, httpConnection);
+    sagaTester.start(checkCustomerStatusSaga);
     sagaTester.dispatch(customerDocumentsUpdated({ customer }));
 
     expect(sagaTester.getState()).toEqual({

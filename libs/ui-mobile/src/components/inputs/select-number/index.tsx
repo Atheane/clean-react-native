@@ -9,7 +9,7 @@ type IProps = {
   label: string;
   icon?: FC<SvgProps>;
   horizontal?: boolean;
-  value: number;
+  value?: number;
   onChange: (value: number) => void;
 };
 

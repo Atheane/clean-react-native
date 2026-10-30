@@ -12,7 +12,7 @@ import {
   IAuthStackParamList,
   ISharedStackParamList,
   IAccountStackParamList,
-  ICarbonStackParamList,
+  IFootprintStackParamList,
   IKycStackParamList,
   ITransactionStackParamList,
   IBeneficiaryStackParamList,
@@ -28,7 +28,7 @@ export const LinkingConfiguration: LinkingOptions<
   | IAuthStackParamList
   | ISharedStackParamList
   | IAccountStackParamList
-  | ICarbonStackParamList
+  | IFootprintStackParamList
   | IKycStackParamList
   | ITransactionStackParamList
   | IBeneficiaryStackParamList

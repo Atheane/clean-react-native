@@ -137,11 +137,18 @@
         "INVALID_PHONE": "Μη έγκυρος αριθμός κινητού τηλεφώνου",
         "CONTACT_ALREADY_EXISTS": "Αυτή η επαφή υπάρχει ήδη"
       },
-      "carbon": {
-        "INVALID_HOUSE_PROPS": "Μη έγκυρες ιδιότητες σπιτιού",
-        "INVALID_TRANSPORT_PROPS": "Μη έγκυρες ιδιότητες μεταφοράς",
-        "INVALID_FOOD_PROPS": "Μη έγκυρες ιδιότητες τροφίμων",
-        "INVALID_FLY_PROPS": "Μη έγκυρες ιδιότητες πτήσης"
+      "footprint": {
+        "INVALID_HOUSE_PROPS": "Άκυρες ιδιότητες οικίας",
+        "INVALID_TRANSPORT_PROPS": "Άκυρες ιδιότητες μεταφοράς",
+        "INVALID_FOOD_PROPS": "Άκυρες ιδιότητες τροφίμων",
+        "INVALID_FLY_PROPS": "Άκυρες ιδιότητες πτήσης",
+        "INVALID_HEATER_TYPE": "Απαιτείται τύπος θέρμανσης",
+        "INVALID_HEATER_USAGE": "Απαιτείται χρήση θέρμανσης",
+        "INVALID_HEATER_DATE": "Απαιτείται ημερομηνία εγκατάστασης",
+        "HEATER_ALREADY_EXISTS": "Η θέρμανση έχει ήδη δηλωθεί",
+        "INVALID_ADULT_NUMBER": "Ο αριθμός των ενηλίκων πρέπει να είναι μεταξύ 1 και 20",
+        "INVALID_CHILD_NUMBER": "Ο αριθμός των ανηλίκων πρέπει να είναι μεταξύ 1 και 20",
+        "HOUSEHOLD_ALDREADY_DECLARED": "Το νοικοκυριό έχει ήδη δηλωθεί"
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Έγγραφα επαλήθευσης ταυτότητας λείπουν",
@@ -434,7 +441,81 @@
       "title": "Μεταφορά",
       "button": "Επιστροφή στην αρχική"
     },
-    "carbon": {
+    "menu-footprint": {
+      "title": "Το αποτύπωμα άνθρακά μου",
+      "2min": "Το αποτύπωμα άνθρακά μου σε 2 λεπτά",
+      "my-reward": "Λήψη του πριμ CO2 μου",
+      "my-emissions": "Προβολή των εκπομπών μου"
+    },
+    "menu-primeum": {
+      "title": "Το πριμ CO2 μου",
+      "step-one": "Κατάσταση",
+      "step-two": "Δικαιολογητικά",
+      "step-three": "Παρακολούθηση",
+      "instruction": "Συμπληρώστε τις παρακάτω φόρμες, αυτό μας επιτρέπει να αξιολογήσουμε το ποσό του πριμ σας δημιουργώντας το ",
+      "ref-year": "έτος αναφοράς σας.",
+      "heat": "Θέρμανση",
+      "works": "Εργασίες",
+      "transport": "Μεταφορά",
+      "household": "Νοικοκυριό"
+    },
+    "heat-primeum": {
+      "title": "Το πριμ CO2 μου",
+      "subtitle-main": "Η κύρια θέρμανσή μου",
+      "subtitle-sanitary": "Το ζεστό νερό μου",
+      "subtitle-secondary": "Η δευτερεύουσα θέρμανσή μου",
+      "step-one": "Κατάσταση",
+      "step-two": "Δικαιολογητικά",
+      "step-three": "Παρακολούθηση",
+      "heater": "Τύπος θέρμανσης",
+      "placeholder": "Επιλέξτε",
+      "house-main-heat": "Κύρια θέρμανση εγκατεστημένη στο σπίτι σας:",
+      "house-sanitary-heat": "Ζεστό νερό χρήσης εγκατεστημένο στο σπίτι σας:",
+      "house-secondary-heat": "Δευτερεύουσα θέρμανση εγκατεστημένη στο σπίτι σας:",
+      "next-step": "Επόμενο",
+      "end": "Τέλος",
+      "dropdown-heat-type": {
+        "ELECTRIC": "Ηλεκτρισμός",
+        "COAL": "Άνθρακας",
+        "GAS": "Φυσικό αέριο",
+        "FUEL_OIL": "Πετρέλαιο θέρμανσης",
+        "URBAN": "Αστικό δίκτυο θέρμανσης",
+        "WOOD": "Ξύλο",
+        "HEAT_PUMP": "Αντλία θερμότητας",
+        "THERMAL_SOLAR": "Ηλιακή θερμική ενέργεια",
+        "PROPANE": "Προπάνιο"
+      },
+      "dropdown-years": {
+        "before-2012": "Πριν το 2012"
+      },
+      "instruction-heat-type": "Σήμερα, πώς θερμαίνετε το σπίτι σας;",
+      "instruction-heat-type-installation-date": "Αυτή η θέρμανση είναι εγκατεστημένη στο σπίτι από:",
+      "instruction-heat-type-before": "Τύπος θέρμανσης πριν",
+      "instruction-sanitary-heat-type": "Σήμερα, πώς παράγεται το ζεστό νερό χρήσης σας;",
+      "instruction-sanitary-heat-installation-date": "Το ζεστό νερό χρήσης είναι εγκατεστημένο από:",
+      "instruction-sanitary-heat-type-before": "Τύπος ζεστού νερού χρήσης πριν",
+      "instruction-secondary-heat-type": "Εάν το σπίτι σας έχει δευτερεύουσα θέρμανση, υποδείξτε τον τύπο θέρμανσης."
+    },
+    "works-primeum": {
+      "title": "Το πριμ CO2 μου"
+    },
+    "transport-primeum": {
+      "title": "Το πριμ CO2 μου"
+    },
+    "household-primeum": {
+      "title": "Το πριμ CO2 μου",
+      "subtitle": "Το νοικοκυριό μου",
+      "adults": "Αριθμός ενηλίκων",
+      "minors": "Αριθμός ανηλίκων",
+      "submit": "Επιβεβαίωση"
+    },
+    "evolution": {
+      "title": "Εξέλιξη των εκπομπών μου",
+      "na": "Δεν υπολογίστηκε",
+      "receive": "Λήψη του πριμ μου",
+      "baseline": "Εκπομπές αναφοράς"
+    },
+    "footprint-estimation": {
       "title": "Ο ανθρακικός μου αποτύπωμα",
       "tab": "Αποτύπωμα CO2",
       "instruction": "Πατήστε σε μια κατηγορία για να ξεκινήσετε",
@@ -442,7 +523,7 @@
       "average": "Μέσος όρος Γαλλίας",
       "ton": "τ",
       "tons": "τ",
-      "share": "Κοινοποίηση",
+      "take-action": "Ανάληψη δράσης",
       "reward": "Να ανταμειφθείτε με το πριμ CO2",
       "method": "Μάθετε περισσότερα για τη μέθοδο υπολογισμού",
       "compute": "Υπολογισμός",
@@ -450,7 +531,7 @@
       "message-part-one": "Γεια,\n\nΜόλις έκανα τον ανθρακικό μου αποτύπωμα σε δύο λεπτά. Πολύ ενδιαφέρον.\n\nΤο ανθρακικό μου αποτύπωμα είναι ",
       "message-part-two": "Ανακαλύψτε το δικό σας και πείτε μου πόσο ζυγίζετε!\n\nΣτο iOS:\n\nhttps://apps.apple.com/fr/app/bank-app/id0000000000?l=fr-FR\n\n στο Android:\n\nhttps://play.google.com/store/apps/details?id=com.example.energyapp"
     },
-    "carbon-house": {
+    "footprint-estimation-house": {
       "title": "Το σπίτι μου",
       "no-CO2": "Η κατανάλωση αυτού του τύπου θέρμανσης δεν εκπέμπει CO2 στη μεθοδολογία υπολογισμού.",
       "dropdown": {
@@ -474,7 +555,7 @@
       },
       "surface": "Επιφάνεια"
     },
-    "carbon-transport": {
+    "footprint-estimation-transport": {
       "title": "Η μεταφορά μου",
       "no-CO2": "Η κατανάλωση αυτού του τύπου οχήματος δεν εκπέμπει CO2 στη μεθοδολογία υπολογισμού",
       "dropdown": {
@@ -493,7 +574,7 @@
         "unit": " χλμ"
       }
     },
-    "carbon-food": {
+    "footprint-estimation-food": {
       "title": "Η διατροφή μου",
       "slider": {
         "alcohol": "Κρασί / Μπύρα",
@@ -515,7 +596,7 @@
       "text": "Από την εκτίμηση του ανθρακικού αποτυπώματος της διατροφής προκύπτει αυτή των αποβλήτων.",
       "next": "Επόμενο"
     },
-    "carbon-fly": {
+    "footprint-estimation-fly": {
       "title": "Η αεροπορική μου μεταφορά",
       "dropdown": {
         "destination": "Αναχώρηση από",

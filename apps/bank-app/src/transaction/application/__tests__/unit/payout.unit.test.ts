@@ -21,12 +21,40 @@ import { payoutGenerator, payoutSaga } from '../../usecases';
 import { ITransactionsTypes, payoutSucceded, initTransaction, transactionFailed } from '../../commands';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
+
 describe('Payout - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
+  let httpConnection: HttpConnection;
+  let api: TransactionApi;
 
-  const api = TransactionApi.getInstance(httpConnection);
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    api = TransactionApi.getInstance(httpConnection);
+  });
 
-  const genObject = payoutSaga(httpConnection);
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
+  });
 
   const mockResponse: ITransaction = {
     amount: new Amount('10.00', ITransactionType.PAYOUT),
@@ -64,6 +92,7 @@ describe('Payout - usecase', () => {
   };
 
   it('Should wait for FETCH_PAYOUT action and call payoutGenerator, should be done on next iteration', () => {
+    const genObject = payoutSaga(httpConnection);
     expect(genObject.next().value).toEqual(
       takeEvery(ITransactionsTypes.FETCH_PAYOUT, payoutGenerator, httpConnection),
     );
@@ -90,6 +119,9 @@ describe('Payout - usecase', () => {
   });
 
   it('Should call transferFailed if 403 from Server', () => {
+    const serverError = new ServerError(mockError403);
+    serverError.statusCode = 403;
+
     testSaga(payoutGenerator, httpConnection, {
       type: ITransactionsTypes.FETCH_PAYOUT,
       payload,
@@ -97,10 +129,10 @@ describe('Payout - usecase', () => {
       .next()
       .call(ensureTokenRefreshed, httpConnection)
       .next()
-      .throw(new ServerError(mockError403))
+      .throw(serverError)
       .put(initTransaction())
       .next()
-      .put(transactionFailed(new TransactionError.TransferAmountTooHigh(mockError403)))
+      .put(transactionFailed(new TransactionError.TransferAmountTooHigh(serverError.message)))
       .next()
       .cancel();
   });

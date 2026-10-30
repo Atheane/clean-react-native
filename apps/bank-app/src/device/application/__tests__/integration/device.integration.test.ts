@@ -1,6 +1,7 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import SagaTester from 'redux-saga-tester';
 
+import { Device, DeviceError } from '@clean-rn/device/domain';
 import { registerDeviceSaga } from '../../usecases/register-device';
 import {
   IDeviceTypes,
@@ -11,8 +12,6 @@ import {
   resetError,
 } from '../../commands';
 import { deviceReducer } from '../../state-management/reducer';
-import { HttpConnection } from '@clean-rn/shared/infrastructure';
-import { Device, DeviceError } from '@clean-rn/device/domain';
 
 describe('Device - integration', () => {
   const mockData = {
@@ -27,12 +26,6 @@ describe('Device - integration', () => {
   };
 
   let sagaTester: SagaTester;
-
-  let httpConnection: HttpConnection;
-
-  beforeAll(() => {
-    httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
-  });
 
   beforeEach(() => {
     const initialState = {
@@ -70,7 +63,7 @@ describe('Device - integration', () => {
     device.addAppVersion(mockData.appVersion);
     device.connectToNotifications(mockData.firebaseId);
 
-    sagaTester.start(registerDeviceSaga, httpConnection);
+    sagaTester.start(registerDeviceSaga);
     sagaTester.dispatch(fetchRegisterDevice(mockData));
     sagaTester.dispatch(deviceRegistered(device));
 
@@ -92,7 +85,7 @@ describe('Device - integration', () => {
     device.addAppVersion(mockData.appVersion);
     device.connectToNotifications(mockData.firebaseId);
 
-    sagaTester.start(registerDeviceSaga, httpConnection);
+    sagaTester.start(registerDeviceSaga);
     sagaTester.dispatch(fetchRegisterDevice(mockData));
     sagaTester.dispatch(
       deviceAlreadyRegistered({ error: new DeviceError.AlreadyRegistered('Device already registered') }),
@@ -106,7 +99,7 @@ describe('Device - integration', () => {
   });
 
   it('Should store correct state if INITIALIZE_DEVICE', () => {
-    sagaTester.start(registerDeviceSaga, httpConnection);
+    sagaTester.start(registerDeviceSaga);
     sagaTester.dispatch(fetchRegisterDevice(mockData));
     sagaTester.dispatch(initializeDevice());
 
@@ -128,7 +121,7 @@ describe('Device - integration', () => {
     device.addAppVersion(mockData.appVersion);
     device.connectToNotifications(mockData.firebaseId);
 
-    sagaTester.start(registerDeviceSaga, httpConnection);
+    sagaTester.start(registerDeviceSaga);
     sagaTester.dispatch(fetchRegisterDevice(mockData));
     sagaTester.dispatch(deviceRegistered(device));
     sagaTester.dispatch(resetError());

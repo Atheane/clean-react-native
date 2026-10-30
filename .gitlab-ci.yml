@@ -1,0 +1,23 @@
+image: node:latest
+
+stages:
+  - test
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+
+install_dependencies:
+  stage: test
+  script:
+    - npm i
+
+chromatic_deployment:
+  stage: deploy
+  script:
+    - npm run chromatic:storybook-web -- --exit-zero-on-changes
+  only:
+    - main  # ou le nom de votre branche principale
+  variables:
+    CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN

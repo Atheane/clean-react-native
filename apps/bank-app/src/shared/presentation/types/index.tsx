@@ -30,7 +30,7 @@ export type IRootTabParamList = {
   MenuAccount: undefined;
   MenuTransaction: undefined;
   MenuBeneficiary: undefined;
-  MenuCarbon: undefined;
+  MenuFootprint: undefined;
   MenuParameters: undefined;
   MenuTransfer: undefined;
   MenuKyc: undefined;
@@ -75,19 +75,19 @@ export type ITransactionStackParamList = {
   AccountStatementsPdf: undefined;
 };
 
-export type ICarbonStackParamList = {
-  MenuCarbon: undefined;
-  Carbon: undefined;
-  House: undefined;
-  Transport: undefined;
-  Food: undefined;
-  Fly: undefined;
-  WarningFood: undefined;
+export type IFootprintStackParamList = {
+  MenuFootprint: undefined;
+  FootprintEstimation: undefined;
+  HeaterFootprintEstimation: undefined;
+  TransportFootprintEstimation: undefined;
+  FoodFootprintEstimation: undefined;
+  FlyFootprintEstimation: undefined;
+  WarningFoodFootprintEstimation: undefined;
   MenuPrimeum: undefined;
-  HeatersForm: undefined;
-  WorksForm: undefined;
-  TransportsForm: undefined;
-  HouseholdForm: undefined;
+  HeatersPrimeum: undefined;
+  WorksPrimeum: undefined;
+  TransportsPrimeum: undefined;
+  HouseholdPrimeum: undefined;
 };
 
 export type IKycStackParamList = {
@@ -197,20 +197,20 @@ export enum IBeneficiaryStackPages {
   TRANSFER_SUCCESS = 'TransferSuccess',
 }
 
-export enum ICarbonStackPages {
-  MENU = 'MenuCarbon',
-  EVOLUTION = 'EvolutionCarbon',
-  CARBON = 'Carbon',
-  HOUSE = 'House',
-  TRANSPORT = 'Transport',
-  FOOD = 'Food',
-  FLY = 'Fly',
-  WARNING_FOOD = 'WarningFood',
+export enum IFootprintStackPages {
+  MENU = 'MenuFootprint',
+  EVOLUTION_FOOTPRINT = 'EvolutionFootprint',
+  FOOTPRINT_ESTIMATION = 'FootprintEstimation',
+  HEATER_FOOTPRINT_ESTIMATION = 'HeaterFootprintEstimation',
+  TRANSPORT_FOOTPRINT_ESTIMATION = 'TransportFootprintEstimation',
+  FOOD_FOOTPRINT_ESTIMATION = 'FoodFootprintEstimation',
+  FLY_FOOTPRINT_ESTIMATION = 'FlyFootprintEstimation',
+  WARNING_FOOD_FOOTPRINT_ESTIMATION = 'WarningFoodFootprintEstimation',
   MENU_PRIMEUM = 'MenuPrimeum',
-  HEATERS_FORM = 'HeatersForm',
-  WORKS_FORM = 'WorksForm',
-  TRANSPORTS_FORM = 'TransportsForm',
-  HOUSEHOLD_FORM = 'HouseholdForm',
+  HEATERS = 'Heaters',
+  WORKS = 'Works',
+  TRANSPORT = 'Transport',
+  HOUSEHOLD = 'Household',
 }
 
 export enum IKycStackPages {
@@ -296,20 +296,20 @@ export type ITransactionStackProps = {
   [ITransactionStackPages.ACCOUNT_STATEMENTS_PDF]: object;
 };
 
-export type ICarbonStackProps = {
-  [ICarbonStackPages.MENU]: object;
-  [ICarbonStackPages.EVOLUTION]: object;
-  [ICarbonStackPages.CARBON]: object;
-  [ICarbonStackPages.HOUSE]: object;
-  [ICarbonStackPages.TRANSPORT]: object;
-  [ICarbonStackPages.FOOD]: object;
-  [ICarbonStackPages.FLY]: object;
-  [ICarbonStackPages.WARNING_FOOD]: object;
-  [ICarbonStackPages.MENU_PRIMEUM]: object;
-  [ICarbonStackPages.HEATERS_FORM]: object;
-  [ICarbonStackPages.WORKS_FORM]: object;
-  [ICarbonStackPages.TRANSPORTS_FORM]: object;
-  [ICarbonStackPages.HOUSEHOLD_FORM]: object;
+export type IFootprintStackProps = {
+  [IFootprintStackPages.MENU]: object;
+  [IFootprintStackPages.EVOLUTION_FOOTPRINT]: object;
+  [IFootprintStackPages.FOOTPRINT_ESTIMATION]: object;
+  [IFootprintStackPages.HEATER_FOOTPRINT_ESTIMATION]: object;
+  [IFootprintStackPages.TRANSPORT_FOOTPRINT_ESTIMATION]: object;
+  [IFootprintStackPages.FOOD_FOOTPRINT_ESTIMATION]: object;
+  [IFootprintStackPages.FLY_FOOTPRINT_ESTIMATION]: object;
+  [IFootprintStackPages.WARNING_FOOD_FOOTPRINT_ESTIMATION]: object;
+  [IFootprintStackPages.MENU_PRIMEUM]: object;
+  [IFootprintStackPages.HEATERS]: object;
+  [IFootprintStackPages.WORKS]: object;
+  [IFootprintStackPages.TRANSPORT]: object;
+  [IFootprintStackPages.HOUSEHOLD]: object;
 };
 
 export type IKycStackProps = {
@@ -387,19 +387,19 @@ export type IRoutes =
   | ITransactionStackPages.TRANSACTIONS
   | ITransactionStackPages.ACCOUNT_STATEMENTS
   | ITransactionStackPages.ACCOUNT_STATEMENTS_PDF
-  | ICarbonStackPages.MENU
-  | ICarbonStackPages.EVOLUTION
-  | ICarbonStackPages.CARBON
-  | ICarbonStackPages.HOUSE
-  | ICarbonStackPages.TRANSPORT
-  | ICarbonStackPages.FOOD
-  | ICarbonStackPages.FLY
-  | ICarbonStackPages.WARNING_FOOD
-  | ICarbonStackPages.MENU_PRIMEUM
-  | ICarbonStackPages.HEATERS_FORM
-  | ICarbonStackPages.WORKS_FORM
-  | ICarbonStackPages.TRANSPORTS_FORM
-  | ICarbonStackPages.HOUSEHOLD_FORM
+  | IFootprintStackPages.MENU
+  | IFootprintStackPages.EVOLUTION_FOOTPRINT
+  | IFootprintStackPages.FOOTPRINT_ESTIMATION
+  | IFootprintStackPages.HEATER_FOOTPRINT_ESTIMATION
+  | IFootprintStackPages.TRANSPORT_FOOTPRINT_ESTIMATION
+  | IFootprintStackPages.FOOD_FOOTPRINT_ESTIMATION
+  | IFootprintStackPages.FLY_FOOTPRINT_ESTIMATION
+  | IFootprintStackPages.WARNING_FOOD_FOOTPRINT_ESTIMATION
+  | IFootprintStackPages.MENU_PRIMEUM
+  | IFootprintStackPages.HEATERS
+  | IFootprintStackPages.WORKS
+  | IFootprintStackPages.TRANSPORT
+  | IFootprintStackPages.HOUSEHOLD
   | IKycStackPages.MENU
   | IKycStackPages.INIT
   | IKycStackPages.KYC

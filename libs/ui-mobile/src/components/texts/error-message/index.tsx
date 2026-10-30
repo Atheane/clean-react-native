@@ -8,7 +8,7 @@ import { IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
 import { IUserErrorCodes, IUserErrorMessage } from '@clean-rn/user/domain';
 import { IAccountErrorCodes, IAccountErrorMessage } from '@clean-rn/account/domain';
 import { IBeneficiaryErrorCodes, IBeneficiaryErrorMessage } from '@clean-rn/beneficiary/domain';
-import { ICarbonErrorCodes, ICarbonErrorMessage } from '@clean-rn/carbon/domain';
+import { IFootprintErrorCodes, IFootprintErrorMessage } from '@clean-rn/footprint/domain';
 import {
   ICustomerErrorCodes,
   ICustomerErrorMessage,
@@ -29,7 +29,7 @@ type IProps = {
     | IDomainError<IAccountErrorCodes, IAccountErrorMessage>
     | IDomainError<IBeneficiaryErrorCodes, IBeneficiaryErrorMessage>
     | IDomainError<IContactErrorCodes, IContactErrorMessage>
-    | IDomainError<ICarbonErrorCodes, ICarbonErrorMessage>
+    | IDomainError<IFootprintErrorCodes, IFootprintErrorMessage>
     | IDomainError<ICustomerErrorCodes, ICustomerErrorMessage>
     | IDomainError<IDocumentErrorCodes, IDocumentErrorMessage>
     | IDomainError<ITransactionErrorCodes, ITransactionErrorMessage>
@@ -72,7 +72,7 @@ export const ErrorMessage = (props: IProps) => {
           </View>
         )}
       {props.error?.code &&
-        Object.values(ICarbonErrorCodes).includes(props.error.code as ICarbonErrorCodes) && (
+        Object.values(IFootprintErrorCodes).includes(props.error.code as IFootprintErrorCodes) && (
           <View>
             <Text style={theme.text.errors}>{firstLetterCapitalize(props.errorMessage)}</Text>
           </View>
@@ -106,7 +106,7 @@ export const ErrorMessage = (props: IProps) => {
         !Object.values(IAccountErrorCodes).includes(props.error.code as IAccountErrorCodes) &&
         !Object.values(IBeneficiaryErrorCodes).includes(props.error.code as IBeneficiaryErrorCodes) &&
         !Object.values(IContactErrorCodes).includes(props.error.code as IContactErrorCodes) &&
-        !Object.values(ICarbonErrorCodes).includes(props.error.code as ICarbonErrorCodes) &&
+        !Object.values(IFootprintErrorCodes).includes(props.error.code as IFootprintErrorCodes) &&
         !Object.values(ICustomerErrorCodes).includes(props.error.code as ICustomerErrorCodes) &&
         !Object.values(IDocumentErrorCodes).includes(props.error.code as IDocumentErrorCodes) &&
         !Object.values(ITransactionErrorCodes).includes(props.error.code as ITransactionErrorCodes) &&

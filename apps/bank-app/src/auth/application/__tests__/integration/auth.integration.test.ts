@@ -25,9 +25,8 @@ import {
   loggedOut,
 } from '../../commands';
 import { IAuthState, authReducer } from '../../state-management';
-import { HttpConnection, wrapSagaHidingNotFoundError } from '@clean-rn/shared/infrastructure';
 
-describe('Login - integration', () => {
+describe('Auth - integration', () => {
   const mockData = {
     email: new Email('test@example.com'),
     password: new Password('123456'),
@@ -44,8 +43,6 @@ describe('Login - integration', () => {
   const mockSuccess = {
     success: true,
   };
-
-  let httpConnection: HttpConnection;
 
   const mockUserData = {
     birthday: '1984-10-06T00:00:00.000Z',
@@ -66,12 +63,6 @@ describe('Login - integration', () => {
   } else if (mockUserData.title === 'M') {
     gender = IGender.MAN;
   }
-
-  beforeAll(() => {
-    httpConnection = HttpConnection.getInstance(
-      process.env.EXPO_PUBLIC_BASE_URL_API || 'https://localhost:3000',
-    );
-  });
 
   beforeEach(() => {
     const initialState: IAuthState = {
@@ -111,7 +102,7 @@ describe('Login - integration', () => {
   });
 
   it('Should store correct state in case if FETCH_LOGIN', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, loginSaga, httpConnection);
+    sagaTester.start(loginSaga);
 
     sagaTester.dispatch(fetchLogin(mockData));
 
@@ -145,7 +136,7 @@ describe('Login - integration', () => {
   });
 
   it('Should store correct state if LOGIN_SUCCESS', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, loginSaga, httpConnection);
+    sagaTester.start(loginSaga);
     sagaTester.dispatch(fetchLogin(mockData));
     sagaTester.dispatch(loginSuccess({ auth: mockResponse }));
 
@@ -160,7 +151,7 @@ describe('Login - integration', () => {
   });
 
   it('Should store correct state if LOGIN_FAILURE for invalid credentials', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, loginSaga, httpConnection);
+    sagaTester.start(loginSaga);
     sagaTester.dispatch(fetchLogin(mockData));
     sagaTester.dispatch(loginFailure(new AuthError.LoginFailureInvalidCredentials()));
 
@@ -178,7 +169,7 @@ describe('Login - integration', () => {
   });
 
   it('Should store correct state if REFRESH_SUCCESS', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, refreshSaga, httpConnection);
+    sagaTester.start(refreshSaga);
     sagaTester.dispatch(fetchRefresh());
     sagaTester.dispatch(refreshSuccess({ auth: mockResponse }));
     expect(sagaTester.getState()).toEqual({
@@ -192,7 +183,7 @@ describe('Login - integration', () => {
   });
 
   it('Should store correct state if INITIALIZE_AUTH for invalid credentials', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, loginSaga, httpConnection);
+    sagaTester.start(loginSaga);
     sagaTester.dispatch(fetchLogin(mockData));
     sagaTester.dispatch(initializeAuth());
 
@@ -229,7 +220,7 @@ describe('Login - integration', () => {
   });
 
   it('Should store correct state in case if FETCH_RESET_PASSWORD', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, resetPasswordSaga, httpConnection);
+    sagaTester.start(resetPasswordSaga);
 
     sagaTester.dispatch(fetchResetPassword(mockData));
 
@@ -247,7 +238,7 @@ describe('Login - integration', () => {
   });
 
   it('Should store correct state if RESET_PASSWORD_SUCCESS', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, resetPasswordSaga, httpConnection);
+    sagaTester.start(resetPasswordSaga);
     sagaTester.dispatch(fetchResetPassword(mockData));
     sagaTester.dispatch(passwordReset({ success: mockSuccess.success }));
 
@@ -265,7 +256,7 @@ describe('Login - integration', () => {
   });
 
   it('Should store correct state if LOGGED_OUT', () => {
-    sagaTester.start(wrapSagaHidingNotFoundError, logoutSaga, httpConnection);
+    sagaTester.start(logoutSaga);
     sagaTester.dispatch(fetchLogout());
     sagaTester.dispatch(loggedOut());
 

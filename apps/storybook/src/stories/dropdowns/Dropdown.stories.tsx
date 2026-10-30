@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { sort } from 'fast-sort';
 
 import { Flame, Department, Dropdown, Colors } from '@clean-rn/ui-mobile';
-import { IHeatingType, departmentsFR, IDepartment } from '@clean-rn/carbon/domain';
+import { HEATER_TYPE, departmentsFR, IDepartment } from '@clean-rn/footprint/domain';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
@@ -44,7 +44,7 @@ export const HeatingTypes: Story = {
   args: {
     label: 'Heating type',
     placeholder: 'Heating type',
-    data: Object.entries(IHeatingType).map(([key, value]) => ({
+    data: Object.entries(HEATER_TYPE).map(([key, value]) => ({
       key,
       value: translations[value],
     })),

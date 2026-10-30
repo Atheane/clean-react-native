@@ -19,9 +19,40 @@ import {
 } from '../../commands/beneficiary';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
+
 describe('AddBeneficiary - usecase', () => {
-  const httpConnection = HttpConnection.getInstance(process.env.EXPO_PUBLIC_BASE_URL_API || '');
-  const api = BeneficiaryApi.getInstance(httpConnection);
+  let httpConnection: HttpConnection;
+  let api: BeneficiaryApi;
+
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    api = BeneficiaryApi.getInstance(httpConnection);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
+  });
 
   const mockRequest = {
     iban: 'FR7616798000010000242599449',
@@ -53,9 +84,9 @@ describe('AddBeneficiary - usecase', () => {
     path: '/app/beneficiary',
   };
 
-  const genObject = addBeneficiarySaga(httpConnection);
-
   it('Should wait for ADD_BENEFICIARY action and call listAccountsGenerator, should be done on next iteration', () => {
+    const genObject = addBeneficiarySaga(httpConnection);
+
     expect(genObject.next().value).toEqual(
       takeEvery(IBeneficiaryTypes.ADD_BENEFICIARY, addBeneficiaryGenerator, httpConnection),
     );
@@ -114,6 +145,9 @@ describe('AddBeneficiary - usecase', () => {
   });
 
   it('Should call navigate to Login modale if 400 from Server', () => {
+    const serverError = new ServerError(mockError400);
+    serverError.statusCode = 400;
+
     testSaga(addBeneficiaryGenerator, httpConnection, {
       type: IBeneficiaryTypes.ADD_BENEFICIARY,
       payload: mockRequest,
@@ -122,10 +156,10 @@ describe('AddBeneficiary - usecase', () => {
       .call(ensureTokenRefreshed, httpConnection)
       .next()
       .call([api, api.addBeneficiary], mockRequest) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .throw(new ServerError(mockError400))
+      .throw(serverError)
       .put(resetError())
       .next()
-      .put(beneficiaryAddFailed(new BeneficiaryError.BeneficiaryAlreadyExists(mockError400.message)))
+      .put(beneficiaryAddFailed(new BeneficiaryError.BeneficiaryAlreadyExists(serverError.message)))
       .next()
       .cancel();
   });

@@ -22,7 +22,7 @@ import {
 import {
   IRootTabParamList,
   IAccountStackPages,
-  ICarbonStackPages,
+  IFootprintStackPages,
   IKycStackPages,
   IBeneficiaryStackPages,
   ITransactionStackPages,
@@ -31,7 +31,7 @@ import {
 } from '../../types';
 
 import { AccountStack } from '../../../../account/presentation/navigation';
-import { CarbonStack } from '../../../../carbon/presentation/navigation';
+import { FootprintStack } from '../../../../footprint/presentation/navigation';
 import { ParametersStack } from '../../../../user/presentation/navigation';
 import { KycStack } from '../../../../kyc/presentation/navigation';
 import { BeneficiaryStack } from '../../../../beneficiary/presentation/navigation';
@@ -106,10 +106,10 @@ export const BottomTabNavigator = () => {
         })}
       />
       <Tab.Screen
-        name={ICarbonStackPages.MENU}
-        component={CarbonStack}
+        name={IFootprintStackPages.MENU}
+        component={FootprintStack}
         options={() => ({
-          title: t('screens.carbon.title'),
+          title: t('screens.footprint-estimation.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             featureTagLegacy ? (
               focused ? (
@@ -123,7 +123,7 @@ export const BottomTabNavigator = () => {
               <CarbonIcon />
             ),
           tabBarLabel: ({ focused }: { focused: boolean }) =>
-            focused ? <Text style={styles.tab}> {t('screens.carbon.tab')}</Text> : '',
+            focused ? <Text style={styles.tab}> {t('screens.footprint-estimation.tab')}</Text> : '',
         })}
       />
       <Tab.Screen
