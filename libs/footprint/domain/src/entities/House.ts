@@ -25,8 +25,7 @@ export class House extends Entity<IHouseProperties> {
     houseStatus: HOUSE_STATUS;
     userId?: string;
   }): House {
-    House.emitStaticDomainEvent(FOOTPRINT_EVENTS.HOUSE_CREATED, { houseId, houseStatus, userId });
-    return new House({
+    const house = new House({
       id: houseId,
       properties: {
         houseId,
@@ -34,10 +33,12 @@ export class House extends Entity<IHouseProperties> {
         houseStatus,
       },
     });
+    House.emitStaticDomainEvent(FOOTPRINT_EVENTS.HOUSE_CREATED, house);
+    return house;
   }
 
   addHeater(heater: Heater): void {
     this.properties.heaters = this.properties.heaters ? [...this.properties.heaters, heater] : [heater];
-    this.emitDomainEvent(FOOTPRINT_EVENTS.HEATER_ADDED, { heater });
+    this.emitDomainEvent(FOOTPRINT_EVENTS.HEATER_ADDED, heater);
   }
 }

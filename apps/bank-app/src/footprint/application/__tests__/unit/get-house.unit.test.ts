@@ -49,7 +49,7 @@ describe('GetHouse - usecase', () => {
     userId: 100000352,
   };
 
-  it('Should wait for GET_HOUSE action and call registerHeatersGenerator, should be done on next iteration', () => {
+  it('Should wait for GET_HOUSE action and call getHouseGenerator, should be done on next iteration', () => {
     const genObject = getHouseSaga(httpConnection);
 
     expect(genObject.next().value).toEqual(

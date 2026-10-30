@@ -44,7 +44,7 @@ export const MenuPrimeum = () => {
     dispatch(getHouse());
   }, [dispatch]);
 
-  const { house, transport, household, pending } = useSelector((state: IRootState) => state.carbon);
+  const { house, transport, household, pending } = useSelector((state: IRootState) => state.footprint);
 
   const [heatersChecked, setHeatersChecked] = useState(false);
   const [worksChecked, setWorksChecked] = useState(false);
@@ -52,13 +52,13 @@ export const MenuPrimeum = () => {
   const [householdChecked, setHouseholdChecked] = useState(false);
 
   useEffect(() => {
-    if (house?.house?.properties?.heaters && house.house.properties.heaters.length > 0) {
+    if (house?.properties?.heaters && house.properties.heaters.length > 0) {
       setHeatersChecked(true);
     }
-    if (house?.house?.properties?.works && house.house.properties.works.length > 0) {
+    if (house?.properties?.works && house.properties.works.length > 0) {
       setWorksChecked(true);
     }
-    if (transport?.transport?.properties?.cars && transport.transport.properties.cars.length > 0) {
+    if (transport?.properties?.cars && transport.properties.cars.length > 0) {
       setTransportChecked(true);
     }
     if (household) {

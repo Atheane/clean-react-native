@@ -6,3 +6,8 @@ export type IHeaterProps = {
   installationYear: number;
   previousHeatType?: HEATER_TYPE;
 };
+
+export type IFootprintProps = {
+  adultNumber: number;
+  childNumber: number;
+};

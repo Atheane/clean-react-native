@@ -1,4 +1,4 @@
-import { HEATER_TYPE, HEATER_USAGE, HOUSE_STATUS } from '@clean-rn/footprint/domain';
+import { FOOTPRINT_UNIT, HEATER_TYPE, HEATER_USAGE, HOUSE_STATUS } from '@clean-rn/footprint/domain';
 
 export type IAddHeaterDto = {
   date: string;
@@ -10,6 +10,12 @@ export type IAddHeaterDto = {
 export type ICreateHouseDto = {
   userId: string;
   houseStatus: HOUSE_STATUS;
+};
+
+export type ICreateFootprintDto = {
+  userId: string;
+  adultNumber: number;
+  childNumber: number;
 };
 
 export type IHouseDto = {
@@ -25,4 +31,13 @@ export type IHeaterDto = {
   heaterType: HEATER_TYPE;
   heaterUsage: HEATER_USAGE;
   isActive: boolean;
+};
+
+export type IFootprintDto = {
+  adultNumber: number;
+  childNumber: number;
+  endDate: string;
+  startDate: string;
+  userId: number;
+  unit: FOOTPRINT_UNIT;
 };

@@ -137,7 +137,7 @@
         "INVALID_PHONE": "Número de teléfono móvil inválido",
         "CONTACT_ALREADY_EXISTS": "Este contacto ya existe"
       },
-      "footprint-estimation": {
+      "footprint": {
         "INVALID_HOUSE_PROPS": "Propiedades de la casa inválidas",
         "INVALID_TRANSPORT_PROPS": "Propiedades de transporte inválidas",
         "INVALID_FOOD_PROPS": "Propiedades de alimentos inválidas",
@@ -145,7 +145,10 @@
         "INVALID_HEATER_TYPE": "Tipo de calefacción es requerido",
         "INVALID_HEATER_USAGE": "Uso de calefacción es requerido",
         "INVALID_HEATER_DATE": "Fecha de instalación es requerida",
-        "HEATER_ALREADY_EXISTS": "Calefacción ya declarada"
+        "HEATER_ALREADY_EXISTS": "Calefacción ya declarada",
+        "INVALID_ADULT_NUMBER": "El número de adultos debe estar entre 1 y 20",
+        "INVALID_CHILD_NUMBER": "El número de menores debe estar entre 1 y 20",
+        "HOUSEHOLD_ALDREADY_DECLARED": "Hogar ya declarado"
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Faltan documentos para la validación del expediente",

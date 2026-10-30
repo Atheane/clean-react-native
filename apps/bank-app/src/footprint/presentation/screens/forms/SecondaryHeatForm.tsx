@@ -48,7 +48,7 @@ export const SecondaryHeatForm = (props: IProps) => {
 
   const dispatch = useDispatch();
 
-  const { pending, error: domainError } = useSelector((state: IRootState) => state.carbon);
+  const { pending, error: domainError } = useSelector((state: IRootState) => state.footprint);
 
   const handleOnSubmit = async () => {
     dispatch(addHeaters(formData as IHeaterProps));
@@ -56,7 +56,7 @@ export const SecondaryHeatForm = (props: IProps) => {
 
   const [heatersAdded, setHeatersAdded] = useState(false);
 
-  const handleHeatersAdded = useCallback(({ heater }: { heater: Heater }) => {
+  const handleHeatersAdded = useCallback((heater: Heater) => {
     if (heater.properties.heaterUsage === HEATER_USAGE.SECONDARY) {
       setHeatersAdded(true);
     }
@@ -96,7 +96,7 @@ export const SecondaryHeatForm = (props: IProps) => {
           <View style={styles.errorContainer}>
             <ErrorMessage
               error={domainError}
-              errorMessage={t(`errors.domain-error.carbon.${domainError?.code}`)}
+              errorMessage={t(`errors.domain-error.footprint.${domainError?.code}`)}
               genericErrorMessage={t('errors.other')}
             />
           </View>
@@ -121,7 +121,7 @@ export const SecondaryHeatForm = (props: IProps) => {
           <View style={styles.errorContainer}>
             <ErrorMessage
               error={domainError}
-              errorMessage={t(`errors.domain-error.carbon.${domainError?.code}`)}
+              errorMessage={t(`errors.domain-error.footprint.${domainError?.code}`)}
               genericErrorMessage={t('errors.other')}
             />
           </View>
@@ -132,7 +132,7 @@ export const SecondaryHeatForm = (props: IProps) => {
           <View style={styles.errorContainer}>
             <ErrorMessage
               error={domainError}
-              errorMessage={t(`errors.domain-error.carbon.${domainError?.code}`)}
+              errorMessage={t(`errors.domain-error.footprint.${domainError?.code}`)}
               genericErrorMessage={t('errors.other')}
             />
           </View>

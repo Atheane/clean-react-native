@@ -3,33 +3,58 @@ import { IFootprintState } from '../state';
 
 const initialState: IFootprintState = {
   pending: false,
-  house: {
-    data: null,
-    footprint: null,
-    average: null,
-    house: null,
+  estimate: {
+    house: {
+      data: null,
+      footprint: null,
+      average: null,
+    },
+    transport: {
+      data: null,
+      footprint: null,
+      average: null,
+    },
+    food: {
+      data: null,
+      footprint: null,
+      average: null,
+    },
+    fly: {
+      data: null,
+      footprint: null,
+      average: null,
+    },
   },
-  transport: {
-    data: null,
-    footprint: null,
-    average: null,
-  },
-  food: {
-    data: null,
-    footprint: null,
-    average: null,
-  },
-  fly: {
-    data: null,
-    footprint: null,
-    average: null,
-  },
+  footprint: null,
+  house: null,
   error: null,
 };
 
 export const footprintReducer = (state = initialState, action: IFootprintActions) => {
   let newState: IFootprintState;
   switch (action.type) {
+    case IFootprintTypes.CREATE_FOOTPRINT:
+      newState = {
+        ...state,
+        pending: true,
+        error: null,
+      };
+      return newState;
+    case IFootprintTypes.FOOTPRINT_CREATED:
+      newState = {
+        ...state,
+        pending: false,
+        footprint: action.payload,
+        error: null,
+      };
+      return newState;
+    case IFootprintTypes.FOOTPRINT_NOT_CREATED:
+      newState = {
+        ...state,
+        pending: false,
+        error: action.payload,
+      };
+      return newState;
     case IFootprintTypes.GET_HOUSE:
       newState = {
         ...state,
@@ -48,10 +73,7 @@ export const footprintReducer = (state = initialState, action: IFootprintActions
       newState = {
         ...state,
         pending: false,
-        house: {
-          ...state.house,
-          house: action.payload,
-        },
+        house: action.payload,
         error: null,
       };
       return newState;
@@ -59,10 +81,7 @@ export const footprintReducer = (state = initialState, action: IFootprintActions
       newState = {
         ...state,
         pending: false,
-        house: {
-          ...state.house,
-          house: action.payload,
-        },
+        house: action.payload,
         error: null,
       };
       return newState;
@@ -70,9 +89,6 @@ export const footprintReducer = (state = initialState, action: IFootprintActions
       newState = {
         ...state,
         pending: false,
-        house: {
-          ...state.house,
-        },
         error: action.payload,
       };
       return newState;
@@ -80,9 +96,12 @@ export const footprintReducer = (state = initialState, action: IFootprintActions
       newState = {
         ...state,
         pending: true,
-        house: {
-          ...state.house,
-          data: action.payload,
+        estimate: {
+          ...state.estimate,
+          house: {
+            ...state.estimate.house,
+            data: action.payload,
+          },
         },
         error: null,
       };
@@ -91,9 +110,12 @@ export const footprintReducer = (state = initialState, action: IFootprintActions
       newState = {
         ...state,
         pending: false,
-        house: {
-          ...state.house,
-          ...action.payload,
+        estimate: {
+          ...state.estimate,
+          house: {
+            ...state.estimate.house,
+            ...action.payload,
+          },
         },
         error: null,
       };
@@ -102,11 +124,13 @@ export const footprintReducer = (state = initialState, action: IFootprintActions
       newState = {
         ...state,
         pending: false,
-        house: {
-          data: null,
-          footprint: null,
-          average: null,
-          house: null,
+        estimate: {
+          ...state.estimate,
+          house: {
+            data: null,
+            footprint: null,
+            average: null,
+          },
         },
         error: null,
       };
@@ -115,9 +139,12 @@ export const footprintReducer = (state = initialState, action: IFootprintActions
       newState = {
         ...state,
         pending: true,
-        transport: {
-          ...state.transport,
-          data: action.payload,
+        estimate: {
+          ...state.estimate,
+          transport: {
+            ...state.estimate.transport,
+            data: action.payload,
+          },
         },
         error: null,
       };
@@ -126,9 +153,12 @@ export const footprintReducer = (state = initialState, action: IFootprintActions
       newState = {
         ...state,
         pending: false,
-        transport: {
-          ...state.transport,
-          ...action.payload,
+        estimate: {
+          ...state.estimate,
+          transport: {
+            ...state.estimate.transport,
+            ...action.payload,
+          },
         },
         error: null,
       };
@@ -137,10 +167,13 @@ export const footprintReducer = (state = initialState, action: IFootprintActions
       newState = {
         ...state,
         pending: false,
-        transport: {
-          data: null,
-          footprint: null,
-          average: null,
+        estimate: {
+          ...state.estimate,
+          transport: {
+            data: null,
+            footprint: null,
+            average: null,
+          },
         },
         error: null,
       };
@@ -149,9 +182,12 @@ export const footprintReducer = (state = initialState, action: IFootprintActions
       newState = {
         ...state,
         pending: true,
-        food: {
-          ...state.food,
-          data: action.payload,
+        estimate: {
+          ...state.estimate,
+          food: {
+            ...state.estimate.food,
+            data: action.payload,
+          },
         },
         error: null,
       };
@@ -160,9 +196,12 @@ export const footprintReducer = (state = initialState, action: IFootprintActions
       newState = {
         ...state,
         pending: false,
-        food: {
-          ...state.food,
-          ...action.payload,
+        estimate: {
+          ...state.estimate,
+          food: {
+            ...state.estimate.food,
+            ...action.payload,
+          },
         },
         error: null,
       };
@@ -171,10 +210,13 @@ export const footprintReducer = (state = initialState, action: IFootprintActions
       newState = {
         ...state,
         pending: false,
-        food: {
-          data: null,
-          footprint: null,
-          average: null,
+        estimate: {
+          ...state.estimate,
+          food: {
+            data: null,
+            footprint: null,
+            average: null,
+          },
         },
         error: null,
       };
@@ -183,9 +225,12 @@ export const footprintReducer = (state = initialState, action: IFootprintActions
       newState = {
         ...state,
         pending: true,
-        fly: {
-          ...state.fly,
-          data: action.payload,
+        estimate: {
+          ...state.estimate,
+          fly: {
+            ...state.estimate.fly,
+            data: action.payload,
+          },
         },
         error: null,
       };
@@ -194,9 +239,12 @@ export const footprintReducer = (state = initialState, action: IFootprintActions
       newState = {
         ...state,
         pending: false,
-        fly: {
-          ...state.fly,
-          ...action.payload,
+        estimate: {
+          ...state.estimate,
+          fly: {
+            ...state.estimate.fly,
+            ...action.payload,
+          },
         },
         error: null,
       };
@@ -205,10 +253,13 @@ export const footprintReducer = (state = initialState, action: IFootprintActions
       newState = {
         ...state,
         pending: false,
-        fly: {
-          data: null,
-          footprint: null,
-          average: null,
+        estimate: {
+          ...state.estimate,
+          fly: {
+            data: null,
+            footprint: null,
+            average: null,
+          },
         },
         error: null,
       };

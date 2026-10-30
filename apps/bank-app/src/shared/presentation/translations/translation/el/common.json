@@ -145,7 +145,10 @@
         "INVALID_HEATER_TYPE": "Απαιτείται τύπος θέρμανσης",
         "INVALID_HEATER_USAGE": "Απαιτείται χρήση θέρμανσης",
         "INVALID_HEATER_DATE": "Απαιτείται ημερομηνία εγκατάστασης",
-        "HEATER_ALREADY_EXISTS": "Η θέρμανση έχει ήδη δηλωθεί"
+        "HEATER_ALREADY_EXISTS": "Η θέρμανση έχει ήδη δηλωθεί",
+        "INVALID_ADULT_NUMBER": "Ο αριθμός των ενηλίκων πρέπει να είναι μεταξύ 1 και 20",
+        "INVALID_CHILD_NUMBER": "Ο αριθμός των ανηλίκων πρέπει να είναι μεταξύ 1 και 20",
+        "HOUSEHOLD_ALDREADY_DECLARED": "Το νοικοκυριό έχει ήδη δηλωθεί"
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Έγγραφα επαλήθευσης ταυτότητας λείπουν",

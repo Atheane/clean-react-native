@@ -16,7 +16,7 @@ export const TransportFootprintEstimation = () => {
   const { t } = useTranslation();
 
   // init values with previous stored values
-  const { data } = useSelector((state: IRootState) => state.carbon.transport);
+  const { data } = useSelector((state: IRootState) => state.footprint.estimate.transport);
 
   // formData
   const { disabled, formData, resetFormData, handleFormData } = useTransportFormData(data);

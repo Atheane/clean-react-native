@@ -18,7 +18,7 @@ export const Works = () => {
   const { t } = useTranslation();
 
   // init values with previous stored values
-  const { data } = useSelector((state: IRootState) => state.carbon.house);
+  const { data } = useSelector((state: IRootState) => state.footprint.estimate.house);
   // formData
   const { disabled, formData, resetFormData, handleFormData } = useHouseFormData(data);
 

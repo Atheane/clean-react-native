@@ -91,27 +91,30 @@ describe('Compute emissions - integration', () => {
   beforeEach(() => {
     const initialState: IFootprintState = {
       pending: false,
-      house: {
-        data: null,
-        footprint: null,
-        average: null,
-        house: null,
+      estimate: {
+        house: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        food: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
       },
-      transport: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      food: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      fly: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
+      house: null,
+      footprint: null,
       error: null,
     };
     sagaTester = new SagaTester({
@@ -133,27 +136,30 @@ describe('Compute emissions - integration', () => {
 
     expect(newState).toEqual({
       pending: true,
-      house: {
-        data: mockHouseData,
-        footprint: null,
-        average: null,
-        house: null,
+      estimate: {
+        house: {
+          data: mockHouseData,
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        food: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
       },
-      transport: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      food: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      fly: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
+      house: null,
+      footprint: null,
       error: null,
     });
   });
@@ -170,27 +176,30 @@ describe('Compute emissions - integration', () => {
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      house: {
-        data: mockHouseData,
-        footprint: houseCarbonFootprint.value,
-        average: houseCarbonFootprint.valueAverage,
-        house: null,
+      estimate: {
+        house: {
+          data: mockHouseData,
+          footprint: houseCarbonFootprint.value,
+          average: houseCarbonFootprint.valueAverage,
+        },
+        transport: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        food: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
       },
-      transport: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      food: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      fly: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
+      house: null,
+      footprint: null,
       error: null,
     });
   });
@@ -202,27 +211,30 @@ describe('Compute emissions - integration', () => {
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      house: {
-        data: null,
-        footprint: null,
-        average: null,
-        house: null,
+      estimate: {
+        house: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        food: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
       },
-      transport: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      food: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      fly: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
+      house: null,
+      footprint: null,
       error: null,
     });
   });
@@ -235,27 +247,30 @@ describe('Compute emissions - integration', () => {
 
     expect(newState).toEqual({
       pending: true,
-      house: {
-        data: null,
-        footprint: null,
-        average: null,
-        house: null,
+      estimate: {
+        house: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          data: mockTransportData,
+          footprint: null,
+          average: null,
+        },
+        food: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
       },
-      transport: {
-        data: mockTransportData,
-        footprint: null,
-        average: null,
-      },
-      food: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      fly: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
+      house: null,
+      footprint: null,
       error: null,
     });
   });
@@ -272,27 +287,30 @@ describe('Compute emissions - integration', () => {
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      house: {
-        data: null,
-        footprint: null,
-        average: null,
-        house: null,
+      estimate: {
+        house: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          data: mockTransportData,
+          footprint: transportCarbonFootprint.value,
+          average: transportCarbonFootprint.valueAverage,
+        },
+        food: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
       },
-      transport: {
-        data: mockTransportData,
-        footprint: transportCarbonFootprint.value,
-        average: transportCarbonFootprint.valueAverage,
-      },
-      food: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      fly: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
+      house: null,
+      footprint: null,
       error: null,
     });
   });
@@ -304,27 +322,30 @@ describe('Compute emissions - integration', () => {
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      house: {
-        data: null,
-        footprint: null,
-        average: null,
-        house: null,
+      estimate: {
+        house: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        food: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
       },
-      transport: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      food: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      fly: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
+      house: null,
+      footprint: null,
       error: null,
     });
   });
@@ -337,27 +358,30 @@ describe('Compute emissions - integration', () => {
 
     expect(newState).toEqual({
       pending: true,
-      house: {
-        data: null,
-        footprint: null,
-        average: null,
-        house: null,
+      estimate: {
+        house: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        food: {
+          data: mockFoodData,
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
       },
-      transport: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      food: {
-        data: mockFoodData,
-        footprint: null,
-        average: null,
-      },
-      fly: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
+      house: null,
+      footprint: null,
       error: null,
     });
   });
@@ -374,27 +398,30 @@ describe('Compute emissions - integration', () => {
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      house: {
-        data: null,
-        footprint: null,
-        average: null,
-        house: null,
+      estimate: {
+        house: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        food: {
+          data: mockFoodData,
+          footprint: foodCarbonFootprint.value,
+          average: foodCarbonFootprint.valueAverage,
+        },
+        fly: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
       },
-      transport: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      food: {
-        data: mockFoodData,
-        footprint: foodCarbonFootprint.value,
-        average: foodCarbonFootprint.valueAverage,
-      },
-      fly: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
+      house: null,
+      footprint: null,
       error: null,
     });
   });
@@ -406,27 +433,30 @@ describe('Compute emissions - integration', () => {
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      house: {
-        data: null,
-        footprint: null,
-        average: null,
-        house: null,
+      estimate: {
+        house: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        food: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
       },
-      transport: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      food: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      fly: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
+      house: null,
+      footprint: null,
       error: null,
     });
   });
@@ -439,27 +469,30 @@ describe('Compute emissions - integration', () => {
 
     expect(newState).toEqual({
       pending: true,
-      house: {
-        data: null,
-        footprint: null,
-        average: null,
-        house: null,
+      estimate: {
+        house: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        food: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          data: [mockFlyData1, mockFlyData2],
+          footprint: null,
+          average: null,
+        },
       },
-      transport: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      food: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      fly: {
-        data: [mockFlyData1, mockFlyData2],
-        footprint: null,
-        average: null,
-      },
+      house: null,
+      footprint: null,
       error: null,
     });
   });
@@ -476,27 +509,30 @@ describe('Compute emissions - integration', () => {
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      house: {
-        data: null,
-        footprint: null,
-        average: null,
-        house: null,
+      estimate: {
+        house: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        food: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          data: [mockFlyData1, mockFlyData2],
+          footprint: flyCarbonFootprint1.value + flyCarbonFootprint2.value,
+          average: flyCarbonFootprint1.valueAverage,
+        },
       },
-      transport: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      food: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      fly: {
-        data: [mockFlyData1, mockFlyData2],
-        footprint: flyCarbonFootprint1.value + flyCarbonFootprint2.value,
-        average: flyCarbonFootprint1.valueAverage,
-      },
+      house: null,
+      footprint: null,
       error: null,
     });
   });
@@ -508,27 +544,30 @@ describe('Compute emissions - integration', () => {
 
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      house: {
-        data: null,
-        footprint: null,
-        average: null,
-        house: null,
+      estimate: {
+        house: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        food: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
       },
-      transport: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      food: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      fly: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
+      house: null,
+      footprint: null,
       error: null,
     });
   });

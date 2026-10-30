@@ -7,10 +7,12 @@ import {
   IFootprintService,
   ICreateHouseCommand,
   ISearchHouseQuery,
+  ICreateFootprintCommand,
+  Footprint,
 } from '@clean-rn/footprint/domain';
 import { House } from '@clean-rn/footprint/domain';
-import { IHouseDto } from '../dtos';
-import { HouseMapper, HeaterMapper } from '../mappers';
+import { IFootprintDto, IHouseDto } from '../dtos';
+import { HouseMapper, HeaterMapper, FootprintMapper } from '../mappers';
 
 export class FootprintApi implements IFootprintRepository, IFootprintService {
   private static instance: FootprintApi | null = null;
@@ -23,6 +25,7 @@ export class FootprintApi implements IFootprintRepository, IFootprintService {
     this.createHouse = this.createHouse.bind(this);
     this.addHeater = this.addHeater.bind(this);
     this.addHeaters = this.addHeaters.bind(this);
+    this.createFootprint = this.createFootprint.bind(this);
   }
 
   // Public method to provide access to the singleton instance
@@ -75,5 +78,16 @@ export class FootprintApi implements IFootprintRepository, IFootprintService {
     );
     const results: House[] = await Promise.all(addHeaterPromises);
     return results[results.length - 1];
+  }
+
+  async createFootprint(cmd: ICreateFootprintCommand): Promise<Footprint> {
+    const dto = FootprintMapper.toDto(cmd);
+    const response = await fetch(
+      `${this.connection.baseUrl}/app/footprint`,
+      this.connection.options(IHttpVerb.POST, dto),
+    );
+    await this.connection.handleError(response);
+    const footprintDto: IFootprintDto = await response.json();
+    return FootprintMapper.toDomain(footprintDto);
   }
 }

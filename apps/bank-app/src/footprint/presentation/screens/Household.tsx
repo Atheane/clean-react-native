@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
+import { DomainEventManager } from '@clean-rn/ddd';
+import { Footprint, FOOTPRINT_EVENTS, IFootprintErrorCodes } from '@clean-rn/footprint/domain';
 
 import {
   Colors,
@@ -12,10 +14,14 @@ import {
   SelectNumber,
   Group2,
   SubmitButton,
+  ErrorMessage,
 } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { createFootprint, initializeFootprint } from '../../application/commands';
+import { IFootprintProps } from '../types';
+import { IFootprintStackPages } from '../../../shared/presentation/types';
 
 export const Household = () => {
   const { t } = useTranslation();
@@ -30,23 +36,53 @@ export const Household = () => {
   const changeStep = (position: number) =>
     console.log('Navigation set to: ' + position + ' - ' + STEPS[position - 1]);
 
-  const { user, pending } = useSelector((state: IRootState) => state.user);
+  const { user, pending: pendingUser } = useSelector((state: IRootState) => state.user);
   const navigation = useNavigation();
 
-  // const [formData, setFormData] = useState<Partial<IHouseholdProps>>();
+  const dispatch = useDispatch();
 
-  const handleChangeForm = (value: number) => {
-    // const newFormData = { ...formData, usage: HEATER_USAGE.MAIN, [key]: value };
-    console.log(value);
-    // setFormData(newFormData);
-    // dispatch(initializeFootprint());
+  const [formData, setFormData] = useState<Partial<IFootprintProps>>({
+    adultNumber: 1,
+    childNumber: 0,
+  });
+
+  const handleChangeAdult = (value: number) => {
+    const newFormData = { ...formData, adultNumber: value };
+    setFormData(newFormData);
+    dispatch(initializeFootprint());
+  };
+
+  const handleChangeChild = (value: number) => {
+    const newFormData = { ...formData, childNumber: value };
+    setFormData(newFormData);
+    dispatch(initializeFootprint());
   };
 
   const handleOnSubmit = () => {
-    console.log('dispatch(createHousehold(formData))');
+    dispatch(createFootprint(formData as IFootprintProps));
   };
 
-  return pending ? (
+  const handleFootprintCreated = useCallback(
+    (footprint: Footprint) => {
+      console.log(footprint);
+      navigation.navigate(IFootprintStackPages.MENU_PRIMEUM as never);
+    },
+    [navigation],
+  );
+
+  useEffect(() => {
+    const domainEventManager = DomainEventManager.getInstance();
+    domainEventManager.on(FOOTPRINT_EVENTS.FOOTPRINT_CREATED, handleFootprintCreated);
+    return () => {
+      domainEventManager.off(FOOTPRINT_EVENTS.FOOTPRINT_CREATED, handleFootprintCreated);
+    };
+  }, [handleFootprintCreated]);
+
+  const { pending: pendingFootprint, error: domainError } = useSelector(
+    (state: IRootState) => state.footprint,
+  );
+
+  return pendingUser && pendingFootprint ? (
     <LoaderSplashScreen />
   ) : (
     <ErrorBoundary t={t}>
@@ -68,18 +104,51 @@ export const Household = () => {
             <SelectNumber
               label={t('screens.household-primeum.adults')}
               icon={Group2}
-              onChange={handleChangeForm}
+              onChange={handleChangeAdult}
+              value={formData.adultNumber}
             />
           </View>
+          {domainError && domainError.code === IFootprintErrorCodes.INVALID_ADULT_NUMBER && (
+            <View style={styles.rowContainer}>
+              <ErrorMessage
+                error={domainError}
+                errorMessage={t(`errors.domain-error.footprint.${domainError?.code}`)}
+                genericErrorMessage={t('errors.other')}
+              />
+            </View>
+          )}
           <View style={styles.rowContainer}>
             <SelectNumber
               label={t('screens.household-primeum.minors')}
               icon={Group2}
-              onChange={handleChangeForm}
+              onChange={handleChangeChild}
+              value={formData.childNumber}
             />
           </View>
+          {domainError && domainError.code === IFootprintErrorCodes.INVALID_CHILD_NUMBER && (
+            <View style={styles.rowContainer}>
+              <ErrorMessage
+                error={domainError}
+                errorMessage={t(`errors.domain-error.footprint.${domainError?.code}`)}
+                genericErrorMessage={t('errors.other')}
+              />
+            </View>
+          )}
+          {domainError && domainError.code === IFootprintErrorCodes.HOUSEHOLD_ALDREADY_DECLARED && (
+            <View style={styles.rowContainer}>
+              <ErrorMessage
+                error={domainError}
+                errorMessage={t(`errors.domain-error.footprint.${domainError?.code}`)}
+                genericErrorMessage={t('errors.other')}
+              />
+            </View>
+          )}
           <View style={[styles.rowContainer, { marginTop: 50, marginBottom: 300 }]}>
-            <SubmitButton title={t('screens.household-primeum.submit')} onSubmit={handleOnSubmit} />
+            <SubmitButton
+              title={t('screens.household-primeum.submit')}
+              onSubmit={handleOnSubmit}
+              uppercase={false}
+            />
           </View>
         </View>
       </SafeScrollingView>

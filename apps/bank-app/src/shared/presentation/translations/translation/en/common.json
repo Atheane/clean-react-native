@@ -137,7 +137,7 @@
         "INVALID_PHONE": "Invalid mobile phone number",
         "CONTACT_ALREADY_EXISTS": "This contact already exists"
       },
-      "footprint-estimation": {
+      "footprint": {
         "INVALID_HOUSE_PROPS": "Invalid house properties",
         "INVALID_TRANSPORT_PROPS": "Invalid transport properties",
         "INVALID_FOOD_PROPS": "Invalid food properties",
@@ -145,7 +145,10 @@
         "INVALID_HEATER_TYPE": "Heater type is required",
         "INVALID_HEATER_USAGE": "Heater usage is required",
         "INVALID_HEATER_DATE": "Installation date is required",
-        "HEATER_ALREADY_EXISTS": "Heater already declared"
+        "HEATER_ALREADY_EXISTS": "Heater already declared",
+        "INVALID_ADULT_NUMBER": "The number of adults must be between 1 and 20",
+        "INVALID_CHILD_NUMBER": "The number of minors must be between 1 and 20",
+        "HOUSEHOLD_ALDREADY_DECLARED": "Household already declared"
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Missing documents for validation",

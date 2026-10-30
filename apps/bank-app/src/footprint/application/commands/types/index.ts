@@ -1,7 +1,7 @@
 import { IDomainError } from '@clean-rn/ddd';
 import { HouseT, VehicleConsumptionT, FoodConsumptionT, FlightI } from '@bank/carbon-weight/dist';
-import { House, IFootprintErrorCodes, IFootprintErrorMessage } from '@clean-rn/footprint/domain';
-import { IHeaterProps } from '../../../presentation/types';
+import { House, IFootprintErrorCodes, IFootprintErrorMessage, Footprint } from '@clean-rn/footprint/domain';
+import { IFootprintProps, IHeaterProps } from '../../../presentation/types';
 
 export enum IFootprintTypes {
   // Estimate footprint
@@ -23,6 +23,9 @@ export enum IFootprintTypes {
   ADD_HEATERS = 'ADD_HEATERS',
   HEATERS_ADDED = 'HEATERS_ADDED',
   HEATERS_NOT_ADDED = 'HEATERS_NOT_ADDED',
+  CREATE_FOOTPRINT = 'CREATE_FOOTPRINT',
+  FOOTPRINT_CREATED = 'FOOTPRINT_CREATED',
+  FOOTPRINT_NOT_CREATED = 'FOOTPRINT_NOT_CREATED',
   INITIALIZE_FOOTPRINT = 'INITIALIZE_FOOTPRINT',
 }
 
@@ -94,11 +97,6 @@ export type IInitializeFlyEmissions = {
   type: typeof IFootprintTypes.INITIALIZE_FLY_EMISSIONS;
 };
 
-export type IHouseCreated = {
-  type: typeof IFootprintTypes.HOUSE_CREATED;
-  payload: House;
-};
-
 export type IAddHeaters = {
   type: typeof IFootprintTypes.ADD_HEATERS;
   payload: IHeaterProps;
@@ -122,6 +120,26 @@ export type IGetHouse = {
   type: typeof IFootprintTypes.GET_HOUSE;
 };
 
+export type IHouseCreated = {
+  type: typeof IFootprintTypes.HOUSE_CREATED;
+  payload: House;
+};
+
+export type ICreateFootprint = {
+  type: typeof IFootprintTypes.CREATE_FOOTPRINT;
+  payload: IFootprintProps;
+};
+
+export type IFootprintCreated = {
+  type: typeof IFootprintTypes.FOOTPRINT_CREATED;
+  payload: Footprint;
+};
+
+export type IFootprintNotCreated = {
+  type: typeof IFootprintTypes.FOOTPRINT_NOT_CREATED;
+  payload: IDomainError<IFootprintErrorCodes, IFootprintErrorMessage>;
+};
+
 export type IFootprintActions =
   | IComputeHouseEmissions
   | IHouseEmissionsComputed
@@ -140,4 +158,7 @@ export type IFootprintActions =
   | IHouseCreated
   | IHeatersNotAdded
   | IInitializeFootprint
-  | IGetHouse;
+  | IGetHouse
+  | ICreateFootprint
+  | IFootprintCreated
+  | IFootprintNotCreated;

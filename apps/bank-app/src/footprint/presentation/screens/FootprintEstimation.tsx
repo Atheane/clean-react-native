@@ -68,7 +68,7 @@ export const FootprintEstimation = () => {
 
   // house
   const { footprint: houseEmissionsFromRedux, average: averageHouseEmissionsFromRedux } = useSelector(
-    (state: IRootState) => state.carbon.house,
+    (state: IRootState) => state.footprint.estimate.house,
   );
   const houseEmissions = useReduxOverStorageValue(houseEmissionsFromStorage, houseEmissionsFromRedux);
   const averageHouseEmissions = useReduxOverStorageValue(
@@ -78,7 +78,7 @@ export const FootprintEstimation = () => {
 
   // transport
   const { footprint: transportEmissionsFromRedux, average: averageTransportEmissionsFromRedux } = useSelector(
-    (state: IRootState) => state.carbon.transport,
+    (state: IRootState) => state.footprint.estimate.transport,
   );
   const transportEmissions = useReduxOverStorageValue(
     transportEmissionsFromStorage,
@@ -91,7 +91,7 @@ export const FootprintEstimation = () => {
 
   // food
   const { footprint: foodEmissionsFromRedux, average: averageFoodEmissionsFromRedux } = useSelector(
-    (state: IRootState) => state.carbon.food,
+    (state: IRootState) => state.footprint.estimate.food,
   );
   const foodEmissions = useReduxOverStorageValue(foodEmissionsFromStorage, foodEmissionsFromRedux);
   const averageFoodEmissions = useReduxOverStorageValue(
@@ -101,7 +101,7 @@ export const FootprintEstimation = () => {
 
   // fly
   const { footprint: flyEmissionsFromRedux, average: averageFlyEmissionsFromRedux } = useSelector(
-    (state: IRootState) => state.carbon.fly,
+    (state: IRootState) => state.footprint.estimate.fly,
   );
   const flyEmissions = useReduxOverStorageValue(flyEmissionsFromStorage, flyEmissionsFromRedux);
   const averageFlyEmissions = useReduxOverStorageValue(

@@ -54,27 +54,30 @@ describe('AddHeaters footprint - integration', () => {
   beforeEach(() => {
     const initialState: IFootprintState = {
       pending: false,
-      house: {
-        data: null,
-        footprint: null,
-        average: null,
-        house: null,
+      estimate: {
+        house: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        food: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
       },
-      transport: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      food: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      fly: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
+      house: null,
+      footprint: null,
       error: null,
     };
     sagaTester = new SagaTester({
@@ -91,27 +94,30 @@ describe('AddHeaters footprint - integration', () => {
 
     expect(newState).toEqual({
       pending: true,
-      house: {
-        data: null,
-        footprint: null,
-        average: null,
-        house: null,
+      estimate: {
+        house: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        food: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
       },
-      transport: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      food: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      fly: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
+      house: null,
+      footprint: null,
       error: null,
     });
   });
@@ -122,27 +128,30 @@ describe('AddHeaters footprint - integration', () => {
     sagaTester.dispatch(houseCreated(mockHouse));
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      house: {
-        data: null,
-        footprint: null,
-        average: null,
-        house: mockHouse,
+      estimate: {
+        house: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        food: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
       },
-      transport: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      food: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      fly: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
+      house: mockHouse,
+      footprint: null,
       error: null,
     });
   });
@@ -171,27 +180,30 @@ describe('AddHeaters footprint - integration', () => {
     sagaTester.dispatch(heatersAdded(houseWitHeaters));
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      house: {
-        data: null,
-        footprint: null,
-        average: null,
-        house: houseWitHeaters,
+      estimate: {
+        house: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        food: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
       },
-      transport: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      food: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      fly: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
+      house: houseWitHeaters,
+      footprint: null,
       error: null,
     });
   });
@@ -203,27 +215,30 @@ describe('AddHeaters footprint - integration', () => {
     sagaTester.dispatch(heatersNotAdded(new FootprintError.HeaterAlreadyExists('heaterId')));
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      house: {
-        data: null,
-        footprint: null,
-        average: null,
-        house: mockHouse,
+      estimate: {
+        house: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        food: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
       },
-      transport: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      food: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      fly: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
+      house: mockHouse,
+      footprint: null,
       error: new FootprintError.HeaterAlreadyExists('heaterId'),
     });
   });
@@ -235,27 +250,30 @@ describe('AddHeaters footprint - integration', () => {
     sagaTester.dispatch(initializeFootprint());
     expect(sagaTester.getState()).toEqual({
       pending: false,
-      house: {
-        data: null,
-        footprint: null,
-        average: null,
-        house: mockHouse,
+      estimate: {
+        house: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        food: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
       },
-      transport: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      food: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
-      fly: {
-        data: null,
-        footprint: null,
-        average: null,
-      },
+      house: mockHouse,
+      footprint: null,
       error: null,
     });
   });

@@ -20,3 +20,7 @@ export enum HOUSE_STATUS {
   OCCUPIED = 'OCCUPIED',
   LEFT = 'LEFT',
 }
+
+export enum FOOTPRINT_UNIT {
+  CO2 = 'CO2',
+}

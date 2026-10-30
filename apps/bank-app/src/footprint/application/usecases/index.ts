@@ -4,6 +4,7 @@ import { computeFoodEmissionsSaga } from './compute-food-emissions';
 import { computeFlyEmissionsSaga } from './compute-fly-emissions';
 import { addHeatersSaga } from './add-heaters';
 import { getHouseSaga } from './get-house';
+import { createFootprintSaga } from './create-footprint';
 export {
   computeHouseEmissionsSaga,
   computeTransportEmissionsSaga,
@@ -11,4 +12,5 @@ export {
   computeFlyEmissionsSaga,
   addHeatersSaga,
   getHouseSaga,
+  createFootprintSaga,
 };

@@ -21,9 +21,12 @@ import {
   IHeatersNotAdded,
   IInitializeFootprint,
   IGetHouse,
+  ICreateFootprint,
+  IFootprintCreated,
+  IFootprintNotCreated,
 } from './types';
-import { House, IFootprintErrorCodes, IFootprintErrorMessage } from '@clean-rn/footprint/domain';
-import { IHeaterProps } from '../../presentation/types';
+import { House, IFootprintErrorCodes, IFootprintErrorMessage, Footprint } from '@clean-rn/footprint/domain';
+import { IFootprintProps, IHeaterProps } from '../../presentation/types';
 import { IDomainError } from '@clean-rn/ddd';
 
 // commands
@@ -129,6 +132,23 @@ export const initializeFootprint = (): IInitializeFootprint => ({
 
 export const getHouse = (): IGetHouse => ({
   type: IFootprintTypes.GET_HOUSE,
+});
+
+export const createFootprint = (payload: IFootprintProps): ICreateFootprint => ({
+  type: IFootprintTypes.CREATE_FOOTPRINT,
+  payload,
+});
+
+export const footprintCreated = (payload: Footprint): IFootprintCreated => ({
+  type: IFootprintTypes.FOOTPRINT_CREATED,
+  payload,
+});
+
+export const footprintNotCreated = (
+  payload: IDomainError<IFootprintErrorCodes, IFootprintErrorMessage>,
+): IFootprintNotCreated => ({
+  type: IFootprintTypes.FOOTPRINT_NOT_CREATED,
+  payload,
 });
 
 export { IFootprintActions, IFootprintTypes };

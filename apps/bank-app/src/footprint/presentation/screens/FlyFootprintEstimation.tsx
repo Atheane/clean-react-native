@@ -28,7 +28,7 @@ export const FlyFootprintEstimation = () => {
   const { theme } = useTheme();
 
   // init values with previous stored values
-  const { data } = useSelector((state: IRootState) => state.carbon.fly);
+  const { data } = useSelector((state: IRootState) => state.footprint.estimate.fly);
 
   const { flight, flights, handleChangeField, handleOnAddFlight, handleRemoveFlight } = useFlyFormData(data);
 

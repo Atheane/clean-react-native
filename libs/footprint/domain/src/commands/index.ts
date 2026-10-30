@@ -1,6 +1,6 @@
 import { House } from '../entities';
 import { HOUSE_STATUS } from '../enums';
-import { HeaterVO } from '../value-objects';
+import { HeaterVO, FootprintVO } from '../value-objects';
 
 export type IAddHeaterCommand = {
   house: House;
@@ -15,4 +15,9 @@ export type IAddHeatersCommand = {
 export type ICreateHouseCommand = {
   userId: string;
   houseStatus: HOUSE_STATUS;
+};
+
+export type ICreateFootprintCommand = {
+  userId: string;
+  footprint: FootprintVO;
 };

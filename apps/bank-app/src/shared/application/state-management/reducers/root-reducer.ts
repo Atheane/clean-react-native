@@ -30,7 +30,7 @@ export const rootReducer = combineReducers({
   }),
   transaction: transactionsReducer,
   beneficiary: combineReducers({ beneficiaries: beneficiaryReducer, contacts: contactReducer }),
-  carbon: footprintReducer,
+  footprint: footprintReducer,
   kyc: combineReducers({ customer: customerReducer, document: documentReducer }),
   device: deviceReducer,
   card: cardReducer,

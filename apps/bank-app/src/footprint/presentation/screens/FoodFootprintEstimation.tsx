@@ -18,7 +18,7 @@ export const FoodFootprintEstimation = () => {
   const { theme } = useTheme();
 
   // init values with previous stored values
-  const { data } = useSelector((state: IRootState) => state.carbon.food);
+  const { data } = useSelector((state: IRootState) => state.footprint.estimate.food);
   // formData
   const { disabled, formData, handleFormData } = useFoodFormData(data);
 

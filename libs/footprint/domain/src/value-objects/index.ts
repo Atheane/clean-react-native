@@ -3,4 +3,5 @@ import { TransportEmissions } from './TransportEmissions';
 import { FoodEmissions } from './FoodEmissions';
 import { FlyEmissions } from './FlyEmissions';
 import { HeaterVO } from './HeaterVO';
-export { HouseEmissions, TransportEmissions, FoodEmissions, FlyEmissions, HeaterVO };
+import { FootprintVO } from './FootprintVO';
+export { HouseEmissions, TransportEmissions, FoodEmissions, FlyEmissions, HeaterVO, FootprintVO };

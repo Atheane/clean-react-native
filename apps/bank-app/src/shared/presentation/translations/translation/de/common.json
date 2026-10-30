@@ -145,7 +145,10 @@
         "INVALID_HEATER_TYPE": "Heizungstyp ist erforderlich",
         "INVALID_HEATER_USAGE": "Heizungsverwendung ist erforderlich",
         "INVALID_HEATER_DATE": "Die Installationsdatum ist erforderlich",
-        "HEATER_ALREADY_EXISTS": "Heizung bereits deklariert"
+        "HEATER_ALREADY_EXISTS": "Heizung bereits deklariert",
+        "INVALID_ADULT_NUMBER": "Die Anzahl der Erwachsenen muss zwischen 1 und 20 liegen",
+        "INVALID_CHILD_NUMBER": "Die Anzahl der Minderjährigen muss zwischen 1 und 20 liegen",
+        "HOUSEHOLD_ALDREADY_DECLARED": "Haushalt bereits erklärt"
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Dokumente zur Kontoverifizierung fehlen",

@@ -10,6 +10,9 @@ export enum IFootprintErrorCodes {
   INVALID_HEATER_TYPE = 'INVALID_HEATER_TYPE',
   INVALID_HEATER_USAGE = 'INVALID_HEATER_USAGE',
   HEATER_ALREADY_EXISTS = 'HEATER_ALREADY_EXISTS',
+  INVALID_ADULT_NUMBER = 'INVALID_ADULT_NUMBER',
+  INVALID_CHILD_NUMBER = 'INVALID_CHILD_NUMBER',
+  HOUSEHOLD_ALDREADY_DECLARED = 'HOUSEHOLD_ALDREADY_DECLARED',
 }
 
 export enum IFootprintErrorMessage {
@@ -21,6 +24,9 @@ export enum IFootprintErrorMessage {
   INVALID_HEATER_TYPE = 'Invalid Heater Type',
   INVALID_HEATER_USAGE = 'Invalid Heater Usage',
   HEATER_ALREADY_EXISTS = 'Heater already exists',
+  INVALID_ADULT_NUMBER = 'Invalid Adult Number',
+  INVALID_CHILD_NUMBER = 'Invalid Child Number',
+  HOUSEHOLD_ALDREADY_DECLARED = 'Household aldready declared',
 }
 
 export namespace FootprintError {
@@ -141,6 +147,51 @@ export namespace FootprintError {
       super();
       this.code = IFootprintErrorCodes.HEATER_ALREADY_EXISTS;
       this.message = IFootprintErrorMessage.HEATER_ALREADY_EXISTS;
+      this.cause = cause;
+    }
+  }
+  export class InvalidAdultNumber
+    extends Error
+    implements IDomainError<IFootprintErrorCodes, IFootprintErrorMessage>
+  {
+    code: IFootprintErrorCodes;
+    message: IFootprintErrorMessage;
+    cause?: unknown;
+
+    constructor(cause?: unknown) {
+      super();
+      this.code = IFootprintErrorCodes.INVALID_ADULT_NUMBER;
+      this.message = IFootprintErrorMessage.INVALID_ADULT_NUMBER;
+      this.cause = cause;
+    }
+  }
+  export class InvalidChildNumber
+    extends Error
+    implements IDomainError<IFootprintErrorCodes, IFootprintErrorMessage>
+  {
+    code: IFootprintErrorCodes;
+    message: IFootprintErrorMessage;
+    cause?: unknown;
+
+    constructor(cause?: unknown) {
+      super();
+      this.code = IFootprintErrorCodes.INVALID_CHILD_NUMBER;
+      this.message = IFootprintErrorMessage.INVALID_CHILD_NUMBER;
+      this.cause = cause;
+    }
+  }
+  export class HouseholdAlreadyDeclared
+    extends Error
+    implements IDomainError<IFootprintErrorCodes, IFootprintErrorMessage>
+  {
+    code: IFootprintErrorCodes;
+    message: IFootprintErrorMessage;
+    cause?: unknown;
+
+    constructor(cause?: unknown) {
+      super();
+      this.code = IFootprintErrorCodes.HOUSEHOLD_ALDREADY_DECLARED;
+      this.message = IFootprintErrorMessage.HOUSEHOLD_ALDREADY_DECLARED;
       this.cause = cause;
     }
   }

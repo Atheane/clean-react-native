@@ -137,7 +137,7 @@
         "INVALID_PHONE": "Numero di cellulare non valido",
         "CONTACT_ALREADY_EXISTS": "Questo contatto esiste già"
       },
-      "footprint-estimation": {
+      "footprint": {
         "INVALID_HOUSE_PROPS": "Proprietà della casa non valide",
         "INVALID_TRANSPORT_PROPS": "Proprietà di trasporto non valide",
         "INVALID_FOOD_PROPS": "Proprietà di alimenti non valide",
@@ -145,7 +145,10 @@
         "INVALID_HEATER_TYPE": "Tipo di riscaldamento richiesto",
         "INVALID_HEATER_USAGE": "Uso del riscaldamento richiesto",
         "INVALID_HEATER_DATE": "Data di installazione richiesta",
-        "HEATER_ALREADY_EXISTS": "Riscaldamento già dichiarato"
+        "HEATER_ALREADY_EXISTS": "Riscaldamento già dichiarato",
+        "INVALID_ADULT_NUMBER": "Il numero di adulti deve essere compreso tra 1 e 20",
+        "INVALID_CHILD_NUMBER": "Il numero di minori deve essere compreso tra 1 e 20",
+        "HOUSEHOLD_ALDREADY_DECLARED": "Nucleo familiare già dichiarato"
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Documenti per la validazione del dossier mancanti",

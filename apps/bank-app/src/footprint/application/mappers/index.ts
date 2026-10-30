@@ -1,30 +1,3 @@
-import { FootprintError, HeaterVO, HEATER_USAGE } from '@clean-rn/footprint/domain';
-import { IHeaterProps } from '../../presentation/types';
-
-export const mapHeaterPropsToDomain = async (props: IHeaterProps): Promise<HeaterVO[]> => {
-  if (!props.installationYear) {
-    throw new FootprintError.InvalidHeaterDate();
-  }
-
-  const heaters: HeaterVO[] = [
-    await HeaterVO.create({
-      date: new Date(Date.UTC(props.installationYear, 0, 1)).toISOString(),
-      heaterUsage: props.usage,
-      heaterType: props.heatType,
-      isActive: true,
-    }),
-  ];
-
-  if ([HEATER_USAGE.MAIN, HEATER_USAGE.SANITARY].includes(props.usage) && props.installationYear >= 2012) {
-    heaters.push(
-      await HeaterVO.create({
-        date: new Date(Date.UTC(props.installationYear - 2, 0, 1)).toISOString(),
-        heaterUsage: props.usage,
-        heaterType: props.previousHeatType,
-        isActive: false,
-      }),
-    );
-  }
-
-  return heaters;
-};
+import { mapHeaterPropsToDomain } from './mapHeaterPropsToDomain';
+import { mapFootprintPropsToDomain } from './mapFootprintPropsToDomain';
+export { mapHeaterPropsToDomain, mapFootprintPropsToDomain };
