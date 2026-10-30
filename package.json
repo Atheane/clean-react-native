@@ -1,6 +1,6 @@
 {
   "name": "@clean-rn/source",
-  "version": "1.2.2",
+  "version": "2.2.0",
   "license": "MIT",
   "scripts": {
     "prepare": "husky install",

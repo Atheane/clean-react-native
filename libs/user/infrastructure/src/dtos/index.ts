@@ -1,4 +1,4 @@
-import { HEATER_TYPE, HEATER_USAGE, HOUSE_STATUS } from '@clean-rn/carbon/domain';
+import { HEATER_TYPE, HEATER_USAGE, HOUSE_STATUS } from '@clean-rn/footprint/domain';
 
 export type IAddHeaterDto = {
   date: string;
