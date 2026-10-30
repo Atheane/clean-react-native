@@ -65,24 +65,7 @@ export const LinePlot = (props: IProps) => {
   const onChartEvent = (param: any) => {
     if (param.seriesName !== props.labels[0]) {
       if (param.type === 'click') {
-        console.log('Point clicked: ', param.value);
         setSelectedPoint(param.value);
-      } else if (param.type === 'dragend' && selectedPoint !== null) {
-        console.log('Point dragged: ', param.value);
-        const newData = [...props.data[1]];
-        newData[param.dataIndex] = param.value[1]; // new Y value
-        if (chartRef.current) {
-          if (Platform.OS === 'web') {
-            chartRef.current.getEchartsInstance().setOption({
-              series: series.map((s, i) => (i === 1 ? { ...s, data: newData } : s)),
-            });
-          } else {
-            chartRef.current.setOption({
-              series: series.map((s, i) => (i === 1 ? { ...s, data: newData } : s)),
-            });
-          }
-        }
-        console.log('Data should be changed: ', newData);
       }
     }
   };
@@ -96,7 +79,6 @@ export const LinePlot = (props: IProps) => {
           style={{ height: '50vh', width: '100%' }}
           onEvents={{
             click: onChartEvent,
-            dragend: onChartEvent,
           }}
         />
       </View>
@@ -112,16 +94,9 @@ export const LinePlot = (props: IProps) => {
       };
       sendData(JSON.stringify(obj));
     });
-    chart.on('dragend', function(param) {
-      var obj = {
-        type: 'dragend',
-        seriesName: param.seriesName,
-        value: param.value,
-        dataIndex: param.dataIndex
-      };
-      sendData(JSON.stringify(obj));
-    });
   `;
+
+  console.log('Selected point: ', selectedPoint);
 
   return (
     <View style={styles.chartContainer}>
