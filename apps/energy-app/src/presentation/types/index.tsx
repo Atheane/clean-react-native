@@ -52,6 +52,7 @@ export enum ISharedStackPages {
   HOME = 'Home',
   MODAL_ERROR = 'ModalError',
   MODAL_CONTENT = 'ModalContent',
+  MODAL_HELP = 'ModalHelp',
 }
 
 export enum IAuthStackPages {
@@ -86,6 +87,7 @@ export type ISharedStackProps = {
   [ISharedStackPages.HOME]: object;
   [ISharedStackPages.MODAL_ERROR]: object;
   [ISharedStackPages.MODAL_CONTENT]: object;
+  [ISharedStackPages.MODAL_HELP]: object;
 };
 
 export type IAuthStackProps = {
@@ -120,6 +122,7 @@ export type IRoutes =
   | ISharedStackPages.HOME
   | ISharedStackPages.MODAL_ERROR
   | ISharedStackPages.MODAL_CONTENT
+  | ISharedStackPages.MODAL_HELP
   | IHomeStackPages.MENU
   | IAuthStackPages.LOGIN
   | IDashboardStackPages.MENU

@@ -9,6 +9,7 @@ import { EpcExplanationComfortPrice } from './EpcExplanationComfortPrice';
 import { EpcRecommendedIndoorTemperature } from './EpcRecommendedIndoorTemperature';
 import { EpcContract } from './EpcContract';
 import { Settings } from './Settings';
+export { ScreenModalHelp } from './ScreenModalHelp';
 
 export {
   ScreenModalError,

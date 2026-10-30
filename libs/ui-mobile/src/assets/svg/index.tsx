@@ -112,3 +112,5 @@ export { Security } from './Security';
 export { Shield } from './Shield';
 export { BANKLogo } from './BANKLogo';
 export { ExportPdfBg } from './ExportPdfBg';
+export { Activity } from './Activity';
+export { KWh } from './KWh';

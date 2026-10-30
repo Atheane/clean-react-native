@@ -16,6 +16,7 @@ declare module '@rneui/themed' {
         miniContent: StyleProp<TextStyle>;
         iconLeftContainer: StyleProp<ViewStyle>;
         iconRightContainer: StyleProp<ViewStyle>;
+        gradientColors?: string[];
         additionalProps: object;
       };
     };
@@ -34,12 +35,16 @@ declare module '@rneui/themed' {
         long: StyleProp<ViewStyle>;
         kpi: StyleProp<ViewStyle>;
       };
+      tile: {
+        kpi: StyleProp<ViewStyle>;
+      };
       input: StyleProp<ViewStyle>;
     };
     shadow: {
       button: StyleProp<ViewStyle>;
       bullet: StyleProp<ViewStyle>;
       card: StyleProp<ViewStyle>;
+      tile: StyleProp<ViewStyle>;
     };
     text: {
       title: StyleProp<TextStyle>;
@@ -54,6 +59,7 @@ declare module '@rneui/themed' {
       legend: StyleProp<TextStyle>;
       darkBlue: StyleProp<TextStyle>;
       boldDarkBlue: StyleProp<TextStyle>;
+      lightBlue: StyleProp<TextStyle>;
       lightGrey: StyleProp<TextStyle>;
       grey: StyleProp<TextStyle>;
       boldGrey: StyleProp<TextStyle>;
@@ -62,7 +68,7 @@ declare module '@rneui/themed' {
       inputPicker: StyleProp<TextStyle>;
       inputNumber: StyleProp<TextStyle>;
       errors: StyleProp<TextStyle>;
-      white: StyleProp<TextStyle>;
+      numberTitle: StyleProp<TextStyle>;
       whiteGraphTitle: StyleProp<TextStyle>;
       purple: StyleProp<TextStyle>;
     };
@@ -74,6 +80,7 @@ const COEFF = 0.75;
 const SHORT_CARD_RATIO = 168 / 228;
 const LONG_CARD_RATIO = 85 / 356;
 const KPI_CARD_RATIO = 112 / 174;
+const KPI_TILE_RATIO = 150 / 180;
 
 export const theme = createTheme({
   buttons: {
@@ -166,6 +173,16 @@ export const theme = createTheme({
         padding: 8,
       },
     },
+    tile: {
+      kpi: {
+        width: Dimensions.get('window').width * 0.42,
+        height: Dimensions.get('window').width * 0.42 * KPI_TILE_RATIO,
+        marginHorizontal: 16,
+        borderRadius: 8,
+        backgroundColor: Colors.primary.white,
+        padding: 8,
+      },
+    },
     input: {
       width: Dimensions.get('window').width * COEFF,
       backgroundColor: Colors.primary.lightGrey,
@@ -207,6 +224,16 @@ export const theme = createTheme({
       shadowOpacity: 0.34,
       shadowRadius: 6.27,
       elevation: 10,
+    },
+    tile: {
+      shadowColor: Colors.shadow,
+      shadowOffset: {
+        width: 1,
+        height: 1,
+      },
+      shadowOpacity: 0.2,
+      shadowRadius: 3,
+      elevation: 3,
     },
   },
   text: {

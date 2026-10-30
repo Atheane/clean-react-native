@@ -62,7 +62,6 @@ export const TableReward = (props: IProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 30,
     backgroundColor: Colors.primary.white,
   },
   row: {
@@ -70,6 +69,7 @@ const styles = StyleSheet.create({
   },
   headerRow: {
     backgroundColor: Colors.primary.white,
+    height: 8,
   },
   evenRow: {
     backgroundColor: Colors.primary.darkWhite,
