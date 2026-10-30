@@ -6,11 +6,12 @@ import { Colors } from '../../../constants';
 
 type IProps = {
   title?: string;
+  icon?: React.FC<SvgProps>;
   img?: ImageSourcePropType;
   imgWidth?: number;
   imgHeight?: number;
-  icon?: React.FC<SvgProps>;
-  text: string;
+  text?: string;
+  Component?: React.FC;
 };
 export const ModalContent = (props: IProps) => {
   const { theme } = useTheme();
@@ -22,24 +23,29 @@ export const ModalContent = (props: IProps) => {
           <Text style={theme.text.title}>{props.title}</Text>
         </View>
       )}
-      {props.text && (
-        <View style={styles.contentContainer}>
-          {(props.img || props.icon) && (
-            <View style={styles.imgContainer}>
-              {props.img && (
-                <Image
-                  source={props.img}
-                  style={{ ...styles.image, width: props.imgWidth, height: props.imgHeight }}
-                />
-              )}
-              {props.icon && <props.icon style={styles.icon} />}
-            </View>
-          )}
+      <View style={styles.contentContainer}>
+        {(props.img || props.icon) && (
+          <View style={styles.imgContainer}>
+            {props.img && (
+              <Image
+                source={props.img}
+                style={{ ...styles.image, width: props.imgWidth, height: props.imgHeight }}
+              />
+            )}
+            {props.icon && <props.icon style={styles.icon} />}
+          </View>
+        )}
+        {props.text && (
           <View style={styles.textContainer}>
             <Text style={theme.text.content}>{props.text}</Text>
           </View>
-        </View>
-      )}
+        )}
+        {props.Component && (
+          <View style={styles.componentContainer}>
+            <props.Component />
+          </View>
+        )}
+      </View>
     </View>
   );
 };
@@ -72,6 +78,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
   },
   textContainer: {
+    marginHorizontal: 12,
+    marginVertical: 48,
+  },
+  componentContainer: {
     marginHorizontal: 12,
     marginVertical: 48,
   },

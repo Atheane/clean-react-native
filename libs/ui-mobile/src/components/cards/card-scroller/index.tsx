@@ -11,7 +11,6 @@ export type IPropsTouchEventCard = {
   image?: ImageSourcePropType;
   icon?: React.FC<SvgProps>;
   title: string;
-  text: string;
 };
 
 type IProps = {
