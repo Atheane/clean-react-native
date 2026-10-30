@@ -8,7 +8,6 @@ import {
   IDocumentStatus,
   IDocumentStatusCode,
 } from '@clean-rn/kyc/domain';
-import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
 import {
   IDocumentTypes,
@@ -24,19 +23,6 @@ import {
 } from '../../commands/document';
 import { IDocumentState, documentReducer } from '../../state-management';
 
-jest.mock('@clean-rn/shared/infrastructure', () => ({
-  HttpConnection: {
-    getInstance: jest.fn(),
-  },
-  ServerError: jest.fn().mockImplementation(function (error) {
-    this.message = error.message;
-    this.name = 'ServerError';
-    this.statusCode = error.statusCode;
-    this.codeError = error.codeError;
-    this.cause = error.response;
-  }),
-}));
-
 describe('Document - integration', () => {
   let sagaTester: SagaTester;
 
@@ -51,8 +37,6 @@ describe('Document - integration', () => {
     },
   ];
 
-  let httpConnection: HttpConnection;
-
   beforeEach(() => {
     const initialState: IDocumentState = {
       pending: false,
@@ -63,20 +47,6 @@ describe('Document - integration', () => {
       initialState,
       reducers: documentReducer,
     });
-    httpConnection = {
-      baseUrl: 'http://mock-api.com',
-      options: jest.fn(),
-      handleError: jest.fn(),
-      getDefaultHeaders: jest.fn(),
-      attachBearerToken: jest.fn(),
-    };
-    HttpConnection.getInstance.mockReturnValue(httpConnection);
-    global.fetch = jest.fn();
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-    jest.clearAllMocks();
   });
 
   it('Should store correct initial state if not initial state is provided', () => {

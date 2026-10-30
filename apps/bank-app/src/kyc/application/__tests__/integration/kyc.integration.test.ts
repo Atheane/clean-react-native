@@ -9,8 +9,7 @@ import {
   IDocumentStatus,
   IDocumentStatusCode,
 } from '@clean-rn/kyc/domain';
-
-import { HttpConnection } from '@clean-rn/shared/infrastructure';
+import { KYC_REVIEW, User } from '@clean-rn/user/domain';
 
 import { IKycStackPages } from '../../../../shared/presentation/types';
 import { checkCustomerStatusSaga } from '../../usecases/customer';
@@ -22,24 +21,9 @@ import {
   initializeKyc,
 } from '../../commands/customer';
 import { ICustomerState, customerReducer } from '../../state-management';
-import { KYC_REVIEW, User } from '@clean-rn/user/domain';
-
-jest.mock('@clean-rn/shared/infrastructure', () => ({
-  HttpConnection: {
-    getInstance: jest.fn(),
-  },
-  ServerError: jest.fn().mockImplementation(function (error) {
-    this.message = error.message;
-    this.name = 'ServerError';
-    this.statusCode = error.statusCode;
-    this.codeError = error.codeError;
-    this.cause = error.response;
-  }),
-}));
 
 describe('KYC - integration', () => {
   let sagaTester: SagaTester;
-  let httpConnection: HttpConnection;
 
   const mockResponse: IDocumentProperties[] = [
     {
@@ -62,20 +46,6 @@ describe('KYC - integration', () => {
       initialState,
       reducers: customerReducer,
     });
-    httpConnection = {
-      baseUrl: 'http://mock-api.com',
-      options: jest.fn(),
-      handleError: jest.fn(),
-      getDefaultHeaders: jest.fn(),
-      attachBearerToken: jest.fn(),
-    };
-    HttpConnection.getInstance.mockReturnValue(httpConnection);
-    global.fetch = jest.fn();
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-    jest.clearAllMocks();
   });
 
   it('Should store correct initial state if not initial state is provided', () => {
@@ -98,7 +68,7 @@ describe('KYC - integration', () => {
       properties: { USPerson: false, status: KYC_REVIEW.PENDING, kycReviewComment: '' },
     });
     customer.initKyc(mockResponse, []);
-    sagaTester.start(checkCustomerStatusSaga, httpConnection);
+    sagaTester.start(checkCustomerStatusSaga);
     sagaTester.dispatch(checkCustomerStatus({ user }));
     sagaTester.dispatch(
       customerStatusChecked({
@@ -115,7 +85,7 @@ describe('KYC - integration', () => {
   });
 
   it('Should store correct state if INITIALIZE_KYC', () => {
-    sagaTester.start(checkCustomerStatusSaga, httpConnection);
+    sagaTester.start(checkCustomerStatusSaga);
     sagaTester.dispatch(initializeKyc());
     expect(sagaTester.getState()).toEqual({
       pending: false,
@@ -141,7 +111,7 @@ describe('KYC - integration', () => {
     });
 
     customer.addDocument(document);
-    sagaTester.start(checkCustomerStatusSaga, httpConnection);
+    sagaTester.start(checkCustomerStatusSaga);
     sagaTester.dispatch(customerDocumentsUpdated({ customer }));
 
     expect(sagaTester.getState()).toEqual({

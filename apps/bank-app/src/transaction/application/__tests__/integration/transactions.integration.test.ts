@@ -10,8 +10,8 @@ import {
   TransactionError,
 } from '@clean-rn/transaction/domain';
 import { ITransactionServer } from '@clean-rn/transaction/infrastructure';
-
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
+import { Phone } from '@clean-rn/contact/domain';
 
 import {
   ITransactionsTypes,
@@ -30,24 +30,9 @@ import {
 import { ITransactionsState, transactionsReducer } from '../../state-management';
 
 import { listTransactionsSaga, payoutSaga, transferSaga, transactionWaitingSaga } from '../../usecases';
-import { Phone } from '@clean-rn/contact/domain';
-
-jest.mock('@clean-rn/shared/infrastructure', () => ({
-  HttpConnection: {
-    getInstance: jest.fn(),
-  },
-  ServerError: jest.fn().mockImplementation(function (error) {
-    this.message = error.message;
-    this.name = 'ServerError';
-    this.statusCode = error.statusCode;
-    this.codeError = error.codeError;
-    this.cause = error.response;
-  }),
-}));
 
 describe('Transactions - integration', () => {
   let sagaTester: SagaTester;
-  let httpConnection: HttpConnection;
 
   const mockResponse: ITransaction[] = [
     {
@@ -95,20 +80,6 @@ describe('Transactions - integration', () => {
       initialState,
       reducers: transactionsReducer,
     });
-    httpConnection = {
-      baseUrl: 'http://mock-api.com',
-      options: jest.fn(),
-      handleError: jest.fn(),
-      getDefaultHeaders: jest.fn(),
-      attachBearerToken: jest.fn(),
-    };
-    HttpConnection.getInstance.mockReturnValue(httpConnection);
-    global.fetch = jest.fn();
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-    jest.clearAllMocks();
   });
 
   it('Should store correct initial state if not initial state is provided', () => {
@@ -128,7 +99,7 @@ describe('Transactions - integration', () => {
   });
 
   it('Should store correct state if TRANSACTIONS_LISTED', () => {
-    sagaTester.start(listTransactionsSaga, httpConnection);
+    sagaTester.start(listTransactionsSaga);
     sagaTester.dispatch(listTransactions({ account }));
     sagaTester.dispatch(transactionsListed(mockResponse));
 
@@ -141,7 +112,7 @@ describe('Transactions - integration', () => {
   });
 
   it('Should store correct state if INITIALIZE_LIST_TRANSACTIONS', () => {
-    sagaTester.start(listTransactionsSaga, httpConnection);
+    sagaTester.start(listTransactionsSaga);
     sagaTester.dispatch(initializeTransactionsList());
 
     expect(sagaTester.getState()).toEqual({
@@ -167,7 +138,7 @@ describe('Transactions - integration', () => {
       type: ITransactionType.PAYOUT,
       date: new Date('2023-06-15T07:38:09.217Z'),
     };
-    sagaTester.start(payoutSaga, httpConnection);
+    sagaTester.start(payoutSaga);
     sagaTester.dispatch(fetchPayout(payout));
     sagaTester.dispatch(payoutSucceded(mockResponse));
 
@@ -194,7 +165,7 @@ describe('Transactions - integration', () => {
       type: ITransactionType.TRANSFER_OUT,
       date: new Date('2023-06-15T07:38:09.217Z'),
     };
-    sagaTester.start(transferSaga, httpConnection);
+    sagaTester.start(transferSaga);
     sagaTester.dispatch(fetchTransfer(transfer));
     sagaTester.dispatch(transferSucceded(mockResponse));
 
@@ -221,7 +192,7 @@ describe('Transactions - integration', () => {
       type: ITransactionType.TRANSFER_OUT,
       date: new Date('2023-06-15T07:38:09.217Z'),
     };
-    sagaTester.start(transactionWaitingSaga, httpConnection);
+    sagaTester.start(transactionWaitingSaga);
     sagaTester.dispatch(fetchTransactionWaiting(transactionWaiting));
     sagaTester.dispatch(transactionWaitingSucceded(mockResponse));
 
@@ -252,7 +223,7 @@ describe('Transactions - integration', () => {
       path: '/app/transaction/payout',
       method: 'POST',
     };
-    sagaTester.start(payoutSaga, httpConnection);
+    sagaTester.start(payoutSaga);
     sagaTester.dispatch(fetchPayout(transaction));
     sagaTester.dispatch(transactionFailed(new TransactionError.TransferAmountTooHigh(mockError403)));
 
@@ -265,7 +236,7 @@ describe('Transactions - integration', () => {
   });
 
   it('Should store correct state if INIT_TRANSFER', () => {
-    sagaTester.start(transferSaga, httpConnection);
+    sagaTester.start(transferSaga);
     sagaTester.dispatch(initTransaction());
 
     expect(sagaTester.getState()).toEqual({

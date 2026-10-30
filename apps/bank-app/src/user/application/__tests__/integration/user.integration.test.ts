@@ -21,7 +21,6 @@ import {
   Country,
   KYC_REVIEW,
 } from '@clean-rn/user/domain';
-import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { Email } from '@clean-rn/auth/domain';
 
 import {
@@ -69,22 +68,8 @@ import {
 import { IUserState, userReducer } from '../../state-management';
 import { IParametersStackPages, IRoutes } from '../../../../shared/presentation/types';
 
-jest.mock('@clean-rn/shared/infrastructure', () => ({
-  HttpConnection: {
-    getInstance: jest.fn(),
-  },
-  ServerError: jest.fn().mockImplementation(function (error) {
-    this.message = error.message;
-    this.name = 'ServerError';
-    this.statusCode = error.statusCode;
-    this.codeError = error.codeError;
-    this.cause = error.response;
-  }),
-}));
-
 describe('User - integration', () => {
   let sagaTester: SagaTester;
-  let httpConnection: HttpConnection;
 
   const mockIdentity: IRegisterIdentityCommand = {
     gender: IGender.MAN,
@@ -134,18 +119,6 @@ describe('User - integration', () => {
 
   let initialState: IUserState;
 
-  beforeAll(() => {
-    httpConnection = {
-      baseUrl: 'http://mock-api.com',
-      options: jest.fn(),
-      handleError: jest.fn(),
-      getDefaultHeaders: jest.fn(),
-      attachBearerToken: jest.fn(),
-    };
-    HttpConnection.getInstance.mockReturnValue(httpConnection);
-    global.fetch = jest.fn();
-  });
-
   beforeEach(() => {
     initialState = {
       pending: false,
@@ -160,11 +133,6 @@ describe('User - integration', () => {
       initialState,
       reducers: userReducer,
     });
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-    jest.clearAllMocks();
   });
 
   it('Should store correct initial state if not initial state is provided', () => {
@@ -187,7 +155,7 @@ describe('User - integration', () => {
   });
 
   it('Should store correct state in case if FETCH_SEARCH_EMAIL', () => {
-    sagaTester.start(checkEmailSaga, httpConnection);
+    sagaTester.start(checkEmailSaga);
 
     sagaTester.dispatch(fetchSearchEmail({ email: new Email('test@example.com') }));
     expect(sagaTester.getState()).toEqual({
@@ -202,7 +170,7 @@ describe('User - integration', () => {
   });
 
   it('Should store correct state in case if REGISTER_IDENTITY', () => {
-    sagaTester.start(checkEmailSaga, httpConnection);
+    sagaTester.start(checkEmailSaga);
 
     sagaTester.dispatch(registerIdentity({ ...mockIdentity, email: new Email('test@example.com') }));
     expect(sagaTester.getState()).toEqual({
@@ -211,7 +179,7 @@ describe('User - integration', () => {
   });
 
   it('Should store correct state in case if REGISTER_PASSWORD', () => {
-    sagaTester.start(checkEmailSaga, httpConnection);
+    sagaTester.start(checkEmailSaga);
 
     sagaTester.dispatch(registerPassword(mockPassword));
     expect(sagaTester.getState()).toEqual({
@@ -220,7 +188,7 @@ describe('User - integration', () => {
   });
 
   it('Should store correct state in case if REGISTER_BIRTH', () => {
-    sagaTester.start(checkEmailSaga, httpConnection);
+    sagaTester.start(checkEmailSaga);
 
     sagaTester.dispatch(registerBirth(mockBirth));
     expect(sagaTester.getState()).toEqual({
@@ -229,7 +197,7 @@ describe('User - integration', () => {
   });
 
   it('Should store correct state in case if REGISTER_ADDRESS', () => {
-    sagaTester.start(checkEmailSaga, httpConnection);
+    sagaTester.start(checkEmailSaga);
 
     sagaTester.dispatch(registerAddress(mockAddress));
     expect(sagaTester.getState()).toEqual({
@@ -238,7 +206,7 @@ describe('User - integration', () => {
   });
 
   it('Should store correct state if FETCH_SEARCH_PHONE', () => {
-    sagaTester.start(checkPhoneSaga, httpConnection);
+    sagaTester.start(checkPhoneSaga);
     sagaTester.dispatch(fetchSearchPhone({ phone: new Phone('0600000002', 'FR') }));
 
     expect(sagaTester.getState()).toEqual({
@@ -253,7 +221,7 @@ describe('User - integration', () => {
   });
 
   it('Should store correct state if FETCH_VALIDATE_PHONE', () => {
-    sagaTester.start(validatePhoneSaga, httpConnection);
+    sagaTester.start(validatePhoneSaga);
 
     sagaTester.dispatch(
       fetchValidatePhone({ phone: new Phone('0600000002', 'FR'), phoneOtp: new PhoneOtp('123456') }),
@@ -293,7 +261,7 @@ describe('User - integration', () => {
       reducers: userReducer,
     });
 
-    sagaTester.start(signupUserSaga, httpConnection);
+    sagaTester.start(signupUserSaga);
     sagaTester.dispatch(fetchSignupUser({ user, phoneOtp: mockQueryPhoneOtp.phoneOtp }));
 
     expect(sagaTester.getState()).toEqual({
@@ -308,7 +276,7 @@ describe('User - integration', () => {
   });
 
   it('Should store correct state in case if FETCH_UPDATE_NOTIFICATIONS', () => {
-    sagaTester.start(updateNotificationsSaga, httpConnection);
+    sagaTester.start(updateNotificationsSaga);
 
     sagaTester.dispatch(fetchUpdateNotifications(mockUpdateNotifications));
     expect(sagaTester.getState()).toEqual({
@@ -321,7 +289,7 @@ describe('User - integration', () => {
   });
 
   it('Should store correct state if EMAIL_CHECKED', () => {
-    sagaTester.start(checkEmailSaga, httpConnection);
+    sagaTester.start(checkEmailSaga);
     sagaTester.dispatch(fetchSearchEmail({ email: new Email('test@example.com') }));
     sagaTester.dispatch(emailNotFound());
 
@@ -337,7 +305,7 @@ describe('User - integration', () => {
   });
 
   it('Should store correct state if SIGNUP_FAILED', () => {
-    sagaTester.start(checkEmailSaga, httpConnection);
+    sagaTester.start(checkEmailSaga);
     sagaTester.dispatch(fetchSearchEmail({ email: new Email('test@example.com') }));
     sagaTester.dispatch(signupFailed(new UserError.SignupFailureEmailExists()));
 
@@ -368,7 +336,7 @@ describe('User - integration', () => {
       reducers: userReducer,
     });
 
-    sagaTester.start(checkPhoneSaga, httpConnection);
+    sagaTester.start(checkPhoneSaga);
     sagaTester.dispatch(fetchSearchPhone({ phone: new Phone('0600000002', 'FR') }));
     sagaTester.dispatch(phoneCodeSent());
 
@@ -399,7 +367,7 @@ describe('User - integration', () => {
       reducers: userReducer,
     });
 
-    sagaTester.start(validatePhoneSaga, httpConnection);
+    sagaTester.start(validatePhoneSaga);
     sagaTester.dispatch(
       fetchValidatePhone({ phone: new Phone('0600000002', 'FR'), phoneOtp: new PhoneOtp('123456') }),
     );
@@ -573,7 +541,7 @@ describe('User - integration', () => {
       reducers: userReducer,
     });
 
-    sagaTester.start(signupUserSaga, httpConnection);
+    sagaTester.start(signupUserSaga);
 
     const uid = '123';
     user.signup({ id: uid, properties: user.properties as IUserProperties });
@@ -805,7 +773,7 @@ describe('User - integration', () => {
   it('Should store correct state if RESET_ERROR for invalid credentials', () => {
     const user = User.CreateFromEmail(new Email('test@example.com'));
 
-    sagaTester.start(checkEmailSaga, httpConnection);
+    sagaTester.start(checkEmailSaga);
     sagaTester.dispatch(userSaved(user));
 
     sagaTester.dispatch(resetError());
