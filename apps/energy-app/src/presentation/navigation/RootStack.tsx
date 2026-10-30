@@ -16,7 +16,7 @@ import {
   ISettingsStackProps,
 } from '../../presentation/types';
 import { initGlobalError } from '../../application/commands/manage-global-errors';
-import { ScreenModalError, ScreenModalContent } from '../../presentation/screens';
+import { ScreenModalError, ScreenModalContent, ScreenModalHelp } from '../../presentation/screens';
 
 import { Login } from '../screens';
 
@@ -66,6 +66,15 @@ export const HomeStack = () => {
         }}
         name={ISharedStackPages.MODAL_CONTENT}
         component={ScreenModalContent}
+      />
+      <Stack.Screen
+        options={{
+          presentation: 'modal',
+          headerShown: false,
+          headerBackVisible: false,
+        }}
+        name={ISharedStackPages.MODAL_HELP}
+        component={ScreenModalHelp}
       />
     </Stack.Navigator>
   );

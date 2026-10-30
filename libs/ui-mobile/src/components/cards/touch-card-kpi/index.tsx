@@ -1,12 +1,22 @@
 import { FC } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Platform, Dimensions } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Platform,
+  Dimensions,
+  ImageSourcePropType,
+  Image,
+} from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
 import { NEEDS_SMALL_TEXT } from '../../../constants';
 
 type IProps = {
   data?: { pct?: string; co2?: string; legend?: string; text?: string };
-  icon: React.FC<SvgProps>;
+  icon?: React.FC<SvgProps>;
+  img?: ImageSourcePropType;
   onPress: () => void;
 };
 
@@ -21,7 +31,8 @@ export const TouchCardKpi: FC<IProps> = (props: IProps) => {
       style={[theme.container.card.kpi, Platform.OS === 'web' ? styles.webShadow : theme.shadow.card]}
     >
       <View style={[Platform.OS === 'web' ? styles.webContainer : styles.rowContainer]}>
-        <props.icon />
+        {props.icon && <props.icon />}
+        {props.img && <Image style={styles.img} source={props.img} />}
         {props.data && props.data.pct && props.data.co2 && (
           <View
             style={[
@@ -56,6 +67,7 @@ export const TouchCardKpi: FC<IProps> = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
+  img: { width: 64, height: 64 },
   rowContainer: {
     margin: 14,
     flexDirection: 'row',

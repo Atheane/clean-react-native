@@ -35,12 +35,16 @@ declare module '@rneui/themed' {
         long: StyleProp<ViewStyle>;
         kpi: StyleProp<ViewStyle>;
       };
+      tile: {
+        kpi: StyleProp<ViewStyle>;
+      };
       input: StyleProp<ViewStyle>;
     };
     shadow: {
       button: StyleProp<ViewStyle>;
       bullet: StyleProp<ViewStyle>;
       card: StyleProp<ViewStyle>;
+      tile: StyleProp<ViewStyle>;
     };
     text: {
       title: StyleProp<TextStyle>;
@@ -170,6 +174,16 @@ export const theme = createTheme({
         padding: 8,
       },
     },
+    tile: {
+      kpi: {
+        width: Dimensions.get('window').width * 0.46,
+        height: Dimensions.get('window').width * 0.46 * KPI_CARD_RATIO,
+        marginHorizontal: 16,
+        borderRadius: 8,
+        backgroundColor: Colors.primary.white,
+        padding: 8,
+      },
+    },
     input: {
       width: Dimensions.get('window').width * COEFF,
       backgroundColor: Colors.primary.lightGrey,
@@ -212,6 +226,16 @@ export const theme = createTheme({
       shadowOpacity: 0.34,
       shadowRadius: 6.27,
       elevation: 10,
+    },
+    tile: {
+      shadowColor: Colors.shadow,
+      shadowOffset: {
+        width: 1,
+        height: 1,
+      },
+      shadowOpacity: 0.2,
+      shadowRadius: 3,
+      elevation: 3,
     },
   },
   text: {

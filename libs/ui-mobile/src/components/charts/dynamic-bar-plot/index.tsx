@@ -13,9 +13,10 @@ type IProps = {
   allData: DataSet[];
   color: string;
   yAxisLabel: string;
+  onDataChange: (data: DataSet) => void;
 };
 
-export const DynamicBarPlot = ({ initialData, allData, color, yAxisLabel }: IProps) => {
+export const DynamicBarPlot = ({ initialData, allData, color, yAxisLabel, onDataChange }: IProps) => {
   const [currentData, setCurrentData] = useState<DataSet>(initialData);
   const [optionStack, setOptionStack] = useState<number[]>([]);
   const chartRef = useRef<any>(null);
@@ -26,7 +27,8 @@ export const DynamicBarPlot = ({ initialData, allData, color, yAxisLabel }: IPro
     if (!currentData) {
       setCurrentData(initialData);
     }
-  }, [currentData, initialData]);
+    onDataChange(currentData);
+  }, [currentData, initialData, onDataChange]);
 
   const createOption = (data: DataSet) => {
     return {
@@ -76,7 +78,6 @@ export const DynamicBarPlot = ({ initialData, allData, color, yAxisLabel }: IPro
       setCurrentData(allData[prevDataIndex]);
     } else {
       console.error('Previous data not found');
-      // Réinitialiser à la donnée initiale si les données précédentes ne sont pas trouvées
       setCurrentData(initialData);
       setOptionStack([]);
     }

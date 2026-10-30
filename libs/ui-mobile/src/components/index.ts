@@ -20,6 +20,7 @@ import { LongCard } from './cards/long-card';
 import { LongCardIcon } from './cards/long-card-icon';
 import { CardScroller, IPropsTouchEventCard } from './cards/card-scroller';
 import { TransactionsCard } from './cards/transactions-card';
+import { TileKpi } from './cards/tile-kpi';
 import { TouchCardKpi } from './cards/touch-card-kpi';
 import { TouchCardText } from './cards/touch-card-text';
 import { TouchCardCheck } from './cards/touch-card-check';
@@ -116,6 +117,7 @@ export {
   IPropsTouchEventCard,
   TransactionsCard,
   TouchCardKpi,
+  TileKpi,
   TouchCardText,
   TouchCardCheck,
   UploadDocumentCard,

@@ -4,27 +4,14 @@ import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
-import { BalanceList, CardScroller, Colors } from '@clean-rn/ui-mobile';
+import { CardScroller, Colors, TileKpi, GreenEuro, KWh } from '@clean-rn/ui-mobile';
 import { ISharedStackPages } from '../types';
 import { eventsCardsContent } from '../constants/eventsCardsContent';
 import { FontNames, NEEDS_SMALL_TEXT } from '../constants';
 
 import { ErrorBoundary, SafeScrollingView } from '../hoc';
 
-const FAKE_DATA = [
-  {
-    uid: 'bank',
-    title: 'Total €G won',
-    value: 65.8,
-    unit: '€G',
-  },
-  {
-    uid: 'mcp',
-    title: 'Your comfort price of this month',
-    value: 1234.5,
-    unit: '€/kWh',
-  },
-];
+const FAKE_DATA = [{ kpi: '15.8' }, { kpi: '434' }];
 
 export const Home = () => {
   const { t } = useTranslation();
@@ -38,9 +25,12 @@ export const Home = () => {
     [navigation],
   );
 
-  const handleOnPressBalance = useCallback(() => {
-    console.log('press balance');
-  }, []);
+  const handleOnPressHelp = useCallback(
+    (uid: string) => {
+      navigation.navigate(ISharedStackPages.MODAL_HELP, { uid });
+    },
+    [navigation],
+  );
 
   const dispatch = useDispatch();
 
@@ -83,20 +73,24 @@ export const Home = () => {
               onDelete={handleOnDelete}
             />
           </View>
-          {
-            //   icon: () => <QuestionMarkIcon />,
-            //   title: 'Nice work!',
-            //   component:
-            //     "Hopefully you've learned a thing or two about energy consumption while earning  <NUMBER OF COINS> €G coins. Keep an eye out for future quizzes for more chances to test your knowledge and earn €G coins.",
-            //   uid: 'quiz_general_9',
-            // },
-          }
-          <View style={styles.balanceContainer}>
-            <BalanceList
-              data={FAKE_DATA}
-              noDataLabel="No data"
-              onPress={handleOnPressBalance}
-              color={Colors.primary.grey}
+          <View style={styles.tileContainer}>
+            <TileKpi
+              title={'Total €G won'}
+              data={FAKE_DATA[0]}
+              img={GreenEuro}
+              help
+              handleHelp={() => handleOnPressHelp('co2')}
+            />
+            <TileKpi
+              title={'Comfort price in Oct.'}
+              data={FAKE_DATA[1]}
+              icon={() => (
+                <View style={{ marginLeft: 16 }}>
+                  <KWh />
+                </View>
+              )}
+              help
+              handleHelp={() => handleOnPressHelp('comfort-price')}
             />
           </View>
         </View>
@@ -109,6 +103,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.primary.white,
+  },
+  tileContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 40,
+    marginBottom: 100,
   },
   introContainer: {
     flex: 1,
