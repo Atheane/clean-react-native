@@ -17,7 +17,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import {
   FootprintEstimation,
   HeaterFootprintEstimation,
-  MenuCarbon,
+  MenuFootprint,
   MenuPrimeum,
   Works,
   Transport,
@@ -56,7 +56,7 @@ export const FootprintStack = () => {
     <Stack.Navigator initialRouteName={IFootprintStackPages.MENU}>
       <Stack.Screen
         name={IFootprintStackPages.MENU}
-        component={featureTagLegacy ? MenuCarbon : FootprintEstimation}
+        component={featureTagLegacy ? MenuFootprint : FootprintEstimation}
         options={{
           headerTitle: t('screens.menu-carbon.title'),
           ...headersOptions(),

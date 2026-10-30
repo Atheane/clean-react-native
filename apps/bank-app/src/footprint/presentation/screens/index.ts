@@ -1,4 +1,4 @@
-import { MenuCarbon } from './MenuCarbon';
+import { MenuFootprint } from './MenuFootprint';
 import { EvolutionFootprint } from './EvolutionFootprint';
 import { FootprintEstimation } from './FootprintEstimation';
 import { FoodFootprintEstimation } from './FoodFootprintEstimation';
@@ -13,7 +13,7 @@ import { Transport } from './Transport';
 import { Household } from './Household';
 
 export {
-  MenuCarbon,
+  MenuFootprint,
   EvolutionFootprint,
   FootprintEstimation,
   HeaterFootprintEstimation,

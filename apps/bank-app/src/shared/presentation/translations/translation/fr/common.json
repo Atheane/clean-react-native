@@ -440,16 +440,11 @@
       "title": "Virement",
       "button": "Retour à l'accueil"
     },
-    "menu-carbon": {
+    "menu-footprint": {
       "title": "Mon bilan carbone",
       "2min": "Mon bilan carbone en 2 min",
-      "my-reward": "Ma prime CO2",
-      "reward": "Prime CO2",
-      "emissions": "Emissions",
-      "evolution": "Evolution de mes émissions",
-      "link": "Combien puis-je recevoir ?",
-      "receive": "Recevoir ma prime",
-      "na": "Non calculée"
+      "my-reward": "Recevoir ma prime CO2",
+      "my-emissions": "Voir mes émissions"
     },
     "menu-primeum": {
       "title": "Ma prime CO2",
