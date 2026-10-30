@@ -92,7 +92,7 @@ export const FormBeneficiary = (props: IProps) => {
               label={t('screens.beneficiary.new-beneficiary.IBAN.label')}
               labelColor={Colors.primary.grey}
               value={value}
-              IconLeft={() => <IbanIcon />}
+              IconLeft={() => <IbanIcon style={{ marginRight: -32 }} />}
               placeholder={t('screens.beneficiary.new-beneficiary.IBAN.placeholder')}
               onChange={(text) => onChange(text.replace(/\s/g, ''))}
               onSubmitEditing={props.onSubmit}

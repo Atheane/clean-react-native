@@ -154,12 +154,9 @@ export const BeneficiaryList = () => {
     navigation.navigate(IKycStackPages.MENU as never);
   }, [navigation]);
 
-  const handleOnChangeTab = useCallback(
-    (index: number) => {
-      dispatch(changeTab({ idx: index }));
-    },
-    [dispatch],
-  );
+  const handleOnChangeTab = (index: number) => {
+    dispatch(changeTab({ idx: index }));
+  };
 
   return loading ? (
     <LoaderSplashScreen />
@@ -168,14 +165,14 @@ export const BeneficiaryList = () => {
       <Tabs
         tabsCount={2}
         titles={[t('screens.beneficiary.contacts'), t('screens.beneficiary.beneficiaries')]}
-        icons={[Group2, () => <BankBuilding color={Colors.primary.lightGreen} />] as IconNode[]}
+        icons={[Group2, BankBuilding] as IconNode[]}
         contents={
           [
             hasContact ? <ContentContact data={contacts} /> : <NoContact />,
             hasBeneficiary ? <ContentBeneficiary data={beneficiaries} /> : <NoBeneficiary />,
           ] as React.ReactNode[]
         }
-        changeTab={handleOnChangeTab}
+        onChangeTab={handleOnChangeTab}
         color={Colors.primary.lightGreen}
       />
     </ErrorBoundary>
