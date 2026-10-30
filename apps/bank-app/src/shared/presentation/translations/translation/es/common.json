@@ -495,7 +495,11 @@
       "title": "Mi prima de CO2"
     },
     "household-primeum": {
-      "title": "Mi prima de CO2"
+      "title": "Mi prima de CO2",
+      "subtitle": "Mi hogar",
+      "adults": "Número de adultos",
+      "minors": "Número de menores",
+      "submit": "Confirmar"
     },
     "evolution": {
       "title": "Evolución de mis emisiones",

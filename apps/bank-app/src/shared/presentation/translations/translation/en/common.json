@@ -495,7 +495,11 @@
       "title": "My CO2 bonus"
     },
     "household-primeum": {
-      "title": "My CO2 bonus"
+      "title": "My CO2 bonus",
+      "subtitle": "My household",
+      "adults": "Number of adults",
+      "minors": "Number of minors",
+      "submit": "Submit"
     },
     "evolution": {
       "title": "Evolution of my emissions",
