@@ -30,7 +30,7 @@ export type IRootTabParamList = {
   MenuAccount: undefined;
   MenuTransaction: undefined;
   MenuBeneficiary: undefined;
-  MenuCarbon: undefined;
+  MenuFootprint: undefined;
   MenuParameters: undefined;
   MenuTransfer: undefined;
   MenuKyc: undefined;

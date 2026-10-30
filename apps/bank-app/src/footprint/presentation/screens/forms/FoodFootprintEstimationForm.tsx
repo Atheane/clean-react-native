@@ -71,13 +71,15 @@ export const FoodFootprintEstimationForm = (props: IProps) => {
       return (
         <View key={key} style={styles.sliderContainer}>
           <Slider
-            label={t('screens.carbon-food.slider.' + key)}
+            label={t('screens.footprint-estimation-food.slider.' + key)}
             minValue={0}
             maxValue={14}
             value={slider[key]}
             onChange={(value: number) => handleSlider(key, value)}
             unit={
-              slider[key] < 2 ? t('screens.carbon-food.slider.unit') : t('screens.carbon-food.slider.units')
+              slider[key] < 2
+                ? t('screens.footprint-estimation-food.slider.unit')
+                : t('screens.footprint-estimation-food.slider.units')
             }
             short
           />

@@ -137,7 +137,7 @@
         "INVALID_PHONE": "Invalid mobile phone number",
         "CONTACT_ALREADY_EXISTS": "This contact already exists"
       },
-      "carbon": {
+      "footprint-estimation": {
         "INVALID_HOUSE_PROPS": "Invalid house properties",
         "INVALID_TRANSPORT_PROPS": "Invalid transport properties",
         "INVALID_FOOD_PROPS": "Invalid food properties",
@@ -433,7 +433,77 @@
       "title": "Transfer",
       "button": "Return to home"
     },
-    "carbon": {
+    "menu-footprint": {
+      "title": "My carbon footprint",
+      "2min": "My carbon footprint in 2 min",
+      "my-reward": "Receive my CO2 bonus",
+      "my-emissions": "View my emissions"
+    },
+    "menu-primeum": {
+      "title": "My CO2 bonus",
+      "step-one": "Situation",
+      "step-two": "Supporting documents",
+      "step-three": "Follow-up",
+      "instruction": "Fill out the forms below, this allows us to evaluate the amount of your bonus by creating your ",
+      "ref-year": "reference year.",
+      "heat": "Heating",
+      "works": "Works",
+      "transport": "Transport",
+      "household": "Household"
+    },
+    "heat-primeum": {
+      "title": "My CO2 bonus",
+      "subtitle-main": "My main heating",
+      "subtitle-sanitary": "My sanitary water",
+      "subtitle-secondary": "My secondary heating",
+      "step-one": "Situation",
+      "step-two": "Supporting documents",
+      "step-three": "Follow-up",
+      "heater": "Heating type",
+      "placeholder": "Select",
+      "house-main-heat": "Main heating installed in your home:",
+      "house-sanitary-heat": "Sanitary hot water installed in your home:",
+      "house-secondary-heat": "Secondary heating installed in your home:",
+      "next-step": "Next",
+      "end": "Finish",
+      "dropdown-heat-type": {
+        "ELECTRIC": "Electricity",
+        "COAL": "Coal",
+        "GAS": "City gas",
+        "FUEL_OIL": "Heating oil",
+        "URBAN": "Urban heating network",
+        "WOOD": "Wood",
+        "HEAT_PUMP": "Heat pump",
+        "THERMAL_SOLAR": "Solar thermal",
+        "PROPANE": "Propane"
+      },
+      "dropdown-years": {
+        "before-2012": "Before 2012"
+      },
+      "instruction-heat-type": "Today, how do you heat your home?",
+      "instruction-heat-type-installation-date": "This heating has been installed in the home since:",
+      "instruction-heat-type-before": "Heating type before",
+      "instruction-sanitary-heat-type": "Today, how is your sanitary hot water produced?",
+      "instruction-sanitary-heat-installation-date": "The sanitary hot water has been installed since:",
+      "instruction-sanitary-heat-type-before": "Sanitary hot water type before",
+      "instruction-secondary-heat-type": "If your home has secondary heating, indicate the type of heating."
+    },
+    "works-primeum": {
+      "title": "My CO2 bonus"
+    },
+    "transport-primeum": {
+      "title": "My CO2 bonus"
+    },
+    "household-primeum": {
+      "title": "My CO2 bonus"
+    },
+    "evolution": {
+      "title": "Evolution of my emissions",
+      "na": "Not calculated",
+      "receive": "Receive my bonus",
+      "baseline": "Reference emissions"
+    },
+    "footprint-estimation": {
       "title": "My carbon footprint",
       "tab": "CO2 Balance",
       "instruction": "Press a category to start",
@@ -441,7 +511,7 @@
       "average": "French Average",
       "ton": "t",
       "tons": "t",
-      "share": "Share",
+      "take-action": "Take action",
       "reward": "Be rewarded by the CO2 bonus",
       "method": "Learn more about the calculation method",
       "compute": "Calculate",
@@ -449,7 +519,7 @@
       "message-part-one": "Hello,\n\nI just did my carbon footprint in two minutes. Very interesting.\n\nMy carbon footprint is ",
       "message-part-two": "Check yours too and tell me how much you weigh!\n\nOn iOS:\n\nhttps://apps.apple.com/fr/app/co2-account/id0000000000?l=fr-FR\n\nOn Android:\n\nhttps://play.google.com/store/apps/details?id=com.example.energyapp"
     },
-    "carbon-house": {
+    "footprint-estimation-house": {
       "title": "My housing",
       "no-CO2": "The consumption of this type of heating does not emit CO2 in the calculation methodology.",
       "dropdown": {
@@ -473,7 +543,7 @@
       },
       "surface": "Surface"
     },
-    "carbon-transport": {
+    "footprint-estimation-transport": {
       "title": "My transport",
       "no-CO2": "The consumption of this type of vehicle does not emit CO2 in the calculation methodology",
       "dropdown": {
@@ -492,7 +562,7 @@
         "unit": " km"
       }
     },
-    "carbon-food": {
+    "footprint-estimation-food": {
       "title": "My diet",
       "slider": {
         "alcohol": "Wine / Beer",
@@ -514,7 +584,7 @@
       "text": "From the estimate of the carbon footprint of the diet, the footprint of waste is deduced.",
       "next": "Next"
     },
-    "carbon-fly": {
+    "footprint-estimation-fly": {
       "title": "My air transport",
       "dropdown": {
         "destination": "Departure from",

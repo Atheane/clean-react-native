@@ -137,7 +137,7 @@
         "INVALID_PHONE": "Ungültige Handynummer",
         "CONTACT_ALREADY_EXISTS": "Dieser Kontakt existiert bereits"
       },
-      "carbon": {
+      "footprint": {
         "INVALID_HOUSE_PROPS": "Ungültige Haus-Eigenschaften",
         "INVALID_TRANSPORT_PROPS": "Ungültige Transporteigenschaften",
         "INVALID_FOOD_PROPS": "Ungültige Lebensmittel-Eigenschaften",
@@ -437,7 +437,77 @@
       "title": "Überweisung",
       "button": "Zurück zur Startseite"
     },
-    "carbon": {
+    "menu-footprint": {
+      "title": "Meine CO2-Bilanz",
+      "2min": "Meine CO2-Bilanz in 2 Min",
+      "my-reward": "Meine CO2-Prämie erhalten",
+      "my-emissions": "Meine Emissionen anzeigen"
+    },
+    "menu-primeum": {
+      "title": "Meine CO2-Prämie",
+      "step-one": "Situation",
+      "step-two": "Nachweise",
+      "step-three": "Verfolgung",
+      "instruction": "Füllen Sie die folgenden Formulare aus, damit wir den Betrag Ihrer Prämie berechnen können, indem wir Ihr ",
+      "ref-year": "Referenzjahr erstellen.",
+      "heat": "Heizung",
+      "works": "Arbeiten",
+      "transport": "Transport",
+      "household": "Haushalt"
+    },
+    "heat-primeum": {
+      "title": "Meine CO2-Prämie",
+      "subtitle-main": "Meine Hauptheizung",
+      "subtitle-sanitary": "Mein Warmwasser",
+      "subtitle-secondary": "Meine Zusatzheizung",
+      "step-one": "Situation",
+      "step-two": "Nachweise",
+      "step-three": "Verfolgung",
+      "heater": "Heizungstyp",
+      "placeholder": "Auswählen",
+      "house-main-heat": "In Ihrer Wohnung installierte Hauptheizung:",
+      "house-sanitary-heat": "In Ihrer Wohnung installiertes Warmwasser:",
+      "house-secondary-heat": "In Ihrer Wohnung installierte Zusatzheizung:",
+      "next-step": "Weiter",
+      "end": "Beenden",
+      "dropdown-heat-type": {
+        "ELECTRIC": "Elektrizität",
+        "COAL": "Kohle",
+        "GAS": "Stadtgas",
+        "FUEL_OIL": "Heizöl",
+        "URBAN": "Fernwärme",
+        "WOOD": "Holz",
+        "HEAT_PUMP": "Wärmepumpe",
+        "THERMAL_SOLAR": "Solarthermie",
+        "PROPANE": "Propan"
+      },
+      "dropdown-years": {
+        "before-2012": "Vor 2012"
+      },
+      "instruction-heat-type": "Wie heizen Sie heute Ihre Wohnung?",
+      "instruction-heat-type-installation-date": "Diese Heizung ist in der Wohnung installiert seit:",
+      "instruction-heat-type-before": "Heizungstyp davor",
+      "instruction-sanitary-heat-type": "Wie wird heute Ihr Warmwasser produziert?",
+      "instruction-sanitary-heat-installation-date": "Das Warmwasser ist installiert seit:",
+      "instruction-sanitary-heat-type-before": "Warmwassertyp davor",
+      "instruction-secondary-heat-type": "Falls Ihre Wohnung eine Zusatzheizung hat, geben Sie den Heizungstyp an."
+    },
+    "works-primeum": {
+      "title": "Meine CO2-Prämie"
+    },
+    "transport-primeum": {
+      "title": "Meine CO2-Prämie"
+    },
+    "household-primeum": {
+      "title": "Meine CO2-Prämie"
+    },
+    "evolution": {
+      "title": "Entwicklung meiner Emissionen",
+      "na": "Nicht berechnet",
+      "receive": "Meine Prämie erhalten",
+      "baseline": "Referenzemissionen"
+    },
+    "footprint-estimation": {
       "title": "Meine CO2-Bilanz",
       "tab": "CO2-Bilanz",
       "instruction": "Tippen Sie auf eine Kategorie, um zu beginnen",
@@ -445,7 +515,7 @@
       "average": "Französischer Durchschnitt",
       "ton": "t",
       "tons": "t",
-      "share": "Teilen",
+      "take-action": "Aktiv werden",
       "reward": "Durch die CO2-Prämie belohnt werden",
       "method": "Mehr über die Berechnungsmethode erfahren",
       "compute": "Berechnen",
@@ -453,7 +523,7 @@
       "message-part-one": "Hallo,\n\nIch habe gerade meine CO2-Bilanz in zwei Minuten berechnet. Sehr interessant.\n\nMeine CO2-Bilanz beträgt ",
       "message-part-two": "Finde auch deinen heraus und sag mir, wie viel du wiegst!\n\nAuf iOS:\n\nhttps://apps.apple.com/de/app/bank-app/id0000000000?l=de-DE\n\n auf Android:\n\nhttps://play.google.com/store/apps/details?id=com.example.energyapp"
     },
-    "carbon-house": {
+    "footprint-estimation-house": {
       "title": "Meine Unterkunft",
       "no-CO2": "Der Verbrauch dieser Heizungsart emittiert kein CO2 in der Berechnungsmethodik.",
       "dropdown": {
@@ -477,7 +547,7 @@
       },
       "surface": "Fläche"
     },
-    "carbon-transport": {
+    "footprint-estimation-transport": {
       "title": "Mein Transport",
       "no-CO2": "Der Verbrauch dieses Fahrzeugtyps emittiert kein CO2 in der Berechnungsmethodik",
       "dropdown": {
@@ -496,7 +566,7 @@
         "unit": " km"
       }
     },
-    "carbon-food": {
+    "footprint-estimation-food": {
       "title": "Meine Ernährung",
       "slider": {
         "alcohol": "Wein / Bier",
@@ -518,7 +588,7 @@
       "text": "Aus der Schätzung des CO2-Fußabdrucks der Ernährung wird der des Abfalls abgeleitet.",
       "next": "Weiter"
     },
-    "carbon-fly": {
+    "footprint-estimation-fly": {
       "title": "Mein Flugverkehr",
       "dropdown": {
         "destination": "Abflug von",

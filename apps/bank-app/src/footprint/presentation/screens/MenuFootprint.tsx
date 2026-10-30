@@ -40,7 +40,7 @@ export const MenuFootprint = () => {
     <LoaderSplashScreen />
   ) : (
     <ErrorBoundary t={t}>
-      <View style={[styles.container]}>
+      <View style={styles.container}>
         <View style={styles.row}>
           <LongCardIcon
             text={t('screens.menu-footprint.2min')}

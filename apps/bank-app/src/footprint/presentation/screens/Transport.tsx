@@ -39,7 +39,7 @@ export const Transport = () => {
 
           <View style={styles.buttonContainer}>
             <PrimaryButton
-              title={t('screens.carbon.compute')}
+              title={t('screens.footprint-estimation.compute')}
               onPress={handleOnPress}
               iconLeft={() => (
                 <View style={{ height: 23, justifyContent: 'center' }}>
