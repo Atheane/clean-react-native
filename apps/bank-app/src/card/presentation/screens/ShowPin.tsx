@@ -3,11 +3,13 @@ import { useSelector } from 'react-redux';
 import { View, StyleSheet, Dimensions, Text, Image } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
-
-import { CB, WhiteEye } from '../assets';
-import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { Eye, Colors } from '@clean-rn/ui-mobile';
 import { PrimaryButton, Secured4Digits } from '@clean-rn/ui-mobile';
+
+import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+
+import { CB } from '../assets/images';
 
 const HEIGHT = Dimensions.get('screen').height;
 export const ShowPin = () => {
@@ -51,7 +53,7 @@ export const ShowPin = () => {
           <View style={styles.rowContainer}>
             <PrimaryButton
               title={t('screens.card.show-pin.see-my-pin')}
-              iconLeft={WhiteEye}
+              iconLeft={() => <Eye width={23} height={23} color={Colors.primary.white} />}
               onPress={handleOnPress}
               uppercase
             />

@@ -1,26 +1,15 @@
-import { ScreenModalError } from './ScreenModalError';
-import { ScreenModalContent } from './ScreenModalContent';
-import { Login } from './Login';
-import { Home } from './Home';
-import { Dashboard } from './Dashboard';
-import { EpcCurrentSituation } from './EpcCurrentSituation';
-import { EpcAfterRenovation } from './EpcAfterRenovation';
-import { EpcExplanationComfortPrice } from './EpcExplanationComfortPrice';
-import { EpcRecommendedIndoorTemperature } from './EpcRecommendedIndoorTemperature';
-import { EpcContract } from './EpcContract';
-import { Settings } from './Settings';
+export { ScreenModalError } from './ScreenModalError';
+export { ScreenModalContent } from './ScreenModalContent';
+export { Login } from './Login';
+export { Home } from './Home';
+export { Dashboard } from './Dashboard';
+export { EpcCurrentSituation } from './EpcCurrentSituation';
+export { EpcAfterRenovation } from './EpcAfterRenovation';
+export { EpcExplanationComfortPrice } from './EpcExplanationComfortPrice';
+export { EpcRecommendedIndoorTemperature } from './EpcRecommendedIndoorTemperature';
+export { EpcContract } from './EpcContract';
+export { Settings } from './Settings';
 export { ScreenModalHelp } from './ScreenModalHelp';
-
-export {
-  ScreenModalError,
-  ScreenModalContent,
-  Login,
-  Home,
-  Dashboard,
-  EpcCurrentSituation,
-  EpcAfterRenovation,
-  EpcExplanationComfortPrice,
-  EpcRecommendedIndoorTemperature,
-  EpcContract,
-  Settings,
-};
+export { ApplicationSettings } from './ApplicationSettings';
+export { Languages } from './Languages';
+export { Notifications } from './Notifications';

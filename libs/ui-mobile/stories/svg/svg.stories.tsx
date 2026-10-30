@@ -27,6 +27,8 @@ const customSizeSVGs = {
   BottomLeavesBg: SVGIcons.BottomLeavesBg,
   TopLeavesBg: SVGIcons.TopLeavesBg,
   CertificateBlueGradient: SVGIcons.CertificateBlueGradient,
+  CardBank: SVGIcons.CardBank,
+  Unlock: SVGIcons.Unlock,
 };
 
 const customSizeColorSVGs = {
