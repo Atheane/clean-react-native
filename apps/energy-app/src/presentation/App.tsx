@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { SafeAreaView, StyleSheet, Image, AppState, AppStateStatus } from 'react-native';
-import { I18nextProvider, useTranslation } from 'react-i18next';
+import { SafeAreaView, StyleSheet, Image, AppState, AppStateStatus, Dimensions } from 'react-native';
+import { I18nextProvider } from 'react-i18next';
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import { Provider } from 'react-redux';
@@ -14,16 +14,18 @@ import { i18n } from './translations';
 import { initializeApplication } from '../application/commands/initialize-application';
 import { store, persistor } from '../application/usecases/root-saga';
 import { NavigationUI } from './navigation';
-import SplashScreen from '../../assets/splash.png';
+import Splash from '../../assets/splash.png';
 import { IRootState } from '../application/state-management/reducers/root-reducer';
 
-const AppContent = () => {
+const App: () => JSX.Element = () => {
+  const [fontsLoaded] = useFonts(Fonts);
   const dispatch = useDispatch();
-  const { pending } = useSelector((state: IRootState) => state.initialization);
-  const { error } = useSelector((state: IRootState) => state.unknownError);
-  const [appState, setAppState] = useState(AppState.currentState || 'unknown');
-  const { t } = useTranslation();
 
+  const { pending } = useSelector((state: IRootState) => state.initialization);
+
+  const { error } = useSelector((state: IRootState) => state.unknownError);
+
+  const [appState, setAppState] = useState(AppState.currentState || 'unknown');
   useEffect(() => {
     dispatch(initializeApplication());
   }, [dispatch]);
@@ -31,7 +33,8 @@ const AppContent = () => {
   if (error?.message === 'Network request failed') {
     Notifications.scheduleNotificationAsync({
       content: {
-        title: t('modal-error.network'),
+        title: 'No internet connection',
+        body: 'Please check your internet connection and try again',
       },
       trigger: null,
     });
@@ -54,24 +57,24 @@ const AppContent = () => {
     };
   }, [appState]);
 
-  return (
+  return fontsLoaded && !pending ? (
     <ThemeProvider theme={theme}>
       <I18nextProvider i18n={i18n}>
         <NavigationUI />
         <StatusBar />
       </I18nextProvider>
     </ThemeProvider>
-  );
-};
-
-const App = () => {
-  const [fontsLoaded] = useFonts(Fonts);
-
-  return fontsLoaded ? (
-    <AppContent />
   ) : (
-    <SafeAreaView style={[styles.container, { marginBottom: 30, marginLeft: 10 }]}>
-      <Image source={SplashScreen} style={{ width: 250, height: 500 }} />
+    <SafeAreaView style={[styles.container, { marginBottom: 30, marginLeft: 20 }]}>
+      <Image
+        source={Splash}
+        style={{
+          width: Dimensions.get('window').width,
+          height: Dimensions.get('window').height,
+          marginBottom: 24,
+        }}
+        resizeMode="contain"
+      />
     </SafeAreaView>
   );
 };
