@@ -3,9 +3,15 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { useTheme } from '@rneui/themed';
 import { IconNode } from '@rneui/base';
 
-import { Tabs, Group2, BankBuilding, Colors } from '@clean-rn/ui-mobile';
-
-import { NoContact, NoBeneficiary, LoanHeater } from '../../../assets/images';
+import {
+  Tabs,
+  Group2,
+  BankBuilding,
+  Colors,
+  NoContact,
+  NoBeneficiary,
+  LoanHeater,
+} from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus } from '../../wrappers';
 
@@ -52,7 +58,7 @@ type Story = StoryObj<typeof meta>;
 export const TwoGreenTabs: Story = {
   args: {
     tabsCount: 2,
-    icons: [Group2, BankBuilding] as IconNode[],
+    icons: [Group2, () => <BankBuilding color={Colors.primary.lightGreen} />] as IconNode[],
     contents: [<ContentTab1 />, <ContentTab2 />],
     titles: ['Champion', 'Bad'],
     color: Colors.primary.lightGreen,

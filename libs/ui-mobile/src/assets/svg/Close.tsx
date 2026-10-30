@@ -1,0 +1,24 @@
+import React from 'react';
+import Svg, { Path } from 'react-native-svg';
+import { StyleProp, ViewStyle } from 'react-native';
+
+type IProps = {
+  width?: number;
+  height?: number;
+  color?: string;
+  style?: StyleProp<ViewStyle>;
+};
+
+export const Close = ({ width = 20, height = 20, color = '#405098', style }: IProps) => {
+  return (
+    <Svg width={width} height={height} viewBox="0 0 18.479 18.479" style={style}>
+      <Path
+        id="np_close_4732140_000000"
+        d="M12.365,3.125a9.24,9.24,0,1,0,9.24,9.24A9.244,9.244,0,0,0,12.365,3.125Zm0,1.232a8.008,8.008,0,1,1-8.008,8.008A8.011,8.011,0,0,1,12.365,4.357Zm-.871,8.008L8.445,15.414a.616.616,0,0,0,.871.871l3.049-3.049,3.049,3.049a.616.616,0,0,0,.871-.871l-3.049-3.049,3.049-3.049a.616.616,0,0,0-.871-.871l-3.049,3.049L9.315,8.445a.616.616,0,0,0-.871.871Z"
+        transform="translate(-3.125 -3.125)"
+        fillRule="evenodd"
+        fill={color}
+      />
+    </Svg>
+  );
+};

@@ -103,7 +103,7 @@ export const Household = () => {
           <View style={[styles.rowContainer, { marginTop: 100 }]}>
             <SelectNumber
               label={t('screens.household-primeum.adults')}
-              icon={Group2}
+              icon={() => <Group2 />}
               onChange={handleChangeAdult}
               value={formData.adultNumber}
             />
@@ -120,7 +120,7 @@ export const Household = () => {
           <View style={styles.rowContainer}>
             <SelectNumber
               label={t('screens.household-primeum.minors')}
-              icon={Group2}
+              icon={() => <Group2 />}
               onChange={handleChangeChild}
               value={formData.childNumber}
             />

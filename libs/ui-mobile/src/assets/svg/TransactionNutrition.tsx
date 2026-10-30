@@ -1,0 +1,40 @@
+import Svg, { Circle, Path, G } from 'react-native-svg';
+import { StyleProp, ViewStyle } from 'react-native';
+
+type IProps = {
+  width?: number;
+  height?: number;
+  color?: string;
+  style?: StyleProp<ViewStyle>;
+};
+
+export const TransactionNutrition = ({ width = 28, height = 28, color = '#3279c0', style }: IProps) => {
+  return (
+    <Svg width={width} height={height} viewBox="0 0 28 28" style={style}>
+      <Circle cx={14} cy={14} r={14} fill={color} />
+      <G id="np_shopping-cart_888730_000000" transform="translate(-6.097 -9.017)">
+        <Path
+          id="Tracé_7359"
+          data-name="Tracé 7359"
+          d="M26.849,25.952H17.185a.483.483,0,0,1,0-.422c.127-.38.548-.675,1.266-.844l7.681-.844A.827.827,0,0,0,26.85,23V19.2a.847.847,0,0,0-.844-.844H15.623l-.169-1.013a.861.861,0,0,0-.844-.675H13.344a.844.844,0,1,0,0,1.689h.591L15.5,26.165v.042A1.608,1.608,0,0,0,17.016,27.6h9.833a.847.847,0,0,0,.844-.844.812.812,0,0,0-.844-.8ZM18.409,23V20.044H20.1v2.744Zm2.532-2.955h1.688v2.49l-1.688.169Zm4.22,2.2-1.688.169V20.044h1.688Zm-7.6-2.2v3.123a4.33,4.33,0,0,0-.886.422L16,20.044Z"
+          transform="translate(0)"
+          fill="#fff"
+        />
+        <Path
+          id="Tracé_7360"
+          data-name="Tracé 7360"
+          d="M21.282,76.266A1.266,1.266,0,1,1,20.016,75a1.266,1.266,0,0,1,1.266,1.266"
+          transform="translate(-4.984 -46.515)"
+          fill="#fff"
+        />
+        <Path
+          id="Tracé_7361"
+          data-name="Tracé 7361"
+          d="M71.282,76.266A1.266,1.266,0,1,1,70.016,75a1.266,1.266,0,0,1,1.266,1.266"
+          transform="translate(-44.855 -46.515)"
+          fill="#fff"
+        />
+      </G>
+    </Svg>
+  );
+};

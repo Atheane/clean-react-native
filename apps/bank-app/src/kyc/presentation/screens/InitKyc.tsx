@@ -50,7 +50,7 @@ export const InitKyc = () => {
               title={t('screens.kyc.init.check-identity')}
               iconLeft={() => (
                 <View style={styles.iconContainer}>
-                  <Add style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
+                  <Add color={Colors.primary.white} />
                 </View>
               )}
               onPress={handleOnPress}

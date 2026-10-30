@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { View, Text, StyleSheet, StyleProp, TextStyle, ViewStyle } from 'react-native';
+import { View, Text, StyleSheet, StyleProp, TextStyle } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { Button, useTheme } from '@rneui/themed';
 
@@ -33,7 +33,7 @@ export const LinkButton: FC<IProps> = (props: IProps) => {
       ) : (
         <View style={[theme.container.centeredItems, styles.container]}>
           {props.iconLeft && (
-            <props.iconLeft style={props.colorOption ? { color: getColor(props.colorOption) } : {}} />
+            <props.iconLeft color={(props.colorOption && getColor(props.colorOption)) as string} />
           )}
           {props.arrow && (
             <View style={styles.iconContainer}>
@@ -59,9 +59,7 @@ export const LinkButton: FC<IProps> = (props: IProps) => {
             </Text>
           )}
           {props.iconRight && (
-            <props.iconRight
-              style={(props.colorOption && { color: getColor(props.colorOption) }) as StyleProp<ViewStyle>}
-            />
+            <props.iconRight color={(props.colorOption && getColor(props.colorOption)) as string} />
           )}
         </View>
       )}
@@ -69,7 +67,7 @@ export const LinkButton: FC<IProps> = (props: IProps) => {
   );
 };
 
-const getColor = (option: LinkButtonColors) => {
+export const getColor = (option: LinkButtonColors) => {
   switch (option) {
     case LinkButtonColors.PINK:
       return Colors.secondary.pink;

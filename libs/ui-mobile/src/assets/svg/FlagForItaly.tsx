@@ -1,0 +1,22 @@
+import React from 'react';
+import Svg, { Path } from 'react-native-svg';
+import { StyleProp, ViewStyle } from 'react-native';
+
+type IProps = {
+  width?: number;
+  height?: number;
+  style?: StyleProp<ViewStyle>;
+};
+
+export const FlagForItaly = ({ width = 64, height = 64, style }: IProps) => {
+  return (
+    <Svg width={width} height={height} viewBox="0 0 64 64" style={style}>
+      <Path d="M1.7 32c0 13.1 8.4 24.2 20 28.3V3.7C10.1 7.8 1.7 18.9 1.7 32z" fill="#75a843" />
+      <Path d="M61.7 32c0-13.1-8.4-24.2-20-28.3v56.6c11.7-4.1 20-15.2 20-28.3" fill="#ed4c5c" />
+      <Path
+        d="M21.7 60.3c3.1 1.1 6.5 1.7 10 1.7s6.9-.6 10-1.7V3.7C38.6 2.6 35.2 2 31.7 2s-6.9.6-10 1.7v56.6"
+        fill="#ffffff"
+      />
+    </Svg>
+  );
+};

@@ -3,12 +3,7 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 
-import {
-  BankBuildingBlueGradient,
-  LinkButton,
-  LinkButtonColors,
-  PortofolioBlueGradient,
-} from '@clean-rn/ui-mobile';
+import { BankBuilding, LinkButton, LinkButtonColors, Iban as IbanIcon } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IParametersStackPages } from '../../../shared/presentation/types';
@@ -32,7 +27,7 @@ export const AccountSettings = () => {
         <View style={styles.container}>
           <View style={[styles.rowContainer, { marginVertical: 8 }]}>
             <LinkButton
-              iconLeft={() => <BankBuildingBlueGradient style={{ marginLeft: 0, marginRight: 20 }} />}
+              iconLeft={() => <BankBuilding />}
               colorOption={LinkButtonColors.BLUE}
               title={t('screens.account-settings.beneficiaries')}
               onPress={handlePressBeneficiaries}
@@ -40,7 +35,11 @@ export const AccountSettings = () => {
           </View>
           <View style={[styles.rowContainer, { marginVertical: 8 }]}>
             <LinkButton
-              iconLeft={() => <PortofolioBlueGradient style={{ marginLeft: 8, marginRight: 20 }} />}
+              iconLeft={() => (
+                <View style={{ marginLeft: 4, marginRight: -28 }}>
+                  <IbanIcon />
+                </View>
+              )}
               colorOption={LinkButtonColors.BLUE}
               title={t('screens.account-settings.bank-coordinates')}
               onPress={handlePressBankCoordinates}

@@ -717,7 +717,8 @@
       }
     },
     "profile-identity": {
-      "title": "Edit My Profile - Identity"
+      "title": "Edit My Profile - Identity",
+      "copy": "Copy"
     },
     "profile-address": {
       "title": "Edit My Profile - Address"
@@ -807,7 +808,8 @@
       "title": "My bank details",
       "instruction": "Here are the IBAN and BIC of your CO2 Account. With them, credit your CO2 Account from your other bank account.",
       "bank-account": "CO2 Account",
-      "share": "Download"
+      "share": "Download",
+      "copy": "Copy"
     },
     "languages": {
       "title": "Select Language"

@@ -6,14 +6,7 @@ import { useRoute } from '@react-navigation/native';
 import { IAccount } from '@clean-rn/account/domain';
 import { IStatementsPeriod } from '@clean-rn/transaction/domain';
 
-import {
-  LongCard,
-  Colors,
-  FontNames,
-  BottomLeavesBg,
-  ExportPdfGradient,
-  Ibanv2,
-} from '@clean-rn/ui-mobile';
+import { LongCard, Colors, FontNames, BottomLeavesBg, ExportPdf, IbanV2 } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IAccountStackPages, ITransactionStackPages } from '../../../shared/presentation/types';
@@ -60,7 +53,7 @@ export const AccountStatements = () => {
               text={t('screens.account-statements.cards.last-month')}
               icon={() => (
                 <View style={styles.iconContainer}>
-                  <ExportPdfGradient />
+                  <ExportPdf startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
                 </View>
               )}
               pressable
@@ -70,7 +63,7 @@ export const AccountStatements = () => {
               text={t('screens.account-statements.cards.last-trimester')}
               icon={() => (
                 <View style={styles.iconContainer}>
-                  <ExportPdfGradient />
+                  <ExportPdf startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
                 </View>
               )}
               pressable
@@ -80,7 +73,7 @@ export const AccountStatements = () => {
               text={t('screens.account-statements.cards.all')}
               icon={() => (
                 <View style={styles.iconContainer}>
-                  <ExportPdfGradient />
+                  <ExportPdf startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
                 </View>
               )}
               pressable
@@ -88,7 +81,7 @@ export const AccountStatements = () => {
             />
             <LongCard
               text={t('screens.account-statements.cards.rib')}
-              icon={Ibanv2}
+              icon={() => <IbanV2 />}
               pressable
               onPress={handleOnDownloadRIB}
             />

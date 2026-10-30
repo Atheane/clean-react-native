@@ -61,10 +61,15 @@ export const PdfDownloader = (props: IProps) => {
   };
 
   return props.primaryButtonTitle ? (
-    <PrimaryButton title={props.primaryButtonTitle} onPress={downloadPDF} iconOne={props.icon} long />
+    <PrimaryButton
+      title={props.primaryButtonTitle}
+      onPress={downloadPDF}
+      iconLeft={(iconProps) => <props.icon {...iconProps} />}
+      long
+    />
   ) : (
     <View style={styles.container}>
-      <LinkButton onPress={downloadPDF} iconRight={props.icon} />
+      <LinkButton onPress={downloadPDF} iconRight={(iconProps) => <props.icon {...iconProps} />} />
     </View>
   );
 };

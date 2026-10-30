@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 
-import { Colors, StackedBars, TableCO2Baseline } from '@clean-rn/ui-mobile';
+import { Colors, StackedBars, TableBaseline } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { ISharedStackPages } from '../../../shared/presentation/types';
@@ -44,7 +44,7 @@ export const EvolutionFootprint = () => {
             />
           </View>
           <View style={styles.row}>
-            <TableCO2Baseline
+            <TableBaseline
               tableHead={['Logement', 'Voiture', 'Total', 'Evité']}
               tableData={email?.value && TESTEURS.includes(email.value) ? fakeData : []}
               rowLabels={['2019-2020', '2022', '2023', '2024']}

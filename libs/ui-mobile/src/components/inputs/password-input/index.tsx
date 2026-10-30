@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, GestureResponderEvent } from 'react-native';
+import { View, Text, StyleSheet, GestureResponderEvent, Platform } from 'react-native';
 
 import { Input, InputProps, useTheme } from '@rneui/themed';
 
@@ -24,7 +24,7 @@ export const PasswordInput = (props: InputProps & State) => {
           inputContainerStyle={styles.inputContainerStyle}
           inputStyle={theme.text.input}
           secureTextEntry={props.secured}
-          leftIcon={<Lock style={{ color: Colors.background.lightGreen }} />}
+          leftIcon={<Lock color={Colors.primary.lightGreen} />}
           leftIconContainerStyle={styles.leftIconContainer}
           onFocus={props.onFocus}
           onChangeText={props.onChange}
@@ -35,9 +35,9 @@ export const PasswordInput = (props: InputProps & State) => {
           rightIcon={
             <View style={styles.eyeContainer} onTouchStart={props.onToggleSecurity}>
               {props.secured ? (
-                <Eye {...styles.eyeIcon} style={{ color: Colors.secondary.pink }} />
+                <Eye color={Colors.secondary.pink} />
               ) : (
-                <Blind {...styles.blindIcon} style={{ color: Colors.secondary.pink }} />
+                <Blind color={Colors.secondary.pink} />
               )}
             </View>
           }
@@ -50,7 +50,7 @@ export const PasswordInput = (props: InputProps & State) => {
 const styles = StyleSheet.create({
   inputContainerStyle: {
     marginTop: 10,
-    marginBottom: -15, // override of default input bottomMargin
+    marginBottom: Platform.OS === 'web' ? 0 : -15, // override of default input bottomMargin
     borderBottomWidth: 0,
   },
   leftIconContainer: {
@@ -58,20 +58,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
   },
   eyeContainer: {
-    justifyContent: 'center',
     height: 30,
     borderLeftColor: Colors.secondary.pink,
     borderLeftWidth: 1,
     paddingLeft: 20,
     paddingRight: 10,
-  },
-  eyeIcon: {
-    width: 22,
-    height: 17,
-  },
-  blindIcon: {
-    marginBottom: 5,
-    width: 25,
-    height: 25,
   },
 });

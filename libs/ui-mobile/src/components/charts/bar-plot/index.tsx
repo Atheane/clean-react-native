@@ -1,5 +1,7 @@
-import { View, StyleSheet, Dimensions } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, Dimensions, Platform } from 'react-native';
 import { ECharts } from 'react-native-echarts-wrapper';
+import ReactECharts from 'echarts-for-react';
 
 type IProps = {
   title: string;
@@ -27,7 +29,7 @@ export const BarPlot = (props: IProps) => {
       text: props.title,
       subtext: props.subtitle ?? '',
       left: 'center',
-      top: -12,
+      top: Platform.OS === 'web' ? 0 : -12,
     },
     xAxis: {
       type: 'category',
@@ -35,7 +37,7 @@ export const BarPlot = (props: IProps) => {
     },
     yAxis: {
       type: 'value',
-      name: props.yAxisLabel, // Ajoute le label sur l'axe Y
+      name: props.yAxisLabel,
     },
     tooltip: {
       trigger: 'axis',
@@ -50,6 +52,10 @@ export const BarPlot = (props: IProps) => {
     series,
     animation: false,
   };
+
+  if (Platform.OS === 'web') {
+    return <ReactECharts option={option} style={{ height: '50vh', width: '100%' }} />;
+  }
 
   return (
     <View style={styles.chartContainer}>

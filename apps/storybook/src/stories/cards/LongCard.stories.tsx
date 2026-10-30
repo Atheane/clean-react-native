@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { LongCard, ExportPdfGradient } from '@clean-rn/ui-mobile';
+import { LongCard, ExportPdf, Colors } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
@@ -19,7 +19,7 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: {
     text: 'Current month',
-    icon: ExportPdfGradient,
+    icon: () => <ExportPdf startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />,
     pressable: true,
   },
 };

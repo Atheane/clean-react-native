@@ -1,0 +1,41 @@
+import React from 'react';
+import Svg, { Defs, LinearGradient, Stop, Path } from 'react-native-svg';
+import { StyleProp, ViewStyle } from 'react-native';
+
+type IProps = {
+  width?: number;
+  height?: number;
+  startColor?: string;
+  endColor?: string;
+  color?: string;
+  style?: StyleProp<ViewStyle>;
+};
+
+export const Surface = ({
+  width = 37,
+  height = 32,
+  startColor = '#cfce29',
+  endColor = '#a1b201',
+  color,
+  style,
+}: IProps) => {
+  const useGradient = !color;
+
+  return (
+    <Svg width={width} height={height} viewBox="0 0 37 32" style={style}>
+      <Defs>
+        {useGradient && (
+          <LinearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+            <Stop offset="0" stopColor={startColor} />
+            <Stop offset="1" stopColor={endColor} />
+          </LinearGradient>
+        )}
+      </Defs>
+      <Path
+        d="M36.809,14.19,29.416,8.382V4.521a.678.678,0,0,0-.678-.678H26.187a.679.679,0,0,0-.679.678v.791L18.954.162a.676.676,0,0,0-.838,0L.26,14.19A.679.679,0,0,0,.68,15.4H2.552v15.9a.679.679,0,0,0,.679.679H33.839a.679.679,0,0,0,.679-.679h0V15.4h1.871a.679.679,0,0,0,.42-1.213h0Zm-2.969-.145h-.682V30.624H3.909V14.045H2.641L18.534,1.558l7.233,5.681a.679.679,0,0,0,1.1-.535V5.2h1.193V8.711a.68.68,0,0,0,.26.534l6.109,4.8h-.586Zm-13.8,11V20.063a1.506,1.506,0,0,0-1.5-1.583,1.6,1.6,0,0,0-1.571,1.583V25.05H15.457V20.063A1.737,1.737,0,0,0,13.67,18.48a1.658,1.658,0,0,0-1.643,1.63v4.94H10.538V16.879h1.444v.753a2.827,2.827,0,0,1,2.061-.753,2.4,2.4,0,0,1,2.127.96,3.193,3.193,0,0,1,2.516-.96,2.467,2.467,0,0,1,1.848.753,2.726,2.726,0,0,1,.787,2.2V25.05H20.038Zm3.083-5.222v-1.07l2.432-2.824a1.121,1.121,0,0,0,.338-.787.792.792,0,1,0-1.582.019H23.122a1.85,1.85,0,0,1,1.984-1.9,1.827,1.827,0,0,1,1.975,1.893,2.077,2.077,0,0,1-.695,1.491L24.567,18.76h2.512v1.07H23.123Z"
+        fill={useGradient ? 'url(#linear-gradient)' : color}
+        transform="translate(-0.001 -0.017)"
+      />
+    </Svg>
+  );
+};

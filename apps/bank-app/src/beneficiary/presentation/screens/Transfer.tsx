@@ -9,10 +9,11 @@ import { IAccount } from '@clean-rn/account/domain';
 import {
   TransferCard,
   useCleanErrorOnFocus,
-  PhoneGradientWhiteBg,
+  PhoneBg as PhoneGradientWhiteBg,
   BankBgGradient,
   BankAltLogo,
   LoaderSplashScreen,
+  Colors,
 } from '@clean-rn/ui-mobile';
 import { Amount, ITransactionType } from '@clean-rn/transaction/domain';
 import { Phone } from '@clean-rn/contact/domain';
@@ -173,7 +174,7 @@ export const Transfer = () => {
                 arrow
                 uniqueAccount
                 text={userName}
-                icon={BankAltLogo}
+                icon={() => <BankAltLogo />}
                 data={data}
                 onSelect={handleOnSelect}
               />
@@ -183,7 +184,18 @@ export const Transfer = () => {
                 <TransferCard
                   arrow={false}
                   text={beneficiaryName}
-                  icon={beneficiaryAccountId ? BankAltLogo : phoneNumber ? PhoneGradientWhiteBg : BankBgGradient}
+                  icon={
+                    beneficiaryAccountId
+                      ? () => <BankAltLogo />
+                      : phoneNumber
+                        ? () => (
+                            <PhoneGradientWhiteBg
+                              startColor={Colors.secondary.pink}
+                              endColor={Colors.primary.darkBlue}
+                            />
+                          )
+                        : () => <BankBgGradient />
+                  }
                 />
               </View>
             )}

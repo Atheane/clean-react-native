@@ -1,7 +1,7 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
-import { BackgroundCardArrow, BackgroundCardGrey } from '../../../assets';
+import { BackgroundCardArrow, BackgroundCardGrey } from '../../../assets/images';
 import { Dropdown } from '../../dropdowns/dropdown';
 
 type IData = {
@@ -23,8 +23,8 @@ export const TransferCard = (props: IProps) => {
   return (
     <View>
       <View style={styles.backgroundContainer}>
-        {props.arrow && <BackgroundCardArrow />}
-        {!props.arrow && <BackgroundCardGrey />}
+        {props.arrow && <Image source={BackgroundCardArrow} style={styles.backgroundImageArrow} />}
+        {!props.arrow && <Image source={BackgroundCardGrey} style={styles.backgroundImage} />}
         <View style={[styles.textContainer, { width: props.arrow ? 150 : 150 }]}>
           <Text style={[theme.text.boldDarkBlue, { fontSize: 12, lineHeight: 19 }]}>
             {props.arrow ? props.text.slice(0, 19) : props.text}
@@ -85,5 +85,13 @@ const styles = StyleSheet.create({
     left: 16,
     width: 40,
     height: 40,
+  },
+  backgroundImage: {
+    width: 331,
+    height: 77,
+  },
+  backgroundImageArrow: {
+    width: 331,
+    height: 100,
   },
 });

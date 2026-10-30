@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC } from 'react';
-import { View, StyleSheet, Text, Dimensions } from 'react-native';
+import { FC, useState } from 'react';
+import { View, StyleSheet, Text, Dimensions, Platform } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
+import Select from 'react-select';
 import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
 
-import { DropDownChevron } from '../../../assets';
-import { Colors } from '../../../constants';
+import { DropdownChevron } from '../../../assets';
+import { Colors, FontNames } from '../../../constants';
 
 type IData = {
   key: any;
@@ -27,7 +28,7 @@ type IProps = {
   onSelect: ({ key, value }: { key: string; value: string }) => void;
 };
 
-export const Dropdown = (props: IProps) => {
+const MobileDropdown = (props: IProps) => {
   const handleOnSelect = (value: string, index: number) => {
     props.onSelect(props.data[index]);
   };
@@ -77,7 +78,7 @@ export const Dropdown = (props: IProps) => {
           rowTextStyle={styles.rowText}
           renderDropdownIcon={() => (
             <View style={styles.dropdownIcon}>
-              <DropDownChevron style={{ color: Colors.primary.lightGreen }} />
+              <DropdownChevron />
             </View>
           )}
           renderCustomizedRowChild={(row: any) => (
@@ -96,6 +97,94 @@ export const Dropdown = (props: IProps) => {
       </View>
     </View>
   );
+};
+
+const WebDropdown = (props: IProps) => {
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  const handleSelect = (option: any) => {
+    setSelectedOption(option);
+    props.onSelect({ key: option.key, value: option.value });
+  };
+
+  const options = props.data.map((item) => ({
+    value: item.value,
+    label: item.value,
+    key: item.key,
+  }));
+
+  const customStyles = {
+    control: (styles: any) => ({
+      ...styles,
+      borderRadius: 8,
+      paddingVertical: 8,
+      height: 55,
+      width: props.short ? props.shortWidth : '100%',
+      fontFamily: FontNames.Roboto_400Regular,
+      fontSize: 14,
+    }),
+    option: (styles: any) => ({
+      ...styles,
+      textTransform: 'uppercase',
+      fontFamily: FontNames.Roboto_400Regular,
+      fontSize: 14,
+    }),
+    placeholder: (styles: any) => ({
+      ...styles,
+      color: Colors.secondary.pink,
+      fontFamily: FontNames.Roboto_400Regular,
+      fontSize: 14,
+    }),
+  };
+
+  return (
+    <div style={{ width: props.short ? props.shortWidth : '100%' }}>
+      {props.label && (
+        <div style={{ marginBottom: 16 }}>
+          <span
+            style={{
+              color: props.labelColor || Colors.secondary.pink,
+              textTransform: 'uppercase',
+              fontFamily: FontNames.Roboto_700Bold,
+              textAlign: 'left',
+            }}
+          >
+            {props.label}
+          </span>
+        </div>
+      )}
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        {props.icon && (
+          <div style={{ marginRight: 16 }}>
+            <props.icon />
+          </div>
+        )}
+        <Select
+          options={options}
+          value={selectedOption}
+          onChange={handleSelect}
+          placeholder={props.placeholder}
+          styles={customStyles}
+          components={{
+            IndicatorSeparator: () => null,
+            IndicatorsContainer: () => (
+              <div style={{ marginRight: 16 }}>
+                <DropdownChevron color={Colors.primary.lightGreen} />
+              </div>
+            ),
+          }}
+        />
+      </div>
+    </div>
+  );
+};
+
+export const Dropdown = (props: IProps) => {
+  if (Platform.OS === 'web') {
+    return <WebDropdown {...props} />;
+  } else {
+    return <MobileDropdown {...props} />;
+  }
 };
 
 const styles = StyleSheet.create({

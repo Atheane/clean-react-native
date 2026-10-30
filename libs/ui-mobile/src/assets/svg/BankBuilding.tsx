@@ -1,0 +1,37 @@
+import Svg, { Defs, LinearGradient, Stop, Path } from 'react-native-svg';
+import { StyleProp, ViewStyle } from 'react-native';
+
+type IProps = {
+  width?: number;
+  height?: number;
+  startColor?: string;
+  endColor?: string;
+  color?: string;
+  style?: StyleProp<ViewStyle>;
+};
+
+export const BankBuilding = ({
+  width = 32,
+  height = 25,
+  startColor = '#cfce29',
+  endColor = '#a1b201',
+  color,
+  style,
+}: IProps) => {
+  const useGradient = !color;
+  return (
+    <Svg width={width} height={height} viewBox="0 0 32.007 25.412" style={style}>
+      <Defs>
+        <LinearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+          <Stop offset="0" stopColor={startColor} />
+          <Stop offset="1" stopColor={endColor} />
+        </LinearGradient>
+      </Defs>
+      <Path
+        d="M29.188,13.094H2.813a.616.616,0,0,1-.619-.619.631.631,0,0,1,.281-.519L15.663,3.393a.629.629,0,0,1,.675,0l13.188,8.563a.616.616,0,0,1,.181.856.631.631,0,0,1-.519.281ZM4.894,11.856H27.1L16,4.65,4.894,11.856Zm24.294,14.65H2.813a.619.619,0,1,1-.038-1.237H29.188a.619.619,0,1,1,.037,1.237h-.038Zm2.193,2.2H.619a.619.619,0,1,1-.037-1.237H31.388a.625.625,0,0,1,.6.637.637.637,0,0,1-.606.6ZM5.494,14.9H6.725v8.787H5.494V14.9Zm6.956,0h1.231v8.787H12.45V14.9Zm6.963,0h1.231v8.787H19.413V14.9Zm6.956,0H27.6v8.787H26.369V14.9Z"
+        transform="translate(0.018 -3.295)"
+        fill={useGradient ? 'url(#linear-gradient)' : color}
+      />
+    </Svg>
+  );
+};

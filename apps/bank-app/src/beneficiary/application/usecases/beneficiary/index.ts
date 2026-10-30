@@ -20,7 +20,7 @@ import {
   beneficiaryDeleted,
   resetError,
 } from '../../commands/beneficiary';
-import { IBeneficiaryStackPages, IRoutes } from '../../../../shared/presentation/types';
+import { IBeneficiaryStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { selectBeneficiary } from '../../state-management/selectors';

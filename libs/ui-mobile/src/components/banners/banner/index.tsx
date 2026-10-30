@@ -28,7 +28,7 @@ export const Banner = (props: IProps) => {
             <Text style={theme.text.banner}>{props.title}</Text>
           </View>
         }
-        rightComponent={<RightChevron width={16} height={20} style={{ color: Colors.primary.white }} />}
+        rightComponent={<RightChevron width={16} height={20} color={Colors.primary.white} />}
         containerStyle={[
           theme.container.centeredItem,
           {
@@ -56,7 +56,7 @@ export const Banner = (props: IProps) => {
             onPress={() => {
               return null;
             }}
-            iconRight={() => <RightChevron width={16} height={26} style={{ color: Colors.transparent }} />}
+            iconRight={() => <RightChevron width={16} height={26} color={Colors.transparent} />}
             colorOption={LinkButtonColors.WHITE}
           />
         </View>

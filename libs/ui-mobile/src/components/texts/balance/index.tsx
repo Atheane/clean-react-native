@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Image } from 'react-native';
 
 import { useTheme } from '@rneui/themed';
 
@@ -32,11 +32,15 @@ export const Balance = (props: IProps) => {
           >
             {props.value.toString().replace('.', ',')}
           </Text>
-          {props.unit === '€G' && <GreenEuro />}
+          {props.unit === '€G' && (
+            <View style={styles.imgContainer}>
+              <Image source={GreenEuro} style={styles.greenEuroImg} />
+            </View>
+          )}
         </View>
 
         <View style={styles.linkContainer}>
-          <RightChevron style={{ color: Colors.primary.white }} />
+          <RightChevron color={Colors.primary.white} />
         </View>
       </View>
     </TouchableOpacity>
@@ -48,7 +52,11 @@ export const Balance = (props: IProps) => {
           <Text style={[theme.text.numberTitle, { color: props.color }, styles.balance]}>
             {props.value.toString().replace('.', ',')}
           </Text>
-          {props.unit === '€G' && <GreenEuro />}
+          {props.unit === '€G' && (
+            <View style={styles.imgContainer}>
+              <Image source={GreenEuro} style={styles.greenEuroImg} />
+            </View>
+          )}
         </View>
       </View>
     </View>
@@ -65,5 +73,12 @@ const styles = StyleSheet.create({
   balance: {
     fontSize: NEEDS_SMALL_TEXT ? 32 : 38,
     marginTop: -6,
+  },
+  imgContainer: {
+    marginBottom: 10,
+  },
+  greenEuroImg: {
+    width: 64,
+    height: 64,
   },
 });

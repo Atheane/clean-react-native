@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import { View, StyleProp, ViewStyle, StyleSheet } from 'react-native';
 import DocumentScan, { ResponseType } from 'react-native-document-scanner-plugin';
 import { Image } from 'react-native-compressor';
 import * as FileSystem from 'expo-file-system';
@@ -80,27 +79,8 @@ export const DocumentScanner = (props: IProps) => {
     <PrimaryButton
       long
       title={props.buttonTitle}
-      iconLeft={() => (
-        <View style={styles.iconContainer}>
-          <CameraIcon style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
-        </View>
-      )}
+      iconLeft={() => <CameraIcon color={Colors.primary.white} />}
       onPress={handleOnPress}
     />
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    marginTop: 60,
-  },
-  title: {
-    fontSize: 16,
-  },
-  buttonContainer: {
-    marginTop: 0,
-  },
-  iconContainer: { position: 'relative', left: 10, top: 2 },
-});

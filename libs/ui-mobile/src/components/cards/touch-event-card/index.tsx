@@ -1,10 +1,19 @@
 import { useState, useCallback } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ImageSourcePropType } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ImageSourcePropType,
+  Dimensions,
+  Platform,
+} from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
 
 import { NEEDS_SMALL_TEXT } from '../../../constants';
-import { DeleteCross } from '../../../assets';
+import { Close } from '../../../assets';
 import { LinkButtonColors } from '../../../types';
 import { LinkButton } from '../../buttons/link-button';
 
@@ -17,6 +26,8 @@ type IProps = {
   onDelete?: (uid: string) => void;
   onPress?: (uid: string) => void;
 };
+
+const KPI_CARD_RATIO = 112 / 174;
 
 export const TouchEventCard = (props: IProps) => {
   const { theme } = useTheme();
@@ -37,7 +48,7 @@ export const TouchEventCard = (props: IProps) => {
       <TouchableOpacity
         onPress={handleOnPress}
         activeOpacity={0.85}
-        style={[theme.container.card.short, theme.shadow.card]}
+        style={Platform.OS === 'web' ? styles.webShadow : [theme.container.card.short, theme.shadow.card]}
       >
         <View style={styles.subContainer}>
           {props.image && <Image style={styles.image} source={props.image} />}
@@ -56,8 +67,12 @@ export const TouchEventCard = (props: IProps) => {
         </View>
       </TouchableOpacity>
       {props.onDelete && (
-        <View style={styles.deleteCross}>
-          <LinkButton onPress={handleOnDelete} iconRight={DeleteCross} colorOption={LinkButtonColors.BLUE} />
+        <View style={styles.close}>
+          <LinkButton
+            onPress={handleOnDelete}
+            iconRight={() => <Close />}
+            colorOption={LinkButtonColors.BLUE}
+          />
         </View>
       )}
     </View>
@@ -87,7 +102,7 @@ const styles = StyleSheet.create({
     height: 24,
     marginBottom: -30,
   },
-  deleteCross: {
+  close: {
     position: 'absolute',
     top: 16,
     right: 20,
@@ -95,5 +110,15 @@ const styles = StyleSheet.create({
   text: {
     top: 10,
     left: 6,
+  },
+  webShadow: {
+    boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+    minHeight: Dimensions.get('window').width * 0.9 * KPI_CARD_RATIO * 0.5,
+    borderRadius: 28,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    minWidth: 500,
   },
 });

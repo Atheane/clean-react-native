@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { TransferCard, BankLogoCA, BankAltLogo, PhoneGradientWhiteBg } from '@clean-rn/ui-mobile';
+import { TransferCard, BankLogoCA, BankAltLogo, PhoneBg, Colors } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
@@ -103,6 +103,12 @@ export const WaitingTransaction: Story = {
         value: 'value2',
       },
     ],
-    icon: PhoneGradientWhiteBg,
+    icon: () => (
+      <PhoneBg
+        backgroundColor={Colors.primary.white}
+        startColor={Colors.secondary.pink}
+        endColor={Colors.primary.darkBlue}
+      />
+    ),
   },
 };

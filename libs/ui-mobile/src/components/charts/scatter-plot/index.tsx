@@ -1,11 +1,14 @@
-import { View, StyleSheet, Dimensions } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, Dimensions, Platform } from 'react-native';
 import { ECharts } from 'react-native-echarts-wrapper';
+import ReactECharts from 'echarts-for-react';
 
 type IRegression = {
   label: string;
   data: number[][];
   labelPosition: number[];
 };
+
 type IProps = {
   title: string;
   subtitle?: string;
@@ -68,7 +71,7 @@ export const ScatterPlot = (props: IProps) => {
             padding: [4, 8],
             borderRadius: 4,
           },
-          data: [{ coord: regression.labelPosition }], // position of the label
+          data: [{ coord: regression.labelPosition }],
         },
       });
     });
@@ -107,7 +110,7 @@ export const ScatterPlot = (props: IProps) => {
       text: props.title,
       subtext: props.subtitle ?? '',
       left: 'center',
-      top: -12,
+      top: Platform.OS === 'web' ? 0 : -12,
     },
     tooltip: {
       trigger: 'axis',
@@ -118,6 +121,14 @@ export const ScatterPlot = (props: IProps) => {
     series: series,
   };
 
+  if (Platform.OS === 'web') {
+    return (
+      <View style={styles.chartContainer}>
+        <ReactECharts option={option} style={{ height: '50vh', width: '100%' }} />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.chartContainer}>
       <ECharts option={option} />
@@ -127,8 +138,8 @@ export const ScatterPlot = (props: IProps) => {
 
 const styles = StyleSheet.create({
   chartContainer: {
-    width: Dimensions.get('window').width,
+    width: Platform.OS === 'web' ? '100%' : Dimensions.get('window').width,
     height: Dimensions.get('window').height * 0.5,
-    marginLeft: 16,
+    marginLeft: Platform.OS === 'web' ? 0 : 16,
   },
 });

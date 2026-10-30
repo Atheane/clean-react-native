@@ -2,12 +2,12 @@ import {
   CardBANK,
   CardContract,
   CardEG,
-  CardLoanHeater,
+  LoanHeater,
   CardRocket,
   CardTeam,
   CardWorkflow,
   CardPremium,
-} from '../assets/images';
+} from '@clean-rn/ui-mobile';
 
 export const eventsCardsContent = [
   {
@@ -17,7 +17,7 @@ export const eventsCardsContent = [
   },
   { image: CardEG, title: 'Nos prêts pour décarboner l’économie', uid: 'loan' },
   {
-    image: CardLoanHeater,
+    image: LoanHeater,
     title: 'Notre offre de prêt pour changer de chaudière',
     uid: 'loan-heater',
   },

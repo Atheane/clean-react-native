@@ -5,7 +5,7 @@ import { Icon, useTheme, LinearProgress } from '@rneui/themed';
 import { NEEDS_SMALL_TEXT } from '../../../constants';
 import { IDocumentStatus } from '@clean-rn/kyc/domain';
 
-import { Edit, GreenValidation, DeleteCrossGradient } from '../../../assets';
+import { Edit, GreenValidation, DeleteCross } from '../../../assets';
 import { Colors, FontNames } from '../../../constants';
 import { LinkButtonColors } from '../../../types';
 import { LinkButton } from '../../buttons/link-button';
@@ -59,7 +59,7 @@ export const UploadDocumentCard = (props: IProps) => {
             <View style={styles.cancelIcon}>
               <LinkButton
                 onPress={props.onCancel}
-                iconRight={DeleteCrossGradient}
+                iconRight={() => <DeleteCross />}
                 colorOption={LinkButtonColors.BLUE}
               />
             </View>
@@ -80,7 +80,7 @@ export const UploadDocumentCard = (props: IProps) => {
         {props.loading && <LinearProgress color={Colors.primary.darkGreen} style={styles.progress} />}
         {props.status === 'REFUSED' && !props.loading && (
           <View style={styles.rightIconContainer}>
-            <Edit />
+            <Edit startColor={Colors.primary.darkBlue} endColor={Colors.secondary.pink} />
           </View>
         )}
       </TouchableOpacity>

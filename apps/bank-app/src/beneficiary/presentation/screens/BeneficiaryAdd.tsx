@@ -54,7 +54,6 @@ export const BeneficiaryAdd = () => {
             error={domainError}
             onSubmit={handleSubmit(onSubmit)}
             onFocus={onFocus}
-            onSubmitEditing={handleSubmit(onSubmit)}
           />
         </View>
       </SafeScrollingView>

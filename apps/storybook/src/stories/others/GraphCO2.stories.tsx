@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ImageSourcePropType } from 'react-native';
 
-import { GraphCO2 } from '@clean-rn/ui-mobile';
-import { WithStatus, ValidationStatus } from '../../wrappers';
 import {
+  GraphCO2,
   HeaderBad,
   HeaderChampion,
   HeaderCop21,
@@ -16,7 +15,8 @@ import {
   BilanCop21EN,
   BilanFranceFR,
   BilanFranceEN,
-} from '../../../assets/images';
+} from '@clean-rn/ui-mobile';
+import { WithStatus, ValidationStatus } from '../../wrappers';
 
 enum ICategories {
   BAD = 'bad',

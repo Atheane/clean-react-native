@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
 
-import { RightChevronGradient, RightChevron, Trash, TrashGradient } from '../../../assets';
+import { RightChevron, Trash } from '../../../assets';
 import { Colors, FontNames, NEEDS_SMALL_TEXT } from '../../../constants';
 
 type IProps = {
@@ -37,9 +37,23 @@ export const BeneficiaryItem = (props: IProps) => {
         <Text style={styles.textIban}>{props.iban}</Text>
       </View>
       <View style={styles.btnContainer}>
-        {props.onDelete && !props.disabled && <TrashGradient width={18} height={18} />}
+        {props.onDelete && !props.disabled && (
+          <Trash
+            width={18}
+            height={18}
+            startColor={Colors.secondary.pink}
+            endColor={Colors.primary.darkBlue}
+          />
+        )}
         {props.onDelete && props.disabled && <Trash width={18} height={18} color={Colors.primary.grey} />}
-        {props.onPress && !props.disabled && <RightChevronGradient width={18} height={18} />}
+        {props.onPress && !props.disabled && (
+          <RightChevron
+            width={18}
+            height={18}
+            startColor={Colors.secondary.pink}
+            endColor={Colors.primary.darkBlue}
+          />
+        )}
         {props.onPress && props.disabled && (
           <RightChevron width={18} height={18} color={Colors.primary.grey} />
         )}

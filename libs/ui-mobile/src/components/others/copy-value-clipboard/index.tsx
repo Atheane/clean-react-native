@@ -10,7 +10,10 @@ import { Colors } from '../../../constants';
 
 type IProps = {
   value: string;
+  text?: string;
+  textColor?: string;
   icon: React.FC<SvgProps>;
+  copyText?: string;
 };
 
 export const CopyValueClipboard = (props: IProps) => {
@@ -33,22 +36,45 @@ export const CopyValueClipboard = (props: IProps) => {
   return (
     <View style={styles.container}>
       <View style={theme.container.leftItems}>
-        <props.icon />
+        <View style={styles.iconContainer}>
+          <props.icon />
+          {props.text && (
+            <Text style={props.textColor ? { color: props.textColor } : theme.text.grey}>{props.text}</Text>
+          )}
+        </View>
         <View style={styles.iconRight}>
           <Tooltip
             visible={openTooltip}
             withPointer={false}
             popover={
               <View style={styles.tooltipContainer}>
-                <Text style={styles.tooltipText}>{props.value}</Text>
+                <Text style={[styles.tooltipText, props.textColor && { color: props.textColor }]}>
+                  {props.value}
+                </Text>
               </View>
             }
             backgroundColor={Colors.transparent}
-            highlightColor={Colors.primary.lightGreen}
+            highlightColor={props.textColor ?? Colors.primary.lightGreen}
             containerStyle={styles.tooltipContainer}
           />
           <TouchableOpacity onPress={handleCopyValue}>
-            <Copy />
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+            >
+              <Copy color={props.textColor ?? Colors.primary.lightGreen} style={{ marginRight: -50 }} />
+              <Text
+                style={{
+                  color: props.textColor ?? Colors.primary.lightGreen,
+                  textAlign: 'left',
+                  paddingLeft: 0,
+                }}
+              >
+                {props.copyText}
+              </Text>
+            </View>
           </TouchableOpacity>
         </View>
       </View>
@@ -63,6 +89,10 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     marginTop: 40,
+  },
+  iconContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   iconRight: {
     marginLeft: 20,

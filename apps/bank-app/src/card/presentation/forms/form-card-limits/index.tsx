@@ -6,7 +6,7 @@ import { useTheme } from '@rneui/themed';
 
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
-import { GreenGradientSpeedLimit, Colors, FontNames, SubmitButton, TextInput } from '@clean-rn/ui-mobile';
+import { SpeedLimit, Colors, FontNames, SubmitButton, TextInput } from '@clean-rn/ui-mobile';
 
 export type ICardLimitsFormData = {
   limitPaymentMonth?: string;
@@ -48,7 +48,7 @@ export const FormCardLimits = (props: IProps) => {
               label={t('screens.card.limits.day-limit')}
               labelColor={Colors.primary.grey}
               value={value}
-              IconLeft={GreenGradientSpeedLimit}
+              IconLeft={SpeedLimit}
               placeholder={'2000'}
               onChange={(value) => {
                 setDisabled(false);
@@ -84,7 +84,7 @@ export const FormCardLimits = (props: IProps) => {
               label={t('screens.card.limits.week-limit')}
               labelColor={Colors.primary.grey}
               value={value}
-              IconLeft={GreenGradientSpeedLimit}
+              IconLeft={SpeedLimit}
               placeholder={'5000'}
               onChange={(value) => {
                 setDisabled(false);
@@ -119,7 +119,7 @@ export const FormCardLimits = (props: IProps) => {
               label={t('screens.card.limits.month-limit')}
               labelColor={Colors.primary.grey}
               value={value}
-              IconLeft={GreenGradientSpeedLimit}
+              IconLeft={SpeedLimit}
               placeholder={'8000'}
               onChange={(value) => {
                 setDisabled(false);

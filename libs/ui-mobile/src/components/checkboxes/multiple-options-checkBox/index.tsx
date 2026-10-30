@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { CheckBox, useTheme } from '@rneui/themed';
 
-import { CheckBox as CheckedIcon, UncheckBox as UncheckIcon } from '../../../assets';
+import { Checkbox as CheckedIcon, Uncheckedbox as UncheckIcon } from '../../../assets';
 import { Colors } from '../../../constants';
 
 type IProps = {
@@ -50,8 +50,8 @@ export const MultipleOptionsCheckBox = (props: IProps) => {
                 onPress={() => handleOnPress(option)}
                 title={props.optionsTitle[index]}
                 titleProps={{ style: [theme.text.grey, { marginLeft: 8 }] }}
-                checkedIcon={<CheckedIcon style={{ color: Colors.primary.lightGreen }} />}
-                uncheckedIcon={<UncheckIcon style={{ color: Colors.primary.lightGreen }} />}
+                checkedIcon={<CheckedIcon color={Colors.primary.lightGreen} />}
+                uncheckedIcon={<UncheckIcon color={Colors.primary.grey} />}
               />
             </View>
           );

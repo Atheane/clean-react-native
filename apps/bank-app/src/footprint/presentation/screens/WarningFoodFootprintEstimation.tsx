@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { View, Text, StyleSheet, Image, StyleProp, ViewStyle, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
@@ -40,7 +40,7 @@ export const WarningFoodFootprintEstimation = () => {
               title={t('screens.warning-food.next')}
               iconRight={() => (
                 <View style={styles.iconContainer}>
-                  <RightChevron style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
+                  <RightChevron color={Colors.primary.white} />
                 </View>
               )}
               onPress={handleOnPress}
