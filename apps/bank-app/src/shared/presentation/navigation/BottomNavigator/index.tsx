@@ -22,7 +22,7 @@ import {
 import {
   IRootTabParamList,
   IAccountStackPages,
-  ICarbonStackPages,
+  IFootprintStackPages,
   IKycStackPages,
   IBeneficiaryStackPages,
   ITransactionStackPages,
@@ -31,7 +31,7 @@ import {
 } from '../../types';
 
 import { AccountStack } from '../../../../account/presentation/navigation';
-import { CarbonStack } from '../../../../carbon/presentation/navigation';
+import { FootprintStack } from '../../../../footprint/presentation/navigation';
 import { ParametersStack } from '../../../../user/presentation/navigation';
 import { KycStack } from '../../../../kyc/presentation/navigation';
 import { BeneficiaryStack } from '../../../../beneficiary/presentation/navigation';
@@ -106,8 +106,8 @@ export const BottomTabNavigator = () => {
         })}
       />
       <Tab.Screen
-        name={ICarbonStackPages.MENU}
-        component={CarbonStack}
+        name={IFootprintStackPages.MENU}
+        component={FootprintStack}
         options={() => ({
           title: t('screens.carbon.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>

@@ -56,7 +56,7 @@ import {
   computeFlyEmissionsSaga,
   getHouseSaga,
   addHeatersSaga,
-} from '../../../carbon/application/usecases';
+} from '../../../footprint/application/usecases';
 
 import { checkCustomerStatusSaga } from '../../../kyc/application/usecases/customer';
 import {
@@ -85,7 +85,7 @@ import {
   initializeFoodEmissions,
   initializeHouseEmissions,
   initializeTransportEmissions,
-} from '../../../carbon/application/commands';
+} from '../../../footprint/application/commands';
 import { initContact } from '../../../beneficiary/application/commands/contact';
 import { initCard } from '../../../card/application/commands';
 import { initializeDevice } from '../../../device/application/commands';
