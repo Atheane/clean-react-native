@@ -17,6 +17,7 @@ import { NavigationUI } from './navigation';
 import Splash from '../../assets/splash.png';
 import { IRootState } from '../application/state-management/reducers/root-reducer';
 
+// this is the main component
 const App: () => JSX.Element = () => {
   const [fontsLoaded] = useFonts(Fonts);
   const dispatch = useDispatch();
