@@ -11,12 +11,18 @@ if (!projectRoot) {
   throw new Error('Missing project root path argument');
 }
 
+function extractProjectName(projectRoot, workspaceRoot) {
+  const relativePath = projectRoot.replace(workspaceRoot, '').replace(/^\//, '');
+  const projectName = relativePath.split('/').pop();
+  return projectName;
+}
+
 function getDependenciesFromProjectGraph(projectName) {
   try {
     console.log('Getting dependencies for project:', projectName);
     const result = execSync(`npx nx graph --file=project-graph.json --focus=${projectName}`, {
       encoding: 'utf8',
-      cwd: workspaceRoot, // Assurez-vous d'exécuter la commande depuis le bon répertoire
+      cwd: workspaceRoot,
     });
 
     const graphPath = join(workspaceRoot, 'project-graph.json');
@@ -54,6 +60,10 @@ async function main() {
     console.log('Workspace root:', workspaceRoot);
     console.log('Project root:', projectRoot);
 
+    // Extraire le nom du projet
+    const projectName = extractProjectName(projectRoot, workspaceRoot);
+    console.log('Project name:', projectName);
+
     const projectPackagePath = join(projectRoot, 'package.json');
     const workspacePackagePath = join(workspaceRoot, 'package.json');
 
@@ -71,7 +81,7 @@ async function main() {
       console.log('Creating new package.json with resolved dependencies...');
     }
 
-    const projectDeps = getDependenciesFromProjectGraph('energy-app');
+    const projectDeps = getDependenciesFromProjectGraph(projectName);
     console.log('Resolved dependencies:', projectDeps);
 
     const filteredDependencies = {};
@@ -89,7 +99,7 @@ async function main() {
 
     const updatedProjectPackage = {
       ...existingProjectPackage,
-      name: existingProjectPackage.name || 'energy-app',
+      name: existingProjectPackage.name || projectName,
       version: existingProjectPackage.version || workspacePackage.version,
       dependencies: mergedDependencies,
     };

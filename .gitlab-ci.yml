@@ -36,12 +36,12 @@ install_dependencies:
       - package.json
       - package-lock.json
 
-# test:
-#   stage: test
-#   script:
-#     - npm run test
-#   dependencies:
-#     - install_dependencies
+test:
+  stage: test
+  script:
+    - npm run test
+  dependencies:
+    - install_dependencies
 
 .setup_ios_credentials: &setup_ios_credentials
   - echo "Setting up Expo configuration..."
