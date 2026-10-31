@@ -21,7 +21,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Pending: Story = {
   args: {
-    icon: KycW9,
+    icon: () => <KycW9 />,
     text: 'Lorem ipsum delatus Lorem ipsum delatus',
     status: IDocumentStatus.PENDING,
     loading: false,
@@ -30,7 +30,7 @@ export const Pending: Story = {
 
 export const Validated: Story = {
   args: {
-    icon: KycW9,
+    icon: () => <KycW9 />,
     text: 'Lorem ipsum delatus Lorem ipsum delatus',
     status: IDocumentStatus.VALIDATED,
     loading: false,
@@ -39,7 +39,7 @@ export const Validated: Story = {
 
 export const Refused: Story = {
   args: {
-    icon: KycW9,
+    icon: () => <KycW9 />,
     text: 'Lorem ipsum delatus Lorem ipsum delatus',
     status: IDocumentStatus.REFUSED,
     loading: false,
@@ -49,7 +49,7 @@ export const Refused: Story = {
 
 export const Loading: Story = {
   args: {
-    icon: KycW9,
+    icon: () => <KycW9 />,
     text: 'Lorem ipsum delatus Lorem ipsum delatus',
     status: undefined,
     loading: true,

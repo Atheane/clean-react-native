@@ -22,7 +22,7 @@ import { CardScroller, IPropsTouchEventCard } from './cards/card-scroller';
 import { TileKpi } from './cards/tile-kpi';
 import { TouchCardKpi } from './cards/touch-card-kpi';
 import { TouchCardText } from './cards/touch-card-text';
-import { TouchCardCheck } from './cards/touch-card-check';
+import { TouchCardStatus } from './cards/touch-card-status';
 import { UploadDocumentCard } from './cards/upload-document-card';
 import { TransferCard } from './cards/transfer-card';
 import { BeneficiaryCard } from './cards/beneficiary-card';
@@ -115,7 +115,7 @@ export {
   TouchCardKpi,
   TileKpi,
   TouchCardText,
-  TouchCardCheck,
+  TouchCardStatus,
   UploadDocumentCard,
   TransferCard,
   BeneficiaryCard,

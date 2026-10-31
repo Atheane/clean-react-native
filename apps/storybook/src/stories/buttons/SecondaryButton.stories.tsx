@@ -51,3 +51,13 @@ export const LongText: Story = {
     iconLeft: (props) => <Logout width={27} height={27} color={Colors.primary.lightGreen as string} />,
   },
 };
+
+export const Loading: Story = {
+  args: {
+    loading: true,
+    long: true,
+    uppercase: false,
+    title: 'This is a Button with long text',
+    iconLeft: (props) => <Logout width={27} height={27} color={Colors.primary.lightGreen as string} />,
+  },
+};

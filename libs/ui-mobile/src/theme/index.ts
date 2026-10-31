@@ -191,7 +191,7 @@ export const theme = createTheme({
       backgroundColor: Colors.primary.lightGrey,
       borderRadius: 8,
       marginTop: 11,
-      marginBottom: -16, // override of default input bottomMargin
+      marginBottom: 16, // override of default input bottomMargin
       borderBottomWidth: 0,
     },
   },

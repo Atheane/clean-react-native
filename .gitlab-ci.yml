@@ -137,7 +137,7 @@ chromatic_deployment:
   script:
     - echo "Deploying to Chromatic..."
     - echo "CHROMATIC_PROJECT_TOKEN" $CHROMATIC_PROJECT_TOKEN
-    - npx nx chromatic ui-mobile --exit-once-uploaded
+    - npx nx chromatic ui-mobile --exit-once-uploaded --force-rebuild
   dependencies:
     - install_dependencies
     - build_storybook

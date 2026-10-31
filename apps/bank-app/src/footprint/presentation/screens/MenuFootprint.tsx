@@ -1,21 +1,16 @@
 import { StyleSheet, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { useFeatureFlag, User as ConfigCatUser } from 'configcat-react';
 
-import {
-  Colors,
-  LongCardIcon,
-  CarbonFootprint,
-  RightChevron,
-  LoaderSplashScreen,
-} from '@clean-rn/ui-mobile';
+import { Colors, LongCardIcon, Carbon, RightChevron, LoaderSplashScreen } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { IFootprintStackPages, IRoutes } from '../../../shared/presentation/types';
 import { CardPremium, CardCarbonFootPrint } from '../../../shared/presentation/assets/svg';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { getHouse } from '../../../footprint/application/commands';
 
 export const MenuFootprint = () => {
   const { t } = useTranslation();
@@ -25,6 +20,13 @@ export const MenuFootprint = () => {
   const { email } = useSelector((state: IRootState) => state.auth);
   const handlePressNavigation = (route: IRoutes) => {
     navigation.navigate(route as never);
+  };
+
+  const dispatch = useDispatch();
+
+  const handleMenuPrimeum = () => {
+    dispatch(getHouse());
+    navigation.navigate(IFootprintStackPages.MENU_PRIMEUM);
   };
 
   let userConfigCat: ConfigCatUser | undefined;
@@ -44,7 +46,13 @@ export const MenuFootprint = () => {
         <View style={styles.row}>
           <LongCardIcon
             text={t('screens.menu-footprint.2min')}
-            leftIcon={() => <CarbonFootprint />}
+            leftIcon={() => (
+              <Carbon
+                color={Colors.primary.lightGreen}
+                startColor={Colors.primary.grey}
+                endColor={Colors.primary.grey}
+              />
+            )}
             rightIcon={() => <RightChevron color={Colors.primary.lightGreen} />}
             onPress={() => handlePressNavigation(IFootprintStackPages.FOOTPRINT_ESTIMATION)}
           />
@@ -54,7 +62,7 @@ export const MenuFootprint = () => {
             text={t('screens.menu-footprint.my-reward')}
             leftIcon={() => <CardPremium />}
             rightIcon={() => <RightChevron color={Colors.primary.lightGreen} />}
-            onPress={() => handlePressNavigation(IFootprintStackPages.MENU_PRIMEUM)}
+            onPress={handleMenuPrimeum}
           />
         </View>
         <View style={styles.row}>
