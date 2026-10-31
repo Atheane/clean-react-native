@@ -70,7 +70,8 @@
     "react-select": "^5.8.1",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
-    "redux-saga": "^1.2.3"
+    "redux-saga": "^1.2.3",
+    "expo-linking": "~6.2.2"
   },
   "scripts": {
     "clean": "rm -rf node_modules .expo ios android package-lock.json",
