@@ -15,10 +15,10 @@ import {
   Banner,
   BannerColors,
   LoaderSplashScreen,
-  useNotification,
   useDevice,
   Colors,
 } from '@clean-rn/ui-mobile';
+import { useNotification } from '../../../shared/presentation/hooks';
 import { IAccount, IAccountType } from '@clean-rn/account/domain';
 import { IKycState } from '@clean-rn/kyc/domain';
 
