@@ -51,7 +51,6 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-cache/
 
 apps/bank-app/android
 apps/bank-app/ios
@@ -74,7 +73,9 @@ build*
 bank-app*.json
 ios
 android
-.nx
 
 credentials
 credentials.json
+
+.nx
+cache
