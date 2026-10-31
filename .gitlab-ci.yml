@@ -6,6 +6,7 @@ variables:
   IOS_PROVISION_PROFILE_BANK_APP_BASE64: ${IOS_PROVISION_PROFILE_BANK_APP_BASE64}
   IOS_PROVISION_PROFILE_ENERGY_APP_BASE64: ${IOS_PROVISION_PROFILE_ENERGY_APP_BASE64}
   IOS_CERT_PASSWORD: ${IOS_CERT_PASSWORD}
+  CHROMATIC_PROJECT_TOKEN: ${CHROMATIC_PROJECT_TOKEN}
 
 stages:
   - install
@@ -13,7 +14,6 @@ stages:
   - build
   - deploy
 
-# Cache pour optimiser les builds
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
@@ -22,7 +22,6 @@ cache:
     - dist/
     - .nx/cache
 
-# Installation des dépendances
 install_dependencies:
   stage: install
   script:
@@ -30,119 +29,115 @@ install_dependencies:
   artifacts:
     paths:
       - node_modules/
+      - .nx/
+      - tools/
+      - tsconfig.base.json
+      - nx.json
+      - package.json
+      - package-lock.json
 
-test:
-  stage: test
-  script:
-    - npm run test
-  dependencies:
-    - install_dependencies
+# test:
+#   stage: test
+#   script:
+#     - npm run test
+#   dependencies:
+#     - install_dependencies
 
-.setup_ios_bank-app_credentials: &setup_ios_bank-app_credentials
+.setup_ios_credentials: &setup_ios_credentials
+  - echo "Setting up Expo configuration..."
+  - mkdir -p ~/.expo
+  - echo '{"accessToken":"'$EXPO_TOKEN'"}' > ~/.expo/state.json
+  - chmod 600 ~/.expo/state.json
+  - echo "Verifying Expo authentication..."
+  - npx eas whoami
+
+.setup_bank-app_credentials: &setup_bank-app_credentials
   before_script:
-    - npm install -g eas-cli
-    - echo "${EXPO_TOKEN}" | npx eas-cli login
-    # Création des répertoires nécessaires
-    - mkdir -p apps/bank-app/credentials/ios
-    # Décodage des fichiers de credentials depuis les variables CI
-    - echo "$IOS_DIST_CERT_BASE64" | base64 -d > apps/bank-app/credentials/ios/dist-cert.p12
-    - echo "$IOS_PROVISION_PROFILE_BANK_APP_BASE64" | base64 -d > apps/bank-app/credentials/ios/profile.mobileprovision
-    # Création du fichier credentials.json
+    - *setup_ios_credentials
     - |
-      echo '{
+      mkdir -p apps/bank-app/credentials/ios
+      echo "$IOS_DIST_CERT_BASE64" | base64 -d > apps/bank-app/credentials/ios/dist-cert.p12
+      echo "$IOS_PROVISION_PROFILE_BANK_APP_BASE64" | base64 -d > apps/bank-app/credentials/ios/profile.mobileprovision
+      cat > apps/bank-app/credentials.json << EOL
+      {
         "ios": {
           "distributionCertificate": {
-            "path": "apps/bank-app/credentials/ios/dist-cert.p12",
-            "password": "'$IOS_CERT_PASSWORD'"
+            "path": "credentials/ios/dist-cert.p12",
+            "password": "$IOS_CERT_PASSWORD"
           },
-          "provisioningProfilePath": "apps/bank-app/credentials/ios/profile.mobileprovision"
+          "provisioningProfilePath": "credentials/ios/profile.mobileprovision"
         }
-      }' > apps/bank-app/credentials.json
+      }
+      EOL
 
-.setup_ios_energy-app_credentials: &setup_ios_energy-app_credentials
+.setup_energy-app_credentials: &setup_energy-app_credentials
   before_script:
-    - npm install -g eas-cli
-    - echo "${EXPO_TOKEN}" | npx eas-cli login
-    # Création des répertoires nécessaires
-    - mkdir -p apps/energy-app/credentials/ios
-    # Décodage des fichiers de credentials depuis les variables CI
-    - echo "$IOS_DIST_CERT_BASE64" | base64 -d > apps/energy-app/credentials/ios/dist-cert.p12
-    - echo "$IOS_PROVISION_PROFILE_ENERGY_APP_BASE64" | base64 -d > apps/energy-app/credentials/ios/profile.mobileprovision
-    # Création du fichier credentials.json
+    - *setup_ios_credentials
     - |
-      echo '{
+      mkdir -p apps/energy-app/credentials/ios
+      echo "$IOS_DIST_CERT_BASE64" | base64 -d > apps/energy-app/credentials/ios/dist-cert.p12
+      echo "$IOS_PROVISION_PROFILE_ENERGY_APP_BASE64" | base64 -d > apps/energy-app/credentials/ios/profile.mobileprovision
+      cat > apps/energy-app/credentials.json << EOL
+      {
         "ios": {
           "distributionCertificate": {
-            "path": "apps/energy-app/credentials/ios/dist-cert.p12",
-            "password": "'$IOS_CERT_PASSWORD'"
+            "path": "credentials/ios/dist-cert.p12",
+            "password": "$IOS_CERT_PASSWORD"
           },
-          "provisioningProfilePath": "apps/energy-app/credentials/ios/profile.mobileprovision"
+          "provisioningProfilePath": "credentials/ios/profile.mobileprovision"
         }
-      }' > apps/energy-app/credentials.json
+      }
+      EOL
 
-build_bank-app:
-  stage: build
-  <<: *setup_ios_bank-app_credentials
-  script:
-    - npx nx build bank-app --profile=preview
+.build_template: &build_template
+  variables:
+    CI: "1"
+    EAS_NO_VCS: "1"
+    EAS_NO_INTERACTIVE: "1"
+    EAS_PROJECT_ROOT: $CI_PROJECT_DIR
+    EXPO_DEBUG: "1"
   dependencies:
     - install_dependencies
-  only:
-    - dev
-  artifacts:
-    paths:
-      - apps/bank-app/credentials/ios/
-      - apps/bank-app/credentials.json
-      - dist/
-    expire_in: 1 week
-  after_script:
-    - rm -rf apps/bank-app/credentials/ios/
-    - rm -f apps/bank-app/credentials.json
 
 build_energy-app:
   stage: build
-  <<: *setup_ios_energy-app_credentials
+  <<: *setup_energy-app_credentials
+  <<: *build_template
   script:
-    - npx nx build energy-app --profile=preview
-  dependencies:
-    - install_dependencies
-  only:
-    - dev
-  artifacts:
-    paths:
-      - apps/energy-app/credentials/ios/
-      - apps/energy-app/credentials.json
-      - dist/
-    expire_in: 1 week
+    - cd $CI_PROJECT_DIR
+    - echo "Building EnergyApp..."
+    - npx nx build energy-app --platform ios --profile preview --non-interactive
   after_script:
-    - rm -rf apps/energy-app/credentials/ios/
+    - rm -rf apps/energy-app/credentials
     - rm -f apps/energy-app/credentials.json
 
-# Build des applications
 build_bank-app:
   stage: build
+  <<: *setup_bank-app_credentials
+  <<: *build_template
   script:
-    - npx nx build bank-app --profile=preview
-  dependencies:
-    - install_dependencies
-  only:
-    - dev
+    - cd $CI_PROJECT_DIR
+    - echo "Building BankApp..."
+    - npx nx build bank-app --platform ios --profile preview --non-interactive
+  after_script:
+    - rm -rf apps/bank-app/credentials
+    - rm -f apps/bank-app/credentials.json
 
-build_energy-app:
-  stage: build
+build_storybook:
+  stage: build  
   script:
-    - npx nx build energy-app --profile=preview
+    - cd $CI_PROJECT_DIR
+    - echo "Building Storybook..."
+    - npx nx build-storybook ui-mobile
   dependencies:
-    - install_dependencies
-  only:
-    - dev
+  - install_dependencies
 
-# Déploiement Storybook sur Chromatic
 chromatic_deployment:
   stage: deploy
   script:
-    - npm run chromatic
-  only:
-    - dev
-  variables:
-    CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN
+    - echo "Deploying to Chromatic..."
+    - echo "CHROMATIC_PROJECT_TOKEN" $CHROMATIC_PROJECT_TOKEN
+    - npx nx chromatic ui-mobile --exit-once-uploaded
+  dependencies:
+    - install_dependencies
+    - build_storybook

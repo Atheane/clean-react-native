@@ -1,0 +1,2146 @@
+{
+  "graph": {
+    "nodes": {
+      "transaction-infrastructure": {
+        "name": "transaction-infrastructure",
+        "type": "lib",
+        "data": {
+          "name": "transaction-infrastructure",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/transaction/infrastructure/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/transaction/infrastructure/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/transaction/infrastructure/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/transaction/infrastructure",
+          "implicitDependencies": []
+        }
+      },
+      "beneficiary-infrastructure": {
+        "name": "beneficiary-infrastructure",
+        "type": "lib",
+        "data": {
+          "name": "beneficiary-infrastructure",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/beneficiary/infrastructure/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/beneficiary/infrastructure/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/beneficiary/infrastructure/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/beneficiary/infrastructure",
+          "implicitDependencies": []
+        }
+      },
+      "footprint-infrastructure": {
+        "name": "footprint-infrastructure",
+        "type": "lib",
+        "data": {
+          "name": "footprint-infrastructure",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/footprint/infrastructure/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/footprint/infrastructure/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/footprint/infrastructure/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/footprint/infrastructure",
+          "implicitDependencies": []
+        }
+      },
+      "account-infrastructure": {
+        "name": "account-infrastructure",
+        "type": "lib",
+        "data": {
+          "name": "account-infrastructure",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/account/infrastructure/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/account/infrastructure/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/account/infrastructure/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/account/infrastructure",
+          "implicitDependencies": []
+        }
+      },
+      "contact-infrastructure": {
+        "name": "contact-infrastructure",
+        "type": "lib",
+        "data": {
+          "name": "contact-infrastructure",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/contact/infrastructure/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/contact/infrastructure/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/contact/infrastructure/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/contact/infrastructure",
+          "implicitDependencies": []
+        }
+      },
+      "device-infrastructure": {
+        "name": "device-infrastructure",
+        "type": "lib",
+        "data": {
+          "name": "device-infrastructure",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/device/infrastructure/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/device/infrastructure/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/device/infrastructure/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/device/infrastructure",
+          "implicitDependencies": []
+        }
+      },
+      "shared-infrastructure": {
+        "name": "shared-infrastructure",
+        "type": "lib",
+        "data": {
+          "name": "shared-infrastructure",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/shared/infrastructure/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/shared/infrastructure/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/shared/infrastructure/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/shared/infrastructure",
+          "implicitDependencies": []
+        }
+      },
+      "user-infrastructure": {
+        "name": "user-infrastructure",
+        "type": "lib",
+        "data": {
+          "name": "user-infrastructure",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/user/infrastructure/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/user/infrastructure/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/user/infrastructure/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/user/infrastructure",
+          "implicitDependencies": []
+        }
+      },
+      "auth-infrastructure": {
+        "name": "auth-infrastructure",
+        "type": "lib",
+        "data": {
+          "name": "auth-infrastructure",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/auth/infrastructure/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/auth/infrastructure/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/auth/infrastructure/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/auth/infrastructure",
+          "implicitDependencies": []
+        }
+      },
+      "card-infrastructure": {
+        "name": "card-infrastructure",
+        "type": "lib",
+        "data": {
+          "name": "card-infrastructure",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/card/infrastructure/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/card/infrastructure/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/card/infrastructure/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/card/infrastructure",
+          "implicitDependencies": []
+        }
+      },
+      "transaction-domain": {
+        "name": "transaction-domain",
+        "type": "lib",
+        "data": {
+          "name": "transaction-domain",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/transaction/domain/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/transaction/domain/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/transaction/domain/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/transaction/domain",
+          "implicitDependencies": []
+        }
+      },
+      "beneficiary-domain": {
+        "name": "beneficiary-domain",
+        "type": "lib",
+        "data": {
+          "name": "beneficiary-domain",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/beneficiary/domain/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "typecheck": {
+              "executor": "nx:run-commands",
+              "options": {
+                "commands": [
+                  "bash -c tsc"
+                ],
+                "cwd": "libs/beneficiary/domain",
+                "forwardAllArgs": false
+              }
+            },
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/beneficiary/domain/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/beneficiary/domain/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/beneficiary/domain",
+          "implicitDependencies": []
+        }
+      },
+      "kyc-infrastructure": {
+        "name": "kyc-infrastructure",
+        "type": "lib",
+        "data": {
+          "name": "kyc-infrastructure",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/kyc/infrastructure/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/kyc/infrastructure/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/kyc/infrastructure/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/kyc/infrastructure",
+          "implicitDependencies": []
+        }
+      },
+      "footprint-domain": {
+        "name": "footprint-domain",
+        "type": "lib",
+        "data": {
+          "name": "footprint-domain",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/footprint/domain/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "typecheck": {
+              "executor": "nx:run-commands",
+              "options": {
+                "commands": [
+                  "bash -c tsc"
+                ],
+                "cwd": "libs/footprint/domain",
+                "forwardAllArgs": false
+              }
+            },
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/footprint/domain/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/footprint/domain/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/footprint/domain",
+          "implicitDependencies": []
+        }
+      },
+      "contact-domain": {
+        "name": "contact-domain",
+        "type": "lib",
+        "data": {
+          "name": "contact-domain",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/contact/domain/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "typecheck": {
+              "executor": "nx:run-commands",
+              "options": {
+                "commands": [
+                  "bash -c tsc"
+                ],
+                "cwd": "libs/contact/domain",
+                "forwardAllArgs": false
+              }
+            },
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/contact/domain/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/contact/domain/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/contact/domain",
+          "implicitDependencies": []
+        }
+      },
+      "account-domain": {
+        "name": "account-domain",
+        "type": "lib",
+        "data": {
+          "name": "account-domain",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/account/domain/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "typecheck": {
+              "executor": "nx:run-commands",
+              "options": {
+                "commands": [
+                  "bash -c tsc"
+                ],
+                "cwd": "libs/account/domain",
+                "forwardAllArgs": false
+              }
+            },
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/account/domain/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/account/domain/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/account/domain",
+          "implicitDependencies": []
+        }
+      },
+      "shared-domain": {
+        "name": "shared-domain",
+        "type": "lib",
+        "data": {
+          "name": "shared-domain",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/shared/domain/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/shared/domain/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/shared/domain/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/shared/domain",
+          "implicitDependencies": []
+        }
+      },
+      "device-domain": {
+        "name": "device-domain",
+        "type": "lib",
+        "data": {
+          "name": "device-domain",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/device/domain/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/device/domain/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/device/domain/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/device/domain",
+          "implicitDependencies": []
+        }
+      },
+      "card-domain": {
+        "name": "card-domain",
+        "type": "lib",
+        "data": {
+          "name": "card-domain",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/card/domain/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/card/domain/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/card/domain/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/card/domain",
+          "implicitDependencies": []
+        }
+      },
+      "user-domain": {
+        "name": "user-domain",
+        "type": "lib",
+        "data": {
+          "name": "user-domain",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/user/domain/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/user/domain/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/user/domain/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/user/domain",
+          "implicitDependencies": []
+        }
+      },
+      "auth-domain": {
+        "name": "auth-domain",
+        "type": "lib",
+        "data": {
+          "name": "auth-domain",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/auth/domain/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "typecheck": {
+              "executor": "nx:run-commands",
+              "options": {
+                "commands": [
+                  "bash -c tsc"
+                ],
+                "cwd": "libs/auth/domain",
+                "forwardAllArgs": false
+              }
+            },
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/auth/domain/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/auth/domain/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/auth/domain",
+          "implicitDependencies": []
+        }
+      },
+      "kyc-domain": {
+        "name": "kyc-domain",
+        "type": "lib",
+        "data": {
+          "name": "kyc-domain",
+          "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/kyc/domain/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/kyc/domain/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/kyc/domain/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/kyc/domain",
+          "implicitDependencies": []
+        }
+      },
+      "ui-mobile": {
+        "name": "ui-mobile",
+        "type": "lib",
+        "data": {
+          "name": "ui-mobile",
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/ui-mobile/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "typecheck": {
+              "executor": "nx:run-commands",
+              "options": {
+                "commands": [
+                  "bash -c tsc"
+                ],
+                "cwd": "libs/ui-mobile",
+                "forwardAllArgs": false
+              }
+            },
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/ui-mobile/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/ui-mobile/jest.config.ts",
+                "passWithNoTests": false
+              },
+              "configurations": {}
+            },
+            "storybook": {
+              "executor": "@nx/storybook:storybook",
+              "options": {
+                "port": 4400,
+                "configDir": "libs/ui-mobile/.storybook"
+              },
+              "configurations": {
+                "ci": {
+                  "quiet": true
+                }
+              }
+            },
+            "build-storybook": {
+              "inputs": [
+                "default",
+                "^production",
+                "{projectRoot}/.storybook/**/*",
+                "{projectRoot}/tsconfig.storybook.json"
+              ],
+              "executor": "@nx/storybook:build",
+              "outputs": [
+                "{options.outputDir}"
+              ],
+              "options": {
+                "outputDir": "dist/storybook/ui-mobile",
+                "configDir": "libs/ui-mobile/.storybook"
+              },
+              "configurations": {
+                "ci": {
+                  "quiet": true
+                }
+              }
+            },
+            "test-storybook": {
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "test-storybook -c libs/ui-mobile/.storybook --url=http://localhost:4400"
+              }
+            },
+            "chromatic": {
+              "executor": "nx:run-commands",
+              "options": {
+                "commands": [
+                  "npx dotenv-cli -e .env -- npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --storybook-build-dir=../../dist/storybook/ui-mobile"
+                ],
+                "cwd": "libs/ui-mobile"
+              }
+            }
+          },
+          "root": "libs/ui-mobile",
+          "implicitDependencies": []
+        }
+      },
+      "bank-app-e2e": {
+        "name": "bank-app-e2e",
+        "type": "e2e",
+        "data": {
+          "name": "bank-app-e2e",
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "apps/bank-app-e2e/src",
+          "projectType": "application",
+          "targets": {
+            "build-ios": {
+              "executor": "@nx/detox:build",
+              "options": {
+                "detoxConfiguration": "ios.sim.local"
+              },
+              "configurations": {
+                "bare": {
+                  "detoxConfiguration": "ios.sim.debug"
+                },
+                "production": {
+                  "detoxConfiguration": "ios.sim.release"
+                }
+              }
+            },
+            "test-ios": {
+              "executor": "@nx/detox:test",
+              "options": {
+                "detoxConfiguration": "ios.sim.local",
+                "buildTarget": "bank-app-e2e:build-ios"
+              },
+              "configurations": {
+                "bare": {
+                  "detoxConfiguration": "ios.sim.debug",
+                  "buildTarget": "bank-app-e2e:build-ios:bare"
+                },
+                "production": {
+                  "detoxConfiguration": "ios.sim.release",
+                  "buildTarget": "bank-app-e2e:build-ios:production"
+                }
+              }
+            },
+            "build-android": {
+              "executor": "@nx/detox:build",
+              "options": {
+                "detoxConfiguration": "android.emu.local"
+              },
+              "configurations": {
+                "bare": {
+                  "detoxConfiguration": "android.emu.debug"
+                },
+                "production": {
+                  "detoxConfiguration": "android.emu.release"
+                }
+              }
+            },
+            "test-android": {
+              "executor": "@nx/detox:test",
+              "options": {
+                "detoxConfiguration": "android.emu.local",
+                "buildTarget": "bank-app-e2e:build-android"
+              },
+              "configurations": {
+                "bare": {
+                  "detoxConfiguration": "android.emu.debug",
+                  "buildTarget": "bank-app-e2e:build-android:bare"
+                },
+                "production": {
+                  "detoxConfiguration": "android.emu.release",
+                  "buildTarget": "bank-app-e2e:build-android:production"
+                }
+              }
+            },
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "apps/bank-app-e2e/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            }
+          },
+          "tags": [],
+          "implicitDependencies": [
+            "bank-app"
+          ],
+          "root": "apps/bank-app-e2e"
+        }
+      },
+      "utils": {
+        "name": "utils",
+        "type": "lib",
+        "data": {
+          "name": "utils",
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/utils/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/utils/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/utils/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/utils",
+          "implicitDependencies": []
+        }
+      },
+      "bank-app": {
+        "name": "bank-app",
+        "type": "app",
+        "data": {
+          "name": "bank-app",
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "apps/bank-app/src",
+          "projectType": "application",
+          "targets": {
+            "clean": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "clean"
+              }
+            },
+            "eas-build-pre-install": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "eas-build-pre-install"
+              }
+            },
+            "eas-build-post-install": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "eas-build-post-install"
+              }
+            },
+            "android": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "android"
+              }
+            },
+            "ios": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "ios"
+              }
+            },
+            "typecheck": {
+              "executor": "nx:run-commands",
+              "options": {
+                "commands": [
+                  "bash -c tsc"
+                ],
+                "cwd": "apps/bank-app",
+                "forwardAllArgs": false
+              }
+            },
+            "start": {
+              "executor": "@nx/expo:start",
+              "dependsOn": [
+                "ensure-symlink",
+                "sync-deps"
+              ],
+              "options": {
+                "port": 8081
+              }
+            },
+            "serve": {
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "nx start bank-app"
+              }
+            },
+            "run-ios": {
+              "executor": "@nx/expo:run",
+              "dependsOn": [
+                "ensure-symlink",
+                "sync-deps"
+              ],
+              "options": {
+                "platform": "ios"
+              }
+            },
+            "run-android": {
+              "executor": "@nx/expo:run",
+              "dependsOn": [
+                "ensure-symlink",
+                "sync-deps"
+              ],
+              "options": {
+                "platform": "android"
+              }
+            },
+            "build": {
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production"
+              ],
+              "executor": "@nx/expo:build",
+              "options": {},
+              "configurations": {}
+            },
+            "submit": {
+              "executor": "@nx/expo:submit",
+              "options": {}
+            },
+            "build-list": {
+              "executor": "@nx/expo:build-list",
+              "options": {}
+            },
+            "download": {
+              "executor": "@nx/expo:download",
+              "options": {
+                "output": "apps/bank-app/dist"
+              }
+            },
+            "sync-deps": {
+              "executor": "nx:run-commands",
+              "options": {
+                "commands": [
+                  {
+                    "command": "npm run eas-build-pre-install"
+                  }
+                ],
+                "cwd": "apps/bank-app"
+              }
+            },
+            "ensure-symlink": {
+              "executor": "@nx/expo:ensure-symlink",
+              "options": {}
+            },
+            "prebuild": {
+              "executor": "@nx/expo:prebuild",
+              "dependsOn": [
+                "ensure-symlink",
+                "sync-deps"
+              ],
+              "options": {}
+            },
+            "install": {
+              "executor": "@nx/expo:install",
+              "options": {}
+            },
+            "update": {
+              "executor": "@nx/expo:update",
+              "options": {}
+            },
+            "export": {
+              "executor": "@nx/expo:export",
+              "dependsOn": [
+                "ensure-symlink",
+                "sync-deps"
+              ],
+              "options": {
+                "platform": "all",
+                "outputDir": "../../dist/apps/bank-app"
+              }
+            },
+            "export-web": {
+              "executor": "@nx/expo:export",
+              "options": {
+                "bundler": "metro"
+              }
+            },
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "apps/bank-app/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "apps/bank-app/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true
+                }
+              }
+            }
+          },
+          "tags": [],
+          "root": "apps/bank-app",
+          "implicitDependencies": []
+        }
+      },
+      "ddd": {
+        "name": "ddd",
+        "type": "lib",
+        "data": {
+          "name": "ddd",
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/ddd/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {
+            "typecheck": {
+              "executor": "nx:run-commands",
+              "options": {
+                "commands": [
+                  "bash -c tsc"
+                ],
+                "cwd": "libs/ddd",
+                "forwardAllArgs": false
+              }
+            },
+            "lint": {
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore"
+              ],
+              "executor": "@nx/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "libs/ddd/**/*.{ts,tsx,js,jsx}"
+                ]
+              },
+              "configurations": {}
+            },
+            "test": {
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ],
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "libs/ddd/jest.config.ts",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              }
+            }
+          },
+          "root": "libs/ddd",
+          "implicitDependencies": []
+        }
+      }
+    },
+    "dependencies": {
+      "transaction-infrastructure": [
+        {
+          "source": "transaction-infrastructure",
+          "target": "shared-infrastructure",
+          "type": "static"
+        },
+        {
+          "source": "transaction-infrastructure",
+          "target": "transaction-domain",
+          "type": "static"
+        }
+      ],
+      "beneficiary-infrastructure": [
+        {
+          "source": "beneficiary-infrastructure",
+          "target": "shared-infrastructure",
+          "type": "static"
+        },
+        {
+          "source": "beneficiary-infrastructure",
+          "target": "beneficiary-domain",
+          "type": "static"
+        },
+        {
+          "source": "beneficiary-infrastructure",
+          "target": "utils",
+          "type": "static"
+        }
+      ],
+      "footprint-infrastructure": [
+        {
+          "source": "footprint-infrastructure",
+          "target": "footprint-domain",
+          "type": "static"
+        },
+        {
+          "source": "footprint-infrastructure",
+          "target": "shared-infrastructure",
+          "type": "static"
+        }
+      ],
+      "account-infrastructure": [
+        {
+          "source": "account-infrastructure",
+          "target": "shared-infrastructure",
+          "type": "static"
+        },
+        {
+          "source": "account-infrastructure",
+          "target": "account-domain",
+          "type": "static"
+        }
+      ],
+      "contact-infrastructure": [
+        {
+          "source": "contact-infrastructure",
+          "target": "contact-domain",
+          "type": "static"
+        },
+        {
+          "source": "contact-infrastructure",
+          "target": "utils",
+          "type": "static"
+        }
+      ],
+      "device-infrastructure": [
+        {
+          "source": "device-infrastructure",
+          "target": "shared-infrastructure",
+          "type": "static"
+        },
+        {
+          "source": "device-infrastructure",
+          "target": "device-domain",
+          "type": "static"
+        }
+      ],
+      "shared-infrastructure": [],
+      "user-infrastructure": [
+        {
+          "source": "user-infrastructure",
+          "target": "footprint-domain",
+          "type": "static"
+        },
+        {
+          "source": "user-infrastructure",
+          "target": "auth-domain",
+          "type": "static"
+        },
+        {
+          "source": "user-infrastructure",
+          "target": "contact-domain",
+          "type": "static"
+        },
+        {
+          "source": "user-infrastructure",
+          "target": "user-domain",
+          "type": "static"
+        },
+        {
+          "source": "user-infrastructure",
+          "target": "shared-infrastructure",
+          "type": "static"
+        }
+      ],
+      "auth-infrastructure": [
+        {
+          "source": "auth-infrastructure",
+          "target": "shared-infrastructure",
+          "type": "static"
+        },
+        {
+          "source": "auth-infrastructure",
+          "target": "auth-domain",
+          "type": "static"
+        },
+        {
+          "source": "auth-infrastructure",
+          "target": "user-domain",
+          "type": "static"
+        }
+      ],
+      "card-infrastructure": [
+        {
+          "source": "card-infrastructure",
+          "target": "shared-infrastructure",
+          "type": "static"
+        },
+        {
+          "source": "card-infrastructure",
+          "target": "card-domain",
+          "type": "static"
+        }
+      ],
+      "transaction-domain": [
+        {
+          "source": "transaction-domain",
+          "target": "contact-domain",
+          "type": "static"
+        },
+        {
+          "source": "transaction-domain",
+          "target": "ddd",
+          "type": "static"
+        }
+      ],
+      "beneficiary-domain": [
+        {
+          "source": "beneficiary-domain",
+          "target": "ddd",
+          "type": "static"
+        }
+      ],
+      "kyc-infrastructure": [
+        {
+          "source": "kyc-infrastructure",
+          "target": "shared-infrastructure",
+          "type": "static"
+        },
+        {
+          "source": "kyc-infrastructure",
+          "target": "kyc-domain",
+          "type": "static"
+        }
+      ],
+      "footprint-domain": [
+        {
+          "source": "footprint-domain",
+          "target": "ddd",
+          "type": "static"
+        }
+      ],
+      "contact-domain": [
+        {
+          "source": "contact-domain",
+          "target": "ddd",
+          "type": "static"
+        }
+      ],
+      "account-domain": [
+        {
+          "source": "account-domain",
+          "target": "ddd",
+          "type": "static"
+        }
+      ],
+      "shared-domain": [],
+      "device-domain": [
+        {
+          "source": "device-domain",
+          "target": "ddd",
+          "type": "static"
+        }
+      ],
+      "card-domain": [
+        {
+          "source": "card-domain",
+          "target": "ddd",
+          "type": "static"
+        }
+      ],
+      "user-domain": [
+        {
+          "source": "user-domain",
+          "target": "contact-domain",
+          "type": "static"
+        },
+        {
+          "source": "user-domain",
+          "target": "ddd",
+          "type": "static"
+        },
+        {
+          "source": "user-domain",
+          "target": "auth-domain",
+          "type": "static"
+        }
+      ],
+      "auth-domain": [
+        {
+          "source": "auth-domain",
+          "target": "contact-domain",
+          "type": "static"
+        },
+        {
+          "source": "auth-domain",
+          "target": "ddd",
+          "type": "static"
+        }
+      ],
+      "kyc-domain": [
+        {
+          "source": "kyc-domain",
+          "target": "user-domain",
+          "type": "static"
+        },
+        {
+          "source": "kyc-domain",
+          "target": "transaction-domain",
+          "type": "static"
+        },
+        {
+          "source": "kyc-domain",
+          "target": "transaction-infrastructure",
+          "type": "static"
+        },
+        {
+          "source": "kyc-domain",
+          "target": "ddd",
+          "type": "static"
+        },
+        {
+          "source": "kyc-domain",
+          "target": "shared-domain",
+          "type": "static"
+        }
+      ],
+      "ui-mobile": [
+        {
+          "source": "ui-mobile",
+          "target": "utils",
+          "type": "static"
+        },
+        {
+          "source": "ui-mobile",
+          "target": "shared-infrastructure",
+          "type": "static"
+        }
+      ],
+      "bank-app-e2e": [
+        {
+          "source": "bank-app-e2e",
+          "target": "bank-app",
+          "type": "implicit"
+        }
+      ],
+      "utils": [],
+      "bank-app": [
+        {
+          "source": "bank-app",
+          "target": "account-domain",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "shared-infrastructure",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "account-infrastructure",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "ui-mobile",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "kyc-domain",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "auth-domain",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "user-domain",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "user-infrastructure",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "card-domain",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "card-infrastructure",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "auth-infrastructure",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "ddd",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "utils",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "beneficiary-domain",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "contact-domain",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "beneficiary-infrastructure",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "contact-infrastructure",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "transaction-domain",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "device-domain",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "device-infrastructure",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "footprint-domain",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "footprint-infrastructure",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "kyc-infrastructure",
+          "type": "static"
+        },
+        {
+          "source": "bank-app",
+          "target": "transaction-infrastructure",
+          "type": "static"
+        }
+      ],
+      "ddd": []
+    }
+  },
+  "affectedProjects": [],
+  "criticalPath": []
+}
