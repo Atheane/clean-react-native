@@ -5,7 +5,7 @@
   "scripts": {
     "prepare": "husky install",
     "commit": "cz",
-    "clean": "watchman watch-del-all && rm -rf node_modules package-lock.json .expo apps/bank-app/node_modules apps/bank-app/.expo apps/bank-app/ios apps/bank-app/android apps/bank-app/package-lock.json apps/storybook/node_modules apps/storybook/.expo apps/storybook/ios apps/storybook/android apps/storybook/package-lock.json  apps/energy-app/node_modules apps/energy-app/.expo apps/energy-app/ios apps/energy-app/android apps/energy-app/package-lock.json && npm clean cache --force",
+    "clean": "watchman watch-del-all && rm -rf node_modules package-lock.json .nx .expo apps/bank-app/node_modules apps/bank-app/.expo apps/bank-app/ios apps/bank-app/android apps/bank-app/package-lock.json apps/storybook/node_modules apps/storybook/.expo apps/storybook/ios apps/storybook/android apps/storybook/package-lock.json  apps/energy-app/node_modules apps/energy-app/.expo apps/energy-app/ios apps/energy-app/android apps/energy-app/package-lock.json",
     "test": "npx nx run-many --all --target=test --parallel --passWithNoTests",
     "build:dev": "npx nx build bank-app --profile=development",
     "build:test": "npx nx build bank-app --profile=preview",
