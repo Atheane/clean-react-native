@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
-import { Colors } from '../../../constants';
+import { Colors } from '../../../../shared/presentation/constants';
 
 type IProps = {
   icon: React.FC<SvgProps>;

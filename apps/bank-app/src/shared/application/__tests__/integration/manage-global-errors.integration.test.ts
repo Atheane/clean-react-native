@@ -4,6 +4,11 @@ import { showUnknownErrorSaga } from '../../usecases/manage-global-errors';
 import { IGlobalErrorTypes, showUnknownError, initGlobalError } from '../../commands/manage-global-errors';
 import { IGlobalErrorState, globalErrorReducer } from '../../state-management';
 
+jest.mock('@sentry/react-native', () => ({
+  captureException: jest.fn(),
+  init: jest.fn(),
+}));
+
 describe('Manage Global Errors - integration', () => {
   let sagaTester: SagaTester;
 
