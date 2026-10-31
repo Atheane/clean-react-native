@@ -1,6 +1,16 @@
 {
   "name": "energy-app",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": [
+    "ui-mobile",
+    "auth-infrastructure",
+    "shared-infrastructure",
+    "user-infrastructure",
+    "auth-domain",
+    "user-domain",
+    "utils",
+    "ddd"
+  ],
   "sourceRoot": "apps/energy-app/src",
   "projectType": "application",
   "targets": {

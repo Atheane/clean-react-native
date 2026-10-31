@@ -1,46 +1,108 @@
-/*
- * Ce script vérifie s'il existe un package.json local dans l'application.
- * S'il existe, il le conserve. Sinon, il copie celui de la racine du monorepo.
- * Il est exécuté comme script eas-build-pre-install dans le 'package.json' de l'app Expo.
- * Commande : 'node tools/scripts/eas-build-pre-install.mjs <workspace root> <project root>'
- */
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { join } from 'path';
+import { execSync } from 'child_process';
 
 const [workspaceRoot, projectRoot] = process.argv.slice(2);
 
 if (!workspaceRoot) {
-  throw new Error('Missing workspace root');
+  throw new Error('Missing workspace root path argument');
 }
 if (!projectRoot) {
-  throw new Error('Missing project root');
+  throw new Error('Missing project root path argument');
 }
 
-try {
-  const projectPackagePath = join(projectRoot, 'package.json');
+function getDependenciesFromProjectGraph(projectName) {
+  try {
+    console.log('Getting dependencies for project:', projectName);
+    const result = execSync(`npx nx graph --file=project-graph.json --focus=${projectName}`, {
+      encoding: 'utf8',
+      cwd: workspaceRoot, // Assurez-vous d'exécuter la commande depuis le bon répertoire
+    });
 
-  // Vérifier si un package.json local existe dans l'application
-  if (existsSync(projectPackagePath)) {
-    console.log('Local package.json found in the app. Keeping it as is.');
-  } else {
-    console.log('No local package.json found. Copying from workspace root.');
+    const graphPath = join(workspaceRoot, 'project-graph.json');
+    if (!existsSync(graphPath)) {
+      console.error('Project graph file not found at:', graphPath);
+      return [];
+    }
 
-    // Lire le package.json du workspace
-    const workspacePackage = JSON.parse(readFileSync(join(workspaceRoot, 'package.json')).toString());
+    const graphData = JSON.parse(readFileSync(graphPath, 'utf8'));
+    const dependencies = new Set();
 
-    // Créer un nouveau package.json pour le projet
-    const projectPackage = {
-      name: workspacePackage.name,
-      version: workspacePackage.version,
-      dependencies: workspacePackage.dependencies,
-      devDependencies: workspacePackage.devDependencies,
+    if (graphData.graph && graphData.graph.dependencies) {
+      const projectDeps = graphData.graph.dependencies[projectName] || [];
+      projectDeps.forEach((dep) => {
+        dependencies.add(dep.target);
+      });
+    }
+
+    // Nettoyage
+    try {
+      execSync(`rm ${graphPath}`, { cwd: workspaceRoot });
+    } catch (e) {
+      console.warn('Failed to clean up project-graph.json:', e);
+    }
+
+    return Array.from(dependencies);
+  } catch (error) {
+    console.error('Error getting dependencies:', error);
+    return [];
+  }
+}
+
+async function main() {
+  try {
+    console.log('Workspace root:', workspaceRoot);
+    console.log('Project root:', projectRoot);
+
+    const projectPackagePath = join(projectRoot, 'package.json');
+    const workspacePackagePath = join(workspaceRoot, 'package.json');
+
+    if (!existsSync(workspacePackagePath)) {
+      throw new Error(`Workspace package.json not found at: ${workspacePackagePath}`);
+    }
+
+    const workspacePackage = JSON.parse(readFileSync(workspacePackagePath, 'utf8'));
+
+    let existingProjectPackage = {};
+    if (existsSync(projectPackagePath)) {
+      existingProjectPackage = JSON.parse(readFileSync(projectPackagePath, 'utf8'));
+      console.log('Existing package.json found. Updating dependencies...');
+    } else {
+      console.log('Creating new package.json with resolved dependencies...');
+    }
+
+    const projectDeps = getDependenciesFromProjectGraph('energy-app');
+    console.log('Resolved dependencies:', projectDeps);
+
+    const filteredDependencies = {};
+    projectDeps.forEach((dep) => {
+      if (workspacePackage.dependencies[dep]) {
+        filteredDependencies[dep] = workspacePackage.dependencies[dep];
+      }
+    });
+
+    // Fusionner avec les dépendances existantes
+    const mergedDependencies = {
+      ...existingProjectPackage.dependencies,
+      ...filteredDependencies,
     };
 
-    // Écrire le nouveau package.json dans le dossier du projet
-    writeFileSync(projectPackagePath, JSON.stringify(projectPackage, null, 2));
+    const updatedProjectPackage = {
+      ...existingProjectPackage,
+      name: existingProjectPackage.name || 'energy-app',
+      version: existingProjectPackage.version || workspacePackage.version,
+      dependencies: mergedDependencies,
+    };
 
-    console.log('package.json copied from workspace root to project directory.');
+    writeFileSync(projectPackagePath, JSON.stringify(updatedProjectPackage, null, 2) + '\n');
+    console.log('package.json updated successfully at:', projectPackagePath);
+  } catch (e) {
+    console.error('Error in main process:', e);
+    process.exit(1);
   }
-} catch (e) {
-  console.error('Error processing package.json:', e);
 }
+
+main().catch((error) => {
+  console.error('Unhandled error:', error);
+  process.exit(1);
+});
