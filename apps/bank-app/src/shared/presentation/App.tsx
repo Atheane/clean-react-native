@@ -9,7 +9,7 @@ import { ThemeProvider } from '@rneui/themed';
 import * as Notifications from 'expo-notifications';
 import { PersistGate } from 'redux-persist/integration/react';
 import i18n from '../presentation/translations/i18n';
-import { useDeepLink } from '@clean-rn/ui-mobile';
+import { useDeepLink } from '../../shared/presentation/hooks';
 
 import { IRootState } from '../../shared/application/state-management/reducers/root-reducer';
 import { initializeApplication } from '../../shared/application/commands/initialize-application';
