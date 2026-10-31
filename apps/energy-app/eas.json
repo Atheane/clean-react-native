@@ -31,9 +31,6 @@
     },
     "preview": {
       "distribution": "internal",
-      "node": "18.17.0",
-      "npm": "9.6.7", // Spécifiez la version de npm
-      "yarn": "false", // Désactive yarn
       "env": {
         "EXPO_PUBLIC_APP_VERSION": "005",
         "EXPO_PUBLIC_BASE_URL_API": "https://dev-carte.example.com",
