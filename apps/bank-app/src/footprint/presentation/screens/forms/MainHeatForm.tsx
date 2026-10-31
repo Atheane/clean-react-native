@@ -4,7 +4,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 import { DomainEventManager } from '@clean-rn/ddd';
-import { Dropdown, ErrorMessage, SubmitButton } from '@clean-rn/ui-mobile';
+import { Dropdown, SubmitButton } from '@clean-rn/ui-mobile';
 import {
   HEATER_TYPE,
   HEATER_USAGE,
@@ -15,6 +15,7 @@ import {
 import { IRootState } from '../../../../shared/application/state-management/reducers/root-reducer';
 import { addHeaters, initializeFootprint } from '../../../application/commands';
 import { IHeaterProps } from '../../types';
+import { ErrorMessage } from '../../../../shared/presentation/components/error-message';
 
 type IProps = {
   goToNextTab: (nextIndex: number) => number | undefined;

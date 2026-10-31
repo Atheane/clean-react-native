@@ -26,9 +26,10 @@ import {
   PasswordInput,
   SubmitButton,
   MultipleOptionsCheckBox,
-  ErrorMessage,
   TextInput,
 } from '@clean-rn/ui-mobile';
+
+import { ErrorMessage } from '../../../../shared/presentation/components/error-message';
 
 type IProps = {
   defaultCountry?: string;

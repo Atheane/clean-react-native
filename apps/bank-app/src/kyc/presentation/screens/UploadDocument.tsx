@@ -11,7 +11,6 @@ import { IDocumentErrorMessage, IDocumentErrorCodes } from '@clean-rn/kyc/domain
 import {
   DocumentPicker,
   DocumentScanner,
-  ErrorMessage,
   LinkButton,
   LinkButtonColors,
   LoaderSplashScreen,
@@ -19,6 +18,7 @@ import {
 
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { ErrorMessage } from '../../../shared/presentation/components/error-message';
 
 import { addPage } from '../../application/commands/document';
 

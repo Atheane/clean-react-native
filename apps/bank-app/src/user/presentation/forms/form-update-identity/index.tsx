@@ -13,11 +13,12 @@ import {
   Profile,
   Colors,
   SubmitButton,
-  ErrorMessage,
   TextInput,
   CountryPicker,
   DateTimePicker,
 } from '@clean-rn/ui-mobile';
+
+import { ErrorMessage } from '../../../../shared/presentation/components/error-message';
 
 type IProps = {
   loading: boolean;

@@ -8,14 +8,9 @@ import { firstLetterCapitalize } from '@clean-rn/utils';
 import { IDomainError } from '@clean-rn/ddd';
 import { IAuthErrorCodes, IAuthErrorMessage, Email } from '@clean-rn/auth/domain';
 
-import {
-  LinkButtonColors,
-  SubmitButton,
-  LinkButton,
-  EmailInput,
-  PasswordInput,
-  ErrorMessage,
-} from '@clean-rn/ui-mobile';
+import { LinkButtonColors, SubmitButton, LinkButton, EmailInput, PasswordInput } from '@clean-rn/ui-mobile';
+
+import { ErrorMessage } from '../../../../shared/presentation/components/error-message';
 
 type IProps = {
   email?: string;

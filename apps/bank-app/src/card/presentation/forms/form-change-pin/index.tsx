@@ -8,7 +8,9 @@ import { ICardErrorCodes, ICardErrorMessage, CardPinCode } from '@clean-rn/card/
 
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
-import { DigitsInput, ErrorMessage } from '@clean-rn/ui-mobile';
+import { DigitsInput } from '@clean-rn/ui-mobile';
+
+import { ErrorMessage } from '../../../../shared/presentation/components/error-message';
 
 type IProps = {
   control: Control<IChangePinFormData>;

@@ -14,7 +14,9 @@ import { COUNTRIES_AVAILABLE } from '@clean-rn/contact/domain';
 import { Country, ICountry } from '@clean-rn/user/domain';
 import { IContactErrorCodes, Phone, IContactErrorMessage } from '@clean-rn/contact/domain';
 
-import { Profile, Colors, SubmitButton, ErrorMessage, TextInput } from '@clean-rn/ui-mobile';
+import { Profile, Colors, SubmitButton, TextInput } from '@clean-rn/ui-mobile';
+
+import { ErrorMessage } from '../../../../shared/presentation/components/error-message';
 
 type IProps = {
   defaultCountry?: string;

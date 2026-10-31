@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { View, StyleSheet, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
-import { Dropdown, ErrorMessage, SubmitButton } from '@clean-rn/ui-mobile';
+import { Dropdown, SubmitButton } from '@clean-rn/ui-mobile';
 import { DomainEventManager } from '@clean-rn/ddd';
 import {
   FOOTPRINT_EVENTS,
@@ -13,6 +13,7 @@ import {
   Heater,
 } from '@clean-rn/footprint/domain';
 import { IRootState } from '../../../../shared/application/state-management/reducers/root-reducer';
+import { ErrorMessage } from '../../../../shared/presentation/components/error-message';
 import { addHeaters, initializeFootprint } from '../../../application/commands';
 import { IHeaterProps } from '../../types';
 

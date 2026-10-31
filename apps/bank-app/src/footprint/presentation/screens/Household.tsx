@@ -14,7 +14,6 @@ import {
   SelectNumber,
   Group2,
   SubmitButton,
-  ErrorMessage,
 } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
@@ -22,6 +21,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { createFootprint, initializeFootprint } from '../../application/commands';
 import { IFootprintProps } from '../types';
 import { IFootprintStackPages } from '../../../shared/presentation/types';
+import { ErrorMessage } from '../../../shared/presentation/components/error-message';
 
 export const Household = () => {
   const { t } = useTranslation();

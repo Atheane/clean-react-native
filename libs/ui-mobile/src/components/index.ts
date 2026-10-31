@@ -88,7 +88,6 @@ import { Tabs } from './tabs';
 // Tags
 import { Tag } from './tags';
 // Texts
-import { ErrorMessage } from './texts/error-message';
 import { Balance } from './texts/balance';
 import { NoCO2 } from './texts/no-co2';
 
@@ -185,7 +184,6 @@ export {
   // Tags
   Tag,
   // Texts
-  ErrorMessage,
   Balance,
   NoCO2,
 };

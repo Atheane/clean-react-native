@@ -7,7 +7,8 @@ import { IDomainError } from '@clean-rn/ddd';
 import { IUserErrorCodes, IUserErrorMessage, PhoneOtp } from '@clean-rn/user/domain';
 
 import { firstLetterCapitalize } from '@clean-rn/utils';
-import { DigitsInput, ErrorMessage } from '@clean-rn/ui-mobile';
+import { DigitsInput } from '@clean-rn/ui-mobile';
+import { ErrorMessage } from '../../../../shared/presentation/components/error-message';
 
 type IProps = {
   loading: boolean;

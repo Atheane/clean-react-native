@@ -21,9 +21,10 @@ import {
   Colors,
   SubmitButton,
   TextInput,
-  ErrorMessage,
   IbanInput,
 } from '@clean-rn/ui-mobile';
+
+import { ErrorMessage } from '../../../../shared/presentation/components/error-message';
 
 export type IBeneficiaryFormData = {
   name: string;

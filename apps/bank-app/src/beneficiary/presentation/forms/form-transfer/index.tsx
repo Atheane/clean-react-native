@@ -12,7 +12,9 @@ import {
 } from '@clean-rn/transaction/domain';
 import { IDomainError } from '@clean-rn/ddd';
 
-import { Colors, SubmitButton, TextInput, ErrorMessage } from '@clean-rn/ui-mobile';
+import { Colors, SubmitButton, TextInput } from '@clean-rn/ui-mobile';
+
+import { ErrorMessage } from '../../../../shared/presentation/components/error-message';
 
 export type ITransferFormData = {
   amount: string;
