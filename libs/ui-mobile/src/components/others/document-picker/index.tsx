@@ -4,7 +4,6 @@ import DocumentPickr from 'react-native-document-picker';
 import * as FileSystem from 'expo-file-system';
 
 import { calculateBase64Size } from '@clean-rn/utils';
-import { DocumentError } from '@clean-rn/kyc/domain';
 
 import { SecondaryButton } from '../../buttons/secondary-button';
 import { Colors } from '../../../constants';
@@ -20,7 +19,7 @@ type IProps = {
 const convertPDFToBase64 = async (uri: string) => {
   const base64 = await FileSystem.readAsStringAsync(uri, { encoding: 'base64' });
   if (calculateBase64Size(base64) > 1000000) {
-    throw new DocumentError.DocumentTooLarge();
+    throw new Error('Document too large');
   }
   return base64;
 };

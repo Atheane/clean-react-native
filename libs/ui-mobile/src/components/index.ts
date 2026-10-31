@@ -19,7 +19,6 @@ import { TouchEventCard } from './cards/touch-event-card';
 import { LongCard } from './cards/long-card';
 import { LongCardIcon } from './cards/long-card-icon';
 import { CardScroller, IPropsTouchEventCard } from './cards/card-scroller';
-import { TransactionsCard } from './cards/transactions-card';
 import { TileKpi } from './cards/tile-kpi';
 import { TouchCardKpi } from './cards/touch-card-kpi';
 import { TouchCardText } from './cards/touch-card-text';
@@ -60,7 +59,6 @@ import { ContactItem } from './items/contact-item';
 // Lists
 import { BeneficiaryCardList } from './lists/beneficiary-card-list';
 import { ContactCardList } from './lists/contact-card-list';
-import { TransactionsCardsList } from './lists/transactions-cards-list';
 import { BalanceList } from './lists/balance-list';
 // Modals
 import { ModalError } from './modals/modal-error';
@@ -115,7 +113,6 @@ export {
   LongCardIcon,
   CardScroller,
   IPropsTouchEventCard,
-  TransactionsCard,
   TouchCardKpi,
   TileKpi,
   TouchCardText,
@@ -156,7 +153,6 @@ export {
   // Lists
   BeneficiaryCardList,
   ContactCardList,
-  TransactionsCardsList,
   BalanceList,
   // Modals
   ModalError,

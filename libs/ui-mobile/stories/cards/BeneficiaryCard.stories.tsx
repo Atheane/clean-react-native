@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { BankLogoCA } from '../../src/assets';
 import { BeneficiaryCard } from '../../src/components/cards/beneficiary-card';
@@ -22,7 +23,7 @@ export const EvenLogo: Story = {
   args: {
     data: {
       isActive: true,
-      icon: BankLogoCA,
+      icon: () => <BankLogoCA />,
       beneficiaryId: 1,
       name: 'John Doe',
       iban: 'ES6621000418450200051332',

@@ -1,7 +1,15 @@
 import { FlatList } from 'react-native';
-import { IBeneficiary } from '@clean-rn/beneficiary/domain';
 //
 import { BeneficiaryCard } from '../../cards/beneficiary-card';
+
+interface IBeneficiary {
+  accountId?: number; //if its os a CO2 account
+  isActive: boolean;
+  beneficiaryId: number;
+  name: string;
+  iban: string;
+  bic: string;
+}
 
 type IProps = {
   data: IBeneficiary[];

@@ -3,6 +3,7 @@ import { View, StyleSheet, Image, Text, Dimensions, ScrollView, SafeAreaView } f
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '@rneui/themed';
 
 import { IAccount } from '@clean-rn/account/domain';
 import {
@@ -13,7 +14,6 @@ import {
   Iban as IbanIcon,
   TopBackground,
   CopyValueClipboard,
-  TransactionsCardsList,
   Balance,
   Colors,
   FontNames,
@@ -23,7 +23,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { ITransactionStackPages } from '../../../shared/presentation/types';
 import { Oups } from '../assets/images';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { useTheme } from '@rneui/themed';
+import { TransactionsCardsList } from '../components/transactions-cards-list';
 
 const Top = ({ currentAccount }: { currentAccount?: IAccount }) => {
   const { t } = useTranslation();

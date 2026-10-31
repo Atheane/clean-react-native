@@ -2,9 +2,14 @@ import type { Meta } from '@storybook/react';
 import countryFlagEmoji from 'country-flag-emoji';
 
 import { CountryPicker } from '../../src/components/dropdowns/country-picker';
-import { ICountry } from '@clean-rn/user/domain';
 
 import { WithCenterView } from '../../wrappers';
+
+type ICountry = {
+  name: string;
+  emoji: string;
+  code: string;
+};
 
 const countries = Object.values(countryFlagEmoji.data as ICountry[])
   .sort((a: ICountry, b: ICountry) => {

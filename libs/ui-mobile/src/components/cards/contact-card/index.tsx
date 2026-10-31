@@ -1,9 +1,15 @@
 import React, { memo, useCallback } from 'react';
 import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { IContact } from '@clean-rn/contact/domain';
 import { Colors } from '../../../constants';
 import { ContactItem } from '../../items/contact-item';
 import { PhoneBg } from '../../../assets';
+import { PhoneNumberUtil } from 'google-libphonenumber';
+
+export interface IContact {
+  id: string;
+  name: string;
+  phone: { phoneUtil: PhoneNumberUtil; numberProto: any; ountryCode: string };
+}
 
 export const ContactCard = memo(({ data, idx, onPress }: IProps) => {
   const isEven = idx % 2 === 0;

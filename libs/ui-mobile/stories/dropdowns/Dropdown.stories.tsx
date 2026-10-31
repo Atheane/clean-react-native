@@ -6,9 +6,27 @@ import { Department } from '../../src/assets';
 import { Dropdown } from '../../src/components/dropdowns/dropdown';
 import { Colors } from '../../src/constants';
 
-import { departmentsFR, IDepartment } from '@clean-rn/footprint/domain';
-
 import { WithCenterView } from '../../wrappers';
+
+type IDepartment = {
+  DEP: string;
+  NCC: string;
+};
+
+const departmentsFR = [
+  {
+    DEP: '1',
+    NCC: 'AIN',
+  },
+  {
+    DEP: '2',
+    NCC: 'AISNE',
+  },
+  {
+    DEP: '3',
+    NCC: 'ALLIER',
+  },
+];
 
 const meta = {
   title: 'Dropdowns/Dropdown',

@@ -5,7 +5,7 @@ import { getLocales, Locale } from 'expo-localization';
 
 import { firstLetterCapitalize, toLocalDateString } from '@clean-rn/utils';
 
-import { TransactionsCard } from '../../cards/transactions-card';
+import { TransactionsCard } from '../transactions-card';
 
 type IProps = {
   data: ITransaction[];
