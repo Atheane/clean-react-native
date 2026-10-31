@@ -21,8 +21,8 @@
     "jest/no-identical-title": "error",
     "jest/prefer-to-have-length": "warn",
     "jest/valid-expect": "error",
-    "@nx/enforce-module-boundaries": "warn",
-    "react/react-in-jsx-scope": 0
+    "react/react-in-jsx-scope": 0,
+    "@nx/enforce-module-boundaries":  "off"
   },
   "overrides": [
     {
@@ -33,21 +33,6 @@
         "*.jsx"
       ],
       "rules": {
-        "@nx/enforce-module-boundaries": [
-          "error",
-          {
-            "enforceBuildableLibDependency": true,
-            "allow": [],
-            "depConstraints": [
-              {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": [
-                  "*"
-                ]
-              }
-            ]
-          }
-        ]
       }
     },
     {

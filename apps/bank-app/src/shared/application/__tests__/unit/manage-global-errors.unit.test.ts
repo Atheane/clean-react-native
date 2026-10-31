@@ -10,6 +10,11 @@ import { IAuthStackPages } from '../../../presentation/types';
 import { navigate } from '../../../presentation/navigation/navigationRef';
 import { loggedOut } from '../../../../auth/application/commands';
 
+jest.mock('@sentry/react-native', () => ({
+  captureException: jest.fn(),
+  init: jest.fn(),
+}));
+
 describe('Manage Global Errors - usecase', () => {
   const genObject = showUnknownErrorSaga();
   const mockError401 = {

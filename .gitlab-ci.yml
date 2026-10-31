@@ -1,23 +1,62 @@
-image: node:latest
+image: node:18.17.0
 
 stages:
+  - install
   - test
+  - build
   - deploy
 
+# Cache pour optimiser les builds
 cache:
+  key: ${CI_COMMIT_REF_SLUG}
   paths:
     - node_modules/
+    - .npm/
+    - dist/
+    - .nx/cache
 
+# Installation des dépendances
 install_dependencies:
+  stage: install
+  script:
+    - npm ci
+  artifacts:
+    paths:
+      - node_modules/
+
+# Tests (si vous en avez)
+test:
   stage: test
   script:
-    - npm i
+    - npm run test
+  dependencies:
+    - install_dependencies
 
+# Build des applications
+build_bank-app:
+  stage: build
+  script:
+    - npx nx build bank-app --profile=preview
+  dependencies:
+    - install_dependencies
+  only:
+    - dev
+
+build_energy-app:
+  stage: build
+  script:
+    - npx nx build energy-app --profile=preview
+  dependencies:
+    - install_dependencies
+  only:
+    - dev
+
+# Déploiement Storybook sur Chromatic
 chromatic_deployment:
   stage: deploy
   script:
-    - npm run chromatic:ui-mobile -- --exit-zero-on-changes
+    - npm run chromatic
   only:
-    - main  # ou le nom de votre branche principale
+    - dev
   variables:
     CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN

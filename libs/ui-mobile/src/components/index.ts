@@ -53,7 +53,6 @@ import { IbanInput } from './inputs/iban-input';
 import { AddressInput } from './inputs/address-input';
 // Items
 import { IconTextItem } from './items/icon-text-item';
-import { TransactionItem } from './items/transaction-item';
 import { BeneficiaryItem } from './items/beneficiary-item';
 import { ContactItem } from './items/contact-item';
 // Lists
@@ -146,7 +145,6 @@ export {
   IbanInput,
   AddressInput,
   // Items
-  TransactionItem,
   BeneficiaryItem,
   ContactItem,
   IconTextItem,
