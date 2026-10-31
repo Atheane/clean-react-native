@@ -1,6 +1,6 @@
 {
   "name": "energy-app",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "private": true,
   "dependencies": {
     "@expo-google-fonts/martel-sans": "^0.2.3",
