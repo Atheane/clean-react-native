@@ -26,7 +26,7 @@ export default {
     ios: {
       supportsTablet: false,
       bundleIdentifier: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.energy-app.app',
-      buildNumber: '5',
+      buildNumber: '6',
     },
     android: {
       adaptiveIcon: {
@@ -34,7 +34,7 @@ export default {
         backgroundColor: '#FFFFFF',
       },
       package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.energy-app.app',
-      versionCode: 5,
+      versionCode: 6,
     },
     web: {
       favicon: './assets/favicon.png',
