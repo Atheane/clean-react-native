@@ -26,6 +26,7 @@ export default {
     ios: {
       supportsTablet: false,
       bundleIdentifier: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.energy-app.app',
+      buildNumber: '5',
     },
     android: {
       adaptiveIcon: {
