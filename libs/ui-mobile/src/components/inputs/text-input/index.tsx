@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { View, Text, StyleSheet, Dimensions, TextStyle, StyleProp } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TextStyle, StyleProp, Platform } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { Input, useTheme, Theme } from '@rneui/themed';
 
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginTop: 10,
     marginLeft: 20,
-    marginBottom: -15, // override of default input bottomMargin
+    marginBottom: Platform.OS === 'web' ? 0 : -15, // override of default input bottomMargin
     borderBottomWidth: 0,
   },
   leftIconContainer: {

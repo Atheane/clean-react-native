@@ -123,8 +123,8 @@ export const SearchModal = (props: IProps) => {
         labelColor={Colors.secondary.pink}
       />
       {selectedItem && (
-        <TouchableOpacity onPress={handleClearInput} style={styles.closeIcon}>
-          <Close />
+        <TouchableOpacity onPress={handleClearInput} style={styles.textInputContainer}>
+          <Close style={styles.closeIcon} />
         </TouchableOpacity>
       )}
       <Modal visible={visible} animationType={Platform.OS === 'android' ? 'fade' : 'none'}>
@@ -139,8 +139,8 @@ export const SearchModal = (props: IProps) => {
             autoFocus
           />
           {searchQuery.length > 0 && (
-            <TouchableOpacity onPress={handleClearQuery} style={styles.closeIconModal}>
-              <Close />
+            <TouchableOpacity onPress={handleClearQuery} style={styles.textInputContainer}>
+              <Close style={styles.closeIconModal} />
             </TouchableOpacity>
           )}
           <View style={styles.listContainer}>
@@ -178,6 +178,18 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.primary.lightGrey,
     borderBottomWidth: 1,
   },
-  closeIcon: { position: 'relative', bottom: 25, left: Dimensions.get('window').width * COEFF - 35 },
-  closeIconModal: { position: 'relative', bottom: 25, left: Dimensions.get('window').width * COEFF - 35 },
+  textInputContainer: {
+    position: 'relative',
+    width: '100%',
+  },
+  closeIcon: {
+    position: 'absolute',
+    right: Platform.OS === 'web' ? 24 : 20,
+    bottom: Platform.OS === 'web' ? 40 : 10,
+  },
+  closeIconModal: {
+    position: 'absolute',
+    right: Platform.OS === 'web' ? 170 : 70,
+    bottom: Platform.OS === 'web' ? 40 : 10,
+  },
 });

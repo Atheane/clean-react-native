@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Platform } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { Icon, useTheme, LinearProgress } from '@rneui/themed';
 import { NEEDS_SMALL_TEXT } from '../../../constants';
@@ -27,6 +27,8 @@ type IProps = {
   onCancel: () => void;
 };
 
+const LONG_CARD_RATIO = 85 / 356;
+
 export const UploadDocumentCard = (props: IProps) => {
   const { theme } = useTheme();
   const renderLabel = (text: string) => {
@@ -51,6 +53,7 @@ export const UploadDocumentCard = (props: IProps) => {
           !disabled && theme.shadow.card,
           disabled && styles.disabled,
           { marginVertical: 16 },
+          Platform.OS === 'web' && styles.webContainer,
         ]}
         disabled={disabled}
       >
@@ -72,18 +75,16 @@ export const UploadDocumentCard = (props: IProps) => {
             </View>
           )}
         </View>
-        {props.status && (
-          <View style={styles.leftIconContainer}>
-            {props.status === 'VALIDATED' && !props.loading && (
-              <View style={styles.rightIcon}>
-                <GreenValidation />
-              </View>
-            )}
-            {props.status === 'REFUSED' && !props.loading && (
-              <Icon name="closecircleo" type="ant-design" color="red" style={styles.rightIcon} />
-            )}
-          </View>
-        )}
+        <View style={styles.leftIconContainer}>
+          {props.status === 'VALIDATED' && !props.loading && (
+            <View style={styles.icon}>
+              <GreenValidation color={Colors.greenGradient.lightGreen} />
+            </View>
+          )}
+          {props.status === 'REFUSED' && !props.loading && (
+            <Icon name="closecircleo" type="ant-design" color="red" style={styles.icon} />
+          )}
+        </View>
         {props.loading && <LinearProgress color={Colors.primary.darkGreen} style={styles.progress} />}
         {props.status === 'REFUSED' && !props.loading && (
           <View style={styles.rightIconContainer}>
@@ -118,10 +119,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  webContainer: {
+    boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+    width: '100%',
+    maxWidth: 500,
+    minHeight: Dimensions.get('window').width * 0.9 * LONG_CARD_RATIO * 0.5,
+  },
   iconContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: 24,
+    marginLeft: Platform.OS === 'web' ? 48 : 24,
   },
   text: {
     flexDirection: 'row',
@@ -142,7 +149,7 @@ const styles = StyleSheet.create({
     top: 26,
     right: 20,
   },
-  rightIcon: { backgroundColor: Colors.primary.white, borderRadius: 100 },
+  icon: { backgroundColor: Colors.primary.white, borderRadius: 100 },
   cancelIcon: { top: 4, right: 8, position: 'absolute' },
   loading: {
     alignItems: 'center',

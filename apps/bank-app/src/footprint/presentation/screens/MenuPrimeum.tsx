@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@rneui/themed';
@@ -7,7 +8,7 @@ import { useTheme } from '@rneui/themed';
 import {
   Colors,
   FontNames,
-  TouchCardCheck,
+  TouchCardStatus,
   House as HouseGradient,
   Car as CarGradient,
   Family as FamilyGradient,
@@ -19,8 +20,14 @@ import {
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { IRoutes, IFootprintStackPages } from '../../../shared/presentation/types';
-import { useDispatch, useSelector } from 'react-redux';
-import { getHouse } from '../../application/commands';
+
+enum ISituationStatus {
+  INIT = 'INIT', // form request template is created, but is not sent for review
+  CANCELED = 'CANCELED', // form request is canceled before analysis
+  PENDING = 'PENDING', // form request has pending status
+  VALIDATED = 'VALIDATED', // form request is validated
+  REFUSED = 'REFUSED', // form request is refused
+}
 
 export const MenuPrimeum = () => {
   const { theme } = useTheme();
@@ -38,13 +45,7 @@ export const MenuPrimeum = () => {
     t('screens.menu-primeum.step-three'),
   ];
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getHouse());
-  }, [dispatch]);
-
-  const { house, transport, household, pending } = useSelector((state: IRootState) => state.footprint);
+  const { house, transport, footprint, pending } = useSelector((state: IRootState) => state.footprint);
 
   const [heatersChecked, setHeatersChecked] = useState(false);
   const [worksChecked, setWorksChecked] = useState(false);
@@ -61,10 +62,10 @@ export const MenuPrimeum = () => {
     if (transport?.properties?.cars && transport.properties.cars.length > 0) {
       setTransportChecked(true);
     }
-    if (household) {
+    if (footprint) {
       setHouseholdChecked(true);
     }
-  }, [house, transport, household]);
+  }, [house, transport, footprint]);
 
   const [currentPosition, setCurrentPosition] = useState(1);
   useEffect(() => {
@@ -79,31 +80,31 @@ export const MenuPrimeum = () => {
     ) : (
       <View style={styles.cardContainer}>
         <View style={styles.row}>
-          <TouchCardCheck
+          <TouchCardStatus
             icon={() => <HeatGradient />}
             onPress={() => handlePressNavigation(IFootprintStackPages.HEATERS)}
             text={t('screens.menu-primeum.heat')}
-            checked={heatersChecked}
+            status={heatersChecked ? ISituationStatus.VALIDATED : ISituationStatus.INIT}
           />
-          <TouchCardCheck
+          <TouchCardStatus
             icon={() => <HouseGradient />}
             onPress={() => handlePressNavigation(IFootprintStackPages.WORKS)}
             text={t('screens.menu-primeum.works')}
-            checked={worksChecked}
+            status={worksChecked ? ISituationStatus.VALIDATED : ISituationStatus.INIT}
           />
         </View>
         <View style={styles.row}>
-          <TouchCardCheck
+          <TouchCardStatus
             icon={() => <CarGradient />}
             onPress={() => handlePressNavigation(IFootprintStackPages.TRANSPORT)}
             text={t('screens.menu-primeum.transport')}
-            checked={transportChecked}
+            status={transportChecked ? ISituationStatus.VALIDATED : ISituationStatus.INIT}
           />
-          <TouchCardCheck
+          <TouchCardStatus
             icon={() => <FamilyGradient />}
             onPress={() => handlePressNavigation(IFootprintStackPages.HOUSEHOLD)}
             text={t('screens.menu-primeum.household')}
-            checked={householdChecked}
+            status={householdChecked ? ISituationStatus.VALIDATED : ISituationStatus.INIT}
           />
         </View>
       </View>
@@ -132,7 +133,7 @@ export const MenuPrimeum = () => {
             </Text>
           </View>
 
-          <View style={[theme.container.centeredItem]}>
+          <View style={[theme.container.centeredItem, styles.blockCards]}>
             <Cards />
           </View>
         </View>
@@ -165,7 +166,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 15,
   },
+  blockCards: {
+    alignSelf: 'center',
+    marginTop: 10,
+    backgroundColor: Colors.primary.white,
+  },
   cardContainer: {
     marginBottom: 300,
+    backgroundColor: Colors.primary.white,
   },
 });
