@@ -4,6 +4,7 @@ import ViewShot from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing'; // Import expo-sharing
 import { ShareIcon } from '../../../assets';
 import { PrimaryButton } from '../../buttons/primary-button';
+import { Colors } from '../../../constants';
 
 type IProps = {
   children: React.ReactElement;
@@ -50,7 +51,12 @@ export const ShareScreen = ({ children, handleError, message, buttonTitle }: IPr
       </ViewShot>
 
       <View style={styles.buttonContainer}>
-        <PrimaryButton title={buttonTitle} onPress={captureAndShareScreenshot} long iconLeft={ShareIcon} />
+        <PrimaryButton
+          title={buttonTitle}
+          onPress={captureAndShareScreenshot}
+          long
+          iconLeft={() => <ShareIcon color={Colors.primary.white} />}
+        />
       </View>
     </View>
   );

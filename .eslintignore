@@ -2,3 +2,4 @@ node_modules
 dist
 .expo
 .storybook
+app.config.ts

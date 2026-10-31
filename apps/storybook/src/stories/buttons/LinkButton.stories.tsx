@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { StyleProp, ViewStyle } from 'react-native';
-
-import { LinkButton, LinkButtonColors, Love, Colors } from '@clean-rn/ui-mobile';
+import { FunctionComponent } from 'react';
+import { SvgProps } from 'react-native-svg';
+import { LinkButton, LinkButtonColors, Love } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus } from '../../wrappers';
 
@@ -25,6 +25,7 @@ type Story = StoryObj<typeof meta>;
 export const NoIcon: Story = {
   args: {
     title: 'My title',
+    colorOption: LinkButtonColors.GREEN,
   },
 };
 
@@ -40,39 +41,31 @@ export const IconLeft: Story = {
   args: {
     title: 'My title',
     colorOption: LinkButtonColors.GREEN,
-    iconLeft: (styleProps: StyleProp<ViewStyle>) => <Love width={20} height={20} style={styleProps} />,
+    iconLeft: ((props: { color: string }) => {
+      return <Love width={20} height={20} color={props.color} />;
+    }) as FunctionComponent<SvgProps>,
   },
 };
 
 export const IconRight: Story = {
   args: {
     title: 'My title',
-    iconRight: () => (
-      <Love
-        width={20}
-        height={20}
-        style={{ color: Colors.primary.lightGreen, marginLeft: 10 } as StyleProp<ViewStyle>}
-      />
-    ),
+    colorOption: LinkButtonColors.BLUE,
+    iconRight: ((props: { color: string }) => {
+      return <Love width={20} height={20} color={props.color} />;
+    }) as FunctionComponent<SvgProps>,
   },
 };
 
 export const IconLeftRight: Story = {
   args: {
     title: 'My title',
-    iconLeft: () => (
-      <Love
-        width={20}
-        height={20}
-        style={{ color: Colors.primary.lightGreen, marginRight: 10 } as StyleProp<ViewStyle>}
-      />
-    ),
-    iconRight: () => (
-      <Love
-        width={20}
-        height={20}
-        style={{ color: Colors.primary.lightGreen, marginLeft: 10 } as StyleProp<ViewStyle>}
-      />
-    ),
+    colorOption: LinkButtonColors.PINK,
+    iconLeft: ((props: { color: string }) => {
+      return <Love width={20} height={20} color={props.color} />;
+    }) as FunctionComponent<SvgProps>,
+    iconRight: ((props: { color: string }) => {
+      return <Love width={20} height={20} color={props.color} />;
+    }) as FunctionComponent<SvgProps>,
   },
 };

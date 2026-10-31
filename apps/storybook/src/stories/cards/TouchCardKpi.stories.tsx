@@ -1,11 +1,8 @@
 import { View } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { TouchCardKpi, House, Colors } from '@clean-rn/ui-mobile';
+import { TouchCardKpi, House, Colors, CarbonFootprint } from '@clean-rn/ui-mobile';
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
-import { StyleProp, ViewStyle } from 'react-native';
-
-import { CardCarbonFootPrint } from '../../../assets/svg';
 
 const meta = {
   title: 'Cards/TouchCardKpi',
@@ -22,13 +19,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Icon: Story = {
   args: {
-    icon: () => <House style={{ color: Colors.primary.darkBlue } as StyleProp<ViewStyle>} />,
+    icon: () => <House color={Colors.primary.darkBlue} />,
   },
 };
 
 export const IconData: Story = {
   args: {
-    icon: () => <House style={{ color: Colors.primary.darkBlue } as StyleProp<ViewStyle>} />,
+    icon: () => <House color={Colors.primary.darkBlue} />,
     data: {
       pct: '100%',
       co2: '6 tCO2',
@@ -41,7 +38,7 @@ export const IconText: Story = {
   args: {
     icon: () => (
       <View style={{ margin: -15 }}>
-        <CardCarbonFootPrint width={60} height={60} />
+        <CarbonFootprint width={60} height={60} />
       </View>
     ),
     data: {

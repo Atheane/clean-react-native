@@ -1,37 +1,47 @@
-import React, { useEffect, useState } from 'react';
-import { SafeAreaView, StyleSheet, Image, AppState, AppStateStatus } from 'react-native';
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { View, StyleSheet, AppState, AppStateStatus, SafeAreaView, Image, Dimensions } from 'react-native';
 import { I18nextProvider } from 'react-i18next';
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@rneui/themed';
 import { PersistGate } from 'redux-persist/integration/react';
+import * as Notifications from 'expo-notifications';
 import { theme } from './theme';
 import { Fonts } from './constants';
 import { i18n } from './translations';
 import { initializeApplication } from '../application/commands/initialize-application';
 import { store, persistor } from '../application/usecases/root-saga';
 import { NavigationUI } from './navigation';
-import SplashScreen from '../../assets/splash.png';
+import Splash from '../../assets/splash.png';
+import { IRootState } from '../application/state-management/reducers/root-reducer';
 
-// Initialize Firebase
+// this is the main component
 const App: () => JSX.Element = () => {
   const [fontsLoaded] = useFonts(Fonts);
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  const { pending } = useSelector((state: IRootState) => state.initialization);
+
+  const { error } = useSelector((state: IRootState) => state.unknownError);
+
+  const [appState, setAppState] = React.useState(AppState.currentState || 'unknown');
+  React.useEffect(() => {
     dispatch(initializeApplication());
   }, [dispatch]);
 
-  let appState, setAppState;
-  try {
-    [appState, setAppState] = useState<AppStateStatus>(AppState.currentState || 'unknown');
-  } catch (error) {
-    console.error('Error in useState:', error);
+  if (error?.message === 'Network request failed') {
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'No internet connection',
+        body: 'Please check your internet connection and try again',
+      },
+      trigger: null,
+    });
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     const handleAppStateChange = (nextAppState: AppStateStatus) => {
       if (appState.match(/active/) && nextAppState.match(/inactive/)) {
         // L'application est passée en arrière-plan ou est devenue inactive
@@ -48,7 +58,7 @@ const App: () => JSX.Element = () => {
     };
   }, [appState]);
 
-  return fontsLoaded ? (
+  return fontsLoaded && !pending ? (
     <ThemeProvider theme={theme}>
       <I18nextProvider i18n={i18n}>
         <NavigationUI />
@@ -56,8 +66,16 @@ const App: () => JSX.Element = () => {
       </I18nextProvider>
     </ThemeProvider>
   ) : (
-    <SafeAreaView style={[styles.container, { marginBottom: 30, marginLeft: 10 }]}>
-      <Image source={SplashScreen} style={{ width: 250, height: 500 }} />
+    <SafeAreaView style={[styles.container, { marginBottom: 30, marginLeft: 20 }]}>
+      <Image
+        source={Splash}
+        style={{
+          width: Dimensions.get('window').width,
+          height: Dimensions.get('window').height,
+          marginBottom: 24,
+        }}
+        resizeMode="contain"
+      />
     </SafeAreaView>
   );
 };

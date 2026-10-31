@@ -6,12 +6,7 @@ import { useTheme } from '@rneui/themed';
 import { useForm } from 'react-hook-form';
 import dayjs from 'dayjs';
 
-import {
-  BlueGradientMail,
-  PhoneBlueGradient,
-  useCleanErrorOnFocus,
-  CopyValueClipboard,
-} from '@clean-rn/ui-mobile';
+import { Colors, Email, Phone, useCleanErrorOnFocus, CopyValueClipboard } from '@clean-rn/ui-mobile';
 import { BirthDay, Country, IUpdateUserCommand, KYC_REVIEW } from '@clean-rn/user/domain';
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
@@ -115,7 +110,12 @@ export const ProfileIdentity = () => {
           <View style={[styles.rowContainer, { marginTop: 28 }]}>
             {email && (
               <View style={[styles.textContainer, { marginLeft: 8 }]}>
-                <CopyValueClipboard value={email.value} icon={BlueGradientMail} />
+                <CopyValueClipboard
+                  value={email.value}
+                  icon={() => <Email startColor={Colors.primary.darkBlue} endColor={Colors.secondary.pink} />}
+                  copyText={t('screens.profile-identity.copy')}
+                  textColor={Colors.primary.darkBlue}
+                />
               </View>
             )}
             {!email && user?.properties.email && (
@@ -126,7 +126,7 @@ export const ProfileIdentity = () => {
           </View>
           <View style={[styles.rowContainer, { marginTop: 28 }]}>
             <View style={styles.iconContainer}>
-              <PhoneBlueGradient />
+              <Phone startColor={Colors.primary.darkBlue} endColor={Colors.secondary.pink} />
             </View>
             {user?.properties.phone && (
               <View style={styles.textContainer}>

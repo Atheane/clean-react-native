@@ -721,7 +721,8 @@
       }
     },
     "profile-identity": {
-      "title": "Mein Profil bearbeiten - Identität"
+      "title": "Mein Profil bearbeiten - Identität",
+      "copy": "Kopieren"
     },
     "profile-address": {
       "title": "Mein Profil bearbeiten - Adresse"
@@ -811,7 +812,8 @@
       "title": "Meine Bankverbindung",
       "instruction": "Hier finden Sie die IBAN und BIC Ihres CO2-Kontos. Mit diesen Angaben können Sie Ihr CO2-Konto von Ihrem anderen Bankkonto aus aufladen.",
       "bank-account": "CO2-Konto",
-      "share": "Herunterladen"
+      "share": "Herunterladen",
+      "copy": "Kopieren"
     },
     "languages": {
       "title": "Sprache auswählen"

@@ -3,17 +3,17 @@ import { View, StyleSheet, Image, Text, Dimensions, ScrollView, SafeAreaView } f
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '@rneui/themed';
 
 import { IAccount } from '@clean-rn/account/domain';
 import {
   LinkButton,
   LinkButtonColors,
-  Bic as BicIcon,
-  ExportPdf,
+  BankBuilding as BicIcon,
+  ExportPdfBg,
   Iban as IbanIcon,
   TopBackground,
   CopyValueClipboard,
-  TransactionsCardsList,
   Balance,
   Colors,
   FontNames,
@@ -23,7 +23,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { ITransactionStackPages } from '../../../shared/presentation/types';
 import { Oups } from '../assets/images';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { useTheme } from '@rneui/themed';
+import { TransactionsCardsList } from '../components/transactions-cards-list';
 
 const Top = ({ currentAccount }: { currentAccount?: IAccount }) => {
   const { t } = useTranslation();
@@ -42,11 +42,16 @@ const Top = ({ currentAccount }: { currentAccount?: IAccount }) => {
             value={currentAccount.authorizedBalance}
             title={t('screens.account.balance')}
             color={Colors.primary.white}
+            unit="€G"
           />
         )}
       </View>
       <View style={styles.pdf}>
-        <LinkButton onPress={handleOnPressPdf} iconRight={ExportPdf} colorOption={LinkButtonColors.WHITE} />
+        <LinkButton
+          onPress={handleOnPressPdf}
+          iconRight={() => <ExportPdfBg />}
+          colorOption={LinkButtonColors.WHITE}
+        />
       </View>
     </View>
   );
@@ -64,8 +69,20 @@ const ContentNoTransactions = ({ currentAccount }: { currentAccount?: IAccount }
       </View>
       {currentAccount && (
         <View>
-          <CopyValueClipboard value={currentAccount.iban.value} icon={IbanIcon} />
-          <CopyValueClipboard value={currentAccount.bic.value} icon={BicIcon} />
+          <CopyValueClipboard
+            value={currentAccount.iban.value}
+            icon={() => (
+              <View style={{ marginRight: -28 }}>
+                <IbanIcon />
+              </View>
+            )}
+            copyText={t('screens.bank-coordinates.copy')}
+          />
+          <CopyValueClipboard
+            value={currentAccount.bic.value}
+            icon={() => <BicIcon />}
+            copyText={t('screens.bank-coordinates.copy')}
+          />
         </View>
       )}
     </ScrollView>

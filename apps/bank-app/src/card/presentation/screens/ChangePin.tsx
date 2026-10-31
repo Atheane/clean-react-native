@@ -7,9 +7,10 @@ import { useTheme } from '@rneui/themed';
 
 import { CardPinCode } from '@clean-rn/card/domain';
 
-import { useCleanErrorOnFocus, SubmitButton, Colors } from '@clean-rn/ui-mobile';
+import { useCleanErrorOnFocus, SubmitButton } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { Colors } from '../../../shared/presentation/constants';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { fetchChangePIN } from '../../../card/application/commands';

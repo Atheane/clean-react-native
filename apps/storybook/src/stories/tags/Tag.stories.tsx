@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { Colors, Tag } from '@clean-rn/ui-mobile';
 
-import { WithStatus, ValidationStatus } from '../../wrappers';
+import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
 const meta = {
   title: 'Tags/Tag',
@@ -11,7 +11,7 @@ const meta = {
     text: 'Non calculé',
     color: Colors.primary.lightGrey,
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING)],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 } as Meta<typeof Tag>;
 
 export default meta;

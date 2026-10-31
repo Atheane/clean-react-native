@@ -14,7 +14,9 @@ import { COUNTRIES_AVAILABLE } from '@clean-rn/contact/domain';
 import { Country, ICountry } from '@clean-rn/user/domain';
 import { IContactErrorCodes, Phone, IContactErrorMessage } from '@clean-rn/contact/domain';
 
-import { ProfileGradient, Colors, SubmitButton, ErrorMessage, TextInput } from '@clean-rn/ui-mobile';
+import { Profile, Colors, SubmitButton, TextInput } from '@clean-rn/ui-mobile';
+
+import { ErrorMessage } from '../../../../shared/presentation/components/error-message';
 
 type IProps = {
   defaultCountry?: string;
@@ -65,7 +67,7 @@ export const FormContact = (props: IProps) => {
               label={t('signup-identity.first-name.label')}
               labelColor={Colors.primary.grey}
               placeholder={firstLetterCapitalize(t('signup-identity.first-name.placeholder'))}
-              IconLeft={ProfileGradient}
+              IconLeft={() => <Profile />}
               value={value}
               onChange={onChange}
               onSubmitEditing={props.onSubmit}
@@ -88,7 +90,7 @@ export const FormContact = (props: IProps) => {
               label={t('signup-identity.last-name.label')}
               labelColor={Colors.primary.grey}
               placeholder={firstLetterCapitalize(t('signup-identity.last-name.placeholder'))}
-              IconLeft={ProfileGradient}
+              IconLeft={() => <Profile />}
               value={value}
               onChange={onChange}
               onSubmitEditing={props.onSubmit}

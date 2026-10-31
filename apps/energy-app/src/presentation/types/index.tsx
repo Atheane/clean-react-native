@@ -52,6 +52,7 @@ export enum ISharedStackPages {
   HOME = 'Home',
   MODAL_ERROR = 'ModalError',
   MODAL_CONTENT = 'ModalContent',
+  MODAL_HELP = 'ModalHelp',
 }
 
 export enum IAuthStackPages {
@@ -79,6 +80,9 @@ export enum IEpcStackPages {
 export enum ISettingsStackPages {
   MENU = 'MenuSettings',
   SETTINGS = 'Settings',
+  APPLICATION_SETTINGS = 'ApplicationSettings',
+  NOTIFICATIONS = 'Notifications',
+  LANGUAGES = 'Languages',
   LOGOUT = 'Logout',
 }
 
@@ -86,6 +90,7 @@ export type ISharedStackProps = {
   [ISharedStackPages.HOME]: object;
   [ISharedStackPages.MODAL_ERROR]: object;
   [ISharedStackPages.MODAL_CONTENT]: object;
+  [ISharedStackPages.MODAL_HELP]: object;
 };
 
 export type IAuthStackProps = {
@@ -113,6 +118,9 @@ export type IEpcStackProps = {
 export type ISettingsStackProps = {
   [ISettingsStackPages.MENU]: object;
   [ISettingsStackPages.SETTINGS]: object;
+  [ISettingsStackPages.APPLICATION_SETTINGS]: object;
+  [ISettingsStackPages.NOTIFICATIONS]: object;
+  [ISettingsStackPages.LANGUAGES]: object;
   [ISettingsStackPages.LOGOUT]: object;
 };
 
@@ -120,6 +128,7 @@ export type IRoutes =
   | ISharedStackPages.HOME
   | ISharedStackPages.MODAL_ERROR
   | ISharedStackPages.MODAL_CONTENT
+  | ISharedStackPages.MODAL_HELP
   | IHomeStackPages.MENU
   | IAuthStackPages.LOGIN
   | IDashboardStackPages.MENU
@@ -132,4 +141,7 @@ export type IRoutes =
   | IEpcStackPages.EPC_CONTRACT
   | ISettingsStackPages.MENU
   | ISettingsStackPages.SETTINGS
+  | ISettingsStackPages.APPLICATION_SETTINGS
+  | ISettingsStackPages.NOTIFICATIONS
+  | ISettingsStackPages.LANGUAGES
   | ISettingsStackPages.LOGOUT;

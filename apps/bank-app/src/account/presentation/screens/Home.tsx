@@ -15,10 +15,9 @@ import {
   Banner,
   BannerColors,
   LoaderSplashScreen,
-  useNotification,
-  useDevice,
   Colors,
 } from '@clean-rn/ui-mobile';
+import { useNotification } from '../../../shared/presentation/hooks';
 import { IAccount, IAccountType } from '@clean-rn/account/domain';
 import { IKycState } from '@clean-rn/kyc/domain';
 
@@ -28,6 +27,7 @@ import {
   ISharedStackPages,
   ITransactionStackPages,
 } from '../../../shared/presentation/types';
+import { useDevice } from '../../../shared/presentation/hooks';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 import { fetchRegisterDevice } from '../../../device/application/commands';

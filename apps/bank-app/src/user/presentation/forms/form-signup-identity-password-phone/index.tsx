@@ -20,15 +20,16 @@ import {
 } from '@clean-rn/user/domain';
 import { COUNTRIES_AVAILABLE } from '@clean-rn/contact/domain';
 import {
-  Person,
+  Profile,
   Phone as PhoneIcon,
   Colors,
   PasswordInput,
   SubmitButton,
   MultipleOptionsCheckBox,
-  ErrorMessage,
   TextInput,
 } from '@clean-rn/ui-mobile';
+
+import { ErrorMessage } from '../../../../shared/presentation/components/error-message';
 
 type IProps = {
   defaultCountry?: string;
@@ -101,7 +102,7 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
               label={t('signup-identity.first-name.label')}
               labelColor={Colors.primary.grey}
               placeholder={firstLetterCapitalize(t('signup-identity.first-name.placeholder'))}
-              IconLeft={() => <Person style={{ color: Colors.primary.lightGreen }} />}
+              IconLeft={() => <Profile />}
               value={value}
               onChange={onChange}
               onSubmitEditing={props.onSubmit}
@@ -129,7 +130,7 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
               label={t('signup-identity.last-name.label')}
               labelColor={Colors.primary.grey}
               placeholder={firstLetterCapitalize(t('signup-identity.last-name.placeholder'))}
-              IconLeft={() => <Person style={{ color: Colors.primary.lightGreen }} />}
+              IconLeft={() => <Profile />}
               value={value}
               onChange={onChange}
               onSubmitEditing={props.onSubmit}

@@ -26,16 +26,15 @@ export default {
     ios: {
       supportsTablet: false,
       bundleIdentifier: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.energy-app.app',
-      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '004',
+      buildNumber: '5',
     },
     android: {
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
         backgroundColor: '#FFFFFF',
       },
-      supportsTablet: false,
       package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.energy-app.app',
-      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '004',
+      versionCode: 5,
     },
     web: {
       favicon: './assets/favicon.png',

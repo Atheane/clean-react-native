@@ -15,7 +15,7 @@ import {
   IKycState,
   DocumentVO,
 } from '@clean-rn/kyc/domain';
-import { UploadDocumentCard, KycW9, KycIdentification, TransferBlueGradient } from '@clean-rn/ui-mobile';
+import { UploadDocumentCard, KycW9, KycIdentification, Transfer, Colors } from '@clean-rn/ui-mobile';
 
 import { IKycStackPages, IRoutes } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
@@ -153,7 +153,7 @@ export const Kyc = () => {
           {customer?.properties.kyc?.state !== IKycState.PENDING && customer?.properties.kyc?.isUSPerson && (
             <View style={styles.itemContainer}>
               <UploadDocumentCard
-                icon={KycW9}
+                icon={() => <KycW9 />}
                 status={
                   submittedKyc?.steps.W9 instanceof DocumentVO
                     ? submittedKyc.steps.W9.properties.status
@@ -188,7 +188,7 @@ export const Kyc = () => {
           {customer?.properties.kyc?.state !== IKycState.PENDING && (
             <View style={styles.itemContainer}>
               <UploadDocumentCard
-                icon={KycIdentification}
+                icon={() => <KycIdentification />}
                 status={
                   submittedKyc?.steps.ID instanceof DocumentVO
                     ? submittedKyc.steps.ID.properties.status
@@ -209,7 +209,9 @@ export const Kyc = () => {
           {customer?.properties.kyc?.state !== IKycState.PENDING && (
             <View style={styles.itemContainer}>
               <UploadDocumentCard
-                icon={TransferBlueGradient}
+                icon={() => (
+                  <Transfer startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
+                )}
                 status={
                   customer?.properties.kyc?.steps.SCT ? IDocumentStatus.VALIDATED : IDocumentStatus.INIT
                 }

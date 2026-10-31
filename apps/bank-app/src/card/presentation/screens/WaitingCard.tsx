@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
-import { CopyValueClipboard, Bic as BicIcon, Iban as IbanIcon } from '@clean-rn/ui-mobile';
+import { CopyValueClipboard, BankBuilding as BicIcon, Iban as IbanIcon } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
@@ -33,8 +33,20 @@ export const WaitingCard = () => {
             </Text>
             {accounts && accounts[0] && (
               <View>
-                <CopyValueClipboard value={accounts[0].iban.value} icon={IbanIcon} />
-                <CopyValueClipboard value={accounts[0].bic.value} icon={BicIcon} />
+                <CopyValueClipboard
+                  value={accounts[0].iban.value}
+                  icon={() => (
+                    <View style={{ marginRight: -28 }}>
+                      <IbanIcon />
+                    </View>
+                  )}
+                  copyText={t('screens.bank-coordinates.copy')}
+                />
+                <CopyValueClipboard
+                  value={accounts[0].bic.value}
+                  icon={() => <BicIcon />}
+                  copyText={t('screens.bank-coordinates.copy')}
+                />
               </View>
             )}
           </Text>

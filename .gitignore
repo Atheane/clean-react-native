@@ -77,3 +77,4 @@ apps/storybook/package-lock.json
 bank-app*.json
 ios
 android
+.nx

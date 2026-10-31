@@ -2,8 +2,24 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-     "types": ["node"]
+    "types": [
+      "node"
+    ]
   },
-  "exclude": ["**/*.spec.ts", "**/*.spec.tsx", "test-setup.ts"],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "../logger/src/expo/index.ts"]
+  "exclude": [
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "test-setup.ts",
+    "**/*.stories.ts",
+    "**/*.stories.js",
+    "**/*.stories.jsx",
+    "**/*.stories.tsx"
+  ],
+  "include": [
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.ts",
+    "**/*.tsx",
+    "../logger/src/expo/index.ts"
+  ]
 }

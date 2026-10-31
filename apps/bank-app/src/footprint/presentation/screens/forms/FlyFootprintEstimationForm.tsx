@@ -11,7 +11,7 @@ import {
   SelectNumber,
   CardScroller,
   SearchModal,
-  GreenAdd,
+  Add as GreenAdd,
   FlyFrom,
   FlyTo,
   Colors,
@@ -117,7 +117,7 @@ export const FlyFootprintEstimationForm = (props: IProps) => {
 
         return {
           uid: `${nbPassengers}_${fromIATA}_${toIATA}_${seatType}_${roundTrip}`,
-          text: `${nbPassengers} ${travelType}${plural} ${fromIATA} / ${toIATA} ${seat}`,
+          title: `${nbPassengers} ${travelType}${plural} ${fromIATA} / ${toIATA} ${seat}`,
           image: props.planeImage,
         };
       })
@@ -142,7 +142,7 @@ export const FlyFootprintEstimationForm = (props: IProps) => {
           label={t('screens.footprint-estimation-fly.dropdown.destination')}
           placeholder={t('screens.footprint-estimation-fly.dropdown.destination')}
           data={props.airports}
-          icon={() => <FlyFrom style={{ color: Colors.primary.lightGreen }} />}
+          icon={() => <FlyFrom color={Colors.primary.lightGreen} />}
           onSelect={(data: IData) => handleOnChangeField(data, 'fromIATA')}
           shouldClearSearch={shouldClearSearch}
         />
@@ -152,7 +152,7 @@ export const FlyFootprintEstimationForm = (props: IProps) => {
           label={t('screens.footprint-estimation-fly.dropdown.arrival')}
           placeholder={t('screens.footprint-estimation-fly.dropdown.arrival')}
           data={props.airports}
-          icon={() => <FlyTo style={{ color: Colors.primary.lightGreen }} />}
+          icon={() => <FlyTo color={Colors.primary.lightGreen} />}
           onSelect={(data: IData) => handleOnChangeField(data, 'toIATA')}
           shouldClearSearch={shouldClearSearch}
         />
@@ -192,7 +192,7 @@ export const FlyFootprintEstimationForm = (props: IProps) => {
       </View>
       <View style={styles.buttonContainer}>
         <SecondaryButton
-          iconOne={GreenAdd}
+          iconLeft={() => <GreenAdd />}
           title={t('screens.footprint-estimation-fly.secondary-button')}
           onPress={handleOnAddFlight}
           disabled={disabled}

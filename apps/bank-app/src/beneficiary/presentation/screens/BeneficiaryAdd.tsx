@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 
-import { useCleanErrorOnFocus, Colors } from '@clean-rn/ui-mobile';
+import { useCleanErrorOnFocus } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
@@ -12,6 +12,8 @@ import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/h
 import { addBeneficiary } from '../../application/commands/beneficiary';
 
 import { FormBeneficiary, IBeneficiaryFormData } from '../forms/form-beneficiary';
+
+import { Colors } from '../../../shared/presentation/constants';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -52,7 +54,6 @@ export const BeneficiaryAdd = () => {
             error={domainError}
             onSubmit={handleSubmit(onSubmit)}
             onFocus={onFocus}
-            onSubmitEditing={handleSubmit(onSubmit)}
           />
         </View>
       </SafeScrollingView>

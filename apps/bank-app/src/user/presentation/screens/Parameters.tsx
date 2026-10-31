@@ -8,13 +8,15 @@ import { useNavigation } from '@react-navigation/native';
 import {
   LinkButton,
   LinkButtonColors,
-  BlueGradientMail,
-  PhoneBlueGradient,
-  LoveBlueGradient,
+  Email,
+  Phone,
+  Love,
   CertificateBlueGradient,
   RedCross,
-  ProfileBlueGradient,
-  BankBuildingBlueGradient,
+  Profile,
+  BankBuilding,
+  Colors,
+  CardBank,
 } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
@@ -24,7 +26,6 @@ import {
   ISharedStackPages,
 } from '../../../shared/presentation/types';
 
-import { GradientCO2Card } from '../assets';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 
 import { APPLE_STORE_LINK, GOOGLE_PLAY_LINK } from '../../../shared/presentation/constants';
@@ -99,7 +100,7 @@ export const Parameters = () => {
         <View style={styles.container}>
           <View style={styles.rowContainer}>
             <LinkButton
-              iconLeft={() => <GradientCO2Card style={{ marginRight: 14 }} />}
+              iconLeft={() => <CardBank width={32} height={32} style={{ marginRight: 16 }} />}
               colorOption={LinkButtonColors.BLUE}
               title={t('screens.parameters.menu.card-settings')}
               onPress={handlePressCardParameters}
@@ -107,7 +108,13 @@ export const Parameters = () => {
           </View>
           <View style={styles.rowContainer}>
             <LinkButton
-              iconLeft={() => <BankBuildingBlueGradient style={{ marginRight: 14 }} />}
+              iconLeft={() => (
+                <BankBuilding
+                  startColor={Colors.secondary.pink}
+                  endColor={Colors.primary.darkBlue}
+                  style={{ marginRight: 16 }}
+                />
+              )}
               colorOption={LinkButtonColors.BLUE}
               title={t('screens.parameters.menu.account-settings')}
               onPress={handlePressAccountSettings}
@@ -115,7 +122,13 @@ export const Parameters = () => {
           </View>
           <View style={styles.rowContainer}>
             <LinkButton
-              iconLeft={PhoneBlueGradient}
+              iconLeft={() => (
+                <Phone
+                  startColor={Colors.secondary.pink}
+                  endColor={Colors.primary.darkBlue}
+                  style={{ marginRight: 16 }}
+                />
+              )}
               colorOption={LinkButtonColors.BLUE}
               title={t('screens.parameters.menu.app-settings')}
               onPress={handlePressAppSettings}
@@ -123,7 +136,15 @@ export const Parameters = () => {
           </View>
           <View style={styles.rowContainer}>
             <LinkButton
-              iconLeft={LoveBlueGradient}
+              iconLeft={() => (
+                <Love
+                  width={27}
+                  height={27}
+                  startColor={Colors.secondary.pink}
+                  endColor={Colors.primary.darkBlue}
+                  style={{ marginRight: 16 }}
+                />
+              )}
               colorOption={LinkButtonColors.BLUE}
               title={t('screens.parameters.menu.love')}
               onPress={handlePressLove}
@@ -131,7 +152,13 @@ export const Parameters = () => {
           </View>
           <View style={styles.rowContainer}>
             <LinkButton
-              iconLeft={BlueGradientMail}
+              iconLeft={() => (
+                <Email
+                  startColor={Colors.secondary.pink}
+                  endColor={Colors.primary.darkBlue}
+                  style={{ marginRight: 14 }}
+                />
+              )}
               colorOption={LinkButtonColors.BLUE}
               title={t('screens.parameters.menu.contact-us')}
               onPress={handlePressContact}
@@ -139,20 +166,20 @@ export const Parameters = () => {
           </View>
           <View style={styles.rowContainer}>
             <LinkButton
-              iconLeft={CertificateBlueGradient}
+              iconLeft={() => <CertificateBlueGradient style={{ marginRight: 16 }} />}
               colorOption={LinkButtonColors.BLUE}
               title={t('screens.parameters.menu.legal')}
               onPress={onPressLegal}
             />
           </View>
-          <View style={[styles.rowContainer, { marginLeft: 72 }]}>
+          <View style={[styles.rowContainer, { marginLeft: 82 }]}>
             <LinkButton
               colorOption={LinkButtonColors.BLUE}
               title={t('screens.parameters.menu.cgu')}
               onPress={onPressCgu}
             />
           </View>
-          <View style={[styles.rowContainer, { marginLeft: 72 }]}>
+          <View style={[styles.rowContainer, { marginLeft: 82 }]}>
             <LinkButton
               colorOption={LinkButtonColors.BLUE}
               title={t('screens.parameters.menu.cgu-kyc-provider')}
@@ -161,7 +188,13 @@ export const Parameters = () => {
           </View>
           <View style={[styles.rowContainer, { marginLeft: 36 }]}>
             <LinkButton
-              iconLeft={() => <ProfileBlueGradient style={{ marginRight: 12 }} />}
+              iconLeft={() => (
+                <Profile
+                  startColor={Colors.secondary.pink}
+                  endColor={Colors.primary.darkBlue}
+                  style={{ marginRight: 16 }}
+                />
+              )}
               colorOption={LinkButtonColors.BLUE}
               title={t('screens.parameters.menu.profile')}
               onPress={onPressProfile}
@@ -169,7 +202,7 @@ export const Parameters = () => {
           </View>
           <View style={[styles.rowContainer, { marginTop: 50 }]}>
             <LinkButton
-              iconLeft={RedCross}
+              iconLeft={() => <RedCross style={{ marginRight: 16 }} />}
               colorOption={LinkButtonColors.BLUE}
               title={t('screens.parameters.menu.delete-account')}
               onPress={onPressDeleteAccount}

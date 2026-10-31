@@ -13,7 +13,7 @@ import {
 import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
 
-import { Close } from '../../../assets';
+import { CloseBg as Close } from '../../../assets';
 import { Colors } from '../../../constants';
 
 import { TextInput } from '../../inputs/text-input';

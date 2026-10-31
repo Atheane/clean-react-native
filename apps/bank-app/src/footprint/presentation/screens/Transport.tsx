@@ -4,13 +4,14 @@ import { useTranslation } from 'react-i18next';
 
 import { HouseT } from '@bank/carbon-weight/dist';
 
-import { PrimaryButton, CO2, Colors } from '@clean-rn/ui-mobile';
+import { PrimaryButton, CO2 } from '@clean-rn/ui-mobile';
 
 import { useHouseFormData } from '../hooks';
 import { HeaterFootprintEstimationForm } from './forms';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { Colors } from '../../../shared/presentation/constants';
 
 import { computeHouseEmissions } from '../../application/commands';
 
@@ -43,7 +44,7 @@ export const Transport = () => {
               onPress={handleOnPress}
               iconLeft={() => (
                 <View style={{ height: 23, justifyContent: 'center' }}>
-                  <CO2 style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
+                  <CO2 color={Colors.primary.white} />
                 </View>
               )}
               long

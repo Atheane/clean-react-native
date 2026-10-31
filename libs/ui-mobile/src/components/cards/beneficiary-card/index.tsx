@@ -1,11 +1,18 @@
 import { Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 
-import { IBeneficiary } from '@clean-rn/beneficiary/domain';
-
 import { BeneficiaryItem } from '../../items/beneficiary-item';
 import { BankBgGradient, BankAltLogo } from '../../../assets';
 import { Colors } from '../../../constants';
+
+type IBeneficiary = {
+  accountId?: number; //if its os a CO2 account
+  isActive: boolean;
+  beneficiaryId: number;
+  name: string;
+  iban: string;
+  bic: string;
+};
 
 type IProps = {
   data: IBeneficiary & { icon?: React.FC<SvgProps> };
@@ -30,7 +37,13 @@ export const BeneficiaryCard = (props: IProps) => {
       disabled={props.disabled}
     >
       <BeneficiaryItem
-        icon={props.data.icon ? props.data.icon : props.data.accountId ? BankAltLogo : BankBgGradient}
+        icon={
+          props.data.icon
+            ? props.data.icon
+            : props.data.accountId
+              ? () => <BankAltLogo />
+              : () => <BankBgGradient />
+        }
         beneficiaryId={props.data.beneficiaryId}
         name={props.data.name}
         iban={props.data.iban}

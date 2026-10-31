@@ -12,7 +12,9 @@ import {
 } from '@clean-rn/transaction/domain';
 import { IDomainError } from '@clean-rn/ddd';
 
-import { GreenEuroAmount, Colors, SubmitButton, TextInput, ErrorMessage } from '@clean-rn/ui-mobile';
+import { Colors, SubmitButton, TextInput } from '@clean-rn/ui-mobile';
+
+import { ErrorMessage } from '../../../../shared/presentation/components/error-message';
 
 export type ITransferFormData = {
   amount: string;
@@ -56,7 +58,11 @@ export const FormTransfer = (props: IProps) => {
               label={t('screens.transfer.amount')}
               labelColor={Colors.primary.grey}
               short
-              IconRight={GreenEuroAmount}
+              IconRight={() => (
+                <View>
+                  <Text style={theme.text.boldDarkBlue}>€G</Text>
+                </View>
+              )}
               onChange={(value: string) => {
                 props.onFocus();
                 onChange(value);

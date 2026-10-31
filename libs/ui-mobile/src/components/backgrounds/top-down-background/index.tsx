@@ -1,6 +1,6 @@
 import { View, StyleSheet, Dimensions } from 'react-native';
 
-import { Logo, TopBlueBg, BottomLeavesBg } from '../../../assets';
+import { BANKLogo as Logo, TopBlueBg, BottomLeavesBg } from '../../../assets';
 
 export const TopDownBackground = () => {
   return (

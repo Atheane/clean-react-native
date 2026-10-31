@@ -1,7 +1,5 @@
-import { StyleProp, ViewStyle } from 'react-native';
-
 import type { Meta, StoryObj } from '@storybook/react';
-import { TextInput, Love, Colors, GreenEuroAmount } from '@clean-rn/ui-mobile';
+import { TextInput, Love, Colors } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
@@ -30,9 +28,7 @@ export const TextPinkLabel: Story = {
   args: {
     label: 'Label',
     lowerCase: false,
-    IconLeft: () => (
-      <Love width={27} height={27} style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
-    ),
+    IconLeft: () => <Love width={27} height={27} color={Colors.primary.lightGreen} />,
     short: false,
   },
 };
@@ -42,9 +38,7 @@ export const TextGreyLabel: Story = {
     label: 'Label',
     labelColor: Colors.primary.grey,
     lowerCase: false,
-    IconLeft: () => (
-      <Love width={27} height={27} style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
-    ),
+    IconLeft: () => <Love width={27} height={27} color={Colors.primary.lightGreen} />,
     short: false,
   },
 };
@@ -55,26 +49,7 @@ export const NumericPinkLabel: Story = {
     numeric: true,
     labelColor: Colors.secondary.pink,
     lowerCase: false,
-    IconLeft: () => (
-      <Love width={27} height={27} style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
-    ),
+    IconLeft: () => <Love width={27} height={27} color={Colors.primary.lightGreen} />,
     short: false,
-  },
-};
-
-export const GreenEuroAmountPinkLabel: Story = {
-  args: {
-    label: 'Amount',
-    numeric: true,
-    labelColor: Colors.primary.grey,
-    lowerCase: false,
-    short: true,
-    IconRight: () => (
-      <GreenEuroAmount
-        width={27}
-        height={27}
-        style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>}
-      />
-    ),
   },
 };

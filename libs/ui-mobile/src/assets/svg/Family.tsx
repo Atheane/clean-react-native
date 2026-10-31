@@ -1,0 +1,65 @@
+import Svg, { Defs, LinearGradient, Stop, Path, G } from 'react-native-svg';
+import { StyleProp, ViewStyle } from 'react-native';
+
+type IProps = {
+  width?: number;
+  height?: number;
+  startColor?: string;
+  endColor?: string;
+  color?: string;
+  style?: StyleProp<ViewStyle>;
+};
+
+export const Family = ({
+  width = 59,
+  height = 34,
+  startColor = '#cb287d',
+  endColor = '#113580',
+  color,
+  style,
+}: IProps) => {
+  const useGradient = !color;
+
+  return (
+    <Svg width={width} height={height} viewBox="0 0 59 34" style={style}>
+      <Defs>
+        <LinearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+          <Stop offset="0" stopColor={startColor} />
+          <Stop offset="1" stopColor={endColor} />
+        </LinearGradient>
+      </Defs>
+      <G id="np_family_2504965_000000" transform="translate(-9.962 -27)">
+        <Path
+          id="Tracé_7734"
+          d="M42.446,31.174A4.172,4.172,0,1,1,38.272,27a4.173,4.173,0,0,1,4.173,4.173"
+          transform="translate(-6.155 0)"
+          fill={useGradient ? 'url(#linear-gradient)' : color || 'currentColor'}
+        />
+        <Path
+          id="Tracé_7735"
+          d="M63.043,31.174A4.172,4.172,0,1,1,58.872,27a4.17,4.17,0,0,1,4.17,4.173"
+          transform="translate(-11.406 0)"
+          fill={useGradient ? 'url(#linear-gradient)' : color || 'currentColor'}
+        />
+        <Path
+          id="Tracé_7736"
+          d="M21.858,45.781c0,3.973-5.96,3.973-5.96,0s5.96-3.975,5.96,0"
+          transform="translate(-1.513 -4.028)"
+          fill={useGradient ? 'url(#linear-gradient)' : color || 'currentColor'}
+        />
+        <Path
+          id="Tracé_7737"
+          d="M82.062,45.781c0,3.973-5.96,3.973-5.96,0s5.96-3.975,5.96,0"
+          transform="translate(-16.863 -4.028)"
+          fill={useGradient ? 'url(#linear-gradient)' : color || 'currentColor'}
+        />
+        <Path
+          id="Tracé_7738"
+          d="M69.22,44.884a1.305,1.305,0,0,0-1.863,0L64.3,47.94a2.966,2.966,0,0,1-4.246,0L57,44.884l-.148-.148a1.572,1.572,0,0,0-.521-.969l-3.725-3.725A3.724,3.724,0,0,0,50,39H44.783a3.492,3.492,0,0,0-2.608,1.118L39.792,42.5l-2.459-2.459A3.724,3.724,0,0,0,34.725,39H29.51A3.492,3.492,0,0,0,26.9,40.117l-3.725,3.725a1.773,1.773,0,0,0-.521.969c-.076,0-.076.076-.148.148l-3.056,2.98a2.966,2.966,0,0,1-4.246,0l-2.98-3.056a1.318,1.318,0,0,0-1.938,1.787l4.022,4.022V62.91a1.336,1.336,0,0,0,1.342,1.342,1.306,1.306,0,0,0,1.266-1.266V59.037a.373.373,0,1,1,.745,0v3.949A1.336,1.336,0,0,0,19,64.327a1.306,1.306,0,0,0,1.266-1.266l0-12.366,3.874-3.874a1.637,1.637,0,0,0,1.49-.521l2.311-2.311V62.468a1.716,1.716,0,1,0,3.428,0l0-9.537a.6.6,0,0,1,1.193,0v9.537a1.787,1.787,0,1,0,3.574,0l0-18.4L38.3,46.3a1.746,1.746,0,0,0,1.266.521,1.629,1.629,0,0,0,1.266-.521l2.235-2.235-2.235,11.7h2.159v6.781a1.787,1.787,0,1,0,3.574,0V55.762H47.76v6.781a1.716,1.716,0,1,0,3.428,0V55.762H53.5l-2.235-11.7L53.575,46.3a1.848,1.848,0,0,0,1.49.521L58.938,50.7l-1.566,8.271h1.79v3.949a1.343,1.343,0,0,0,2.683.076V59.043h.669v3.949a1.343,1.343,0,0,0,2.683.076V59.118h1.566L65.2,50.847l4.022-4.022a1.4,1.4,0,0,0,0-1.941Z"
+          transform="translate(0 -3.059)"
+          fill={useGradient ? 'url(#linear-gradient)' : color || 'currentColor'}
+        />
+      </G>
+    </Svg>
+  );
+};

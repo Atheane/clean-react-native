@@ -1,4 +1,4 @@
-import { StyleSheet, Text, StyleProp, ViewStyle } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTranslation } from 'react-i18next';
 import { useFeatureFlag, User as ConfigCatUser } from 'configcat-react';
@@ -7,16 +7,11 @@ import { useSelector } from 'react-redux';
 import {
   Colors,
   FontNames,
-  HomeGradient,
   Home as HomeIcon,
   Transfer as TransferIcon,
-  TransferGradient,
-  ParametersGradient,
-  ParametersIcon,
-  CarbonRewardGrey,
-  CarbonRewardGreen,
+  Settings as SettingsIcon,
+  CarbonReward,
   LoaderSplashScreen,
-  CarbonGradient,
   Carbon as CarbonIcon,
 } from '@clean-rn/ui-mobile';
 import {
@@ -74,9 +69,9 @@ export const BottomTabNavigator = () => {
           title: t('screens.home.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             focused ? (
-              <HomeGradient />
+              <HomeIcon width={24} height={24} />
             ) : (
-              <HomeIcon style={{ color: Colors.primary.grey } as StyleProp<ViewStyle>} />
+              <HomeIcon width={24} height={24} color={Colors.primary.grey} />
             ),
           tabBarLabel: ({ focused }: { focused: boolean }) =>
             focused ? <Text style={styles.tab}> {t('screens.home.tab')}</Text> : '',
@@ -95,11 +90,7 @@ export const BottomTabNavigator = () => {
         options={() => ({
           title: t('screens.transfer.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
-            focused ? (
-              <TransferGradient style={{ color: Colors.primary.lightGreen } as StyleProp<ViewStyle>} />
-            ) : (
-              <TransferIcon style={{ color: Colors.primary.grey } as StyleProp<ViewStyle>} />
-            ),
+            focused ? <TransferIcon /> : <TransferIcon color={Colors.primary.grey} />,
 
           tabBarLabel: ({ focused }: { focused: boolean }) =>
             focused ? <Text style={styles.tab}> {t('screens.transfer.tab')}</Text> : '',
@@ -113,12 +104,16 @@ export const BottomTabNavigator = () => {
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             featureTagLegacy ? (
               focused ? (
-                <CarbonRewardGreen />
+                <CarbonReward />
               ) : (
-                <CarbonRewardGrey />
+                <CarbonReward color={Colors.primary.grey} />
               )
             ) : focused ? (
-              <CarbonGradient />
+              <CarbonIcon
+                color={Colors.primary.lightGreen}
+                startColor={Colors.primary.grey}
+                endColor={Colors.primary.grey}
+              />
             ) : (
               <CarbonIcon />
             ),
@@ -132,7 +127,7 @@ export const BottomTabNavigator = () => {
         options={() => ({
           title: t('screens.parameters.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
-            focused ? <ParametersGradient /> : <ParametersIcon />,
+            focused ? <SettingsIcon /> : <SettingsIcon color={Colors.primary.grey} />,
           tabBarLabel: ({ focused }: { focused: boolean }) =>
             focused ? <Text style={styles.tab}> {t('screens.parameters.menu.tab')}</Text> : '',
         })}

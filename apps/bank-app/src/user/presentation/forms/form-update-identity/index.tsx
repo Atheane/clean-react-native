@@ -10,14 +10,15 @@ import { IDomainError } from '@clean-rn/ddd';
 import { IUserErrorCodes, IUserErrorMessage, Name, BirthDay } from '@clean-rn/user/domain';
 
 import {
-  Person,
+  Profile,
   Colors,
   SubmitButton,
-  ErrorMessage,
   TextInput,
   CountryPicker,
   DateTimePicker,
 } from '@clean-rn/ui-mobile';
+
+import { ErrorMessage } from '../../../../shared/presentation/components/error-message';
 
 type IProps = {
   loading: boolean;
@@ -52,7 +53,7 @@ export const FormUpdateIdentity = (props: IProps) => {
               label={t('signup-identity.first-name.label')}
               labelColor={Colors.primary.grey}
               placeholder={firstLetterCapitalize(t('signup-identity.first-name.placeholder'))}
-              IconLeft={() => <Person style={{ color: Colors.primary.lightGreen }} />}
+              IconLeft={() => <Profile />}
               value={value}
               onChange={onChange}
               onSubmitEditing={props.onSubmit}
@@ -80,7 +81,7 @@ export const FormUpdateIdentity = (props: IProps) => {
               label={t('signup-identity.last-name.label')}
               labelColor={Colors.primary.grey}
               placeholder={firstLetterCapitalize(t('signup-identity.last-name.placeholder'))}
-              IconLeft={() => <Person style={{ color: Colors.primary.lightGreen }} />}
+              IconLeft={() => <Profile />}
               value={value}
               onChange={onChange}
               onSubmitEditing={props.onSubmit}

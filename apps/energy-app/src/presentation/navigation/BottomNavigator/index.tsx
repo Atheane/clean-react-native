@@ -10,8 +10,9 @@ import {
   ISettingsStackPages,
   IHomeStackPages,
 } from '../../types';
-import { Home, Dashboard, Settings } from '../../screens';
+import { Home, Dashboard } from '../../screens';
 import { EpcStack } from '../EpcStack';
+import { SettingsStack } from '../SettingsStack';
 
 const Tab = createBottomTabNavigator<IRootTabParamList>();
 
@@ -73,7 +74,7 @@ export const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name={ISettingsStackPages.MENU}
-        component={Settings}
+        component={SettingsStack}
         options={() => ({
           title: t('screens.settings.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) => (

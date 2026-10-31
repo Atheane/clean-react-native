@@ -5,13 +5,15 @@ import { useTheme } from '@rneui/themed';
 
 import { FoodConsumptionT } from '@bank/carbon-weight/dist';
 
-import { PrimaryButton, CO2, Colors } from '@clean-rn/ui-mobile';
+import { PrimaryButton, CO2 } from '@clean-rn/ui-mobile';
 import { FoodFootprintEstimationForm } from './forms';
 import { useFoodFormData } from '../hooks';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
 import { computeFoodEmissions } from '../../application/commands';
+
+import { Colors } from '../../../shared/presentation/constants';
 
 export const FoodFootprintEstimation = () => {
   const { t } = useTranslation();
@@ -39,7 +41,7 @@ export const FoodFootprintEstimation = () => {
               onPress={handleOnPress}
               iconLeft={() => (
                 <View style={{ height: 23, justifyContent: 'center' }}>
-                  <CO2 style={{ color: Colors.primary.white } as StyleProp<ViewStyle>} />
+                  <CO2 color={Colors.primary.white} />
                 </View>
               )}
               long

@@ -1,0 +1,24 @@
+import React from 'react';
+import Svg, { Circle, Path } from 'react-native-svg';
+import { StyleProp, ViewStyle } from 'react-native';
+
+type IProps = {
+  width?: number;
+  height?: number;
+  color?: string;
+  style?: StyleProp<ViewStyle>;
+};
+
+export const TransactionClothing = ({ width = 28, height = 28, color = '#e00ba7', style }: IProps) => {
+  return (
+    <Svg width={width} height={height} viewBox="0 0 28 28" style={style}>
+      <Circle cx={14} cy={14} r={14} fill={color} />
+      <Path
+        d="M4.667,4.168h6.666a.665.665,0,0,1,.37.112l4,2.666a.668.668,0,0,1,.289.656l-.667,4.334a.665.665,0,0,1-.957.494l-1.036-.517v4.921a2,2,0,0,1-2,2H4.667a2,2,0,0,1-2-2V11.913l-1.036.517a.643.643,0,0,1-.117.046.667.667,0,0,1-.342,0,.656.656,0,0,1-.148-.056.668.668,0,0,1-.351-.5L.007,7.262a.666.666,0,0,1,.324-.671l4-2.333a.665.665,0,0,1,.3-.089h.041ZM11.249,5.58,11.131,5.5H4.847l-.1.059a3.334,3.334,0,0,0,6.5.02ZM8,12.168a.667.667,0,1,0-.667-.667A.667.667,0,0,0,8,12.168Zm.667,2.666A.667.667,0,1,1,8,14.168.667.667,0,0,1,8.667,14.834Z"
+        transform="translate(6.138 2.499)"
+        fill="#fff"
+        fillRule="evenodd"
+      />
+    </Svg>
+  );
+};

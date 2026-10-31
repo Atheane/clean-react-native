@@ -38,7 +38,7 @@ export const DeleteAccount = () => {
               onPress={handleOnPress}
               loading={false}
               long
-              iconLeft={Validate}
+              iconLeft={() => <Validate />}
             />
           </View>
         </View>

@@ -1,47 +1,57 @@
 import { FC } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Platform,
+  Dimensions,
+  ImageSourcePropType,
+  Image,
+} from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useTheme } from '@rneui/themed';
 import { NEEDS_SMALL_TEXT } from '../../../constants';
 
 type IProps = {
   data?: { pct?: string; co2?: string; legend?: string; text?: string };
-  icon: React.FC<SvgProps>;
+  icon?: React.FC<SvgProps>;
+  img?: ImageSourcePropType;
   onPress: () => void;
 };
+
+const KPI_CARD_RATIO = 112 / 174;
 
 export const TouchCardKpi: FC<IProps> = (props: IProps) => {
   const { theme } = useTheme();
 
   return (
-    <TouchableOpacity onPress={props.onPress} style={[theme.shadow.card, theme.container.card.kpi]}>
-      <View
-        style={[
-          styles.rowContainer,
-          props.data && props.data.pct && props.data.co2
-            ? theme.container.leftItems
-            : { position: 'relative', left: 0, top: 12 },
-        ]}
-      >
-        <props.icon />
+    <TouchableOpacity
+      onPress={props.onPress}
+      style={[theme.container.card.kpi, Platform.OS === 'web' ? styles.webShadow : theme.shadow.card]}
+    >
+      <View style={[Platform.OS === 'web' ? styles.webContainer : styles.rowContainer]}>
+        {props.icon && <props.icon />}
+        {props.img && <Image style={styles.img} source={props.img} />}
         {props.data && props.data.pct && props.data.co2 && (
-          <View style={[theme.container.centeredItem, { marginLeft: 12 }]}>
-            <View style={theme.container.leftItems}>
-              <Text style={[theme.text.kpi]}>{props.data.pct}</Text>
-            </View>
-            <View style={theme.container.leftItems}>
-              <Text style={[styles.subtitleContainer, theme.text.subtitle]}>{props.data.co2}</Text>
-            </View>
+          <View
+            style={[
+              theme.container.centeredItem,
+              Platform.OS === 'web' ? styles.webKpiContainer : styles.kpiContainer,
+            ]}
+          >
+            <Text style={[theme.text.kpi]}>{props.data.pct}</Text>
+            <Text style={[theme.text.subtitle]}>{props.data.co2}</Text>
           </View>
         )}
       </View>
       {props.data && props.data.legend && (
-        <View style={theme.container.leftItems}>
-          <Text style={[theme.text.legend]}>{props.data.legend}</Text>
+        <View style={Platform.OS !== 'web' && styles.legendContainer}>
+          <Text style={theme.text.legend}>{props.data.legend}</Text>
         </View>
       )}
       {props.data && props.data.text && (
-        <View style={styles.textContainer}>
+        <View style={Platform.OS === 'web' ? styles.webTextContainer : styles.textContainer}>
           <Text
             style={[
               theme.text.darkBlue,
@@ -57,15 +67,26 @@ export const TouchCardKpi: FC<IProps> = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
+  img: { width: 64, height: 64 },
   rowContainer: {
-    marginLeft: 14,
+    margin: 14,
+    flexDirection: 'row',
   },
-  subtitleContainer: {
-    marginVertical: -6,
-    marginLeft: 8,
+  webContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  textContainer: {
-    marginTop: 30,
-    marginLeft: 12,
+  webShadow: {
+    boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+    width: '100%',
+    maxWidth: 500,
+    minHeight: Dimensions.get('window').width * 0.9 * KPI_CARD_RATIO * 0.5,
   },
+  kpiContainer: { marginTop: -12, marginLeft: 14 },
+  webKpiContainer: { marginTop: 12, marginLeft: 14 },
+  legendContainer: { marginTop: -24 },
+  textContainer: { marginTop: 8 },
+  webTextContainer: { alignItems: 'center' },
 });

@@ -21,6 +21,7 @@
     "jest/no-identical-title": "error",
     "jest/prefer-to-have-length": "warn",
     "jest/valid-expect": "error",
+    "@nx/enforce-module-boundaries": "warn",
     "react/react-in-jsx-scope": 0
   },
   "overrides": [

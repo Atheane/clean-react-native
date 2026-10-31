@@ -1,12 +1,16 @@
 import { StyleProp, ViewStyle } from 'react-native';
 import countryFlagEmoji from 'country-flag-emoji';
 
-import { ICountry } from '@clean-rn/user/domain';
-
 import { Dropdown } from '../../dropdowns/dropdown';
 
 import { Location } from '../../../assets';
 import { Colors } from '../../../constants';
+
+export type ICountry = {
+  name: string;
+  emoji: string;
+  code: string;
+};
 
 type IProps = {
   label: string;

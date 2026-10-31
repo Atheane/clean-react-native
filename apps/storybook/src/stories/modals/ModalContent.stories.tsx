@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ModalContent } from '@clean-rn/ui-mobile';
+import { ModalContent, BilanChampionEN, CarbonFootprint } from '@clean-rn/ui-mobile';
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
-import { BilanChampionEN } from '../../../assets/images';
-import { CardCarbonFootPrint } from '../../../assets/svg';
 
 const meta = {
   title: 'Modals/ModalContent',
@@ -40,7 +38,7 @@ export const Img: Story = {
 export const Icon: Story = {
   args: {
     title: 'Quiz on air quality',
-    icon: CardCarbonFootPrint,
+    icon: () => <CarbonFootprint />,
     text: "Here's today's quiz: What is a key benefit of installing air quality/temperature sensors in residential buildings?​\nA) Decreasing energy consumption\n​B) Reducing noise pollution\n​C) Increasing ventilation efficiency",
   },
 };

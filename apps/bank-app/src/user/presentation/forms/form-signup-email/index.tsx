@@ -8,7 +8,9 @@ import { Email } from '@clean-rn/auth/domain';
 import { IUserErrorCodes, IUserErrorMessage } from '@clean-rn/user/domain';
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
-import { EmailInput, ErrorMessage, SimpleCheckBox } from '@clean-rn/ui-mobile';
+import { EmailInput, SimpleCheckBox } from '@clean-rn/ui-mobile';
+
+import { ErrorMessage } from '../../../../shared/presentation/components/error-message';
 
 type IProps = {
   control: Control<ISignupEmailFormData>;

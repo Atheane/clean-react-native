@@ -30,7 +30,7 @@ const meta = {
       },
     ],
   },
-  decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING), WithCenterView],
+  decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
 } as Meta<typeof ContactCardList>;
 
 export default meta;

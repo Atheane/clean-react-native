@@ -7,10 +7,12 @@ import { IDomainError } from '@clean-rn/ddd';
 import { firstLetterCapitalize } from '@clean-rn/utils';
 import { IAuthErrorCodes, IAuthErrorMessage, Email } from '@clean-rn/auth/domain';
 
-import { SubmitButton, EmailInput, PasswordInput, ErrorMessage, SimpleCheckBox } from '@clean-rn/ui-mobile';
+import { SubmitButton, EmailInput, PasswordInput, SimpleCheckBox } from '@clean-rn/ui-mobile';
+import { ErrorMessage } from '../../components/error-message';
 
 type IProps = {
   email?: string;
+  rememberMe: boolean;
   onFocus: () => void;
   secured: boolean;
   onToggleSecurity: (event: GestureResponderEvent) => void;

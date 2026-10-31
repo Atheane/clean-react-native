@@ -1,0 +1,39 @@
+import Svg, { Defs, LinearGradient, Stop, Path } from 'react-native-svg';
+import { StyleProp, ViewStyle } from 'react-native';
+
+type IProps = {
+  width?: number;
+  height?: number;
+  startColor?: string;
+  endColor?: string;
+  color?: string;
+  style?: StyleProp<ViewStyle>;
+};
+
+export const Bell = ({
+  width = 28,
+  height = 28,
+  startColor = '#cfce29',
+  endColor = '#a1b201',
+  color,
+  style,
+}: IProps) => {
+  const useGradient = !color;
+  return (
+    <Svg id="push" width={width} height={height} viewBox="0 0 28.12 26.722" style={style}>
+      <Defs>
+        <LinearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+          <Stop offset="0" stopColor={startColor} />
+          <Stop offset="1" stopColor={endColor} />
+        </LinearGradient>
+      </Defs>
+      <Path
+        id="push-2"
+        data-name="push"
+        d="M29.7,23.329a4.469,4.469,0,0,1-2.361-2.505A17.594,17.594,0,0,1,26,16.343a39.256,39.256,0,0,1-.576-6.148c0-3.831-3.3-7.03-7.648-7.724V1.478A1.645,1.645,0,0,0,16,0a1.645,1.645,0,0,0-1.771,1.479h0V2.47c-4.349.694-7.647,3.893-7.647,7.724a39.3,39.3,0,0,1-.574,6.138,17.682,17.682,0,0,1-1.344,4.488,4.482,4.482,0,0,1-2.363,2.508.5.5,0,0,0-.36.451.542.542,0,0,0,.577.489H29.487a.542.542,0,0,0,.578-.489.5.5,0,0,0-.356-.45h0ZM15.4,1.479V1.463a.611.611,0,0,1,1.2,0V1.48h0v.868q-.3-.016-.6-.017t-.6.017ZM4.279,23.294c1.328-1.253,2.3-3.536,2.893-6.815a40.153,40.153,0,0,0,.588-6.285c0-3.8,3.7-6.889,8.25-6.889s8.25,3.09,8.25,6.889a40.236,40.236,0,0,0,.587,6.285c.595,3.278,1.563,5.561,2.893,6.815ZM16,26.721a2.843,2.843,0,0,0,2.854-1.932l0-.016H13.147A2.843,2.843,0,0,0,16,26.721h0Z"
+        transform="translate(-1.945 0.001)"
+        fill={useGradient ? 'url(#linear-gradient)' : color}
+      />
+    </Svg>
+  );
+};

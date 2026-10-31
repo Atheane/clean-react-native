@@ -19,6 +19,8 @@ import {
   SafeScrollingView,
   LinkButton,
   Tabs,
+  NoContact as NoContactImg,
+  NoBeneficiary as NoBeneficiaryImg,
 } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IBeneficiaryStackPages, IKycStackPages } from '../../../shared/presentation/types';
@@ -28,10 +30,6 @@ import { changeTab, listBeneficiaries } from '../../application/commands/benefic
 import { listContacts } from '../../application/commands/contact';
 
 import { InitKyc } from '../../../kyc/presentation/assets/images';
-import {
-  NoBeneficiary as NoBeneficiaryImg,
-  NoContact as NoContactImg,
-} from '../../../beneficiary/presentation/assets/images';
 
 const NoContact = () => {
   const { theme } = useTheme();
@@ -156,12 +154,9 @@ export const BeneficiaryList = () => {
     navigation.navigate(IKycStackPages.MENU as never);
   }, [navigation]);
 
-  const handleOnChangeTab = useCallback(
-    (index: number) => {
-      dispatch(changeTab({ idx: index }));
-    },
-    [dispatch],
-  );
+  const handleOnChangeTab = (index: number) => {
+    dispatch(changeTab({ idx: index }));
+  };
 
   return loading ? (
     <LoaderSplashScreen />
@@ -177,7 +172,7 @@ export const BeneficiaryList = () => {
             hasBeneficiary ? <ContentBeneficiary data={beneficiaries} /> : <NoBeneficiary />,
           ] as React.ReactNode[]
         }
-        changeTab={handleOnChangeTab}
+        onChangeTab={handleOnChangeTab}
         color={Colors.primary.lightGreen}
       />
     </ErrorBoundary>

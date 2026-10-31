@@ -1,6 +1,7 @@
-import { useRef, useState, useEffect } from 'react';
-import { View, StyleSheet, Dimensions, TouchableOpacity, Text } from 'react-native';
+import React, { useRef, useState, useEffect } from 'react';
+import { View, StyleSheet, Dimensions, TouchableOpacity, Text, Platform } from 'react-native';
 import { ECharts } from 'react-native-echarts-wrapper';
+import ReactECharts from 'echarts-for-react';
 
 // Définition des types pour les données
 type DataItem = (string | number)[];
@@ -12,14 +13,22 @@ type IProps = {
   allData: DataSet[];
   color: string;
   yAxisLabel: string;
+  onDataChange: (data: DataSet) => void;
 };
 
-export const DynamicBarPlot = ({ initialData, allData, color, yAxisLabel }: IProps) => {
+export const DynamicBarPlot = ({ initialData, allData, color, yAxisLabel, onDataChange }: IProps) => {
   const [currentData, setCurrentData] = useState<DataSet>(initialData);
   const [optionStack, setOptionStack] = useState<number[]>([]);
-  const chartRef = useRef<typeof ECharts>(null);
+  const chartRef = useRef<any>(null);
 
   const xLabels = currentData.map((data) => data[0]);
+
+  useEffect(() => {
+    if (!currentData) {
+      setCurrentData(initialData);
+    }
+    onDataChange(currentData);
+  }, [currentData, initialData, onDataChange]);
 
   const createOption = (data: DataSet) => {
     return {
@@ -59,38 +68,68 @@ export const DynamicBarPlot = ({ initialData, allData, color, yAxisLabel }: IPro
   const goBack = () => {
     if (optionStack.length === 0) {
       console.log('Already in root level!');
-    } else {
-      const prevDataIndex = optionStack[optionStack.length - 1];
-      setOptionStack((prev) => prev.slice(0, -1));
+      return;
+    }
+
+    const prevDataIndex = optionStack[optionStack.length - 1];
+    setOptionStack((prev) => prev.slice(0, -1));
+
+    if (allData[prevDataIndex]) {
       setCurrentData(allData[prevDataIndex]);
+    } else {
+      console.error('Previous data not found');
+      setCurrentData(initialData);
+      setOptionStack([]);
     }
   };
 
-  const onChartEvent = (param: string) => {
-    const obj = JSON.parse(param);
-    if (obj.type === 'click') {
-      const dataItem = obj.data as DataItem;
+  const onChartEvent = (param: any) => {
+    if (param.type === 'click') {
+      const dataItem = param.data as DataItem;
       if (dataItem[3]) {
         goForward(dataItem[3] as string);
       }
     }
   };
 
-  const additionalCode = `
-      chart.on('click', function(params) {
-        var obj = {
-          type: 'click',
-          data: params.data
-        };
-        sendData(JSON.stringify(obj));
-      });
-    `;
-
   useEffect(() => {
-    if (chartRef.current) {
+    if (chartRef.current && Platform.OS !== 'web') {
       chartRef.current.setOption(createOption(currentData));
     }
   }, [currentData]);
+
+  const renderChart = () => {
+    if (Platform.OS === 'web') {
+      return (
+        <ReactECharts
+          ref={chartRef}
+          option={createOption(currentData)}
+          style={{ height: '50vh', width: '100%' }}
+          onEvents={{
+            click: onChartEvent,
+          }}
+        />
+      );
+    } else {
+      const additionalCode = `
+        chart.on('click', function(params) {
+          var obj = {
+            type: 'click',
+            data: params.data
+          };
+          sendData(JSON.stringify(obj));
+        });`;
+
+      return (
+        <ECharts
+          ref={chartRef}
+          option={createOption(currentData)}
+          additionalCode={additionalCode}
+          onData={(param) => onChartEvent(JSON.parse(param))}
+        />
+      );
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -99,14 +138,7 @@ export const DynamicBarPlot = ({ initialData, allData, color, yAxisLabel }: IPro
           <Text style={styles.backButtonText}>Back</Text>
         </TouchableOpacity>
       )}
-      <View style={styles.chartContainer}>
-        <ECharts
-          ref={chartRef}
-          option={createOption(currentData)}
-          additionalCode={additionalCode}
-          onData={onChartEvent}
-        />
-      </View>
+      <View style={styles.chartContainer}>{currentData ? renderChart() : <Text>Loading...</Text>}</View>
     </View>
   );
 };
@@ -118,7 +150,7 @@ const styles = StyleSheet.create({
   chartContainer: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height * 0.5,
-    marginLeft: 16,
+    marginLeft: Platform.OS === 'web' ? 0 : 16,
     marginBottom: 16,
   },
   backButton: {

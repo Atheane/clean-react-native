@@ -1,3 +1,4 @@
+// .storybook/preview.tsx
 import { WithTheme, WithFont } from '../wrappers';
 import Geocoder from 'react-native-geocoding';
 

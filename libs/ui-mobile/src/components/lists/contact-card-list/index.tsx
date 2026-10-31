@@ -1,6 +1,11 @@
 import { VirtualizedList } from 'react-native';
-import { IContact } from '@clean-rn/contact/domain';
 import { ContactCard } from '../../cards/contact-card';
+
+interface IContact {
+  id: string;
+  name: string;
+  phone: Phone;
+}
 
 type IProps = {
   data: IContact[];

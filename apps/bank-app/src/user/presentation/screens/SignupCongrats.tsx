@@ -7,13 +7,14 @@ import { useTranslation } from 'react-i18next';
 import { IDomainError } from '@clean-rn/ddd';
 import { IUserErrorCodes, IUserErrorMessage } from '@clean-rn/user/domain';
 import { Email } from '@clean-rn/auth/domain';
-import { PrimaryButton, FontNames, Colors, ErrorMessage, NEEDS_SMALL_TEXT } from '@clean-rn/ui-mobile';
+import { PrimaryButton, FontNames, Colors, NEEDS_SMALL_TEXT } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { ISharedStackPages } from '../../../shared/presentation/types';
 import { applicationInitialized } from '../../../shared/application/commands/initialize-application';
 
 import { Congrats } from '../../presentation/assets/images';
+import { ErrorMessage } from '../../../shared/presentation/components/error-message';
 
 const HEIGHT = Dimensions.get('window').height;
 

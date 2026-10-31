@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text, TouchableOpacity, Linking } from 'react-native';
 import { useTheme } from '@rneui/themed';
 
-import { BlueMail } from '../../../assets';
+import { Email } from '../../../assets';
 import { Colors } from '../../../constants';
 
 type IProps = {
@@ -21,7 +21,7 @@ export const ContactEmail = (props: IProps) => {
       }
     >
       <View style={styles.rowContainer}>
-        <BlueMail />
+        <Email startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
         <View style={styles.textContainer}>
           <Text style={theme.text.darkBlue}>{props.label}</Text>
         </View>

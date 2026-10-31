@@ -10,7 +10,7 @@ import { ViewBackground } from './backgrounds/view-background';
 import { PrimaryButton } from './buttons/primary-button';
 import { SecondaryButton } from './buttons/secondary-button';
 import { SubmitButton } from './buttons/submit-button';
-import { LinkButton } from './buttons/link-button';
+import { LinkButton, getColor } from './buttons/link-button';
 import { SwitchButton } from './buttons/switch-button';
 import { GreenBackButton } from './buttons/green-back-button';
 import { SmallSwitchButton } from './buttons/small-switch-button';
@@ -19,7 +19,7 @@ import { TouchEventCard } from './cards/touch-event-card';
 import { LongCard } from './cards/long-card';
 import { LongCardIcon } from './cards/long-card-icon';
 import { CardScroller, IPropsTouchEventCard } from './cards/card-scroller';
-import { TransactionsCard } from './cards/transactions-card';
+import { TileKpi } from './cards/tile-kpi';
 import { TouchCardKpi } from './cards/touch-card-kpi';
 import { TouchCardText } from './cards/touch-card-text';
 import { TouchCardCheck } from './cards/touch-card-check';
@@ -33,6 +33,7 @@ import { ScatterPlot } from './charts/scatter-plot';
 import { LinePlot } from './charts/line-plot';
 import { BarPlot } from './charts/bar-plot';
 import { DynamicBarPlot } from './charts/dynamic-bar-plot';
+import { DraggableLinePlot } from './charts/draggable-line-plot';
 // Checkboxes
 import { MultipleOptionsCheckBox } from './checkboxes/multiple-options-checkBox';
 import { SimpleCheckBox } from './checkboxes/simple-checkbox';
@@ -58,7 +59,6 @@ import { ContactItem } from './items/contact-item';
 // Lists
 import { BeneficiaryCardList } from './lists/beneficiary-card-list';
 import { ContactCardList } from './lists/contact-card-list';
-import { TransactionsCardsList } from './lists/transactions-cards-list';
 import { BalanceList } from './lists/balance-list';
 // Modals
 import { ModalError } from './modals/modal-error';
@@ -79,14 +79,13 @@ import { StepsIndicator } from './others/steps-indicator';
 // Searchboxes
 import { SearchModal } from './searchboxes/search-modal';
 // Tables
-import { TableCO2Reward } from './tables/co2-reward';
-import { TableCO2Baseline } from './tables/co2-baseline';
+import { TableReward } from './tables/reward';
+import { TableBaseline } from './tables/baseline';
 // Tabs
 import { Tabs } from './tabs';
 // Tags
 import { Tag } from './tags';
 // Texts
-import { ErrorMessage } from './texts/error-message';
 import { Balance } from './texts/balance';
 import { NoCO2 } from './texts/no-co2';
 
@@ -104,6 +103,7 @@ export {
   SecondaryButton,
   SubmitButton,
   LinkButton,
+  getColor,
   SwitchButton,
   GreenBackButton,
   SmallSwitchButton,
@@ -113,8 +113,8 @@ export {
   LongCardIcon,
   CardScroller,
   IPropsTouchEventCard,
-  TransactionsCard,
   TouchCardKpi,
+  TileKpi,
   TouchCardText,
   TouchCardCheck,
   UploadDocumentCard,
@@ -125,6 +125,7 @@ export {
   StackedBars,
   ScatterPlot,
   LinePlot,
+  DraggableLinePlot,
   BarPlot,
   DynamicBarPlot,
   // Checkboxes
@@ -152,7 +153,6 @@ export {
   // Lists
   BeneficiaryCardList,
   ContactCardList,
-  TransactionsCardsList,
   BalanceList,
   // Modals
   ModalError,
@@ -173,14 +173,13 @@ export {
   // Searchboxes
   SearchModal,
   // Tables
-  TableCO2Reward,
-  TableCO2Baseline,
+  TableReward,
+  TableBaseline,
   // Tabs
   Tabs,
   // Tags
   Tag,
   // Texts
-  ErrorMessage,
   Balance,
   NoCO2,
 };

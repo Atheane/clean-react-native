@@ -12,9 +12,10 @@ import {
   SubmitButton,
   AddressInput,
   TextInput,
-  ErrorMessage,
   Colors,
 } from '@clean-rn/ui-mobile';
+
+import { ErrorMessage } from '../../../../shared/presentation/components/error-message';
 
 type IProps = {
   language: string;

@@ -8,10 +8,17 @@ type IProps = {
   color?: string;
   style?: StyleProp<ViewStyle>;
 };
-export const Settings = ({ width, height, startColor, endColor, color, style }: IProps) => {
-  const useGradient = startColor && endColor;
+export const Settings = ({
+  width = 32,
+  height = 32,
+  startColor = '#cfce29',
+  endColor = '#a1b201',
+  color,
+  style,
+}: IProps) => {
+  const useGradient = !color;
   return (
-    <Svg width={width || 31.997} height={height || 32} viewBox="0 0 31.997 32" style={style}>
+    <Svg width={width} height={height} viewBox="0 0 32 32" style={style}>
       <Defs>
         <LinearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
           <Stop offset="0" stopColor={startColor} />
