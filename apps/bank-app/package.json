@@ -51,7 +51,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "7.51.4",
     "react-i18next": "^13.1.2",
-    "react-native": "^0.73.0",
+    "react-native": "0.73.6",
     "react-native-blob-util": "0.19.4",
     "react-native-check-version": "1.1.1",
     "react-native-compressor": "1.8.24",
@@ -79,11 +79,10 @@
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.2.3",
     "reflect-metadata": "^0.2.2",
-    "short-unique-id": "^5.0.2",
-    "uuidjs": "^5.1.0"
+    "short-unique-id": "^5.0.2"
   },
   "scripts": {
-    "clean": "rm -rf node_modules .expo ios android package-lock.json yarn.lock coverage ios/build android/build $TMPDIR/metro-*",
+    "clean": "cd ios && pod deintegrate && pod cache clean --all && cd ../ && rm -rf ~/Library/Caches/Pods && yarn cache clean && npm cache clean --force && rm -rf apps/bank-app node_modules .expo ios android package-lock.json yarn.lock coverage ios/build android/build $TMPDIR/metro-*",
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app",
     "eas-build-post-install": "cd ../../ && node tools/scripts/eas-build-post-install.mjs . apps/bank-app",
     "android": "expo run:android",
@@ -93,6 +92,7 @@
     "@config-plugins/detox": "^7.0.0",
     "@nx/expo": "^20.3.1",
     "@nx/js": "^20.3.1",
+    "babel-plugin-module-resolver": "^5.0.2",
     "babel-preset-expo": "^10.0.0",
     "metro-react-native-babel-transformer": "^0.77.0",
     "nx": "^20.3.1",

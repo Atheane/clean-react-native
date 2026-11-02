@@ -27,13 +27,10 @@ apps/bank-app/android
 apps/bank-app/ios
 apps/storybook/android
 apps/storybook/ios
-apps/energy-app/android
-apps/energy-app/ios
 
 # Test artifacts
 apps/bank-app-e2e/artifacts
 apps/storybook-e2e/artifacts
-apps/energy-app-e2e/artifacts
 
 # Sensitive files
 .env*
