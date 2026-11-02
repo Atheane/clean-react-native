@@ -8,6 +8,9 @@ import {
   House,
   Heater,
   FootprintError,
+  HOUSE_WORK_TYPE,
+  Work,
+  WorkVO,
 } from '@clean-rn/footprint/domain';
 import { User } from '@clean-rn/user/domain';
 import { Email } from '@clean-rn/auth/domain';
@@ -15,36 +18,51 @@ import { Email } from '@clean-rn/auth/domain';
 import { IFootprintState, footprintReducer } from '../../state-management';
 import {
   addHeaters,
+  addWorks,
   getHouse,
   heatersAdded,
   heatersNotAdded,
   houseCreated,
   IFootprintTypes,
   initializeFootprint,
+  worksAdded,
+  worksNotAdded,
 } from '../../commands';
-import { IHeaterProps } from '../../../presentation/types';
-import { mapHeaterPropsToDomain } from '../../mappers';
+import { IHeaterProps, IWorksProps } from '../../../presentation/types';
+import { mapHeaterPropsToDomain, mapWorkPropsToDomain } from '../../mappers';
 import { addHeatersSaga } from '../../usecases/add-heaters';
 import { getHouseSaga } from '../../usecases/get-house';
+import { addWorksSaga } from '../../usecases/add-works';
+import { selectHouse } from '../../selectors';
+import { IRootState } from '../../../../shared/application/state-management/reducers/root-reducer';
 
 describe('AddHeaters footprint - integration', () => {
   let sagaTester: SagaTester;
 
-  const mockData: IHeaterProps = {
+  const mockHeater: IHeaterProps = {
     usage: HEATER_USAGE.MAIN,
     heatType: HEATER_TYPE.ELECTRIC,
     installationYear: 2013,
-    previousHeatType: HEATER_TYPE.ELECTRIC,
+    previousHeatType: HEATER_TYPE.FUEL_OIL,
+    hasBeenChanged: true,
   };
+
+  const mockWork: IWorksProps = {
+    worksType: [HOUSE_WORK_TYPE.ROOF],
+    workDate: 2022,
+  };
+
   const mockUserData = {
     userId: 100000352,
   };
+
   const user = User.Create({
     id: mockUserData.userId,
     properties: {
       email: new Email('test@test.com'),
     },
   });
+
   const mockHouse = House.Create({
     userId: user.id,
     houseStatus: HOUSE_STATUS.OCCUPIED,
@@ -76,8 +94,9 @@ describe('AddHeaters footprint - integration', () => {
           average: null,
         },
       },
-      house: null,
       footprint: null,
+      house: null,
+      transport: null,
       error: null,
     };
     sagaTester = new SagaTester({
@@ -86,10 +105,45 @@ describe('AddHeaters footprint - integration', () => {
     });
   });
 
+  it('should select house from state', () => {
+    const mockState = {
+      footprint: {
+        pending: false,
+        estimate: {
+          house: {
+            data: null,
+            footprint: null,
+            average: null,
+          },
+          transport: {
+            data: null,
+            footprint: null,
+            average: null,
+          },
+          food: {
+            data: null,
+            footprint: null,
+            average: null,
+          },
+          fly: {
+            data: null,
+            footprint: null,
+            average: null,
+          },
+        },
+        footprint: null,
+        house: null,
+        transport: null,
+        error: null,
+      },
+    };
+    expect(selectHouse(mockState as IRootState)).toBe(mockState.footprint.house);
+  });
+
   it('Should store correct state if ADD_HEATERS', () => {
     const newState = footprintReducer(undefined, {
       type: IFootprintTypes.ADD_HEATERS,
-      payload: mockData,
+      payload: mockHeater,
     });
 
     expect(newState).toEqual({
@@ -116,8 +170,46 @@ describe('AddHeaters footprint - integration', () => {
           average: null,
         },
       },
-      house: null,
       footprint: null,
+      house: null,
+      transport: null,
+      error: null,
+    });
+  });
+
+  it('Should store correct state if ADD_WORKS', () => {
+    const newState = footprintReducer(undefined, {
+      type: IFootprintTypes.ADD_WORKS,
+      payload: mockWork,
+    });
+
+    expect(newState).toEqual({
+      pending: true,
+      estimate: {
+        house: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        food: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+      },
+      footprint: null,
+      house: null,
+      transport: null,
       error: null,
     });
   });
@@ -150,33 +242,32 @@ describe('AddHeaters footprint - integration', () => {
           average: null,
         },
       },
-      house: mockHouse,
       footprint: null,
+      house: mockHouse,
+      transport: null,
       error: null,
     });
   });
 
   it('Should store correct state if HEATERS_ADDED', async () => {
-    const heatersVO = await mapHeaterPropsToDomain(mockData);
+    const heatersVO = await mapHeaterPropsToDomain(mockHeater);
     const houseWitHeaters = House.Create({
       userId: user.id,
       houseStatus: HOUSE_STATUS.OCCUPIED,
       houseId: 'houseId',
     });
-    houseWitHeaters.addHeater(
-      Heater.Create({
-        heaterId: 'heaterId',
-        heater: heatersVO[0],
-      }),
-    );
-    houseWitHeaters.addHeater(
-      Heater.Create({
-        heaterId: 'heaterId2',
-        heater: heatersVO[1],
-      }),
-    );
+    const heaters = [] as Heater[];
+    heatersVO.forEach((heater) => {
+      heaters.push(
+        Heater.Create({
+          heaterId: 'heaterId',
+          heater,
+        }),
+      );
+    });
+    houseWitHeaters.addHeaters(heaters);
     sagaTester.start(addHeatersSaga);
-    sagaTester.dispatch(addHeaters(mockData));
+    sagaTester.dispatch(addHeaters(mockHeater));
     sagaTester.dispatch(heatersAdded(houseWitHeaters));
     expect(sagaTester.getState()).toEqual({
       pending: false,
@@ -202,17 +293,35 @@ describe('AddHeaters footprint - integration', () => {
           average: null,
         },
       },
-      house: houseWitHeaters,
       footprint: null,
+      house: houseWitHeaters,
+      transport: null,
       error: null,
     });
   });
 
-  it('Should store correct state if HEATERS_NOT_ADDED', async () => {
-    sagaTester.start(addHeatersSaga);
-    sagaTester.dispatch(addHeaters(mockData));
-    sagaTester.dispatch(houseCreated(mockHouse));
-    sagaTester.dispatch(heatersNotAdded(new FootprintError.HeaterAlreadyExists('heaterId')));
+  it('Should store correct state if WORKS_ADDED', async () => {
+    const worksVO = await mapWorkPropsToDomain(mockWork);
+    const houseWithWorks = House.Create({
+      userId: user.id,
+      houseStatus: HOUSE_STATUS.OCCUPIED,
+      houseId: 'houseId',
+    });
+    const works = [] as Work[];
+    worksVO.forEach(async (workVO: WorkVO) =>
+      works.push(
+        Work.Create({
+          workId: 'workId',
+          work: workVO,
+        }),
+      ),
+    );
+
+    houseWithWorks.addWorks(works);
+
+    sagaTester.start(addWorksSaga);
+    sagaTester.dispatch(addWorks(mockWork));
+    sagaTester.dispatch(worksAdded(houseWithWorks));
     expect(sagaTester.getState()).toEqual({
       pending: false,
       estimate: {
@@ -237,15 +346,88 @@ describe('AddHeaters footprint - integration', () => {
           average: null,
         },
       },
-      house: mockHouse,
       footprint: null,
-      error: new FootprintError.HeaterAlreadyExists('heaterId'),
+      house: houseWithWorks,
+      transport: null,
+      error: null,
+    });
+  });
+
+  it('Should store correct state if HEATERS_NOT_ADDED', async () => {
+    sagaTester.start(addHeatersSaga);
+    sagaTester.dispatch(addHeaters(mockHeater));
+    sagaTester.dispatch(houseCreated(mockHouse));
+    sagaTester.dispatch(heatersNotAdded(new FootprintError.InvalidHeaterUsage()));
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      estimate: {
+        house: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        food: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+      },
+      footprint: null,
+      house: mockHouse,
+      transport: null,
+      error: new FootprintError.InvalidHeaterUsage(),
+    });
+  });
+
+  it('Should store correct state if WORKS_NOT_ADDED', async () => {
+    sagaTester.start(addWorksSaga);
+    sagaTester.dispatch(addWorks(mockWork));
+    sagaTester.dispatch(houseCreated(mockHouse));
+    sagaTester.dispatch(worksNotAdded(new FootprintError.InvalidWorkDate()));
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      estimate: {
+        house: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        transport: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        food: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+        fly: {
+          data: null,
+          footprint: null,
+          average: null,
+        },
+      },
+      footprint: null,
+      house: mockHouse,
+      transport: null,
+      error: new FootprintError.InvalidWorkDate(),
     });
   });
 
   it('Should store correct state if INITIALIZE_FOOTPRINT', async () => {
     sagaTester.start(addHeatersSaga);
-    sagaTester.dispatch(addHeaters(mockData));
+    sagaTester.dispatch(addHeaters(mockHeater));
     sagaTester.dispatch(houseCreated(mockHouse));
     sagaTester.dispatch(initializeFootprint());
     expect(sagaTester.getState()).toEqual({
@@ -272,8 +454,9 @@ describe('AddHeaters footprint - integration', () => {
           average: null,
         },
       },
-      house: mockHouse,
       footprint: null,
+      house: mockHouse,
+      transport: null,
       error: null,
     });
   });

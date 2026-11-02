@@ -1,4 +1,4 @@
-import { Heater, HeaterVO, IAddHeaterCommand } from '@clean-rn/footprint/domain';
+import { Heater, HeaterVO } from '@clean-rn/footprint/domain';
 import { IHeaterDto, IAddHeaterDto } from '../dtos';
 
 export class HeaterMapper {
@@ -12,9 +12,9 @@ export class HeaterMapper {
     });
   }
 
-  static toDto(command: IAddHeaterCommand): IAddHeaterDto {
+  static toDto(heaterVO: HeaterVO): IAddHeaterDto {
     return {
-      ...command.heater.value,
+      ...heaterVO.value,
     };
   }
 }

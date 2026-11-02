@@ -12,17 +12,17 @@ import {
 } from '@clean-rn/footprint/domain';
 import { User } from '@clean-rn/user/domain';
 import { Email } from '@clean-rn/auth/domain';
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
+import { FootprintApi } from '@clean-rn/footprint/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-
 import { addHeatersSaga, addHeatersGenerator } from '../../usecases/add-heaters';
 import { heatersAdded, heatersNotAdded, IFootprintTypes, initializeFootprint } from '../../commands';
-import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
-import { FootprintApi } from '@clean-rn/footprint/infrastructure';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
 import { mapHeaterPropsToDomain } from '../../mappers';
 import { selectHouse } from '../../selectors';
+import { IHeaterProps } from '../../../presentation/types';
 
 jest.mock('@clean-rn/shared/infrastructure', () => ({
   HttpConnection: {
@@ -63,21 +63,6 @@ describe('AddHeaters - usecase', () => {
     userId: 100000352,
   };
 
-  const mockError400HeaterAlreadyExists = {
-    statusCode: 400,
-    message: 'Root::Footprint::HouseService::Create - House #220189872 - Heater #MAIN ALREADY_EXISTS',
-    response: 'Root::Footprint::HouseService::Create - House #220189872 - Heater #MAIN ALREADY_EXISTS',
-    timestamp: '2024-09-09T14:36:19.119Z',
-    path: '/app/footprint/house/220189872/heater',
-    method: 'POST',
-    body: {
-      heaterUsage: 'MAIN',
-      heaterType: 'COAL',
-      date: '2014-09-09T12:18:37.852Z',
-      isActive: false,
-    },
-  };
-
   it('Should wait for ADD_HEATERS action and call registerHeatersGenerator, should be done on next iteration', () => {
     const genObject = addHeatersSaga(httpConnection);
 
@@ -88,11 +73,12 @@ describe('AddHeaters - usecase', () => {
   });
 
   it('Should add heaters if house is not created', async () => {
-    const mockData = {
+    const mockProps = {
       usage: HEATER_USAGE.MAIN,
       heatType: HEATER_TYPE.ELECTRIC,
-      installationYear: 2013,
+      installationYear: 2014,
       previousHeatType: HEATER_TYPE.ELECTRIC,
+      hasBeenChanged: true,
     };
     const user = User.Create({
       id: mockUserData.userId,
@@ -105,31 +91,28 @@ describe('AddHeaters - usecase', () => {
       houseStatus: HOUSE_STATUS.OCCUPIED,
       houseId: 'houseId',
     });
-    const heatersVO = await mapHeaterPropsToDomain(mockData);
-    const houseWitHeaters = House.Create({
+
+    const heatersVO = await mapHeaterPropsToDomain(mockProps);
+
+    const houseWithHeaters = House.Create({
       userId: user.id,
       houseStatus: HOUSE_STATUS.OCCUPIED,
       houseId: 'houseId',
     });
-    houseWitHeaters.addHeater(
-      Heater.Create({
-        heaterId: 'heaterId',
-        heater: heatersVO[0],
-      }),
-    );
-    houseWitHeaters.addHeater(
-      Heater.Create({
-        heaterId: 'heaterId2',
-        heater: heatersVO[1],
-      }),
-    );
+    const heaters = heatersVO.map((heater, index) => {
+      return Heater.Create({
+        heaterId: `heaterId${index}`,
+        heater,
+      });
+    });
+    houseWithHeaters.addHeaters(heaters);
 
     testSaga(addHeatersGenerator, httpConnection, {
       type: IFootprintTypes.ADD_HEATERS,
-      payload: mockData,
+      payload: mockProps,
     })
       .next()
-      .call(mapHeaterPropsToDomain, mockData)
+      .call(mapHeaterPropsToDomain, mockProps)
       .next(heatersVO)
       .call(ensureTokenRefreshed, httpConnection)
       .next()
@@ -137,19 +120,20 @@ describe('AddHeaters - usecase', () => {
       .next(house)
       .call([api, api.addHeaters], {
         house,
-        heaters: heatersVO,
+        heatersVO: heatersVO,
       })
-      .next(houseWitHeaters)
-      .put(heatersAdded(houseWitHeaters))
-      .next(houseWitHeaters);
+      .next(houseWithHeaters)
+      .put(heatersAdded(houseWithHeaters))
+      .next(houseWithHeaters);
   });
 
-  it('Should add heaters if installation year < 2012', async () => {
-    const mockData = {
+  it('Should add heaters if installation year < 2011', async () => {
+    const mockProps = {
       usage: HEATER_USAGE.MAIN,
       heatType: HEATER_TYPE.ELECTRIC,
-      installationYear: 2011,
+      installationYear: 2010,
       previousHeatType: HEATER_TYPE.ELECTRIC,
+      hasBeenChanged: true,
     };
     const user = User.Create({
       id: mockUserData.userId,
@@ -162,25 +146,26 @@ describe('AddHeaters - usecase', () => {
       houseStatus: HOUSE_STATUS.OCCUPIED,
       houseId: 'houseId',
     });
-    const heatersVO = await mapHeaterPropsToDomain(mockData);
-    const houseWitHeaters = House.Create({
+    const heatersVO = await mapHeaterPropsToDomain(mockProps);
+    const houseWithHeaters = House.Create({
       userId: user.id,
       houseStatus: HOUSE_STATUS.OCCUPIED,
       houseId: 'houseId',
     });
-    houseWitHeaters.addHeater(
-      Heater.Create({
-        heaterId: 'heaterId',
-        heater: heatersVO[0],
-      }),
-    );
+    const heaters = heatersVO.map((heaterVO, index) => {
+      return Heater.Create({
+        heaterId: `heaterId${index}`,
+        heater: heaterVO,
+      });
+    });
+    houseWithHeaters.addHeaters(heaters);
 
     testSaga(addHeatersGenerator, httpConnection, {
       type: IFootprintTypes.ADD_HEATERS,
-      payload: mockData,
+      payload: mockProps,
     })
       .next()
-      .call(mapHeaterPropsToDomain, mockData)
+      .call(mapHeaterPropsToDomain, mockProps)
       .next(heatersVO)
       .call(ensureTokenRefreshed, httpConnection)
       .next()
@@ -188,22 +173,20 @@ describe('AddHeaters - usecase', () => {
       .next(house)
       .call([api, api.addHeaters], {
         house,
-        heaters: heatersVO,
+        heatersVO: heatersVO,
       })
-      .next(houseWitHeaters)
-      .put(heatersAdded(houseWitHeaters))
-      .next(houseWitHeaters);
+      .next(houseWithHeaters)
+      .put(heatersAdded(houseWithHeaters))
+      .next(houseWithHeaters);
   });
 
-  it('Should not add heaters if already exists', async () => {
-    const serverError = new ServerError(mockError400HeaterAlreadyExists);
-    serverError.statusCode = 400;
-
-    const mockData = {
+  it('Should add heaters if heaters has not changed', async () => {
+    const mockProps = {
       usage: HEATER_USAGE.MAIN,
       heatType: HEATER_TYPE.ELECTRIC,
-      installationYear: 2013,
+      installationYear: undefined,
       previousHeatType: HEATER_TYPE.ELECTRIC,
+      hasBeenChanged: false,
     };
     const user = User.Create({
       id: mockUserData.userId,
@@ -216,14 +199,26 @@ describe('AddHeaters - usecase', () => {
       houseStatus: HOUSE_STATUS.OCCUPIED,
       houseId: 'houseId',
     });
-    const heatersVO = await mapHeaterPropsToDomain(mockData);
+    const heatersVO = await mapHeaterPropsToDomain(mockProps);
+    const houseWithHeaters = House.Create({
+      userId: user.id,
+      houseStatus: HOUSE_STATUS.OCCUPIED,
+      houseId: 'houseId',
+    });
+    const heaters = heatersVO.map((heaterVO, index) => {
+      return Heater.Create({
+        heaterId: `heaterId${index}`,
+        heater: heaterVO,
+      });
+    });
+    houseWithHeaters.addHeaters(heaters);
 
     testSaga(addHeatersGenerator, httpConnection, {
       type: IFootprintTypes.ADD_HEATERS,
-      payload: mockData,
+      payload: mockProps,
     })
       .next()
-      .call(mapHeaterPropsToDomain, mockData)
+      .call(mapHeaterPropsToDomain, mockProps)
       .next(heatersVO)
       .call(ensureTokenRefreshed, httpConnection)
       .next()
@@ -231,28 +226,27 @@ describe('AddHeaters - usecase', () => {
       .next(house)
       .call([api, api.addHeaters], {
         house,
-        heaters: heatersVO,
+        heatersVO: heatersVO,
       })
-      .throw(serverError)
-      .put(initializeFootprint())
-      .next()
-      .put(heatersNotAdded(new FootprintError.HeaterAlreadyExists()))
-      .next();
+      .next(houseWithHeaters)
+      .put(heatersAdded(houseWithHeaters))
+      .next(houseWithHeaters);
   });
 
   it('Should throw invalid heater usage if no heater usage is provided', async () => {
-    const mockData = {
+    const mockProps = {
       usage: undefined,
       heatType: HEATER_TYPE.ELECTRIC,
       installationYear: 2013,
       previousHeatType: HEATER_TYPE.COAL,
+      hasBeenChanged: true,
     };
     testSaga(addHeatersGenerator, httpConnection, {
       type: IFootprintTypes.ADD_HEATERS,
-      payload: mockData,
+      payload: mockProps as unknown as IHeaterProps,
     })
       .next()
-      .call(mapHeaterPropsToDomain, mockData)
+      .call(mapHeaterPropsToDomain, mockProps)
       .throw(new FootprintError.InvalidHeaterUsage())
       .put(initializeFootprint())
       .next()
@@ -261,18 +255,19 @@ describe('AddHeaters - usecase', () => {
   });
 
   it('Should throw invalid heater type if no heater type is provided', async () => {
-    const mockData = {
+    const mockProps = {
       usage: HEATER_USAGE.MAIN,
       heatType: undefined,
       installationYear: 2013,
       previousHeatType: HEATER_TYPE.ELECTRIC,
+      hasBeenChanged: false,
     };
     testSaga(addHeatersGenerator, httpConnection, {
       type: IFootprintTypes.ADD_HEATERS,
-      payload: mockData,
+      payload: mockProps as unknown as IHeaterProps,
     })
       .next()
-      .call(mapHeaterPropsToDomain, mockData)
+      .call(mapHeaterPropsToDomain, mockProps)
       .throw(new FootprintError.InvalidHeaterType())
       .put(initializeFootprint())
       .next()
@@ -280,19 +275,20 @@ describe('AddHeaters - usecase', () => {
       .next();
   });
 
-  it('Should throw invalid heater type if no previous heater type is provided and date > 2012', async () => {
-    const mockData = {
+  it('Should throw invalid heater type if no previous heater type is provided and date > 2011', async () => {
+    const mockProps = {
       usage: HEATER_USAGE.MAIN,
       heatType: HEATER_TYPE.ELECTRIC,
       installationYear: 2013,
       previousHeatType: undefined,
+      hasBeenChanged: true,
     };
     testSaga(addHeatersGenerator, httpConnection, {
       type: IFootprintTypes.ADD_HEATERS,
-      payload: mockData,
+      payload: mockProps,
     })
       .next()
-      .call(mapHeaterPropsToDomain, mockData)
+      .call(mapHeaterPropsToDomain, mockProps)
       .throw(new FootprintError.InvalidHeaterType())
       .put(initializeFootprint())
       .next()
@@ -306,6 +302,7 @@ describe('AddHeaters - usecase', () => {
       heatType: HEATER_TYPE.ELECTRIC,
       installationYear: undefined,
       previousHeatType: HEATER_TYPE.ELECTRIC,
+      hasBeenChanged: true,
     };
 
     await expect(mapHeaterPropsToDomain(props)).rejects.toThrow(FootprintError.InvalidHeaterDate);

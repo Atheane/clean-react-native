@@ -1,0 +1,8 @@
+{
+  "statusCode": 500,
+  "message": "Unknown server error",
+  "response": "Unknown server error",
+  "timestamp": "2024-12-20T14:18:52.838Z",
+  "path": "/app/footprint",
+  "method": "POST"
+}

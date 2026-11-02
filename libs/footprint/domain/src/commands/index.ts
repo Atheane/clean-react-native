@@ -1,23 +1,49 @@
-import { House } from '../entities';
+import { House, Transport } from '../aggregates-root';
 import { HOUSE_STATUS } from '../enums';
-import { HeaterVO, FootprintVO } from '../value-objects';
+import { HeaterVO, HouseholdVO, WorkVO, VehicleVO } from '../value-objects';
 
-export type IAddHeaterCommand = {
-  house: House;
-  heater: HeaterVO;
+// Footprint
+export type ICreateFootprintCommand = {
+  userId: string;
+  household: HouseholdVO;
 };
 
-export type IAddHeatersCommand = {
-  house: House;
-  heaters: HeaterVO[];
-};
-
+// House
 export type ICreateHouseCommand = {
   userId: string;
   houseStatus: HOUSE_STATUS;
 };
 
-export type ICreateFootprintCommand = {
+export type IAddHeaterCommand = {
+  houseId: string;
+  heaterVO: HeaterVO;
+};
+
+export type IAddHeatersCommand = {
+  house: House;
+  heatersVO: HeaterVO[];
+};
+
+export type IAddWorkCommand = {
+  houseId: string;
+  workVO: WorkVO;
+};
+
+export type IAddWorksCommand = {
+  house: House;
+  worksVO: WorkVO[];
+};
+
+// Transport
+export type ICreateTransportCommand = {
   userId: string;
-  footprint: FootprintVO;
+};
+
+export type IAddVehicleCommand = {
+  vehicleVO: VehicleVO;
+};
+
+export type IAddVehiclesCommand = {
+  transport: Transport;
+  vehiclesVO: VehicleVO[];
 };

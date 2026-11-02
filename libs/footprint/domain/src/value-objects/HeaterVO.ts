@@ -7,7 +7,7 @@ import { FootprintError } from '../errors';
 export class HeaterVO {
   @IsDateString()
   @IsDefined()
-  date!: string;
+  installationDate!: string;
 
   @IsEnum(HEATER_TYPE)
   @IsDefined()
@@ -35,25 +35,25 @@ export class HeaterVO {
     const errors = await validate(this);
 
     if (errors.length > 0) {
+      const heaterUsageErrors = errors.filter((error) => error.property === 'heaterUsage');
+      if (errors.some((error) => error.property === 'heaterUsage')) {
+        throw new FootprintError.InvalidHeaterUsage(heaterUsageErrors);
+      }
+
       const heaterTypeErrors = errors.filter((error) => error.property === 'heaterType');
       if (errors.some((error) => error.property === 'heaterType')) {
         throw new FootprintError.InvalidHeaterType(heaterTypeErrors);
       }
-      const dateErrors = errors.filter((error) => error.property === 'date');
-      if (errors.some((error) => error.property === 'date')) {
+      const dateErrors = errors.filter((error) => error.property === 'installationDate');
+      if (errors.some((error) => error.property === 'installationDate')) {
         throw new FootprintError.InvalidHeaterDate(dateErrors);
-      }
-
-      const heaterUsageErrors = errors.filter((error) => error.property === 'heaterUsage');
-      if (errors.some((error) => error.property === 'heaterUsage')) {
-        throw new FootprintError.InvalidHeaterUsage(heaterUsageErrors);
       }
     }
   }
 
   get value() {
     return {
-      date: this.date,
+      installationDate: this.installationDate,
       heaterType: this.heaterType,
       heaterUsage: this.heaterUsage,
       isActive: this.isActive,

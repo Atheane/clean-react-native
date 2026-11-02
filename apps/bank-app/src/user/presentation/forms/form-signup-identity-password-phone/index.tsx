@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, GestureResponderEvent } from 'react-native';
+import { View, Text, StyleSheet, GestureResponderEvent, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { Input, useTheme } from '@rneui/themed';
@@ -181,10 +181,26 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
         <Text style={[theme.text.label, { marginBottom: 0, color: Colors.primary.grey }]}>
           {t('signup-phone.phone.label')}
         </Text>
-        <View style={[theme.container.input, { marginBottom: 0 }]}>
-          <View style={styles.subContainer}>
+        <View
+          style={{
+            width: Dimensions.get('window').width * 0.75,
+            height: 64,
+            flexDirection: 'row',
+            backgroundColor: Colors.primary.lightGrey,
+            borderRadius: 8,
+            marginTop: 11,
+            marginBottom: 16, // override of default input bottomMargin
+            borderBottomWidth: 0,
+          }}
+        >
+          <View
+            style={{
+              flexDirection: 'row',
+              // alignItems: 'center',
+            }}
+          >
             <View style={styles.iconContainer}>
-              <PhoneIcon style={{ color: Colors.primary.lightGreen }} />
+              <PhoneIcon color={Colors.primary.lightGreen} />
             </View>
             <View style={[styles.selectContainer, theme.container.centeredItem]}>
               <Controller
@@ -207,7 +223,11 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
                       setCountryCode(countryCode);
                       onChange(countryCode);
                     }}
-                    buttonStyle={styles.selectButton}
+                    buttonStyle={{
+                      width: 100,
+                      alignItems: 'center',
+                      marginRight: -36,
+                    }}
                     buttonTextStyle={theme.text.inputPicker}
                     searchPlaceHolder=""
                     defaultValue={countryCode ? new Country(countryCode).valueFlagAndExtension : undefined}
@@ -301,16 +321,8 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     justifyContent: 'center',
   },
-  subContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
   selectContainer: {
     marginRight: -30,
-  },
-  selectButton: {
-    width: 100,
-    alignItems: 'center',
   },
   inputPassword: {
     marginTop: 30,

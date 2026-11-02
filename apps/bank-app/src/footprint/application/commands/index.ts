@@ -1,8 +1,18 @@
 import { FlightI, FoodConsumptionT, HouseT, VehicleConsumptionT } from '@bank/carbon-weight/dist';
 
+import { IDomainError } from '@clean-rn/ddd';
+import {
+  House,
+  IFootprintErrorCodes,
+  IFootprintErrorMessage,
+  Footprint,
+  Transport,
+} from '@clean-rn/footprint/domain';
+import { IHouseholdProps, IHeaterProps, IVehiclesProps, IWorksProps } from '../../presentation/types';
 import {
   IFootprintActions,
   IFootprintTypes,
+  // Estimates
   IComputeHouseEmissions,
   IHouseEmissionsComputed,
   IInitializeHouseEmissions,
@@ -15,20 +25,31 @@ import {
   IComputeFlyEmissions,
   IInitializeFlyEmissions,
   IFlyEmissionsComputed,
-  IHouseCreated,
-  IHeatersAdded,
-  IAddHeaters,
-  IHeatersNotAdded,
-  IInitializeFootprint,
-  IGetHouse,
+  // Footprint
+  IGetFootprint,
+  IFootprintNotFound,
   ICreateFootprint,
   IFootprintCreated,
   IFootprintNotCreated,
+  IInitializeFootprint,
+  // House
+  IGetHouse,
+  IHouseCreated,
+  IAddHeaters,
+  IHeatersAdded,
+  IHeatersNotAdded,
+  IAddWorks,
+  IWorksAdded,
+  IWorksNotAdded,
+  // Transport
+  IGetTransport,
+  ITransportCreated,
+  IVehiclesAdded,
+  IVehiclesNotAdded,
+  IAddVehicles,
 } from './types';
-import { House, IFootprintErrorCodes, IFootprintErrorMessage, Footprint } from '@clean-rn/footprint/domain';
-import { IFootprintProps, IHeaterProps } from '../../presentation/types';
-import { IDomainError } from '@clean-rn/ddd';
 
+// -------------------- Estimates
 // commands
 export const computeHouseEmissions = (
   payload: HouseT & { consumption: number } & { builtYear: number },
@@ -104,6 +125,40 @@ export const flyEmissionsComputed = (payload: {
   payload,
 });
 
+// -------------------- Footprint
+export const getFootprint = (): IGetFootprint => ({
+  type: IFootprintTypes.GET_FOOTPRINT,
+});
+
+export const footprintNotFound = (): IFootprintNotFound => ({
+  type: IFootprintTypes.FOOTPRINT_NOTFOUND,
+});
+
+export const createFootprint = (payload: IHouseholdProps): ICreateFootprint => ({
+  type: IFootprintTypes.CREATE_FOOTPRINT,
+  payload,
+});
+
+export const footprintCreated = (payload: Footprint): IFootprintCreated => ({
+  type: IFootprintTypes.FOOTPRINT_CREATED,
+  payload,
+});
+
+export const footprintNotCreated = (
+  payload: IDomainError<IFootprintErrorCodes, IFootprintErrorMessage>,
+): IFootprintNotCreated => ({
+  type: IFootprintTypes.FOOTPRINT_NOT_CREATED,
+  payload,
+});
+export const initializeFootprint = (): IInitializeFootprint => ({
+  type: IFootprintTypes.INITIALIZE_FOOTPRINT,
+});
+
+// -------------------- House
+export const getHouse = (): IGetHouse => ({
+  type: IFootprintTypes.GET_HOUSE,
+});
+
 export const houseCreated = (payload: House): IHouseCreated => ({
   type: IFootprintTypes.HOUSE_CREATED,
   payload,
@@ -126,28 +181,47 @@ export const heatersNotAdded = (
   payload,
 });
 
-export const initializeFootprint = (): IInitializeFootprint => ({
-  type: IFootprintTypes.INITIALIZE_FOOTPRINT,
-});
-
-export const getHouse = (): IGetHouse => ({
-  type: IFootprintTypes.GET_HOUSE,
-});
-
-export const createFootprint = (payload: IFootprintProps): ICreateFootprint => ({
-  type: IFootprintTypes.CREATE_FOOTPRINT,
+export const addWorks = (payload: IWorksProps): IAddWorks => ({
+  type: IFootprintTypes.ADD_WORKS,
   payload,
 });
 
-export const footprintCreated = (payload: Footprint): IFootprintCreated => ({
-  type: IFootprintTypes.FOOTPRINT_CREATED,
+export const worksAdded = (payload: House): IWorksAdded => ({
+  type: IFootprintTypes.WORKS_ADDED,
   payload,
 });
 
-export const footprintNotCreated = (
+export const worksNotAdded = (
   payload: IDomainError<IFootprintErrorCodes, IFootprintErrorMessage>,
-): IFootprintNotCreated => ({
-  type: IFootprintTypes.FOOTPRINT_NOT_CREATED,
+): IWorksNotAdded => ({
+  type: IFootprintTypes.WORKS_NOT_ADDED,
+  payload,
+});
+
+// -------------------- Transport
+export const getTransport = (): IGetTransport => ({
+  type: IFootprintTypes.GET_TRANSPORT,
+});
+
+export const transportCreated = (payload: Transport): ITransportCreated => ({
+  type: IFootprintTypes.TRANSPORT_CREATED,
+  payload,
+});
+
+export const addVehicles = (payload: IVehiclesProps): IAddVehicles => ({
+  type: IFootprintTypes.ADD_VEHICLES,
+  payload,
+});
+
+export const vehiclesAdded = (payload: Transport): IVehiclesAdded => ({
+  type: IFootprintTypes.VEHICLES_ADDED,
+  payload,
+});
+
+export const vehiclesNotAdded = (
+  payload: IDomainError<IFootprintErrorCodes, IFootprintErrorMessage>,
+): IVehiclesNotAdded => ({
+  type: IFootprintTypes.VEHICLES_NOT_ADDED,
   payload,
 });
 

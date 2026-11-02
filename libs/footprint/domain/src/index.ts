@@ -1,3 +1,4 @@
+export * from './aggregates-root';
 export * from './constants';
 export * from './errors';
 export * from './types';

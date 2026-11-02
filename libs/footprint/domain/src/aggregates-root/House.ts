@@ -1,14 +1,15 @@
 import { Entity } from '@clean-rn/ddd';
-import { Heater } from './Heater';
+import { Heater } from '../entities';
 import { HOUSE_STATUS } from '../enums';
 import { FOOTPRINT_EVENTS } from '../events';
+import { Work } from 'libs/footprint/domain/src/entities/Work';
 
 export interface IHouseProperties {
   heaters?: Heater[];
   houseId?: string;
   userId?: string;
   houseStatus: HOUSE_STATUS;
-  //   works: Work[];
+  works: Work[];
 }
 
 export class House extends Entity<IHouseProperties> {
@@ -37,8 +38,13 @@ export class House extends Entity<IHouseProperties> {
     return house;
   }
 
-  addHeater(heater: Heater): void {
-    this.properties.heaters = this.properties.heaters ? [...this.properties.heaters, heater] : [heater];
-    this.emitDomainEvent(FOOTPRINT_EVENTS.HEATER_ADDED, heater);
+  addHeaters(heaters: Heater[]): void {
+    this.properties.heaters = heaters;
+    this.emitDomainEvent(FOOTPRINT_EVENTS.HEATERS_ADDED, heaters);
+  }
+
+  addWorks(works: Work[]): void {
+    this.properties.works = works;
+    this.emitDomainEvent(FOOTPRINT_EVENTS.WORKS_ADDED, works);
   }
 }

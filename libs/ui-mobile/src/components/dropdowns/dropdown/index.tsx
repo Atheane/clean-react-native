@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { View, StyleSheet, Text, Dimensions, Platform } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import Select from 'react-select';
@@ -10,7 +10,7 @@ import { DropdownChevron } from '../../../assets';
 import { Colors, FontNames } from '../../../constants';
 
 type IData = {
-  key: any;
+  key: string;
   value: string;
 };
 
@@ -25,10 +25,12 @@ type IProps = {
   short?: boolean;
   shortWidth?: number;
   multiline?: boolean;
+  isMulti?: boolean;
+  reset?: boolean;
   onSelect: ({ key, value }: { key: string; value: string }) => void;
 };
 
-const MobileDropdown = (props: IProps) => {
+const MobileDropdown = React.forwardRef((props: IProps, ref) => {
   const handleOnSelect = (value: string, index: number) => {
     props.onSelect(props.data[index]);
   };
@@ -60,6 +62,7 @@ const MobileDropdown = (props: IProps) => {
           </View>
         )}
         <SelectDropdown
+          ref={ref}
           data={props.data}
           onSelect={handleOnSelect}
           buttonTextAfterSelection={
@@ -71,7 +74,7 @@ const MobileDropdown = (props: IProps) => {
               ? { width: props.shortWidth ?? 100 }
               : props.icon
                 ? { width: Dimensions.get('window').width * 0.65 }
-                : { width: Dimensions.get('window').width * 0.85 },
+                : { width: Dimensions.get('window').width * 0.75 },
           ]}
           rowTextForSelection={(item: IData) => item.value}
           buttonTextStyle={theme.text.input}
@@ -97,9 +100,9 @@ const MobileDropdown = (props: IProps) => {
       </View>
     </View>
   );
-};
+});
 
-const WebDropdown = (props: IProps) => {
+const WebDropdown = (props: IProps, ref) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleSelect = (option: any) => {
@@ -179,13 +182,13 @@ const WebDropdown = (props: IProps) => {
   );
 };
 
-export const Dropdown = (props: IProps) => {
+export const Dropdown = React.forwardRef<any, IProps>((props, ref) => {
   if (Platform.OS === 'web') {
     return <WebDropdown {...props} />;
   } else {
-    return <MobileDropdown {...props} />;
+    return <MobileDropdown {...props} ref={ref} />;
   }
-};
+});
 
 const styles = StyleSheet.create({
   labelContainer: {

@@ -4,6 +4,8 @@ import { createTheme } from '@rneui/themed';
 
 import { FontNames, Colors, NEEDS_SMALL_TEXT } from '@clean-rn/ui-mobile';
 
+const windowWidth = Dimensions.get('window').width;
+
 declare module '@rneui/themed' {
   export interface Theme {
     buttons: {
@@ -187,11 +189,11 @@ export const theme = createTheme({
       },
     },
     input: {
-      width: Dimensions.get('window').width * COEFF,
+      width: windowWidth > 768 ? 400 : windowWidth * COEFF, // 768px est un breakpoint courant pour tablette
       backgroundColor: Colors.primary.lightGrey,
       borderRadius: 8,
       marginTop: 11,
-      marginBottom: -16, // override of default input bottomMargin
+      marginBottom: 16, // override of default input bottomMargin
       borderBottomWidth: 0,
     },
   },

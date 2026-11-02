@@ -1,4 +1,4 @@
-import { Footprint, FootprintVO, ICreateFootprintCommand } from '@clean-rn/footprint/domain';
+import { Footprint, HouseholdVO, ICreateFootprintCommand } from '@clean-rn/footprint/domain';
 import { ICreateFootprintDto, IFootprintDto } from '../dtos';
 
 export class FootprintMapper {
@@ -8,25 +8,24 @@ export class FootprintMapper {
     childNumber,
     ...footprintDto
   }: IFootprintDto): Promise<Footprint> {
-    const footprintVO = await FootprintVO.create({
+    const householdVO = await HouseholdVO.create({
       adultNumber,
       childNumber,
     });
     const footprint = Footprint.Create({
-      footprint: footprintVO,
+      household: householdVO,
       userId: userId.toString(),
       startDate: new Date(footprintDto.startDate),
       endDate: new Date(footprintDto.endDate),
       unit: footprintDto.unit,
     });
-    console.log(footprint);
     return footprint;
   }
 
   static toDto(command: ICreateFootprintCommand): ICreateFootprintDto {
     return {
       userId: command.userId.toString(),
-      ...command.footprint.value,
+      ...command.household.value,
     };
   }
 }

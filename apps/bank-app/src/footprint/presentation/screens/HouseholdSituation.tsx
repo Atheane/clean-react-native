@@ -19,18 +19,18 @@ import {
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { createFootprint, initializeFootprint } from '../../application/commands';
-import { IFootprintProps } from '../types';
+import { IHouseholdProps } from '../types';
 import { IFootprintStackPages } from '../../../shared/presentation/types';
 import { ErrorMessage } from '../../../shared/presentation/components/error-message';
 
-export const Household = () => {
+export const HouseholdSituation = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
 
   const STEPS = [
-    t('screens.heat-primeum.step-one'),
-    t('screens.heat-primeum.step-two'),
-    t('screens.heat-primeum.step-three'),
+    t('screens.menu-primeum.step-one'),
+    t('screens.menu-primeum.step-two'),
+    t('screens.menu-primeum.step-three'),
   ];
 
   const changeStep = (position: number) =>
@@ -41,7 +41,7 @@ export const Household = () => {
 
   const dispatch = useDispatch();
 
-  const [formData, setFormData] = useState<Partial<IFootprintProps>>({
+  const [formData, setFormData] = useState<Partial<IHouseholdProps>>({
     adultNumber: 1,
     childNumber: 0,
   });
@@ -59,12 +59,11 @@ export const Household = () => {
   };
 
   const handleOnSubmit = () => {
-    dispatch(createFootprint(formData as IFootprintProps));
+    dispatch(createFootprint(formData as IHouseholdProps));
   };
 
   const handleFootprintCreated = useCallback(
     (footprint: Footprint) => {
-      console.log(footprint);
       navigation.navigate(IFootprintStackPages.MENU_PRIMEUM as never);
     },
     [navigation],
@@ -86,15 +85,15 @@ export const Household = () => {
     <LoaderSplashScreen />
   ) : (
     <ErrorBoundary t={t}>
-      <SafeScrollingView backgroundColor={Colors.primary.darkWhite}>
+      <SafeScrollingView backgroundColor={Colors.primary.white}>
         <View>
           <View style={[styles.whiteContainer]}>
             <StepsIndicator currentPosition={1} labels={STEPS} onCirclePress={changeStep} />
           </View>
 
-          <View style={[styles.darkWhiteContainer]}>
+          <View style={styles.blueContainer}>
             <View style={styles.subtitleContainer}>
-              <Text style={theme.text.boldDarkBlue}>{t('screens.household-primeum.subtitle')}</Text>
+              <Text style={theme.text.boldDarkBlue}>{t('screens.household-situation.subtitle')}</Text>
               <Text
                 style={theme.text.lightBlue}
               >{`${user?.properties.address?.str} ${user?.properties.address?.zip} ${user?.properties.address?.city}`}</Text>
@@ -102,7 +101,7 @@ export const Household = () => {
           </View>
           <View style={[styles.rowContainer, { marginTop: 100 }]}>
             <SelectNumber
-              label={t('screens.household-primeum.adults')}
+              label={t('screens.household-situation.adults')}
               icon={() => <Group2 />}
               onChange={handleChangeAdult}
               value={formData.adultNumber}
@@ -119,7 +118,7 @@ export const Household = () => {
           )}
           <View style={styles.rowContainer}>
             <SelectNumber
-              label={t('screens.household-primeum.minors')}
+              label={t('screens.household-situation.minors')}
               icon={() => <Group2 />}
               onChange={handleChangeChild}
               value={formData.childNumber}
@@ -145,7 +144,7 @@ export const Household = () => {
           )}
           <View style={[styles.rowContainer, { marginTop: 50, marginBottom: 300 }]}>
             <SubmitButton
-              title={t('screens.household-primeum.submit')}
+              title={t('screens.household-situation.submit')}
               onSubmit={handleOnSubmit}
               uppercase={false}
             />
@@ -161,9 +160,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.primary.darkWhite,
   },
-  darkWhiteContainer: {
+  blueContainer: {
     flex: 1,
-    backgroundColor: Colors.primary.darkWhite,
+    backgroundColor: Colors.secondary.lightBlue,
+    paddingBottom: 16,
   },
   subtitleContainer: {
     alignItems: 'center',

@@ -12,7 +12,7 @@ stages:
   - install
   - test
   - build
-  - deploy
+  - UI_Tests
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
@@ -21,6 +21,13 @@ cache:
     - .npm/
     - dist/
     - .nx/cache
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: always
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always
 
 install_dependencies:
   stage: install
@@ -43,7 +50,7 @@ test:
   dependencies:
     - install_dependencies
 
-.setup_ios_credentials: &setup_ios_credentials
+.setup_bank-app_credentials: &setup_bank-app_credentials
   - echo "Setting up Expo configuration..."
   - mkdir -p ~/.expo
   - echo '{"accessToken":"'$EXPO_TOKEN'"}' > ~/.expo/state.json
@@ -51,9 +58,9 @@ test:
   - echo "Verifying Expo authentication..."
   - npx eas whoami
 
-.setup_bank-app_credentials: &setup_bank-app_credentials
+.setup_ios_credentials: &setup_ios_credentials
   before_script:
-    - *setup_ios_credentials
+    - *setup_bank-app_credentials
     - |
       mkdir -p apps/bank-app/credentials/ios
       echo "$IOS_DIST_CERT_BASE64" | base64 -d > apps/bank-app/credentials/ios/dist-cert.p12
@@ -70,51 +77,15 @@ test:
       }
       EOL
 
-.setup_energy-app_credentials: &setup_energy-app_credentials
-  before_script:
-    - *setup_ios_credentials
-    - |
-      mkdir -p apps/energy-app/credentials/ios
-      echo "$IOS_DIST_CERT_BASE64" | base64 -d > apps/energy-app/credentials/ios/dist-cert.p12
-      echo "$IOS_PROVISION_PROFILE_ENERGY_APP_BASE64" | base64 -d > apps/energy-app/credentials/ios/profile.mobileprovision
-      cat > apps/energy-app/credentials.json << EOL
-      {
-        "ios": {
-          "distributionCertificate": {
-            "path": "credentials/ios/dist-cert.p12",
-            "password": "$IOS_CERT_PASSWORD"
-          },
-          "provisioningProfilePath": "credentials/ios/profile.mobileprovision"
-        }
-      }
-      EOL
-
-.build_template: &build_template
+build_bank-app_ios:
+  stage: build
+  <<: *setup_ios_credentials
   variables:
     CI: "1"
     EAS_NO_VCS: "1"
     EAS_NO_INTERACTIVE: "1"
     EAS_PROJECT_ROOT: $CI_PROJECT_DIR
     EXPO_DEBUG: "1"
-  dependencies:
-    - install_dependencies
-
-build_energy-app:
-  stage: build
-  <<: *setup_energy-app_credentials
-  <<: *build_template
-  script:
-    - cd $CI_PROJECT_DIR
-    - echo "Building EnergyApp..."
-    - npx nx build energy-app --platform ios --profile preview --non-interactive
-  after_script:
-    - rm -rf apps/energy-app/credentials
-    - rm -f apps/energy-app/credentials.json
-
-build_bank-app:
-  stage: build
-  <<: *setup_bank-app_credentials
-  <<: *build_template
   script:
     - cd $CI_PROJECT_DIR
     - echo "Building BankApp..."
@@ -122,9 +93,34 @@ build_bank-app:
   after_script:
     - rm -rf apps/bank-app/credentials
     - rm -f apps/bank-app/credentials.json
+  dependencies:
+    - install_dependencies
+
+build_bank-app_android:
+  stage: build
+  variables:
+    CI: "1"
+    EAS_NO_VCS: "1"
+    EAS_NO_INTERACTIVE: "1"
+    EAS_PROJECT_ROOT: $CI_PROJECT_DIR
+    EXPO_DEBUG: "1"
+  before_script:
+    - *setup_bank-app_credentials
+  script:
+    - cd $CI_PROJECT_DIR
+    - echo "Building BankApp..."
+    - npx nx build bank-app --platform android --profile preview --non-interactive
+  dependencies:
+    - install_dependencies
 
 build_storybook:
   stage: build  
+  variables:
+    CI: "1"
+    EAS_NO_VCS: "1"
+    EAS_NO_INTERACTIVE: "1"
+    EAS_PROJECT_ROOT: $CI_PROJECT_DIR
+    EXPO_DEBUG: "1"
   script:
     - cd $CI_PROJECT_DIR
     - echo "Building Storybook..."
@@ -133,11 +129,20 @@ build_storybook:
   - install_dependencies
 
 chromatic_deployment:
-  stage: deploy
+  stage: UI_Tests
   script:
     - echo "Deploying to Chromatic..."
-    - echo "CHROMATIC_PROJECT_TOKEN" $CHROMATIC_PROJECT_TOKEN
-    - npx nx chromatic ui-mobile --exit-once-uploaded --force-rebuild
+    - echo "$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME"
+    - echo "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+    - |
+      if [ -n "$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME" ] && [ -n "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" ]; then
+        npx nx chromatic ui-mobile \
+          --exit-once-uploaded \
+          --patch-build="$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME...$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+      else
+        npx nx chromatic ui-mobile \
+          --exit-once-uploaded
+      fi
   dependencies:
     - install_dependencies
     - build_storybook

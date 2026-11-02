@@ -8,7 +8,8 @@
   },
   "banners": {
     "update-application": "Update verfügbar",
-    "identity-validation": "Identitätsprüfung"
+    "identity-validation": "Identitätsprüfung",
+    "identity-validated": "Identität bestätigt"
   },
   "modal": {
     "login": {
@@ -148,7 +149,9 @@
         "HEATER_ALREADY_EXISTS": "Heizung bereits deklariert",
         "INVALID_ADULT_NUMBER": "Die Anzahl der Erwachsenen muss zwischen 1 und 20 liegen",
         "INVALID_CHILD_NUMBER": "Die Anzahl der Minderjährigen muss zwischen 1 und 20 liegen",
-        "HOUSEHOLD_ALDREADY_DECLARED": "Haushalt bereits erklärt"
+        "HOUSEHOLD_ALDREADY_DECLARED": "Haushalt bereits erklärt",
+        "VEHICLE_ALREADY_EXISTS": "Dieses Fahrzeug existiert bereits",
+        "INVALID_LICENSE_PLATE": "Das Kennzeichen ist ungültig.\nBeispiel für erwartetes Format: AA123BB"
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Dokumente zur Kontoverifizierung fehlen",
@@ -378,6 +381,7 @@
       "bank": "Bank",
       "contacts": "Kontakte",
       "add-beneficiary": "Hinzufügen",
+      "beneficiaries": "Begünstigte",
       "new-beneficiary": {
         "title": "Einen Begünstigten hinzufügen",
         "BIC": {
@@ -456,16 +460,14 @@
       "heat": "Heizung",
       "works": "Arbeiten",
       "transport": "Transport",
-      "household": "Haushalt"
+      "household": "Haushalt",
+      "dropdown-years": {
+        "before-2011": "Vor 2011"
+      }
     },
-    "heat-primeum": {
+    "heat-situation": {
       "title": "Meine CO2-Prämie",
-      "subtitle-main": "Meine Hauptheizung",
-      "subtitle-sanitary": "Mein Warmwasser",
-      "subtitle-secondary": "Meine Zusatzheizung",
-      "step-one": "Situation",
-      "step-two": "Nachweise",
-      "step-three": "Verfolgung",
+      "subtitle": "Meine Heizung",
       "heater": "Heizungstyp",
       "placeholder": "Auswählen",
       "house-main-heat": "In Ihrer Wohnung installierte Hauptheizung:",
@@ -473,35 +475,37 @@
       "house-secondary-heat": "In Ihrer Wohnung installierte Zusatzheizung:",
       "next-step": "Weiter",
       "end": "Beenden",
-      "dropdown-heat-type": {
-        "ELECTRIC": "Elektrizität",
-        "COAL": "Kohle",
-        "GAS": "Stadtgas",
-        "FUEL_OIL": "Heizöl",
-        "URBAN": "Fernwärme",
-        "WOOD": "Holz",
-        "HEAT_PUMP": "Wärmepumpe",
-        "THERMAL_SOLAR": "Solarthermie",
-        "PROPANE": "Propan"
+      "has-changed": "Haben Sie die Heizung gewechselt, seit Sie in dieser Wohnung sind?",
+      "has-changed-yes": "Ja",
+      "has-changed-no": "Nein",
+      "instruction-heat-type": "Heizungstyp:",
+      "instruction-heat-type-installation-date": "Installationsdatum der neuen Heizung:",
+      "instruction-heat-type-old": "Typ der alten Heizung"
+    },
+    "works-situation": {
+      "title": "Meine CO2-Prämie",
+      "subtitle": "Meine Arbeiten",
+      "dropdown-work-type": {
+        "ROOF": "Dachisolierung/Dachboden",
+        "WALL": "Wandisolierung",
+        "GROUND": "Bodenisolierung",
+        "WINDOW": "Installation von Isolierfenstern",
+        "VMC": "Installation einer Doppelstrom-Lüftung"
       },
-      "dropdown-years": {
-        "before-2012": "Vor 2012"
-      },
-      "instruction-heat-type": "Wie heizen Sie heute Ihre Wohnung?",
-      "instruction-heat-type-installation-date": "Diese Heizung ist in der Wohnung installiert seit:",
-      "instruction-heat-type-before": "Heizungstyp davor",
-      "instruction-sanitary-heat-type": "Wie wird heute Ihr Warmwasser produziert?",
-      "instruction-sanitary-heat-installation-date": "Das Warmwasser ist installiert seit:",
-      "instruction-sanitary-heat-type-before": "Warmwassertyp davor",
-      "instruction-secondary-heat-type": "Falls Ihre Wohnung eine Zusatzheizung hat, geben Sie den Heizungstyp an."
+      "dropdown-placeholder": "Auswählen",
+      "instruction-works-type": "Wenn Sie Arbeiten durchgeführt haben, geben Sie diese an:",
+      "instruction-works-date": "Datum der letzten Arbeiten:"
     },
-    "works-primeum": {
-      "title": "Meine CO2-Prämie"
+    "transport-situation": {
+      "title": "Meine CO2-Prämie",
+      "vehicle": "Fahrzeug",
+      "before": "vor",
+      "in": "in",
+      "owned": "erhalten",
+      "sold": "verkauft",
+      "end": "Beenden"
     },
-    "transport-primeum": {
-      "title": "Meine CO2-Prämie"
-    },
-    "household-primeum": {
+    "household-situation": {
       "title": "Meine CO2-Prämie",
       "subtitle": "Mein Haushalt",
       "adults": "Anzahl der Erwachsenen",

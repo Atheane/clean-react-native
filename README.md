@@ -300,3 +300,8 @@ By the way, you can check eas build on your own infra this way (this is faster a
 cd apps/bank-app
 eas build --platform=android --local
 ```
+
+## serve storybook web locally
+```
+npx nx build ui-mobile:storybook
+```

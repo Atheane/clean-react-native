@@ -3,7 +3,7 @@ import { FootprintError } from '../errors';
 
 // pros: value objects check if properties are conform to domain values defined in back-end
 // cons: value objects classes are coupled with class-validator library
-export class FootprintVO {
+export class HouseholdVO {
   @Max(20)
   @Min(1)
   @IsInt()
@@ -16,18 +16,19 @@ export class FootprintVO {
   @IsDefined()
   childNumber!: number;
 
-  private constructor(props: Partial<FootprintVO>) {
+  private constructor(props: Partial<HouseholdVO>) {
     Object.assign(this, props);
   }
 
-  static async create(props: Partial<FootprintVO>): Promise<FootprintVO> {
-    const footprint = new FootprintVO(props);
-    await footprint.validate();
-    return footprint;
+  static async create(props: Partial<HouseholdVO>): Promise<HouseholdVO> {
+    const household = new HouseholdVO(props);
+    await household.validate();
+    return household;
   }
 
   private async validate(): Promise<void> {
     const errors = await validate(this);
+    console.log('>>>>>>>>> errors', errors);
     if (errors.length > 0) {
       const adultNumberErrors = errors.filter((error) => error.property === 'adultNumber');
       if (errors.some((error) => error.property === 'adultNumber')) {

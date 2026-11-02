@@ -207,10 +207,10 @@ export enum IFootprintStackPages {
   FLY_FOOTPRINT_ESTIMATION = 'FlyFootprintEstimation',
   WARNING_FOOD_FOOTPRINT_ESTIMATION = 'WarningFoodFootprintEstimation',
   MENU_PRIMEUM = 'MenuPrimeum',
-  HEATERS = 'Heaters',
-  WORKS = 'Works',
-  TRANSPORT = 'Transport',
-  HOUSEHOLD = 'Household',
+  HEATERS_SITUATION = 'HeatersSituation',
+  WORKS_SITUATION = 'WorksSituation',
+  TRANSPORT_SITUATION = 'TransportSituation',
+  HOUSEHOLD_SITUATION = 'HouseholdSituation',
 }
 
 export enum IKycStackPages {
@@ -306,10 +306,10 @@ export type IFootprintStackProps = {
   [IFootprintStackPages.FLY_FOOTPRINT_ESTIMATION]: object;
   [IFootprintStackPages.WARNING_FOOD_FOOTPRINT_ESTIMATION]: object;
   [IFootprintStackPages.MENU_PRIMEUM]: object;
-  [IFootprintStackPages.HEATERS]: object;
-  [IFootprintStackPages.WORKS]: object;
-  [IFootprintStackPages.TRANSPORT]: object;
-  [IFootprintStackPages.HOUSEHOLD]: object;
+  [IFootprintStackPages.HEATERS_SITUATION]: object;
+  [IFootprintStackPages.WORKS_SITUATION]: object;
+  [IFootprintStackPages.TRANSPORT_SITUATION]: object;
+  [IFootprintStackPages.HOUSEHOLD_SITUATION]: object;
 };
 
 export type IKycStackProps = {
@@ -396,10 +396,10 @@ export type IRoutes =
   | IFootprintStackPages.FLY_FOOTPRINT_ESTIMATION
   | IFootprintStackPages.WARNING_FOOD_FOOTPRINT_ESTIMATION
   | IFootprintStackPages.MENU_PRIMEUM
-  | IFootprintStackPages.HEATERS
-  | IFootprintStackPages.WORKS
-  | IFootprintStackPages.TRANSPORT
-  | IFootprintStackPages.HOUSEHOLD
+  | IFootprintStackPages.HEATERS_SITUATION
+  | IFootprintStackPages.WORKS_SITUATION
+  | IFootprintStackPages.TRANSPORT_SITUATION
+  | IFootprintStackPages.HOUSEHOLD_SITUATION
   | IKycStackPages.MENU
   | IKycStackPages.INIT
   | IKycStackPages.KYC

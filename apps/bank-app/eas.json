@@ -2,8 +2,8 @@
   "build": {
     "production": {
       "env": {
-        "EXPO_PUBLIC_APP_VERSION": "2.2.1",
-        "EXPO_PUBLIC_APP_VERSION_ANDROID": "221",
+        "EXPO_PUBLIC_APP_VERSION": "2.3.0",
+        "EXPO_PUBLIC_APP_VERSION_ANDROID": "230",
         "EXPO_PUBLIC_BASE_URL": "https://www.example.com",
         "EXPO_PUBLIC_BASE_URL_API": "https://dev-carte.example.com",
         "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.example.bankapp",
@@ -18,8 +18,8 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_APP_VERSION": "2.2.1",
-        "EXPO_PUBLIC_APP_VERSION_ANDROID": "221",
+        "EXPO_PUBLIC_APP_VERSION": "2.3.0",
+        "EXPO_PUBLIC_APP_VERSION_ANDROID": "230",
         "EXPO_PUBLIC_BASE_URL": "https://www.example.com",
         "EXPO_PUBLIC_BASE_URL_API": "https://sandbox.example.com",
         "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.example.bankapp",
@@ -34,8 +34,8 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_APP_VERSION": "2.2.1",
-        "EXPO_PUBLIC_APP_VERSION_ANDROID": "221",
+        "EXPO_PUBLIC_APP_VERSION": "2.3.0",
+        "EXPO_PUBLIC_APP_VERSION_ANDROID": "230",
         "EXPO_PUBLIC_BASE_URL": "https://www.example.com",
         "EXPO_PUBLIC_BASE_URL_API": "https://sandbox.example.com",
         "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.example.bankapp",
@@ -52,8 +52,8 @@
     "preview": {
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_APP_VERSION": "2.2.1",
-        "EXPO_PUBLIC_APP_VERSION_ANDROID": "221",
+        "EXPO_PUBLIC_APP_VERSION": "2.3.0",
+        "EXPO_PUBLIC_APP_VERSION_ANDROID": "230",
         "EXPO_PUBLIC_BASE_URL": "https://www.example.com",
         "EXPO_PUBLIC_BASE_URL_API": "https://dev-carte.example.com",
         "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.example.bankapp",

@@ -1,5 +1,5 @@
-import { HouseMapper } from './HouseMapper';
-import { HeaterMapper } from './HeaterMapper';
-import { FootprintMapper } from './FootprintMapper';
-
-export { HouseMapper, HeaterMapper, FootprintMapper };
+export { HouseMapper } from './HouseMapper';
+export { HeaterMapper } from './HeaterMapper';
+export { FootprintMapper } from './FootprintMapper';
+export { WorkMapper } from './WorkMapper';
+export { VehicleMapper } from './VehicleMapper';
