@@ -88,7 +88,7 @@
     "uuidjs": "^5.1.0"
   },
   "scripts": {
-    "clean": "cd ios && pod deintegrate && pod cache clean --all && cd ../ && rm -rf ~/Library/Caches/Pods && yarn cache clean && npm cache clean --force && rm -rf apps/storybook node_modules .expo ios android package-lock.json yarn.lock coverage ios/build android/build $TMPDIR/metro-*",
+    "clean": "rm -rf ~/Library/Caches/Pods && yarn cache clean && npm cache clean --force && rm -rf apps/storybook node_modules .expo ios android package-lock.json yarn.lock coverage ios/build android/build $TMPDIR/metro-*",
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/storybook && cp yarn.lock  apps/storybook",
     "eas-build-post-install": "cd ../../ && node tools/scripts/eas-build-post-install.mjs . apps/storybook",
     "android": "expo run:android",

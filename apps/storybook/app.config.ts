@@ -31,7 +31,7 @@ export default {
       supportsTablet: false,
       package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.example.storybookdev',
       googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_SERVICES || './google-services.json',
-      versionCode: process.env.EXPO_PUBLIC_APP_VERSION_ANDROID || '230',
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '230',
     },
     web: {
       favicon: './assets/images/favicon.png',

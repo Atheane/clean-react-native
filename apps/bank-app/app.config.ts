@@ -31,12 +31,14 @@ export default {
       supportsTablet: false,
       package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.example.bankapp',
       googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_SERVICES || './google-services.json',
-      versionCode: process.env.EXPO_PUBLIC_APP_VERSION_ANDROID || '230',
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '230',
+      proguard: true, // ou false
     },
     web: {
       favicon: './assets/images/logo-bank.png',
       bundler: 'metro',
     },
+    jsEngine: 'hermes',
     plugins: [
       'expo-font',
       'expo-localization',

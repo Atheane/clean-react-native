@@ -3,7 +3,6 @@ import * as Sentry from '@sentry/react-native';
 import firebase from '@react-native-firebase/app';
 import { decode } from 'base-64';
 import Geocoder from 'react-native-geocoding';
-import { enableScreens } from 'react-native-screens';
 
 import 'reflect-metadata';
 
@@ -56,5 +55,3 @@ console.disableYellowBox = true;
 // It also ensures that whether you load the app in Expo Go or in a native build,
 // the environment is set up appropriately
 registerRootComponent(App);
-
-enableScreens();

@@ -6,7 +6,7 @@ import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@rneui/themed';
-import * as Notifications from 'expo-notifications';
+// import * as Notifications from 'expo-notifications';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ConfigCatProvider, createConsoleLogger, LogLevel } from 'configcat-react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -39,22 +39,22 @@ const App: () => JSX.Element = () => {
 
   const logger = createConsoleLogger(LogLevel.Info);
 
-  Notifications.setNotificationHandler({
-    handleNotification: async () => ({
-      shouldShowAlert: true,
-      shouldPlaySound: false,
-      shouldSetBadge: false,
-    }),
-  });
+  // Notifications.setNotificationHandler({
+  //   handleNotification: async () => ({
+  //     shouldShowAlert: true,
+  //     shouldPlaySound: false,
+  //     shouldSetBadge: false,
+  //   }),
+  // });
 
   const { t } = useTranslation();
   if (error?.message === 'Network request failed') {
-    Notifications.scheduleNotificationAsync({
-      content: {
-        title: t('modal-error.network'),
-      },
-      trigger: null,
-    });
+    // Notifications.scheduleNotificationAsync({
+    //   content: {
+    //     title: t('modal-error.network'),
+    //   },
+    //   trigger: null,
+    // });
   }
 
   const [appState, setAppState] = useState<AppStateStatus>(AppState.currentState || 'unknown');
