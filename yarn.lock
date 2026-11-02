@@ -5482,9 +5482,9 @@
   integrity sha512-CuPgU6f3eT/XgKKPqKd/gLZV1Xmvf1a2R5POBOGQa6uv82xpls89HU5zKeVoyR8XzHd1RGNOlQlvUe3CFkjWNQ==
 
 "@types/express-serve-static-core@*", "@types/express-serve-static-core@^5.0.0":
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/@types/express-serve-static-core/-/express-serve-static-core-5.0.4.tgz#88c29e3052cec3536d64b6ce5015a30dfcbefca7"
-  integrity sha512-5kz9ScmzBdzTgB/3susoCgfqNDzBjvLL4taparufgSvlwjdLy6UyUy9T/tCpYd2GIdIilCatC4iSQS0QSYHt0w==
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/@types/express-serve-static-core/-/express-serve-static-core-5.0.5.tgz#f6a851c7fd512e5da087f6f20d29f44b162a6a95"
+  integrity sha512-GLZPrd9ckqEBFMcVM/qRFAP0Hg3qiVEojgEFsx/N/zKXsBzbGF6z5FBDpZ0+Xhp1xr+qRZYjfGr1cWHB9oFHSA==
   dependencies:
     "@types/node" "*"
     "@types/qs" "*"
@@ -7450,9 +7450,9 @@ chownr@^2.0.0:
   integrity sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==
 
 chromatic@^11.10.2:
-  version "11.23.0"
-  resolved "https://registry.yarnpkg.com/chromatic/-/chromatic-11.23.0.tgz#95b71b6b2a57a43f9c67c33947425e564b285cb1"
-  integrity sha512-9LgsRyLe9FAGpWh2p3A2dec1jrP94+PTVAieQ5mreBAYaqlnmuZ1RC+IIw4WqiSRYmL7WHNBVkuVXVxJk6AUPg==
+  version "11.24.0"
+  resolved "https://registry.yarnpkg.com/chromatic/-/chromatic-11.24.0.tgz#8cb6f07833651d98559fd72116b14fe525be62a9"
+  integrity sha512-IocIxnxera27bRA51HHtfV9/Daqgj0E4BWYV12/nlf7qPJW1T82raQ5ypxZDJA4bXQywxOzpG2e6WWYvz/AwHA==
 
 chrome-launcher@^0.15.2:
   version "0.15.2"
@@ -8972,9 +8972,9 @@ ejs@^3.1.10, ejs@^3.1.7, ejs@^3.1.8:
     jake "^10.8.5"
 
 electron-to-chromium@^1.5.73:
-  version "1.5.81"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.81.tgz#04530f04a29af1d6ec3a628840703ce9ac90c8dd"
-  integrity sha512-SFsAz1hoR+u1eAWjofSPQnx0InE1QHGUAQ92pqYJPT8GARzmyP1zcEBDBxFFC6okJk2E94Ryfmib4DB8Sc6LBw==
+  version "1.5.82"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.82.tgz#b9116ac6d6b6346c2baa49f14c1272ba2ce1ccdb"
+  integrity sha512-Zq16uk1hfQhyGx5GpwPAYDwddJuSGhtRhgOA2mCxANYaDT79nAeGnaXogMGng4KqLaJUVnOnuL0+TDop9nLOiA==
 
 elliptic@^6.5.3, elliptic@^6.5.5:
   version "6.6.1"
@@ -9197,9 +9197,9 @@ es-module-lexer@^1.2.1, es-module-lexer@^1.4.1:
   integrity sha512-qqnD1yMU6tk/jnaMosogGySTZP8YtUgAffA9nMN+E/rjxcfRQ6IEk7IiozUjgxKoFHBGjTLnrHB/YC45r/59EQ==
 
 es-object-atoms@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/es-object-atoms/-/es-object-atoms-1.0.1.tgz#ecdf38b6784b194d38065df324300bbf515c73ed"
-  integrity sha512-BPOBuyUF9QIVhuNLhbToCLHP6+0MHwZ7xLBkPPCZqK4JmpJgGnv10035STzzQwFpqdzNFMB3irvDI63IagvDwA==
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/es-object-atoms/-/es-object-atoms-1.1.1.tgz#1c4f2c4837327597ce69d2ca190a7fdd172338c1"
+  integrity sha512-FGgH2h8zKNim9ljj7dankFPcICIK9Cp5bm+c2gQSYePhpaG5+esrLODihIorn+Pe6FGJzWhXQotPv73jTaldXA==
   dependencies:
     es-errors "^1.3.0"
 
@@ -15316,11 +15316,11 @@ qs@6.13.0:
     side-channel "^1.0.6"
 
 qs@^6.10.0, qs@^6.12.3, qs@^6.4.0:
-  version "6.13.1"
-  resolved "https://registry.yarnpkg.com/qs/-/qs-6.13.1.tgz#3ce5fc72bd3a8171b85c99b93c65dd20b7d1b16e"
-  integrity sha512-EJPeIn0CYrGu+hli1xilKAPXODtJ12T0sP63Ijx2/khC2JtuaN3JyNIpvmnkmaEtha9ocbG4A4cMcr+TvqvwQg==
+  version "6.14.0"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.14.0.tgz#c63fa40680d2c5c941412a0e899c89af60c0a930"
+  integrity sha512-YWWTjgABSKcvs/nWBi9PycY/JiPJqOD4JA6o9Sej2AtvSGarXxKC3OQSk4pAarbdQlKAh5D4FCQkJNkW+GAn3w==
   dependencies:
-    side-channel "^1.0.6"
+    side-channel "^1.1.0"
 
 qs@~6.10.3:
   version "6.10.5"
@@ -16899,9 +16899,9 @@ spdx-expression-parse@^3.0.0:
     spdx-license-ids "^3.0.0"
 
 spdx-license-ids@^3.0.0:
-  version "3.0.20"
-  resolved "https://registry.yarnpkg.com/spdx-license-ids/-/spdx-license-ids-3.0.20.tgz#e44ed19ed318dd1e5888f93325cee800f0f51b89"
-  integrity sha512-jg25NiDV/1fLtSgEgyvVyDunvaNHbuwF9lfNV17gSmPFAlYzdfNBlLtLzXTevwkPj7DhGbmN9VnmJIgLnhvaBw==
+  version "3.0.21"
+  resolved "https://registry.yarnpkg.com/spdx-license-ids/-/spdx-license-ids-3.0.21.tgz#6d6e980c9df2b6fc905343a3b2d702a6239536c3"
+  integrity sha512-Bvg/8F5XephndSK3JffaRqdT+gyhfqIPwDHpX80tJrF8QQRYMo8sNMeaZ2Dp5+jhwKnUmIOyFFQfHRkjJm5nXg==
 
 spdy-transport@^3.0.0:
   version "3.0.0"

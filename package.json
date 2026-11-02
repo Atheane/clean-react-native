@@ -5,7 +5,7 @@
   "scripts": {
     "prepare": "husky install",
     "commit": "cz",
-    "clean": "watchman watch-del-all && npx nx reset && yarn cache clean && npm cache clean --force && rm -rf node_modules package-lock.json yarn.lock .expo .nx/cache $TMPDIR/metro-* $TMPDIR/jest_* $TMPDIR/haste-map-* .jest-cache apps/bank-app/node_modules apps/storybook/node_modules",
+    "clean": "watchman watch-del-all && npx nx reset && yarn cache clean && npm cache clean --force && rm -rf node_modules package-lock.json yarn.lock .expo $TMPDIR/metro-* $TMPDIR/jest_* $TMPDIR/haste-map-* .jest-cache apps/bank-app/node_modules apps/storybook/node_modules",
     "test": "npx nx run-many --all --target=test --parallel --passWithNoTests",
     "chromatic": "npx nx build-storybook ui-mobile && npx nx chromatic ui-mobile",
     "generate-storybook-requires": "node ./tools/scripts/generate-storybook-requires.js"
