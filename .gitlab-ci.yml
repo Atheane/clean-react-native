@@ -125,8 +125,11 @@ build_storybook:
     - cd $CI_PROJECT_DIR
     - echo "Building Storybook..."
     - npx nx build-storybook ui-mobile
+  artifacts:
+    paths:
+      - dist/storybook/ui-mobile/
   dependencies:
-  - install_dependencies
+    - install_dependencies
 
 chromatic_deployment:
   stage: UI_Tests
@@ -142,6 +145,7 @@ chromatic_deployment:
       else
         npx nx chromatic ui-mobile \
           --exit-once-uploaded
+          --storybook-build-dir=dist/storybook/ui-mobile
       fi
   dependencies:
     - install_dependencies

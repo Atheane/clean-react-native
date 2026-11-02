@@ -26,5 +26,4 @@ const customConfig = {
 module.exports = withNxMetro(mergeConfig(defaultConfig, customConfig), {
   debug: false,
   extensions: [],
-  watchFolders: [],
 });

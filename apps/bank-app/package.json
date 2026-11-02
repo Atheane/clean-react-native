@@ -83,7 +83,7 @@
     "uuidjs": "^5.1.0"
   },
   "scripts": {
-    "clean": "rm -rf node_modules .expo ios android package-lock.json yarn.lock",
+    "clean": "rm -rf node_modules .expo ios android package-lock.json yarn.lock coverage ios/build android/build $TMPDIR/metro-*",
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app",
     "eas-build-post-install": "cd ../../ && node tools/scripts/eas-build-post-install.mjs . apps/bank-app",
     "android": "expo run:android",

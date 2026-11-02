@@ -5,7 +5,7 @@
   "scripts": {
     "prepare": "husky install",
     "commit": "cz",
-    "clean": "watchman watch-del-all && npx nx reset && rm -rf node_modules package-lock.json yarn.lock .expo",
+    "clean": "watchman watch-del-all && npx nx reset && rm -rf node_modules package-lock.json yarn.lock .expo .nx/cache $TMPDIR/metro-* $TMPDIR/jest_* $TMPDIR/haste-map-* .jest-cache",
     "test": "npx nx run-many --all --target=test --parallel --passWithNoTests",
     "chromatic": "npx nx build-storybook ui-mobile && npx nx chromatic ui-mobile",
     "generate-storybook-requires": "node ./tools/scripts/generate-storybook-requires.js"
@@ -41,7 +41,7 @@
     "dotenv": "^16.4.5",
     "echarts": "^5.5.1",
     "echarts-for-react": "^3.0.2",
-    "expo": "50.0.18",
+    "expo": "~50.0.20",
     "expo-build-properties": "~0.11.1",
     "expo-clipboard": "~5.0.1",
     "expo-contacts": "~12.8.2",
@@ -66,7 +66,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "7.51.4",
     "react-i18next": "^13.1.2",
-    "react-native": "0.73.6",
+    "react-native": "^0.73.6",
     "react-native-blob-util": "0.19.4",
     "react-native-check-version": "1.1.1",
     "react-native-compressor": "1.8.24",
