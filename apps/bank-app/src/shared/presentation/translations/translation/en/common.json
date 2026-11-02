@@ -8,7 +8,8 @@
   },
   "banners": {
     "update-application": "Update available",
-    "identity-validation": "Identity validation"
+    "identity-validation": "Identity validation",
+    "identity-validated": "Identity validated"
   },
   "modal": {
     "login": {
@@ -148,7 +149,9 @@
         "HEATER_ALREADY_EXISTS": "Heater already declared",
         "INVALID_ADULT_NUMBER": "The number of adults must be between 1 and 20",
         "INVALID_CHILD_NUMBER": "The number of minors must be between 1 and 20",
-        "HOUSEHOLD_ALDREADY_DECLARED": "Household already declared"
+        "HOUSEHOLD_ALDREADY_DECLARED": "Household already declared",
+        "VEHICLE_ALREADY_EXISTS": "This vehicle already exists",
+        "INVALID_LICENSE_PLATE": "The license plate is invalid.\nExpected format example: AA123BB"
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Missing documents for validation",
@@ -373,6 +376,7 @@
       "title": "Manage my beneficiaries",
       "bank": "Bank",
       "contacts": "Contacts",
+      "beneficiaries": "Beneficiaries",
       "add-beneficiary": "Add",
       "new-beneficiary": {
         "title": "Add a beneficiary",
@@ -454,15 +458,10 @@
       "transport": "Transport",
       "household": "Household"
     },
-    "heat-primeum": {
+    "heaters-situation": {
       "title": "My CO2 bonus",
-      "subtitle-main": "My main heating",
-      "subtitle-sanitary": "My sanitary water",
-      "subtitle-secondary": "My secondary heating",
-      "step-one": "Situation",
-      "step-two": "Supporting documents",
-      "step-three": "Follow-up",
-      "heater": "Heating type",
+      "subtitle": "My heating",
+      "heater": "Type of heating",
       "placeholder": "Select",
       "house-main-heat": "Main heating installed in your home:",
       "house-sanitary-heat": "Sanitary hot water installed in your home:",
@@ -473,31 +472,58 @@
         "ELECTRIC": "Electricity",
         "COAL": "Coal",
         "GAS": "City gas",
-        "FUEL_OIL": "Heating oil",
+        "FUEL_OIL": "Fuel oil",
         "URBAN": "Urban heating network",
         "WOOD": "Wood",
         "HEAT_PUMP": "Heat pump",
-        "THERMAL_SOLAR": "Solar thermal",
+        "THERMAL_SOLAR": "Thermal solar",
         "PROPANE": "Propane"
       },
-      "dropdown-years": {
-        "before-2012": "Before 2012"
+      "has-changed": "Have you changed heating since you've been in this home?",
+      "has-changed-yes": "Yes",
+      "has-changed-no": "No",
+      "instruction-heat-type": "Type of heating:",
+      "instruction-heat-type-installation-date": "Installation date of new heating:",
+      "instruction-heat-type-old": "Type of old heating"
+    },
+    "dropdown-years": {
+      "before-2011": "Before 2011"
+    },
+    "works-situation": {
+      "title": "My CO2 bonus",
+      "subtitle": "My works",
+      "dropdown-work-type": {
+        "ROOF": "Roof/attic insulation",
+        "WALL": "Wall insulation",
+        "GROUND": "Floor insulation",
+        "WINDOW": "Installation of insulating windows",
+        "VMC": "Installation of dual-flow VMC"
       },
-      "instruction-heat-type": "Today, how do you heat your home?",
-      "instruction-heat-type-installation-date": "This heating has been installed in the home since:",
-      "instruction-heat-type-before": "Heating type before",
-      "instruction-sanitary-heat-type": "Today, how is your sanitary hot water produced?",
-      "instruction-sanitary-heat-installation-date": "The sanitary hot water has been installed since:",
-      "instruction-sanitary-heat-type-before": "Sanitary hot water type before",
-      "instruction-secondary-heat-type": "If your home has secondary heating, indicate the type of heating."
+      "dropdown-placeholder": "Select",
+      "instruction-works-type": "If you have done works, indicate them:",
+      "instruction-works-date": "Date of most recent works:"
     },
-    "works-primeum": {
-      "title": "My CO2 bonus"
+    "transport-situation": {
+      "title": "My CO2 bonus",
+      "subtitle": "My transport",
+      "instruction-license-plate": "Registration of your vehicle (car, motorcycle, etc.)?",
+      "instruction-old-license-plate": "Registration of the old vehicle",
+      "placeholder-license-plate": "AA123BB",
+      "checkbox": "By checking this box, lorem ipsum END",
+      "instruction-acquisition-date": "Vehicle acquisition date",
+      "acquisition-date-placeholder": "Select",
+      "has-changed": "Does this vehicle replace another one?",
+      "has-changed-no": "No",
+      "has-changed-yes": "Yes",
+      "add": "Add",
+      "vehicle": "Vehicle",
+      "before": "before",
+      "in": "in",
+      "owned": "acquired",
+      "sold": "sold",
+      "end": "Finish"
     },
-    "transport-primeum": {
-      "title": "My CO2 bonus"
-    },
-    "household-primeum": {
+    "household-situation": {
       "title": "My CO2 bonus",
       "subtitle": "My household",
       "adults": "Number of adults",

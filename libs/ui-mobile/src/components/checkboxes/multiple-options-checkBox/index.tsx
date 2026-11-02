@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { CheckBox, useTheme } from '@rneui/themed';
 
@@ -6,6 +6,7 @@ import { Checkbox as CheckedIcon, Uncheckedbox as UncheckIcon } from '../../../a
 import { Colors } from '../../../constants';
 
 type IProps = {
+  value?: string;
   label?: string;
   subtitle?: string;
   optionsTitle: string[];
@@ -17,6 +18,8 @@ type IProps = {
 };
 
 export const MultipleOptionsCheckBox = (props: IProps) => {
+  const { theme } = useTheme();
+
   const [currentOption, setCurrentOption] = useState<string>(props.defaultValue || props.optionsValues[0]);
 
   const handleOnPress = useCallback(
@@ -28,10 +31,15 @@ export const MultipleOptionsCheckBox = (props: IProps) => {
     [props],
   );
 
-  const { theme } = useTheme();
+  // Réinitialization
+  useEffect(() => {
+    if (props.value === props.optionsValues[0]) {
+      setCurrentOption(props.optionsValues[0]);
+    }
+  }, [props.value, props.optionsValues]);
 
   return (
-    <View>
+    <View style={{ width: Dimensions.get('window').width * 0.75 }}>
       {props.label && <Text style={[theme.text.label, { color: Colors.primary.grey }]}>{props.label}</Text>}
       {props.subtitle && <Text style={theme.text.grey}>{props.subtitle}</Text>}
       <View style={props.vertical ? styles.checkboxContainerVertical : styles.checkboxContainer}>

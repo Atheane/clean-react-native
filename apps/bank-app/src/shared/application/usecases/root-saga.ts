@@ -54,9 +54,13 @@ import {
   computeTransportEmissionsSaga,
   computeFoodEmissionsSaga,
   computeFlyEmissionsSaga,
+  createFootprintSaga,
   getHouseSaga,
   addHeatersSaga,
-  createFootprintSaga,
+  addWorksSaga,
+  getTransportSaga,
+  addVehiclesSaga,
+  getFootprintSaga,
 } from '../../../footprint/application/usecases';
 
 import { checkCustomerStatusSaga } from '../../../kyc/application/usecases/customer';
@@ -205,9 +209,13 @@ function* rootSaga(httpConnection: HttpConnection): SagaIterator {
     call(updateUserSaga, httpConnection),
     call(deleteUserAccountSaga, httpConnection),
     call(logoutSaga, httpConnection),
+    call(getFootprintSaga, httpConnection),
+    call(createFootprintSaga, httpConnection),
     call(getHouseSaga, httpConnection),
     call(addHeatersSaga, httpConnection),
-    call(createFootprintSaga, httpConnection),
+    call(addWorksSaga, httpConnection),
+    call(getTransportSaga, httpConnection),
+    call(addVehiclesSaga, httpConnection),
   ];
   // here we watch if action logout is launched in the store
   yield fork(watchLogout);

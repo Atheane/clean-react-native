@@ -1,16 +1,15 @@
-import { computeHouseEmissionsSaga } from './compute-house-emissions';
-import { computeTransportEmissionsSaga } from './compute-transport-emissions';
-import { computeFoodEmissionsSaga } from './compute-food-emissions';
-import { computeFlyEmissionsSaga } from './compute-fly-emissions';
-import { addHeatersSaga } from './add-heaters';
-import { getHouseSaga } from './get-house';
-import { createFootprintSaga } from './create-footprint';
-export {
-  computeHouseEmissionsSaga,
-  computeTransportEmissionsSaga,
-  computeFoodEmissionsSaga,
-  computeFlyEmissionsSaga,
-  addHeatersSaga,
-  getHouseSaga,
-  createFootprintSaga,
-};
+// estimates
+export { computeHouseEmissionsSaga } from './compute-house-emissions';
+export { computeTransportEmissionsSaga } from './compute-transport-emissions';
+export { computeFoodEmissionsSaga } from './compute-food-emissions';
+export { computeFlyEmissionsSaga } from './compute-fly-emissions';
+// footprint
+export { getFootprintSaga } from './get-footprint';
+export { createFootprintSaga } from './create-footprint';
+// house
+export { getHouseSaga } from './get-house';
+export { addHeatersSaga } from './add-heaters';
+export { addWorksSaga } from './add-works';
+// transport
+export { getTransportSaga } from './get-transport';
+export { addVehiclesSaga } from './add-vehicles';

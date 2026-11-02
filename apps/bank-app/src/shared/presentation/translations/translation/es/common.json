@@ -8,7 +8,8 @@
   },
   "banners": {
     "update-application": "Actualización disponible",
-    "identity-validation": "Validación de identidad"
+    "identity-validation": "Validación de identidad",
+    "identity-validated": "Identidad validada"
   },
   "modal": {
     "login": {
@@ -148,7 +149,9 @@
         "HEATER_ALREADY_EXISTS": "Calefacción ya declarada",
         "INVALID_ADULT_NUMBER": "El número de adultos debe estar entre 1 y 20",
         "INVALID_CHILD_NUMBER": "El número de menores debe estar entre 1 y 20",
-        "HOUSEHOLD_ALDREADY_DECLARED": "Hogar ya declarado"
+        "HOUSEHOLD_ALDREADY_DECLARED": "Hogar ya declarado",
+        "VEHICLE_ALREADY_EXISTS": "Este vehículo ya existe",
+        "INVALID_LICENSE_PLATE": "La matrícula no es válida.\nEjemplo de formato esperado: AA123BB"
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Faltan documentos para la validación del expediente",
@@ -373,6 +376,7 @@
       "title": "Gestionar mis beneficiarios",
       "bank": "Banco",
       "contacts": "Contactos",
+      "beneficiaries": "Beneficiarios",
       "add-beneficiary": "Agregar",
       "new-beneficiary": {
         "title": "Agregar un beneficiario",
@@ -454,14 +458,9 @@
       "transport": "Transporte",
       "household": "Hogar"
     },
-    "heat-primeum": {
+    "heaters-situation": {
       "title": "Mi prima de CO2",
-      "subtitle-main": "Mi calefacción principal",
-      "subtitle-sanitary": "Mi agua sanitaria",
-      "subtitle-secondary": "Mi calefacción secundaria",
-      "step-one": "Situación",
-      "step-two": "Justificantes",
-      "step-three": "Seguimiento",
+      "subtitle": "Mi calefacción",
       "heater": "Tipo de calefacción",
       "placeholder": "Seleccionar",
       "house-main-heat": "Calefacción principal instalada en su vivienda:",
@@ -480,24 +479,51 @@
         "THERMAL_SOLAR": "Solar térmica",
         "PROPANE": "Propano"
       },
+      "has-changed": "¿Ha cambiado de calefacción desde que está en esta vivienda?",
+      "has-changed-yes": "Sí",
+      "has-changed-no": "No",
+      "instruction-heat-type": "Tipo de calefacción:",
+      "instruction-heat-type-installation-date": "Fecha de instalación de la nueva calefacción:",
+      "instruction-heat-type-old": "Tipo de calefacción anterior",
       "dropdown-years": {
-        "before-2012": "Antes de 2012"
+        "before-2011": "Antes de 2011"
+      }
+    },
+    "works-situation": {
+      "title": "Mi prima de CO2",
+      "subtitle": "Mis obras",
+      "dropdown-work-type": {
+        "ROOF": "Aislamiento techo/buhardilla",
+        "WALL": "Aislamiento paredes",
+        "GROUND": "Aislamiento suelo",
+        "WINDOW": "Instalación de ventanas aislantes",
+        "VMC": "Instalación de VMC doble flujo"
       },
-      "instruction-heat-type": "Hoy, ¿cómo calienta su vivienda?",
-      "instruction-heat-type-installation-date": "Esta calefacción está instalada en la vivienda desde:",
-      "instruction-heat-type-before": "Tipo de calefacción anterior",
-      "instruction-sanitary-heat-type": "Hoy, ¿cómo se produce su agua caliente sanitaria?",
-      "instruction-sanitary-heat-installation-date": "El agua caliente sanitaria está instalada desde:",
-      "instruction-sanitary-heat-type-before": "Tipo de agua caliente sanitaria anterior",
-      "instruction-secondary-heat-type": "Si su vivienda tiene calefacción secundaria, indique el tipo de calefacción."
+      "dropdown-placeholder": "Seleccionar",
+      "instruction-works-type": "Si ha realizado obras, indíquelas:",
+      "instruction-works-date": "Fecha de las obras más recientes:"
     },
-    "works-primeum": {
-      "title": "Mi prima de CO2"
+    "transport-situation": {
+      "title": "Mi prima de CO2",
+      "subtitle": "Mi transporte",
+      "instruction-license-plate": "¿Matrícula de su vehículo (coche, moto, etc.)?",
+      "instruction-old-license-plate": "Matrícula del vehículo anterior",
+      "placeholder-license-plate": "AA123BB",
+      "checkbox": "Al marcar esta casilla, lorem ipsum FIN",
+      "instruction-acquisition-date": "Fecha de adquisición del vehículo",
+      "acquisition-date-placeholder": "Seleccionar",
+      "has-changed": "¿Este vehículo reemplaza a otro?",
+      "has-changed-no": "No",
+      "has-changed-yes": "Sí",
+      "add": "Agregar",
+      "vehicle": "Vehículo",
+      "before": "antes",
+      "in": "en",
+      "owned": "adquirido",
+      "sold": "vendido",
+      "end": "Terminar"
     },
-    "transport-primeum": {
-      "title": "Mi prima de CO2"
-    },
-    "household-primeum": {
+    "household-situation": {
       "title": "Mi prima de CO2",
       "subtitle": "Mi hogar",
       "adults": "Número de adultos",

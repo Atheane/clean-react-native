@@ -1,6 +1,12 @@
 import { HouseT, VehicleConsumptionT, FoodConsumptionT, FlightI } from '@bank/carbon-weight/dist';
 import { IDomainError } from '@clean-rn/ddd';
-import { Footprint, House, IFootprintErrorCodes, IFootprintErrorMessage } from '@clean-rn/footprint/domain';
+import {
+  Footprint,
+  House,
+  IFootprintErrorCodes,
+  IFootprintErrorMessage,
+  Transport,
+} from '@clean-rn/footprint/domain';
 
 export interface IFootprintState {
   pending: boolean;
@@ -28,5 +34,6 @@ export interface IFootprintState {
   };
   footprint: Footprint | null;
   house: House | null;
+  transport: Transport | null;
   error: IDomainError<IFootprintErrorCodes, IFootprintErrorMessage> | null;
 }

@@ -1,0 +1,13 @@
+{
+  "statusCode": 400,
+  "message": "Root::FootprintService::Function - Footprint #5154253 has overlapping periods ALREADY_EXISTS",
+  "response": "Root::FootprintService::Function - Footprint #5154253 has overlapping periods ALREADY_EXISTS",
+  "timestamp": "2024-12-20T14:18:52.838Z",
+  "path": "/app/footprint",
+  "method": "POST",
+  "body": {
+    "userId": "100087408",
+    "adultNumber": 2,
+    "childNumber": 1
+  }
+}

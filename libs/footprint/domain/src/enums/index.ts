@@ -24,3 +24,18 @@ export enum HOUSE_STATUS {
 export enum FOOTPRINT_UNIT {
   CO2 = 'CO2',
 }
+
+export enum HOUSE_WORK_TYPE {
+  ROOF = 'ROOF',
+  WALL = 'WALL',
+  GROUND = 'GROUND',
+  WINDOW = 'WINDOW',
+  VMC = 'VMC',
+}
+
+export enum VEHICLE_STATUS {
+  DESTROYED = 'DESTROYED',
+  PARKED = 'PARKED',
+  OWNED = 'OWNED',
+  SOLD = 'SOLD',
+}

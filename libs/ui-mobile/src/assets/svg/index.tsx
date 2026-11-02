@@ -63,6 +63,7 @@ export { Warning } from './Warning';
 export { Heat } from './Heat';
 export { Family } from './Family';
 export { Car } from './Car';
+export { CarBorder } from './CarBorder';
 export { TransactionNumeric } from './TransactionNumeric';
 export { TransactionNursing } from './TransactionNursing';
 export { TransactionNutrition } from './TransactionNutrition';

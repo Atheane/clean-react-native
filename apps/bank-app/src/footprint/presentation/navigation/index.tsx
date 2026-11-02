@@ -19,15 +19,15 @@ import {
   HeaterFootprintEstimation,
   MenuFootprint,
   MenuPrimeum,
-  Works,
-  Transport,
-  Household,
+  WorksSituation,
+  TransportSituation,
+  HouseholdSituation,
   EvolutionFootprint,
   TransportFootprintEstimation,
   WarningFoodFootprintEstimation,
   FoodFootprintEstimation,
   FlyFootprintEstimation,
-  Heaters,
+  HeatersSituation,
 } from '../screens';
 
 const Stack = createNativeStackNavigator<IFootprintStackProps & ISharedStackProps>();
@@ -136,40 +136,40 @@ export const FootprintStack = () => {
       )}
       {featureTagLegacy && (
         <Stack.Screen
-          name={IFootprintStackPages.HEATERS}
-          component={Heaters}
+          name={IFootprintStackPages.HEATERS_SITUATION}
+          component={HeatersSituation}
           options={{
-            headerTitle: t('screens.heat-primeum.title'),
+            headerTitle: t('screens.heaters-situation.title'),
             ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
           }}
         />
       )}
       {featureTagLegacy && (
         <Stack.Screen
-          name={IFootprintStackPages.WORKS}
-          component={Works}
+          name={IFootprintStackPages.WORKS_SITUATION}
+          component={WorksSituation}
           options={{
-            headerTitle: t('screens.heat-primeum.title'),
+            headerTitle: t('screens.works-situation.title'),
             ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
           }}
         />
       )}
       {featureTagLegacy && (
         <Stack.Screen
-          name={IFootprintStackPages.TRANSPORT}
-          component={Transport}
+          name={IFootprintStackPages.TRANSPORT_SITUATION}
+          component={TransportSituation}
           options={{
-            headerTitle: t('screens.heat-primeum.title'),
+            headerTitle: t('screens.transport-situation.title'),
             ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
           }}
         />
       )}
       {featureTagLegacy && (
         <Stack.Screen
-          name={IFootprintStackPages.HOUSEHOLD}
-          component={Household}
+          name={IFootprintStackPages.HOUSEHOLD_SITUATION}
+          component={HouseholdSituation}
           options={{
-            headerTitle: t('screens.heat-primeum.title'),
+            headerTitle: t('screens.household-situation.title'),
             ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
           }}
         />

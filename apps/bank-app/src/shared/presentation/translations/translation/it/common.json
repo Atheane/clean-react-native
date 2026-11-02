@@ -8,7 +8,8 @@
   },
   "banners": {
     "update-application": "Aggiornamento disponibile",
-    "identity-validation": "Validazione dell'identità"
+    "identity-validation": "Validazione dell'identità",
+    "identity-validated": "Identità validata"
   },
   "modal": {
     "login": {
@@ -148,7 +149,9 @@
         "HEATER_ALREADY_EXISTS": "Riscaldamento già dichiarato",
         "INVALID_ADULT_NUMBER": "Il numero di adulti deve essere compreso tra 1 e 20",
         "INVALID_CHILD_NUMBER": "Il numero di minori deve essere compreso tra 1 e 20",
-        "HOUSEHOLD_ALDREADY_DECLARED": "Nucleo familiare già dichiarato"
+        "HOUSEHOLD_ALDREADY_DECLARED": "Nucleo familiare già dichiarato",
+        "VEHICLE_ALREADY_EXISTS": "Questo veicolo esiste già",
+        "INVALID_LICENSE_PLATE": "La targa non è valida.\nEsempio di formato atteso: AA123BB"
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Documenti per la validazione del dossier mancanti",
@@ -377,6 +380,7 @@
       "title": "Gestire i miei beneficiari",
       "bank": "Banca",
       "contacts": "Contatti",
+      "beneficiaries": "Beneficiari",
       "add-beneficiary": "Aggiungi",
       "new-beneficiary": {
         "title": "Aggiungi un beneficiario",
@@ -459,14 +463,9 @@
       "transport": "Trasporto",
       "household": "Famiglia"
     },
-    "heat-primeum": {
+    "heaters-situation": {
       "title": "Il mio premio CO2",
-      "subtitle-main": "Il mio riscaldamento principale",
-      "subtitle-sanitary": "La mia acqua sanitaria",
-      "subtitle-secondary": "Il mio riscaldamento secondario",
-      "step-one": "Situazione",
-      "step-two": "Giustificativi",
-      "step-three": "Monitoraggio",
+      "subtitle": "Il mio riscaldamento",
       "heater": "Tipo di riscaldamento",
       "placeholder": "Seleziona",
       "house-main-heat": "Riscaldamento principale installato nella tua abitazione:",
@@ -485,24 +484,51 @@
         "THERMAL_SOLAR": "Solare termico",
         "PROPANE": "Propano"
       },
-      "dropdown-years": {
-        "before-2012": "Prima del 2012"
+      "has-changed": "Hai cambiato il riscaldamento da quando sei in questa abitazione?",
+      "has-changed-yes": "Sì",
+      "has-changed-no": "No",
+      "instruction-heat-type": "Tipo di riscaldamento:",
+      "instruction-heat-type-installation-date": "Data di installazione del nuovo riscaldamento:",
+      "instruction-heat-type-old": "Tipo di riscaldamento precedente"
+    },
+    "dropdown-years": {
+      "before-2011": "Prima del 2011"
+    },
+    "works-situation": {
+      "title": "Il mio premio CO2",
+      "subtitle": "I miei lavori",
+      "dropdown-work-type": {
+        "ROOF": "Isolamento tetto/soffitta",
+        "WALL": "Isolamento pareti",
+        "GROUND": "Isolamento pavimento",
+        "WINDOW": "Installazione finestre isolanti",
+        "VMC": "Installazione VMC doppio flusso"
       },
-      "instruction-heat-type": "Oggi, come riscaldi la tua abitazione?",
-      "instruction-heat-type-installation-date": "Questo riscaldamento è installato nell'abitazione dal:",
-      "instruction-heat-type-before": "Tipo di riscaldamento precedente",
-      "instruction-sanitary-heat-type": "Oggi, come viene prodotta la tua acqua calda sanitaria?",
-      "instruction-sanitary-heat-installation-date": "L'acqua calda sanitaria è installata dal:",
-      "instruction-sanitary-heat-type-before": "Tipo di acqua calda sanitaria precedente",
-      "instruction-secondary-heat-type": "Se la tua abitazione ha un riscaldamento secondario, indica il tipo di riscaldamento."
+      "dropdown-placeholder": "Seleziona",
+      "instruction-works-type": "Se hai effettuato dei lavori, indicali:",
+      "instruction-works-date": "Data dei lavori più recenti:"
     },
-    "works-primeum": {
-      "title": "Il mio premio CO2"
+    "transport-situation": {
+      "title": "Il mio premio CO2",
+      "subtitle": "Il mio trasporto",
+      "instruction-license-plate": "Targa del tuo veicolo (auto, moto, ecc.)?",
+      "instruction-old-license-plate": "Targa del veicolo precedente",
+      "placeholder-license-plate": "AA123BB",
+      "checkbox": "Spuntando questa casella, lorem ipsum FINE",
+      "instruction-acquisition-date": "Data di acquisizione del veicolo",
+      "acquisition-date-placeholder": "Seleziona",
+      "has-changed": "Questo veicolo ne sostituisce un altro?",
+      "has-changed-no": "No",
+      "has-changed-yes": "Sì",
+      "add": "Aggiungi",
+      "vehicle": "Veicolo",
+      "before": "prima",
+      "in": "nel",
+      "owned": "acquisito",
+      "sold": "venduto",
+      "end": "Fine"
     },
-    "transport-primeum": {
-      "title": "Il mio premio CO2"
-    },
-    "household-primeum": {
+    "household-situation": {
       "title": "Il mio premio CO2",
       "subtitle": "La mia famiglia",
       "adults": "Numero di adulti",

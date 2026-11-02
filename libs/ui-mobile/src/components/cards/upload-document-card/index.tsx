@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   text: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: 24,
+    marginLeft: 48,
     fontFamily: FontNames.Roboto_400Regular,
     fontSize: NEEDS_SMALL_TEXT ? 12 : 14,
   },

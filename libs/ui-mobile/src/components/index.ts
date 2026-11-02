@@ -39,6 +39,7 @@ import { MultipleOptionsCheckBox } from './checkboxes/multiple-options-checkBox'
 import { SimpleCheckBox } from './checkboxes/simple-checkbox';
 // Dropdowns
 import { Dropdown } from './dropdowns/dropdown';
+import { DropdownMulti } from './dropdowns/dropdown-multi';
 import { CountryPicker } from './dropdowns/country-picker';
 import { DateTimePicker } from './dropdowns/datetime-picker';
 // Inputs
@@ -51,6 +52,7 @@ import { DigitsInput } from './inputs/digits-input';
 import { Slider } from './inputs/slider';
 import { IbanInput } from './inputs/iban-input';
 import { AddressInput } from './inputs/address-input';
+import { LicensePlateInput } from './inputs/license-plate-input';
 // Items
 import { IconTextItem } from './items/icon-text-item';
 import { BeneficiaryItem } from './items/beneficiary-item';
@@ -132,6 +134,7 @@ export {
   SimpleCheckBox,
   // Dropdowns
   Dropdown,
+  DropdownMulti,
   CountryPicker,
   DateTimePicker,
   // Inputs
@@ -143,6 +146,7 @@ export {
   DigitsInput,
   Slider,
   IbanInput,
+  LicensePlateInput,
   AddressInput,
   // Items
   BeneficiaryItem,

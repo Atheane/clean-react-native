@@ -12,7 +12,14 @@ export enum IFootprintErrorCodes {
   HEATER_ALREADY_EXISTS = 'HEATER_ALREADY_EXISTS',
   INVALID_ADULT_NUMBER = 'INVALID_ADULT_NUMBER',
   INVALID_CHILD_NUMBER = 'INVALID_CHILD_NUMBER',
+  INVALID_WORK_DATE = 'INVALID_WORK_DATE',
+  INVALID_WORK_TYPE = 'INVALID_WORK_TYPE',
+  INVALID_VEHICLE_DATE = 'INVALID_VEHICLE_DATE',
+  INVALID_LICENSE_PLATE = 'INVALID_LICENSE_PLATE',
+  INVALID_VEHICLE_STATUS = 'INVALID_VEHICLE_STATUS',
+  VEHICLE_ALREADY_EXISTS = 'VEHICLE_ALREADY_EXISTS',
   HOUSEHOLD_ALDREADY_DECLARED = 'HOUSEHOLD_ALDREADY_DECLARED',
+  MISSING_USER_ID = 'MISSING_USER_ID',
 }
 
 export enum IFootprintErrorMessage {
@@ -26,10 +33,23 @@ export enum IFootprintErrorMessage {
   HEATER_ALREADY_EXISTS = 'Heater already exists',
   INVALID_ADULT_NUMBER = 'Invalid Adult Number',
   INVALID_CHILD_NUMBER = 'Invalid Child Number',
+  INVALID_WORK_DATE = 'Invalid Work Date',
+  INVALID_WORK_TYPE = 'Invalid Work Type',
+  INVALID_VEHICLE_DATE = 'Invalid Vehicle Date',
+  INVALID_LICENSE_PLATE = 'Invalid License Plate',
+  INVALID_VEHICLE_STATUS = 'Invalid Vehicle Status',
+  VEHICLE_ALREADY_EXISTS = 'Vehicle already exists',
   HOUSEHOLD_ALDREADY_DECLARED = 'Household aldready declared',
+  MISSING_USER_ID = 'Missing user id',
 }
 
 export namespace FootprintError {
+  export const isFootprintError = (error: unknown): boolean => {
+    if (!(error instanceof Error)) return false;
+    return Object.values(FootprintError)
+      .filter((value) => typeof value === 'function') // Pour ne garder que les classes d'erreur
+      .some((ErrorClass) => error instanceof ErrorClass);
+  };
   export class InvalidHouseProps
     extends Error
     implements IDomainError<IFootprintErrorCodes, IFootprintErrorMessage>
@@ -180,10 +200,118 @@ export namespace FootprintError {
       this.cause = cause;
     }
   }
-  export class HouseholdAlreadyDeclared
+  export class InvalidWorkDate
     extends Error
     implements IDomainError<IFootprintErrorCodes, IFootprintErrorMessage>
   {
+    code: IFootprintErrorCodes;
+    message: IFootprintErrorMessage;
+    cause?: unknown;
+
+    constructor(cause?: unknown) {
+      super();
+      this.code = IFootprintErrorCodes.INVALID_WORK_DATE;
+      this.message = IFootprintErrorMessage.INVALID_WORK_DATE;
+      this.cause = cause;
+    }
+  }
+
+  export class InvalidWorkType
+    extends Error
+    implements IDomainError<IFootprintErrorCodes, IFootprintErrorMessage>
+  {
+    code: IFootprintErrorCodes;
+    message: IFootprintErrorMessage;
+    cause?: unknown;
+
+    constructor(cause?: unknown) {
+      super();
+      this.code = IFootprintErrorCodes.INVALID_WORK_TYPE;
+      this.message = IFootprintErrorMessage.INVALID_WORK_TYPE;
+      this.cause = cause;
+    }
+  }
+
+  export class InvalidVehicleDate
+    extends Error
+    implements IDomainError<IFootprintErrorCodes, IFootprintErrorMessage>
+  {
+    code: IFootprintErrorCodes;
+    message: IFootprintErrorMessage;
+    cause?: unknown;
+
+    constructor(cause?: unknown) {
+      super();
+      this.code = IFootprintErrorCodes.INVALID_VEHICLE_DATE;
+      this.message = IFootprintErrorMessage.INVALID_VEHICLE_DATE;
+      this.cause = cause;
+    }
+  }
+
+  export class InvalidLicensePlate
+    extends Error
+    implements IDomainError<IFootprintErrorCodes, IFootprintErrorMessage>
+  {
+    code: IFootprintErrorCodes;
+    message: IFootprintErrorMessage;
+    cause?: unknown;
+
+    constructor(cause?: unknown) {
+      super();
+      this.code = IFootprintErrorCodes.INVALID_LICENSE_PLATE;
+      this.message = IFootprintErrorMessage.INVALID_LICENSE_PLATE;
+      this.cause = cause;
+    }
+  }
+
+  export class InvalidVehicleStatus
+    extends Error
+    implements IDomainError<IFootprintErrorCodes, IFootprintErrorMessage>
+  {
+    code: IFootprintErrorCodes;
+    message: IFootprintErrorMessage;
+    cause?: unknown;
+
+    constructor(cause?: unknown) {
+      super();
+      this.code = IFootprintErrorCodes.INVALID_VEHICLE_STATUS;
+      this.message = IFootprintErrorMessage.INVALID_VEHICLE_STATUS;
+      this.cause = cause;
+    }
+  }
+
+  export class MissingUserId
+    extends Error
+    implements IDomainError<IFootprintErrorCodes, IFootprintErrorMessage>
+  {
+    code: IFootprintErrorCodes;
+    message: IFootprintErrorMessage;
+    cause?: unknown;
+
+    constructor(cause?: unknown) {
+      super();
+      this.code = IFootprintErrorCodes.MISSING_USER_ID;
+      this.message = IFootprintErrorMessage.MISSING_USER_ID;
+      this.cause = cause;
+    }
+  }
+
+  export class VehicleAlreadyExists
+    extends Error
+    implements IDomainError<IFootprintErrorCodes, IFootprintErrorMessage>
+  {
+    code: IFootprintErrorCodes;
+    message: IFootprintErrorMessage;
+    cause?: unknown;
+
+    constructor(cause?: unknown) {
+      super();
+      this.code = IFootprintErrorCodes.VEHICLE_ALREADY_EXISTS;
+      this.message = IFootprintErrorMessage.VEHICLE_ALREADY_EXISTS;
+      this.cause = cause;
+    }
+  }
+  export class HouseAlreadyDeclared extends Error {
     code: IFootprintErrorCodes;
     message: IFootprintErrorMessage;
     cause?: unknown;

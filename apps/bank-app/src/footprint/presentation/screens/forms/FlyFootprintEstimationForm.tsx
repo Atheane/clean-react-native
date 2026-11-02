@@ -142,7 +142,7 @@ export const FlyFootprintEstimationForm = (props: IProps) => {
           label={t('screens.footprint-estimation-fly.dropdown.destination')}
           placeholder={t('screens.footprint-estimation-fly.dropdown.destination')}
           data={props.airports}
-          icon={() => <FlyFrom color={Colors.primary.lightGreen} />}
+          icon={() => <FlyFrom startColor={Colors.primary.darkBlue} endColor={Colors.secondary.pink} />}
           onSelect={(data: IData) => handleOnChangeField(data, 'fromIATA')}
           shouldClearSearch={shouldClearSearch}
         />
@@ -152,7 +152,7 @@ export const FlyFootprintEstimationForm = (props: IProps) => {
           label={t('screens.footprint-estimation-fly.dropdown.arrival')}
           placeholder={t('screens.footprint-estimation-fly.dropdown.arrival')}
           data={props.airports}
-          icon={() => <FlyTo color={Colors.primary.lightGreen} />}
+          icon={() => <FlyTo startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />}
           onSelect={(data: IData) => handleOnChangeField(data, 'toIATA')}
           shouldClearSearch={shouldClearSearch}
         />

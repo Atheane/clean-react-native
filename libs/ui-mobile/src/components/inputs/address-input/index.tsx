@@ -8,15 +8,10 @@ import {
 } from 'react-native-google-places-autocomplete';
 import Geocoder from 'react-native-geocoding';
 import { getLocales } from 'expo-localization';
+import { Country } from '@clean-rn/user/domain';
 
 import { Colors } from '../../../constants';
 import { House } from '../../../assets';
-
-interface Country {
-  emoji: string;
-  countryCode: string;
-  name: string;
-}
 
 type IAddress = {
   str: string;

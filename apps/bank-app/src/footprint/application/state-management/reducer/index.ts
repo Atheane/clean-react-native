@@ -27,71 +27,14 @@ const initialState: IFootprintState = {
   },
   footprint: null,
   house: null,
+  transport: null,
   error: null,
 };
 
 export const footprintReducer = (state = initialState, action: IFootprintActions) => {
   let newState: IFootprintState;
   switch (action.type) {
-    case IFootprintTypes.CREATE_FOOTPRINT:
-      newState = {
-        ...state,
-        pending: true,
-        error: null,
-      };
-      return newState;
-    case IFootprintTypes.FOOTPRINT_CREATED:
-      newState = {
-        ...state,
-        pending: false,
-        footprint: action.payload,
-        error: null,
-      };
-      return newState;
-    case IFootprintTypes.FOOTPRINT_NOT_CREATED:
-      newState = {
-        ...state,
-        pending: false,
-        error: action.payload,
-      };
-      return newState;
-    case IFootprintTypes.GET_HOUSE:
-      newState = {
-        ...state,
-        pending: true,
-        error: null,
-      };
-      return newState;
-    case IFootprintTypes.ADD_HEATERS:
-      newState = {
-        ...state,
-        pending: true,
-        error: null,
-      };
-      return newState;
-    case IFootprintTypes.HOUSE_CREATED:
-      newState = {
-        ...state,
-        pending: false,
-        house: action.payload,
-        error: null,
-      };
-      return newState;
-    case IFootprintTypes.HEATERS_ADDED:
-      newState = {
-        ...state,
-        pending: false,
-        house: action.payload,
-        error: null,
-      };
-      return newState;
-    case IFootprintTypes.HEATERS_NOT_ADDED:
-      newState = {
-        ...state,
-        pending: false,
-        error: action.payload,
-      };
-      return newState;
+    // estimate
     case IFootprintTypes.COMPUTE_HOUSE_EMISSIONS:
       newState = {
         ...state,
@@ -264,11 +207,143 @@ export const footprintReducer = (state = initialState, action: IFootprintActions
         error: null,
       };
       return newState;
+    // footprint
+    case IFootprintTypes.GET_FOOTPRINT:
+      newState = {
+        ...state,
+        pending: true,
+      };
+      return newState;
+    case IFootprintTypes.FOOTPRINT_NOTFOUND:
+      newState = {
+        ...state,
+        pending: false,
+        footprint: null,
+      };
+      return newState;
+    case IFootprintTypes.CREATE_FOOTPRINT:
+      newState = {
+        ...state,
+        pending: true,
+        error: null,
+      };
+      return newState;
+    case IFootprintTypes.FOOTPRINT_CREATED:
+      newState = {
+        ...state,
+        pending: false,
+        footprint: action.payload,
+        error: null,
+      };
+      return newState;
+    case IFootprintTypes.FOOTPRINT_NOT_CREATED:
+      newState = {
+        ...state,
+        pending: false,
+        error: action.payload,
+      };
+      return newState;
     case IFootprintTypes.INITIALIZE_FOOTPRINT:
       newState = {
         ...state,
         pending: false,
         error: null,
+      };
+      return newState;
+    // house
+    case IFootprintTypes.GET_HOUSE:
+      newState = {
+        ...state,
+        pending: true,
+        error: null,
+      };
+      return newState;
+    case IFootprintTypes.HOUSE_CREATED:
+      newState = {
+        ...state,
+        pending: false,
+        house: action.payload,
+        error: null,
+      };
+      return newState;
+    case IFootprintTypes.ADD_HEATERS:
+      newState = {
+        ...state,
+        pending: true,
+        error: null,
+      };
+      return newState;
+    case IFootprintTypes.HEATERS_ADDED:
+      newState = {
+        ...state,
+        pending: false,
+        house: action.payload,
+        error: null,
+      };
+      return newState;
+    case IFootprintTypes.HEATERS_NOT_ADDED:
+      newState = {
+        ...state,
+        pending: false,
+        error: action.payload,
+      };
+      return newState;
+    case IFootprintTypes.ADD_WORKS:
+      newState = {
+        ...state,
+        pending: true,
+        error: null,
+      };
+      return newState;
+    case IFootprintTypes.WORKS_ADDED:
+      newState = {
+        ...state,
+        pending: false,
+        house: action.payload,
+        error: null,
+      };
+      return newState;
+    case IFootprintTypes.WORKS_NOT_ADDED:
+      newState = {
+        ...state,
+        pending: false,
+        error: action.payload,
+      };
+      return newState;
+    // transport
+    case IFootprintTypes.GET_TRANSPORT:
+      newState = {
+        ...state,
+        pending: true,
+      };
+      return newState;
+    case IFootprintTypes.TRANSPORT_CREATED:
+      newState = {
+        ...state,
+        pending: false,
+        transport: action.payload,
+      };
+      return newState;
+    case IFootprintTypes.ADD_VEHICLES:
+      newState = {
+        ...state,
+        pending: true,
+        error: null,
+      };
+      return newState;
+    case IFootprintTypes.VEHICLES_ADDED:
+      newState = {
+        ...state,
+        pending: false,
+        transport: action.payload,
+        error: null,
+      };
+      return newState;
+    case IFootprintTypes.VEHICLES_NOT_ADDED:
+      newState = {
+        ...state,
+        pending: false,
+        error: action.payload,
       };
       return newState;
     default:
