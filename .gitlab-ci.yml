@@ -51,11 +51,12 @@ test:
 
 .setup_bank-app_credentials: &setup_bank-app_credentials
   - echo "Setting up Expo configuration..."
+  - npm install -g eas-cli
   - mkdir -p ~/.expo
   - echo '{"accessToken":"'$EXPO_TOKEN'"}' > ~/.expo/state.json
   - chmod 600 ~/.expo/state.json
   - echo "Verifying Expo authentication..."
-  - npx eas whoami
+  - eas whoami
 
 .setup_ios_credentials: &setup_ios_credentials
   before_script:
