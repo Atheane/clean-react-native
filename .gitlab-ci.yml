@@ -17,7 +17,7 @@ cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
     - node_modules/
-    - .npm/
+    - .yarn/
     - dist/
     - .nx/cache
 
@@ -31,7 +31,7 @@ workflow:
 install_dependencies:
   stage: install
   script:
-    - npm ci
+    - yarn install
   artifacts:
     paths:
       - node_modules/
@@ -40,12 +40,12 @@ install_dependencies:
       - tsconfig.base.json
       - nx.json
       - package.json
-      - package-lock.json
+      - yarn.lock
 
 test:
   stage: test
   script:
-    - npm run test
+    - yarn test
   dependencies:
     - install_dependencies
 
