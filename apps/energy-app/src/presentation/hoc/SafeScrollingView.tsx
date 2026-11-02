@@ -1,27 +1,26 @@
-import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import React, { forwardRef } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { Colors } from '@clean-rn/ui-mobile';
 
 type IProps = {
-  fixedHeight?: boolean;
   children: React.ReactElement;
-  ref?: React.RefObject<KeyboardAwareScrollView>;
 };
 
-export const SafeScrollingView = ({ children, ref }: IProps) => {
+export const SafeScrollingView = forwardRef<KeyboardAwareScrollView, IProps>(({ children }, ref) => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false} ref={ref}>
         {children}
       </KeyboardAwareScrollView>
-    </SafeAreaView>
+    </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: Colors.primary.white,
   },
 });
