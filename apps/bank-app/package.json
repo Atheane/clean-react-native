@@ -90,7 +90,7 @@
   },
   "scripts": {
     "clean": "rm -rf ~/Library/Caches/Pods && yarn cache clean && npm cache clean --force && rm -rf node_modules .expo ios android package-lock.json yarn.lock coverage ios/build android/build $TMPDIR/metro-*",
-    "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp yarn.lock apps/bank-app",
+    "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp package-lock.json apps/bank-app",
     "eas-build-post-install": "cd ../../ && node tools/scripts/eas-build-post-install.mjs . apps/bank-app",
     "android": "expo run:android",
     "ios": "expo run:ios"
