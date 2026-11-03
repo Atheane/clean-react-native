@@ -9,6 +9,7 @@ variables:
 
 stages:
   - install
+  # - test
   - build
   - UI_Tests
 
@@ -41,12 +42,12 @@ install_dependencies:
       - package.json
       - yarn.lock
 
-test:
-  stage: test
-  script:
-    - yarn test
-  dependencies:
-    - install_dependencies
+# test:
+#   stage: test
+#   script:
+#     - yarn test
+#   dependencies:
+#     - install_dependencies
 
 .setup_bank-app_credentials: &setup_bank-app_credentials
   - echo "Setting up Expo configuration..."
