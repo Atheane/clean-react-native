@@ -86,12 +86,11 @@
     "redux-saga": "^1.2.3",
     "reflect-metadata": "^0.2.2",
     "short-unique-id": "^5.0.2",
-    "strip-ansi": "6.0.1",
     "uuidjs": "^5.1.0"
   },
   "scripts": {
     "clean": "rm -rf ~/Library/Caches/Pods && yarn cache clean && npm cache clean --force && rm -rf node_modules .expo ios android package-lock.json yarn.lock coverage ios/build android/build $TMPDIR/metro-*",
-    "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app",
+    "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/bank-app && cp yarn.lock apps/bank-app",
     "eas-build-post-install": "cd ../../ && node tools/scripts/eas-build-post-install.mjs . apps/bank-app",
     "android": "expo run:android",
     "ios": "expo run:ios"

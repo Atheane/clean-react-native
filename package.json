@@ -100,7 +100,6 @@
     "redux-saga": "^1.2.3",
     "reflect-metadata": "^0.2.2",
     "short-unique-id": "^5.0.2",
-    "strip-ansi": "6.0.1",
     "uuidjs": "^5.1.0"
   },
   "devDependencies": {
