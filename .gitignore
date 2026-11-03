@@ -76,3 +76,6 @@ credentials.json
 
 .nx
 cache
+
+yarn.lock
+apps/bank-app/yarn.lock
