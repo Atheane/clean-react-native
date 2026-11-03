@@ -1,4 +1,4 @@
-image: node:22.13.0
+image: node:v20.18.1
 
 variables:
   EXPO_TOKEN: ${EXPO_TOKEN}
