@@ -3,8 +3,7 @@
     "production": {
       "env": {
         "EXPO_PUBLIC_APP_NAME_STORYBOOK": "CleanRN Storybook Dev",
-        "EXPO_PUBLIC_APP_VERSION": "2.3.0",
-        "EXPO_PUBLIC_APP_VERSION_ANDROID": "230",
+        "EXPO_PUBLIC_APP_VERSION": "230",
         "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.example.storybookdev",
         "EXPO_PUBLIC_SLUG_NAME_STORYBOOK": "clean-rn-storybook-dev"
       }
@@ -14,8 +13,7 @@
       "distribution": "internal",
       "env": {
         "EXPO_PUBLIC_APP_NAME_STORYBOOK": "CleanRN Storybook Dev",
-        "EXPO_PUBLIC_APP_VERSION": "2.3.0",
-        "EXPO_PUBLIC_APP_VERSION_ANDROID": "230",
+        "EXPO_PUBLIC_APP_VERSION": "230",
         "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.example.storybookdev",
         "EXPO_PUBLIC_SLUG_NAME_STORYBOOK": "clean-rn-storybook-dev"
       }
@@ -25,8 +23,7 @@
       "distribution": "internal",
       "env": {
         "EXPO_PUBLIC_APP_NAME_STORYBOOK": "CleanRN Storybook Dev",
-        "EXPO_PUBLIC_APP_VERSION": "2.3.0",
-        "EXPO_PUBLIC_APP_VERSION_ANDROID": "230",
+        "EXPO_PUBLIC_APP_VERSION": "230",
         "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.example.storybookdev",
         "EXPO_PUBLIC_SLUG_NAME_STORYBOOK": "clean-rn-storybook-dev"
       },
@@ -38,8 +35,7 @@
       "distribution": "internal",
       "env": {
         "EXPO_PUBLIC_APP_NAME_STORYBOOK": "CleanRN Storybook Dev",
-        "EXPO_PUBLIC_APP_VERSION": "2.3.0",
-        "EXPO_PUBLIC_APP_VERSION_ANDROID": "230",
+        "EXPO_PUBLIC_APP_VERSION": "230",
         "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.example.storybookdev",
         "EXPO_PUBLIC_SLUG_NAME_STORYBOOK": "clean-rn-storybook-dev"
       },

@@ -7,8 +7,6 @@
 
 import { symlink, existsSync } from 'fs';
 import { join } from 'path';
-import { readFileSync } from 'fs';
-
 
 const [workspaceRoot, projectRoot] = process.argv.slice(2);
 
@@ -17,36 +15,9 @@ if (existsSync(join(workspaceRoot, 'node_modules'))) {
   process.exit(0);
 }
 
-symlink(
-  join(projectRoot, 'node_modules'),
-  join(workspaceRoot, 'node_modules'),
-  'dir',
-  (err) => {
-    if (err) console.log(err);
-    else {
-      console.log('Symlink created');
-    }
+symlink(join(projectRoot, 'node_modules'), join(workspaceRoot, 'node_modules'), 'dir', (err) => {
+  if (err) console.log(err);
+  else {
+    console.log('Symlink created');
   }
-);
-
-const packages = ["metro-config", "@rneui/base", "dayjs", "i18next", "expo-font"];
-
-try {
-  console.log("Installed package versions:");
-  packages.forEach(packageName => {
-    try {
-      // Construit le chemin vers le fichier package.json du module
-      const packagePath = join('node_modules', packageName, 'package.json');
-      // Lit le contenu du fichier package.json
-      const packageJson = readFileSync(packagePath, 'utf8');
-      // Parse le contenu JSON pour obtenir l'objet
-      const packageObj = JSON.parse(packageJson);
-      // Imprime la version du package
-      console.log(`${packageName}@${packageObj.version}`);
-    } catch (e) {
-      console.error(`Error retrieving version for package ${packageName}:`, e.message);
-    }
-  });
-} catch (e) {
-  console.error('Error executing version retrieval script:', e.message);
-}
+});

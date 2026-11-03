@@ -1,5 +1,6 @@
 import { Heater, House, Work, ICreateHouseCommand } from '@clean-rn/footprint/domain';
-import { HeaterMapper, WorkMapper } from '../mappers';
+import { HeaterMapper } from '../mappers/HeaterMapper';
+import { WorkMapper } from '../mappers/WorkMapper';
 import { IHouseDto, ICreateHouseDto } from '../dtos';
 
 export class HouseMapper {

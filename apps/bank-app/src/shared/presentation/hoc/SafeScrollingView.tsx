@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { SafeAreaView } from 'react-native';
+import { View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { Colors } from '../constants';
@@ -13,11 +13,11 @@ type IProps = {
 export const SafeScrollingView = forwardRef<KeyboardAwareScrollView, IProps>(
   ({ children, backgroundColor }, ref) => {
     return (
-      <SafeAreaView style={backgroundColor ? { backgroundColor } : { backgroundColor: Colors.primary.white }}>
+      <View style={backgroundColor ? { backgroundColor } : { backgroundColor: Colors.primary.white }}>
         <KeyboardAwareScrollView showsVerticalScrollIndicator={false} ref={ref}>
           {children}
         </KeyboardAwareScrollView>
-      </SafeAreaView>
+      </View>
     );
   },
 );

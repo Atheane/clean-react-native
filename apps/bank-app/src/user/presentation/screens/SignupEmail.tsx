@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import {
   LinkButton,
@@ -20,7 +21,7 @@ import { Welcome } from '../../../auth/presentation/assets/images';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ISharedStackPages } from '../../../shared/presentation/types';
-import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { ErrorBoundary } from '../../../shared/presentation/hoc';
 
 import { fetchSearchEmail } from '../../application/commands';
 import { FormSignupEmail, ISignupEmailFormData } from '../forms';
@@ -83,7 +84,7 @@ export const SignupEmail = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView>
+      <KeyboardAwareScrollView>
         <View style={[styles.container, theme.container.centeredItem]}>
           <Image style={styles.image} source={Welcome} />
           <View style={styles.textContainer}>
@@ -129,7 +130,7 @@ export const SignupEmail = () => {
             />
           </View>
         </View>
-      </SafeScrollingView>
+      </KeyboardAwareScrollView>
     </ErrorBoundary>
   );
 };

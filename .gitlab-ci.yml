@@ -1,10 +1,9 @@
-image: node:18.17.0
+image: node:18.18.0
 
 variables:
   EXPO_TOKEN: ${EXPO_TOKEN}
   IOS_DIST_CERT_BASE64: ${IOS_DIST_CERT_BASE64}
   IOS_PROVISION_PROFILE_BANK_APP_BASE64: ${IOS_PROVISION_PROFILE_BANK_APP_BASE64}
-  IOS_PROVISION_PROFILE_ENERGY_APP_BASE64: ${IOS_PROVISION_PROFILE_ENERGY_APP_BASE64}
   IOS_CERT_PASSWORD: ${IOS_CERT_PASSWORD}
   CHROMATIC_PROJECT_TOKEN: ${CHROMATIC_PROJECT_TOKEN}
 
@@ -18,7 +17,7 @@ cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
     - node_modules/
-    - .npm/
+    - .yarn/
     - dist/
     - .nx/cache
 
@@ -32,7 +31,7 @@ workflow:
 install_dependencies:
   stage: install
   script:
-    - npm ci
+    - yarn install
   artifacts:
     paths:
       - node_modules/
@@ -41,22 +40,23 @@ install_dependencies:
       - tsconfig.base.json
       - nx.json
       - package.json
-      - package-lock.json
+      - yarn.lock
 
 test:
   stage: test
   script:
-    - npm run test
+    - yarn test
   dependencies:
     - install_dependencies
 
 .setup_bank-app_credentials: &setup_bank-app_credentials
   - echo "Setting up Expo configuration..."
+  - npm install -g eas-cli
   - mkdir -p ~/.expo
   - echo '{"accessToken":"'$EXPO_TOKEN'"}' > ~/.expo/state.json
   - chmod 600 ~/.expo/state.json
   - echo "Verifying Expo authentication..."
-  - npx eas whoami
+  - eas whoami
 
 .setup_ios_credentials: &setup_ios_credentials
   before_script:
@@ -125,8 +125,11 @@ build_storybook:
     - cd $CI_PROJECT_DIR
     - echo "Building Storybook..."
     - npx nx build-storybook ui-mobile
+  artifacts:
+    paths:
+      - dist/storybook/ui-mobile/
   dependencies:
-  - install_dependencies
+    - install_dependencies
 
 chromatic_deployment:
   stage: UI_Tests
@@ -142,6 +145,7 @@ chromatic_deployment:
       else
         npx nx chromatic ui-mobile \
           --exit-once-uploaded
+          --storybook-build-dir=dist/storybook/ui-mobile
       fi
   dependencies:
     - install_dependencies
