@@ -14,6 +14,7 @@ export default {
       resizeMode: 'contain',
       backgroundColor: '#ffffff',
     },
+    jsEngine: 'hermes',
     updates: {
       fallbackToCacheTimeout: 0,
     },
@@ -39,7 +40,6 @@ export default {
       favicon: './assets/images/logo-bank.png',
       bundler: 'metro',
     },
-    jsEngine: 'hermes',
     plugins: [
       withDisabledAndroidLint,
       'expo-font',
