@@ -1,4 +1,5 @@
 import 'dotenv/config';
+const withDisabledAndroidLint = require('./expo-plugins/disable-android-lint');
 
 export default {
   expo: {
@@ -40,6 +41,7 @@ export default {
     },
     jsEngine: 'hermes',
     plugins: [
+      withDisabledAndroidLint,
       'expo-font',
       'expo-localization',
       [
@@ -65,6 +67,7 @@ export default {
           },
           android: {
             usesClearTextTraffic: false,
+            minSdkVersion: 24, // does-not prevent lint pb on android with
           },
         },
       ],
