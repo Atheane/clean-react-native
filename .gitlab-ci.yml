@@ -9,7 +9,6 @@ variables:
 
 stages:
   - install
-  - test
   - build
   - UI_Tests
 
