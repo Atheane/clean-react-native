@@ -1,4 +1,5 @@
 import 'dotenv/config';
+const withDisabledAndroidLint = require('./expo-plugins/disable-android-lint');
 
 export default {
   expo: {
@@ -13,6 +14,7 @@ export default {
       resizeMode: 'contain',
       backgroundColor: '#ffffff',
     },
+    jsEngine: 'hermes',
     updates: {
       fallbackToCacheTimeout: 0,
     },
@@ -31,13 +33,15 @@ export default {
       supportsTablet: false,
       package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.example.bankapp',
       googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_SERVICES || './google-services.json',
-      versionCode: process.env.EXPO_PUBLIC_APP_VERSION_ANDROID || '230',
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '230',
+      proguard: true, // ou false
     },
     web: {
       favicon: './assets/images/logo-bank.png',
       bundler: 'metro',
     },
     plugins: [
+      withDisabledAndroidLint,
       'expo-font',
       'expo-localization',
       [
@@ -63,6 +67,7 @@ export default {
           },
           android: {
             usesClearTextTraffic: false,
+            minSdkVersion: 24, // does-not prevent lint pb on android with
           },
         },
       ],
