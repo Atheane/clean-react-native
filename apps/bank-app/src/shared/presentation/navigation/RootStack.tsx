@@ -36,6 +36,7 @@ import {
   EmailSent,
   SignupPhone,
   SignupCongrats,
+  SignupRevenues,
 } from '../../../user/presentation/screens';
 import { CguPdf } from '../../../shared/presentation/screens';
 
@@ -267,6 +268,14 @@ export const AuthStack = () => {
         }}
         name={IUserStackPages.SIGNUP_ADDRESS}
         component={SignupAddress}
+      />
+      <Stack.Screen
+        options={{
+          headerTitle: navigationStack.length > 1 ? t(`screens.signup-revenues.title`) : '',
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+        name={IUserStackPages.SIGNUP_REVENUES}
+        component={SignupRevenues}
       />
       <Stack.Screen
         options={{

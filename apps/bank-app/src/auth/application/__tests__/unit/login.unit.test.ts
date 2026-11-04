@@ -8,7 +8,7 @@ import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AuthError, Email, Password } from '@clean-rn/auth/domain';
 import { KYC_REVIEW } from '@clean-rn/user/domain';
 
-import { UserApi, mapUserServerToUserProperties } from '@clean-rn/user/infrastructure';
+import { UserApi, UserMapper } from '@clean-rn/user/infrastructure';
 import { Card, CardError, ICardStatuses } from '@clean-rn/card/domain';
 import { CardApi } from '@clean-rn/card/infrastructure';
 import { AuthApi, IAuthServerCode } from '@clean-rn/auth/infrastructure';
@@ -215,7 +215,7 @@ describe('Login - usecase', () => {
   });
 
   it('Should call loginSuccess if user is a man', async () => {
-    const user = mapUserServerToUserProperties(mockUserManData);
+    const user = await UserMapper.toDomain(mockUserManData);
     user.setConfig({ lang: 'fr' });
 
     testSaga(loginGenerator, httpConnection, {
@@ -246,7 +246,7 @@ describe('Login - usecase', () => {
   });
 
   it('Should call loginSuccess if user is a woman and locales differs from user config', async () => {
-    const user = mapUserServerToUserProperties(mockUserWomanData);
+    const user = await UserMapper.toDomain(mockUserWomanData);
     user.setConfig({ lang: 'en' });
 
     testSaga(loginGenerator, httpConnection, {
@@ -284,7 +284,7 @@ describe('Login - usecase', () => {
     const serverError = new ServerError(mockError403CardForbidden);
     serverError.statusCode = 403;
 
-    const user = mapUserServerToUserProperties(mockUserNeutralData);
+    const user = await UserMapper.toDomain(mockUserNeutralData);
     user.setConfig({ lang: 'fr' });
 
     testSaga(loginGenerator, httpConnection, {

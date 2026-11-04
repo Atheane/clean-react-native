@@ -14,6 +14,7 @@ import {
   ISignupUserCommand,
   IUpdateUserConfigCommand,
   IUpdateUserCommand,
+  IRegisterRevenuesCommand,
 } from '@clean-rn/user/domain';
 import {
   IUserActions,
@@ -46,6 +47,8 @@ import {
   ILanguageUpdated,
   IFetchUpdateUser,
   IUserUpdated,
+  IRegisterRevenues,
+  IRevenuessRegistered,
 } from './types';
 import { IContactErrorCodes, IContactErrorMessage } from '@clean-rn/contact/domain';
 import { IRoutes } from '../../../shared/presentation/types';
@@ -107,6 +110,11 @@ export const fetchUpdateLanguage = (payload: IUpdateUserConfigCommand): IFetchUp
 
 export const fetchUpdateUser = (payload: IUpdateUserCommand & { nextRoute: IRoutes }): IFetchUpdateUser => ({
   type: IUserTypes.FETCH_UPDATE_USER,
+  payload,
+});
+
+export const registerRevenues = (payload: IRegisterRevenuesCommand): IRegisterRevenues => ({
+  type: IUserTypes.REGISTER_REVENUES,
   payload,
 });
 
@@ -188,6 +196,11 @@ export const languageUpdated = (payload: { user: User }): ILanguageUpdated => ({
 
 export const userUpdated = (payload: User): IUserUpdated => ({
   type: IUserTypes.USER_UPDATED,
+  payload,
+});
+
+export const revenuesRegistered = (payload: User): IRevenuessRegistered => ({
+  type: IUserTypes.REVENUES_REGISTERED,
   payload,
 });
 

@@ -45,11 +45,9 @@ export function* signupUserGenerator(
 
     const api = UserApi.getInstance(httpConnection);
     yield call([api, api.createUser], {
-      ...payload.user.properties,
+      user: payload.user,
       phoneOtp: payload.phoneOtp,
-    } as IUserProperties & {
-      phoneOtp: PhoneOtp;
-    });
+    } as ISignupUserCommand);
 
     // call rather than put will wait for the end of the saga, we need it for userFromAuth
     const email = yield call(AsyncStorage.getItem, IStoreKey.USER_EMAIL);

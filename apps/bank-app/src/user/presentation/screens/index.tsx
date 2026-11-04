@@ -17,6 +17,7 @@ import { GoodBye } from './GoodBye';
 import { AccountSettings } from './AccountSettings';
 import { BankCoordinates } from './BankCoordinates';
 import { ManageBeneficiaries } from './ManageBeneficiaries';
+import { SignupRevenues } from './SignupRevenues';
 
 export {
   SignupEmail,
@@ -38,4 +39,5 @@ export {
   AccountSettings,
   BankCoordinates,
   ManageBeneficiaries,
+  SignupRevenues,
 };
