@@ -1,4 +1,4 @@
-import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
+import { HttpConnection, IHttpVerb, ServerError } from '@clean-rn/shared/infrastructure';
 import {
   User,
   IUserRepository,
@@ -11,6 +11,7 @@ import {
   IUpdateUserConfigCommand,
   IUpdateUserCommand,
   ISignupUserCommand,
+  UserError,
 } from '@clean-rn/user/domain';
 import { UserMapper } from '../mappers';
 import { IAuth } from '@clean-rn/auth/domain';
@@ -53,14 +54,20 @@ export class UserApi implements IUserRepository, IUserGateway {
   }
 
   async createUser(cmd: ISignupUserCommand): Promise<IAuth> {
-    const createUserDto = UserMapper.toCreateUserDto(cmd);
-
-    const response = await fetch(
-      `${this.connection.baseUrl}/app/user`,
-      this.connection.options(IHttpVerb.POST, createUserDto),
-    );
-    await this.connection.handleError(response);
-    return response.json();
+    try {
+      const createUserDto = UserMapper.toCreateUserDto(cmd);
+      const response = await fetch(
+        `${this.connection.baseUrl}/app/user`,
+        this.connection.options(IHttpVerb.POST, createUserDto),
+      );
+      await this.connection.handleError(response);
+      return response.json();
+    } catch (error) {
+      if (error instanceof ServerError && error.statusCode === 400) {
+        throw new UserError.SignupFailure(error);
+      }
+      throw error;
+    }
   }
 
   async searchEmail(query: ISearchEmailQuery): Promise<ISuccess> {

@@ -24,6 +24,12 @@ export enum IAuthErrorMessage {
 }
 
 export namespace AuthError {
+  export const isAuthError = (error: unknown): boolean => {
+    if (!(error instanceof Error)) return false;
+    return Object.values(AuthError)
+      .filter((value) => typeof value === 'function') // Pour ne garder que les classes d'erreur
+      .some((ErrorClass) => error instanceof ErrorClass);
+  };
   export class InvalidEmail extends Error implements IDomainError<IAuthErrorCodes, IAuthErrorMessage> {
     code: IAuthErrorCodes;
     message: IAuthErrorMessage;

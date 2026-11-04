@@ -61,6 +61,8 @@ import {
   phoneCodeSent,
   resetError,
   revenuesRegistered,
+  initializeUser,
+  userNotCreated,
 } from '../../commands';
 import { IStoreKey } from '../../../../shared/application/types';
 import { loadStorage } from '../../../../shared/application/commands/initialize-application';
@@ -934,7 +936,7 @@ describe('Signup - usecase', () => {
       .next(userPrev.properties.email?.value);
   });
 
-  it('Should call InvalidPassword action if missing password', () => {
+  it('Should call UserNotCreated action if missing password', () => {
     const userPrev = User.CreateFromEmail(new Email('test@example.com'));
 
     testSaga(signupUserGenerator, httpConnection, {
@@ -945,13 +947,13 @@ describe('Signup - usecase', () => {
       },
     })
       .next()
-      .put(resetError())
+      .put(initializeUser())
       .next()
-      .put(showUnknownError(new AuthError.InvalidPassword()))
+      .put(userNotCreated(new AuthError.InvalidPassword()))
       .next();
   });
 
-  it('Should call InvalidEmailaction if missing email', () => {
+  it('Should call UserNotCreated action if missing email', () => {
     const userPrev = User.Create({ id: 123, properties: {} });
 
     testSaga(signupUserGenerator, httpConnection, {
@@ -962,9 +964,35 @@ describe('Signup - usecase', () => {
       },
     })
       .next()
-      .put(resetError())
+      .put(initializeUser())
       .next()
-      .put(showUnknownError(new AuthError.InvalidEmail()))
+      .put(userNotCreated(new AuthError.InvalidEmail()))
+      .next();
+  });
+
+  it('should call UserNotCreated action if signup fails', () => {
+    const userPrev = User.CreateFromEmail(new Email('test@example.com'));
+    userPrev.registerIdentity(mockIdentity);
+    userPrev.registerPassword(mockPassword.password);
+    userPrev.validatePhone(mockQueryPhoneOtp);
+    userPrev.registerBirth(mockBirth);
+    const user = userPrev;
+    const uid = '123';
+    user.signup({ id: uid, properties: user.properties as IUserProperties });
+
+    testSaga(signupUserGenerator, httpConnection, {
+      type: IUserTypes.FETCH_SIGNUP_USER,
+      payload: {
+        user: userPrev,
+        phoneOtp: mockQueryPhoneOtp.phoneOtp,
+      },
+    })
+      .next()
+      .call([userApi, userApi.createUser], { user: userPrev, phoneOtp: mockQueryPhoneOtp.phoneOtp })
+      .throw(new UserError.SignupFailure(mockError400))
+      .put(initializeUser())
+      .next()
+      .put(userNotCreated(new UserError.SignupFailure(mockError400)))
       .next();
   });
 
@@ -982,7 +1010,7 @@ describe('Signup - usecase', () => {
       .next()
       .call([userApi, userApi.createUser], { user: userPrev, phoneOtp: mockQueryPhoneOtp.phoneOtp })
       .throw(new ServerError(mockError500))
-      .put(resetError())
+      .put(initializeUser())
       .next()
       .put(showUnknownError(new ServerError(mockError500)))
       .next();

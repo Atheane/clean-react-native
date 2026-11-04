@@ -25,6 +25,7 @@ export const SignupRevenues = () => {
   const dispatch = useDispatch();
 
   const { error } = useSelector((state: IRootState) => state.user);
+
   const onSubmit = useCallback(
     (formData: ISignupRevenuesFormData) => {
       dispatch(registerRevenues(formData));
