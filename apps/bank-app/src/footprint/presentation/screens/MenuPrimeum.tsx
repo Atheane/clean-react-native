@@ -41,7 +41,7 @@ const Header = () => {
     t('screens.menu-primeum.step-three'),
   ];
 
-  const [currentPosition, setCurrentPosition] = useState(1);
+  const [currentPosition, _] = useState(1);
 
   return (
     <View style={styles.header}>

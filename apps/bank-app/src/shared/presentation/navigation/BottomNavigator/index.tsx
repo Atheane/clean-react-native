@@ -10,9 +10,9 @@ import {
   Home as HomeIcon,
   Transfer as TransferIcon,
   Settings as SettingsIcon,
-  CarbonReward,
   LoaderSplashScreen,
   Carbon as CarbonIcon,
+  Energy as EnergyIcon,
 } from '@clean-rn/ui-mobile';
 import {
   IRootTabParamList,
@@ -23,6 +23,7 @@ import {
   ITransactionStackPages,
   IParametersStackPages,
   ICardStackPages,
+  IEnergyStackPages,
 } from '../../types';
 
 import { AccountStack } from '../../../../account/presentation/navigation';
@@ -32,6 +33,7 @@ import { KycStack } from '../../../../kyc/presentation/navigation';
 import { BeneficiaryStack } from '../../../../beneficiary/presentation/navigation';
 import { TransactionStack } from '../../../../transaction/presentation/navigation';
 import { CardStack } from '../../../../card/presentation/navigation';
+import { EnergyStack } from '../../../../energy/presentation/navigation';
 import { IRootState } from '../../../application/state-management/reducers/root-reducer';
 
 const Tab = createBottomTabNavigator<IRootTabParamList>();
@@ -46,8 +48,8 @@ export const BottomTabNavigator = () => {
     userConfigCat = new ConfigCatUser(email.value, email.value);
   }
 
-  const { value: featureTagLegacy, loading: loadingLegacy } = useFeatureFlag(
-    'bank-legacy',
+  const { value: featureEnergyApp, loading: loadingLegacy } = useFeatureFlag(
+    'energy-app',
     false,
     userConfigCat,
   );
@@ -102,13 +104,7 @@ export const BottomTabNavigator = () => {
         options={() => ({
           title: t('screens.footprint-estimation.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
-            featureTagLegacy ? (
-              focused ? (
-                <CarbonReward />
-              ) : (
-                <CarbonReward color={Colors.primary.grey} />
-              )
-            ) : focused ? (
+            focused ? (
               <CarbonIcon
                 color={Colors.primary.lightGreen}
                 startColor={Colors.primary.grey}
@@ -121,6 +117,23 @@ export const BottomTabNavigator = () => {
             focused ? <Text style={styles.tab}> {t('screens.footprint-estimation.tab')}</Text> : '',
         })}
       />
+      {featureEnergyApp && (
+        <Tab.Screen
+          name={IEnergyStackPages.MENU}
+          component={EnergyStack}
+          options={() => ({
+            title: t('screens.energy.title'),
+            tabBarIcon: ({ focused }: { focused: boolean }) =>
+              focused ? (
+                <EnergyIcon width={26} height={26} />
+              ) : (
+                <EnergyIcon width={26} height={26} color={Colors.primary.grey} />
+              ),
+            tabBarLabel: ({ focused }: { focused: boolean }) =>
+              focused ? <Text style={[styles.tab, { marginTop: 0 }]}> {t('screens.energy.tab')}</Text> : '',
+          })}
+        />
+      )}
       <Tab.Screen
         name={IParametersStackPages.MENU}
         component={ParametersStack}
@@ -155,5 +168,6 @@ const styles = StyleSheet.create({
     fontSize: 9,
     fontFamily: FontNames.MartelSans_600SemiBold,
     color: Colors.primary.lightGreen,
+    textTransform: 'uppercase',
   },
 });

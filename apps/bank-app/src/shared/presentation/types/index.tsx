@@ -13,6 +13,7 @@ export type IRootStackParamList = {
   MenuParameters: NavigatorScreenParams<IRootTabParamList> | undefined;
   MenuKyc: NavigatorScreenParams<IRootTabParamList> | undefined;
   MenuCard: NavigatorScreenParams<IRootTabParamList> | undefined;
+  MenuEnergy: NavigatorScreenParams<IRootTabParamList> | undefined;
   ModalError: undefined;
   ModalWebView: undefined;
   Legal: undefined;
@@ -35,6 +36,7 @@ export type IRootTabParamList = {
   MenuTransfer: undefined;
   MenuKyc: undefined;
   MenuCard: undefined;
+  MenuEnergy: undefined;
 };
 
 export type ISharedStackParamList = {
@@ -132,6 +134,15 @@ export type ICardStackParamLimit = {
   ShowPin: undefined;
   LockCard: undefined;
   LockCardSuccess: undefined;
+};
+
+export type IEnergyStackParamList = {
+  MenuEnergy: undefined;
+  HelpComfortPrice: undefined;
+  WinGreenEuros: undefined;
+  AdaptTemperature: undefined;
+  RenovateMyHouse: undefined;
+  MyEnergyConsumption: undefined;
 };
 
 export enum ISharedStackPages {
@@ -242,6 +253,15 @@ export enum ICardStackPages {
   LOCK_CARD_SUCCESS = 'LockCardSuccess',
 }
 
+export enum IEnergyStackPages {
+  MENU = 'MenuEnergy',
+  HELP_COMFORT_PRICE = 'HelpComfortPrice',
+  WIN_GREEN_EUROS = 'WinGreenEuros',
+  ADAPT_TEMPERATURE = 'AdaptTemperature',
+  RENOVATE_MY_HOUSE = 'RenovateMyHouse',
+  MY_ENERGY_CONSUMPTION = 'MyEnergyConsumption',
+}
+
 export type ISharedStackProps = {
   [ISharedStackPages.HOME]: object;
   [ISharedStackPages.MODAL_ERROR]: object;
@@ -350,6 +370,15 @@ export type ICardStackProps = {
   [ICardStackPages.LOCK_CARD_SUCCESS]: object;
 };
 
+export type IEnergyStackProps = {
+  [IEnergyStackPages.MENU]: object;
+  [IEnergyStackPages.HELP_COMFORT_PRICE]: object;
+  [IEnergyStackPages.WIN_GREEN_EUROS]: object;
+  [IEnergyStackPages.ADAPT_TEMPERATURE]: object;
+  [IEnergyStackPages.RENOVATE_MY_HOUSE]: object;
+  [IEnergyStackPages.MY_ENERGY_CONSUMPTION]: object;
+};
+
 export type IRoutes =
   | ISharedStackPages.HOME
   | ISharedStackPages.MODAL_ERROR
@@ -428,4 +457,10 @@ export type IRoutes =
   | ICardStackPages.CHANGE_PIN_SUCCESS
   | ICardStackPages.SHOW_PIN
   | ICardStackPages.LOCK_CARD
-  | ICardStackPages.LOCK_CARD_SUCCESS;
+  | ICardStackPages.LOCK_CARD_SUCCESS
+  | IEnergyStackPages.MENU
+  | IEnergyStackPages.HELP_COMFORT_PRICE
+  | IEnergyStackPages.WIN_GREEN_EUROS
+  | IEnergyStackPages.ADAPT_TEMPERATURE
+  | IEnergyStackPages.RENOVATE_MY_HOUSE
+  | IEnergyStackPages.MY_ENERGY_CONSUMPTION;

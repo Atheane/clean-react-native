@@ -108,7 +108,7 @@ export const Home = () => {
           model,
           os,
           osVersion,
-          appVersion: process.env.EXPO_PUBLIC_APP_VERSION || '1.0.8',
+          appVersion: process.env.EXPO_PUBLIC_APP_VERSION || '2.3.1',
         }),
       );
     }

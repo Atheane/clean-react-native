@@ -1,5 +1,6 @@
 // Banners
 import { Banner } from './banners/banner';
+import { EarnedAmountBanner } from './banners/earned-amount';
 // Backgrounds
 import { BottomBackground } from './backgrounds/bottom-background';
 import { ScrollBackground } from './backgrounds/scroll-background';
@@ -27,6 +28,7 @@ import { UploadDocumentCard } from './cards/upload-document-card';
 import { TransferCard } from './cards/transfer-card';
 import { BeneficiaryCard } from './cards/beneficiary-card';
 import { ContactCard } from './cards/contact-card';
+import { TileDashboard } from './cards/tile-dashboard';
 // Charts
 import { StackedBars } from './charts/stacked-bars';
 import { ScatterPlot } from './charts/scatter-plot';
@@ -93,6 +95,7 @@ import { NoCO2 } from './texts/no-co2';
 export {
   // Banners
   Banner,
+  EarnedAmountBanner,
   // Backgrounds
   BottomBackground,
   ScrollBackground,
@@ -122,6 +125,7 @@ export {
   TransferCard,
   BeneficiaryCard,
   ContactCard,
+  TileDashboard,
   // Charts
   StackedBars,
   ScatterPlot,
