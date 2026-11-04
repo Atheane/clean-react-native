@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { call, put, select, StrictEffect, takeEvery } from 'redux-saga/effects';
+import { call, cancel, put, select, StrictEffect, takeEvery } from 'redux-saga/effects';
 import { HeaterVO, FootprintError } from '@clean-rn/footprint/domain';
-import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { FootprintApi } from '@clean-rn/footprint/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
@@ -37,23 +37,16 @@ export function* addHeatersGenerator(
     // check if house already exists
     house = yield call([footprintApi, footprintApi.addHeaters], {
       house,
-      heaters: heatersVO,
+      heatersVO: heatersVO,
     });
 
     yield put(heatersAdded(house));
   } catch (error: any) {
-    console.log(error);
     yield put(initializeFootprint());
-    if (
-      error instanceof FootprintError.InvalidHeaterDate ||
-      error instanceof FootprintError.InvalidHeaterType ||
-      error instanceof FootprintError.InvalidHeaterUsage
-    ) {
+    if (FootprintError.isFootprintError(error)) {
       yield put(heatersNotAdded(error));
-    } else if (error instanceof ServerError && error.statusCode === 400) {
-      yield put(heatersNotAdded(new FootprintError.HeaterAlreadyExists()));
-    } else {
-      yield put(showUnknownError(error as Error));
+      yield cancel();
     }
+    yield put(showUnknownError(error as Error));
   }
 }

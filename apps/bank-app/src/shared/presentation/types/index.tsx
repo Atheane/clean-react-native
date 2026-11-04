@@ -13,6 +13,7 @@ export type IRootStackParamList = {
   MenuParameters: NavigatorScreenParams<IRootTabParamList> | undefined;
   MenuKyc: NavigatorScreenParams<IRootTabParamList> | undefined;
   MenuCard: NavigatorScreenParams<IRootTabParamList> | undefined;
+  MenuEnergy: NavigatorScreenParams<IRootTabParamList> | undefined;
   ModalError: undefined;
   ModalWebView: undefined;
   Legal: undefined;
@@ -35,6 +36,7 @@ export type IRootTabParamList = {
   MenuTransfer: undefined;
   MenuKyc: undefined;
   MenuCard: undefined;
+  MenuEnergy: undefined;
 };
 
 export type ISharedStackParamList = {
@@ -60,6 +62,7 @@ export type IUserStackParamList = {
   SignupCongrats: undefined;
   EmailSent: undefined;
   SignupPhone: undefined;
+  SignupRevenues: undefined;
 };
 
 export type IAccountStackParamList = {
@@ -134,6 +137,15 @@ export type ICardStackParamLimit = {
   LockCardSuccess: undefined;
 };
 
+export type IEnergyStackParamList = {
+  MenuEnergy: undefined;
+  HelpComfortPrice: undefined;
+  WinGreenEuros: undefined;
+  AdaptTemperature: undefined;
+  RenovateMyHouse: undefined;
+  MyEnergyConsumption: undefined;
+};
+
 export enum ISharedStackPages {
   HOME = 'Home',
   MODAL_ERROR = 'ModalError',
@@ -157,6 +169,7 @@ export enum IUserStackPages {
   EMAIL_SENT = 'EmailSent',
   SIGNUP_PHONE = 'SignupPhone',
   SIGNUP_CONGRATS = 'SignupCongrats',
+  SIGNUP_REVENUES = 'SignupRevenues',
 }
 
 export enum IParametersStackPages {
@@ -207,10 +220,10 @@ export enum IFootprintStackPages {
   FLY_FOOTPRINT_ESTIMATION = 'FlyFootprintEstimation',
   WARNING_FOOD_FOOTPRINT_ESTIMATION = 'WarningFoodFootprintEstimation',
   MENU_PRIMEUM = 'MenuPrimeum',
-  HEATERS = 'Heaters',
-  WORKS = 'Works',
-  TRANSPORT = 'Transport',
-  HOUSEHOLD = 'Household',
+  HEATERS_SITUATION = 'HeatersSituation',
+  WORKS_SITUATION = 'WorksSituation',
+  TRANSPORT_SITUATION = 'TransportSituation',
+  HOUSEHOLD_SITUATION = 'HouseholdSituation',
 }
 
 export enum IKycStackPages {
@@ -242,6 +255,15 @@ export enum ICardStackPages {
   LOCK_CARD_SUCCESS = 'LockCardSuccess',
 }
 
+export enum IEnergyStackPages {
+  MENU = 'MenuEnergy',
+  HELP_COMFORT_PRICE = 'HelpComfortPrice',
+  WIN_GREEN_EUROS = 'WinGreenEuros',
+  ADAPT_TEMPERATURE = 'AdaptTemperature',
+  RENOVATE_MY_HOUSE = 'RenovateMyHouse',
+  MY_ENERGY_CONSUMPTION = 'MyEnergyConsumption',
+}
+
 export type ISharedStackProps = {
   [ISharedStackPages.HOME]: object;
   [ISharedStackPages.MODAL_ERROR]: object;
@@ -265,6 +287,7 @@ export type IUserStackProps = {
   [IUserStackPages.SIGNUP_CONGRATS]: object;
   [IUserStackPages.EMAIL_SENT]: object;
   [IUserStackPages.SIGNUP_PHONE]: object;
+  [IUserStackPages.SIGNUP_REVENUES]: object;
 };
 
 export type IParametersStackProps = {
@@ -306,10 +329,10 @@ export type IFootprintStackProps = {
   [IFootprintStackPages.FLY_FOOTPRINT_ESTIMATION]: object;
   [IFootprintStackPages.WARNING_FOOD_FOOTPRINT_ESTIMATION]: object;
   [IFootprintStackPages.MENU_PRIMEUM]: object;
-  [IFootprintStackPages.HEATERS]: object;
-  [IFootprintStackPages.WORKS]: object;
-  [IFootprintStackPages.TRANSPORT]: object;
-  [IFootprintStackPages.HOUSEHOLD]: object;
+  [IFootprintStackPages.HEATERS_SITUATION]: object;
+  [IFootprintStackPages.WORKS_SITUATION]: object;
+  [IFootprintStackPages.TRANSPORT_SITUATION]: object;
+  [IFootprintStackPages.HOUSEHOLD_SITUATION]: object;
 };
 
 export type IKycStackProps = {
@@ -350,6 +373,15 @@ export type ICardStackProps = {
   [ICardStackPages.LOCK_CARD_SUCCESS]: object;
 };
 
+export type IEnergyStackProps = {
+  [IEnergyStackPages.MENU]: object;
+  [IEnergyStackPages.HELP_COMFORT_PRICE]: object;
+  [IEnergyStackPages.WIN_GREEN_EUROS]: object;
+  [IEnergyStackPages.ADAPT_TEMPERATURE]: object;
+  [IEnergyStackPages.RENOVATE_MY_HOUSE]: object;
+  [IEnergyStackPages.MY_ENERGY_CONSUMPTION]: object;
+};
+
 export type IRoutes =
   | ISharedStackPages.HOME
   | ISharedStackPages.MODAL_ERROR
@@ -367,6 +399,7 @@ export type IRoutes =
   | IUserStackPages.SIGNUP_CONGRATS
   | IUserStackPages.EMAIL_SENT
   | IUserStackPages.SIGNUP_PHONE
+  | IUserStackPages.SIGNUP_REVENUES
   | IParametersStackPages.MENU
   | IParametersStackPages.PARAMETERS
   | IParametersStackPages.PROFILE_IDENTITY
@@ -396,10 +429,10 @@ export type IRoutes =
   | IFootprintStackPages.FLY_FOOTPRINT_ESTIMATION
   | IFootprintStackPages.WARNING_FOOD_FOOTPRINT_ESTIMATION
   | IFootprintStackPages.MENU_PRIMEUM
-  | IFootprintStackPages.HEATERS
-  | IFootprintStackPages.WORKS
-  | IFootprintStackPages.TRANSPORT
-  | IFootprintStackPages.HOUSEHOLD
+  | IFootprintStackPages.HEATERS_SITUATION
+  | IFootprintStackPages.WORKS_SITUATION
+  | IFootprintStackPages.TRANSPORT_SITUATION
+  | IFootprintStackPages.HOUSEHOLD_SITUATION
   | IKycStackPages.MENU
   | IKycStackPages.INIT
   | IKycStackPages.KYC
@@ -428,4 +461,10 @@ export type IRoutes =
   | ICardStackPages.CHANGE_PIN_SUCCESS
   | ICardStackPages.SHOW_PIN
   | ICardStackPages.LOCK_CARD
-  | ICardStackPages.LOCK_CARD_SUCCESS;
+  | ICardStackPages.LOCK_CARD_SUCCESS
+  | IEnergyStackPages.MENU
+  | IEnergyStackPages.HELP_COMFORT_PRICE
+  | IEnergyStackPages.WIN_GREEN_EUROS
+  | IEnergyStackPages.ADAPT_TEMPERATURE
+  | IEnergyStackPages.RENOVATE_MY_HOUSE
+  | IEnergyStackPages.MY_ENERGY_CONSUMPTION;

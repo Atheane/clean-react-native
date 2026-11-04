@@ -4,6 +4,8 @@ import { createTheme } from '@rneui/themed';
 
 import { FontNames, Colors, NEEDS_SMALL_TEXT } from '../constants';
 
+const windowWidth = Dimensions.get('window').width;
+
 declare module '@rneui/themed' {
   export interface Theme {
     buttons: {
@@ -34,9 +36,8 @@ declare module '@rneui/themed' {
         short: StyleProp<ViewStyle>;
         long: StyleProp<ViewStyle>;
         kpi: StyleProp<ViewStyle>;
-      };
-      tile: {
-        kpi: StyleProp<ViewStyle>;
+        dashboard: StyleProp<ViewStyle>;
+        tile: StyleProp<ViewStyle>;
       };
       input: StyleProp<ViewStyle>;
     };
@@ -80,6 +81,8 @@ const COEFF = 0.75;
 const SHORT_CARD_RATIO = 168 / 228;
 const LONG_CARD_RATIO = 85 / 356;
 const KPI_CARD_RATIO = 112 / 174;
+const TILE_KPI_CARD_RATIO = 76 / 103;
+const DASHBOARD_CARD_RATIO = 180 / 357;
 
 export const theme = createTheme({
   buttons: {
@@ -175,23 +178,29 @@ export const theme = createTheme({
         backgroundColor: Colors.primary.white,
         padding: 8,
       },
-    },
-    tile: {
-      kpi: {
-        width: Dimensions.get('window').width * 0.46,
-        height: Dimensions.get('window').width * 0.46 * KPI_CARD_RATIO,
+      dashboard: {
+        width: Dimensions.get('window').width * 0.9,
+        height: Dimensions.get('window').width * 0.9 * DASHBOARD_CARD_RATIO,
         marginHorizontal: 16,
-        borderRadius: 8,
+        borderRadius: 19,
         backgroundColor: Colors.primary.white,
         padding: 8,
       },
+      tile: {
+        width: Dimensions.get('window').width * 0.26,
+        height: Dimensions.get('window').width * 0.26 * TILE_KPI_CARD_RATIO,
+        marginHorizontal: 4,
+        borderRadius: 12,
+        backgroundColor: Colors.primary.lightGrey,
+        padding: 4,
+      },
     },
     input: {
-      width: Dimensions.get('window').width * COEFF,
+      width: windowWidth > 768 ? 400 : windowWidth * COEFF, // 768px est un breakpoint courant pour tablette
       backgroundColor: Colors.primary.lightGrey,
       borderRadius: 8,
       marginTop: 11,
-      marginBottom: -16, // override of default input bottomMargin
+      marginBottom: 16, // override of default input bottomMargin
       borderBottomWidth: 0,
     },
   },
@@ -376,7 +385,7 @@ export const theme = createTheme({
     },
     whiteGraphTitle: {
       fontFamily: FontNames.Roboto_700Bold,
-      fontSize: NEEDS_SMALL_TEXT ? 36 : 42,
+      fontSize: NEEDS_SMALL_TEXT ? 34 : 36,
       color: Colors.primary.white,
     },
   },

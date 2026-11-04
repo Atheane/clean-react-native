@@ -32,9 +32,9 @@ import {
   TransactionTransport as TRANSPORT,
   TransactionTravel as TRAVEL,
   TransactionVehicle as VEHICLE,
-} from '../../../assets';
+} from '@clean-rn/ui-mobile';
 
-import { TransactionItem } from '../../items/transaction-item';
+import { TransactionItem } from '../transaction-item';
 
 type IProps = {
   date: string;

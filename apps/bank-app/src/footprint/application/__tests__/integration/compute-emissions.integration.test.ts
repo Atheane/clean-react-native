@@ -115,6 +115,7 @@ describe('Compute emissions - integration', () => {
       },
       house: null,
       footprint: null,
+      transport: null,
       error: null,
     };
     sagaTester = new SagaTester({
@@ -160,6 +161,7 @@ describe('Compute emissions - integration', () => {
       },
       house: null,
       footprint: null,
+      transport: null,
       error: null,
     });
   });
@@ -200,6 +202,7 @@ describe('Compute emissions - integration', () => {
       },
       house: null,
       footprint: null,
+      transport: null,
       error: null,
     });
   });
@@ -235,6 +238,7 @@ describe('Compute emissions - integration', () => {
       },
       house: null,
       footprint: null,
+      transport: null,
       error: null,
     });
   });
@@ -271,6 +275,7 @@ describe('Compute emissions - integration', () => {
       },
       house: null,
       footprint: null,
+      transport: null,
       error: null,
     });
   });
@@ -311,6 +316,7 @@ describe('Compute emissions - integration', () => {
       },
       house: null,
       footprint: null,
+      transport: null,
       error: null,
     });
   });
@@ -346,6 +352,7 @@ describe('Compute emissions - integration', () => {
       },
       house: null,
       footprint: null,
+      transport: null,
       error: null,
     });
   });
@@ -382,6 +389,7 @@ describe('Compute emissions - integration', () => {
       },
       house: null,
       footprint: null,
+      transport: null,
       error: null,
     });
   });
@@ -422,6 +430,7 @@ describe('Compute emissions - integration', () => {
       },
       house: null,
       footprint: null,
+      transport: null,
       error: null,
     });
   });
@@ -457,6 +466,7 @@ describe('Compute emissions - integration', () => {
       },
       house: null,
       footprint: null,
+      transport: null,
       error: null,
     });
   });
@@ -493,6 +503,7 @@ describe('Compute emissions - integration', () => {
       },
       house: null,
       footprint: null,
+      transport: null,
       error: null,
     });
   });
@@ -533,6 +544,7 @@ describe('Compute emissions - integration', () => {
       },
       house: null,
       footprint: null,
+      transport: null,
       error: null,
     });
   });
@@ -568,6 +580,7 @@ describe('Compute emissions - integration', () => {
       },
       house: null,
       footprint: null,
+      transport: null,
       error: null,
     });
   });

@@ -12,13 +12,14 @@ import {
   IAuthStackParamList,
   ISharedStackParamList,
   IAccountStackParamList,
-  IFootprintStackParamList,
   IKycStackParamList,
   ITransactionStackParamList,
   IBeneficiaryStackParamList,
-  IProfileStackParamList,
+  IParametersStackParamList,
   IUserStackParamList,
   ICardStackParamLimit,
+  IFootprintStackParamList,
+  IEnergyStackParamList,
 } from '../types';
 
 const prefix = Linking.createURL('');
@@ -28,13 +29,14 @@ export const LinkingConfiguration: LinkingOptions<
   | IAuthStackParamList
   | ISharedStackParamList
   | IAccountStackParamList
-  | IFootprintStackParamList
   | IKycStackParamList
   | ITransactionStackParamList
   | IBeneficiaryStackParamList
-  | IProfileStackParamList
+  | IParametersStackParamList
   | IUserStackParamList
   | ICardStackParamLimit
+  | IFootprintStackParamList
+  | IEnergyStackParamList
 > = {
   prefixes: [prefix],
   config: {
@@ -57,6 +59,7 @@ export const LinkingConfiguration: LinkingOptions<
       SignupCongrats: 'signup-congrats',
       EmailSent: 'email-sent',
       SignupPhone: 'signup-phone',
+      SignupRevenues: 'signup-revenues',
       Home: {
         screens: {
           MenuAccount: {
@@ -95,10 +98,18 @@ export const LinkingConfiguration: LinkingOptions<
               WarningFood: 'warning-food',
             },
           },
-          MenuProfile: {
+          MenuParameters: {
             screens: {
-              Profile: 'profile',
+              Parameters: 'parameters',
+              AccountSettings: 'account-settings',
+              ApplicationSettings: 'application-settings',
               NotificationSettings: 'notification-settings',
+              ManageBeneficiaries: 'manage-beneficiaries',
+              BankCoordinates: 'bank-coordinates',
+              Languages: 'languages',
+              ProfileIdentity: 'profile-identity',
+              ProfileAddress: 'profile-address',
+              DeleteAccount: 'delete-account',
             },
           },
           MenuKyc: {
@@ -128,6 +139,16 @@ export const LinkingConfiguration: LinkingOptions<
               ShowPin: 'show-pin',
               LockCard: 'lock-card',
               LockCardSuccess: 'lock-card-success',
+            },
+          },
+          MenuEnergy: {
+            screens: {
+              MenuEnergy: 'menu-energy',
+              HelpComfortPrice: 'help-comfort-price',
+              WinGreenEuros: 'win-green-euros',
+              AdaptTemperature: 'adapt-temperature',
+              RenovateMyHouse: 'renovate-my-house',
+              MyEnergyConsumption: 'my-energy-consumption',
             },
           },
         },

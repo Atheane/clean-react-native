@@ -56,8 +56,12 @@ const BaseSecondaryButton: FC<IProps & { containerStyle: any; buttonStyle: any }
   <View style={containerStyle}>
     <Button
       buttonStyle={buttonStyle}
-      containerStyle={containerStyle}
-      loading={loading ?? false}
+      containerStyle={Platform.OS === 'web' ? { width: '100%' } : containerStyle}
+      loading={loading || false}
+      loadingProps={{
+        color: Colors.primary.lightGreen,
+      }}
+      loadingStyle={{ paddingLeft: 24 }}
       linearGradientProps={{
         colors: [Colors.greenGradient.lightGreen, Colors.greenGradient.darkGreen],
         start: [0, 1],
@@ -92,10 +96,16 @@ const WebSecondaryButton: FC<IProps> = (props) => {
   const { theme } = useTheme();
   const containerStyle = [
     styles.container,
-    props.long ? styles.containerLong : styles.containerShort,
     styles.webShadow,
+    props.long ? styles.containerLong : styles.containerShort,
+    { display: 'flex' },
   ];
-  const buttonStyle = [styles.button, props.iconLeft && styles.buttonLeftIcon, theme.container.centeredItems];
+  const buttonStyle = [
+    styles.button,
+    props.iconLeft && styles.buttonLeftIcon,
+    theme.container.centeredItems,
+    { flex: 1, width: '100%' },
+  ];
 
   return <BaseSecondaryButton {...props} containerStyle={containerStyle} buttonStyle={buttonStyle} />;
 };
@@ -105,16 +115,17 @@ export const SecondaryButton: FC<IProps> = Platform.OS === 'web' ? WebSecondaryB
 const styles = StyleSheet.create({
   container: {
     overflow: 'hidden',
+    borderRadius: 30,
   },
   containerLong: {
     width: '100%',
   },
   containerShort: {
-    width: 'auto',
+    width: '50%',
+    alignSelf: 'center',
   },
   webShadow: {
     boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.2)',
-    borderRadius: 30,
   },
   buttonLeftIcon: {
     paddingRight: 50,

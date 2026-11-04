@@ -1,29 +1,19 @@
-import { MenuFootprint } from './MenuFootprint';
-import { EvolutionFootprint } from './EvolutionFootprint';
-import { FootprintEstimation } from './FootprintEstimation';
-import { FoodFootprintEstimation } from './FoodFootprintEstimation';
-import { HeaterFootprintEstimation } from './HeaterFootprintEstimation';
-import { TransportFootprintEstimation } from './TransportFootprintEstimation';
-import { WarningFoodFootprintEstimation } from './WarningFoodFootprintEstimation';
-import { FlyFootprintEstimation } from './FlyFootprintEstimation';
-import { MenuPrimeum } from './MenuPrimeum';
-import { Heaters } from './Heaters';
-import { Works } from './Works';
-import { Transport } from './Transport';
-import { Household } from './Household';
+export { MenuFootprint } from './MenuFootprint';
 
-export {
-  MenuFootprint,
-  EvolutionFootprint,
-  FootprintEstimation,
-  HeaterFootprintEstimation,
-  TransportFootprintEstimation,
-  FoodFootprintEstimation,
-  WarningFoodFootprintEstimation,
-  FlyFootprintEstimation,
-  MenuPrimeum,
-  Heaters,
-  Household,
-  Works,
-  Transport,
-};
+// footprint estimation
+export { FootprintEstimation } from './FootprintEstimation';
+export { FoodFootprintEstimation } from './FoodFootprintEstimation';
+export { HeaterFootprintEstimation } from './HeaterFootprintEstimation';
+export { TransportFootprintEstimation } from './TransportFootprintEstimation';
+export { WarningFoodFootprintEstimation } from './WarningFoodFootprintEstimation';
+export { FlyFootprintEstimation } from './FlyFootprintEstimation';
+
+// real footprint
+export { EvolutionFootprint } from './EvolutionFootprint';
+
+// primeum
+export { MenuPrimeum } from './MenuPrimeum';
+export { HeatersSituation } from './HeatersSituation';
+export { WorksSituation } from './WorksSituation';
+export { TransportSituation } from './TransportSituation';
+export { HouseholdSituation } from './HouseholdSituation';

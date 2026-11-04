@@ -65,6 +65,13 @@ export const userReducer = (state = initialState, action: IUserActions) => {
         error: null,
       };
       return newState;
+    case IUserTypes.REGISTER_REVENUES:
+      newState = {
+        ...state,
+        pending: true,
+        error: null,
+      };
+      return newState;
     case IUserTypes.PHONE_VALIDATED:
       newState = {
         ...state,
@@ -95,6 +102,13 @@ export const userReducer = (state = initialState, action: IUserActions) => {
       };
       return newState;
     case IUserTypes.ADDRESS_REGISTERED:
+      newState = {
+        ...state,
+        user: action.payload,
+        error: null,
+      };
+      return newState;
+    case IUserTypes.REVENUES_REGISTERED:
       newState = {
         ...state,
         user: action.payload,
@@ -182,6 +196,13 @@ export const userReducer = (state = initialState, action: IUserActions) => {
         user: action.payload,
         pending: false,
         error: null,
+      };
+      return newState;
+    case IUserTypes.USER_NOT_CREATED:
+      newState = {
+        ...state,
+        pending: false,
+        error: action.payload,
       };
       return newState;
     case IUserTypes.INITIALIZE_USER:

@@ -17,6 +17,7 @@ export class FlyEmissions {
 
     // if not flights, zero emissions
     if (!props) {
+      this.calculateAverage();
       return;
     }
     // validate data

@@ -1,0 +1,39 @@
+# dependencies
+node_modules
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Expo specific
+.expo/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+
+# Native folders (generated)
+apps/bank-app/android
+apps/bank-app/ios
+apps/storybook/android
+apps/storybook/ios
+
+# Test artifacts
+apps/bank-app-e2e/artifacts
+apps/storybook-e2e/artifacts
+
+# Sensitive files
+.env*
+bank-app*.json
+credentials
+credentials.json

@@ -1,3 +1,4 @@
+// test UI for this one
 import { FC, useCallback, useEffect, useState } from 'react';
 import {
   View,
@@ -102,7 +103,7 @@ export const SearchModal = (props: IProps) => {
   const getItemCount = useCallback(() => filteredData.length, [filteredData]);
   const renderItem = useCallback(
     ({ item }: { item: IData }) => (
-      <View key={item.key} style={styles.itemContainer}>
+      <View key={item.key} style={Platform.OS !== 'web' && styles.itemContainer}>
         <TouchableOpacity onPress={() => handleSelect(item)}>
           <Text style={theme.text.grey}>{renderLabel(item)}</Text>
         </TouchableOpacity>
@@ -112,37 +113,43 @@ export const SearchModal = (props: IProps) => {
   );
 
   return (
-    <View>
-      <TextInput
-        placeholder={props.placeholder}
-        label={props.label}
-        IconLeft={props.icon}
-        lowerCase
-        value={selectedItem ? renderLabel(selectedItem) : ''}
-        onFocus={handleOnPress}
-        labelColor={Colors.secondary.pink}
-      />
-      {selectedItem && (
-        <TouchableOpacity onPress={handleClearInput} style={styles.closeIcon}>
-          <Close />
-        </TouchableOpacity>
-      )}
+    <View style={Platform.OS === 'web' ? styles.containerWeb : styles.container}>
+      <View style={Platform.OS === 'web' ? styles.inputWrapperWeb : styles.inputWrapper}>
+        <TextInput
+          placeholder={props.placeholder}
+          label={props.label}
+          IconLeft={props.icon}
+          lowerCase
+          value={selectedItem ? renderLabel(selectedItem) : ''}
+          onFocus={handleOnPress}
+          labelColor={Colors.secondary.pink}
+        />
+        {selectedItem && (
+          <TouchableOpacity onPress={handleClearInput} style={styles.closeButton}>
+            <Close width={16} height={16} />
+          </TouchableOpacity>
+        )}
+      </View>
+
       <Modal visible={visible} animationType={Platform.OS === 'android' ? 'fade' : 'none'}>
-        <SafeAreaView style={styles.modalContainer}>
-          <TextInput
-            placeholder={props.placeholder}
-            label={props.label}
-            IconLeft={props.icon}
-            lowerCase
-            value={searchQuery}
-            onChange={handleSearchQuery}
-            autoFocus
-          />
-          {searchQuery.length > 0 && (
-            <TouchableOpacity onPress={handleClearQuery} style={styles.closeIconModal}>
-              <Close />
-            </TouchableOpacity>
-          )}
+        <SafeAreaView style={Platform.OS === 'web' ? styles.modalContainerWeb : styles.modalContainer}>
+          <View style={Platform.OS === 'web' ? styles.inputWrapperWeb : styles.inputWrapper}>
+            <TextInput
+              placeholder={props.placeholder}
+              label={props.label}
+              IconLeft={props.icon}
+              lowerCase
+              value={searchQuery}
+              onChange={handleSearchQuery}
+              autoFocus
+            />
+            {searchQuery.length > 0 && (
+              <TouchableOpacity onPress={handleClearQuery} style={styles.closeButtonModal}>
+                <Close width={16} height={16} />
+              </TouchableOpacity>
+            )}
+          </View>
+
           <View style={styles.listContainer}>
             <VirtualizedList
               data={filteredData}
@@ -162,13 +169,48 @@ export const SearchModal = (props: IProps) => {
 const COEFF = 0.75;
 
 const styles = StyleSheet.create({
-  listContainer: {
-    marginTop: 24,
+  container: {
+    alignItems: 'center',
+    width: '100%',
+  },
+  containerWeb: {
+    width: '100%',
+    paddingLeft: 24,
+    paddingTop: 24,
+  },
+  inputWrapper: {
+    position: 'relative',
+    alignItems: 'center',
+    width: '90%',
+  },
+  inputWrapperWeb: {
+    position: 'relative',
+    width: '75%',
+  },
+  textInputContainer: {
+    width: '100%',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: '55%',
+    right: 10,
+    transform: [{ translateY: -10 }],
+    padding: 5,
+    zIndex: 1,
   },
   modalContainer: {
     flex: 1,
     marginTop: 50,
     alignItems: 'center',
+    width: '100%',
+  },
+  modalContainerWeb: {
+    width: '100%',
+    paddingLeft: 40,
+    paddingTop: 40,
+  },
+  listContainer: {
+    marginTop: 24,
   },
   itemContainer: {
     flex: 1,
@@ -178,6 +220,13 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.primary.lightGrey,
     borderBottomWidth: 1,
   },
-  closeIcon: { position: 'relative', bottom: 25, left: Dimensions.get('window').width * COEFF - 35 },
-  closeIconModal: { position: 'relative', bottom: 25, left: Dimensions.get('window').width * COEFF - 35 },
+  closeButtonModal: {
+    position: 'absolute',
+    top: '55%',
+    left: Platform.OS === 'web' ? 360 : null,
+    right: Platform.OS === 'web' ? null : 40,
+    transform: [{ translateY: -10 }],
+    padding: 5,
+    zIndex: 1,
+  },
 });

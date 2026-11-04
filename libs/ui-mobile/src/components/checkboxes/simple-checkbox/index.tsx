@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { CheckBox, useTheme } from '@rneui/themed';
 
@@ -11,6 +11,8 @@ type IProps = {
 };
 
 export const SimpleCheckBox: React.FunctionComponent<IProps> = (props: IProps) => {
+  const { theme } = useTheme();
+
   const [checked, setChecked] = useState<boolean>(props.checked);
 
   const toggleCheckbox = useCallback(
@@ -21,8 +23,12 @@ export const SimpleCheckBox: React.FunctionComponent<IProps> = (props: IProps) =
     [props],
   );
 
-  // css theme
-  const { theme } = useTheme();
+  // Réinitialization
+  useEffect(() => {
+    if (props.checked === false) {
+      setChecked(false);
+    }
+  }, [props.checked]);
 
   return (
     <CheckBox

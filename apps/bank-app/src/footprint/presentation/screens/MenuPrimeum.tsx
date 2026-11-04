@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@rneui/themed';
@@ -7,30 +8,32 @@ import { useTheme } from '@rneui/themed';
 import {
   Colors,
   FontNames,
-  TouchCardCheck,
   House as HouseGradient,
   Car as CarGradient,
   Family as FamilyGradient,
   Heat as HeatGradient,
   StepsIndicator,
   LoaderSplashScreen,
+  UploadDocumentCard,
+  SafeScrollingView,
 } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { IRoutes, IFootprintStackPages } from '../../../shared/presentation/types';
-import { useDispatch, useSelector } from 'react-redux';
-import { getHouse } from '../../application/commands';
 
-export const MenuPrimeum = () => {
-  const { theme } = useTheme();
+enum IDocumentStatus {
+  INIT = 'INIT', // form request template is created, but is not sent for review
+  CANCELED = 'CANCELED', // form request is canceled before analysis
+  PENDING = 'PENDING', // form request has pending status
+  VALIDATED = 'VALIDATED', // form request is validated
+  REFUSED = 'REFUSED', // form request is refused
+}
 
+const Header = () => {
   const { t } = useTranslation();
 
-  const navigation = useNavigation();
-  const handlePressNavigation = (route: IRoutes) => {
-    navigation.navigate(route as never);
-  };
+  const { theme } = useTheme();
 
   const STEPS = [
     t('screens.menu-primeum.step-one'),
@@ -38,13 +41,42 @@ export const MenuPrimeum = () => {
     t('screens.menu-primeum.step-three'),
   ];
 
-  const dispatch = useDispatch();
+  const [currentPosition, _] = useState(1);
 
-  useEffect(() => {
-    dispatch(getHouse());
-  }, [dispatch]);
+  return (
+    <View style={styles.header}>
+      <View style={styles.whiteContainer}>
+        <StepsIndicator
+          labels={STEPS}
+          currentPosition={currentPosition}
+          onCirclePress={(position: number) => console.log('Navigation set to: ' + STEPS[position - 1])}
+        />
+      </View>
+      <View style={styles.darkWhiteContainer}>
+        <View style={[styles.instructionContainer]}>
+          <Text>
+            <Text style={[styles.instructionText, theme.text.grey]}>
+              {t('screens.menu-primeum.instruction')}
+            </Text>
+            <Text style={[styles.instructionText, theme.text.grey, { color: Colors.primary.green }]}>
+              {t('screens.menu-primeum.ref-year')}
+            </Text>
+          </Text>
+        </View>
+      </View>
+    </View>
+  );
+};
 
-  const { house, transport, household, pending } = useSelector((state: IRootState) => state.footprint);
+export const MenuPrimeum = () => {
+  const { t } = useTranslation();
+
+  const navigation = useNavigation();
+  const handlePressNavigation = (route: IRoutes) => {
+    navigation.navigate(route as never);
+  };
+
+  const { house, transport, footprint, pending } = useSelector((state: IRootState) => state.footprint);
 
   const [heatersChecked, setHeatersChecked] = useState(false);
   const [worksChecked, setWorksChecked] = useState(false);
@@ -52,120 +84,118 @@ export const MenuPrimeum = () => {
   const [householdChecked, setHouseholdChecked] = useState(false);
 
   useEffect(() => {
-    if (house?.properties?.heaters && house.properties.heaters.length > 0) {
+    if (house?.properties?.heaters) {
       setHeatersChecked(true);
     }
-    if (house?.properties?.works && house.properties.works.length > 0) {
+    if (house?.properties?.works) {
       setWorksChecked(true);
     }
-    if (transport?.properties?.cars && transport.properties.cars.length > 0) {
+    if (transport?.properties?.vehicles) {
       setTransportChecked(true);
     }
-    if (household) {
+    if (footprint?.properties?.userId) {
       setHouseholdChecked(true);
     }
-  }, [house, transport, household]);
-
-  const [currentPosition, setCurrentPosition] = useState(1);
-  useEffect(() => {
-    if (heatersChecked && worksChecked && transportChecked && householdChecked) {
-      setCurrentPosition(2);
-    }
-  }, [heatersChecked, worksChecked, transportChecked, householdChecked]);
+  }, [house, transport, footprint, pending]);
 
   const Cards = () => {
     return pending ? (
       <LoaderSplashScreen />
     ) : (
       <View style={styles.cardContainer}>
-        <View style={styles.row}>
-          <TouchCardCheck
-            icon={() => <HeatGradient />}
-            onPress={() => handlePressNavigation(IFootprintStackPages.HEATERS)}
-            text={t('screens.menu-primeum.heat')}
-            checked={heatersChecked}
-          />
-          <TouchCardCheck
-            icon={() => <HouseGradient />}
-            onPress={() => handlePressNavigation(IFootprintStackPages.WORKS)}
-            text={t('screens.menu-primeum.works')}
-            checked={worksChecked}
-          />
-        </View>
-        <View style={styles.row}>
-          <TouchCardCheck
-            icon={() => <CarGradient />}
-            onPress={() => handlePressNavigation(IFootprintStackPages.TRANSPORT)}
-            text={t('screens.menu-primeum.transport')}
-            checked={transportChecked}
-          />
-          <TouchCardCheck
-            icon={() => <FamilyGradient />}
-            onPress={() => handlePressNavigation(IFootprintStackPages.HOUSEHOLD)}
-            text={t('screens.menu-primeum.household')}
-            checked={householdChecked}
-          />
-        </View>
+        <UploadDocumentCard
+          icon={() => <HeatGradient />}
+          onPress={() => handlePressNavigation(IFootprintStackPages.HEATERS_SITUATION)}
+          text={t('screens.menu-primeum.heat')}
+          status={heatersChecked ? IDocumentStatus.VALIDATED : IDocumentStatus.INIT}
+          errorMessage={undefined}
+          loading={false}
+          onCancel={() => {
+            return;
+          }}
+        />
+        <UploadDocumentCard
+          icon={() => <HouseGradient />}
+          onPress={() => handlePressNavigation(IFootprintStackPages.WORKS_SITUATION)}
+          text={t('screens.menu-primeum.works')}
+          status={worksChecked ? IDocumentStatus.VALIDATED : IDocumentStatus.INIT}
+          errorMessage={undefined}
+          loading={false}
+          onCancel={() => {
+            return;
+          }}
+        />
+        <UploadDocumentCard
+          icon={() => <CarGradient />}
+          onPress={() => handlePressNavigation(IFootprintStackPages.TRANSPORT_SITUATION)}
+          text={t('screens.menu-primeum.transport')}
+          status={transportChecked ? IDocumentStatus.VALIDATED : IDocumentStatus.INIT}
+          errorMessage={undefined}
+          loading={false}
+          onCancel={() => {
+            return;
+          }}
+        />
+        <UploadDocumentCard
+          icon={() => <FamilyGradient />}
+          onPress={() => handlePressNavigation(IFootprintStackPages.HOUSEHOLD_SITUATION)}
+          text={t('screens.menu-primeum.household')}
+          status={householdChecked ? IDocumentStatus.VALIDATED : IDocumentStatus.INIT}
+          errorMessage={undefined}
+          loading={false}
+          onCancel={() => {
+            return;
+          }}
+        />
       </View>
     );
   };
 
   return (
     <ErrorBoundary t={t}>
-      <View>
-        <View style={[styles.whiteContainer]}>
-          <StepsIndicator
-            labels={STEPS}
-            currentPosition={currentPosition}
-            onCirclePress={(position: number) => console.log('Navigation set to: ' + STEPS[position - 1])}
-          />
-        </View>
-        <View style={styles.darkWhiteContainer}>
-          <View style={[styles.instructionContainer]}>
-            <Text>
-              <Text style={[styles.instructionText, theme.text.grey]}>
-                {t('screens.menu-primeum.instruction')}
-              </Text>
-              <Text style={[styles.instructionText, theme.text.grey, { color: Colors.primary.green }]}>
-                {t('screens.menu-primeum.ref-year')}
-              </Text>
-            </Text>
-          </View>
-
-          <View style={[theme.container.centeredItem]}>
-            <Cards />
-          </View>
-        </View>
+      <Header />
+      <View style={styles.contentContainer}>
+        <SafeScrollingView>
+          <Cards />
+        </SafeScrollingView>
       </View>
     </ErrorBoundary>
   );
 };
 
 const styles = StyleSheet.create({
+  header: {
+    flex: 0.85,
+  },
   whiteContainer: {
-    flexDirection: 'row',
+    flex: 1,
     backgroundColor: Colors.primary.white,
   },
   instructionContainer: {
     width: '90%',
     alignSelf: 'center',
-    marginVertical: 30,
   },
   darkWhiteContainer: {
+    flex: 1,
     backgroundColor: Colors.primary.darkWhite,
+    justifyContent: 'center',
   },
   instructionText: {
     fontFamily: FontNames.MartelSans_400Regular,
     lineHeight: 22,
     textAlign: 'center',
   },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    marginVertical: 15,
+  contentContainer: {
+    flex: 2,
+    backgroundColor: Colors.primary.darkWhite,
+  },
+  blockCards: {
+    alignSelf: 'center',
+    marginTop: 10,
+    backgroundColor: Colors.primary.white,
   },
   cardContainer: {
     marginBottom: 300,
+    backgroundColor: Colors.primary.white,
   },
 });

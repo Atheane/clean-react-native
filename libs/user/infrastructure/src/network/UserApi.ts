@@ -1,10 +1,7 @@
-import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
+import { HttpConnection, IHttpVerb, ServerError } from '@clean-rn/shared/infrastructure';
 import {
   User,
   IUserRepository,
-  IUserProperties,
-  PhoneOtp,
-  IGender,
   IUserGateway,
   ISearchEmailQuery,
   ISearchPhoneQuery,
@@ -13,8 +10,10 @@ import {
   ISendPhoneValidationCommand,
   IUpdateUserConfigCommand,
   IUpdateUserCommand,
+  ISignupUserCommand,
+  UserError,
 } from '@clean-rn/user/domain';
-import { mapUserServerToUserProperties } from '../mappers';
+import { UserMapper } from '../mappers';
 import { IAuth } from '@clean-rn/auth/domain';
 
 export class UserApi implements IUserRepository, IUserGateway {
@@ -51,43 +50,24 @@ export class UserApi implements IUserRepository, IUserGateway {
     );
     await this.connection.handleError(response);
     const result = await response.json();
-    return mapUserServerToUserProperties(result);
+    return UserMapper.toDomain(result);
   }
 
-  async createUser({ phoneOtp, ...cmd }: IUserProperties & { phoneOtp: PhoneOtp }): Promise<IAuth> {
-    //map cmd to dto
-    let title: string;
-    if (cmd.identity.gender === IGender.MAN) {
-      title = 'M';
-    } else if (cmd.identity.gender === IGender.WOMAN) {
-      title = 'MME';
-    } else {
-      title = 'MLLE'; // KycProvider do not have title for neutral gender. As a reminder, we use Mlle as incorrectly encoded value for neutral gender
+  async createUser(cmd: ISignupUserCommand): Promise<IAuth> {
+    try {
+      const createUserDto = UserMapper.toCreateUserDto(cmd);
+      const response = await fetch(
+        `${this.connection.baseUrl}/app/user`,
+        this.connection.options(IHttpVerb.POST, createUserDto),
+      );
+      await this.connection.handleError(response);
+      return response.json();
+    } catch (error) {
+      if (error instanceof ServerError && error.statusCode === 400) {
+        throw new UserError.SignupFailure(error);
+      }
+      throw error;
     }
-    const params = {
-      email: cmd.email.value,
-      title,
-      firstname: cmd.identity.firstName,
-      lastname: cmd.identity.lastName,
-      phone: cmd.phone.valueInternational,
-      password: cmd.password?.value,
-      birthday: cmd.birth.birthday.value,
-      birthCountry: cmd.birth.birthCountry?.value,
-      nationality: cmd.birth.nationality.value,
-      address: {
-        ...cmd.address,
-        country: cmd.address?.country.value,
-      },
-      phoneValidationCode: phoneOtp.value,
-      specifiedUSPerson: cmd.USPerson ? 1 : 0,
-    };
-
-    const response = await fetch(
-      `${this.connection.baseUrl}/app/user`,
-      this.connection.options(IHttpVerb.POST, params),
-    );
-    await this.connection.handleError(response);
-    return response.json();
   }
 
   async searchEmail(query: ISearchEmailQuery): Promise<ISuccess> {
@@ -148,7 +128,7 @@ export class UserApi implements IUserRepository, IUserGateway {
     );
     await this.connection.handleError(response);
     const userServer = await response.json();
-    return mapUserServerToUserProperties(userServer);
+    return UserMapper.toDomain(userServer);
   }
 
   async updateUser(cmd: IUpdateUserCommand): Promise<User> {
@@ -204,7 +184,7 @@ export class UserApi implements IUserRepository, IUserGateway {
     );
     await this.connection.handleError(response);
     const userServer = await response.json();
-    return mapUserServerToUserProperties(userServer);
+    return UserMapper.toDomain(userServer);
   }
 
   async deleteUserAccount(): Promise<ISuccess> {

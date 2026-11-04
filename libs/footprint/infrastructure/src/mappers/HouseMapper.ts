@@ -1,6 +1,6 @@
-import { House } from '@clean-rn/footprint/domain';
-import { ICreateHouseCommand } from '@clean-rn/footprint/domain';
-import { HeaterMapper } from '../mappers';
+import { Heater, House, Work, ICreateHouseCommand } from '@clean-rn/footprint/domain';
+import { HeaterMapper } from '../mappers/HeaterMapper';
+import { WorkMapper } from '../mappers/WorkMapper';
 import { IHouseDto, ICreateHouseDto } from '../dtos';
 
 export class HouseMapper {
@@ -10,10 +10,28 @@ export class HouseMapper {
       houseStatus: dto.houseStatus,
     });
     if (dto.heaters) {
-      dto.heaters.forEach(async (heaterDto) => {
+      dto.heaters.forEach(async (heaterDto, index) => {
+        const heaters = [] as Heater[];
         const heater = await HeaterMapper.toDomain(heaterDto);
-        house.addHeater(heater);
+        heaters.push(heater);
+        if (index === dto.heaters.length - 1) {
+          house.addHeaters(heaters);
+        }
       });
+    }
+    if (dto.works) {
+      if (dto.works.length === 0) {
+        house.addWorks([]); // if empty array for works from back-end, we know house has no works
+      } else {
+        dto.works.forEach(async (workDto, index) => {
+          const works = [] as Work[];
+          const work = await WorkMapper.toDomain(workDto);
+          works.push(work);
+          if (index === dto.works.length - 1) {
+            house.addWorks(works);
+          }
+        });
+      }
     }
     return house;
   }

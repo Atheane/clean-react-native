@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { Colors } from '../../constants';
@@ -11,16 +11,16 @@ type IProps = {
 
 export const SafeScrollingView = ({ children, ref }: IProps) => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false} ref={ref}>
         {children}
       </KeyboardAwareScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.primary.white,
+    backgroundColor: Colors.primary.lightGrey,
   },
 });

@@ -51,18 +51,14 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-cache/
 
 apps/bank-app/android
 apps/bank-app/ios
 apps/storybook/android
 apps/storybook/ios
-apps/energy-app/android
-apps/energy-app/ios
 
 apps/bank-app-e2e/artifacts
 apps/storybook-e2e/artifacts
-apps/energy-app-e2e/artifacts
 
 .vscode/
 **/coverage/
@@ -71,10 +67,12 @@ tsconfig.tsbuildinfo
 build*
 .env*
 
-apps/bank-app/package-lock.json
-apps/storybook/package-lock.json
-
 bank-app*.json
 ios
 android
+
+credentials
+credentials.json
+
 .nx
+cache

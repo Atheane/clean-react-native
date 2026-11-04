@@ -6,5 +6,5 @@
   },
   "files": ["../../node_modules/@nx/expo/typings/svg.d.ts"],
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.spec.tsx", "test-setup.ts"],
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "../energy-app/src/presentation/screens/Notifications.tsx"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "../bank-app/src/presentation/screens/Notifications.tsx"]
 }

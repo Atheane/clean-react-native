@@ -1,3 +1,5 @@
+import { IAuthErrorMessage } from '@clean-rn/auth/domain';
+import { IAuthErrorCodes } from '@clean-rn/auth/domain';
 import { IContactErrorCodes, IContactErrorMessage } from '@clean-rn/contact/domain';
 import { IDomainError } from '@clean-rn/ddd';
 import {
@@ -14,6 +16,7 @@ import {
   ISignupUserCommand,
   IUpdateUserConfigCommand,
   IUpdateUserCommand,
+  IRegisterRevenuesCommand,
 } from '@clean-rn/user/domain';
 
 export enum IUserTypes {
@@ -32,6 +35,7 @@ export enum IUserTypes {
   RESET_ERROR = 'RESET_ERROR',
   FETCH_UPDATE_LANGUAGE = 'FETCH_UPDATE_LANGUAGE',
   FETCH_UPDATE_USER = 'FETCH_UPDATE_USER',
+  REGISTER_REVENUES = 'REGISTER_REVENUES',
   // domain events
   EMAIL_NOT_FOUND = 'EMAIL_NOT_FOUND',
   SIGNUP_FAILED = 'SIGNUP_FAILED',
@@ -47,6 +51,8 @@ export enum IUserTypes {
   LANGUAGE_UPDATED = 'LANGUAGE_UPDATED',
   USER_SAVED = 'USER_SAVED',
   USER_UPDATED = 'USER_UPDATED',
+  REVENUES_REGISTERED = 'REVENUES_REGISTERED',
+  USER_NOT_CREATED = 'USER_NOT_CREATED',
 }
 
 // commands
@@ -115,6 +121,11 @@ export type IFetchUpdateLanguage = {
 export type IFetchUpdateUser = {
   type: typeof IUserTypes.FETCH_UPDATE_USER;
   payload: IUpdateUserCommand;
+};
+
+export type IRegisterRevenues = {
+  type: typeof IUserTypes.REGISTER_REVENUES;
+  payload: IRegisterRevenuesCommand;
 };
 
 // domainEvents
@@ -190,6 +201,18 @@ export type IUserUpdated = {
   payload: User;
 };
 
+export type IRevenuessRegistered = {
+  type: typeof IUserTypes.REVENUES_REGISTERED;
+  payload: User;
+};
+
+export type IUserNotCreated = {
+  type: typeof IUserTypes.USER_NOT_CREATED;
+  payload:
+    | IDomainError<IUserErrorCodes, IUserErrorMessage>
+    | IDomainError<IAuthErrorCodes, IAuthErrorMessage>;
+};
+
 export type IUserActions =
   | IInitializeUser
   | IFetchSearchEmail
@@ -214,4 +237,7 @@ export type IUserActions =
   | IUserSaved
   | IResetError
   | IFetchUpdateUser
-  | IUserUpdated;
+  | IUserUpdated
+  | IRegisterRevenues
+  | IRevenuessRegistered
+  | IUserNotCreated;

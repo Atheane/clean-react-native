@@ -1,55 +1,60 @@
-import { Text, StyleSheet, View, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, View, TouchableOpacity, Platform, Dimensions } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 
 import { useTheme } from '@rneui/themed';
-
-import { Colors } from '../../../constants';
 
 type IProps = {
   text: string;
   rightIcon: React.FC<SvgProps>;
   leftIcon: React.FC<SvgProps>;
   onPress: () => void;
+  children?: React.ReactElement;
 };
+
+const LONG_CARD_RATIO = 85 / 356;
 
 export const LongCardIcon = (props: IProps) => {
   const { theme } = useTheme();
 
+  const containerStyle = [
+    theme.shadow.card,
+    theme.container.card.long,
+    { justifyContent: 'center' },
+    Platform.OS === 'web' && styles.webContainer,
+  ];
+
   return (
-    <TouchableOpacity
-      onPress={props.onPress}
-      activeOpacity={0.4}
-      style={[theme.shadow.card, theme.container.card.long, { justifyContent: 'center' }]}
-    >
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        {props.leftIcon && (
-          <View style={styles.leftChevronContainer}>
-            <props.leftIcon />
+    <TouchableOpacity onPress={props.onPress} activeOpacity={0.4} style={containerStyle}>
+      <View style={Platform.OS === 'web' ? { justifyContent: 'space-around' } : { alignItems: 'center' }}>
+        <View style={styles.rowContainer}>
+          {props.leftIcon && (
+            <View style={styles.leftChevronContainer}>
+              <props.leftIcon />
+            </View>
+          )}
+          <View style={styles.textContainer}>
+            <Text style={[theme.text.boldDarkBlue]}>{props.text}</Text>
           </View>
-        )}
-        <View style={styles.textContainer}>
-          <Text style={theme.text.boldDarkBlue}>{props.text}</Text>
+          {props.rightIcon && (
+            <View style={styles.rightChevronContainer}>
+              <props.rightIcon />
+            </View>
+          )}
         </View>
-        {props.rightIcon && (
-          <View style={styles.rightChevronContainer}>
-            <props.rightIcon />
-          </View>
-        )}
+        {props.children}
       </View>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    marginVertical: 8,
-    backgroundColor: Colors.primary.white,
-    flexDirection: 'row',
-    alignItems: 'center',
+  webContainer: {
+    boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+    width: '100%',
+    maxWidth: 500,
+    minHeight: Dimensions.get('window').width * 0.9 * LONG_CARD_RATIO * 0.5,
   },
-  rowContainer: {
-    marginLeft: 16,
-  },
+  rowContainer: { flexDirection: 'row', alignItems: 'center' },
   leftChevronContainer: {
     flex: 1,
     alignItems: 'flex-start',
@@ -58,8 +63,8 @@ const styles = StyleSheet.create({
   rightChevronContainer: {
     flex: 1,
     alignItems: 'flex-end',
-    marginRight: 20,
+    marginRight: 15,
   },
-  textContainer: { marginLeft: 30, marginVertical: 14 },
+  textContainer: { marginLeft: 30, marginVertical: 14, padding: 0 },
   iconContainer: { position: 'absolute', right: 12 },
 });

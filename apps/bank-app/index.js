@@ -3,6 +3,7 @@ import * as Sentry from '@sentry/react-native';
 import firebase from '@react-native-firebase/app';
 import { decode } from 'base-64';
 import Geocoder from 'react-native-geocoding';
+
 import 'reflect-metadata';
 
 import App from './src/shared/presentation/App';
@@ -32,6 +33,11 @@ if (process.env.EXPO_PUBLIC_NODE_ENV !== 'development') {
     enableNative: true,
     // We recommend adjusting this value in production.
     tracesSampleRate: 1.0,
+    _experiments: {
+      replaysSessionSampleRate: 0.1,
+      replaysOnErrorSampleRate: 1.0,
+    },
+    integrations: [Sentry.mobileReplayIntegration()],
   });
   console.log = () => {
     return;

@@ -3,11 +3,13 @@ import { StyleSheet, View, Dimensions, Text, Image, ImageSourcePropType } from '
 import { getLocales } from 'expo-localization';
 
 import { useTheme } from '@rneui/themed';
+import { Colors } from 'libs/ui-mobile/src/constants';
 
 type IProps = {
   headers: { [key: string]: ImageSourcePropType };
   bilans: { [key: string]: { [key: string]: ImageSourcePropType } };
   emissions: number;
+  small?: boolean; // Ajout de cette prop
 };
 
 enum ICategories {
@@ -24,7 +26,13 @@ const THRESHOLDS = {
 } as { [key: string]: number };
 
 const locales = getLocales();
-const country = locales[0]?.regionCode || undefined;
+const country = () => {
+  const countryLocale = locales[0]?.regionCode || 'GB';
+  if (!['FR', 'GB', 'US'].includes(countryLocale)) {
+    return 'GB';
+  }
+  return countryLocale;
+};
 
 const toCO2 = (value: number) => {
   return `${(value / 1000).toFixed(2).replace('.', ',')} tCO2`;
@@ -47,21 +55,48 @@ export const GraphCO2 = (props: IProps) => {
   }, [props.emissions]);
 
   return (
-    <View style={[styles.container, theme.container.centeredItem]}>
+    <View
+      style={[
+        styles.container,
+        theme.container.centeredItem,
+        {
+          height: props.small ? 380 : 350,
+          marginTop: props.small ? -80 : -20,
+          marginBottom: props.small ? 0 : 60,
+        },
+      ]}
+    >
       {category && (
         <View>
           <View style={[styles.textContainer, theme.container.centeredItem]}>
             <Text style={theme.text.whiteGraphTitle}>{toCO2(props.emissions)}</Text>
           </View>
-          <Image source={props.headers[category]} resizeMode="contain" style={styles.headerImage} />
+          <Image
+            source={props.headers[category]}
+            resizeMode="contain"
+            style={{
+              width: Dimensions.get('window').width * (props.small ? 0.8 : 0.9),
+            }}
+          />
         </View>
       )}
-      {country && category && props.bilans[country as keyof typeof props.bilans] && (
-        <View style={[styles.imageContainer, theme.shadow.card, theme.container.centeredItem]}>
+      {country && category && props.bilans[country() as keyof typeof props.bilans] && (
+        <View
+          style={[
+            styles.imageContainer,
+            theme.container.centeredItem,
+            {
+              height: props.small ? 200 : 240,
+            },
+          ]}
+        >
           <Image
-            source={props.bilans[country as keyof typeof props.bilans][category]}
+            source={props.bilans[country() as keyof typeof props.bilans][category]}
             resizeMode="contain"
-            style={styles.bodyImage}
+            style={{
+              width: Dimensions.get('window').width * (props.small ? 0.7 : 0.8),
+              marginHorizontal: 20,
+            }}
           />
         </View>
       )}
@@ -82,11 +117,8 @@ const styles = StyleSheet.create({
   imageContainer: {
     position: 'relative',
     top: -80,
-  },
-  headerImage: {
-    width: Dimensions.get('window').width * 0.9,
-  },
-  bodyImage: {
-    width: Dimensions.get('window').width * 0.8,
+    backgroundColor: Colors.primary.lightGrey,
+    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 20,
   },
 });

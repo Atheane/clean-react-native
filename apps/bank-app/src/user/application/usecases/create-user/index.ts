@@ -1,9 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
+import { call, cancel, put, StrictEffect, takeEvery } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { AuthError } from '@clean-rn/auth/domain';
-import { ISignupUserCommand, IUserProperties, PhoneOtp } from '@clean-rn/user/domain';
+import { AuthError, IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
+import {
+  ISignupUserCommand,
+  IUserErrorCodes,
+  IUserErrorMessage,
+  IUserProperties,
+  UserError,
+} from '@clean-rn/user/domain';
 
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { UserApi } from '@clean-rn/user/infrastructure';
@@ -19,7 +25,8 @@ import { loginSuccess } from '../../../../auth/application/commands';
 
 import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
 
-import { IUserTypes, resetError, userSignedUp } from '../../commands';
+import { initializeUser, IUserTypes, userNotCreated, userSignedUp } from '../../commands';
+import { IDomainError } from '@clean-rn/ddd';
 
 export function* signupUserSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IUserTypes.FETCH_SIGNUP_USER, signupUserGenerator, httpConnection);
@@ -45,11 +52,9 @@ export function* signupUserGenerator(
 
     const api = UserApi.getInstance(httpConnection);
     yield call([api, api.createUser], {
-      ...payload.user.properties,
+      user: payload.user,
       phoneOtp: payload.phoneOtp,
-    } as IUserProperties & {
-      phoneOtp: PhoneOtp;
-    });
+    } as ISignupUserCommand);
 
     // call rather than put will wait for the end of the saga, we need it for userFromAuth
     const email = yield call(AsyncStorage.getItem, IStoreKey.USER_EMAIL);
@@ -81,7 +86,13 @@ export function* signupUserGenerator(
     yield call(navigate, { route: IUserStackPages.SIGNUP_CONGRATS });
   } catch (e: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors
-    yield put(resetError());
-    yield put(showUnknownError(e as Error));
+    yield put(initializeUser());
+    if (UserError.isUserError(e)) {
+      yield put(userNotCreated(e as IDomainError<IUserErrorCodes, IUserErrorMessage>));
+    } else if (AuthError.isAuthError(e)) {
+      yield put(userNotCreated(e as IDomainError<IAuthErrorCodes, IAuthErrorMessage>));
+    } else {
+      yield put(showUnknownError(e as Error));
+    }
   }
 }

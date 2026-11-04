@@ -32,6 +32,7 @@ export function* computeFlyEmissionsGenerator(
       acc += new FlyEmissions(flight).value;
       return acc;
     }, 0);
+
     const avgFlyCarbonFootprint = new FlyEmissions(payload[0]).valueAverage;
 
     yield put(

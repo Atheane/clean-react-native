@@ -54,7 +54,9 @@ const allData = [parentData, ...Object.values(monthsData), ...Object.values(days
 const meta = {
   title: 'Charts/DynamicBarPlot',
   component: DynamicBarPlot,
-  argTypes: {},
+  argTypes: {
+    onDataChange: { action: 'onDataChange' },
+  },
   decorators: [(Story) => WithStatus(Story, ValidationStatus.PENDING), WithCenterView],
 } satisfies Meta<typeof DynamicBarPlot>;
 

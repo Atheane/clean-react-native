@@ -1,5 +1,4 @@
-import { Heater } from './Heater';
-import { House } from './House';
-import { Footprint } from './Footprint';
-
-export { Heater, House, Footprint };
+export { Heater } from './Heater';
+export { Work } from './Work';
+export { Vehicle } from './Vehicle';
+export { Footprint } from './Footprint';

@@ -13,6 +13,7 @@ export default {
       resizeMode: 'contain',
       backgroundColor: '#ffffff',
     },
+    jsEngine: 'hermes',
     updates: {
       fallbackToCacheTimeout: 0,
     },
@@ -21,7 +22,7 @@ export default {
       bundleIdentifier: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.example.storybookdev',
       googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_PLIST || './GoogleService-Info.plist',
       supportsTablet: false,
-      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '200',
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '230',
     },
     android: {
       adaptiveIcon: {
@@ -31,7 +32,7 @@ export default {
       supportsTablet: false,
       package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.example.storybookdev',
       googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_SERVICES || './google-services.json',
-      versionCode: process.env.EXPO_PUBLIC_APP_VERSION_ANDROID || '200',
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '230',
     },
     web: {
       favicon: './assets/images/favicon.png',

@@ -1,16 +1,15 @@
 import { Entity } from '@clean-rn/ddd';
-import { ICreateFootprintCommand } from '../commands';
-import { FootprintVO } from '../value-objects/index';
-import { FOOTPRINT_EVENTS } from '../events/index';
+import { HouseholdVO } from '../value-objects';
+import { FOOTPRINT_EVENTS } from '../events';
 
 export interface IFootprintProperties {
-  footprintId?: string;
   adultNumber: number;
   childNumber: number;
   startDate: Date;
   endDate: Date;
   userId: string;
   unit: string;
+  history?: Footprint[];
 }
 export class Footprint extends Entity<IFootprintProperties> {
   private constructor({ id, properties }: { id: string } & { properties: Partial<IFootprintProperties> }) {
@@ -18,13 +17,13 @@ export class Footprint extends Entity<IFootprintProperties> {
   }
 
   static Create({
-    footprint,
+    household,
     startDate,
     endDate,
     userId,
     unit,
   }: {
-    footprint: FootprintVO;
+    household: HouseholdVO;
     startDate: Date;
     endDate: Date;
     userId: string;
@@ -33,7 +32,7 @@ export class Footprint extends Entity<IFootprintProperties> {
     const footprintEntity = new Footprint({
       id: userId,
       properties: {
-        ...footprint.value,
+        ...household.value,
         startDate,
         endDate,
         userId,
@@ -42,5 +41,10 @@ export class Footprint extends Entity<IFootprintProperties> {
     });
     Footprint.emitStaticDomainEvent(FOOTPRINT_EVENTS.FOOTPRINT_CREATED, footprintEntity);
     return footprintEntity;
+  }
+
+  addHistory(history: Footprint[]): void {
+    this.properties.history = history;
+    this.emitDomainEvent(FOOTPRINT_EVENTS.PAST_FOOTPRINTS_ADDED, history);
   }
 }

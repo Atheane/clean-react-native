@@ -22,7 +22,7 @@ export const EvolutionFootprint = () => {
     navigation.navigate(ISharedStackPages.MODAL_WEBVIEW, { uid: URL_CO2_REWARD });
   }, [navigation]);
 
-  const TESTEURS = ['dev1@example.com'];
+  const TESTEURS = ['dev1@example.com', 'user4@example.com', 'user2@example.com'];
   const fakeData = [
     ['1100 kg', '3100 kg', '4200 kg', '0 kg'],
     ['1000 kg', '0 kg', '1000 kg', '3200 kg'],
@@ -49,9 +49,9 @@ export const EvolutionFootprint = () => {
               tableData={email?.value && TESTEURS.includes(email.value) ? fakeData : []}
               rowLabels={['2019-2020', '2022', '2023', '2024']}
               onPress={handleOnPressPremium}
-              buttonTitle={t('screens.evolution.receive')}
-              tagText={t('screens.evolution.na')}
-              baselineText={t('screens.evolution.baseline')}
+              buttonTitle={t('screens.footprint-evolution.receive')}
+              tagText={t('screens.footprint-evolution.na')}
+              baselineText={t('screens.footprint-evolution.baseline')}
             />
           </View>
         </View>

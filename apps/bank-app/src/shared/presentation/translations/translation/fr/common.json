@@ -98,6 +98,15 @@
       "required": "Montant requis",
       "invalid": "Montant invalide"
     },
+    "income": {
+      "required": "Catégorie de revenus requise"
+    },
+    "assets": {
+      "required": "Valeur du patrimoine requise"
+    },
+    "occupation": {
+      "required": "Catégorie professionnelle requise"
+    },
     "domain-error": {
       "auth": {
         "INVALID_EMAIL": "E-mail invalide",
@@ -117,7 +126,8 @@
         "SIGNUP_FAILURE_PHONE_EXISTS": "Ce téléphone est déjà enregistré",
         "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "Code incorrect",
         "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Numéro de téléphone inconnu",
-        "INVALID_ADDRESS": "Adresse invalide"
+        "INVALID_ADDRESS": "Adresse invalide",
+        "SIGNUP_FAILURE": "Erreur lors de l'inscription, veuillez réessayer"
       },
       "account": {
         "INVALID_IBAN": "IBAN invalide",
@@ -146,9 +156,10 @@
         "INVALID_HEATER_TYPE": "Le type de chauffage est requis",
         "INVALID_HEATER_USAGE": "L'usage de chauffage est requis",
         "INVALID_HEATER_DATE": "La date d'installation est requise",
-        "HEATER_ALREADY_EXISTS": "Chauffage déjà déclaré",
         "INVALID_ADULT_NUMBER": "Le nombre d'adultes doit être compris en 1 et 20",
         "INVALID_CHILD_NUMBER": "Le nombre de mineurs doit être compris en 1 et 20",
+        "VEHICLE_ALREADY_EXISTS": "Ce véhicle existe déjà",
+        "INVALID_LICENSE_PLATE": "La plaque d'immatriculation est invalide.\nExemple de format attendu : AA123BB",
         "HOUSEHOLD_ALDREADY_DECLARED": "Foyer déjà déclaré"
       },
       "kyc": {
@@ -269,6 +280,31 @@
       "placeholder": "Nationalité"
     }
   },
+  "signup-revenues": {
+    "income": {
+      "label": "Vos revenus",
+      "placeholder": "Sélectionner",
+      "LESS_THAN_1800": "inférieur à 1 800 euros / mois",
+      "BETWEEN_1800_AND_3500": "inférieur à 3 500 euros / mois",
+      "BETWEEN_3500_AND_10000": "inférieur à 10 000 euros / mois",
+      "MORE_THAN_10000": "supérieur à 10 000 euros / mois"
+    },
+    "assets": {
+      "label": "Votre patrimoine",
+      "placeholder": "Sélectionner",
+      "LESS_THAN_150K": "inférieur à 150 000 euros",
+      "BETWEEN_150K_AND_350K": "inférieur à 350 000 euros",
+      "BETWEEN_350K_AND_750K": "inférieur à 750 000 euros",
+      "MORE_THAN_750K": "supérieur à 750 000 euros"
+    },
+    "occupation": {
+      "label": "Votre catégorie professionelle",
+      "placeholder": "Sélectionner",
+      "UNEMPLOYED": "Non salarié",
+      "PRIVATE_EMPLOYEE": "Salarié du secteur privé",
+      "PUBLIC_EMPLOYEE": "Salarié du secteur public"
+    }
+  },
   "signup-address": {
     "address": {
       "label": "Adresse",
@@ -340,6 +376,10 @@
     "signup-phone": {
       "title": "Validation du mobile",
       "text": "Valider votre numéro de téléphone mobile"
+    },
+    "signup-revenues": {
+      "title": "Vérification d'identité",
+      "intro": "Pour aider à lutter contre la fraude et le blanchiment, veuillez indiquer vos informations de revenus."
     },
     "home": {
       "title": "Accueil",
@@ -459,16 +499,14 @@
       "heat": "Chauffage",
       "works": "Travaux",
       "transport": "Transport",
-      "household": "Foyer"
+      "household": "Foyer",
+      "dropdown-years": {
+        "before-2011": "Avant 2011"
+      }
     },
-    "heat-primeum": {
+    "heaters-situation": {
       "title": "Ma prime CO2",
-      "subtitle-main": "Mon chauffage principal",
-      "subtitle-sanitary": "Mon eau sanitaire",
-      "subtitle-secondary": "Mon chauffage secondaire",
-      "step-one": "Situation",
-      "step-two": "Justificatifs",
-      "step-three": "Suivi",
+      "subtitle": "Mon chauffage",
       "heater": "Type de chauffage",
       "placeholder": "Sélectionner",
       "house-main-heat": "Chauffage principal installé dans votre \nlogement :",
@@ -487,31 +525,55 @@
         "THERMAL_SOLAR": "Solaire thermique",
         "PROPANE": "Propane"
       },
-      "dropdown-years": {
-        "before-2012": "Avant 2012"
+      "has-changed": "Avez-vous changé de chauffage depuis que vous êtes dans ce logement ?",
+      "has-changed-yes": "Oui",
+      "has-changed-no": "Non",
+      "instruction-heat-type": "Type de chauffage :",
+      "instruction-heat-type-installation-date": "Date d'installation du nouveau chauffage :",
+      "instruction-heat-type-old": "Type du chauffage de l'ancien chauffage"
+    },
+    "works-situation": {
+      "title": "Ma prime CO2",
+      "subtitle": "Mes travaux",
+      "dropdown-work-type": {
+        "ROOF": "Isolation toit/comble",
+        "WALL": "Isolation murs",
+        "GROUND": "Isolation sol",
+        "WINDOW": "Installation de fenêtres isolantes",
+        "VMC": "Installation d’une VMC double flux"
       },
-      "instruction-heat-type": "Aujourd’hui, comment chauffez-vous votre logement ?",
-      "instruction-heat-type-installation-date": "Ce chauffage est installé dans le logement \n depuis :",
-      "instruction-heat-type-before": "Type de chauffage avant",
-      "instruction-sanitary-heat-type": "Aujourd’hui, votre eau chaude sanitaire est produite de quelle façon ?",
-      "instruction-sanitary-heat-installation-date": "L'eau chaude sanitaire est installé depuis :",
-      "instruction-sanitary-heat-type-before": "Type d'eau chaude sanitaire avant",
-      "instruction-secondary-heat-type": "Si votre logement possède un chauffage secondaire, indiquez le type de chauffage."
+      "dropdown-placeholder": "Sélectionner",
+      "instruction-works-type": "Si vous avez réalisé des travaux, indiquez les :",
+      "instruction-works-date": "Date des travaux les plus récents :"
     },
-    "works-primeum": {
-      "title": "Ma prime CO2"
+    "transport-situation": {
+      "title": "Ma prime CO2",
+      "subtitle": "Mon transport",
+      "instruction-license-plate": "Immatriculation de votre véhicule (auto, moto, etc.) ?",
+      "instruction-old-license-plate": "Immatriculation de l'ancien véhicule",
+      "placeholder-license-plate": "AA123BB",
+      "checkbox": "En cochant la case ci-contre, lorem ipsom FIN",
+      "instruction-acquisition-date": "Date d'acquisition du véhicule",
+      "acquisition-date-placeholder": "Sélectionner",
+      "has-changed": "Ce véhicule en remplace-t-il un autre ?",
+      "has-changed-no": "Non",
+      "has-changed-yes": "Oui",
+      "add": "Ajouter",
+      "vehicle": "Véhicule",
+      "before": "avant",
+      "in": "en",
+      "owned": "obtenu",
+      "sold": "cédé",
+      "end": "Terminer"
     },
-    "transport-primeum": {
-      "title": "Ma prime CO2"
-    },
-    "household-primeum": {
+    "household-situation": {
       "title": "Ma prime CO2",
       "subtitle": "Mon foyer",
       "adults": "Nombre d'adultes",
       "minors": "Nombre de mineurs",
       "submit": "Valider"
     },
-    "evolution": {
+    "footprint-evolution": {
       "title": "Évolution de mes émissions",
       "na": "Non calculée",
       "receive": "Recevoir ma prime",
@@ -819,6 +881,16 @@
     },
     "languages": {
       "title": "Sélectionner la langue"
+    },
+    "energy": {
+      "menu": {
+        "title": "Mon bilan énergie",
+        "win-euros": "Gagnez des €G grâce à\nnotre Quizz !",
+        "adapt-temperature": "Adapter la température\nde mon logement",
+        "renovate-my-house": "Estimer mes gains après\nrénovation énergétique",
+        "my-energy-consumption": "Ma consommation \nénergétique"
+      },
+      "tab": "Bilan Energie"
     }
   }
 }

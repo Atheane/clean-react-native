@@ -12,6 +12,7 @@ export enum IUserErrorMessage {
   SIGNUP_FAILURE_PHONE_EXISTS = 'Signup failure, phone already exists',
   VALIDATE_PHONE_INCORRECT_PHONE_CODE = 'Validate phone failure, incorrect phone code',
   VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND = 'Validate phone failure, phone not found',
+  SIGNUP_FAILURE = 'Signup failure',
 }
 
 export enum IUserErrorCodes {
@@ -25,9 +26,16 @@ export enum IUserErrorCodes {
   SIGNUP_FAILURE_PHONE_EXISTS = 'SIGNUP_FAILURE_PHONE_EXISTS',
   VALIDATE_PHONE_INCORRECT_PHONE_CODE = 'VALIDATE_PHONE_INCORRECT_PHONE_CODE',
   VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND = 'VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND',
+  SIGNUP_FAILURE = 'SIGNUP_FAILURE',
 }
 
 export namespace UserError {
+  export const isUserError = (error: unknown): boolean => {
+    if (!(error instanceof Error)) return false;
+    return Object.values(UserError)
+      .filter((value) => typeof value === 'function') // Pour ne garder que les classes d'erreur
+      .some((ErrorClass) => error instanceof ErrorClass);
+  };
   export class InvalidName extends Error implements IDomainError<IUserErrorCodes, IUserErrorMessage> {
     code: IUserErrorCodes;
     message: IUserErrorMessage;
@@ -147,6 +155,17 @@ export namespace UserError {
       super();
       this.code = IUserErrorCodes.INVALID_ADDRESS;
       this.message = IUserErrorMessage.INVALID_ADDRESS;
+      this.cause = cause;
+    }
+  }
+  export class SignupFailure extends Error implements IDomainError<IUserErrorCodes, IUserErrorMessage> {
+    code: IUserErrorCodes;
+    message: IUserErrorMessage;
+    cause?: unknown;
+    constructor(cause?: unknown) {
+      super();
+      this.message = IUserErrorMessage.SIGNUP_FAILURE;
+      this.code = IUserErrorCodes.SIGNUP_FAILURE;
       this.cause = cause;
     }
   }

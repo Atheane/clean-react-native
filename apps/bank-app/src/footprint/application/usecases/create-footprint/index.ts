@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, cancel, put, select, StrictEffect, takeEvery } from 'redux-saga/effects';
-import { FootprintError, FootprintVO, ICreateFootprintCommand } from '@clean-rn/footprint/domain';
-import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
+import { FootprintError, HouseholdVO, ICreateFootprintCommand } from '@clean-rn/footprint/domain';
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { FootprintApi } from '@clean-rn/footprint/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
 import { IFootprintTypes, footprintNotCreated, initializeFootprint, footprintCreated } from '../../commands';
-import { mapFootprintPropsToDomain } from '../../mappers';
-import { IFootprintProps } from '../../../presentation/types';
+import { mapHouseholdPropsToDomain } from '../../mappers';
+import { IHouseholdProps } from '../../../presentation/types';
 import { selectUser } from '../../../../user/application/state-management/selectors';
 
 export function* createFootprintSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
@@ -22,12 +22,12 @@ export function* createFootprintGenerator(
     payload,
   }: {
     type: string;
-    payload: IFootprintProps;
+    payload: IHouseholdProps;
   },
 ): Generator<StrictEffect, any, any> {
   try {
     // validation du formulaire
-    const footprintVO: FootprintVO = yield call(mapFootprintPropsToDomain, payload);
+    const householdVO: HouseholdVO = yield call(mapHouseholdPropsToDomain, payload);
 
     yield call(ensureTokenRefreshed, httpConnection);
 
@@ -37,23 +37,16 @@ export function* createFootprintGenerator(
 
     const cmd: ICreateFootprintCommand = {
       userId: user.id,
-      footprint: footprintVO,
+      household: householdVO,
     };
     // check if house already exists
     const footprint = yield call([footprintApi, footprintApi.createFootprint], cmd);
-
     yield put(footprintCreated(footprint));
   } catch (error: any) {
     console.log(error);
     yield put(initializeFootprint());
-    if (
-      error instanceof FootprintError.InvalidAdultNumber ||
-      error instanceof FootprintError.InvalidChildNumber
-    ) {
+    if (FootprintError.isFootprintError(error)) {
       yield put(footprintNotCreated(error));
-      yield cancel();
-    } else if (error instanceof ServerError && error.statusCode === 400) {
-      yield put(footprintNotCreated(new FootprintError.HouseholdAlreadyDeclared()));
       yield cancel();
     }
     yield put(showUnknownError(error as Error));

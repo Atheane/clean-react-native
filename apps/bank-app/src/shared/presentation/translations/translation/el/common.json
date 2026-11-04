@@ -8,7 +8,8 @@
   },
   "banners": {
     "update-application": "Διαθέσιμη ενημέρωση",
-    "identity-validation": "Επικύρωση ταυτότητας"
+    "identity-validation": "Επικύρωση ταυτότητας",
+    "identity-validated": "Η ταυτότητα επικυρώθηκε"
   },
   "modal": {
     "login": {
@@ -145,10 +146,12 @@
         "INVALID_HEATER_TYPE": "Απαιτείται τύπος θέρμανσης",
         "INVALID_HEATER_USAGE": "Απαιτείται χρήση θέρμανσης",
         "INVALID_HEATER_DATE": "Απαιτείται ημερομηνία εγκατάστασης",
-        "HEATER_ALREADY_EXISTS": "Η θέρμανση έχει ήδη δηλωθεί",
         "INVALID_ADULT_NUMBER": "Ο αριθμός των ενηλίκων πρέπει να είναι μεταξύ 1 και 20",
         "INVALID_CHILD_NUMBER": "Ο αριθμός των ανηλίκων πρέπει να είναι μεταξύ 1 και 20",
-        "HOUSEHOLD_ALDREADY_DECLARED": "Το νοικοκυριό έχει ήδη δηλωθεί"
+        "HOUSEHOLD_ALDREADY_DECLARED": "Το νοικοκυριό έχει ήδη δηλωθεί",
+        "INVALID_LICENSE_PLATE": "Μη έγκυρη πινακίδα κυκλοφορίας.\nΠαράδειγμα αναμενόμενης μορφής: AA123BB",
+        "VEHICLE_ALREADY_EXISTS": "Αυτό το όχημα υπάρχει ήδη",
+        "HEATER_ALREADY_EXISTS": "Η θέρμανση έχει ήδη δηλωθεί"
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Έγγραφα επαλήθευσης ταυτότητας λείπουν",
@@ -375,6 +378,7 @@
     },
     "beneficiary": {
       "title": "Διαχείριση των δικαιούχων μου",
+      "beneficiaries": "Δικαιούχοι",
       "bank": "Τράπεζα",
       "contacts": "Επαφές",
       "add-beneficiary": "Προσθήκη",
@@ -457,16 +461,14 @@
       "heat": "Θέρμανση",
       "works": "Εργασίες",
       "transport": "Μεταφορά",
-      "household": "Νοικοκυριό"
+      "household": "Νοικοκυριό",
+      "dropdown-years": {
+        "before-2011": "Πριν το 2011"
+      }
     },
-    "heat-primeum": {
+    "heaters-situation": {
       "title": "Το πριμ CO2 μου",
-      "subtitle-main": "Η κύρια θέρμανσή μου",
-      "subtitle-sanitary": "Το ζεστό νερό μου",
-      "subtitle-secondary": "Η δευτερεύουσα θέρμανσή μου",
-      "step-one": "Κατάσταση",
-      "step-two": "Δικαιολογητικά",
-      "step-three": "Παρακολούθηση",
+      "subtitle": "Η θέρμανσή μου",
       "heater": "Τύπος θέρμανσης",
       "placeholder": "Επιλέξτε",
       "house-main-heat": "Κύρια θέρμανση εγκατεστημένη στο σπίτι σας:",
@@ -485,24 +487,48 @@
         "THERMAL_SOLAR": "Ηλιακή θερμική ενέργεια",
         "PROPANE": "Προπάνιο"
       },
-      "dropdown-years": {
-        "before-2012": "Πριν το 2012"
+      "has-changed": "Έχετε αλλάξει θέρμανση από τότε που μένετε σε αυτό το σπίτι;",
+      "has-changed-yes": "Ναι",
+      "has-changed-no": "Όχι",
+      "instruction-heat-type": "Τύπος θέρμανσης:",
+      "instruction-heat-type-installation-date": "Ημερομηνία εγκατάστασης της νέας θέρμανσης:",
+      "instruction-heat-type-old": "Τύπος της παλιάς θέρμανσης"
+    },
+    "works-situation": {
+      "title": "Το πριμ CO2 μου",
+      "subtitle": "Οι εργασίες μου",
+      "dropdown-work-type": {
+        "ROOF": "Μόνωση οροφής/σοφίτας",
+        "WALL": "Μόνωση τοίχων",
+        "GROUND": "Μόνωση δαπέδου",
+        "WINDOW": "Εγκατάσταση μονωτικών παραθύρων",
+        "VMC": "Εγκατάσταση διπλής ροής VMC"
       },
-      "instruction-heat-type": "Σήμερα, πώς θερμαίνετε το σπίτι σας;",
-      "instruction-heat-type-installation-date": "Αυτή η θέρμανση είναι εγκατεστημένη στο σπίτι από:",
-      "instruction-heat-type-before": "Τύπος θέρμανσης πριν",
-      "instruction-sanitary-heat-type": "Σήμερα, πώς παράγεται το ζεστό νερό χρήσης σας;",
-      "instruction-sanitary-heat-installation-date": "Το ζεστό νερό χρήσης είναι εγκατεστημένο από:",
-      "instruction-sanitary-heat-type-before": "Τύπος ζεστού νερού χρήσης πριν",
-      "instruction-secondary-heat-type": "Εάν το σπίτι σας έχει δευτερεύουσα θέρμανση, υποδείξτε τον τύπο θέρμανσης."
+      "dropdown-placeholder": "Επιλέξτε",
+      "instruction-works-type": "Εάν έχετε κάνει εργασίες, υποδείξτε τις:",
+      "instruction-works-date": "Ημερομηνία των πιο πρόσφατων εργασιών:"
     },
-    "works-primeum": {
-      "title": "Το πριμ CO2 μου"
+    "transport-situation": {
+      "title": "Το πριμ CO2 μου",
+      "subtitle": "Η μεταφορά μου",
+      "instruction-license-plate": "Πινακίδα κυκλοφορίας του οχήματός σας (αυτοκίνητο, μοτοσικλέτα, κλπ.);",
+      "instruction-old-license-plate": "Πινακίδα κυκλοφορίας του παλιού οχήματος",
+      "placeholder-license-plate": "AA123BB",
+      "checkbox": "Επιλέγοντας αυτό το κουτί, lorem ipsom ΤΕΛΟΣ",
+      "instruction-acquisition-date": "Ημερομηνία απόκτησης του οχήματος",
+      "acquisition-date-placeholder": "Επιλέξτε",
+      "has-changed": "Αυτό το όχημα αντικαθιστά κάποιο άλλο;",
+      "has-changed-no": "Όχι",
+      "has-changed-yes": "Ναι",
+      "add": "Προσθήκη",
+      "vehicle": "Όχημα",
+      "before": "πριν",
+      "in": "το",
+      "owned": "αποκτήθηκε",
+      "sold": "πωλήθηκε",
+      "end": "Τέλος"
     },
-    "transport-primeum": {
-      "title": "Το πριμ CO2 μου"
-    },
-    "household-primeum": {
+    "household-situation": {
       "title": "Το πριμ CO2 μου",
       "subtitle": "Το νοικοκυριό μου",
       "adults": "Αριθμός ενηλίκων",

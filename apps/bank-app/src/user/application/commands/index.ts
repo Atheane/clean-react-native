@@ -1,5 +1,5 @@
 import { IDomainError } from '@clean-rn/ddd';
-import { Email } from '@clean-rn/auth/domain';
+import { Email, IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
 import {
   User,
   IUserErrorCodes,
@@ -14,6 +14,7 @@ import {
   ISignupUserCommand,
   IUpdateUserConfigCommand,
   IUpdateUserCommand,
+  IRegisterRevenuesCommand,
 } from '@clean-rn/user/domain';
 import {
   IUserActions,
@@ -46,6 +47,9 @@ import {
   ILanguageUpdated,
   IFetchUpdateUser,
   IUserUpdated,
+  IRegisterRevenues,
+  IRevenuessRegistered,
+  IUserNotCreated,
 } from './types';
 import { IContactErrorCodes, IContactErrorMessage } from '@clean-rn/contact/domain';
 import { IRoutes } from '../../../shared/presentation/types';
@@ -107,6 +111,11 @@ export const fetchUpdateLanguage = (payload: IUpdateUserConfigCommand): IFetchUp
 
 export const fetchUpdateUser = (payload: IUpdateUserCommand & { nextRoute: IRoutes }): IFetchUpdateUser => ({
   type: IUserTypes.FETCH_UPDATE_USER,
+  payload,
+});
+
+export const registerRevenues = (payload: IRegisterRevenuesCommand): IRegisterRevenues => ({
+  type: IUserTypes.REGISTER_REVENUES,
   payload,
 });
 
@@ -188,6 +197,20 @@ export const languageUpdated = (payload: { user: User }): ILanguageUpdated => ({
 
 export const userUpdated = (payload: User): IUserUpdated => ({
   type: IUserTypes.USER_UPDATED,
+  payload,
+});
+
+export const revenuesRegistered = (payload: User): IRevenuessRegistered => ({
+  type: IUserTypes.REVENUES_REGISTERED,
+  payload,
+});
+
+export const userNotCreated = (
+  payload:
+    | IDomainError<IUserErrorCodes, IUserErrorMessage>
+    | IDomainError<IAuthErrorCodes, IAuthErrorMessage>,
+): IUserNotCreated => ({
+  type: IUserTypes.USER_NOT_CREATED,
   payload,
 });
 

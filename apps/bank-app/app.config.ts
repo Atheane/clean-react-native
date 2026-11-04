@@ -1,4 +1,5 @@
 import 'dotenv/config';
+const withDisabledAndroidLint = require('./expo-plugins/disable-android-lint');
 
 export default {
   expo: {
@@ -13,6 +14,7 @@ export default {
       resizeMode: 'contain',
       backgroundColor: '#ffffff',
     },
+    jsEngine: 'hermes',
     updates: {
       fallbackToCacheTimeout: 0,
     },
@@ -21,7 +23,8 @@ export default {
       bundleIdentifier: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.example.bankapp',
       googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_PLIST || './GoogleService-Info.plist',
       supportsTablet: false,
-      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '200',
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '232',
+      buildNumber: process.env.EXPO_PUBLIC_APP_VERSION || '232',
     },
     android: {
       adaptiveIcon: {
@@ -31,13 +34,15 @@ export default {
       supportsTablet: false,
       package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.example.bankapp',
       googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_SERVICES || './google-services.json',
-      versionCode: process.env.EXPO_PUBLIC_APP_VERSION_ANDROID || '200',
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '232',
+      proguard: true, // ou false
     },
     web: {
       favicon: './assets/images/logo-bank.png',
       bundler: 'metro',
     },
     plugins: [
+      withDisabledAndroidLint,
       'expo-font',
       'expo-localization',
       [
@@ -63,6 +68,7 @@ export default {
           },
           android: {
             usesClearTextTraffic: false,
+            minSdkVersion: 24, // does-not prevent lint pb on android with
           },
         },
       ],
