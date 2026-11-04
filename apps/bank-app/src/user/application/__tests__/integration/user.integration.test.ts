@@ -71,6 +71,7 @@ import {
   userUpdated,
   revenuesRegistered,
   registerRevenues,
+  userNotCreated,
 } from '../../commands';
 import { IUserState, userReducer } from '../../state-management';
 import { IParametersStackPages, IRoutes } from '../../../../shared/presentation/types';
@@ -614,6 +615,36 @@ describe('User - integration', () => {
       phoneOtp: new PhoneOtp('123456'),
       user,
       error: null,
+      config: null,
+    });
+  });
+
+  it('Should store correct state in case if USER_NOT_CREATED', () => {
+    const initialState: IUserState = {
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+
+    sagaTester.start(signupUserSaga);
+    sagaTester.dispatch(userNotCreated(new UserError.SignupFailure()));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: new UserError.SignupFailure(),
       config: null,
     });
   });

@@ -1,5 +1,5 @@
 import { IDomainError } from '@clean-rn/ddd';
-import { Email } from '@clean-rn/auth/domain';
+import { Email, IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
 import {
   User,
   IUserErrorCodes,
@@ -49,6 +49,7 @@ import {
   IUserUpdated,
   IRegisterRevenues,
   IRevenuessRegistered,
+  IUserNotCreated,
 } from './types';
 import { IContactErrorCodes, IContactErrorMessage } from '@clean-rn/contact/domain';
 import { IRoutes } from '../../../shared/presentation/types';
@@ -201,6 +202,15 @@ export const userUpdated = (payload: User): IUserUpdated => ({
 
 export const revenuesRegistered = (payload: User): IRevenuessRegistered => ({
   type: IUserTypes.REVENUES_REGISTERED,
+  payload,
+});
+
+export const userNotCreated = (
+  payload:
+    | IDomainError<IUserErrorCodes, IUserErrorMessage>
+    | IDomainError<IAuthErrorCodes, IAuthErrorMessage>,
+): IUserNotCreated => ({
+  type: IUserTypes.USER_NOT_CREATED,
   payload,
 });
 

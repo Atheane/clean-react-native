@@ -8,11 +8,12 @@ import { IAssets, IIncome, IOccupation, IUserErrorCodes, IUserErrorMessage } fro
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
 import { SubmitButton, Dropdown, Colors } from '@clean-rn/ui-mobile';
+import { ErrorMessage } from 'apps/bank-app/src/shared/presentation/components/error-message';
 
 type IProps = {
   control: Control<ISignupRevenuesFormData>;
   errors: FieldErrors<ISignupRevenuesFormData>;
-  error: IDomainError<IUserErrorCodes, IUserErrorMessage> | Error | null;
+  error: IDomainError<IUserErrorCodes, IUserErrorMessage>;
   onSubmit: () => void;
   onFocus: () => void;
 };
@@ -117,6 +118,15 @@ export const FormSignupRevenues = (props: IProps) => {
       {props.errors?.occupation && props.errors.occupation.type === 'required' && (
         <View style={styles.errorContainer}>
           <Text style={theme.text.errors}>{firstLetterCapitalize(t('errors.occupation.required'))}</Text>
+        </View>
+      )}
+      {props.error && (
+        <View style={styles.errorContainer}>
+          <ErrorMessage
+            error={props.error}
+            errorMessage={t(`errors.domain-error.user.${props.error.code}`)}
+            genericErrorMessage={t('errors.other')}
+          />
         </View>
       )}
       <View style={styles.formSubmit}>

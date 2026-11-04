@@ -1,3 +1,5 @@
+import { IAuthErrorMessage } from '@clean-rn/auth/domain';
+import { IAuthErrorCodes } from '@clean-rn/auth/domain';
 import { IContactErrorCodes, IContactErrorMessage } from '@clean-rn/contact/domain';
 import { IDomainError } from '@clean-rn/ddd';
 import {
@@ -50,6 +52,7 @@ export enum IUserTypes {
   USER_SAVED = 'USER_SAVED',
   USER_UPDATED = 'USER_UPDATED',
   REVENUES_REGISTERED = 'REVENUES_REGISTERED',
+  USER_NOT_CREATED = 'USER_NOT_CREATED',
 }
 
 // commands
@@ -203,6 +206,13 @@ export type IRevenuessRegistered = {
   payload: User;
 };
 
+export type IUserNotCreated = {
+  type: typeof IUserTypes.USER_NOT_CREATED;
+  payload:
+    | IDomainError<IUserErrorCodes, IUserErrorMessage>
+    | IDomainError<IAuthErrorCodes, IAuthErrorMessage>;
+};
+
 export type IUserActions =
   | IInitializeUser
   | IFetchSearchEmail
@@ -229,4 +239,5 @@ export type IUserActions =
   | IFetchUpdateUser
   | IUserUpdated
   | IRegisterRevenues
-  | IRevenuessRegistered;
+  | IRevenuessRegistered
+  | IUserNotCreated;

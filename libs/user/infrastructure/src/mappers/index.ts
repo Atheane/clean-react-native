@@ -87,43 +87,28 @@ export class UserMapper {
   }
 
   static toCreateUserDto({ user, phoneOtp }: ISignupUserCommand): ICreateUserDto {
-    if (
-      !user.properties.identity ||
-      !user.properties.address ||
-      !user.properties.birth ||
-      !user.properties.birth.birthday ||
-      !user.properties.birth.birthCountry ||
-      !user.properties.birth.nationality ||
-      !user.properties.password ||
-      !user.properties.email ||
-      !user.properties.password ||
-      !user.properties.USPerson ||
-      !phoneOtp.value
-    ) {
-      throw new Error('Missing required properties');
-    }
     let title: string;
-    if (user.properties.identity.gender === IGender.MAN) {
+    if (user.properties.identity?.gender === IGender.MAN) {
       title = 'M';
-    } else if (user.properties.identity.gender === IGender.WOMAN) {
+    } else if (user.properties.identity?.gender === IGender.WOMAN) {
       title = 'MME';
     } else {
       title = 'MLLE'; // KycProvider do not have title for neutral gender. As a reminder, we use Mlle as incorrectly encoded value for neutral gender
     }
 
     const createUserDto = {
-      email: user.properties.email.value,
+      email: user.properties.email?.value,
       title,
-      firstname: user.properties.identity.firstName,
-      lastname: user.properties.identity.lastName,
+      firstname: user.properties.identity?.firstName,
+      lastname: user.properties.identity?.lastName,
       ...(user.properties.phone && { phone: user.properties.phone.valueInternational }),
-      password: user.properties.password.value,
-      birthday: user.properties.birth.birthday.value,
-      birthCountry: user.properties.birth.birthCountry.value,
-      nationality: user.properties.birth.nationality.value,
+      password: user.properties.password?.value,
+      birthday: user.properties.birth?.birthday?.value,
+      birthCountry: user.properties.birth?.birthCountry?.value,
+      nationality: user.properties.birth?.nationality?.value,
       address: {
         ...user.properties.address,
-        ...(user.properties.address.country && { country: user.properties.address.country.value }),
+        ...(user.properties.address?.country && { country: user.properties.address.country.value }),
       },
       phoneValidationCode: phoneOtp.value,
       specifiedUSPerson: user.properties.USPerson ? 1 : 0,

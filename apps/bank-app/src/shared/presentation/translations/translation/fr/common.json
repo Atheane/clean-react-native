@@ -126,7 +126,8 @@
         "SIGNUP_FAILURE_PHONE_EXISTS": "Ce téléphone est déjà enregistré",
         "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "Code incorrect",
         "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Numéro de téléphone inconnu",
-        "INVALID_ADDRESS": "Adresse invalide"
+        "INVALID_ADDRESS": "Adresse invalide",
+        "SIGNUP_FAILURE": "Erreur lors de l'inscription, veuillez réessayer"
       },
       "account": {
         "INVALID_IBAN": "IBAN invalide",
