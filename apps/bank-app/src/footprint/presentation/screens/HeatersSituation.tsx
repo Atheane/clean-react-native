@@ -17,14 +17,13 @@ import {
   Dropdown,
   MultipleOptionsCheckBox,
   SubmitButton,
-  SafeScrollingView,
   Colors,
   StepsIndicator,
   LoaderSplashScreen,
 } from '@clean-rn/ui-mobile';
 
 import { addHeaters, initializeFootprint } from '../../application/commands';
-import { ErrorBoundary } from '../../../shared/presentation/hoc';
+import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IHeaterProps } from '../types';
 import { useNavigation } from '@react-navigation/native';
@@ -56,7 +55,7 @@ const Header = () => {
 
       <View style={styles.blueContainer}>
         <View style={styles.subtitleContainer}>
-          <Text style={theme.text.boldDarkBlue}>{t('screens.heaters-situation.subtitle')}</Text>
+          <Text style={theme.text.boldDarkBlue}>{t('screens.transport-situation.subtitle')}</Text>
           <Text
             style={theme.text.lightBlue}
           >{`${user?.properties.address?.str} ${user?.properties.address?.zip} ${user?.properties.address?.city}`}</Text>

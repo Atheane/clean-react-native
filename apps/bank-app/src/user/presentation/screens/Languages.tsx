@@ -4,18 +4,20 @@ import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 import {
-  i18n,
   FlagForFrance,
   FlagForGermany,
   FlagForGreece,
   FlagForItaly,
   FlagForSpain,
   FlagForUK,
+  FlagForPortugal,
 } from '@clean-rn/ui-mobile';
 
 import { ILanguage } from '@clean-rn/user/domain';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { fetchUpdateLanguage } from '../../../user/application/commands';
+
+import i18n from '../../../shared/presentation/translations/i18n';
 
 const mapLanguageToi18n = (lg: ILanguage) => {
   if (lg === ILanguage.EL) {
@@ -85,6 +87,14 @@ export const Languages = () => {
               onPress={() => handleSelectLanguage(ILanguage.EN)}
             >
               <FlagForUK width={90} height={90} style={[styles.iconContainer, theme.shadow.button]} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.rowContainer}>
+            <TouchableOpacity
+              style={{ marginVertical: 8 }}
+              onPress={() => handleSelectLanguage(ILanguage.ES)}
+            >
+              <FlagForPortugal width={90} height={90} style={[styles.iconContainer, theme.shadow.button]} />
             </TouchableOpacity>
           </View>
         </View>

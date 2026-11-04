@@ -98,6 +98,15 @@
       "required": "Amount required",
       "invalid": "Invalid amount"
     },
+    "income": {
+      "required": "Income category required"
+    },
+    "assets": {
+      "required": "Asset value required"
+    },
+    "occupation": {
+      "required": "Occupation category required"
+    },
     "domain-error": {
       "auth": {
         "INVALID_EMAIL": "Invalid email",
@@ -117,7 +126,8 @@
         "SIGNUP_FAILURE_PHONE_EXISTS": "This phone is already registered",
         "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "Incorrect code",
         "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Phone number unknown",
-        "INVALID_ADDRESS": "Invalid address"
+        "INVALID_ADDRESS": "Invalid address",
+        "SIGNUP_FAILURE": "Registration error, please try again"
       },
       "account": {
         "INVALID_IBAN": "Invalid IBAN",
@@ -149,7 +159,7 @@
         "HEATER_ALREADY_EXISTS": "Heater already declared",
         "INVALID_ADULT_NUMBER": "The number of adults must be between 1 and 20",
         "INVALID_CHILD_NUMBER": "The number of minors must be between 1 and 20",
-        "HOUSEHOLD_ALDREADY_DECLARED": "Household already declared",
+        "HOUSEHOLD_ALDREADY_DECLARED": "The household has already been declared",
         "VEHICLE_ALREADY_EXISTS": "This vehicle already exists",
         "INVALID_LICENSE_PLATE": "The license plate is invalid.\nExpected format example: AA123BB"
       },
@@ -287,6 +297,33 @@
       "placeholder": "40600"
     }
   },
+  "signup-revenues": {
+    "title": "Identity verification",
+    "intro": "To help combat fraud and money laundering, please complete the sections below:",
+    "income": {
+      "label": "Your income",
+      "placeholder": "Select",
+      "LESS_THAN_1800": "less than 1,800 euros / month",
+      "BETWEEN_1800_AND_3500": "less than 3,500 euros / month",
+      "BETWEEN_3500_AND_10000": "less than 10,000 euros / month",
+      "MORE_THAN_10000": "more than 10,000 euros / month"
+    },
+    "assets": {
+      "label": "Your assets",
+      "placeholder": "Select",
+      "LESS_THAN_150K": "less than 150,000 euros",
+      "BETWEEN_150K_AND_350K": "less than 350,000 euros",
+      "BETWEEN_350K_AND_750K": "less than 750,000 euros",
+      "MORE_THAN_750K": "more than 750,000 euros"
+    },
+    "occupation": {
+      "label": "Your professional category",
+      "placeholder": "Select",
+      "UNEMPLOYED": "Not employed",
+      "PRIVATE_EMPLOYEE": "Private sector employee",
+      "PUBLIC_EMPLOYEE": "Public sector employee"
+    }
+  },
   "email-sent": {
     "title": "Email sent",
     "text": "We have sent you a confirmation email to the provided address. \nPlease click on the link to log in."
@@ -325,6 +362,10 @@
     },
     "signup-address": {
       "title": "Complete my profile"
+    },
+    "signup-revenues": {
+      "title": "Identity verification",
+      "intro": "To help combat fraud and money laundering, please complete the sections below:"
     },
     "signup-congrats": {
       "title": "Congratulations",
@@ -530,7 +571,7 @@
       "minors": "Number of minors",
       "submit": "Submit"
     },
-    "evolution": {
+    "footprint-evolution": {
       "title": "Evolution of my emissions",
       "na": "Not calculated",
       "receive": "Receive my bonus",
@@ -839,6 +880,16 @@
     },
     "languages": {
       "title": "Select Language"
+    },
+    "energy": {
+      "menu": {
+        "title": "My energy assessment",
+        "win-euros": "Win €G with\nour Quiz!",
+        "adapt-temperature": "Adjust the temperature\nof my home",
+        "renovate-my-house": "Estimate my savings after\nenergy renovation",
+        "my-energy-consumption": "My energy\nconsumption"
+      },
+      "tab": "Energy Assessment"
     }
   }
 }

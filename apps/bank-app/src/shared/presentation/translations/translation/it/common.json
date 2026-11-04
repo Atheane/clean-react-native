@@ -98,6 +98,15 @@
       "required": "Importo richiesto",
       "invalid": "Importo non valido"
     },
+    "income": {
+      "required": "Categoria di reddito richiesta"
+    },
+    "assets": {
+      "required": "Valore del patrimonio richiesto"
+    },
+    "occupation": {
+      "required": "Categoria professionale richiesta"
+    },
     "domain-error": {
       "auth": {
         "INVALID_EMAIL": "Email non valida",
@@ -117,7 +126,8 @@
         "SIGNUP_FAILURE_PHONE_EXISTS": "Questo telefono è già registrato",
         "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "Codice errato",
         "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Numero di telefono sconosciuto",
-        "INVALID_ADDRESS": "Indirizzo non valido"
+        "INVALID_ADDRESS": "Indirizzo non valido",
+        "SIGNUP_FAILURE": "Errore durante la registrazione, riprova"
       },
       "account": {
         "INVALID_IBAN": "IBAN non valido",
@@ -287,6 +297,33 @@
       "placeholder": "40600"
     }
   },
+  "signup-revenues": {
+    "title": "Verifica dell'identità",
+    "intro": "Per aiutare a combattere le frodi e il riciclaggio di denaro, completa le sezioni sottostanti:",
+    "income": {
+      "label": "I tuoi redditi",
+      "placeholder": "Seleziona",
+      "LESS_THAN_1800": "inferiore a 1.800 euro / mese",
+      "BETWEEN_1800_AND_3500": "inferiore a 3.500 euro / mese",
+      "BETWEEN_3500_AND_10000": "inferiore a 10.000 euro / mese",
+      "MORE_THAN_10000": "superiore a 10.000 euro / mese"
+    },
+    "assets": {
+      "label": "Il tuo patrimonio",
+      "placeholder": "Seleziona",
+      "LESS_THAN_150K": "inferiore a 150.000 euro",
+      "BETWEEN_150K_AND_350K": "inferiore a 350.000 euro",
+      "BETWEEN_350K_AND_750K": "inferiore a 750.000 euro",
+      "MORE_THAN_750K": "superiore a 750.000 euro"
+    },
+    "occupation": {
+      "label": "La tua categoria professionale",
+      "placeholder": "Seleziona",
+      "UNEMPLOYED": "Non dipendente",
+      "PRIVATE_EMPLOYEE": "Dipendente del settore privato",
+      "PUBLIC_EMPLOYEE": "Dipendente del settore pubblico"
+    }
+  },
   "email-sent": {
     "title": "Email inviata",
     "text": "Ti abbiamo inviato un'email di conferma all'indirizzo indicato. \nClicca sul link per connetterti."
@@ -329,6 +366,10 @@
     },
     "signup-address": {
       "title": "Completa il mio profilo"
+    },
+    "signup-revenues": {
+      "title": "Verifica dell'identità",
+      "intro": "Per aiutare a combattere le frodi e il riciclaggio di denaro, completa le sezioni sottostanti:"
     },
     "signup-congrats": {
       "title": "Congratulazioni",
@@ -844,6 +885,16 @@
     },
     "languages": {
       "title": "Seleziona la lingua"
+    },
+    "energy": {
+      "menu": {
+        "title": "Il mio bilancio energetico",
+        "win-euros": "Guadagna €G grazie al\nnostro Quiz!",
+        "adapt-temperature": "Adatta la temperatura\ndella mia abitazione",
+        "renovate-my-house": "Stima i miei risparmi dopo\nla ristrutturazione energetica",
+        "my-energy-consumption": "Il mio consumo\nenergetico"
+      },
+      "tab": "Bilancio Energetico"
     }
   }
 }

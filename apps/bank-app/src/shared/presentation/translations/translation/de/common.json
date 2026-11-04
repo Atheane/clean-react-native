@@ -98,6 +98,15 @@
       "required": "Betrag erforderlich",
       "invalid": "Ungültiger Betrag"
     },
+    "income": {
+      "required": "Einkommenskategorie erforderlich"
+    },
+    "assets": {
+      "required": "Vermögenswert erforderlich"
+    },
+    "occupation": {
+      "required": "Berufskategorie erforderlich"
+    },
     "domain-error": {
       "auth": {
         "INVALID_EMAIL": "Ungültige E-Mail",
@@ -287,6 +296,31 @@
       "placeholder": "40600"
     }
   },
+  "signup-revenues": {
+    "income": {
+      "label": "Ihr Einkommen",
+      "placeholder": "Auswählen",
+      "LESS_THAN_1800": "weniger als 1.800 Euro / Monat",
+      "BETWEEN_1800_AND_3500": "weniger als 3.500 Euro / Monat",
+      "BETWEEN_3500_AND_10000": "weniger als 10.000 Euro / Monat",
+      "MORE_THAN_10000": "mehr als 10.000 Euro / Monat"
+    },
+    "assets": {
+      "label": "Ihr Vermögen",
+      "placeholder": "Auswählen",
+      "LESS_THAN_150K": "weniger als 150.000 Euro",
+      "BETWEEN_150K_AND_350K": "weniger als 350.000 Euro",
+      "BETWEEN_350K_AND_750K": "weniger als 750.000 Euro",
+      "MORE_THAN_750K": "mehr als 750.000 Euro"
+    },
+    "occupation": {
+      "label": "Ihre Berufskategorie",
+      "placeholder": "Auswählen",
+      "UNEMPLOYED": "Nicht angestellt",
+      "PRIVATE_EMPLOYEE": "Angestellter im Privatsektor",
+      "PUBLIC_EMPLOYEE": "Angestellter im öffentlichen Dienst"
+    }
+  },
   "email-sent": {
     "title": "E-Mail gesendet",
     "text": "Wir haben Ihnen eine Bestätigungs-E-Mail an die angegebene Adresse gesendet. \nBitte klicken Sie auf den Link, um sich einzuloggen."
@@ -342,6 +376,10 @@
     "signup-phone": {
       "title": "Handyvalidierung",
       "text": "Bestätigen Sie Ihre Handynummer"
+    },
+    "signup-revenues": {
+      "title": "Identitätsprüfung",
+      "intro": "Um bei der Bekämpfung von Betrug und Geldwäsche zu helfen, füllen Sie bitte die folgenden Abschnitte aus:"
     },
     "home": {
       "title": "Startseite",
@@ -465,7 +503,7 @@
         "before-2011": "Vor 2011"
       }
     },
-    "heat-situation": {
+    "heaters-situation": {
       "title": "Meine CO2-Prämie",
       "subtitle": "Meine Heizung",
       "heater": "Heizungstyp",
@@ -475,6 +513,17 @@
       "house-secondary-heat": "In Ihrer Wohnung installierte Zusatzheizung:",
       "next-step": "Weiter",
       "end": "Beenden",
+      "dropdown-heat-type": {
+        "ELECTRIC": "Elektrizität",
+        "COAL": "Kohle",
+        "GAS": "Stadtgas",
+        "FUEL_OIL": "Heizöl",
+        "URBAN": "Städtisches Fernwärmenetz",
+        "WOOD": "Holz",
+        "HEAT_PUMP": "Wärmepumpe",
+        "THERMAL_SOLAR": "Solarthermie",
+        "PROPANE": "Propan"
+      },
       "has-changed": "Haben Sie die Heizung gewechselt, seit Sie in dieser Wohnung sind?",
       "has-changed-yes": "Ja",
       "has-changed-no": "Nein",
@@ -497,13 +546,30 @@
       "instruction-works-date": "Datum der letzten Arbeiten:"
     },
     "transport-situation": {
-      "title": "Meine CO2-Prämie",
-      "vehicle": "Fahrzeug",
-      "before": "vor",
-      "in": "in",
-      "owned": "erhalten",
-      "sold": "verkauft",
-      "end": "Beenden"
+      "subtitle": "Mein Transport",
+      "instruction-license-plate": "Kennzeichen Ihres Fahrzeugs (Auto, Motorrad usw.)?",
+      "instruction-old-license-plate": "Kennzeichen des alten Fahrzeugs",
+      "placeholder-license-plate": "AA123BB",
+      "checkbox": "Durch Ankreuzen dieses Kästchens, lorem ipsom ENDE",
+      "instruction-acquisition-date": "Kaufdatum des Fahrzeugs",
+      "acquisition-date-placeholder": "Auswählen",
+      "has-changed": "Ersetzt dieses Fahrzeug ein anderes?",
+      "has-changed-no": "Nein",
+      "has-changed-yes": "Ja",
+      "add": "Ein Fahrzeug hinzufügen"
+    },
+    "footprint-evolution": {
+      "title": "Entwicklung meiner Emissionen"
+    },
+    "energy": {
+      "menu": {
+        "title": "Meine Energiebilanz",
+        "win-euros": "Gewinnen Sie €G mit\nunserem Quiz!",
+        "adapt-temperature": "Passen Sie die Temperatur\nmeiner Wohnung an",
+        "renovate-my-house": "Schätzen Sie meine Einsparungen nach\nenergetischer Renovierung",
+        "my-energy-consumption": "Mein Energieverbrauch"
+      },
+      "tab": "Energiebilanz"
     },
     "household-situation": {
       "title": "Meine CO2-Prämie",
