@@ -1,2 +1,2 @@
 export { MeasurementVO } from './MeasurementVO';
-export { PriceConfortVO } from './PriceConfortVO';
+export { PriceComfortVO } from './PriceComfortVO';

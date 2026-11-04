@@ -84,8 +84,6 @@ export const MenuEnergy = () => {
 
   const dispatch = useDispatch();
 
-  const [loading, setLoading] = useState(false);
-
   const navigation = useNavigation();
 
   let userConfigCat: ConfigCatUser | undefined;
@@ -95,65 +93,70 @@ export const MenuEnergy = () => {
     userConfigCat = new ConfigCatUser(email.value, email.value);
   }
 
-  const { loading: loadingEnergy } = useFeatureFlag('energy-app', false, userConfigCat);
-  const { energy, pending: pendingEnergy } = useSelector((state: IRootState) => state.energy);
+  const { loading: loadingConfigcat } = useFeatureFlag('energy-app', false, userConfigCat);
+  const { energy, pending: loadingEnergy } = useSelector((state: IRootState) => state.energy);
 
-  const data = useMemo(
-    () => () => {
-      if (!energy?.properties?.measurements) {
-        return [
-          {
-            kpi: '...',
-            unit: 'C°',
-            legend: t('screens.energy.menu.average'),
-            color: Colors.primary.grey,
-          },
-          {
-            kpi: '...',
-            unit: '%',
-            legend: t('screens.energy.menu.average'),
-            color: Colors.primary.lightGreen,
-          },
-          {
-            kpi: '...',
-            unit: 'ppm',
-            legend: t('screens.energy.menu.average'),
-            color: Colors.primary.lightGreen,
-          },
-        ];
-      }
+  const data = useMemo(() => {
+    if (!energy?.properties?.measurements) {
       return [
         {
-          kpi: energy.properties.measurements[SENSOR_TYPE.TEMPERATURE]?.value.toString() ?? '...',
+          kpi: '...',
           unit: 'C°',
           legend: t('screens.energy.menu.average'),
           color: Colors.primary.grey,
         },
         {
-          kpi: energy.properties.measurements[SENSOR_TYPE.HUMIDITY]?.value.toString() ?? '...',
+          kpi: '...',
           unit: '%',
           legend: t('screens.energy.menu.average'),
           color: Colors.primary.lightGreen,
         },
         {
-          kpi: energy.properties.measurements[SENSOR_TYPE.CO2]?.value.toString() ?? '...',
+          kpi: '...',
           unit: 'ppm',
           legend: t('screens.energy.menu.average'),
           color: Colors.primary.lightGreen,
         },
       ];
-    },
-    [energy],
-  );
+    }
+    return [
+      {
+        kpi: energy.properties.measurements[SENSOR_TYPE.TEMPERATURE]?.value.toString() ?? '...',
+        unit: 'C°',
+        legend: t('screens.energy.menu.average'),
+        color: Colors.primary.grey,
+      },
+      {
+        kpi: energy.properties.measurements[SENSOR_TYPE.HUMIDITY]?.value.toString() ?? '...',
+        unit: '%',
+        legend: t('screens.energy.menu.average'),
+        color: Colors.primary.lightGreen,
+      },
+      {
+        kpi: energy.properties.measurements[SENSOR_TYPE.CO2]?.value.toString() ?? '...',
+        unit: 'ppm',
+        legend: t('screens.energy.menu.average'),
+        color: Colors.primary.lightGreen,
+      },
+    ];
+  }, [energy?.properties.measurements, t]);
 
-  return loading || loadingEnergy || pendingEnergy ? (
+  const priceComfort = useMemo(() => {
+    return energy?.properties?.globalPriceComfort?.value?.average?.toString() ?? '...';
+  }, [energy?.properties?.globalPriceComfort]);
+
+  return loadingConfigcat || loadingEnergy ? (
     <LoaderSplashScreen />
   ) : (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View>
           <View style={{ marginTop: 30, marginBottom: 8 }}>
-            <TileDashboard text={'Price comfort: '} kpi={1577} children={<Tiles data={data()} />} />
+            <TileDashboard
+              text={t('screens.energy.menu.price-comfort')}
+              kpi={priceComfort}
+              children={<Tiles data={data} />}
+            />
           </View>
           <View style={styles.row}>
             <LongCardIcon

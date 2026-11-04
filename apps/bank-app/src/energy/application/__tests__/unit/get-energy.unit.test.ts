@@ -4,7 +4,13 @@ import { testSaga } from 'redux-saga-test-plan';
 
 import { DomainEventManager, domainEventManager } from '@clean-rn/ddd';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
-import { Energy, ENERGY_EVENTS, MEASUREMENT_UNIT } from '@clean-rn/energy/domain';
+import {
+  Energy,
+  ENERGY_EVENTS,
+  MEASUREMENT_UNIT,
+  PRICE_COMFORT_DATA_GRANULARITY,
+  PRICE_COMFORT_TYPE,
+} from '@clean-rn/energy/domain';
 
 import { EnergyApi } from '@clean-rn/energy/infrastructure';
 
@@ -21,6 +27,7 @@ import {
   mockSensorsCO2AndHumidity,
   mockMeasurementCO2,
   mockMeasurementHumidity,
+  mockPricesComfort,
 } from '../fixtures/mock-data';
 import { selectEnergy } from '../../state-management/selectors';
 
@@ -35,7 +42,9 @@ describe('GetEnergy - usecase', () => {
     mockInfrastructure();
     api = EnergyApi.getInstance(httpConnection);
     jest.spyOn(domainManagerInstance, 'emit').mockImplementation((eventName: string, data: Energy) => {
-      console.log('Mock emit called with:', eventName, data);
+      console.log('Event émis:', eventName);
+      console.log('Data:', JSON.stringify(data, null, 2));
+      return true;
     });
   });
 
@@ -66,7 +75,9 @@ describe('GetEnergy - usecase', () => {
       .call([api, api.getMeasurement], mockSensorsCO2AndHumidity[0].type)
       .next(mockMeasurementCO2)
       .call([api, api.getMeasurement], mockSensorsCO2AndHumidity[1].type)
-      .next(mockMeasurementHumidity);
+      .next(mockMeasurementHumidity)
+      .call([api, api.getPriceComfort])
+      .next(mockPricesComfort);
 
     expect(domainManagerInstance.emit<Energy>).toHaveBeenCalledWith(
       ENERGY_EVENTS.SENSORS_CHECKED,
@@ -100,6 +111,30 @@ describe('GetEnergy - usecase', () => {
             [mockSensorsCO2AndHumidity[1].type]: expect.objectContaining({
               average: mockMeasurementHumidity.average,
               unit: MEASUREMENT_UNIT.PERCENTAGE,
+            }),
+          }),
+        }),
+      }),
+    );
+    expect(domainManagerInstance.emit<Energy>).toHaveBeenCalledWith(
+      ENERGY_EVENTS.PRICES_COMFORT_ADDED,
+      expect.objectContaining({
+        properties: expect.objectContaining({
+          userId: mockUser.id,
+          heatingPriceComfort: expect.objectContaining({
+            type: PRICE_COMFORT_TYPE.HEATING,
+            granularity: PRICE_COMFORT_DATA_GRANULARITY.DAILY,
+            value: expect.objectContaining({
+              incremental: 1480.2069375871483,
+              average: 17006.343627221664,
+            }),
+          }),
+          globalPriceComfort: expect.objectContaining({
+            type: PRICE_COMFORT_TYPE.ALL,
+            granularity: PRICE_COMFORT_DATA_GRANULARITY.DAILY,
+            value: expect.objectContaining({
+              incremental: 1480.2069375871483,
+              average: 17006.343627221664,
             }),
           }),
         }),

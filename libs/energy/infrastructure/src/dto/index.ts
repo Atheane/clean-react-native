@@ -17,7 +17,7 @@ export type ISensorDto = {
 };
 
 export enum MEASUREMENT_UNIT_DTO {
-  PPM = 'ppm',
+  PPM = '59',
   P1 = 'P1',
   CEL = 'CEL',
 }
@@ -33,4 +33,27 @@ export type IMeasurementsDto = {
   unitCode?: MEASUREMENT_UNIT_DTO;
   value: number;
   data: IMeasurementDto[];
+};
+
+export enum PRICE_COMFORT_TYPE_DTO {
+  ALL = 'COMFORT_PRICE', // computation made using all Degree Days
+  COOLING = 'COMFORT_PRICE_COOLING', // computation made using Cooling Degree Days
+  HEATING = 'COMFORT_PRICE_HEATING', // computation made using Heating Degree Days
+}
+
+export enum PRICE_COMFORT_DATA_GRANULARITY_DTO {
+  DAILY = 'DAILY', // computation made using daily data
+  INSTANT = 'INSTANT', // computation made using single data (available only with heating/cooling consumption)
+  MONTHLY = 'MONTHLY', // computation made using monthly data
+}
+
+export type IPriceComfortDto = {
+  comfortPriceType: PRICE_COMFORT_TYPE_DTO;
+  dataCount: number;
+  dataGranularity: PRICE_COMFORT_DATA_GRANULARITY_DTO;
+  intercept: number;
+  endDate: Date;
+  value: number;
+  startDate: Date;
+  temperature: number;
 };

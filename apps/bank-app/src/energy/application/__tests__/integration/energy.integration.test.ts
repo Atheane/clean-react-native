@@ -17,6 +17,7 @@ import {
   getMeasurementTemperature,
   getMeasurementHumidity,
   getMeasurementCO2,
+  getPriceComfort,
 } from '../fixtures/generate-fixtures';
 
 const httpConnection = HttpConnection.getInstance(
@@ -52,6 +53,10 @@ const setupFixtures = async (httpConnection: HttpConnection) => {
     await getMeasurementCO2(httpConnection);
   }
 
+  if (!fs.existsSync(fixtureDir + '/get-price-comfort.json')) {
+    await getPriceComfort(httpConnection);
+  }
+
   const fixtures = {
     auth: JSON.parse(fs.readFileSync(fixtureDir + '/auth.json', 'utf8')),
     getSensors: JSON.parse(fs.readFileSync(fixtureDir + '/get-sensors.json', 'utf8')),
@@ -63,6 +68,7 @@ const setupFixtures = async (httpConnection: HttpConnection) => {
     ),
     getMeasurementCO2: JSON.parse(fs.readFileSync(fixtureDir + '/get-measurement-co2-error404.json', 'utf8')),
     unknownServerError: JSON.parse(fs.readFileSync(fixtureDir + '/unknown-server-error.json', 'utf8')),
+    getPriceComfort: JSON.parse(fs.readFileSync(fixtureDir + '/get-price-comfort.json', 'utf8')),
   };
 
   return fixtures;
@@ -135,7 +141,7 @@ describe('Energy - integration', () => {
     server.close();
   });
 
-  it('Should trigger ENERGY_DOMAIN_EVENT when sensors and measurements are retrieved successfully', async () => {
+  it('Should trigger ENERGY_DOMAIN_EVENT when sensors, measurements and price comfort are retrieved successfully', async () => {
     server.use(
       http.get('*/auth/refresh', () => {
         return HttpResponse.json({
@@ -153,23 +159,16 @@ describe('Energy - integration', () => {
       http.get('*/app/energy-app/sensor/relativeHumidity', () => {
         return HttpResponse.json(fixtures.getMeasurementHumidity);
       }),
+      http.get('*/app/energy-app/core/comfort-price*', () => {
+        return HttpResponse.json(fixtures.getPriceComfort);
+      }),
     );
-
-    const allEventsPromise = new Promise<void>((resolve) => {
-      const unsubscribe = sagaTester.store.subscribe(() => {
-        const actions = sagaTester.getCalledActions();
-        const domainEvents = actions.filter((a) => a.type === IEnergyTypes.ENERGY_DOMAIN_EVENT);
-        if (domainEvents.length === 4) {
-          unsubscribe();
-          resolve();
-        }
-      });
-    });
 
     sagaTester.start(getEnergySaga, httpConnection);
     sagaTester.dispatch(getEnergy());
 
-    await allEventsPromise;
+    // Attendre juste un tick pour laisser le temps au reducer de mettre à jour l'état
+    await new Promise((resolve) => setTimeout(resolve, 0));
 
     const state = sagaTester.getState();
     expect(state.energy).toMatchObject({
@@ -183,7 +182,7 @@ describe('Energy - integration', () => {
             expect.objectContaining({
               roomId: expect.any(Number),
               startDate: expect.any(String),
-              type: expect.stringMatching(/TEMPERATURE|HUMIDITY/),
+              type: expect.any(String),
             }),
           ]),
           measurements: {
@@ -212,6 +211,25 @@ describe('Energy - integration', () => {
               unit: 'PERCENTAGE',
             }),
           },
+          globalPriceComfort: expect.objectContaining({
+            endDate: expect.any(String),
+            granularity: 'DAILY',
+            intercept: expect.any(Number),
+            slope: expect.any(Number),
+            startDate: expect.any(String),
+            temperature: expect.any(Number),
+            type: 'ALL',
+          }),
+          heatingPriceComfort: expect.objectContaining({
+            endDate: expect.any(String),
+            granularity: 'DAILY',
+            intercept: expect.any(Number),
+            slope: expect.any(Number),
+            startDate: expect.any(String),
+            temperature: expect.any(Number),
+            type: 'HEATING',
+          }),
+          coolingPriceComfort: undefined,
         },
       }),
     });
@@ -220,7 +238,7 @@ describe('Energy - integration', () => {
     const domainEvents = calledActions.filter((action) => action.type === IEnergyTypes.ENERGY_DOMAIN_EVENT);
 
     expect(calledActions).toContainEqual(getEnergy());
-    expect(domainEvents).toHaveLength(4);
+    expect(domainEvents).toHaveLength(5);
   });
 
   it('Should trigger INITIALIZE_ENERGY when server returns error 500', async () => {

@@ -22,8 +22,14 @@ export enum MEASUREMENT_UNIT {
   PPM = 'PPM',
 }
 
-export enum PRICECONFORT_TYPE {
+export enum PRICE_COMFORT_TYPE {
   ALL = 'ALL',
   HEATING = 'HEATING',
   COOLING = 'COOLING',
+}
+
+export enum PRICE_COMFORT_DATA_GRANULARITY {
+  DAILY = 'DAILY',
+  INSTANT = 'INSTANT',
+  MONTHLY = 'MONTHLY',
 }

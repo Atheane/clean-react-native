@@ -9,7 +9,7 @@ const DASHBOARD_CARD_RATIO = 0.4; // ratio hauteur/largeur
 
 type IProps = {
   text: string;
-  kpi: number;
+  kpi: string;
   children?: React.ReactNode;
 };
 
@@ -46,7 +46,7 @@ export const TileDashboard: FC<IProps> = (props: IProps) => {
         <HomeWhiteCircle width={circleSize} height={circleSize} />
       </View>
       <View style={[styles.rowContainer, Platform.OS === 'web' ? { marginVertical: 24 } : {}]}>
-        <Text style={styles.greyText}>{props.text}</Text>
+        <Text style={styles.greyText}>{props.text + ' '}</Text>
         <Text style={styles.kpiText}>{props.kpi}</Text>
       </View>
       {props.children}
