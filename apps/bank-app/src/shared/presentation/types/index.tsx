@@ -62,6 +62,7 @@ export type IUserStackParamList = {
   SignupCongrats: undefined;
   EmailSent: undefined;
   SignupPhone: undefined;
+  SignupRevenues: undefined;
 };
 
 export type IAccountStackParamList = {
@@ -168,6 +169,7 @@ export enum IUserStackPages {
   EMAIL_SENT = 'EmailSent',
   SIGNUP_PHONE = 'SignupPhone',
   SIGNUP_CONGRATS = 'SignupCongrats',
+  SIGNUP_REVENUES = 'SignupRevenues',
 }
 
 export enum IParametersStackPages {
@@ -285,6 +287,7 @@ export type IUserStackProps = {
   [IUserStackPages.SIGNUP_CONGRATS]: object;
   [IUserStackPages.EMAIL_SENT]: object;
   [IUserStackPages.SIGNUP_PHONE]: object;
+  [IUserStackPages.SIGNUP_REVENUES]: object;
 };
 
 export type IParametersStackProps = {
@@ -396,6 +399,7 @@ export type IRoutes =
   | IUserStackPages.SIGNUP_CONGRATS
   | IUserStackPages.EMAIL_SENT
   | IUserStackPages.SIGNUP_PHONE
+  | IUserStackPages.SIGNUP_REVENUES
   | IParametersStackPages.MENU
   | IParametersStackPages.PARAMETERS
   | IParametersStackPages.PROFILE_IDENTITY

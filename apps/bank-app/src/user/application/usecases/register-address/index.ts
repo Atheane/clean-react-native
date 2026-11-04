@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { put, select, StrictEffect, takeEvery } from 'redux-saga/effects';
+import { call, put, select, StrictEffect, takeEvery } from 'redux-saga/effects';
 
 import { IRegisterAddressCommand, User } from '@clean-rn/user/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IUserTypes, addressRegistered, fetchSignupUser, resetError } from '../../commands';
-import { selectUser, selectEmail, selectPhoneOtp } from '../../state-management/selectors';
+import { IUserTypes, addressRegistered, resetError } from '../../commands';
+import { selectUser, selectEmail } from '../../state-management/selectors';
+import { IUserStackPages } from '../../../../shared/presentation/types';
+import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 
 export function* registerAddressSaga(): Generator<StrictEffect, any, any> {
   yield takeEvery(IUserTypes.REGISTER_ADDRESS, registerAddressGenerator);
@@ -29,8 +31,7 @@ export function* registerAddressGenerator({
     // domain event
     yield put(addressRegistered(user));
 
-    const phoneOtp = yield select(selectPhoneOtp);
-    yield put(fetchSignupUser({ user, phoneOtp }));
+    yield call(navigate, { route: IUserStackPages.SIGNUP_REVENUES });
   } catch (e: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors
     yield put(resetError());

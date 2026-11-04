@@ -1,12 +1,23 @@
 import { Entity } from '@clean-rn/ddd';
 import { AuthError, Email, Password } from '@clean-rn/auth/domain';
 import { Phone } from '@clean-rn/contact/domain';
-import { IAddress, IIdentity, IBirth, KYC_REVIEW, IPhoneNotifications, IEmailNotifications } from '../types';
+import {
+  IAddress,
+  IIdentity,
+  IBirth,
+  KYC_REVIEW,
+  IPhoneNotifications,
+  IEmailNotifications,
+  IAssets,
+  IIncome,
+  IOccupation,
+} from '../types';
 import { Country, BirthDay } from '../value-objects';
 import {
   IRegisterAddressCommand,
   IRegisterBirthCommand,
   IRegisterIdentityCommand,
+  IRegisterRevenuesCommand,
   IUpdateUserCommand,
 } from '../commands';
 import { IValidatePhoneQuery } from '../queries';
@@ -15,16 +26,21 @@ export interface IUserProperties {
   email: Email;
   phone: Phone;
   password?: Password;
-  identity: IIdentity; // should be in Customer in back-end ?
-  birth: IBirth; // should be in Customer in back-end ?
-  address?: IAddress; // should be in Customer in back-end ?
-  kycReview: KYC_REVIEW; // should be in Customer in back-end ?
-  kycReviewComment?: string; // should be in Customer in back-end ?
-  USPerson: boolean; // should be in Customer in back-end ?
+  identity: IIdentity;
+  birth: IBirth;
+  address?: IAddress;
+  kycReview: KYC_REVIEW;
+  kycReviewComment?: string;
+  USPerson: boolean;
   config?: {
     lang: string;
     notifFirebaseDisabled: IPhoneNotifications[];
     notifMailDisabled: IEmailNotifications[];
+  };
+  revenues?: {
+    income: IIncome;
+    assets: IAssets;
+    occupation: IOccupation;
   };
 }
 
@@ -82,6 +98,11 @@ export class User extends Entity<IUserProperties> {
     const { address, USPerson } = cmd;
     this.properties.address = address;
     this.properties.USPerson = USPerson;
+  }
+
+  registerRevenues(cmd: IRegisterRevenuesCommand): void {
+    const { income, assets, occupation } = cmd;
+    this.properties.revenues = { income, assets, occupation };
   }
 
   setConfig(config: {

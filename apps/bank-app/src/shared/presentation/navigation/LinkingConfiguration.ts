@@ -59,6 +59,7 @@ export const LinkingConfiguration: LinkingOptions<
       SignupCongrats: 'signup-congrats',
       EmailSent: 'email-sent',
       SignupPhone: 'signup-phone',
+      SignupRevenues: 'signup-revenues',
       Home: {
         screens: {
           MenuAccount: {

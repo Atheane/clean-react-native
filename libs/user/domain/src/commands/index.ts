@@ -1,5 +1,14 @@
 import { Dayjs } from 'dayjs';
-import { IAddress, IEmailNotifications, IGender, ILanguage, IPhoneNotifications } from '../types';
+import {
+  IIncome,
+  IOccupation,
+  IAssets,
+  IAddress,
+  IEmailNotifications,
+  IGender,
+  ILanguage,
+  IPhoneNotifications,
+} from '../types';
 import { BirthDay, Country, PhoneOtp } from '../value-objects';
 import { Phone } from '@clean-rn/contact/domain';
 import { User } from '../entities';
@@ -23,6 +32,12 @@ export type IRegisterBirthCommand = {
 export type IRegisterAddressCommand = {
   address: IAddress;
   USPerson: boolean;
+};
+
+export type IRegisterRevenuesCommand = {
+  income: IIncome;
+  assets: IAssets;
+  occupation: IOccupation;
 };
 
 export type ISendPhoneValidationCommand = {

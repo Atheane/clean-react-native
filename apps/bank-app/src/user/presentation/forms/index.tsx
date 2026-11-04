@@ -8,6 +8,7 @@ import {
 import { ISignupPhoneFormData, FormSignupPhone } from './form-signup-phone';
 import { ISignupValidatePhoneFormData, FormSignupValidatePhone } from './form-signup-validate-phone';
 import { IUpdateIdentityFormData, FormUpdateIdentity } from './form-update-identity';
+import { ISignupRevenuesFormData, FormSignupRevenues } from './form-signup-revenues';
 export {
   FormSignupAddress,
   FormSignupBirth,
@@ -16,6 +17,7 @@ export {
   FormSignupPhone,
   FormSignupValidatePhone,
   FormUpdateIdentity,
+  FormSignupRevenues,
 };
 
 export type {
@@ -26,4 +28,5 @@ export type {
   ISignupPhoneFormData,
   ISignupValidatePhoneFormData,
   IUpdateIdentityFormData,
+  ISignupRevenuesFormData,
 };

@@ -74,3 +74,23 @@ export enum ILanguage {
   DE = 'DE',
   EL = 'GR',
 }
+
+export enum IOccupation {
+  PUBLIC_EMPLOYEE,
+  PRIVATE_EMPLOYEE,
+  UNEMPLOYED,
+}
+
+export enum IAssets {
+  LESS_THAN_150K,
+  BETWEEN_150K_AND_350K,
+  BETWEEN_350K_AND_750K,
+  MORE_THAN_750K,
+}
+
+export enum IIncome {
+  LESS_THAN_1800,
+  BETWEEN_1800_AND_3500,
+  BETWEEN_3500_AND_10000,
+  MORE_THAN_10000,
+}
