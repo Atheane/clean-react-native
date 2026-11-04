@@ -23,8 +23,8 @@ export default {
       bundleIdentifier: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.example.bankapp',
       googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_PLIST || './GoogleService-Info.plist',
       supportsTablet: false,
-      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '232',
-      buildNumber: process.env.EXPO_PUBLIC_APP_VERSION || '232',
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '233',
+      buildNumber: process.env.EXPO_PUBLIC_APP_VERSION || '233',
     },
     android: {
       adaptiveIcon: {
@@ -34,7 +34,7 @@ export default {
       supportsTablet: false,
       package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.example.bankapp',
       googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_SERVICES || './google-services.json',
-      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '232',
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '233',
       proguard: true, // ou false
     },
     web: {
@@ -69,6 +69,7 @@ export default {
           android: {
             usesClearTextTraffic: false,
             minSdkVersion: 24, // does-not prevent lint pb on android with
+            targetSdkVersion: 34, // min target required on google cloud console march 2025
           },
         },
       ],
