@@ -21,6 +21,7 @@ import { checkCustomerStatus } from '../../../../kyc/application/commands/custom
 import { loginFailure, IAuthTypes, initializeAuth, loginSuccess, resetError } from '../../commands';
 import { initializeUser, userSaved } from '../../../../user/application/commands';
 import { cardForbidden, cardGetSuccess, cardNotFound } from '../../../../card/application/commands';
+import { getEnergy } from '../../../../energy/application/commands';
 
 export function* loginSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IAuthTypes.FETCH_LOGIN, loginGenerator, httpConnection);
@@ -75,6 +76,7 @@ export function* loginGenerator(
     yield put(loginSuccess({ auth }));
     yield put(userSaved(user));
     yield put(checkCustomerStatus({ user }));
+    yield put(getEnergy());
 
     yield call(navigate, { route: ISharedStackPages.HOME });
   } catch (error: unknown) {

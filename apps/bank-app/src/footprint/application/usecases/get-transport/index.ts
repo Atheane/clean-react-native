@@ -25,12 +25,13 @@ export function* getTransportGenerator(httpConnection: HttpConnection): Generato
     const query: ISearchTransportQuery = {
       userId: user.id,
     };
-    let transport: Transport = yield call([footprintApi, footprintApi.searchTransport], query);
-    if (!transport) {
-      transport = yield call([footprintApi, footprintApi.createTransport], {
-        userId: user.id,
-      });
-    }
+    const transport: Transport = yield call([footprintApi, footprintApi.searchTransport], query);
+    // wait for EP to be developed...
+    // if (!transport) {
+    //   transport = yield call([footprintApi, footprintApi.createTransport], {
+    //     userId: user.id,
+    //   });
+    // }
 
     yield put(transportCreated(transport));
   } catch (error: any) {

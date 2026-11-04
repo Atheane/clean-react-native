@@ -16,36 +16,19 @@ import { ensureTokenRefreshed } from '../../../../shared/application/usecases/en
 
 import { selectTransport } from '../../selectors';
 import { selectUser } from '../../../../user/application/state-management/selectors';
-import { IVehicleProps, IVehiclesProps } from 'apps/bank-app/src/footprint/presentation/types';
-import { mapVehiclePropsToDomain } from 'apps/bank-app/src/footprint/application/mappers';
+import { IVehicleProps, IVehiclesProps } from '../../../presentation/types';
+import { mapVehiclePropsToDomain } from '../../mappers';
 
-jest.mock('@clean-rn/shared/infrastructure', () => ({
-  HttpConnection: {
-    getInstance: jest.fn(),
-  },
-  ServerError: jest.fn().mockImplementation(function (error) {
-    this.message = error.message;
-    this.name = 'ServerError';
-    this.statusCode = error.statusCode;
-    this.codeError = error.codeError;
-    this.cause = error.response;
-  }),
-}));
+import { createMockHttpConnection, mockInfrastructure } from '../helpers/setup';
+import { mockVehicleData, mockTransport } from '../fixtures/mock-data';
 
 describe('AddVehicles - usecase', () => {
   let httpConnection: HttpConnection;
   let api: FootprintApi;
 
   beforeEach(() => {
-    httpConnection = {
-      baseUrl: 'http://mock-api.com',
-      options: jest.fn(),
-      handleError: jest.fn(),
-      getDefaultHeaders: jest.fn(),
-      attachBearerToken: jest.fn(),
-    };
-    HttpConnection.getInstance.mockReturnValue(httpConnection);
-    global.fetch = jest.fn();
+    httpConnection = createMockHttpConnection();
+    mockInfrastructure();
     api = FootprintApi.getInstance(httpConnection);
   });
 
@@ -58,13 +41,93 @@ describe('AddVehicles - usecase', () => {
     userId: 100000352,
   };
 
-  it('Should wait for ADD_VEHICLES action and call addWorksGenerator, should be done on next iteration', () => {
+  it('Should wait for ADD_VEHICLES action and call addVehiclesGenerator, should be done on next iteration', () => {
     const genObject = addVehiclesSaga(httpConnection);
 
     expect(genObject.next().value).toEqual(
       takeEvery(IFootprintTypes.ADD_VEHICLES, addVehiclesGenerator, httpConnection),
     );
     expect(genObject.next().done).toBeTruthy();
+  });
+
+  it('Should call vehiclesAdded', async () => {
+    const vehiclesVO = await mapVehiclePropsToDomain(mockVehicleData);
+
+    const vehicles = vehiclesVO.map((vehicleVO: VehicleVO) =>
+      Vehicle.Create({
+        vehicleId: 'vehicleId',
+        vehicle: vehicleVO,
+      }),
+    );
+
+    mockTransport.addVehicles(vehicles);
+
+    const mockVehicles: IVehiclesProps = {
+      userId: mockUserData.userId,
+      vehicles: vehiclesVO,
+    };
+
+    testSaga(addVehiclesGenerator, httpConnection, {
+      type: IFootprintTypes.ADD_VEHICLES,
+      payload: mockVehicles,
+    })
+      .next()
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
+      .select(selectUser)
+      .next(mockUserData.userId)
+      .select(selectTransport)
+      .next(mockTransport)
+      .call([api, api.addVehicles], {
+        transport: mockTransport,
+        vehiclesVO,
+      })
+      .next(mockTransport)
+      .put(vehiclesAdded(mockTransport))
+      .next();
+  });
+
+  it('Should throw InvalidVehicleDate error if acquisition year is undefined', async () => {
+    const invalidDateData = {
+      ...mockVehicleData,
+      acquisitionYear: undefined,
+    };
+
+    await expect(mapVehiclePropsToDomain(invalidDateData as unknown as IVehicleProps)).rejects.toThrow(
+      FootprintError.InvalidVehicleDate,
+    );
+  });
+
+  it('Should throw InvalidLicensePlate error if wrong license plate', async () => {
+    const invalidLicenseData = {
+      ...mockVehicleData,
+      licensePlate: 'DB',
+    };
+
+    await expect(mapVehiclePropsToDomain(invalidLicenseData)).rejects.toThrow(
+      FootprintError.InvalidLicensePlate,
+    );
+  });
+
+  it('Should throw InvalidLicensePlate error if no license plate', async () => {
+    const noLicenseData = {
+      ...mockVehicleData,
+      licensePlate: undefined,
+    };
+
+    await expect(mapVehiclePropsToDomain(noLicenseData)).rejects.toThrow(FootprintError.InvalidLicensePlate);
+  });
+
+  it('Should throw InvalidLicensePlate error if has changed but no old license plate provided', async () => {
+    const invalidChangedData = {
+      ...mockVehicleData,
+      hasBeenChanged: true,
+      oldLicensePlate: undefined,
+    };
+
+    await expect(mapVehiclePropsToDomain(invalidChangedData)).rejects.toThrow(
+      FootprintError.InvalidLicensePlate,
+    );
   });
 
   it('Should create transport and add a vehicle if no previous transport was created', async () => {
@@ -289,54 +352,5 @@ describe('AddVehicles - usecase', () => {
       .next()
       .put(showUnknownError(new Error('unknown error')))
       .next();
-  });
-
-  it('Should throw InvalidVehicleDate error', async () => {
-    const mockProps = {
-      userId: mockUserData.userId,
-      licensePlate: 'DB404PM',
-      hasBeenChanged: false,
-      acquisitionYear: undefined,
-      vehicleStatus: VEHICLE_STATUS.OWNED,
-    };
-
-    await expect(mapVehiclePropsToDomain(mockProps)).rejects.toThrow(FootprintError.InvalidVehicleDate);
-  });
-
-  it('Should throw InvalidLicensePlate error if wrong license plate', async () => {
-    const mockProps = {
-      userId: mockUserData.userId,
-      licensePlate: 'DB',
-      hasBeenChanged: false,
-      acquisitionYear: 2020,
-      vehicleStatus: VEHICLE_STATUS.OWNED,
-    };
-
-    await expect(mapVehiclePropsToDomain(mockProps)).rejects.toThrow(FootprintError.InvalidLicensePlate);
-  });
-
-  it('Should throw InvalidLicensePlate error if no license plate', async () => {
-    const mockProps = {
-      userId: mockUserData.userId,
-      licensePlate: undefined,
-      hasBeenChanged: false,
-      acquisitionYear: 2020,
-      vehicleStatus: VEHICLE_STATUS.OWNED,
-    };
-
-    await expect(mapVehiclePropsToDomain(mockProps)).rejects.toThrow(FootprintError.InvalidLicensePlate);
-  });
-
-  it('Should throw InvalidLicensePlate error if has changed but no old license plate provided', async () => {
-    const mockProps = {
-      userId: mockUserData.userId,
-      licensePlate: 'DB404PM',
-      oldLicensePlzte: undefined,
-      hasBeenChanged: true,
-      acquisitionYear: 2020,
-      vehicleStatus: VEHICLE_STATUS.OWNED,
-    };
-
-    await expect(mapVehiclePropsToDomain(mockProps)).rejects.toThrow(FootprintError.InvalidLicensePlate);
   });
 });

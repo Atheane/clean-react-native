@@ -25,7 +25,10 @@ const initialState: IInitializationState = {
   },
 };
 
-export const initializationReducer = (state = initialState, action: IInitializationActions) => {
+export const initializationReducer = (
+  state = initialState,
+  action: IInitializationActions,
+): IInitializationState => {
   let newState: IInitializationState;
   console.log(action.type);
   switch (action.type) {

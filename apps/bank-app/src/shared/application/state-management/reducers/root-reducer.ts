@@ -22,6 +22,7 @@ import { deviceReducer } from '../../../../device/application/state-management/r
 import { initializationReducer } from './initialize-application';
 import { globalErrorReducer } from './manage-global-errors';
 import { cardReducer } from '../../../../card/application/state-management/reducer';
+import { energyReducer } from '../../../../energy/application/state-management/reducer';
 
 export const rootReducer = combineReducers({
   initialization: initializationReducer,
@@ -38,6 +39,7 @@ export const rootReducer = combineReducers({
   kyc: combineReducers({ customer: customerReducer, document: documentReducer }),
   device: deviceReducer,
   card: cardReducer,
+  energy: energyReducer,
 });
 
 export type IRootState = ReturnType<typeof rootReducer>;

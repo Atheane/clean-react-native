@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { StyleSheet, View, Text, Platform, Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -27,6 +27,7 @@ import {
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { IEnergyStackPages, IRoutes } from '../../../shared/presentation/types';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { SENSOR_TYPE } from '@clean-rn/energy/domain';
 
 const FAKE_DATA = [
   {
@@ -59,12 +60,16 @@ const GreenEuros = () => {
   );
 };
 
-const Tiles = () => {
+const Tiles = (props: { data: { kpi: string; unit: string; color?: string; legend: string }[] }) => {
+  const { data } = props;
+  if (!data || data.length === 0) {
+    return <View style={styles.rowContainer} />;
+  }
   return (
     <View style={styles.rowContainer}>
-      <TileKpi icon={() => <Temperature width={31} height={31} />} data={FAKE_DATA[0]} />
-      <TileKpi icon={() => <Humidity width={31} height={31} />} data={FAKE_DATA[1]} />
-      <TileKpi icon={() => <CO2Output width={31} height={31} />} data={FAKE_DATA[2]} />
+      <TileKpi icon={() => <Temperature width={31} height={31} />} data={data[0]} />
+      <TileKpi icon={() => <Humidity width={31} height={31} />} data={data[1]} />
+      <TileKpi icon={() => <CO2Output width={31} height={31} />} data={data[2]} />
     </View>
   );
 };
@@ -91,15 +96,64 @@ export const MenuEnergy = () => {
   }
 
   const { loading: loadingEnergy } = useFeatureFlag('energy-app', false, userConfigCat);
+  const { energy, pending: pendingEnergy } = useSelector((state: IRootState) => state.energy);
 
-  return loading || loadingEnergy ? (
+  const data = useMemo(
+    () => () => {
+      if (!energy?.properties?.measurements) {
+        return [
+          {
+            kpi: '...',
+            unit: 'C°',
+            legend: t('screens.energy.menu.average'),
+            color: Colors.primary.grey,
+          },
+          {
+            kpi: '...',
+            unit: '%',
+            legend: t('screens.energy.menu.average'),
+            color: Colors.primary.lightGreen,
+          },
+          {
+            kpi: '...',
+            unit: 'ppm',
+            legend: t('screens.energy.menu.average'),
+            color: Colors.primary.lightGreen,
+          },
+        ];
+      }
+      return [
+        {
+          kpi: energy.properties.measurements[SENSOR_TYPE.TEMPERATURE]?.value.toString() ?? '...',
+          unit: 'C°',
+          legend: t('screens.energy.menu.average'),
+          color: Colors.primary.grey,
+        },
+        {
+          kpi: energy.properties.measurements[SENSOR_TYPE.HUMIDITY]?.value.toString() ?? '...',
+          unit: '%',
+          legend: t('screens.energy.menu.average'),
+          color: Colors.primary.lightGreen,
+        },
+        {
+          kpi: energy.properties.measurements[SENSOR_TYPE.CO2]?.value.toString() ?? '...',
+          unit: 'ppm',
+          legend: t('screens.energy.menu.average'),
+          color: Colors.primary.lightGreen,
+        },
+      ];
+    },
+    [energy],
+  );
+
+  return loading || loadingEnergy || pendingEnergy ? (
     <LoaderSplashScreen />
   ) : (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View>
           <View style={{ marginTop: 30, marginBottom: 8 }}>
-            <TileDashboard text={'Price comfort: '} kpi={1577} children={<Tiles />} />
+            <TileDashboard text={'Price comfort: '} kpi={1577} children={<Tiles data={data()} />} />
           </View>
           <View style={styles.row}>
             <LongCardIcon
