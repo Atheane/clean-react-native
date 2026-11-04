@@ -18,6 +18,7 @@ import {
   getMeasurementHumidity,
   getMeasurementCO2,
   getPriceComfort,
+  getRewards,
 } from '../fixtures/generate-fixtures';
 
 const httpConnection = HttpConnection.getInstance(
@@ -57,6 +58,10 @@ const setupFixtures = async (httpConnection: HttpConnection) => {
     await getPriceComfort(httpConnection);
   }
 
+  if (!fs.existsSync(fixtureDir + '/get-rewards.json')) {
+    await getRewards(httpConnection);
+  }
+
   const fixtures = {
     auth: JSON.parse(fs.readFileSync(fixtureDir + '/auth.json', 'utf8')),
     getSensors: JSON.parse(fs.readFileSync(fixtureDir + '/get-sensors.json', 'utf8')),
@@ -69,6 +74,7 @@ const setupFixtures = async (httpConnection: HttpConnection) => {
     getMeasurementCO2: JSON.parse(fs.readFileSync(fixtureDir + '/get-measurement-co2-error404.json', 'utf8')),
     unknownServerError: JSON.parse(fs.readFileSync(fixtureDir + '/unknown-server-error.json', 'utf8')),
     getPriceComfort: JSON.parse(fs.readFileSync(fixtureDir + '/get-price-comfort.json', 'utf8')),
+    getRewards: JSON.parse(fs.readFileSync(fixtureDir + '/get-rewards.json', 'utf8')),
   };
 
   return fixtures;
@@ -153,6 +159,11 @@ describe('Energy - integration', () => {
       http.get('*/app/energy-app/sensor', () => {
         return HttpResponse.json(fixtures.getSensors);
       }),
+      http.get('*/app/energy-app/reward/stats', () => {
+        return HttpResponse.json({
+          rewardTotal: 1234,
+        });
+      }),
       http.get('*/app/energy-app/sensor/temperature', () => {
         return HttpResponse.json(fixtures.getMeasurementTemperature);
       }),
@@ -185,6 +196,7 @@ describe('Energy - integration', () => {
               type: expect.any(String),
             }),
           ]),
+          totalRewards: 1234,
           measurements: {
             TEMPERATURE: expect.objectContaining({
               average: expect.any(Number),
@@ -238,7 +250,7 @@ describe('Energy - integration', () => {
     const domainEvents = calledActions.filter((action) => action.type === IEnergyTypes.ENERGY_DOMAIN_EVENT);
 
     expect(calledActions).toContainEqual(getEnergy());
-    expect(domainEvents).toHaveLength(5);
+    expect(domainEvents).toHaveLength(6);
   });
 
   it('Should trigger INITIALIZE_ENERGY when server returns error 500', async () => {

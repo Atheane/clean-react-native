@@ -20,6 +20,7 @@ export interface IEnergyProperties {
   heatingPriceComfort?: PriceComfortVO;
   coolingPriceComfort?: PriceComfortVO;
   globalPriceComfort?: PriceComfortVO;
+  totalRewards?: number;
   // consumption?: any;
 }
 
@@ -90,5 +91,18 @@ export class Energy extends Entity<IEnergyProperties> {
     this.properties.coolingPriceComfort = coolingPriceComfort;
     this.properties.globalPriceComfort = globalPriceComfort;
     Energy.emitStaticDomainEvent(ENERGY_EVENTS.PRICES_COMFORT_ADDED, this);
+  }
+
+  setTotalRewards(totalRewards: number): void {
+    this.properties.totalRewards = totalRewards;
+    Energy.emitStaticDomainEvent(ENERGY_EVENTS.TOTAL_REWARDS_SET, this);
+  }
+
+  updateTotalRewards(reward: number): void {
+    if (this.properties.totalRewards === undefined) {
+      this.properties.totalRewards = 0;
+    }
+    this.properties.totalRewards += reward;
+    Energy.emitStaticDomainEvent(ENERGY_EVENTS.TOTAL_REWARDS_UPDATED, this);
   }
 }

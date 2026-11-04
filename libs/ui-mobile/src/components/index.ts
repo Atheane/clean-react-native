@@ -29,6 +29,7 @@ import { TransferCard } from './cards/transfer-card';
 import { BeneficiaryCard } from './cards/beneficiary-card';
 import { ContactCard } from './cards/contact-card';
 import { TileDashboard } from './cards/tile-dashboard';
+import { TotalReward } from './cards/total-reward';
 // Charts
 import { StackedBars } from './charts/stacked-bars';
 import { ScatterPlot } from './charts/scatter-plot';
@@ -126,6 +127,7 @@ export {
   BeneficiaryCard,
   ContactCard,
   TileDashboard,
+  TotalReward,
   // Charts
   StackedBars,
   ScatterPlot,

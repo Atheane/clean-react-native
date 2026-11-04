@@ -70,14 +70,26 @@ describe('GetEnergy - usecase', () => {
       .next(mockUser)
       .select(selectEnergy)
       .next(mockEnergy)
+      .call([api, api.getRewards])
+      .next(1234)
+      .call([api, api.getPriceComfort])
+      .next(mockPricesComfort)
       .call([api, api.getSensors])
       .next(mockSensorsCO2AndHumidity)
       .call([api, api.getMeasurement], mockSensorsCO2AndHumidity[0].type)
       .next(mockMeasurementCO2)
       .call([api, api.getMeasurement], mockSensorsCO2AndHumidity[1].type)
-      .next(mockMeasurementHumidity)
-      .call([api, api.getPriceComfort])
-      .next(mockPricesComfort);
+      .next(mockMeasurementHumidity);
+
+    expect(domainManagerInstance.emit<Energy>).toHaveBeenCalledWith(
+      ENERGY_EVENTS.TOTAL_REWARDS_SET,
+      expect.objectContaining({
+        properties: expect.objectContaining({
+          userId: mockUser.id,
+          totalRewards: 1234,
+        }),
+      }),
+    );
 
     expect(domainManagerInstance.emit<Energy>).toHaveBeenCalledWith(
       ENERGY_EVENTS.SENSORS_CHECKED,
@@ -151,10 +163,14 @@ describe('GetEnergy - usecase', () => {
       .next(mockUser)
       .select(selectEnergy)
       .next(null)
+      .call([api, api.getRewards])
+      .next(0)
+      .call([api, api.getPriceComfort])
+      .next(mockPricesComfort)
       .call([api, api.getSensors])
       .next([]);
 
-    // check the first call (ENERGY_CREATED)
+    // Premier événement : ENERGY_CREATED
     expect(domainEventManager.emit).toHaveBeenNthCalledWith(
       1,
       ENERGY_EVENTS.ENERGY_CREATED,
@@ -165,9 +181,40 @@ describe('GetEnergy - usecase', () => {
       }),
     );
 
-    // check the second call (SENSORS_CHECKED)
+    // Deuxième événement : TOTAL_REWARDS_SET
     expect(domainEventManager.emit).toHaveBeenNthCalledWith(
       2,
+      ENERGY_EVENTS.TOTAL_REWARDS_SET,
+      expect.objectContaining({
+        properties: expect.objectContaining({
+          userId: mockUser.id,
+          totalRewards: 0,
+        }),
+      }),
+    );
+
+    // Troisième événement : PRICES_COMFORT_ADDED
+    expect(domainEventManager.emit).toHaveBeenNthCalledWith(
+      3,
+      ENERGY_EVENTS.PRICES_COMFORT_ADDED,
+      expect.objectContaining({
+        properties: expect.objectContaining({
+          userId: mockUser.id,
+          heatingPriceComfort: expect.objectContaining({
+            type: PRICE_COMFORT_TYPE.HEATING,
+            granularity: PRICE_COMFORT_DATA_GRANULARITY.DAILY,
+            value: expect.objectContaining({
+              incremental: 1480.2069375871483,
+              average: 17006.343627221664,
+            }),
+          }),
+        }),
+      }),
+    );
+
+    // Quatrième événement : SENSORS_CHECKED
+    expect(domainEventManager.emit).toHaveBeenNthCalledWith(
+      4,
       ENERGY_EVENTS.SENSORS_CHECKED,
       expect.objectContaining({
         properties: expect.objectContaining({
@@ -177,7 +224,7 @@ describe('GetEnergy - usecase', () => {
       }),
     );
 
-    expect(domainEventManager.emit).toHaveBeenCalledTimes(2);
+    expect(domainEventManager.emit).toHaveBeenCalledTimes(4);
   });
 
   it('Should call showUnknownError action if unknown error', () => {
