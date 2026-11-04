@@ -2,14 +2,7 @@
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 
-import {
-  HOUSE_STATUS,
-  House,
-  FootprintError,
-  HOUSE_WORK_TYPE,
-  Work,
-  WorkVO,
-} from '@clean-rn/footprint/domain';
+import { HOUSE_STATUS, House, FootprintError, Work } from '@clean-rn/footprint/domain';
 import { User } from '@clean-rn/user/domain';
 import { Email } from '@clean-rn/auth/domain';
 
@@ -25,33 +18,16 @@ import { mapWorkPropsToDomain } from '../../mappers';
 import { selectHouse } from '../../selectors';
 import { IWorksProps } from '../../../presentation/types';
 
-jest.mock('@clean-rn/shared/infrastructure', () => ({
-  HttpConnection: {
-    getInstance: jest.fn(),
-  },
-  ServerError: jest.fn().mockImplementation(function (error) {
-    this.message = error.message;
-    this.name = 'ServerError';
-    this.statusCode = error.statusCode;
-    this.codeError = error.codeError;
-    this.cause = error.response;
-  }),
-}));
+import { createMockHttpConnection, mockInfrastructure } from '../helpers/setup';
+import { mockHeaterHouse, mockWorkData } from '../fixtures/mock-data';
 
 describe('AddWorks - usecase', () => {
   let httpConnection: HttpConnection;
   let api: FootprintApi;
 
   beforeEach(() => {
-    httpConnection = {
-      baseUrl: 'http://mock-api.com',
-      options: jest.fn(),
-      handleError: jest.fn(),
-      getDefaultHeaders: jest.fn(),
-      attachBearerToken: jest.fn(),
-    };
-    HttpConnection.getInstance.mockReturnValue(httpConnection);
-    global.fetch = jest.fn();
+    httpConnection = createMockHttpConnection();
+    mockInfrastructure();
     api = FootprintApi.getInstance(httpConnection);
   });
 
@@ -73,58 +49,34 @@ describe('AddWorks - usecase', () => {
     expect(genObject.next().done).toBeTruthy();
   });
 
-  it('Should add works if house is not created', async () => {
-    const mockProps = {
-      workDate: 2022,
-      worksType: [HOUSE_WORK_TYPE.WINDOW, HOUSE_WORK_TYPE.WALL],
-    };
-
-    const user = User.Create({
-      id: mockUserData.userId,
-      properties: {
-        email: new Email('test@test.com'),
-      },
-    });
-    const house = House.Create({
-      userId: user.id,
-      houseStatus: HOUSE_STATUS.OCCUPIED,
-      houseId: 'houseId',
-    });
-
-    const worksVO = await mapWorkPropsToDomain(mockProps);
-
-    const houseWithWorks = House.Create({
-      userId: user.id,
-      houseStatus: HOUSE_STATUS.OCCUPIED,
-      houseId: 'houseId',
-    });
-
-    const works = worksVO.map((workVO: WorkVO) =>
+  it('Should call worksAdded', async () => {
+    const worksVO = await mapWorkPropsToDomain(mockWorkData);
+    const works = worksVO.map((workVO) =>
       Work.Create({
         workId: 'workId',
         work: workVO,
       }),
     );
-    houseWithWorks.addWorks(works);
+    mockHeaterHouse.addWorks(works);
 
     testSaga(addWorksGenerator, httpConnection, {
       type: IFootprintTypes.ADD_WORKS,
-      payload: mockProps,
+      payload: mockWorkData,
     })
       .next()
-      .call(mapWorkPropsToDomain, mockProps)
+      .call(mapWorkPropsToDomain, mockWorkData)
       .next(worksVO)
       .call(ensureTokenRefreshed, httpConnection)
       .next()
       .select(selectHouse)
-      .next(house)
+      .next(mockHeaterHouse)
       .call([api, api.addWorks], {
-        house,
-        worksVO: worksVO,
+        house: mockHeaterHouse,
+        worksVO,
       })
-      .next(houseWithWorks)
-      .put(worksAdded(houseWithWorks))
-      .next(houseWithWorks);
+      .next(mockHeaterHouse)
+      .put(worksAdded(mockHeaterHouse))
+      .next();
   });
 
   it('Should call WORKS_ADDED if no workTypes is provided', async () => {
@@ -182,24 +134,19 @@ describe('AddWorks - usecase', () => {
       .next();
   });
 
-  it('should throw InvalidHeaterDate when workDate is undefined', async () => {
-    const mockProps = {
-      worksType: [HOUSE_WORK_TYPE.WALL],
+  it('should throw InvalidWorkDate when workDate is undefined', async () => {
+    const invalidDateData = {
+      ...mockWorkData,
       workDate: undefined,
     };
 
-    await expect(mapWorkPropsToDomain(mockProps)).rejects.toThrow(FootprintError.InvalidWorkDate);
+    await expect(mapWorkPropsToDomain(invalidDateData)).rejects.toThrow(FootprintError.InvalidWorkDate);
   });
 
   it('Should call showUnknownError action if unknown error', () => {
-    const mockProps = {
-      workDate: 2022,
-      worksType: [HOUSE_WORK_TYPE.WINDOW],
-    };
-
     testSaga(addWorksGenerator, httpConnection, {
       type: IFootprintTypes.ADD_WORKS,
-      payload: mockProps,
+      payload: mockWorkData,
     })
       .next()
       .throw(new Error('unknown error'))

@@ -10,8 +10,6 @@ import {
   Heater,
   FootprintError,
 } from '@clean-rn/footprint/domain';
-import { User } from '@clean-rn/user/domain';
-import { Email } from '@clean-rn/auth/domain';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { FootprintApi } from '@clean-rn/footprint/infrastructure';
 
@@ -23,34 +21,16 @@ import { ensureTokenRefreshed } from '../../../../shared/application/usecases/en
 import { mapHeaterPropsToDomain } from '../../mappers';
 import { selectHouse } from '../../selectors';
 import { IHeaterProps } from '../../../presentation/types';
-
-jest.mock('@clean-rn/shared/infrastructure', () => ({
-  HttpConnection: {
-    getInstance: jest.fn(),
-  },
-  ServerError: jest.fn().mockImplementation(function (error) {
-    this.message = error.message;
-    this.name = 'ServerError';
-    this.statusCode = error.statusCode;
-    this.codeError = error.codeError;
-    this.cause = error.response;
-  }),
-}));
+import { createMockHttpConnection, mockInfrastructure } from '../helpers/setup';
+import { mockHeaterData, mockHeaterUser } from '../fixtures/mock-data';
 
 describe('AddHeaters - usecase', () => {
   let httpConnection: HttpConnection;
   let api: FootprintApi;
 
   beforeEach(() => {
-    httpConnection = {
-      baseUrl: 'http://mock-api.com',
-      options: jest.fn(),
-      handleError: jest.fn(),
-      getDefaultHeaders: jest.fn(),
-      attachBearerToken: jest.fn(),
-    };
-    HttpConnection.getInstance.mockReturnValue(httpConnection);
-    global.fetch = jest.fn();
+    httpConnection = createMockHttpConnection();
+    mockInfrastructure();
     api = FootprintApi.getInstance(httpConnection);
   });
 
@@ -59,11 +39,7 @@ describe('AddHeaters - usecase', () => {
     jest.clearAllMocks();
   });
 
-  const mockUserData = {
-    userId: 100000352,
-  };
-
-  it('Should wait for ADD_HEATERS action and call registerHeatersGenerator, should be done on next iteration', () => {
+  it('Should wait for ADD_HEATERS action and call addHeatersGenerator, should be done on next iteration', () => {
     const genObject = addHeatersSaga(httpConnection);
 
     expect(genObject.next().value).toEqual(
@@ -80,14 +56,8 @@ describe('AddHeaters - usecase', () => {
       previousHeatType: HEATER_TYPE.ELECTRIC,
       hasBeenChanged: true,
     };
-    const user = User.Create({
-      id: mockUserData.userId,
-      properties: {
-        email: new Email('test@test.com'),
-      },
-    });
     const house = House.Create({
-      userId: user.id,
+      userId: mockHeaterUser.id,
       houseStatus: HOUSE_STATUS.OCCUPIED,
       houseId: 'houseId',
     });
@@ -95,7 +65,7 @@ describe('AddHeaters - usecase', () => {
     const heatersVO = await mapHeaterPropsToDomain(mockProps);
 
     const houseWithHeaters = House.Create({
-      userId: user.id,
+      userId: mockHeaterUser.id,
       houseStatus: HOUSE_STATUS.OCCUPIED,
       houseId: 'houseId',
     });
@@ -135,20 +105,14 @@ describe('AddHeaters - usecase', () => {
       previousHeatType: HEATER_TYPE.ELECTRIC,
       hasBeenChanged: true,
     };
-    const user = User.Create({
-      id: mockUserData.userId,
-      properties: {
-        email: new Email('test@test.com'),
-      },
-    });
     const house = House.Create({
-      userId: user.id,
+      userId: mockHeaterUser.id,
       houseStatus: HOUSE_STATUS.OCCUPIED,
       houseId: 'houseId',
     });
     const heatersVO = await mapHeaterPropsToDomain(mockProps);
     const houseWithHeaters = House.Create({
-      userId: user.id,
+      userId: mockHeaterUser.id,
       houseStatus: HOUSE_STATUS.OCCUPIED,
       houseId: 'houseId',
     });
@@ -188,20 +152,14 @@ describe('AddHeaters - usecase', () => {
       previousHeatType: HEATER_TYPE.ELECTRIC,
       hasBeenChanged: false,
     };
-    const user = User.Create({
-      id: mockUserData.userId,
-      properties: {
-        email: new Email('test@test.com'),
-      },
-    });
     const house = House.Create({
-      userId: user.id,
+      userId: mockHeaterUser.id,
       houseStatus: HOUSE_STATUS.OCCUPIED,
       houseId: 'houseId',
     });
     const heatersVO = await mapHeaterPropsToDomain(mockProps);
     const houseWithHeaters = House.Create({
-      userId: user.id,
+      userId: mockHeaterUser.id,
       houseStatus: HOUSE_STATUS.OCCUPIED,
       houseId: 'houseId',
     });
@@ -276,19 +234,16 @@ describe('AddHeaters - usecase', () => {
   });
 
   it('Should throw invalid heater type if no previous heater type is provided and date > 2011', async () => {
-    const mockProps = {
-      usage: HEATER_USAGE.MAIN,
-      heatType: HEATER_TYPE.ELECTRIC,
-      installationYear: 2013,
+    const invalidHeaterData = {
+      ...mockHeaterData,
       previousHeatType: undefined,
-      hasBeenChanged: true,
     };
     testSaga(addHeatersGenerator, httpConnection, {
       type: IFootprintTypes.ADD_HEATERS,
-      payload: mockProps,
+      payload: invalidHeaterData,
     })
       .next()
-      .call(mapHeaterPropsToDomain, mockProps)
+      .call(mapHeaterPropsToDomain, invalidHeaterData)
       .throw(new FootprintError.InvalidHeaterType())
       .put(initializeFootprint())
       .next()
@@ -297,28 +252,18 @@ describe('AddHeaters - usecase', () => {
   });
 
   it('should throw InvalidHeaterDate when installationYear is undefined', async () => {
-    const props = {
-      usage: HEATER_USAGE.MAIN,
-      heatType: HEATER_TYPE.ELECTRIC,
+    const invalidDateData = {
+      ...mockHeaterData,
       installationYear: undefined,
-      previousHeatType: HEATER_TYPE.ELECTRIC,
-      hasBeenChanged: true,
     };
 
-    await expect(mapHeaterPropsToDomain(props)).rejects.toThrow(FootprintError.InvalidHeaterDate);
+    await expect(mapHeaterPropsToDomain(invalidDateData)).rejects.toThrow(FootprintError.InvalidHeaterDate);
   });
 
   it('Should call showUnknownError action if unknown error', () => {
-    const mockData = {
-      usage: HEATER_USAGE.MAIN,
-      heatType: HEATER_TYPE.ELECTRIC,
-      installationYear: 2013,
-      previousHeatType: HEATER_TYPE.ELECTRIC,
-    };
-
     testSaga(addHeatersGenerator, httpConnection, {
       type: IFootprintTypes.ADD_HEATERS,
-      payload: mockData,
+      payload: mockHeaterData,
     })
       .next()
       .throw(new Error('unknown error'))

@@ -22,6 +22,7 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
 import { initializeUser, userSaved } from '../../../../user/application/commands';
 import { cardForbidden, cardGetSuccess, cardNotFound } from '../../../../card/application/commands';
+import { getEnergy } from 'apps/bank-app/src/energy/application/commands';
 
 jest.mock('@clean-rn/shared/infrastructure', () => ({
   HttpConnection: {
@@ -241,11 +242,13 @@ describe('Login - usecase', () => {
       .next()
       .put(checkCustomerStatus({ user }))
       .next()
+      .put(getEnergy())
+      .next()
       .call(navigate, { route: ISharedStackPages.HOME })
       .next();
   });
 
-  it('Should call loginSuccess if user is a woman and locales differs from user config', async () => {
+  it('Should call loginSuccess if locales differs from user config', async () => {
     const user = await UserMapper.toDomain(mockUserWomanData);
     user.setConfig({ lang: 'en' });
 
@@ -276,11 +279,13 @@ describe('Login - usecase', () => {
       .next()
       .put(checkCustomerStatus({ user }))
       .next()
+      .put(getEnergy())
+      .next()
       .call(navigate, { route: ISharedStackPages.HOME })
       .next();
   });
 
-  it('Should call loginSuccess if user is neutral', async () => {
+  it('Should call loginSuccess if getCard fails', async () => {
     const serverError = new ServerError(mockError403CardForbidden);
     serverError.statusCode = 403;
 
@@ -309,6 +314,8 @@ describe('Login - usecase', () => {
       .put(userSaved(user))
       .next()
       .put(checkCustomerStatus({ user }))
+      .next()
+      .put(getEnergy())
       .next()
       .call(navigate, { route: ISharedStackPages.HOME })
       .next();

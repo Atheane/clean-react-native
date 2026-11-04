@@ -887,6 +887,7 @@
     "energy": {
       "menu": {
         "title": "Mon bilan énergie",
+        "average": "Moyenne",
         "win-euros": "Gagnez des €G grâce à\nnotre Quizz !",
         "adapt-temperature": "Adapter la température\nde mon logement",
         "renovate-my-house": "Estimer mes gains après\nrénovation énergétique",

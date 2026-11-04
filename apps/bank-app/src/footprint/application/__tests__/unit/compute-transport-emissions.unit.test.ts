@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { VehicleConsumptionT } from '@bank/carbon-weight/dist';
 import { FuelE } from '@bank/carbon-weight/dist/vehicle/types';
-import { TransportEmissions } from '@clean-rn/footprint/domain';
+
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
@@ -19,32 +19,15 @@ import {
 } from '../../usecases/compute-transport-emissions';
 import { IFootprintTypes, transportEmissionsComputed, initializeTransportEmissions } from '../../commands';
 
-jest.mock('@clean-rn/shared/infrastructure', () => ({
-  HttpConnection: {
-    getInstance: jest.fn(),
-  },
-  ServerError: jest.fn().mockImplementation(function (error) {
-    this.message = error.message;
-    this.name = 'ServerError';
-    this.statusCode = error.statusCode;
-    this.codeError = error.codeError;
-    this.cause = error.response;
-  }),
-}));
+import { createMockHttpConnection, mockInfrastructure } from '../helpers/setup';
+import { mockTransportData, transportCarbonFootprint } from '../fixtures/mock-data';
 
 describe('ComputeTransportEmissions - usecase', () => {
   let httpConnection: HttpConnection;
 
   beforeEach(() => {
-    httpConnection = {
-      baseUrl: 'http://mock-api.com',
-      options: jest.fn(),
-      handleError: jest.fn(),
-      getDefaultHeaders: jest.fn(),
-      attachBearerToken: jest.fn(),
-    };
-    HttpConnection.getInstance.mockReturnValue(httpConnection);
-    global.fetch = jest.fn();
+    httpConnection = createMockHttpConnection();
+    mockInfrastructure();
   });
 
   afterEach(() => {
@@ -71,29 +54,28 @@ describe('ComputeTransportEmissions - usecase', () => {
   });
 
   it('Should call transportEmissionsComputed', async () => {
-    const carbonFootprint = new TransportEmissions(mockData);
     testSaga(computeTransportEmissionsGenerator, httpConnection, {
       type: IFootprintTypes.COMPUTE_TRANSPORT_EMISSIONS,
-      payload: mockData,
+      payload: mockTransportData,
     })
       .next()
       .call(ensureTokenRefreshed, httpConnection)
       .next()
       .put(
         transportEmissionsComputed({
-          footprint: carbonFootprint.value,
-          average: carbonFootprint.valueAverage,
+          footprint: transportCarbonFootprint.value,
+          average: transportCarbonFootprint.valueAverage,
         }),
       )
       .next()
-      .call(AsyncStorage.setItem, IStoreKey.TRANSPORT_EMISSION, carbonFootprint.value.toFixed(2))
-      .next(carbonFootprint.value.toFixed(2))
+      .call(AsyncStorage.setItem, IStoreKey.TRANSPORT_EMISSION, transportCarbonFootprint.value.toFixed(2))
+      .next(transportCarbonFootprint.value.toFixed(2))
       .call(
         AsyncStorage.setItem,
         IStoreKey.AVERAGE_TRANSPORT_EMISSION,
-        carbonFootprint.valueAverage.toFixed(2),
+        transportCarbonFootprint.valueAverage.toFixed(2),
       )
-      .next(carbonFootprint.valueAverage.toFixed(2))
+      .next(transportCarbonFootprint.valueAverage.toFixed(2))
       .call(navigate, { route: IFootprintStackPages.FOOTPRINT_ESTIMATION })
       .next();
   });
@@ -101,7 +83,7 @@ describe('ComputeTransportEmissions - usecase', () => {
   it('Should call showUnknownError action if unknown error', () => {
     testSaga(computeTransportEmissionsGenerator, httpConnection, {
       type: IFootprintTypes.COMPUTE_TRANSPORT_EMISSIONS,
-      payload: mockData,
+      payload: mockTransportData,
     })
       .next()
       .call(ensureTokenRefreshed, httpConnection)
