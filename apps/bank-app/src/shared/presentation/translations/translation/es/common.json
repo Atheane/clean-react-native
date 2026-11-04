@@ -98,6 +98,15 @@
       "required": "Cantidad requerida",
       "invalid": "Cantidad inválida"
     },
+    "income": {
+      "required": "Categoría de ingresos requerida"
+    },
+    "assets": {
+      "required": "Valor de patrimonio requerido"
+    },
+    "occupation": {
+      "required": "Categoría profesional requerida"
+    },
     "domain-error": {
       "auth": {
         "INVALID_EMAIL": "E-mail inválido",
@@ -117,7 +126,8 @@
         "SIGNUP_FAILURE_PHONE_EXISTS": "Este teléfono ya está registrado",
         "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "Código incorrecto",
         "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Número de teléfono desconocido",
-        "INVALID_ADDRESS": "Dirección inválida"
+        "INVALID_ADDRESS": "Dirección inválida",
+        "SIGNUP_FAILURE": "Error durante el registro, por favor inténtelo de nuevo"
       },
       "account": {
         "INVALID_IBAN": "IBAN inválido",
@@ -149,9 +159,9 @@
         "HEATER_ALREADY_EXISTS": "Calefacción ya declarada",
         "INVALID_ADULT_NUMBER": "El número de adultos debe estar entre 1 y 20",
         "INVALID_CHILD_NUMBER": "El número de menores debe estar entre 1 y 20",
-        "HOUSEHOLD_ALDREADY_DECLARED": "Hogar ya declarado",
         "VEHICLE_ALREADY_EXISTS": "Este vehículo ya existe",
-        "INVALID_LICENSE_PLATE": "La matrícula no es válida.\nEjemplo de formato esperado: AA123BB"
+        "INVALID_LICENSE_PLATE": "La matrícula no es válida.\nEjemplo de formato esperado: AA123BB",
+        "HOUSEHOLD_ALDREADY_DECLARED": "El hogar ya ha sido declarado"
       },
       "kyc": {
         "MISSING_KYC_DOCUMENTS": "Faltan documentos para la validación del expediente",
@@ -287,6 +297,33 @@
       "placeholder": "40600"
     }
   },
+  "signup-revenues": {
+    "title": "Verificación de identidad",
+    "intro": "Para ayudar a combatir el fraude y el blanqueo de dinero, complete las secciones a continuación:",
+    "income": {
+      "label": "Sus ingresos",
+      "placeholder": "Seleccionar",
+      "LESS_THAN_1800": "menos de 1.800 euros / mes",
+      "BETWEEN_1800_AND_3500": "menos de 3.500 euros / mes",
+      "BETWEEN_3500_AND_10000": "menos de 10.000 euros / mes",
+      "MORE_THAN_10000": "más de 10.000 euros / mes"
+    },
+    "assets": {
+      "label": "Su patrimonio",
+      "placeholder": "Seleccionar",
+      "LESS_THAN_150K": "menos de 150.000 euros",
+      "BETWEEN_150K_AND_350K": "menos de 350.000 euros",
+      "BETWEEN_350K_AND_750K": "menos de 750.000 euros",
+      "MORE_THAN_750K": "más de 750.000 euros"
+    },
+    "occupation": {
+      "label": "Su categoría profesional",
+      "placeholder": "Seleccionar",
+      "UNEMPLOYED": "No asalariado",
+      "PRIVATE_EMPLOYEE": "Empleado del sector privado",
+      "PUBLIC_EMPLOYEE": "Empleado del sector público"
+    }
+  },
   "email-sent": {
     "title": "Correo enviado",
     "text": "Le hemos enviado un correo de confirmación a la dirección indicada.\nPor favor, haga clic en el enlace para conectarse."
@@ -338,6 +375,10 @@
     "signup-phone": {
       "title": "Validación móvil",
       "text": "Validar su número de teléfono móvil"
+    },
+    "signup-revenues": {
+      "title": "Verificación de identidad",
+      "intro": "Para ayudar a combatir el fraude y el blanqueo de dinero, complete las secciones a continuación:"
     },
     "home": {
       "title": "Inicio",
@@ -839,6 +880,16 @@
     },
     "languages": {
       "title": "Seleccionar idioma"
+    },
+    "energy": {
+      "menu": {
+        "title": "Mi balance energético",
+        "win-euros": "¡Gane €G gracias a\nnuestro Quiz!",
+        "adapt-temperature": "Adaptar la temperatura\nde mi vivienda",
+        "renovate-my-house": "Estimar mis ahorros después\nde la renovación energética",
+        "my-energy-consumption": "Mi consumo\nenergético"
+      },
+      "tab": "Balance Energético"
     }
   }
 }

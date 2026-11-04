@@ -31,6 +31,8 @@ export enum HOUSE_WORK_TYPE {
   GROUND = 'GROUND',
   WINDOW = 'WINDOW',
   VMC = 'VMC',
+  HP = 'HP',
+  GLOBAL = 'GLOBAL',
 }
 
 export enum VEHICLE_STATUS {

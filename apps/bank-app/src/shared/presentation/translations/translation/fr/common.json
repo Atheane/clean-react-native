@@ -280,6 +280,22 @@
       "placeholder": "Nationalité"
     }
   },
+  "signup-address": {
+    "address": {
+      "label": "Adresse",
+      "placeholder": "Exemple : 5 rue de la paix 75000 Paris"
+    },
+    "usperson": {
+      "label": "Je suis une « person US »",
+      "subtitle": "(Résident américain)",
+      "yes": "Oui",
+      "no": "Non"
+    },
+    "zip": {
+      "label": "Code postal",
+      "placeholder": "40600"
+    }
+  },
   "signup-revenues": {
     "income": {
       "label": "Vos revenus",
@@ -303,22 +319,6 @@
       "UNEMPLOYED": "Non salarié",
       "PRIVATE_EMPLOYEE": "Salarié du secteur privé",
       "PUBLIC_EMPLOYEE": "Salarié du secteur public"
-    }
-  },
-  "signup-address": {
-    "address": {
-      "label": "Adresse",
-      "placeholder": "5 rue de la paix 75000 Paris"
-    },
-    "usperson": {
-      "label": "Je suis une « person US »",
-      "subtitle": "(Résident américain)",
-      "yes": "Oui",
-      "no": "Non"
-    },
-    "zip": {
-      "label": "Code postal",
-      "placeholder": "40600"
     }
   },
   "email-sent": {
@@ -379,7 +379,7 @@
     },
     "signup-revenues": {
       "title": "Vérification d'identité",
-      "intro": "Pour aider à lutter contre la fraude et le blanchiment, veuillez indiquer vos informations de revenus."
+      "intro": "Pour aider à lutter contre la fraude et le blanchiment d’argent, complétez les rubriques ci-dessous :"
     },
     "home": {
       "title": "Accueil",
@@ -539,8 +539,10 @@
         "ROOF": "Isolation toit/comble",
         "WALL": "Isolation murs",
         "GROUND": "Isolation sol",
-        "WINDOW": "Installation de fenêtres isolantes",
-        "VMC": "Installation d’une VMC double flux"
+        "WINDOW": "Fenêtres isolantes",
+        "VMC": "VMC double flux",
+        "HP": "Pompe à chaleur",
+        "GLOBAL": "Rénovation globale"
       },
       "dropdown-placeholder": "Sélectionner",
       "instruction-works-type": "Si vous avez réalisé des travaux, indiquez les :",
@@ -558,7 +560,7 @@
       "has-changed": "Ce véhicule en remplace-t-il un autre ?",
       "has-changed-no": "Non",
       "has-changed-yes": "Oui",
-      "add": "Ajouter",
+      "add": "Ajouter un véhicule",
       "vehicle": "Véhicule",
       "before": "avant",
       "in": "en",
