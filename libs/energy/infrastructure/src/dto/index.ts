@@ -57,3 +57,12 @@ export type IPriceComfortDto = {
   startDate: Date;
   temperature: number;
 };
+
+export type IRewardsStatsDto = {
+  count: number;
+  rewardChallenge: number;
+  rewardPending: number;
+  rewardQuiz: number;
+  rewardTotal: number;
+  updatedAt: Date;
+};

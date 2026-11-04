@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, put, StrictEffect, takeEvery, select } from 'redux-saga/effects';
-import { HttpConnection, IServerError, ServerError } from '@clean-rn/shared/infrastructure';
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { User } from '@clean-rn/user/domain';
 import { Energy, ISensor, MeasurementVO, PriceComfortVO, SENSOR_TYPE } from '@clean-rn/energy/domain';
 import { EnergyApi } from '@clean-rn/energy/infrastructure';
@@ -28,6 +28,12 @@ export function* getEnergyGenerator(httpConnection: HttpConnection): Generator<S
     }
 
     const energyApi = EnergyApi.getInstance(httpConnection);
+    const totalRewards: number = yield call([energyApi, energyApi.getRewards]);
+    energy.setTotalRewards(totalRewards);
+
+    const priceComforts: PriceComfortVO[] = yield call([energyApi, energyApi.getPriceComfort]);
+    energy.addPricesComfort(priceComforts);
+
     const sensors: ISensor[] = yield call([energyApi, energyApi.getSensors]);
     energy.checkAvailableSensors(sensors);
     const uniqueSensorTypes = new Set<SENSOR_TYPE>();
@@ -41,8 +47,6 @@ export function* getEnergyGenerator(httpConnection: HttpConnection): Generator<S
         energy.addMesurement(measurement);
       }
     }
-    const priceComforts: PriceComfortVO[] = yield call([energyApi, energyApi.getPriceComfort]);
-    energy.addPricesComfort(priceComforts);
   } catch (error: unknown) {
     yield put(initializeEnergy());
     yield put(showUnknownError(error as Error));

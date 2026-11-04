@@ -1,10 +1,9 @@
-import { useMemo, useState } from 'react';
-import { StyleSheet, View, Text, Platform, Image } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useMemo } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { useFeatureFlag, User as ConfigCatUser } from 'configcat-react';
-import { useTheme } from '@rneui/themed';
 
 import {
   Colors,
@@ -15,7 +14,7 @@ import {
   AdaptTemperature,
   RenovateHouse,
   EnergyConsumption,
-  GreenEuro,
+  TotalReward,
   TileKpi,
   Temperature,
   Humidity,
@@ -29,47 +28,31 @@ import { IEnergyStackPages, IRoutes } from '../../../shared/presentation/types';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { SENSOR_TYPE } from '@clean-rn/energy/domain';
 
-const FAKE_DATA = [
-  {
-    kpi: '20',
-    unit: 'C°',
-    color: Colors.primary.grey,
-    legend: 'Moyenne',
-  },
-  {
-    kpi: '63',
-    unit: '%',
-    legend: 'Salon',
-  },
-  {
-    kpi: '1235',
-    unit: 'ppm',
-    legend: 'Salon',
-  },
-];
-const GreenEuros = () => {
-  const { theme } = useTheme();
-  return (
-    <View style={styles.greenEurosContainer}>
-      <Text style={theme.text.boldDarkBlue}>Total €G won: </Text>
-      <Text style={[theme.text.boldDarkBlue, { color: Colors.primary.white }]}>15,82</Text>
-      <View style={styles.imgContainer}>
-        <Image source={GreenEuro} style={styles.greenEuroImg} />
-      </View>
-    </View>
-  );
-};
-
-const Tiles = (props: { data: { kpi: string; unit: string; color?: string; legend: string }[] }) => {
+const Tiles = (props: {
+  data: { kpi?: string; unit: string; color?: string; legend: string; loading: boolean }[];
+}) => {
   const { data } = props;
   if (!data || data.length === 0) {
     return <View style={styles.rowContainer} />;
   }
+
   return (
     <View style={styles.rowContainer}>
-      <TileKpi icon={() => <Temperature width={31} height={31} />} data={data[0]} />
-      <TileKpi icon={() => <Humidity width={31} height={31} />} data={data[1]} />
-      <TileKpi icon={() => <CO2Output width={31} height={31} />} data={data[2]} />
+      <TileKpi
+        icon={() => <Temperature width={31} height={31} />}
+        data={{ kpi: data[0].kpi, unit: data[0].unit, color: data[0].color, legend: data[0].legend }}
+        loading={data[0].loading}
+      />
+      <TileKpi
+        icon={() => <Humidity width={31} height={31} />}
+        data={{ kpi: data[1].kpi, unit: data[1].unit, color: data[1].color, legend: data[1].legend }}
+        loading={data[1].loading}
+      />
+      <TileKpi
+        icon={() => <CO2Output width={31} height={31} />}
+        data={{ kpi: data[2].kpi, unit: data[2].unit, color: data[2].color, legend: data[2].legend }}
+        loading={data[2].loading}
+      />
     </View>
   );
 };
@@ -82,8 +65,6 @@ export const MenuEnergy = () => {
     navigation.navigate(route as never);
   };
 
-  const dispatch = useDispatch();
-
   const navigation = useNavigation();
 
   let userConfigCat: ConfigCatUser | undefined;
@@ -94,58 +75,39 @@ export const MenuEnergy = () => {
   }
 
   const { loading: loadingConfigcat } = useFeatureFlag('energy-app', false, userConfigCat);
-  const { energy, pending: loadingEnergy } = useSelector((state: IRootState) => state.energy);
+  const { energy } = useSelector((state: IRootState) => state.energy);
 
   const data = useMemo(() => {
-    if (!energy?.properties?.measurements) {
-      return [
-        {
-          kpi: '...',
-          unit: 'C°',
-          legend: t('screens.energy.menu.average'),
-          color: Colors.primary.grey,
-        },
-        {
-          kpi: '...',
-          unit: '%',
-          legend: t('screens.energy.menu.average'),
-          color: Colors.primary.lightGreen,
-        },
-        {
-          kpi: '...',
-          unit: 'ppm',
-          legend: t('screens.energy.menu.average'),
-          color: Colors.primary.lightGreen,
-        },
-      ];
-    }
     return [
       {
-        kpi: energy.properties.measurements[SENSOR_TYPE.TEMPERATURE]?.value.toString() ?? '...',
+        kpi: energy?.properties?.measurements?.[SENSOR_TYPE.TEMPERATURE]?.value.toString(),
         unit: 'C°',
         legend: t('screens.energy.menu.average'),
         color: Colors.primary.grey,
+        loading: energy?.properties?.measurements?.[SENSOR_TYPE.TEMPERATURE] === undefined,
       },
       {
-        kpi: energy.properties.measurements[SENSOR_TYPE.HUMIDITY]?.value.toString() ?? '...',
+        kpi: energy?.properties?.measurements?.[SENSOR_TYPE.HUMIDITY]?.value.toString(),
         unit: '%',
         legend: t('screens.energy.menu.average'),
         color: Colors.primary.lightGreen,
+        loading: energy?.properties?.measurements?.[SENSOR_TYPE.HUMIDITY] === undefined,
       },
       {
-        kpi: energy.properties.measurements[SENSOR_TYPE.CO2]?.value.toString() ?? '...',
+        kpi: energy?.properties?.measurements?.[SENSOR_TYPE.CO2]?.value.toString(),
         unit: 'ppm',
         legend: t('screens.energy.menu.average'),
         color: Colors.primary.lightGreen,
+        loading: energy?.properties?.measurements?.[SENSOR_TYPE.CO2] === undefined,
       },
     ];
-  }, [energy?.properties.measurements, t]);
+  }, [energy?.properties?.measurements, t]);
 
   const priceComfort = useMemo(() => {
     return energy?.properties?.globalPriceComfort?.value?.average?.toString() ?? '...';
   }, [energy?.properties?.globalPriceComfort]);
 
-  return loadingConfigcat || loadingEnergy ? (
+  return loadingConfigcat ? (
     <LoaderSplashScreen />
   ) : (
     <ErrorBoundary t={t}>
@@ -166,7 +128,13 @@ export const MenuEnergy = () => {
                 <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
               )}
               onPress={() => handlePressNavigation(IEnergyStackPages.WIN_GREEN_EUROS)}
-              children={<GreenEuros />}
+              children={
+                <TotalReward
+                  totalRewards={energy?.properties.totalRewards ?? 0}
+                  title={t('screens.energy.menu.total-green-euros')}
+                  loading={energy?.properties.totalRewards === undefined}
+                />
+              }
             />
           </View>
           <View style={styles.row}>
@@ -222,24 +190,5 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     marginTop: 16,
-  },
-  greenEurosContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: Colors.secondary.lightPurple,
-    width: '90%',
-    height: 40,
-    marginVertical: 8,
-    justifyContent: 'center',
-    borderRadius: 8,
-    marginLeft: Platform.OS === 'web' ? 20 : 0,
-  },
-  imgContainer: {
-    marginBottom: 10,
-  },
-  greenEuroImg: {
-    marginTop: 8,
-    width: 44,
-    height: 44,
   },
 });

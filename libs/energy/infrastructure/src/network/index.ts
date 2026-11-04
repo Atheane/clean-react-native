@@ -6,7 +6,14 @@ import {
   PriceComfortVO,
   SENSOR_TYPE,
 } from '@clean-rn/energy/domain';
-import { IMeasurementsDto, IPriceComfortDto, ISensorDto, SENSOR_TYPE_DTO } from '../dto';
+import {
+  IMeasurementsDto,
+  IPriceComfortDto,
+  IRewardDto,
+  IRewardsStatsDto,
+  ISensorDto,
+  SENSOR_TYPE_DTO,
+} from '../dto';
 import { SensorMapper, MeasurementMapper, PriceComfortMapper } from '../mappers';
 
 export class EnergyApi implements IEnergyRepository {
@@ -89,5 +96,15 @@ export class EnergyApi implements IEnergyRepository {
       }),
     );
     return priceComforts;
+  }
+
+  async getRewards(): Promise<number> {
+    const response = await fetch(
+      `${this.connection.baseUrl}/app/energy-app/reward/stats`,
+      this.connection.options(IHttpVerb.GET),
+    );
+    await this.connection.handleError(response);
+    const rewardsStatsDtos: IRewardsStatsDto = await response.json();
+    return rewardsStatsDtos.rewardTotal;
   }
 }
