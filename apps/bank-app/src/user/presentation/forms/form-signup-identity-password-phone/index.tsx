@@ -230,7 +230,9 @@ export const FormSignupIdentityPasswordPhone = (props: IProps) => {
                     }}
                     buttonTextStyle={theme.text.inputPicker}
                     searchPlaceHolder=""
-                    defaultValue={countryCode ? new Country(countryCode).valueFlagAndExtension : undefined}
+                    defaultButtonText={
+                      countryCode ? new Country(countryCode).valueFlagAndExtension : undefined
+                    }
                   />
                 )}
               />

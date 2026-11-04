@@ -2,7 +2,7 @@
   "build": {
     "production": {
       "env": {
-        "EXPO_PUBLIC_APP_VERSION": "230",
+        "EXPO_PUBLIC_APP_VERSION": "232",
         "EXPO_PUBLIC_BASE_URL": "https://www.example.com",
         "EXPO_PUBLIC_BASE_URL_API": "https://dev-carte.example.com",
         "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.example.bankapp",
@@ -17,7 +17,7 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_APP_VERSION": "230",
+        "EXPO_PUBLIC_APP_VERSION": "232",
         "EXPO_PUBLIC_BASE_URL": "https://www.example.com",
         "EXPO_PUBLIC_BASE_URL_API": "https://sandbox.example.com",
         "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.example.bankapp",
@@ -32,7 +32,7 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_APP_VERSION": "230",
+        "EXPO_PUBLIC_APP_VERSION": "232",
         "EXPO_PUBLIC_BASE_URL": "https://www.example.com",
         "EXPO_PUBLIC_BASE_URL_API": "https://sandbox.example.com",
         "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.example.bankapp",
@@ -49,7 +49,7 @@
     "preview": {
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_APP_VERSION": "230",
+        "EXPO_PUBLIC_APP_VERSION": "232",
         "EXPO_PUBLIC_BASE_URL": "https://www.example.com",
         "EXPO_PUBLIC_BASE_URL_API": "https://dev-carte.example.com",
         "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.example.bankapp",

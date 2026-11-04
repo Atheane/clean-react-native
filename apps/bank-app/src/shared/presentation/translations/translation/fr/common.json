@@ -842,6 +842,16 @@
     },
     "languages": {
       "title": "Sélectionner la langue"
+    },
+    "energy": {
+      "menu": {
+        "title": "Mon bilan énergie",
+        "win-euros": "Gagnez des €G grâce à\nnotre Quizz !",
+        "adapt-temperature": "Adapter la température\nde mon logement",
+        "renovate-my-house": "Estimer mes gains après\nrénovation énergétique",
+        "my-energy-consumption": "Ma consommation \nénergétique"
+      },
+      "tab": "Bilan Energie"
     }
   }
 }

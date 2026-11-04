@@ -87,6 +87,6 @@ const styles = StyleSheet.create({
   kpiContainer: { marginTop: -12, marginLeft: 14 },
   webKpiContainer: { marginTop: 12, marginLeft: 14 },
   legendContainer: { marginTop: -24 },
-  textContainer: { marginTop: 8 },
+  textContainer: { marginTop: 8, marginHorizontal: 12 },
   webTextContainer: { alignItems: 'center' },
 });

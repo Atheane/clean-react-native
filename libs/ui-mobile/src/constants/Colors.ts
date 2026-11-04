@@ -18,6 +18,7 @@ export const Colors = {
     salmon: '#E36070',
     pink: '#CB287D',
     lightBlue: '#ECEFF5',
+    lightPurple: '#BB81EE',
   },
   greenGradient: {
     lightGreen: '#D0CF2A',

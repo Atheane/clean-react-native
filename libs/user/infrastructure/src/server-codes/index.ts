@@ -5,5 +5,4 @@ export enum IUserSearchServerCode {
   KELVIN_USER_SCAM = 401,
   PHONE_EXISTS = 60067008, // User email is unknown but phone number already exists
   KYC_PROVIDER_USER = 500,
-  KYC_PROVIDER_USER_INCONSISTENT = 500,
 }

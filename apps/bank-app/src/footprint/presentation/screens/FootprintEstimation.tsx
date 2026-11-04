@@ -1,12 +1,14 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { StyleSheet, View, Text, ImageSourcePropType, Dimensions } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { getLocales } from 'expo-localization';
 import { useTheme } from '@rneui/themed';
+import { useFeatureFlag, User as ConfigCatUser } from 'configcat-react';
 
 import {
+  ShareScreen,
   Car,
   Food,
   House,
@@ -30,9 +32,11 @@ import {
   BilanCop21EN,
   BilanFranceFR,
   BilanFranceEN,
+  LoaderSplashScreen,
 } from '@clean-rn/ui-mobile';
 import { IBANKCategories } from '@clean-rn/footprint/domain';
 
+import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IRoutes, IFootprintStackPages, ISharedStackPages } from '../../../shared/presentation/types';
@@ -46,6 +50,21 @@ const locales = getLocales();
 const HEIGHT = Dimensions.get('window').height;
 
 export const FootprintEstimation = () => {
+  const { email } = useSelector((state: IRootState) => state.auth);
+
+  let userConfigCat: ConfigCatUser | undefined;
+  if (!email) {
+    userConfigCat = undefined;
+  } else {
+    userConfigCat = new ConfigCatUser(email.value, email.value);
+  }
+
+  const { value: featureTagLegacy, loading: loadingLegacy } = useFeatureFlag(
+    'bank-legacy',
+    false,
+    userConfigCat,
+  );
+
   const { theme } = useTheme();
 
   const { t } = useTranslation();
@@ -149,6 +168,13 @@ export const FootprintEstimation = () => {
     });
   }, [navigation, lng]);
 
+  const dispatch = useDispatch();
+  const handleErrorShare = useCallback(
+    (error: unknown) => {
+      dispatch(showUnknownError(error as Error));
+    },
+    [dispatch],
+  );
   // UI text
   const toPct = (value: number) => {
     if (!totalEmissions) {
@@ -276,54 +302,71 @@ export const FootprintEstimation = () => {
     );
   }
 
-  return (
+  const message =
+    t('screens.carbon.message-part-one') +
+    `${toCO2(totalEmissions)}.\n\n` +
+    t('screens.carbon.message-part-two');
+
+  const SharableGraph = () => (
+    <View collapsable={false}>
+      <View style={styles.graphContainer}>
+        <GraphCO2
+          headers={
+            {
+              [IBANKCategories.BAD]: HeaderBad as ImageSourcePropType,
+              [IBANKCategories.FRANCE]: HeaderFrance as ImageSourcePropType,
+              [IBANKCategories.CHAMPION]: HeaderChampion as ImageSourcePropType,
+              [IBANKCategories.COP21]: HeaderCop21 as ImageSourcePropType,
+            } as { [key: string]: ImageSourcePropType }
+          }
+          bilans={{
+            FR: {
+              [IBANKCategories.BAD]: BilanBadFR as ImageSourcePropType,
+              [IBANKCategories.FRANCE]: BilanFranceFR as ImageSourcePropType,
+              [IBANKCategories.CHAMPION]: BilanChampionFR as ImageSourcePropType,
+              [IBANKCategories.COP21]: BilanCop21FR as ImageSourcePropType,
+            } as { [key: string]: ImageSourcePropType },
+            GB: {
+              [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
+              [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
+              [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
+              [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
+            } as { [key: string]: ImageSourcePropType },
+            US: {
+              [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
+              [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
+              [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
+              [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
+            } as { [key: string]: ImageSourcePropType },
+          }}
+          emissions={totalEmissions}
+        />
+      </View>
+      <Cards />
+      {featureTagLegacy && (
+        <View style={[styles.row, { marginVertical: 40 }]}>
+          <PrimaryButton
+            long
+            title={t('screens.footprint-estimation.take-action')}
+            onPress={() => handlePressNavigation(IFootprintStackPages.MENU_PRIMEUM)}
+          />
+        </View>
+      )}
+    </View>
+  );
+
+  return loadingLegacy ? (
+    <LoaderSplashScreen />
+  ) : (
     <ErrorBoundary t={t}>
       <SafeScrollingView ref={scrollViewRef}>
         <View style={[styles.container, theme.container.centeredItem]}>
-          <View collapsable={false}>
-            <View style={styles.graphContainer}>
-              <GraphCO2
-                headers={
-                  {
-                    [IBANKCategories.BAD]: HeaderBad as ImageSourcePropType,
-                    [IBANKCategories.FRANCE]: HeaderFrance as ImageSourcePropType,
-                    [IBANKCategories.CHAMPION]: HeaderChampion as ImageSourcePropType,
-                    [IBANKCategories.COP21]: HeaderCop21 as ImageSourcePropType,
-                  } as { [key: string]: ImageSourcePropType }
-                }
-                bilans={{
-                  FR: {
-                    [IBANKCategories.BAD]: BilanBadFR as ImageSourcePropType,
-                    [IBANKCategories.FRANCE]: BilanFranceFR as ImageSourcePropType,
-                    [IBANKCategories.CHAMPION]: BilanChampionFR as ImageSourcePropType,
-                    [IBANKCategories.COP21]: BilanCop21FR as ImageSourcePropType,
-                  } as { [key: string]: ImageSourcePropType },
-                  GB: {
-                    [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
-                    [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
-                    [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
-                    [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
-                  } as { [key: string]: ImageSourcePropType },
-                  US: {
-                    [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
-                    [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
-                    [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
-                    [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
-                  } as { [key: string]: ImageSourcePropType },
-                }}
-                emissions={totalEmissions}
-              />
-            </View>
-            <Cards />
-            <View style={[styles.row, { marginVertical: 40 }]}>
-              <PrimaryButton
-                long
-                title={t('screens.footprint-estimation.take-action')}
-                onPress={() => handlePressNavigation(IFootprintStackPages.MENU_PRIMEUM)}
-              />
-            </View>
-          </View>
-
+          {!featureTagLegacy && (
+            <ShareScreen message={message} handleError={handleErrorShare} buttonTitle={t('button.share')}>
+              <SharableGraph />
+            </ShareScreen>
+          )}
+          {featureTagLegacy && <SharableGraph />}
           <View style={styles.row}>
             <TouchCardKpi
               data={{

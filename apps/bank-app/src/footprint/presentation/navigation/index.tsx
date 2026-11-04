@@ -67,23 +67,22 @@ export const FootprintStack = () => {
           name={IFootprintStackPages.EVOLUTION_FOOTPRINT}
           component={EvolutionFootprint}
           options={{
-            headerTitle: t('screens.evolution.title'),
+            headerTitle: t('screens.footprint-evolution.title'),
             ...headersOptions(),
             ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
           }}
         />
       )}
-      {featureTagLegacy && (
-        <Stack.Screen
-          name={IFootprintStackPages.FOOTPRINT_ESTIMATION}
-          component={FootprintEstimation}
-          options={{
-            headerTitle: t('screens.footprint-estimation.title'),
-            ...headersOptions(),
-            ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
-          }}
-        />
-      )}
+      <Stack.Screen
+        name={IFootprintStackPages.FOOTPRINT_ESTIMATION}
+        component={FootprintEstimation}
+        options={{
+          headerTitle: t('screens.footprint-estimation.title'),
+          ...headersOptions(),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+      />
+
       <Stack.Screen
         name={IFootprintStackPages.HEATER_FOOTPRINT_ESTIMATION}
         component={HeaterFootprintEstimation}
