@@ -24,7 +24,7 @@ export const SignupRevenues = () => {
   // api call
   const dispatch = useDispatch();
 
-  const { error } = useSelector((state: IRootState) => state.user);
+  const { pending, error } = useSelector((state: IRootState) => state.user);
 
   const onSubmit = useCallback(
     (formData: ISignupRevenuesFormData) => {
@@ -55,6 +55,7 @@ export const SignupRevenues = () => {
             error={domainError}
             onSubmit={handleSubmit(onSubmit)}
             onFocus={onFocus}
+            loading={pending}
           />
         </View>
       </SafeScrollingView>

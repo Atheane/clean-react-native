@@ -16,6 +16,7 @@ type IProps = {
   error: IDomainError<IUserErrorCodes, IUserErrorMessage>;
   onSubmit: () => void;
   onFocus: () => void;
+  loading: boolean;
 };
 
 export type ISignupRevenuesFormData = {
@@ -130,7 +131,12 @@ export const FormSignupRevenues = (props: IProps) => {
         </View>
       )}
       <View style={styles.formSubmit}>
-        <SubmitButton title={t('button.submit')} uppercase={false} onSubmit={props.onSubmit} />
+        <SubmitButton
+          title={t('button.submit')}
+          uppercase={false}
+          onSubmit={props.onSubmit}
+          loading={props.loading}
+        />
       </View>
     </View>
   );

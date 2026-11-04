@@ -129,3 +129,4 @@ export { Temperature } from './Temperature';
 export { Humidity } from './Humidity';
 export { CO2Output } from './CO2Output';
 export { HomeWhiteCircle } from './HomeWhiteCircle';
+export { FlagForPortugal } from './FlagForPortugal';

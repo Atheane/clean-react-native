@@ -171,7 +171,7 @@ export const WorksSituation = () => {
                 />
               </View>
             )}
-            <View style={[styles.rowContainer, { marginTop: 80, marginBottom: 80 }]}>
+            <View style={[styles.rowContainer, { marginTop: 80, marginBottom: 300 }]}>
               <SubmitButton
                 title={t('screens.heaters-situation.next-step')}
                 disabled={disabled}
