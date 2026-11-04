@@ -891,7 +891,8 @@
         "win-euros": "Gagnez des €G grâce à\nnotre Quizz !",
         "adapt-temperature": "Adapter la température\nde mon logement",
         "renovate-my-house": "Estimer mes gains après\nrénovation énergétique",
-        "my-energy-consumption": "Ma consommation \nénergétique"
+        "my-energy-consumption": "Ma consommation \nénergétique",
+        "price-comfort": "Prix-confort :"
       },
       "tab": "Bilan Energie"
     }

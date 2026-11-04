@@ -5,12 +5,14 @@ export enum IEnergyErrorCodes {
   INVALID_MEASUREMENT = 'INVALID_MEASUREMENT',
   INVALID_UNIT_CODE = 'INVALID_UNIT_CODE',
   INVALID_SENSOR_TYPE = 'INVALID_SENSOR_TYPE',
+  INVALID_PRICE_COMFORT = 'INVALID_PRICE_COMFORT',
 }
 
 export enum IEnergyErrorMessage {
   INVALID_MEASUREMENT = 'Invalid measurement properties types',
   INVALID_UNIT_CODE = 'Invalid unit code',
   INVALID_SENSOR_TYPE = 'Invalid sensor type',
+  INVALID_PRICE_COMFORT = 'Invalid price comfort properties types',
 }
 
 export namespace EnergyError {
@@ -59,6 +61,21 @@ export namespace EnergyError {
       super();
       this.code = IEnergyErrorCodes.INVALID_SENSOR_TYPE;
       this.message = IEnergyErrorMessage.INVALID_SENSOR_TYPE;
+      this.cause = cause;
+    }
+  }
+  export class InvalidPriceComfort
+    extends Error
+    implements IDomainError<IEnergyErrorCodes, IEnergyErrorMessage>
+  {
+    code: IEnergyErrorCodes;
+    message: IEnergyErrorMessage;
+    cause?: unknown;
+
+    constructor(cause?: unknown) {
+      super();
+      this.code = IEnergyErrorCodes.INVALID_PRICE_COMFORT;
+      this.message = IEnergyErrorMessage.INVALID_PRICE_COMFORT;
       this.cause = cause;
     }
   }

@@ -98,6 +98,24 @@ export const getMeasurementCO2 = async (httpConnection: HttpConnection, userTest
   fs.writeFileSync(fixtureFilePath, JSON.stringify(fixtures, null, 2));
 };
 
+export const getPriceComfort = async (httpConnection: HttpConnection, userTest = USER_TEST) => {
+  const fixtureFilePath = path.join(__dirname, 'get-price-comfort.json');
+
+  const authApi = AuthApi.getInstance(httpConnection);
+  const auth = await authApi.login({
+    email: new Email(userTest.email),
+    password: new Password(userTest.password),
+  });
+  httpConnection.attachBearerToken(auth.accessToken);
+
+  const response = await fetch(
+    `${httpConnection.baseUrl}/app/energy-app/core/comfort-price?period=BASELINE`,
+    httpConnection.options(IHttpVerb.GET),
+  );
+  const fixtures = await response.json();
+  fs.writeFileSync(fixtureFilePath, JSON.stringify(fixtures, null, 2));
+};
+
 // Fonction utilitaire pour générer toutes les fixtures
 export const generateAllFixtures = async (httpConnection: HttpConnection) => {
   await authUser(httpConnection);
@@ -105,4 +123,5 @@ export const generateAllFixtures = async (httpConnection: HttpConnection) => {
   await getMeasurementTemperature(httpConnection);
   await getMeasurementHumidity(httpConnection);
   await getMeasurementCO2(httpConnection);
+  await getPriceComfort(httpConnection);
 };

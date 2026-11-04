@@ -2,7 +2,7 @@
 import { call, put, StrictEffect, takeEvery, select } from 'redux-saga/effects';
 import { HttpConnection, IServerError, ServerError } from '@clean-rn/shared/infrastructure';
 import { User } from '@clean-rn/user/domain';
-import { Energy, ISensor, MeasurementVO, SENSOR_TYPE } from '@clean-rn/energy/domain';
+import { Energy, ISensor, MeasurementVO, PriceComfortVO, SENSOR_TYPE } from '@clean-rn/energy/domain';
 import { EnergyApi } from '@clean-rn/energy/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
@@ -41,8 +41,8 @@ export function* getEnergyGenerator(httpConnection: HttpConnection): Generator<S
         energy.addMesurement(measurement);
       }
     }
-    // const confortPrice: number = yield call([energyApi, energyApi.getConfortPrice]);
-    // energy.addConfortPrice(confortPrice);
+    const priceComforts: PriceComfortVO[] = yield call([energyApi, energyApi.getPriceComfort]);
+    energy.addPricesComfort(priceComforts);
   } catch (error: unknown) {
     yield put(initializeEnergy());
     yield put(showUnknownError(error as Error));

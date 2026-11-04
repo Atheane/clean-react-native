@@ -1,5 +1,10 @@
 import { Email } from '@clean-rn/auth/domain';
-import { MEASUREMENT_UNIT, SENSOR_TYPE } from '@clean-rn/energy/domain';
+import {
+  MEASUREMENT_UNIT,
+  PRICE_COMFORT_DATA_GRANULARITY,
+  PRICE_COMFORT_TYPE,
+  SENSOR_TYPE,
+} from '@clean-rn/energy/domain';
 import { User } from '@clean-rn/user/domain';
 
 export const mockUser = User.CreateFromEmail(new Email('fake@email.com'));
@@ -43,3 +48,28 @@ export const mockMeasurementTemperature = {
   average: 20,
   data: [],
 };
+
+export const mockPricesComfort = [
+  {
+    type: PRICE_COMFORT_TYPE.ALL,
+    granularity: PRICE_COMFORT_DATA_GRANULARITY.DAILY,
+    endDate: '2025-03-07T00:00:00.000Z',
+    value: {
+      incremental: 1480.2069375871483,
+      average: 17006.343627221664,
+    },
+    startDate: '2025-03-01T00:00:00.000Z',
+    temperature: 18,
+  },
+  {
+    type: PRICE_COMFORT_TYPE.HEATING,
+    granularity: PRICE_COMFORT_DATA_GRANULARITY.DAILY,
+    endDate: '2025-03-07T00:00:00.000Z',
+    value: {
+      incremental: 1480.2069375871483,
+      average: 17006.343627221664,
+    },
+    startDate: '2025-03-01T00:00:00.000Z',
+    temperature: 18,
+  },
+];

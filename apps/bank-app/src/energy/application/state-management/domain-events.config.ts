@@ -24,7 +24,7 @@ export const energyDomainEventsConfig = {
       actionType: IEnergyTypes.ENERGY_DOMAIN_EVENT,
     },
     {
-      eventName: ENERGY_EVENTS.PRICECONFORT_ADDED,
+      eventName: ENERGY_EVENTS.PRICES_COMFORT_ADDED,
       actionType: IEnergyTypes.ENERGY_DOMAIN_EVENT,
     },
   ],

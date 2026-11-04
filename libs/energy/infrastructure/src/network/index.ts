@@ -1,8 +1,13 @@
 import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
-import { IEnergyRepository, ISensor, MeasurementVO, SENSOR_TYPE } from '@clean-rn/energy/domain';
-import { IMeasurementsDto, ISensorDto, SENSOR_TYPE_DTO } from '../dto';
-import { SensorMapper } from '../mappers';
-import { MeasurementMapper } from '../mappers';
+import {
+  IEnergyRepository,
+  ISensor,
+  MeasurementVO,
+  PriceComfortVO,
+  SENSOR_TYPE,
+} from '@clean-rn/energy/domain';
+import { IMeasurementsDto, IPriceComfortDto, ISensorDto, SENSOR_TYPE_DTO } from '../dto';
+import { SensorMapper, MeasurementMapper, PriceComfortMapper } from '../mappers';
 
 export class EnergyApi implements IEnergyRepository {
   private static instance: EnergyApi | null = null;
@@ -69,5 +74,20 @@ export class EnergyApi implements IEnergyRepository {
     const measurementDto: IMeasurementsDto = await response.json();
     const measurement = await MeasurementMapper.toDomain(measurementDto);
     return measurement;
+  }
+
+  async getPriceComfort(): Promise<PriceComfortVO[]> {
+    const response = await fetch(
+      `${this.connection.baseUrl}/app/energy-app/core/comfort-price?period=BASELINE`,
+      this.connection.options(IHttpVerb.GET),
+    );
+    await this.connection.handleError(response);
+    const priceComfortDtos: IPriceComfortDto[] = await response.json();
+    const priceComforts: PriceComfortVO[] = await Promise.all(
+      priceComfortDtos.map(async (priceComfortDto: IPriceComfortDto) => {
+        return await PriceComfortMapper.toDomain(priceComfortDto);
+      }),
+    );
+    return priceComforts;
   }
 }

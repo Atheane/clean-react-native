@@ -1,7 +1,13 @@
 import { Entity } from '@clean-rn/ddd';
 import { ENERGY_EVENTS } from '../events';
-import { MeasurementVO, PriceConfortVO } from '../value-objects';
-import { ISensor, MEASUREMENT_UNIT, SENSOR_TYPE } from '../types';
+import { MeasurementVO, PriceComfortVO } from '../value-objects';
+import {
+  ISensor,
+  MEASUREMENT_UNIT,
+  PRICE_COMFORT_DATA_GRANULARITY,
+  PRICE_COMFORT_TYPE,
+  SENSOR_TYPE,
+} from '../types';
 
 export interface IEnergyProperties {
   userId: string;
@@ -11,7 +17,9 @@ export interface IEnergyProperties {
     [SENSOR_TYPE.HUMIDITY]?: MeasurementVO;
     [SENSOR_TYPE.CO2]?: MeasurementVO;
   };
-  priceConfort: PriceConfortVO;
+  heatingPriceComfort?: PriceComfortVO;
+  coolingPriceComfort?: PriceComfortVO;
+  globalPriceComfort?: PriceComfortVO;
   // consumption?: any;
 }
 
@@ -59,8 +67,28 @@ export class Energy extends Entity<IEnergyProperties> {
     }
   }
 
-  addConfortPrice(priceConfort: PriceConfortVO): void {
-    this.properties.priceConfort = priceConfort;
-    Energy.emitStaticDomainEvent(ENERGY_EVENTS.PRICECONFORT_ADDED, this);
+  addPricesComfort(pricesComfort: PriceComfortVO[]): void {
+    const findPriceComfortByTypeAndGranularity = (type: PRICE_COMFORT_TYPE) => {
+      return (
+        pricesComfort.find(
+          (pc) => pc.type === type && pc.granularity === PRICE_COMFORT_DATA_GRANULARITY.INSTANT,
+        ) ||
+        pricesComfort.find(
+          (pc) => pc.type === type && pc.granularity === PRICE_COMFORT_DATA_GRANULARITY.DAILY,
+        ) ||
+        pricesComfort.find(
+          (pc) => pc.type === type && pc.granularity === PRICE_COMFORT_DATA_GRANULARITY.MONTHLY,
+        )
+      );
+    };
+
+    const heatingPriceComfort = findPriceComfortByTypeAndGranularity(PRICE_COMFORT_TYPE.HEATING);
+    const coolingPriceComfort = findPriceComfortByTypeAndGranularity(PRICE_COMFORT_TYPE.COOLING);
+    const globalPriceComfort = findPriceComfortByTypeAndGranularity(PRICE_COMFORT_TYPE.ALL);
+
+    this.properties.heatingPriceComfort = heatingPriceComfort;
+    this.properties.coolingPriceComfort = coolingPriceComfort;
+    this.properties.globalPriceComfort = globalPriceComfort;
+    Energy.emitStaticDomainEvent(ENERGY_EVENTS.PRICES_COMFORT_ADDED, this);
   }
 }
