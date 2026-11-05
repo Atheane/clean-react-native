@@ -5,7 +5,7 @@ import { call, put, StrictEffect, takeEvery, cancel, select } from 'redux-saga/e
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { DeviceError, IRegisterDeviceCommand } from '@clean-rn/device/domain';
-import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { DeviceApi } from '@clean-rn/device/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';

@@ -11,7 +11,5 @@ export function* computeRewardsSaga(): Generator<StrictEffect, any, any> {
 
 export function* computeRewardsGenerator(): Generator<StrictEffect, any, any> {
   const energy: Energy = yield select(selectEnergy);
-  console.log('>>>>>>>> COMPUTE_REWARDS energy.properties before computeRewards', energy.properties);
   energy.computeRewards();
-  console.log('>>>>>>>> COMPUTE_REWARDS energy.properties after computeRewards', energy.properties);
 }

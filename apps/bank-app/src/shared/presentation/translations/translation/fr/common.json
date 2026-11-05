@@ -328,8 +328,13 @@
   "modal-error": {
     "code": "Code erreur ",
     "details": "Message ",
-    "stack": "Détails ",
-    "network": "Pas de connexion internet"
+    "stack": "Détails "
+  },
+  "notification": {
+    "network-error": {
+      "title": "Pas de connexion internet",
+      "body": "Veuillez vérifier votre connexion internet."
+    }
   },
   "tabs-co2": {
     "button": "Recevoir ma prime ",

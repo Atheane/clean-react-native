@@ -26,13 +26,9 @@ export function* checkAnswerGenerator(
   try {
     yield call(ensureTokenRefreshed, httpConnection);
     const energy: Energy = yield select(selectEnergy);
-    console.log('>>>>>>>> CHECK_ANSWER energy.properties before checkAnswer', energy.properties);
     const energyRepository = EnergyRepositoryFactory.getRepository(httpConnection);
-    console.log('>>>>>>>> CHECK_ANSWER payload', payload);
     const isCorrect: boolean = yield call([energyRepository, energyRepository.checkAnswer], payload);
-    console.log('>>>>>>>> CHECK_ANSWER isCorrect', isCorrect);
     energy.checkAnswer(isCorrect);
-    console.log('>>>>>>>> CHECK_ANSWER energy.properties after checkAnswer', energy.properties);
   } catch (error: unknown) {
     yield put(showUnknownError(error as Error));
   }

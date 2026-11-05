@@ -76,3 +76,6 @@ credentials.json
 
 .nx
 cache
+
+google-services.json
+GoogleService-Info.plist

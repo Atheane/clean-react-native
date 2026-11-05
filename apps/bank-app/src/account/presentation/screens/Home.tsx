@@ -18,18 +18,16 @@ import {
   LoaderSplashScreen,
   Colors,
 } from '@clean-rn/ui-mobile';
-import { useNotification } from '../../../shared/presentation/hooks';
-
+import { useDevice } from '../../../shared/presentation/hooks/useDevice';
+import { fetchRegisterDevice } from '../../../device/application/commands';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import {
   IKycStackPages,
   ISharedStackPages,
   ITransactionStackPages,
 } from '../../../shared/presentation/types';
-import { useDevice } from '../../../shared/presentation/hooks';
+import { useNotification } from '../../../shared/presentation/hooks';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-
-import { fetchRegisterDevice } from '../../../device/application/commands';
 
 import { listAccounts } from '../../application/commands/accounts';
 import { listTransactions } from '../../../transaction/application/commands';
@@ -87,9 +85,15 @@ export const Home = () => {
     [dispatch],
   );
 
-  const { firebaseToken, notificationEnabled } = useNotification();
+  // Utilisation du hook de notifications push
+  const { expoPushToken, notificationEnabled } = useNotification();
+
+  console.log('expoPushToken', expoPushToken);
+  console.log('notificationEnabled', notificationEnabled);
+
   const { deviceId, brand, model, os, osVersion } = useDevice();
 
+  // Enregistrer l'appareil sur le serveur lorsque le token est disponible
   useEffect(() => {
     if (
       deviceId !== '' &&
@@ -97,21 +101,21 @@ export const Home = () => {
       model &&
       os !== '' &&
       osVersion &&
-      ((notificationEnabled && firebaseToken) || notificationEnabled === false)
+      ((notificationEnabled && expoPushToken) || notificationEnabled === false)
     ) {
       dispatch(
         fetchRegisterDevice({
           deviceId,
-          firebaseId: firebaseToken,
+          firebaseId: expoPushToken,
           brand,
           model,
           os,
           osVersion,
-          appVersion: process.env.EXPO_PUBLIC_APP_VERSION || '2.3.1',
+          appVersion: process.env.EXPO_PUBLIC_APP_VERSION || '',
         }),
       );
     }
-  }, [firebaseToken, notificationEnabled, deviceId, brand, model, os, osVersion, dispatch]);
+  }, [expoPushToken, notificationEnabled, deviceId, brand, model, os, osVersion, dispatch]);
 
   const [appNeedUpdate, setAppNeedUpdate] = useState(false);
   useEffect(() => {
