@@ -28,7 +28,7 @@ export const TotalReward = ({
     />
   ) : (
     <View style={[styles.greenEurosContainer, size === 'big' && styles.bigContainer]}>
-      <QuizWhite style={size === 'big' ? { marginLeft: 10 } : { marginRight: 10 }} />
+      <QuizWhite style={size === 'big' ? { marginLeft: 5 } : { marginRight: 5 }} />
       <Text style={[theme.text.boldDarkBlue, size === 'big' && { fontSize: 20 }]}>{title} : </Text>
       <Text
         style={[
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     height: 44,
   },
   bigContainer: {
-    width: '95%',
+    width: '100%',
     height: 60,
   },
   bigImage: {
