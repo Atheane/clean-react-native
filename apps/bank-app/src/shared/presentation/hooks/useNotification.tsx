@@ -53,26 +53,28 @@ const registerForPushNotificationsAsync = async () => {
 
 export const useNotification = () => {
   const [expoPushToken, setExpoPushToken] = useState<string | undefined>();
-  const [notificationEnabled, setNotificationEnabled] = useState<boolean>(false);
+  const [notificationEnabled, setNotificationEnabled] = useState<boolean>();
   // const [notification, setNotification] = useState<Notifications.Notification | undefined>();
   // const notificationListener = useRef<Notifications.Subscription>();
   // const responseListener = useRef<Notifications.Subscription>();
 
   useEffect(() => {
-    registerForPushNotificationsAsync()
-      .then((token) => {
-        if (token) {
-          setExpoPushToken(token);
-          console.log('expoPushToken', token);
-          setNotificationEnabled(true);
+    if (notificationEnabled === undefined) {
+      registerForPushNotificationsAsync()
+        .then((token) => {
+          if (token) {
+            setExpoPushToken(token);
+            console.log('expoPushToken', token);
+            setNotificationEnabled(true);
+            console.log('notificationEnabled', notificationEnabled);
+          }
+        })
+        .catch((error) => {
+          console.log("Erreur lors de l'enregistrement des notifications push:", error);
+          setNotificationEnabled(false);
           console.log('notificationEnabled', notificationEnabled);
-        }
-      })
-      .catch((error) => {
-        console.log("Erreur lors de l'enregistrement des notifications push:", error);
-        setNotificationEnabled(false);
-        console.log('notificationEnabled', notificationEnabled);
-      });
+        });
+    }
 
     // Configurer les écouteurs de notifications
     // notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
@@ -92,7 +94,7 @@ export const useNotification = () => {
     //     Notifications.removeNotificationSubscription(responseListener.current);
     //   }
     // };
-  }, []);
+  }, [notificationEnabled]);
 
   return {
     expoPushToken,

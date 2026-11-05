@@ -85,34 +85,41 @@ export const Home = () => {
     [dispatch],
   );
 
-  // Utilisation du hook de notifications push
   const { expoPushToken, notificationEnabled } = useNotification();
-
   const { deviceId, brand, model, os, osVersion } = useDevice();
+  // Add a state to track if the call has already been made
+  const [deviceRegistered, setDeviceRegistered] = useState(false);
 
-  // Enregistrer l'appareil sur le serveur lorsque le token est disponible
   useEffect(() => {
+    // Check if expoSDK has finished fetching the notificationEnabled status and the expoPushToekn
+    // Check if  deviceId, brand, model, os and osVersion are defined
+    // and if the call has not yet been made
     if (
-      deviceId !== '' &&
-      brand &&
-      model &&
-      os !== '' &&
-      osVersion &&
-      ((notificationEnabled && expoPushToken) || notificationEnabled === false)
+      deviceRegistered === true ||
+      notificationEnabled === undefined ||
+      deviceId === '' ||
+      !brand ||
+      !model ||
+      !os ||
+      !osVersion
     ) {
-      dispatch(
-        fetchRegisterDevice({
-          deviceId,
-          firebaseId: expoPushToken,
-          brand,
-          model,
-          os,
-          osVersion,
-          appVersion: process.env.EXPO_PUBLIC_APP_VERSION || '',
-        }),
-      );
+      return;
     }
-  }, [expoPushToken, notificationEnabled, deviceId, brand, model, os, osVersion, dispatch]);
+
+    dispatch(
+      fetchRegisterDevice({
+        deviceId,
+        firebaseId: expoPushToken,
+        brand,
+        model,
+        os,
+        osVersion,
+        appVersion: process.env.EXPO_PUBLIC_APP_VERSION || '',
+      }),
+    );
+    // Mark the call as done
+    setDeviceRegistered(true);
+  }, [expoPushToken, notificationEnabled, deviceId, brand, model, os, osVersion, dispatch, deviceRegistered]);
 
   const [appNeedUpdate, setAppNeedUpdate] = useState(false);
   useEffect(() => {

@@ -41,7 +41,6 @@ const Tab = createBottomTabNavigator<IRootTabParamList>();
 export const BottomTabNavigator = () => {
   const { t } = useTranslation();
   const { user } = useSelector((state: IRootState) => state.user);
-  console.log(user?.properties.userType);
   return (
     <Tab.Navigator
       initialRouteName={IAccountStackPages.MENU}
@@ -103,7 +102,7 @@ export const BottomTabNavigator = () => {
             focused ? <Text style={styles.tab}> {t('screens.footprint-estimation.tab')}</Text> : '',
         })}
       />
-      {user && user.properties.userType === IUserType.ENERGY_APP_USER && (
+      {user?.properties.userType === IUserType.ENERGY_APP_USER && (
         <Tab.Screen
           name={IEnergyStackPages.MENU}
           component={EnergyStack}

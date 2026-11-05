@@ -36,13 +36,6 @@ export function* registerDeviceGenerator(
   try {
     const user = yield select(selectUser);
 
-    const deviceId = yield call(AsyncStorage.getItem, IStoreKey.DEVICE_ID);
-
-    if (deviceId) {
-      yield put(deviceAlreadyRegistered({ error: new DeviceError.AlreadyRegistered(deviceId) }));
-      yield cancel();
-    }
-
     // call app/device POST endpoint
     const deviceApi = DeviceApi.getInstance(httpConnection);
     const device = yield call([deviceApi, deviceApi.createDevice], {
@@ -51,7 +44,6 @@ export function* registerDeviceGenerator(
     });
 
     yield put(deviceRegistered(device));
-    yield call(AsyncStorage.setItem, IStoreKey.DEVICE_ID, device.id);
   } catch (error: unknown) {
     yield put(resetError());
     yield put(showUnknownError(error as Error));
