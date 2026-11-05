@@ -1,24 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any  */
 /* eslint-disable no-fallthrough */
-import { call, put, StrictEffect, takeEvery, cancel, select } from 'redux-saga/effects';
+import { call, put, StrictEffect, takeEvery, select } from 'redux-saga/effects';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import { DeviceError, IRegisterDeviceCommand } from '@clean-rn/device/domain';
+import { IRegisterDeviceCommand } from '@clean-rn/device/domain';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { DeviceApi } from '@clean-rn/device/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
-import {
-  IDeviceTypes,
-  deviceAlreadyRegistered,
-  deviceRegistered,
-  resetError,
-} from '../../../../device/application/commands';
+import { IDeviceTypes, deviceRegistered, resetError } from '../../../../device/application/commands';
 
 import { selectUser } from '../../../../user/application/state-management/selectors';
-import { IStoreKey } from '../../../../shared/application/types';
 
 export function* registerDeviceSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IDeviceTypes.FETCH_REGISTER_DEVICE, registerDeviceGenerator, httpConnection);

@@ -1,7 +1,6 @@
 import { StyleSheet, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTranslation } from 'react-i18next';
-import { useFeatureFlag, User as ConfigCatUser } from 'configcat-react';
 import { useSelector } from 'react-redux';
 
 import {
@@ -10,7 +9,6 @@ import {
   Home as HomeIcon,
   Transfer as TransferIcon,
   Settings as SettingsIcon,
-  LoaderSplashScreen,
   Carbon as CarbonIcon,
   Energy as EnergyIcon,
 } from '@clean-rn/ui-mobile';

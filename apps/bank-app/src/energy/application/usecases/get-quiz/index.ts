@@ -9,19 +9,20 @@ import { ensureTokenRefreshed } from '../../../../shared/application/usecases/en
 
 import { IEnergyTypes } from '../../commands';
 import { selectEnergy } from '../../state-management/selectors';
-
+import { selectUser } from '../../../../user/application/state-management/selectors';
 export function* getQuizSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IEnergyTypes.GET_QUIZ, getQuizGenerator, httpConnection);
 }
 
 export function* getQuizGenerator(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   try {
+    const user = yield select(selectUser);
     yield call(ensureTokenRefreshed, httpConnection);
 
     const energy: Energy = yield select(selectEnergy);
 
     const energyRepository = EnergyRepositoryFactory.getRepository(httpConnection);
-    const quiz: Quiz = yield call([energyRepository, energyRepository.getQuiz]);
+    const quiz: Quiz = yield call([energyRepository, energyRepository.getQuiz], user.properties.config.lang);
     energy.setCurrentQuiz(quiz);
   } catch (error: unknown) {
     yield put(showUnknownError(error as Error));

@@ -112,7 +112,7 @@ export class EnergyRepositoryInMemory implements IEnergyRepository {
       throw new Error('Quiz already answered today');
     }
 
-    return QuizMapper.toDomain(getQuizFixture[0]);
+    return QuizMapper.toDomain(getQuizFixture[0], 'es');
   }
 
   async checkAnswer(command: ICheckAnswerCommand): Promise<boolean> {
