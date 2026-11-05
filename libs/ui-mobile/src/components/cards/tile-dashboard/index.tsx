@@ -1,16 +1,17 @@
 import { FC } from 'react';
 import { StyleSheet, View, Dimensions, Text, Platform } from 'react-native';
-import { useTheme } from '@rneui/themed';
+import { Skeleton, useTheme } from '@rneui/themed';
 import { Colors, FontNames } from '../../../constants';
 import { HomeWhiteCircle } from '../../../assets/svg';
+import { LinearGradient } from 'expo-linear-gradient';
 
-// Constantes pour le web
 const DASHBOARD_CARD_RATIO = 0.4; // ratio hauteur/largeur
 
 type IProps = {
   text: string;
   kpi: string;
   children?: React.ReactNode;
+  loading?: boolean;
 };
 
 const circleSize = Platform.OS === 'web' ? 84 : 44;
@@ -21,18 +22,27 @@ export const TileDashboard: FC<IProps> = (props: IProps) => {
   // Calcul des dimensions selon la plateforme
   const cardWidth = Dimensions.get('window').width * 0.9;
 
-  const cardHeight = cardWidth * DASHBOARD_CARD_RATIO;
+  const cardHeight =
+    props.children === null
+      ? (cardWidth * DASHBOARD_CARD_RATIO) / 1.5 + circleSize / 2
+      : cardWidth * DASHBOARD_CARD_RATIO + circleSize;
 
-  return (
+  return props.loading ? (
+    <Skeleton
+      LinearGradientComponent={LinearGradient}
+      animation="pulse"
+      style={[styles.tileContainer, Platform.OS === 'web' && styles.webTileContainer, { height: cardHeight }]}
+    />
+  ) : (
     <View
       style={[
         theme.container.card.dashboard,
         Platform.OS === 'web' && {
           width: cardWidth,
-          height: cardHeight,
           alignItems: 'center',
           marginTop: circleSize + 20,
         },
+        { height: cardHeight },
       ]}
     >
       <View
@@ -55,6 +65,17 @@ export const TileDashboard: FC<IProps> = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
+  tileContainer: {
+    width: Dimensions.get('window').width * 0.9,
+    marginHorizontal: 4,
+    backgroundColor: Colors.primary.lightGrey,
+    borderRadius: 12,
+    alignSelf: 'center',
+  },
+  webTileContainer: {
+    width: 350, // Largeur fixe sur web
+    minWidth: 350,
+  },
   iconContainer: {
     position: 'absolute',
     top: -circleSize / 2,

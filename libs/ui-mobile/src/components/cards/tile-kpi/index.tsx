@@ -16,7 +16,7 @@ const TILE_KPI_CARD_RATIO = 76 / 103;
 export const TileKpi: FC<IProps> = (props: IProps) => {
   const { theme } = useTheme();
   const color = props.data.color ? { color: props.data.color } : null;
-  return props.loading || !props.data.kpi ? (
+  return props.loading ? (
     <Skeleton
       LinearGradientComponent={LinearGradient}
       animation="pulse"
@@ -26,10 +26,12 @@ export const TileKpi: FC<IProps> = (props: IProps) => {
     <View style={[theme.container.card.tile, Platform.OS === 'web' && styles.webTileContainer]}>
       <View style={[styles.rowContainer, { flex: 2 }]}>
         <props.icon />
-        {props.data.kpi.length <= 2 ? (
+        {props.data.kpi === undefined && <Text style={[theme.text.kpi, styles.kpiText, color]}>...</Text>}
+        {props.data.kpi && props.data.kpi.length <= 2 && (
           // Une seule ligne si KPI <= 2 caractères
           <Text style={[theme.text.kpi, styles.kpiText, color]}>{`${props.data.kpi}${props.data.unit}`}</Text>
-        ) : (
+        )}
+        {props.data.kpi && props.data.kpi.length > 2 && (
           // Deux lignes si KPI > 2 caractères
           <View style={{ alignItems: 'center' }}>
             <Text style={[theme.text.kpi, styles.kpiText, color]}>{props.data.kpi}</Text>

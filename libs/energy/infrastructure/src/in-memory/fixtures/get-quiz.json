@@ -1,0 +1,75 @@
+[
+  {
+    "choices": [
+      {
+        "de": "",
+        "en": "Decreasing energy consumption",
+        "es": "",
+        "fr": "Diminuer la consommation d'énergie",
+        "gr": "",
+        "it": "",
+        "lv": ""
+      },
+      {
+        "de": "",
+        "en": "Reducing noise pollution",
+        "es": "",
+        "fr": "La réduction de la pollution sonore",
+        "gr": "",
+        "it": "",
+        "lv": ""
+      },
+      {
+        "de": "",
+        "en": "Increasing ventilation efficiency",
+        "es": "",
+        "fr": "Augmenter l'efficacité de la ventilation",
+        "gr": "",
+        "it": "",
+        "lv": ""
+      }
+    ],
+    "difficulty": "NORMAL",
+    "intros": [
+      {
+        "de": "",
+        "en": "Did you know? Monitoring air quality in residential buildings is more than just keeping the air fresh—it's about improving the way buildings respond to environmental changes.",
+        "es": "",
+        "fr": "Le saviez-vous ? Le contrôle de la qualité de l'air dans les bâtiments résidentiels ne se limite pas à maintenir l'air frais. Il s'agit d'améliorer la façon dont les bâtiments réagissent aux changements environnementaux.",
+        "gr": "",
+        "it": "",
+        "lv": ""
+      },
+      {
+        "de": "",
+        "en": "Smart homes, smarter air! Smart sensors provide data to optimize building systems, like ventilation. They can help identify areas where ventilation might need a boost, ensuring a healthier, more comfortable and more efficient living environment.",
+        "es": "Casas inteligentes, ar mais inteligente! Os sensores inteligentes fornecem dados para optimizar os sistemas do edifício, como a ventilação. Podem ajudar a identificar áreas onde a ventilação precisa ser melhorada, garantindo um ambiente mais saudável, mais confortável e mais eficiente.",
+        "fr": "Maison intelligente, air plus intelligent ! Les capteurs intelligents fournissent des données permettant d'optimiser les systèmes de construction, comme la ventilation. Ils peuvent aider à identifier les zones où la ventilation pourrait avoir besoin d'un coup de pouce, garantissant ainsi un environnement de vie plus sain, plus confortable et plus efficace.",
+        "gr": "",
+        "it": "",
+        "lv": ""
+      },
+      {
+        "de": "",
+        "en": "Installing air quality sensors isn't just a tech trend—it's about better managing indoor spaces. From tracking pollutants to improving system performance, these sensors are reshaping how we control our living conditions.",
+        "es": "",
+        "fr": "L'installation de capteurs de qualité de l'air n'est pas seulement une tendance technologique - il s'agit de mieux gérer les espaces intérieurs. De la détection des polluants à l'amélioration des performances des systèmes, ces capteurs modifient la façon dont nous contrôlons nos conditions de vie.",
+        "gr": "",
+        "it": "",
+        "lv": ""
+      }
+    ],
+    "question": {
+      "de": "",
+      "en": "What is a key benefit of installing air quality sensors in residential buildings?",
+      "es": "",
+      "fr": "Quel est l'un des principaux avantages de l'installation de capteurs de qualité de l'air dans les bâtiments résidentiels ?",
+      "gr": "",
+      "it": "",
+      "lv": ""
+    },
+    "quizId": 92885687,
+    "reward": 0.5,
+    "theme": "AIR_QUALITY"
+  }
+]

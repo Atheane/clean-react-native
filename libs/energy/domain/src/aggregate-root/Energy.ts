@@ -20,10 +20,11 @@ export interface IEnergyProperties {
   };
   heatingPriceComfort?: PriceComfortVO;
   coolingPriceComfort?: PriceComfortVO;
-  globalPriceComfort?: PriceComfortVO;
-  totalRewards?: number;
+  globalPriceComfort?: PriceComfortVO | null;
+  totalRewards: number;
   currentQuiz?: Quiz;
   currentChallenge?: Quiz;
+  currentAnswerIsCorrect?: boolean;
   // consumption?: any;
 }
 
@@ -38,6 +39,8 @@ export class Energy extends Entity<IEnergyProperties> {
       properties: {
         userId,
         sensors: [],
+        totalRewards: 0,
+        globalPriceComfort: null,
       },
     });
     Energy.emitStaticDomainEvent(ENERGY_EVENTS.ENERGY_CREATED, energy);
@@ -96,21 +99,28 @@ export class Energy extends Entity<IEnergyProperties> {
     Energy.emitStaticDomainEvent(ENERGY_EVENTS.PRICES_COMFORT_ADDED, this);
   }
 
-  setTotalRewards(totalRewards: number): void {
-    this.properties.totalRewards = totalRewards;
-    Energy.emitStaticDomainEvent(ENERGY_EVENTS.TOTAL_REWARDS_SET, this);
-  }
-
   updateTotalRewards(reward: number): void {
-    if (this.properties.totalRewards === undefined) {
-      this.properties.totalRewards = 0;
-    }
-    this.properties.totalRewards += reward;
+    this.properties.totalRewards = (this.properties.totalRewards ?? 0) + reward;
     Energy.emitStaticDomainEvent(ENERGY_EVENTS.TOTAL_REWARDS_UPDATED, this);
   }
 
   setCurrentQuiz(quiz: Quiz): void {
     this.properties.currentQuiz = quiz;
+    this.properties.currentAnswerIsCorrect = undefined;
     Energy.emitStaticDomainEvent(ENERGY_EVENTS.CURRENT_QUIZ_SET, this);
+  }
+
+  checkAnswer(isCorrect: boolean): void {
+    this.properties.currentAnswerIsCorrect = isCorrect;
+    Energy.emitStaticDomainEvent(ENERGY_EVENTS.ANSWER_CHECKED, this);
+  }
+
+  computeRewards(): void {
+    if (this.properties.currentAnswerIsCorrect) {
+      this.properties.totalRewards =
+        (this.properties.totalRewards ?? 0) + (this.properties.currentQuiz?.properties.reward ?? 0);
+    }
+    this.properties.currentQuiz = undefined;
+    Energy.emitStaticDomainEvent(ENERGY_EVENTS.REWARDS_COMPUTED, this);
   }
 }

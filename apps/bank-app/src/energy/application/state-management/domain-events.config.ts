@@ -28,11 +28,15 @@ export const energyDomainEventsConfig = {
       actionType: IEnergyTypes.ENERGY_DOMAIN_EVENT,
     },
     {
-      eventName: ENERGY_EVENTS.TOTAL_REWARDS_SET,
+      eventName: ENERGY_EVENTS.CURRENT_QUIZ_SET,
       actionType: IEnergyTypes.ENERGY_DOMAIN_EVENT,
     },
     {
-      eventName: ENERGY_EVENTS.CURRENT_QUIZ_SET,
+      eventName: ENERGY_EVENTS.ANSWER_CHECKED,
+      actionType: IEnergyTypes.ENERGY_DOMAIN_EVENT,
+    },
+    {
+      eventName: ENERGY_EVENTS.REWARDS_COMPUTED,
       actionType: IEnergyTypes.ENERGY_DOMAIN_EVENT,
     },
   ],

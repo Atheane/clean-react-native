@@ -1,0 +1,17 @@
+{
+  "observedAt": "2025-03-15T17:14:56Z",
+  "unitCode": "CEL",
+  "value": 16.4,
+  "data": [
+    {
+      "observedAt": "2025-03-15T17:14:56Z",
+      "unitCode": "CEL",
+      "value": 16
+    },
+    {
+      "observedAt": "2025-03-19T14:44:30Z",
+      "unitCode": "CEL",
+      "value": 16.8
+    }
+  ]
+}

@@ -28,16 +28,16 @@ export const TotalReward = ({
     />
   ) : (
     <View style={[styles.greenEurosContainer, size === 'big' && styles.bigContainer]}>
-      <QuizWhite style={{ marginRight: 10 }} />
+      <QuizWhite style={size === 'big' ? { marginLeft: 10 } : { marginRight: 10 }} />
       <Text style={[theme.text.boldDarkBlue, size === 'big' && { fontSize: 20 }]}>{title} : </Text>
       <Text
         style={[
           theme.text.boldDarkBlue,
           { color: Colors.primary.white },
-          size === 'big' ? { fontSize: 32, paddingTop: 3 } : { fontSize: 24 },
+          size === 'big' ? { fontSize: 26, paddingTop: 3 } : { fontSize: 24 },
         ]}
       >
-        {totalRewards}
+        {totalRewards.toString().replace('.', ',')}
       </Text>
       <View style={styles.imgContainer}>
         <Image source={GreenEuro} style={[styles.greenEuroImg, size === 'big' && styles.bigImage]} />

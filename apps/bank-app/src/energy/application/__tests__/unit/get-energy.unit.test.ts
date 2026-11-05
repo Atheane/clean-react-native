@@ -82,7 +82,7 @@ describe('GetEnergy - usecase', () => {
       .next(mockMeasurementHumidity);
 
     expect(domainManagerInstance.emit<Energy>).toHaveBeenCalledWith(
-      ENERGY_EVENTS.TOTAL_REWARDS_SET,
+      ENERGY_EVENTS.TOTAL_REWARDS_UPDATED,
       expect.objectContaining({
         properties: expect.objectContaining({
           userId: mockUser.id,
@@ -184,7 +184,7 @@ describe('GetEnergy - usecase', () => {
     // Deuxième événement : TOTAL_REWARDS_SET
     expect(domainEventManager.emit).toHaveBeenNthCalledWith(
       2,
-      ENERGY_EVENTS.TOTAL_REWARDS_SET,
+      ENERGY_EVENTS.TOTAL_REWARDS_UPDATED,
       expect.objectContaining({
         properties: expect.objectContaining({
           userId: mockUser.id,

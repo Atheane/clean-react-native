@@ -152,6 +152,48 @@ export const getQuiz = async (httpConnection: HttpConnection, userTest = USER_TE
   fs.writeFileSync(fixtureFilePath, JSON.stringify(fixtures, null, 2));
 };
 
+export const checkAnswerFailed = async (httpConnection: HttpConnection, userTest = USER_TEST) => {
+  const fixtureFilePath = path.join(__dirname, 'check-answer-failed.json');
+
+  const authApi = AuthApi.getInstance(httpConnection);
+  const auth = await authApi.login({
+    email: new Email(userTest.email),
+    password: new Password(userTest.password),
+  });
+  httpConnection.attachBearerToken(auth.accessToken);
+
+  const response = await fetch(
+    `${httpConnection.baseUrl}/app/energy-app/quiz/answer`,
+    httpConnection.options(IHttpVerb.POST, {
+      quizId: 92885687,
+      answerIdx: 0,
+    }),
+  );
+  const fixtures = await response.json();
+  fs.writeFileSync(fixtureFilePath, JSON.stringify(fixtures, null, 2));
+};
+
+export const checkAnswerSuccess = async (httpConnection: HttpConnection, userTest = USER_TEST) => {
+  const fixtureFilePath = path.join(__dirname, 'check-answer-success.json');
+
+  const authApi = AuthApi.getInstance(httpConnection);
+  const auth = await authApi.login({
+    email: new Email(userTest.email),
+    password: new Password(userTest.password),
+  });
+  httpConnection.attachBearerToken(auth.accessToken);
+
+  const response = await fetch(
+    `${httpConnection.baseUrl}/app/energy-app/quiz/answer`,
+    httpConnection.options(IHttpVerb.POST, {
+      quizId: 92885687,
+      answerIdx: 2,
+    }),
+  );
+  const fixtures = await response.json();
+  fs.writeFileSync(fixtureFilePath, JSON.stringify(fixtures, null, 2));
+};
+
 // Fonction utilitaire pour générer toutes les fixtures
 export const generateAllFixtures = async (httpConnection: HttpConnection) => {
   await authUser(httpConnection);
@@ -162,4 +204,6 @@ export const generateAllFixtures = async (httpConnection: HttpConnection) => {
   await getMeasurementCO2(httpConnection);
   await getPriceComfort(httpConnection);
   await getQuiz(httpConnection);
+  await checkAnswerFailed(httpConnection);
+  await checkAnswerSuccess(httpConnection);
 };

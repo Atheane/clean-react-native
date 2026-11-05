@@ -99,3 +99,15 @@ export type IQuizDto = {
   reward: number;
   theme: QUIZ_THEME;
 };
+
+export type IAnswerQuizDto = {
+  answerIdx: number;
+  answerStatus: string;
+  quizAnswerId: number;
+  quizId: number;
+  userId: number;
+  _id: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+};
