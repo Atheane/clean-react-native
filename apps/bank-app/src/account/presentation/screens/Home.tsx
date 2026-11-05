@@ -85,37 +85,41 @@ export const Home = () => {
     [dispatch],
   );
 
-  // Utilisation du hook de notifications push
   const { expoPushToken, notificationEnabled } = useNotification();
-
-  console.log('expoPushToken', expoPushToken);
-  console.log('notificationEnabled', notificationEnabled);
-
   const { deviceId, brand, model, os, osVersion } = useDevice();
+  // Add a state to track if the call has already been made
+  const [deviceRegistered, setDeviceRegistered] = useState(false);
 
-  // Enregistrer l'appareil sur le serveur lorsque le token est disponible
   useEffect(() => {
+    // Check if expoSDK has finished fetching the notificationEnabled status and the expoPushToekn
+    // Check if  deviceId, brand, model, os and osVersion are defined
+    // and if the call has not yet been made
     if (
-      deviceId !== '' &&
-      brand &&
-      model &&
-      os !== '' &&
-      osVersion &&
-      ((notificationEnabled && expoPushToken) || notificationEnabled === false)
+      deviceRegistered === true ||
+      notificationEnabled === undefined ||
+      deviceId === '' ||
+      !brand ||
+      !model ||
+      !os ||
+      !osVersion
     ) {
-      dispatch(
-        fetchRegisterDevice({
-          deviceId,
-          firebaseId: expoPushToken,
-          brand,
-          model,
-          os,
-          osVersion,
-          appVersion: process.env.EXPO_PUBLIC_APP_VERSION || '',
-        }),
-      );
+      return;
     }
-  }, [expoPushToken, notificationEnabled, deviceId, brand, model, os, osVersion, dispatch]);
+
+    dispatch(
+      fetchRegisterDevice({
+        deviceId,
+        firebaseId: expoPushToken,
+        brand,
+        model,
+        os,
+        osVersion,
+        appVersion: process.env.EXPO_PUBLIC_APP_VERSION || '',
+      }),
+    );
+    // Mark the call as done
+    setDeviceRegistered(true);
+  }, [expoPushToken, notificationEnabled, deviceId, brand, model, os, osVersion, dispatch, deviceRegistered]);
 
   const [appNeedUpdate, setAppNeedUpdate] = useState(false);
   useEffect(() => {
@@ -137,20 +141,16 @@ export const Home = () => {
   // show identity banner if customer not validated and if no card
   const { customer, pending: kycPending } = useSelector((state: IRootState) => state.kyc.customer);
 
-  const dataEventCards = useMemo(
-    () =>
-      eventsCardsContent
-        .filter((item: { image: any; text: string; uid: string }) => {
-          if (!deletedCards.includes(item.uid)) {
-            return item;
-          }
-        })
-        .map((item) => ({
-          ...item,
-          text: t('screens.account.cards.' + item.uid),
-        })),
-    [deletedCards, t],
-  );
+  const dataEventCards = eventsCardsContent
+    .filter((item: { image: any; text: string; uid: string }) => {
+      if (!deletedCards.includes(item.uid)) {
+        return item;
+      }
+    })
+    .map((item) => ({
+      ...item,
+      title: t('screens.account.cards.' + item.uid),
+    }));
 
   const dataBalance = accounts?.map((item: IAccount) => ({
     uid: item.accountId.toString(),

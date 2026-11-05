@@ -18,7 +18,7 @@ import {
   LoaderSplashScreen,
   SafeScrollingView,
   LinkButton,
-  Tabs,
+  TopTabs,
   NoContact as NoContactImg,
   NoBeneficiary as NoBeneficiaryImg,
 } from '@clean-rn/ui-mobile';
@@ -162,7 +162,7 @@ export const BeneficiaryList = () => {
     <LoaderSplashScreen />
   ) : customer?.properties.status === KYC_REVIEW.VALIDATED ? (
     <ErrorBoundary t={t}>
-      <Tabs
+      <TopTabs
         tabsCount={2}
         titles={[t('screens.beneficiary.contacts'), t('screens.beneficiary.beneficiaries')]}
         icons={[Group2, BankBuilding] as IconNode[]}

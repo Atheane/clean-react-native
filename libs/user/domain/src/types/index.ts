@@ -73,6 +73,7 @@ export enum ILanguage {
   IT = 'IT',
   DE = 'DE',
   EL = 'GR',
+  PT = 'PT',
 }
 
 export enum IOccupation {
@@ -93,4 +94,11 @@ export enum IIncome {
   BETWEEN_1800_AND_3500,
   BETWEEN_3500_AND_10000,
   MORE_THAN_10000,
+}
+
+export enum IUserType {
+  BANK_USER = 40133439,
+  ENERGY_APP_USER = 87300973,
+  ENERGY_APP_USER = 7658009,
+  KELVIN_USER = 102003790,
 }

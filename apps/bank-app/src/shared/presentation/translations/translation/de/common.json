@@ -546,6 +546,7 @@
       "instruction-works-date": "Datum der letzten Arbeiten:"
     },
     "transport-situation": {
+      "title": "Meine CO2-Prämie",
       "subtitle": "Mein Transport",
       "instruction-license-plate": "Kennzeichen Ihres Fahrzeugs (Auto, Motorrad usw.)?",
       "instruction-old-license-plate": "Kennzeichen des alten Fahrzeugs",
@@ -556,10 +557,19 @@
       "has-changed": "Ersetzt dieses Fahrzeug ein anderes?",
       "has-changed-no": "Nein",
       "has-changed-yes": "Ja",
-      "add": "Ein Fahrzeug hinzufügen"
+      "add": "Ein Fahrzeug hinzufügen",
+      "vehicle": "Fahrzeug",
+      "before": "vor",
+      "in": "in",
+      "owned": "erworben",
+      "sold": "verkauft",
+      "end": "Beenden"
     },
     "footprint-evolution": {
-      "title": "Entwicklung meiner Emissionen"
+      "title": "Entwicklung meiner Emissionen",
+      "na": "Nicht berechnet",
+      "receive": "Meine Prämie erhalten",
+      "baseline": "Referenzemissionen"
     },
     "energy": {
       "menu": {
@@ -567,9 +577,35 @@
         "win-euros": "Gewinnen Sie €G mit\nunserem Quiz!",
         "adapt-temperature": "Passen Sie die Temperatur\nmeiner Wohnung an",
         "renovate-my-house": "Schätzen Sie meine Einsparungen nach\nenergetischer Renovierung",
-        "my-energy-consumption": "Mein Energieverbrauch"
+        "my-energy-consumption": "Mein Energieverbrauch",
+        "price-comfort": "Preis-Komfort:",
+        "total-green-euros": "Gesamt verdiente €G"
       },
-      "tab": "Energiebilanz"
+      "win-green-euros": {
+        "title": "Quiz und Herausforderungen",
+        "header": "Lernen und €G verdienen",
+        "description": "Testen Sie Ihr Wissen über Energieverbrauch und gewinnen Sie €G!",
+        "total-green-euros": "Gesamt verdiente €G"
+      },
+      "quiz": {
+        "title": "Quiz",
+        "button-next": "Weiter",
+        "quiz": "Hier ist das Quiz des Tages:",
+        "button-question": "Antwort überprüfen",
+        "button-feeback-true": "Mein Guthaben anzeigen",
+        "button-feeback-false": "Morgen versuchen",
+        "challenge-description": "Testen Sie Ihr Wissen über Energieverbrauch"
+      },
+      "feedback": {
+        "correct": "Richtig!",
+        "correct-description": "Herzlichen Glückwunsch, Sie haben die richtige Antwort gefunden und gewinnen:",
+        "button-correct": "Mein Guthaben anzeigen",
+        "incorrect": "Falsch",
+        "incorrect-description": "Tut mir leid, aber denken Sie daran, dass Sie diese Frage morgen wieder beantworten können, bis Sie die richtige Lösung finden! Schließlich ist das Ziel, spielerisch zu lernen.",
+        "button-incorrect": "Morgen versuchen"
+      },
+      "tab": "Energiebilanz",
+      "title": "Energiebilanz"
     },
     "household-situation": {
       "title": "Meine CO2-Prämie",
@@ -887,6 +923,12 @@
     },
     "languages": {
       "title": "Sprache auswählen"
+    }
+  },
+  "notification": {
+    "network-error": {
+      "title": "Keine Internetverbindung",
+      "body": "Bitte überprüfen Sie Ihre Internetverbindung."
     }
   }
 }

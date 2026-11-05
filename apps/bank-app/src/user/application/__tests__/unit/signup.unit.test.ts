@@ -302,6 +302,24 @@ describe('Signup - usecase', () => {
       .next();
   });
 
+  it('should throw SignupFailureEmailExists if email exists in EnergyApp and BANK', () => {
+    testSaga(checkEmailGenerator, httpConnection, {
+      type: IUserTypes.FETCH_SEARCH_EMAIL,
+      payload: mockQueryEmail,
+    })
+      .next()
+      .call([userApi, userApi.searchEmail], mockQueryEmail)
+      .next(IUserSearchServerCode.ENERGY_APP_USER)
+      .put(signupFailed(new UserError.SignupFailureEmailExists()))
+      .next()
+      .call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, mockQueryEmail.email.value)
+      .next(mockQueryEmail.email.value)
+      .put(loadStorage())
+      .next(mockQueryEmail.email)
+      .call(navigate, { route: IAuthStackPages.LOGIN })
+      .next();
+  });
+
   it('should throw SignupFailureEmailExists if email exists in old database', () => {
     testSaga(checkEmailGenerator, httpConnection, {
       type: IUserTypes.FETCH_SEARCH_EMAIL,

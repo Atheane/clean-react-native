@@ -5,7 +5,7 @@ import { PriceComfortVO, MeasurementVO } from '../value-objects';
 
 export interface IEnergyRepository {
   getSensors: () => Promise<ISensor[] | void>;
-  getQuiz: () => Promise<Quiz>;
+  getQuiz: (locale: string) => Promise<Quiz>;
   getPriceComfort: () => Promise<PriceComfortVO[]>;
   getRewards: () => Promise<number>;
   getMeasurement: (sensorType: SENSOR_TYPE) => Promise<MeasurementVO>;

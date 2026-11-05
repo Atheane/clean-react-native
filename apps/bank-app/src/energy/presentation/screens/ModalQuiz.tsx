@@ -151,7 +151,7 @@ export const ModalQuiz = () => {
   ) : (
     <View style={styles.container}>
       {currentStep === 'intro' && renderIntroductionContent(quizData)}
-      {currentStep === 'question' && renderQuestionContent()}
+      {currentStep === 'question' && renderQuestionContent(quizData)}
       {currentStep === 'feedback' && renderFeedbackContainer(isCorrect, energy)}
     </View>
   );

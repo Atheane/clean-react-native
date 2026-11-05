@@ -131,66 +131,64 @@ export const MenuEnergy = () => {
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={styles.container}>
-          <View>
-            <View style={{ marginTop: 30, marginBottom: 8 }}>
-              <TileDashboard
-                text={t('screens.energy.menu.price-comfort')}
-                kpi={
-                  energy?.properties?.globalPriceComfort === undefined
-                    ? '...'
-                    : (energy?.properties?.globalPriceComfort?.value?.average?.toString() as string)
-                }
-                children={data.length > 0 ? <Tiles data={data} /> : null}
-                loading={energy?.properties.globalPriceComfort === null}
-              />
-            </View>
-            <View style={styles.row}>
-              <LongCardIcon
-                text={t('screens.energy.menu.win-euros')}
-                leftIcon={() => <Quiz />}
-                rightIcon={() => (
-                  <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
-                )}
-                onPress={handleWinGreenEuros}
-                children={
-                  <TotalReward
-                    totalRewards={energy?.properties.totalRewards ?? 0}
-                    title={t('screens.energy.menu.total-green-euros')}
-                    loading={energy?.properties.totalRewards === undefined}
-                  />
-                }
-              />
-            </View>
-            <View style={styles.row}>
-              <LongCardIcon
-                text={t('screens.energy.menu.adapt-temperature')}
-                leftIcon={() => <AdaptTemperature />}
-                rightIcon={() => (
-                  <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
-                )}
-                onPress={() => handlePressNavigation(IEnergyStackPages.ADAPT_TEMPERATURE)}
-              />
-            </View>
-            <View style={styles.row}>
-              <LongCardIcon
-                text={t('screens.energy.menu.renovate-my-house')}
-                leftIcon={() => <RenovateHouse />}
-                rightIcon={() => (
-                  <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
-                )}
-                onPress={() => handlePressNavigation(IEnergyStackPages.RENOVATE_MY_HOUSE)}
-              />
-            </View>
-            <View style={styles.row}>
-              <LongCardIcon
-                text={t('screens.energy.menu.my-energy-consumption')}
-                leftIcon={() => <EnergyConsumption />}
-                rightIcon={() => (
-                  <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
-                )}
-                onPress={() => handlePressNavigation(IEnergyStackPages.MY_ENERGY_CONSUMPTION)}
-              />
-            </View>
+          <View style={{ marginTop: 30, marginBottom: 8 }}>
+            <TileDashboard
+              text={t('screens.energy.menu.price-comfort')}
+              kpi={
+                energy?.properties?.globalPriceComfort === undefined
+                  ? '...'
+                  : (energy?.properties?.globalPriceComfort?.value?.average?.toString() as string)
+              }
+              children={data.length > 0 ? <Tiles data={data} /> : null}
+              loading={energy?.properties.globalPriceComfort === null}
+            />
+          </View>
+          <View style={styles.row}>
+            <LongCardIcon
+              text={t('screens.energy.menu.win-euros')}
+              leftIcon={() => <Quiz />}
+              rightIcon={() => (
+                <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
+              )}
+              onPress={handleWinGreenEuros}
+              children={
+                <TotalReward
+                  totalRewards={energy?.properties.totalRewards ?? 0}
+                  title={t('screens.energy.menu.total-green-euros')}
+                  loading={energy?.properties.totalRewards === undefined}
+                />
+              }
+            />
+          </View>
+          <View style={styles.row}>
+            <LongCardIcon
+              text={t('screens.energy.menu.adapt-temperature')}
+              leftIcon={() => <AdaptTemperature />}
+              rightIcon={() => (
+                <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
+              )}
+              onPress={() => handlePressNavigation(IEnergyStackPages.ADAPT_TEMPERATURE)}
+            />
+          </View>
+          <View style={styles.row}>
+            <LongCardIcon
+              text={t('screens.energy.menu.renovate-my-house')}
+              leftIcon={() => <RenovateHouse />}
+              rightIcon={() => (
+                <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
+              )}
+              onPress={() => handlePressNavigation(IEnergyStackPages.RENOVATE_MY_HOUSE)}
+            />
+          </View>
+          <View style={styles.row}>
+            <LongCardIcon
+              text={t('screens.energy.menu.my-energy-consumption')}
+              leftIcon={() => <EnergyConsumption />}
+              rightIcon={() => (
+                <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
+              )}
+              onPress={() => handlePressNavigation(IEnergyStackPages.MY_ENERGY_CONSUMPTION)}
+            />
           </View>
         </View>
       </SafeScrollingView>
