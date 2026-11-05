@@ -692,7 +692,7 @@
       "init": {
         "steps": "étapes :\n",
         "step1": "1. Joindre une pièce d’identité\n",
-        "step2": "2. Faire un virement de 1 euro depuis un de vos comptes bancaires sur votre Bank App\n",
+        "step2": "2. Faire un virement de 5 euros depuis un de vos comptes bancaires sur votre Bank App\n",
         "step3": "3. Joindre le formulaire W9",
         "check-identity": "Vérifier"
       },
@@ -726,7 +726,7 @@
         "w9-form": "Formulaire W9",
         "identity": "Pièce d'identité",
         "fix-file": "Merci de corriger les éléments du dossier",
-        "transfer": "Virement de 1 euro"
+        "transfer": "Virement de 5 euros"
       },
       "first-id": {
         "title": "Pièces d'identité",
@@ -765,8 +765,8 @@
         "instruction": "ou importer votre formulaire w-9"
       },
       "sct-required": {
-        "title": "Virement de 1 euro",
-        "instruction": "Faîtes un virement de 1 euro sur votre Bank App, à partir d’un de vos comptes situés en France."
+        "title": "Virement de 5 euros",
+        "instruction": "Faîtes un virement de 5 euros sur votre Bank App, à partir d’un de vos comptes situés en France."
       }
     },
     "parameters": {
