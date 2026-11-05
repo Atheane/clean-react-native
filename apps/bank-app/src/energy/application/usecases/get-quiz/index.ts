@@ -23,7 +23,9 @@ export function* getQuizGenerator(httpConnection: HttpConnection): Generator<Str
 
     const energyRepository = EnergyRepositoryFactory.getRepository(httpConnection);
     const quiz: Quiz = yield call([energyRepository, energyRepository.getQuiz], user.properties.config.lang);
-    energy.setCurrentQuiz(quiz);
+    if (quiz) {
+      energy.setCurrentQuiz(quiz);
+    }
   } catch (error: unknown) {
     yield put(showUnknownError(error as Error));
   }

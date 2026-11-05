@@ -112,7 +112,7 @@ export class EnergyApi implements IEnergyRepository {
     return rewardsStatsDtos.rewardTotal;
   }
 
-  async getQuiz(locale: string): Promise<Quiz> {
+  async getQuiz(locale: string): Promise<Quiz | null> {
     const response = await fetch(
       `${this.connection.baseUrl}/app/energy-app/quiz`,
       this.connection.options(IHttpVerb.GET),
