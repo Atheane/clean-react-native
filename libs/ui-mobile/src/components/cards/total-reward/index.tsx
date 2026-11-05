@@ -37,7 +37,7 @@ export const TotalReward = ({
           size === 'big' ? { fontSize: 26, paddingTop: 3 } : { fontSize: 24 },
         ]}
       >
-        {totalRewards.toString().replace('.', ',')}
+        {totalRewards?.toString().replace('.', ',')}
       </Text>
       <View style={styles.imgContainer}>
         <Image source={GreenEuro} style={[styles.greenEuroImg, size === 'big' && styles.bigImage]} />

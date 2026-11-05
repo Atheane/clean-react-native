@@ -141,20 +141,16 @@ export const Home = () => {
   // show identity banner if customer not validated and if no card
   const { customer, pending: kycPending } = useSelector((state: IRootState) => state.kyc.customer);
 
-  const dataEventCards = useMemo(
-    () =>
-      eventsCardsContent
-        .filter((item: { image: any; text: string; uid: string }) => {
-          if (!deletedCards.includes(item.uid)) {
-            return item;
-          }
-        })
-        .map((item) => ({
-          ...item,
-          text: t('screens.account.cards.' + item.uid),
-        })),
-    [deletedCards, t],
-  );
+  const dataEventCards = eventsCardsContent
+    .filter((item: { image: any; text: string; uid: string }) => {
+      if (!deletedCards.includes(item.uid)) {
+        return item;
+      }
+    })
+    .map((item) => ({
+      ...item,
+      title: t('screens.account.cards.' + item.uid),
+    }));
 
   const dataBalance = accounts?.map((item: IAccount) => ({
     uid: item.accountId.toString(),
