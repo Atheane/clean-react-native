@@ -1,0 +1,6 @@
+{
+  "statusCode": 404,
+  "timestamp": "2025-03-23T21:18:11.196Z",
+  "path": "/app/energy-app/sensor/co2",
+  "method": "GET"
+}

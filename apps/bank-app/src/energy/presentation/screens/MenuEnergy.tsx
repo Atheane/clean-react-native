@@ -30,13 +30,12 @@ import { fetchRefresh } from '../../../auth/application/commands';
 import { getQuiz } from '../../../energy/application/commands';
 
 const Tiles = (props: {
-  data: { kpi?: string; unit: string; color?: string; legend: string; loading: boolean }[];
+  data: { kpi?: string; unit: string; color?: string; legend: string; loading?: boolean }[];
 }) => {
   const { data } = props;
   if (!data || data.length === 0) {
     return <View style={styles.rowContainer} />;
   }
-
   return (
     <View style={styles.rowContainer}>
       <TileKpi
@@ -85,34 +84,41 @@ export const MenuEnergy = () => {
   }, [dispatch]);
 
   const data = useMemo(() => {
+    const hasTemperatureSensor = energy?.properties?.sensors?.some(
+      (sensor) => sensor.type === SENSOR_TYPE.TEMPERATURE,
+    );
+    const hasHumiditySensor = energy?.properties?.sensors?.some(
+      (sensor) => sensor.type === SENSOR_TYPE.HUMIDITY,
+    );
+    const hasCO2Sensor = energy?.properties?.sensors?.some((sensor) => sensor.type === SENSOR_TYPE.CO2);
+    if (!hasTemperatureSensor && !hasHumiditySensor && !hasCO2Sensor) {
+      return [];
+    }
     return [
       {
         kpi: energy?.properties?.measurements?.[SENSOR_TYPE.TEMPERATURE]?.value.toString(),
         unit: 'C°',
         legend: t('screens.energy.menu.average'),
         color: Colors.primary.grey,
-        loading: energy?.properties?.measurements?.[SENSOR_TYPE.TEMPERATURE] === undefined,
+        loading:
+          hasTemperatureSensor && energy?.properties?.measurements?.[SENSOR_TYPE.TEMPERATURE] === undefined,
       },
       {
         kpi: energy?.properties?.measurements?.[SENSOR_TYPE.HUMIDITY]?.value.toString(),
         unit: '%',
         legend: t('screens.energy.menu.average'),
         color: Colors.primary.lightGreen,
-        loading: energy?.properties?.measurements?.[SENSOR_TYPE.HUMIDITY] === undefined,
+        loading: hasHumiditySensor && energy?.properties?.measurements?.[SENSOR_TYPE.HUMIDITY] === undefined,
       },
       {
         kpi: energy?.properties?.measurements?.[SENSOR_TYPE.CO2]?.value.toString(),
         unit: 'ppm',
         legend: t('screens.energy.menu.average'),
         color: Colors.primary.lightGreen,
-        loading: energy?.properties?.measurements?.[SENSOR_TYPE.CO2] === undefined,
+        loading: hasCO2Sensor && energy?.properties?.measurements?.[SENSOR_TYPE.CO2] === undefined,
       },
     ];
-  }, [energy?.properties?.measurements, t]);
-
-  const priceComfort = useMemo(() => {
-    return energy?.properties?.globalPriceComfort?.value?.average?.toString() ?? '...';
-  }, [energy?.properties?.globalPriceComfort]);
+  }, [energy?.properties?.sensors, energy?.properties?.measurements, t]);
 
   const handleWinGreenEuros = () => {
     dispatch(getQuiz());
@@ -124,60 +130,67 @@ export const MenuEnergy = () => {
   ) : (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View>
-          <View style={{ marginTop: 30, marginBottom: 8 }}>
-            <TileDashboard
-              text={t('screens.energy.menu.price-comfort')}
-              kpi={priceComfort}
-              children={<Tiles data={data} />}
-            />
-          </View>
-          <View style={styles.row}>
-            <LongCardIcon
-              text={t('screens.energy.menu.win-euros')}
-              leftIcon={() => <Quiz />}
-              rightIcon={() => (
-                <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
-              )}
-              onPress={handleWinGreenEuros}
-              children={
-                <TotalReward
-                  totalRewards={energy?.properties.totalRewards ?? 0}
-                  title={t('screens.energy.menu.total-green-euros')}
-                  loading={energy?.properties.totalRewards === undefined}
-                />
-              }
-            />
-          </View>
-          <View style={styles.row}>
-            <LongCardIcon
-              text={t('screens.energy.menu.adapt-temperature')}
-              leftIcon={() => <AdaptTemperature />}
-              rightIcon={() => (
-                <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
-              )}
-              onPress={() => handlePressNavigation(IEnergyStackPages.ADAPT_TEMPERATURE)}
-            />
-          </View>
-          <View style={styles.row}>
-            <LongCardIcon
-              text={t('screens.energy.menu.renovate-my-house')}
-              leftIcon={() => <RenovateHouse />}
-              rightIcon={() => (
-                <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
-              )}
-              onPress={() => handlePressNavigation(IEnergyStackPages.RENOVATE_MY_HOUSE)}
-            />
-          </View>
-          <View style={styles.row}>
-            <LongCardIcon
-              text={t('screens.energy.menu.my-energy-consumption')}
-              leftIcon={() => <EnergyConsumption />}
-              rightIcon={() => (
-                <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
-              )}
-              onPress={() => handlePressNavigation(IEnergyStackPages.MY_ENERGY_CONSUMPTION)}
-            />
+        <View style={styles.container}>
+          <View>
+            <View style={{ marginTop: 30, marginBottom: 8 }}>
+              <TileDashboard
+                text={t('screens.energy.menu.price-comfort')}
+                kpi={
+                  energy?.properties?.globalPriceComfort === undefined
+                    ? '...'
+                    : (energy?.properties?.globalPriceComfort?.value?.average?.toString() as string)
+                }
+                children={data.length > 0 ? <Tiles data={data} /> : null}
+                loading={energy?.properties.globalPriceComfort === null}
+              />
+            </View>
+            <View style={styles.row}>
+              <LongCardIcon
+                text={t('screens.energy.menu.win-euros')}
+                leftIcon={() => <Quiz />}
+                rightIcon={() => (
+                  <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
+                )}
+                onPress={handleWinGreenEuros}
+                children={
+                  <TotalReward
+                    totalRewards={energy?.properties.totalRewards ?? 0}
+                    title={t('screens.energy.menu.total-green-euros')}
+                    loading={energy?.properties.totalRewards === undefined}
+                  />
+                }
+              />
+            </View>
+            <View style={styles.row}>
+              <LongCardIcon
+                text={t('screens.energy.menu.adapt-temperature')}
+                leftIcon={() => <AdaptTemperature />}
+                rightIcon={() => (
+                  <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
+                )}
+                onPress={() => handlePressNavigation(IEnergyStackPages.ADAPT_TEMPERATURE)}
+              />
+            </View>
+            <View style={styles.row}>
+              <LongCardIcon
+                text={t('screens.energy.menu.renovate-my-house')}
+                leftIcon={() => <RenovateHouse />}
+                rightIcon={() => (
+                  <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
+                )}
+                onPress={() => handlePressNavigation(IEnergyStackPages.RENOVATE_MY_HOUSE)}
+              />
+            </View>
+            <View style={styles.row}>
+              <LongCardIcon
+                text={t('screens.energy.menu.my-energy-consumption')}
+                leftIcon={() => <EnergyConsumption />}
+                rightIcon={() => (
+                  <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
+                )}
+                onPress={() => handlePressNavigation(IEnergyStackPages.MY_ENERGY_CONSUMPTION)}
+              />
+            </View>
           </View>
         </View>
       </SafeScrollingView>
@@ -189,7 +202,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-around',
-    paddingVertical: 80,
+    paddingBottom: 40,
   },
   row: {
     flexDirection: 'row',

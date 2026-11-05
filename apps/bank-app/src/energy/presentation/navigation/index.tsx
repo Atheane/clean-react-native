@@ -1,3 +1,4 @@
+import { View, Image } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -10,6 +11,7 @@ import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 import { HeaderTitleAlign } from '../../../shared/presentation/types';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { MenuEnergy, ModalQuiz, WinGreenEuros } from '../screens';
+import { EnergyAppLogo } from '../assets/images';
 
 const Stack = createNativeStackNavigator<IEnergyStackProps & ISharedStackProps>();
 
@@ -57,7 +59,16 @@ export const EnergyStack = () => {
         component={MenuEnergy}
         options={{
           headerTitle: t('screens.energy.menu.title'),
-          ...headersOptions(),
+          headerRight: () => (
+            <View>
+              <Image source={EnergyAppLogo} style={{ width: 131, height: 22, marginRight: 20 }} />
+            </View>
+          ),
+          headerTitleStyle: {
+            color: Colors.primary.darkBlue,
+            fontSize: 16,
+            fontFamily: FontNames.MartelSans_600SemiBold,
+          },
         }}
       />
       <Stack.Screen

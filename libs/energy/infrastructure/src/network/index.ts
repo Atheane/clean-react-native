@@ -6,6 +6,7 @@ import {
   PriceComfortVO,
   Quiz,
   SENSOR_TYPE,
+  ICheckAnswerCommand,
 } from '@clean-rn/energy/domain';
 import {
   IMeasurementsDto,
@@ -14,6 +15,7 @@ import {
   IRewardsStatsDto,
   ISensorDto,
   SENSOR_TYPE_DTO,
+  IAnswerQuizDto,
 } from '../dto';
 import { SensorMapper, MeasurementMapper, PriceComfortMapper, QuizMapper } from '../mappers';
 
@@ -117,5 +119,23 @@ export class EnergyApi implements IEnergyRepository {
     await this.connection.handleError(response);
     const quizDtos: IQuizDto[] = await response.json();
     return QuizMapper.toDomain(quizDtos[0]);
+  }
+
+  async checkAnswer(command: ICheckAnswerCommand): Promise<boolean> {
+    console.log('>>>>>>>> checkAnswer', command);
+    const cmdDto = {
+      quizId: parseInt(command.quizId),
+      answerIdx: command.answerIdx,
+    };
+    const response = await fetch(
+      `${this.connection.baseUrl}/app/energy-app/quiz/answer`,
+      this.connection.options(IHttpVerb.POST, cmdDto),
+    );
+    await this.connection.handleError(response);
+    const answerQuizDto: IAnswerQuizDto = await response.json();
+    console.log('>>>>>>>> answerQuizDto', answerQuizDto);
+    console.log('>>>>>>>> answerQuizDto.answerStatus', answerQuizDto.answerStatus);
+    console.log('>>>>>>>> answerQuizDto.answerStatus !== FAILED', answerQuizDto.answerStatus !== 'FAILED');
+    return answerQuizDto.answerStatus !== 'FAILED';
   }
 }

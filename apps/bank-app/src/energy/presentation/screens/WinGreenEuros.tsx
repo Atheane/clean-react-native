@@ -58,22 +58,32 @@ export const WinGreenEuros = () => {
                 vertical
               />
             )}
-            <TouchEventCard
-              uid={'challenge'}
-              title={'Challenge'}
-              icon={() => <Challenge />}
-              onPress={handleOnPressChallenge}
-              text={t('screens.energy.quiz.challenge-description')}
-              vertical
-            />
+            {energy?.properties.currentChallenge && (
+              <TouchEventCard
+                uid={'challenge'}
+                title={'Challenge'}
+                icon={() => <Challenge />}
+                onPress={handleOnPressChallenge}
+                text={t('screens.energy.quiz.challenge-description')}
+                vertical
+              />
+            )}
           </View>
         </View>
-        <TotalReward
-          totalRewards={0}
-          title={t('screens.energy.win-green-euros.total-green-euros')}
-          loading={false}
-          size="big"
-        />
+        <View
+          style={[
+            styles.totalRewardContainer,
+            !energy?.properties.currentQuiz &&
+              !energy?.properties.currentChallenge && { marginTop: Dimensions.get('window').height * 0.3 },
+          ]}
+        >
+          <TotalReward
+            totalRewards={energy?.properties.totalRewards as number}
+            title={t('screens.energy.win-green-euros.total-green-euros')}
+            loading={false}
+            size="big"
+          />
+        </View>
       </View>
     </View>
   );
@@ -122,5 +132,8 @@ const styles = StyleSheet.create({
   cards: {
     marginLeft: -20,
     justifyContent: 'center',
+  },
+  totalRewardContainer: {
+    alignSelf: 'center',
   },
 });

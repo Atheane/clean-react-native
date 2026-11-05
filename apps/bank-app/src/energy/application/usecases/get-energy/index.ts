@@ -3,7 +3,7 @@ import { call, put, StrictEffect, takeEvery, select } from 'redux-saga/effects';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { User } from '@clean-rn/user/domain';
 import { Energy, ISensor, MeasurementVO, PriceComfortVO, SENSOR_TYPE } from '@clean-rn/energy/domain';
-import { EnergyApi } from '@clean-rn/energy/infrastructure';
+import { EnergyRepositoryFactory } from '@clean-rn/energy/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
@@ -27,23 +27,28 @@ export function* getEnergyGenerator(httpConnection: HttpConnection): Generator<S
       energy = Energy.Create({ userId: user.id });
     }
 
-    const energyApi = EnergyApi.getInstance(httpConnection);
-    const totalRewards: number = yield call([energyApi, energyApi.getRewards]);
-    energy.setTotalRewards(totalRewards);
+    const energyRepository = EnergyRepositoryFactory.getRepository(httpConnection);
 
-    const priceComforts: PriceComfortVO[] = yield call([energyApi, energyApi.getPriceComfort]);
+    const totalRewards: number = yield call([energyRepository, energyRepository.getRewards]);
+    energy.updateTotalRewards(totalRewards);
+
+    const priceComforts: PriceComfortVO[] = yield call([energyRepository, energyRepository.getPriceComfort]);
     energy.addPricesComfort(priceComforts);
 
-    const sensors: ISensor[] = yield call([energyApi, energyApi.getSensors]);
+    const sensors: ISensor[] = yield call([energyRepository, energyRepository.getSensors]);
     energy.checkAvailableSensors(sensors);
     const uniqueSensorTypes = new Set<SENSOR_TYPE>();
     for (const sensor of sensors) {
       uniqueSensorTypes.add(sensor.type);
     }
     const sensorTypes = Array.from(uniqueSensorTypes);
+
     if (sensorTypes.length > 0) {
       for (const sensorType of sensorTypes) {
-        const measurement: MeasurementVO = yield call([energyApi, energyApi.getMeasurement], sensorType);
+        const measurement: MeasurementVO = yield call(
+          [energyRepository, energyRepository.getMeasurement],
+          sensorType,
+        );
         energy.addMesurement(measurement);
       }
     }

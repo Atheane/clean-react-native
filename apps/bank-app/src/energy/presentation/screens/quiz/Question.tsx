@@ -1,18 +1,30 @@
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Colors, SunnyHouse, FontNames, MultipleOptionsCheckBox } from '@clean-rn/ui-mobile';
+import {
+  Colors,
+  SunnyHouse,
+  FontNames,
+  MultipleOptionsCheckBox,
+  LoaderSplashScreen,
+} from '@clean-rn/ui-mobile';
 import { useTheme } from '@rneui/themed';
 
 type IProps = {
   question: string;
   choices: string[];
   onAnswerSelected: (answer: string) => void;
+  loading: boolean;
 };
 
-export const Question = ({ question, choices, onAnswerSelected }: IProps) => {
+export const Question = ({ question, choices, onAnswerSelected, loading }: IProps) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
 
+  if (loading) {
+    return <LoaderSplashScreen />;
+  }
+
+  const choicesValues = choices.map((_, index: number) => index.toString());
   return (
     <View style={styles.container}>
       <View style={styles.sunnyHouseContainer}>
@@ -27,7 +39,7 @@ export const Question = ({ question, choices, onAnswerSelected }: IProps) => {
       <View style={styles.choicesContainer}>
         <MultipleOptionsCheckBox
           optionsTitle={choices}
-          optionsValues={choices}
+          optionsValues={choicesValues}
           onChange={onAnswerSelected}
           vertical={true}
         />

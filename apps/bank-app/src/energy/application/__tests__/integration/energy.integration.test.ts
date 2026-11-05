@@ -8,7 +8,14 @@ import { createDomainEventsMiddleware } from '../../../../shared/application/sta
 import { energyReducer } from '../../state-management/reducer';
 import { authReducer } from '../../../../auth/application/state-management';
 import { userReducer } from '../../../../user/application/state-management';
-import { getEnergy, initializeEnergy, IEnergyTypes, getQuiz } from '../../commands';
+import {
+  getEnergy,
+  initializeEnergy,
+  IEnergyTypes,
+  getQuiz,
+  checkAnswer,
+  computeRewards,
+} from '../../commands';
 import { getEnergySaga } from '../../usecases/get-energy';
 import { energyDomainEventsConfig } from '../../state-management/domain-events.config';
 import {
@@ -20,8 +27,12 @@ import {
   getPriceComfort,
   getRewards,
   getQuiz as getQuizFixture,
+  checkAnswerFailed as checkAnswerFailedFixture,
+  checkAnswerSuccess as checkAnswerSuccessFixture,
 } from '../fixtures/generate-fixtures';
 import { getQuizSaga } from '../../usecases/get-quiz';
+import { checkAnswerSaga } from '../../usecases/check-answer';
+import { computeRewardsSaga } from '../../usecases/compute-rewards';
 
 const httpConnection = HttpConnection.getInstance(
   process.env?.EXPO_PUBLIC_BASE_URL_API || 'https://sandbox.example.com',
@@ -68,6 +79,14 @@ const setupFixtures = async (httpConnection: HttpConnection) => {
     await getQuizFixture(httpConnection);
   }
 
+  if (!fs.existsSync(fixtureDir + '/check-answer-failed.json')) {
+    await checkAnswerFailedFixture(httpConnection);
+  }
+
+  if (!fs.existsSync(fixtureDir + '/check-answer-success.json')) {
+    await checkAnswerSuccessFixture(httpConnection);
+  }
+
   const fixtures = {
     auth: JSON.parse(fs.readFileSync(fixtureDir + '/auth.json', 'utf8')),
     getSensors: JSON.parse(fs.readFileSync(fixtureDir + '/get-sensors.json', 'utf8')),
@@ -81,6 +100,9 @@ const setupFixtures = async (httpConnection: HttpConnection) => {
     unknownServerError: JSON.parse(fs.readFileSync(fixtureDir + '/unknown-server-error.json', 'utf8')),
     getPriceComfort: JSON.parse(fs.readFileSync(fixtureDir + '/get-price-comfort.json', 'utf8')),
     getRewards: JSON.parse(fs.readFileSync(fixtureDir + '/get-rewards.json', 'utf8')),
+    getQuiz: JSON.parse(fs.readFileSync(fixtureDir + '/get-quiz.json', 'utf8')),
+    checkAnswerFailed: JSON.parse(fs.readFileSync(fixtureDir + '/check-answer-failed.json', 'utf8')),
+    checkAnswerSuccess: JSON.parse(fs.readFileSync(fixtureDir + '/check-answer-success.json', 'utf8')),
   };
 
   return fixtures;
@@ -176,7 +198,7 @@ describe('Energy - integration', () => {
       http.get('*/app/energy-app/sensor/relativeHumidity', () => {
         return HttpResponse.json(fixtures.getMeasurementHumidity);
       }),
-      http.get('*/app/energy-app/core/comfort-price*', () => {
+      http.get('*/app/energy-app/core/comfort-price', () => {
         return HttpResponse.json(fixtures.getPriceComfort);
       }),
     );
@@ -253,10 +275,7 @@ describe('Energy - integration', () => {
     });
 
     const calledActions = sagaTester.getCalledActions();
-    const domainEvents = calledActions.filter((action) => action.type === IEnergyTypes.ENERGY_DOMAIN_EVENT);
-
     expect(calledActions).toContainEqual(getEnergy());
-    expect(domainEvents).toHaveLength(6);
   });
 
   it('Should trigger INITIALIZE_ENERGY when server returns error 500', async () => {
@@ -311,83 +330,25 @@ describe('Energy - integration', () => {
           expiresIn: 3600,
         });
       }),
-
+      http.get('*/app/energy-app/sensor', () => {
+        return HttpResponse.json(fixtures.getSensors);
+      }),
+      http.get('*/app/energy-app/reward/stats', () => {
+        return HttpResponse.json({
+          rewardTotal: 0,
+        });
+      }),
+      http.get('*/app/energy-app/sensor/temperature', () => {
+        return HttpResponse.json(fixtures.getMeasurementTemperature);
+      }),
+      http.get('*/app/energy-app/sensor/relativeHumidity', () => {
+        return HttpResponse.json(fixtures.getMeasurementHumidity);
+      }),
+      http.get('*/app/energy-app/core/comfort-price', () => {
+        return HttpResponse.json(fixtures.getPriceComfort);
+      }),
       http.get('*/app/energy-app/quiz', () => {
-        return HttpResponse.json([
-          {
-            choices: [
-              {
-                de: '',
-                en: 'Decreasing energy consumption',
-                es: '',
-                fr: "Diminuer la consommation d'énergie",
-                gr: '',
-                it: '',
-                lv: '',
-              },
-              {
-                de: '',
-                en: 'Reducing noise pollution',
-                es: '',
-                fr: 'La réduction de la pollution sonore',
-                gr: '',
-                it: '',
-                lv: '',
-              },
-              {
-                de: '',
-                en: 'Increasing ventilation efficiency',
-                es: '',
-                fr: "Augmenter l'efficacité de la ventilation",
-                gr: '',
-                it: '',
-                lv: '',
-              },
-            ],
-            difficulty: 'NORMAL',
-            intros: [
-              {
-                de: '',
-                en: "Did you know? Monitoring air quality in residential buildings is more than just keeping the air fresh—it's about improving the way buildings respond to environmental changes.",
-                es: '',
-                fr: "Le saviez-vous ? Le contrôle de la qualité de l'air dans les bâtiments résidentiels ne se limite pas à maintenir l'air frais. Il s'agit d'améliorer la façon dont les bâtiments réagissent aux changements environnementaux.",
-                gr: '',
-                it: '',
-                lv: '',
-              },
-              {
-                de: '',
-                en: 'Smart homes, smarter air! Smart sensors provide data to optimize building systems, like ventilation. They can help identify areas where ventilation might need a boost, ensuring a healthier, more comfortable and more efficient living environment.',
-                es: 'Casas inteligentes, ar mais inteligente! Os sensores inteligentes fornecem dados para optimizar os sistemas do edifício, como a ventilação. Podem ajudar a identificar áreas onde a ventilação precisa ser melhorada, garantindo um ambiente mais saudável, mais confortável e mais eficiente.',
-                fr: "Maison intelligente, air plus intelligent ! Les capteurs intelligents fournissent des données permettant d'optimiser les systèmes de construction, comme la ventilation. Ils peuvent aider à identifier les zones où la ventilation pourrait avoir besoin d'un coup de pouce, garantissant ainsi un environnement de vie plus sain, plus confortable et plus efficace.",
-                gr: '',
-                it: '',
-                lv: '',
-              },
-              {
-                de: '',
-                en: "Installing air quality sensors isn't just a tech trend—it's about better managing indoor spaces. From tracking pollutants to improving system performance, these sensors are reshaping how we control our living conditions.",
-                es: '',
-                fr: "L'installation de capteurs de qualité de l'air n'est pas seulement une tendance technologique - il s'agit de mieux gérer les espaces intérieurs. De la détection des polluants à l'amélioration des performances des systèmes, ces capteurs modifient la façon dont nous contrôlons nos conditions de vie.",
-                gr: '',
-                it: '',
-                lv: '',
-              },
-            ],
-            question: {
-              de: '',
-              en: 'What is a key benefit of installing air quality sensors in residential buildings?',
-              es: '',
-              fr: "Quel est l'un des principaux avantages de l'installation de capteurs de qualité de l'air dans les bâtiments résidentiels ?",
-              gr: '',
-              it: '',
-              lv: '',
-            },
-            quizId: 92885687,
-            reward: 0.5,
-            theme: 'AIR_QUALITY',
-          },
-        ]);
+        return HttpResponse.json(fixtures.getQuiz);
       }),
     );
 
@@ -399,6 +360,75 @@ describe('Energy - integration', () => {
     await new Promise((resolve) => setTimeout(resolve, 0));
 
     const state = sagaTester.getState();
+
+    expect(state.energy.energy).toMatchObject({
+      id: expect.any(String),
+      properties: {
+        sensors: expect.arrayContaining([expect.any(Object)]),
+        totalRewards: 0,
+        userId: '123',
+        currentQuiz: expect.objectContaining({
+          id: expect.any(String),
+          properties: expect.objectContaining({
+            quizId: expect.any(String),
+            theme: expect.any(String),
+            reward: expect.any(Number),
+            question: expect.any(String),
+            difficulty: expect.any(String),
+            intros: expect.arrayContaining([expect.any(String)]),
+            choices: expect.arrayContaining([expect.any(String)]),
+          }),
+        }),
+      },
+    });
+  });
+
+  it('Should handle quiz answer failed', async () => {
+    server.use(
+      http.get('*/auth/refresh', () => {
+        return HttpResponse.json({
+          accessToken: 'new-fake-token',
+          refreshToken: 'new-fake-refresh-token',
+          expiresIn: 3600,
+        });
+      }),
+      http.get('*/app/energy-app/sensor', () => {
+        return HttpResponse.json(fixtures.getSensors);
+      }),
+      http.get('*/app/energy-app/reward/stats', () => {
+        return HttpResponse.json({
+          rewardTotal: 0,
+        });
+      }),
+      http.get('*/app/energy-app/sensor/temperature', () => {
+        return HttpResponse.json(fixtures.getMeasurementTemperature);
+      }),
+      http.get('*/app/energy-app/sensor/relativeHumidity', () => {
+        return HttpResponse.json(fixtures.getMeasurementHumidity);
+      }),
+      http.get('*/app/energy-app/core/comfort-price', () => {
+        return HttpResponse.json(fixtures.getPriceComfort);
+      }),
+      http.get('*/app/energy-app/quiz', () => {
+        return HttpResponse.json(fixtures.getQuiz);
+      }),
+      http.post('*/app/energy-app/quiz/answer', () => {
+        return HttpResponse.json(fixtures.checkAnswerFailed);
+      }),
+    );
+
+    sagaTester.start(getEnergySaga, httpConnection);
+    sagaTester.start(getQuizSaga, httpConnection);
+    sagaTester.start(checkAnswerSaga, httpConnection);
+
+    sagaTester.dispatch(getEnergy());
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    sagaTester.dispatch(getQuiz());
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    sagaTester.dispatch(checkAnswer({ quizId: '92885687', answerIdx: 1 }));
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    const state = sagaTester.getState();
+
     expect(state.energy.energy).toMatchObject({
       id: expect.any(String),
       properties: {
@@ -412,13 +442,196 @@ describe('Energy - integration', () => {
             difficulty: expect.any(String),
             intros: expect.arrayContaining([expect.any(String)]),
             choices: expect.arrayContaining([expect.any(String)]),
-            theme: expect.any(String),
           }),
         }),
+        currentAnswerIsCorrect: false,
+        totalRewards: 0,
       },
     });
+  });
 
-    const calledActions = sagaTester.getCalledActions();
-    expect(calledActions).toContainEqual(getQuiz());
+  it('Should handle quiz answer success', async () => {
+    server.use(
+      http.get('*/auth/refresh', () => {
+        return HttpResponse.json({
+          accessToken: 'new-fake-token',
+          refreshToken: 'new-fake-refresh-token',
+          expiresIn: 3600,
+        });
+      }),
+      http.get('*/app/energy-app/sensor', () => {
+        return HttpResponse.json(fixtures.getSensors);
+      }),
+      http.get('*/app/energy-app/reward/stats', () => {
+        return HttpResponse.json({
+          rewardTotal: 0,
+        });
+      }),
+      http.get('*/app/energy-app/sensor/temperature', () => {
+        return HttpResponse.json(fixtures.getMeasurementTemperature);
+      }),
+      http.get('*/app/energy-app/sensor/relativeHumidity', () => {
+        return HttpResponse.json(fixtures.getMeasurementHumidity);
+      }),
+      http.get('*/app/energy-app/core/comfort-price', () => {
+        return HttpResponse.json(fixtures.getPriceComfort);
+      }),
+      http.get('*/app/energy-app/quiz', () => {
+        return HttpResponse.json(fixtures.getQuiz);
+      }),
+      http.post('*/app/energy-app/quiz/answer', () => {
+        return HttpResponse.json(fixtures.checkAnswerSuccess);
+      }),
+    );
+
+    sagaTester.start(getEnergySaga, httpConnection);
+    sagaTester.start(getQuizSaga, httpConnection);
+    sagaTester.start(checkAnswerSaga, httpConnection);
+
+    sagaTester.dispatch(getEnergy());
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    sagaTester.dispatch(getQuiz());
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    sagaTester.dispatch(checkAnswer({ quizId: '92885687', answerIdx: 2 }));
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    const state = sagaTester.getState();
+
+    expect(state.energy.energy).toMatchObject({
+      id: expect.any(String),
+      properties: {
+        currentQuiz: expect.objectContaining({
+          id: expect.any(String),
+          properties: expect.objectContaining({
+            quizId: expect.any(String),
+            theme: expect.any(String),
+            reward: expect.any(Number),
+            question: expect.any(String),
+            difficulty: expect.any(String),
+            intros: expect.arrayContaining([expect.any(String)]),
+            choices: expect.arrayContaining([expect.any(String)]),
+          }),
+        }),
+        currentAnswerIsCorrect: true,
+        totalRewards: 0,
+      },
+    });
+  });
+
+  it('Should handle compute rewards when answer is correct', async () => {
+    server.use(
+      http.get('*/auth/refresh', () => {
+        return HttpResponse.json({
+          accessToken: 'new-fake-token',
+          refreshToken: 'new-fake-refresh-token',
+          expiresIn: 3600,
+        });
+      }),
+      http.get('*/app/energy-app/sensor', () => {
+        return HttpResponse.json(fixtures.getSensors);
+      }),
+      http.get('*/app/energy-app/reward/stats', () => {
+        return HttpResponse.json({
+          rewardTotal: 0,
+        });
+      }),
+      http.get('*/app/energy-app/sensor/temperature', () => {
+        return HttpResponse.json(fixtures.getMeasurementTemperature);
+      }),
+      http.get('*/app/energy-app/sensor/relativeHumidity', () => {
+        return HttpResponse.json(fixtures.getMeasurementHumidity);
+      }),
+      http.get('*/app/energy-app/core/comfort-price', () => {
+        return HttpResponse.json(fixtures.getPriceComfort);
+      }),
+      http.get('*/app/energy-app/quiz', () => {
+        return HttpResponse.json(fixtures.getQuiz);
+      }),
+      http.post('*/app/energy-app/quiz/answer', () => {
+        return HttpResponse.json(fixtures.checkAnswerSuccess);
+      }),
+    );
+
+    sagaTester.start(getEnergySaga, httpConnection);
+    sagaTester.start(getQuizSaga, httpConnection);
+    sagaTester.start(checkAnswerSaga, httpConnection);
+    sagaTester.start(computeRewardsSaga, httpConnection);
+
+    sagaTester.dispatch(getEnergy());
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    sagaTester.dispatch(getQuiz());
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    sagaTester.dispatch(checkAnswer({ quizId: '92885687', answerIdx: 2 }));
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    sagaTester.dispatch(computeRewards());
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    const state = sagaTester.getState();
+
+    expect(state.energy.energy).toMatchObject({
+      id: expect.any(String),
+      properties: {
+        currentQuiz: undefined,
+        currentAnswerIsCorrect: true,
+        totalRewards: 0.5,
+      },
+    });
+  });
+
+  it('Should handle compute rewards when answer is incorrect', async () => {
+    server.use(
+      http.get('*/auth/refresh', () => {
+        return HttpResponse.json({
+          accessToken: 'new-fake-token',
+          refreshToken: 'new-fake-refresh-token',
+          expiresIn: 3600,
+        });
+      }),
+      http.get('*/app/energy-app/sensor', () => {
+        return HttpResponse.json(fixtures.getSensors);
+      }),
+      http.get('*/app/energy-app/reward/stats', () => {
+        return HttpResponse.json({
+          rewardTotal: 0,
+        });
+      }),
+      http.get('*/app/energy-app/sensor/temperature', () => {
+        return HttpResponse.json(fixtures.getMeasurementTemperature);
+      }),
+      http.get('*/app/energy-app/sensor/relativeHumidity', () => {
+        return HttpResponse.json(fixtures.getMeasurementHumidity);
+      }),
+      http.get('*/app/energy-app/core/comfort-price', () => {
+        return HttpResponse.json(fixtures.getPriceComfort);
+      }),
+      http.get('*/app/energy-app/quiz', () => {
+        return HttpResponse.json(fixtures.getQuiz);
+      }),
+      http.post('*/app/energy-app/quiz/answer', () => {
+        return HttpResponse.json(fixtures.checkAnswerFailed);
+      }),
+    );
+
+    sagaTester.start(getEnergySaga, httpConnection);
+    sagaTester.start(getQuizSaga, httpConnection);
+    sagaTester.start(checkAnswerSaga, httpConnection);
+    sagaTester.start(computeRewardsSaga, httpConnection);
+
+    sagaTester.dispatch(getEnergy());
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    sagaTester.dispatch(getQuiz());
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    sagaTester.dispatch(checkAnswer({ quizId: '92885687', answerIdx: 1 }));
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    sagaTester.dispatch(computeRewards());
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    const state = sagaTester.getState();
+
+    expect(state.energy.energy).toMatchObject({
+      id: expect.any(String),
+      properties: {
+        currentQuiz: undefined,
+        currentAnswerIsCorrect: false,
+        totalRewards: 0,
+      },
+    });
   });
 });

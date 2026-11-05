@@ -17,6 +17,27 @@ export const energyReducer = (state = initialState, action: IEnergyActions): IEn
         error: null,
       };
       return newState;
+    case IEnergyTypes.GET_QUIZ:
+      newState = {
+        ...state,
+        pending: true,
+        error: null,
+      };
+      return newState;
+    case IEnergyTypes.CHECK_ANSWER:
+      newState = {
+        ...state,
+        pending: true,
+        error: null,
+      };
+      return newState;
+    case IEnergyTypes.COMPUTE_REWARDS:
+      newState = {
+        ...state,
+        pending: true,
+        error: null,
+      };
+      return newState;
     case IEnergyTypes.ENERGY_DOMAIN_EVENT:
       return {
         ...state,

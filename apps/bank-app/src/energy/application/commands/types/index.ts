@@ -4,6 +4,8 @@ export enum IEnergyTypes {
   INITIALIZE_ENERGY = 'INITIALIZE_ENERGY',
   GET_ENERGY = 'GET_ENERGY',
   GET_QUIZ = 'GET_QUIZ',
+  CHECK_ANSWER = 'CHECK_ANSWER',
+  COMPUTE_REWARDS = 'COMPUTE_REWARDS',
   ENERGY_DOMAIN_EVENT = 'ENERGY_DOMAIN_EVENT',
 }
 
@@ -19,6 +21,18 @@ export type IGetQuiz = {
   type: typeof IEnergyTypes.GET_QUIZ;
 };
 
+export type ICheckAnswer = {
+  type: typeof IEnergyTypes.CHECK_ANSWER;
+  payload: {
+    answerIdx: number;
+    quizId: string;
+  };
+};
+
+export type IComputeRewards = {
+  type: typeof IEnergyTypes.COMPUTE_REWARDS;
+};
+
 export type IEnergyDomainEvent = {
   type: typeof IEnergyTypes.ENERGY_DOMAIN_EVENT;
   payload: {
@@ -26,4 +40,10 @@ export type IEnergyDomainEvent = {
   };
 };
 
-export type IEnergyActions = IInitializeEnergy | IGetEnergy | IGetQuiz | IEnergyDomainEvent;
+export type IEnergyActions =
+  | IInitializeEnergy
+  | IGetEnergy
+  | IGetQuiz
+  | ICheckAnswer
+  | IComputeRewards
+  | IEnergyDomainEvent;

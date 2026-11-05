@@ -5,12 +5,13 @@ import { FeedbackTrue, FeedbackFalse } from '../../assets/images';
 
 type IProps = {
   isCorrect: boolean;
+  reward: number;
 };
 
-export const Feedback = ({ isCorrect }: IProps) => {
+export const Feedback = ({ isCorrect, reward }: IProps) => {
   const { t } = useTranslation();
 
-  if (isCorrect) {
+  if (isCorrect === true) {
     return (
       <View style={styles.container}>
         <View style={styles.imageTrueContainer}>
@@ -24,28 +25,30 @@ export const Feedback = ({ isCorrect }: IProps) => {
             <Text style={styles.description}>{t('screens.energy.feedback.correct-description')}</Text>
           </View>
           <View style={styles.rewardContainer}>
-            <Reward reward={1.25} />
+            <Reward reward={reward} />
           </View>
         </View>
       </View>
     );
   }
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image source={FeedbackFalse} />
-      </View>
-      <View style={styles.textContainer}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>{t('screens.energy.feedback.incorrect')}</Text>
+  if (isCorrect === false) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.imageContainer}>
+          <Image source={FeedbackFalse} />
         </View>
-        <View style={styles.descriptionContainer}>
-          <Text style={styles.description}>{t('screens.energy.feedback.incorrect-description')}</Text>
+        <View style={styles.textContainer}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>{t('screens.energy.feedback.incorrect')}</Text>
+          </View>
+          <View style={styles.descriptionContainer}>
+            <Text style={styles.description}>{t('screens.energy.feedback.incorrect-description')}</Text>
+          </View>
         </View>
       </View>
-    </View>
-  );
+    );
+  }
 };
 
 const styles = StyleSheet.create({

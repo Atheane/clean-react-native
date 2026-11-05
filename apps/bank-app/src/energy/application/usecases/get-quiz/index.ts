@@ -2,7 +2,7 @@
 import { call, put, StrictEffect, takeEvery, select } from 'redux-saga/effects';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { Quiz, Energy } from '@clean-rn/energy/domain';
-import { EnergyApi } from '@clean-rn/energy/infrastructure';
+import { EnergyRepositoryFactory } from '@clean-rn/energy/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
@@ -20,8 +20,8 @@ export function* getQuizGenerator(httpConnection: HttpConnection): Generator<Str
 
     const energy: Energy = yield select(selectEnergy);
 
-    const energyApi = EnergyApi.getInstance(httpConnection);
-    const quiz: Quiz = yield call([energyApi, energyApi.getQuiz]);
+    const energyRepository = EnergyRepositoryFactory.getRepository(httpConnection);
+    const quiz: Quiz = yield call([energyRepository, energyRepository.getQuiz]);
     energy.setCurrentQuiz(quiz);
   } catch (error: unknown) {
     yield put(showUnknownError(error as Error));
