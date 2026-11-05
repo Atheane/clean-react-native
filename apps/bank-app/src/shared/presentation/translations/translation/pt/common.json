@@ -733,7 +733,9 @@
         "title": "Quiz e desafios",
         "header": "Aprenda e ganhe €G",
         "description": "Teste seus conhecimentos sobre consumo de energia e ganhe €G!",
-        "total-green-euros": "Total de €G ganhos"
+        "total-green-euros": "Total de €G ganhos",
+        "internal": "Interno",
+        "external": "Externo"
       },
       "quiz": {
         "title": "Quiz",
@@ -751,6 +753,35 @@
         "incorrect": "Incorreto",
         "incorrect-description": "Desculpe, mas lembre-se que você poderá responder a esta pergunta amanhã, até encontrar a solução certa! Afinal, o objetivo do jogo é aprender se divertindo.",
         "button-incorrect": "Tentar amanhã"
+      },
+      "adapt-temperature": {
+        "title": "Ajustar temperatura",
+        "title-winter": "Seu Preço-Conforto\nno inverno é:",
+        "title-summer": "Seu Preço-Conforto\nno verão é:",
+        "winter": "Inverno",
+        "summer": "Verão",
+        "description": "Para ganhar 1°C no interior da sua casa em comparação com a temperatura exterior:",
+        "legend": "Por mês",
+        "info-card": {
+          "title": "Dica do dia",
+          "text": "Mantenha-se fresco! Feche suas persianas ou cortinas por pelo menos 5 horas por dia para impedir que o excesso de calor entre e reduzir a necessidade de ar condicionado. Por quantos dias você pode manter esse hábito?"
+        },
+        "snowflake": "Ajuste a temperatura da sua casa",
+        "adapt-card": {
+          "text-positive-part-one": "Se você aumentar a temperatura interior em ",
+          "text-positive-part-two": "°C, você aumentará sua conta em",
+          "text-negative-part-one": "Se você diminuir a temperatura interior em ",
+          "text-negative-part-two": "°C, você reduzirá sua conta em",
+          "comment": "😉 Antes do aumento dos preços de energia"
+        },
+        "explanation": {
+          "title": "Preço-Conforto, como funciona?",
+          "text": "O preço-conforto é um valor constante muito prático para tentar prever seus consumos de energia de aquecimento ou ar condicionado.\n\n"+
+                  "Quanto mais frio faz, mais energia é necessária para manter 18°C na casa: se estiver zero graus lá fora, é preciso aquecer 18°C e a casa consome 18 vezes o valor do preço-conforto.\n\n"+
+                  "Se estiver 10°C lá fora, é preciso aquecer apenas 8°C para passar de 10°C para 18°C, e a casa consome apenas 8 vezes o preço-conforto.\n\n"+
+                  "O preço-conforto depende tanto dos seus hábitos quanto da qualidade do isolamento da sua casa.\n\n"+
+                  "É sua vez de baixar este valor, ou seja, pagar menos para ter mais conforto!"
+        }
       },
       "tab": "Energia",
       "title": "Balanço Energético"

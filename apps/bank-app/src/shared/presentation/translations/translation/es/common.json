@@ -890,7 +890,9 @@
         "my-energy-consumption": "Mi consumo\nenergético",
         "average": "Promedio",
         "price-comfort": "Precio-confort:",
-        "total-green-euros": "Total €G ganados"
+        "total-green-euros": "Total €G ganados",
+        "internal": "Interno",
+        "external": "Externo"
       },
       "win-green-euros": {
         "title": "Quiz y desafíos",
@@ -914,6 +916,35 @@
         "incorrect": "Incorrecto",
         "incorrect-description": "Lo siento, pero recuerda que puedes responder a esta pregunta mañana, ¡hasta que encuentres la solución correcta! Después de todo, el objetivo del juego es aprender divirtiéndose.",
         "button-incorrect": "Intentar mañana"
+      },
+      "adapt-temperature": {
+        "title": "Ajustar temperatura",
+        "title-winter": "Su Precio-Confort\nen invierno es:",
+        "title-summer": "Su Precio-Confort\nen verano es:",
+        "winter": "Invierno",
+        "summer": "Verano",
+        "description": "Para ganar 1°C en el interior de su vivienda en comparación con la temperatura exterior:",
+        "legend": "Por mes",
+        "info-card": {
+          "title": "Consejo del día",
+          "text": "¡Manténgase fresco! Cierre sus persianas o cortinas al menos 5 horas al día para evitar que entre el exceso de calor y reducir la necesidad de aire acondicionado. ¿Cuántos días puede mantener este hábito?"
+        },
+        "snowflake": "Ajuste la temperatura de su vivienda",
+        "adapt-card": {
+          "text-positive-part-one": "Si aumenta la temperatura interior en ",
+          "text-positive-part-two": "°C, aumentará su factura en",
+          "text-negative-part-one": "Si disminuye la temperatura interior en ",
+          "text-negative-part-two": "°C, reducirá su factura en",
+          "comment": "😉 Antes del aumento de precios de la energía"
+        },
+        "explanation": {
+          "title": "Precio-Confort, ¿cómo funciona?",
+          "text": "El precio-confort es un valor constante muy práctico para intentar prever sus consumos de energía de calefacción o aire acondicionado.\n\n"+
+                  "Cuanto más frío hace, más energía se necesita para mantener 18°C en la vivienda: si hace cero grados fuera, hay que calentar 18°C y la casa consume 18 veces el valor precio-confort.\n\n"+
+                  "Si hace 10°C fuera, solo hay que calentar 8°C para pasar de 10°C a 18°C, y la casa solo consume 8 veces el precio-confort.\n\n"+
+                  "El precio-confort depende tanto de sus hábitos como de la calidad del aislamiento de su casa.\n\n"+
+                  "¡Es su turno de bajar este valor, es decir, pagar menos para tener más confort!"
+        }
       },
       "tab": "Energético",
       "title": "Balance Energético"

@@ -890,7 +890,9 @@
         "my-energy-consumption": "My energy\nconsumption",
         "average": "Average",
         "price-comfort": "Price-comfort:",
-        "total-green-euros": "Total €G earned"
+        "total-green-euros": "Total €G earned",
+        "internal": "Internal",
+        "external": "External"
       },
       "win-green-euros": {
         "title": "Quiz and challenges",
@@ -914,6 +916,35 @@
         "incorrect": "Wrong",
         "incorrect-description": "Sorry, but remember that you can answer this question tomorrow, until you find the right solution! After all, the goal of the game is to learn while having fun.",
         "button-incorrect": "Try tomorrow"
+      },
+      "adapt-temperature": {
+        "title": "Adjust temperature",
+        "title-winter": "Your Comfort-Price\nin winter is:",
+        "title-summer": "Your Comfort-Price\nin summer is:",
+        "winter": "Winter",
+        "summer": "Summer",
+        "description": "To gain 1°C inside your home compared to the outside temperature:",
+        "legend": "Per month",
+        "info-card": {
+          "title": "Tip of the day",
+          "text": "Stay cool! Close your blinds or curtains for at least 5 hours a day to prevent excess heat from entering and reduce the need for air conditioning. How many days can you keep this habit?"
+        },
+        "snowflake": "Adjust your home's temperature",
+        "adapt-card": {
+          "text-positive-part-one": "If you increase the indoor temperature by ",
+          "text-positive-part-two": "°C, you will increase your bill by",
+          "text-negative-part-one": "If you decrease the indoor temperature by ",
+          "text-negative-part-two": "°C, you will reduce your bill by",
+          "comment": "😉 Before energy price increase"
+        },
+        "explanation": {
+          "title": "Comfort-Price, how does it work?",
+          "text": "The comfort-price is a handy constant value to help predict your energy consumption for heating or air conditioning.\n\n"+
+                  "The colder it gets, the more energy is needed to maintain 18°C in your home: if it's zero degrees outside, you need to heat by 18°C and the house consumes 18 times the comfort-price value.\n\n"+
+                  "If it's 10°C outside, you only need to heat by 8°C to go from 10°C to 18°C, and the house only consumes 8 times the comfort-price value.\n\n"+
+                  "The comfort-price depends on both your habits and the quality of your home's insulation.\n\n"+
+                  "It's your turn to lower this value, meaning pay less for more comfort!"
+        }
       },
       "tab": "Energy",
       "title": "Energy Assessment"

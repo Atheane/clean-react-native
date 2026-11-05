@@ -579,7 +579,9 @@
         "renovate-my-house": "Schätzen Sie meine Einsparungen nach\nenergetischer Renovierung",
         "my-energy-consumption": "Mein Energieverbrauch",
         "price-comfort": "Preis-Komfort:",
-        "total-green-euros": "Gesamt verdiente €G"
+        "total-green-euros": "Gesamt verdiente €G",
+        "internal": "Innen",
+        "external": "Außen"
       },
       "win-green-euros": {
         "title": "Quiz und Herausforderungen",
@@ -603,6 +605,35 @@
         "incorrect": "Falsch",
         "incorrect-description": "Tut mir leid, aber denken Sie daran, dass Sie diese Frage morgen wieder beantworten können, bis Sie die richtige Lösung finden! Schließlich ist das Ziel, spielerisch zu lernen.",
         "button-incorrect": "Morgen versuchen"
+      },
+      "adapt-temperature": {
+        "title": "Temperatur anpassen",
+        "title-winter": "Ihr Preis-Komfort\nim Winter ist:",
+        "title-summer": "Ihr Preis-Komfort\nim Sommer ist:",
+        "winter": "Winter",
+        "summer": "Sommer",
+        "description": "Um 1°C mehr im Inneren Ihrer Wohnung im Vergleich zur Außentemperatur zu erreichen:",
+        "legend": "Pro Monat",
+        "info-card": {
+          "title": "Tipp des Tages",
+          "text": "Bleiben Sie kühl! Schließen Sie Ihre Rollläden oder Vorhänge mindestens 5 Stunden am Tag, um übermäßige Hitze fernzuhalten und den Klimaanlagenbedarf zu reduzieren. Wie viele Tage können Sie diese Gewohnheit beibehalten?"
+        },
+        "snowflake": "Passen Sie die Temperatur Ihrer Wohnung an",
+        "adapt-card": {
+          "text-positive-part-one": "Wenn Sie die Innentemperatur um ",
+          "text-positive-part-two": "°C erhöhen, steigt Ihre Rechnung um",
+          "text-negative-part-one": "Wenn Sie die Innentemperatur um ",
+          "text-negative-part-two": "°C senken, reduzieren Sie Ihre Rechnung um",
+          "comment": "😉 Vor der Energiepreiserhöhung"
+        },
+        "explanation": {
+          "title": "Preis-Komfort, wie funktioniert das?",
+          "text": "Der Preis-Komfort ist ein praktischer Konstantwert zur Vorhersage Ihres Energie-verbrauchs für Heizung oder Klimatisierung.\n\n"+
+                  "Je kälter es ist, desto mehr Energie wird benötigt, um 18°C in der Wohnung zu halten: Bei null Grad außen muss man 18°C heizen und das Haus verbraucht das 18-fache des Preis-Komfort-Wertes.\n\n"+
+                  "Bei 10°C außen muss man nur 8°C heizen, um von 10°C auf 18°C zu kommen, und das Haus verbraucht nur noch das 8-fache des Preis-Komfort-Wertes.\n\n"+
+                  "Der Preis-Komfort hängt sowohl von Ihren Gewohnheiten als auch von der Qualität der Isolierung Ihres Hauses ab.\n\n"+
+                  "Jetzt sind Sie dran, diesen Wert zu senken, das heißt weniger zu zahlen für mehr Komfort!"
+        }
       },
       "tab": "Energiebilanz",
       "title": "Energiebilanz"
