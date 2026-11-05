@@ -952,7 +952,7 @@
                   "S’il fait 10°C dehors, il ne faut chauffer que de 8°C pour passer de 10°C à 18°C, et la maison ne consomme plus que 8 fois le prix-confort.\n\n"+
                   "Le prix-confort dépend à la fois de vos habitudes et de la qualité d’isolation de votre maison.\n\n"+
                   "A vous de jouer, pour baisser cette valeur, c’est à dire payer moins pour avoir plus de confort !"
-        },
+        }
       },
       "title": "Bilan Energie",
       "tab": "Energie"
