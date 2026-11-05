@@ -122,7 +122,6 @@ export class EnergyApi implements IEnergyRepository {
   }
 
   async checkAnswer(command: ICheckAnswerCommand): Promise<boolean> {
-    console.log('>>>>>>>> checkAnswer', command);
     const cmdDto = {
       quizId: parseInt(command.quizId),
       answerIdx: command.answerIdx,
@@ -133,9 +132,6 @@ export class EnergyApi implements IEnergyRepository {
     );
     await this.connection.handleError(response);
     const answerQuizDto: IAnswerQuizDto = await response.json();
-    console.log('>>>>>>>> answerQuizDto', answerQuizDto);
-    console.log('>>>>>>>> answerQuizDto.answerStatus', answerQuizDto.answerStatus);
-    console.log('>>>>>>>> answerQuizDto.answerStatus !== FAILED', answerQuizDto.answerStatus !== 'FAILED');
     return answerQuizDto.answerStatus !== 'FAILED';
   }
 }

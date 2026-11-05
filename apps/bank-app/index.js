@@ -1,28 +1,14 @@
+/* eslint-disable */
 import { registerRootComponent } from 'expo';
-import * as Sentry from '@sentry/react-native';
-import firebase from '@react-native-firebase/app';
 import { decode } from 'base-64';
-import Geocoder from 'react-native-geocoding';
 
-import 'reflect-metadata';
-
-import App from './src/shared/presentation/App';
-
-const firebaseConfig = {
-  apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
-  databaseURL: process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN, //maybe a hack, careful if firebase bug
-  projectId: process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
-};
-
-if (firebase.apps.length === 0) {
-  firebase.initializeApp(firebaseConfig);
-}
-
-//polyfill for jwt-decode
+// 1. Polyfill en premier
 global.atob = decode;
+
+// 3. Autres imports
+import * as Sentry from '@sentry/react-native';
+import Geocoder from 'react-native-geocoding';
+import App from './src/shared/presentation/App';
 
 console.log('>>>>>>>>>> ENVIRONMENT', process.env.EXPO_PUBLIC_NODE_ENV);
 
