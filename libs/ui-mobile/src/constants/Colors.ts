@@ -22,6 +22,10 @@ export const Colors = {
     black: '#000000',
     blue: '#0A7DC0',
     darkBlue: '#3F4F96',
+    orange: '#FF9900',
+    darkRed: '#990000',
+    red: '#FF0000',
+    yellow: '#EBBC2E',
   },
   greenGradient: {
     lightGreen: '#D0CF2A',

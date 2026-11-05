@@ -29,6 +29,20 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { fetchRefresh } from '../../../auth/application/commands';
 import { getQuiz } from '../../../energy/application/commands';
 
+const getCO2Color = (co2: number) => {
+  return co2 > 6000
+    ? Colors.secondary.darkRed
+    : co2 > 2500
+      ? Colors.secondary.red
+      : co2 > 1000
+        ? Colors.secondary.orange
+        : co2 > 800
+          ? Colors.secondary.yellow
+          : co2 > 600
+            ? Colors.primary.lightGreen
+            : Colors.primary.darkGreen;
+};
+
 const InternalTiles = (props: {
   data: { kpi?: string; unit: string; color?: string; legend: string; loading?: boolean }[];
 }) => {
@@ -40,17 +54,32 @@ const InternalTiles = (props: {
     <View style={styles.rowContainer}>
       <TileKpi
         icon={() => <Temperature width={31} height={31} />}
-        data={{ kpi: data[0].kpi, unit: data[0].unit, color: data[0].color, legend: data[0].legend }}
+        data={{
+          kpi: data[0].kpi?.toString() ?? '...',
+          unit: data[0].unit,
+          color: data[0].color,
+          legend: data[0].legend,
+        }}
         loading={data[0].loading}
       />
       <TileKpi
         icon={() => <Humidity width={31} height={31} />}
-        data={{ kpi: data[1].kpi, unit: data[1].unit, color: data[1].color, legend: data[1].legend }}
+        data={{
+          kpi: data[1].kpi?.toString() ?? '...',
+          unit: data[1].unit,
+          color: data[1].color,
+          legend: data[1].legend,
+        }}
         loading={data[1].loading}
       />
       <TileKpi
         icon={() => <CO2Output width={31} height={31} />}
-        data={{ kpi: data[2].kpi, unit: data[2].unit, color: data[2].color, legend: data[2].legend }}
+        data={{
+          kpi: data[2].kpi?.toString() ?? '...',
+          unit: data[2].unit,
+          color: data[2].color,
+          legend: data[2].legend,
+        }}
         loading={data[2].loading}
       />
     </View>
@@ -68,13 +97,23 @@ const ExternalTiles = (props: {
     <View style={styles.rowContainer}>
       <TileKpi
         icon={() => <Temperature width={31} height={31} />}
-        data={{ kpi: data[0].kpi, unit: data[0].unit, color: data[0].color, legend: data[0].legend }}
+        data={{
+          kpi: data[0].kpi?.toString() ?? '...',
+          unit: data[0].unit,
+          color: data[0].color,
+          legend: data[0].legend,
+        }}
         loading={data[0].loading}
         backgroundColor={Colors.primary.white}
       />
       <TileKpi
         icon={() => <Humidity width={31} height={31} />}
-        data={{ kpi: data[1].kpi, unit: data[1].unit, color: data[1].color, legend: data[1].legend }}
+        data={{
+          kpi: data[1].kpi?.toString() ?? '...',
+          unit: data[1].unit,
+          color: data[1].color,
+          legend: data[1].legend,
+        }}
         loading={data[1].loading}
         backgroundColor={Colors.primary.white}
       />
@@ -119,9 +158,12 @@ export const MenuEnergy = () => {
     if (!hasTemperatureSensor && !hasHumiditySensor && !hasCO2Sensor) {
       return [];
     }
+    const temperature = parseFloat(energy?.properties?.measurements?.[SENSOR_TYPE.TEMPERATURE]?.value ?? '0');
+    const humidity = parseFloat(energy?.properties?.measurements?.[SENSOR_TYPE.HUMIDITY]?.value ?? '0');
+    const co2 = parseFloat(energy?.properties?.measurements?.[SENSOR_TYPE.CO2]?.value ?? '0');
     return [
       {
-        kpi: energy?.properties?.measurements?.[SENSOR_TYPE.TEMPERATURE]?.value.toString(),
+        kpi: temperature,
         unit: 'C°',
         legend: t('screens.energy.menu.average'),
         color: Colors.primary.grey,
@@ -129,17 +171,17 @@ export const MenuEnergy = () => {
           hasTemperatureSensor && energy?.properties?.measurements?.[SENSOR_TYPE.TEMPERATURE] === undefined,
       },
       {
-        kpi: energy?.properties?.measurements?.[SENSOR_TYPE.HUMIDITY]?.value.toString(),
+        kpi: humidity,
         unit: '%',
         legend: t('screens.energy.menu.average'),
-        color: Colors.primary.lightGreen,
+        color: humidity > 60 ? Colors.secondary.orange : Colors.primary.darkGreen,
         loading: hasHumiditySensor && energy?.properties?.measurements?.[SENSOR_TYPE.HUMIDITY] === undefined,
       },
       {
-        kpi: energy?.properties?.measurements?.[SENSOR_TYPE.CO2]?.value.toString(),
+        kpi: co2,
         unit: 'ppm',
         legend: t('screens.energy.menu.average'),
-        color: Colors.primary.lightGreen,
+        color: getCO2Color(co2),
         loading: hasCO2Sensor && energy?.properties?.measurements?.[SENSOR_TYPE.CO2] === undefined,
       },
     ];
@@ -152,9 +194,11 @@ export const MenuEnergy = () => {
     const hasHumiditySensor = energy?.properties?.sensors?.some(
       (sensor) => sensor.type === SENSOR_TYPE.HUMIDITY_EXT,
     );
+    const temperature = energy?.properties?.measurements?.[SENSOR_TYPE.TEMPERATURE_EXT]?.value;
+    const humidity = energy?.properties?.measurements?.[SENSOR_TYPE.HUMIDITY_EXT]?.value;
     return [
       {
-        kpi: energy?.properties?.measurements?.[SENSOR_TYPE.TEMPERATURE_EXT]?.value.toString(),
+        kpi: temperature,
         unit: 'C°',
         legend: t('screens.energy.menu.average'),
         color: Colors.primary.grey,
@@ -163,10 +207,10 @@ export const MenuEnergy = () => {
           energy?.properties?.measurements?.[SENSOR_TYPE.TEMPERATURE_EXT] === undefined,
       },
       {
-        kpi: energy?.properties?.measurements?.[SENSOR_TYPE.HUMIDITY_EXT]?.value.toString(),
+        kpi: humidity,
         unit: '%',
         legend: t('screens.energy.menu.average'),
-        color: Colors.primary.lightGreen,
+        color: Colors.primary.grey,
         loading:
           hasHumiditySensor && energy?.properties?.measurements?.[SENSOR_TYPE.HUMIDITY_EXT] === undefined,
       },
