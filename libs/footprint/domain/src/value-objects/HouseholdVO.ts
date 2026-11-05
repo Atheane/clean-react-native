@@ -28,7 +28,6 @@ export class HouseholdVO {
 
   private async validate(): Promise<void> {
     const errors = await validate(this);
-    console.log('>>>>>>>>> errors', errors);
     if (errors.length > 0) {
       const adultNumberErrors = errors.filter((error) => error.property === 'adultNumber');
       if (errors.some((error) => error.property === 'adultNumber')) {

@@ -76,6 +76,19 @@ describe('GetQuiz - usecase', () => {
     );
   });
 
+  it('Should getQuiz if no current quiz', async () => {
+    testSaga(getQuizGenerator, httpConnection)
+      .next()
+      .select(selectUser)
+      .next(mockUser)
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
+      .select(selectEnergy)
+      .next(mockEnergy)
+      .call([api, api.getQuiz], mockUser.properties.config?.lang)
+      .next(null);
+  });
+
   it('Should call showUnknownError action if unknown error', () => {
     testSaga(getQuizGenerator, httpConnection)
       .next()

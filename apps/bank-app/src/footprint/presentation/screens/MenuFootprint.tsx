@@ -73,15 +73,11 @@ export const MenuFootprint = () => {
   useEffect(() => {
     if (
       eventsReceived[FOOTPRINT_EVENTS.HOUSE_CREATED] &&
-      eventsReceived[FOOTPRINT_EVENTS.TRANSPORT_CREATED]
+      eventsReceived[FOOTPRINT_EVENTS.TRANSPORT_CREATED] &&
+      eventsReceived[FOOTPRINT_EVENTS.FOOTPRINT_CREATED]
     ) {
       setLoading(false);
       navigation.navigate(IFootprintStackPages.MENU_PRIMEUM as never);
-      setEventsReceived({
-        [FOOTPRINT_EVENTS.HOUSE_CREATED]: false,
-        [FOOTPRINT_EVENTS.TRANSPORT_CREATED]: false,
-        [FOOTPRINT_EVENTS.FOOTPRINT_CREATED]: false,
-      });
     }
   }, [eventsReceived, navigation]);
 
