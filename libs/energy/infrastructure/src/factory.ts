@@ -4,7 +4,7 @@ import { EnergyApi } from './network/index';
 import { EnergyRepositoryInMemory } from './in-memory';
 
 export class EnergyRepositoryFactory {
-  private static useInMemory: boolean = true;
+  private static useInMemory: boolean = false;
 
   static setUseInMemory(value: boolean): void {
     this.useInMemory = value;
