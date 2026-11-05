@@ -76,6 +76,10 @@ export class EnergyApi implements IEnergyRepository {
       sensorTypeDto = SENSOR_TYPE_DTO.HUMIDITY;
     } else if (sensorType === SENSOR_TYPE.TEMPERATURE) {
       sensorTypeDto = SENSOR_TYPE_DTO.TEMPERATURE;
+    } else if (sensorType === SENSOR_TYPE.TEMPERATURE_EXT) {
+      sensorTypeDto = SENSOR_TYPE_DTO.TEMPERATURE_EXT;
+    } else if (sensorType === SENSOR_TYPE.HUMIDITY_EXT) {
+      sensorTypeDto = SENSOR_TYPE_DTO.HUMIDITY_EXT;
     }
     const response = await fetch(
       `${this.connection.baseUrl}/app/energy-app/sensor/${sensorTypeDto}`,

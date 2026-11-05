@@ -24,7 +24,6 @@ export class DeviceApi implements IDeviceRepository {
     deviceId,
     ...deviceProps
   }: IDeviceProperties & { deviceId: string }): Promise<Device> {
-    console.log(`>>>>>>>>> POST ${this.connection.baseUrl}/app/device`, { deviceId, ...deviceProps });
     const response = await fetch(
       `${this.connection.baseUrl}/app/device`,
       this.connection.options(IHttpVerb.POST, { deviceId, ...deviceProps }),

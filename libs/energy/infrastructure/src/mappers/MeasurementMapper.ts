@@ -30,7 +30,7 @@ const mapUnitDto = (unit: MEASUREMENT_UNIT): MEASUREMENT_UNIT_DTO | undefined =>
 export class MeasurementMapper {
   static async toDomain(dto: IMeasurementsDto): Promise<MeasurementVO> {
     const unit = mapUnit(dto.unitCode as MEASUREMENT_UNIT_DTO);
-    const hasInvalidUnitCode = dto.data.find(
+    const hasInvalidUnitCode = dto.data?.find(
       (measurement: IMeasurementDto) => !mapUnit(measurement.unitCode as MEASUREMENT_UNIT_DTO),
     );
     if (!unit || hasInvalidUnitCode) {
@@ -41,7 +41,7 @@ export class MeasurementMapper {
       observedAt: dto.observedAt,
       unit,
       average: dto.value,
-      data: dto.data.map((measurement: IMeasurementDto) => ({
+      data: dto.data?.map((measurement: IMeasurementDto) => ({
         observedAt: measurement.observedAt,
         unit: mapUnit(measurement.unitCode as MEASUREMENT_UNIT_DTO),
         value: measurement.value,
@@ -55,11 +55,11 @@ export class MeasurementMapper {
       observedAt: measurement.observedAt,
       unitCode: mapUnitDto(measurement.unit),
       value: measurement.average,
-      data: measurement.data.map((measurement: IMeasurement) => ({
+      data: measurement.data?.map((measurement: IMeasurement) => ({
         observedAt: measurement.observedAt,
         unitCode: mapUnitDto(measurement.unit),
         value: measurement.value,
-      })),
+      })) as IMeasurementDto[],
     };
   }
 }

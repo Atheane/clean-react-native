@@ -133,3 +133,6 @@ export { FlagForPortugal } from './FlagForPortugal';
 export { QuizWhite } from './QuizWhite';
 export { Challenge } from './Challenge';
 export { SunnyHouse } from './SunnyHouse';
+export { WhiteEllipse } from './WhiteEllipse';
+export { GreenHouse } from './GreenHouse';
+export { SunAndCloud } from './SunAndCloud';
