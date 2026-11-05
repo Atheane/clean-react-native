@@ -4,17 +4,18 @@ import {
   ISensor,
   MeasurementVO,
   PriceComfortVO,
+  Quiz,
   SENSOR_TYPE,
 } from '@clean-rn/energy/domain';
 import {
   IMeasurementsDto,
   IPriceComfortDto,
-  IRewardDto,
+  IQuizDto,
   IRewardsStatsDto,
   ISensorDto,
   SENSOR_TYPE_DTO,
 } from '../dto';
-import { SensorMapper, MeasurementMapper, PriceComfortMapper } from '../mappers';
+import { SensorMapper, MeasurementMapper, PriceComfortMapper, QuizMapper } from '../mappers';
 
 export class EnergyApi implements IEnergyRepository {
   private static instance: EnergyApi | null = null;
@@ -106,5 +107,15 @@ export class EnergyApi implements IEnergyRepository {
     await this.connection.handleError(response);
     const rewardsStatsDtos: IRewardsStatsDto = await response.json();
     return rewardsStatsDtos.rewardTotal;
+  }
+
+  async getQuiz(): Promise<Quiz> {
+    const response = await fetch(
+      `${this.connection.baseUrl}/app/energy-app/quiz`,
+      this.connection.options(IHttpVerb.GET),
+    );
+    await this.connection.handleError(response);
+    const quizDtos: IQuizDto[] = await response.json();
+    return QuizMapper.toDomain(quizDtos[0]);
   }
 }

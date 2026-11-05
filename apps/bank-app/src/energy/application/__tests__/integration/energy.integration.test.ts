@@ -8,7 +8,7 @@ import { createDomainEventsMiddleware } from '../../../../shared/application/sta
 import { energyReducer } from '../../state-management/reducer';
 import { authReducer } from '../../../../auth/application/state-management';
 import { userReducer } from '../../../../user/application/state-management';
-import { getEnergy, initializeEnergy, IEnergyTypes } from '../../commands';
+import { getEnergy, initializeEnergy, IEnergyTypes, getQuiz } from '../../commands';
 import { getEnergySaga } from '../../usecases/get-energy';
 import { energyDomainEventsConfig } from '../../state-management/domain-events.config';
 import {
@@ -19,7 +19,9 @@ import {
   getMeasurementCO2,
   getPriceComfort,
   getRewards,
+  getQuiz as getQuizFixture,
 } from '../fixtures/generate-fixtures';
+import { getQuizSaga } from '../../usecases/get-quiz';
 
 const httpConnection = HttpConnection.getInstance(
   process.env?.EXPO_PUBLIC_BASE_URL_API || 'https://sandbox.example.com',
@@ -60,6 +62,10 @@ const setupFixtures = async (httpConnection: HttpConnection) => {
 
   if (!fs.existsSync(fixtureDir + '/get-rewards.json')) {
     await getRewards(httpConnection);
+  }
+
+  if (!fs.existsSync(fixtureDir + '/get-quiz.json')) {
+    await getQuizFixture(httpConnection);
   }
 
   const fixtures = {
@@ -294,5 +300,125 @@ describe('Energy - integration', () => {
     const calledActions = sagaTester.getCalledActions();
     expect(calledActions).toContainEqual(getEnergy());
     expect(calledActions).toContainEqual(initializeEnergy());
+  });
+
+  it('Should handle quiz retrieval successfully', async () => {
+    server.use(
+      http.get('*/auth/refresh', () => {
+        return HttpResponse.json({
+          accessToken: 'new-fake-token',
+          refreshToken: 'new-fake-refresh-token',
+          expiresIn: 3600,
+        });
+      }),
+
+      http.get('*/app/energy-app/quiz', () => {
+        return HttpResponse.json([
+          {
+            choices: [
+              {
+                de: '',
+                en: 'Decreasing energy consumption',
+                es: '',
+                fr: "Diminuer la consommation d'énergie",
+                gr: '',
+                it: '',
+                lv: '',
+              },
+              {
+                de: '',
+                en: 'Reducing noise pollution',
+                es: '',
+                fr: 'La réduction de la pollution sonore',
+                gr: '',
+                it: '',
+                lv: '',
+              },
+              {
+                de: '',
+                en: 'Increasing ventilation efficiency',
+                es: '',
+                fr: "Augmenter l'efficacité de la ventilation",
+                gr: '',
+                it: '',
+                lv: '',
+              },
+            ],
+            difficulty: 'NORMAL',
+            intros: [
+              {
+                de: '',
+                en: "Did you know? Monitoring air quality in residential buildings is more than just keeping the air fresh—it's about improving the way buildings respond to environmental changes.",
+                es: '',
+                fr: "Le saviez-vous ? Le contrôle de la qualité de l'air dans les bâtiments résidentiels ne se limite pas à maintenir l'air frais. Il s'agit d'améliorer la façon dont les bâtiments réagissent aux changements environnementaux.",
+                gr: '',
+                it: '',
+                lv: '',
+              },
+              {
+                de: '',
+                en: 'Smart homes, smarter air! Smart sensors provide data to optimize building systems, like ventilation. They can help identify areas where ventilation might need a boost, ensuring a healthier, more comfortable and more efficient living environment.',
+                es: 'Casas inteligentes, ar mais inteligente! Os sensores inteligentes fornecem dados para optimizar os sistemas do edifício, como a ventilação. Podem ajudar a identificar áreas onde a ventilação precisa ser melhorada, garantindo um ambiente mais saudável, mais confortável e mais eficiente.',
+                fr: "Maison intelligente, air plus intelligent ! Les capteurs intelligents fournissent des données permettant d'optimiser les systèmes de construction, comme la ventilation. Ils peuvent aider à identifier les zones où la ventilation pourrait avoir besoin d'un coup de pouce, garantissant ainsi un environnement de vie plus sain, plus confortable et plus efficace.",
+                gr: '',
+                it: '',
+                lv: '',
+              },
+              {
+                de: '',
+                en: "Installing air quality sensors isn't just a tech trend—it's about better managing indoor spaces. From tracking pollutants to improving system performance, these sensors are reshaping how we control our living conditions.",
+                es: '',
+                fr: "L'installation de capteurs de qualité de l'air n'est pas seulement une tendance technologique - il s'agit de mieux gérer les espaces intérieurs. De la détection des polluants à l'amélioration des performances des systèmes, ces capteurs modifient la façon dont nous contrôlons nos conditions de vie.",
+                gr: '',
+                it: '',
+                lv: '',
+              },
+            ],
+            question: {
+              de: '',
+              en: 'What is a key benefit of installing air quality sensors in residential buildings?',
+              es: '',
+              fr: "Quel est l'un des principaux avantages de l'installation de capteurs de qualité de l'air dans les bâtiments résidentiels ?",
+              gr: '',
+              it: '',
+              lv: '',
+            },
+            quizId: 92885687,
+            reward: 0.5,
+            theme: 'AIR_QUALITY',
+          },
+        ]);
+      }),
+    );
+
+    sagaTester.start(getEnergySaga, httpConnection);
+    sagaTester.dispatch(getEnergy());
+    sagaTester.start(getQuizSaga, httpConnection);
+    sagaTester.dispatch(getQuiz());
+
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    const state = sagaTester.getState();
+    expect(state.energy.energy).toMatchObject({
+      id: expect.any(String),
+      properties: {
+        currentQuiz: expect.objectContaining({
+          id: expect.any(String),
+          properties: expect.objectContaining({
+            quizId: expect.any(String),
+            theme: expect.any(String),
+            reward: expect.any(Number),
+            question: expect.any(String),
+            difficulty: expect.any(String),
+            intros: expect.arrayContaining([expect.any(String)]),
+            choices: expect.arrayContaining([expect.any(String)]),
+            theme: expect.any(String),
+          }),
+        }),
+      },
+    });
+
+    const calledActions = sagaTester.getCalledActions();
+    expect(calledActions).toContainEqual(getQuiz());
   });
 });

@@ -134,6 +134,24 @@ export const getRewards = async (httpConnection: HttpConnection, userTest = USER
   fs.writeFileSync(fixtureFilePath, JSON.stringify(fixtures, null, 2));
 };
 
+export const getQuiz = async (httpConnection: HttpConnection, userTest = USER_TEST) => {
+  const fixtureFilePath = path.join(__dirname, 'get-quiz.json');
+
+  const authApi = AuthApi.getInstance(httpConnection);
+  const auth = await authApi.login({
+    email: new Email(userTest.email),
+    password: new Password(userTest.password),
+  });
+  httpConnection.attachBearerToken(auth.accessToken);
+
+  const response = await fetch(
+    `${httpConnection.baseUrl}/app/energy-app/quiz`,
+    httpConnection.options(IHttpVerb.GET),
+  );
+  const fixtures = await response.json();
+  fs.writeFileSync(fixtureFilePath, JSON.stringify(fixtures, null, 2));
+};
+
 // Fonction utilitaire pour générer toutes les fixtures
 export const generateAllFixtures = async (httpConnection: HttpConnection) => {
   await authUser(httpConnection);
@@ -143,4 +161,5 @@ export const generateAllFixtures = async (httpConnection: HttpConnection) => {
   await getMeasurementHumidity(httpConnection);
   await getMeasurementCO2(httpConnection);
   await getPriceComfort(httpConnection);
+  await getQuiz(httpConnection);
 };

@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { checkVersion } from 'react-native-check-version';
 import { getLocales } from 'expo-localization';
-
+import { IAccount, IAccountType } from '@clean-rn/account/domain';
+import { IKycState } from '@clean-rn/kyc/domain';
 import {
   TopRightFlowersBg,
   CardScroller,
@@ -18,8 +19,6 @@ import {
   Colors,
 } from '@clean-rn/ui-mobile';
 import { useNotification } from '../../../shared/presentation/hooks';
-import { IAccount, IAccountType } from '@clean-rn/account/domain';
-import { IKycState } from '@clean-rn/kyc/domain';
 
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import {

@@ -11,7 +11,7 @@ type IProps = {
 export const GreenBackButton: FC<ButtonProps & IProps> = (props: ButtonProps & IProps) => {
   return (
     <Button type="clear" onPress={props.onPress}>
-      <LeftChevron width={16} height={26} style={{ color: Colors.primary.green }} />
+      <LeftChevron width={16} height={26} color={Colors.primary.lightGreen} />
     </Button>
   );
 };

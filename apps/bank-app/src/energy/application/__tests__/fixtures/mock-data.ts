@@ -4,6 +4,8 @@ import {
   PRICE_COMFORT_DATA_GRANULARITY,
   PRICE_COMFORT_TYPE,
   SENSOR_TYPE,
+  QUIZ_DIFFICULTY,
+  QUIZ_THEME,
 } from '@clean-rn/energy/domain';
 import { User } from '@clean-rn/user/domain';
 
@@ -73,3 +75,22 @@ export const mockPricesComfort = [
     temperature: 18,
   },
 ];
+
+export const mockQuizData = {
+  choices: [
+    "Diminuer la consommation d'énergie",
+    'La réduction de la pollution sonore',
+    "Augmenter l'efficacité de la ventilation",
+  ],
+  difficulty: QUIZ_DIFFICULTY.NORMAL,
+  intros: [
+    "Le saviez-vous ? Le contrôle de la qualité de l'air dans les bâtiments résidentiels ne se limite pas à maintenir l'air frais. Il s'agit d'améliorer la façon dont les bâtiments réagissent aux changements environnementaux.",
+    "Maison intelligente, air plus intelligent ! Les capteurs intelligents fournissent des données permettant d'optimiser les systèmes de construction, comme la ventilation. Ils peuvent aider à identifier les zones où la ventilation pourrait avoir besoin d'un coup de pouce, garantissant ainsi un environnement de vie plus sain, plus confortable et plus efficace.",
+    "L'installation de capteurs de qualité de l'air n'est pas seulement une tendance technologique - il s'agit de mieux gérer les espaces intérieurs. De la détection des polluants à l'amélioration des performances des systèmes, ces capteurs modifient la façon dont nous contrôlons nos conditions de vie.",
+  ],
+  question:
+    "Quel est l'un des principaux avantages de l'installation de capteurs de qualité de l'air dans les bâtiments résidentiels ?",
+  quizId: 92885687,
+  reward: 0.5,
+  theme: 'AIR_QUALITY',
+};

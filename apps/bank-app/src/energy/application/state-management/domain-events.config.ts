@@ -31,5 +31,9 @@ export const energyDomainEventsConfig = {
       eventName: ENERGY_EVENTS.TOTAL_REWARDS_SET,
       actionType: IEnergyTypes.ENERGY_DOMAIN_EVENT,
     },
+    {
+      eventName: ENERGY_EVENTS.CURRENT_QUIZ_SET,
+      actionType: IEnergyTypes.ENERGY_DOMAIN_EVENT,
+    },
   ],
 };

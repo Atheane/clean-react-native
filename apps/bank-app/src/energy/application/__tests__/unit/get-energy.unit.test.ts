@@ -53,7 +53,7 @@ describe('GetEnergy - usecase', () => {
     jest.clearAllMocks();
   });
 
-  it('Should wait for GET_ENERGY action and call getHouseGenerator, should be done on next iteration', () => {
+  it('Should wait for GET_ENERGY action and call getEnergyGenerator, should be done on next iteration', () => {
     const genObject = getEnergySaga(httpConnection);
     expect(genObject.next().value).toEqual(
       takeEvery(IEnergyTypes.GET_ENERGY, getEnergyGenerator, httpConnection),

@@ -8,6 +8,7 @@ import {
   PRICE_COMFORT_TYPE,
   SENSOR_TYPE,
 } from '../types';
+import { Quiz } from '../entity/Quiz';
 
 export interface IEnergyProperties {
   userId: string;
@@ -21,6 +22,8 @@ export interface IEnergyProperties {
   coolingPriceComfort?: PriceComfortVO;
   globalPriceComfort?: PriceComfortVO;
   totalRewards?: number;
+  currentQuiz?: Quiz;
+  currentChallenge?: Quiz;
   // consumption?: any;
 }
 
@@ -104,5 +107,10 @@ export class Energy extends Entity<IEnergyProperties> {
     }
     this.properties.totalRewards += reward;
     Energy.emitStaticDomainEvent(ENERGY_EVENTS.TOTAL_REWARDS_UPDATED, this);
+  }
+
+  setCurrentQuiz(quiz: Quiz): void {
+    this.properties.currentQuiz = quiz;
+    Energy.emitStaticDomainEvent(ENERGY_EVENTS.CURRENT_QUIZ_SET, this);
   }
 }

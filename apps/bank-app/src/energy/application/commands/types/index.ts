@@ -3,6 +3,7 @@ import { Energy } from '@clean-rn/energy/domain';
 export enum IEnergyTypes {
   INITIALIZE_ENERGY = 'INITIALIZE_ENERGY',
   GET_ENERGY = 'GET_ENERGY',
+  GET_QUIZ = 'GET_QUIZ',
   ENERGY_DOMAIN_EVENT = 'ENERGY_DOMAIN_EVENT',
 }
 
@@ -14,6 +15,10 @@ export type IGetEnergy = {
   type: typeof IEnergyTypes.GET_ENERGY;
 };
 
+export type IGetQuiz = {
+  type: typeof IEnergyTypes.GET_QUIZ;
+};
+
 export type IEnergyDomainEvent = {
   type: typeof IEnergyTypes.ENERGY_DOMAIN_EVENT;
   payload: {
@@ -21,4 +26,4 @@ export type IEnergyDomainEvent = {
   };
 };
 
-export type IEnergyActions = IInitializeEnergy | IGetEnergy | IEnergyDomainEvent;
+export type IEnergyActions = IInitializeEnergy | IGetEnergy | IGetQuiz | IEnergyDomainEvent;
