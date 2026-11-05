@@ -21,10 +21,16 @@ export default {
     assetBundlePatterns: ['**/*'],
     ios: {
       bundleIdentifier: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.example.bankapp',
-      googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_PLIST || './GoogleService-Info.plist',
+      googleServicesFile: './GoogleService-Info.plist', // https://docs.expo.dev/versions/latest/config/app/#infoplist
       supportsTablet: false,
-      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '233',
-      buildNumber: process.env.EXPO_PUBLIC_APP_VERSION || '233',
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '241',
+      buildNumber: process.env.EXPO_PUBLIC_APP_VERSION || '241',
+      entitlements: {
+        'aps-environment': 'production', // Obligatoire pour les notifications
+      },
+      infoPlist: {
+        UIBackgroundModes: ['remote-notification'],
+      },
     },
     android: {
       adaptiveIcon: {
@@ -33,9 +39,12 @@ export default {
       },
       supportsTablet: false,
       package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.example.bankapp',
-      googleServicesFile: process.env.EXPO_PUBLIC_GOOGLE_SERVICES || './google-services.json',
-      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '233',
+      googleServicesFile: './google-services.json',
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '241',
       proguard: true, // ou false
+      permissions: [
+        'android.permission.POST_NOTIFICATIONS', // SDK 33+
+      ],
     },
     web: {
       favicon: './assets/images/logo-bank.png',
@@ -59,12 +68,11 @@ export default {
         },
       ],
       ['react-native-compressor'],
-      ['@react-native-firebase/app'],
       [
         'expo-build-properties',
         {
           ios: {
-            useFrameworks: 'static',
+            useFrameworks: 'static', //  https://rnfirebase.io/#managed-workflow: For iOS only, since firebase-ios-sdk requires use_frameworks then you want to configure expo-build-properties app.json by adding "useFrameworks": "static". See the example configuration below.
           },
           android: {
             usesClearTextTraffic: false,

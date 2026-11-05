@@ -3,24 +3,16 @@ import path from 'path';
 import fs from 'fs';
 
 import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
-import { HouseholdVO, ICreateFootprintCommand } from '@clean-rn/footprint/domain';
-import { FootprintMapper } from '@clean-rn/footprint/infrastructure';
 import { Email, Password } from '@clean-rn/auth/domain';
 import { AuthApi } from '@clean-rn/auth/infrastructure';
 
-const USER_WITH_NO_FOOTPRINT = {
-  email: 'user3@example.com',
-  password: '123123',
-  userId: 100258141,
-};
-
-const USER_WITH_FOOTPRINT2024 = {
+const USER_TEST = {
   email: 'dev1@example.com',
   password: '123123',
   userId: 100087408,
 };
 
-export const authUser = async (httpConnection: HttpConnection, userTest = USER_WITH_FOOTPRINT2024) => {
+export const authUser = async (httpConnection: HttpConnection, userTest = USER_TEST) => {
   const fixtureFilePath = path.join(__dirname, 'auth.json');
 
   const authApi = AuthApi.getInstance(httpConnection);
@@ -34,11 +26,8 @@ export const authUser = async (httpConnection: HttpConnection, userTest = USER_W
   fs.writeFileSync(fixtureFilePath, JSON.stringify(fixtures, null, 2));
 };
 
-export const getFootprintEmpty = async (
-  httpConnection: HttpConnection,
-  userTest = USER_WITH_NO_FOOTPRINT,
-) => {
-  const fixtureFilePath = path.join(__dirname, 'get-footprint-empty.json');
+export const getSensors = async (httpConnection: HttpConnection, userTest = USER_TEST) => {
+  const fixtureFilePath = path.join(__dirname, 'get-sensors.json');
 
   const authApi = AuthApi.getInstance(httpConnection);
   const auth = await authApi.login({
@@ -46,42 +35,36 @@ export const getFootprintEmpty = async (
     password: new Password(userTest.password),
   });
   httpConnection.attachBearerToken(auth.accessToken);
-  // Faire l'appel GET pour récupérer
+
   const response = await fetch(
-    `${httpConnection.baseUrl}/app/footprint`,
+    `${httpConnection.baseUrl}/app/energy-app/sensor`,
     httpConnection.options(IHttpVerb.GET),
   );
   const fixtures = await response.json();
   fs.writeFileSync(fixtureFilePath, JSON.stringify(fixtures, null, 2));
 };
 
-export const getFootprint2025 = async (
-  httpConnection: HttpConnection,
-  userTest = USER_WITH_FOOTPRINT2024,
-) => {
-  const fixtureFilePath = path.join(__dirname, 'get-footprint-2025.json');
+export const getMeasurementTemperature = async (httpConnection: HttpConnection, userTest = USER_TEST) => {
+  const fixtureFilePath = path.join(__dirname, 'get-measurement-temperature.json');
+
   const authApi = AuthApi.getInstance(httpConnection);
   const auth = await authApi.login({
     email: new Email(userTest.email),
     password: new Password(userTest.password),
   });
   httpConnection.attachBearerToken(auth.accessToken);
-  // Faire l'appel GET pour récupérer
+
   const response = await fetch(
-    `${httpConnection.baseUrl}/app/footprint`,
+    `${httpConnection.baseUrl}/app/energy-app/sensor/temperature`,
     httpConnection.options(IHttpVerb.GET),
   );
   const fixtures = await response.json();
   fs.writeFileSync(fixtureFilePath, JSON.stringify(fixtures, null, 2));
 };
 
-export const createFootprintEmpty = async (
-  httpConnection: HttpConnection,
-  userTest = USER_WITH_NO_FOOTPRINT,
-) => {
-  const fixtureFilePath = path.join(__dirname, 'create-footprint-empty.json');
+export const getMeasurementHumidity = async (httpConnection: HttpConnection, userTest = USER_TEST) => {
+  const fixtureFilePath = path.join(__dirname, 'get-measurement-humidity.json');
 
-  // Auth user test
   const authApi = AuthApi.getInstance(httpConnection);
   const auth = await authApi.login({
     email: new Email(userTest.email),
@@ -89,31 +72,16 @@ export const createFootprintEmpty = async (
   });
   httpConnection.attachBearerToken(auth.accessToken);
 
-  // Prepare data
-  const householdVO = await HouseholdVO.create({
-    adultNumber: 2,
-    childNumber: 1,
-  });
-
-  const createCommand: ICreateFootprintCommand = {
-    userId: userTest.userId.toString(), // Utiliser un ID valide
-    household: householdVO,
-  };
-
-  // fetch API
   const response = await fetch(
-    `${httpConnection.baseUrl}/app/footprint`,
-    httpConnection.options(IHttpVerb.POST, FootprintMapper.toDto(createCommand)),
+    `${httpConnection.baseUrl}/app/energy-app/sensor/relativeHumidity`,
+    httpConnection.options(IHttpVerb.GET),
   );
   const fixtures = await response.json();
   fs.writeFileSync(fixtureFilePath, JSON.stringify(fixtures, null, 2));
 };
 
-export const createFootprintExists = async (
-  httpConnection: HttpConnection,
-  userTest = USER_WITH_FOOTPRINT2024,
-) => {
-  const fixtureFilePath = path.join(__dirname, 'create-footprint-exists.json');
+export const getMeasurementCO2 = async (httpConnection: HttpConnection, userTest = USER_TEST) => {
+  const fixtureFilePath = path.join(__dirname, 'get-measurement-co2-error404.json');
 
   const authApi = AuthApi.getInstance(httpConnection);
   const auth = await authApi.login({
@@ -121,22 +89,121 @@ export const createFootprintExists = async (
     password: new Password(userTest.password),
   });
   httpConnection.attachBearerToken(auth.accessToken);
-  // Préparer les données pour createFootprint
-  const householdVO = await HouseholdVO.create({
-    adultNumber: 2,
-    childNumber: 1,
-  });
 
-  const createCommand: ICreateFootprintCommand = {
-    userId: userTest.userId.toString(), // Utiliser un ID valide
-    household: householdVO,
-  };
-
-  // Faire l'appel POST pour créer
   const response = await fetch(
-    `${httpConnection.baseUrl}/app/footprint`,
-    httpConnection.options(IHttpVerb.POST, FootprintMapper.toDto(createCommand)),
+    `${httpConnection.baseUrl}/app/energy-app/sensor/co2`,
+    httpConnection.options(IHttpVerb.GET),
   );
   const fixtures = await response.json();
   fs.writeFileSync(fixtureFilePath, JSON.stringify(fixtures, null, 2));
+};
+
+export const getPriceComfort = async (httpConnection: HttpConnection, userTest = USER_TEST) => {
+  const fixtureFilePath = path.join(__dirname, 'get-price-comfort.json');
+
+  const authApi = AuthApi.getInstance(httpConnection);
+  const auth = await authApi.login({
+    email: new Email(userTest.email),
+    password: new Password(userTest.password),
+  });
+  httpConnection.attachBearerToken(auth.accessToken);
+
+  const response = await fetch(
+    `${httpConnection.baseUrl}/app/energy-app/core/comfort-price?period=BASELINE`,
+    httpConnection.options(IHttpVerb.GET),
+  );
+  const fixtures = await response.json();
+  fs.writeFileSync(fixtureFilePath, JSON.stringify(fixtures, null, 2));
+};
+
+export const getRewards = async (httpConnection: HttpConnection, userTest = USER_TEST) => {
+  const fixtureFilePath = path.join(__dirname, 'get-rewards.json');
+
+  const authApi = AuthApi.getInstance(httpConnection);
+  const auth = await authApi.login({
+    email: new Email(userTest.email),
+    password: new Password(userTest.password),
+  });
+  httpConnection.attachBearerToken(auth.accessToken);
+
+  const response = await fetch(
+    `${httpConnection.baseUrl}/app/energy-app/reward/stats`,
+    httpConnection.options(IHttpVerb.GET),
+  );
+  const fixtures = await response.json();
+  fs.writeFileSync(fixtureFilePath, JSON.stringify(fixtures, null, 2));
+};
+
+export const getQuiz = async (httpConnection: HttpConnection, userTest = USER_TEST) => {
+  const fixtureFilePath = path.join(__dirname, 'get-quiz.json');
+
+  const authApi = AuthApi.getInstance(httpConnection);
+  const auth = await authApi.login({
+    email: new Email(userTest.email),
+    password: new Password(userTest.password),
+  });
+  httpConnection.attachBearerToken(auth.accessToken);
+
+  const response = await fetch(
+    `${httpConnection.baseUrl}/app/energy-app/quiz`,
+    httpConnection.options(IHttpVerb.GET),
+  );
+  const fixtures = await response.json();
+  fs.writeFileSync(fixtureFilePath, JSON.stringify(fixtures, null, 2));
+};
+
+export const checkAnswerFailed = async (httpConnection: HttpConnection, userTest = USER_TEST) => {
+  const fixtureFilePath = path.join(__dirname, 'check-answer-failed.json');
+
+  const authApi = AuthApi.getInstance(httpConnection);
+  const auth = await authApi.login({
+    email: new Email(userTest.email),
+    password: new Password(userTest.password),
+  });
+  httpConnection.attachBearerToken(auth.accessToken);
+
+  const response = await fetch(
+    `${httpConnection.baseUrl}/app/energy-app/quiz/answer`,
+    httpConnection.options(IHttpVerb.POST, {
+      quizId: 92885687,
+      answerIdx: 0,
+    }),
+  );
+  const fixtures = await response.json();
+  fs.writeFileSync(fixtureFilePath, JSON.stringify(fixtures, null, 2));
+};
+
+export const checkAnswerSuccess = async (httpConnection: HttpConnection, userTest = USER_TEST) => {
+  const fixtureFilePath = path.join(__dirname, 'check-answer-success.json');
+
+  const authApi = AuthApi.getInstance(httpConnection);
+  const auth = await authApi.login({
+    email: new Email(userTest.email),
+    password: new Password(userTest.password),
+  });
+  httpConnection.attachBearerToken(auth.accessToken);
+
+  const response = await fetch(
+    `${httpConnection.baseUrl}/app/energy-app/quiz/answer`,
+    httpConnection.options(IHttpVerb.POST, {
+      quizId: 92885687,
+      answerIdx: 2,
+    }),
+  );
+  const fixtures = await response.json();
+  fs.writeFileSync(fixtureFilePath, JSON.stringify(fixtures, null, 2));
+};
+
+// Fonction utilitaire pour générer toutes les fixtures
+export const generateAllFixtures = async (httpConnection: HttpConnection) => {
+  await authUser(httpConnection);
+  await getRewards(httpConnection);
+  await getSensors(httpConnection);
+  await getMeasurementTemperature(httpConnection);
+  await getMeasurementHumidity(httpConnection);
+  await getMeasurementCO2(httpConnection);
+  await getPriceComfort(httpConnection);
+  await getQuiz(httpConnection);
+  await checkAnswerFailed(httpConnection);
+  await checkAnswerSuccess(httpConnection);
 };

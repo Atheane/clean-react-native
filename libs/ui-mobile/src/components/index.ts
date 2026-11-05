@@ -14,6 +14,7 @@ import { SubmitButton } from './buttons/submit-button';
 import { LinkButton, getColor } from './buttons/link-button';
 import { SwitchButton } from './buttons/switch-button';
 import { GreenBackButton } from './buttons/green-back-button';
+import { GreenCloseButton } from './buttons/green-close-button';
 import { SmallSwitchButton } from './buttons/small-switch-button';
 // Cards
 import { TouchEventCard } from './cards/touch-event-card';
@@ -29,6 +30,8 @@ import { TransferCard } from './cards/transfer-card';
 import { BeneficiaryCard } from './cards/beneficiary-card';
 import { ContactCard } from './cards/contact-card';
 import { TileDashboard } from './cards/tile-dashboard';
+import { TotalReward } from './cards/total-reward';
+import { Reward } from './cards/reward';
 // Charts
 import { StackedBars } from './charts/stacked-bars';
 import { ScatterPlot } from './charts/scatter-plot';
@@ -85,7 +88,8 @@ import { SearchModal } from './searchboxes/search-modal';
 import { TableReward } from './tables/reward';
 import { TableBaseline } from './tables/baseline';
 // Tabs
-import { Tabs } from './tabs';
+import { TopTabs } from './tabs/top-tabs';
+import { BottomTabs } from './tabs/bottom-tabs';
 // Tags
 import { Tag } from './tags';
 // Texts
@@ -110,6 +114,7 @@ export {
   getColor,
   SwitchButton,
   GreenBackButton,
+  GreenCloseButton,
   SmallSwitchButton,
   // Cards
   TouchEventCard,
@@ -126,6 +131,8 @@ export {
   BeneficiaryCard,
   ContactCard,
   TileDashboard,
+  TotalReward,
+  Reward,
   // Charts
   StackedBars,
   ScatterPlot,
@@ -182,7 +189,8 @@ export {
   TableReward,
   TableBaseline,
   // Tabs
-  Tabs,
+  TopTabs,
+  BottomTabs,
   // Tags
   Tag,
   // Texts

@@ -6,9 +6,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AuthError, Email, Password } from '@clean-rn/auth/domain';
-import { KYC_REVIEW } from '@clean-rn/user/domain';
+import { KYC_REVIEW, IUserType } from '@clean-rn/user/domain';
 
-import { UserApi, UserMapper } from '@clean-rn/user/infrastructure';
+import { IUserSearchServerCode, UserApi, UserMapper } from '@clean-rn/user/infrastructure';
 import { Card, CardError, ICardStatuses } from '@clean-rn/card/domain';
 import { CardApi } from '@clean-rn/card/infrastructure';
 import { AuthApi, IAuthServerCode } from '@clean-rn/auth/infrastructure';
@@ -22,6 +22,7 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
 import { initializeUser, userSaved } from '../../../../user/application/commands';
 import { cardForbidden, cardGetSuccess, cardNotFound } from '../../../../card/application/commands';
+import { getEnergy } from 'apps/bank-app/src/energy/application/commands';
 
 jest.mock('@clean-rn/shared/infrastructure', () => ({
   HttpConnection: {
@@ -235,6 +236,8 @@ describe('Login - usecase', () => {
       .next(card)
       .put(cardGetSuccess(card))
       .next()
+      .call([userApi, userApi.searchEmail], { email: mockData.email })
+      .next(IUserType.BANK_USER)
       .put(loginSuccess({ auth: mockResponse }))
       .next()
       .put(userSaved(user))
@@ -245,7 +248,7 @@ describe('Login - usecase', () => {
       .next();
   });
 
-  it('Should call loginSuccess if user is a woman and locales differs from user config', async () => {
+  it('Should call loginSuccess if locales differs from user config', async () => {
     const user = await UserMapper.toDomain(mockUserWomanData);
     user.setConfig({ lang: 'en' });
 
@@ -270,6 +273,8 @@ describe('Login - usecase', () => {
         lang: 'fr',
       })
       .next(user)
+      .call([userApi, userApi.searchEmail], { email: mockData.email })
+      .next(IUserType.BANK_USER)
       .put(loginSuccess({ auth: mockResponse }))
       .next()
       .put(userSaved(user))
@@ -280,7 +285,7 @@ describe('Login - usecase', () => {
       .next();
   });
 
-  it('Should call loginSuccess if user is neutral', async () => {
+  it('Should call loginSuccess if getCard fails', async () => {
     const serverError = new ServerError(mockError403CardForbidden);
     serverError.statusCode = 403;
 
@@ -304,11 +309,51 @@ describe('Login - usecase', () => {
       .throw(serverError)
       .put(cardForbidden(new CardError.Forbidden(serverError)))
       .next()
+      .call([userApi, userApi.searchEmail], { email: mockData.email })
+      .next(IUserType.BANK_USER)
       .put(loginSuccess({ auth: mockResponse }))
       .next()
       .put(userSaved(user))
       .next()
       .put(checkCustomerStatus({ user }))
+      .next()
+      .call(navigate, { route: ISharedStackPages.HOME })
+      .next();
+  });
+
+  it('Should call loginSuccess if user is a energy-app bank user', async () => {
+    const serverError = new ServerError(mockError403CardForbidden);
+    serverError.statusCode = 403;
+
+    const user = await UserMapper.toDomain(mockUserNeutralData);
+    user.setConfig({ lang: 'fr' });
+
+    testSaga(loginGenerator, httpConnection, {
+      type: IAuthTypes.FETCH_LOGIN,
+      payload: mockData,
+    })
+      .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next('test@example.com')
+      .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .next(mockResponse)
+      .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .next()
+      .call([userApi, userApi.getUser])
+      .next(user)
+      .call([cardApi, cardApi.getCard])
+      .throw(serverError)
+      .put(cardForbidden(new CardError.Forbidden(serverError)))
+      .next()
+      .call([userApi, userApi.searchEmail], { email: mockData.email })
+      .next(IUserType.ENERGY_APP_USER)
+      .put(loginSuccess({ auth: mockResponse }))
+      .next()
+      .put(userSaved(user))
+      .next()
+      .put(checkCustomerStatus({ user }))
+      .next()
+      .put(getEnergy())
       .next()
       .call(navigate, { route: ISharedStackPages.HOME })
       .next();

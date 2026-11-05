@@ -100,6 +100,14 @@ import { resetDocument } from '../../../kyc/application/commands/document';
 import { initTransaction, initializeTransactionsList } from '../../../transaction/application/commands';
 import { initializeUser } from '../../../user/application/commands';
 import { IStoreKey } from '../../../shared/application/types';
+import { createDomainEventsMiddleware } from '../state-management/middleware/domain-events.middleware';
+import { energyDomainEventsConfig } from '../../../energy/application/state-management/domain-events.config';
+import {
+  getEnergySaga,
+  getQuizSaga,
+  checkAnswerSaga,
+  computeRewardsSaga,
+} from '../../../energy/application/usecases';
 
 const httpConnection = HttpConnection.getInstance(
   process.env.EXPO_PUBLIC_BASE_URL_API || 'http://localhost:3000',
@@ -124,7 +132,14 @@ const sagaMiddleware = createSagaMiddleware({
   },
 });
 
-export const store = createStore(persistedReducer, applyMiddleware(sagaMiddleware));
+// Gather all bounded contexts configurations
+const boundedContextConfigs = {
+  ...energyDomainEventsConfig,
+};
+
+const domainEventsMiddleware = createDomainEventsMiddleware(boundedContextConfigs);
+
+export const store = createStore(persistedReducer, applyMiddleware(sagaMiddleware, domainEventsMiddleware));
 export const persistor = persistStore(store);
 
 let rootSagaTask: any = sagaMiddleware.run(rootSaga, httpConnection);
@@ -218,6 +233,10 @@ function* rootSaga(httpConnection: HttpConnection): SagaIterator {
     call(addWorksSaga, httpConnection),
     call(getTransportSaga, httpConnection),
     call(addVehiclesSaga, httpConnection),
+    call(getEnergySaga, httpConnection),
+    call(getQuizSaga, httpConnection),
+    call(checkAnswerSaga, httpConnection),
+    call(computeRewardsSaga, httpConnection),
   ];
   // here we watch if action logout is launched in the store
   yield fork(watchLogout);

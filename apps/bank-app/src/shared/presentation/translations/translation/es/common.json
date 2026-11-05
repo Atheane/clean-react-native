@@ -213,7 +213,7 @@
     "bank": "contacto@example.com",
     "subject": {
       "unavailable-card": "Solicitud de renovación de tarjeta",
-      "contact": "Contacto desde la aplicación CO2"
+      "contact": "Contacto a través de la aplicación CO2"
     },
     "body": {
       "unavailable-card": "Hola,\nLa aplicación CO2 me indica que mi tarjeta CO2 ya no está accesible, y deseo renovarla.\n\nCordialmente",
@@ -545,7 +545,7 @@
       "instruction-works-date": "Fecha de las obras más recientes:"
     },
     "transport-situation": {
-      "title": "Mi prima de CO2",
+      "title": "Mi prima CO2",
       "subtitle": "Mi transporte",
       "instruction-license-plate": "¿Matrícula de su vehículo (coche, moto, etc.)?",
       "instruction-old-license-plate": "Matrícula del vehículo anterior",
@@ -562,7 +562,7 @@
       "in": "en",
       "owned": "adquirido",
       "sold": "vendido",
-      "end": "Terminar"
+      "end": "Finalizar"
     },
     "household-situation": {
       "title": "Mi prima de CO2",
@@ -887,9 +887,36 @@
         "win-euros": "¡Gane €G gracias a\nnuestro Quiz!",
         "adapt-temperature": "Adaptar la temperatura\nde mi vivienda",
         "renovate-my-house": "Estimar mis ahorros después\nde la renovación energética",
-        "my-energy-consumption": "Mi consumo\nenergético"
+        "my-energy-consumption": "Mi consumo\nenergético",
+        "average": "Promedio",
+        "price-comfort": "Precio-confort:",
+        "total-green-euros": "Total €G ganados"
       },
-      "tab": "Balance Energético"
+      "win-green-euros": {
+        "title": "Quiz y desafíos",
+        "header": "Aprende y gana €G",
+        "description": "¡Pon a prueba tus conocimientos sobre consumo de energía y gana €G!",
+        "total-green-euros": "Total €G ganados"
+      },
+      "quiz": {
+        "title": "Quiz",
+        "button-next": "Siguiente",
+        "quiz": "Aquí está el quiz del día:",
+        "button-question": "Verificar respuesta",
+        "button-feeback-true": "Ver mi hucha",
+        "button-feeback-false": "Intentar mañana",
+        "challenge-description": "Pon a prueba tus conocimientos sobre consumo de energía"
+      },
+      "feedback": {
+        "correct": "¡Correcto!",
+        "correct-description": "Felicidades, has encontrado la respuesta correcta y ganas:",
+        "button-correct": "Ver mi hucha",
+        "incorrect": "Incorrecto",
+        "incorrect-description": "Lo siento, pero recuerda que puedes responder a esta pregunta mañana, ¡hasta que encuentres la solución correcta! Después de todo, el objetivo del juego es aprender divirtiéndose.",
+        "button-incorrect": "Intentar mañana"
+      },
+      "tab": "Energético",
+      "title": "Balance Energético"
     }
   }
 }

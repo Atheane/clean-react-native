@@ -19,6 +19,8 @@ export const Colors = {
     pink: '#CB287D',
     lightBlue: '#ECEFF5',
     lightPurple: '#BB81EE',
+    black: '#000000',
+    blue: '#0A7DC0',
   },
   greenGradient: {
     lightGreen: '#D0CF2A',

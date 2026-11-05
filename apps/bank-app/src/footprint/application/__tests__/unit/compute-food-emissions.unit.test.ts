@@ -2,47 +2,29 @@
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { HttpConnection } from '@clean-rn/shared/infrastructure';
-import { FoodConsumptionT } from '@bank/carbon-weight/dist';
-import { FoodEmissions } from '@clean-rn/footprint/domain';
 
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IStoreKey } from '../../../../shared/application/types';
 import { IFootprintStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
+
 import {
   computeFoodEmissionsSaga,
   computeFoodEmissionsGenerator,
 } from '../../usecases/compute-food-emissions';
 import { IFootprintTypes, foodEmissionsComputed, initializeFoodEmissions } from '../../commands';
-import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 
-jest.mock('@clean-rn/shared/infrastructure', () => ({
-  HttpConnection: {
-    getInstance: jest.fn(),
-  },
-  ServerError: jest.fn().mockImplementation(function (error) {
-    this.message = error.message;
-    this.name = 'ServerError';
-    this.statusCode = error.statusCode;
-    this.codeError = error.codeError;
-    this.cause = error.response;
-  }),
-}));
+import { createMockHttpConnection, mockInfrastructure } from '../helpers/setup';
+import { mockFoodData, foodCarbonFootprint } from '../fixtures/mock-data';
 
 describe('ComputeFoodEmissions - usecase', () => {
   let httpConnection: HttpConnection;
 
   beforeEach(() => {
-    httpConnection = {
-      baseUrl: 'http://mock-api.com',
-      options: jest.fn(),
-      handleError: jest.fn(),
-      getDefaultHeaders: jest.fn(),
-      attachBearerToken: jest.fn(),
-    };
-    HttpConnection.getInstance.mockReturnValue(httpConnection);
-    global.fetch = jest.fn();
+    httpConnection = createMockHttpConnection();
+    mockInfrastructure();
   });
 
   afterEach(() => {
@@ -50,18 +32,6 @@ describe('ComputeFoodEmissions - usecase', () => {
     jest.clearAllMocks();
   });
 
-  const mockData: FoodConsumptionT = {
-    alcohol: 7,
-    bread: 7,
-    cheese: 7,
-    fish: 7,
-    harvestExotic: 7,
-    harvestLocal: 7,
-    meatRed: 7,
-    meatWhite: 7,
-    rice: 7,
-    soft: 7,
-  };
   it('Should wait for COMPUTE_FOOD_EMISSIONS action and call computeFoodEmissionsGenerator, should be done on next iteration', () => {
     const genObject = computeFoodEmissionsSaga(httpConnection);
 
@@ -72,25 +42,28 @@ describe('ComputeFoodEmissions - usecase', () => {
   });
 
   it('Should call foodEmissionsComputed', async () => {
-    const carbonFootprint = new FoodEmissions(mockData);
     testSaga(computeFoodEmissionsGenerator, httpConnection, {
       type: IFootprintTypes.COMPUTE_FOOD_EMISSIONS,
-      payload: mockData,
+      payload: mockFoodData,
     })
       .next()
       .call(ensureTokenRefreshed, httpConnection)
       .next()
       .put(
         foodEmissionsComputed({
-          footprint: carbonFootprint.value,
-          average: carbonFootprint.valueAverage,
+          footprint: foodCarbonFootprint.value,
+          average: foodCarbonFootprint.valueAverage,
         }),
       )
       .next()
-      .call(AsyncStorage.setItem, IStoreKey.FOOD_EMISSION, carbonFootprint.value.toFixed(2))
-      .next(carbonFootprint.value.toFixed(2))
-      .call(AsyncStorage.setItem, IStoreKey.AVERAGE_FOOD_EMISSION, carbonFootprint.valueAverage.toFixed(2))
-      .next(carbonFootprint.valueAverage.toFixed(2))
+      .call(AsyncStorage.setItem, IStoreKey.FOOD_EMISSION, foodCarbonFootprint.value.toFixed(2))
+      .next(foodCarbonFootprint.value.toFixed(2))
+      .call(
+        AsyncStorage.setItem,
+        IStoreKey.AVERAGE_FOOD_EMISSION,
+        foodCarbonFootprint.valueAverage.toFixed(2),
+      )
+      .next(foodCarbonFootprint.valueAverage.toFixed(2))
       .call(navigate, { route: IFootprintStackPages.FOOTPRINT_ESTIMATION })
       .next();
   });
@@ -98,7 +71,7 @@ describe('ComputeFoodEmissions - usecase', () => {
   it('Should call showUnknownError action if unknown error', () => {
     testSaga(computeFoodEmissionsGenerator, httpConnection, {
       type: IFootprintTypes.COMPUTE_FOOD_EMISSIONS,
-      payload: mockData,
+      payload: mockFoodData,
     })
       .next()
       .call(ensureTokenRefreshed, httpConnection)

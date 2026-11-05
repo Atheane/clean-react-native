@@ -39,7 +39,7 @@ export abstract class Entity<T> {
   }
 
   protected static emitStaticDomainEvent(eventName: string, data: any): void {
-    console.log(eventName, data);
+    console.log(eventName);
     domainEventManager.emit(eventName, data);
   }
 }

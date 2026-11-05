@@ -47,3 +47,15 @@ export const CO2: Story = {
     },
   },
 };
+
+export const Loading: Story = {
+  args: {
+    loading: true,
+    icon: () => <Temperature width={90} height={90} />,
+    data: {
+      kpi: '20',
+      unit: 'C°',
+      legend: 'Moyenne',
+    },
+  },
+};

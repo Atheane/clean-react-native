@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { checkVersion } from 'react-native-check-version';
 import { getLocales } from 'expo-localization';
-
+import { IAccount, IAccountType } from '@clean-rn/account/domain';
+import { IKycState } from '@clean-rn/kyc/domain';
 import {
   TopRightFlowersBg,
   CardScroller,
@@ -17,20 +18,16 @@ import {
   LoaderSplashScreen,
   Colors,
 } from '@clean-rn/ui-mobile';
-import { useNotification } from '../../../shared/presentation/hooks';
-import { IAccount, IAccountType } from '@clean-rn/account/domain';
-import { IKycState } from '@clean-rn/kyc/domain';
-
+import { useDevice } from '../../../shared/presentation/hooks/useDevice';
+import { fetchRegisterDevice } from '../../../device/application/commands';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import {
   IKycStackPages,
   ISharedStackPages,
   ITransactionStackPages,
 } from '../../../shared/presentation/types';
-import { useDevice } from '../../../shared/presentation/hooks';
+import { useNotification } from '../../../shared/presentation/hooks';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-
-import { fetchRegisterDevice } from '../../../device/application/commands';
 
 import { listAccounts } from '../../application/commands/accounts';
 import { listTransactions } from '../../../transaction/application/commands';
@@ -88,31 +85,41 @@ export const Home = () => {
     [dispatch],
   );
 
-  const { firebaseToken, notificationEnabled } = useNotification();
+  const { expoPushToken, notificationEnabled } = useNotification();
   const { deviceId, brand, model, os, osVersion } = useDevice();
+  // Add a state to track if the call has already been made
+  const [deviceRegistered, setDeviceRegistered] = useState(false);
 
   useEffect(() => {
+    // Check if expoSDK has finished fetching the notificationEnabled status and the expoPushToekn
+    // Check if  deviceId, brand, model, os and osVersion are defined
+    // and if the call has not yet been made
     if (
-      deviceId !== '' &&
-      brand &&
-      model &&
-      os !== '' &&
-      osVersion &&
-      ((notificationEnabled && firebaseToken) || notificationEnabled === false)
+      deviceRegistered === true ||
+      notificationEnabled === undefined ||
+      deviceId === '' ||
+      !brand ||
+      !model ||
+      !os ||
+      !osVersion
     ) {
-      dispatch(
-        fetchRegisterDevice({
-          deviceId,
-          firebaseId: firebaseToken,
-          brand,
-          model,
-          os,
-          osVersion,
-          appVersion: process.env.EXPO_PUBLIC_APP_VERSION || '2.3.1',
-        }),
-      );
+      return;
     }
-  }, [firebaseToken, notificationEnabled, deviceId, brand, model, os, osVersion, dispatch]);
+
+    dispatch(
+      fetchRegisterDevice({
+        deviceId,
+        firebaseId: expoPushToken,
+        brand,
+        model,
+        os,
+        osVersion,
+        appVersion: process.env.EXPO_PUBLIC_APP_VERSION || '',
+      }),
+    );
+    // Mark the call as done
+    setDeviceRegistered(true);
+  }, [expoPushToken, notificationEnabled, deviceId, brand, model, os, osVersion, dispatch, deviceRegistered]);
 
   const [appNeedUpdate, setAppNeedUpdate] = useState(false);
   useEffect(() => {
@@ -134,20 +141,16 @@ export const Home = () => {
   // show identity banner if customer not validated and if no card
   const { customer, pending: kycPending } = useSelector((state: IRootState) => state.kyc.customer);
 
-  const dataEventCards = useMemo(
-    () =>
-      eventsCardsContent
-        .filter((item: { image: any; text: string; uid: string }) => {
-          if (!deletedCards.includes(item.uid)) {
-            return item;
-          }
-        })
-        .map((item) => ({
-          ...item,
-          text: t('screens.account.cards.' + item.uid),
-        })),
-    [deletedCards, t],
-  );
+  const dataEventCards = eventsCardsContent
+    .filter((item: { image: any; text: string; uid: string }) => {
+      if (!deletedCards.includes(item.uid)) {
+        return item;
+      }
+    })
+    .map((item) => ({
+      ...item,
+      title: t('screens.account.cards.' + item.uid),
+    }));
 
   const dataBalance = accounts?.map((item: IAccount) => ({
     uid: item.accountId.toString(),

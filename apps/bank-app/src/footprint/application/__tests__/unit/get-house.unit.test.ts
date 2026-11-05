@@ -15,34 +15,22 @@ import { FootprintApi } from '@clean-rn/footprint/infrastructure';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 import { selectUser } from '../../../../user/application/state-management/selectors';
 
-jest.mock('@clean-rn/shared/infrastructure', () => ({
-  HttpConnection: {
-    getInstance: jest.fn(),
-  },
-  ServerError: jest.fn().mockImplementation(function (error) {
-    this.message = error.message;
-    this.name = 'ServerError';
-    this.statusCode = error.statusCode;
-    this.codeError = error.codeError;
-    this.cause = error.response;
-  }),
-}));
+import { createMockHttpConnection, mockInfrastructure } from '../helpers/setup';
+import { mockHeaterUser, mockHeaterHouse } from '../fixtures/mock-data';
 
 describe('GetHouse - usecase', () => {
   let httpConnection: HttpConnection;
   let api: FootprintApi;
 
   beforeEach(() => {
-    httpConnection = {
-      baseUrl: 'http://mock-api.com',
-      options: jest.fn(),
-      handleError: jest.fn(),
-      getDefaultHeaders: jest.fn(),
-      attachBearerToken: jest.fn(),
-    };
-    HttpConnection.getInstance.mockReturnValue(httpConnection);
-    global.fetch = jest.fn();
+    httpConnection = createMockHttpConnection();
+    mockInfrastructure();
     api = FootprintApi.getInstance(httpConnection);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   const mockUserData = {
@@ -110,6 +98,19 @@ describe('GetHouse - usecase', () => {
         userId: user.id,
       })
       .next(house);
+  });
+
+  it('Should call searchHouse', async () => {
+    testSaga(getHouseGenerator, httpConnection)
+      .next()
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
+      .select(selectUser)
+      .next(mockHeaterUser)
+      .call([api, api.searchHouse], {
+        userId: mockHeaterUser.id,
+      })
+      .next(mockHeaterHouse);
   });
 
   it('Should call showUnknownError action if unknown error', () => {

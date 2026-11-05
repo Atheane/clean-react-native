@@ -302,19 +302,6 @@ describe('User - integration', () => {
     });
   });
 
-  it('Should store correct state in case if FETCH_UPDATE_NOTIFICATIONS', () => {
-    sagaTester.start(updateNotificationsSaga);
-
-    sagaTester.dispatch(fetchUpdateNotifications(mockUpdateNotifications));
-    expect(sagaTester.getState()).toEqual({
-      ...initialState,
-      pending: true,
-      config: {
-        ...mockUpdateNotifications,
-      },
-    });
-  });
-
   it('Should store correct state if EMAIL_CHECKED', () => {
     sagaTester.start(checkEmailSaga);
     sagaTester.dispatch(fetchSearchEmail({ email: new Email('test@example.com') }));

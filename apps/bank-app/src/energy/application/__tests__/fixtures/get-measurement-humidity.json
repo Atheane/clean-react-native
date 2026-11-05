@@ -1,0 +1,17 @@
+{
+  "observedAt": "2025-03-15T17:14:56Z",
+  "unitCode": "P1",
+  "value": 74.2,
+  "data": [
+    {
+      "observedAt": "2025-03-15T17:14:56Z",
+      "unitCode": "P1",
+      "value": 75.5
+    },
+    {
+      "observedAt": "2025-03-19T14:44:30Z",
+      "unitCode": "P1",
+      "value": 72.8
+    }
+  ]
+}

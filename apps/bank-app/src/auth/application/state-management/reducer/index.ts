@@ -13,7 +13,7 @@ const initialState: IAuthState = {
   success: null,
 };
 
-export const authReducer = (state = initialState, action: IAuthActions) => {
+export const authReducer = (state = initialState, action: IAuthActions): IAuthState => {
   let newState: IAuthState;
   switch (action.type) {
     case IAuthTypes.FETCH_LOGIN:

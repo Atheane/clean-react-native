@@ -2,13 +2,10 @@
   "build": {
     "production": {
       "env": {
-        "EXPO_PUBLIC_APP_VERSION": "233",
+        "EXPO_PUBLIC_APP_VERSION": "241",
         "EXPO_PUBLIC_BASE_URL": "https://www.example.com",
         "EXPO_PUBLIC_BASE_URL_API": "https://dev-carte.example.com",
         "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.example.bankapp",
-        "EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN": "bank-app.firebaseapp.com",
-        "EXPO_PUBLIC_FIREBASE_PROJECT_ID": "bank-app",
-        "EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET": "bank-app.appspot.com",
         "EXPO_PUBLIC_NODE_ENV": "production",
         "EXPO_PUBLIC_SLUG_NAME_BANK_APP": "bank-app"
       }
@@ -17,13 +14,10 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-          "EXPO_PUBLIC_APP_VERSION": "233",
+        "EXPO_PUBLIC_APP_VERSION": "241",
         "EXPO_PUBLIC_BASE_URL": "https://www.example.com",
         "EXPO_PUBLIC_BASE_URL_API": "https://sandbox.example.com",
         "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.example.bankapp",
-        "EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN": "bank-app.firebaseapp.com",
-        "EXPO_PUBLIC_FIREBASE_PROJECT_ID": "bank-app",
-        "EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET": "bank-app.appspot.com",
         "EXPO_PUBLIC_NODE_ENV": "production",
         "EXPO_PUBLIC_SLUG_NAME_BANK_APP": "bank-app"
       }
@@ -32,13 +26,10 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_APP_VERSION": "233",
+        "EXPO_PUBLIC_APP_VERSION": "241",
         "EXPO_PUBLIC_BASE_URL": "https://www.example.com",
         "EXPO_PUBLIC_BASE_URL_API": "https://sandbox.example.com",
         "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.example.bankapp",
-        "EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN": "bank-app.firebaseapp.com",
-        "EXPO_PUBLIC_FIREBASE_PROJECT_ID": "bank-app",
-        "EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET": "bank-app.appspot.com",
         "EXPO_PUBLIC_NODE_ENV": "production",
         "EXPO_PUBLIC_SLUG_NAME_BANK_APP": "bank-app"
       },
@@ -49,13 +40,10 @@
     "preview": {
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_APP_VERSION": "233",
+        "EXPO_PUBLIC_APP_VERSION": "241",
         "EXPO_PUBLIC_BASE_URL": "https://www.example.com",
         "EXPO_PUBLIC_BASE_URL_API": "https://dev-carte.example.com",
         "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.example.bankapp",
-        "EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN": "bank-app.firebaseapp.com",
-        "EXPO_PUBLIC_FIREBASE_PROJECT_ID": "bank-app",
-        "EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET": "bank-app.appspot.com",
         "EXPO_PUBLIC_NODE_ENV": "production",
         "EXPO_PUBLIC_SLUG_NAME_BANK_APP": "bank-app"
       },

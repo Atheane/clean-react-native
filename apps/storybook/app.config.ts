@@ -47,7 +47,6 @@ export default {
           subdomains: '*',
         },
       ],
-      ['@react-native-firebase/app'],
       [
         'expo-contacts',
         {
