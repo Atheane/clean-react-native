@@ -11,8 +11,6 @@ import { EnergyApi } from '@clean-rn/energy/infrastructure';
 import { computeRewardsSaga, computeRewardsGenerator } from '../../usecases/compute-rewards';
 import { IEnergyTypes } from '../../commands';
 
-import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-
 import { createMockHttpConnection, mockInfrastructure } from '../helpers/setup';
 import { mockUser, mockQuizData } from '../fixtures/mock-data';
 import { selectEnergy } from '../../state-management/selectors';

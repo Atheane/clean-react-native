@@ -5,11 +5,14 @@ import {
   PRICE_COMFORT_TYPE,
   SENSOR_TYPE,
   QUIZ_DIFFICULTY,
-  QUIZ_THEME,
 } from '@clean-rn/energy/domain';
-import { User } from '@clean-rn/user/domain';
+import { User, IUserType, ILanguage } from '@clean-rn/user/domain';
 
 export const mockUser = User.CreateFromEmail(new Email('fake@email.com'));
+mockUser.setConfig({
+  lang: ILanguage.EN,
+});
+mockUser.setUserType(IUserType.BANK_USER);
 export const mockSensorsCO2 = [
   {
     type: SENSOR_TYPE.CO2,

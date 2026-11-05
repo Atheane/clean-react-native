@@ -13,6 +13,7 @@ import { IEnergyTypes } from '../../commands';
 
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
+import { selectUser } from '../../../../user/application/state-management/selectors';
 
 import { createMockHttpConnection, mockInfrastructure } from '../helpers/setup';
 import { mockUser, mockQuizData } from '../fixtures/mock-data';
@@ -55,11 +56,13 @@ describe('GetQuiz - usecase', () => {
   it('Should getQuiz if it exists and populate it with existing sensors and measurements', async () => {
     testSaga(getQuizGenerator, httpConnection)
       .next()
+      .select(selectUser)
+      .next(mockUser)
       .call(ensureTokenRefreshed, httpConnection)
       .next()
       .select(selectEnergy)
       .next(mockEnergy)
-      .call([api, api.getQuiz])
+      .call([api, api.getQuiz], mockUser.properties.config?.lang)
       .next(mockQuiz);
 
     expect(domainManagerInstance.emit<Energy>).toHaveBeenCalledWith(
