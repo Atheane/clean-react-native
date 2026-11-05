@@ -194,6 +194,6 @@ const styles = StyleSheet.create({
     fontSize: Platform.OS === 'web' ? 48 : 28,
     fontWeight: 'bold',
     fontFamily: FontNames.MartelSans_600SemiBold,
-    color: Colors.primary.lightGreen,
+    color: Colors.primary.grey,
   },
 });
