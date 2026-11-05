@@ -55,7 +55,7 @@
   "submit": {
     "production": {
       "android": {
-        "serviceAccountKeyPath": "./bank-app-03f43d317e35.json",
+        "serviceAccountKeyPath":  "./service-account.json",
         "track": "production"
       },
       "ios": {
