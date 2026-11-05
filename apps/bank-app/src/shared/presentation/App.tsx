@@ -16,6 +16,8 @@ import SplashScreen from '../../../assets/images/splash.png';
 import { store, persistor } from '../application/usecases/root-saga';
 import { IRootState } from '../application/state-management/reducers/root-reducer';
 import { initializeApplication } from '../application/commands/initialize-application';
+import { fetchLogout } from '../../auth/application/commands';
+
 import { Fonts } from './constants';
 import { theme } from './theme';
 import { useDeepLink } from './hooks';
@@ -45,8 +47,9 @@ const App: () => JSX.Element = () => {
       Alert.alert(t('notification.network-error.title'), t('notification.network-error.body'), [
         { text: 'OK', onPress: () => console.log('OK Pressed') },
       ]);
+      dispatch(fetchLogout());
     }
-  }, [error, t]);
+  }, [error, t, dispatch]);
 
   useEffect(() => {
     const handleAppStateChange = (nextAppState: AppStateStatus) => {
