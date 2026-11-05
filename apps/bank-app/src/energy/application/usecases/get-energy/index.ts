@@ -49,7 +49,7 @@ export function* getEnergyGenerator(httpConnection: HttpConnection): Generator<S
           [energyRepository, energyRepository.getMeasurement],
           sensorType,
         );
-        energy.addMesurement(measurement);
+        energy.addMesurement(measurement, sensorType);
       }
     }
   } catch (error: unknown) {

@@ -24,6 +24,19 @@ export const Temp: Story = {
   },
 };
 
+export const TempWhite: Story = {
+  args: {
+    icon: () => <Temperature width={31} height={31} />,
+    data: {
+      kpi: '20',
+      unit: 'C°',
+      color: Colors.primary.grey,
+      legend: 'Moyenne',
+    },
+    backgroundColor: Colors.primary.white,
+  },
+};
+
 export const Hum: Story = {
   args: {
     icon: () => <Humidity width={31} height={31} />,
@@ -35,6 +48,18 @@ export const Hum: Story = {
   },
 };
 
+export const HumWhite: Story = {
+  args: {
+    icon: () => <Humidity width={31} height={31} />,
+    data: {
+      kpi: '63',
+      unit: '%',
+      legend: 'Salon',
+    },
+    backgroundColor: Colors.primary.white,
+  },
+};
+
 export const CO2: Story = {
   args: {
     icon: () => <CO2Output width={31} height={31} />,
@@ -43,5 +68,17 @@ export const CO2: Story = {
       unit: 'ppm',
       legend: 'Salon',
     },
+  },
+};
+
+export const CO2White: Story = {
+  args: {
+    icon: () => <CO2Output width={31} height={31} />,
+    data: {
+      kpi: '1235',
+      unit: 'ppm',
+      legend: 'Salon',
+    },
+    backgroundColor: Colors.primary.white,
   },
 };

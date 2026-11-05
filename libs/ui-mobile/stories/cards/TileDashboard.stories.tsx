@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { View, StyleSheet } from 'react-native';
 import { TileDashboard } from '../../src/components/cards/tile-dashboard';
 import { TileKpi } from '../../src/components/cards/tile-kpi';
-import { HomeWhiteCircle, Temperature, Humidity, CO2Output } from '../../src/assets/svg';
+import { Temperature, Humidity, CO2Output } from '../../src/assets/svg';
 import { Colors } from '../../src/constants';
 import { WithCenterView } from '../../wrappers';
 
@@ -41,20 +41,65 @@ const styles = StyleSheet.create({
   },
 });
 
-const Tiles = () => {
+const TilesWithWhiteBackground = () => {
   return (
     <View style={styles.rowContainer}>
-      <TileKpi icon={() => <Temperature width={54} height={54} />} data={DATA[0]} />
-      <TileKpi icon={() => <Humidity width={54} height={54} />} data={DATA[1]} />
-      <TileKpi icon={() => <CO2Output width={54} height={54} />} data={DATA[2]} />
+      <TileKpi
+        icon={() => <Temperature width={54} height={54} />}
+        data={DATA[0]}
+        backgroundColor={Colors.primary.white}
+      />
+      <TileKpi
+        icon={() => <Humidity width={54} height={54} />}
+        data={DATA[1]}
+        backgroundColor={Colors.primary.white}
+      />
+      <TileKpi
+        icon={() => <CO2Output width={54} height={54} />}
+        data={DATA[2]}
+        backgroundColor={Colors.primary.white}
+      />
     </View>
   );
 };
 
-export const Basic: Story = {
+const TilesWithGreyBackground = () => {
+  return (
+    <View style={styles.rowContainer}>
+      <TileKpi
+        icon={() => <Temperature width={54} height={54} />}
+        data={DATA[0]}
+        backgroundColor={Colors.primary.lightGrey}
+      />
+      <TileKpi
+        icon={() => <Humidity width={54} height={54} />}
+        data={DATA[1]}
+        backgroundColor={Colors.primary.lightGrey}
+      />
+      <TileKpi
+        icon={() => <CO2Output width={54} height={54} />}
+        data={DATA[2]}
+        backgroundColor={Colors.primary.lightGrey}
+      />
+    </View>
+  );
+};
+
+export const Internal: Story = {
   args: {
     text: 'Price comfort: ',
-    kpi: 1577,
-    children: <Tiles />,
+    kpi: '1577',
+    title: 'Intérieur',
+    children: <TilesWithWhiteBackground />,
+  },
+};
+
+export const External: Story = {
+  args: {
+    text: 'Price comfort: ',
+    kpi: '1577',
+    title: 'Extérieur',
+    children: <TilesWithGreyBackground />,
+    external: true,
   },
 };

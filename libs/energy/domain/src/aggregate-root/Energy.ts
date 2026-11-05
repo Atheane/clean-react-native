@@ -17,6 +17,8 @@ export interface IEnergyProperties {
     [SENSOR_TYPE.TEMPERATURE]?: MeasurementVO;
     [SENSOR_TYPE.HUMIDITY]?: MeasurementVO;
     [SENSOR_TYPE.CO2]?: MeasurementVO;
+    [SENSOR_TYPE.TEMPERATURE_EXT]?: MeasurementVO;
+    [SENSOR_TYPE.HUMIDITY_EXT]?: MeasurementVO;
   };
   heatingPriceComfort?: PriceComfortVO;
   coolingPriceComfort?: PriceComfortVO;
@@ -52,25 +54,43 @@ export class Energy extends Entity<IEnergyProperties> {
     Energy.emitStaticDomainEvent(ENERGY_EVENTS.SENSORS_CHECKED, this);
   }
 
-  addMesurement(measurement: MeasurementVO): void {
-    if (measurement.unit === MEASUREMENT_UNIT.CELCIUS) {
-      this.properties.measurements = {
-        ...this.properties.measurements,
-        [SENSOR_TYPE.TEMPERATURE]: measurement,
-      };
-      Energy.emitStaticDomainEvent(ENERGY_EVENTS.TEMPERATURE_ADDED, this);
-    } else if (measurement.unit === MEASUREMENT_UNIT.PERCENTAGE) {
-      this.properties.measurements = {
-        ...this.properties.measurements,
-        [SENSOR_TYPE.HUMIDITY]: measurement,
-      };
-      Energy.emitStaticDomainEvent(ENERGY_EVENTS.HUMIDITY_ADDED, this);
-    } else if (measurement.unit === MEASUREMENT_UNIT.PPM) {
-      this.properties.measurements = {
-        ...this.properties.measurements,
-        [SENSOR_TYPE.CO2]: measurement,
-      };
-      Energy.emitStaticDomainEvent(ENERGY_EVENTS.CO2_ADDED, this);
+  addMesurement(measurement: MeasurementVO, sensorType: SENSOR_TYPE): void {
+    switch (sensorType) {
+      case SENSOR_TYPE.TEMPERATURE:
+        this.properties.measurements = {
+          ...this.properties.measurements,
+          [SENSOR_TYPE.TEMPERATURE]: measurement,
+        };
+        Energy.emitStaticDomainEvent(ENERGY_EVENTS.TEMPERATURE_ADDED, this);
+        break;
+      case SENSOR_TYPE.HUMIDITY:
+        this.properties.measurements = {
+          ...this.properties.measurements,
+          [SENSOR_TYPE.HUMIDITY]: measurement,
+        };
+        Energy.emitStaticDomainEvent(ENERGY_EVENTS.HUMIDITY_ADDED, this);
+        break;
+      case SENSOR_TYPE.CO2:
+        this.properties.measurements = {
+          ...this.properties.measurements,
+          [SENSOR_TYPE.CO2]: measurement,
+        };
+        Energy.emitStaticDomainEvent(ENERGY_EVENTS.CO2_ADDED, this);
+        break;
+      case SENSOR_TYPE.TEMPERATURE_EXT:
+        this.properties.measurements = {
+          ...this.properties.measurements,
+          [SENSOR_TYPE.TEMPERATURE_EXT]: measurement,
+        };
+        Energy.emitStaticDomainEvent(ENERGY_EVENTS.TEMPERATURE_EXT_ADDED, this);
+        break;
+      case SENSOR_TYPE.HUMIDITY_EXT:
+        this.properties.measurements = {
+          ...this.properties.measurements,
+          [SENSOR_TYPE.HUMIDITY_EXT]: measurement,
+        };
+        Energy.emitStaticDomainEvent(ENERGY_EVENTS.HUMIDITY_EXT_ADDED, this);
+        break;
     }
   }
 

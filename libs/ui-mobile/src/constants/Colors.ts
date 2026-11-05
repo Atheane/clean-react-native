@@ -2,7 +2,7 @@ export const Colors = {
   primary: {
     darkGrey: '#444A52',
     grey: '#838383',
-    lightGrey: '#F0F0F0',
+    lightGrey: '#EFEFEF',
     darkWhite: '#F8F8F8',
     white: '#FFFFFF',
     lightPurple: '#7887CC',
