@@ -10,6 +10,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import Toast from 'react-native-toast-message';
 import { ConfigCatProvider, createConsoleLogger, LogLevel } from 'configcat-react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import * as Notifications from 'expo-notifications';
 
 import SplashScreen from '../../../assets/images/splash.png';
 import { store, persistor } from '../application/usecases/root-saga';
@@ -33,6 +34,21 @@ const App: () => JSX.Element = () => {
 
   useEffect(() => {
     dispatch(initializeApplication());
+
+    // Configurer l'écouteur de notifications
+    const notificationListener = Notifications.addNotificationReceivedListener((notification) => {
+      Toast.show({
+        type: 'info',
+        text1: notification.request.content.title ?? undefined,
+        text2: notification.request.content.body ?? undefined,
+        position: 'top',
+        visibilityTime: 4000,
+      });
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener);
+    };
   }, [dispatch]);
 
   useDeepLink();

@@ -54,9 +54,6 @@ const registerForPushNotificationsAsync = async () => {
 export const useNotification = () => {
   const [expoPushToken, setExpoPushToken] = useState<string | undefined>();
   const [notificationEnabled, setNotificationEnabled] = useState<boolean>();
-  // const [notification, setNotification] = useState<Notifications.Notification | undefined>();
-  // const notificationListener = useRef<Notifications.Subscription>();
-  // const responseListener = useRef<Notifications.Subscription>();
 
   useEffect(() => {
     if (notificationEnabled === undefined) {
@@ -75,25 +72,6 @@ export const useNotification = () => {
           console.log('notificationEnabled', notificationEnabled);
         });
     }
-
-    // Configurer les écouteurs de notifications
-    // notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
-    //   setNotification(notification);
-    // });
-
-    // responseListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
-    //   console.log('Réponse de notification reçue:', response);
-    //   // Ici, vous pouvez ajouter une logique pour gérer les actions lorsqu'un utilisateur appuie sur une notification
-    // });
-
-    // return () => {
-    //   if (notificationListener.current) {
-    //     Notifications.removeNotificationSubscription(notificationListener.current);
-    //   }
-    //   if (responseListener.current) {
-    //     Notifications.removeNotificationSubscription(responseListener.current);
-    //   }
-    // };
   }, [notificationEnabled]);
 
   return {
