@@ -688,7 +688,7 @@
       "init": {
         "steps": "Passaggi:\n",
         "step1": "1. Allegare un documento di identità\n",
-        "step2": "2. Effettuare un bonifico di 1 euro da uno dei tuoi conti bancari sul tuo Conto CO2\n",
+        "step2": "2. Effettuare un bonifico di 5 euros da uno dei tuoi conti bancari sul tuo Conto CO2\n",
         "step3": "3. Allegare il modulo W9",
         "check-identity": "Verifica"
       },
@@ -722,7 +722,7 @@
         "w9-form": "Modulo W9",
         "identity": "Documento di Identità",
         "fix-file": "Si prega di correggere gli elementi del file",
-        "transfer": "Bonifico di 1 euro"
+        "transfer": "Bonifico di 5 euros"
       },
       "first-id": {
         "title": "Documenti d'Identità",
@@ -761,8 +761,8 @@
         "instruction": "o importa il tuo modulo W-9"
       },
       "sct-required": {
-        "title": "Bonifico di 1 euro",
-        "instruction": "Effettua un bonifico di 1 euro sul tuo Conto CO2, da uno dei tuoi conti in Francia."
+        "title": "Bonifico di 5 euros",
+        "instruction": "Effettua un bonifico di 5 euros sul tuo Conto CO2, da uno dei tuoi conti in Francia."
       }
     },
     "parameters": {

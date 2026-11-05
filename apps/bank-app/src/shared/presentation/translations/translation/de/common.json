@@ -726,7 +726,7 @@
       "init": {
         "steps": "Schritte:\n",
         "step1": "1. Fügen Sie einen Identitätsnachweis hinzu\n",
-        "step2": "2. Tätigen Sie eine Überweisung von 1 Euro von einem Ihrer Bankkonten auf Ihr CO2-Konto\n",
+        "step2": "2. Tätigen Sie eine Überweisung von 5 Euros von einem Ihrer Bankkonten auf Ihr CO2-Konto\n",
         "step3": "3. Fügen Sie das Formular W9 hinzu",
         "check-identity": "Überprüfen"
       },
@@ -760,7 +760,7 @@
         "w9-form": "Formular W9",
         "identity": "Identitätsnachweis",
         "fix-file": "Bitte korrigieren Sie die Elemente der Datei",
-        "transfer": "Überweisung von 1 Euro"
+        "transfer": "Überweisung von 5 Euros"
       },
       "first-id": {
         "title": "Identitätsnachweise",
@@ -799,8 +799,8 @@
         "instruction": "oder laden Sie Ihr W-9-Formular hoch"
       },
       "sct-required": {
-        "title": "Überweisung von 1 Euro",
-        "instruction": "Tätigen Sie eine Überweisung von 1 Euro auf Ihr CO2-Konto, von einem Ihrer Konten in Frankreich aus."
+        "title": "Überweisung von 5 Euros",
+        "instruction": "Tätigen Sie eine Überweisung von 5 Euros auf Ihr CO2-Konto, von einem Ihrer Konten in Frankreich aus."
       }
     },
     "parameters": {

@@ -683,7 +683,7 @@
       "init": {
         "steps": "Pasos:\n",
         "step1": "1. Adjuntar un documento de identidad\n",
-        "step2": "2. Realizar una transferencia de 1 euro desde una de sus cuentas bancarias a su Cuenta CO2\n",
+        "step2": "2. Realizar una transferencia de 5 euros desde una de sus cuentas bancarias a su Cuenta CO2\n",
         "step3": "3. Adjuntar el formulario W9",
         "check-identity": "Verificar"
       },
@@ -717,7 +717,7 @@
         "w9-form": "Formulario W9",
         "identity": "Documento de Identidad",
         "fix-file": "Por favor, corrija los elementos del archivo",
-        "transfer": "Transferencia de 1 euro"
+        "transfer": "Transferencia de 5 euros"
       },
       "first-id": {
         "title": "Documentos de Identidad",
@@ -756,8 +756,8 @@
         "instruction": "o importe su formulario W-9"
       },
       "sct-required": {
-        "title": "Transferencia de 1 euro",
-        "instruction": "Realice una transferencia de 1 euro a su Cuenta CO2, desde una de sus cuentas en Francia."
+        "title": "Transferencia de 5 euros",
+        "instruction": "Realice una transferencia de 5 euros a su Cuenta CO2, desde una de sus cuentas en Francia."
       }
     },
     "parameters": {
