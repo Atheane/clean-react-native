@@ -22,6 +22,8 @@ type IProps = {
   icon?: React.FC<SvgProps>;
   uid: string;
   title: string;
+  vertical?: boolean;
+  text?: string;
   onDelete?: (uid: string) => void;
   onPress?: (uid: string) => void;
 };
@@ -47,23 +49,46 @@ export const TouchEventCard = (props: IProps) => {
       <TouchableOpacity
         onPress={handleOnPress}
         activeOpacity={0.85}
-        style={Platform.OS === 'web' ? styles.webShadow : [theme.container.card.short, theme.shadow.card]}
+        style={
+          Platform.OS === 'web'
+            ? [
+                styles.webShadow,
+                props.vertical && {
+                  minHeight: Dimensions.get('window').width * 0.6,
+                },
+              ]
+            : [
+                theme.container.card.short,
+                theme.shadow.card,
+                props.vertical && {
+                  height: Dimensions.get('window').width * 0.6,
+                  width: Dimensions.get('window').width * 0.45,
+                  marginHorizontal: 8,
+                },
+              ]
+        }
       >
-        <View style={styles.subContainer}>
+        <View style={props.vertical ? styles.subContainerVertical : styles.subContainer}>
           {props.image && <Image style={styles.image} source={props.image} />}
           {props.icon && <props.icon style={styles.icon} />}
           <Text
             style={[
               styles.text,
-              theme.text.grey,
+              props.vertical ? theme.text.boldDarkBlue : theme.text.grey,
               NEEDS_SMALL_TEXT
                 ? { fontSize: 10, lineHeight: 12, paddingTop: 10 }
                 : { fontSize: 12, lineHeight: 14, paddingTop: 8 },
+              props.vertical && { fontSize: 14, padding: 6 },
             ]}
           >
             {props.title}
           </Text>
         </View>
+        {props.text && props.vertical && (
+          <View style={styles.textContainer}>
+            <Text style={[styles.text, theme.text.grey]}>{props.text}</Text>
+          </View>
+        )}
       </TouchableOpacity>
       {props.onDelete && (
         <View style={styles.close}>
@@ -83,6 +108,13 @@ export const TouchEventCard = (props: IProps) => {
 const styles = StyleSheet.create({
   subContainer: {
     paddingTop: 16,
+    paddingHorizontal: 12,
+  },
+  subContainerVertical: {
+    flexDirection: 'row',
+    paddingTop: 16,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
     paddingHorizontal: 12,
   },
   image: {
@@ -119,5 +151,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     minWidth: 500,
+  },
+  textContainer: {
+    paddingHorizontal: 12,
   },
 });

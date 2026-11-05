@@ -103,6 +103,7 @@ import { IStoreKey } from '../../../shared/application/types';
 import { createDomainEventsMiddleware } from '../state-management/middleware/domain-events.middleware';
 import { energyDomainEventsConfig } from '../../../energy/application/state-management/domain-events.config';
 import { getEnergySaga } from '../../../energy/application/usecases/get-energy';
+import { getQuizSaga } from 'apps/bank-app/src/energy/application/usecases/get-quiz';
 
 const httpConnection = HttpConnection.getInstance(
   process.env.EXPO_PUBLIC_BASE_URL_API || 'http://localhost:3000',
@@ -229,6 +230,7 @@ function* rootSaga(httpConnection: HttpConnection): SagaIterator {
     call(getTransportSaga, httpConnection),
     call(addVehiclesSaga, httpConnection),
     call(getEnergySaga, httpConnection),
+    call(getQuizSaga, httpConnection),
   ];
   // here we watch if action logout is launched in the store
   yield fork(watchLogout);

@@ -262,6 +262,7 @@ export enum IEnergyStackPages {
   ADAPT_TEMPERATURE = 'AdaptTemperature',
   RENOVATE_MY_HOUSE = 'RenovateMyHouse',
   MY_ENERGY_CONSUMPTION = 'MyEnergyConsumption',
+  MODAL_QUIZ = 'ModalQuiz',
 }
 
 export type ISharedStackProps = {
@@ -380,6 +381,7 @@ export type IEnergyStackProps = {
   [IEnergyStackPages.ADAPT_TEMPERATURE]: object;
   [IEnergyStackPages.RENOVATE_MY_HOUSE]: object;
   [IEnergyStackPages.MY_ENERGY_CONSUMPTION]: object;
+  [IEnergyStackPages.MODAL_QUIZ]: object;
 };
 
 export type IRoutes =
@@ -467,4 +469,5 @@ export type IRoutes =
   | IEnergyStackPages.WIN_GREEN_EUROS
   | IEnergyStackPages.ADAPT_TEMPERATURE
   | IEnergyStackPages.RENOVATE_MY_HOUSE
-  | IEnergyStackPages.MY_ENERGY_CONSUMPTION;
+  | IEnergyStackPages.MY_ENERGY_CONSUMPTION
+  | IEnergyStackPages.MODAL_QUIZ;

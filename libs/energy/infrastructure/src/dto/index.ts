@@ -66,3 +66,36 @@ export type IRewardsStatsDto = {
   rewardTotal: number;
   updatedAt: Date;
 };
+
+export type ILocalizedString = {
+  de: string;
+  en: string;
+  es: string;
+  fr: string;
+  gr: string;
+  it: string;
+  lv: string;
+};
+
+export enum QUIZ_DIFFICULTY {
+  EASY = 'EASY',
+  EXTREME = 'EXTREME',
+  HARD = 'HARD',
+  NORMAL = 'NORMAL',
+}
+
+export enum QUIZ_THEME {
+  ENERGY = 'ENERGY',
+  ENVIRONMENT = 'ENVIRONMENT',
+  HEALTH = 'HEALTH',
+}
+
+export type IQuizDto = {
+  choices: ILocalizedString[];
+  difficulty: QUIZ_DIFFICULTY;
+  intros: ILocalizedString[];
+  question: ILocalizedString;
+  quizId: number;
+  reward: number;
+  theme: QUIZ_THEME;
+};

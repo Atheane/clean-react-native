@@ -130,3 +130,6 @@ export { Humidity } from './Humidity';
 export { CO2Output } from './CO2Output';
 export { HomeWhiteCircle } from './HomeWhiteCircle';
 export { FlagForPortugal } from './FlagForPortugal';
+export { QuizWhite } from './QuizWhite';
+export { Challenge } from './Challenge';
+export { SunnyHouse } from './SunnyHouse';

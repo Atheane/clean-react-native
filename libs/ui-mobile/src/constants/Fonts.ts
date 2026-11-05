@@ -3,6 +3,7 @@ import {
   MartelSans_400Regular,
   MartelSans_600SemiBold,
   MartelSans_700Bold,
+  MartelSans_900Black,
 } from '@expo-google-fonts/martel-sans';
 
 export const Fonts = {
@@ -11,6 +12,7 @@ export const Fonts = {
   MartelSans_400Regular,
   MartelSans_600SemiBold,
   MartelSans_700Bold,
+  MartelSans_900Black,
 };
 
 export const FontNames = {
@@ -19,4 +21,5 @@ export const FontNames = {
   MartelSans_400Regular: 'MartelSans_400Regular',
   MartelSans_600SemiBold: 'MartelSans_600SemiBold',
   MartelSans_700Bold: 'MartelSans_700Bold',
+  MartelSans_900Black: 'MartelSans_900Black',
 };

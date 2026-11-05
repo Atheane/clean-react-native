@@ -895,6 +895,29 @@
         "price-comfort": "Prix-confort :",
         "total-green-euros": "Total €G gagnés"
       },
+      "win-green-euros": {
+        "title": "Quizz et challenges",
+        "header": "Apprendre et gagner des €G",
+        "description": "Testons vos connaissances en matière de consommation d'énergie et gagner des €G !",
+        "total-green-euros": "Total €G gagnés"
+      },
+      "quiz": {
+        "title": "Quiz",
+        "button-next": "Suivant",
+        "quiz": "Voici le quiz du jour :",
+        "button-question": "Vérifier la réponse",
+        "button-feeback-true": "Voir ma cagnotte",
+        "button-feeback-false": "Essayer demain",
+        "challenge-description": "Testons vos connaissances en matière de consommation d’énergie"
+      },
+      "feedback": {
+        "correct": "Vrai !",
+        "correct-description": "Félicitations,  vous avez trouvé la bonne réponse et gagnez :",
+        "button-correct": "Voir ma cagnotte",
+        "incorrect": "Faux",
+        "incorrect-description": "Désolé, mais souvenez-vous que vous pourrez répondre à cette question demain, et jusqu’à ce que vous trouviez la bonne solution ! Après tout, le but du jeu c’est d’apprendre en s’amusant.",
+        "button-incorrect": "Essayer demain"
+      },
       "tab": "Bilan Energie"
     }
   }

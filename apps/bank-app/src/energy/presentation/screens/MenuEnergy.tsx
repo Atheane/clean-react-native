@@ -1,10 +1,10 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { useFeatureFlag, User as ConfigCatUser } from 'configcat-react';
-
+import { SENSOR_TYPE } from '@clean-rn/energy/domain';
 import {
   Colors,
   LongCardIcon,
@@ -26,7 +26,8 @@ import {
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { IEnergyStackPages, IRoutes } from '../../../shared/presentation/types';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { SENSOR_TYPE } from '@clean-rn/energy/domain';
+import { fetchRefresh } from '../../../auth/application/commands';
+import { getQuiz } from '../../../energy/application/commands';
 
 const Tiles = (props: {
   data: { kpi?: string; unit: string; color?: string; legend: string; loading: boolean }[];
@@ -77,6 +78,12 @@ export const MenuEnergy = () => {
   const { loading: loadingConfigcat } = useFeatureFlag('energy-app', false, userConfigCat);
   const { energy } = useSelector((state: IRootState) => state.energy);
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchRefresh());
+  }, [dispatch]);
+
   const data = useMemo(() => {
     return [
       {
@@ -107,6 +114,11 @@ export const MenuEnergy = () => {
     return energy?.properties?.globalPriceComfort?.value?.average?.toString() ?? '...';
   }, [energy?.properties?.globalPriceComfort]);
 
+  const handleWinGreenEuros = () => {
+    dispatch(getQuiz());
+    handlePressNavigation(IEnergyStackPages.WIN_GREEN_EUROS);
+  };
+
   return loadingConfigcat ? (
     <LoaderSplashScreen />
   ) : (
@@ -127,7 +139,7 @@ export const MenuEnergy = () => {
               rightIcon={() => (
                 <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
               )}
-              onPress={() => handlePressNavigation(IEnergyStackPages.WIN_GREEN_EUROS)}
+              onPress={handleWinGreenEuros}
               children={
                 <TotalReward
                   totalRewards={energy?.properties.totalRewards ?? 0}
