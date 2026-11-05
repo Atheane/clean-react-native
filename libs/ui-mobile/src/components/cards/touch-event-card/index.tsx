@@ -26,6 +26,7 @@ type IProps = {
   text?: string;
   onDelete?: (uid: string) => void;
   onPress?: (uid: string) => void;
+  clicable?: boolean;
 };
 
 const KPI_CARD_RATIO = 112 / 174;

@@ -29,6 +29,7 @@ const customSizeSVGs = {
   CertificateBlueGradient: SVGIcons.CertificateBlueGradient,
   CardBank: SVGIcons.CardBank,
   Unlock: SVGIcons.Unlock,
+  Flowers: SVGIcons.Flowers,
 };
 
 const customSizeColorSVGs = {
@@ -63,6 +64,14 @@ const customSizeColorSVGs = {
   TransactionTransport: SVGIcons.TransactionTransport,
   TransactionTravel: SVGIcons.TransactionTravel,
   TransactionVehicle: SVGIcons.TransactionVehicle,
+  Winter: SVGIcons.Winter,
+  Summer: SVGIcons.Summer,
+  WinterHouse: SVGIcons.WinterHouse,
+  SummerHouse: SVGIcons.SummerHouse,
+  Thermometer: SVGIcons.Thermometer,
+  SnowFlake: SVGIcons.SnowFlake,
+  Plus: SVGIcons.Plus,
+  Minus: SVGIcons.Minus,
 };
 
 const customSizeColorGradientSVGs = Object.keys(SVGIcons).reduce((acc, key) => {

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
+import { Winter, Summer } from '../../src/assets/svg';
 import { SwitchButton } from '../../src/components/buttons/switch-button';
 
 import { WithCenterView } from '../../wrappers';
@@ -31,6 +31,14 @@ export const NoLabel: Story = {
     options: [
       { key: 'opt1', value: 'Option 1' },
       { key: 'opt2', value: 'Option 2' },
+    ],
+  },
+};
+export const WithIcon: Story = {
+  args: {
+    options: [
+      { key: 'opt1', value: 'Option 1', icon: Winter },
+      { key: 'opt2', value: 'Option 2', icon: Summer },
     ],
   },
 };

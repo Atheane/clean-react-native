@@ -8,26 +8,17 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation, useNavigationState } from '@react-navigation/native';
 import { getLocales } from 'expo-localization';
 
-import {
-  Colors,
-  FontNames,
-  GreenCloseButton,
-  LinkButton,
-  LinkButtonColors,
-  OffBlueGradient,
-  WebViewer,
-} from '@clean-rn/ui-mobile';
+import { LinkButton, LinkButtonColors, OffBlueGradient, WebViewer } from '@clean-rn/ui-mobile';
 
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import {
   IAuthStackPages,
   IAuthStackProps,
-  IEnergyStackPages,
   ISharedStackPages,
   ISharedStackProps,
   IUserStackPages,
   IUserStackProps,
-  HeaderTitleAlign,
+  IEnergyStackPages,
 } from '../../../shared/presentation/types';
 import { initGlobalError, showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 import { ScreenModalError, ScreenModalWebview } from '../../../shared/presentation/screens';
@@ -52,8 +43,7 @@ import { CguPdf } from '../../../shared/presentation/screens';
 
 import { SUPPORTED_LANGUAGES_WEBSITE, pdfUrls } from '../../../shared/presentation/constants';
 import { IStoreKey } from '../../../shared/application/types';
-import { ModalQuiz } from 'apps/bank-app/src/energy/presentation/screens/ModalQuiz';
-
+import { AdaptTemperature } from '../../../energy/presentation/screens/AdaptTemperature';
 const locales = getLocales();
 
 export const RootStack = () => {
@@ -185,28 +175,6 @@ export const AuthStack = () => {
 
   const ScreenLegal = () => <WebViewer uri={pdfUrls(lng).legal} handleError={handleError} />;
   const ScreenCguKycProvider = () => <WebViewer uri={pdfUrls(lng).cguKycProvider} handleError={handleError} />;
-
-  const headersOptionsModal = (onPressBackButton?: () => void) =>
-    onPressBackButton
-      ? {
-          headerLeft(): JSX.Element {
-            return <GreenCloseButton onPress={onPressBackButton} />;
-          },
-          headerTitleAlign: 'center' as HeaderTitleAlign,
-          headerTitleStyle: {
-            color: Colors.primary.darkBlue,
-            fontSize: 16,
-            fontFamily: FontNames.MartelSans_600SemiBold,
-          },
-        }
-      : {
-          headerTitleAlign: 'center' as HeaderTitleAlign,
-          headerTitleStyle: {
-            color: Colors.primary.darkBlue,
-            fontSize: 16,
-            fontFamily: FontNames.MartelSans_600SemiBold,
-          },
-        };
 
   const navigation = useNavigation();
   const onPressEmptyStorage = () => {
