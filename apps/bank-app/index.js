@@ -25,9 +25,9 @@ if (process.env.EXPO_PUBLIC_NODE_ENV !== 'development') {
     },
     integrations: [Sentry.mobileReplayIntegration()],
   });
-  // console.log = () => {
-  //   return;
-  // };
+  console.log = () => {
+    return;
+  };
 }
 
 Geocoder.init(process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY);
