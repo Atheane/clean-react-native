@@ -692,7 +692,7 @@
       "init": {
         "steps": "étapes :\n",
         "step1": "1. Joindre une pièce d’identité\n",
-        "step2": "2. Faire un virement de 1 euro depuis un de vos comptes bancaires sur votre Bank App\n",
+        "step2": "2. Faire un virement de 5 euros depuis un de vos comptes bancaires sur votre Bank App\n",
         "step3": "3. Joindre le formulaire W9",
         "check-identity": "Vérifier"
       },
@@ -726,7 +726,7 @@
         "w9-form": "Formulaire W9",
         "identity": "Pièce d'identité",
         "fix-file": "Merci de corriger les éléments du dossier",
-        "transfer": "Virement de 1 euro"
+        "transfer": "Virement de 5 euros"
       },
       "first-id": {
         "title": "Pièces d'identité",
@@ -765,8 +765,8 @@
         "instruction": "ou importer votre formulaire w-9"
       },
       "sct-required": {
-        "title": "Virement de 1 euro",
-        "instruction": "Faîtes un virement de 1 euro sur votre Bank App, à partir d’un de vos comptes situés en France."
+        "title": "Virement de 5 euros",
+        "instruction": "Faîtes un virement de 5 euros sur votre Bank App, à partir d’un de vos comptes situés en France."
       }
     },
     "parameters": {
@@ -898,7 +898,9 @@
         "renovate-my-house": "Estimer mes gains après\nrénovation énergétique",
         "my-energy-consumption": "Ma consommation \nénergétique",
         "price-comfort": "Prix-confort :",
-        "total-green-euros": "Total €G gagnés"
+        "total-green-euros": "Total €G gagnés",
+        "internal": "Intérieur",
+        "external": "Extérieur"
       },
       "win-green-euros": {
         "title": "Quizz et challenges",
@@ -922,6 +924,35 @@
         "incorrect": "Faux",
         "incorrect-description": "Désolé, mais souvenez-vous que vous pourrez répondre à cette question demain, et jusqu’à ce que vous trouviez la bonne solution ! Après tout, le but du jeu c’est d’apprendre en s’amusant.",
         "button-incorrect": "Essayer demain"
+      },
+      "adapt-temperature": {
+        "title": "Adapter la température",
+        "title-winter": "Votre Prix-Confort\n d'hiver est :",
+        "title-summer": "Votre Prix-Confort\nd'été est :",
+        "winter": "Hiver",
+        "summer": "Été",
+        "description": "Pour gagner 1°C à l’intérieur de votre logement par rapport à la température extérieure :",
+        "legend": "Par mois",
+        "info-card": {
+          "title": "Astuce du jour",
+          "text": "Restez au frais ! Fermez vos stores ou vos rideaux au moins 5 heures par jour pour empêcher l’excès de chaleur d’entrer et réduire le besoin de climatisation. Combien de jours pouvez-vous garder cette habitude ?"
+        },
+        "snowflake": "Adaptez la température de votre logement",
+        "adapt-card": {
+          "text-positive-part-one": "Si vous augmentez de ",
+          "text-positive-part-two": "°C la température intérieure, vous augmenterez votre facture de",
+          "text-negative-part-one": "Si vous diminuez de ",
+          "text-negative-part-two": "°C la température intérieure, vous réduirez votre facture de",
+          "comment": "😉 Avant augmentation des prix de l’énergie"
+        },
+        "explanation": {
+          "title": "Prix-Confort, comment ça marche ?",
+          "text": "Le prix-confort est une valeur constante bien pratique pour essayer de prévoir vos consommations d’énergie de chauffage ou climatisation.\n\n"+
+                  "Plus il fait froid, plus il faut d’énergie pour maintenir 18°C dans le logement : s’il fait zéro degré dehors, il faut chauffer 18°C et la maison consomme 18 fois la valeur prix-confort.\n\n"+
+                  "S’il fait 10°C dehors, il ne faut chauffer que de 8°C pour passer de 10°C à 18°C, et la maison ne consomme plus que 8 fois le prix-confort.\n\n"+
+                  "Le prix-confort dépend à la fois de vos habitudes et de la qualité d’isolation de votre maison.\n\n"+
+                  "A vous de jouer, pour baisser cette valeur, c’est à dire payer moins pour avoir plus de confort !"
+        },
       },
       "title": "Bilan Energie",
       "tab": "Energie"

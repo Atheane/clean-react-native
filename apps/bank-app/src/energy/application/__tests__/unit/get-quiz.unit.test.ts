@@ -29,6 +29,9 @@ describe('GetQuiz - usecase', () => {
     quizId: mockQuizData.quizId.toString(),
     theme: mockQuizData.theme,
   });
+  const mockLocales = [{ languageCode: 'fr' }];
+  let getLocalesMock: jest.SpyInstance;
+
   beforeEach(() => {
     httpConnection = createMockHttpConnection();
     mockInfrastructure();
@@ -38,11 +41,15 @@ describe('GetQuiz - usecase', () => {
       console.log('Data:', JSON.stringify(data, null, 2));
       return true;
     });
+    // eslint-disable-next-line
+    getLocalesMock = jest.spyOn(require('expo-localization'), 'getLocales');
+    getLocalesMock.mockReturnValue(mockLocales);
   });
 
   afterEach(() => {
     jest.resetAllMocks();
     jest.clearAllMocks();
+    getLocalesMock.mockRestore();
   });
 
   it('Should wait for GET_QUIZ action and call getQuizGenerator, should be done on next iteration', () => {
@@ -95,5 +102,53 @@ describe('GetQuiz - usecase', () => {
       .throw(new Error('unknown error'))
       .put(showUnknownError(new Error('unknown error')))
       .next();
+  });
+
+  it('Should use language from device locales if user has no language config', async () => {
+    const userWithoutLangConfig = { ...mockUser, properties: { ...mockUser.properties, config: {} } };
+
+    testSaga(getQuizGenerator, httpConnection)
+      .next()
+      .select(selectUser)
+      .next(userWithoutLangConfig)
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
+      .select(selectEnergy)
+      .next(mockEnergy)
+      .call([api, api.getQuiz], 'fr')
+      .next(mockQuiz);
+  });
+
+  it('Should use default "en" language if user has no config and no device locales', async () => {
+    const userWithoutLangConfig = { ...mockUser, properties: { ...mockUser.properties, config: {} } };
+    getLocalesMock.mockReturnValue([]);
+    testSaga(getQuizGenerator, httpConnection)
+      .next()
+      .select(selectUser)
+      .next(userWithoutLangConfig)
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
+      .select(selectEnergy)
+      .next(mockEnergy)
+      .call([api, api.getQuiz], 'en')
+      .next(mockQuiz);
+  });
+
+  it('Should handle case where user has undefined config property', async () => {
+    const userWithUndefinedConfig = {
+      ...mockUser,
+      properties: { ...mockUser.properties, config: undefined },
+    };
+
+    testSaga(getQuizGenerator, httpConnection)
+      .next()
+      .select(selectUser)
+      .next(userWithUndefinedConfig)
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
+      .select(selectEnergy)
+      .next(mockEnergy)
+      .call([api, api.getQuiz], 'fr')
+      .next(mockQuiz);
   });
 });

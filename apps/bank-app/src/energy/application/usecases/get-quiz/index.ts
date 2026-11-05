@@ -3,6 +3,7 @@ import { call, put, StrictEffect, takeEvery, select } from 'redux-saga/effects';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { Quiz, Energy } from '@clean-rn/energy/domain';
 import { EnergyRepositoryFactory } from '@clean-rn/energy/infrastructure';
+import { getLocales } from 'expo-localization';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
@@ -22,7 +23,14 @@ export function* getQuizGenerator(httpConnection: HttpConnection): Generator<Str
     const energy: Energy = yield select(selectEnergy);
 
     const energyRepository = EnergyRepositoryFactory.getRepository(httpConnection);
-    const quiz: Quiz = yield call([energyRepository, energyRepository.getQuiz], user.properties.config.lang);
+    let lang;
+    if (user.properties.config?.lang) {
+      lang = user.properties.config.lang;
+    } else {
+      const locales = getLocales();
+      lang = locales[0]?.languageCode || 'en';
+    }
+    const quiz: Quiz = yield call([energyRepository, energyRepository.getQuiz], lang);
     if (quiz) {
       energy.setCurrentQuiz(quiz);
     }

@@ -2,7 +2,7 @@ export const Colors = {
   primary: {
     darkGrey: '#444A52',
     grey: '#838383',
-    lightGrey: '#F0F0F0',
+    lightGrey: '#EFEFEF',
     darkWhite: '#F8F8F8',
     white: '#FFFFFF',
     lightPurple: '#7887CC',
@@ -21,6 +21,11 @@ export const Colors = {
     lightPurple: '#BB81EE',
     black: '#000000',
     blue: '#0A7DC0',
+    darkBlue: '#3F4F96',
+    orange: '#FF9900',
+    darkRed: '#990000',
+    red: '#FF0000',
+    yellow: '#EBBC2E',
   },
   greenGradient: {
     lightGreen: '#D0CF2A',

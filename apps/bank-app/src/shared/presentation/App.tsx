@@ -10,12 +10,14 @@ import { PersistGate } from 'redux-persist/integration/react';
 import Toast from 'react-native-toast-message';
 import { ConfigCatProvider, createConsoleLogger, LogLevel } from 'configcat-react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { useNotification } from './hooks';
+import * as Notifications from 'expo-notifications';
 
 import SplashScreen from '../../../assets/images/splash.png';
 import { store, persistor } from '../application/usecases/root-saga';
 import { IRootState } from '../application/state-management/reducers/root-reducer';
 import { initializeApplication } from '../application/commands/initialize-application';
+import { fetchLogout } from '../../auth/application/commands';
+
 import { Fonts } from './constants';
 import { theme } from './theme';
 import { useDeepLink } from './hooks';
@@ -32,6 +34,21 @@ const App: () => JSX.Element = () => {
 
   useEffect(() => {
     dispatch(initializeApplication());
+
+    // Configurer l'écouteur de notifications
+    const notificationListener = Notifications.addNotificationReceivedListener((notification) => {
+      Toast.show({
+        type: 'info',
+        text1: notification.request.content.title ?? undefined,
+        text2: notification.request.content.body ?? undefined,
+        position: 'top',
+        visibilityTime: 4000,
+      });
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener);
+    };
   }, [dispatch]);
 
   useDeepLink();
@@ -45,8 +62,9 @@ const App: () => JSX.Element = () => {
       Alert.alert(t('notification.network-error.title'), t('notification.network-error.body'), [
         { text: 'OK', onPress: () => console.log('OK Pressed') },
       ]);
+      dispatch(fetchLogout());
     }
-  }, [error, t]);
+  }, [error, t, dispatch]);
 
   useEffect(() => {
     const handleAppStateChange = (nextAppState: AppStateStatus) => {

@@ -24,6 +24,14 @@ export const energyDomainEventsConfig = {
       actionType: IEnergyTypes.ENERGY_DOMAIN_EVENT,
     },
     {
+      eventName: ENERGY_EVENTS.HUMIDITY_EXT_ADDED,
+      actionType: IEnergyTypes.ENERGY_DOMAIN_EVENT,
+    },
+    {
+      eventName: ENERGY_EVENTS.TEMPERATURE_EXT_ADDED,
+      actionType: IEnergyTypes.ENERGY_DOMAIN_EVENT,
+    },
+    {
       eventName: ENERGY_EVENTS.PRICES_COMFORT_ADDED,
       actionType: IEnergyTypes.ENERGY_DOMAIN_EVENT,
     },

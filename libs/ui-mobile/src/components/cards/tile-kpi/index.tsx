@@ -9,6 +9,7 @@ type IProps = {
   data: { kpi?: string; unit: string; legend: string; color?: string };
   icon: React.FC<SvgProps>;
   loading?: boolean;
+  backgroundColor?: string;
 };
 
 const TILE_KPI_CARD_RATIO = 76 / 103;
@@ -23,7 +24,13 @@ export const TileKpi: FC<IProps> = (props: IProps) => {
       style={[styles.tileContainer, Platform.OS === 'web' && styles.webTileContainer]}
     />
   ) : (
-    <View style={[theme.container.card.tile, Platform.OS === 'web' && styles.webTileContainer]}>
+    <View
+      style={[
+        theme.container.card.tile,
+        Platform.OS === 'web' && styles.webTileContainer,
+        { backgroundColor: props.backgroundColor ?? Colors.primary.lightGrey },
+      ]}
+    >
       <View style={[styles.rowContainer, { flex: 2 }]}>
         <props.icon />
         {props.data.kpi === undefined && <Text style={[theme.text.kpi, styles.kpiText, color]}>...</Text>}
@@ -54,7 +61,6 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.26,
     height: Dimensions.get('window').width * 0.26 * TILE_KPI_CARD_RATIO,
     marginHorizontal: 4,
-    backgroundColor: Colors.primary.lightGrey,
     borderRadius: 12,
   },
   webTileContainer: {

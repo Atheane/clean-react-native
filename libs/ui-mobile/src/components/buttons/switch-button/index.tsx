@@ -1,11 +1,12 @@
 import { FC, useState } from 'react';
 import { View, StyleSheet, Text, Dimensions, Platform } from 'react-native';
+import { SvgProps } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Button, useTheme } from '@rneui/themed';
 
 import { Colors, FontNames, NEEDS_SMALL_TEXT } from '../../../constants';
 
-type IData = { key: string; value: string };
+type IData = { key: string; value: string; icon?: React.ComponentType<SvgProps> };
 
 type IProps = {
   label?: string;
@@ -33,24 +34,36 @@ const SwitchButtonBase: FC<IProps> = (props: IProps) => {
     );
   };
 
-  const renderButton = (position: 0 | 1) => (
-    <Button
-      buttonStyle={[
-        styles.button,
-        { backgroundColor: toggle === (position === 0) ? Colors.primary.white : Colors.transparent },
-      ]}
-      onPress={() => handleOnPress(position)}
-    >
-      <Text
-        style={[
-          styles.text,
-          { color: toggle === (position === 0) ? Colors.primary.darkGrey : Colors.primary.lightGrey },
+  const renderButton = (position: 0 | 1) => {
+    const Icon = props.options[position].icon;
+    return (
+      <Button
+        buttonStyle={[
+          styles.button,
+          { backgroundColor: toggle === (position === 0) ? Colors.primary.white : Colors.transparent },
         ]}
+        onPress={() => handleOnPress(position)}
       >
-        {props.options[position].value}
-      </Text>
-    </Button>
-  );
+        <View style={styles.buttonContentContainer}>
+          {Icon && (
+            <View style={styles.iconContainer}>
+              <Icon color={toggle === (position === 0) ? Colors.primary.darkBlue : Colors.primary.white} />
+            </View>
+          )}
+          <View style={Icon && styles.textContainer}>
+            <Text
+              style={[
+                styles.text,
+                { color: toggle === (position === 0) ? Colors.primary.darkGrey : Colors.primary.lightGrey },
+              ]}
+            >
+              {props.options[position].value}
+            </Text>
+          </View>
+        </View>
+      </Button>
+    );
+  };
 
   return (
     <View>
@@ -126,6 +139,17 @@ const styles = StyleSheet.create({
     width: (Dimensions.get('window').width * 0.75 - 20) / 2,
     height: 46,
     borderRadius: 28,
+  },
+  buttonContentContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  iconContainer: {
+    marginRight: 20,
+  },
+  textContainer: {
+    marginRight: 20, // only if icon is present
   },
   text: {
     fontFamily: FontNames.MartelSans_600SemiBold,

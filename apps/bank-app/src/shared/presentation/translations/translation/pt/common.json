@@ -543,7 +543,7 @@
         "w9-form": "Formulário W9",
         "identity": "Identidade",
         "fix-file": "Por favor, corrija os elementos do arquivo",
-        "transfer": "Transferência de 1 euro"
+        "transfer": "Transferência de 5 euros"
       },
       "first-id": {
         "title": "Documentos de identidade",
@@ -582,8 +582,8 @@
         "instruction": "ou importe seu formulário w-9"
       },
       "sct-required": {
-        "title": "Transferência de 1 euro",
-        "instruction": "Faça uma transferência de 1 euro para sua Conta CO2, a partir de uma das suas contas na França."
+        "title": "Transferência de 5 euros",
+        "instruction": "Faça uma transferência de 5 euros para sua Conta CO2, a partir de uma das suas contas na França."
       }
     },
     "waiting-card": {

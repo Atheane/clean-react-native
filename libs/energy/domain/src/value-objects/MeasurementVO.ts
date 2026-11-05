@@ -1,4 +1,4 @@
-import { IsDateString, IsDefined, IsEnum, validate, IsNumber, IsArray } from 'class-validator';
+import { IsDateString, IsDefined, IsEnum, validate, IsNumber, IsArray, IsOptional } from 'class-validator';
 import { MEASUREMENT_UNIT, IMeasurement } from '../types';
 import { EnergyError } from '../errors';
 
@@ -16,8 +16,8 @@ export class MeasurementVO {
   average!: number;
 
   @IsArray()
-  @IsDefined()
-  data!: IMeasurement[];
+  @IsOptional()
+  data?: IMeasurement[];
 
   private constructor(props: Partial<MeasurementVO>) {
     Object.assign(this, props);

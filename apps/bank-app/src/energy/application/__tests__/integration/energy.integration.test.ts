@@ -24,6 +24,8 @@ import {
   getMeasurementTemperature,
   getMeasurementHumidity,
   getMeasurementCO2,
+  getMeasurementTemperatureExt,
+  getMeasurementHumidityExt,
   getPriceComfort,
   getRewards,
   getQuiz as getQuizFixture,
@@ -67,6 +69,14 @@ const setupFixtures = async (httpConnection: HttpConnection) => {
     await getMeasurementCO2(httpConnection);
   }
 
+  if (!fs.existsSync(fixtureDir + '/get-measurement-temperature-ext.json')) {
+    await getMeasurementTemperatureExt(httpConnection);
+  }
+
+  if (!fs.existsSync(fixtureDir + '/get-measurement-humidity-ext.json')) {
+    await getMeasurementHumidityExt(httpConnection);
+  }
+
   if (!fs.existsSync(fixtureDir + '/get-price-comfort.json')) {
     await getPriceComfort(httpConnection);
   }
@@ -97,6 +107,12 @@ const setupFixtures = async (httpConnection: HttpConnection) => {
       fs.readFileSync(fixtureDir + '/get-measurement-humidity.json', 'utf8'),
     ),
     getMeasurementCO2: JSON.parse(fs.readFileSync(fixtureDir + '/get-measurement-co2-error404.json', 'utf8')),
+    getMeasurementTemperatureExt: JSON.parse(
+      fs.readFileSync(fixtureDir + '/get-measurement-temperature-ext.json', 'utf8'),
+    ),
+    getMeasurementHumidityExt: JSON.parse(
+      fs.readFileSync(fixtureDir + '/get-measurement-humidity-ext.json', 'utf8'),
+    ),
     unknownServerError: JSON.parse(fs.readFileSync(fixtureDir + '/unknown-server-error.json', 'utf8')),
     getPriceComfort: JSON.parse(fs.readFileSync(fixtureDir + '/get-price-comfort.json', 'utf8')),
     getRewards: JSON.parse(fs.readFileSync(fixtureDir + '/get-rewards.json', 'utf8')),
@@ -203,6 +219,12 @@ describe('Energy - integration', () => {
       http.get('*/app/energy-app/sensor/relativeHumidity', () => {
         return HttpResponse.json(fixtures.getMeasurementHumidity);
       }),
+      http.get('*/app/energy-app/sensor/wser-relativeHumidity', () => {
+        return HttpResponse.json(fixtures.getMeasurementHumidityExt);
+      }),
+      http.get('*/app/energy-app/sensor/wser-temperature', () => {
+        return HttpResponse.json(fixtures.getMeasurementTemperatureExt);
+      }),
       http.get('*/app/energy-app/core/comfort-price', () => {
         return HttpResponse.json(fixtures.getPriceComfort);
       }),
@@ -254,6 +276,18 @@ describe('Energy - integration', () => {
               ]),
               observedAt: expect.any(String),
               unit: 'PERCENTAGE',
+            }),
+            HUMIDITY_EXT: expect.objectContaining({
+              average: expect.any(Number),
+              data: undefined,
+              observedAt: expect.any(String),
+              unit: 'PERCENTAGE',
+            }),
+            TEMPERATURE_EXT: expect.objectContaining({
+              average: expect.any(Number),
+              data: undefined,
+              observedAt: expect.any(String),
+              unit: 'CELCIUS',
             }),
           },
           globalPriceComfort: expect.objectContaining({
@@ -349,6 +383,12 @@ describe('Energy - integration', () => {
       http.get('*/app/energy-app/sensor/relativeHumidity', () => {
         return HttpResponse.json(fixtures.getMeasurementHumidity);
       }),
+      http.get('*/app/energy-app/sensor/wser-relativeHumidity', () => {
+        return HttpResponse.json(fixtures.getMeasurementHumidityExt);
+      }),
+      http.get('*/app/energy-app/sensor/wser-temperature', () => {
+        return HttpResponse.json(fixtures.getMeasurementTemperatureExt);
+      }),
       http.get('*/app/energy-app/core/comfort-price', () => {
         return HttpResponse.json(fixtures.getPriceComfort);
       }),
@@ -411,6 +451,12 @@ describe('Energy - integration', () => {
       }),
       http.get('*/app/energy-app/sensor/relativeHumidity', () => {
         return HttpResponse.json(fixtures.getMeasurementHumidity);
+      }),
+      http.get('*/app/energy-app/sensor/wser-relativeHumidity', () => {
+        return HttpResponse.json(fixtures.getMeasurementHumidityExt);
+      }),
+      http.get('*/app/energy-app/sensor/wser-temperature', () => {
+        return HttpResponse.json(fixtures.getMeasurementTemperatureExt);
       }),
       http.get('*/app/energy-app/core/comfort-price', () => {
         return HttpResponse.json(fixtures.getPriceComfort);
@@ -479,6 +525,12 @@ describe('Energy - integration', () => {
       http.get('*/app/energy-app/sensor/relativeHumidity', () => {
         return HttpResponse.json(fixtures.getMeasurementHumidity);
       }),
+      http.get('*/app/energy-app/sensor/wser-relativeHumidity', () => {
+        return HttpResponse.json(fixtures.getMeasurementHumidityExt);
+      }),
+      http.get('*/app/energy-app/sensor/wser-temperature', () => {
+        return HttpResponse.json(fixtures.getMeasurementTemperatureExt);
+      }),
       http.get('*/app/energy-app/core/comfort-price', () => {
         return HttpResponse.json(fixtures.getPriceComfort);
       }),
@@ -546,6 +598,12 @@ describe('Energy - integration', () => {
       http.get('*/app/energy-app/sensor/relativeHumidity', () => {
         return HttpResponse.json(fixtures.getMeasurementHumidity);
       }),
+      http.get('*/app/energy-app/sensor/wser-relativeHumidity', () => {
+        return HttpResponse.json(fixtures.getMeasurementHumidityExt);
+      }),
+      http.get('*/app/energy-app/sensor/wser-temperature', () => {
+        return HttpResponse.json(fixtures.getMeasurementTemperatureExt);
+      }),
       http.get('*/app/energy-app/core/comfort-price', () => {
         return HttpResponse.json(fixtures.getPriceComfort);
       }),
@@ -604,6 +662,12 @@ describe('Energy - integration', () => {
       }),
       http.get('*/app/energy-app/sensor/relativeHumidity', () => {
         return HttpResponse.json(fixtures.getMeasurementHumidity);
+      }),
+      http.get('*/app/energy-app/sensor/wser-relativeHumidity', () => {
+        return HttpResponse.json(fixtures.getMeasurementHumidityExt);
+      }),
+      http.get('*/app/energy-app/sensor/wser-temperature', () => {
+        return HttpResponse.json(fixtures.getMeasurementTemperatureExt);
       }),
       http.get('*/app/energy-app/core/comfort-price', () => {
         return HttpResponse.json(fixtures.getPriceComfort);

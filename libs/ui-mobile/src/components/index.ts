@@ -32,6 +32,9 @@ import { ContactCard } from './cards/contact-card';
 import { TileDashboard } from './cards/tile-dashboard';
 import { TotalReward } from './cards/total-reward';
 import { Reward } from './cards/reward';
+import { TemperatureCard } from './cards/temperature-card';
+import { InfoCard } from './cards/info-card';
+import { AdaptTemperatureCard } from './cards/adapt-temperature-card';
 // Charts
 import { StackedBars } from './charts/stacked-bars';
 import { ScatterPlot } from './charts/scatter-plot';
@@ -130,9 +133,12 @@ export {
   TransferCard,
   BeneficiaryCard,
   ContactCard,
+  TemperatureCard,
   TileDashboard,
   TotalReward,
   Reward,
+  InfoCard,
+  AdaptTemperatureCard,
   // Charts
   StackedBars,
   ScatterPlot,

@@ -2,6 +2,8 @@ export enum SENSOR_TYPE {
   TEMPERATURE = 'TEMPERATURE',
   HUMIDITY = 'HUMIDITY',
   CO2 = 'CO2',
+  TEMPERATURE_EXT = 'TEMPERATURE_EXT',
+  HUMIDITY_EXT = 'HUMIDITY_EXT',
 }
 
 export interface ISensor {

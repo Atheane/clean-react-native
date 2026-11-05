@@ -683,7 +683,7 @@
       "init": {
         "steps": "Steps:\n",
         "step1": "1. Attach an identity document\n",
-        "step2": "2. Make a transfer of 1 euro from one of your bank accounts to your CO2 Account\n",
+        "step2": "2. Make a transfer of 5 euros from one of your bank accounts to your CO2 Account\n",
         "step3": "3. Attach the W9 form",
         "check-identity": "Check"
       },
@@ -717,7 +717,7 @@
         "w9-form": "W9 Form",
         "identity": "Identity Document",
         "fix-file": "Please fix the elements of the file",
-        "transfer": "Transfer of 1 euro"
+        "transfer": "Transfer of 5 euros"
       },
       "first-id": {
         "title": "Identity Documents",
@@ -756,8 +756,8 @@
         "instruction": "or import your W-9 form"
       },
       "sct-required": {
-        "title": "Transfer of 1 euro",
-        "instruction": "Make a transfer of 1 euro to your CO2 Account, from one of your accounts in France."
+        "title": "Transfer of 5 euros",
+        "instruction": "Make a transfer of 5 euros to your CO2 Account, from one of your accounts in France."
       }
     },
     "parameters": {
