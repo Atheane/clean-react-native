@@ -88,9 +88,6 @@ export const Home = () => {
   // Utilisation du hook de notifications push
   const { expoPushToken, notificationEnabled } = useNotification();
 
-  console.log('expoPushToken', expoPushToken);
-  console.log('notificationEnabled', notificationEnabled);
-
   const { deviceId, brand, model, os, osVersion } = useDevice();
 
   // Enregistrer l'appareil sur le serveur lorsque le token est disponible

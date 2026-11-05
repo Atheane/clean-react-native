@@ -63,12 +63,15 @@ export const useNotification = () => {
       .then((token) => {
         if (token) {
           setExpoPushToken(token);
+          console.log('expoPushToken', token);
           setNotificationEnabled(true);
+          console.log('notificationEnabled', notificationEnabled);
         }
       })
       .catch((error) => {
         console.log("Erreur lors de l'enregistrement des notifications push:", error);
         setNotificationEnabled(false);
+        console.log('notificationEnabled', notificationEnabled);
       });
 
     // Configurer les écouteurs de notifications
