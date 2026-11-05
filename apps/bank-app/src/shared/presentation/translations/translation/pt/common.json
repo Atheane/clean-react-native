@@ -724,9 +724,50 @@
         "win-euros": "Ganhe €G através do\nnosso Quiz!",
         "adapt-temperature": "Adaptar a temperatura\nda minha residência",
         "renovate-my-house": "Estimar meus ganhos após\nrenovação energética",
-        "my-energy-consumption": "Meu consumo\nenergético"
+        "my-energy-consumption": "Meu consumo\nenergético",
+        "average": "Média",
+        "price-comfort": "Preço-conforto:",
+        "total-green-euros": "Total de €G ganhos"
+      },
+      "win-green-euros": {
+        "title": "Quiz e desafios",
+        "header": "Aprenda e ganhe €G",
+        "description": "Teste seus conhecimentos sobre consumo de energia e ganhe €G!",
+        "total-green-euros": "Total de €G ganhos"
+      },
+      "quiz": {
+        "title": "Quiz",
+        "button-next": "Próximo",
+        "quiz": "Aqui está o quiz do dia:",
+        "button-question": "Verificar resposta",
+        "button-feeback-true": "Ver meu cofrinho",
+        "button-feeback-false": "Tentar amanhã",
+        "challenge-description": "Teste seus conhecimentos sobre consumo de energia"
+      },
+      "feedback": {
+        "correct": "Correto!",
+        "correct-description": "Parabéns, você encontrou a resposta certa e ganha:",
+        "button-correct": "Ver meu cofrinho",
+        "incorrect": "Incorreto",
+        "incorrect-description": "Desculpe, mas lembre-se que você poderá responder a esta pergunta amanhã, até encontrar a solução certa! Afinal, o objetivo do jogo é aprender se divertindo.",
+        "button-incorrect": "Tentar amanhã"
       },
       "tab": "Balanço Energético"
+    },
+    "transport-situation": {
+      "title": "Meu bônus CO2",
+      "vehicle": "Veículo",
+      "before": "antes",
+      "in": "em",
+      "owned": "adquirido",
+      "sold": "vendido",
+      "end": "Fim"
+    }
+  },
+  "notification": {
+    "network-error": {
+      "title": "Sem conexão com a Internet",
+      "body": "Por favor, verifique sua conexão com a Internet."
     }
   }
 }

@@ -213,11 +213,11 @@
     "bank": "contatto@example.com",
     "subject": {
       "unavailable-card": "Richiesta di rinnovo della carta",
-      "contact": "Contatto dall'applicazione CO2"
+      "contact": "Contatto tramite l'app CO2"
     },
     "body": {
       "unavailable-card": "Buongiorno,\nL'applicazione CO2 mi indica che la mia carta CO2 non è più accessibile, e desidero rinnovarla.\n\nCordiali saluti",
-      "contact": "Buongiorno,\n"
+      "contact": "Salve,\n"
     }
   },
   "password-input": {
@@ -579,7 +579,7 @@
     "evolution": {
       "title": "Evoluzione delle mie emissioni",
       "na": "Non calcolato",
-      "receive": "Ricevere il mio premio",
+      "receive": "Ricevi il mio premio",
       "baseline": "Emissioni di riferimento"
     },
     "footprint-estimation": {
@@ -892,9 +892,35 @@
         "win-euros": "Guadagna €G grazie al\nnostro Quiz!",
         "adapt-temperature": "Adatta la temperatura\ndella mia abitazione",
         "renovate-my-house": "Stima i miei risparmi dopo\nla ristrutturazione energetica",
-        "my-energy-consumption": "Il mio consumo\nenergetico"
+        "my-energy-consumption": "Il mio consumo\nenergetico",
+        "average": "Media",
+        "price-comfort": "Prezzo-comfort:",
+        "total-green-euros": "Totale €G guadagnati"
       },
-      "tab": "Bilancio Energetico"
+      "tab": "Bilancio Energetico",
+      "win-green-euros": {
+        "title": "Quiz e sfide",
+        "header": "Impara e guadagna €G",
+        "description": "Metti alla prova le tue conoscenze sul consumo energetico e guadagna €G!",
+        "total-green-euros": "Totale €G guadagnati"
+      },
+      "quiz": {
+        "title": "Quiz",
+        "button-next": "Successivo",
+        "quiz": "Ecco il quiz del giorno:",
+        "button-question": "Verifica risposta",
+        "button-feeback-true": "Vedi il mio salvadanaio",
+        "button-feeback-false": "Prova domani",
+        "challenge-description": "Metti alla prova le tue conoscenze sul consumo energetico"
+      },
+      "feedback": {
+        "correct": "Corretto!",
+        "correct-description": "Congratulazioni, hai trovato la risposta giusta e guadagni:",
+        "button-correct": "Vedi il mio salvadanaio",
+        "incorrect": "Sbagliato",
+        "incorrect-description": "Mi dispiace, ma ricorda che potrai rispondere a questa domanda domani, fino a quando non troverai la soluzione giusta! Dopotutto, lo scopo del gioco è imparare divertendosi.",
+        "button-incorrect": "Prova domani"
+      }
     }
   }
 }

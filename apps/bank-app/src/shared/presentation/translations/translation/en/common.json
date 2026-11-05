@@ -562,7 +562,7 @@
       "in": "in",
       "owned": "acquired",
       "sold": "sold",
-      "end": "Finish"
+      "end": "End"
     },
     "household-situation": {
       "title": "My CO2 bonus",
@@ -887,9 +887,41 @@
         "win-euros": "Win €G with\nour Quiz!",
         "adapt-temperature": "Adjust the temperature\nof my home",
         "renovate-my-house": "Estimate my savings after\nenergy renovation",
-        "my-energy-consumption": "My energy\nconsumption"
+        "my-energy-consumption": "My energy\nconsumption",
+        "average": "Average",
+        "price-comfort": "Price-comfort:",
+        "total-green-euros": "Total €G earned"
+      },
+      "win-green-euros": {
+        "title": "Quiz and challenges",
+        "header": "Learn and earn €G",
+        "description": "Test your knowledge about energy consumption and earn €G!",
+        "total-green-euros": "Total €G earned"
+      },
+      "quiz": {
+        "title": "Quiz",
+        "button-next": "Next",
+        "quiz": "Here is today's quiz:",
+        "button-question": "Check answer",
+        "button-feeback-true": "See my earnings",
+        "button-feeback-false": "Try tomorrow",
+        "challenge-description": "Test your knowledge about energy consumption"
+      },
+      "feedback": {
+        "correct": "Correct!",
+        "correct-description": "Congratulations, you found the right answer and earn:",
+        "button-correct": "See my earnings",
+        "incorrect": "Wrong",
+        "incorrect-description": "Sorry, but remember that you can answer this question tomorrow, until you find the right solution! After all, the goal of the game is to learn while having fun.",
+        "button-incorrect": "Try tomorrow"
       },
       "tab": "Energy Assessment"
+    }
+  },
+  "notification": {
+    "network-error": {
+      "title": "No internet connection",
+      "body": "Please check your internet connection."
     }
   }
 }
