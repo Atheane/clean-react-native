@@ -2,20 +2,18 @@
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { Email } from '@clean-rn/auth/domain';
 import { User } from '@clean-rn/user/domain';
 import { DeviceApi } from '@clean-rn/device/infrastructure';
-import { Device, DeviceError } from '@clean-rn/device/domain';
+import { Device } from '@clean-rn/device/domain';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
 import { selectUser } from '../../../../user/application/state-management/selectors';
 
 import { registerDeviceGenerator, registerDeviceSaga } from '../../usecases/register-device';
-import { IDeviceTypes, deviceRegistered, deviceAlreadyRegistered, resetError } from '../../commands';
-import { IStoreKey } from '../../../../shared/application/types';
+import { IDeviceTypes, deviceRegistered, resetError } from '../../commands';
 
 jest.mock('@clean-rn/shared/infrastructure', () => ({
   HttpConnection: {
@@ -104,45 +102,10 @@ describe('Device - usecase', () => {
       .next()
       .select(selectUser)
       .next(user)
-      .call(AsyncStorage.getItem, IStoreKey.DEVICE_ID)
-      .next(null)
       .call([deviceApi, deviceApi.createDevice], mockData)
       .next(device)
       .put(deviceRegistered(device))
-      .next(device)
-      .call(AsyncStorage.setItem, IStoreKey.DEVICE_ID, device.id)
-      .next();
-  });
-
-  it('Should call deviceAlreadyRegistered if device exists in AsyncStorage', () => {
-    const user = User.Create({
-      id: mockData.userId,
-      properties: {
-        email: new Email('test@test.com'),
-      },
-    });
-    const device = Device.Create({ deviceId: mockData.deviceId, userId: mockData.userId.toString() });
-    device.registerDeviceProperties({
-      brand: mockData.brand,
-      model: mockData.model,
-      os: mockData.os,
-      osVersion: mockData.osVersion,
-    });
-    device.addAppVersion(mockData.appVersion);
-    device.connectToNotifications(mockData.firebaseId);
-
-    testSaga(registerDeviceGenerator, httpConnection, {
-      type: IDeviceTypes.FETCH_REGISTER_DEVICE,
-      payload: mockData,
-    })
-      .next()
-      .select(selectUser)
-      .next(user)
-      .call(AsyncStorage.getItem, IStoreKey.DEVICE_ID)
-      .next(device.id)
-      .put(deviceAlreadyRegistered({ error: new DeviceError.AlreadyRegistered(device.id) }))
-      .next()
-      .cancel();
+      .next(device);
   });
 
   it('Should call showUnknownError action if 500', () => {
@@ -160,8 +123,6 @@ describe('Device - usecase', () => {
       .next()
       .select(selectUser)
       .next(user)
-      .call(AsyncStorage.getItem, IStoreKey.DEVICE_ID)
-      .next(null)
       .call([deviceApi, deviceApi.createDevice], mockData)
       .throw(new ServerError(mockError500))
       .put(resetError())

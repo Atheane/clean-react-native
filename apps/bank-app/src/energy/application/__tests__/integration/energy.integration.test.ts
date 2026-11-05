@@ -144,6 +144,11 @@ describe('Energy - integration', () => {
       user: {
         user: {
           id: '123',
+          properties: {
+            config: {
+              lang: 'en',
+            },
+          },
         },
       },
       energy: {
@@ -353,11 +358,12 @@ describe('Energy - integration', () => {
     );
 
     sagaTester.start(getEnergySaga, httpConnection);
-    sagaTester.dispatch(getEnergy());
     sagaTester.start(getQuizSaga, httpConnection);
-    sagaTester.dispatch(getQuiz());
 
-    await new Promise((resolve) => setTimeout(resolve, 0));
+    sagaTester.dispatch(getEnergy());
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    sagaTester.dispatch(getQuiz());
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     const state = sagaTester.getState();
 

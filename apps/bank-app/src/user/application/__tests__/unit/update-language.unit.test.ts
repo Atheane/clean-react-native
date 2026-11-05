@@ -12,6 +12,7 @@ import {
   Country,
   IUpdateUserConfigCommand,
   ILanguage,
+  IUserType,
 } from '@clean-rn/user/domain';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { UserApi } from '@clean-rn/user/infrastructure';
@@ -22,6 +23,7 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 import { updateLanguageSaga, updateLanguageGenerator } from '../../usecases';
 import { IUserTypes, languageUpdated, resetError } from '../../commands';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
+import { selectUser } from '../../state-management/selectors';
 
 jest.mock('@clean-rn/shared/infrastructure', () => ({
   HttpConnection: {
@@ -73,6 +75,7 @@ describe('Update Language - usecase', () => {
         lastName: 'aze',
       },
       phone: new Phone('+46726413201'),
+      userType: IUserType.BANK_USER,
     },
   });
 
@@ -109,15 +112,19 @@ describe('Update Language - usecase', () => {
   it('should call languageUpdated', () => {
     const userWithConfig = user;
     userWithConfig.setConfig(mockUpdateLanguage);
-
+    userWithConfig.setUserType(IUserType.BANK_USER);
     testSaga(updateLanguageGenerator, httpConnection, {
       type: IUserTypes.FETCH_UPDATE_LANGUAGE,
       payload: mockUpdateLanguage,
     })
       .next()
+      .select(selectUser)
+      .next(user)
       .call(ensureTokenRefreshed, httpConnection)
       .next()
-      .call([userApi, userApi.updateConfig], mockUpdateLanguage)
+      .call([userApi, userApi.updateConfig], {
+        ...mockUpdateLanguage,
+      })
       .next(userWithConfig)
       .put(languageUpdated({ user: userWithConfig }))
       .next()
@@ -131,15 +138,20 @@ describe('Update Language - usecase', () => {
       lang: ILanguage.EL,
     };
     userWithConfig.setConfig(mockUpdateLanguage);
+    userWithConfig.setUserType(IUserType.BANK_USER);
 
     testSaga(updateLanguageGenerator, httpConnection, {
       type: IUserTypes.FETCH_UPDATE_LANGUAGE,
       payload: mockUpdateLanguage,
     })
-      .next()
+      .next(user)
+      .select(selectUser)
+      .next(user)
       .call(ensureTokenRefreshed, httpConnection)
       .next()
-      .call([userApi, userApi.updateConfig], mockUpdateLanguage)
+      .call([userApi, userApi.updateConfig], {
+        ...mockUpdateLanguage,
+      })
       .next(userWithConfig)
       .put(languageUpdated({ user: userWithConfig }))
       .next()
@@ -156,6 +168,8 @@ describe('Update Language - usecase', () => {
       payload: mockUpdateLanguage,
     })
       .next()
+      .select(selectUser)
+      .next(user)
       .call(ensureTokenRefreshed, httpConnection)
       .next()
       .throw(new ServerError(mockError500))
@@ -174,6 +188,8 @@ describe('Update Language - usecase', () => {
       payload: mockUpdateLanguage,
     })
       .next()
+      .select(selectUser)
+      .next(user)
       .call(ensureTokenRefreshed, httpConnection)
       .next()
       .throw(new Error('unknown error'))

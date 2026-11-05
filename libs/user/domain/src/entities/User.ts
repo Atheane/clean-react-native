@@ -11,6 +11,7 @@ import {
   IAssets,
   IIncome,
   IOccupation,
+  IUserType,
 } from '../types';
 import { Country, BirthDay } from '../value-objects';
 import {
@@ -42,6 +43,7 @@ export interface IUserProperties {
     assets: IAssets;
     occupation: IOccupation;
   };
+  userType?: IUserType;
 }
 
 export class User extends Entity<IUserProperties> {
@@ -128,5 +130,9 @@ export class User extends Entity<IUserProperties> {
     if (lastName && this.properties.identity && this.properties.identity.lastName !== lastName) {
       this.properties.identity.lastName = lastName;
     }
+  }
+
+  setUserType(userType: IUserType): void {
+    this.properties.userType = userType;
   }
 }

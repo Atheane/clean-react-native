@@ -26,6 +26,7 @@ export class EnergyApi implements IEnergyRepository {
   private constructor(httpConnection: HttpConnection) {
     this.connection = httpConnection;
     this.getSensors = this.getSensors.bind(this);
+    this.getQuiz = this.getQuiz.bind(this);
     this.getMeasurement = this.getMeasurement.bind(this);
   }
 
@@ -111,14 +112,14 @@ export class EnergyApi implements IEnergyRepository {
     return rewardsStatsDtos.rewardTotal;
   }
 
-  async getQuiz(): Promise<Quiz> {
+  async getQuiz(locale: string): Promise<Quiz> {
     const response = await fetch(
       `${this.connection.baseUrl}/app/energy-app/quiz`,
       this.connection.options(IHttpVerb.GET),
     );
     await this.connection.handleError(response);
     const quizDtos: IQuizDto[] = await response.json();
-    return QuizMapper.toDomain(quizDtos[0]);
+    return QuizMapper.toDomain(quizDtos[0], locale);
   }
 
   async checkAnswer(command: ICheckAnswerCommand): Promise<boolean> {

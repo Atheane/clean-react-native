@@ -22,7 +22,7 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 import { updateNotificationsSaga, updateNotificationsGenerator } from '../../usecases';
 import { IUserTypes, notificationUpdated, resetError } from '../../commands';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
-
+import { selectUser } from '../../state-management/selectors';
 jest.mock('@clean-rn/shared/infrastructure', () => ({
   HttpConnection: {
     getInstance: jest.fn(),
@@ -108,7 +108,12 @@ describe('Update Notifications - usecase', () => {
       .next()
       .call(ensureTokenRefreshed, httpConnection)
       .next()
-      .call([userApi, userApi.updateConfig], mockUpdateNotifications)
+      .select(selectUser)
+      .next(user)
+      .call([userApi, userApi.updateConfig], {
+        ...mockUpdateNotifications,
+        userId: user.id,
+      })
       .next(userWithConfig)
       .put(notificationUpdated({ user: userWithConfig }))
       .next()

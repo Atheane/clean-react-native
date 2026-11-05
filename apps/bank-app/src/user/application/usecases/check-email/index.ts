@@ -40,6 +40,12 @@ export function* checkEmailGenerator(
         yield put(loadStorage());
         yield call(navigate, { route: IAuthStackPages.LOGIN });
         break;
+      case IUserSearchServerCode.ENERGY_APP_USER:
+        yield put(signupFailed(new UserError.SignupFailureEmailExists()));
+        yield call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, payload.email.value);
+        yield put(loadStorage());
+        yield call(navigate, { route: IAuthStackPages.LOGIN });
+        break;
       case IUserSearchServerCode.KELVIN_USER:
         yield put(signupFailed(new UserError.SignupFailureEmailExists()));
         yield call(AsyncStorage.setItem, IStoreKey.USER_EMAIL, payload.email.value);

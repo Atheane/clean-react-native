@@ -92,7 +92,7 @@ export const Languages = () => {
           <View style={styles.rowContainer}>
             <TouchableOpacity
               style={{ marginVertical: 8 }}
-              onPress={() => handleSelectLanguage(ILanguage.ES)}
+              onPress={() => handleSelectLanguage(ILanguage.PT)}
             >
               <FlagForPortugal width={90} height={90} style={[styles.iconContainer, theme.shadow.button]} />
             </TouchableOpacity>
