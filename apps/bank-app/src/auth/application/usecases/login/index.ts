@@ -9,7 +9,7 @@ import { AuthApi, IAuthServerCode } from '@clean-rn/auth/infrastructure';
 import { UserApi } from '@clean-rn/user/infrastructure';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { CardApi } from '@clean-rn/card/infrastructure';
-import { ILanguage } from '@clean-rn/user/domain';
+import { ILanguage, IUserType } from '@clean-rn/user/domain';
 
 import { IStoreKey } from '../../../../shared/application/types';
 import { goBack, navigate } from '../../../../shared/presentation/navigation/navigationRef';
@@ -73,10 +73,16 @@ export function* loginGenerator(
       });
     }
 
+    const userType = yield call([userApi, userApi.searchEmail], { email: payload.email });
+    user.setUserType(userType);
+
     yield put(loginSuccess({ auth }));
     yield put(userSaved(user));
     yield put(checkCustomerStatus({ user }));
-    yield put(getEnergy());
+
+    if (userType === IUserType.ENERGY_APP_USER) {
+      yield put(getEnergy());
+    }
 
     yield call(navigate, { route: ISharedStackPages.HOME });
   } catch (error: unknown) {

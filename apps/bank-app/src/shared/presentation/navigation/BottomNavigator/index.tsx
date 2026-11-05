@@ -35,28 +35,14 @@ import { TransactionStack } from '../../../../transaction/presentation/navigatio
 import { CardStack } from '../../../../card/presentation/navigation';
 import { EnergyStack } from '../../../../energy/presentation/navigation';
 import { IRootState } from '../../../application/state-management/reducers/root-reducer';
-
+import { IUserType } from '@clean-rn/user/domain';
 const Tab = createBottomTabNavigator<IRootTabParamList>();
 
 export const BottomTabNavigator = () => {
   const { t } = useTranslation();
-  const { email } = useSelector((state: IRootState) => state.auth);
-  let userConfigCat: ConfigCatUser | undefined;
-  if (!email) {
-    userConfigCat = undefined;
-  } else {
-    userConfigCat = new ConfigCatUser(email.value, email.value);
-  }
-
-  const { value: featureEnergyApp, loading: loadingLegacy } = useFeatureFlag(
-    'energy-app',
-    false,
-    userConfigCat,
-  );
-
-  return loadingLegacy ? (
-    <LoaderSplashScreen />
-  ) : (
+  const { user } = useSelector((state: IRootState) => state.user);
+  console.log(user?.properties.userType);
+  return (
     <Tab.Navigator
       initialRouteName={IAccountStackPages.MENU}
       screenOptions={{
@@ -117,7 +103,7 @@ export const BottomTabNavigator = () => {
             focused ? <Text style={styles.tab}> {t('screens.footprint-estimation.tab')}</Text> : '',
         })}
       />
-      {featureEnergyApp && (
+      {user && user.properties.userType === IUserType.ENERGY_APP_USER && (
         <Tab.Screen
           name={IEnergyStackPages.MENU}
           component={EnergyStack}
