@@ -923,7 +923,8 @@
         "incorrect-description": "Désolé, mais souvenez-vous que vous pourrez répondre à cette question demain, et jusqu’à ce que vous trouviez la bonne solution ! Après tout, le but du jeu c’est d’apprendre en s’amusant.",
         "button-incorrect": "Essayer demain"
       },
-      "tab": "Bilan Energie"
+      "title": "Bilan Energie",
+      "tab": "Energie"
     }
   }
 }

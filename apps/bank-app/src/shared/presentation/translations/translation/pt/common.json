@@ -752,7 +752,8 @@
         "incorrect-description": "Desculpe, mas lembre-se que você poderá responder a esta pergunta amanhã, até encontrar a solução certa! Afinal, o objetivo do jogo é aprender se divertindo.",
         "button-incorrect": "Tentar amanhã"
       },
-      "tab": "Balanço Energético"
+      "tab": "Energia",
+      "title": "Balanço Energético"
     },
     "transport-situation": {
       "title": "Meu bônus CO2",

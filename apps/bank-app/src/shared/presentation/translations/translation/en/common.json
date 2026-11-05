@@ -915,7 +915,8 @@
         "incorrect-description": "Sorry, but remember that you can answer this question tomorrow, until you find the right solution! After all, the goal of the game is to learn while having fun.",
         "button-incorrect": "Try tomorrow"
       },
-      "tab": "Energy Assessment"
+      "tab": "Energy",
+      "title": "Energy Assessment"
     }
   },
   "notification": {

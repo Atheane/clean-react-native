@@ -897,7 +897,8 @@
         "price-comfort": "Prezzo-comfort:",
         "total-green-euros": "Totale €G guadagnati"
       },
-      "tab": "Bilancio Energetico",
+      "tab": "Energia",
+      "title": "Bilancio Energetico",
       "win-green-euros": {
         "title": "Quiz e sfide",
         "header": "Impara e guadagna €G",

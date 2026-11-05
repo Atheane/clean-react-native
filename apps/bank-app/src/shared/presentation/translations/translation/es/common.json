@@ -915,7 +915,8 @@
         "incorrect-description": "Lo siento, pero recuerda que puedes responder a esta pregunta mañana, ¡hasta que encuentres la solución correcta! Después de todo, el objetivo del juego es aprender divirtiéndose.",
         "button-incorrect": "Intentar mañana"
       },
-      "tab": "Balance Energético"
+      "tab": "Energético",
+      "title": "Balance Energético"
     }
   }
 }

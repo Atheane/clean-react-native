@@ -604,7 +604,8 @@
         "incorrect-description": "Tut mir leid, aber denken Sie daran, dass Sie diese Frage morgen wieder beantworten können, bis Sie die richtige Lösung finden! Schließlich ist das Ziel, spielerisch zu lernen.",
         "button-incorrect": "Morgen versuchen"
       },
-      "tab": "Energiebilanz"
+      "tab": "Energiebilanz",
+      "title": "Energiebilanz"
     },
     "household-situation": {
       "title": "Meine CO2-Prämie",
