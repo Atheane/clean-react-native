@@ -10,7 +10,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 import { HeaderTitleAlign } from '../../../shared/presentation/types';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
-import { MenuEnergy, ModalQuiz, WinGreenEuros } from '../screens';
+import { MenuEnergy, ModalQuiz, WinGreenEuros, AdaptTemperature } from '../screens';
 import { EnergyAppLogo } from '../assets/images';
 
 const Stack = createNativeStackNavigator<IEnergyStackProps & ISharedStackProps>();
@@ -49,7 +49,7 @@ export const EnergyStack = () => {
     userConfigCat = new ConfigCatUser(email.value, email.value);
   }
 
-  const { value: featureEnergy, loading: loadingEnergy } = useFeatureFlag('energy-app', false, userConfigCat);
+  const { loading: loadingEnergy } = useFeatureFlag('energy-app', false, userConfigCat);
   return loadingEnergy ? (
     <LoaderSplashScreen />
   ) : (
@@ -89,6 +89,14 @@ export const EnergyStack = () => {
         }}
         name={IEnergyStackPages.MODAL_QUIZ}
         component={ModalQuiz}
+      />
+      <Stack.Screen
+        name={IEnergyStackPages.ADAPT_TEMPERATURE}
+        component={AdaptTemperature}
+        options={{
+          headerTitle: t('screens.energy.adapt-temperature.title'),
+          ...headersOptions(goBack),
+        }}
       />
     </Stack.Navigator>
   );

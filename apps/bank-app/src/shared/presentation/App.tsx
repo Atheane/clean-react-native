@@ -10,7 +10,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 import Toast from 'react-native-toast-message';
 import { ConfigCatProvider, createConsoleLogger, LogLevel } from 'configcat-react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { useNotification } from './hooks';
 
 import SplashScreen from '../../../assets/images/splash.png';
 import { store, persistor } from '../application/usecases/root-saga';
