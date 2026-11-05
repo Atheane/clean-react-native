@@ -215,13 +215,13 @@ export class FootprintApi implements IFootprintRepository, IFootprintService {
     const response = await fetch(url, this.connection.options(IHttpVerb.GET));
     await this.connection.handleError(response);
     const vehiclesDtos: IVehicleDto[] = await response.json();
+    const transport = Transport.Create({ transportId: query.userId });
     if (vehiclesDtos.length === 0) {
-      return;
+      return transport;
     }
     const vehicles: Vehicle[] = await Promise.all(
       vehiclesDtos.map((vehicleDto: IVehicleDto) => VehicleMapper.toDomain(vehicleDto)),
     );
-    const transport = Transport.Create({ transportId: query.userId });
     transport.addVehicles(vehicles);
     return transport;
   }

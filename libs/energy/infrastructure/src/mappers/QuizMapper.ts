@@ -2,7 +2,10 @@ import { Quiz } from '@clean-rn/energy/domain';
 import { IQuizDto, ILocalizedString } from '../dto';
 
 export class QuizMapper {
-  static async toDomain(dto: IQuizDto, locale: string): Promise<Quiz> {
+  static async toDomain(dto: IQuizDto, locale: string): Promise<Quiz | null> {
+    if (!dto) {
+      return null;
+    }
     const defaultLocale = 'en';
     const choices = dto.choices.map((choice: ILocalizedString) => {
       return choice[locale as keyof ILocalizedString].length === 0
