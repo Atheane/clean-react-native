@@ -8,6 +8,9 @@
         "EXPO_PUBLIC_BUNDLE_IDENTIFIER": "com.example.bankapp",
         "EXPO_PUBLIC_NODE_ENV": "production",
         "EXPO_PUBLIC_SLUG_NAME_BANK_APP": "bank-app"
+      },
+      "ios": {
+        "image": "macos-sequoia-15.3-xcode-16.2" // https://expo.dev/blog/apple-sdk-minimum-requirements
       }
     },
     "development": {
