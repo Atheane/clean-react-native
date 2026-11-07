@@ -171,10 +171,6 @@ export const MenuEnergy = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchRefresh());
-  }, [dispatch]);
-
   const internalData = useMemo(() => {
     const hasTemperatureSensor = energy?.properties?.sensors?.some(
       (sensor) => sensor.type === SENSOR_TYPE.TEMPERATURE,

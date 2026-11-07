@@ -14,6 +14,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import {
   IAuthStackPages,
   IAuthStackProps,
+  IRoutes,
   ISharedStackPages,
   ISharedStackProps,
   IUserStackPages,
@@ -41,6 +42,7 @@ import { CguPdf } from '../../../shared/presentation/screens';
 
 import { SUPPORTED_LANGUAGES_WEBSITE, pdfUrls } from '../../../shared/presentation/constants';
 import { IStoreKey } from '../../../shared/application/types';
+
 const locales = getLocales();
 
 export const RootStack = () => {
