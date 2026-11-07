@@ -6,6 +6,7 @@ import {
   IGetQuiz,
   ICheckAnswer,
   IComputeRewards,
+  IGetConsumptions,
 } from './types';
 
 export const initializeEnergy = (): IInitializeEnergy => ({
@@ -27,6 +28,10 @@ export const checkAnswer = (payload: { quizId: string; answerIdx: number }): ICh
 
 export const computeRewards = (): IComputeRewards => ({
   type: IEnergyTypes.COMPUTE_REWARDS,
+});
+
+export const getConsumptions = (): IGetConsumptions => ({
+  type: IEnergyTypes.GET_CONSUMPTIONS,
 });
 
 export { IEnergyActions, IEnergyTypes };

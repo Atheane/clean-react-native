@@ -122,6 +122,7 @@ export { Quiz } from './Quiz';
 export { AdaptTemperature } from './AdaptTemperature';
 export { RenovateHouse } from './RenovateHouse';
 export { EnergyConsumption } from './EnergyConsumption';
+export { EnergyConsumptionBg } from './EnergyConsumptionBg';
 export { Temperature } from './Temperature';
 export { Humidity } from './Humidity';
 export { CO2Output } from './CO2Output';

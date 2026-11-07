@@ -34,6 +34,7 @@ export enum PRICE_COMFORT_DATA_GRANULARITY {
   DAILY = 'DAILY',
   INSTANT = 'INSTANT',
   MONTHLY = 'MONTHLY',
+  UNKNOWN = 'UNKNOWN',
 }
 
 export enum QUIZ_DIFFICULTY {
@@ -47,4 +48,10 @@ export enum QUIZ_THEME {
   ENERGY = 'ENERGY',
   ENVIRONMENT = 'ENVIRONMENT',
   HEALTH = 'HEALTH',
+}
+
+export interface IEnergyConsumption {
+  value: number;
+  month: string;
+  year: number;
 }

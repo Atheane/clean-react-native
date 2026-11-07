@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 
-import { Colors, StackedBars, TableBaseline } from '@clean-rn/ui-mobile';
+import { Colors, StackedBarsCO2, TableBaseline } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { ISharedStackPages } from '../../../shared/presentation/types';
@@ -35,7 +35,7 @@ export const EvolutionFootprint = () => {
       <SafeScrollingView>
         <View style={[styles.container]}>
           <View style={styles.row}>
-            <StackedBars
+            <StackedBarsCO2
               categories={['Voiture', 'Logement', 'CO2 Evité']}
               labels={['2019', '2020', '2021', '2022', '2023']}
               transport={[3100, 3100, 3000, 0, 0]}

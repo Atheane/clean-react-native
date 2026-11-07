@@ -47,5 +47,13 @@ export const energyDomainEventsConfig = {
       eventName: ENERGY_EVENTS.REWARDS_COMPUTED,
       actionType: IEnergyTypes.ENERGY_DOMAIN_EVENT,
     },
+    {
+      eventName: ENERGY_EVENTS.CONSUMPTIONS_UPDATED,
+      actionType: IEnergyTypes.ENERGY_DOMAIN_EVENT,
+    },
+    {
+      eventName: ENERGY_EVENTS.PRICES_COMFORT_MONTHLY_ADDED,
+      actionType: IEnergyTypes.ENERGY_DOMAIN_EVENT,
+    },
   ],
 };

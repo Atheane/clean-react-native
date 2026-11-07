@@ -10,7 +10,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 import { HeaderTitleAlign } from '../../../shared/presentation/types';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
-import { MenuEnergy, ModalQuiz, WinGreenEuros, AdaptTemperature } from '../screens';
+import { MenuEnergy, ModalQuiz, WinGreenEuros, AdaptTemperature, MyEnergyConsumption } from '../screens';
 import { EnergyAppLogo } from '../assets/images';
 
 const Stack = createNativeStackNavigator<IEnergyStackProps & ISharedStackProps>();
@@ -95,6 +95,14 @@ export const EnergyStack = () => {
         component={AdaptTemperature}
         options={{
           headerTitle: t('screens.energy.adapt-temperature.title'),
+          ...headersOptions(goBack),
+        }}
+      />
+      <Stack.Screen
+        name={IEnergyStackPages.MY_ENERGY_CONSUMPTION}
+        component={MyEnergyConsumption}
+        options={{
+          headerTitle: t('screens.energy.my-energy-consumption.title'),
           ...headersOptions(goBack),
         }}
       />

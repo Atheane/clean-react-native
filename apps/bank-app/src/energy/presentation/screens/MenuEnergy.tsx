@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLocales } from 'expo-localization';
@@ -14,7 +14,7 @@ import {
   Quiz,
   AdaptTemperature,
   RenovateHouse,
-  EnergyConsumption,
+  EnergyConsumptionBg,
   TotalReward,
   TileKpi,
   Temperature,
@@ -27,8 +27,7 @@ import {
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { IEnergyStackPages, ISharedStackPages, IRoutes } from '../../../shared/presentation/types';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { fetchRefresh } from '../../../auth/application/commands';
-import { getQuiz } from '../../../energy/application/commands';
+import { getQuiz, getConsumptions } from '../../../energy/application/commands';
 
 const getCO2Color = (co2: number) => {
   return co2 > 6000
@@ -246,6 +245,11 @@ export const MenuEnergy = () => {
     handlePressNavigation(IEnergyStackPages.WIN_GREEN_EUROS);
   };
 
+  const handlePressConsumptions = () => {
+    dispatch(getConsumptions());
+    handlePressNavigation(IEnergyStackPages.MY_ENERGY_CONSUMPTION);
+  };
+
   return loadingConfigcat ? (
     <LoaderSplashScreen />
   ) : (
@@ -319,11 +323,11 @@ export const MenuEnergy = () => {
           <View style={styles.row}>
             <LongCardIcon
               text={t('screens.energy.menu.my-energy-consumption')}
-              leftIcon={() => <EnergyConsumption />}
+              leftIcon={() => <EnergyConsumptionBg />}
               rightIcon={() => (
                 <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
               )}
-              onPress={() => handlePressNavigation(IEnergyStackPages.MY_ENERGY_CONSUMPTION)}
+              onPress={handlePressConsumptions}
             />
           </View>
         </View>
