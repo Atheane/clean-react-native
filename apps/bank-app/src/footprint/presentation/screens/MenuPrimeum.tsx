@@ -22,7 +22,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { IRoutes, IFootprintStackPages } from '../../../shared/presentation/types';
 
-enum IDocumentStatus {
+enum IStepStatus {
   INIT = 'INIT', // form request template is created, but is not sent for review
   CANCELED = 'CANCELED', // form request is canceled before analysis
   PENDING = 'PENDING', // form request has pending status
@@ -107,7 +107,7 @@ export const MenuPrimeum = () => {
           icon={() => <HeatGradient />}
           onPress={() => handlePressNavigation(IFootprintStackPages.HEATERS_SITUATION)}
           text={t('screens.menu-primeum.heat')}
-          status={heatersChecked ? IDocumentStatus.VALIDATED : IDocumentStatus.INIT}
+          status={heatersChecked ? IStepStatus.VALIDATED : IStepStatus.INIT}
           errorMessage={undefined}
           loading={false}
           onCancel={() => {
@@ -118,7 +118,7 @@ export const MenuPrimeum = () => {
           icon={() => <HouseGradient />}
           onPress={() => handlePressNavigation(IFootprintStackPages.WORKS_SITUATION)}
           text={t('screens.menu-primeum.works')}
-          status={worksChecked ? IDocumentStatus.VALIDATED : IDocumentStatus.INIT}
+          status={worksChecked ? IStepStatus.VALIDATED : IStepStatus.INIT}
           errorMessage={undefined}
           loading={false}
           onCancel={() => {
@@ -129,7 +129,7 @@ export const MenuPrimeum = () => {
           icon={() => <CarGradient />}
           onPress={() => handlePressNavigation(IFootprintStackPages.TRANSPORT_SITUATION)}
           text={t('screens.menu-primeum.transport')}
-          status={transportChecked ? IDocumentStatus.VALIDATED : IDocumentStatus.INIT}
+          status={transportChecked ? IStepStatus.VALIDATED : IStepStatus.INIT}
           errorMessage={undefined}
           loading={false}
           onCancel={() => {
@@ -140,7 +140,7 @@ export const MenuPrimeum = () => {
           icon={() => <FamilyGradient />}
           onPress={() => handlePressNavigation(IFootprintStackPages.HOUSEHOLD_SITUATION)}
           text={t('screens.menu-primeum.household')}
-          status={householdChecked ? IDocumentStatus.VALIDATED : IDocumentStatus.INIT}
+          status={householdChecked ? IStepStatus.VALIDATED : IStepStatus.INIT}
           errorMessage={undefined}
           loading={false}
           onCancel={() => {

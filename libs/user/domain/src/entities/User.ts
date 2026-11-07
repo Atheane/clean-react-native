@@ -8,17 +8,16 @@ import {
   KYC_REVIEW,
   IPhoneNotifications,
   IEmailNotifications,
-  IAssets,
-  IIncome,
-  IOccupation,
   IUserType,
+  APP_USER_MONTHLY_INCOME_RANGE,
+  APP_USER_PERSONAL_ASSETS_RANGE,
+  APP_USER_OCCUPATION,
 } from '../types';
 import { Country, BirthDay } from '../value-objects';
 import {
   IRegisterAddressCommand,
   IRegisterBirthCommand,
   IRegisterIdentityCommand,
-  IRegisterRevenuesCommand,
   IUpdateUserCommand,
 } from '../commands';
 import { IValidatePhoneQuery } from '../queries';
@@ -39,9 +38,9 @@ export interface IUserProperties {
     notifMailDisabled: IEmailNotifications[];
   };
   revenues?: {
-    income: IIncome;
-    assets: IAssets;
-    occupation: IOccupation;
+    income: APP_USER_MONTHLY_INCOME_RANGE;
+    assets: APP_USER_PERSONAL_ASSETS_RANGE;
+    occupation: APP_USER_OCCUPATION;
   };
   userType?: IUserType;
 }
@@ -102,11 +101,6 @@ export class User extends Entity<IUserProperties> {
     this.properties.USPerson = USPerson;
   }
 
-  registerRevenues(cmd: IRegisterRevenuesCommand): void {
-    const { income, assets, occupation } = cmd;
-    this.properties.revenues = { income, assets, occupation };
-  }
-
   setConfig(config: {
     lang?: string;
     notifFirebaseDisabled?: IPhoneNotifications[];
@@ -123,12 +117,15 @@ export class User extends Entity<IUserProperties> {
   }
 
   updateUser(cmd: IUpdateUserCommand): void {
-    const { firstName, lastName } = cmd;
+    const { firstName, lastName, revenues } = cmd;
     if (firstName && this.properties.identity && this.properties.identity.firstName !== firstName) {
       this.properties.identity.firstName = firstName;
     }
     if (lastName && this.properties.identity && this.properties.identity.lastName !== lastName) {
       this.properties.identity.lastName = lastName;
+    }
+    if (revenues) {
+      this.properties.revenues = revenues;
     }
   }
 

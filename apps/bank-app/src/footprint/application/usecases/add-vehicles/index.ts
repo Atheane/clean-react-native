@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, cancel, put, StrictEffect, takeEvery, select } from 'redux-saga/effects';
 import { VehicleVO, FootprintError } from '@clean-rn/footprint/domain';
-import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
 import { FootprintApi } from '@clean-rn/footprint/infrastructure';
 import { Transport } from '@clean-rn/footprint/domain';
 

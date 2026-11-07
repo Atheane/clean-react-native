@@ -296,31 +296,6 @@
       "placeholder": "40600"
     }
   },
-  "signup-revenues": {
-    "income": {
-      "label": "Vos revenus",
-      "placeholder": "Sélectionner",
-      "LESS_THAN_1800": "inférieur à 1 800 euros / mois",
-      "BETWEEN_1800_AND_3500": "inférieur à 3 500 euros / mois",
-      "BETWEEN_3500_AND_10000": "inférieur à 10 000 euros / mois",
-      "MORE_THAN_10000": "supérieur à 10 000 euros / mois"
-    },
-    "assets": {
-      "label": "Votre patrimoine",
-      "placeholder": "Sélectionner",
-      "LESS_THAN_150K": "inférieur à 150 000 euros",
-      "BETWEEN_150K_AND_350K": "inférieur à 350 000 euros",
-      "BETWEEN_350K_AND_750K": "inférieur à 750 000 euros",
-      "MORE_THAN_750K": "supérieur à 750 000 euros"
-    },
-    "occupation": {
-      "label": "Votre catégorie professionelle",
-      "placeholder": "Sélectionner",
-      "UNEMPLOYED": "Non salarié",
-      "PRIVATE_EMPLOYEE": "Salarié du secteur privé",
-      "PUBLIC_EMPLOYEE": "Salarié du secteur public"
-    }
-  },
   "email-sent": {
     "title": "Email envoyé",
     "text": "Nous vous avons envoyé un email de confirmation à l’adresse indiquée. \nVeuillez cliquer sur le lien pour vous connecter."
@@ -689,12 +664,50 @@
     "kyc": {
       "title": "Vérification de votre identité",
       "send-document": "Envoyer un document",
-      "init": {
+      "show-kyc-steps": {
         "steps": "étapes :\n",
-        "step1": "1. Joindre une pièce d’identité\n",
-        "step2": "2. Faire un virement de 5 euros depuis un de vos comptes bancaires sur votre Bank App\n",
-        "step3": "3. Joindre le formulaire W9",
+        "step1": "1. Joindre une pièce d’identité",
+        "step2": "2. Compléter les informations",
+        "step3": "3. Faire un virement de 5 euros depuis un de vos comptes bancaires sur votre Bank App",
+        "step4": "4. Joindre le formulaire W9",
         "check-identity": "Vérifier"
+      },
+      "kyc-init": {
+        "title": "Vérification de votre identité",
+        "instruction": "Une fois l'ensemble des étapes validées, la vérification se lancera automatiquement.",
+        "w9": "Formulaire W9",
+        "identity": "Pièce d'identité",
+        "informations": "Informations complémentaires",
+        "transfer": "Virement de 5 euros"
+      },
+      "revenues": {
+        "title": "Informations complémentaires",
+        "intro": "Pour compléter votre demande, nous avons besoin de quelques informations supplémentaires.",
+        "income": {
+          "label": "Vos revenus",
+          "placeholder": "Sélectionner",
+          "K2": "inférieur à 1 800 euros / mois",
+          "K4": "inférieur à 3 500 euros / mois",
+          "K5": "inférieur à 5 000 euros / mois",
+          "K7": "inférieur à 6 500 euros / mois",
+          "K10": "inférieur à 10 000 euros / mois",
+          "KN": "supérieur à 10 000 euros / mois"
+        },
+        "assets": {
+          "label": "Votre patrimoine",
+          "placeholder": "Sélectionner",
+          "A0": "inférieur à 150 000 euros",
+          "A4": "inférieur à 350 000 euros",
+          "A5": "inférieur à 750 000 euros",
+          "A6": "supérieur à 750 000 euros"
+        },
+        "occupation": {
+          "label": "Votre catégorie professionelle",
+          "placeholder": "Sélectionner",
+          "UNEMPLOYED": "Non salarié",
+          "EMPLOYEE": "Salarié du secteur privé",
+          "PUBLIC_EMPLOYEE": "Salarié du secteur public"
+        }
       },
       "complete": {
         "title": "Documents validés",
@@ -713,10 +726,7 @@
         "text": "Nous vous avons bien envoyé votre Carte CO2 par courrier."
       },
       "menu": {
-        "instruction-before": {
-          "singular": "Une fois la pièce d'identité transférée et le virement reçu, la vérification se lancera automatiquement.",
-          "plural": "Une fois les 2 documents transférés et le virement reçu, la vérification se lancera automatiquement."
-        },
+        "instruction-before": "Une fois l'ensemble des étapes validées, la vérification se lancera automatiquement.",
         "instruction-after": {
           "begin": "Vos documents sont",
           "bold": " en cours de vérification, ",

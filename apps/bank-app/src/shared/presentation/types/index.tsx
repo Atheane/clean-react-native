@@ -228,7 +228,8 @@ export enum IFootprintStackPages {
 
 export enum IKycStackPages {
   MENU = 'MenuKyc',
-  INIT = 'InitKyc',
+  SHOW_KYC_STEPS = 'ShowKycSteps',
+  INFORMATIONS = 'Informations',
   KYC = 'Kyc',
   SUCCESS = 'SuccessKyc',
   CARD_SENT = 'CardSent',
@@ -338,8 +339,9 @@ export type IFootprintStackProps = {
 
 export type IKycStackProps = {
   [IKycStackPages.MENU]: object;
-  [IKycStackPages.INIT]: object;
+  [IKycStackPages.SHOW_KYC_STEPS]: object;
   [IKycStackPages.KYC]: object;
+  [IKycStackPages.INFORMATIONS]: object;
   [IKycStackPages.SUCCESS]: object;
   [IKycStackPages.CARD_SENT]: object;
   [IKycStackPages.UPLOAD_DOCUMENT]: object;
@@ -436,8 +438,9 @@ export type IRoutes =
   | IFootprintStackPages.TRANSPORT_SITUATION
   | IFootprintStackPages.HOUSEHOLD_SITUATION
   | IKycStackPages.MENU
-  | IKycStackPages.INIT
+  | IKycStackPages.SHOW_KYC_STEPS
   | IKycStackPages.KYC
+  | IKycStackPages.INFORMATIONS
   | IKycStackPages.SUCCESS
   | IKycStackPages.CARD_SENT
   | IKycStackPages.UPLOAD_DOCUMENT

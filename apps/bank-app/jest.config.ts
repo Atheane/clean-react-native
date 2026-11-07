@@ -11,6 +11,7 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/test-setup.ts'],
   moduleNameMapper: {
     '\\.svg$': '@nx/expo/plugins/jest/svg-mock',
+    '^msw/node': '<rootDir>/../../node_modules/msw/lib/node',
   },
   collectCoverage: true,
   coverageCollectedFrom: ['<rootDir>/src/**/*.(t|j)s'],

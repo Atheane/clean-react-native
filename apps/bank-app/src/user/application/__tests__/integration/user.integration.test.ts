@@ -20,10 +20,6 @@ import {
   BirthDay,
   Country,
   KYC_REVIEW,
-  IRegisterRevenuesCommand,
-  IIncome,
-  IAssets,
-  IOccupation,
 } from '@clean-rn/user/domain';
 import { Email } from '@clean-rn/auth/domain';
 
@@ -36,8 +32,6 @@ import {
   checkPhoneSaga,
   validatePhoneSaga,
   signupUserSaga,
-  updateNotificationsSaga,
-  registerRevenuesSaga,
 } from '../../usecases';
 import {
   IUserTypes,
@@ -69,8 +63,6 @@ import {
   languageUpdated,
   fetchUpdateUser,
   userUpdated,
-  revenuesRegistered,
-  registerRevenues,
   userNotCreated,
 } from '../../commands';
 import { IUserState, userReducer } from '../../state-management';
@@ -101,12 +93,6 @@ describe('User - integration', () => {
     zip: 'string',
     country: 'GR',
     USPerson: false,
-  };
-
-  const mockRevenues: IRegisterRevenuesCommand = {
-    income: IIncome.LESS_THAN_1800,
-    assets: IAssets.LESS_THAN_150K,
-    occupation: IOccupation.PUBLIC_EMPLOYEE,
   };
 
   const mockQueryPhoneOtp = {
@@ -216,19 +202,6 @@ describe('User - integration', () => {
     sagaTester.dispatch(registerAddress(mockAddress));
     expect(sagaTester.getState()).toEqual({
       ...initialState,
-    });
-  });
-
-  it('Should store correct state in case if REGISTER_REVENUES', () => {
-    sagaTester.start(checkEmailSaga);
-
-    const user = User.CreateFromEmail(new Email('test@example.com'));
-    user.registerRevenues(mockRevenues);
-
-    sagaTester.dispatch(registerRevenues(mockRevenues));
-    expect(sagaTester.getState()).toEqual({
-      ...initialState,
-      pending: true,
     });
   });
 
@@ -520,39 +493,6 @@ describe('User - integration', () => {
     sagaTester.start(registerAddressSaga);
     user.registerAddress(mockAddress);
     sagaTester.dispatch(addressRegistered(user));
-
-    expect(sagaTester.getState()).toEqual({
-      pending: false,
-      email: new Email('test@example.com'),
-      phone: null,
-      phoneOtp: null,
-      user,
-      error: null,
-      config: null,
-    });
-  });
-
-  it('Should store correct state in case if REVENUES_REGISTERED', () => {
-    const user = User.CreateFromEmail(new Email('test@example.com'));
-
-    const initialState: IUserState = {
-      pending: false,
-      email: new Email('test@example.com'),
-      phone: null,
-      phoneOtp: null,
-      user: null,
-      error: null,
-      config: null,
-    };
-
-    sagaTester = new SagaTester({
-      initialState,
-      reducers: userReducer,
-    });
-
-    sagaTester.start(registerRevenuesSaga);
-    user.registerRevenues(mockRevenues);
-    sagaTester.dispatch(revenuesRegistered(user));
 
     expect(sagaTester.getState()).toEqual({
       pending: false,

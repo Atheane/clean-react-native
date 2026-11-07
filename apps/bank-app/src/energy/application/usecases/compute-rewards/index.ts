@@ -10,6 +10,7 @@ export function* computeRewardsSaga(): Generator<StrictEffect, any, any> {
 }
 
 export function* computeRewardsGenerator(): Generator<StrictEffect, any, any> {
-  const energy: Energy = yield select(selectEnergy);
+  const energyRedux: Energy = yield select(selectEnergy);
+  const energy = Energy.Restore(energyRedux); // necessary because redux get rids of instance methods, not properties
   energy.computeRewards();
 }

@@ -10,4 +10,3 @@ export * from './update-notifications';
 export * from './update-language';
 export * from './update-user';
 export * from './delete-user-account';
-export * from './register-revenues';

@@ -9,7 +9,7 @@ import { Colors, FontNames } from '../../../constants';
 import { LinkButtonColors } from '../../../types';
 import { LinkButton } from '../../buttons/link-button';
 
-enum IDocumentStatus {
+enum IStepStatus {
   INIT = 'INIT', // document template is created, but is not uploaded yet for review
   CANCELED = 'CANCELED', // document is canceled before analysis
   PENDING = 'PENDING', // document has pending status
@@ -23,7 +23,7 @@ type IProps = {
   errorMessage?: string;
   onPress: () => void;
   loading?: boolean;
-  status?: IDocumentStatus;
+  status?: IStepStatus;
   onCancel: () => void;
 };
 
@@ -64,16 +64,6 @@ export const UploadDocumentCard = (props: IProps) => {
           <Text style={[disabled ? theme.text.grey : theme.text.darkBlue, styles.text]}>
             {renderLabel(props.text)}
           </Text>
-
-          {props.loading && (
-            <View style={styles.cancelIcon}>
-              <LinkButton
-                onPress={props.onCancel}
-                iconRight={() => <DeleteCross />}
-                colorOption={LinkButtonColors.BLUE}
-              />
-            </View>
-          )}
         </View>
         <View style={styles.leftIconContainer}>
           {props.status === 'VALIDATED' && !props.loading && (

@@ -1,28 +1,38 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Dimensions, Image, ImageSourcePropType } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { domainEventManager } from '@clean-rn/ddd';
+import { KYC_EVENTS } from '@clean-rn/kyc/domain';
 
 import { IDomainError } from '@clean-rn/ddd';
-import { IDocumentErrorMessage, IDocumentErrorCodes } from '@clean-rn/kyc/domain';
+import { IDocumentErrorMessage, IDocumentErrorCodes, Customer } from '@clean-rn/kyc/domain';
 
 import {
-  DocumentPicker,
   DocumentScanner,
   LinkButton,
   LinkButtonColors,
   LoaderSplashScreen,
+  DocumentPicker,
 } from '@clean-rn/ui-mobile';
 
 import { showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { ErrorMessage } from '../../../shared/presentation/components/error-message';
 
-import { addPage } from '../../application/commands/document';
+import { addPage } from '../../application/commands';
+import {
+  IKycStackPages,
+  IRootStackParamList,
+  ISharedStackParamList,
+} from '../../../shared/presentation/types';
 
 const HEIGHT = Dimensions.get('window').height;
+
+type NavigationProp = NativeStackNavigationProp<IRootStackParamList & ISharedStackParamList>;
 
 export const UploadDocument = () => {
   const { t } = useTranslation();
@@ -71,11 +81,32 @@ export const UploadDocument = () => {
     [dispatch],
   );
 
+  const navigation = useNavigation<NavigationProp>();
+
+  useEffect(() => {
+    const unsubscribe = domainEventManager.on(KYC_EVENTS.DOCUMENT_PAGE_ADDED, (customer: Customer) => {
+      setLoading(false);
+      const currentDocument = customer.properties.currentDocument;
+      const isDocumentReady = currentDocument?.isReady || false;
+      if (isDocumentReady) {
+        navigation.navigate(IKycStackPages.KYC);
+      } else {
+        setLoading(false);
+        navigation.navigate(IKycStackPages.UPLOAD_DOCUMENT, nextRouteParams);
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [nextRouteParams, navigation]);
+
   const handleGetDocument = useCallback(
     (docBase64: string) => {
-      dispatch(addPage({ base64: docBase64, nextRouteParams }));
+      setLoading(true);
+      dispatch(addPage({ base64: docBase64 }));
     },
-    [dispatch, nextRouteParams],
+    [dispatch],
   );
 
   const handleShowExample = useCallback(() => {

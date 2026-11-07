@@ -16,7 +16,7 @@ import { goBack, navigate } from '../../../../shared/presentation/navigation/nav
 import { ISharedStackPages, IUserStackPages } from '../../../../shared/presentation/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 
-import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
+import { checkCustomerStatus } from '../../../../kyc/application/commands';
 
 import { loginFailure, IAuthTypes, initializeAuth, loginSuccess, resetError } from '../../commands';
 import { initializeUser, userSaved } from '../../../../user/application/commands';

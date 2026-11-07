@@ -3,6 +3,8 @@ import { domainEventManager } from '@clean-rn/ddd';
 import { Entity } from '@clean-rn/ddd';
 import { IAuthTypes } from '../../../../auth/application/commands';
 
+const processedEvents = new Set<string>();
+
 // Generic type for the configurations of events by bounded context
 type DomainEventConfig = {
   eventName: string;
@@ -23,26 +25,20 @@ export const createDomainEventsMiddleware =
     const setupBoundedContextSubscriptions = (contextName: string, configs: DomainEventConfig[]) => {
       configs.forEach(({ eventName, actionType }) => {
         const unsubscribe = domainEventManager.on(eventName, (data: Entity<any>) => {
-          // Create a unique identifier for this event
-          const currentEventId = `${eventName}-${data?.id || ''}`;
-          const currentTimestamp = Date.now();
-
-          // Ignore if the same event in an interval of 100ms
-          // it might happen with very bad internet connection
-          if (
-            currentEventId === lastProcessedEvent.id &&
-            currentTimestamp - lastProcessedEvent.timestamp < 100
-          ) {
+          const eventId = `${eventName}-${data.id}`;
+          if (processedEvents.has(eventId)) {
             return;
           }
-
-          // Update the reference
-          lastProcessedEvent.id = currentEventId;
-          lastProcessedEvent.timestamp = currentTimestamp;
-
+          processedEvents.add(eventId);
+          // Garder l'ID de l'événement pendant 5 secondes
+          setTimeout(() => {
+            processedEvents.delete(eventId);
+          }, 5000);
           store.dispatch({
             type: actionType,
-            payload: { [contextName]: data },
+            payload: {
+              [contextName]: data,
+            },
           });
         });
 
@@ -60,6 +56,7 @@ export const createDomainEventsMiddleware =
       subscriptions.clear();
       lastProcessedEvent.id = '';
       lastProcessedEvent.timestamp = 0;
+      processedEvents.clear();
     };
 
     return (next) => (action) => {

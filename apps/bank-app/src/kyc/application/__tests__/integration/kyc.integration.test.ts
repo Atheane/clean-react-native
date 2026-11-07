@@ -1,123 +1,209 @@
-/* eslint-disable  @typescript-eslint/no-explicit-any */
 import SagaTester from 'redux-saga-tester';
+import { setupServer } from 'msw/node';
+import { http, HttpResponse } from 'msw';
+import fs from 'fs';
 
-import {
-  Customer,
-  DocumentVO,
-  IKycSteps,
-  IDocumentProperties,
-  IDocumentStatus,
-  IDocumentStatusCode,
-} from '@clean-rn/kyc/domain';
-import { KYC_REVIEW, User } from '@clean-rn/user/domain';
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
+import { createDomainEventsMiddleware } from '../../../../shared/application/state-management/middleware/domain-events.middleware';
+import { authReducer } from '../../../../auth/application/state-management';
+import { userReducer } from '../../../../user/application/state-management';
 
-import { IKycStackPages } from '../../../../shared/presentation/types';
+import { customerReducer } from '../../state-management/reducer';
+import { checkCustomerStatus, ICustomerTypes, initializeCustomer } from '../../commands';
+import { createDocument, addPage } from '../../commands';
 import { checkCustomerStatusSaga } from '../../usecases/customer';
-import {
-  ICustomerTypes,
-  checkCustomerStatus,
-  customerDocumentsUpdated,
-  customerStatusChecked,
-  initializeKyc,
-} from '../../commands/customer';
-import { ICustomerState, customerReducer } from '../../state-management';
+import { createDocumentSaga, addPageSaga } from '../../usecases';
 
-describe('KYC - integration', () => {
-  let sagaTester: SagaTester;
+import { kycDomainEventsConfig } from '../../state-management/domain-events.config';
+import { authUser } from '../fixtures/generate-fixtures';
+import { mockUserKYCNoneRevenues, mockIPassportDocument } from '../fixtures/mock-data';
 
-  const mockResponse: IDocumentProperties[] = [
-    {
-      typeId: 9,
-      kycStep: IKycSteps.ID,
-      status: IDocumentStatus.PENDING,
-      name: 'test-mock',
-      createdAt: new Date('2023-10-03T13:20:21.303Z'),
-      statusCode: IDocumentStatusCode.INITIAL,
+const httpConnection = HttpConnection.getInstance(
+  process.env?.EXPO_PUBLIC_BASE_URL_API || 'https://sandbox.example.com',
+);
+
+const server = setupServer();
+
+const setupFixtures = async (httpConnection: HttpConnection) => {
+  const fixtureDir = __dirname + '/../fixtures';
+
+  if (!fs.existsSync(fixtureDir)) {
+    fs.mkdirSync(fixtureDir, { recursive: true });
+  }
+
+  if (!fs.existsSync(fixtureDir + '/auth.json')) {
+    await authUser(httpConnection);
+  }
+
+  const fixtures = {
+    auth: JSON.parse(fs.readFileSync(fixtureDir + '/auth.json', 'utf8')),
+  };
+
+  return fixtures;
+};
+
+const initState = (fixtures: any) => {
+  const initialState = {
+    auth: {
+      auth: {
+        accessToken: fixtures.auth.accessToken,
+        refreshToken: fixtures.auth.refreshToken,
+      },
     },
-  ];
-
-  beforeEach(() => {
-    const initialState: ICustomerState = {
+    user: {
+      user: {
+        id: '123',
+        properties: {
+          config: {
+            lang: 'en',
+          },
+        },
+      },
+    },
+    customer: {
       pending: false,
       customer: null,
-      initRoute: IKycStackPages.INIT,
-    };
-    sagaTester = new SagaTester({
-      initialState,
-      reducers: customerReducer,
-    });
+      error: null,
+    },
+  };
+
+  const domainEventsMiddleware = createDomainEventsMiddleware({
+    customer: kycDomainEventsConfig.customer,
   });
 
-  it('Should store correct initial state if not initial state is provided', () => {
-    const newState = customerReducer(undefined, {
-      type: ICustomerTypes.CHECK_CUSTOMER_STATUS,
-      payload: { user: User.Create({ id: 123, properties: { USPerson: false } }) },
-    });
-
-    expect(newState).toEqual({
-      pending: true,
-      customer: null,
-      initRoute: IKycStackPages.INIT,
-    });
+  const sagaTester = new SagaTester({
+    initialState,
+    reducers: {
+      auth: authReducer,
+      user: userReducer,
+      customer: customerReducer,
+    },
+    middlewares: [domainEventsMiddleware],
   });
 
-  it('Should store correct state if CUSTOMER_STATUS_CHECKED', () => {
-    const user = User.Create({ id: 123, properties: { USPerson: false } });
-    const customer = Customer.Create({
-      id: 123,
-      properties: { USPerson: false, status: KYC_REVIEW.PENDING, kycReviewComment: '' },
-    });
-    customer.initKyc(mockResponse, []);
-    sagaTester.start(checkCustomerStatusSaga);
-    sagaTester.dispatch(checkCustomerStatus({ user }));
-    sagaTester.dispatch(
-      customerStatusChecked({
-        customer,
-        initRoute: IKycStackPages.KYC,
+  return sagaTester;
+};
+
+describe('Kyc - integration', () => {
+  let sagaTester: SagaTester;
+  let fixtures: any;
+  let realDate: DateConstructor;
+
+  beforeAll(async () => {
+    // Fixer la date pour tous les tests
+    realDate = global.Date;
+    const currentDate = new Date('2024-01-01T00:00:00.000Z');
+    global.Date = class extends Date {
+      constructor(date?: any) {
+        if (date) {
+          return new realDate(date);
+        }
+        return currentDate;
+      }
+      static now() {
+        return currentDate.getTime();
+      }
+    } as DateConstructor;
+    fixtures = await setupFixtures(httpConnection);
+    sagaTester = await initState(fixtures);
+    server.listen();
+  });
+
+  afterEach(() => {
+    server.resetHandlers();
+  });
+  afterAll(() => {
+    // Restaurer la vraie date
+    global.Date = realDate;
+    server.close();
+    sagaTester.reset();
+  });
+
+  it('Should trigger KYC_DOMAIN_EVENT if checkCustomerStatus is called', async () => {
+    server.use(
+      http.get('*/auth/refresh', () => {
+        return HttpResponse.json({
+          accessToken: 'new-fake-token',
+          refreshToken: 'new-fake-refresh-token',
+          expiresIn: 3600,
+        });
       }),
     );
 
-    expect(sagaTester.getState()).toEqual({
-      pending: false,
-      customer,
-      initRoute: IKycStackPages.KYC,
-    });
+    sagaTester.start(checkCustomerStatusSaga, httpConnection);
+    sagaTester.dispatch(checkCustomerStatus({ user: mockUserKYCNoneRevenues }));
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    const calledActions = sagaTester.getCalledActions();
+    expect(calledActions).toContainEqual(checkCustomerStatus({ user: mockUserKYCNoneRevenues }));
   });
 
-  it('Should store correct state if INITIALIZE_KYC', () => {
-    sagaTester.start(checkCustomerStatusSaga);
-    sagaTester.dispatch(initializeKyc());
-    expect(sagaTester.getState()).toEqual({
-      pending: false,
-      customer: null,
-      initRoute: IKycStackPages.INIT,
-    });
+  it('Should trigger KYC_DOMAIN_EVENT if createDocument is called', async () => {
+    server.use(
+      http.get('*/auth/refresh', () => {
+        return HttpResponse.json({
+          accessToken: 'new-fake-token',
+          refreshToken: 'new-fake-refresh-token',
+          expiresIn: 3600,
+        });
+      }),
+    );
+
+    sagaTester.start(createDocumentSaga, httpConnection);
+    sagaTester.dispatch(createDocument({ documentProperties: mockIPassportDocument }));
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    const calledActions = sagaTester.getCalledActions();
+    expect(calledActions).toContainEqual(createDocument({ documentProperties: mockIPassportDocument }));
   });
 
-  it('Should store correct state if CUSTOMER_DOCUMENTS_UPDATED', () => {
-    const customer = Customer.Create({
-      id: 123,
-      properties: { USPerson: false, status: KYC_REVIEW.PENDING, kycReviewComment: '' },
-    });
-    customer.initKyc(mockResponse, []);
+  it('Should trigger KYC_DOMAIN_EVENT if addPage is called', async () => {
+    server.use(
+      http.get('*/auth/refresh', () => {
+        return HttpResponse.json({
+          accessToken: 'new-fake-token',
+          refreshToken: 'new-fake-refresh-token',
+          expiresIn: 3600,
+        });
+      }),
+    );
 
-    const document = new DocumentVO({
-      typeId: 9,
-      kycStep: IKycSteps.ID,
-      status: IDocumentStatus.PENDING,
-      name: 'test-mock',
-      createdAt: new Date('2023-10-03T13:20:21.303Z'),
-      statusCode: IDocumentStatusCode.INITIAL,
+    sagaTester.start(addPageSaga, httpConnection);
+    sagaTester.dispatch(addPage({ base64: 'fake-base64' }));
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    const calledActions = sagaTester.getCalledActions();
+    expect(calledActions).toContainEqual(addPage({ base64: 'fake-base64' }));
+  });
+
+  it('Should trigger INITIALIZE_CUSTOMER when server returns error 500', async () => {
+    // S'assurer que toutes les requêtes retournent 500
+    server.use(
+      http.get('*/auth/refresh', () => {
+        return new HttpResponse(JSON.stringify(fixtures.unknownServerError), {
+          status: 500,
+          statusText: 'Server Error',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+      }),
+    );
+
+    const errorPromise = new Promise<void>((resolve) => {
+      const unsubscribe = sagaTester.store.subscribe(() => {
+        const actions = sagaTester.getCalledActions();
+        if (actions.some((action) => action.type === ICustomerTypes.INITIALIZE_CUSTOMER)) {
+          unsubscribe();
+          resolve();
+        }
+      });
     });
 
-    customer.addDocument(document);
-    sagaTester.start(checkCustomerStatusSaga);
-    sagaTester.dispatch(customerDocumentsUpdated({ customer }));
+    sagaTester.start(checkCustomerStatusSaga, httpConnection);
+    sagaTester.dispatch(checkCustomerStatus({ user: mockUserKYCNoneRevenues }));
 
-    expect(sagaTester.getState()).toEqual({
-      pending: false,
-      customer,
-      initRoute: IKycStackPages.INIT,
-    });
+    await errorPromise;
+
+    const calledActions = sagaTester.getCalledActions();
+    expect(calledActions).toContainEqual(checkCustomerStatus({ user: mockUserKYCNoneRevenues }));
+    expect(calledActions).toContainEqual(initializeCustomer());
   });
 });

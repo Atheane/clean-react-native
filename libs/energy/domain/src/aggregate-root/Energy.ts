@@ -1,13 +1,7 @@
 import { Entity } from '@clean-rn/ddd';
 import { ENERGY_EVENTS } from '../events';
 import { MeasurementVO, PriceComfortVO } from '../value-objects';
-import {
-  ISensor,
-  MEASUREMENT_UNIT,
-  PRICE_COMFORT_DATA_GRANULARITY,
-  PRICE_COMFORT_TYPE,
-  SENSOR_TYPE,
-} from '../types';
+import { ISensor, PRICE_COMFORT_DATA_GRANULARITY, PRICE_COMFORT_TYPE, SENSOR_TYPE } from '../types';
 import { Quiz } from '../entity/Quiz';
 
 export interface IEnergyProperties {
@@ -46,6 +40,14 @@ export class Energy extends Entity<IEnergyProperties> {
       },
     });
     Energy.emitStaticDomainEvent(ENERGY_EVENTS.ENERGY_CREATED, energy);
+    return energy;
+  }
+
+  static Restore({ id, properties }: { id: string; properties: Partial<IEnergyProperties> }): Energy {
+    const energy = new Energy({
+      id,
+      properties,
+    });
     return energy;
   }
 

@@ -29,12 +29,10 @@ import {
   mockMeasurementHumidity,
   mockPricesComfort,
 } from '../fixtures/mock-data';
-import { selectEnergy } from '../../state-management/selectors';
 
 describe('GetEnergy - usecase', () => {
   let httpConnection: HttpConnection;
   let api: EnergyApi;
-  const mockEnergy = Energy.Create({ userId: mockUser.id });
   const domainManagerInstance = DomainEventManager.getInstance();
 
   beforeEach(() => {
@@ -61,15 +59,13 @@ describe('GetEnergy - usecase', () => {
     expect(genObject.next().done).toBeTruthy();
   });
 
-  it('Should getEnergy if it exists and populate it with existing sensors and measurements', async () => {
+  it('Should getEnergy and populate it with existing sensors and measurements', async () => {
     testSaga(getEnergyGenerator, httpConnection)
       .next()
       .call(ensureTokenRefreshed, httpConnection)
       .next()
       .select(selectUser)
       .next(mockUser)
-      .select(selectEnergy)
-      .next(mockEnergy)
       .call([api, api.getRewards])
       .next(1234)
       .call([api, api.getPriceComfort])
@@ -161,8 +157,6 @@ describe('GetEnergy - usecase', () => {
       .next()
       .select(selectUser)
       .next(mockUser)
-      .select(selectEnergy)
-      .next(null)
       .call([api, api.getRewards])
       .next(0)
       .call([api, api.getPriceComfort])

@@ -1,28 +1,32 @@
-import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigationState } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 import { IKycStackPages, IKycStackProps } from '../../../shared/presentation/types';
 
-import { InitKyc, Kyc, IdList, UploadDocument, CardSent, SuccessKyc, SctRequired } from '../screens';
-
+import {
+  ShowKycSteps,
+  IdList,
+  UploadDocument,
+  CardSent,
+  SuccessKyc,
+  SctRequired,
+  Informations,
+  Kyc,
+} from '../screens';
 const Stack = createNativeStackNavigator<IKycStackProps>();
 
 export const KycStack = () => {
   const { t } = useTranslation();
   const navigationStack = useNavigationState((state) => state?.routes ?? []);
 
-  const { initRoute } = useSelector((state: IRootState) => state.kyc.customer);
-
   return (
-    <Stack.Navigator initialRouteName={initRoute as IKycStackPages}>
+    <Stack.Navigator>
       <Stack.Screen
-        name={IKycStackPages.INIT}
-        component={InitKyc}
+        name={IKycStackPages.SHOW_KYC_STEPS}
+        component={ShowKycSteps}
         options={{
           headerTitle: t('screens.kyc.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
@@ -34,6 +38,22 @@ export const KycStack = () => {
         options={{
           headerTitle: t('screens.kyc.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+      />
+      <Stack.Screen
+        name={IKycStackPages.INFORMATIONS}
+        component={Informations}
+        options={{
+          headerTitle: t('screens.kyc.title'),
+          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
+        }}
+      />
+      <Stack.Screen
+        name={IKycStackPages.SCT_REQUIRED}
+        component={SctRequired}
+        options={{
+          headerTitle: t('screens.kyc.sct-required.title'),
+          ...headersOptions(goBack),
         }}
       />
       <Stack.Screen
@@ -65,14 +85,6 @@ export const KycStack = () => {
         component={IdList}
         options={{
           headerTitle: t('screens.kyc.first-id.title'),
-          ...headersOptions(goBack),
-        }}
-      />
-      <Stack.Screen
-        name={IKycStackPages.SCT_REQUIRED}
-        component={SctRequired}
-        options={{
-          headerTitle: t('screens.kyc.sct-required.title'),
           ...headersOptions(goBack),
         }}
       />

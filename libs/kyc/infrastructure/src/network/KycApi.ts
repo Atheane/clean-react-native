@@ -1,12 +1,12 @@
 import { HttpConnection, IHttpVerb } from '@clean-rn/shared/infrastructure';
 
 import {
-  IDocumentProperties,
   IDocumentRepository,
   DocumentVO,
-  IDocumentStatus,
+  IStepStatus,
   IDocumentStatusCode,
-  IKycSteps,
+  IDocumentType,
+  IStepTypes,
 } from '@clean-rn/kyc/domain';
 import { IDocumentServer } from '../types';
 
@@ -17,7 +17,7 @@ export class KycApi implements IDocumentRepository {
   private constructor(httpConnection: HttpConnection) {
     this.connection = httpConnection;
     this.getDocuments = this.getDocuments.bind(this);
-    this.createOnePageDocument = this.createOnePageDocument.bind(this);
+    this.createDocument = this.createDocument.bind(this);
   }
 
   // Public method to provide access to the singleton instance
@@ -28,54 +28,55 @@ export class KycApi implements IDocumentRepository {
     return this.instance;
   }
 
-  async getDocuments(): Promise<IDocumentProperties[]> {
+  async getDocuments(): Promise<DocumentVO[]> {
     const response = await fetch(
       `${this.connection.baseUrl}/app/document/kyc`,
       this.connection.options(IHttpVerb.GET),
     );
     await this.connection.handleError(response);
     const documents = await response.json();
-    return documents.map((doc: IDocumentServer) => ({
-      kycStep: IKycSteps[doc.documentContext as keyof typeof IKycSteps],
-      typeId: doc.documentTypeId,
-      status: IDocumentStatus[doc.documentStatus as keyof typeof IDocumentStatus],
-      name: doc.name,
-      createdAt: new Date(doc.createdAt),
-      statusCode: IDocumentStatusCode[doc.documentStatusCode as keyof typeof IDocumentStatusCode],
-    }));
+    return documents.map((doc: IDocumentServer) => {
+      const document = new DocumentVO({
+        typeId: doc.documentTypeId as unknown as IDocumentType,
+        status: IStepStatus[doc.documentStatus as keyof typeof IStepStatus],
+        createdAt: new Date(doc.createdAt),
+        statusCode: IDocumentStatusCode[doc.documentStatusCode as keyof typeof IDocumentStatusCode],
+        context: doc.documentContext as unknown as IStepTypes,
+        name: doc.name,
+      });
+      return document;
+    });
   }
 
   async createOnePageDocument({
     customerId,
     document,
-    abortSignal,
     type,
   }: {
     customerId: string;
     document: DocumentVO;
-    abortSignal?: AbortSignal;
     type: 'recto' | 'verso';
   }): Promise<DocumentVO> {
     const params = {
-      documentContext: document.properties.kycStep,
-      documentTypeId: document.properties.typeId,
-      name: document.properties.name,
+      documentContext: document.context,
+      documentTypeId: document.typeId,
+      name: document.name,
       userId: customerId,
       fileContentBase64: type === 'recto' ? document.value.recto : document.value.verso,
     };
 
     const response = await fetch(
       `${this.connection.baseUrl}/app/document/kyc`,
-      this.connection.options(IHttpVerb.POST, params, abortSignal),
+      this.connection.options(IHttpVerb.POST, params),
     );
 
     await this.connection.handleError(response);
     const documentServer = await response.json();
 
     const documentProperties = {
-      kycStep: documentServer.documentContext as IKycSteps.ID | IKycSteps.W9,
+      context: documentServer.documentContext as IStepTypes.ID | IStepTypes.W9,
       typeId: documentServer.documentTypeId,
-      status: IDocumentStatus[documentServer.documentStatus as keyof typeof IDocumentStatus],
+      status: IStepStatus[documentServer.documentStatus as keyof typeof IStepStatus],
       name: documentServer.name,
       createdAt: new Date(documentServer.createdAt),
       statusCode: IDocumentStatusCode[documentServer.documentStatusCode as keyof typeof IDocumentStatusCode],
@@ -89,30 +90,30 @@ export class KycApi implements IDocumentRepository {
   async createDocument({
     customerId,
     document,
-    abortSignal,
   }: {
     customerId: string;
     document: DocumentVO;
-    abortSignal?: AbortSignal;
   }): Promise<DocumentVO> {
     const documentRecto = await this.createOnePageDocument({
       customerId,
       document,
-      abortSignal,
       type: 'recto',
     });
 
-    documentRecto.addPage(document.value.recto);
+    if (document.value.recto) {
+      documentRecto.addPage(document.value.recto);
+      console.log('-----> documentRecto');
+    }
 
     if (document.value.verso) {
-      document.properties.name = document.properties.name.replace('recto', 'verso');
+      document.name = document.name.replace('recto', 'verso');
       await this.createOnePageDocument({
         customerId,
         document,
-        abortSignal,
         type: 'verso',
       });
       documentRecto.addPage(document.value.verso);
+      console.log('-----> documentVerso');
       return documentRecto;
     }
 

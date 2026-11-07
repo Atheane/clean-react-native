@@ -1,23 +1,8 @@
 import { Email } from '@clean-rn/auth/domain';
 import { Phone } from '@clean-rn/contact/domain';
-import {
-  User,
-  IGender,
-  BirthDay,
-  Country,
-  ISignupUserCommand,
-  IIncome,
-  IAssets,
-  IOccupation,
-} from '@clean-rn/user/domain';
+import { User, IGender, BirthDay, Country, ISignupUserCommand } from '@clean-rn/user/domain';
 import dayjs from 'dayjs';
-import {
-  ICreateUserDto,
-  IUserDto,
-  APP_USER_MONTHLY_INCOME_RANGE,
-  APP_USER_PERSONAL_ASSETS_RANGE,
-  APP_USER_OCCUPATION,
-} from '../types';
+import { ICreateUserDto, IUserDto } from '../types';
 
 export class UserMapper {
   static async toDomain(dto: IUserDto): Promise<User> {
@@ -54,33 +39,17 @@ export class UserMapper {
     if (dto.config) {
       user.setConfig(dto.config);
     }
-    if (dto.monthlyIncomeRange && dto.personalAssetsRange && dto.occupationCategory) {
-      const income =
-        dto.monthlyIncomeRange === APP_USER_MONTHLY_INCOME_RANGE.K2
-          ? IIncome.LESS_THAN_1800
-          : dto.monthlyIncomeRange === APP_USER_MONTHLY_INCOME_RANGE.K4
-            ? IIncome.BETWEEN_1800_AND_3500
-            : dto.monthlyIncomeRange === APP_USER_MONTHLY_INCOME_RANGE.K5
-              ? IIncome.BETWEEN_3500_AND_10000
-              : IIncome.MORE_THAN_10000;
-      const assets =
-        dto.personalAssetsRange === APP_USER_PERSONAL_ASSETS_RANGE.A0
-          ? IAssets.LESS_THAN_150K
-          : dto.personalAssetsRange === APP_USER_PERSONAL_ASSETS_RANGE.A4
-            ? IAssets.BETWEEN_150K_AND_350K
-            : dto.personalAssetsRange === APP_USER_PERSONAL_ASSETS_RANGE.A5
-              ? IAssets.BETWEEN_350K_AND_750K
-              : IAssets.MORE_THAN_750K;
-      const occupation =
-        dto.occupationCategory === APP_USER_OCCUPATION.UNEMPLOYED
-          ? IOccupation.UNEMPLOYED
-          : dto.occupationCategory === APP_USER_OCCUPATION.EMPLOYEE
-            ? IOccupation.PRIVATE_EMPLOYEE
-            : IOccupation.PUBLIC_EMPLOYEE;
-      user.registerRevenues({
-        income,
-        assets,
-        occupation,
+    if (
+      dto.monthlyIncomeRange !== undefined &&
+      dto.personalAssetsRange !== undefined &&
+      dto.occupationCategory !== undefined
+    ) {
+      user.updateUser({
+        revenues: {
+          income: dto.monthlyIncomeRange,
+          assets: dto.personalAssetsRange,
+          occupation: dto.occupationCategory,
+        },
       });
     }
     return user;
@@ -112,62 +81,11 @@ export class UserMapper {
       },
       phoneValidationCode: phoneOtp.value,
       specifiedUSPerson: user.properties.USPerson ? 1 : 0,
+      monthlyIncomeRange: user.properties.revenues?.income,
+      personalAssetsRange: user.properties.revenues?.assets,
+      occupationCategory: user.properties.revenues?.occupation,
     };
-    if (!user.properties.revenues) return createUserDto as unknown as ICreateUserDto;
 
-    let monthlyIncomeRange;
-    let personalAssetsRange;
-    let occupationCategory;
-    switch (user.properties.revenues.income) {
-      case IIncome.LESS_THAN_1800:
-        monthlyIncomeRange = APP_USER_MONTHLY_INCOME_RANGE.K2;
-        break;
-      case IIncome.BETWEEN_1800_AND_3500:
-        monthlyIncomeRange = APP_USER_MONTHLY_INCOME_RANGE.K4;
-        break;
-      case IIncome.BETWEEN_3500_AND_10000:
-        monthlyIncomeRange = APP_USER_MONTHLY_INCOME_RANGE.K5;
-        break;
-      case IIncome.MORE_THAN_10000:
-        monthlyIncomeRange = APP_USER_MONTHLY_INCOME_RANGE.KN;
-        break;
-      default:
-        monthlyIncomeRange = undefined;
-    }
-    switch (user.properties.revenues.assets) {
-      case IAssets.LESS_THAN_150K:
-        personalAssetsRange = APP_USER_PERSONAL_ASSETS_RANGE.A0;
-        break;
-      case IAssets.BETWEEN_150K_AND_350K:
-        personalAssetsRange = APP_USER_PERSONAL_ASSETS_RANGE.A4;
-        break;
-      case IAssets.BETWEEN_350K_AND_750K:
-        personalAssetsRange = APP_USER_PERSONAL_ASSETS_RANGE.A5;
-        break;
-      case IAssets.MORE_THAN_750K:
-        personalAssetsRange = APP_USER_PERSONAL_ASSETS_RANGE.A6;
-        break;
-      default:
-        personalAssetsRange = undefined;
-    }
-    switch (user.properties.revenues.occupation) {
-      case IOccupation.UNEMPLOYED:
-        occupationCategory = APP_USER_OCCUPATION.UNEMPLOYED;
-        break;
-      case IOccupation.PRIVATE_EMPLOYEE:
-        occupationCategory = APP_USER_OCCUPATION.EMPLOYEE;
-        break;
-      case IOccupation.PUBLIC_EMPLOYEE:
-        occupationCategory = APP_USER_OCCUPATION.PUBLIC_EMPLOYEE;
-        break;
-      default:
-        occupationCategory = undefined;
-    }
-    return {
-      ...createUserDto,
-      ...(monthlyIncomeRange && { monthlyIncomeRange }),
-      ...(personalAssetsRange && { personalAssetsRange }),
-      ...(occupationCategory && { occupationCategory }),
-    } as unknown as ICreateUserDto;
+    return createUserDto as unknown as ICreateUserDto;
   }
 }

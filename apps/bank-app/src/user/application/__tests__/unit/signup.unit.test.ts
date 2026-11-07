@@ -16,10 +16,6 @@ import {
   PhoneOtp,
   User,
   IUserProperties,
-  IRegisterRevenuesCommand,
-  IIncome,
-  IAssets,
-  IOccupation,
 } from '@clean-rn/user/domain';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { IUserSearchServerCode, UserApi } from '@clean-rn/user/infrastructure';
@@ -42,8 +38,6 @@ import {
   validatePhoneSaga,
   signupUserSaga,
   signupUserGenerator,
-  registerRevenuesSaga,
-  registerRevenuesGenerator,
 } from '../../usecases';
 import { selectUser, selectEmail, selectPhoneOtp } from '../../state-management/selectors';
 
@@ -57,12 +51,11 @@ import {
   phoneValidated,
   signupFailed,
   userSignedUp,
-  fetchSignupUser,
   phoneCodeSent,
   resetError,
-  revenuesRegistered,
   initializeUser,
   userNotCreated,
+  fetchSignupUser,
 } from '../../commands';
 import { IStoreKey } from '../../../../shared/application/types';
 import { loadStorage } from '../../../../shared/application/commands/initialize-application';
@@ -76,7 +69,7 @@ import {
 } from '../../../../auth/application/state-management/selectors';
 import { loginSuccess } from '../../../../auth/application/commands';
 
-import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
+import { checkCustomerStatus } from '../../../../kyc/application/commands';
 
 jest.mock('@clean-rn/shared/infrastructure', () => ({
   HttpConnection: {
@@ -137,12 +130,6 @@ describe('Signup - usecase', () => {
     zip: 'string',
     country: 'GR',
     USPerson: false,
-  };
-
-  const mockRevenues: IRegisterRevenuesCommand = {
-    income: IIncome.LESS_THAN_1800,
-    assets: IAssets.LESS_THAN_150K,
-    occupation: IOccupation.PUBLIC_EMPLOYEE,
   };
 
   const mockQueryEmail = {
@@ -251,14 +238,6 @@ describe('Signup - usecase', () => {
     expect(genObject.next().done).toBeTruthy();
   });
 
-  it('should wait for REGISTER_REVENUES action and call registerRevenuesGenerator, should be done on next iteration', () => {
-    const genObject = registerRevenuesSaga();
-
-    expect(genObject.next().value).toEqual(
-      takeEvery(IUserTypes.REGISTER_REVENUES, registerRevenuesGenerator),
-    );
-    expect(genObject.next().done).toBeTruthy();
-  });
   it('should wait for FETCH_SIGNUP_USER action and call signupUserGenerator, should be done on next iteration', () => {
     const genObject = signupUserSaga(httpConnection);
 
@@ -335,21 +314,6 @@ describe('Signup - usecase', () => {
       .put(loadStorage())
       .next(mockQueryEmail.email)
       .call(navigate, { route: IUserStackPages.EMAIL_SENT })
-      .next();
-  });
-
-  it('Should call showUnknownError action if 500 when fetchSearchEmail', () => {
-    testSaga(checkEmailGenerator, httpConnection, {
-      type: IUserTypes.FETCH_SEARCH_EMAIL,
-      payload: mockQueryEmail,
-    })
-      .next()
-      .call([userApi, userApi.searchEmail], mockQueryEmail)
-      .next()
-      .throw(new ServerError(mockError500))
-      .put(resetError())
-      .next()
-      .put(showUnknownError(new ServerError(mockError500)))
       .next();
   });
 
@@ -504,34 +468,6 @@ describe('Signup - usecase', () => {
       .cancel();
   });
 
-  it('Should call showUnknownError action if 500 when fetchSearchPhone', () => {
-    testSaga(checkPhoneGenerator, httpConnection, {
-      type: IUserTypes.FETCH_SEARCH_PHONE,
-      payload: mockQueryPhone,
-    })
-      .next()
-      .call([userApi, userApi.searchPhone], mockQueryPhone)
-      .next()
-      .throw(new ServerError(mockError500))
-      .put(resetError())
-      .next()
-      .put(showUnknownError(new ServerError(mockError500)))
-      .next();
-  });
-
-  it('Should call showUnknownError action if unknown error', () => {
-    testSaga(checkPhoneGenerator, httpConnection, {
-      type: IUserTypes.FETCH_SEARCH_PHONE,
-      payload: mockQueryPhone,
-    })
-      .next()
-      .throw(new Error('unknown error'))
-      .put(resetError())
-      .next()
-      .put(showUnknownError(new Error('unknown error')))
-      .next();
-  });
-
   it('should call phoneValidated', () => {
     const userPrev = User.CreateFromEmail(new Email('test@example.com'));
 
@@ -612,22 +548,6 @@ describe('Signup - usecase', () => {
       .put(signupFailed(new UserError.ValidatePhoneIncorrectPhoneCode()))
       .next()
       .cancel();
-  });
-
-  it('Should call showUnknownError action if unknown error when validatePhone', () => {
-    const user = User.CreateFromEmail(new Email('test@example.com'));
-    user.validatePhone(mockQueryPhoneOtp);
-
-    testSaga(validatePhoneGenerator, httpConnection, {
-      type: IUserTypes.SIGNUP_FAILED,
-      payload: mockQueryPhoneOtp,
-    })
-      .next()
-      .throw(new Error('unknown error'))
-      .put(resetError())
-      .next()
-      .put(showUnknownError(new Error('unknown error')))
-      .next();
   });
 
   it('should call registerBirth actions', () => {
@@ -735,7 +655,9 @@ describe('Signup - usecase', () => {
       .next(userPrev)
       .put(addressRegistered(user))
       .next()
-      .call(navigate, { route: IUserStackPages.SIGNUP_REVENUES })
+      .select(selectPhoneOtp)
+      .next(mockQueryPhoneOtp.phoneOtp)
+      .put(fetchSignupUser({ user, phoneOtp: mockQueryPhoneOtp.phoneOtp }))
       .next();
   });
 
@@ -774,7 +696,9 @@ describe('Signup - usecase', () => {
       .next(new Email('test@example.com'))
       .put(addressRegistered(user))
       .next(user)
-      .call(navigate, { route: IUserStackPages.SIGNUP_REVENUES })
+      .select(selectPhoneOtp)
+      .next(mockQueryPhoneOtp.phoneOtp)
+      .put(fetchSignupUser({ user, phoneOtp: mockQueryPhoneOtp.phoneOtp }))
       .next();
   });
 
@@ -793,96 +717,6 @@ describe('Signup - usecase', () => {
       .next();
   });
 
-  it('should call registerRevenues actions if user exists', () => {
-    const userPrev = User.CreateFromEmail(new Email('test@example.com'));
-    userPrev.registerRevenues(mockRevenues);
-
-    testSaga(registerRevenuesGenerator, {
-      type: IUserTypes.REGISTER_REVENUES,
-      payload: mockRevenues,
-    })
-      .next()
-      .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
-        expect(yieldedValue.type).toEqual('SELECT');
-        expect(yieldedValue).toEqual(
-          expect.objectContaining({
-            type: 'SELECT',
-            payload: expect.objectContaining({
-              selector: selectUser,
-            }),
-          }),
-        );
-      })
-      .next(userPrev)
-      .put(revenuesRegistered(userPrev))
-      .next(userPrev)
-      .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
-        expect(yieldedValue.type).toEqual('SELECT');
-        expect(yieldedValue).toEqual(
-          expect.objectContaining({
-            type: 'SELECT',
-            payload: expect.objectContaining({
-              selector: selectPhoneOtp,
-            }),
-          }),
-        );
-      })
-      .next(mockQueryPhoneOtp.phoneOtp)
-      .put(fetchSignupUser({ user: userPrev, phoneOtp: mockQueryPhoneOtp.phoneOtp }))
-      .next(mockQueryPhoneOtp.phoneOtp)
-      .next();
-  });
-
-  it('should call registerRevenues actions if no user', () => {
-    const user = User.CreateFromEmail(new Email('test@example.com'));
-    user.registerRevenues(mockRevenues);
-
-    testSaga(registerRevenuesGenerator, {
-      type: IUserTypes.REGISTER_REVENUES,
-      payload: mockRevenues,
-    })
-      .next()
-      .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
-        expect(yieldedValue.type).toEqual('SELECT');
-        expect(yieldedValue).toEqual(
-          expect.objectContaining({
-            type: 'SELECT',
-            payload: expect.objectContaining({
-              selector: selectUser,
-            }),
-          }),
-        );
-      })
-      .next(null)
-      .inspect<SimpleEffect<'SELECT', SelectEffectDescriptor>>((yieldedValue) => {
-        expect(yieldedValue.type).toEqual('SELECT');
-        expect(yieldedValue).toEqual(
-          expect.objectContaining({
-            type: 'SELECT',
-            payload: expect.objectContaining({
-              selector: selectEmail,
-            }),
-          }),
-        );
-      })
-      .next(new Email('test@example.com'))
-      .put(revenuesRegistered(user))
-      .next();
-  });
-
-  it('Should call showUnknownError action if unknown error when registerRevenues', () => {
-    testSaga(registerRevenuesGenerator, {
-      type: IUserTypes.REGISTER_REVENUES,
-      payload: mockRevenues,
-    })
-      .next()
-      .throw(new Error('unknown error'))
-      .put(resetError())
-      .next()
-      .put(showUnknownError(new Error('unknown error')))
-      .next();
-  });
-
   it('should call userSignedUp actions if user exists', () => {
     const userPrev = User.CreateFromEmail(new Email('test@example.com'));
     userPrev.registerIdentity(mockIdentity);
@@ -890,7 +724,6 @@ describe('Signup - usecase', () => {
     userPrev.validatePhone(mockQueryPhoneOtp);
     userPrev.registerBirth(mockBirth);
     userPrev.registerAddress(mockAddress);
-    userPrev.registerRevenues(mockRevenues);
     const user = userPrev;
     const uid = '123';
     user.signup({ id: uid, properties: user.properties as IUserProperties });
@@ -1011,26 +844,6 @@ describe('Signup - usecase', () => {
       .put(initializeUser())
       .next()
       .put(userNotCreated(new UserError.SignupFailure(mockError400)))
-      .next();
-  });
-
-  it('Should call showUnknownError action if 500', () => {
-    const userPrev = User.CreateFromEmail(new Email('test@example.com'));
-    userPrev.registerPassword(mockPassword.password);
-
-    testSaga(signupUserGenerator, httpConnection, {
-      type: IUserTypes.FETCH_SIGNUP_USER,
-      payload: {
-        user: userPrev,
-        phoneOtp: mockQueryPhoneOtp.phoneOtp,
-      },
-    })
-      .next()
-      .call([userApi, userApi.createUser], { user: userPrev, phoneOtp: mockQueryPhoneOtp.phoneOtp })
-      .throw(new ServerError(mockError500))
-      .put(initializeUser())
-      .next()
-      .put(showUnknownError(new ServerError(mockError500)))
       .next();
   });
 });

@@ -60,7 +60,6 @@ export const MenuFootprint = () => {
   const [eventsReceived, setEventsReceived] = useState<{ [key in FOOTPRINT_EVENTS]?: boolean }>({
     [FOOTPRINT_EVENTS.HOUSE_CREATED]: false,
     [FOOTPRINT_EVENTS.TRANSPORT_CREATED]: false,
-    [FOOTPRINT_EVENTS.FOOTPRINT_CREATED]: false,
   });
 
   const handleDomainEvents = useCallback((eventType: FOOTPRINT_EVENTS) => {
@@ -73,8 +72,7 @@ export const MenuFootprint = () => {
   useEffect(() => {
     if (
       eventsReceived[FOOTPRINT_EVENTS.HOUSE_CREATED] &&
-      eventsReceived[FOOTPRINT_EVENTS.TRANSPORT_CREATED] &&
-      eventsReceived[FOOTPRINT_EVENTS.FOOTPRINT_CREATED]
+      eventsReceived[FOOTPRINT_EVENTS.TRANSPORT_CREATED]
     ) {
       setLoading(false);
       navigation.navigate(IFootprintStackPages.MENU_PRIMEUM as never);
@@ -86,11 +84,9 @@ export const MenuFootprint = () => {
     const handleHouseCreated = () => handleDomainEvents(FOOTPRINT_EVENTS.HOUSE_CREATED);
     const handleTransportCreated = () => handleDomainEvents(FOOTPRINT_EVENTS.TRANSPORT_CREATED);
     const handleFootprintCreated = () => handleDomainEvents(FOOTPRINT_EVENTS.FOOTPRINT_CREATED);
-
     domainEventManager.on(FOOTPRINT_EVENTS.HOUSE_CREATED, handleHouseCreated);
     domainEventManager.on(FOOTPRINT_EVENTS.TRANSPORT_CREATED, handleTransportCreated);
     domainEventManager.on(FOOTPRINT_EVENTS.FOOTPRINT_CREATED, handleFootprintCreated);
-
     return () => {
       domainEventManager.off(FOOTPRINT_EVENTS.HOUSE_CREATED, handleHouseCreated);
       domainEventManager.off(FOOTPRINT_EVENTS.TRANSPORT_CREATED, handleTransportCreated);

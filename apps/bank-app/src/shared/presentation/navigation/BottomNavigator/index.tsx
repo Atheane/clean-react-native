@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import {
   Colors,
   FontNames,
-  Home as HomeIcon,
+  GreenHouse,
   Transfer as TransferIcon,
   Settings as SettingsIcon,
   Carbon as CarbonIcon,
@@ -54,9 +54,9 @@ export const BottomTabNavigator = () => {
           title: t('screens.home.title'),
           tabBarIcon: ({ focused }: { focused: boolean }) =>
             focused ? (
-              <HomeIcon width={24} height={24} />
+              <GreenHouse width={24} height={24} />
             ) : (
-              <HomeIcon width={24} height={24} color={Colors.primary.grey} />
+              <GreenHouse width={24} height={24} color={Colors.primary.grey} />
             ),
           tabBarLabel: ({ focused }: { focused: boolean }) =>
             focused ? <Text style={styles.tab}> {t('screens.home.tab')}</Text> : '',

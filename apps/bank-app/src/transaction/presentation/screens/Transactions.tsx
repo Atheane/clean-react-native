@@ -10,7 +10,7 @@ import {
   LinkButton,
   LinkButtonColors,
   BankBuilding as BicIcon,
-  ExportPdfBg,
+  ExportPdf,
   Iban as IbanIcon,
   TopBackground,
   CopyValueClipboard,
@@ -49,7 +49,7 @@ const Top = ({ currentAccount }: { currentAccount?: IAccount }) => {
       <View style={styles.pdf}>
         <LinkButton
           onPress={handleOnPressPdf}
-          iconRight={() => <ExportPdfBg />}
+          iconRight={() => <ExportPdf />}
           colorOption={LinkButtonColors.WHITE}
         />
       </View>
