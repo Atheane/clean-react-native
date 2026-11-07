@@ -587,7 +587,16 @@
         "title": "Quiz und Herausforderungen",
         "header": "Lernen und €G verdienen",
         "description": "Testen Sie Ihr Wissen über Energieverbrauch und gewinnen Sie €G!",
-        "total-green-euros": "Gesamt verdiente €G"
+        "total-green-euros": "Gesamt verdiente €G",
+        "intro": "Testen Sie Ihr Wissen zum Energieverbrauch und gewinnen Sie €G",
+        "theme": {
+          "GENERAL": "Testen Sie Ihr Wissen zum Energieverbrauch und gewinnen Sie €G",
+          "AIR_QUALITY": "Wussten Sie schon?",
+          "TEMPERATURE": "Wussten Sie schon?",
+          "ENERGY_USE": "Seien Sie sich der Situation bewusster!",
+          "ENERGY_PRODUCTION": "Nutzen Sie die Kraft der Sonne!",
+          "PRICE_COMFORT": "Kennen Sie den 'Komfortpreis'?"
+        }
       },
       "quiz": {
         "title": "Quiz",
@@ -596,7 +605,8 @@
         "button-question": "Antwort überprüfen",
         "button-feeback-true": "Mein Guthaben anzeigen",
         "button-feeback-false": "Morgen versuchen",
-        "challenge-description": "Testen Sie Ihr Wissen über Energieverbrauch"
+        "challenge-description": "Testen Sie Ihr Wissen über Energieverbrauch",
+        "outro": "Gut gemacht! Wir hoffen, Sie haben beim Sammeln von €G etwas über den Energieverbrauch gelernt. Behalten Sie die kommenden Quizze im Auge, um weitere Gelegenheiten zu haben, Ihr Wissen zu testen und €G zu gewinnen."
       },
       "feedback": {
         "correct": "Richtig!",

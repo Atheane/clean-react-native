@@ -898,7 +898,16 @@
         "title": "Quiz and challenges",
         "header": "Learn and earn €G",
         "description": "Test your knowledge about energy consumption and earn €G!",
-        "total-green-euros": "Total €G earned"
+        "total-green-euros": "Total €G earned",
+        "intro": "Let's test your knowledge about energy consumption and win €G",
+        "theme": {
+          "GENERAL": "Let's test your knowledge about energy consumption and win €G",
+          "AIR_QUALITY": "Did you know?",
+          "TEMPERATURE": "Did you know?",
+          "ENERGY_USE": "Be more aware of the situation!",
+          "ENERGY_PRODUCTION": "Harness the power of the sun!",
+          "PRICE_COMFORT": "Do you know about the 'comfort price'?"
+        }
       },
       "quiz": {
         "title": "Quiz",
@@ -907,7 +916,8 @@
         "button-question": "Check answer",
         "button-feeback-true": "See my earnings",
         "button-feeback-false": "Try tomorrow",
-        "challenge-description": "Test your knowledge about energy consumption"
+        "challenge-description": "Test your knowledge about energy consumption",
+        "outro": "Well done! We hope you learned a thing or two about energy consumption while earning €G. Keep an eye out for upcoming quizzes for more chances to test your knowledge and win €G."
       },
       "feedback": {
         "correct": "Correct!",

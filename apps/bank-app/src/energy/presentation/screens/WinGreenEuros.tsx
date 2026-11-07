@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { View, StyleSheet, Dimensions, Image, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +9,6 @@ import {
   FontNames,
   Quiz,
   TotalReward,
-  Challenge,
   ScrollBackground,
 } from '@clean-rn/ui-mobile';
 import { GreenEurosGroup, TopLeaves as TopBackgroundImage } from '../assets/images';
@@ -43,15 +42,29 @@ export const WinGreenEuros = () => {
     navigation.navigate(IEnergyStackPages.MODAL_QUIZ, { uid: energy?.properties.currentQuiz?.id });
   };
 
-  const handleOnPressChallenge = () => {
-    console.log('handleOnPressChallenge');
-  };
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchRefresh());
   }, [dispatch]);
+
+  const [quizTheme, setTheme] = useState<string>('');
+  const [outro, setOutro] = useState<string>('');
+
+  useEffect(() => {
+    if (!energy?.properties.currentQuiz?.properties.theme) {
+      return;
+    }
+    const theme = t(`screens.energy.win-green-euros.theme.${energy.properties.currentQuiz.properties.theme}`);
+    setTheme(theme);
+  }, [energy?.properties.currentQuiz, t]);
+
+  useEffect(() => {
+    if (energy?.properties.currentAnswerIsCorrect) {
+      const outro = t(`screens.energy.win-green-euros.outro`);
+      setOutro(outro);
+    }
+  }, [energy?.properties.currentAnswerIsCorrect, t]);
 
   return (
     <ErrorBoundary t={t}>
@@ -62,7 +75,7 @@ export const WinGreenEuros = () => {
               <Text style={styles.title}>{t('screens.energy.win-green-euros.header')}</Text>
             </View>
             <View style={styles.descriptionContainer}>
-              <Text style={styles.description}>{t('screens.energy.win-green-euros.description')}</Text>
+              <Text style={styles.description}>{outro || t(`screens.energy.win-green-euros.intro`)}</Text>
             </View>
             <View style={styles.cards}>
               <View style={theme.container.centeredItems}>
@@ -72,17 +85,7 @@ export const WinGreenEuros = () => {
                     title={'Quiz'}
                     icon={() => <Quiz />}
                     onPress={handleOnPressQuiz}
-                    // text={'Exploitez la puissance du soleil !'}
-                    vertical
-                  />
-                )}
-                {energy?.properties.currentChallenge && (
-                  <TouchEventCard
-                    uid={'challenge'}
-                    title={'Challenge'}
-                    icon={() => <Challenge />}
-                    onPress={handleOnPressChallenge}
-                    text={t('screens.energy.quiz.challenge-description')}
+                    text={quizTheme}
                     vertical
                   />
                 )}

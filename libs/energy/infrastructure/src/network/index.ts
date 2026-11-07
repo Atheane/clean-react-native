@@ -207,7 +207,7 @@ export class EnergyApi implements IEnergyRepository {
           pcMonths.push(PriceComfortMapper.toDomain(pc));
         });
       } catch (error: unknown) {
-        console.log(`Erreur le mois ${yearMonth}`);
+        console.log(`Erreur Comfort Price for month ${yearMonth}`);
         throw error;
       }
     });

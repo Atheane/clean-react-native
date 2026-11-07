@@ -250,6 +250,19 @@ export const MenuEnergy = () => {
     handlePressNavigation(IEnergyStackPages.MY_ENERGY_CONSUMPTION);
   };
 
+  const handleOnPressQuestion = () => {
+    const lang = getLocales()[0]?.languageCode || 'en';
+
+    const url =
+      lang === 'fr'
+        ? 'https://www.example.com/article/comment-connaitre-la-quantite-denergie-que-consomme-mon-chauffage-avec-lindicateur-prix-confort'
+        : 'https://www.example.com/en/article/how-can-i-find-out-how-much-energy-my-heating-system-consumes-using-the-price-comfort-indicator';
+
+    navigation.navigate(ISharedStackPages.MODAL_WEBVIEW as never, {
+      url,
+    });
+  };
+
   return loadingConfigcat ? (
     <LoaderSplashScreen />
   ) : (
@@ -281,6 +294,8 @@ export const MenuEnergy = () => {
               children={internalData.length > 0 ? <InternalTiles data={internalData} /> : null}
               loading={energy?.properties.globalPriceComfort === null}
               title={t('screens.energy.menu.internal')}
+              helpButton
+              handleOnPressQuestion={handleOnPressQuestion}
             />
           </View>
           <View style={styles.row}>
