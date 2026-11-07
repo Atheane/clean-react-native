@@ -97,3 +97,34 @@ export const mockQuizData = {
   reward: 0.5,
   theme: 'AIR_QUALITY',
 };
+
+export const mockConsumptions = [
+  { value: 150.5, month: 'January', year: 2024 },
+  { value: 120.3, month: 'February', year: 2024 },
+  { value: 180.7, month: 'March', year: 2024 },
+];
+
+export const mockPriceComfortMonthly = [
+  {
+    type: PRICE_COMFORT_TYPE.ALL,
+    granularity: PRICE_COMFORT_DATA_GRANULARITY.MONTHLY,
+    endDate: '2024-03-31T00:00:00.000Z',
+    value: {
+      incremental: 2500.5,
+      average: 18500.75,
+    },
+    startDate: '2024-03-01T00:00:00.000Z',
+    temperature: 19,
+  },
+  {
+    type: PRICE_COMFORT_TYPE.HEATING,
+    granularity: PRICE_COMFORT_DATA_GRANULARITY.MONTHLY,
+    endDate: '2024-03-31T00:00:00.000Z',
+    value: {
+      incremental: 2200.3,
+      average: 16800.45,
+    },
+    startDate: '2024-03-01T00:00:00.000Z',
+    temperature: 19,
+  },
+];

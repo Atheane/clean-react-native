@@ -16,6 +16,7 @@ import {
   getQuiz,
   checkAnswer,
   computeRewards,
+  getConsumptions,
 } from '../../commands';
 import { getEnergySaga } from '../../usecases/get-energy';
 import { energyDomainEventsConfig } from '../../state-management/domain-events.config';
@@ -337,5 +338,24 @@ describe('Energy - integration', () => {
     const calledActions = sagaTester.getCalledActions();
     expect(calledActions).toContainEqual(getEnergy());
     expect(calledActions).toContainEqual(initializeEnergy());
+  });
+
+  it('Should set pending to true and clear error when GET_CONSUMPTIONS action is dispatched', () => {
+    // État initial
+    const initialState = sagaTester.getState();
+    expect(initialState.energy.pending).toBe(false);
+    expect(initialState.energy.error).toBe(null);
+
+    // Dispatch de l'action GET_CONSUMPTIONS
+    sagaTester.dispatch(getConsumptions());
+
+    // Vérifier que l'état a été mis à jour
+    const newState = sagaTester.getState();
+    expect(newState.energy.pending).toBe(true);
+    expect(newState.energy.error).toBe(null);
+
+    // Vérifier que l'action a été appelée
+    const calledActions = sagaTester.getCalledActions();
+    expect(calledActions).toContainEqual(getConsumptions());
   });
 });

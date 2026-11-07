@@ -37,6 +37,8 @@ import { InfoCard } from './cards/info-card';
 import { AdaptTemperatureCard } from './cards/adapt-temperature-card';
 // Charts
 import { StackedBars } from './charts/stacked-bars';
+import { StackedBarsCO2 } from './charts/stacked-bars-co2';
+
 import { ScatterPlot } from './charts/scatter-plot';
 import { LinePlot } from './charts/line-plot';
 import { BarPlot } from './charts/bar-plot';
@@ -90,6 +92,7 @@ import { SearchModal } from './searchboxes/search-modal';
 // Tables
 import { TableReward } from './tables/reward';
 import { TableBaseline } from './tables/baseline';
+import { TableConsumption } from './tables/consumption';
 // Tabs
 import { TopTabs } from './tabs/top-tabs';
 import { BottomTabs } from './tabs/bottom-tabs';
@@ -141,6 +144,7 @@ export {
   AdaptTemperatureCard,
   // Charts
   StackedBars,
+  StackedBarsCO2,
   ScatterPlot,
   LinePlot,
   DraggableLinePlot,
@@ -194,6 +198,7 @@ export {
   // Tables
   TableReward,
   TableBaseline,
+  TableConsumption,
   // Tabs
   TopTabs,
   BottomTabs,

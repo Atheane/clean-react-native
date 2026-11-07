@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState, useMemo, useEffect } from 'react';
 import { View, StyleSheet, Dimensions, Platform } from 'react-native';
 import { ECharts } from 'react-native-echarts-wrapper';
 import ReactECharts from 'echarts-for-react';
@@ -9,9 +9,8 @@ import { Colors } from '../../../constants';
 type IProps = {
   categories: string[];
   labels: string[];
-  transport: number[];
-  housing: number[];
-  savings: number[];
+  actual: number[];
+  expected: number[];
   referenceValue?: number;
   labelReferenceValue?: string;
 };
@@ -27,89 +26,73 @@ const StackedBarsData = (props: IProps) => {
     }
   };
 
-  const option = {
-    xAxis: {
-      type: 'category',
-      data: props.labels,
-      axisLabel: {
-        interval: 0,
-        rotate: 25,
+  // Utiliser useMemo pour recalculer l'option quand les props changent
+  const option = useMemo(
+    () => ({
+      barWidth: 16,
+      xAxis: {
+        type: 'category',
+        data: props.labels,
+        axisLabel: {
+          interval: 0,
+          rotate: 0,
+        },
       },
-    },
-    yAxis: {
-      type: 'value',
-    },
-    series: [
-      {
-        name: props.categories[1],
-        type: 'bar',
-        stack: 'one',
-        data: props.housing,
-        color: Colors.secondary.pink,
+      yAxis: {
+        type: 'value',
+        show: false,
       },
-      {
-        name: props.categories[0],
-        type: 'bar',
-        stack: 'one',
-        data: props.transport,
-        color: Colors.primary.grey,
+      series: [
+        {
+          name: props.categories[1],
+          type: 'bar',
+          stack: 'one',
+          data: props.expected,
+          color: Colors.secondary.darkBlue,
+        },
+        {
+          name: props.categories[0],
+          type: 'bar',
+          stack: 'one',
+          data: props.actual,
+          color: Colors.primary.green,
+        },
+      ],
+      legend: {
+        data: props.categories,
+        bottom: 0,
+        left: 'center',
+        itemGap: 20,
+        padding: [20, 0, 0, 0],
+        textStyle: {
+          fontSize: 12,
+        },
       },
-      {
-        name: props.categories[2],
-        type: 'bar',
-        stack: 'one',
-        data: props.savings,
-        color: Colors.primary.lightGreen,
+      tooltip: {
+        trigger: 'item',
+        formatter: function (params: any) {
+          if (tooltipData) {
+            return `${tooltipData.seriesName}: ${tooltipData.value}`;
+          }
+          return `${params.seriesName}: ${params.value}`;
+        },
       },
-      ...(props.referenceValue
-        ? [
-            {
-              type: 'line',
-              markLine: {
-                silent: true,
-                lineStyle: {
-                  type: 'dashed',
-                  width: 3,
-                  color: Colors.primary.darkGrey,
-                },
-                data: [
-                  {
-                    yAxis: props.referenceValue,
-                    label: {
-                      formatter: props.labelReferenceValue,
-                      color: Colors.primary.darkGrey,
-                      fontSize: 12,
-                      position: 'middle',
-                      align: 'center',
-                      distance: 10,
-                    },
-                  },
-                ],
-              },
-            },
-          ]
-        : []),
-    ],
-    legend: {
-      data: props.categories,
-      bottom: 0,
-      left: 'center',
-      itemGap: 20,
-      textStyle: {
-        color: Colors.primary.darkGrey,
-        fontSize: 12,
-      },
-    },
-    tooltip: {
-      trigger: 'item',
-      formatter: function (params: any) {
-        if (tooltipData) {
-          return `${tooltipData.seriesName}: ${tooltipData.value}`;
-        }
-        return `${params.seriesName}: ${params.value}`;
-      },
-    },
-  };
+    }),
+    [props.categories, props.labels, props.actual, props.expected, tooltipData],
+  );
+
+  // useEffect pour mettre à jour le graphique quand les données changent
+  useEffect(() => {
+    if (chartRef.current) {
+      if (Platform.OS === 'web') {
+        // Pour ReactECharts (web)
+        chartRef.current.getEchartsInstance()?.setOption(option, true);
+      } else {
+        // Pour react-native-echarts-wrapper (mobile)
+        chartRef.current.setOption(option, true);
+      }
+    }
+  }, [option]);
 
   if (Platform.OS === 'web') {
     return (
@@ -152,10 +135,9 @@ const StackedBarsData = (props: IProps) => {
 const StackedBarsNoData = (props: IProps) => (
   <StackedBarsData
     categories={props.categories}
-    labels={['Année ref.', 'Année 1', 'Année 2', 'Année 3']}
-    transport={[3100, 3000, 0, 0]}
-    housing={[1100, 1000, 1000, 400]}
-    savings={[800, 1000, 4000, 4600]}
+    labels={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']}
+    actual={[4, 3, 3, 4, 1, 1.2, 0.6, 5, 4, 1, 2, 1.5]}
+    expected={[0.1, 0.1, 0.1, 0.2, 0.3, 0.4, 0.2, 0.1, 0.2, 0.3, 0.7, 0.5]}
   />
 );
 

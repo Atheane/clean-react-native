@@ -45,6 +45,7 @@ export enum PRICE_COMFORT_DATA_GRANULARITY_DTO {
   DAILY = 'DAILY', // computation made using daily data
   INSTANT = 'INSTANT', // computation made using single data (available only with heating/cooling consumption)
   MONTHLY = 'MONTHLY', // computation made using monthly data
+  UNKNOWN = 'UNKNOWN',
 }
 
 export type IPriceComfortDto = {
@@ -110,4 +111,11 @@ export type IAnswerQuizDto = {
   createdAt: string;
   updatedAt: string;
   __v: number;
+};
+
+export type IEnergyConsumptionDto = {
+  value: number;
+  startDate: Date;
+  endDate: Date;
+  invoice: number;
 };

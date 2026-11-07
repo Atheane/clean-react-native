@@ -7,11 +7,12 @@ import { Colors } from '../../constants';
 type IProps = {
   children: React.ReactElement;
   ref?: React.RefObject<KeyboardAwareScrollView>;
+  backgroundColor?: string;
 };
 
-export const SafeScrollingView = ({ children, ref }: IProps) => {
+export const SafeScrollingView = ({ children, ref, backgroundColor }: IProps) => {
   return (
-    <View style={styles.container}>
+    <View style={backgroundColor ? { backgroundColor } : styles.container}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false} ref={ref}>
         {children}
       </KeyboardAwareScrollView>

@@ -103,6 +103,7 @@ import {
   getQuizSaga,
   checkAnswerSaga,
   computeRewardsSaga,
+  getConsumptionSaga,
 } from '../../../energy/application/usecases';
 
 const httpConnection = HttpConnection.getInstance(
@@ -229,6 +230,7 @@ function* rootSaga(httpConnection: HttpConnection): SagaIterator {
     call(getQuizSaga, httpConnection),
     call(checkAnswerSaga, httpConnection),
     call(computeRewardsSaga),
+    call(getConsumptionSaga, httpConnection),
   ];
   // here we watch if action logout is launched in the store
   yield fork(watchLogout);

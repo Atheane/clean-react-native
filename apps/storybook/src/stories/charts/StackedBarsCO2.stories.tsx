@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { StackedBars } from '@clean-rn/ui-mobile';
+import { StackedBarsCO2 } from '@clean-rn/ui-mobile';
 
 import { WithStatus, ValidationStatus, WithCenterView } from '../../wrappers';
 
 const meta = {
-  title: 'Charts/StackedBars',
-  component: StackedBars,
+  title: 'Charts/StackedBarsCO2',
+  component: StackedBarsCO2,
   argTypes: {},
   decorators: [(Story) => WithStatus(Story, ValidationStatus.VALIDATED), WithCenterView],
-} satisfies Meta<typeof StackedBars>;
+} satisfies Meta<typeof StackedBarsCO2>;
 
 export default meta;
 

@@ -1,0 +1,12 @@
+[
+  {
+    "comfortPriceType": "COMFORT_PRICE",
+    "dataCount": -1,
+    "dataGranularity": "UNKNOWN",
+    "intercept": 48,
+    "endDate": "2023-01-02T00:00:00.000Z",
+    "value": 0,
+    "startDate": "2023-01-01T00:00:00.000Z",
+    "temperature": 18
+  }
+]

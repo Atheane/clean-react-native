@@ -912,6 +912,43 @@
         "internal": "Intérieur",
         "external": "Extérieur"
       },
+      "my-energy-consumption": {
+        "title": "Ma consommation",
+        "header": "Ma\nconsommation",
+        "dropdown": {
+          "placeholder": "Sélectionner"
+        },
+        "chart": {
+          "green": "Consommation",
+          "blue": "Objectif après travaux",
+          "labels": {
+            "jan": "Jan",
+            "feb": "Fév",
+            "mar": "Mar",
+            "apr": "Avr",
+            "may": "Mai",
+            "jun": "Juin",
+            "jul": "Juil",
+            "aug": "Août",
+            "sep": "Sep",
+            "oct": "Oct",
+            "nov": "Nov",
+            "dec": "Déc"
+          }
+        },
+        "know-more": "En savoir plus",
+        "price-comfort": "Prix-confort",
+        "header-table": {
+          "month": "Mois",
+          "conso-ref": "Conso\nde ref\n(kWh)",
+          "conso-target": "Conso\ncible\n(kWh)",
+          "conso": "Conso\n(kWh)",
+          "savings": "Economie"
+        },
+        "no-data-modal": {
+          "message": "Les données ne sont pas disponibles pour cette période",
+        }
+      },
       "win-green-euros": {
         "title": "Quizz et challenges",
         "header": "Apprendre et gagner des €G",

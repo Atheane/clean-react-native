@@ -14,7 +14,6 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import {
   IAuthStackPages,
   IAuthStackProps,
-  IRoutes,
   ISharedStackPages,
   ISharedStackProps,
   IUserStackPages,
