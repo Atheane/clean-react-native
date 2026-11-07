@@ -502,7 +502,10 @@
       "heat": "Riscaldamento",
       "works": "Lavori",
       "transport": "Trasporto",
-      "household": "Famiglia"
+      "household": "Famiglia",
+      "dropdown-years": {
+        "before-2011": "Prima del 2011"
+      }
     },
     "heaters-situation": {
       "title": "Il mio premio CO2",
@@ -532,9 +535,6 @@
       "instruction-heat-type-installation-date": "Data di installazione del nuovo riscaldamento:",
       "instruction-heat-type-old": "Tipo di riscaldamento precedente"
     },
-    "dropdown-years": {
-      "before-2011": "Prima del 2011"
-    },
     "works-situation": {
       "title": "Il mio premio CO2",
       "subtitle": "I miei lavori",
@@ -543,7 +543,9 @@
         "WALL": "Isolamento pareti",
         "GROUND": "Isolamento pavimento",
         "WINDOW": "Installazione finestre isolanti",
-        "VMC": "Installazione VMC doppio flusso"
+        "VMC": "Installazione VMC doppio flusso",
+        "HP": "Pompa di calore",
+        "GLOBAL": "Ristrutturazione globale"
       },
       "dropdown-placeholder": "Seleziona",
       "instruction-works-type": "Se hai effettuato dei lavori, indicali:",
@@ -576,7 +578,7 @@
       "minors": "Numero di minori",
       "submit": "Conferma"
     },
-    "evolution": {
+    "footprint-evolution": {
       "title": "Evoluzione delle mie emissioni",
       "na": "Non calcolato",
       "receive": "Ricevi il mio premio",
@@ -707,6 +709,51 @@
       "card-sent": {
         "title": "Identità Verificata",
         "text": "Abbiamo inviato con successo la tua Carta CO2 per posta."
+      },
+      "show-kyc-steps": {
+        "steps": "Passaggi:\n",
+        "step1": "1. Aggiungere un documento di identità",
+        "step2": "2. Completare le informazioni",
+        "step3": "3. Effettuare un bonifico di 5 euro da uno dei tuoi conti bancari sul tuo Conto CO2",
+        "step4": "4. Allegare il modulo W9",
+        "check-identity": "Verifica"
+      },
+      "kyc-init": {
+        "title": "Verifica della tua identità",
+        "instruction": "Una volta che tutti i passaggi sono validati, la verifica partirà automaticamente.",
+        "w9": "Modulo W9",
+        "identity": "Documento di identità",
+        "informations": "Informazioni aggiuntive",
+        "transfer": "Bonifico di 5 euro"
+      },
+      "revenues": {
+        "title": "Informazioni aggiuntive",
+        "intro": "Per completare la tua richiesta, abbiamo bisogno di informazioni aggiuntive.",
+        "income": {
+          "label": "I tuoi redditi",
+          "placeholder": "Seleziona",
+          "K2": "inferiore a 1.800 euro / mese",
+          "K4": "inferiore a 3.500 euro / mese",
+          "K5": "inferiore a 5.000 euro / mese",
+          "K7": "inferiore a 6.500 euro / mese",
+          "K10": "inferiore a 10.000 euro / mese",
+          "KN": "superiore a 10.000 euro / mese"
+        },
+        "assets": {
+          "label": "Il tuo patrimonio",
+          "placeholder": "Seleziona",
+          "A0": "inferiore a 150.000 euro",
+          "A4": "inferiore a 350.000 euro",
+          "A5": "inferiore a 750.000 euro",
+          "A6": "superiore a 750.000 euro"
+        },
+        "occupation": {
+          "label": "La tua categoria professionale",
+          "placeholder": "Seleziona",
+          "UNEMPLOYED": "Non dipendente",
+          "EMPLOYEE": "Dipendente del settore privato",
+          "PUBLIC_EMPLOYEE": "Dipendente del settore pubblico"
+        }
       },
       "menu": {
         "instruction-before": {
@@ -903,7 +950,84 @@
         "title": "Quiz e sfide",
         "header": "Impara e guadagna €G",
         "description": "Metti alla prova le tue conoscenze sul consumo energetico e guadagna €G!",
-        "total-green-euros": "Totale €G guadagnati"
+        "total-green-euros": "Totale €G guadagnati",
+        "intro": "Mettiamo alla prova le tue conoscenze sul consumo di energia e vinci €G",
+        "theme": {
+          "GENERAL": "Mettiamo alla prova le tue conoscenze sul consumo di energia e vinci €G",
+          "AIR_QUALITY": "Lo sapevi?",
+          "TEMPERATURE": "Lo sapevi?",
+          "ENERGY_USE": "Sii più consapevole della situazione!",
+          "ENERGY_PRODUCTION": "Sfrutta la potenza del sole!",
+          "PRICE_COMFORT": "Conosci il 'prezzo-comfort'?"
+        }
+      },
+      "renovate": {
+        "title": "Risparmi dopo la ristrutturazione",
+        "header": "Ristruttura la tua casa: più risparmi, più comfort!",
+        "instruction": "Seleziona i lavori per conoscere i tuoi risparmi energetici:",
+        "isolation-antics": "Isolamento del tetto",
+        "heat-pump": "Installazione pompa di calore",
+        "isolation-windows": "Isolamento pareti e finestre",
+        "global-renovation": "Ristrutturazione globale",
+        "button": "Vedi risultato",
+        "winter": "Inverno",
+        "summer": "Estate",
+        "explanation": "Il prezzo-comfort è un valore costante molto pratico per cercare di prevedere i tuoi consumi energetici di riscaldamento o climatizzazione.\nPiù fa freddo, più energia serve per mantenere 18°C nell'abitazione: se fuori ci sono zero gradi, bisogna riscaldare di 18°C e la casa consuma 18 volte il valore prezzo-comfort. Se fuori ci sono 10°C, bisogna riscaldare solo di 8°C per passare da 10°C a 18°C, e la casa consuma solo 8 volte il prezzo-comfort.\n Il prezzo-comfort dipende sia dalle tue abitudini che dalla qualità dell'isolamento della tua casa.\n Tocca a te abbassare questo valore, cioè pagare meno per avere più comfort!"
+      },
+      "savings-after-renovation": {
+        "title": "Risparmi dopo la ristrutturazione",
+        "header": "Dopo\nla ristrutturazione",
+        "explanation": "Il prezzo-comfort è un valore costante molto pratico per cercare di prevedere i tuoi consumi energetici di riscaldamento o climatizzazione.\nPiù fa freddo, più energia serve per mantenere 18°C nell'abitazione: se fuori ci sono zero gradi, bisogna riscaldare di 18°C e la casa consuma 18 volte il valore prezzo-comfort. Se fuori ci sono 10°C, bisogna riscaldare solo di 8°C per passare da 10°C a 18°C, e la casa consuma solo 8 volte il prezzo-comfort.\n Il prezzo-comfort dipende sia dalle tue abitudini che dalla qualità dell'isolamento della tua casa.\n Tocca a te abbassare questo valore, cioè pagare meno per avere più comfort!",
+        "ISOLATION_ANTICS": "Isolamento del tetto",
+        "HEAT_PUMP": "Installazione pompa di calore",
+        "ISOLATION_WINDOWS": "Isolamento pareti e finestre",
+        "GLOBAL_RENOVATION": "Ristrutturazione globale",
+        "explanation-title": "Prezzo-comfort, come funziona?",
+        "winter": "Inverno",
+        "summer": "Estate",
+        "before": "Prima",
+        "after": "Dopo",
+        "by-month": "al mese*",
+        "footer-one": "Risparmia ",
+        "footer-two": " kWh all'anno,\nCioè ",
+        "footer-three": " all'anno, prima\ndell'aumento del prezzo dell'energia!"
+      },
+      "my-energy-consumption": {
+        "title": "Il mio consumo",
+        "header": "Il mio\nconsumo",
+        "dropdown": {
+          "placeholder": "Seleziona"
+        },
+        "chart": {
+          "green": "Consumo",
+          "blue": "Obiettivo dopo i lavori",
+          "labels": {
+            "jan": "Gen",
+            "feb": "Feb",
+            "mar": "Mar",
+            "apr": "Apr",
+            "may": "Mag",
+            "jun": "Giu",
+            "jul": "Lug",
+            "aug": "Ago",
+            "sep": "Set",
+            "oct": "Ott",
+            "nov": "Nov",
+            "dec": "Dic"
+          }
+        },
+        "know-more": "Saperne di più",
+        "price-comfort": "Prezzo-comfort",
+        "header-table": {
+          "month": "Mese",
+          "conso-ref": "Consumo\ndi riferimento\n(kWh)",
+          "conso-target": "Consumo\nobiettivo\n(kWh)",
+          "conso": "Consumo\n(kWh)",
+          "savings": "Risparmio"
+        },
+        "no-data-modal": {
+          "message": "I dati non sono disponibili per questo periodo"
+        }
       },
       "quiz": {
         "title": "Quiz",
@@ -912,7 +1036,8 @@
         "button-question": "Verifica risposta",
         "button-feeback-true": "Vedi il mio salvadanaio",
         "button-feeback-false": "Prova domani",
-        "challenge-description": "Metti alla prova le tue conoscenze sul consumo energetico"
+        "challenge-description": "Metti alla prova le tue conoscenze sul consumo energetico",
+        "outro": "Ottimo lavoro! Speriamo che tu abbia imparato qualcosa sul consumo di energia mentre guadagnavi €G. Tieni d'occhio i prossimi quiz per avere altre occasioni di mettere alla prova le tue conoscenze e vincere €G."
       },
       "feedback": {
         "correct": "Corretto!",

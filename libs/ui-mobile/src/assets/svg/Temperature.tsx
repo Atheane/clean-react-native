@@ -6,17 +6,24 @@ type IProps = {
   width?: number;
   height?: number;
   color?: string;
+  circleColor?: string;
   style?: StyleProp<ViewStyle>;
 };
 
-export const Temperature = ({ width = 24.162, height = 35, color = '#0a7dc0', style }: IProps) => {
+export const Temperature = ({
+  width = 24.162,
+  height = 35,
+  color = '#0a7dc0',
+  circleColor = '#0a7dc0',
+  style,
+}: IProps) => {
   return (
     <Svg width={width} height={height} viewBox="0 0 24.162 35" style={style}>
       <G transform="translate(-18.75 -6.25)">
         <Path
           d="M48.716,71.045a2.608,2.608,0,1,1-2.609-2.607,2.609,2.609,0,0,1,2.609,2.607"
           transform="translate(-14.852 -37.318)"
-          fill={color}
+          fill={circleColor}
         />
         <Path
           d="M42.985,27.545V10.524a4.274,4.274,0,1,0-8.548,0V27.545a7.531,7.531,0,1,0,8.564,0ZM38.718,38a4.274,4.274,0,0,1-.833-8.465V10.716a.833.833,0,1,1,1.665,0l0,18.82A4.274,4.274,0,0,1,38.72,38Z"

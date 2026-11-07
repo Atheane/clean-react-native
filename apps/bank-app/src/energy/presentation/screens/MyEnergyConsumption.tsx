@@ -17,6 +17,7 @@ import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import {
   DECAY_CONSUMPTIONS_AFTER_WORKS,
   IEnergyConsumption,
+  IWorks,
   PriceComfortVO,
 } from '@clean-rn/energy/domain';
 
@@ -220,7 +221,9 @@ export const MyEnergyConsumption = () => {
     console.log('actualPC', actualPC);
 
     setActualPC(actualPC);
-    const targetPC = actualPC.map((pc) => Math.round((1 - DECAY_CONSUMPTIONS_AFTER_WORKS) * pc));
+    const targetPC = actualPC.map((pc) =>
+      Math.round((1 - DECAY_CONSUMPTIONS_AFTER_WORKS[IWorks.GLOBAL_RENOVATION]) * pc),
+    );
 
     console.log('targetPC', targetPC);
     setTargetPC(targetPC);

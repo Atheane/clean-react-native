@@ -120,6 +120,7 @@ export { Unlock } from './Unlock';
 export { Energy } from './Energy';
 export { Quiz } from './Quiz';
 export { AdaptTemperature } from './AdaptTemperature';
+export { RenovateHouseBg } from './RenovateHouseBg';
 export { RenovateHouse } from './RenovateHouse';
 export { EnergyConsumption } from './EnergyConsumption';
 export { EnergyConsumptionBg } from './EnergyConsumptionBg';

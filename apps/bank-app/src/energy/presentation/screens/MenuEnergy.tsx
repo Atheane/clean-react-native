@@ -13,7 +13,7 @@ import {
   LoaderSplashScreen,
   Quiz,
   AdaptTemperature,
-  RenovateHouse,
+  RenovateHouseBg,
   EnergyConsumptionBg,
   TotalReward,
   TileKpi,
@@ -250,11 +250,24 @@ export const MenuEnergy = () => {
     handlePressNavigation(IEnergyStackPages.MY_ENERGY_CONSUMPTION);
   };
 
+  const handleOnPressQuestion = () => {
+    const lang = getLocales()[0]?.languageCode || 'en';
+
+    const url =
+      lang === 'fr'
+        ? 'https://www.example.com/article/comment-connaitre-la-quantite-denergie-que-consomme-mon-chauffage-avec-lindicateur-prix-confort'
+        : 'https://www.example.com/en/article/how-can-i-find-out-how-much-energy-my-heating-system-consumes-using-the-price-comfort-indicator';
+
+    navigation.navigate(ISharedStackPages.MODAL_WEBVIEW as never, {
+      url,
+    });
+  };
+
   return loadingConfigcat ? (
     <LoaderSplashScreen />
   ) : (
     <ErrorBoundary t={t}>
-      <SafeScrollingView>
+      <SafeScrollingView backgroundColor={Colors.primary.darkWhite}>
         <View style={styles.container}>
           <View style={{ marginTop: 30, marginBottom: 8 }}>
             <TileDashboard
@@ -281,6 +294,8 @@ export const MenuEnergy = () => {
               children={internalData.length > 0 ? <InternalTiles data={internalData} /> : null}
               loading={energy?.properties.globalPriceComfort === null}
               title={t('screens.energy.menu.internal')}
+              helpButton
+              handleOnPressQuestion={handleOnPressQuestion}
             />
           </View>
           <View style={styles.row}>
@@ -313,11 +328,11 @@ export const MenuEnergy = () => {
           <View style={styles.row}>
             <LongCardIcon
               text={t('screens.energy.menu.renovate-my-house')}
-              leftIcon={() => <RenovateHouse />}
+              leftIcon={() => <RenovateHouseBg />}
               rightIcon={() => (
                 <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
               )}
-              onPress={() => handlePressNavigation(IEnergyStackPages.RENOVATE_MY_HOUSE)}
+              onPress={() => handlePressNavigation(IEnergyStackPages.RENOVATE)}
             />
           </View>
           <View style={styles.row}>
@@ -341,7 +356,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-around',
     paddingBottom: 40,
-    backgroundColor: Colors.primary.darkWhite,
   },
   row: {
     flexDirection: 'row',
