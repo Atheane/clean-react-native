@@ -41,6 +41,7 @@ export type IRootTabParamList = {
 
 export type ISharedStackParamList = {
   Home: undefined;
+  Deeplink: undefined;
   ModalError: undefined;
   ModalWebView: undefined;
   Legal: undefined;
@@ -148,6 +149,7 @@ export type IEnergyStackParamList = {
 
 export enum ISharedStackPages {
   HOME = 'Home',
+  DEEPLINK = 'Deeplink',
   MODAL_ERROR = 'ModalError',
   MODAL_WEBVIEW = 'ModalWebview',
   LEGAL = 'Legal',
@@ -268,6 +270,7 @@ export enum IEnergyStackPages {
 
 export type ISharedStackProps = {
   [ISharedStackPages.HOME]: object;
+  [ISharedStackPages.DEEPLINK]: object;
   [ISharedStackPages.MODAL_ERROR]: object;
   [ISharedStackPages.MODAL_WEBVIEW]: object;
   [ISharedStackPages.LEGAL]: object;
@@ -393,6 +396,7 @@ export type IRoutes =
   | ISharedStackPages.LEGAL
   | ISharedStackPages.CGU
   | ISharedStackPages.CGU_KYC_PROVIDER
+  | ISharedStackPages.DEEPLINK
   | IAuthStackPages.LOGIN
   | IAuthStackPages.RESET_PASSWORD
   | IUserStackPages.SIGNUP_EMAIL

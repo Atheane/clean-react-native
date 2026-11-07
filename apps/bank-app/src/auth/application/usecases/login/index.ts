@@ -4,6 +4,7 @@ import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthError, ILoginCommand } from '@clean-rn/auth/domain';
 import { CardError } from '@clean-rn/card/domain';
+import * as Linking from 'expo-linking';
 
 import { AuthApi, IAuthServerCode } from '@clean-rn/auth/infrastructure';
 import { UserApi } from '@clean-rn/user/infrastructure';
@@ -84,9 +85,20 @@ export function* loginGenerator(
       yield put(getEnergy());
     }
 
-    yield call(navigate, { route: ISharedStackPages.HOME });
+    const pendingDeepLink = yield call(AsyncStorage.getItem, IStoreKey.PENDING_DEEPLINK);
+    console.log('---------> Handling pending deeplink:', pendingDeepLink);
+
+    if (pendingDeepLink && pendingDeepLink.startsWith('com.example.bankapp://')) {
+      yield call(Linking.openURL, pendingDeepLink);
+      yield call(AsyncStorage.removeItem, IStoreKey.PENDING_DEEPLINK);
+    } else {
+      yield call(navigate, {
+        route: ISharedStackPages.HOME,
+      });
+    }
   } catch (error: unknown) {
     if (error instanceof ServerError) {
+      console.log('ServerError during login:', error);
       switch (error.codeError) {
         case IAuthServerCode.USER_INVALID_CREDENTIAL:
           yield put(loginFailure(new AuthError.LoginFailureInvalidCredentials(error)));

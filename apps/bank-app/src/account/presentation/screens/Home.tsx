@@ -116,6 +116,7 @@ export const Home = () => {
   );
 
   const { expoPushToken, notificationEnabled } = useNotification();
+
   const { deviceId, brand, model, os, osVersion } = useDevice();
   // Add a state to track if the call has already been made
   const [deviceRegistered, setDeviceRegistered] = useState(false);

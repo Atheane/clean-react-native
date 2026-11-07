@@ -3,6 +3,7 @@ import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Linking from 'expo-linking';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AuthError, Email, Password } from '@clean-rn/auth/domain';
@@ -244,6 +245,8 @@ describe('Login - usecase', () => {
       .next()
       .put(checkCustomerStatus({ user }))
       .next()
+      .call(AsyncStorage.getItem, IStoreKey.PENDING_DEEPLINK)
+      .next(null)
       .call(navigate, { route: ISharedStackPages.HOME })
       .next();
   });
@@ -281,6 +284,8 @@ describe('Login - usecase', () => {
       .next()
       .put(checkCustomerStatus({ user }))
       .next()
+      .call(AsyncStorage.getItem, IStoreKey.PENDING_DEEPLINK)
+      .next(null)
       .call(navigate, { route: ISharedStackPages.HOME })
       .next();
   });
@@ -317,6 +322,8 @@ describe('Login - usecase', () => {
       .next()
       .put(checkCustomerStatus({ user }))
       .next()
+      .call(AsyncStorage.getItem, IStoreKey.PENDING_DEEPLINK)
+      .next(null)
       .call(navigate, { route: ISharedStackPages.HOME })
       .next();
   });
@@ -355,7 +362,47 @@ describe('Login - usecase', () => {
       .next()
       .put(getEnergy())
       .next()
+      .call(AsyncStorage.getItem, IStoreKey.PENDING_DEEPLINK)
+      .next(null)
       .call(navigate, { route: ISharedStackPages.HOME })
+      .next();
+  });
+
+  it('Should handle pending deeplink if one exists', async () => {
+    const user = await UserMapper.toDomain(mockUserManData);
+    user.setConfig({ lang: 'fr' });
+    const pendingDeepLink = 'com.example.bankapp://some/path';
+
+    testSaga(loginGenerator, httpConnection, {
+      type: IAuthTypes.FETCH_LOGIN,
+      payload: mockData,
+    })
+      .next()
+      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
+      .next('test@example.com')
+      .call([authApi, authApi.login], mockData)
+      .next(mockResponse)
+      .call(httpConnection.attachBearerToken, mockResponse.accessToken)
+      .next()
+      .call([userApi, userApi.getUser])
+      .next(user)
+      .call([cardApi, cardApi.getCard])
+      .next(card)
+      .put(cardGetSuccess(card))
+      .next()
+      .call([userApi, userApi.searchEmail], { email: mockData.email })
+      .next(IUserType.BANK_USER)
+      .put(loginSuccess({ auth: mockResponse }))
+      .next()
+      .put(userSaved(user))
+      .next()
+      .put(checkCustomerStatus({ user }))
+      .next()
+      .call(AsyncStorage.getItem, IStoreKey.PENDING_DEEPLINK)
+      .next(pendingDeepLink)
+      .call(Linking.openURL, pendingDeepLink)
+      .next()
+      .call(AsyncStorage.removeItem, IStoreKey.PENDING_DEEPLINK)
       .next();
   });
 
