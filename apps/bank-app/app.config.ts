@@ -23,8 +23,8 @@ export default {
       bundleIdentifier: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.example.bankapp',
       googleServicesFile: './GoogleService-Info.plist', // https://docs.expo.dev/versions/latest/config/app/#infoplist
       supportsTablet: false,
-      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '242',
-      buildNumber: process.env.EXPO_PUBLIC_APP_VERSION || '242',
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '300',
+      buildNumber: process.env.EXPO_PUBLIC_APP_VERSION || '300',
       entitlements: {
         'aps-environment': 'production', // Obligatoire pour les notifications
       },
@@ -40,7 +40,7 @@ export default {
       supportsTablet: false,
       package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.example.bankapp',
       googleServicesFile: './google-services.json',
-      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '242',
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '300',
       proguard: true, // ou false
       permissions: [
         'android.permission.POST_NOTIFICATIONS', // SDK 33+
