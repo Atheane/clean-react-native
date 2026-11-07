@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { StyleSheet, Text, View, Platform, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Platform, Dimensions, TouchableOpacity } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useTheme, Skeleton } from '@rneui/themed';
 import { Colors } from '../../../constants';
@@ -9,6 +9,7 @@ type IProps = {
   data: { kpi?: string; unit: string; legend: string; color?: string };
   icon: React.FC<SvgProps>;
   loading?: boolean;
+  onPress?: () => void;
   backgroundColor?: string;
 };
 
@@ -24,12 +25,13 @@ export const TileKpi: FC<IProps> = (props: IProps) => {
       style={[styles.tileContainer, Platform.OS === 'web' && styles.webTileContainer]}
     />
   ) : (
-    <View
+    <TouchableOpacity
       style={[
         theme.container.card.tile,
         Platform.OS === 'web' && styles.webTileContainer,
-        { backgroundColor: props.backgroundColor ?? Colors.primary.lightGrey },
+        props.backgroundColor ? { backgroundColor: props.backgroundColor } : undefined,
       ]}
+      onPress={props.onPress}
     >
       <View style={[styles.rowContainer, { flex: 2 }]}>
         <props.icon />
@@ -49,7 +51,7 @@ export const TileKpi: FC<IProps> = (props: IProps) => {
       <Text style={[theme.text.legend, styles.textLegend, Platform.OS === 'web' && { paddingBottom: 10 }]}>
         {props.data.legend}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 const kpiSize = Platform.OS === 'web' ? 44 : 20;

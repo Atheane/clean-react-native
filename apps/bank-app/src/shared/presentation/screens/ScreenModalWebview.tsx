@@ -10,8 +10,8 @@ const locales = getLocales();
 
 export const ScreenModalWebview = () => {
   const {
-    params: { uid },
-  } = useRoute() as { params: { uid: string } };
+    params: { uid, url },
+  } = useRoute() as { params: { uid?: string; url?: string } };
 
   let lng = locales[0]?.languageCode ?? 'fr';
   if (!SUPPORTED_LANGUAGES_WEBSITE.includes(lng)) {
@@ -26,6 +26,7 @@ export const ScreenModalWebview = () => {
 
   const { t } = useTranslation();
 
+  const uri = url || `${process.env.EXPO_PUBLIC_BASE_URL || 'https://www.example.com'}/${lng}/${uid}`;
   return unknownError ? (
     <ModalError
       error={unknownError}
@@ -35,9 +36,6 @@ export const ScreenModalWebview = () => {
       genericMessage={t('errors.other')}
     />
   ) : (
-    <WebViewer
-      uri={`${process.env.EXPO_PUBLIC_BASE_URL || 'https://www.example.com'}/${lng}/${uid}`}
-      handleError={handleError}
-    />
+    <WebViewer uri={uri} handleError={handleError} />
   );
 };
