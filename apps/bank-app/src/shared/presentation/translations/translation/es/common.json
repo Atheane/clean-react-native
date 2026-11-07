@@ -471,7 +471,7 @@
     "transfer": {
       "title": "Transferencia",
       "tab": "Transferencia",
-      "button": "Validar",
+      "button": "Pagar",
       "main": "Cuenta CO2",
       "amount": "Cantidad",
       "label": "Etiqueta de la transferencia",
@@ -497,7 +497,10 @@
       "heat": "Calefacción",
       "works": "Obras",
       "transport": "Transporte",
-      "household": "Hogar"
+      "household": "Hogar",
+      "dropdown-years": {
+        "before-2011": "Antes de 2011"
+      }
     },
     "heaters-situation": {
       "title": "Mi prima de CO2",
@@ -525,10 +528,7 @@
       "has-changed-no": "No",
       "instruction-heat-type": "Tipo de calefacción:",
       "instruction-heat-type-installation-date": "Fecha de instalación de la nueva calefacción:",
-      "instruction-heat-type-old": "Tipo de calefacción anterior",
-      "dropdown-years": {
-        "before-2011": "Antes de 2011"
-      }
+      "instruction-heat-type-old": "Tipo de calefacción anterior"
     },
     "works-situation": {
       "title": "Mi prima de CO2",
@@ -538,11 +538,19 @@
         "WALL": "Aislamiento paredes",
         "GROUND": "Aislamiento suelo",
         "WINDOW": "Instalación de ventanas aislantes",
-        "VMC": "Instalación de VMC doble flujo"
+        "VMC": "Instalación de VMC doble flujo",
+        "HP": "Bomba de calor",
+        "GLOBAL": "Renovación global"
       },
       "dropdown-placeholder": "Seleccionar",
       "instruction-works-type": "Si ha realizado obras, indíquelas:",
       "instruction-works-date": "Fecha de las obras más recientes:"
+    },
+    "footprint-evolution": {
+      "title": "Evolución de mis emisiones",
+      "na": "No calculado",
+      "receive": "Recibir mi prima",
+      "baseline": "Emisiones de referencia"
     },
     "transport-situation": {
       "title": "Mi prima CO2",
@@ -702,6 +710,51 @@
       "card-sent": {
         "title": "Identidad Validada",
         "text": "Hemos enviado con éxito su Tarjeta CO2 por correo."
+      },
+       "show-kyc-steps": {
+        "steps": "Pasos:\n",
+        "step1": "1. Agregar un documento de identidad",
+        "step2": "2. Completar la información",
+        "step3": "3. Realizar una transferencia de 5 euros desde una de sus cuentas bancarias a su Cuenta CO2",
+        "step4": "4. Adjuntar el formulario W9",
+        "check-identity": "Verificar"
+      },
+      "kyc-init": {
+        "title": "Verificación de su identidad",
+        "instruction": "Una vez que todos los pasos estén validados, la verificación comenzará automáticamente.",
+        "w9": "Formulario W9",
+        "identity": "Documento de identidad",
+        "informations": "Información adicional",
+        "transfer": "Transferencia de 5 euros"
+      },
+      "revenues": {
+        "title": "Información adicional",
+        "intro": "Para completar su solicitud, necesitamos información adicional.",
+        "income": {
+          "label": "Sus ingresos",
+          "placeholder": "Seleccionar",
+          "K2": "menos de 1.800 euros / mes",
+          "K4": "menos de 3.500 euros / mes",
+          "K5": "menos de 5.000 euros / mes",
+          "K7": "menos de 6.500 euros / mes",
+          "K10": "menos de 10.000 euros / mes",
+          "KN": "más de 10.000 euros / mes"
+        },
+        "assets": {
+          "label": "Su patrimonio",
+          "placeholder": "Seleccionar",
+          "A0": "menos de 150.000 euros",
+          "A4": "menos de 350.000 euros",
+          "A5": "menos de 750.000 euros",
+          "A6": "más de 750.000 euros"
+        },
+        "occupation": {
+          "label": "Su categoría profesional",
+          "placeholder": "Seleccionar",
+          "UNEMPLOYED": "No asalariado",
+          "EMPLOYEE": "Empleado del sector privado",
+          "PUBLIC_EMPLOYEE": "Empleado del sector público"
+        }
       },
       "menu": {
         "instruction-before": {
@@ -907,6 +960,74 @@
           "ENERGY_USE": "¡Sé más consciente de la situación!",
           "ENERGY_PRODUCTION": "¡Aprovecha el poder del sol!",
           "PRICE_COMFORT": "¿Conoces el 'precio-confort'?"
+        }
+      },
+      "renovate": {
+        "title": "Ahorros después de la renovación",
+        "header": "¡Renueve su vivienda: más ahorros, más confort!",
+        "instruction": "Seleccione las obras para conocer sus ahorros energéticos:",
+        "isolation-antics": "Aislamiento del techo",
+        "heat-pump": "Instalación de bomba de calor",
+        "isolation-windows": "Aislamiento de paredes y ventanas",
+        "global-renovation": "Renovación global",
+        "button": "Ver resultado",
+        "winter": "Invierno",
+        "summer": "Verano",
+        "explanation": "El precio-confort es un valor constante muy práctico para intentar prever sus consumos de energía de calefacción o aire acondicionado.\nCuanto más frío hace, más energía se necesita para mantener 18°C en la vivienda: si hace cero grados fuera, hay que calentar 18°C y la casa consume 18 veces el valor precio-confort. Si hace 10°C fuera, solo hay que calentar 8°C para pasar de 10°C a 18°C, y la casa solo consume 8 veces el precio-confort.\n El precio-confort depende tanto de sus hábitos como de la calidad del aislamiento de su casa.\n ¡Es su turno de bajar este valor, es decir, pagar menos para tener más confort!"
+      },
+      "savings-after-renovation": {
+        "title": "Ahorros después de la renovación",
+        "header": "Después\nde la renovación",
+        "explanation": "El precio-confort es un valor constante muy práctico para intentar prever sus consumos de energía de calefacción o aire acondicionado.\nCuanto más frío hace, más energía se necesita para mantener 18°C en la vivienda: si hace cero grados fuera, hay que calentar 18°C y la casa consume 18 veces el valor precio-confort. Si hace 10°C fuera, solo hay que calentar 8°C para pasar de 10°C a 18°C, y la casa solo consume 8 veces el precio-confort.\n El precio-confort depende tanto de sus hábitos como de la calidad del aislamiento de su casa.\n ¡Es su turno de bajar este valor, es decir, pagar menos para tener más confort!",
+        "ISOLATION_ANTICS": "Aislamiento del techo",
+        "HEAT_PUMP": "Instalación de bomba de calor",
+        "ISOLATION_WINDOWS": "Aislamiento de paredes y ventanas",
+        "GLOBAL_RENOVATION": "Renovación global",
+        "explanation-title": "Precio-confort, ¿cómo funciona?",
+        "winter": "Invierno",
+        "summer": "Verano",
+        "before": "Antes",
+        "after": "Después",
+        "by-month": "por mes*",
+        "footer-one": "Ahorre ",
+        "footer-two": " kWh por año,\nEso son ",
+        "footer-three": " por año, antes\ndel aumento del precio de la energía!"
+      },
+      "my-energy-consumption": {
+        "title": "Mi consumo",
+        "header": "Mi\nconsumo",
+        "dropdown": {
+          "placeholder": "Seleccionar"
+        },
+        "chart": {
+          "green": "Consumo",
+          "blue": "Objetivo después de las obras",
+          "labels": {
+            "jan": "Ene",
+            "feb": "Feb",
+            "mar": "Mar",
+            "apr": "Abr",
+            "may": "May",
+            "jun": "Jun",
+            "jul": "Jul",
+            "aug": "Ago",
+            "sep": "Sep",
+            "oct": "Oct",
+            "nov": "Nov",
+            "dec": "Dic"
+          }
+        },
+        "know-more": "Saber más",
+        "price-comfort": "Precio-confort",
+        "header-table": {
+          "month": "Mes",
+          "conso-ref": "Consumo\nde referencia\n(kWh)",
+          "conso-target": "Consumo\nobjetivo\n(kWh)",
+          "conso": "Consumo\n(kWh)",
+          "savings": "Ahorro"
+        },
+        "no-data-modal": {
+          "message": "Los datos no están disponibles para este período"
         }
       },
       "quiz": {

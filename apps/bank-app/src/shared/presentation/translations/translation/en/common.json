@@ -471,7 +471,7 @@
     "transfer": {
       "title": "Transfer",
       "tab": "Transfer",
-      "button": "Submit",
+      "button": "Pay",
       "main": "CO2 Account",
       "amount": "Amount",
       "label": "Transfer label",
@@ -497,7 +497,10 @@
       "heat": "Heating",
       "works": "Works",
       "transport": "Transport",
-      "household": "Household"
+      "household": "Household",
+      "dropdown-years": {
+        "before-2011": "Before 2011"
+      }
     },
     "heaters-situation": {
       "title": "My CO2 bonus",
@@ -527,9 +530,6 @@
       "instruction-heat-type-installation-date": "Installation date of new heating:",
       "instruction-heat-type-old": "Type of old heating"
     },
-    "dropdown-years": {
-      "before-2011": "Before 2011"
-    },
     "works-situation": {
       "title": "My CO2 bonus",
       "subtitle": "My works",
@@ -538,7 +538,9 @@
         "WALL": "Wall insulation",
         "GROUND": "Floor insulation",
         "WINDOW": "Installation of insulating windows",
-        "VMC": "Installation of dual-flow VMC"
+        "VMC": "Installation of dual-flow VMC",
+        "HP": "Heat pump",
+        "GLOBAL": "Global renovation"
       },
       "dropdown-placeholder": "Select",
       "instruction-works-type": "If you have done works, indicate them:",
@@ -758,6 +760,51 @@
       "sct-required": {
         "title": "Transfer of 5 euros",
         "instruction": "Make a transfer of 5 euros to your CO2 Account, from one of your accounts in France."
+      },
+      "show-kyc-steps": {
+        "steps": "Steps:\n",
+        "step1": "1. Add an identity document",
+        "step2": "2. Complete the information",
+        "step3": "3. Make a transfer of 5 euros from one of your bank accounts to your CO2 Account",
+        "step4": "4. Add the W9 form",
+        "check-identity": "Check"
+      },
+      "kyc-init": {
+        "title": "Verification of your identity",
+        "instruction": "Once all steps are validated, verification will start automatically.",
+        "w9": "W9 form",
+        "identity": "Identity document",
+        "informations": "Additional information",
+        "transfer": "Transfer of 5 euros"
+      },
+      "revenues": {
+        "title": "Additional information",
+        "intro": "To complete your request, we need some additional information.",
+        "income": {
+          "label": "Your income",
+          "placeholder": "Select",
+          "K2": "less than 1,800 euros / month",
+          "K4": "less than 3,500 euros / month",
+          "K5": "less than 5,000 euros / month",
+          "K7": "less than 6,500 euros / month",
+          "K10": "less than 10,000 euros / month",
+          "KN": "more than 10,000 euros / month"
+        },
+        "assets": {
+          "label": "Your assets",
+          "placeholder": "Select",
+          "A0": "less than 150,000 euros",
+          "A4": "less than 350,000 euros",
+          "A5": "less than 750,000 euros",
+          "A6": "more than 750,000 euros"
+        },
+        "occupation": {
+          "label": "Your professional category",
+          "placeholder": "Select",
+          "UNEMPLOYED": "Not employed",
+          "EMPLOYEE": "Private sector employee",
+          "PUBLIC_EMPLOYEE": "Public sector employee"
+        }
       }
     },
     "parameters": {
@@ -907,6 +954,74 @@
           "ENERGY_USE": "Be more aware of the situation!",
           "ENERGY_PRODUCTION": "Harness the power of the sun!",
           "PRICE_COMFORT": "Do you know about the 'comfort price'?"
+        }
+      },
+      "renovate": {
+        "title": "Savings after renovation",
+        "header": "Renovate your home: more savings, more comfort!",
+        "instruction": "Select the works to know your energy savings:",
+        "isolation-antics": "Roof insulation",
+        "heat-pump": "Heat pump installation",
+        "isolation-windows": "Wall and window insulation",
+        "global-renovation": "Global renovation",
+        "button": "See result",
+        "winter": "Winter",
+        "summer": "Summer",
+        "explanation": "The comfort-price is a handy constant value to help predict your energy consumption for heating or air conditioning.\nThe colder it gets, the more energy is needed to maintain 18°C in your home: if it's zero degrees outside, you need to heat by 18°C and the house consumes 18 times the comfort-price value. If it's 10°C outside, you only need to heat by 8°C to go from 10°C to 18°C, and the house only consumes 8 times the comfort-price value.\n The comfort-price depends on both your habits and the quality of your home's insulation.\n It's your turn to lower this value, meaning pay less for more comfort!"
+      },
+      "savings-after-renovation": {
+        "title": "Savings after renovation",
+        "header": "After\nrenovation",
+        "explanation": "The comfort-price is a handy constant value to help predict your energy consumption for heating or air conditioning.\nThe colder it gets, the more energy is needed to maintain 18°C in your home: if it's zero degrees outside, you need to heat by 18°C and the house consumes 18 times the comfort-price value. If it's 10°C outside, you only need to heat by 8°C to go from 10°C to 18°C, and the house only consumes 8 times the comfort-price value.\n The comfort-price depends on both your habits and the quality of your home's insulation.\n It's your turn to lower this value, meaning pay less for more comfort!",
+        "ISOLATION_ANTICS": "Roof insulation",
+        "HEAT_PUMP": "Heat pump installation",
+        "ISOLATION_WINDOWS": "Wall and window insulation",
+        "GLOBAL_RENOVATION": "Global renovation",
+        "explanation-title": "Comfort-price, how does it work?",
+        "winter": "Winter",
+        "summer": "Summer",
+        "before": "Before",
+        "after": "After",
+        "by-month": "per month*",
+        "footer-one": "Save ",
+        "footer-two": " kWh per year,\nThat's ",
+        "footer-three": " per year, before\nenergy price increase!"
+      },
+      "my-energy-consumption": {
+        "title": "My consumption",
+        "header": "My\nconsumption",
+        "dropdown": {
+          "placeholder": "Select"
+        },
+        "chart": {
+          "green": "Consumption",
+          "blue": "Target after works",
+          "labels": {
+            "jan": "Jan",
+            "feb": "Feb",
+            "mar": "Mar",
+            "apr": "Apr",
+            "may": "May",
+            "jun": "Jun",
+            "jul": "Jul",
+            "aug": "Aug",
+            "sep": "Sep",
+            "oct": "Oct",
+            "nov": "Nov",
+            "dec": "Dec"
+          }
+        },
+        "know-more": "Learn more",
+        "price-comfort": "Comfort-price",
+        "header-table": {
+          "month": "Month",
+          "conso-ref": "Reference\nconsumption\n(kWh)",
+          "conso-target": "Target\nconsumption\n(kWh)",
+          "conso": "Consumption\n(kWh)",
+          "savings": "Savings"
+        },
+        "no-data-modal": {
+          "message": "Data is not available for this period"
         }
       },
       "quiz": {
