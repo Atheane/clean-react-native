@@ -5,7 +5,6 @@ import { I18nextProvider, useTranslation } from 'react-i18next';
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import { Provider } from 'react-redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { ThemeProvider } from '@rneui/themed';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -13,7 +12,6 @@ import Toast from 'react-native-toast-message';
 import { ConfigCatProvider, createConsoleLogger, LogLevel } from 'configcat-react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useDeeplink } from './hooks/useDeepLink';
-import * as Linking from 'expo-linking';
 import SplashScreen from '../../../assets/images/splash.png';
 import { store, persistor } from '../application/usecases/root-saga';
 import { IRootState } from '../application/state-management/reducers/root-reducer';
@@ -24,7 +22,6 @@ import { Fonts } from './constants';
 import { theme } from './theme';
 import { NavigationUI } from './navigation';
 import i18n from './translations/i18n';
-import { IStoreKey } from '../application/types';
 
 const App: () => JSX.Element = () => {
   const [fontsLoaded] = useFonts(Fonts);

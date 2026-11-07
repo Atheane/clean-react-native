@@ -55,3 +55,10 @@ export interface IEnergyConsumption {
   month: string;
   year: number;
 }
+
+export enum IWorks {
+  ISOLATION_ANTICS = 'ISOLATION_ANTICS',
+  HEAT_PUMP = 'HEAT_PUMP',
+  ISOLATION_WINDOWS = 'ISOLATION_WINDOWS',
+  GLOBAL_RENOVATION = 'GLOBAL_RENOVATION',
+}

@@ -51,11 +51,11 @@ export const AdaptTemperature = () => {
     if (selectedOption?.key === 'winter' && energy?.properties.heatingPriceComfort?.value) {
       setPriceComfort(energy.properties.heatingPriceComfort.value.average);
       setKwh(energy.properties.heatingPriceComfort.value.incremental);
-      setPrice(energy.properties.heatingPriceComfort.value.incremental * 0.15);
+      setPrice((energy.properties.heatingPriceComfort.value.incremental * 0.15 * 365) / 12);
     } else if (selectedOption?.key === 'summer' && energy?.properties.coolingPriceComfort?.value) {
       setPriceComfort(energy.properties.coolingPriceComfort.value.average);
       setKwh(energy.properties.coolingPriceComfort.value.incremental);
-      setPrice(energy.properties.coolingPriceComfort.value.incremental * 0.15);
+      setPrice((energy.properties.coolingPriceComfort.value.incremental * 0.15 * 365) / 12);
     } else {
       setPriceComfort(null);
       setKwh(null);

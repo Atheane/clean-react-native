@@ -263,8 +263,9 @@ export enum IEnergyStackPages {
   HELP_COMFORT_PRICE = 'HelpComfortPrice',
   WIN_GREEN_EUROS = 'WinGreenEuros',
   ADAPT_TEMPERATURE = 'AdaptTemperature',
-  RENOVATE_MY_HOUSE = 'RenovateMyHouse',
   MY_ENERGY_CONSUMPTION = 'MyEnergyConsumption',
+  RENOVATE = 'Renovate',
+  SAVINGS_AFTER_RENOVATION = 'SavingsAfterRenovation',
   MODAL_QUIZ = 'ModalQuiz',
 }
 
@@ -384,8 +385,9 @@ export type IEnergyStackProps = {
   [IEnergyStackPages.HELP_COMFORT_PRICE]: object;
   [IEnergyStackPages.WIN_GREEN_EUROS]: object;
   [IEnergyStackPages.ADAPT_TEMPERATURE]: object;
-  [IEnergyStackPages.RENOVATE_MY_HOUSE]: object;
   [IEnergyStackPages.MY_ENERGY_CONSUMPTION]: object;
+  [IEnergyStackPages.RENOVATE]: object;
+  [IEnergyStackPages.SAVINGS_AFTER_RENOVATION]: object;
   [IEnergyStackPages.MODAL_QUIZ]: object;
 };
 
@@ -475,6 +477,7 @@ export type IRoutes =
   | IEnergyStackPages.HELP_COMFORT_PRICE
   | IEnergyStackPages.WIN_GREEN_EUROS
   | IEnergyStackPages.ADAPT_TEMPERATURE
-  | IEnergyStackPages.RENOVATE_MY_HOUSE
   | IEnergyStackPages.MY_ENERGY_CONSUMPTION
+  | IEnergyStackPages.RENOVATE
+  | IEnergyStackPages.SAVINGS_AFTER_RENOVATION
   | IEnergyStackPages.MODAL_QUIZ;

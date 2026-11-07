@@ -35,6 +35,7 @@ import { Reward } from './cards/reward';
 import { TemperatureCard } from './cards/temperature-card';
 import { InfoCard } from './cards/info-card';
 import { AdaptTemperatureCard } from './cards/adapt-temperature-card';
+import { RenovationCard } from './cards/renovation-card';
 // Charts
 import { StackedBars } from './charts/stacked-bars';
 import { StackedBarsCO2 } from './charts/stacked-bars-co2';
@@ -142,6 +143,7 @@ export {
   Reward,
   InfoCard,
   AdaptTemperatureCard,
+  RenovationCard,
   // Charts
   StackedBars,
   StackedBarsCO2,

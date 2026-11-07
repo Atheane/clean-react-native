@@ -912,6 +912,37 @@
         "internal": "Intérieur",
         "external": "Extérieur"
       },
+      "renovate": {
+        "title": "Gains après rénovation",
+        "header": "Rénovez votre logement : plus d’économies, plus de confort !",
+        "instruction": "Choisissez les travaux pour connaître vos économies d’énergie :",
+        "isolation-antics": "Isolation des combles",
+        "heat-pump": "Installation d’une pompe à chaleur",
+        "isolation-windows": "Isolation des murs et des fenêtres",
+        "global-renovation": "Rénovation globale",
+        "button": "Voir le résultat",
+        "winter": "Hiver",
+        "summer": "Été",
+        "explanation": "Le prix-confort est une valeur constante bien pratique pour essayer de prévoir vos consommations d’énergie de chauffage ou climatisation.\nPlus il fait froid, plus il faut d’énergie pour maintenir 18°C dans le logement : s’il fait zéro degré dehors, il faut chauffer 18°C et la maison consomme 18 fois la valeur prix-confort. S’il fait 10°C dehors, il ne faut chauffer que de 8°C pour passer de 10°C à 18°C, et la maison ne consomme plus que 8 fois le prix-confort.\n Le prix-confort dépend à la fois de vos habitudes et de la qualité d’isolation de votre maison.\n A vous de jouer, pour baisser cette valeur, c’est à dire payer moins pour avoir plus de confort !"
+      },
+      "savings-after-renovation": {
+        "title": "Gains après rénovation",
+        "header": "Après\nrénovation",
+        "explanation": "Le prix-confort est une valeur constante bien pratique pour essayer de prévoir vos consommations d’énergie de chauffage ou climatisation.\nPlus il fait froid, plus il faut d’énergie pour maintenir 18°C dans le logement : s’il fait zéro degré dehors, il faut chauffer 18°C et la maison consomme 18 fois la valeur prix-confort. S’il fait 10°C dehors, il ne faut chauffer que de 8°C pour passer de 10°C à 18°C, et la maison ne consomme plus que 8 fois le prix-confort.\n Le prix-confort dépend à la fois de vos habitudes et de la qualité d’isolation de votre maison.\n A vous de jouer, pour baisser cette valeur, c’est à dire payer moins pour avoir plus de confort !",
+        "ISOLATION_ANTICS": "Isolation des combles",
+        "HEAT_PUMP": "Installation d’une pompe à chaleur",
+        "ISOLATION_WINDOWS": "Isolation des murs et des fenêtres",
+        "GLOBAL_RENOVATION": "Rénovation globale",
+        "explanation-title": "Prix-confort, comment ça marche ?",
+        "winter": "Hiver",
+        "summer": "Été",
+        "before": "Avant",
+        "after": "Après",
+        "by-month": "par mois*",
+        "footer-one": "Économisez ",
+        "footer-two": " kWh par an,\nSoit ",
+        "footer-three": " par an, avant\naugmentation du prix de l’énergie !"
+      },
       "my-energy-consumption": {
         "title": "Ma consommation",
         "header": "Ma\nconsommation",

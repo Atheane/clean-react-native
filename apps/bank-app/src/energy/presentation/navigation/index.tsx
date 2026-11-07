@@ -10,7 +10,15 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 import { HeaderTitleAlign } from '../../../shared/presentation/types';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
-import { MenuEnergy, ModalQuiz, WinGreenEuros, AdaptTemperature, MyEnergyConsumption } from '../screens';
+import {
+  MenuEnergy,
+  ModalQuiz,
+  WinGreenEuros,
+  AdaptTemperature,
+  MyEnergyConsumption,
+  SavingsAfterRenovation,
+  Renovate,
+} from '../screens';
 import { EnergyAppLogo } from '../assets/images';
 
 const Stack = createNativeStackNavigator<IEnergyStackProps & ISharedStackProps>();
@@ -103,6 +111,22 @@ export const EnergyStack = () => {
         component={MyEnergyConsumption}
         options={{
           headerTitle: t('screens.energy.my-energy-consumption.title'),
+          ...headersOptions(goBack),
+        }}
+      />
+      <Stack.Screen
+        name={IEnergyStackPages.RENOVATE}
+        component={Renovate}
+        options={{
+          headerTitle: t('screens.energy.renovate.title'),
+          ...headersOptions(goBack),
+        }}
+      />
+      <Stack.Screen
+        name={IEnergyStackPages.SAVINGS_AFTER_RENOVATION}
+        component={SavingsAfterRenovation}
+        options={{
+          headerTitle: t('screens.energy.savings-after-renovation.title'),
           ...headersOptions(goBack),
         }}
       />
