@@ -8,7 +8,7 @@ import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AuthError, Email, Password } from '@clean-rn/auth/domain';
 import { KYC_REVIEW, IUserType } from '@clean-rn/user/domain';
 
-import { IUserSearchServerCode, UserApi, UserMapper } from '@clean-rn/user/infrastructure';
+import { UserApi, UserMapper } from '@clean-rn/user/infrastructure';
 import { Card, CardError, ICardStatuses } from '@clean-rn/card/domain';
 import { CardApi } from '@clean-rn/card/infrastructure';
 import { AuthApi, IAuthServerCode } from '@clean-rn/auth/infrastructure';
@@ -19,7 +19,7 @@ import { IStoreKey } from '../../../../shared/application/types';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { ISharedStackPages, IUserStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
+import { checkCustomerStatus } from '../../../../kyc/application/commands';
 import { initializeUser, userSaved } from '../../../../user/application/commands';
 import { cardForbidden, cardGetSuccess, cardNotFound } from '../../../../card/application/commands';
 import { getEnergy } from 'apps/bank-app/src/energy/application/commands';

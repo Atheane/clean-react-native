@@ -1,19 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
-
+import { put, StrictEffect, takeEvery, call, select, spawn, join } from 'redux-saga/effects';
 import { HttpConnection } from '@clean-rn/shared/infrastructure';
-import { Customer, IDocumentProperties, IKycState } from '@clean-rn/kyc/domain';
-import { KycApi } from '@clean-rn/kyc/infrastructure';
+import { Customer, IStepTypes, IDocumentProperties, DocumentVO } from '@clean-rn/kyc/domain';
 import { KYC_REVIEW, User } from '@clean-rn/user/domain';
-import { AccountApi } from '@clean-rn/account/infrastructure';
-import { IAccount } from '@clean-rn/account/domain';
-import { TransactionApi } from '@clean-rn/transaction/infrastructure';
+import { IAccount, IAccountType } from '@clean-rn/account/domain';
 import { ITransaction } from '@clean-rn/transaction/domain';
+import { AccountApi } from '@clean-rn/account/infrastructure';
+import { TransactionApi } from '@clean-rn/transaction/infrastructure';
+import { KycApi } from '@clean-rn/kyc/infrastructure';
 
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
-import { IKycStackPages } from '../../../../shared/presentation/types';
-
-import { customerStatusChecked, initializeKyc, ICustomerTypes } from '../../commands/customer';
+import { selectCustomer } from '../../state-management/selectors';
+import { ICustomerTypes, initializeCustomer, sendDocument } from '../../commands';
 
 export function* checkCustomerStatusSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(ICustomerTypes.CHECK_CUSTOMER_STATUS, checkCustomerStatusGenerator, httpConnection);
@@ -34,55 +32,110 @@ export function* checkCustomerStatusGenerator(
     const { user } = payload;
     const customerStatus = user.properties.kycReview as KYC_REVIEW;
 
-    if (customerStatus === KYC_REVIEW.VALIDATED) {
-      const customer = Customer.Create({
-        id: parseInt(user.id),
-        properties: {
-          status: customerStatus,
-          USPerson: user.properties.USPerson as boolean,
-          kycReviewComment: '',
-        },
-      });
-      yield put(customerStatusChecked({ customer, initRoute: IKycStackPages.SUCCESS }));
-      yield cancel();
-    }
-
-    const api = KycApi.getInstance(httpConnection);
-    const documents: IDocumentProperties[] = yield call([api, api.getDocuments]);
     const customer = Customer.Create({
       id: parseInt(user.id),
       properties: {
-        status: customerStatus,
         USPerson: user.properties.USPerson as boolean,
-        kycReviewComment: user.properties.kycReviewComment || '',
+        reviewComment: user.properties.kycReviewComment || '',
+        steps: {
+          [IStepTypes.W9]: undefined,
+          [IStepTypes.ID]: undefined,
+          [IStepTypes.INFORMATIONS]: undefined,
+          [IStepTypes.SCT]: undefined,
+        },
       },
     });
 
-    // get transactions, necessary to compute SCT status
-    // KycProvider does not give information on payin owner identity
-    // so we make the strong asumption that if there is a payin, SCT is active
-    const accountApi = AccountApi.getInstance(httpConnection);
-    const accounts: IAccount[] = yield call([accountApi, accountApi.getAccounts]);
+    customer.checkKYCStatus(customerStatus);
 
+    // if ([KYC_REVIEW.NONE, KYC_REVIEW.REFUSED, KYC_REVIEW.REMEDIATION].includes(customerStatus)) {
+    customer.checkStepRevenues(user?.properties?.revenues);
+
+    const accountApi = AccountApi.getInstance(httpConnection);
+    const accounts = yield call([accountApi, accountApi.getAccounts]);
+    const mainAccount = accounts.find((account: IAccount) => account.accountType === IAccountType.MAIN);
     const transactionApi = TransactionApi.getInstance(httpConnection);
     const transactions: ITransaction[] = yield call(
       [transactionApi, transactionApi.getTransactions],
-      accounts[0].accountId,
+      mainAccount.accountId,
     );
-    customer.initKyc(documents, transactions);
+    customer.checkStepSct(transactions);
 
-    let initRoute: IKycStackPages;
-    if (customer.properties.kyc?.state === IKycState.INIT) {
-      initRoute = IKycStackPages.INIT;
-    } else {
-      // state = INCOMPLETE, PENDING or REFUSED
-      initRoute = IKycStackPages.KYC;
+    const kycApi = KycApi.getInstance(httpConnection);
+    const documents = yield call([kycApi, kycApi.getDocuments]);
+    customer.checkStepID(documents);
+
+    if (user.properties.USPerson) {
+      customer.checkStepW9(documents);
     }
+    // }
+  } catch (error: unknown) {
+    yield put(initializeCustomer());
+    yield put(showUnknownError(error as Error));
+  }
+}
 
-    yield put(customerStatusChecked({ customer, initRoute }));
+export function* createDocumentSaga(): Generator<StrictEffect, any, any> {
+  yield takeEvery(ICustomerTypes.CREATE_DOCUMENT, createDocumentSagaGenerator);
+}
+
+export function* createDocumentSagaGenerator({
+  payload,
+}: {
+  type: string;
+  payload: {
+    documentProperties: IDocumentProperties;
+  };
+}): Generator<StrictEffect, any, any> {
+  try {
+    const document = new DocumentVO(payload.documentProperties);
+    const customerFromRedux = yield select(selectCustomer);
+    const customer = Customer.Create(customerFromRedux);
+    customer.createDocument(document);
   } catch (error: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors
-    yield put(initializeKyc());
+    yield put(showUnknownError(error as Error));
+  }
+}
+
+export function* addPageSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
+  yield takeEvery(ICustomerTypes.ADD_PAGE, addPageSagaGenerator, httpConnection);
+}
+
+export function* addPageSagaGenerator(
+  httpConnection: HttpConnection,
+  {
+    payload,
+  }: {
+    type: string;
+    payload: {
+      base64: string;
+    };
+  },
+): Generator<StrictEffect, any, any> {
+  try {
+    // redux get rid of instance methods such as addPage, isReady...
+    // so we need to instanciate a new instance so as to make use of these methods
+    // bouhhh redux on that one
+    const customerFromRedux = yield select(selectCustomer);
+    const customer = Customer.Create(customerFromRedux);
+
+    customer.addPage(payload.base64);
+
+    const document = customer.properties.currentDocument as DocumentVO;
+    if (document.isReady) {
+      yield put(sendDocument());
+      const api = KycApi.getInstance(httpConnection);
+
+      const createDocumentTask = yield spawn([api, api.createDocument], {
+        customerId: customer.id,
+        document,
+      });
+      yield join(createDocumentTask);
+      customer.sendDocument();
+    }
+  } catch (error: unknown) {
+    // once app is well tested, delete this part and let onError hook manage unexpected errors
     yield put(showUnknownError(error as Error));
   }
 }

@@ -20,8 +20,8 @@ export function* getQuizGenerator(httpConnection: HttpConnection): Generator<Str
     const user = yield select(selectUser);
     yield call(ensureTokenRefreshed, httpConnection);
 
-    const energy: Energy = yield select(selectEnergy);
-
+    const energyRedux: Energy = yield select(selectEnergy);
+    const energy = Energy.Restore(energyRedux);
     const energyRepository = EnergyRepositoryFactory.getRepository(httpConnection);
     let lang;
     if (user.properties.config?.lang) {

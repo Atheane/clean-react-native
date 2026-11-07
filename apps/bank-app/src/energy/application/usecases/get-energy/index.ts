@@ -10,7 +10,6 @@ import { ensureTokenRefreshed } from '../../../../shared/application/usecases/en
 import { selectUser } from '../../../../user/application/state-management/selectors';
 
 import { IEnergyTypes, initializeEnergy } from '../../commands';
-import { selectEnergy } from '../../state-management/selectors';
 
 export function* getEnergySaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IEnergyTypes.GET_ENERGY, getEnergyGenerator, httpConnection);
@@ -21,11 +20,7 @@ export function* getEnergyGenerator(httpConnection: HttpConnection): Generator<S
     yield call(ensureTokenRefreshed, httpConnection);
 
     const user: User = yield select(selectUser);
-    let energy: Energy = yield select(selectEnergy);
-
-    if (!energy) {
-      energy = Energy.Create({ userId: user.id });
-    }
+    const energy = Energy.Create({ userId: user.id });
 
     const energyRepository = EnergyRepositoryFactory.getRepository(httpConnection);
 
@@ -53,6 +48,7 @@ export function* getEnergyGenerator(httpConnection: HttpConnection): Generator<S
       }
     }
   } catch (error: unknown) {
+    console.log('error', error);
     yield put(initializeEnergy());
     yield put(showUnknownError(error as Error));
   }

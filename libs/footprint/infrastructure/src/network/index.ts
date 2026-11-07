@@ -79,6 +79,7 @@ export class FootprintApi implements IFootprintRepository, IFootprintService {
     const currentFootprintDto = footprintsDto.find(
       (footprint: IFootprintDto) => new Date(footprint.startDate).getFullYear() === currentYear,
     );
+
     if (!currentFootprintDto) {
       return;
     }

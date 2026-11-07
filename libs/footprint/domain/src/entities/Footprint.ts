@@ -45,6 +45,6 @@ export class Footprint extends Entity<IFootprintProperties> {
 
   addHistory(history: Footprint[]): void {
     this.properties.history = history;
-    this.emitDomainEvent(FOOTPRINT_EVENTS.PAST_FOOTPRINTS_ADDED, history);
+    Footprint.emitStaticDomainEvent(FOOTPRINT_EVENTS.PAST_FOOTPRINTS_ADDED, this);
   }
 }

@@ -32,7 +32,6 @@ import {
   updateLanguageSaga,
   deleteUserAccountSaga,
   updateUserSaga,
-  registerRevenuesSaga,
 } from '../../../user/application/usecases';
 
 import { listAccountsSaga } from '../../../account/application/usecases';
@@ -64,13 +63,11 @@ import {
   getFootprintSaga,
 } from '../../../footprint/application/usecases';
 
-import { checkCustomerStatusSaga } from '../../../kyc/application/usecases/customer';
 import {
-  initializeDocumentSaga,
+  checkCustomerStatusSaga,
+  createDocumentSaga,
   addPageSaga,
-  uploadDocumentSaga,
-  cancelUploadSaga,
-} from '../../../kyc/application/usecases/document';
+} from '../../../kyc/application/usecases/customer';
 import { registerDeviceSaga } from '../../../device/application/usecases/register-device';
 
 import {
@@ -95,8 +92,7 @@ import {
 import { initContact } from '../../../beneficiary/application/commands/contact';
 import { initCard } from '../../../card/application/commands';
 import { initializeDevice } from '../../../device/application/commands';
-import { initializeKyc } from '../../../kyc/application/commands/customer';
-import { resetDocument } from '../../../kyc/application/commands/document';
+import { kycDomainEventsConfig } from '../../../kyc/application/state-management/domain-events.config';
 import { initTransaction, initializeTransactionsList } from '../../../transaction/application/commands';
 import { initializeUser } from '../../../user/application/commands';
 import { IStoreKey } from '../../../shared/application/types';
@@ -135,6 +131,7 @@ const sagaMiddleware = createSagaMiddleware({
 // Gather all bounded contexts configurations
 const boundedContextConfigs = {
   ...energyDomainEventsConfig,
+  ...kycDomainEventsConfig,
 };
 
 const domainEventsMiddleware = createDomainEventsMiddleware(boundedContextConfigs);
@@ -169,8 +166,6 @@ function* watchLogout() {
   yield put(initializeTransportEmissions());
   yield put(initCard());
   yield put(initializeDevice());
-  yield put(initializeKyc());
-  yield put(resetDocument());
   yield put(initializeTransactionsList());
   yield put(initTransaction());
   yield put(initializeUser());
@@ -192,7 +187,6 @@ function* rootSaga(httpConnection: HttpConnection): SagaIterator {
     call(checkPhoneSaga, httpConnection),
     call(registerBirthSaga),
     call(registerAddressSaga),
-    call(registerRevenuesSaga),
     call(validatePhoneSaga, httpConnection),
     call(signupUserSaga, httpConnection),
     call(refreshSaga, httpConnection),
@@ -202,9 +196,8 @@ function* rootSaga(httpConnection: HttpConnection): SagaIterator {
     call(computeTransportEmissionsSaga, httpConnection),
     call(computeFoodEmissionsSaga, httpConnection),
     call(computeFlyEmissionsSaga, httpConnection),
-    call(initializeDocumentSaga),
-    call(addPageSaga),
-    call(cancelUploadSaga),
+    call(createDocumentSaga),
+    call(addPageSaga, httpConnection),
     call(registerDeviceSaga, httpConnection),
     call(sessionSaga),
     // sagas requiring token refresh
@@ -216,7 +209,6 @@ function* rootSaga(httpConnection: HttpConnection): SagaIterator {
     call(toggleCardLockSaga, httpConnection),
     call(changeCardPINSaga, httpConnection),
     call(checkCustomerStatusSaga, httpConnection),
-    call(uploadDocumentSaga, httpConnection),
     call(listTransactionsSaga, httpConnection),
     call(transferSaga, httpConnection),
     call(payoutSaga, httpConnection),
@@ -236,7 +228,7 @@ function* rootSaga(httpConnection: HttpConnection): SagaIterator {
     call(getEnergySaga, httpConnection),
     call(getQuizSaga, httpConnection),
     call(checkAnswerSaga, httpConnection),
-    call(computeRewardsSaga, httpConnection),
+    call(computeRewardsSaga),
   ];
   // here we watch if action logout is launched in the store
   yield fork(watchLogout);

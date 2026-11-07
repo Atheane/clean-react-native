@@ -38,7 +38,7 @@ export const BeneficiaryStack = () => {
     }
   }, [navigation, tab]);
 
-  const { customer } = useSelector((state: IRootState) => state.kyc.customer);
+  const { customer } = useSelector((state: IRootState) => state.customer);
 
   return (
     <Stack.Navigator>

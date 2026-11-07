@@ -1,98 +1,170 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
+import { createMockTask } from '@redux-saga/testing-utils';
 
-import { DocumentVO, IKycSteps, IDocumentStatus, IDocumentStatusCode } from '@clean-rn/kyc/domain';
+import { DomainEventManager } from '@clean-rn/ddd';
+import { HttpConnection } from '@clean-rn/shared/infrastructure';
+import {
+  KYC_EVENTS,
+  DocumentVO,
+  IStepStatus,
+  IStepTypes,
+  IDocumentStatusCode,
+  IDocumentType,
+} from '@clean-rn/kyc/domain';
 
-import { addPageSaga, addPageSagaGenerator } from '../../usecases/document';
-import { IDocumentTypes, pageAdded, uploadDocument } from '../../commands/document';
-import { selectDocument } from '../../state-management/selectors';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
 import { IKycStackPages } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
-import { IDCardVerso } from '../../../presentation/assets/images';
+
+import { IDCardRecto } from '../../../presentation/assets/images';
+import { shortBase64 } from '../fixtures/mock-data';
+import { createMockHttpConnection, mockInfrastructure } from '../helpers/setup';
+import { selectCustomer } from '../../state-management/selectors';
+import { addPageSaga, addPageSagaGenerator } from '../../usecases';
+import { ICustomerTypes, sendDocument } from '../../commands';
+import {
+  mockCustomerKYCNoneEmptyDocumentCreated,
+  mockCustomerKYCNoneDocumentWithRectoPageCreated,
+} from '../fixtures/mock-data';
+import { KycApi } from '@clean-rn/kyc/infrastructure';
+import { send } from 'process';
 
 describe('Document - addPage - usecases', () => {
-  const documentProperties = {
-    typeId: 9,
-    kycStep: IKycSteps.ID as IKycSteps.W9 | IKycSteps.ID,
-    status: IDocumentStatus.PENDING,
-    name: 'test-mock',
-    createdAt: new Date('2023-10-03T13:20:21.303Z'),
-    statusCode: IDocumentStatusCode.INITIAL,
-  };
+  let httpConnection: HttpConnection;
+  const domainManagerInstance = DomainEventManager.getInstance();
 
-  const genObject = addPageSaga();
+  beforeEach(() => {
+    httpConnection = createMockHttpConnection();
+    mockInfrastructure();
+    jest.spyOn(domainManagerInstance, 'emit').mockImplementation(() => true);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
+  });
 
   it('Should wait for ADD_PAGE action and call addPageSagaGenerator, should be done on next iteration', () => {
-    expect(genObject.next().value).toEqual(takeEvery(IDocumentTypes.ADD_PAGE, addPageSagaGenerator));
+    const genObject = addPageSaga(httpConnection);
+    expect(genObject.next().value).toEqual(
+      takeEvery(ICustomerTypes.ADD_PAGE, addPageSagaGenerator, httpConnection),
+    );
     expect(genObject.next().done).toBeTruthy();
   });
 
-  it('Should call pageAdded if document not ready', async () => {
-    const documentBefore = new DocumentVO(documentProperties);
-
-    const documentAfter = new DocumentVO(documentProperties);
-    documentAfter.addPage('base64-fake-recto');
+  it('Should add first page for ID document', async () => {
+    const document = new DocumentVO({
+      typeId: IDocumentType.ID,
+      status: IStepStatus.PENDING,
+      statusCode: IDocumentStatusCode.INITIAL,
+      createdAt: new Date(),
+      context: IStepTypes.ID,
+      name: 'first-id.id.recto',
+    });
 
     const nextRouteParams = {
       instruction: 'instruction',
-      imageSource: IDCardVerso,
+      imageSource: IDCardRecto,
     };
 
-    testSaga(addPageSagaGenerator, {
-      type: IDocumentTypes.ADD_PAGE,
+    testSaga(addPageSagaGenerator, httpConnection, {
+      type: ICustomerTypes.ADD_PAGE,
       payload: {
-        base64: 'base64-fake-recto',
+        base64: shortBase64,
         nextRouteParams,
       },
     })
       .next()
-      .select(selectDocument)
-      .next({ document: documentBefore })
-      .put(
-        pageAdded({
-          document: documentAfter,
+      .select(selectCustomer)
+      .next(mockCustomerKYCNoneEmptyDocumentCreated);
+
+    document.addPage(shortBase64);
+
+    expect(domainManagerInstance.emit).toHaveBeenNthCalledWith(
+      1,
+      KYC_EVENTS.CUSTOMER_CREATED,
+      expect.any(Object),
+    );
+    expect(domainManagerInstance.emit).toHaveBeenNthCalledWith(
+      2,
+      KYC_EVENTS.DOCUMENT_PAGE_ADDED,
+      expect.objectContaining({
+        id: mockCustomerKYCNoneEmptyDocumentCreated.id,
+        properties: expect.objectContaining({
+          currentDocument: expect.objectContaining({
+            context: IStepTypes.ID,
+            name: 'first-id.id.recto',
+            status: IStepStatus.PENDING,
+            statusCode: IDocumentStatusCode.INITIAL,
+            typeId: IDocumentType.ID,
+            recto: shortBase64,
+          }),
         }),
-      )
-      .next(documentAfter)
-      .call(navigate, { route: IKycStackPages.UPLOAD_DOCUMENT, params: nextRouteParams })
-      .next();
+      }),
+    );
   });
 
-  it('Should call uploadDocument if document ready', async () => {
-    const documentBefore = new DocumentVO(documentProperties);
-    documentBefore.addPage('base64-fake-recto');
+  it('Should add second page for ID document', async () => {
+    const nextRouteParams = {
+      instruction: 'instruction',
+      imageSource: IDCardRecto,
+    };
 
-    const documentAfter = new DocumentVO(documentProperties);
-    documentAfter.addPage('base64-fake-recto');
-    documentAfter.addPage('base64-fake-verso');
+    const mockTask = createMockTask();
 
-    testSaga(addPageSagaGenerator, {
-      type: IDocumentTypes.ADD_PAGE,
+    testSaga(addPageSagaGenerator, httpConnection, {
+      type: ICustomerTypes.ADD_PAGE,
       payload: {
-        base64: 'base64-fake-verso',
+        base64: shortBase64,
+        nextRouteParams,
       },
     })
       .next()
-      .select(selectDocument)
-      .next({ document: documentBefore })
-      .put(
-        uploadDocument({
-          document: documentAfter,
-        }),
-      )
-      .next(documentAfter)
-      .call(navigate, { route: IKycStackPages.KYC })
+      .select(selectCustomer)
+      .next(mockCustomerKYCNoneDocumentWithRectoPageCreated)
+      .put(sendDocument())
       .next()
-      .cancel();
+      .spawn([KycApi.getInstance(httpConnection), 'createDocument'], {
+        customerId: mockCustomerKYCNoneDocumentWithRectoPageCreated.id,
+        document: mockCustomerKYCNoneDocumentWithRectoPageCreated.properties.currentDocument,
+      })
+      .next(mockTask)
+      .join(mockTask)
+      .next();
+
+    expect(domainManagerInstance.emit).toHaveBeenNthCalledWith(
+      1,
+      KYC_EVENTS.CUSTOMER_CREATED,
+      expect.any(Object),
+    );
+    expect(domainManagerInstance.emit).toHaveBeenNthCalledWith(
+      2,
+      KYC_EVENTS.DOCUMENT_PAGE_ADDED,
+      expect.any(Object),
+    );
+    expect(domainManagerInstance.emit).toHaveBeenNthCalledWith(
+      3,
+      KYC_EVENTS.DOCUMENT_SENT,
+      expect.objectContaining({
+        id: mockCustomerKYCNoneDocumentWithRectoPageCreated.id,
+        properties: expect.objectContaining({
+          currentDocument: undefined,
+          steps: expect.any(Object),
+          USPerson: false,
+          reviewComment: '',
+          numberOfSteps: expect.any(Number),
+        }),
+      }),
+    );
   });
 
   it('Should call showUnknownError action if unknown error', () => {
-    testSaga(addPageSagaGenerator, {
-      type: IDocumentTypes.ADD_PAGE,
+    testSaga(addPageSagaGenerator, httpConnection, {
+      type: ICustomerTypes.ADD_PAGE,
       payload: {
-        base64: 'base64-fake',
+        base64: shortBase64,
       },
     })
       .next()

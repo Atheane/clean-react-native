@@ -3,10 +3,13 @@ import { View, StyleSheet, Dimensions, Linking, Platform } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { checkVersion } from 'react-native-check-version';
 import { getLocales } from 'expo-localization';
 import { IAccount, IAccountType } from '@clean-rn/account/domain';
-import { IKycState } from '@clean-rn/kyc/domain';
+import { KYC_REVIEW } from '@clean-rn/user/domain';
+import { IStepStatus, IStepTypes } from '@clean-rn/kyc/domain';
+
 import {
   TopRightFlowersBg,
   CardScroller,
@@ -23,7 +26,9 @@ import { fetchRegisterDevice } from '../../../device/application/commands';
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import {
   IKycStackPages,
+  IRootStackParamList,
   ISharedStackPages,
+  ISharedStackParamList,
   ITransactionStackPages,
 } from '../../../shared/presentation/types';
 import { useNotification } from '../../../shared/presentation/hooks';
@@ -41,6 +46,8 @@ import {
 
 const locale = getLocales()[0]?.languageCode || 'fr';
 
+type NavigationProp = NativeStackNavigationProp<IRootStackParamList & ISharedStackParamList>;
+
 export const Home = () => {
   // translation
   const { t } = useTranslation();
@@ -55,14 +62,16 @@ export const Home = () => {
     dispatch(listAccounts());
   }, [dispatch, loginPending]);
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
 
   const handleOnPressAccount = useCallback(
     (data: { uid: string; value: number; title: string; color: string }) => {
       const account = accounts?.find((account: IAccount) => account.accountId === parseInt(data.uid));
       if (!account) return;
       dispatch(listTransactions({ account }));
-      navigation.navigate(ITransactionStackPages.MENU, { screens: [ITransactionStackPages.TRANSACTIONS] });
+      navigation.navigate(ITransactionStackPages.MENU, {
+        screens: [ITransactionStackPages.TRANSACTIONS],
+      } as never);
     },
     [dispatch, navigation, accounts],
   );
@@ -74,9 +83,30 @@ export const Home = () => {
     [navigation],
   );
 
+  // show identity banner if customer not validated and if no card
+  const { customer, pending: kycPending } = useSelector((state: IRootState) => state.customer);
+
   const handlePressBanner = useCallback(() => {
-    navigation.navigate(IKycStackPages.MENU as never);
-  }, [navigation]);
+    if (customer?.properties?.status === undefined || customer.properties.steps === undefined) {
+      return;
+    }
+    if (
+      customer.properties.status === KYC_REVIEW.NONE &&
+      [undefined, IStepStatus.INIT].includes(customer.properties.steps[IStepTypes.INFORMATIONS]) &&
+      [undefined, IStepStatus.INIT].includes(customer.properties.steps[IStepTypes.ID]) &&
+      [undefined, IStepStatus.INIT].includes(customer.properties.steps[IStepTypes.SCT]) &&
+      (customer.properties.USPerson === false ||
+        [undefined, IStepStatus.INIT].includes(customer.properties.steps[IStepTypes.W9]))
+    ) {
+      navigation.navigate(IKycStackPages.MENU, {
+        screen: IKycStackPages.SHOW_KYC_STEPS,
+      } as never);
+    } else {
+      navigation.navigate(IKycStackPages.MENU, {
+        screen: IKycStackPages.KYC,
+      } as never);
+    }
+  }, [navigation, customer]);
 
   const handleOnDeleteCard = useCallback(
     (uid: string) => {
@@ -138,9 +168,6 @@ export const Home = () => {
     Linking.openURL(Platform.OS === 'ios' ? APPLE_STORE_LINK : GOOGLE_PLAY_LINK);
   }, []);
 
-  // show identity banner if customer not validated and if no card
-  const { customer, pending: kycPending } = useSelector((state: IRootState) => state.kyc.customer);
-
   const dataEventCards = eventsCardsContent
     .filter((item: { image: any; text: string; uid: string }) => {
       if (!deletedCards.includes(item.uid)) {
@@ -171,19 +198,25 @@ export const Home = () => {
           onPressRightIcon={handleUpdateNeeded}
         />
       )}
-      {customer &&
-        (customer.properties.kyc?.state === IKycState.INIT ||
-          customer.properties.kyc?.state === IKycState.INCOMPLETE ||
-          customer.properties.kyc?.state === IKycState.REFUSED) && (
-          <Banner
-            title={t('screens.home.banner.validation-identity')}
-            colorBanner={
-              customer.properties.kyc?.state === IKycState.REFUSED ? BannerColors.PINK : BannerColors.PURPLE
-            }
-            rightIcon
-            onPressRightIcon={handlePressBanner}
-          />
-        )}
+      {(customer?.properties.status === KYC_REVIEW.NONE ||
+        customer?.properties.status === KYC_REVIEW.PENDING ||
+        customer?.properties.status === KYC_REVIEW.REMEDIATION ||
+        customer?.properties.status === KYC_REVIEW.REMEDIATION_PENDING) && (
+        <Banner
+          title={t('screens.home.banner.validation-identity')}
+          colorBanner={BannerColors.PURPLE}
+          rightIcon
+          onPressRightIcon={handlePressBanner}
+        />
+      )}
+      {customer?.properties.status === KYC_REVIEW.REFUSED && (
+        <Banner
+          title={t('screens.home.banner.validation-identity')}
+          colorBanner={BannerColors.PINK}
+          rightIcon
+          onPressRightIcon={handlePressBanner}
+        />
+      )}
       <View style={styles.container}>
         <ScrollBackground background={TopDownBackground} initialScroll={-20} window={1.2}>
           <View style={styles.cardScroller}>

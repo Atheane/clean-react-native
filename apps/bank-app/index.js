@@ -16,7 +16,7 @@ if (process.env.EXPO_PUBLIC_NODE_ENV !== 'development') {
   Sentry.init({
     dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
     environment: process.env.EXPO_PUBLIC_NODE_ENV,
-    enableNative: true,
+    enableNative: false, // Disabled native SDK to avoid compilation issues with Xcode 16.0
     // We recommend adjusting this value in production.
     tracesSampleRate: 1.0,
     _experiments: {

@@ -25,7 +25,8 @@ export function* checkAnswerGenerator(
 ): Generator<StrictEffect, any, any> {
   try {
     yield call(ensureTokenRefreshed, httpConnection);
-    const energy: Energy = yield select(selectEnergy);
+    const energyRedux: Energy = yield select(selectEnergy);
+    const energy = Energy.Restore(energyRedux);
     const energyRepository = EnergyRepositoryFactory.getRepository(httpConnection);
     const isCorrect: boolean = yield call([energyRepository, energyRepository.checkAnswer], payload);
     energy.checkAnswer(isCorrect);

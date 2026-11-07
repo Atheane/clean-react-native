@@ -14,8 +14,7 @@ import { contactReducer } from '../../../../beneficiary/application/state-manage
 
 import { footprintReducer } from '../../../../footprint/application/state-management/reducer';
 
-import { customerReducer } from '../../../../kyc/application/state-management/reducer/customer';
-import { documentReducer } from '../../../../kyc/application/state-management/reducer/document';
+import { customerReducer } from '../../../../kyc/application/state-management/reducer';
 
 import { deviceReducer } from '../../../../device/application/state-management/reducer';
 
@@ -36,7 +35,7 @@ export const rootReducer = combineReducers({
   transaction: transactionsReducer,
   beneficiary: combineReducers({ beneficiaries: beneficiaryReducer, contacts: contactReducer }),
   footprint: footprintReducer,
-  kyc: combineReducers({ customer: customerReducer, document: documentReducer }),
+  customer: customerReducer,
   device: deviceReducer,
   card: cardReducer,
   energy: energyReducer,

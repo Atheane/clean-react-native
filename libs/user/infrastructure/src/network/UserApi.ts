@@ -13,8 +13,8 @@ import {
   ISignupUserCommand,
   UserError,
 } from '@clean-rn/user/domain';
-import { UserMapper } from '../mappers';
 import { IAuth } from '@clean-rn/auth/domain';
+import { UserMapper } from '../mappers';
 
 export class UserApi implements IUserRepository, IUserGateway {
   private static instance: UserApi | null = null;
@@ -132,6 +132,8 @@ export class UserApi implements IUserRepository, IUserGateway {
   }
 
   async updateUser(cmd: IUpdateUserCommand): Promise<User> {
+    console.log('------ cmd', cmd);
+
     let params = {};
     if (cmd.firstName) {
       params = {
@@ -176,6 +178,14 @@ export class UserApi implements IUserRepository, IUserGateway {
       params = {
         ...params,
         specifiedUSPerson: cmd.USPerson ? 1 : 0,
+      };
+    }
+    if (cmd.revenues) {
+      params = {
+        ...params,
+        monthlyIncomeRange: cmd.revenues.income,
+        personalAssetsRange: cmd.revenues.assets,
+        occupationCategory: cmd.revenues.occupation,
       };
     }
     const response = await fetch(

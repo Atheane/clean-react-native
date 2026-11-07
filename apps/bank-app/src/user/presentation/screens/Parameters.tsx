@@ -36,7 +36,7 @@ export const Parameters = () => {
   const navigation = useNavigation();
 
   const { card } = useSelector((state: IRootState) => state.card);
-  const { customer } = useSelector((state: IRootState) => state.kyc.customer);
+  const { customer } = useSelector((state: IRootState) => state.customer);
 
   const handlePressCardParameters = useCallback(() => {
     // it won't happen
@@ -45,9 +45,9 @@ export const Parameters = () => {
     }
     if (!card) {
       if (customer.properties.status !== KYC_REVIEW.VALIDATED) {
-        navigation.navigate(ICardStackPages.MENU, { screen: ICardStackPages.KYC_MISSING });
+        navigation.navigate(ICardStackPages.MENU, { screen: ICardStackPages.KYC_MISSING } as never);
       } else {
-        navigation.navigate(ICardStackPages.MENU, { screen: ICardStackPages.WAITING_CARD });
+        navigation.navigate(ICardStackPages.MENU, { screen: ICardStackPages.WAITING_CARD } as never);
       }
     } else {
       navigation.navigate(ICardStackPages.MENU as never);
