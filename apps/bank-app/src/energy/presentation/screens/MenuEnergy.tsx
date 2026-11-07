@@ -13,7 +13,7 @@ import {
   LoaderSplashScreen,
   Quiz,
   AdaptTemperature,
-  RenovateHouse,
+  RenovateHouseBg,
   EnergyConsumptionBg,
   TotalReward,
   TileKpi,
@@ -254,7 +254,7 @@ export const MenuEnergy = () => {
     <LoaderSplashScreen />
   ) : (
     <ErrorBoundary t={t}>
-      <SafeScrollingView>
+      <SafeScrollingView backgroundColor={Colors.primary.darkWhite}>
         <View style={styles.container}>
           <View style={{ marginTop: 30, marginBottom: 8 }}>
             <TileDashboard
@@ -313,11 +313,11 @@ export const MenuEnergy = () => {
           <View style={styles.row}>
             <LongCardIcon
               text={t('screens.energy.menu.renovate-my-house')}
-              leftIcon={() => <RenovateHouse />}
+              leftIcon={() => <RenovateHouseBg />}
               rightIcon={() => (
                 <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
               )}
-              onPress={() => handlePressNavigation(IEnergyStackPages.RENOVATE_MY_HOUSE)}
+              onPress={() => handlePressNavigation(IEnergyStackPages.RENOVATE)}
             />
           </View>
           <View style={styles.row}>
@@ -341,7 +341,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-around',
     paddingBottom: 40,
-    backgroundColor: Colors.primary.darkWhite,
   },
   row: {
     flexDirection: 'row',
