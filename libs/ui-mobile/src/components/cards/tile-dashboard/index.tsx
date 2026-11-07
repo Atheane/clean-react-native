@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import { StyleSheet, View, Dimensions, Text, Platform } from 'react-native';
+import { StyleSheet, View, Dimensions, Text, Platform, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { Skeleton, useTheme } from '@rneui/themed';
 import { Colors, FontNames } from '../../../constants';
-import { GreenHouse, WhiteEllipse as Ellipse, SunAndCloud } from '../../../assets/svg';
+import { GreenHouse, WhiteEllipse as Ellipse, SunAndCloud, Question } from '../../../assets/svg';
 
 const DASHBOARD_CARD_RATIO_EXTERNAL = 0.2; // ratio hauteur/largeur
 const DASHBOARD_CARD_RATIO_INTERNAL = 0.4; // ratio hauteur/largeur
@@ -15,6 +15,8 @@ type IProps = {
   children?: React.ReactNode;
   loading?: boolean;
   external?: boolean;
+  helpButton?: boolean;
+  handleOnPressQuestion?: () => void;
   title: string;
 };
 
@@ -149,6 +151,18 @@ export const TileInternal: FC<IProps> = (props: IProps) => {
       <View style={[styles.rowContainer, Platform.OS === 'web' ? { marginVertical: 24 } : {}]}>
         <Text style={styles.greyText}>{props.text + ' '}</Text>
         <Text style={styles.kpiText}>{props.kpi}</Text>
+        {props.helpButton && (
+          <TouchableOpacity
+            onPress={props?.handleOnPressQuestion}
+            style={{ position: 'absolute', top: 0, right: 0 }}
+          >
+            <Question
+              width={24}
+              color={Colors.primary.darkBlue}
+              style={{ position: 'absolute', top: -8, right: -8 }}
+            />
+          </TouchableOpacity>
+        )}
       </View>
       {props.children}
     </View>

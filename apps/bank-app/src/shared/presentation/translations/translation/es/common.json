@@ -898,7 +898,16 @@
         "title": "Quiz y desafíos",
         "header": "Aprende y gana €G",
         "description": "¡Pon a prueba tus conocimientos sobre consumo de energía y gana €G!",
-        "total-green-euros": "Total €G ganados"
+        "total-green-euros": "Total €G ganados",
+        "intro": "¡Pongamos a prueba tus conocimientos sobre el consumo de energía y gana €G!",
+        "theme": {
+          "GENERAL": "¡Pongamos a prueba tus conocimientos sobre el consumo de energía y gana €G!",
+          "AIR_QUALITY": "¿Lo sabías?",
+          "TEMPERATURE": "¿Lo sabías?",
+          "ENERGY_USE": "¡Sé más consciente de la situación!",
+          "ENERGY_PRODUCTION": "¡Aprovecha el poder del sol!",
+          "PRICE_COMFORT": "¿Conoces el 'precio-confort'?"
+        }
       },
       "quiz": {
         "title": "Quiz",
@@ -907,7 +916,8 @@
         "button-question": "Verificar respuesta",
         "button-feeback-true": "Ver mi hucha",
         "button-feeback-false": "Intentar mañana",
-        "challenge-description": "Pon a prueba tus conocimientos sobre consumo de energía"
+        "challenge-description": "Pon a prueba tus conocimientos sobre consumo de energía",
+        "outro": "¡Buen trabajo! Esperamos que hayas aprendido una o dos cosas sobre el consumo de energía mientras ganabas €G. Estate atento a los próximos cuestionarios para tener más oportunidades de poner a prueba tus conocimientos y ganar €G."
       },
       "feedback": {
         "correct": "¡Correcto!",

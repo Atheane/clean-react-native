@@ -727,15 +727,24 @@
         "my-energy-consumption": "Meu consumo\nenergético",
         "average": "Média",
         "price-comfort": "Preço-conforto:",
-        "total-green-euros": "Total de €G ganhos"
+        "total-green-euros": "Total de €G ganhos",
+        "internal": "Interno",
+        "external": "Externo"
       },
       "win-green-euros": {
         "title": "Quiz e desafios",
         "header": "Aprenda e ganhe €G",
         "description": "Teste seus conhecimentos sobre consumo de energia e ganhe €G!",
         "total-green-euros": "Total de €G ganhos",
-        "internal": "Interno",
-        "external": "Externo"
+        "intro": "Vamos testar seus conhecimentos sobre consumo de energia e ganhar €G",
+        "theme": {
+          "GENERAL": "Vamos testar seus conhecimentos sobre consumo de energia e ganhar €G",
+          "AIR_QUALITY": "Você sabia?",
+          "TEMPERATURE": "Você sabia?",
+          "ENERGY_USE": "Fique mais consciente da situação!",
+          "ENERGY_PRODUCTION": "Aproveite o poder do sol!",
+          "PRICE_COMFORT": "Você conhece o 'preço-conforto'?"
+        }
       },
       "quiz": {
         "title": "Quiz",
@@ -744,7 +753,8 @@
         "button-question": "Verificar resposta",
         "button-feeback-true": "Ver meu cofrinho",
         "button-feeback-false": "Tentar amanhã",
-        "challenge-description": "Teste seus conhecimentos sobre consumo de energia"
+        "challenge-description": "Teste seus conhecimentos sobre consumo de energia",
+        "outro": "Muito bem! Esperamos que você tenha aprendido algo sobre consumo de energia enquanto ganhava €G. Fique de olho nos próximos quizzes para ter mais oportunidades de testar seus conhecimentos e ganhar €G."
       },
       "feedback": {
         "correct": "Correto!",

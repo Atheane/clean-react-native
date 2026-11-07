@@ -5,6 +5,7 @@ import { DECAY_CONSUMPTIONS_AFTER_WORKS } from '../constants';
 import {
   IEnergyConsumption,
   ISensor,
+  IWorks,
   PRICE_COMFORT_DATA_GRANULARITY,
   PRICE_COMFORT_TYPE,
   SENSOR_TYPE,
@@ -192,7 +193,7 @@ export class Energy extends Entity<IEnergyProperties> {
     }
     return this.properties.consumptions.map((conso: IEnergyConsumption) => ({
       ...conso,
-      value: (1 - DECAY_CONSUMPTIONS_AFTER_WORKS) * conso.value,
+      value: (1 - DECAY_CONSUMPTIONS_AFTER_WORKS[IWorks.GLOBAL_RENOVATION]) * conso.value,
     }));
   }
 
