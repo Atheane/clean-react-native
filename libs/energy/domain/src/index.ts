@@ -6,3 +6,4 @@ export * from './repositories';
 export { Energy } from './aggregate-root/Energy';
 export { Quiz } from './entity/Quiz';
 export * from './commands';
+export * from './constants';

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { call, cancel, put, StrictEffect, takeEvery } from 'redux-saga/effects';
+import { call, put, StrictEffect, takeEvery } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { AuthError, IAuthErrorCodes, IAuthErrorMessage } from '@clean-rn/auth/domain';
@@ -23,7 +23,7 @@ import { IUserStackPages } from '../../../../shared/presentation/types';
 
 import { loginSuccess } from '../../../../auth/application/commands';
 
-import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
+import { checkCustomerStatus } from '../../../../kyc/application/commands';
 
 import { initializeUser, IUserTypes, userNotCreated, userSignedUp } from '../../commands';
 import { IDomainError } from '@clean-rn/ddd';

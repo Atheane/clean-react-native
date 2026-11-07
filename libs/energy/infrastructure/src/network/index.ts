@@ -7,6 +7,8 @@ import {
   Quiz,
   SENSOR_TYPE,
   ICheckAnswerCommand,
+  IEnergyConsumption,
+  PRICE_COMFORT_TYPE,
 } from '@clean-rn/energy/domain';
 import {
   IMeasurementsDto,
@@ -16,8 +18,39 @@ import {
   ISensorDto,
   SENSOR_TYPE_DTO,
   IAnswerQuizDto,
+  IEnergyConsumptionDto,
+  PRICE_COMFORT_DATA_GRANULARITY_DTO,
+  PRICE_COMFORT_TYPE_DTO,
 } from '../dto';
-import { SensorMapper, MeasurementMapper, PriceComfortMapper, QuizMapper } from '../mappers';
+import {
+  SensorMapper,
+  MeasurementMapper,
+  PriceComfortMapper,
+  QuizMapper,
+  ConsumptionMapper,
+} from '../mappers';
+
+const generateMonthsArray = (): string[] => {
+  const months: string[] = [];
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth() + 1; // getMonth() retourne 0-11
+
+  const startYear = 2023;
+  const startMonth = 1;
+
+  for (let year = startYear; year <= currentYear; year++) {
+    const firstMonth = year === startYear ? startMonth : 1;
+    const lastMonth = year === currentYear ? currentMonth : 12;
+
+    for (let month = firstMonth; month <= lastMonth; month++) {
+      const monthStr = month.toString().padStart(2, '0');
+      months.push(`${year}${monthStr}`);
+    }
+  }
+
+  return months;
+};
 
 export class EnergyApi implements IEnergyRepository {
   private static instance: EnergyApi | null = null;
@@ -28,6 +61,9 @@ export class EnergyApi implements IEnergyRepository {
     this.getSensors = this.getSensors.bind(this);
     this.getQuiz = this.getQuiz.bind(this);
     this.getMeasurement = this.getMeasurement.bind(this);
+    this.getConsumptions = this.getConsumptions.bind(this);
+    this.getPriceComfort = this.getPriceComfort.bind(this);
+    this.getPriceComfortMonthly = this.getPriceComfortMonthly.bind(this);
   }
 
   public static getInstance(httpConnection: HttpConnection): EnergyApi {
@@ -138,5 +174,43 @@ export class EnergyApi implements IEnergyRepository {
     await this.connection.handleError(response);
     const answerQuizDto: IAnswerQuizDto = await response.json();
     return answerQuizDto.answerStatus !== 'FAILED';
+  }
+
+  async getConsumptions(): Promise<IEnergyConsumption[]> {
+    const response = await fetch(
+      `${this.connection.baseUrl}/app/energy-app/core/consumption`,
+      this.connection.options(IHttpVerb.GET),
+    );
+    await this.connection.handleError(response);
+    const consoDtos: IEnergyConsumptionDto[] = await response.json();
+    return ConsumptionMapper.toDomain(consoDtos);
+  }
+
+  async getPriceComfortMonthly(): Promise<PriceComfortVO[]> {
+    const yearMonths = generateMonthsArray();
+    const pcMonths: Promise<PriceComfortVO>[] = [];
+    const type = PRICE_COMFORT_TYPE_DTO.ALL;
+    const temperature = 18;
+    yearMonths.forEach(async (yearMonth: string) => {
+      try {
+        const year = parseInt(yearMonth.substring(0, 4));
+        const month = parseInt(yearMonth.substring(4, 6)) - 1; // valeur attendue: de 0 à 11, 12 => BAD_REQUEST
+        const params = `year=${year}&month=${month}&type=${type}&temperature=${temperature}`;
+        const response = await fetch(
+          `${this.connection.baseUrl}/app/energy-app/core/comfort-price-month?${params}`,
+          this.connection.options(IHttpVerb.GET),
+        );
+        await this.connection.handleError(response);
+        const pcDTOs: IPriceComfortDto[] = await response.json();
+
+        pcDTOs.forEach((pc: IPriceComfortDto) => {
+          pcMonths.push(PriceComfortMapper.toDomain(pc));
+        });
+      } catch (error: unknown) {
+        console.log(`Erreur le mois ${yearMonth}`);
+        throw error;
+      }
+    });
+    return Promise.all(pcMonths);
   }
 }

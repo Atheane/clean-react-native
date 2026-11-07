@@ -1,9 +1,10 @@
 import { Entity } from '@clean-rn/ddd';
 import { ENERGY_EVENTS } from '../events';
 import { MeasurementVO, PriceComfortVO } from '../value-objects';
+import { DECAY_CONSUMPTIONS_AFTER_WORKS } from '../constants';
 import {
+  IEnergyConsumption,
   ISensor,
-  MEASUREMENT_UNIT,
   PRICE_COMFORT_DATA_GRANULARITY,
   PRICE_COMFORT_TYPE,
   SENSOR_TYPE,
@@ -25,9 +26,11 @@ export interface IEnergyProperties {
   globalPriceComfort?: PriceComfortVO | null;
   totalRewards: number;
   currentQuiz?: Quiz;
-  currentChallenge?: Quiz;
   currentAnswerIsCorrect?: boolean;
-  // consumption?: any;
+  consumptions?: IEnergyConsumption[];
+  referenceConsumptions?: number[];
+  targetConsumptions?: IEnergyConsumption[];
+  priceComfortMonthly?: PriceComfortVO[];
 }
 
 // if several houses, convert Energy to HouseEnergy
@@ -46,6 +49,14 @@ export class Energy extends Entity<IEnergyProperties> {
       },
     });
     Energy.emitStaticDomainEvent(ENERGY_EVENTS.ENERGY_CREATED, energy);
+    return energy;
+  }
+
+  static Restore({ id, properties }: { id: string; properties: Partial<IEnergyProperties> }): Energy {
+    const energy = new Energy({
+      id,
+      properties,
+    });
     return energy;
   }
 
@@ -142,5 +153,58 @@ export class Energy extends Entity<IEnergyProperties> {
     }
     this.properties.currentQuiz = undefined;
     Energy.emitStaticDomainEvent(ENERGY_EVENTS.REWARDS_COMPUTED, this);
+  }
+
+  private computeReferenceConsumptions(): number[] {
+    if (!this.properties.consumptions || this.properties.consumptions.length === 0) {
+      return new Array(12).fill(0);
+    }
+
+    // 1. Définir l'ordre des mois
+    const monthOrder = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    // 2. Grouper les consommations par mois
+    const consumptionsByMonth = new Map<string, number[]>();
+
+    this.properties.consumptions.forEach((consumption) => {
+      const existingValues = consumptionsByMonth.get(consumption.month);
+      if (existingValues) {
+        existingValues.push(consumption.value);
+      } else {
+        consumptionsByMonth.set(consumption.month, [consumption.value]);
+      }
+    });
+
+    // 3. Calculer la moyenne pour chaque mois dans l'ordre
+    const ref = monthOrder.map((month) => {
+      const values = consumptionsByMonth.get(month);
+      if (!values || values.length === 0) return 0;
+
+      const sum = values.reduce((acc, val) => acc + val, 0);
+      return sum / values.length;
+    });
+    return ref;
+  }
+
+  private computeTargetConsumptions(): IEnergyConsumption[] {
+    if (!this.properties.consumptions) {
+      return [];
+    }
+    return this.properties.consumptions.map((conso: IEnergyConsumption) => ({
+      ...conso,
+      value: (1 - DECAY_CONSUMPTIONS_AFTER_WORKS) * conso.value,
+    }));
+  }
+
+  updateConsumptions(consumptions: IEnergyConsumption[]): void {
+    this.properties.consumptions = consumptions;
+    this.properties.referenceConsumptions = this.computeReferenceConsumptions();
+    this.properties.targetConsumptions = this.computeTargetConsumptions();
+    Energy.emitStaticDomainEvent(ENERGY_EVENTS.CONSUMPTIONS_UPDATED, this);
+  }
+
+  addPriceComfortMonthly(priceComfortMonthly: PriceComfortVO[]): void {
+    this.properties.priceComfortMonthly = priceComfortMonthly;
+    Energy.emitStaticDomainEvent(ENERGY_EVENTS.PRICES_COMFORT_MONTHLY_ADDED, this);
   }
 }

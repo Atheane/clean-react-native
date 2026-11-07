@@ -1,6 +1,7 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { getLocales } from 'expo-localization';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { useFeatureFlag, User as ConfigCatUser } from 'configcat-react';
@@ -13,7 +14,7 @@ import {
   Quiz,
   AdaptTemperature,
   RenovateHouse,
-  EnergyConsumption,
+  EnergyConsumptionBg,
   TotalReward,
   TileKpi,
   Temperature,
@@ -24,10 +25,9 @@ import {
 } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary } from '../../../shared/presentation/hoc';
-import { IEnergyStackPages, IRoutes } from '../../../shared/presentation/types';
+import { IEnergyStackPages, ISharedStackPages, IRoutes } from '../../../shared/presentation/types';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { fetchRefresh } from '../../../auth/application/commands';
-import { getQuiz } from '../../../energy/application/commands';
+import { getQuiz, getConsumptions } from '../../../energy/application/commands';
 
 const getCO2Color = (co2: number) => {
   return co2 > 6000
@@ -46,10 +46,34 @@ const getCO2Color = (co2: number) => {
 const InternalTiles = (props: {
   data: { kpi?: string; unit: string; color?: string; legend: string; loading?: boolean }[];
 }) => {
+  const navigation = useNavigation();
+  const lang = getLocales()[0]?.languageCode || 'en';
+
+  const url =
+    lang === 'fr'
+      ? 'https://www.example.com/article/bien-etre-dans-son-logement-trois-indicateurs-a-surveiller'
+      : 'https://www.example.com/en/article/feeling-good-in-your-home-three-indicators-to-keep-an-eye-on';
+
   const { data } = props;
   if (!data || data.length === 0) {
     return <View style={styles.rowContainer} />;
   }
+
+  const handlePressTemperature = () => {
+    navigation.navigate(ISharedStackPages.MODAL_WEBVIEW as never, {
+      url,
+    });
+  };
+  const handlePressHumidity = () => {
+    navigation.navigate(ISharedStackPages.MODAL_WEBVIEW as never, {
+      url,
+    });
+  };
+  const handlePressCO2 = () => {
+    navigation.navigate(ISharedStackPages.MODAL_WEBVIEW as never, {
+      url,
+    });
+  };
   return (
     <View style={styles.rowContainer}>
       <TileKpi
@@ -61,6 +85,7 @@ const InternalTiles = (props: {
           legend: data[0].legend,
         }}
         loading={data[0].loading}
+        onPress={handlePressTemperature}
       />
       <TileKpi
         icon={() => <Humidity width={31} height={31} />}
@@ -71,6 +96,7 @@ const InternalTiles = (props: {
           legend: data[1].legend,
         }}
         loading={data[1].loading}
+        onPress={handlePressHumidity}
       />
       <TileKpi
         icon={() => <CO2Output width={31} height={31} />}
@@ -81,6 +107,7 @@ const InternalTiles = (props: {
           legend: data[2].legend,
         }}
         loading={data[2].loading}
+        onPress={handlePressCO2}
       />
     </View>
   );
@@ -142,10 +169,6 @@ export const MenuEnergy = () => {
   const { energy } = useSelector((state: IRootState) => state.energy);
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchRefresh());
-  }, [dispatch]);
 
   const internalData = useMemo(() => {
     const hasTemperatureSensor = energy?.properties?.sensors?.some(
@@ -222,6 +245,11 @@ export const MenuEnergy = () => {
     handlePressNavigation(IEnergyStackPages.WIN_GREEN_EUROS);
   };
 
+  const handlePressConsumptions = () => {
+    dispatch(getConsumptions());
+    handlePressNavigation(IEnergyStackPages.MY_ENERGY_CONSUMPTION);
+  };
+
   return loadingConfigcat ? (
     <LoaderSplashScreen />
   ) : (
@@ -295,11 +323,11 @@ export const MenuEnergy = () => {
           <View style={styles.row}>
             <LongCardIcon
               text={t('screens.energy.menu.my-energy-consumption')}
-              leftIcon={() => <EnergyConsumption />}
+              leftIcon={() => <EnergyConsumptionBg />}
               rightIcon={() => (
                 <RightChevron startColor={Colors.secondary.pink} endColor={Colors.primary.darkBlue} />
               )}
-              onPress={() => handlePressNavigation(IEnergyStackPages.MY_ENERGY_CONSUMPTION)}
+              onPress={handlePressConsumptions}
             />
           </View>
         </View>

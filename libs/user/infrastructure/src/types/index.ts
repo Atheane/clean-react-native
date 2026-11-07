@@ -25,8 +25,8 @@ export type IUserDto = {
     notifMailDisabled: IEmailNotifications[];
   };
   monthlyIncomeRange?: APP_USER_MONTHLY_INCOME_RANGE;
-  personalAssetsRange?: APP_USER_OCCUPATION;
-  occupationCategory?: APP_USER_PERSONAL_ASSETS_RANGE;
+  personalAssetsRange?: APP_USER_PERSONAL_ASSETS_RANGE;
+  occupationCategory?: APP_USER_OCCUPATION;
 };
 
 export enum APP_USER_MONTHLY_INCOME_RANGE {

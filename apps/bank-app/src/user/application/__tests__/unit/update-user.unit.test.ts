@@ -1,22 +1,33 @@
 import { takeEvery } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import dayjs from 'dayjs';
-
+import { Customer, KYC_EVENTS } from '@clean-rn/kyc/domain';
 import { Email } from '@clean-rn/auth/domain';
 import { Phone } from '@clean-rn/contact/domain';
-import { IGender, User, KYC_REVIEW, BirthDay, Country, IUpdateUserCommand } from '@clean-rn/user/domain';
+import {
+  IGender,
+  User,
+  KYC_REVIEW,
+  BirthDay,
+  Country,
+  IUpdateUserCommand,
+  APP_USER_OCCUPATION,
+  APP_USER_MONTHLY_INCOME_RANGE,
+  APP_USER_PERSONAL_ASSETS_RANGE,
+} from '@clean-rn/user/domain';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { UserApi } from '@clean-rn/user/infrastructure';
 
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
+import { IParametersStackPages, IRoutes } from '../../../../shared/presentation/types';
+import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
+import { selectUser } from '../../../../user/application/state-management/selectors';
+import { selectCustomer } from '../../../../kyc/application/state-management/selectors';
 
 import { updateUserSaga, updateUserGenerator } from '../../usecases';
 import { IUserTypes, resetError, userUpdated } from '../../commands';
-import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
-import { IParametersStackPages, IRoutes } from '../../../../shared/presentation/types';
-import { selectUser } from '../../../../user/application/state-management/selectors';
-import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
+import { DomainEventManager } from '@clean-rn/ddd';
 
 jest.mock('@clean-rn/shared/infrastructure', () => ({
   HttpConnection: {
@@ -34,7 +45,29 @@ jest.mock('@clean-rn/shared/infrastructure', () => ({
 describe('Update User - usecase', () => {
   let httpConnection: HttpConnection;
   let userApi: UserApi;
-
+  const domainManagerInstance = DomainEventManager.getInstance();
+  const mockCustomer = Customer.Create({
+    id: 123,
+    properties: {
+      status: KYC_REVIEW.NONE,
+      USPerson: false,
+      reviewComment: '',
+    },
+  });
+  const mockRevenues = {
+    income: APP_USER_MONTHLY_INCOME_RANGE.K10,
+    assets: APP_USER_PERSONAL_ASSETS_RANGE.A4,
+    occupation: APP_USER_OCCUPATION.PUBLIC_EMPLOYEE,
+  };
+  const mockCustomerWithRevenues = Customer.Create({
+    id: 123,
+    properties: {
+      status: KYC_REVIEW.NONE,
+      USPerson: false,
+      reviewComment: '',
+    },
+  });
+  mockCustomerWithRevenues.checkStepRevenues(mockRevenues);
   beforeEach(() => {
     httpConnection = {
       baseUrl: 'http://mock-api.com',
@@ -46,6 +79,9 @@ describe('Update User - usecase', () => {
     HttpConnection.getInstance.mockReturnValue(httpConnection);
     global.fetch = jest.fn();
     userApi = UserApi.getInstance(httpConnection);
+    jest.spyOn(domainManagerInstance, 'emit').mockImplementation((eventName: string, data: Customer) => {
+      return true;
+    });
   });
 
   afterEach(() => {
@@ -91,6 +127,14 @@ describe('Update User - usecase', () => {
     nextRoute: IParametersStackPages.PARAMETERS,
   };
 
+  const mockUpdateUserWithRevenues: IUpdateUserCommand = {
+    revenues: {
+      income: APP_USER_MONTHLY_INCOME_RANGE.K10,
+      assets: APP_USER_PERSONAL_ASSETS_RANGE.A4,
+      occupation: APP_USER_OCCUPATION.PUBLIC_EMPLOYEE,
+    },
+  };
+
   const mockError500 = {
     message: 'Core::AuthService::Auth - Server Error',
     statusCode: 500,
@@ -123,8 +167,6 @@ describe('Update User - usecase', () => {
       .next(user)
       .put(userUpdated(user))
       .next()
-      .put(checkCustomerStatus({ user }))
-      .next()
       .call(navigate, { route: IParametersStackPages.PROFILE_ADDRESS });
   });
 
@@ -143,8 +185,6 @@ describe('Update User - usecase', () => {
       .next(user)
       .put(userUpdated(user))
       .next()
-      .put(checkCustomerStatus({ user }))
-      .next()
       .call(navigate, { route: IParametersStackPages.PARAMETERS })
       .next();
   });
@@ -160,6 +200,33 @@ describe('Update User - usecase', () => {
       .put(resetError())
       .next()
       .cancel();
+  });
+
+  it('should call REVENUES_CHECKED if revenues is populated', () => {
+    user.updateUser(mockUpdateUserWithRevenues);
+    testSaga(updateUserGenerator, httpConnection, {
+      type: IUserTypes.FETCH_UPDATE_USER,
+      payload: { ...mockUpdateUserWithRevenues, nextRoute: IParametersStackPages.PARAMETERS },
+    })
+      .next()
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
+      .select(selectUser)
+      .next(user)
+      .call([userApi, userApi.updateUser], {
+        ...mockUpdateUserWithRevenues,
+        nextRoute: IParametersStackPages.PARAMETERS,
+      })
+      .next(user)
+      .put(userUpdated(user))
+      .next(user)
+      .select(selectCustomer)
+      .next(mockCustomer);
+    expect(domainManagerInstance.emit).toHaveBeenCalledWith(KYC_EVENTS.CUSTOMER_CREATED, expect.any(Object));
+    expect(domainManagerInstance.emit).toHaveBeenCalledWith(
+      KYC_EVENTS.REVENUES_CHECKED,
+      mockCustomerWithRevenues,
+    );
   });
 
   it('should call showUnknownError if 500', () => {

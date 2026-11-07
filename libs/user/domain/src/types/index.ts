@@ -40,6 +40,10 @@ export enum KYC_REVIEW {
   PENDING = 1,
   VALIDATED = 2, // Review was successful
   REFUSED = 3,
+  INVESTIGATING = 4,
+  CLOSED = 5,
+  REMEDIATION = 6, // User needs to proceed a remediation
+  REMEDIATION_PENDING = 7, // User is under validation of a remediation
 }
 
 export enum IPhoneNotifications {
@@ -76,29 +80,31 @@ export enum ILanguage {
   PT = 'PT',
 }
 
-export enum IOccupation {
-  PUBLIC_EMPLOYEE,
-  PRIVATE_EMPLOYEE,
-  UNEMPLOYED,
-}
-
-export enum IAssets {
-  LESS_THAN_150K,
-  BETWEEN_150K_AND_350K,
-  BETWEEN_350K_AND_750K,
-  MORE_THAN_750K,
-}
-
-export enum IIncome {
-  LESS_THAN_1800,
-  BETWEEN_1800_AND_3500,
-  BETWEEN_3500_AND_10000,
-  MORE_THAN_10000,
-}
-
 export enum IUserType {
   BANK_USER = 40133439,
   ENERGY_APP_USER = 87300973,
   ENERGY_APP_USER = 7658009,
   KELVIN_USER = 102003790,
+}
+
+export enum APP_USER_MONTHLY_INCOME_RANGE {
+  K2 = 2, // 1000 - 1800 Euros per month
+  K4 = 3, // 1801 - 3500 Euros per month
+  K5 = 4, // 3501 - 5000 Euros per month
+  K7 = 5, // 5001 - 6500 Euros per month
+  K10 = 6, // 6501 - 10000 Euros per month
+  KN = 7, //Greater than 10000 Euros per month
+}
+
+export enum APP_USER_OCCUPATION {
+  UNEMPLOYED = 3, // Without professional activity
+  EMPLOYEE = 5, // Employee in the private sector
+  PUBLIC_EMPLOYEE = 8, // Employee and Officer in the public sector
+}
+
+export enum APP_USER_PERSONAL_ASSETS_RANGE {
+  A0 = 0, //	None
+  A4 = 4, //	From 150 001 Euros to 350 000 Euros
+  A5 = 5, //	From 350 001 Euros to 750 000 Euros
+  A6 = 6, //	From 750 001 Euros to 1 500 000 Euros
 }

@@ -22,7 +22,7 @@ export const ProfileIdentity = () => {
 
   const { user, error, pending } = useSelector((state: IRootState) => state.user);
   const { email } = useSelector((state: IRootState) => state.auth);
-  const { customer } = useSelector((state: IRootState) => state.kyc.customer);
+  const { customer } = useSelector((state: IRootState) => state.customer);
 
   const {
     control,

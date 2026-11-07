@@ -6,6 +6,7 @@ import {
   Quiz,
   SENSOR_TYPE,
   ICheckAnswerCommand,
+  IEnergyConsumption,
 } from '@clean-rn/energy/domain';
 import { IPriceComfortDto, ISensorDto } from '@clean-rn/energy/infrastructure';
 
@@ -17,15 +18,45 @@ import getMeasurementCO2Fixture from './fixtures/get-measurement-co2-error404.js
 import getPriceComfortFixture from './fixtures/get-price-comfort.json';
 import getRewardsFixture from './fixtures/get-rewards.json';
 import getQuizFixture from './fixtures/get-quiz.json';
+import getConsumptions from './fixtures/get-consumptions.json';
+import getpc202301 from './fixtures/get-price-comfort-monthly-2023-01.json';
 
 // Import des mappers pour transformer les fixtures en objets domaine
-import { SensorMapper, MeasurementMapper, PriceComfortMapper, QuizMapper } from '../mappers';
+import {
+  SensorMapper,
+  MeasurementMapper,
+  PriceComfortMapper,
+  QuizMapper,
+  ConsumptionMapper,
+} from '../mappers';
+
+const generateMonthsArray = (): string[] => {
+  const months: string[] = [];
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth() + 1; // getMonth() retourne 0-11
+
+  const startYear = 2023;
+  const startMonth = 1;
+
+  for (let year = startYear; year <= currentYear; year++) {
+    const firstMonth = year === startYear ? startMonth : 1;
+    const lastMonth = year === currentYear ? currentMonth : 12;
+
+    for (let month = firstMonth; month <= lastMonth; month++) {
+      const monthStr = month.toString().padStart(2, '0');
+      months.push(`${year}${monthStr}`);
+    }
+  }
+
+  return months;
+};
 
 export class EnergyRepositoryInMemory implements IEnergyRepository {
   private static instance: EnergyRepositoryInMemory | null = null;
   private lastAnsweredQuizDate: Date | null = null;
-  private rewards: number = 0;
-  private readonly delayMs: number = 800; // Délai de 800ms pour simuler une API
+  private rewards = 0;
+  private readonly delayMs: number = 2000; // Délai de 800ms pour simuler une API
 
   private constructor() {
     // Rien à initialiser de manière asynchrone
@@ -105,7 +136,7 @@ export class EnergyRepositoryInMemory implements IEnergyRepository {
     return Promise.resolve(getRewardsFixture.rewardTotal);
   }
 
-  async getQuiz(): Promise<Quiz> {
+  async getQuiz(): Promise<Quiz | null> {
     await this.delay(); // Simulation de latence API
     // Si un quiz a déjà été répondu aujourd'hui, on renvoie null
     if (this.isQuizAlreadyAnsweredToday()) {
@@ -140,5 +171,29 @@ export class EnergyRepositoryInMemory implements IEnergyRepository {
   // Méthode pour ajouter des récompenses manuellement (utile pour les tests)
   addRewards(amount: number): void {
     this.rewards += amount;
+  }
+
+  async getConsumptions(): Promise<IEnergyConsumption[]> {
+    await this.delay(); // Simulation de latence API
+    const consos = ConsumptionMapper.toDomain(getConsumptions);
+    return Promise.resolve(consos);
+  }
+
+  async getPriceComfortMonthly(): Promise<PriceComfortVO[]> {
+    await this.delay();
+
+    const months = generateMonthsArray();
+    const priceComfortData: Promise<PriceComfortVO>[] = [];
+
+    months.forEach(async (month) => {
+      try {
+        const pcData = PriceComfortMapper.toDomain(getpc202301[0]);
+        priceComfortData.push(pcData);
+      } catch (error) {
+        console.log(`Données non disponibles pour le mois ${month}`);
+      }
+    });
+
+    return Promise.all(priceComfortData);
   }
 }

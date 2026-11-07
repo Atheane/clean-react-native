@@ -1,0 +1,1 @@
+export const DECAY_CONSUMPTIONS_AFTER_WORKS = 0.2;

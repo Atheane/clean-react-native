@@ -6,18 +6,19 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
 import {
-  IKycSteps,
+  IStepTypes,
   IDocumentType,
   IDocumentProperties,
-  IDocumentStatus,
+  IStepStatus,
   IDocumentStatusCode,
 } from '@clean-rn/kyc/domain';
 import { IconTextItem, KycId, KycPassport, KycResidencePermit } from '@clean-rn/ui-mobile';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { IKycStackPages } from '../../../shared/presentation/types';
+import { IKycStackPages, IKycStackProps } from '../../../shared/presentation/types';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 
-import { initializeDocument } from '../../application/commands/document';
+import { createDocument } from '../../application/commands';
 import {
   IDCardRecto,
   IDCardVerso,
@@ -25,12 +26,13 @@ import {
   ResidencePermitRecto,
   ResidencePermitVerso,
 } from '../assets/images';
-
 const HEIGHT = Dimensions.get('window').height;
+
+type NavigationProp = NativeStackNavigationProp<IKycStackProps>;
 
 export const IdList = () => {
   const { t } = useTranslation();
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
   const { theme } = useTheme();
 
   const dispatch = useDispatch();
@@ -49,8 +51,8 @@ export const IdList = () => {
         imageSource: ImageSourcePropType;
       };
     }) => {
-      dispatch(initializeDocument({ documentProperties }));
-      navigation.navigate(IKycStackPages.UPLOAD_DOCUMENT as never, {
+      dispatch(createDocument({ documentProperties }));
+      navigation.navigate(IKycStackPages.UPLOAD_DOCUMENT, {
         instruction,
         imageSource,
         nextRouteParams,
@@ -79,10 +81,10 @@ export const IdList = () => {
                     instruction: t('screens.kyc.id.recto.instruction'),
                     imageSource: IDCardRecto,
                     documentProperties: {
-                      kycStep: IKycSteps.ID,
+                      context: IStepTypes.ID,
                       typeId: IDocumentType.ID,
                       name: 'first-id.id.recto',
-                      status: IDocumentStatus.INIT,
+                      status: IStepStatus.INIT,
                       createdAt: new Date(),
                       statusCode: IDocumentStatusCode.INITIAL,
                     },
@@ -103,10 +105,10 @@ export const IdList = () => {
                     instruction: t('screens.kyc.passport.instruction'),
                     imageSource: Passport,
                     documentProperties: {
-                      kycStep: IKycSteps.ID,
+                      context: IStepTypes.ID,
                       typeId: IDocumentType.PASSPORT,
                       name: 'first-id.passport.recto',
-                      status: IDocumentStatus.INIT,
+                      status: IStepStatus.INIT,
                       createdAt: new Date(),
                       statusCode: IDocumentStatusCode.INITIAL,
                     },
@@ -123,10 +125,10 @@ export const IdList = () => {
                     instruction: t('screens.kyc.residence-permit.recto.instruction'),
                     imageSource: ResidencePermitRecto,
                     documentProperties: {
-                      kycStep: IKycSteps.ID,
+                      context: IStepTypes.ID,
                       typeId: IDocumentType.RESIDENT_PERMIT,
                       name: 'first-id.residence-permit.recto',
-                      status: IDocumentStatus.INIT,
+                      status: IStepStatus.INIT,
                       createdAt: new Date(),
                       statusCode: IDocumentStatusCode.INITIAL,
                     },

@@ -41,6 +41,7 @@ export type IRootTabParamList = {
 
 export type ISharedStackParamList = {
   Home: undefined;
+  Deeplink: undefined;
   ModalError: undefined;
   ModalWebView: undefined;
   Legal: undefined;
@@ -148,6 +149,7 @@ export type IEnergyStackParamList = {
 
 export enum ISharedStackPages {
   HOME = 'Home',
+  DEEPLINK = 'Deeplink',
   MODAL_ERROR = 'ModalError',
   MODAL_WEBVIEW = 'ModalWebview',
   LEGAL = 'Legal',
@@ -228,7 +230,8 @@ export enum IFootprintStackPages {
 
 export enum IKycStackPages {
   MENU = 'MenuKyc',
-  INIT = 'InitKyc',
+  SHOW_KYC_STEPS = 'ShowKycSteps',
+  INFORMATIONS = 'Informations',
   KYC = 'Kyc',
   SUCCESS = 'SuccessKyc',
   CARD_SENT = 'CardSent',
@@ -267,6 +270,7 @@ export enum IEnergyStackPages {
 
 export type ISharedStackProps = {
   [ISharedStackPages.HOME]: object;
+  [ISharedStackPages.DEEPLINK]: object;
   [ISharedStackPages.MODAL_ERROR]: object;
   [ISharedStackPages.MODAL_WEBVIEW]: object;
   [ISharedStackPages.LEGAL]: object;
@@ -338,8 +342,9 @@ export type IFootprintStackProps = {
 
 export type IKycStackProps = {
   [IKycStackPages.MENU]: object;
-  [IKycStackPages.INIT]: object;
+  [IKycStackPages.SHOW_KYC_STEPS]: object;
   [IKycStackPages.KYC]: object;
+  [IKycStackPages.INFORMATIONS]: object;
   [IKycStackPages.SUCCESS]: object;
   [IKycStackPages.CARD_SENT]: object;
   [IKycStackPages.UPLOAD_DOCUMENT]: object;
@@ -391,6 +396,7 @@ export type IRoutes =
   | ISharedStackPages.LEGAL
   | ISharedStackPages.CGU
   | ISharedStackPages.CGU_KYC_PROVIDER
+  | ISharedStackPages.DEEPLINK
   | IAuthStackPages.LOGIN
   | IAuthStackPages.RESET_PASSWORD
   | IUserStackPages.SIGNUP_EMAIL
@@ -436,8 +442,9 @@ export type IRoutes =
   | IFootprintStackPages.TRANSPORT_SITUATION
   | IFootprintStackPages.HOUSEHOLD_SITUATION
   | IKycStackPages.MENU
-  | IKycStackPages.INIT
+  | IKycStackPages.SHOW_KYC_STEPS
   | IKycStackPages.KYC
+  | IKycStackPages.INFORMATIONS
   | IKycStackPages.SUCCESS
   | IKycStackPages.CARD_SENT
   | IKycStackPages.UPLOAD_DOCUMENT

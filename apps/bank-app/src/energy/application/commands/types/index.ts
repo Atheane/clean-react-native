@@ -7,6 +7,7 @@ export enum IEnergyTypes {
   CHECK_ANSWER = 'CHECK_ANSWER',
   COMPUTE_REWARDS = 'COMPUTE_REWARDS',
   ENERGY_DOMAIN_EVENT = 'ENERGY_DOMAIN_EVENT',
+  GET_CONSUMPTIONS = 'GET_CONSUMPTIONS',
 }
 
 export type IInitializeEnergy = {
@@ -33,6 +34,10 @@ export type IComputeRewards = {
   type: typeof IEnergyTypes.COMPUTE_REWARDS;
 };
 
+export type IGetConsumptions = {
+  type: typeof IEnergyTypes.GET_CONSUMPTIONS;
+};
+
 export type IEnergyDomainEvent = {
   type: typeof IEnergyTypes.ENERGY_DOMAIN_EVENT;
   payload: {
@@ -46,4 +51,5 @@ export type IEnergyActions =
   | IGetQuiz
   | ICheckAnswer
   | IComputeRewards
+  | IGetConsumptions
   | IEnergyDomainEvent;

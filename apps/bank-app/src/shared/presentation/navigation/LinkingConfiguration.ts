@@ -22,8 +22,6 @@ import {
   IEnergyStackParamList,
 } from '../types';
 
-const prefix = Linking.createURL('');
-
 export const LinkingConfiguration: LinkingOptions<
   | IRootStackParamList
   | IAuthStackParamList
@@ -38,7 +36,7 @@ export const LinkingConfiguration: LinkingOptions<
   | IFootprintStackParamList
   | IEnergyStackParamList
 > = {
-  prefixes: [prefix],
+  prefixes: ['com.example.bankapp://'],
   config: {
     screens: {
       // auth

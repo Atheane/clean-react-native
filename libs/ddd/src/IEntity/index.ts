@@ -33,13 +33,12 @@ export abstract class Entity<T> {
   }
 
   // Nouvelle méthode pour émettre des événements du domaine
-
-  protected emitDomainEvent(eventName: string, data: any): void {
-    Entity.emitStaticDomainEvent(eventName, { ...data, entityId: this.id });
+  protected emitDomainEvent(eventName: string): void {
+    Entity.emitStaticDomainEvent(eventName, this);
   }
 
-  protected static emitStaticDomainEvent(eventName: string, data: any): void {
+  protected static emitStaticDomainEvent<T>(eventName: string, entity: Entity<T>): void {
     console.log(eventName);
-    domainEventManager.emit(eventName, data);
+    domainEventManager.emit(eventName, entity);
   }
 }

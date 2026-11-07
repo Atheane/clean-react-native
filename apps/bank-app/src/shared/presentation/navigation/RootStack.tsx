@@ -18,7 +18,6 @@ import {
   ISharedStackProps,
   IUserStackPages,
   IUserStackProps,
-  IEnergyStackPages,
 } from '../../../shared/presentation/types';
 import { initGlobalError, showUnknownError } from '../../../shared/application/commands/manage-global-errors';
 import { ScreenModalError, ScreenModalWebview } from '../../../shared/presentation/screens';
@@ -37,13 +36,12 @@ import {
   EmailSent,
   SignupPhone,
   SignupCongrats,
-  SignupRevenues,
 } from '../../../user/presentation/screens';
 import { CguPdf } from '../../../shared/presentation/screens';
 
 import { SUPPORTED_LANGUAGES_WEBSITE, pdfUrls } from '../../../shared/presentation/constants';
 import { IStoreKey } from '../../../shared/application/types';
-import { AdaptTemperature } from '../../../energy/presentation/screens/AdaptTemperature';
+
 const locales = getLocales();
 
 export const RootStack = () => {
@@ -269,14 +267,6 @@ export const AuthStack = () => {
         }}
         name={IUserStackPages.SIGNUP_ADDRESS}
         component={SignupAddress}
-      />
-      <Stack.Screen
-        options={{
-          headerTitle: navigationStack.length > 1 ? t(`screens.signup-revenues.title`) : '',
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
-        }}
-        name={IUserStackPages.SIGNUP_REVENUES}
-        component={SignupRevenues}
       />
       <Stack.Screen
         options={{

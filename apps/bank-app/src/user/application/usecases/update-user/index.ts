@@ -11,7 +11,8 @@ import { selectUser } from '../../state-management/selectors';
 import { IRoutes } from '../../../../shared/presentation/types';
 import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
-import { checkCustomerStatus } from '../../../../kyc/application/commands/customer';
+import { selectCustomer } from '../../../../kyc/application/state-management/selectors';
+import { Customer } from '@clean-rn/kyc/domain';
 
 export function* updateUserSaga(httpConnection: HttpConnection): Generator<StrictEffect, any, any> {
   yield takeEvery(IUserTypes.FETCH_UPDATE_USER, updateUserGenerator, httpConnection);
@@ -38,9 +39,26 @@ export function* updateUserGenerator(
     const user = yield select(selectUser);
     const userApi = UserApi.getInstance(httpConnection);
     user.updateUser(payload);
+
     const newUser = yield call([userApi, userApi.updateUser], payload);
+
     yield put(userUpdated(newUser));
-    yield put(checkCustomerStatus({ user: newUser }));
+
+    if (payload.revenues) {
+      const customerRedux = yield select(selectCustomer);
+      console.log('------- customerRedux', customerRedux);
+      // redux does not keep instance methods, only properties
+      // so we need to recreate a Customer instance
+      const customer = Customer.Create({
+        id: customerRedux.id,
+        properties: {
+          ...customerRedux.properties,
+        },
+      });
+      // checkStepRevenues not available in customerRedux
+      customer.checkStepRevenues(payload.revenues);
+    }
+
     yield call(navigate, { route: payload.nextRoute });
   } catch (e: unknown) {
     yield put(resetError());

@@ -1,2 +1,1 @@
-import { KycSteps, DocumentVO } from './KycSteps';
-export { KycSteps, DocumentVO };
+export { DocumentVO, IDocumentProperties } from './DocumentVO';

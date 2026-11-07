@@ -38,6 +38,13 @@ export const energyReducer = (state = initialState, action: IEnergyActions): IEn
         error: null,
       };
       return newState;
+    case IEnergyTypes.GET_CONSUMPTIONS:
+      newState = {
+        ...state,
+        pending: true,
+        error: null,
+      };
+      return newState;
     case IEnergyTypes.ENERGY_DOMAIN_EVENT:
       return {
         ...state,

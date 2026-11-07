@@ -44,7 +44,7 @@ export const ManageBeneficiaries = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
 
-  const { customer, pending: customerPending } = useSelector((state: IRootState) => state.kyc.customer);
+  const { customer, pending: customerPending } = useSelector((state: IRootState) => state.customer);
 
   const dispatch = useDispatch();
 
