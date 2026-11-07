@@ -417,7 +417,6 @@
       },
       "new-contact": {
         "title": "Ajouter un contact",
-
         "firstname": {
           "label": "Prénom",
           "placeholder": "Prénom"

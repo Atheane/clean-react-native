@@ -114,7 +114,8 @@
         "LOGIN_FAILURE_USER_NOT_FOUND": "Das Konto existiert nicht",
         "LOGIN_FAILURE_INVALID_CREDENTIALS": "E-Mail oder Passwort falsch",
         "LOGIN_FAILURE_USER_PHONE_NOT_VALIDATED": "Die Telefonnummer ist nicht gültig",
-        "USER_UNAUTHENTICATED": "Bitte authentifizieren Sie sich"
+        "USER_UNAUTHENTICATED": "Bitte authentifizieren Sie sich",
+        "SIGNUP_FAILURE": "Fehler bei der Registrierung, bitte versuchen Sie es erneut"
       },
       "user": {
         "INVALID_PHONE": "Ungültige Handynummer",
@@ -539,7 +540,9 @@
         "WALL": "Wandisolierung",
         "GROUND": "Bodenisolierung",
         "WINDOW": "Installation von Isolierfenstern",
-        "VMC": "Installation einer Doppelstrom-Lüftung"
+        "VMC": "Installation einer Doppelstrom-Lüftung",
+         "HP": "Wärmepumpe",
+        "GLOBAL": "Gesamtrenovierung"
       },
       "dropdown-placeholder": "Auswählen",
       "instruction-works-type": "Wenn Sie Arbeiten durchgeführt haben, geben Sie diese an:",
@@ -574,6 +577,7 @@
     "energy": {
       "menu": {
         "title": "Meine Energiebilanz",
+        "average": "Durchschnitt",
         "win-euros": "Gewinnen Sie €G mit\nunserem Quiz!",
         "adapt-temperature": "Passen Sie die Temperatur\nmeiner Wohnung an",
         "renovate-my-house": "Schätzen Sie meine Einsparungen nach\nenergetischer Renovierung",
@@ -615,6 +619,74 @@
         "incorrect": "Falsch",
         "incorrect-description": "Tut mir leid, aber denken Sie daran, dass Sie diese Frage morgen wieder beantworten können, bis Sie die richtige Lösung finden! Schließlich ist das Ziel, spielerisch zu lernen.",
         "button-incorrect": "Morgen versuchen"
+      },
+      "renovate": {
+        "title": "Einsparungen nach Renovierung",
+        "header": "Renovieren Sie Ihre Wohnung: mehr Einsparungen, mehr Komfort!",
+        "instruction": "Wählen Sie die Arbeiten aus, um Ihre Energieeinsparungen zu erfahren:",
+        "isolation-antics": "Dachisolierung",
+        "heat-pump": "Installation einer Wärmepumpe",
+        "isolation-windows": "Wand- und Fensterisolierung",
+        "global-renovation": "Gesamtrenovierung",
+        "button": "Ergebnis anzeigen",
+        "winter": "Winter",
+        "summer": "Sommer",
+        "explanation": "Der Komfortpreis ist ein praktischer Konstantwert zur Vorhersage Ihres Energieverbrauchs für Heizung oder Klimatisierung.\nJe kälter es ist, desto mehr Energie wird benötigt, um 18°C in der Wohnung zu halten: Bei null Grad außen muss man 18°C heizen und das Haus verbraucht das 18-fache des Komfortpreises. Bei 10°C außen muss man nur 8°C heizen, um von 10°C auf 18°C zu kommen, und das Haus verbraucht nur noch das 8-fache des Komfortpreises.\n Der Komfortpreis hängt sowohl von Ihren Gewohnheiten als auch von der Qualität der Isolierung Ihres Hauses ab.\n Jetzt sind Sie dran, diesen Wert zu senken, das heißt weniger zu zahlen für mehr Komfort!"
+      },
+      "savings-after-renovation": {
+        "title": "Einsparungen nach Renovierung",
+        "header": "Nach\nRenovierung",
+        "explanation": "Der Komfortpreis ist ein praktischer Konstantwert zur Vorhersage Ihres Energieverbrauchs für Heizung oder Klimatisierung.\nJe kälter es ist, desto mehr Energie wird benötigt, um 18°C in der Wohnung zu halten: Bei null Grad außen muss man 18°C heizen und das Haus verbraucht das 18-fache des Komfortpreises. Bei 10°C außen muss man nur 8°C heizen, um von 10°C auf 18°C zu kommen, und das Haus verbraucht nur noch das 8-fache des Komfortpreises.\n Der Komfortpreis hängt sowohl von Ihren Gewohnheiten als auch von der Qualität der Isolierung Ihres Hauses ab.\n Jetzt sind Sie dran, diesen Wert zu senken, das heißt weniger zu zahlen für mehr Komfort!",
+        "ISOLATION_ANTICS": "Dachisolierung",
+        "HEAT_PUMP": "Installation einer Wärmepumpe",
+        "ISOLATION_WINDOWS": "Wand- und Fensterisolierung",
+        "GLOBAL_RENOVATION": "Gesamtrenovierung",
+        "explanation-title": "Komfortpreis, wie funktioniert das?",
+        "winter": "Winter",
+        "summer": "Sommer",
+        "before": "Vorher",
+        "after": "Nachher",
+        "by-month": "pro Monat*",
+        "footer-one": "Sparen Sie ",
+        "footer-two": " kWh pro Jahr,\nDas sind ",
+        "footer-three": " pro Jahr, vor\nErhöhung der Energiepreise!"
+      },
+      "my-energy-consumption": {
+        "title": "Mein Verbrauch",
+        "header": "Mein\nVerbrauch",
+        "dropdown": {
+          "placeholder": "Auswählen"
+        },
+        "chart": {
+          "green": "Verbrauch",
+          "blue": "Ziel nach Arbeiten",
+          "labels": {
+            "jan": "Jan",
+            "feb": "Feb",
+            "mar": "Mär",
+            "apr": "Apr",
+            "may": "Mai",
+            "jun": "Jun",
+            "jul": "Jul",
+            "aug": "Aug",
+            "sep": "Sep",
+            "oct": "Okt",
+            "nov": "Nov",
+            "dec": "Dez"
+          }
+        },
+        "know-more": "Mehr erfahren",
+        "price-comfort": "Komfortpreis",
+        "header-table": {
+          "month": "Monat",
+          "conso-ref": "Referenz-\nverbrauch\n(kWh)",
+          "conso-target": "Ziel-\nverbrauch\n(kWh)",
+          "conso": "Verbrauch\n(kWh)",
+          "savings": "Einsparung"
+        },
+        "no-data-modal": {
+          "message": "Die Daten sind für diesen Zeitraum nicht verfügbar"
+        }
       },
       "adapt-temperature": {
         "title": "Temperatur anpassen",
@@ -786,6 +858,51 @@
       "card-sent": {
         "title": "Identität bestätigt",
         "text": "Wir haben Ihre CO2-Karte erfolgreich per Post versendet."
+      },
+       "show-kyc-steps": {
+        "steps": "Schritte:\n",
+        "step1": "1. Fügen Sie einen Identitätsnachweis hinzu",
+        "step2": "2. Vervollständigen Sie die Informationen",
+        "step3": "3. Tätigen Sie eine Überweisung von 5 Euro von einem Ihrer Bankkonten auf Ihr CO2-Konto",
+        "step4": "4. Fügen Sie das Formular W9 hinzu",
+        "check-identity": "Überprüfen"
+      },
+      "kyc-init": {
+        "title": "Überprüfung Ihrer Identität",
+        "instruction": "Sobald alle Schritte validiert sind, wird die Überprüfung automatisch gestartet.",
+        "w9": "Formular W9",
+        "identity": "Identitätsnachweis",
+        "informations": "Zusätzliche Informationen",
+        "transfer": "Überweisung von 5 Euro"
+      },
+      "revenues": {
+        "title": "Zusätzliche Informationen",
+        "intro": "Um Ihre Anfrage zu vervollständigen, benötigen wir einige zusätzliche Informationen.",
+        "income": {
+          "label": "Ihr Einkommen",
+          "placeholder": "Auswählen",
+          "K2": "weniger als 1.800 Euro / Monat",
+          "K4": "weniger als 3.500 Euro / Monat",
+          "K5": "weniger als 5.000 Euro / Monat",
+          "K7": "weniger als 6.500 Euro / Monat",
+          "K10": "weniger als 10.000 Euro / Monat",
+          "KN": "mehr als 10.000 Euro / Monat"
+        },
+        "assets": {
+          "label": "Ihr Vermögen",
+          "placeholder": "Auswählen",
+          "A0": "weniger als 150.000 Euro",
+          "A4": "weniger als 350.000 Euro",
+          "A5": "weniger als 750.000 Euro",
+          "A6": "mehr als 750.000 Euro"
+        },
+        "occupation": {
+          "label": "Ihre Berufskategorie",
+          "placeholder": "Auswählen",
+          "UNEMPLOYED": "Nicht angestellt",
+          "EMPLOYEE": "Angestellter im Privatsektor",
+          "PUBLIC_EMPLOYEE": "Angestellter im öffentlichen Dienst"
+        }
       },
       "menu": {
         "instruction-before": {
