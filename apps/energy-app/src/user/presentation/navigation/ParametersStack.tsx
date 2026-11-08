@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigationState } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -28,10 +28,7 @@ import {
   ProfileAddress,
   AccountSettings,
   BankCoordinates,
-  ManageBeneficiaries,
 } from '../screens';
-import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
-import { KYC_REVIEW } from '@clean-rn/user/domain';
 
 const Stack = createNativeStackNavigator<IParametersStackProps & ISharedStackProps>();
 
@@ -44,8 +41,6 @@ export const ParametersStack = () => {
   const onPressLogout = useCallback(() => {
     dispatch(fetchLogout());
   }, [dispatch]);
-
-  const { customer } = useSelector((state: IRootState) => state.customer);
 
   return (
     <Stack.Navigator>
@@ -91,14 +86,6 @@ export const ParametersStack = () => {
         }}
       />
       <Stack.Screen
-        name={IParametersStackPages.MANAGE_BENEFICIARIES}
-        component={ManageBeneficiaries}
-        options={{
-          headerTitle: t('screens.manage-beneficiaries.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
-        }}
-      />
-      <Stack.Screen
         name={IParametersStackPages.BANK_COORDINATES}
         component={BankCoordinates}
         options={{
@@ -118,10 +105,7 @@ export const ParametersStack = () => {
         name={IParametersStackPages.PROFILE_IDENTITY}
         component={ProfileIdentity}
         options={{
-          headerTitle:
-            customer?.properties.status === KYC_REVIEW.VALIDATED
-              ? t('screens.parameters.menu.profile')
-              : t('screens.profile-identity.title'),
+          headerTitle: t('screens.profile-identity.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />
