@@ -5,7 +5,7 @@
   "scripts": {
     "prepare": "husky install",
     "commit": "cz",
-    "clean": "watchman watch-del-all && npx nx reset && yarn cache clean && npm cache clean --force && rm -rf node_modules package-lock.json yarn.lock .expo $TMPDIR/metro-* $TMPDIR/jest_* $TMPDIR/haste-map-* .jest-cache apps/bank-app/node_modules apps/storybook/node_modules",
+    "clean": "watchman watch-del-all && npx nx reset && yarn cache clean && npm cache clean --force && rm -rf node_modules package-lock.json yarn.lock .expo $TMPDIR/metro-* $TMPDIR/jest_* $TMPDIR/haste-map-* .jest-cache",
     "test": "npx nx run-many --all --target=test --parallel --passWithNoTests",
     "chromatic": "npx nx build-storybook ui-mobile && npx nx chromatic ui-mobile",
     "generate-storybook-requires": "node ./tools/scripts/generate-storybook-requires.js"
@@ -105,6 +105,9 @@
     "short-unique-id": "^5.0.2",
     "uuidjs": "^5.1.0"
   },
+  "overrides": {
+    "stylus": "github:stylus/stylus#0.54.4"
+  },
   "devDependencies": {
     "@babel/core": "7.24.5",
     "@babel/plugin-proposal-decorators": "^7.24.7",
@@ -126,9 +129,6 @@
     "@redux-saga/testing-utils": "^1.1.5",
     "@storybook/addon-essentials": "7.6.20",
     "@storybook/addon-interactions": "7.6.20",
-    "@storybook/addon-ondevice-actions": "7.6.18",
-    "@storybook/addon-ondevice-backgrounds": "7.6.18",
-    "@storybook/addon-ondevice-controls": "7.6.18",
     "@storybook/addon-react-native-web": "^0.0.25",
     "@storybook/core-server": "^7.6.20",
     "@storybook/react": "7.6.19",

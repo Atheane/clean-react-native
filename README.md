@@ -332,7 +332,7 @@ Each new ui component should be showed in storybook app. Simply add a file in st
 For instance, beneficiary/infrastructure
 
 ```bash
-npx nx g @nx/expo:lib beneficiary/infrastructure
+npx nx g @nx/expo:lib beneficiary/infrastructure`
 ```
 
 ## Create a new app in monorepo

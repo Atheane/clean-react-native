@@ -98,6 +98,9 @@
     "android": "expo run:android",
     "ios": "expo run:ios"
   },
+  "overrides": {
+    "stylus": "github:stylus/stylus#0.54.4"
+  },
   "devDependencies": {
     "@babel/core": "7.24.5",
     "@babel/plugin-proposal-decorators": "^7.24.7",
@@ -119,9 +122,6 @@
     "@redux-saga/testing-utils": "^1.1.5",
     "@storybook/addon-essentials": "7.6.20",
     "@storybook/addon-interactions": "7.6.20",
-    "@storybook/addon-ondevice-actions": "7.6.18",
-    "@storybook/addon-ondevice-backgrounds": "7.6.18",
-    "@storybook/addon-ondevice-controls": "7.6.18",
     "@storybook/addon-react-native-web": "^0.0.25",
     "@storybook/core-server": "^7.6.20",
     "@storybook/react": "7.6.19",
