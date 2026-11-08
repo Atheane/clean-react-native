@@ -1,5 +1,5 @@
 import 'dotenv/config';
-// const withDisabledAndroidLint = require('./expo-plugins/disable-android-lint');
+const withDisabledAndroidLint = require('./expo-plugins/disable-android-lint');
 
 export default {
   expo: {
@@ -53,6 +53,7 @@ export default {
     plugins: [
       'expo-font',
       'expo-localization',
+      withDisabledAndroidLint,
       [
         'expo-contacts',
         {
