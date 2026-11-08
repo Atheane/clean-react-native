@@ -250,6 +250,12 @@ For instance, beneficiary/infrastructure
 npx nx g @nx/expo:lib beneficiary/infrastructure
 ```
 
+## Create a new app
+
+```
+npx nx g @nx/expo:app new_app
+```
+
 ## Troubleshooting
 
 ### Fix package incompatibility
