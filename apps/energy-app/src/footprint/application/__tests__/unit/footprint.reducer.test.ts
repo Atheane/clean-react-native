@@ -3,7 +3,7 @@ import SagaTester from 'redux-saga-tester';
 
 import { FootprintError, Footprint, FOOTPRINT_UNIT } from '@clean-rn/footprint/domain';
 
-import { footprintReducer, IFootprintState } from '../../state-management';
+import { footprintReducer } from '../../state-management';
 import {
   footprintNotFound,
   IFootprintTypes,

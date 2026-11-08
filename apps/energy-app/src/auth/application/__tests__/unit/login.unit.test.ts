@@ -7,6 +7,7 @@ import * as Linking from 'expo-linking';
 
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
 import { AuthError, Email, Password } from '@clean-rn/auth/domain';
+import { KYC_REVIEW, IUserType } from '@clean-rn/user/domain';
 
 import { UserApi, UserMapper } from '@clean-rn/user/infrastructure';
 import { AuthApi, IAuthServerCode } from '@clean-rn/auth/infrastructure';
@@ -51,7 +52,6 @@ describe('Login - usecase', () => {
     global.fetch = jest.fn();
     userApi = UserApi.getInstance(httpConnection);
     authApi = AuthApi.getInstance(httpConnection);
-    cardApi = CardApi.getInstance(httpConnection);
   });
 
   afterEach(() => {
@@ -198,7 +198,6 @@ describe('Login - usecase', () => {
       .next()
       .put(userSaved(user))
       .next()
-      .next()
       .call(AsyncStorage.getItem, IStoreKey.PENDING_DEEPLINK)
       .next(null)
       .call(navigate, { route: ISharedStackPages.HOME })
@@ -232,41 +231,6 @@ describe('Login - usecase', () => {
       .next()
       .put(userSaved(user))
       .next()
-      .next()
-      .call(AsyncStorage.getItem, IStoreKey.PENDING_DEEPLINK)
-      .next(null)
-      .call(navigate, { route: ISharedStackPages.HOME })
-      .next();
-  });
-
-  it('Should call loginSuccess if getCard fails', async () => {
-    const serverError = new ServerError(mockError403CardForbidden);
-    serverError.statusCode = 403;
-
-    const user = await UserMapper.toDomain(mockUserNeutralData);
-    user.setConfig({ lang: 'fr' });
-
-    testSaga(loginGenerator, httpConnection, {
-      type: IAuthTypes.FETCH_LOGIN,
-      payload: mockData,
-    })
-      .next()
-      .call(AsyncStorage.getItem, IStoreKey.USER_EMAIL)
-      .next('test@example.com')
-      .call([authApi, authApi.login], mockData) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .next(mockResponse)
-      .call(httpConnection.attachBearerToken, mockResponse.accessToken) // <- Utilisez cette syntaxe pour spécifier le contexte.
-      .next()
-      .call([userApi, userApi.getUser])
-      .next(user)
-      .next()
-      .call([userApi, userApi.searchEmail], { email: mockData.email })
-      .next(IUserType.BANK_USER)
-      .put(loginSuccess({ auth: mockResponse }))
-      .next()
-      .put(userSaved(user))
-      .next()
-      .next()
       .call(AsyncStorage.getItem, IStoreKey.PENDING_DEEPLINK)
       .next(null)
       .call(navigate, { route: ISharedStackPages.HOME })
@@ -274,9 +238,6 @@ describe('Login - usecase', () => {
   });
 
   it('Should call loginSuccess if user is a energy-app bank user', async () => {
-    const serverError = new ServerError(mockError403CardForbidden);
-    serverError.statusCode = 403;
-
     const user = await UserMapper.toDomain(mockUserNeutralData);
     user.setConfig({ lang: 'fr' });
 
@@ -293,17 +254,11 @@ describe('Login - usecase', () => {
       .next()
       .call([userApi, userApi.getUser])
       .next(user)
-      .call([cardApi, cardApi.getCard])
-      .throw(serverError)
-      .put(cardForbidden(new CardError.Forbidden(serverError)))
-      .next()
       .call([userApi, userApi.searchEmail], { email: mockData.email })
       .next(IUserType.ENERGY_APP_USER)
       .put(loginSuccess({ auth: mockResponse }))
       .next()
       .put(userSaved(user))
-      .next()
-      .put(checkCustomerStatus({ user }))
       .next()
       .put(getEnergy())
       .next()
@@ -316,7 +271,7 @@ describe('Login - usecase', () => {
   it('Should handle pending deeplink if one exists', async () => {
     const user = await UserMapper.toDomain(mockUserManData);
     user.setConfig({ lang: 'fr' });
-    const pendingDeepLink = 'com.example.bankapp://some/path';
+    const pendingDeepLink = 'com.energy-app.app://some/path';
 
     testSaga(loginGenerator, httpConnection, {
       type: IAuthTypes.FETCH_LOGIN,
@@ -331,17 +286,11 @@ describe('Login - usecase', () => {
       .next()
       .call([userApi, userApi.getUser])
       .next(user)
-      .call([cardApi, cardApi.getCard])
-      .next(card)
-      .put(cardGetSuccess(card))
-      .next()
       .call([userApi, userApi.searchEmail], { email: mockData.email })
       .next(IUserType.BANK_USER)
       .put(loginSuccess({ auth: mockResponse }))
       .next()
       .put(userSaved(user))
-      .next()
-      .put(checkCustomerStatus({ user }))
       .next()
       .call(AsyncStorage.getItem, IStoreKey.PENDING_DEEPLINK)
       .next(pendingDeepLink)

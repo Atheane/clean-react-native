@@ -35,11 +35,6 @@ describe('ComputeTransportEmissions - usecase', () => {
     jest.clearAllMocks();
   });
 
-  const mockData: VehicleConsumptionT = {
-    distanceByYear: 20000,
-    fuel: FuelE.E85,
-    mpg: 8,
-  };
   it('Should wait for COMPUTE_TRANSPORT_EMISSIONS action and call computeTransportEmissionsGenerator, should be done on next iteration', () => {
     const genObject = computeTransportEmissionsSaga(httpConnection);
 

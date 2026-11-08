@@ -3,13 +3,11 @@
 import { call, put, StrictEffect, takeEvery, cancel } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthError, ILoginCommand } from '@clean-rn/auth/domain';
-import { CardError } from '@clean-rn/card/domain';
 import * as Linking from 'expo-linking';
 
 import { AuthApi, IAuthServerCode } from '@clean-rn/auth/infrastructure';
 import { UserApi } from '@clean-rn/user/infrastructure';
 import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
-import { CardApi } from '@clean-rn/card/infrastructure';
 import { ILanguage, IUserType } from '@clean-rn/user/domain';
 
 import { IStoreKey } from '../../../../shared/application/types';

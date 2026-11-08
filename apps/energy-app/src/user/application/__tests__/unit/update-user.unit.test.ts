@@ -23,7 +23,6 @@ import { showUnknownError } from '../../../../shared/application/commands/manage
 import { IParametersStackPages, IRoutes } from '../../../../shared/presentation/types';
 import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
 import { selectUser } from '../../../../user/application/state-management/selectors';
-import { selectCustomer } from '../../../../kyc/application/state-management/selectors';
 
 import { updateUserSaga, updateUserGenerator } from '../../usecases';
 import { IUserTypes, resetError, userUpdated } from '../../commands';
@@ -200,33 +199,6 @@ describe('Update User - usecase', () => {
       .put(resetError())
       .next()
       .cancel();
-  });
-
-  it('should call REVENUES_CHECKED if revenues is populated', () => {
-    user.updateUser(mockUpdateUserWithRevenues);
-    testSaga(updateUserGenerator, httpConnection, {
-      type: IUserTypes.FETCH_UPDATE_USER,
-      payload: { ...mockUpdateUserWithRevenues, nextRoute: IParametersStackPages.PARAMETERS },
-    })
-      .next()
-      .call(ensureTokenRefreshed, httpConnection)
-      .next()
-      .select(selectUser)
-      .next(user)
-      .call([userApi, userApi.updateUser], {
-        ...mockUpdateUserWithRevenues,
-        nextRoute: IParametersStackPages.PARAMETERS,
-      })
-      .next(user)
-      .put(userUpdated(user))
-      .next(user)
-      .select(selectCustomer)
-      .next(mockCustomer);
-    expect(domainManagerInstance.emit).toHaveBeenCalledWith(KYC_EVENTS.CUSTOMER_CREATED, expect.any(Object));
-    expect(domainManagerInstance.emit).toHaveBeenCalledWith(
-      KYC_EVENTS.REVENUES_CHECKED,
-      mockCustomerWithRevenues,
-    );
   });
 
   it('should call showUnknownError if 500', () => {
