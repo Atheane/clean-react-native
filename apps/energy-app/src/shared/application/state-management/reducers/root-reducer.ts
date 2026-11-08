@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import { authReducer } from '../../../../auth/application/state-management/reducer';
 import { userReducer } from '../../../../user/application/state-management/reducer';
 import { accountsReducer } from '../../../../account/application/state-management/accounts/reducer';
+import { transactionsReducer } from '../../../../transaction/application/state-management/reducer';
 import { footprintReducer } from '../../../../footprint/application/state-management/reducer';
 import { deviceReducer } from '../../../../device/application/state-management/reducer';
 import { energyReducer } from '../../../../energy/application/state-management/reducer';
@@ -15,6 +16,7 @@ export const rootReducer = combineReducers({
   unknownError: globalErrorReducer,
   auth: authReducer,
   account: accountsReducer,
+  transaction: transactionsReducer,
   user: userReducer,
   footprint: footprintReducer,
   device: deviceReducer,

@@ -6,10 +6,10 @@ import { useRoute } from '@react-navigation/native';
 import { IAccount } from '@clean-rn/account/domain';
 import { IStatementsPeriod } from '@clean-rn/transaction/domain';
 
-import { LongCard, Colors, FontNames, BottomLeavesBg, ExportPdf, IbanV2 } from '@clean-rn/ui-mobile';
+import { LongCard, Colors, FontNames, BottomLeavesBg, ExportPdf } from '@clean-rn/ui-mobile';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
-import { IAccountStackPages, ITransactionStackPages } from '../../../shared/presentation/types';
+import { ITransactionStackPages } from '../../../shared/presentation/types';
 import { fetchRefresh } from '../../../auth/application/commands';
 
 const HEIGHT = Dimensions.get('window').height;
@@ -33,10 +33,6 @@ export const AccountStatements = () => {
     },
     [account, dispatch],
   );
-
-  const handleOnDownloadRIB = useCallback(() => {
-    dispatch(fetchRefresh({ nextRoute: IAccountStackPages.RIB_PDF, params: { account } }));
-  }, [account, dispatch]);
 
   return (
     <ErrorBoundary t={t}>
@@ -78,12 +74,6 @@ export const AccountStatements = () => {
               )}
               pressable
               onPress={() => handleOnDownloadStatements(IStatementsPeriod.ALL)}
-            />
-            <LongCard
-              text={t('screens.account-statements.cards.rib')}
-              icon={() => <IbanV2 />}
-              pressable
-              onPress={handleOnDownloadRIB}
             />
           </View>
         </View>

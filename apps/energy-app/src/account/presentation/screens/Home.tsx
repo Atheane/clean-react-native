@@ -71,10 +71,6 @@ export const Home = () => {
     [dispatch, navigation, accounts],
   );
 
-  const handlePressBanner = useCallback(() => {
-    console.log('handlePressBanner');
-  }, [navigation]);
-
   const { expoPushToken, notificationEnabled } = useNotification();
 
   const { deviceId, brand, model, os, osVersion } = useDevice();
@@ -137,7 +133,9 @@ export const Home = () => {
   }));
 
   const handlePressCO2 = () => {
-    navigation.navigate(IFootprintStackPages.FOOTPRINT_ESTIMATION as never);
+    navigation.navigate(IFootprintStackPages.MENU, {
+      screen: IFootprintStackPages.FOOTPRINT_ESTIMATION,
+    });
   };
 
   return accountPending ? (

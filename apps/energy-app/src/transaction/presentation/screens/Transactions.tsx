@@ -1,28 +1,30 @@
 import { useCallback } from 'react';
-import { View, StyleSheet, Image, Text, Dimensions, ScrollView, SafeAreaView } from 'react-native';
-import { useSelector } from 'react-redux';
+import { View, StyleSheet, Image, Text, Dimensions } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { IAccount } from '@clean-rn/account/domain';
 import {
   LinkButton,
   LinkButtonColors,
-  BankBuilding as BicIcon,
   ExportPdf,
-  Iban as IbanIcon,
   TopBackground,
-  CopyValueClipboard,
   Balance,
   Colors,
   FontNames,
   LoaderSplashScreen,
+  PrimaryButton,
+  useCleanErrorOnFocus,
 } from '@clean-rn/ui-mobile';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { ITransactionStackPages } from '../../../shared/presentation/types';
 import { Oups } from '../assets/images';
-import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { ErrorBoundary } from '../../../shared/presentation/hoc';
+import { FormRib, IRibFormData } from './forms';
 import { TransactionsCardsList } from '../components/transactions-cards-list';
 
 const Top = ({ currentAccount }: { currentAccount?: IAccount }) => {
@@ -31,7 +33,7 @@ const Top = ({ currentAccount }: { currentAccount?: IAccount }) => {
   const navigation = useNavigation();
 
   const handleOnPressPdf = useCallback(() => {
-    navigation.navigate(ITransactionStackPages.ACCOUNT_STATEMENTS, { account: currentAccount });
+    navigation.navigate(ITransactionStackPages.ACCOUNT_STATEMENTS, { account: currentAccount } as never);
   }, [navigation, currentAccount]);
 
   return (
@@ -49,7 +51,7 @@ const Top = ({ currentAccount }: { currentAccount?: IAccount }) => {
       <View style={styles.pdf}>
         <LinkButton
           onPress={handleOnPressPdf}
-          iconRight={() => <ExportPdf />}
+          iconRight={() => <ExportPdf color={Colors.primary.white} />}
           colorOption={LinkButtonColors.WHITE}
         />
       </View>
@@ -57,42 +59,62 @@ const Top = ({ currentAccount }: { currentAccount?: IAccount }) => {
   );
 };
 
-const ContentNoTransactions = ({ currentAccount }: { currentAccount?: IAccount }) => {
+const ContentNoTransactions = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
 
+  // todo waiting for API to be ready
+  // const { pending, error } = useSelector((state: IRootState) => state.transaction.rib);
+
+  // internal state
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IRibFormData>({
+    defaultValues: {},
+  });
+
+  const dispatch = useDispatch();
+  const onSubmit = useCallback(
+    (formData: IRibFormData) => {
+      console.log('Submitting RIB form data:', formData);
+      // waiting for API to be ready
+      // dispatch(registerRib(formData));
+    },
+    [dispatch],
+  );
+
+  // waiting for API to be ready
+  const { domainError, onFocus } = useCleanErrorOnFocus(null); // null for now, replace with actual error handling when API is ready
+
   return (
-    <ScrollView contentContainerStyle={styles.scrollNoTransactions} showsVerticalScrollIndicator={false}>
+    <KeyboardAwareScrollView
+      contentContainerStyle={{
+        alignItems: 'center',
+        marginTop: 0,
+      }}
+    >
       <Image source={Oups} style={styles.oupsImage} />
       <View style={styles.textContainer}>
         <Text style={theme.text.darkBlue}>{t('screens.account.oups')}</Text>
       </View>
-      {currentAccount && (
-        <View>
-          <CopyValueClipboard
-            value={currentAccount.iban.value}
-            icon={() => (
-              <View style={{ marginRight: -28 }}>
-                <IbanIcon />
-              </View>
-            )}
-            copyText={t('screens.bank-coordinates.copy')}
-          />
-          <CopyValueClipboard
-            value={currentAccount.bic.value}
-            icon={() => <BicIcon />}
-            copyText={t('screens.bank-coordinates.copy')}
-          />
-        </View>
-      )}
-    </ScrollView>
+      <View style={styles.formContainer}>
+        <FormRib
+          loading={false} // waiting for API to be ready
+          control={control}
+          errors={errors}
+          error={domainError}
+          onSubmit={handleSubmit(onSubmit)}
+          onFocus={onFocus}
+        />
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
 
 export const Transactions = () => {
-  const { selectedAccount, pending: accountPending } = useSelector(
-    (state: IRootState) => state.account.accounts,
-  );
+  const { selectedAccount, pending: accountPending } = useSelector((state: IRootState) => state.account);
   const { transactions, pending: transactionPending } = useSelector((state: IRootState) => state.transaction);
   const hasTransactions = transactions && transactions?.length > 0;
   const { t } = useTranslation();
@@ -101,35 +123,40 @@ export const Transactions = () => {
     return null;
   }
 
+  const handleOnPress = () => {
+    console.log('TODO Recevoir ma cagnotte');
+  };
+
   return accountPending || transactionPending ? (
     <LoaderSplashScreen />
   ) : (
     <ErrorBoundary t={t}>
       {!hasTransactions && (
-        <>
-          <SafeScrollingView>
-            <View style={styles.noContent}>
-              <ContentNoTransactions currentAccount={selectedAccount} />
-            </View>
-          </SafeScrollingView>
+        <View style={styles.scrollNoTransactions}>
           <TopBackground />
           <View style={styles.top}>
             <Top currentAccount={selectedAccount} />
           </View>
-        </>
+          <View style={styles.noContent}>
+            <ContentNoTransactions />
+          </View>
+        </View>
       )}
       {hasTransactions && (
-        <>
-          <SafeAreaView style={styles.container}>
-            <View style={styles.content}>
-              <TransactionsCardsList data={transactions} />
-            </View>
-          </SafeAreaView>
+        <View>
           <TopBackground />
+
           <View style={styles.top}>
             <Top currentAccount={selectedAccount} />
           </View>
-        </>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton title={t('screens.account.button')} onPress={handleOnPress} />
+          </View>
+
+          <View style={styles.content}>
+            <TransactionsCardsList data={transactions} />
+          </View>
+        </View>
       )}
     </ErrorBoundary>
   );
@@ -163,12 +190,10 @@ const styles = StyleSheet.create({
   },
   pdf: {
     position: 'relative',
-    top: 0,
-    right: 40,
+    top: 10,
+    right: 10,
   },
   textContainer: {
-    position: 'relative',
-    marginTop: -20,
     alignItems: 'center',
     width: Dimensions.get('window').width * 0.8,
   },
@@ -176,21 +201,26 @@ const styles = StyleSheet.create({
     ...OUPS_SIZE,
   },
   oupsText: {
-    width: Dimensions.get('window').width * 0.8,
     fontSize: 22,
     fontFamily: FontNames.Roboto_400Regular,
     color: Colors.primary.darkBlue,
     textAlign: 'center',
-    lineHeight: 29,
   },
   noContent: {
-    marginTop: 200,
+    marginTop: 100,
     height: Dimensions.get('window').height,
   },
   content: {
-    marginTop: 60,
+    marginTop: 24,
+  },
+  buttonContainer: {
+    marginTop: 150,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   scrollNoTransactions: {
     alignItems: 'center',
+    backgroundColor: Colors.primary.white,
   },
+  formContainer: {},
 });

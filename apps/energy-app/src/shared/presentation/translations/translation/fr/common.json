@@ -500,6 +500,48 @@
       "secondary-button": "Ajouter",
       "flight": "trajet(s)"
     },
+    "account": {
+      "balance": "Solde de mon compte",
+      "oups": "Pour recevoir ma cagnotte, saisissez votre IBAN et BIC :",
+      "iban": "Afficher mon IBAN CO2",
+      "transfer": "Virement",
+      "cards": {
+        "card": "Notre Carte de paiement pour économiser du CO2",
+        "loan": "Nos prêts pour décarboner l’économie",
+        "loan-heater": "Notre offre de prêt pour changer de chaudière",
+        "carbon-premium": "Soyez récompensé grâce à nos primes",
+        "manifesto": "Manifeste",
+        "history": "Notre histoire",
+        "green-euro": "Comment fonctionnent les euros-verts ?",
+        "currency": "Nos objectifs et nos limites",
+        "article": "Notre blog sur le monde bancaire et l’urgence climatique"
+      },
+      "button": "Recevoir ma cagnotte"
+    },
+     "account-statements": {
+      "title": "Export",
+      "bold": "Exporter mon relevé de compte",
+      "normal": "Télécharger mon relevé de compte en PDF",
+      "cards": {
+        "last-month": "Le mois dernier",
+        "last-trimester": "3 derniers mois",
+        "all": "Tous mes relevés",
+        "rib": "Télécharger le RIB"
+      }
+    },
+    "account-statements-pdf": {
+      "title": "Relevé de compte"
+    },
+    "transactions": {
+      "IBAN": {
+        "label": "IBAN",
+        "placeholder": "FR76 1234 5678 9012 3456 7890 123"
+      },
+      "BIC": {
+        "label": "BIC",
+        "placeholder": "ABCDEF12"
+      }
+    },
     "parameters": {
       "menu": {
         "title": "Mes paramètres",

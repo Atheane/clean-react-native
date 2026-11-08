@@ -20,7 +20,6 @@ export function* listAccountsGenerator(httpConnection: HttpConnection): Generato
     yield call(ensureTokenRefreshed, httpConnection);
     const api = AccountApi.getInstance(httpConnection);
     const accounts: IAccount[] = yield call([api, api.getAccounts]);
-    console.log('-------------- Accounts listed successfully --------------', accounts);
     yield put(accountsListed(accounts));
     yield call(navigate, { route: ISharedStackPages.HOME });
   } catch (error: unknown) {

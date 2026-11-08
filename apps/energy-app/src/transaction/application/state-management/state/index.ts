@@ -8,6 +8,5 @@ import {
 export interface ITransactionsState {
   pending: boolean;
   transactions: ITransaction[] | null;
-  transaction: ITransaction | null;
   error: IDomainError<ITransactionErrorCodes, ITransactionErrorMessage> | null;
 }

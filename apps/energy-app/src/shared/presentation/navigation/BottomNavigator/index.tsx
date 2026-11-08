@@ -14,12 +14,14 @@ import {
 import {
   IRootTabParamList,
   IAccountStackPages,
+  ITransactionStackPages,
   IFootprintStackPages,
   IParametersStackPages,
   IEnergyStackPages,
 } from '../../types';
 
 import { AccountStack } from '../../../../account/presentation/navigation';
+import { TransactionStack } from '../../../../transaction/presentation/navigation';
 import { FootprintStack } from '../../../../footprint/presentation/navigation';
 import { ParametersStack } from '../../../../user/presentation/navigation';
 import { EnergyStack } from '../../../../energy/presentation/navigation';
@@ -52,6 +54,13 @@ export const BottomTabNavigator = () => {
           tabBarLabel: ({ focused }: { focused: boolean }) =>
             focused ? <Text style={styles.tab}> {t('screens.home.tab')}</Text> : '',
         })}
+      />
+      <Tab.Screen
+        name={ITransactionStackPages.MENU}
+        component={TransactionStack}
+        options={{
+          tabBarButton: () => null,
+        }}
       />
       <Tab.Screen
         name={IFootprintStackPages.MENU}
