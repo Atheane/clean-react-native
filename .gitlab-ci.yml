@@ -92,7 +92,7 @@ chromatic_deployment:
     - install_dependencies
     - build_storybook
 
-.setup_credentials: &setup_credentials
+.auth_expo: &auth_expo
   - echo "Setting up Expo configuration..."
   - npm install -g eas-cli
   - mkdir -p ~/.expo
@@ -103,7 +103,7 @@ chromatic_deployment:
 
 .bank-app_credentials: &bank-app_credentials
   before_script:
-    - *setup_credentials
+    - *auth_expo
     - |
       mkdir -p apps/bank-app/credentials/ios
       echo "$IOS_DIST_CERT_BASE64" | base64 -d > apps/bank-app/credentials/ios/dist-cert.p12
@@ -122,7 +122,7 @@ chromatic_deployment:
 
 .energy-app_credentials: &energy-app_credentials
   before_script:
-    - *setup_credentials
+    - *auth_expo
     - |
       mkdir -p apps/energy-app/credentials/ios
       echo "$IOS_DIST_CERT_BASE64" | base64 -d > apps/energy-app/credentials/ios/dist-cert.p12
@@ -166,6 +166,8 @@ build_bank-app_android:
     EAS_NO_INTERACTIVE: '1'
     EAS_PROJECT_ROOT: $CI_PROJECT_DIR
     EXPO_DEBUG: '1'
+  before_script:
+    - *auth_expo
   script:
     - cd $CI_PROJECT_DIR
     - echo "Building BankApp..."
@@ -200,6 +202,8 @@ build_energy-app_android:
     EAS_NO_INTERACTIVE: '1'
     EAS_PROJECT_ROOT: $CI_PROJECT_DIR
     EXPO_DEBUG: '1'
+  before_script:
+    - *auth_expo
   script:
     - cd $CI_PROJECT_DIR
     - echo "Building App 450..."
