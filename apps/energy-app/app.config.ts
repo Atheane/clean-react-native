@@ -77,7 +77,7 @@ export default {
           android: {
             usesClearTextTraffic: false,
             minSdkVersion: 24, // does-not prevent lint pb on android with
-            targetSdkVersion: 34,
+            targetSdkVersion: 35, // required for august 2025
           },
         },
       ],

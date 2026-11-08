@@ -30,10 +30,10 @@
   },
   "submit": {
     "production": {
-      // "android": {
-      //   "serviceAccountKeyPath": "./service-account.json",
-      //   "track": "production"
-      // },
+      "android": {
+        "serviceAccountKeyPath": "./service-account.json",
+        "track": "production"
+      },
       "ios": {
         "appleId": "dev1@example.com",
         "ascAppId": "6624307982",
