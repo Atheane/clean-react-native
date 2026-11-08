@@ -91,7 +91,7 @@ export default {
     scheme: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.energy-app.app',
     extra: {
       eas: {
-        projectId: process.env.EXPO_PUBLIC_PROJECT_ID || '',
+        projectId: process.env.EXPO_PUBLIC_PROJECT_ID || '44791e86-a3e4-45ad-ac4e-b9a91941bb67',
       },
     },
   },

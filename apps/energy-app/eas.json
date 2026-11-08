@@ -1,15 +1,15 @@
 {
   "build": {
     "production": {
-      "android": {
-        "buildType": "app-bundle"
+      "ios": {
+        "image": "macos-sequoia-15.3-xcode-16.2" // https://expo.dev/blog/apple-sdk-minimum-requirements
       }
     },
     "development": {
-      "developmentClient": true,
-      "distribution": "internal"
+      "developmentClient": true
     },
-    "preview": {
+    "development-simulator": {
+      "developmentClient": true,
       "distribution": "internal",
       "ios": {
         "simulator": true
@@ -17,9 +17,29 @@
       "android": {
         "buildType": "apk"
       }
+    },
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
     }
   },
   "submit": {
-    "production": {}
+    // "production": { TODO: update with energy-app credentials
+    //   "android": {
+    //     "serviceAccountKeyPath": "./service-account.json",
+    //     "track": "production"
+    //   },
+    //   "ios": {
+    //     "appleId": "dev1@example.com",
+    //     "ascAppId": "6478209342",
+    //     "appleTeamId": "UQH2YW6D6K"
+    //   }
+    // }
+  },
+  "cli": {
+    // "version": "~7.2.0",
+    "promptToConfigurePushNotifications": false
   }
 }

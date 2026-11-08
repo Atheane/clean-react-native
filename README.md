@@ -48,7 +48,15 @@ npx eas login
 
 Enter email and password as invited by cli.
 
-## How to run the app locally
+## How to run the app locally on ios
+
+0. Prerequisite:
+   Xcode:
+   Make sure you have Xcode installed and set up on your Mac.
+   You can download it from the Mac App Store.
+
+   iOS Simulator:
+   iOS Simulator comes with Xcode. Check that it works (Xcode > Open Developer Tool > Simulator).
 
 1. Install an Expo development build on ios Simulator
    There are some native libs in this project. You won't be able to run the apps on Expo Go ("Expo development build"). You need to build a custome Expo Go for developing locally (this done thanks to the brilliant lib expo-dev-client, already installed in the project).
@@ -59,28 +67,38 @@ Enter email and password as invited by cli.
 npm run clean
 # install dependencies
 npm install
-# build and install expo dev client
-cd apps/bank-app
-# if necessary clean up cache at bank-app app level
-npm run clean
-# synchronize dependencies from monorepo root to bank-app app (this will copy package-lock.json from the root to the app)
-# this is necessary because we build and deploy with EAS (Expo Application Services) with expo managed workflow
-# and this workflow is not able to resolve dependencies from monorepo root
-npm run eas-build-pre-install
-# install dependencies at app level
-npm i
-# generate ios and android files
-npx expo prebuild
-# run ios simulator
-npx expo run:ios
-# or run android simulator
-npx expo run:android
-# wait for build to be installed in simulator
-# it may take at least 5 minutes, the project has a lot of dependencies
-# once it is done, you can launch the app from monorepo root
-# the whole process is only necessary if you have installed a new lib in the project
-# if not, you just need to run the app from monorepo root as follow
+# build and install expo dev client with eas
+npx nx build energy-app --platform=ios --profile=development-simulator
+# wait for eas to build. cli will tell you when its done and offers to install it on simulator > Y
+#once installed you just need to start serveur as such
 npx nx start bank-app --dev-client
+# press i
+```
+
+## How to run the app locally on android
+
+0. Prerequisite:
+   Android Studio:
+   Install Android Studio and set up the required tools (SDK, virtual device/emulator).
+
+   Android SDK & Emulator:
+   Make sure to create at least one Android Virtual Device via the AVD Manager in Android Studio.
+
+1. Install an Expo development build on Android Simulator
+   There are some native libs in this project. You won't be able to run the apps on Expo Go ("Expo development build"). You need to build a custome Expo Go for developing locally (this done thanks to the brilliant lib expo-dev-client, already installed in the project).
+2. You can build and install an Expo development build on Android Simulator as follow:
+
+```
+# if necessary clean up cache at monorepo root
+npm run clean
+# install dependencies
+npm install
+# build and install expo dev client with eas
+npx nx build energy-app --platform=android --profile=development-simulator
+# wait for eas to build. cli will tell you when its done and offers to install it on simulator > Y
+#once installed you just need to start serveur as such
+npx nx start bank-app --dev-client
+#press a
 ```
 
 ## How to run the storybook locally
@@ -222,13 +240,6 @@ npx expo install --fix
 ```
 
 and copy back apps/bank-app/package.json to package.json
-
-By the way, you can check eas build on your own infra this way (this is faster and free):
-
-```
-cd apps/bank-app
-eas build --platform=android --local
-```
 
 ### Reset nx cache
 
