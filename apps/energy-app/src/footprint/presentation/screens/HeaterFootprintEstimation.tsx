@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
@@ -8,7 +8,7 @@ import { PrimaryButton, CO2 } from '@clean-rn/ui-mobile';
 import { useHouseFormData } from '../hooks';
 import { HeaterFootprintEstimationForm } from './forms';
 
-import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { Colors } from '../../../shared/presentation/constants';
 
@@ -29,29 +29,27 @@ export const HeaterFootprintEstimation = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView>
-        <View style={[styles.container]}>
-          <HeaterFootprintEstimationForm
-            initialValues={data}
-            onChangeForm={resetFormData}
-            onChangeField={handleFormData}
-          />
-
-          <View style={styles.buttonContainer}>
-            <PrimaryButton
-              title={t('screens.footprint-estimation.compute')}
-              onPress={handleOnPress}
-              iconLeft={() => (
-                <View style={{ height: 23, justifyContent: 'center' }}>
-                  <CO2 color={Colors.primary.white} />
-                </View>
-              )}
-              long
-              disabled={disabled}
-            />
-          </View>
-        </View>
-      </SafeScrollingView>
+      <ScrollView
+        style={{ flex: 1, backgroundColor: Colors.primary.white }}
+        contentContainerStyle={styles.container}
+      >
+        <HeaterFootprintEstimationForm
+          initialValues={data}
+          onChangeForm={resetFormData}
+          onChangeField={handleFormData}
+        />
+        <PrimaryButton
+          title={t('screens.footprint-estimation.compute')}
+          onPress={handleOnPress}
+          iconLeft={() => (
+            <View style={{ height: 23, justifyContent: 'center' }}>
+              <CO2 color={Colors.primary.white} />
+            </View>
+          )}
+          long
+          disabled={disabled}
+        />
+      </ScrollView>
     </ErrorBoundary>
   );
 };
@@ -59,12 +57,9 @@ export const HeaterFootprintEstimation = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 50,
-    marginBottom: 400,
-  },
-  buttonContainer: {
-    marginTop: 140,
+    justifyContent: 'space-between',
+    backgroundColor: Colors.primary.white,
+    marginVertical: 100,
   },
 });
