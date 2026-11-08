@@ -4,5 +4,6 @@ import de from './de';
 import es from './es';
 import it from './it';
 import el from './el';
+import pl from './pl';
 import pt from './pt';
-export { fr, en, de, es, it, el, pt };
+export { fr, en, de, es, it, el, pl, pt };

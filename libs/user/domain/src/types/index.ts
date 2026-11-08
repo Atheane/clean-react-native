@@ -83,6 +83,7 @@ export enum ILanguage {
   IT = 'IT',
   DE = 'DE',
   EL = 'GR',
+  PL = 'PL',
   PT = 'PT',
 }
 
