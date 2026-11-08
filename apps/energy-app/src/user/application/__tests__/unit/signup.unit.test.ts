@@ -69,8 +69,6 @@ import {
 } from '../../../../auth/application/state-management/selectors';
 import { loginSuccess } from '../../../../auth/application/commands';
 
-import { checkCustomerStatus } from '../../../../kyc/application/commands';
-
 jest.mock('@clean-rn/shared/infrastructure', () => ({
   HttpConnection: {
     getInstance: jest.fn(),
@@ -169,14 +167,6 @@ describe('Signup - usecase', () => {
     timestamp: '2023-12-18T17:29:21.281Z',
     path: '/app/user/search?phone=3197010517282',
     method: 'GET',
-  };
-
-  const mockError500 = {
-    message: 'Core::AuthService::Auth - Server Error',
-    statusCode: 500,
-    response: 'Core::AuthService::Auth - Server Error',
-    timestamp: '2023-04-07T15:28:04.657Z',
-    path: '/auth/login',
   };
 
   it('should wait for FETCH_SEARCH_EMAIL action and call checkEmailApiSaga, should be done on next iteration', () => {
@@ -752,8 +742,6 @@ describe('Signup - usecase', () => {
       .put(userSignedUp(user))
       .next(user)
       .put(loginSuccess({ auth: mockAuth }))
-      .next()
-      .put(checkCustomerStatus({ user }))
       .next()
       .call(navigate, { route: IUserStackPages.SIGNUP_CONGRATS })
       .next();

@@ -78,8 +78,6 @@ export function* signupUserGenerator(
 
     yield put(loginSuccess({ auth }));
 
-    // domain event
-
     yield call(navigate, { route: IUserStackPages.SIGNUP_CONGRATS });
   } catch (e: unknown) {
     // once app is well tested, delete this part and let onError hook manage unexpected errors
