@@ -68,12 +68,16 @@ npm run clean
 # install dependencies
 npm install
 # build and install expo dev client with eas
-npx nx build energy-app --platform=ios --profile=development-simulator
+npx nx build your_app --platform=ios --profile=development-simulator
 # wait for eas to build. cli will tell you when its done and offers to install it on simulator > Y
 #once installed you just need to start serveur as such
-npx nx start bank-app --dev-client
+npx nx start your_app --dev-client
 # press i
 ```
+
+If terminal is closed in the meanwhile, or if you want to find a previous developement-simulator build, you can find it with
+cd apps/your_app
+eas build:run --platform ios --profile development-simulator
 
 ## How to run the app locally on android
 
@@ -94,12 +98,16 @@ npm run clean
 # install dependencies
 npm install
 # build and install expo dev client with eas
-npx nx build energy-app --platform=android --profile=development-simulator
+npx nx build your_app --platform=android --profile=development-simulator
 # wait for eas to build. cli will tell you when its done and offers to install it on simulator > Y
-#once installed you just need to start serveur as such
-npx nx start bank-app --dev-client
+# once installed you just need to start serveur as such
+npx nx start your_app --dev-client
 #press a
 ```
+
+If terminal is closed in the meanwhile, or if you want to find a previous developement-simulator build, you can find it with
+cd apps/your_app
+eas build:run --platform android --profile development-simulator
 
 ## How to run the storybook locally
 
