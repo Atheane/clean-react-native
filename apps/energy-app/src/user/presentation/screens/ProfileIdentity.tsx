@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { View, StyleSheet, Text, Dimensions } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import dayjs from 'dayjs';
 
 import { Colors, Email, Phone, useCleanErrorOnFocus, CopyValueClipboard } from '@clean-rn/ui-mobile';
-import { BirthDay, Country, IUpdateUserCommand, KYC_REVIEW } from '@clean-rn/user/domain';
+import { BirthDay, Country, IUpdateUserCommand } from '@clean-rn/user/domain';
 import { firstLetterCapitalize } from '@clean-rn/utils';
 
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
@@ -22,7 +22,6 @@ export const ProfileIdentity = () => {
 
   const { user, error, pending } = useSelector((state: IRootState) => state.user);
   const { email } = useSelector((state: IRootState) => state.auth);
-  const { customer } = useSelector((state: IRootState) => state.customer);
 
   const {
     control,
@@ -95,18 +94,7 @@ export const ProfileIdentity = () => {
   return (
     <ErrorBoundary t={t}>
       <SafeScrollingView>
-        <View
-          style={[
-            styles.container,
-            customer?.properties.status !== undefined &&
-            [KYC_REVIEW.NONE, KYC_REVIEW.REFUSED].includes(customer.properties.status)
-              ? {}
-              : {
-                  marginTop: 100,
-                  marginBottom: Dimensions.get('window').height,
-                },
-          ]}
-        >
+        <View style={[styles.container]}>
           <View style={[styles.rowContainer, { marginTop: 28 }]}>
             {email && (
               <View style={[styles.textContainer, { marginLeft: 8 }]}>
@@ -134,17 +122,15 @@ export const ProfileIdentity = () => {
               </View>
             )}
           </View>
-          {customer?.properties.status !== undefined &&
-            [KYC_REVIEW.NONE, KYC_REVIEW.REFUSED].includes(customer.properties.status) && (
-              <FormUpdateIdentity
-                loading={pending}
-                control={control}
-                errors={errors}
-                error={domainError}
-                onSubmit={handleSubmit(onSubmit)}
-                onFocus={onFocus}
-              />
-            )}
+
+          <FormUpdateIdentity
+            loading={pending}
+            control={control}
+            errors={errors}
+            error={domainError}
+            onSubmit={handleSubmit(onSubmit)}
+            onFocus={onFocus}
+          />
         </View>
       </SafeScrollingView>
     </ErrorBoundary>
