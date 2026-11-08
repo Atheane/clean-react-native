@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
@@ -155,9 +155,9 @@ export const MenuPrimeum = () => {
     <ErrorBoundary t={t}>
       <Header />
       <View style={styles.contentContainer}>
-        <SafeScrollingView>
+        <ScrollView style={styles.blockCards}>
           <Cards />
-        </SafeScrollingView>
+        </ScrollView>
       </View>
     </ErrorBoundary>
   );

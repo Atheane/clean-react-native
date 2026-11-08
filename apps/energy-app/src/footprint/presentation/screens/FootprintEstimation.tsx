@@ -401,6 +401,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.primary.white,
+    marginTop: 80,
   },
   instructionText: {
     fontFamily: FontNames.MartelSans_400Regular,

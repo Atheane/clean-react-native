@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { StyleSheet, View, ImageSourcePropType } from 'react-native';
+import { StyleSheet, View, ImageSourcePropType, ScrollView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
@@ -27,7 +27,6 @@ import {
   BilanFranceEN,
   GraphCO2,
   useReduxOverStorageValue,
-  SafeScrollingView,
 } from '@clean-rn/ui-mobile';
 import { IBANKCategories } from '@clean-rn/footprint/domain';
 
@@ -158,76 +157,77 @@ export const MenuFootprint = () => {
     <LoaderSplashScreen />
   ) : (
     <ErrorBoundary t={t}>
-      <SafeScrollingView>
-        <View style={styles.container}>
-          <View style={styles.row}>
-            <LongCardIcon
-              text={t('screens.menu-footprint.2min')}
-              leftIcon={() => (
-                <Carbon
-                  color={Colors.primary.lightGreen}
-                  startColor={Colors.primary.grey}
-                  endColor={Colors.primary.grey}
+      <ScrollView
+        style={{ flex: 1, backgroundColor: Colors.primary.white }}
+        contentContainerStyle={styles.container}
+      >
+        <View style={styles.row}>
+          <LongCardIcon
+            text={t('screens.menu-footprint.2min')}
+            leftIcon={() => (
+              <Carbon
+                color={Colors.primary.lightGreen}
+                startColor={Colors.primary.grey}
+                endColor={Colors.primary.grey}
+              />
+            )}
+            rightIcon={() => <RightChevron color={Colors.primary.lightGreen} />}
+            onPress={() => handlePressNavigation(IFootprintStackPages.FOOTPRINT_ESTIMATION)}
+            children={
+              totalEmissions !== undefined ? (
+                <GraphCO2
+                  small
+                  headers={
+                    {
+                      [IBANKCategories.BAD]: HeaderBad as ImageSourcePropType,
+                      [IBANKCategories.FRANCE]: HeaderFrance as ImageSourcePropType,
+                      [IBANKCategories.CHAMPION]: HeaderChampion as ImageSourcePropType,
+                      [IBANKCategories.COP21]: HeaderCop21 as ImageSourcePropType,
+                    } as { [key: string]: ImageSourcePropType }
+                  }
+                  bilans={{
+                    FR: {
+                      [IBANKCategories.BAD]: BilanBadFR as ImageSourcePropType,
+                      [IBANKCategories.FRANCE]: BilanFranceFR as ImageSourcePropType,
+                      [IBANKCategories.CHAMPION]: BilanChampionFR as ImageSourcePropType,
+                      [IBANKCategories.COP21]: BilanCop21FR as ImageSourcePropType,
+                    } as { [key: string]: ImageSourcePropType },
+                    GB: {
+                      [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
+                      [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
+                      [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
+                      [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
+                    } as { [key: string]: ImageSourcePropType },
+                    US: {
+                      [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
+                      [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
+                      [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
+                      [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
+                    } as { [key: string]: ImageSourcePropType },
+                  }}
+                  emissions={totalEmissions}
                 />
-              )}
-              rightIcon={() => <RightChevron color={Colors.primary.lightGreen} />}
-              onPress={() => handlePressNavigation(IFootprintStackPages.FOOTPRINT_ESTIMATION)}
-              children={
-                totalEmissions !== undefined ? (
-                  <GraphCO2
-                    small
-                    headers={
-                      {
-                        [IBANKCategories.BAD]: HeaderBad as ImageSourcePropType,
-                        [IBANKCategories.FRANCE]: HeaderFrance as ImageSourcePropType,
-                        [IBANKCategories.CHAMPION]: HeaderChampion as ImageSourcePropType,
-                        [IBANKCategories.COP21]: HeaderCop21 as ImageSourcePropType,
-                      } as { [key: string]: ImageSourcePropType }
-                    }
-                    bilans={{
-                      FR: {
-                        [IBANKCategories.BAD]: BilanBadFR as ImageSourcePropType,
-                        [IBANKCategories.FRANCE]: BilanFranceFR as ImageSourcePropType,
-                        [IBANKCategories.CHAMPION]: BilanChampionFR as ImageSourcePropType,
-                        [IBANKCategories.COP21]: BilanCop21FR as ImageSourcePropType,
-                      } as { [key: string]: ImageSourcePropType },
-                      GB: {
-                        [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
-                        [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
-                        [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
-                        [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
-                      } as { [key: string]: ImageSourcePropType },
-                      US: {
-                        [IBANKCategories.BAD]: BilanBadEN as ImageSourcePropType,
-                        [IBANKCategories.FRANCE]: BilanFranceEN as ImageSourcePropType,
-                        [IBANKCategories.CHAMPION]: BilanChampionEN as ImageSourcePropType,
-                        [IBANKCategories.COP21]: BilanCop21EN as ImageSourcePropType,
-                      } as { [key: string]: ImageSourcePropType },
-                    }}
-                    emissions={totalEmissions}
-                  />
-                ) : undefined
-              }
-            />
-          </View>
-          <View style={styles.row}>
-            <LongCardIcon
-              text={t('screens.menu-footprint.my-reward')}
-              leftIcon={() => <CardPremium />}
-              rightIcon={() => <RightChevron color={Colors.primary.lightGreen} />}
-              onPress={handleMenuPrimeum}
-            />
-          </View>
-          <View style={styles.row}>
-            <LongCardIcon
-              text={t('screens.menu-footprint.my-emissions')}
-              leftIcon={() => <CardCarbonFootPrint />}
-              rightIcon={() => <RightChevron color={Colors.primary.lightGreen} />}
-              onPress={() => handlePressNavigation(IFootprintStackPages.EVOLUTION_FOOTPRINT)}
-            />
-          </View>
+              ) : undefined
+            }
+          />
         </View>
-      </SafeScrollingView>
+        <View style={styles.row}>
+          <LongCardIcon
+            text={t('screens.menu-footprint.my-reward')}
+            leftIcon={() => <CardPremium />}
+            rightIcon={() => <RightChevron color={Colors.primary.lightGreen} />}
+            onPress={handleMenuPrimeum}
+          />
+        </View>
+        <View style={styles.row}>
+          <LongCardIcon
+            text={t('screens.menu-footprint.my-emissions')}
+            leftIcon={() => <CardCarbonFootPrint />}
+            rightIcon={() => <RightChevron color={Colors.primary.lightGreen} />}
+            onPress={() => handlePressNavigation(IFootprintStackPages.EVOLUTION_FOOTPRINT)}
+          />
+        </View>
+      </ScrollView>
     </ErrorBoundary>
   );
 };
@@ -235,7 +235,7 @@ export const MenuFootprint = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginBottom: 100,
+    marginVertical: 50,
   },
   row: {
     flexDirection: 'row',

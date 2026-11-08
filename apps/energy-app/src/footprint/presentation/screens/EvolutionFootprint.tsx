@@ -1,12 +1,12 @@
 import { useCallback } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 
 import { Colors, StackedBarsCO2, TableBaseline } from '@clean-rn/ui-mobile';
 
-import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { ErrorBoundary } from '../../../shared/presentation/hoc';
 import { ISharedStackPages } from '../../../shared/presentation/types';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { URL_CO2_REWARD } from '../constants';
@@ -32,30 +32,31 @@ export const EvolutionFootprint = () => {
 
   return (
     <ErrorBoundary t={t}>
-      <SafeScrollingView>
-        <View style={[styles.container]}>
-          <View style={styles.row}>
-            <StackedBarsCO2
-              categories={['Voiture', 'Logement', 'CO2 Evité']}
-              labels={['2019', '2020', '2021', '2022', '2023']}
-              transport={[3100, 3100, 3000, 0, 0]}
-              housing={[1100, 1100, 1000, 1000, 400]}
-              savings={[800, 800, 1000, 4000, 4600]}
-            />
-          </View>
-          <View style={styles.row}>
-            <TableBaseline
-              tableHead={['Logement', 'Voiture', 'Total', 'Evité']}
-              tableData={email?.value && TESTEURS.includes(email.value) ? fakeData : []}
-              rowLabels={['2019-2020', '2022', '2023', '2024']}
-              onPress={handleOnPressPremium}
-              buttonTitle={t('screens.footprint-evolution.receive')}
-              tagText={t('screens.footprint-evolution.na')}
-              baselineText={t('screens.footprint-evolution.baseline')}
-            />
-          </View>
+      <ScrollView
+        style={{ flex: 1, backgroundColor: Colors.primary.white }}
+        contentContainerStyle={styles.container}
+      >
+        <View style={styles.row}>
+          <StackedBarsCO2
+            categories={['Voiture', 'Logement', 'CO2 Evité']}
+            labels={['2019', '2020', '2021', '2022', '2023']}
+            transport={[3100, 3100, 3000, 0, 0]}
+            housing={[1100, 1100, 1000, 1000, 400]}
+            savings={[800, 800, 1000, 4000, 4600]}
+          />
         </View>
-      </SafeScrollingView>
+        <View style={styles.row}>
+          <TableBaseline
+            tableHead={['Logement', 'Voiture', 'Total', 'Evité']}
+            tableData={email?.value && TESTEURS.includes(email.value) ? fakeData : []}
+            rowLabels={['2019-2020', '2022', '2023', '2024']}
+            onPress={handleOnPressPremium}
+            buttonTitle={t('screens.footprint-evolution.receive')}
+            tagText={t('screens.footprint-evolution.na')}
+            baselineText={t('screens.footprint-evolution.baseline')}
+          />
+        </View>
+      </ScrollView>
     </ErrorBoundary>
   );
 };
