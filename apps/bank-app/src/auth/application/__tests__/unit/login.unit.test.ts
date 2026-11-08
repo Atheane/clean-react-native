@@ -23,7 +23,7 @@ import { navigate } from '../../../../shared/presentation/navigation/navigationR
 import { checkCustomerStatus } from '../../../../kyc/application/commands';
 import { initializeUser, userSaved } from '../../../../user/application/commands';
 import { cardForbidden, cardGetSuccess, cardNotFound } from '../../../../card/application/commands';
-import { getEnergy } from 'apps/bank-app/src/energy/application/commands';
+import { getEnergy } from '../../../../energy/application/commands';
 
 jest.mock('@clean-rn/shared/infrastructure', () => ({
   HttpConnection: {

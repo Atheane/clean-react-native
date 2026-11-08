@@ -1,0 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any  */
+/* eslint-disable no-fallthrough */
+import { put, StrictEffect, takeEvery } from 'redux-saga/effects';
+import { delay } from 'redux-saga/effects';
+import { fetchLogout, IAuthTypes } from '../../commands';
+
+export function* sessionSaga(): Generator<StrictEffect, any, any> {
+  yield takeEvery(IAuthTypes.LOGIN_SUCCEDED, sessionGenerator);
+}
+
+export function* sessionGenerator(): Generator<StrictEffect, any, any> {
+  yield delay(55 * 5 * 1000);
+  console.log('Session expired, fetching logout');
+  // Exécuter l'action LOGOUT après 5 minutes
+  yield put(fetchLogout());
+}

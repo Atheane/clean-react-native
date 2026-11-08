@@ -1,0 +1,1084 @@
+{
+  "permissions": {
+    "contacts": "Transfiera sus €G directamente a números de móvil. Ejemplo: envía una transferencia de 10 €G al 06 01 01 01 01 en lugar de FR76 0001 XO01 XO01 XO01 XO01 X11.",
+    "camera": "La aplicación requiere acceso a la cámara para escanear documentos."
+  },
+  "tablets": {
+    "instruction": "Esta aplicación no es compatible con tabletas. Por favor, instala esta aplicación en un smartphone."
+  },
+  "banners": {
+    "update-application": "Actualización disponible",
+    "identity-validation": "Validación de identidad",
+    "identity-validated": "Identidad validada"
+  },
+  "modal": {
+    "login": {
+      "title": "Sesión expirada, inicie sesión"
+    }
+  },
+  "errors": {
+    "card-limits": {
+      "min": "La cantidad debe ser mayor a 100",
+      "max": {
+        "day": "La cantidad debe ser menor a 3000",
+        "week": "La cantidad debe ser menor a 6000",
+        "month": "La cantidad debe ser menor a 9000"
+      }
+    },
+    "BIC": {
+      "required": "BIC requerido",
+      "invalid": "BIC inválido"
+    },
+    "consent": {
+      "required": "Consentimiento requerido"
+    },
+    "email": {
+      "required": "email requerido",
+      "invalid": "email inválido"
+    },
+    "label": {
+      "required": "El etiquetado es requerido",
+      "invalid": "Máximo 140 caracteres"
+    },
+    "IBAN": {
+      "required": "IBAN requerido",
+      "invalid": "IBAN inválido"
+    },
+    "password": {
+      "required": "Contraseña requerida",
+      "invalid": "Contraseña inválida",
+      "min-length": "Debe contener al menos 6 caracteres"
+    },
+    "phone": {
+      "required": "Número de teléfono requerido",
+      "invalid": "Número de teléfono móvil inválido"
+    },
+    "phone-otp": {
+      "required": "Código de 6 dígitos requerido",
+      "invalid": "Código inválido",
+      "min-length": "Debe contener al menos 6 dígitos"
+    },
+    "card-pin": {
+      "required": "Código de 4 dígitos requerido",
+      "invalid": "Código inválido",
+      "min-length": "Debe contener al menos 4 dígitos"
+    },
+    "birthday": {
+      "invalid": "Fecha de nacimiento inválida, mínimo 18 años"
+    },
+    "first-name": {
+      "required": "Nombre requerido",
+      "invalid": "Formato de nombre inválido"
+    },
+    "last-name": {
+      "required": "Apellido requerido",
+      "invalid": "Formato de apellido inválido"
+    },
+    "birth-country": {
+      "required": "País de nacimiento requerido"
+    },
+    "nationality": {
+      "required": "Nacionalidad requerida"
+    },
+    "address": {
+      "required": "Dirección requerida"
+    },
+    "zip": {
+      "required": "Código postal requerido"
+    },
+    "country": {
+      "required": "Código de país requerido",
+      "invalid": "País inválido",
+      "unvailable": "Este país no está disponible"
+    },
+    "country-code": {
+      "required": "Código de país requerido"
+    },
+    "amount": {
+      "required": "Cantidad requerida",
+      "invalid": "Cantidad inválida"
+    },
+    "income": {
+      "required": "Categoría de ingresos requerida"
+    },
+    "assets": {
+      "required": "Valor de patrimonio requerido"
+    },
+    "occupation": {
+      "required": "Categoría profesional requerida"
+    },
+    "domain-error": {
+      "auth": {
+        "INVALID_EMAIL": "E-mail inválido",
+        "INVALID_PASSWORD": "Contraseña inválida",
+        "LOGIN_FAILURE_USER_NOT_FOUND": "La cuenta no existe",
+        "LOGIN_FAILURE_INVALID_CREDENTIALS": "Correo electrónico o contraseña incorrectos",
+        "LOGIN_FAILURE_USER_PHONE_NOT_VALIDATED": "El número de teléfono no es válido",
+        "USER_UNAUTHENTICATED": "Por favor autentíquese"
+      },
+      "user": {
+        "INVALID_PHONE": "Número de teléfono móvil inválido",
+        "INVALID_COUNTRY": "País inválido",
+        "UNAVAILABLE_COUNTRY": "País no disponible",
+        "INVALID_BIRTHDAY": "Fecha de nacimiento inválida",
+        "INVALID_6_DIGITS": "6 dígitos inválidos",
+        "SIGNUP_FAILURE_EMAIL_EXISTS": "Este correo electrónico ya está registrado",
+        "SIGNUP_FAILURE_PHONE_EXISTS": "Este teléfono ya está registrado",
+        "VALIDATE_PHONE_INCORRECT_PHONE_CODE": "Código incorrecto",
+        "VALIDATE_PHONE_FAILURE_PHONE_NOT_FOUND": "Número de teléfono desconocido",
+        "INVALID_ADDRESS": "Dirección inválida",
+        "SIGNUP_FAILURE": "Error durante el registro, por favor inténtelo de nuevo"
+      },
+      "account": {
+        "INVALID_IBAN": "IBAN inválido",
+        "INVALID_BIC": "BIC inválido",
+        "UNKNOWN_TRANSACTION_TYPE": "Tipo de transacción desconocido",
+        "INVALID_TRANSACTION_VALUE": "Valor de transacción inválido"
+      },
+      "beneficiary": {
+        "INVALID_IBAN": "IBAN inválido",
+        "INVALID_BIC": "BIC inválido",
+        "INVALID_NAME": "Nombre inválido",
+        "BENEFICIARY_ALREADY_EXISTS": "Este beneficiario ya existe",
+        "BENEFICIARY_UNKNOWN": "Beneficiario desconocido",
+        "BENEFICIARY_MUST_DIFFER_FROM_ACCOUNT": "No puede hacer una transferencia a su número de teléfono."
+      },
+      "contact": {
+        "INVALID_NAME": "Formato del nombre inválido",
+        "INVALID_PHONE": "Número de teléfono móvil inválido",
+        "CONTACT_ALREADY_EXISTS": "Este contacto ya existe"
+      },
+      "footprint": {
+        "INVALID_HOUSE_PROPS": "Propiedades de la casa inválidas",
+        "INVALID_TRANSPORT_PROPS": "Propiedades de transporte inválidas",
+        "INVALID_FOOD_PROPS": "Propiedades de alimentos inválidas",
+        "INVALID_FLY_PROPS": "Propiedades de vuelo inválidas",
+        "INVALID_HEATER_TYPE": "Tipo de calefacción es requerido",
+        "INVALID_HEATER_USAGE": "Uso de calefacción es requerido",
+        "INVALID_HEATER_DATE": "Fecha de instalación es requerida",
+        "HEATER_ALREADY_EXISTS": "Calefacción ya declarada",
+        "INVALID_ADULT_NUMBER": "El número de adultos debe estar entre 1 y 20",
+        "INVALID_CHILD_NUMBER": "El número de menores debe estar entre 1 y 20",
+        "VEHICLE_ALREADY_EXISTS": "Este vehículo ya existe",
+        "INVALID_LICENSE_PLATE": "La matrícula no es válida.\nEjemplo de formato esperado: AA123BB",
+        "HOUSEHOLD_ALDREADY_DECLARED": "El hogar ya ha sido declarado"
+      },
+      "kyc": {
+        "MISSING_KYC_DOCUMENTS": "Faltan documentos para la validación del expediente",
+        "KYC_REFUSED": "La validación de su expediente ha fallado",
+        "MISSING_RECTO": "Falta el anverso",
+        "MISSING_VERSO": "Falta el reverso",
+        "DOCUMENT_NOT_READY": "Documento aún no listo",
+        "INVALID_DOCUMENT_TYPE": "Tipo de documento inválido",
+        "DOCUMENT_TOO_LARGE": "Documento demasiado grande, máximo 1MB",
+        "REFUSED": "El documento no pudo ser validado, por favor reenvíelo",
+        "OUT_OF_SCOPE": "Por favor adjunte un documento emitido por el Espacio Económico Europeo o un permiso de residencia",
+        "EXPIRED": "Por favor adjunte un documento válido",
+        "ILLEGIBLE": "Por favor adjunte un justificante de domicilio válido",
+        "TRUNCATED_DOC": "Por favor adjunte un documento en color, legible y completo (no truncado)",
+        "TRUNCATED": "Por favor adjunte un documento en color, legible y completo (no truncado)",
+        "INCOHERENT": "Por favor adjunte un documento coherente con la información proporcionada",
+        "OTHER": "El documento no pudo ser validado, por favor reenvíelo"
+      },
+      "transaction": {
+        "INVALID_AMOUNT": "Cantidad inválida",
+        "UNKNOWN_TRANSACTION_TYPE": "Tipo de transacción desconocido",
+        "INVALID_TRANSACTION_VALUE": "Valor de transacción inválido",
+        "TRANSFER_AMOUNT_TOO_HIGH": "Saldo insuficiente"
+      },
+      "card": {
+        "INVALID_PIN_FORMAT": "Formato de PIN inválido",
+        "CARD_NOT_FOUND": "Tarjeta no encontrada",
+        "CARD_FORBIDDEN": "Tarjeta no autorizada",
+        "MAX_NUMBER_OF_PIN_CHANGES_REACHED": "Número máximo de cambios de PIN alcanzado"
+      },
+      "other": "Error, por favor contacte al administrador"
+    },
+    "other": "Error, por favor contacte al administrador"
+  },
+  "country-picker": {
+    "label": "país",
+    "placeholder": "Seleccionar un país"
+  },
+  "date-picker": {
+    "label": "Fecha de nacimiento",
+    "placeholder": "DD/MM/AAAA"
+  },
+  "email-input": {
+    "label": "email",
+    "placeholder": "tu@correo.com"
+  },
+  "contact-email": {
+    "label": "POR CORREO ELECTRÓNICO",
+    "bank": "contacto@example.com",
+    "subject": {
+      "unavailable-card": "Solicitud de renovación de tarjeta",
+      "contact": "Contacto a través de la aplicación CO2"
+    },
+    "body": {
+      "unavailable-card": "Hola,\nLa aplicación CO2 me indica que mi tarjeta CO2 ya no está accesible, y deseo renovarla.\n\nCordialmente",
+      "contact": "Hola,\n"
+    }
+  },
+  "password-input": {
+    "placeholder": "******",
+    "label": "contraseña"
+  },
+  "button": {
+    "add": "Agregar",
+    "share": "Compartir",
+    "submit": "Validar",
+    "photo": "Tomar una foto",
+    "document": "Importar un documento"
+  },
+  "login": {
+    "forgotten-password": "¿Olvidaste tu contraseña?",
+    "validate": "Validar"
+  },
+  "reset-password": {
+    "success": "Si este correo existe, se ha enviado un mensaje",
+    "reset": "Restablecer"
+  },
+  "signup-email": {
+    "text": "Verifiquemos juntos si su dirección de correo está asociada a una cuenta existente."
+  },
+  "signup-identity": {
+    "gender": {
+      "label": "Género",
+      "man": "Hombre",
+      "woman": "Mujer",
+      "neutral": "Neutro"
+    },
+    "first-name": {
+      "label": "Nombre",
+      "placeholder": "John"
+    },
+    "last-name": {
+      "label": "Apellido",
+      "placeholder": "Doe"
+    }
+  },
+  "signup-phone": {
+    "country-code": {
+      "required": "Código de país requerido"
+    },
+    "phone": {
+      "label": "Número de teléfono",
+      "placeholder": "666123123"
+    }
+  },
+  "signup-birth": {
+    "birthday": {
+      "label": "Fecha de nacimiento",
+      "placeholder": "DD/MM/AAAA"
+    },
+    "birth-country": {
+      "label": "País de nacimiento",
+      "placeholder": "País de nacimiento"
+    },
+    "nationality": {
+      "label": "Nacionalidad",
+      "placeholder": "Nacionalidad"
+    }
+  },
+  "signup-address": {
+    "address": {
+      "label": "Dirección",
+      "placeholder": "5 Rue de la Paix, 75000 París"
+    },
+    "usperson": {
+      "label": "Soy una 'persona estadounidense'",
+      "subtitle": "(Residente de EE. UU.)",
+      "yes": "Sí",
+      "no": "No"
+    },
+    "zip": {
+      "label": "Código Postal",
+      "placeholder": "40600"
+    }
+  },
+  "signup-revenues": {
+    "title": "Verificación de identidad",
+    "intro": "Para ayudar a combatir el fraude y el blanqueo de dinero, complete las secciones a continuación:",
+    "income": {
+      "label": "Sus ingresos",
+      "placeholder": "Seleccionar",
+      "LESS_THAN_1800": "menos de 1.800 euros / mes",
+      "BETWEEN_1800_AND_3500": "menos de 3.500 euros / mes",
+      "BETWEEN_3500_AND_10000": "menos de 10.000 euros / mes",
+      "MORE_THAN_10000": "más de 10.000 euros / mes"
+    },
+    "assets": {
+      "label": "Su patrimonio",
+      "placeholder": "Seleccionar",
+      "LESS_THAN_150K": "menos de 150.000 euros",
+      "BETWEEN_150K_AND_350K": "menos de 350.000 euros",
+      "BETWEEN_350K_AND_750K": "menos de 750.000 euros",
+      "MORE_THAN_750K": "más de 750.000 euros"
+    },
+    "occupation": {
+      "label": "Su categoría profesional",
+      "placeholder": "Seleccionar",
+      "UNEMPLOYED": "No asalariado",
+      "PRIVATE_EMPLOYEE": "Empleado del sector privado",
+      "PUBLIC_EMPLOYEE": "Empleado del sector público"
+    }
+  },
+  "email-sent": {
+    "title": "Correo enviado",
+    "text": "Le hemos enviado un correo de confirmación a la dirección indicada.\nPor favor, haga clic en el enlace para conectarse."
+  },
+  "modal-error": {
+    "code": "Código de error ",
+    "details": "Mensaje ",
+    "stack": "Detalles ",
+    "network": "Sin conexión a internet"
+  },
+  "tabs-co2": { "button": "Recibir mi premio", "tag": "No calculado", "baseline": "Emisiones de referencia" },
+  "screens": {
+    "legal": "Datos personales",
+    "cgu": "Términos y condiciones de uso",
+    "cgu-kyc-provider": "Términos y condiciones (KycProvider)",
+    "modal-error": "Error",
+    "login": {
+      "title": "Inicio de sesión"
+    },
+    "reset-password": {
+      "title": "Contraseña olvidada"
+    },
+    "signup-email": {
+      "title": "Registro",
+      "checkbox": "Al marcar esta casilla reconozco haber leído los Términos y condiciones, las menciones legales así como el uso de los datos personales de la Cuenta CO2"
+    },
+    "signup-identity": {
+      "title": "Registro"
+    },
+    "signup-validate-phone": {
+      "title": "Seguridad",
+      "instruction": "Introduzca el código de verificación que acaba de recibir por SMS"
+    },
+    "signup-birth": {
+      "title": "Completar mi perfil"
+    },
+    "signup-address": {
+      "title": "Completar mi perfil"
+    },
+    "signup-congrats": {
+      "title": "Felicidades",
+      "congrats": "¡Felicidades! Ahora puede acceder a su aplicación Cuenta CO2.",
+      "button": "¡Empecemos!"
+    },
+    "email-sent": {
+      "title": "Correo enviado",
+      "text": "Le hemos enviado un correo de confirmación a la dirección indicada.\n\nPor favor, haga clic en el enlace para conectarse."
+    },
+    "signup-phone": {
+      "title": "Validación móvil",
+      "text": "Validar su número de teléfono móvil"
+    },
+    "signup-revenues": {
+      "title": "Verificación de identidad",
+      "intro": "Para ayudar a combatir el fraude y el blanqueo de dinero, complete las secciones a continuación:"
+    },
+    "home": {
+      "title": "Inicio",
+      "tab": "Inicio",
+      "help": "Ayuda",
+      "balance": {
+        "main": "Mi cuenta CO2:",
+        "restoflash": "Mi cuenta Restau Flash:",
+        "weflo": "Mi cuenta Weflo:",
+        "noaccounts": "Ninguna cuenta"
+      },
+      "banner": {
+        "validation-identity": "Valide su identidad",
+        "update-needed": "Actualización necesaria",
+        "identity-validated": "Identidad validada"
+      }
+    },
+    "account": {
+      "balance": "Saldo de mi cuenta",
+      "oups": "¡Recargue su Cuenta CO2 para usar la moneda climática a diario!",
+      "iban": "Mostrar mi IBAN CO2",
+      "transfer": "Transferencia",
+      "cards": {
+        "card": "Nuestra Tarjeta de pago para ahorrar CO2",
+        "loan": "Nuestros préstamos para descarbonizar la economía",
+        "loan-heater": "Nuestra oferta de préstamo para cambiar de caldera",
+        "carbon-premium": "Sea recompensado gracias a nuestras primas",
+        "manifesto": "Manifiesto",
+        "history": "Nuestra historia",
+        "green-euro": "¿Cómo funcionan los euros verdes?",
+        "currency": "Nuestros objetivos y límites",
+        "article": "Nuestro blog sobre el mundo bancario y la urgencia climática"
+      }
+    },
+    "beneficiary": {
+      "title": "Gestionar mis beneficiarios",
+      "bank": "Banco",
+      "contacts": "Contactos",
+      "beneficiaries": "Beneficiarios",
+      "add-beneficiary": "Agregar",
+      "new-beneficiary": {
+        "title": "Agregar un beneficiario",
+        "BIC": {
+          "label": "BIC",
+          "placeholder": "TRZOFR21XXX"
+        },
+        "IBAN": {
+          "label": "IBAN",
+          "placeholder": "ES85 3004 7883 7385 8218 5879"
+        },
+        "name": {
+          "label": "Nombre",
+          "placeholder": "Nombre"
+        }
+      },
+      "new-contact": {
+        "title": "Agregar un contacto",
+        "firstname": {
+          "label": "Nombre",
+          "placeholder": "Nombre"
+        },
+        "lastname": {
+          "label": "Apellido",
+          "placeholder": "Apellido"
+        }
+      },
+      "kyc-missing": {
+        "instruction": "Para acceder a esta función, primero debe ",
+        "instruction-bold": "verificar su identidad",
+        "link-instruction": "Verificar mi identidad"
+      }
+    },
+    "account-statements": {
+      "title": "Exportar",
+      "bold": "Exportar mi estado de cuenta",
+      "normal": "Descargar mi estado de cuenta en PDF",
+      "cards": {
+        "last-month": "El mes pasado",
+        "last-trimester": "Últimos 3 meses",
+        "all": "Todos mis estados de cuenta",
+        "rib": "Descargar el RIB"
+      }
+    },
+    "account-statements-pdf": {
+      "title": "Estado de cuenta"
+    },
+    "rib-pdf": {
+      "title": "El RIB"
+    },
+    "transfer": {
+      "title": "Transferencia",
+      "tab": "Transferencia",
+      "button": "Pagar",
+      "main": "Cuenta CO2",
+      "amount": "Cantidad",
+      "label": "Etiqueta de la transferencia",
+      "placeholder": "Reembolso restaurante"
+    },
+    "transfer-success": {
+      "title": "Transferencia",
+      "button": "Volver al inicio"
+    },
+    "menu-footprint": {
+      "title": "Mi huella de carbono",
+      "2min": "Mi huella de carbono en 2 min",
+      "my-reward": "Recibir mi prima de CO2",
+      "my-emissions": "Ver mis emisiones"
+    },
+    "menu-primeum": {
+      "title": "Mi prima de CO2",
+      "step-one": "Situación",
+      "step-two": "Justificantes",
+      "step-three": "Seguimiento",
+      "instruction": "Rellene los formularios a continuación, esto nos permite evaluar el monto de su prima creando su ",
+      "ref-year": "año de referencia.",
+      "heat": "Calefacción",
+      "works": "Obras",
+      "transport": "Transporte",
+      "household": "Hogar",
+      "dropdown-years": {
+        "before-2011": "Antes de 2011"
+      }
+    },
+    "heaters-situation": {
+      "title": "Mi prima de CO2",
+      "subtitle": "Mi calefacción",
+      "heater": "Tipo de calefacción",
+      "placeholder": "Seleccionar",
+      "house-main-heat": "Calefacción principal instalada en su vivienda:",
+      "house-sanitary-heat": "Agua caliente sanitaria instalada en su vivienda:",
+      "house-secondary-heat": "Calefacción secundaria instalada en su vivienda:",
+      "next-step": "Siguiente",
+      "end": "Terminar",
+      "dropdown-heat-type": {
+        "ELECTRIC": "Electricidad",
+        "COAL": "Carbón",
+        "GAS": "Gas ciudad",
+        "FUEL_OIL": "Gasóleo",
+        "URBAN": "Red de calor urbana",
+        "WOOD": "Madera",
+        "HEAT_PUMP": "Bomba de calor",
+        "THERMAL_SOLAR": "Solar térmica",
+        "PROPANE": "Propano"
+      },
+      "has-changed": "¿Ha cambiado de calefacción desde que está en esta vivienda?",
+      "has-changed-yes": "Sí",
+      "has-changed-no": "No",
+      "instruction-heat-type": "Tipo de calefacción:",
+      "instruction-heat-type-installation-date": "Fecha de instalación de la nueva calefacción:",
+      "instruction-heat-type-old": "Tipo de calefacción anterior"
+    },
+    "works-situation": {
+      "title": "Mi prima de CO2",
+      "subtitle": "Mis obras",
+      "dropdown-work-type": {
+        "ROOF": "Aislamiento techo/buhardilla",
+        "WALL": "Aislamiento paredes",
+        "GROUND": "Aislamiento suelo",
+        "WINDOW": "Instalación de ventanas aislantes",
+        "VMC": "Instalación de VMC doble flujo",
+        "HP": "Bomba de calor",
+        "GLOBAL": "Renovación global"
+      },
+      "dropdown-placeholder": "Seleccionar",
+      "instruction-works-type": "Si ha realizado obras, indíquelas:",
+      "instruction-works-date": "Fecha de las obras más recientes:"
+    },
+    "footprint-evolution": {
+      "title": "Evolución de mis emisiones",
+      "na": "No calculado",
+      "receive": "Recibir mi prima",
+      "baseline": "Emisiones de referencia"
+    },
+    "transport-situation": {
+      "title": "Mi prima CO2",
+      "subtitle": "Mi transporte",
+      "instruction-license-plate": "¿Matrícula de su vehículo (coche, moto, etc.)?",
+      "instruction-old-license-plate": "Matrícula del vehículo anterior",
+      "placeholder-license-plate": "AA123BB",
+      "checkbox": "Al marcar esta casilla, lorem ipsum FIN",
+      "instruction-acquisition-date": "Fecha de adquisición del vehículo",
+      "acquisition-date-placeholder": "Seleccionar",
+      "has-changed": "¿Este vehículo reemplaza a otro?",
+      "has-changed-no": "No",
+      "has-changed-yes": "Sí",
+      "add": "Agregar",
+      "vehicle": "Vehículo",
+      "before": "antes",
+      "in": "en",
+      "owned": "adquirido",
+      "sold": "vendido",
+      "end": "Finalizar"
+    },
+    "household-situation": {
+      "title": "Mi prima de CO2",
+      "subtitle": "Mi hogar",
+      "adults": "Número de adultos",
+      "minors": "Número de menores",
+      "submit": "Confirmar"
+    },
+    "evolution": {
+      "title": "Evolución de mis emisiones",
+      "na": "No calculado",
+      "receive": "Recibir mi prima",
+      "baseline": "Emisiones de referencia"
+    },
+    "footprint-estimation": {
+      "title": "Mi huella de carbono",
+      "tab": "Balance CO2",
+      "instruction": "Presione una categoría para comenzar",
+      "zero-carbon": "0 tCO2",
+      "average": "Promedio Francés",
+      "ton": "t",
+      "tons": "t",
+      "take-action": "Pasar a la acción",
+      "reward": "Ser recompensado por la prima CO2",
+      "method": "Más información sobre el método de cálculo",
+      "compute": "Calcular",
+      "consumption": "Consumo",
+      "message-part-one": "Hola,\n\nAcabo de hacer mi huella de carbono en dos minutos. Muy interesante.\n\nMi huella de carbono es de ",
+      "message-part-two": "¡Descubre la tuya también y dime cuánto pesas!\n\nEn iOS:\n\nhttps://apps.apple.com/fr/app/bank-app/id0000000000?l=fr-FR\n\n en Android:\n\nhttps://play.google.com/store/apps/details?id=com.example.energyapp"
+    },
+    "footprint-estimation-house": {
+      "title": "Mi vivienda",
+      "no-CO2": "El consumo de este tipo de calefacción no emite CO2 en la metodología de cálculo.",
+      "dropdown": {
+        "heater": "Tipo de calefacción",
+        "region": "Departamento",
+        "electric": "Electricidad",
+        "coal": "Carbón",
+        "gas": "Gas de ciudad",
+        "fuelOil": "gasóleo de calefacción",
+        "urban": "Red de calor urbana",
+        "wood": "Madera",
+        "heatPump": "Bomba de calor",
+        "thermalSolar": "Solar térmica",
+        "propane": "Propano",
+        "unit": " L",
+        "state-department": "Departamento"
+      },
+      "slider": {
+        "consumption": "Consumo",
+        "built-year": "Año de construcción"
+      },
+      "surface": "Superficie"
+    },
+    "footprint-estimation-transport": {
+      "title": "Mi transporte",
+      "no-CO2": "El consumo de este tipo de vehículo no emite CO2 en la metodología de cálculo",
+      "dropdown": {
+        "title": "Combustible",
+        "fuel": "Gasolina (incluye Híbrido)",
+        "E85": "E85 (Superetanol)",
+        "electric": "Eléctrico",
+        "gasoil": "Diésel (incluye Híbrido)",
+        "GNV": "GNV (Gas Natural)",
+        "LPG": "GLP",
+        "unit": " L/100 KM"
+      },
+      "slider": {
+        "mpg": "Consumo",
+        "distance-by-year": "Kilometraje anual",
+        "unit": " km"
+      }
+    },
+    "footprint-estimation-food": {
+      "title": "Mi alimentación",
+      "slider": {
+        "alcohol": "Vino / Cerveza",
+        "bread": "Pan",
+        "cheese": "Queso / Lácteos / Huevo",
+        "fish": "Pescado / Marisco",
+        "harvestExotic": "Verd. / Frut. exóticas",
+        "harvestLocal": "Verd. / Frut. de temporada",
+        "meatRed": "Carne roja",
+        "meatWhite": "Carne blanca / Aves",
+        "rice": "Pasta / Arroz",
+        "soft": "Jugos de frutas / Soda / Agua",
+        "unit": " veces / semana",
+        "units": " veces / semana"
+      }
+    },
+    "warning-food": {
+      "title": "Advertencia",
+      "text": "A partir de la estimación de la huella de carbono de la alimentación se deduce la de los residuos.",
+      "next": "Siguiente"
+    },
+    "footprint-estimation-fly": {
+      "title": "Mi transporte aéreo",
+      "dropdown": {
+        "destination": "Salida de",
+        "arrival": "Llegada a"
+      },
+      "search": "Buscar",
+      "slider": "Número de viajes",
+      "swipe-button": {
+        "type": "Viaje",
+        "simple": "Ida",
+        "round": "Ida y vuelta",
+        "class": "Clase",
+        "economy": "Económica",
+        "business": "Business"
+      },
+      "secondary-button": "Agregar",
+      "flight": "viaje(s)"
+    },
+    "kyc": {
+      "title": "Verificación de Identidad",
+      "send-document": "Enviar Documento",
+      "init": {
+        "steps": "Pasos:\n",
+        "step1": "1. Adjuntar un documento de identidad\n",
+        "step2": "2. Realizar una transferencia de 5 euros desde una de sus cuentas bancarias a su Cuenta CO2\n",
+        "step3": "3. Adjuntar el formulario W9",
+        "check-identity": "Verificar"
+      },
+      "complete": {
+        "title": "Documentos Validados",
+        "congrats": "¡Felicidades, sus documentos han sido validados!\n\n",
+        "instruction": "Último paso, ahora debe realizar una transferencia a su Cuenta CO2, desde una de sus cuentas en Francia."
+      },
+      "success": {
+        "title": "Identidad Validada",
+        "congrats": "¡Felicidades, su identidad ha sido validada!\n\n",
+        "instruction-before-card": "Hemos iniciado la ",
+        "instruction-card": "producción de su Tarjeta CO2",
+        "instruction-after-card": ". Se la enviaremos por correo tan pronto como esté lista.\n\nPor favor, tenga paciencia, mientras tanto puede cargar su cuenta."
+      },
+      "card-sent": {
+        "title": "Identidad Validada",
+        "text": "Hemos enviado con éxito su Tarjeta CO2 por correo."
+      },
+       "show-kyc-steps": {
+        "steps": "Pasos:\n",
+        "step1": "1. Agregar un documento de identidad",
+        "step2": "2. Completar la información",
+        "step3": "3. Realizar una transferencia de 5 euros desde una de sus cuentas bancarias a su Cuenta CO2",
+        "step4": "4. Adjuntar el formulario W9",
+        "check-identity": "Verificar"
+      },
+      "kyc-init": {
+        "title": "Verificación de su identidad",
+        "instruction": "Una vez que todos los pasos estén validados, la verificación comenzará automáticamente.",
+        "w9": "Formulario W9",
+        "identity": "Documento de identidad",
+        "informations": "Información adicional",
+        "transfer": "Transferencia de 5 euros"
+      },
+      "revenues": {
+        "title": "Información adicional",
+        "intro": "Para completar su solicitud, necesitamos información adicional.",
+        "income": {
+          "label": "Sus ingresos",
+          "placeholder": "Seleccionar",
+          "K2": "menos de 1.800 euros / mes",
+          "K4": "menos de 3.500 euros / mes",
+          "K5": "menos de 5.000 euros / mes",
+          "K7": "menos de 6.500 euros / mes",
+          "K10": "menos de 10.000 euros / mes",
+          "KN": "más de 10.000 euros / mes"
+        },
+        "assets": {
+          "label": "Su patrimonio",
+          "placeholder": "Seleccionar",
+          "A0": "menos de 150.000 euros",
+          "A4": "menos de 350.000 euros",
+          "A5": "menos de 750.000 euros",
+          "A6": "más de 750.000 euros"
+        },
+        "occupation": {
+          "label": "Su categoría profesional",
+          "placeholder": "Seleccionar",
+          "UNEMPLOYED": "No asalariado",
+          "EMPLOYEE": "Empleado del sector privado",
+          "PUBLIC_EMPLOYEE": "Empleado del sector público"
+        }
+      },
+      "menu": {
+        "instruction-before": {
+          "singular": "Una vez que se transfiera el documento de identidad y se reciba la transferencia, la verificación comenzará automáticamente.",
+          "plural": "Una vez que se transfieran ambos documentos y se reciba la transferencia, la verificación comenzará automáticamente."
+        },
+        "instruction-after": {
+          "begin": "Sus documentos están",
+          "bold": " bajo verificación, ",
+          "end": "esto puede tomar de 24 a 72 horas."
+        },
+        "last-step": "\n\n\nÚltimo paso:\n",
+        "w9-form": "Formulario W9",
+        "identity": "Documento de Identidad",
+        "fix-file": "Por favor, corrija los elementos del archivo",
+        "transfer": "Transferencia de 5 euros"
+      },
+      "first-id": {
+        "title": "Documentos de Identidad",
+        "instruction": "Elija su documento de identidad",
+        "id": "Documento de Identidad",
+        "passport": "Pasaporte",
+        "residence-permit": "Permiso de Residencia"
+      },
+      "take-photo": "Tomar una foto",
+      "id": {
+        "recto": {
+          "title": "Documento de Identidad - Anverso",
+          "instruction": "del anverso de su documento de identidad"
+        },
+        "verso": {
+          "title": "Documento de Identidad - Reverso",
+          "instruction": "del reverso de su documento de identidad"
+        }
+      },
+      "passport": {
+        "title": "Pasaporte",
+        "instruction": "de la página de identidad de su pasaporte"
+      },
+      "residence-permit": {
+        "recto": {
+          "title": "Permiso de Residencia - Anverso",
+          "instruction": "del anverso de su permiso de residencia"
+        },
+        "verso": {
+          "title": "Permiso de Residencia - Reverso",
+          "instruction": "del reverso de su permiso de residencia"
+        }
+      },
+      "w9": {
+        "title": "Residente de EE. UU. - W-9",
+        "instruction": "o importe su formulario W-9"
+      },
+      "sct-required": {
+        "title": "Transferencia de 5 euros",
+        "instruction": "Realice una transferencia de 5 euros a su Cuenta CO2, desde una de sus cuentas en Francia."
+      }
+    },
+    "parameters": {
+      "menu": {
+        "title": "Mis ajustes",
+        "tab": "Ajustes",
+        "card-settings": "Configurar mi tarjeta",
+        "account-settings": "Ajustes de la cuenta",
+        "app-settings": "Ajustes de la aplicación",
+        "notifications": "Notificaciones",
+        "love": "Apóyanos en la App Store",
+        "contact-us": "Contáctanos",
+        "legal": "Datos personales",
+        "cgu": "Términos y condiciones",
+        "cgu-kyc-provider": "Términos y condiciones de KycProvider",
+        "profile": "Mi perfil",
+        "delete-account": "Darse de baja"
+      },
+      "delete-account": {
+        "title": "Darse de baja",
+        "description": "Estamos muy tristes por esta noticia.\n\nSin embargo, hemos tomado nota de ella.\n\nAl confirmar su elección, eliminaremos su cuenta de usuario.\n\n",
+        "button": "Confirmar",
+        "goodbye": "¡Adiós!"
+      }
+    },
+    "profile-identity": {
+      "title": "Editar mi perfil - Identidad",
+      "copy": "Copiar"
+    },
+    "profile-address": {
+      "title": "Editar mi perfil - Dirección"
+    },
+    "card": {
+      "menu": {
+        "title": "Configurar mi tarjeta",
+        "unavailable-card": "Esta tarjeta ya no está accesible. Por favor, solicite una nueva:",
+        "limits": "Modificar mis límites",
+        "lock": "Bloquear mi tarjeta",
+        "unlock": "Desbloquear mi tarjeta",
+        "change-pin": "Modificar mi PIN",
+        "show-pin": "Ver mi PIN"
+      },
+      "kyc-missing": {
+        "title": "Justificantes faltantes",
+        "instruction": "Su tarjeta aún no ha sido creada. Primero debe ",
+        "instruction-bold": "validar su identidad.",
+        "link-instruction": "Validar mi identidad"
+      },
+      "waiting-card": {
+        "title": "Tarjeta en proceso de envío",
+        "congrats": "¡Felicidades su identidad está validada!\n\n",
+        "instruction-before-card": "Hemos iniciado la ",
+        "instruction-card": "fabricación de su Tarjeta CO2",
+        "instruction-after-card": ". Se la enviaremos por correo tan pronto como esté lista.\n\nUn poco de paciencia, mientras tanto puede ",
+        "link-instruction": " acreditar su cuenta."
+      },
+      "limits": {
+        "title": "Modificar mis límites",
+        "instruction-top": "Definir límites es una manera simple de asegurar su Cuenta",
+        "day-limit": "Monto diario",
+        "week-limit": "Monto semanal",
+        "month-limit": "Monto mensual",
+        "instruction-bottom": "Para cualquier compra excepcional, contáctenos"
+      },
+      "toggle-lock": {
+        "title": "Bloquear mi tarjeta",
+        "instruction": "Esta función le permite bloquear su tarjeta. No dude en activarla en caso de pérdida o robo. Su tarjeta puede ser reactivada en cualquier momento.",
+        "lock": "Bloquear",
+        "button": "Validar"
+      },
+      "toggle-lock-success": {
+        "title": "Felicidades",
+        "lock": "Su tarjeta ha sido bloqueada correctamente",
+        "unlock": "Su tarjeta ha sido desbloqueada correctamente",
+        "ok": "ok"
+      },
+      "change-pin": {
+        "title": "Modificar mi PIN",
+        "instruction-top": "Puede elegir definir usted mismo el código de su Tarjeta CO2.",
+        "instruction-bottom-static": "Atención, puede modificar su código un máximo de 3 veces.",
+        "instruction-bottom-dynamic": "/ 3 número de modificaciones"
+      },
+      "change-pin-success": {
+        "title": "Validar mi PIN",
+        "instruction": "Su PIN ha sido modificado.\n\nPara que la red MasterCard reconozca su nuevo PIN, debe dirigirse a un cajero automático e introducir este nuevo PIN.\nNo podrá retirar efectivo, pero su nuevo PIN será registrado en la red",
+        "ok": "ok"
+      },
+      "show-pin": {
+        "title": "Ver mi PIN",
+        "instruction": "Aquí está el código secreto de mi Tarjeta CO2",
+        "see-my-pin": "Ver mi PIN"
+      }
+    },
+    "notifications": {
+      "title": "Notificaciones",
+      "payment": "Pago con mi tarjeta",
+      "transfer": "Transferencia recibida",
+      "threshold": "Límite",
+      "submit": "Actualizar"
+    },
+    "account-settings": {
+      "title": "Configuración de la cuenta",
+      "beneficiaries": "Administrar mis beneficiarios",
+      "bank-coordinates": "Mis datos bancarios"
+    },
+    "application-settings": {
+      "title": "Configuración de la aplicación",
+      "notifications": "Notificaciones",
+      "languages": "Idiomas"
+    },
+    "manage-beneficiaries": {
+      "title": "Administrar mis beneficiarios"
+    },
+    "bank-coordinates": {
+      "title": "Mis datos bancarios",
+      "instruction": "Aquí están el IBAN y el BIC de su Cuenta CO2. Con ellos, acredite su Cuenta CO2 desde su otra cuenta bancaria.",
+      "bank-account": "Cuenta CO2",
+      "share": "Descargar",
+      "copy": "Copiar"
+    },
+    "languages": {
+      "title": "Seleccionar idioma"
+    },
+    "energy": {
+      "menu": {
+        "title": "Mi balance energético",
+        "win-euros": "¡Gane €G gracias a\nnuestro Quiz!",
+        "adapt-temperature": "Adaptar la temperatura\nde mi vivienda",
+        "renovate-my-house": "Estimar mis ahorros después\nde la renovación energética",
+        "my-energy-consumption": "Mi consumo\nenergético",
+        "average": "Promedio",
+        "price-comfort": "Precio-confort:",
+        "total-green-euros": "Total €G ganados",
+        "internal": "Interno",
+        "external": "Externo"
+      },
+      "win-green-euros": {
+        "title": "Quiz y desafíos",
+        "header": "Aprende y gana €G",
+        "description": "¡Pon a prueba tus conocimientos sobre consumo de energía y gana €G!",
+        "total-green-euros": "Total €G ganados",
+        "intro": "¡Pongamos a prueba tus conocimientos sobre el consumo de energía y gana €G!",
+        "theme": {
+          "GENERAL": "¡Pongamos a prueba tus conocimientos sobre el consumo de energía y gana €G!",
+          "AIR_QUALITY": "¿Lo sabías?",
+          "TEMPERATURE": "¿Lo sabías?",
+          "ENERGY_USE": "¡Sé más consciente de la situación!",
+          "ENERGY_PRODUCTION": "¡Aprovecha el poder del sol!",
+          "PRICE_COMFORT": "¿Conoces el 'precio-confort'?"
+        }
+      },
+      "renovate": {
+        "title": "Ahorros después de la renovación",
+        "header": "¡Renueve su vivienda: más ahorros, más confort!",
+        "instruction": "Seleccione las obras para conocer sus ahorros energéticos:",
+        "isolation-antics": "Aislamiento del techo",
+        "heat-pump": "Instalación de bomba de calor",
+        "isolation-windows": "Aislamiento de paredes y ventanas",
+        "global-renovation": "Renovación global",
+        "button": "Ver resultado",
+        "winter": "Invierno",
+        "summer": "Verano",
+        "explanation": "El precio-confort es un valor constante muy práctico para intentar prever sus consumos de energía de calefacción o aire acondicionado.\nCuanto más frío hace, más energía se necesita para mantener 18°C en la vivienda: si hace cero grados fuera, hay que calentar 18°C y la casa consume 18 veces el valor precio-confort. Si hace 10°C fuera, solo hay que calentar 8°C para pasar de 10°C a 18°C, y la casa solo consume 8 veces el precio-confort.\n El precio-confort depende tanto de sus hábitos como de la calidad del aislamiento de su casa.\n ¡Es su turno de bajar este valor, es decir, pagar menos para tener más confort!"
+      },
+      "savings-after-renovation": {
+        "title": "Ahorros después de la renovación",
+        "header": "Después\nde la renovación",
+        "explanation": "El precio-confort es un valor constante muy práctico para intentar prever sus consumos de energía de calefacción o aire acondicionado.\nCuanto más frío hace, más energía se necesita para mantener 18°C en la vivienda: si hace cero grados fuera, hay que calentar 18°C y la casa consume 18 veces el valor precio-confort. Si hace 10°C fuera, solo hay que calentar 8°C para pasar de 10°C a 18°C, y la casa solo consume 8 veces el precio-confort.\n El precio-confort depende tanto de sus hábitos como de la calidad del aislamiento de su casa.\n ¡Es su turno de bajar este valor, es decir, pagar menos para tener más confort!",
+        "ISOLATION_ANTICS": "Aislamiento del techo",
+        "HEAT_PUMP": "Instalación de bomba de calor",
+        "ISOLATION_WINDOWS": "Aislamiento de paredes y ventanas",
+        "GLOBAL_RENOVATION": "Renovación global",
+        "explanation-title": "Precio-confort, ¿cómo funciona?",
+        "winter": "Invierno",
+        "summer": "Verano",
+        "before": "Antes",
+        "after": "Después",
+        "by-month": "por mes*",
+        "footer-one": "Ahorre ",
+        "footer-two": " kWh por año,\nEso son ",
+        "footer-three": " por año, antes\ndel aumento del precio de la energía!"
+      },
+      "my-energy-consumption": {
+        "title": "Mi consumo",
+        "header": "Mi\nconsumo",
+        "dropdown": {
+          "placeholder": "Seleccionar"
+        },
+        "chart": {
+          "green": "Consumo",
+          "blue": "Objetivo después de las obras",
+          "labels": {
+            "jan": "Ene",
+            "feb": "Feb",
+            "mar": "Mar",
+            "apr": "Abr",
+            "may": "May",
+            "jun": "Jun",
+            "jul": "Jul",
+            "aug": "Ago",
+            "sep": "Sep",
+            "oct": "Oct",
+            "nov": "Nov",
+            "dec": "Dic"
+          }
+        },
+        "know-more": "Saber más",
+        "price-comfort": "Precio-confort",
+        "header-table": {
+          "month": "Mes",
+          "conso-ref": "Consumo\nde referencia\n(kWh)",
+          "conso-target": "Consumo\nobjetivo\n(kWh)",
+          "conso": "Consumo\n(kWh)",
+          "savings": "Ahorro"
+        },
+        "no-data-modal": {
+          "message": "Los datos no están disponibles para este período"
+        }
+      },
+      "quiz": {
+        "title": "Quiz",
+        "button-next": "Siguiente",
+        "quiz": "Aquí está el quiz del día:",
+        "button-question": "Verificar respuesta",
+        "button-feeback-true": "Ver mi hucha",
+        "button-feeback-false": "Intentar mañana",
+        "challenge-description": "Pon a prueba tus conocimientos sobre consumo de energía",
+        "outro": "¡Buen trabajo! Esperamos que hayas aprendido una o dos cosas sobre el consumo de energía mientras ganabas €G. Estate atento a los próximos cuestionarios para tener más oportunidades de poner a prueba tus conocimientos y ganar €G."
+      },
+      "feedback": {
+        "correct": "¡Correcto!",
+        "correct-description": "Felicidades, has encontrado la respuesta correcta y ganas:",
+        "button-correct": "Ver mi hucha",
+        "incorrect": "Incorrecto",
+        "incorrect-description": "Lo siento, pero recuerda que puedes responder a esta pregunta mañana, ¡hasta que encuentres la solución correcta! Después de todo, el objetivo del juego es aprender divirtiéndose.",
+        "button-incorrect": "Intentar mañana"
+      },
+      "adapt-temperature": {
+        "title": "Ajustar temperatura",
+        "title-winter": "Su Precio-Confort\nen invierno es:",
+        "title-summer": "Su Precio-Confort\nen verano es:",
+        "winter": "Invierno",
+        "summer": "Verano",
+        "description": "Para ganar 1°C en el interior de su vivienda en comparación con la temperatura exterior:",
+        "legend": "Por mes",
+        "info-card": {
+          "title": "Consejo del día",
+          "text": "¡Manténgase fresco! Cierre sus persianas o cortinas al menos 5 horas al día para evitar que entre el exceso de calor y reducir la necesidad de aire acondicionado. ¿Cuántos días puede mantener este hábito?"
+        },
+        "snowflake": "Ajuste la temperatura de su vivienda",
+        "adapt-card": {
+          "text-positive-part-one": "Si aumenta la temperatura interior en ",
+          "text-positive-part-two": "°C, aumentará su factura en",
+          "text-negative-part-one": "Si disminuye la temperatura interior en ",
+          "text-negative-part-two": "°C, reducirá su factura en",
+          "comment": "😉 Antes del aumento de precios de la energía"
+        },
+        "explanation": {
+          "title": "Precio-Confort, ¿cómo funciona?",
+          "text": "El precio-confort es un valor constante muy práctico para intentar prever sus consumos de energía de calefacción o aire acondicionado.\n\n"+
+                  "Cuanto más frío hace, más energía se necesita para mantener 18°C en la vivienda: si hace cero grados fuera, hay que calentar 18°C y la casa consume 18 veces el valor precio-confort.\n\n"+
+                  "Si hace 10°C fuera, solo hay que calentar 8°C para pasar de 10°C a 18°C, y la casa solo consume 8 veces el precio-confort.\n\n"+
+                  "El precio-confort depende tanto de sus hábitos como de la calidad del aislamiento de su casa.\n\n"+
+                  "¡Es su turno de bajar este valor, es decir, pagar menos para tener más confort!"
+        }
+      },
+      "tab": "Energético",
+      "title": "Balance Energético"
+    }
+  }
+}

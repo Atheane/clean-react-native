@@ -1,0 +1,97 @@
+import { StyleSheet, Text } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+
+import {
+  Colors,
+  FontNames,
+  Settings as SettingsIcon,
+  Carbon as CarbonIcon,
+  Energy as EnergyIcon,
+} from '@clean-rn/ui-mobile';
+import {
+  IRootTabParamList,
+  IAccountStackPages,
+  IFootprintStackPages,
+  IParametersStackPages,
+  IEnergyStackPages,
+} from '../../types';
+
+import { FootprintStack } from '../../../../footprint/presentation/navigation';
+import { ParametersStack } from '../../../../user/presentation/navigation';
+import { EnergyStack } from '../../../../energy/presentation/navigation';
+import { IRootState } from '../../../application/state-management/reducers/root-reducer';
+import { IUserType } from '@clean-rn/user/domain';
+const Tab = createBottomTabNavigator<IRootTabParamList>();
+
+export const BottomTabNavigator = () => {
+  const { t } = useTranslation();
+  const { user } = useSelector((state: IRootState) => state.user);
+  return (
+    <Tab.Navigator
+      initialRouteName={IAccountStackPages.MENU}
+      screenOptions={{
+        tabBarActiveTintColor: Colors.primary.white,
+        headerShown: false,
+      }}
+    >
+      <Tab.Screen
+        name={IFootprintStackPages.MENU}
+        component={FootprintStack}
+        options={() => ({
+          title: t('screens.footprint-estimation.title'),
+          tabBarIcon: ({ focused }: { focused: boolean }) =>
+            focused ? (
+              <CarbonIcon
+                color={Colors.primary.lightGreen}
+                startColor={Colors.primary.grey}
+                endColor={Colors.primary.grey}
+              />
+            ) : (
+              <CarbonIcon />
+            ),
+          tabBarLabel: ({ focused }: { focused: boolean }) =>
+            focused ? <Text style={styles.tab}> {t('screens.footprint-estimation.tab')}</Text> : '',
+        })}
+      />
+      {user?.properties.userType === IUserType.ENERGY_APP_USER && (
+        <Tab.Screen
+          name={IEnergyStackPages.MENU}
+          component={EnergyStack}
+          options={() => ({
+            title: t('screens.energy.title'),
+            tabBarIcon: ({ focused }: { focused: boolean }) =>
+              focused ? (
+                <EnergyIcon width={26} height={26} />
+              ) : (
+                <EnergyIcon width={26} height={26} color={Colors.primary.grey} />
+              ),
+            tabBarLabel: ({ focused }: { focused: boolean }) =>
+              focused ? <Text style={[styles.tab, { marginTop: 0 }]}> {t('screens.energy.tab')}</Text> : '',
+          })}
+        />
+      )}
+      <Tab.Screen
+        name={IParametersStackPages.MENU}
+        component={ParametersStack}
+        options={() => ({
+          title: t('screens.parameters.title'),
+          tabBarIcon: ({ focused }: { focused: boolean }) =>
+            focused ? <SettingsIcon /> : <SettingsIcon color={Colors.primary.grey} />,
+          tabBarLabel: ({ focused }: { focused: boolean }) =>
+            focused ? <Text style={styles.tab}> {t('screens.parameters.menu.tab')}</Text> : '',
+        })}
+      />
+    </Tab.Navigator>
+  );
+};
+
+const styles = StyleSheet.create({
+  tab: {
+    fontSize: 9,
+    fontFamily: FontNames.MartelSans_600SemiBold,
+    color: Colors.primary.lightGreen,
+    textTransform: 'uppercase',
+  },
+});

@@ -1,0 +1,22 @@
+[
+  {
+    "comfortPriceType": "COMFORT_PRICE",
+    "dataCount": 7,
+    "dataGranularity": "DAILY",
+    "endDate": "2025-03-07T00:00:00.000Z",
+    "intercept": 17006.343627221664,
+    "startDate": "2025-03-01T00:00:00.000Z",
+    "temperature": 18,
+    "value": 1480.2069375871483
+  },
+  {
+    "comfortPriceType": "COMFORT_PRICE_HEATING",
+    "dataCount": 7,
+    "dataGranularity": "DAILY",
+    "endDate": "2025-03-07T00:00:00.000Z",
+    "intercept": 17006.343627221664,
+    "startDate": "2025-03-01T00:00:00.000Z",
+    "temperature": 18,
+    "value": 1480.2069375871483
+  }
+]

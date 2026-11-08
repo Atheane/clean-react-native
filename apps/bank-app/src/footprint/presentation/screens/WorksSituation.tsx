@@ -4,6 +4,7 @@ import { View, StyleSheet, Text, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
+import { useNavigation } from '@react-navigation/native';
 import { DomainEventManager, IDomainError } from '@clean-rn/ddd';
 import {
   FOOTPRINT_EVENTS,
@@ -25,8 +26,7 @@ import { IRootState } from '../../../shared/application/state-management/reducer
 import { IWorksProps } from '../../presentation/types';
 import { addWorks, initializeFootprint } from '../../application/commands';
 import { mapWorkPropsToDomain } from '../../application/mappers';
-import { useNavigation } from '@react-navigation/native';
-import { IFootprintStackPages } from 'apps/bank-app/src/shared/presentation/types';
+import { IFootprintStackPages } from '../../../shared/presentation/types';
 
 const Header = () => {
   const { t } = useTranslation();

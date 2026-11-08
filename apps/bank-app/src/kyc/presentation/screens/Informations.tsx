@@ -13,7 +13,7 @@ import { Colors } from '../../../shared/presentation/constants';
 
 import { FormRevenues, IRevenuesFormData } from './form-revenues';
 import { fetchUpdateUser } from '../../../user/application/commands';
-import { IKycStackPages } from 'apps/bank-app/src/shared/presentation/types';
+import { IKycStackPages } from '../../../shared/presentation/types';
 
 const HEIGHT = Dimensions.get('window').height;
 

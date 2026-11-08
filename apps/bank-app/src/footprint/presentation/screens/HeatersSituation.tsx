@@ -4,6 +4,7 @@ import { View, StyleSheet, Text, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@rneui/themed';
 
+import { useNavigation } from '@react-navigation/native';
 import { DomainEventManager, IDomainError } from '@clean-rn/ddd';
 import {
   HEATER_TYPE,
@@ -26,9 +27,8 @@ import { addHeaters, initializeFootprint } from '../../application/commands';
 import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
 import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
 import { IHeaterProps } from '../types';
-import { useNavigation } from '@react-navigation/native';
-import { IFootprintStackPages } from 'apps/bank-app/src/shared/presentation/types';
-import { mapHeaterPropsToDomain } from 'apps/bank-app/src/footprint/application/mappers';
+import { IFootprintStackPages } from '../../../shared/presentation/types';
+import { mapHeaterPropsToDomain } from '../../../footprint/application/mappers';
 
 const Header = () => {
   const { t } = useTranslation();

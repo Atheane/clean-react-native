@@ -1,0 +1,807 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+import SagaTester from 'redux-saga-tester';
+import dayjs from 'dayjs';
+
+import { Phone } from '@clean-rn/contact/domain';
+import {
+  IGender,
+  IRegisterAddressCommand,
+  IRegisterBirthCommand,
+  IRegisterIdentityCommand,
+  IRegisterPasswordCommand,
+  PhoneOtp,
+  User,
+  IUserProperties,
+  UserError,
+  IUpdateUserConfigCommand,
+  IPhoneNotifications,
+  ILanguage,
+  IUpdateUserCommand,
+  BirthDay,
+  Country,
+  KYC_REVIEW,
+} from '@clean-rn/user/domain';
+import { Email } from '@clean-rn/auth/domain';
+
+import {
+  checkEmailSaga,
+  registerIdentitySaga,
+  registerPasswordSaga,
+  registerBirthSaga,
+  registerAddressSaga,
+  checkPhoneSaga,
+  validatePhoneSaga,
+  signupUserSaga,
+} from '../../usecases';
+import {
+  IUserTypes,
+  emailNotFound,
+  fetchSearchEmail,
+  fetchSearchPhone,
+  phoneNotFound,
+  identityRegistered,
+  passwordRegistered,
+  birthRegistered,
+  addressRegistered,
+  signupFailed,
+  fetchValidatePhone,
+  phoneValidated,
+  userSignedUp,
+  fetchSignupUser,
+  registerIdentity,
+  registerPassword,
+  registerBirth,
+  registerAddress,
+  initializeUser,
+  phoneCodeSent,
+  fetchUpdateNotifications,
+  notificationUpdated,
+  userSaved,
+  fetchDeleteUserAccount,
+  resetError,
+  fetchUpdateLanguage,
+  languageUpdated,
+  fetchUpdateUser,
+  userUpdated,
+  userNotCreated,
+} from '../../commands';
+import { IUserState, userReducer } from '../../state-management';
+import { IParametersStackPages, IRoutes } from '../../../../shared/presentation/types';
+
+describe('User - integration', () => {
+  let sagaTester: SagaTester;
+
+  const mockIdentity: IRegisterIdentityCommand = {
+    gender: IGender.MAN,
+    firstName: 'John',
+    lastName: 'Smith',
+  };
+
+  const mockPassword: IRegisterPasswordCommand = {
+    password: 'azekpoakz',
+  };
+
+  const mockBirth: IRegisterBirthCommand = {
+    birthday: dayjs('1980-01-01'),
+    birthCountry: 'FR',
+    nationality: 'FR',
+  };
+
+  const mockAddress: IRegisterAddressCommand = {
+    str: 'fake address',
+    city: 'string',
+    zip: 'string',
+    country: 'GR',
+    USPerson: false,
+  };
+
+  const mockQueryPhoneOtp = {
+    phoneOtp: new PhoneOtp('123456'),
+    phone: new Phone('0600000002', 'FR'),
+  };
+
+  const mockUpdateNotifications: IUpdateUserConfigCommand = {
+    notifFirebaseDisabled: [IPhoneNotifications.PAYOUT_INITIATED],
+  };
+
+  const mockUpdateLanguage: IUpdateUserConfigCommand = {
+    lang: ILanguage.EL,
+  };
+
+  const mockUpdateUser1: IUpdateUserCommand & { nextRoute: IRoutes } = {
+    firstName: 'new',
+    lastName: 'lastname',
+    birthDay: new BirthDay(dayjs('1989-01-01T00:00:00.000Z')),
+    birthCountry: new Country('FR'),
+    nationality: new Country('FR'),
+    nextRoute: IParametersStackPages.PROFILE_ADDRESS,
+  };
+
+  let initialState: IUserState;
+
+  beforeEach(() => {
+    initialState = {
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: null,
+    };
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+  });
+
+  it('Should store correct initial state if not initial state is provided', () => {
+    const newState = userReducer(undefined, {
+      type: IUserTypes.FETCH_SEARCH_EMAIL,
+      payload: {
+        email: new Email('test@example.com'),
+      },
+    });
+
+    expect(newState).toEqual({
+      pending: true,
+      email: new Email('test@example.com'),
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: null,
+    });
+  });
+
+  it('Should store correct state in case if FETCH_SEARCH_EMAIL', () => {
+    sagaTester.start(checkEmailSaga);
+
+    sagaTester.dispatch(fetchSearchEmail({ email: new Email('test@example.com') }));
+    expect(sagaTester.getState()).toEqual({
+      pending: true,
+      email: new Email('test@example.com'),
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: null,
+    });
+  });
+
+  it('Should store correct state in case if REGISTER_IDENTITY', () => {
+    sagaTester.start(checkEmailSaga);
+
+    sagaTester.dispatch(registerIdentity({ ...mockIdentity, email: new Email('test@example.com') }));
+    expect(sagaTester.getState()).toEqual({
+      ...initialState,
+    });
+  });
+
+  it('Should store correct state in case if REGISTER_PASSWORD', () => {
+    sagaTester.start(checkEmailSaga);
+
+    sagaTester.dispatch(registerPassword(mockPassword));
+    expect(sagaTester.getState()).toEqual({
+      ...initialState,
+    });
+  });
+
+  it('Should store correct state in case if REGISTER_BIRTH', () => {
+    sagaTester.start(checkEmailSaga);
+
+    sagaTester.dispatch(registerBirth(mockBirth));
+    expect(sagaTester.getState()).toEqual({
+      ...initialState,
+    });
+  });
+
+  it('Should store correct state in case if REGISTER_ADDRESS', () => {
+    sagaTester.start(checkEmailSaga);
+
+    sagaTester.dispatch(registerAddress(mockAddress));
+    expect(sagaTester.getState()).toEqual({
+      ...initialState,
+    });
+  });
+
+  it('Should store correct state if FETCH_SEARCH_PHONE', () => {
+    sagaTester.start(checkPhoneSaga);
+    sagaTester.dispatch(fetchSearchPhone({ phone: new Phone('0600000002', 'FR') }));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: true,
+      email: null,
+      phone: new Phone('0600000002', 'FR'),
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: null,
+    });
+  });
+
+  it('Should store correct state if FETCH_VALIDATE_PHONE', () => {
+    sagaTester.start(validatePhoneSaga);
+
+    sagaTester.dispatch(
+      fetchValidatePhone({ phone: new Phone('0600000002', 'FR'), phoneOtp: new PhoneOtp('123456') }),
+    );
+
+    expect(sagaTester.getState()).toEqual({
+      pending: true,
+      email: null,
+      phone: null,
+      phoneOtp: new PhoneOtp('123456'),
+      user: null,
+      error: null,
+      config: null,
+    });
+  });
+
+  it('Should store correct state in case if FETCH_SIGNUP_USER', () => {
+    const user = User.CreateFromEmail(new Email('test@example.com'));
+    user.registerIdentity(mockIdentity);
+    user.registerPassword(mockPassword.password);
+    user.validatePhone(mockQueryPhoneOtp);
+    user.registerBirth(mockBirth);
+    user.registerAddress(mockAddress);
+
+    const initialState: IUserState = {
+      pending: true,
+      email: new Email('test@example.com'),
+      phone: new Phone('0600000002', 'FR'),
+      phoneOtp: new PhoneOtp('123456'),
+      user,
+      error: null,
+      config: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+
+    sagaTester.start(signupUserSaga);
+    sagaTester.dispatch(fetchSignupUser({ user, phoneOtp: mockQueryPhoneOtp.phoneOtp }));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: true,
+      email: new Email('test@example.com'),
+      phone: new Phone('0600000002', 'FR'),
+      phoneOtp: new PhoneOtp('123456'),
+      user,
+      error: null,
+      config: null,
+    });
+  });
+
+  it('Should store correct state if EMAIL_CHECKED', () => {
+    sagaTester.start(checkEmailSaga);
+    sagaTester.dispatch(fetchSearchEmail({ email: new Email('test@example.com') }));
+    sagaTester.dispatch(emailNotFound());
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: new Email('test@example.com'),
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: null,
+    });
+  });
+
+  it('Should store correct state if SIGNUP_FAILED', () => {
+    sagaTester.start(checkEmailSaga);
+    sagaTester.dispatch(fetchSearchEmail({ email: new Email('test@example.com') }));
+    sagaTester.dispatch(signupFailed(new UserError.SignupFailureEmailExists()));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: new Email('test@example.com'),
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: new UserError.SignupFailureEmailExists(),
+      config: null,
+    });
+  });
+
+  it('Should store correct state if PHONE_CHECKED', () => {
+    const initialState: IUserState = {
+      pending: false,
+      email: null,
+      phone: new Phone('0600000002', 'FR'),
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+
+    sagaTester.start(checkPhoneSaga);
+    sagaTester.dispatch(fetchSearchPhone({ phone: new Phone('0600000002', 'FR') }));
+    sagaTester.dispatch(phoneCodeSent());
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: null,
+      phone: new Phone('0600000002', 'FR'),
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: null,
+    });
+  });
+
+  it('Should store correct state if PHONE_VALIDATED', () => {
+    const initialState: IUserState = {
+      pending: false,
+      email: null,
+      phone: new Phone('0600000002', 'FR'),
+      phoneOtp: new PhoneOtp('123456'),
+      user: null,
+      error: null,
+      config: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+
+    sagaTester.start(validatePhoneSaga);
+    sagaTester.dispatch(
+      fetchValidatePhone({ phone: new Phone('0600000002', 'FR'), phoneOtp: new PhoneOtp('123456') }),
+    );
+    const user = User.CreateFromEmail(new Email('test@example.com'));
+    user.validatePhone({ phone: new Phone('0600000002', 'FR'), phoneOtp: new PhoneOtp('123456') });
+    sagaTester.dispatch(phoneValidated(user));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: null,
+      phone: new Phone('0600000002', 'FR'),
+      phoneOtp: new PhoneOtp('123456'),
+      user,
+      error: null,
+      config: null,
+    });
+  });
+
+  it('Should store correct state in case if IDENTITY_REGISTERED', () => {
+    const initialState: IUserState = {
+      pending: false,
+      email: new Email('test@example.com'),
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+
+    sagaTester.start(registerIdentitySaga);
+
+    const user = User.CreateFromEmail(new Email('test@example.com'));
+    user.registerIdentity(mockIdentity);
+    sagaTester.dispatch(identityRegistered(user));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: new Email('test@example.com'),
+      phone: null,
+      phoneOtp: null,
+      user,
+      error: null,
+      config: null,
+    });
+  });
+
+  it('Should store correct state in case if PASSWORD_REGISTERED', () => {
+    const user = User.CreateFromEmail(new Email('test@example.com'));
+
+    const initialState: IUserState = {
+      pending: false,
+      email: new Email('test@example.com'),
+      phone: null,
+      phoneOtp: null,
+      user,
+      error: null,
+      config: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+
+    sagaTester.start(registerPasswordSaga);
+    user.registerPassword(mockPassword.password);
+    sagaTester.dispatch(passwordRegistered(user));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: new Email('test@example.com'),
+      phone: null,
+      phoneOtp: null,
+      user,
+      error: null,
+      config: null,
+    });
+  });
+
+  it('Should store correct state in case if BIRTH_REGISTERED', () => {
+    const user = User.CreateFromEmail(new Email('test@example.com'));
+
+    const initialState: IUserState = {
+      pending: false,
+      email: new Email('test@example.com'),
+      phone: null,
+      phoneOtp: null,
+      user,
+      error: null,
+      config: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+
+    sagaTester.start(registerBirthSaga);
+    user.registerBirth(mockBirth);
+    sagaTester.dispatch(birthRegistered(user));
+
+    expect(sagaTester.getState()).toStrictEqual({
+      pending: false,
+      email: new Email('test@example.com'),
+      phone: null,
+      phoneOtp: null,
+      user,
+      error: null,
+      config: null,
+    });
+  });
+
+  it('Should store correct state in case if ADDRESS_REGISTERED', () => {
+    const user = User.CreateFromEmail(new Email('test@example.com'));
+
+    const initialState: IUserState = {
+      pending: false,
+      email: new Email('test@example.com'),
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+
+    sagaTester.start(registerAddressSaga);
+    user.registerAddress(mockAddress);
+    sagaTester.dispatch(addressRegistered(user));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: new Email('test@example.com'),
+      phone: null,
+      phoneOtp: null,
+      user,
+      error: null,
+      config: null,
+    });
+  });
+
+  it('Should store correct state in case if USER_SIGNED_UP', () => {
+    const user = User.CreateFromEmail(new Email('test@example.com'));
+    user.registerIdentity(mockIdentity);
+    user.registerPassword(mockPassword.password);
+    user.validatePhone(mockQueryPhoneOtp);
+    user.registerBirth(mockBirth);
+    user.registerAddress(mockAddress);
+
+    const initialState: IUserState = {
+      pending: false,
+      email: new Email('test@example.com'),
+      phone: new Phone('0600000002', 'FR'),
+      phoneOtp: new PhoneOtp('123456'),
+      user: null,
+      error: null,
+      config: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+
+    sagaTester.start(signupUserSaga);
+
+    const uid = '123';
+    user.signup({ id: uid, properties: user.properties as IUserProperties });
+
+    sagaTester.dispatch(userSignedUp(user));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: new Email('test@example.com'),
+      phone: new Phone('0600000002', 'FR'),
+      phoneOtp: new PhoneOtp('123456'),
+      user,
+      error: null,
+      config: null,
+    });
+  });
+
+  it('Should store correct state in case if USER_NOT_CREATED', () => {
+    const initialState: IUserState = {
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+
+    sagaTester.start(signupUserSaga);
+    sagaTester.dispatch(userNotCreated(new UserError.SignupFailure()));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: new UserError.SignupFailure(),
+      config: null,
+    });
+  });
+
+  it('Should store correct state in case if PHONE_NOT_FOUND with no error', () => {
+    const initialState: IUserState = {
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+
+    sagaTester.dispatch(phoneNotFound(new UserError.ValidatePhoneFailurePhoneNotFound('test')));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: new UserError.ValidatePhoneFailurePhoneNotFound('test'),
+      config: null,
+    });
+  });
+
+  it('Should store correct state if FETCH_UPDATE_NOTIFICATIONS', () => {
+    const initialState: IUserState = {
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: null,
+    };
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+
+    sagaTester.dispatch(fetchUpdateNotifications(mockUpdateNotifications));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: true,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: mockUpdateNotifications,
+    });
+  });
+
+  it('Should store correct state if NOTIFICATIONS_UPDATED', () => {
+    const initialState: IUserState = {
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: null,
+    };
+    const user = User.CreateFromEmail(new Email('test@example.com'));
+    user.setConfig(mockUpdateNotifications);
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+
+    sagaTester.dispatch(fetchUpdateNotifications(mockUpdateNotifications));
+    sagaTester.dispatch(notificationUpdated({ user }));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user,
+      error: null,
+      config: mockUpdateNotifications,
+    });
+  });
+
+  it('Should store correct state if LANGUAGE_UPDATED', () => {
+    const initialState: IUserState = {
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: null,
+    };
+    const user = User.CreateFromEmail(new Email('test@example.com'));
+    user.setConfig(mockUpdateLanguage);
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+
+    sagaTester.dispatch(fetchUpdateLanguage(mockUpdateLanguage));
+    sagaTester.dispatch(languageUpdated({ user }));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user,
+      error: null,
+      config: mockUpdateLanguage,
+    });
+  });
+
+  it('Should store correct state if USER_UPDATED', () => {
+    const initialState: IUserState = {
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: null,
+    };
+
+    const user = User.Create({
+      id: 123,
+      properties: {
+        kycReview: KYC_REVIEW.NONE,
+        USPerson: false,
+        birth: {
+          birthday: new BirthDay(dayjs('1980-01-01T00:00:00.000Z')),
+          nationality: new Country('SE'),
+        },
+        email: new Email('user1@example.com'),
+        identity: {
+          firstName: 'aze',
+          gender: IGender.NEUTRAL,
+          lastName: 'aze',
+        },
+        phone: new Phone('+46726413201'),
+      },
+    });
+
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+    user.updateUser(mockUpdateUser1);
+    sagaTester.dispatch(fetchUpdateUser(mockUpdateUser1));
+    sagaTester.dispatch(userUpdated(user));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user,
+      error: null,
+      config: null,
+    });
+  });
+
+  it('Should store correct state in case if USER_SAVED', () => {
+    const user = User.CreateFromEmail(new Email('test@example.com'));
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+
+    sagaTester.dispatch(userSaved(user));
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user,
+      error: null,
+      config: null,
+    });
+  });
+
+  it('Should store correct state in case if USER_ACCOUNT_DELETED', () => {
+    sagaTester = new SagaTester({
+      initialState,
+      reducers: userReducer,
+    });
+
+    sagaTester.dispatch(fetchDeleteUserAccount());
+    sagaTester.dispatch(initializeUser());
+
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user: null,
+      error: null,
+      config: null,
+    });
+  });
+
+  it('Should store correct state if RESET_ERROR for invalid credentials', () => {
+    const user = User.CreateFromEmail(new Email('test@example.com'));
+
+    sagaTester.start(checkEmailSaga);
+    sagaTester.dispatch(userSaved(user));
+
+    sagaTester.dispatch(resetError());
+    expect(sagaTester.getState()).toEqual({
+      pending: false,
+      email: null,
+      phone: null,
+      phoneOtp: null,
+      user,
+      error: null,
+      config: null,
+    });
+  });
+});
