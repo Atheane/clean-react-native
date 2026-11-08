@@ -4,7 +4,7 @@ const withDisabledAndroidLint = require('./expo-plugins/disable-android-lint');
 export default {
   expo: {
     owner: '450',
-    name: 'EnergyApp',
+    name: process.env.EXPO_PUBLIC_PROJECT_NAME,
     slug: process.env.EXPO_PUBLIC_SLUG_NAME,
     version: process.env.EXPO_PUBLIC_APP_VERSION,
     orientation: 'portrait',
@@ -23,8 +23,8 @@ export default {
       bundleIdentifier: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.energy-app.app',
       // googleServicesFile: './GoogleService-Info.plist', // https://docs.expo.dev/versions/latest/config/app/#infoplist
       supportsTablet: false,
-      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '100',
-      buildNumber: process.env.EXPO_PUBLIC_APP_VERSION || '100',
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '102',
+      buildNumber: process.env.EXPO_PUBLIC_APP_VERSION || '102',
       entitlements: {
         'aps-environment': 'production', // Obligatoire pour les notifications
       },
@@ -40,7 +40,7 @@ export default {
       supportsTablet: false,
       package: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.energy-app.app',
       // googleServicesFile: './google-services.json',
-      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '100',
+      versionCode: process.env.EXPO_PUBLIC_APP_VERSION || '102',
       proguard: true, // ou false
       permissions: [
         'android.permission.POST_NOTIFICATIONS', // SDK 33+
@@ -89,7 +89,7 @@ export default {
         },
       ],
     ],
-    scheme: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER || 'com.energy-app.app',
+    scheme: process.env.EXPO_PUBLIC_BUNDLE_IDENTIFIER,
     extra: {
       eas: {
         projectId: process.env.EXPO_PUBLIC_PROJECT_ID || '44791e86-a3e4-45ad-ac4e-b9a91941bb67',

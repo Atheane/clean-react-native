@@ -45,7 +45,7 @@ npm install
 > Install eas-cli: necessary to build, or start expo server in development mode
 
 ```
-npm install -g eas-cli@16.13.3
+npm install -g eas-cli@16.17.0
 ```
 
 > Login in eas-cli
@@ -185,7 +185,7 @@ npx nx build your_app --profile=preview --platform=ios
 #### android
 
 ```
-npx nx build your_app --profile=preview --platform=ios
+npx nx build your_app --profile=preview --platform=android
 ```
 
 > it will produce a qr code on expo.dev, with a link to download an .apk
@@ -200,7 +200,14 @@ npx nx build your_app --profile=preview --platform=ios
 npx nx build your_app --profile=production --platform=ios
 ```
 
-produce .ipa ready for submission on Apple Store Connect (see #Submission for details)
+> produce .ipa ready for:
+
+- distribution on TestFlight: useful to share a version with some testeurs:
+  - install the https://apps.apple.com/fr/app/transporter/id1450874784?mt=12 on your Mac
+  - download .ipa file from expo.dev
+  - drag n drop in Transporter Application
+  - when updaloaded, go to Apple Store Connect, tab TestFlight
+- submission on Apple Store Connect (see #Submission for details)
 
 #### android
 
@@ -245,6 +252,24 @@ xed .
 # Sélectionnez votre cible (simulateur ou device réel), puis cliquez sur Product > Archive pour produire un .ipa
 # your_app > General > sélectionner Apple Team et Profile
 # se créer un signing Certificate si c'est la première fois
+```
+
+## Submission
+
+### ios
+
+> EAS take care of everything, thanks to eas.json > submit section
+
+```
+cd apps/your_app
+eas submit --platform=ios
+```
+
+### android
+
+```
+cd apps/your_app
+eas submit --platform=android
 ```
 
 ## CI/CD
