@@ -34,6 +34,9 @@ import {
   updateUserSaga,
 } from '../../../user/application/usecases';
 
+import { initializeAccounts } from '../../../account/application/commands/accounts';
+import { listAccountsSaga } from '../../../account/application/usecases';
+
 import {
   computeHouseEmissionsSaga,
   computeTransportEmissionsSaga,
@@ -125,6 +128,7 @@ function* watchLogout() {
   // Annuler toutes les sagas en cours lors du logout
   yield call(restartRootSaga);
   yield put(initializeAuth());
+  yield put(initializeAccounts());
   yield put(initializeFlyEmissions());
   yield put(initializeHouseEmissions());
   yield put(initializeFoodEmissions());
@@ -159,6 +163,7 @@ function* rootSaga(httpConnection: HttpConnection): SagaIterator {
     call(registerDeviceSaga, httpConnection),
     call(sessionSaga),
     // sagas requiring token refresh
+    call(listAccountsSaga, httpConnection),
     call(updateNotificationsSaga, httpConnection),
     call(updateLanguageSaga, httpConnection),
     call(updateUserSaga, httpConnection),

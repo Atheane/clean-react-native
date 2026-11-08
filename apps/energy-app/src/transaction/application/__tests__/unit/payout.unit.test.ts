@@ -1,0 +1,169 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+import { takeEvery } from 'redux-saga/effects';
+import { testSaga } from 'redux-saga-test-plan';
+
+import {
+  Amount,
+  ITransactionType,
+  ITransaction,
+  TransactionError,
+  IPayoutCommand,
+} from '@clean-rn/transaction/domain';
+
+import { HttpConnection, ServerError } from '@clean-rn/shared/infrastructure';
+import { TransactionApi } from '@clean-rn/transaction/infrastructure';
+
+import { showUnknownError } from '../../../../shared/application/commands/manage-global-errors';
+import { IBeneficiaryStackPages } from '../../../../shared/presentation/types';
+import { navigate } from '../../../../shared/presentation/navigation/navigationRef';
+
+import { payoutGenerator, payoutSaga } from '../../usecases';
+import { ITransactionsTypes, payoutSucceded, initTransaction, transactionFailed } from '../../commands';
+import { ensureTokenRefreshed } from '../../../../shared/application/usecases/ensureTokenRefreshed';
+
+jest.mock('@clean-rn/shared/infrastructure', () => ({
+  HttpConnection: {
+    getInstance: jest.fn(),
+  },
+  ServerError: jest.fn().mockImplementation(function (error) {
+    this.message = error.message;
+    this.name = 'ServerError';
+    this.statusCode = error.statusCode;
+    this.codeError = error.codeError;
+    this.cause = error.response;
+  }),
+}));
+
+describe('Payout - usecase', () => {
+  let httpConnection: HttpConnection;
+  let api: TransactionApi;
+
+  beforeEach(() => {
+    httpConnection = {
+      baseUrl: 'http://mock-api.com',
+      options: jest.fn(),
+      handleError: jest.fn(),
+      getDefaultHeaders: jest.fn(),
+      attachBearerToken: jest.fn(),
+    };
+    HttpConnection.getInstance.mockReturnValue(httpConnection);
+    global.fetch = jest.fn();
+    api = TransactionApi.getInstance(httpConnection);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
+  });
+
+  const mockResponse: ITransaction = {
+    amount: new Amount('10.00', ITransactionType.PAYOUT),
+    label: 'Payin Generated from UTs on User Test',
+    id: 1686814688829,
+    type: ITransactionType.PAYOUT,
+    date: new Date('2023-06-15T07:38:09.217Z'),
+  };
+
+  const mockError403 = {
+    statusCode: 403,
+    message: 'Unauthorized',
+    response: {
+      statusCode: 403,
+      message: 'Unauthorized',
+    },
+    timestamp: '2023-10-03T13:20:21.303Z',
+    path: '/app/transaction/payout',
+    method: 'POST',
+  };
+
+  const mockError500 = {
+    message: 'Core::TransactionService::Payout - Server Error',
+    statusCode: 500,
+    response: 'Core::TransactionService::Payout - Server Error',
+    timestamp: '2023-04-07T15:28:04.657Z',
+    path: '/app/transaction/payout',
+  };
+
+  const payload: IPayoutCommand = {
+    accountId: 4004318954,
+    beneficiaryId: 5004318954,
+    amount: new Amount('10.00', ITransactionType.TRANSFER_OUT),
+    label: 'Payin Generated from UTs on User Test',
+  };
+
+  it('Should wait for FETCH_PAYOUT action and call payoutGenerator, should be done on next iteration', () => {
+    const genObject = payoutSaga(httpConnection);
+    expect(genObject.next().value).toEqual(
+      takeEvery(ITransactionsTypes.FETCH_PAYOUT, payoutGenerator, httpConnection),
+    );
+    expect(genObject.next().done).toBeTruthy();
+  });
+
+  it('Should call transferWaitingSent if no cached data', async () => {
+    testSaga(payoutGenerator, httpConnection, {
+      type: ITransactionsTypes.FETCH_PAYOUT,
+      payload,
+    })
+      .next()
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
+      .call([api, api.payout], payload) // <- Utilisez cette syntaxe pour spécifier le contexte.
+      .next(mockResponse)
+      .put(payoutSucceded(mockResponse))
+      .next()
+      .call(navigate, {
+        route: IBeneficiaryStackPages.MENU,
+        params: { screen: IBeneficiaryStackPages.TRANSFER_SUCCESS },
+      })
+      .next();
+  });
+
+  it('Should call transferFailed if 403 from Server', () => {
+    const serverError = new ServerError(mockError403);
+    serverError.statusCode = 403;
+
+    testSaga(payoutGenerator, httpConnection, {
+      type: ITransactionsTypes.FETCH_PAYOUT,
+      payload,
+    })
+      .next()
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
+      .throw(serverError)
+      .put(initTransaction())
+      .next()
+      .put(transactionFailed(new TransactionError.TransferAmountTooHigh(serverError.message)))
+      .next()
+      .cancel();
+  });
+
+  it('Should call showUnknownError action if 500 from Server', () => {
+    testSaga(payoutGenerator, httpConnection, {
+      type: ITransactionsTypes.FETCH_PAYOUT,
+      payload,
+    })
+      .next()
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
+      .throw(new ServerError(mockError500))
+      .put(initTransaction())
+      .next()
+      .put(showUnknownError(new ServerError(mockError500)))
+      .next();
+  });
+
+  it('Should call showUnknownError action if unknown error', () => {
+    testSaga(payoutGenerator, httpConnection, {
+      type: ITransactionsTypes.FETCH_PAYOUT,
+      payload,
+    })
+      .next()
+      .call(ensureTokenRefreshed, httpConnection)
+      .next()
+      .throw(new Error('unknown error'))
+      .put(initTransaction())
+      .next()
+      .put(showUnknownError(new Error('unknown error')))
+      .next();
+  });
+});

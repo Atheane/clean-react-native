@@ -12,23 +12,23 @@ import App from './src/shared/presentation/App';
 
 console.log('>>>>>>>>>> ENVIRONMENT', process.env.EXPO_PUBLIC_NODE_ENV);
 console.log('>>>>>>>>>> SENTRY DSN', process.env.EXPO_PUBLIC_SENTRY_DSN);
-// if (process.env.EXPO_PUBLIC_NODE_ENV !== 'development') {
-Sentry.init({
-  dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
-  environment: process.env.EXPO_PUBLIC_NODE_ENV,
-  enableNative: false, // Disabled native SDK to avoid compilation issues with Xcode 16.0
-  // We recommend adjusting this value in production.
-  tracesSampleRate: 1.0,
-  _experiments: {
-    replaysSessionSampleRate: 0.1,
-    replaysOnErrorSampleRate: 1.0,
-  },
-  integrations: [Sentry.mobileReplayIntegration()],
-});
-// console.log = () => {
-//   return;
-// };
-// }
+if (process.env.EXPO_PUBLIC_NODE_ENV !== 'development') {
+  Sentry.init({
+    dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
+    environment: process.env.EXPO_PUBLIC_NODE_ENV,
+    enableNative: false, // Disabled native SDK to avoid compilation issues with Xcode 16.0
+    // We recommend adjusting this value in production.
+    tracesSampleRate: 1.0,
+    _experiments: {
+      replaysSessionSampleRate: 0.1,
+      replaysOnErrorSampleRate: 1.0,
+    },
+    integrations: [Sentry.mobileReplayIntegration()],
+  });
+  console.log = () => {
+    return;
+  };
+}
 
 Geocoder.init(process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY);
 

@@ -292,16 +292,15 @@
       "tab": "Accueil",
       "help": "Aide",
       "balance": {
-        "main": "Mon Bank App :",
-        "restoflash": "Mon compte resto Flash :",
-        "weflo": "Mon compte Weflo :",
+        "main": "Mon compte 450 :",
         "noaccounts": "Aucun compte"
       },
       "banner": {
         "validation-identity": "Validez votre identité",
         "update-needed": "Mise à jour à faire",
         "identity-validated": "Identité validée"
-      }
+      },
+      "energy-app": "Cette application a été réalisée dans le cadre du projet de recherche européen ENERGY_APP"
     },
     "menu-footprint": {
       "title": "Mon bilan carbone",

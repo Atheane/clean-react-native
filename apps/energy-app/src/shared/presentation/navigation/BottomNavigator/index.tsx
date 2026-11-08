@@ -9,6 +9,7 @@ import {
   Settings as SettingsIcon,
   Carbon as CarbonIcon,
   Energy as EnergyIcon,
+  Green450,
 } from '@clean-rn/ui-mobile';
 import {
   IRootTabParamList,
@@ -18,6 +19,7 @@ import {
   IEnergyStackPages,
 } from '../../types';
 
+import { AccountStack } from '../../../../account/presentation/navigation';
 import { FootprintStack } from '../../../../footprint/presentation/navigation';
 import { ParametersStack } from '../../../../user/presentation/navigation';
 import { EnergyStack } from '../../../../energy/presentation/navigation';
@@ -36,6 +38,21 @@ export const BottomTabNavigator = () => {
         headerShown: false,
       }}
     >
+      <Tab.Screen
+        name={IAccountStackPages.MENU}
+        component={AccountStack}
+        options={() => ({
+          title: t('screens.home.title'),
+          tabBarIcon: ({ focused }: { focused: boolean }) =>
+            focused ? (
+              <Green450 width={24} height={24} />
+            ) : (
+              <Green450 width={24} height={24} color={Colors.primary.grey} />
+            ),
+          tabBarLabel: ({ focused }: { focused: boolean }) =>
+            focused ? <Text style={styles.tab}> {t('screens.home.tab')}</Text> : '',
+        })}
+      />
       <Tab.Screen
         name={IFootprintStackPages.MENU}
         component={FootprintStack}

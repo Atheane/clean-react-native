@@ -1,6 +1,7 @@
 import { View, StyleSheet, Dimensions } from 'react-native';
 
-import { BANKLogo as Logo, TopBlueBg, BottomLeavesBg } from '../../../assets';
+import { Green450 as Logo, TopBlueBg, BottomLeavesBg } from '../../../assets';
+import { Colors } from '../../../constants';
 
 export const TopDownBackground = () => {
   return (
@@ -9,7 +10,7 @@ export const TopDownBackground = () => {
         <TopBlueBg />
       </View>
       <View style={styles.logo}>
-        <Logo />
+        <Logo color={Colors.primary.white} width={52} height={52} />
       </View>
       <View style={styles.bottom}>
         <BottomLeavesBg />

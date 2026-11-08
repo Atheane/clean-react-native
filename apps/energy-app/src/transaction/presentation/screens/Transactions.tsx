@@ -1,0 +1,196 @@
+import { useCallback } from 'react';
+import { View, StyleSheet, Image, Text, Dimensions, ScrollView, SafeAreaView } from 'react-native';
+import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
+import { useTheme } from '@rneui/themed';
+
+import { IAccount } from '@clean-rn/account/domain';
+import {
+  LinkButton,
+  LinkButtonColors,
+  BankBuilding as BicIcon,
+  ExportPdf,
+  Iban as IbanIcon,
+  TopBackground,
+  CopyValueClipboard,
+  Balance,
+  Colors,
+  FontNames,
+  LoaderSplashScreen,
+} from '@clean-rn/ui-mobile';
+import { IRootState } from '../../../shared/application/state-management/reducers/root-reducer';
+import { ITransactionStackPages } from '../../../shared/presentation/types';
+import { Oups } from '../assets/images';
+import { ErrorBoundary, SafeScrollingView } from '../../../shared/presentation/hoc';
+import { TransactionsCardsList } from '../components/transactions-cards-list';
+
+const Top = ({ currentAccount }: { currentAccount?: IAccount }) => {
+  const { t } = useTranslation();
+
+  const navigation = useNavigation();
+
+  const handleOnPressPdf = useCallback(() => {
+    navigation.navigate(ITransactionStackPages.ACCOUNT_STATEMENTS, { account: currentAccount });
+  }, [navigation, currentAccount]);
+
+  return (
+    <View style={styles.row}>
+      <View style={styles.whiteBalance}>
+        {currentAccount && (
+          <Balance
+            value={currentAccount.authorizedBalance}
+            title={t('screens.account.balance')}
+            color={Colors.primary.white}
+            unit="€G"
+          />
+        )}
+      </View>
+      <View style={styles.pdf}>
+        <LinkButton
+          onPress={handleOnPressPdf}
+          iconRight={() => <ExportPdf />}
+          colorOption={LinkButtonColors.WHITE}
+        />
+      </View>
+    </View>
+  );
+};
+
+const ContentNoTransactions = ({ currentAccount }: { currentAccount?: IAccount }) => {
+  const { t } = useTranslation();
+  const { theme } = useTheme();
+
+  return (
+    <ScrollView contentContainerStyle={styles.scrollNoTransactions} showsVerticalScrollIndicator={false}>
+      <Image source={Oups} style={styles.oupsImage} />
+      <View style={styles.textContainer}>
+        <Text style={theme.text.darkBlue}>{t('screens.account.oups')}</Text>
+      </View>
+      {currentAccount && (
+        <View>
+          <CopyValueClipboard
+            value={currentAccount.iban.value}
+            icon={() => (
+              <View style={{ marginRight: -28 }}>
+                <IbanIcon />
+              </View>
+            )}
+            copyText={t('screens.bank-coordinates.copy')}
+          />
+          <CopyValueClipboard
+            value={currentAccount.bic.value}
+            icon={() => <BicIcon />}
+            copyText={t('screens.bank-coordinates.copy')}
+          />
+        </View>
+      )}
+    </ScrollView>
+  );
+};
+
+export const Transactions = () => {
+  const { selectedAccount, pending: accountPending } = useSelector(
+    (state: IRootState) => state.account.accounts,
+  );
+  const { transactions, pending: transactionPending } = useSelector((state: IRootState) => state.transaction);
+  const hasTransactions = transactions && transactions?.length > 0;
+  const { t } = useTranslation();
+
+  if (!selectedAccount) {
+    return null;
+  }
+
+  return accountPending || transactionPending ? (
+    <LoaderSplashScreen />
+  ) : (
+    <ErrorBoundary t={t}>
+      {!hasTransactions && (
+        <>
+          <SafeScrollingView>
+            <View style={styles.noContent}>
+              <ContentNoTransactions currentAccount={selectedAccount} />
+            </View>
+          </SafeScrollingView>
+          <TopBackground />
+          <View style={styles.top}>
+            <Top currentAccount={selectedAccount} />
+          </View>
+        </>
+      )}
+      {hasTransactions && (
+        <>
+          <SafeAreaView style={styles.container}>
+            <View style={styles.content}>
+              <TransactionsCardsList data={transactions} />
+            </View>
+          </SafeAreaView>
+          <TopBackground />
+          <View style={styles.top}>
+            <Top currentAccount={selectedAccount} />
+          </View>
+        </>
+      )}
+    </ErrorBoundary>
+  );
+};
+
+const OUPS_SIZE = {
+  width: 250,
+  height: 250,
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.primary.white,
+  },
+  top: {
+    position: 'absolute',
+    top: 20,
+    left: -30,
+  },
+  row: {
+    flexDirection: 'row',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
+  whiteBalance: {
+    position: 'relative',
+    top: 30,
+    left: 50,
+  },
+  pdf: {
+    position: 'relative',
+    top: 0,
+    right: 40,
+  },
+  textContainer: {
+    position: 'relative',
+    marginTop: -20,
+    alignItems: 'center',
+    width: Dimensions.get('window').width * 0.8,
+  },
+  oupsImage: {
+    ...OUPS_SIZE,
+  },
+  oupsText: {
+    width: Dimensions.get('window').width * 0.8,
+    fontSize: 22,
+    fontFamily: FontNames.Roboto_400Regular,
+    color: Colors.primary.darkBlue,
+    textAlign: 'center',
+    lineHeight: 29,
+  },
+  noContent: {
+    marginTop: 200,
+    height: Dimensions.get('window').height,
+  },
+  content: {
+    marginTop: 60,
+  },
+  scrollNoTransactions: {
+    alignItems: 'center',
+  },
+});

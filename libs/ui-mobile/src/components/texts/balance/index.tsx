@@ -21,7 +21,7 @@ export const Balance = (props: IProps) => {
     <TouchableOpacity onPress={props.onPress}>
       <Text style={(theme.text.numberTitle, { color: props.color })}>{props.title}</Text>
       <View style={[styles.widgetContainer, theme.container.justifiedItems]}>
-        <View style={theme.container.centeredItems}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
           <Text
             style={[
               theme.text.numberTitle,
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     marginTop: -6,
   },
   imgContainer: {
-    marginBottom: 10,
+    marginBottom: 5,
   },
   greenEuroImg: {
     width: 64,
