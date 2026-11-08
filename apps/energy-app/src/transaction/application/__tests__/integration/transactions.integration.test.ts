@@ -2,34 +2,18 @@
 import SagaTester from 'redux-saga-tester';
 
 import { IAccountType, Iban, Bic } from '@clean-rn/account/domain';
-import {
-  Amount,
-  TransactionCategory,
-  ITransactionType,
-  ITransaction,
-  TransactionError,
-} from '@clean-rn/transaction/domain';
+import { Amount, TransactionCategory, ITransactionType, ITransaction } from '@clean-rn/transaction/domain';
 import { ITransactionServer } from '@clean-rn/transaction/infrastructure';
-import { HttpConnection } from '@clean-rn/shared/infrastructure';
-import { Phone } from '@clean-rn/contact/domain';
 
 import {
   ITransactionsTypes,
   listTransactions,
   transactionsListed,
   initializeTransactionsList,
-  fetchPayout,
-  payoutSucceded,
-  fetchTransfer,
-  transferSucceded,
-  fetchTransactionWaiting,
-  transactionWaitingSucceded,
-  transactionFailed,
-  initTransaction,
 } from '../../commands';
 import { ITransactionsState, transactionsReducer } from '../../state-management';
 
-import { listTransactionsSaga, payoutSaga, transferSaga, transactionWaitingSaga } from '../../usecases';
+import { listTransactionsSaga } from '../../usecases';
 
 describe('Transactions - integration', () => {
   let sagaTester: SagaTester;
@@ -73,7 +57,6 @@ describe('Transactions - integration', () => {
     const initialState: ITransactionsState = {
       pending: false,
       transactions: null,
-      transaction: null,
       error: null,
     };
     sagaTester = new SagaTester({
@@ -93,7 +76,6 @@ describe('Transactions - integration', () => {
     expect(newState).toEqual({
       pending: true,
       transactions: null,
-      transaction: null,
       error: null,
     });
   });
@@ -106,7 +88,6 @@ describe('Transactions - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       transactions: mockResponse,
-      transaction: null,
       error: null,
     });
   });
@@ -118,131 +99,6 @@ describe('Transactions - integration', () => {
     expect(sagaTester.getState()).toEqual({
       pending: false,
       transactions: null,
-      transaction: null,
-      error: null,
-    });
-  });
-
-  it('Should store correct state if PAYOUT_SUCCEDED', () => {
-    const payout = {
-      accountId: 4004318954,
-      beneficiaryId: 5004318954,
-      amount: new Amount('10.00', ITransactionType.PAYOUT),
-      iban: new Iban('FR7616798000010000242599449'),
-      label: 'Payin Generated from UTs on User Test',
-    };
-    const mockResponse: ITransaction = {
-      amount: new Amount('10.00', ITransactionType.PAYOUT),
-      label: 'Payin Generated from UTs on User Test',
-      id: 1686814688829,
-      type: ITransactionType.PAYOUT,
-      date: new Date('2023-06-15T07:38:09.217Z'),
-    };
-    sagaTester.start(payoutSaga);
-    sagaTester.dispatch(fetchPayout(payout));
-    sagaTester.dispatch(payoutSucceded(mockResponse));
-
-    expect(sagaTester.getState()).toEqual({
-      pending: false,
-      transactions: null,
-      transaction: mockResponse,
-      error: null,
-    });
-  });
-
-  it('Should store correct state if TRANSFER_SUCCEDED', () => {
-    const transfer = {
-      accountId: 4004318954,
-      beneficiaryAccountId: 5004318954,
-      amount: new Amount('10.00', ITransactionType.TRANSFER_OUT),
-      iban: new Iban('FR7616798000010000242599449'),
-      label: 'Payin Generated from UTs on User Test',
-    };
-    const mockResponse: ITransaction = {
-      amount: new Amount('10.00', ITransactionType.TRANSFER_OUT),
-      label: 'Payin Generated from UTs on User Test',
-      id: 1686814688829,
-      type: ITransactionType.TRANSFER_OUT,
-      date: new Date('2023-06-15T07:38:09.217Z'),
-    };
-    sagaTester.start(transferSaga);
-    sagaTester.dispatch(fetchTransfer(transfer));
-    sagaTester.dispatch(transferSucceded(mockResponse));
-
-    expect(sagaTester.getState()).toEqual({
-      pending: false,
-      transactions: null,
-      transaction: mockResponse,
-      error: null,
-    });
-  });
-
-  it('Should store correct state if TRANSACTION_WAITING_SUCCEDED', () => {
-    const transactionWaiting = {
-      accountId: 4004318954,
-      phone: new Phone('+33612345678'),
-      amount: new Amount('10.00', ITransactionType.PAYOUT),
-      iban: new Iban('FR7616798000010000242599449'),
-      label: 'Payin Generated from UTs on User Test',
-    };
-    const mockResponse: ITransaction = {
-      amount: new Amount('10.00', ITransactionType.PAYOUT),
-      label: 'Payin Generated from UTs on User Test',
-      id: 1686814688829,
-      type: ITransactionType.TRANSFER_OUT,
-      date: new Date('2023-06-15T07:38:09.217Z'),
-    };
-    sagaTester.start(transactionWaitingSaga);
-    sagaTester.dispatch(fetchTransactionWaiting(transactionWaiting));
-    sagaTester.dispatch(transactionWaitingSucceded(mockResponse));
-
-    expect(sagaTester.getState()).toEqual({
-      pending: false,
-      transactions: null,
-      transaction: mockResponse,
-      error: null,
-    });
-  });
-
-  it('Should store correct state if TRANSACTION_FAILED', () => {
-    const transaction = {
-      accountId: 4004318954,
-      beneficiaryId: 5004318954,
-      amount: new Amount('10.00', ITransactionType.TRANSFER_OUT),
-      iban: new Iban('FR7616798000010000242599449'),
-      label: 'Payin Generated from UTs on User Test',
-    };
-    const mockError403 = {
-      statusCode: 403,
-      message: 'Unauthorized',
-      response: {
-        statusCode: 403,
-        message: 'Unauthorized',
-      },
-      timestamp: '2023-10-03T13:20:21.303Z',
-      path: '/app/transaction/payout',
-      method: 'POST',
-    };
-    sagaTester.start(payoutSaga);
-    sagaTester.dispatch(fetchPayout(transaction));
-    sagaTester.dispatch(transactionFailed(new TransactionError.TransferAmountTooHigh(mockError403)));
-
-    expect(sagaTester.getState()).toEqual({
-      pending: false,
-      transactions: null,
-      transaction: null,
-      error: new TransactionError.TransferAmountTooHigh(mockError403),
-    });
-  });
-
-  it('Should store correct state if INIT_TRANSFER', () => {
-    sagaTester.start(transferSaga);
-    sagaTester.dispatch(initTransaction());
-
-    expect(sagaTester.getState()).toEqual({
-      pending: false,
-      transactions: null,
-      transaction: null,
       error: null,
     });
   });
