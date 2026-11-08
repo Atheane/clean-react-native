@@ -2,14 +2,9 @@
   "expo": {
     "name": "@clean-rn/source",
     "slug": "clean-rn",
-    "version": "2.3.0",
+    "version": "3.0.1",
     "sdkVersion": "50.0.0",
-    "platforms": [
-      "ios",
-      "android"
-    ],
-    "plugins": [
-      "expo-localization"
-    ]
+    "platforms": ["ios", "android"],
+    "plugins": ["expo-localization"]
   }
 }

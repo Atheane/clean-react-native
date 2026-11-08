@@ -1,0 +1,48 @@
+{
+  "build": {
+    "production": {
+      "ios": {
+        "image": "macos-sequoia-15.3-xcode-16.2" // https://expo.dev/blog/apple-sdk-minimum-requirements
+      }
+    },
+    "development": {
+      "developmentClient": true
+    },
+    "development-simulator": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      },
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "ios": {
+        "image": "macos-sequoia-15.3-xcode-16.2"
+      },
+      "android": {
+        "buildType": "apk"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "./service-account.json",
+        "track": "production"
+      },
+      "ios": {
+        "appleId": "dev1@example.com",
+        "ascAppId": "6624307982",
+        "appleTeamId": "UQH2YW6D6K"
+      }
+    }
+  },
+  "cli": {
+    // "version": "~7.2.0",
+    "promptToConfigurePushNotifications": false
+  }
+}

@@ -1,9 +1,21 @@
 module.exports = {
-  '{apps,libs,tools}/**/*.{ts,tsx}': (files) => {
+  'apps/bank-app/**/*.{ts,tsx}': (files) => {
     return `nx affected --target=typecheck --files=${files.join(',')}`;
   },
-  // '{apps,libs,tools}/**/*.{js,ts,jsx,tsx}': [(files) => `nx affected:lint --files=${files.join(',')}`],
-  '{apps,libs,tools}/**/*.{js,ts,jsx,tsx}': (files) => {
+  'apps/energy-app/**/*.{ts,tsx}': (files) => {
+    return `nx affected --target=typecheck --files=${files.join(',')}`;
+  },
+  '{libs,tools}/**/*.{ts,tsx}': (files) => {
+    return `nx affected --target=typecheck --files=${files.join(',')}`;
+  },
+  // Même chose pour eslint
+  'apps/bank-app/**/*.{js,ts,jsx,tsx}': (files) => {
+    return `eslint ${files.join(' ')} --fix`;
+  },
+  'apps/energy-app/**/*.{js,ts,jsx,tsx}': (files) => {
+    return `eslint ${files.join(' ')} --fix`;
+  },
+  '{libs,tools}/**/*.{js,ts,jsx,tsx}': (files) => {
     return `eslint ${files.join(' ')} --fix`;
   },
 };
