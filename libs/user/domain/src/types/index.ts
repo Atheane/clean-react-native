@@ -56,6 +56,9 @@ export enum IPhoneNotifications {
   KYC_SUCCESS = 'KYC_SUCCESS',
   PAYIN_RECEIVED = 'PAYIN_RECEIVED',
   PAYOUT_INITIATED = 'PAYOUT_INITIATED',
+  REWARD = 'REWARD',
+  QUIZ = 'QUIZ',
+  SENSORS = 'SENSORS',
 }
 
 export enum IEmailNotifications {
@@ -68,6 +71,9 @@ export enum IEmailNotifications {
   KYC_VALIDATED = 'KYC_VALIDATED',
   PASSWORD_RESET = 'PASSWORD_RESET',
   WAITING_TRANSACTION_REFUND = 'WAITING_TRANSACTION_REFUND',
+  REWARD = 'REWARD',
+  QUIZ = 'QUIZ',
+  SENSORS = 'SENSORS',
 }
 
 export enum ILanguage {

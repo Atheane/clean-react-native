@@ -11,6 +11,7 @@ import {
   FlagForSpain,
   FlagForUK,
   FlagForPortugal,
+  FlagForPoland,
 } from '@clean-rn/ui-mobile';
 
 import { ILanguage } from '@clean-rn/user/domain';
@@ -95,6 +96,12 @@ export const Languages = () => {
               onPress={() => handleSelectLanguage(ILanguage.PT)}
             >
               <FlagForPortugal width={90} height={90} style={[styles.iconContainer, theme.shadow.button]} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ marginVertical: 8 }}
+              onPress={() => handleSelectLanguage(ILanguage.PT)}
+            >
+              <FlagForPoland width={90} height={90} style={[styles.iconContainer, theme.shadow.button]} />
             </TouchableOpacity>
           </View>
         </View>

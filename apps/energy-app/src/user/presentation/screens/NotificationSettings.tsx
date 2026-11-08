@@ -22,41 +22,37 @@ export const NotificationSettings = () => {
     return !user?.properties.config?.notifFirebaseDisabled.includes(notif);
   };
 
-  const { pressed: paymentChecked, onPress: handleTogglePayment } = useTogglePress(
-    hasPhoneNotification(IPhoneNotifications.PAYOUT_INITIATED),
+  const { pressed: rewardChecked, onPress: handleToggleReward } = useTogglePress(
+    hasPhoneNotification(IPhoneNotifications.REWARD),
   );
-  const { pressed: transferChecked, onPress: handleToggleTransfer } = useTogglePress(
-    hasPhoneNotification(IPhoneNotifications.PAYIN_RECEIVED),
+  const { pressed: quizzChecked, onPress: handleToggleQuizz } = useTogglePress(
+    hasPhoneNotification(IPhoneNotifications.QUIZ),
   );
-  const { pressed: thresholdChecked, onPress: handleToggleThreshold } = useTogglePress(
-    hasPhoneNotification(IPhoneNotifications.CARD_TRANSACTION_MODIFIED),
+  const { pressed: sensorsChecked, onPress: handleToggleSensors } = useTogglePress(
+    hasPhoneNotification(IPhoneNotifications.SENSORS),
   );
 
   const dispatch = useDispatch();
 
   const handleOnSubmit = useCallback(() => {
     let notifFirebaseDisabled: IPhoneNotifications[] = [];
-    if (!paymentChecked) {
-      notifFirebaseDisabled.push(IPhoneNotifications.PAYOUT_INITIATED);
+    if (!rewardChecked) {
+      notifFirebaseDisabled.push(IPhoneNotifications.REWARD);
     } else {
-      notifFirebaseDisabled = notifFirebaseDisabled.filter(
-        (pn) => pn !== IPhoneNotifications.PAYOUT_INITIATED,
-      );
+      notifFirebaseDisabled = notifFirebaseDisabled.filter((pn) => pn !== IPhoneNotifications.REWARD);
     }
-    if (!transferChecked) {
-      notifFirebaseDisabled.push(IPhoneNotifications.PAYIN_RECEIVED);
+    if (!quizzChecked) {
+      notifFirebaseDisabled.push(IPhoneNotifications.QUIZ);
     } else {
-      notifFirebaseDisabled = notifFirebaseDisabled.filter((pn) => pn !== IPhoneNotifications.PAYIN_RECEIVED);
+      notifFirebaseDisabled = notifFirebaseDisabled.filter((pn) => pn !== IPhoneNotifications.QUIZ);
     }
-    if (!thresholdChecked) {
-      notifFirebaseDisabled.push(IPhoneNotifications.CARD_TRANSACTION_MODIFIED);
+    if (!sensorsChecked) {
+      notifFirebaseDisabled.push(IPhoneNotifications.SENSORS);
     } else {
-      notifFirebaseDisabled = notifFirebaseDisabled.filter(
-        (pn) => pn !== IPhoneNotifications.CARD_TRANSACTION_MODIFIED,
-      );
+      notifFirebaseDisabled = notifFirebaseDisabled.filter((pn) => pn !== IPhoneNotifications.SENSORS);
     }
     dispatch(fetchUpdateNotifications({ notifFirebaseDisabled }));
-  }, [dispatch, paymentChecked, transferChecked, thresholdChecked]);
+  }, [dispatch, rewardChecked, quizzChecked, sensorsChecked]);
 
   return (
     <ErrorBoundary t={t}>
@@ -67,16 +63,16 @@ export const NotificationSettings = () => {
           </View>
           <View style={[styles.container, theme.container.centeredItem]}>
             <View style={styles.rowContainer}>
-              <Text style={[theme.text.darkBlue]}>{t('screens.notifications.payment')}</Text>
-              <SmallSwitchButton checked={paymentChecked} onToggle={handleTogglePayment} />
+              <Text style={[theme.text.darkBlue]}>{t('screens.notifications.reward')}</Text>
+              <SmallSwitchButton checked={rewardChecked} onToggle={handleToggleReward} />
             </View>
             <View style={styles.rowContainer}>
-              <Text style={[theme.text.darkBlue]}>{t('screens.notifications.transfer')}</Text>
-              <SmallSwitchButton checked={transferChecked} onToggle={handleToggleTransfer} />
+              <Text style={[theme.text.darkBlue]}>{t('screens.notifications.quizz')}</Text>
+              <SmallSwitchButton checked={quizzChecked} onToggle={handleToggleQuizz} />
             </View>
             <View style={styles.rowContainer}>
-              <Text style={[theme.text.darkBlue]}>{t('screens.notifications.threshold')}</Text>
-              <SmallSwitchButton checked={thresholdChecked} onToggle={handleToggleThreshold} />
+              <Text style={[theme.text.darkBlue]}>{t('screens.notifications.sensors')}</Text>
+              <SmallSwitchButton checked={sensorsChecked} onToggle={handleToggleSensors} />
             </View>
             <View style={styles.buttonContainer}>
               <SubmitButton

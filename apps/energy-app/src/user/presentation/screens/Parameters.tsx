@@ -13,7 +13,6 @@ import {
   CertificateBlueGradient,
   RedCross,
   Profile,
-  BankBuilding,
   Colors,
 } from '@clean-rn/ui-mobile';
 
@@ -25,10 +24,6 @@ import { APPLE_STORE_LINK, GOOGLE_PLAY_LINK } from '../../../shared/presentation
 export const Parameters = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
-
-  const handlePressAccountSettings = useCallback(() => {
-    navigation.navigate(IParametersStackPages.ACCOUNT_SETTINGS as never);
-  }, [navigation]);
 
   const handlePressAppSettings = useCallback(() => {
     navigation.navigate(IParametersStackPages.APPLICATION_SETTINGS as never);
@@ -54,10 +49,6 @@ export const Parameters = () => {
     navigation.navigate(ISharedStackPages.CGU as never);
   }, [navigation]);
 
-  const onPressCguKycProvider = useCallback(() => {
-    navigation.navigate(ISharedStackPages.CGU_KYC_PROVIDER as never);
-  }, [navigation]);
-
   const onPressProfile = useCallback(() => {
     navigation.navigate(IParametersStackPages.PROFILE_IDENTITY as never);
   }, [navigation]);
@@ -70,20 +61,6 @@ export const Parameters = () => {
     <ErrorBoundary t={t}>
       <SafeScrollingView>
         <View style={styles.container}>
-          <View style={styles.rowContainer}>
-            <LinkButton
-              iconLeft={() => (
-                <BankBuilding
-                  startColor={Colors.secondary.pink}
-                  endColor={Colors.primary.darkBlue}
-                  style={{ marginRight: 16 }}
-                />
-              )}
-              colorOption={LinkButtonColors.BLUE}
-              title={t('screens.parameters.menu.account-settings')}
-              onPress={handlePressAccountSettings}
-            />
-          </View>
           <View style={styles.rowContainer}>
             <LinkButton
               iconLeft={() => (
@@ -136,18 +113,12 @@ export const Parameters = () => {
               onPress={onPressLegal}
             />
           </View>
-          <View style={[styles.rowContainer, { marginLeft: 82 }]}>
+          <View style={styles.rowContainer}>
             <LinkButton
+              iconLeft={() => <CertificateBlueGradient style={{ marginRight: 16 }} />}
               colorOption={LinkButtonColors.BLUE}
               title={t('screens.parameters.menu.cgu')}
               onPress={onPressCgu}
-            />
-          </View>
-          <View style={[styles.rowContainer, { marginLeft: 82 }]}>
-            <LinkButton
-              colorOption={LinkButtonColors.BLUE}
-              title={t('screens.parameters.menu.cgu-kyc-provider')}
-              onPress={onPressCguKycProvider}
             />
           </View>
           <View style={[styles.rowContainer, { marginLeft: 36 }]}>

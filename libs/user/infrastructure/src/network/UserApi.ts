@@ -132,8 +132,6 @@ export class UserApi implements IUserRepository, IUserGateway {
   }
 
   async updateUser(cmd: IUpdateUserCommand): Promise<User> {
-    console.log('------ cmd', cmd);
-
     let params = {};
     if (cmd.firstName) {
       params = {

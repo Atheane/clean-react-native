@@ -32,6 +32,7 @@ export function* updateLanguageGenerator(
     const existingUser = yield select(selectUser);
     yield call(ensureTokenRefreshed, httpConnection);
     const userApi = UserApi.getInstance(httpConnection);
+    console.log('payload', payload);
     const user = yield call([userApi, userApi.updateConfig], payload);
     user.setUserType(existingUser.properties.userType);
     yield put(

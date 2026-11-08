@@ -77,7 +77,7 @@ describe('Update Notifications - usecase', () => {
   });
 
   const mockUpdateNotifications: IUpdateUserConfigCommand = {
-    notifFirebaseDisabled: [IPhoneNotifications.PAYOUT_INITIATED],
+    notifFirebaseDisabled: [IPhoneNotifications.REWARD],
   };
 
   const mockError500 = {
