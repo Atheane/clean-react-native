@@ -540,7 +540,12 @@
       "BIC": {
         "label": "BIC",
         "placeholder": "ABCDEF12"
-      }
+      },
+      "rib-registered": {
+        "title": "Demande prise en compte"
+      },
+      "text": "Nous avons bien pris en compte votre demande.\nUn peu de patience votre compte sera bientôt crédité (1 semaine maximum ).",
+      "button": "Valider"
     },
     "parameters": {
       "menu": {

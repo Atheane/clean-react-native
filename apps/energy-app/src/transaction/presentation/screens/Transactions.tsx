@@ -76,11 +76,17 @@ const ContentNoTransactions = () => {
   });
 
   const dispatch = useDispatch();
+
+  const navigation = useNavigation();
+
   const onSubmit = useCallback(
     (formData: IRibFormData) => {
       console.log('Submitting RIB form data:', formData);
       // waiting for API to be ready
       // dispatch(registerRib(formData));
+      navigation.navigate(ITransactionStackPages.MENU, {
+        screen: ITransactionStackPages.RIB_REGISTERED,
+      } as never);
     },
     [dispatch],
   );

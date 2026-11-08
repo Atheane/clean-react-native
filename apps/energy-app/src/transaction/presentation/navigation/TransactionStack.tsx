@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { goBack } from '../../../shared/presentation/navigation/navigationRef';
 import { ITransactionStackPages, ITransactionStackProps } from '../../../shared/presentation/types';
-import { Transactions, AccountStatements, AccountStatementsPdf } from '../screens';
+import { Transactions, AccountStatements, AccountStatementsPdf, RibRegistered } from '../screens';
 import { headersOptions } from '../../../shared/presentation/navigation/headersOptions';
 
 const Stack = createNativeStackNavigator<ITransactionStackProps>();
@@ -31,6 +31,14 @@ export const TransactionStack = () => {
         component={AccountStatementsPdf}
         options={{
           headerTitle: t('screens.account-statements-pdf.title'),
+          ...headersOptions(goBack),
+        }}
+      />
+      <Stack.Screen
+        name={ITransactionStackPages.RIB_REGISTERED}
+        component={RibRegistered}
+        options={{
+          headerTitle: t('screens.transactions.rib-registered.title'),
           ...headersOptions(goBack),
         }}
       />

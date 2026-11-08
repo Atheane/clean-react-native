@@ -2,6 +2,7 @@ import { StyleSheet, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { IUserType } from '@clean-rn/user/domain';
 
 import {
   Colors,
@@ -26,7 +27,7 @@ import { FootprintStack } from '../../../../footprint/presentation/navigation';
 import { ParametersStack } from '../../../../user/presentation/navigation';
 import { EnergyStack } from '../../../../energy/presentation/navigation';
 import { IRootState } from '../../../application/state-management/reducers/root-reducer';
-import { IUserType } from '@clean-rn/user/domain';
+
 const Tab = createBottomTabNavigator<IRootTabParamList>();
 
 export const BottomTabNavigator = () => {

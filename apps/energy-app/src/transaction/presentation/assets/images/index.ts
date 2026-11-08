@@ -1,2 +1,3 @@
 import Oups from './oups.png';
-export { Oups };
+import Delivery from './delivery.png';
+export { Oups, Delivery };

@@ -110,7 +110,7 @@ export const FormRib = (props: IProps) => {
       </View>
       <View style={styles.formSubmit}>
         <SubmitButton
-          title={t('button.add')}
+          title={t('screens.transactions.button')}
           uppercase={false}
           onSubmit={props.onSubmit}
           loading={props.loading}

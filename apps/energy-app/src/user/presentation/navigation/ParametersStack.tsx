@@ -62,14 +62,6 @@ export const ParametersStack = () => {
         component={Parameters}
       />
       <Stack.Screen
-        name={IParametersStackPages.ACCOUNT_SETTINGS}
-        component={AccountSettings}
-        options={{
-          headerTitle: t('screens.account-settings.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
-        }}
-      />
-      <Stack.Screen
         name={IParametersStackPages.APPLICATION_SETTINGS}
         component={ApplicationSettings}
         options={{
@@ -82,14 +74,6 @@ export const ParametersStack = () => {
         component={NotificationSettings}
         options={{
           headerTitle: t('screens.notifications.title'),
-          ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
-        }}
-      />
-      <Stack.Screen
-        name={IParametersStackPages.BANK_COORDINATES}
-        component={BankCoordinates}
-        options={{
-          headerTitle: t('screens.bank-coordinates.title'),
           ...headersOptions(navigationStack.length > 1 ? goBack : undefined),
         }}
       />
